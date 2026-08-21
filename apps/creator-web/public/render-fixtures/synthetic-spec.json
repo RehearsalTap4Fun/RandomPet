@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "0.1.0",
+  "catalogVersion": "synthetic-0.1.0",
+  "rendererVersion": "0.1.0",
+  "seed": "synthetic-render-golden",
+  "themeId": "fungal",
+  "palette": {
+    "primary": "#4dd6b3",
+    "secondary": "#8f63e9",
+    "accent": "#ffcf5a"
+  },
+  "slotRolls": {
+    "bodyFrame": 0,
+    "headShape": 0,
+    "eyes": 0,
+    "mouthShape": 0,
+    "oralDetail": 0,
+    "headAppendage": 0,
+    "arms": 0,
+    "legs": 0,
+    "tail": 0,
+    "extraAppendage": 0,
+    "surfaceMaterial": 0,
+    "pattern": 0,
+    "colorScheme": 0,
+    "effect": 0
+  },
+  "visualSlots": {
+    "bodyFrame": { "partId": "synthetic_body", "rigId": "blob" },
+    "headShape": { "partId": "synthetic_head", "rigId": "blob" },
+    "eyes": { "partId": "synthetic_eyes", "rigId": "blob" },
+    "mouthShape": { "partId": "synthetic_mouth", "rigId": "blob" },
+    "oralDetail": { "partId": "synthetic_oral", "rigId": "blob" },
+    "headAppendage": { "partId": "synthetic_headwear", "rigId": "blob" },
+    "arms": { "partId": "synthetic_arms", "rigId": "blob" },
+    "legs": { "partId": "synthetic_legs", "rigId": "blob" },
+    "tail": { "partId": "synthetic_tail", "rigId": "blob" },
+    "extraAppendage": { "partId": "synthetic_rear_mirrored", "rigId": "blob" },
+    "surfaceMaterial": { "partId": "synthetic_surface", "rigId": "blob" },
+    "pattern": { "partId": "synthetic_pattern", "rigId": "blob" },
+    "colorScheme": { "partId": "synthetic_color", "rigId": "blob" },
+    "effect": { "partId": "synthetic_effect", "rigId": "blob" }
+  },
+  "semanticTraits": {
+    "frame": { "primaryTraitId": "synthetic_frame", "detailTraitIds": [] },
+    "appendage": { "primaryTraitId": "synthetic_appendage", "detailTraitIds": [] },
+    "headAndEyes": { "primaryTraitId": "synthetic_head", "detailTraitIds": [] },
+    "mouth": { "primaryTraitId": "synthetic_mouth", "detailTraitIds": [] },
+    "surface": { "primaryTraitId": "synthetic_surface", "detailTraitIds": [] },
+    "pattern": { "primaryTraitId": "synthetic_pattern", "detailTraitIds": [] },
+    "personality": { "primaryTraitId": "synthetic_calm", "detailTraitIds": [] },
+    "quirk": { "primaryTraitId": "synthetic_mirrored", "detailTraitIds": [] }
+  },
+  "mutation": null,
+  "aberrations": []
+}
