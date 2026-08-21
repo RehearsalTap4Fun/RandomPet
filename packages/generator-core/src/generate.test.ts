@@ -55,12 +55,16 @@ describe('generateMonster', () => {
     )
   })
 
-  it('blocks modifier modes until deterministic modifiers are implemented', () => {
-    const result = generateMonster({ ...baseRequest, mode: 'mutation' }, makeValidCatalogFixture())
-    expect(result.blocked).toBe(true)
-    expect(result.spec.mutation).toBeNull()
-    expect(result.spec.aberrations).toEqual([])
-    expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'GENERATION_MODE_NOT_IMPLEMENTED' }))
+  it('selects the same mutation for the same request', () => {
+    const request = { ...baseRequest, mode: 'mutation' } as const
+    const catalog = makeValidCatalogFixture()
+    const first = generateMonster(request, catalog)
+    const second = generateMonster(request, catalog)
+
+    expect(first.blocked).toBe(false)
+    expect(first.spec.mutation).toEqual(second.spec.mutation)
+    expect(first.spec.mutation).not.toBeNull()
+    expect(first.spec.aberrations).toEqual([])
   })
 
   it('includes structural catalog errors in generation diagnostics', () => {

@@ -12,6 +12,7 @@ export const SEMANTIC_SLOT_IDS = [
 export type VisualSlotId = typeof VISUAL_SLOT_IDS[number]
 export type SemanticSlotId = typeof SEMANTIC_SLOT_IDS[number]
 export type ThemeId = 'deep-sea' | 'fungal' | 'shadow'
+export type GenerationMode = 'normal' | 'mutation' | 'aberration'
 export type RigId = 'blob' | 'biped' | 'floating'
 export type RenderLayer =
   | 'groundShadow' | 'rearAppendage' | 'body' | 'surface' | 'pattern'
@@ -127,7 +128,7 @@ export interface Catalog {
 export interface GenerationRequest {
   seed: string
   themeId: ThemeId
-  mode: 'normal' | 'mutation' | 'aberration'
+  mode: GenerationMode
   slotRolls?: Partial<Record<VisualSlotId, number>>
   lockedSelections?: Partial<Record<VisualSlotId, string>>
 }

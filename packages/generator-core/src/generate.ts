@@ -12,6 +12,7 @@ import {
   type VisualSlotId,
 } from './contracts.js'
 import { createRng, slotSeedParts } from './prng.js'
+import { applyModifiers } from './modifiers.js'
 import { projectSemanticTraits } from './projection.js'
 
 export const GENERATION_ORDER: readonly VisualSlotId[] = [
@@ -75,9 +76,6 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
   if (theme === undefined) {
     diagnostics.push(error('THEME_NOT_FOUND', ['themeId'], `Theme ${request.themeId} is not present in the catalog.`))
   }
-  if (request.mode !== 'normal') {
-    diagnostics.push(error('GENERATION_MODE_NOT_IMPLEMENTED', ['mode'], `${request.mode} generation is not implemented yet.`))
-  }
 
   let rigId = defaultRig(catalog)
   const lockedBody = request.lockedSelections?.bodyFrame === undefined
@@ -93,6 +91,22 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     slotId,
     request.slotRolls?.[slotId] ?? 0,
   ])) as Record<VisualSlotId, number>
+  const modifiers = applyModifiers(request.mode, catalog, {
+    mutation: createRng([request.seed, request.themeId, 'mutation-roll']),
+    aberration: createRng([request.seed, request.themeId, 'aberration-roll']),
+  })
+  if (request.mode === 'mutation' && modifiers.mutation === null) {
+    diagnostics.push(error('MODIFIER_NOT_FOUND', ['mutation'], 'No weighted mutation is available in the catalog.'))
+  }
+  if (request.mode === 'aberration' && modifiers.aberrations.length === 0) {
+    diagnostics.push(error('MODIFIER_NOT_FOUND', ['aberrations'], 'No weighted aberration is available in the catalog.'))
+  }
+  if (request.mode === 'aberration' && modifiers.aberrations[0]?.id !== undefined) {
+    const selected = catalog.modifiers.find(modifier => modifier.id === modifiers.aberrations[0]?.id)
+    if (selected?.requiresMutation && modifiers.mutation === null) {
+      diagnostics.push(error('MODIFIER_NOT_FOUND', ['mutation'], 'The selected aberration requires a weighted mutation.'))
+    }
+  }
   const spec = {
     schemaVersion: '0.1.0',
     catalogVersion: catalog.version,
@@ -103,8 +117,8 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     slotRolls,
     visualSlots: completeVisualSlots,
     semanticTraits: projectSemanticTraits(completeVisualSlots, request.seed, catalog),
-    mutation: null,
-    aberrations: [],
+    mutation: modifiers.mutation,
+    aberrations: modifiers.aberrations,
   }
   return { spec, diagnostics, blocked: diagnostics.some(item => item.severity === 'error') }
 }
