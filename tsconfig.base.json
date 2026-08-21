@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@qmonster/generator-core": ["./packages/generator-core/src/index.ts"],
+      "@qmonster/renderer-canvas": ["./packages/renderer-canvas/src/index.ts"],
+      "@qmonster/asset-catalog": ["./packages/asset-catalog/src/index.ts"],
+      "@qmonster/incubator-adapter": ["./packages/incubator-adapter/src/index.ts"]
+    }
+  }
+}

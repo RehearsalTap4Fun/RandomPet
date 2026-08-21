@@ -1,0 +1,10 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/generator-core" },
+    { "path": "./packages/renderer-canvas" },
+    { "path": "./packages/asset-catalog" },
+    { "path": "./packages/incubator-adapter" },
+    { "path": "./apps/creator-web" }
+  ]
+}
