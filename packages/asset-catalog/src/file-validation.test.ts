@@ -67,6 +67,20 @@ describe('validateCatalogFiles', () => {
     )
   })
 
+  it('rejects an AVIF payload disguised with a PNG filename', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-assets-'))
+    temporaryDirectories.push(tempRoot)
+    await sharp({ create: { width: 1024, height: 1024, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+      .avif()
+      .toFile(join(tempRoot, 'misnamed.png'))
+    const catalog = makeValidCatalogFixture()
+    for (const part of catalog.parts) part.assetPath = 'misnamed.png'
+
+    expect(await validateCatalogFiles(catalog, tempRoot)).toContainEqual(
+      expect.objectContaining({ code: 'ASSET_FORMAT_INVALID' }),
+    )
+  })
+
   it('returns a nonzero CLI status when file diagnostics are present', async () => {
     await expect(execFile(process.execPath, [
       join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'),

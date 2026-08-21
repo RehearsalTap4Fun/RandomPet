@@ -52,6 +52,9 @@ async function validateOneFile(
   } catch {
     return [error('ASSET_IMAGE_INVALID', path, `Asset cannot be decoded as an image: ${assetPath}`)]
   }
+  if (metadata.format !== 'png' && metadata.format !== 'webp') {
+    diagnostics.push(error('ASSET_FORMAT_INVALID', path, `Decoded asset format must be PNG or WebP: ${assetPath}`))
+  }
   if (metadata.width !== metadata.height || (metadata.width !== 1024 && metadata.width !== 2048)) {
     diagnostics.push(error('ASSET_DIMENSION_INVALID', path, `Asset must be square 1024 or 2048 pixels: ${assetPath}`))
   }
