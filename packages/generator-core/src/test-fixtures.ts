@@ -24,15 +24,15 @@ const visualPartIds: Record<VisualSlotId, string> = {
   eyes: 'eyes_asymmetric',
   mouthShape: 'mouth_wide',
   oralDetail: 'oral_teeth',
-  headAppendage: 'head_appendage_none',
+  headAppendage: 'head_antennae',
   arms: 'arms_short',
   legs: 'legs_webbed',
   tail: 'tail_anchor',
-  extraAppendage: 'extra_appendage_none',
+  extraAppendage: 'extra_wings',
   surfaceMaterial: 'surface_gel',
   pattern: 'pattern_spots',
   colorScheme: 'color_scheme_ocean',
-  effect: 'effect_none',
+  effect: 'effect_glow',
 }
 
 const semanticTraitIds: Record<SemanticSlotId, string> = {
