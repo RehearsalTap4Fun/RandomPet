@@ -1,0 +1,160 @@
+import { checkPartCompatibility } from './candidates.js'
+import { GENERATION_ORDER, resolveSlot } from './generate.js'
+import type {
+  Catalog,
+  Diagnostic,
+  GenerationRequest,
+  GenerationResult,
+  MonsterSpec,
+  VisualSelection,
+  VisualSlotId,
+} from './contracts.js'
+import { projectSemanticTraits } from './projection.js'
+
+export type SlotLocks = Partial<Record<VisualSlotId, boolean>>
+
+export interface RerollSlotRequest {
+  spec: MonsterSpec
+  slotId: VisualSlotId
+  locks: SlotLocks
+  catalog: Catalog
+}
+
+export interface SelectVisualPartRequest extends RerollSlotRequest {
+  partId: string
+}
+
+function result(spec: MonsterSpec, diagnostics: Diagnostic[]): GenerationResult {
+  return { spec, diagnostics, blocked: diagnostics.some(item => item.severity === 'error') }
+}
+
+function cloneSpec(spec: MonsterSpec): MonsterSpec {
+  return structuredClone(spec)
+}
+
+function descendantsOf(slotId: VisualSlotId, catalog: Catalog): Set<VisualSlotId> {
+  const descendants = new Set<VisualSlotId>()
+  const visit = (parent: VisualSlotId): void => {
+    for (const child of catalog.dependencies[parent] ?? []) {
+      if (descendants.has(child)) continue
+      descendants.add(child)
+      visit(child)
+    }
+  }
+  visit(slotId)
+  return descendants
+}
+
+function generationContext(
+  spec: MonsterSpec,
+  affected: Set<VisualSlotId>,
+  slotId: VisualSlotId,
+): Partial<Record<VisualSlotId, VisualSelection>> {
+  const currentIndex = GENERATION_ORDER.indexOf(slotId)
+  return Object.fromEntries(Object.entries(spec.visualSlots).filter(([candidateSlotId]) => {
+    const candidate = candidateSlotId as VisualSlotId
+    return !affected.has(candidate) || GENERATION_ORDER.indexOf(candidate) < currentIndex
+  })) as Partial<Record<VisualSlotId, VisualSelection>>
+}
+
+function regenerateDescendants(
+  spec: MonsterSpec,
+  origin: VisualSlotId,
+  locks: SlotLocks,
+  catalog: Catalog,
+  diagnostics: Diagnostic[],
+): void {
+  const descendants = descendantsOf(origin, catalog)
+  const affected = new Set<VisualSlotId>([origin, ...descendants])
+  const generationRequest: GenerationRequest = {
+    seed: spec.seed,
+    themeId: spec.themeId,
+    mode: 'normal',
+    slotRolls: spec.slotRolls,
+  }
+  for (const slotId of GENERATION_ORDER) {
+    if (!descendants.has(slotId)) continue
+    if (locks[slotId]) continue
+    spec.visualSlots[slotId] = resolveSlot(
+      generationRequest,
+      catalog,
+      slotId,
+      spec.visualSlots.bodyFrame.rigId,
+      generationContext(spec, affected, slotId),
+      diagnostics,
+    )
+  }
+  for (const slotId of descendants) {
+    if (!locks[slotId]) continue
+    const selectedPartId = spec.visualSlots[slotId].partId
+    const part = catalog.parts.find(item => item.id === selectedPartId && item.slotId === slotId)
+    if (part === undefined) {
+      diagnostics.push({
+        severity: 'error',
+        code: 'LOCK_NOT_FOUND',
+        path: ['visualSlots', slotId],
+        message: `Locked part ${selectedPartId} no longer exists.`,
+      })
+    } else if (!checkPartCompatibility(part, spec.visualSlots.bodyFrame.rigId, catalog, spec.visualSlots)) {
+      diagnostics.push({
+        severity: 'error',
+        code: 'LOCK_INCOMPATIBLE',
+        path: ['visualSlots', slotId],
+        message: `Locked part ${part.id} is incompatible with the changed selection.`,
+      })
+    }
+  }
+}
+
+export function rerollSlot(request: RerollSlotRequest): GenerationResult {
+  const spec = cloneSpec(request.spec)
+  const diagnostics: Diagnostic[] = []
+  if (request.locks[request.slotId]) {
+    diagnostics.push({ severity: 'error', code: 'SLOT_LOCKED', path: ['visualSlots', request.slotId], message: `${request.slotId} is locked.` })
+    return result(spec, diagnostics)
+  }
+  spec.slotRolls[request.slotId] += 1
+  const generationRequest: GenerationRequest = {
+    seed: spec.seed,
+    themeId: spec.themeId,
+    mode: 'normal',
+    slotRolls: spec.slotRolls,
+  }
+  const affected = descendantsOf(request.slotId, request.catalog)
+  affected.add(request.slotId)
+  spec.visualSlots[request.slotId] = resolveSlot(
+    generationRequest,
+    request.catalog,
+    request.slotId,
+    spec.visualSlots.bodyFrame.rigId,
+    generationContext(spec, affected, request.slotId),
+    diagnostics,
+  )
+  regenerateDescendants(spec, request.slotId, request.locks, request.catalog, diagnostics)
+  spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
+  return result(spec, diagnostics)
+}
+
+export function selectVisualPart(request: SelectVisualPartRequest): GenerationResult {
+  const spec = cloneSpec(request.spec)
+  const diagnostics: Diagnostic[] = []
+  const part = request.catalog.parts.find(item => item.slotId === request.slotId && item.id === request.partId)
+  const descendants = descendantsOf(request.slotId, request.catalog)
+  const stableSelections = Object.fromEntries(Object.entries(spec.visualSlots).filter(
+    ([slotId]) => !descendants.has(slotId as VisualSlotId),
+  )) as Partial<Record<VisualSlotId, VisualSelection>>
+  if (part === undefined || !checkPartCompatibility(part, spec.visualSlots.bodyFrame.rigId, request.catalog, stableSelections)) {
+    diagnostics.push({
+      severity: 'error',
+      code: part === undefined ? 'PART_NOT_FOUND' : 'PART_INCOMPATIBLE',
+      path: ['visualSlots', request.slotId],
+      message: `Part ${request.partId} cannot be selected for ${request.slotId}.`,
+    })
+    return result(spec, diagnostics)
+  }
+  const selection: VisualSelection = { partId: part.id, rigId: spec.visualSlots.bodyFrame.rigId }
+  spec.visualSlots[request.slotId] = selection
+  regenerateDescendants(spec, request.slotId, request.locks, request.catalog, diagnostics)
+  spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
+  return result(spec, diagnostics)
+}

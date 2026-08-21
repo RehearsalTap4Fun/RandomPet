@@ -123,3 +123,17 @@ export interface Catalog {
   modifiers: ModifierDefinition[]
   dependencies: Partial<Record<VisualSlotId, VisualSlotId[]>>
 }
+
+export interface GenerationRequest {
+  seed: string
+  themeId: ThemeId
+  mode: 'normal' | 'mutation' | 'aberration'
+  slotRolls?: Partial<Record<VisualSlotId, number>>
+  lockedSelections?: Partial<Record<VisualSlotId, string>>
+}
+
+export interface GenerationResult {
+  spec: MonsterSpec
+  diagnostics: Diagnostic[]
+  blocked: boolean
+}

@@ -128,6 +128,9 @@ const socketBySlot: Record<VisualSlotId, string | null> = {
 
 function createPart(slotId: VisualSlotId, id = visualPartIds[slotId]): VisualPartDefinition {
   const semanticSlotId = semanticSlotByVisualSlot[slotId]
+  const semanticTraitId = slotId === 'legs'
+    ? 'appendage_webbed_feet'
+    : semanticSlotId === undefined ? null : semanticTraitIds[semanticSlotId]
   return {
     id,
     slotId,
@@ -141,7 +144,7 @@ function createPart(slotId: VisualSlotId, id = visualPartIds[slotId]): VisualPar
     origin: { x: 1024, y: 1024 },
     socket: socketBySlot[slotId],
     layer: layerBySlot[slotId],
-    semanticTraitId: semanticSlotId === undefined ? null : semanticTraitIds[semanticSlotId],
+    semanticTraitId,
     semanticPriority: slotId === 'tail' ? 2 : 1,
     excludes: [],
     boosts: {},
@@ -188,7 +191,7 @@ export function makeValidCatalogFixture(): Catalog {
     semanticTraits: SEMANTIC_SLOT_IDS.map(slotId => ({
       id: semanticTraitIds[slotId],
       semanticSlotId: slotId,
-    })),
+    })).concat([{ id: 'appendage_webbed_feet', semanticSlotId: 'appendage' }]),
     modifiers: [
       { id: 'mutation_albino', kind: 'mutation', baseWeight: 1, requiresMutation: false, overrides: { palette: 'albino' } },
       { id: 'mutation_double_head', kind: 'mutation', baseWeight: 1, requiresMutation: false, overrides: { duplicateLayerGroup: 'head' } },
