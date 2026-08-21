@@ -74,6 +74,11 @@ export interface RigDefinition {
   sockets: Record<string, { x: number; y: number }>
 }
 
+export interface ApprovedTransform {
+  scale: number
+  mirrorX: boolean
+}
+
 export interface VisualPartDefinition {
   id: string
   slotId: VisualSlotId
@@ -83,7 +88,10 @@ export interface VisualPartDefinition {
   themeWeights: Partial<Record<ThemeId, number>>
   compatibleRigs: RigId[]
   assetPath: string
+  assetSha256?: string
+  approvedTransforms?: ApprovedTransform[]
   maskPaths: { primary?: string; secondary?: string }
+  maskSha256?: { primary?: string; secondary?: string }
   origin: { x: number; y: number }
   socket: string | null
   layer: RenderLayer

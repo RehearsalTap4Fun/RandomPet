@@ -6,7 +6,11 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "validate": "tsx src/cli.ts catalog/v0.1.0/catalog.json assets/v0.1.0"
+  },
   "dependencies": {
-    "@qmonster/generator-core": "0.1.0"
+    "@qmonster/generator-core": "0.1.0",
+    "sharp": "~0.35.3"
   }
 }

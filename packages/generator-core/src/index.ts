@@ -1,3 +1,5 @@
 export * from './contracts.js'
 export * from './schema.js'
+export * from './catalog-schema.js'
+export * from './catalog-validation.js'
 export * from './prng.js'
