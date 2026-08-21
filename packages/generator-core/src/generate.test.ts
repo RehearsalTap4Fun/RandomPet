@@ -5,6 +5,7 @@ import {
   generateMonster,
   rerollSlot,
   selectVisualPart,
+  VISUAL_SLOT_IDS,
   type Catalog,
   type GenerationRequest,
 } from './index.js'
@@ -126,16 +127,23 @@ describe('local changes', () => {
     expect(after.visualSlots.tail).toEqual(before.visualSlots.tail)
   })
 
-  it('matches direct slot generation when rerolling the same isolated stream', () => {
+  it('uses rerollIndex to change only the target slot stream and counter', () => {
     const catalog = makeValidCatalogFixture()
     const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
     catalog.parts.push({ ...eyes, id: 'eyes_second' })
     const before = generateMonster(baseRequest, catalog).spec
     const direct = generateMonster({ ...baseRequest, slotRolls: { eyes: 1 } }, catalog).spec
     const rerolled = rerollSlot({ spec: before, slotId: 'eyes', locks: {}, catalog }).spec
+
+    expect(before.visualSlots.eyes.partId).toBe('eyes_asymmetric')
+    expect(direct.visualSlots.eyes.partId).toBe('eyes_second')
     expect(rerolled.visualSlots.eyes).toEqual(direct.visualSlots.eyes)
-    expect(rerolled.visualSlots.bodyFrame).toEqual(before.visualSlots.bodyFrame)
-    expect(rerolled.visualSlots.tail).toEqual(before.visualSlots.tail)
+    expect(rerolled.slotRolls).toEqual({ ...before.slotRolls, eyes: 1 })
+    for (const slotId of VISUAL_SLOT_IDS) {
+      if (slotId === 'eyes') continue
+      expect(rerolled.visualSlots[slotId], slotId).toEqual(before.visualSlots[slotId])
+      expect(rerolled.slotRolls[slotId], slotId).toBe(before.slotRolls[slotId])
+    }
   })
 
   it('rerolls a parent stream without stale unlocked descendant constraints', () => {
@@ -188,6 +196,46 @@ describe('local changes', () => {
     expect(rerolled.spec.visualSlots.arms).toEqual(before.visualSlots.arms)
     expect(rerolled.spec.visualSlots.eyes.partId).toBe('eyes_after_lock')
     expect(rerolled.blocked).toBe(false)
+  })
+
+  it('changes exactly the target and unlocked transitive descendants while preserving a locked descendant', () => {
+    const baseCatalog = makeValidCatalogFixture()
+    baseCatalog.dependencies = { arms: ['eyes'], eyes: ['mouthShape'], mouthShape: ['effect'] }
+    const before = generateMonster(baseRequest, baseCatalog).spec
+    const arms = baseCatalog.parts.find(part => part.slotId === 'arms')!
+    const eyes = baseCatalog.parts.find(part => part.slotId === 'eyes')!
+    const mouth = baseCatalog.parts.find(part => part.slotId === 'mouthShape')!
+    const effect = baseCatalog.parts.find(part => part.slotId === 'effect')!
+    const changed: Catalog = {
+      ...baseCatalog,
+      parts: [
+        ...baseCatalog.parts.filter(part => part.id !== arms.id),
+        { ...arms, baseWeight: 0 },
+        { ...arms, id: 'arms_changed', baseWeight: 999, excludes: [eyes.id] },
+        { ...eyes, id: 'eyes_changed', excludes: [mouth.id] },
+        { ...mouth, id: 'mouth_changed', excludes: [effect.id] },
+      ],
+    }
+    const after = rerollSlot({
+      spec: before,
+      slotId: 'arms',
+      locks: { effect: true },
+      catalog: changed,
+    })
+    const changedSlots = VISUAL_SLOT_IDS.filter(
+      slotId => after.spec.visualSlots[slotId].partId !== before.visualSlots[slotId].partId,
+    )
+
+    expect(changedSlots).toEqual(['eyes', 'mouthShape', 'arms'])
+    expect(after.spec.visualSlots.arms.partId).toBe('arms_changed')
+    expect(after.spec.visualSlots.eyes.partId).toBe('eyes_changed')
+    expect(after.spec.visualSlots.mouthShape.partId).toBe('mouth_changed')
+    expect(after.spec.visualSlots.effect).toEqual(before.visualSlots.effect)
+    expect(after.spec.slotRolls).toEqual({ ...before.slotRolls, arms: 1 })
+    expect(after.blocked).toBe(true)
+    expect(after.diagnostics).toEqual([
+      expect.objectContaining({ code: 'LOCK_INCOMPATIBLE', path: ['visualSlots', 'effect'] }),
+    ])
   })
 
   it('manual selection bypasses weights but rejects a hard-incompatible part', () => {
