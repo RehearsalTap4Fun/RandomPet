@@ -1,5 +1,6 @@
 import {
   parseMonsterSpec,
+  type ApprovedTransform,
   type Catalog,
   type MonsterSpec,
   type VisualPartDefinition,
@@ -17,6 +18,7 @@ function part(
   origin: { x: number; y: number },
   socket: string | null,
   maskPaths: VisualPartDefinition['maskPaths'] = {},
+  approvedTransforms?: ApprovedTransform[],
 ): VisualPartDefinition {
   return {
     id,
@@ -35,6 +37,7 @@ function part(
     semanticPriority: 0,
     excludes: [],
     boosts: {},
+    ...(approvedTransforms === undefined ? {} : { approvedTransforms }),
   }
 }
 
@@ -68,9 +71,11 @@ const catalog: Catalog = {
       'synthetic_rear_mirrored',
       'extraAppendage',
       'rearAppendage',
-      'rear-appendage-mirrored.png',
-      { x: 80, y: 180 },
+      'rear-appendage-source.png',
+      { x: 402, y: 180 },
       'wingLeft',
+      {},
+      [{ scale: 1, mirrorX: true }],
     ),
     part(
       'synthetic_surface',
@@ -124,10 +129,12 @@ async function renderFixture(): Promise<void> {
     height: size,
     includeGroundShadow: true,
   })
-  if (result.diagnostics.some(item => item.severity === 'error')) {
+  if (result.diagnostics.length > 0) {
     throw new Error(`Synthetic render failed: ${JSON.stringify(result.diagnostics)}`)
   }
   document.body.dataset.renderComplete = 'true'
 }
 
-void renderFixture()
+void renderFixture().catch((error: unknown) => {
+  document.body.dataset.renderError = error instanceof Error ? error.message : String(error)
+})

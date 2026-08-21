@@ -34,6 +34,21 @@ describe('MonsterSpecSchema', () => {
     expect(input.visualSlots.eyes.partId).toBe('eyes_asymmetric')
   })
 
+  it('preserves an exact transform requested for a selected visual part', () => {
+    const input = makeValidMonsterSpecFixture()
+    const transform = { scale: 1, mirrorX: true }
+    Object.assign(input.visualSlots.extraAppendage, { transform })
+
+    expect(parseMonsterSpec(input)).toMatchObject({
+      ok: true,
+      value: {
+        visualSlots: {
+          extraAppendage: { transform },
+        },
+      },
+    })
+  })
+
   it('builds a catalog fixture with unique part IDs', () => {
     const partIds = makeValidCatalogFixture().parts.map(part => part.id)
     expect(new Set(partIds).size).toBe(partIds.length)

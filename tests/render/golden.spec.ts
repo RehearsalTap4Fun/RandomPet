@@ -1,15 +1,28 @@
 import { createHash } from 'node:crypto'
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
-import path from 'node:path'
+import { readFile } from 'node:fs/promises'
 import { expect, test, type Page } from '@playwright/test'
+import {
+  assertGoldenUpdateProject,
+  isGoldenUpdateRequested,
+  replaceGoldenPair,
+  resolveGoldenPaths,
+} from '../../scripts/render-golden-update.js'
 
-const goldenDirectory = path.join(process.cwd(), 'tests/render/golden')
-const goldenHashPath = path.join(goldenDirectory, 'synthetic-1024.rgba.sha256')
-const reviewImagePath = path.join(goldenDirectory, 'synthetic-1024.review.png')
+const goldenPaths = resolveGoldenPaths(import.meta.url)
+const updateRequested = isGoldenUpdateRequested(process.env)
+
+test.beforeEach(({}, testInfo) => {
+  assertGoldenUpdateProject(updateRequested, testInfo.project.name)
+})
 
 async function waitForRender(page: Page, size = 1024): Promise<void> {
   await page.goto(`/render-test.html?size=${size}`)
-  await page.waitForFunction(() => document.body.dataset.renderComplete === 'true')
+  await page.waitForFunction(() => (
+    document.body.dataset.renderComplete === 'true'
+    || document.body.dataset.renderError !== undefined
+  ))
+  const renderError = await page.evaluate(() => document.body.dataset.renderError)
+  if (renderError !== undefined) throw new Error(renderError)
 }
 
 test('matches the reviewed 1024 decoded-pixel golden', async ({ page }) => {
@@ -32,14 +45,33 @@ test('matches the reviewed 1024 decoded-pixel golden', async ({ page }) => {
   const rgba = Buffer.from(rendered.rgbaBase64, 'base64')
   const actualHash = createHash('sha256').update(rgba).digest('hex')
 
-  if (process.env.UPDATE_GOLDENS === '1') {
-    await mkdir(goldenDirectory, { recursive: true })
-    await writeFile(goldenHashPath, `${actualHash}\n`)
-    await target.screenshot({ path: reviewImagePath, omitBackground: true })
+  if (updateRequested) {
+    await replaceGoldenPair({
+      hashPath: goldenPaths.hash,
+      reviewPath: goldenPaths.review,
+      hash: actualHash,
+      async writeReview(temporaryPath) {
+        await target.screenshot({ path: temporaryPath, omitBackground: true })
+      },
+    })
   }
 
-  const expectedHash = (await readFile(goldenHashPath, 'utf8')).trim()
+  const expectedHash = (await readFile(goldenPaths.hash, 'utf8')).trim()
   expect(actualHash).toBe(expectedHash)
+})
+
+test('surfaces renderer diagnostics without waiting for a timeout', async ({ page }) => {
+  page.setDefaultTimeout(1_500)
+  await page.route('**/render-fixtures/synthetic-spec.json', async (route) => {
+    const response = await route.fetch()
+    const spec = await response.json() as {
+      visualSlots: { eyes: { partId: string } }
+    }
+    spec.visualSlots.eyes.partId = 'missing-synthetic-eyes'
+    await route.fulfill({ response, json: spec })
+  })
+
+  await expect(waitForRender(page)).rejects.toThrow('RENDER_PART_MISSING')
 })
 
 test('renders 2048 without clipping the transparent crop boundary', async ({ page }) => {

@@ -189,6 +189,22 @@ describe('socket placement', () => {
 })
 
 describe('render layer expansion', () => {
+  it('applies a selected catalog-approved mirror through the canvas transform', async () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    const transform = { scale: 1, mirrorX: true }
+    part(catalog, 'extra_wings').approvedTransforms = [transform]
+    spec.visualSlots.extraAppendage.transform = transform
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext(calls), spec, catalog, makeResolver(), options1024,
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(calls).toContain('scale:-1,1')
+  })
+
   it('uses the fixed nine render groups from back to front', async () => {
     const { catalog, spec, expected } = fixtureWithNineGroups()
     const calls: string[] = []

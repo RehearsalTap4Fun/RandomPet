@@ -148,7 +148,7 @@ function createBaseLayers(
       part,
       rig,
       socketName: part.socket,
-      transform: { scale: 1, mirrorX: false },
+      transform: selection.transform ?? { scale: 1, mirrorX: false },
       sequence: layers.length,
     })
   }

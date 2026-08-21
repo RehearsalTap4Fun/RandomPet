@@ -10,6 +10,8 @@
     "build": "tsc -b && npm run build -w @qmonster/creator-web",
     "typecheck": "tsc -b --pretty false",
     "test": "vitest run",
+    "test:render-golden": "playwright test tests/render/golden.spec.ts --project=chromium --workers=1",
+    "test:render-golden:update": "playwright test tests/render/golden.spec.ts --project=chromium --workers=1",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "catalog:validate": "npm run validate -w @qmonster/asset-catalog"

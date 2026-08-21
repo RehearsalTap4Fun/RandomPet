@@ -45,12 +45,13 @@ await compositePng('base.png', 640, 720, [{
   ].join('')),
 }])
 
-const rearSource = await sharp(svg(480, 360, [
+await compositePng('rear-appendage-source.png', 480, 360, [{
+  input: svg(480, 360, [
   '<path d="M36 180 C116 36 330 44 446 180 C330 316 116 324 36 180Z" fill="#ffcf5a"/>',
   '<path d="M54 180 C150 132 260 116 404 180 C260 244 150 228 54 180Z" fill="#e98d3f"/>',
   '<circle cx="392" cy="180" r="24" fill="#5a315e"/>',
-].join(''))).flop().png(pngOptions).toBuffer()
-await compositePng('rear-appendage-mirrored.png', 480, 360, [{ input: rearSource }])
+  ].join('')),
+}])
 
 await compositePng('surface.png', 640, 720, [{
   input: svg(640, 720, [

@@ -37,6 +37,10 @@ const ModifierOverridesSchema = z.object({
 const VisualSelectionSchema = z.object({
   partId: z.string().min(1),
   rigId: RigIdSchema,
+  transform: z.object({
+    scale: z.number().finite().positive(),
+    mirrorX: z.boolean(),
+  }).optional(),
 })
 
 const SemanticTraitSelectionSchema = z.object({

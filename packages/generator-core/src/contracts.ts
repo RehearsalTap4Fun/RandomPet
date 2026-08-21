@@ -39,6 +39,7 @@ export interface Palette {
 export interface VisualSelection {
   partId: string
   rigId: RigId
+  transform?: ApprovedTransform
 }
 
 export interface SemanticTraitSelection {

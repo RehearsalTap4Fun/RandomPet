@@ -35,7 +35,11 @@
     "arms": { "partId": "synthetic_arms", "rigId": "blob" },
     "legs": { "partId": "synthetic_legs", "rigId": "blob" },
     "tail": { "partId": "synthetic_tail", "rigId": "blob" },
-    "extraAppendage": { "partId": "synthetic_rear_mirrored", "rigId": "blob" },
+    "extraAppendage": {
+      "partId": "synthetic_rear_mirrored",
+      "rigId": "blob",
+      "transform": { "scale": 1, "mirrorX": true }
+    },
     "surfaceMaterial": { "partId": "synthetic_surface", "rigId": "blob" },
     "pattern": { "partId": "synthetic_pattern", "rigId": "blob" },
     "colorScheme": { "partId": "synthetic_color", "rigId": "blob" },
