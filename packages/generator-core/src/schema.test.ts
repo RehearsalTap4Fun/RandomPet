@@ -38,4 +38,22 @@ describe('MonsterSpecSchema', () => {
     const partIds = makeValidCatalogFixture().parts.map(part => part.id)
     expect(new Set(partIds).size).toBe(partIds.length)
   })
+
+  it('rejects symbolic modifier palettes instead of typed colors', () => {
+    const input = makeValidMonsterSpecFixture() as unknown as {
+      mutation: { id: string; overrides: { palette: string } }
+    }
+    input.mutation = { id: 'mutation_albino', overrides: { palette: 'albino' } }
+
+    expect(parseMonsterSpec(input)).toMatchObject({ ok: false })
+  })
+
+  it('rejects unknown modifier override fields', () => {
+    const input = makeValidMonsterSpecFixture() as unknown as {
+      mutation: { id: string; overrides: { arbitraryTransform: number } }
+    }
+    input.mutation = { id: 'mutation_double_head', overrides: { arbitraryTransform: 17 } }
+
+    expect(parseMonsterSpec(input)).toMatchObject({ ok: false })
+  })
 })

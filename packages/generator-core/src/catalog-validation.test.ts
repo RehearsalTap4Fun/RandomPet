@@ -57,4 +57,13 @@ describe('catalog validation', () => {
       expect.objectContaining({ code: 'CATALOG_TRANSFORM_INVALID' }),
     )
   })
+
+  it('rejects symbolic catalog modifier palettes', () => {
+    const catalog = makeValidCatalogFixture() as unknown as {
+      modifiers: Array<{ overrides: { palette: string } }>
+    }
+    catalog.modifiers[0]!.overrides = { palette: 'albino' }
+
+    expect(parseCatalog(catalog)).toMatchObject({ ok: false })
+  })
 })

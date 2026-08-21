@@ -46,9 +46,16 @@ export interface SemanticTraitSelection {
   detailTraitIds: string[]
 }
 
+export interface ModifierOverrides {
+  palette?: Palette
+  duplicateLayerGroup?: 'head'
+  relocateSlot?: 'eyes'
+  socket?: string
+}
+
 export interface ModifierApplication {
   id: string
-  overrides: Record<string, unknown>
+  overrides: ModifierOverrides
 }
 
 export interface MonsterSpec {
@@ -112,7 +119,7 @@ export interface ModifierDefinition {
   kind: 'mutation' | 'aberration'
   baseWeight: number
   requiresMutation: boolean
-  overrides: Record<string, unknown>
+  overrides: ModifierOverrides
 }
 
 export interface Catalog {

@@ -24,6 +24,13 @@ const PaletteSchema = z.object({
   accent: z.string().min(1),
 })
 
+const ModifierOverridesSchema = z.object({
+  palette: PaletteSchema.optional(),
+  duplicateLayerGroup: z.literal('head').optional(),
+  relocateSlot: z.literal('eyes').optional(),
+  socket: z.string().min(1).optional(),
+}).strict()
+
 const RigDefinitionSchema = z.object({
   id: RigIdSchema,
   sockets: z.record(z.string().min(1), z.object({ x: coordinate, y: coordinate })),
@@ -62,7 +69,7 @@ export const CatalogSchema = z.object({
     kind: z.enum(['mutation', 'aberration']),
     baseWeight: weight,
     requiresMutation: z.boolean(),
-    overrides: z.record(z.string(), z.unknown()),
+    overrides: ModifierOverridesSchema,
   })),
   dependencies: z.partialRecord(VisualSlotIdSchema, z.array(VisualSlotIdSchema)),
 })

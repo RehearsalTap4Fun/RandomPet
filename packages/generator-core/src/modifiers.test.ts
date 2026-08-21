@@ -21,7 +21,9 @@ describe('modifier applications', () => {
     expect(mutated.spec.visualSlots).toEqual(normal.spec.visualSlots)
     expect(mutated.spec.mutation).toEqual({
       id: 'mutation_albino',
-      overrides: { palette: 'albino' },
+      overrides: {
+        palette: { primary: '#f4f0e8', secondary: '#ddd4c8', accent: '#d98e9b' },
+      },
     })
   })
 
@@ -32,7 +34,7 @@ describe('modifier applications', () => {
     expect(result.blocked).toBe(false)
     expect(result.spec.mutation).toEqual({
       id: 'mutation_double_head',
-      overrides: { duplicateLayerGroup: 'head' },
+      overrides: { duplicateLayerGroup: 'head', socket: 'headAlternate' },
     })
     expect(result.spec.visualSlots.headShape.partId).toBe('head_round')
   })
@@ -47,7 +49,9 @@ describe('modifier applications', () => {
     expect(result.spec.mutation).toBeNull()
     expect(result.spec.aberrations).toEqual([{
       id: 'aberration_color_discord',
-      overrides: { palette: 'discord' },
+      overrides: {
+        palette: { primary: '#ff3b81', secondary: '#36e0ff', accent: '#f4f06a' },
+      },
     }])
   })
 
@@ -63,7 +67,7 @@ describe('modifier applications', () => {
     expect(result.spec.mutation?.id).toBe('mutation_albino')
     expect(result.spec.aberrations).toEqual([{
       id: 'aberration_misplaced_eye',
-      overrides: { socket: 'headAlternate' },
+      overrides: { relocateSlot: 'eyes', socket: 'headAlternate' },
     }])
   })
 })

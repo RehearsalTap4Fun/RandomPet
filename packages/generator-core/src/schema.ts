@@ -16,6 +16,13 @@ const PaletteSchema = z.object({
   accent: z.string().min(1),
 })
 
+const ModifierOverridesSchema = z.object({
+  palette: PaletteSchema.optional(),
+  duplicateLayerGroup: z.literal('head').optional(),
+  relocateSlot: z.literal('eyes').optional(),
+  socket: z.string().min(1).optional(),
+}).strict()
+
 const VisualSelectionSchema = z.object({
   partId: z.string().min(1),
   rigId: RigIdSchema,
@@ -28,7 +35,7 @@ const SemanticTraitSelectionSchema = z.object({
 
 const ModifierApplicationSchema = z.object({
   id: z.string().min(1),
-  overrides: z.record(z.string(), z.unknown()),
+  overrides: ModifierOverridesSchema,
 })
 
 export const MonsterSpecSchema = z.object({
@@ -60,5 +67,5 @@ export function parseMonsterSpec(input: unknown): ParseResult<MonsterSpec> {
     return { ok: false, diagnostics: parsed.error.issues.map(toDiagnostic) }
   }
 
-  return { ok: true, value: parsed.data }
+  return { ok: true, value: parsed.data as MonsterSpec }
 }

@@ -6,9 +6,9 @@
     { "id": "shadow", "palette": { "primary": "#463c78", "secondary": "#8377d1", "accent": "#f9c74f" } }
   ],
   "rigs": [
-    { "id": "blob", "sockets": { "head": { "x": 1024, "y": 720 } } },
-    { "id": "biped", "sockets": { "head": { "x": 1024, "y": 720 } } },
-    { "id": "floating", "sockets": { "head": { "x": 1024, "y": 720 } } }
+    { "id": "blob", "sockets": { "head": { "x": 1024, "y": 720 }, "headAlternate": { "x": 1320, "y": 760 } } },
+    { "id": "biped", "sockets": { "head": { "x": 1024, "y": 720 }, "headAlternate": { "x": 1320, "y": 760 } } },
+    { "id": "floating", "sockets": { "head": { "x": 1024, "y": 720 }, "headAlternate": { "x": 1320, "y": 760 } } }
   ],
   "parts": [
     { "id": "body_blob", "slotId": "bodyFrame", "rarity": "N", "baseWeight": 1, "themeIds": ["deep-sea", "fungal", "shadow"], "themeWeights": { "deep-sea": 1, "fungal": 1, "shadow": 1 }, "compatibleRigs": ["blob", "biped", "floating"], "assetPath": "parts/body_blob.webp", "maskPaths": {}, "origin": { "x": 1024, "y": 1024 }, "socket": null, "layer": "body", "semanticTraitId": "frame_blob", "semanticPriority": 1, "excludes": [], "boosts": {} },

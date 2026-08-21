@@ -171,6 +171,7 @@ export function makeValidCatalogFixture(): Catalog {
       id,
       sockets: {
         head: { x: 1024, y: 720 },
+        headAlternate: { x: 1320, y: 760 },
         armLeft: { x: 700, y: 1100 },
         armRight: { x: 1348, y: 1100 },
         legLeft: { x: 820, y: 1450 },
@@ -193,10 +194,22 @@ export function makeValidCatalogFixture(): Catalog {
       semanticSlotId: slotId,
     })).concat([{ id: 'appendage_webbed_feet', semanticSlotId: 'appendage' }]),
     modifiers: [
-      { id: 'mutation_albino', kind: 'mutation', baseWeight: 1, requiresMutation: false, overrides: { palette: 'albino' } },
-      { id: 'mutation_double_head', kind: 'mutation', baseWeight: 1, requiresMutation: false, overrides: { duplicateLayerGroup: 'head' } },
-      { id: 'aberration_color_discord', kind: 'aberration', baseWeight: 1, requiresMutation: false, overrides: { palette: 'discord' } },
-      { id: 'aberration_misplaced_eye', kind: 'aberration', baseWeight: 1, requiresMutation: false, overrides: { socket: 'headAlternate' } },
+      {
+        id: 'mutation_albino', kind: 'mutation', baseWeight: 1, requiresMutation: false,
+        overrides: { palette: { primary: '#f4f0e8', secondary: '#ddd4c8', accent: '#d98e9b' } },
+      },
+      {
+        id: 'mutation_double_head', kind: 'mutation', baseWeight: 1, requiresMutation: false,
+        overrides: { duplicateLayerGroup: 'head', socket: 'headAlternate' },
+      },
+      {
+        id: 'aberration_color_discord', kind: 'aberration', baseWeight: 1, requiresMutation: false,
+        overrides: { palette: { primary: '#ff3b81', secondary: '#36e0ff', accent: '#f4f06a' } },
+      },
+      {
+        id: 'aberration_misplaced_eye', kind: 'aberration', baseWeight: 1, requiresMutation: false,
+        overrides: { relocateSlot: 'eyes', socket: 'headAlternate' },
+      },
     ],
     dependencies: {},
   }
