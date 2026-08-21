@@ -104,6 +104,17 @@ function makeCanvasBackedRecordingContext(calls: string[]): CanvasRenderingConte
   return context
 }
 
+function makeRecordingSurfaceFactory(calls: string[]) {
+  let nextCanvas = 0
+  return () => {
+    const id = `injected-${nextCanvas += 1}`
+    return {
+      canvas: image(id),
+      context: makeRecordingContext(calls, `${id}:`),
+    }
+  }
+}
+
 const options1024: RenderOptions = {
   width: 1024,
   height: 1024,
@@ -279,6 +290,37 @@ describe('render layer expansion', () => {
     expect(result.layers.filter(layer => layer.slotId === 'headShape')).toHaveLength(1)
   })
 
+  it('blocks a direct double-head definition and application missing their socket', () => {
+    const catalog = makeValidCatalogFixture()
+    const modifier = catalog.modifiers.find(candidate => candidate.id === 'mutation_double_head')!
+    delete modifier.overrides.socket
+    const spec = makeValidMonsterSpecFixture()
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    const result = expandRenderLayers(spec, catalog)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'RENDER_MODIFIER_INVALID',
+    }))
+    expect(result.layers.filter(layer => layer.slotId === 'headShape')).toHaveLength(1)
+  })
+
+  it('blocks a direct misplaced-eye definition and application missing their socket', () => {
+    const catalog = makeValidCatalogFixture()
+    const modifier = catalog.modifiers.find(candidate => candidate.id === 'aberration_misplaced_eye')!
+    delete modifier.overrides.socket
+    const spec = makeValidMonsterSpecFixture()
+    spec.aberrations = [{ id: modifier.id, overrides: structuredClone(modifier.overrides) }]
+
+    const result = expandRenderLayers(spec, catalog)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'RENDER_MODIFIER_INVALID',
+    }))
+    expect(result.layers.filter(layer => layer.slotId === 'eyes')).toHaveLength(1)
+    expect(result.layers.find(layer => layer.slotId === 'eyes')!.socketName).toBe('head')
+  })
+
   it('does not mutate the MonsterSpec while expanding modifiers', () => {
     const catalog = makeValidCatalogFixture()
     const spec = makeValidMonsterSpecFixture()
@@ -318,15 +360,19 @@ describe('canvas rendering', () => {
     const calls: string[] = []
 
     const result = await renderMonster(
-      makeRecordingContext(calls), spec, catalog, makeResolver(), options1024,
+      makeRecordingContext(calls),
+      spec,
+      catalog,
+      makeResolver(),
+      { ...options1024, surfaceFactory: makeRecordingSurfaceFactory(calls) },
     )
 
     expect(result.diagnostics).toEqual([])
-    expect(calls).toContain('draw:masks/body-primary.png')
-    expect(calls).toContain('draw:masks/body-secondary.png')
-    expect(calls).toContain('fillStyle:#f4f0e8')
-    expect(calls).toContain('fillStyle:#ddd4c8')
-    expect(calls.filter(call => call === 'composite:source-in')).toHaveLength(2)
+    expect(calls).toContain('injected-2:draw:masks/body-primary.png')
+    expect(calls).toContain('injected-2:draw:masks/body-secondary.png')
+    expect(calls).toContain('injected-2:fillStyle:#f4f0e8')
+    expect(calls).toContain('injected-2:fillStyle:#ddd4c8')
+    expect(calls.filter(call => call === 'injected-2:composite:source-in')).toHaveLength(2)
   })
 
   it('isolates mask composites from layers already drawn on the destination canvas', async () => {
@@ -342,6 +388,44 @@ describe('canvas rendering', () => {
     expect(calls).not.toContain('main:composite:source-in')
     expect(calls.some(call => /^buffer-\d+:composite:source-in$/.test(call))).toBe(true)
     expect(calls.some(call => /^main:draw:buffer-\d+$/.test(call))).toBe(true)
+  })
+
+  it('reports unavailable mask surfaces without changing destination composite state', async () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    part(catalog, 'body_blob').maskPaths = { primary: 'masks/body-primary.png' }
+    const calls: string[] = []
+    const context = makeRecordingContext(calls)
+
+    const result = await renderMonster(context, spec, catalog, makeResolver(), options1024)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'RENDER_SURFACE_UNAVAILABLE',
+      path: ['parts', 'body_blob', 'maskPaths'],
+    }))
+    expect(context.globalCompositeOperation).toBe('source-over')
+    expect(calls).not.toContain('composite:source-in')
+    expect(result.drawnAssetIds).not.toContain('body_blob')
+    expect(result.drawnAssetIds).toContain('effect_glow')
+  })
+
+  it('uses an injected surface factory when the destination has no browser canvas', async () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    part(catalog, 'body_blob').maskPaths = { primary: 'masks/body-primary.png' }
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext(calls),
+      spec,
+      catalog,
+      makeResolver(),
+      { ...options1024, surfaceFactory: makeRecordingSurfaceFactory(calls) },
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(calls.some(call => /^injected-\d+:composite:source-in$/.test(call))).toBe(true)
+    expect(calls.some(call => /^draw:injected-\d+$/.test(call))).toBe(true)
   })
 
   it('reports every missing image and draws labeled magenta checker placeholders', async () => {
@@ -364,6 +448,32 @@ describe('canvas rendering', () => {
     expect(calls.some(call => call.startsWith('text:effect_glow:'))).toBe(true)
     expect(result.drawnAssetIds).not.toContain('eyes_asymmetric')
     expect(result.drawnAssetIds).not.toContain('effect_glow')
+  })
+
+  it('labels missing base and mask resources distinctly on the buffered path', async () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    const body = part(catalog, 'body_blob')
+    body.maskPaths = {
+      primary: 'masks/body-primary.png',
+      secondary: 'masks/body-secondary.png',
+    }
+    const missing = new Set([
+      'parts/body_blob.webp',
+      'masks/body-primary.png',
+      'masks/body-secondary.png',
+    ])
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeCanvasBackedRecordingContext(calls), spec, catalog, makeResolver(missing), options1024,
+    )
+
+    expect(result.diagnostics.filter(item => item.code === 'ASSET_LOAD_FAILED')).toHaveLength(3)
+    expect(calls.some(call => call.startsWith('buffer-1:text:body_blob:'))).toBe(true)
+    expect(calls.some(call => call.startsWith('buffer-1:text:masks/body-primary.png:'))).toBe(true)
+    expect(calls.some(call => call.startsWith('buffer-1:text:masks/body-secondary.png:'))).toBe(true)
+    expect(result.drawnAssetIds).toContain('effect_glow')
   })
 
   it('reports a missing base socket at the selected part path', async () => {

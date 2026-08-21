@@ -7,20 +7,17 @@ import type {
   RenderLayerInstance,
   RenderOptions,
   RenderResult,
+  RenderSurface,
+  RenderSurfaceFactory,
 } from './types.js'
 
 const MASTER_SIZE = 2048
 const PLACEHOLDER_CELL = 32
 const PLACEHOLDER_CELLS = 8
 
-interface CanvasSurface {
-  canvas: CanvasImageSource
-  context: CanvasRenderingContext2D
-}
-
 interface CompositeSurfaces {
-  layer: CanvasSurface
-  mask: CanvasSurface
+  layer: RenderSurface
+  mask: RenderSurface
 }
 
 function assetLoadDiagnostic(
@@ -58,31 +55,7 @@ function drawMissingPlaceholder(context: CanvasRenderingContext2D, assetId: stri
   context.fillText(assetId, middle, middle)
 }
 
-async function drawMask(
-  context: CanvasRenderingContext2D,
-  resolver: ImageResolver,
-  layer: RenderLayerInstance,
-  maskName: 'primary' | 'secondary',
-  palette: Palette,
-  diagnostics: Diagnostic[],
-): Promise<void> {
-  const assetPath = layer.part.maskPaths[maskName]
-  if (assetPath === undefined) return
-  try {
-    const mask = await resolver.resolve(assetPath)
-    context.save()
-    context.drawImage(mask, 0, 0)
-    context.globalCompositeOperation = 'source-in'
-    context.fillStyle = palette[maskName]
-    context.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
-    context.restore()
-  } catch {
-    diagnostics.push(assetLoadDiagnostic(layer, assetPath, maskName))
-    drawMissingPlaceholder(context, layer.part.id)
-  }
-}
-
-function createCanvasSurface(context: CanvasRenderingContext2D): CanvasSurface | null {
+export const browserSurfaceFactory: RenderSurfaceFactory = (width, height, context) => {
   const targetCanvas = context.canvas as HTMLCanvasElement | undefined
   const ownerDocument = targetCanvas?.ownerDocument
   let canvas: HTMLCanvasElement | OffscreenCanvas
@@ -93,8 +66,8 @@ function createCanvasSurface(context: CanvasRenderingContext2D): CanvasSurface |
   } else {
     return null
   }
-  canvas.width = MASTER_SIZE
-  canvas.height = MASTER_SIZE
+  canvas.width = width
+  canvas.height = height
   const surfaceContext = canvas.getContext('2d')
   if (surfaceContext === null) return null
   return {
@@ -103,10 +76,26 @@ function createCanvasSurface(context: CanvasRenderingContext2D): CanvasSurface |
   }
 }
 
-function createCompositeSurfaces(context: CanvasRenderingContext2D): CompositeSurfaces | null {
-  const layer = createCanvasSurface(context)
-  const mask = createCanvasSurface(context)
+function createCompositeSurfaces(
+  context: CanvasRenderingContext2D,
+  factory: RenderSurfaceFactory,
+): CompositeSurfaces | null {
+  const layer = factory(MASTER_SIZE, MASTER_SIZE, context)
+  const mask = factory(MASTER_SIZE, MASTER_SIZE, context)
   return layer === null || mask === null ? null : { layer, mask }
+}
+
+function surfaceUnavailableDiagnostic(layer: RenderLayerInstance): Diagnostic {
+  return {
+    severity: 'error',
+    code: 'RENDER_SURFACE_UNAVAILABLE',
+    path: ['parts', layer.part.id, 'maskPaths'],
+    message: `An isolated render surface is required to composite masks for ${layer.part.id}.`,
+  }
+}
+
+function hasMasks(layer: RenderLayerInstance): boolean {
+  return layer.part.maskPaths.primary !== undefined || layer.part.maskPaths.secondary !== undefined
 }
 
 function placementFor(layer: RenderLayerInstance): { placement?: Placement; diagnostic?: Diagnostic } {
@@ -135,7 +124,6 @@ function placementFor(layer: RenderLayerInstance): { placement?: Placement; diag
 async function drawLayerDirect(
   context: CanvasRenderingContext2D,
   layer: RenderLayerInstance,
-  palette: Palette,
   resolver: ImageResolver,
   drawnAssetIds: string[],
   diagnostics: Diagnostic[],
@@ -161,8 +149,6 @@ async function drawLayerDirect(
     diagnostics.push(assetLoadDiagnostic(layer, layer.part.assetPath))
     drawMissingPlaceholder(context, layer.part.id)
   }
-  await drawMask(context, resolver, layer, 'primary', palette, diagnostics)
-  await drawMask(context, resolver, layer, 'secondary', palette, diagnostics)
   context.restore()
 }
 
@@ -223,7 +209,7 @@ async function drawLayerBuffered(
       layerContext.save()
       layerContext.translate(placement.x, placement.y)
       layerContext.scale(placement.scaleX, placement.scaleY)
-      drawMissingPlaceholder(layerContext, layer.part.id)
+      drawMissingPlaceholder(layerContext, assetPath)
       layerContext.restore()
     }
   }
@@ -240,14 +226,21 @@ export async function renderMonster(
   const expanded = expandRenderLayers(spec, catalog)
   const diagnostics = [...expanded.diagnostics]
   const drawnAssetIds: string[] = []
-  const surfaces = createCompositeSurfaces(context)
+  const surfaces = createCompositeSurfaces(
+    context,
+    options.surfaceFactory ?? browserSurfaceFactory,
+  )
 
   context.save()
   context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
   for (const layer of expanded.layers) {
     if (!options.includeGroundShadow && layer.part.layer === 'groundShadow') continue
     if (surfaces === null) {
-      await drawLayerDirect(context, layer, expanded.palette, resolver, drawnAssetIds, diagnostics)
+      if (hasMasks(layer)) {
+        diagnostics.push(surfaceUnavailableDiagnostic(layer))
+        continue
+      }
+      await drawLayerDirect(context, layer, resolver, drawnAssetIds, diagnostics)
     } else {
       await drawLayerBuffered(
         context, surfaces, layer, expanded.palette, resolver, drawnAssetIds, diagnostics,

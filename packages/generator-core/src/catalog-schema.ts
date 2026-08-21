@@ -29,7 +29,18 @@ const ModifierOverridesSchema = z.object({
   duplicateLayerGroup: z.literal('head').optional(),
   relocateSlot: z.literal('eyes').optional(),
   socket: z.string().min(1).optional(),
-}).strict()
+}).strict().superRefine((overrides, context) => {
+  if (
+    (overrides.duplicateLayerGroup !== undefined || overrides.relocateSlot !== undefined)
+    && overrides.socket === undefined
+  ) {
+    context.addIssue({
+      code: 'custom',
+      path: ['socket'],
+      message: 'Behavioral modifier overrides require a destination socket.',
+    })
+  }
+})
 
 const RigDefinitionSchema = z.object({
   id: RigIdSchema,

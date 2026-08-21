@@ -56,4 +56,24 @@ describe('MonsterSpecSchema', () => {
 
     expect(parseMonsterSpec(input)).toMatchObject({ ok: false })
   })
+
+  it('rejects a double-head application without a destination socket', () => {
+    const input = makeValidMonsterSpecFixture()
+    input.mutation = {
+      id: 'mutation_double_head',
+      overrides: { duplicateLayerGroup: 'head' },
+    }
+
+    expect(parseMonsterSpec(input)).toMatchObject({ ok: false })
+  })
+
+  it('rejects a misplaced-eye application without a destination socket', () => {
+    const input = makeValidMonsterSpecFixture()
+    input.aberrations = [{
+      id: 'aberration_misplaced_eye',
+      overrides: { relocateSlot: 'eyes' },
+    }]
+
+    expect(parseMonsterSpec(input)).toMatchObject({ ok: false })
+  })
 })

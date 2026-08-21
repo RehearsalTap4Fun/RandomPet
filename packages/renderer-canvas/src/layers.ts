@@ -39,6 +39,12 @@ function sameOverrides(left: ModifierOverrides, right: ModifierOverrides): boole
     && left.socket === right.socket
 }
 
+function hasRequiredBehaviorSocket(overrides: ModifierOverrides): boolean {
+  const isBehavioral = overrides.duplicateLayerGroup !== undefined
+    || overrides.relocateSlot !== undefined
+  return !isBehavioral || (overrides.socket !== undefined && overrides.socket.length > 0)
+}
+
 function matchingModifier(
   application: ModifierApplication,
   expectedKind: ModifierDefinition['kind'],
@@ -49,7 +55,12 @@ function matchingModifier(
   const definition = catalog.modifiers.find(candidate => (
     candidate.id === application.id && candidate.kind === expectedKind
   ))
-  if (definition === undefined || !sameOverrides(application.overrides, definition.overrides)) {
+  if (
+    definition === undefined
+    || !sameOverrides(application.overrides, definition.overrides)
+    || !hasRequiredBehaviorSocket(application.overrides)
+    || !hasRequiredBehaviorSocket(definition.overrides)
+  ) {
     diagnostics.push(diagnostic(
       'RENDER_MODIFIER_INVALID',
       path,

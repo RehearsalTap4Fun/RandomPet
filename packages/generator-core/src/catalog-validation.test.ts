@@ -66,4 +66,20 @@ describe('catalog validation', () => {
 
     expect(parseCatalog(catalog)).toMatchObject({ ok: false })
   })
+
+  it('rejects a double-head catalog definition without a destination socket', () => {
+    const catalog = makeValidCatalogFixture()
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    delete modifier.overrides.socket
+
+    expect(parseCatalog(catalog)).toMatchObject({ ok: false })
+  })
+
+  it('rejects a misplaced-eye catalog definition without a destination socket', () => {
+    const catalog = makeValidCatalogFixture()
+    const modifier = catalog.modifiers.find(item => item.id === 'aberration_misplaced_eye')!
+    delete modifier.overrides.socket
+
+    expect(parseCatalog(catalog)).toMatchObject({ ok: false })
+  })
 })
