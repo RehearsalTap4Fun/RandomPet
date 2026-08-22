@@ -1,8 +1,15 @@
 import { readFile, readdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
-import { isAbsolute, join } from 'node:path'
+import { isAbsolute, join, relative, resolve } from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
+import sharp from 'sharp'
 import type { Catalog, Diagnostic } from '@qmonster/generator-core'
+import {
+  PRODUCTION_CHROMA_GATE_PROFILE,
+  PRODUCTION_CHROMA_GATE_VERSION,
+  evaluateChromaQuality,
+  type ChromaQualityMetrics,
+} from './chroma-quality-gate.js'
 import { validateAssetFile } from './file-validation.js'
 
 function error(code: string, path: string[], message: string): Diagnostic {
@@ -189,6 +196,10 @@ export async function validateNoStaleRuntimeAssets(catalog: Catalog, assetRoot: 
 }
 
 interface SourceCandidateEvaluation {
+  gateVersion?: string
+  imageSize?: { width?: number; height?: number }
+  sourcePath?: string
+  processedPath?: string
   index?: number
   selected?: boolean
   machineApproved?: boolean
@@ -215,6 +226,10 @@ interface CompositeAudit {
 }
 
 interface ExtractionAudit {
+  gateVersion?: string
+  imageSize?: { width?: number; height?: number }
+  sourcePath?: string
+  processedPath?: string
   approved?: boolean
   diagnostics?: unknown
   metrics?: unknown
@@ -244,6 +259,8 @@ interface ProductionSourceRecord {
 }
 
 export interface ProductionSourceIndex {
+  catalogVersion?: string
+  extractionGate?: { gateVersion?: string; profile?: unknown }
   sources?: ProductionSourceRecord[]
   qualityGateSummary?: Record<string, unknown>
   review?: unknown
@@ -274,12 +291,82 @@ function runtimePathMatches(recorded: unknown, expected: string): boolean {
   return normalized === expected || normalized.endsWith(`/assets/v0.1.0/${expected}`)
 }
 
+async function decodeCommittedRgba(assetRoot: string, assetPath: string): Promise<{
+  data: Buffer
+  width: number
+  height: number
+  sha256: string
+}> {
+  const root = resolve(assetRoot)
+  const path = resolve(root, assetPath)
+  const remainder = relative(root, path)
+  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Committed palette asset escaped root: ${assetPath}`)
+  const source = await readFile(path)
+  const decoded = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  if (decoded.info.channels !== 4) throw new Error(`Committed palette asset did not decode to RGBA: ${assetPath}`)
+  return {
+    data: decoded.data,
+    width: decoded.info.width,
+    height: decoded.info.height,
+    sha256: createHash('sha256').update(source).digest('hex'),
+  }
+}
+
 function isSha256(value: unknown): value is string {
   return typeof value === 'string' && /^[a-f0-9]{64}$/u.test(value)
 }
 
 function sha256Text(value: string): string {
   return createHash('sha256').update(value).digest('hex')
+}
+
+function checkExtractionGateEvidence(
+  evidence: SourceCandidateEvaluation & ExtractionAudit,
+  path: string[],
+  diagnostics: Diagnostic[],
+  invalidCode: 'PRODUCTION_CANDIDATE_AUDIT_INVALID' | 'PRODUCTION_COMPOSITE_PROVENANCE_INVALID',
+  approvalField: 'machineApproved' | 'approved',
+): { approved: boolean } {
+  let malformed = false
+  const invalid = (field: string, message: string): void => {
+    malformed = true
+    diagnostics.push(error(invalidCode, path.concat(field), message))
+  }
+  if (evidence.gateVersion !== PRODUCTION_CHROMA_GATE_VERSION) invalid('gateVersion', `Extraction must use ${PRODUCTION_CHROMA_GATE_VERSION}.`)
+  const width = evidence.imageSize?.width
+  const height = evidence.imageSize?.height
+  if (!Number.isInteger(width) || !Number.isInteger(height) || (width ?? 0) <= 0 || (height ?? 0) <= 0) invalid('imageSize', 'Extraction needs positive integer source dimensions.')
+  if (!nonemptyText(evidence.sourcePath)) invalid('sourcePath', 'Extraction needs a repository-relative source path.')
+  if (!nonemptyText(evidence.processedPath)) invalid('processedPath', 'Extraction needs a repository-relative processed path.')
+  if (!isSha256(evidence.sourceSha256)) invalid('sourceSha256', 'Extraction source SHA-256 is invalid.')
+  if (!isSha256(evidence.processedSha256)) invalid('processedSha256', 'Extraction processed SHA-256 is invalid.')
+  if (evidence.metrics === null || typeof evidence.metrics !== 'object') invalid('metrics', 'Extraction needs complete chroma metrics.')
+  if (!Array.isArray(evidence.diagnostics)) invalid('diagnostics', 'Extraction needs a diagnostics array.')
+  if (evidence.thresholds === null || typeof evidence.thresholds !== 'object') invalid('thresholds', 'Extraction needs evaluated thresholds.')
+  const recordedApproved = evidence[approvalField]
+  if (typeof recordedApproved !== 'boolean') invalid(approvalField, `Extraction needs boolean ${approvalField}.`)
+
+  const recomputed = evaluateChromaQuality({
+    gateVersion: evidence.gateVersion ?? '',
+    profile: PRODUCTION_CHROMA_GATE_PROFILE,
+    imageSize: { width: width ?? 0, height: height ?? 0 },
+    metrics: (evidence.metrics ?? {}) as ChromaQualityMetrics,
+  })
+  if (!isDeepStrictEqual(evidence.thresholds, recomputed.thresholds)) {
+    invalid('thresholds', 'Extraction thresholds must exactly equal the immutable gate derivation.')
+  }
+  if (
+    malformed
+    || recordedApproved !== recomputed.approved
+    || !isDeepStrictEqual(evidence.diagnostics, recomputed.diagnostics)
+  ) {
+    diagnostics.push(error(
+      'PRODUCTION_CANDIDATE_GATE_MISMATCH',
+      path,
+      'Recorded extraction approval, diagnostics, and thresholds must exactly match the immutable gate recomputation.',
+    ))
+  }
+  return { approved: recomputed.approved }
 }
 
 function checkSourceAuditEnvelope(source: ProductionSourceRecord, path: string[], diagnostics: Diagnostic[]): void {
@@ -318,59 +405,28 @@ function checkSourceSelection(source: ProductionSourceRecord, path: string[], di
     diagnostics.push(error('PRODUCTION_CANDIDATE_AUDIT_INVALID', path.concat('candidateEvaluations'), 'Source audit must contain exactly four candidate evaluations.'))
     return
   }
-  if (source.kind !== 'explicit-none-layer') {
-    const metricFields = [
-      'backgroundP95Delta', 'borderContaminationRatio', 'subjectCoverage',
-      'subjectBackgroundDistanceP05', 'partialAlphaPixels', 'partialAlphaRatio',
-      'edgeFringeP95', 'edgeColorDeltaP95', 'edgeNearestDistanceP95',
-      'edgePixelsWithoutOpaqueCore', 'safeBorderAlphaMax', 'safeBorderForegroundPixels',
-    ] as const
-    const thresholdFields = [
-      'safeBorderPixels', 'maxBackgroundP95Delta', 'maxBorderContaminationRatio',
-      'borderContaminationDelta', 'minOpaquePixels', 'minSubjectBackgroundDistanceP05',
-      'maxSafeBorderForegroundPixels', 'maxPartialAlphaRatio', 'minPartialAlphaPixels',
-      'maxEdgeFringeP95', 'maxEdgeColorDeltaP95', 'maxEdgeNearestDistanceP95',
-      'maxEdgePixelsWithoutOpaqueCore',
-    ] as const
-    evaluations.forEach((candidate, index) => {
+  const recomputed = source.kind === 'explicit-none-layer'
+    ? evaluations.map(candidate => ({ approved: candidate.machineApproved === true }))
+    : evaluations.map((candidate, index) => {
       const candidatePath = path.concat('candidateEvaluations', String(index))
-      const metrics = candidate.metrics as Record<string, unknown> | null
-      const validMetrics = metrics !== null
-        && typeof metrics === 'object'
-        && typeof metrics.detectedKeyHex === 'string'
-        && /^#[a-f0-9]{6}$/u.test(metrics.detectedKeyHex)
-        && typeof metrics.sampledKeyHex === 'string'
-        && /^#[a-f0-9]{6}$/u.test(metrics.sampledKeyHex)
-        && metricFields.every(field => Number.isFinite(metrics[field]))
-      if (!validMetrics) diagnostics.push(error('PRODUCTION_CANDIDATE_AUDIT_INVALID', candidatePath.concat('metrics'), 'Candidate needs complete finite chroma extraction metrics.'))
-      const candidateDiagnostics = candidate.diagnostics
-      const validDiagnostics = Array.isArray(candidateDiagnostics) && candidateDiagnostics.every(item => (
-        item !== null && typeof item === 'object'
-        && (item as Record<string, unknown>).severity === 'error'
-        && nonemptyText((item as Record<string, unknown>).code)
-        && nonemptyText((item as Record<string, unknown>).message)
-      ))
-      if (!validDiagnostics) diagnostics.push(error('PRODUCTION_CANDIDATE_AUDIT_INVALID', candidatePath.concat('diagnostics'), 'Candidate needs a complete diagnostics array.'))
-      const thresholds = candidate.thresholds as Record<string, unknown> | null
-      const validThresholds = thresholds !== null
-        && typeof thresholds === 'object'
-        && thresholdFields.every(field => Number.isFinite(thresholds[field]))
-      if (!validThresholds) diagnostics.push(error('PRODUCTION_CANDIDATE_AUDIT_INVALID', candidatePath.concat('thresholds'), 'Candidate needs every evaluated chroma threshold.'))
-      if (!isSha256(candidate.sourceSha256)) diagnostics.push(error('PRODUCTION_CANDIDATE_AUDIT_INVALID', candidatePath.concat('sourceSha256'), 'Candidate source SHA-256 is invalid.'))
-      if (!isSha256(candidate.processedSha256)) diagnostics.push(error('PRODUCTION_CANDIDATE_AUDIT_INVALID', candidatePath.concat('processedSha256'), 'Candidate processed SHA-256 is invalid.'))
-      if (!Number.isInteger(candidate.index) || candidate.index !== index + 1 || typeof candidate.selected !== 'boolean' || typeof candidate.machineApproved !== 'boolean' || !nonemptyText(candidate.reviewDecision)) {
+      if (!Number.isInteger(candidate.index) || candidate.index !== index + 1 || typeof candidate.selected !== 'boolean' || !nonemptyText(candidate.reviewDecision)) {
         diagnostics.push(error('PRODUCTION_CANDIDATE_AUDIT_INVALID', candidatePath, 'Candidate needs deterministic index, selection, machine decision, and review decision.'))
       }
+      return checkExtractionGateEvidence(candidate, candidatePath, diagnostics, 'PRODUCTION_CANDIDATE_AUDIT_INVALID', 'machineApproved')
     })
-  }
   const selected = evaluations.filter(candidate => candidate.selected)
-  const extractionPassed = source.kind === 'explicit-none-layer' || source.selectedExtraction?.approved === true
+  const selectedIndex = evaluations.findIndex(candidate => candidate.selected)
+  const extractionPassed = source.kind === 'explicit-none-layer' || (selectedIndex >= 0 && recomputed[selectedIndex]?.approved === true)
   if (selected.length !== 1 || selected[0]?.machineApproved !== true || !extractionPassed) {
     diagnostics.push(error('PRODUCTION_SELECTION_GATE_FAILED', path, `Selected source candidate ${source.sourceId ?? '<unknown>'} is not machine-approved.`))
   }
   if (source.kind !== 'explicit-none-layer' && selected.length === 1) {
     const selectedCandidate = selected[0]!
     const expected = {
+      gateVersion: selectedCandidate.gateVersion,
+      imageSize: selectedCandidate.imageSize,
+      sourcePath: selectedCandidate.sourcePath,
+      processedPath: selectedCandidate.processedPath,
       approved: selectedCandidate.machineApproved,
       diagnostics: selectedCandidate.diagnostics,
       metrics: selectedCandidate.metrics,
@@ -511,18 +567,26 @@ function checkCompositeProvenance(source: ProductionSourceRecord, path: string[]
       if (!isSha256(extraction.sourceSha256)) diagnostics.push(error('PRODUCTION_COMPOSITE_PROVENANCE_INVALID', extractionPath.concat('sourceSha256'), `Angler ${role} source hash is invalid.`))
       if (!isSha256(extraction.processedSha256)) diagnostics.push(error('PRODUCTION_COMPOSITE_PROVENANCE_INVALID', extractionPath.concat('processedSha256'), `Angler ${role} processed hash is invalid.`))
       if (typeof extraction.approved !== 'boolean') diagnostics.push(error('PRODUCTION_COMPOSITE_PROVENANCE_INVALID', extractionPath.concat('approved'), `Angler ${role} approval is missing.`))
+      checkExtractionGateEvidence(
+        extraction as SourceCandidateEvaluation & ExtractionAudit,
+        extractionPath,
+        diagnostics,
+        'PRODUCTION_COMPOSITE_PROVENANCE_INVALID',
+        'approved',
+      )
     })
   }
 }
 
-function checkColorMaskAudit(
+async function checkColorMaskAudit(
   source: ProductionSourceRecord,
   part: Catalog['parts'][number],
   catalog: Catalog,
   indexed: ReadonlyMap<string, ProductionSourceRecord>,
+  assetRoot: string,
   path: string[],
   diagnostics: Diagnostic[],
-): void {
+): Promise<void> {
   if (part.slotId !== 'colorScheme') return
   const audit = (source as ProductionSourceRecord & { paletteMaskAudit?: Record<string, unknown> }).paletteMaskAudit
   if (audit === undefined || audit.version !== 'rig-aware-palette-masks-v1' || audit.sourceId !== part.id) {
@@ -582,6 +646,73 @@ function checkColorMaskAudit(
     ) {
       diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', valuePath.concat('metrics'), 'Palette masks must exactly partition the opaque rig core with no overlap or overflow.'))
     }
+    try {
+      const roles = ['primary', 'secondary', 'accent'] as const
+      const [decodedRig, ...decodedMasks] = await Promise.all([
+        decodeCommittedRgba(assetRoot, `rigs/${rig?.sourceId}.png`),
+        ...roles.map(maskName => decodeCommittedRgba(assetRoot, part.rigMaskPaths?.[rigId]?.[maskName] ?? '')),
+      ])
+      if (decodedRig.sha256 !== value.rigAssetSha256 || decodedRig.sha256 !== rigSource?.runtimePngSha256) {
+        diagnostics.push(error('PRODUCTION_COLOR_MASK_PIXELS_MISMATCH', valuePath.concat('rigAssetSha256'), 'Decoded rig hash differs from palette audit and rig source evidence.'))
+      }
+      let rigOpaqueCorePixels = 0
+      let maskUnionPixels = 0
+      let outsideRigCorePixels = 0
+      let overlappingMaskPixels = 0
+      const roleCounts = [0, 0, 0]
+      let nonBinaryMaskAlphaPixels = 0
+      const pixelCount = decodedRig.width * decodedRig.height
+      if (decodedMasks.some(mask => mask.width !== decodedRig.width || mask.height !== decodedRig.height)) {
+        throw new Error('Palette masks and compatible rig have different dimensions.')
+      }
+      decodedMasks.forEach((mask, index) => {
+        const maskName = roles[index]!
+        if (mask.sha256 !== hashes?.[maskName] || mask.sha256 !== part.rigMaskSha256?.[rigId]?.[maskName]) {
+          diagnostics.push(error('PRODUCTION_COLOR_MASK_PIXELS_MISMATCH', valuePath.concat('sha256', maskName), `Decoded ${maskName} hash differs from catalog/audit evidence.`))
+        }
+      })
+      for (let pixel = 0; pixel < pixelCount; pixel += 1) {
+        const rigCore = decodedRig.data[pixel * 4 + 3] === 255
+        if (rigCore) rigOpaqueCorePixels += 1
+        let active = 0
+        decodedMasks.forEach((mask, index) => {
+          const alpha = mask.data[pixel * 4 + 3]!
+          if (alpha !== 0 && alpha !== 255) nonBinaryMaskAlphaPixels += 1
+          if (alpha === 0) return
+          active += 1
+          roleCounts[index] = roleCounts[index]! + 1
+        })
+        if (active > 0) {
+          maskUnionPixels += 1
+          if (!rigCore) outsideRigCorePixels += 1
+        }
+        if (active > 1) overlappingMaskPixels += 1
+      }
+      const decodedMetrics = {
+        width: decodedRig.width,
+        height: decodedRig.height,
+        rigOpaqueCorePixels,
+        maskUnionPixels,
+        outsideRigCorePixels,
+        overlappingMaskPixels,
+        primaryPixels: roleCounts[0]!,
+        secondaryPixels: roleCounts[1]!,
+        accentPixels: roleCounts[2]!,
+      }
+      if (nonBinaryMaskAlphaPixels !== 0 || !isDeepStrictEqual(metrics, decodedMetrics)) {
+        diagnostics.push(error(
+          'PRODUCTION_COLOR_MASK_PIXELS_MISMATCH',
+          valuePath.concat('metrics'),
+          `Recorded palette arithmetic differs from decoded committed pixels; non-binary alpha pixels: ${nonBinaryMaskAlphaPixels}.`,
+        ))
+      }
+    } catch (caught) {
+      diagnostics.push(error(
+        'PRODUCTION_COLOR_MASK_PIXELS_MISMATCH',
+        valuePath.concat('metrics'),
+        `Could not independently decode palette rig/masks: ${caught instanceof Error ? caught.message : String(caught)}`,
+      ))
+    }
   }
 }
 
@@ -592,6 +723,16 @@ export async function validateProductionSourceIndex(
 ): Promise<Diagnostic[]> {
   const diagnostics: Diagnostic[] = []
   checkPortableAuditPaths(sourceIndex, [], diagnostics)
+  if (
+    sourceIndex.extractionGate?.gateVersion !== PRODUCTION_CHROMA_GATE_VERSION
+    || !isDeepStrictEqual(sourceIndex.extractionGate.profile, PRODUCTION_CHROMA_GATE_PROFILE)
+  ) {
+    diagnostics.push(error(
+      'PRODUCTION_CANDIDATE_GATE_MISMATCH',
+      ['extractionGate'],
+      `Production source-index must use immutable gate ${PRODUCTION_CHROMA_GATE_VERSION} and its fixed profile.`,
+    ))
+  }
   const sources = Array.isArray(sourceIndex.sources) ? sourceIndex.sources : []
   const indexed = new Map(sources.flatMap(source => typeof source.sourceId === 'string' ? [[source.sourceId, source] as const] : []))
   const assetChecks: Array<Promise<Diagnostic[]>> = []
@@ -605,7 +746,7 @@ export async function validateProductionSourceIndex(
     checkSourceAuditEnvelope(source, ['sources', part.id], diagnostics)
     checkSourceSelection(source, ['sources', part.id], diagnostics)
     checkCompositeProvenance(source, ['sources', part.id], diagnostics)
-    checkColorMaskAudit(source, part, catalog, indexed, ['sources', part.id], diagnostics)
+    await checkColorMaskAudit(source, part, catalog, indexed, assetRoot, ['sources', part.id], diagnostics)
     if (!runtimePathMatches(source.runtimeWebpPath, part.assetPath) || source.runtimeWebpSha256 !== part.assetSha256) {
       diagnostics.push(error('PRODUCTION_SOURCE_RUNTIME_MISMATCH', ['sources', part.id, 'runtimeWebpPath'], `Source-index WebP metadata differs for ${part.id}.`))
     }

@@ -3,6 +3,11 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
+import {
+  PRODUCTION_CHROMA_GATE_VERSION,
+  chromaGateProfileForSafeBorder,
+  evaluateChromaQuality,
+} from '../packages/asset-catalog/src/chroma-quality-gate.js'
 import { extractChromaAlpha } from './extract-chroma-alpha.js'
 
 const temporaryDirectories: string[] = []
@@ -101,6 +106,7 @@ describe('extractChromaAlpha', () => {
     const softEdge = pixel(23, 48)
 
     expect(result.approved, JSON.stringify(result.metrics)).toBe(true)
+    expect(result.gateVersion).toBe(PRODUCTION_CHROMA_GATE_VERSION)
     expect(result.diagnostics).toEqual([])
     expect(result.metrics.detectedKeyHex).toBe('#00ff00')
     expect(result.metrics.partialAlphaPixels).toBeGreaterThan(0)
@@ -127,6 +133,14 @@ describe('extractChromaAlpha', () => {
       maxEdgeNearestDistanceP95: 32,
       maxEdgePixelsWithoutOpaqueCore: 0,
     })
+    expect({ approved: result.approved, diagnostics: result.diagnostics, thresholds: result.thresholds }).toEqual(
+      evaluateChromaQuality({
+        gateVersion: result.gateVersion,
+        profile: chromaGateProfileForSafeBorder(8),
+        imageSize: { width: 96, height: 96 },
+        metrics: result.metrics,
+      }),
+    )
     expect(result.sourceSha256).toMatch(/^[a-f0-9]{64}$/)
     expect(result.processedSha256).toBe(repeated.processedSha256)
     expect(await readFile(first.outputPath)).toEqual(await readFile(secondOutput))

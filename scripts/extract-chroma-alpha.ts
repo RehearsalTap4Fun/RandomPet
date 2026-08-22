@@ -2,6 +2,16 @@ import { createHash } from 'node:crypto'
 import { mkdir, readFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import sharp from 'sharp'
+import {
+  PRODUCTION_CHROMA_GATE_VERSION,
+  chromaGateProfileForSafeBorder,
+  evaluateChromaQuality,
+  type ChromaGateDiagnostic,
+  type ChromaQualityMetrics,
+  type ChromaQualityThresholds,
+} from '../packages/asset-catalog/src/chroma-quality-gate.js'
+
+export type { ChromaQualityMetrics, ChromaQualityThresholds } from '../packages/asset-catalog/src/chroma-quality-gate.js'
 
 export interface ChromaExtractionInput {
   sourcePath: string
@@ -9,59 +19,14 @@ export interface ChromaExtractionInput {
   safeBorderPixels: number
 }
 
-export interface ChromaDiagnostic {
-  severity: 'error'
-  code:
-    | 'CHROMA_KEY_INVALID'
-    | 'CHROMA_BACKGROUND_NONUNIFORM'
-    | 'CHROMA_BACKGROUND_CONTAMINATED'
-    | 'CHROMA_SUBJECT_SIMILARITY'
-    | 'CHROMA_SAFE_BORDER_CLIPPED'
-    | 'CHROMA_EDGE_NO_CORE'
-    | 'CHROMA_EDGE_DEGRADED'
-  message: string
-}
-
-export interface ChromaQualityMetrics {
-  detectedKeyHex: string
-  sampledKeyHex: string
-  backgroundP95Delta: number
-  borderContaminationRatio: number
-  subjectCoverage: number
-  subjectBackgroundDistanceP05: number
-  partialAlphaPixels: number
-  partialAlphaRatio: number
-  edgeFringeP95: number
-  edgeColorDeltaP95: number
-  edgeNearestDistanceP95: number
-  edgePixelsWithoutOpaqueCore: number
-  safeBorderAlphaMax: number
-  safeBorderForegroundPixels: number
-}
-
 export interface ChromaExtractionResult {
+  gateVersion: string
   approved: boolean
-  diagnostics: ChromaDiagnostic[]
+  diagnostics: ChromaGateDiagnostic[]
   metrics: ChromaQualityMetrics
   thresholds: ChromaQualityThresholds
   sourceSha256: string
   processedSha256: string
-}
-
-export interface ChromaQualityThresholds {
-  safeBorderPixels: number
-  maxBackgroundP95Delta: number
-  maxBorderContaminationRatio: number
-  borderContaminationDelta: number
-  minOpaquePixels: number
-  minSubjectBackgroundDistanceP05: number
-  maxSafeBorderForegroundPixels: number
-  maxPartialAlphaRatio: number
-  minPartialAlphaPixels: number
-  maxEdgeFringeP95: number
-  maxEdgeColorDeltaP95: number
-  maxEdgeNearestDistanceP95: number
-  maxEdgePixelsWithoutOpaqueCore: number
 }
 
 type Rgb = readonly [number, number, number]
@@ -92,10 +57,6 @@ function delta(left: Rgb, right: Rgb): number {
 
 function hex(rgb: Rgb): string {
   return `#${rgb.map(value => value.toString(16).padStart(2, '0')).join('')}`
-}
-
-function error(code: ChromaDiagnostic['code'], message: string): ChromaDiagnostic {
-  return { severity: 'error', code, message }
 }
 
 function borderIndices(width: number, height: number, border: number): number[] {
@@ -274,29 +235,10 @@ export async function extractChromaAlpha(
   const detection = detectKey(decoded.data, indices)
   const key = detection.key
   const sampledKey = detection.sampled
-  const diagnostics: ChromaDiagnostic[] = []
-  if (!detection.valid) {
-    diagnostics.push(error(
-      'CHROMA_KEY_INVALID',
-      `Detected border color ${hex(key)} is not a saturated binary chroma key.`,
-    ))
-  }
 
   const borderDeltas = indices.map(index => delta(readRgb(decoded.data, index), sampledKey))
   const backgroundP95Delta = percentile(borderDeltas, 0.95)
   const borderContaminationRatio = borderDeltas.filter(value => value > 24).length / indices.length
-  if (backgroundP95Delta > 12) {
-    diagnostics.push(error(
-      'CHROMA_BACKGROUND_NONUNIFORM',
-      `Safe-border chroma p95 delta ${backgroundP95Delta.toFixed(2)} exceeds 12.`,
-    ))
-  }
-  if (borderContaminationRatio > 0.01) {
-    diagnostics.push(error(
-      'CHROMA_BACKGROUND_CONTAMINATED',
-      `Safe-border contamination ${(borderContaminationRatio * 100).toFixed(2)}% exceeds 1%.`,
-    ))
-  }
 
   const pixelCount = width * height
   const backgroundTolerance = Math.max(2, Math.min(12, backgroundP95Delta + 2))
@@ -370,13 +312,6 @@ export async function extractChromaAlpha(
 
   const subjectCoverage = opaquePixels / pixelCount
   const subjectBackgroundDistanceP05 = percentile(foregroundDistances, 0.05)
-  const minOpaquePixels = Math.max(32, Math.floor(pixelCount * 0.005))
-  if (opaquePixels < minOpaquePixels || subjectBackgroundDistanceP05 < 80) {
-    diagnostics.push(error(
-      'CHROMA_SUBJECT_SIMILARITY',
-      `Opaque subject coverage ${(subjectCoverage * 100).toFixed(2)}% and key-distance p05 ${subjectBackgroundDistanceP05.toFixed(2)} do not safely separate foreground from chroma.`,
-    ))
-  }
 
   let safeBorderAlphaMax = 0
   let safeBorderForegroundPixels = 0
@@ -384,48 +319,17 @@ export async function extractChromaAlpha(
     safeBorderAlphaMax = Math.max(safeBorderAlphaMax, alphaBytes[index]!)
     if (alphaBytes[index]! > 8) safeBorderForegroundPixels += 1
   }
-  const maxSafeBorderForegroundPixels = Math.max(16, Math.floor(indices.length * 0.0001))
-  if (safeBorderForegroundPixels > maxSafeBorderForegroundPixels) {
-    diagnostics.push(error(
-      'CHROMA_SAFE_BORDER_CLIPPED',
-      `${safeBorderForegroundPixels} foreground pixels (max alpha ${safeBorderAlphaMax}/255) enter the required ${border}px safe border.`,
-    ))
-  }
-
   const partialAlphaRatio = partialAlphaPixels / Math.max(1, nonzeroAlphaPixels)
   const edgeFringeP95 = percentile(edgeFringes, 0.95)
   const edgeColorDeltaP95 = percentile(edgeColorDeltas, 0.95)
   const edgeNearestDistanceP95 = percentile(edgeNearestDistances, 0.95)
-  const minPartialAlphaPixels = Math.max(16, Math.floor(opaquePixels * 0.001))
-  if (edgePixelsWithoutOpaqueCore > 0) {
-    diagnostics.push(error(
-      'CHROMA_EDGE_NO_CORE',
-      `${edgePixelsWithoutOpaqueCore} partial-alpha edge pixels have no opaque inward color core.`,
-    ))
-  }
-  if (
-    partialAlphaPixels < minPartialAlphaPixels
-    || partialAlphaRatio > 0.45
-    || edgeFringeP95 > 4
-    || edgeColorDeltaP95 > 12
-    || edgeNearestDistanceP95 > 32
-  ) {
-    diagnostics.push(error(
-      'CHROMA_EDGE_DEGRADED',
-      `Partial-alpha pixels ${partialAlphaPixels}, ratio ${(partialAlphaRatio * 100).toFixed(2)}%, fringe p95 ${edgeFringeP95.toFixed(2)}, color delta p95 ${edgeColorDeltaP95.toFixed(2)}, nearest distance p95 ${edgeNearestDistanceP95.toFixed(2)} failed edge limits.`,
-    ))
-  }
-
   await mkdir(dirname(input.outputPath), { recursive: true })
   await sharp(rgba, { raw: { width, height, channels: 4 } })
     .png(PNG_OPTIONS)
     .toFile(input.outputPath)
   const processed = await readFile(input.outputPath)
 
-  return {
-    approved: diagnostics.length === 0,
-    diagnostics,
-    metrics: {
+  const metrics: ChromaQualityMetrics = {
       detectedKeyHex: hex(key),
       sampledKeyHex: hex(sampledKey),
       backgroundP95Delta,
@@ -440,22 +344,19 @@ export async function extractChromaAlpha(
       edgePixelsWithoutOpaqueCore,
       safeBorderAlphaMax,
       safeBorderForegroundPixels,
-    },
-    thresholds: {
-      safeBorderPixels: border,
-      maxBackgroundP95Delta: 12,
-      maxBorderContaminationRatio: 0.01,
-      borderContaminationDelta: 24,
-      minOpaquePixels,
-      minSubjectBackgroundDistanceP05: 80,
-      maxSafeBorderForegroundPixels,
-      maxPartialAlphaRatio: 0.45,
-      minPartialAlphaPixels,
-      maxEdgeFringeP95: 4,
-      maxEdgeColorDeltaP95: 12,
-      maxEdgeNearestDistanceP95: 32,
-      maxEdgePixelsWithoutOpaqueCore: 0,
-    },
+  }
+  const gate = evaluateChromaQuality({
+    gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
+    profile: chromaGateProfileForSafeBorder(input.safeBorderPixels),
+    imageSize: { width, height },
+    metrics,
+  })
+  return {
+    gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
+    approved: gate.approved,
+    diagnostics: gate.diagnostics,
+    metrics,
+    thresholds: gate.thresholds,
     sourceSha256: sha256(source),
     processedSha256: sha256(processed),
   }

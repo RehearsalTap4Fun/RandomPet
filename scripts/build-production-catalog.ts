@@ -13,16 +13,32 @@ import type {
   VisualPartDefinition,
   VisualSlotId,
 } from '@qmonster/generator-core'
+import {
+  PRODUCTION_CHROMA_GATE_PROFILE,
+  PRODUCTION_CHROMA_GATE_VERSION,
+  evaluateChromaQuality,
+  type ChromaQualityMetrics,
+  type ChromaQualityThresholds,
+} from '../packages/asset-catalog/src/chroma-quality-gate.js'
+import { buildProductionEvidenceManifest } from '../packages/asset-catalog/src/evidence-root.js'
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
 import type { RigSheetAudit } from './process-rig-sheets.js'
 
 interface ProductionExtractionAudit {
   approved: boolean
   diagnostics: unknown[]
-  metrics: Record<string, number | string>
-  thresholds?: Record<string, number>
+  metrics: ChromaQualityMetrics
+  thresholds?: ChromaQualityThresholds
   sourceSha256: string
   processedSha256: string
+}
+
+interface CanonicalExtractionAudit extends ProductionExtractionAudit {
+  gateVersion: string
+  imageSize: { width: number; height: number }
+  sourcePath: string
+  processedPath: string
+  thresholds: ChromaQualityThresholds
 }
 
 interface ProductionIndexEntry {
@@ -69,35 +85,6 @@ interface ProductionIndexEntry {
       sha256: Record<'primary' | 'secondary' | 'accent', string>
       metrics: Record<string, number>
     }>
-  }
-}
-
-function extractionThresholds(
-  metrics: Record<string, number | string>,
-  width: number,
-  height: number,
-  safeBorderPixels = 16,
-): Record<string, number> {
-  const border = Math.max(1, Math.min(Math.floor(Math.min(width, height) / 4), Math.floor(safeBorderPixels)))
-  const pixelCount = width * height
-  const innerWidth = Math.max(0, width - border * 2)
-  const innerHeight = Math.max(0, height - border * 2)
-  const borderPixelCount = pixelCount - innerWidth * innerHeight
-  const opaquePixels = Math.round(Number(metrics.subjectCoverage) * pixelCount)
-  return {
-    safeBorderPixels: border,
-    maxBackgroundP95Delta: 12,
-    maxBorderContaminationRatio: 0.01,
-    borderContaminationDelta: 24,
-    minOpaquePixels: Math.max(32, Math.floor(pixelCount * 0.005)),
-    minSubjectBackgroundDistanceP05: 80,
-    maxSafeBorderForegroundPixels: Math.max(16, Math.floor(borderPixelCount * 0.0001)),
-    maxPartialAlphaRatio: 0.45,
-    minPartialAlphaPixels: Math.max(16, Math.floor(opaquePixels * 0.001)),
-    maxEdgeFringeP95: 4,
-    maxEdgeColorDeltaP95: 12,
-    maxEdgeNearestDistanceP95: 32,
-    maxEdgePixelsWithoutOpaqueCore: 0,
   }
 }
 
@@ -249,6 +236,32 @@ async function sha256File(path: string): Promise<string> {
 
 function sha256Text(value: string): string {
   return createHash('sha256').update(value).digest('hex')
+}
+
+function canonicalExtractionAudit(
+  extraction: ProductionExtractionAudit,
+  imageSize: { width: number; height: number },
+  sourcePath: string,
+  processedPath: string,
+): CanonicalExtractionAudit {
+  const gate = evaluateChromaQuality({
+    gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
+    profile: PRODUCTION_CHROMA_GATE_PROFILE,
+    imageSize,
+    metrics: extraction.metrics,
+  })
+  return {
+    gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
+    imageSize,
+    sourcePath: normalizePath(sourcePath),
+    processedPath: normalizePath(processedPath),
+    approved: gate.approved,
+    diagnostics: gate.diagnostics,
+    metrics: extraction.metrics,
+    thresholds: gate.thresholds,
+    sourceSha256: extraction.sourceSha256,
+    processedSha256: extraction.processedSha256,
+  }
 }
 
 export async function resolveProductionPrompt(
@@ -422,18 +435,21 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       : await Promise.all(source.candidates.map(async candidate => {
         const metadata = await sharp(candidate.sourcePath).metadata()
         if (metadata.width === undefined || metadata.height === undefined) throw new Error(`Cannot audit candidate dimensions: ${candidate.sourcePath}`)
+        const extraction = canonicalExtractionAudit(
+          candidate.extraction,
+          { width: metadata.width, height: metadata.height },
+          candidate.sourcePath,
+          candidate.rgbaPath,
+        )
+        const { approved, ...extractionEvidence } = extraction
         return {
           index: candidate.index,
           selected: candidate.index === source.selected,
-          machineApproved: candidate.extraction.approved,
+          machineApproved: approved,
           reviewDecision: candidate.index === source.selected
             ? `approved: selected after four-way visual and machine comparison; ${source.rejectionSummary ?? 'best compatible candidate.'}`
             : `rejected: ${source.rejectionSummary ?? 'not selected after four-way visual and machine comparison.'}`,
-          diagnostics: candidate.extraction.diagnostics,
-          metrics: candidate.extraction.metrics,
-          thresholds: candidate.extraction.thresholds ?? extractionThresholds(candidate.extraction.metrics, metadata.width, metadata.height),
-          sourceSha256: candidate.extraction.sourceSha256,
-          processedSha256: candidate.extraction.processedSha256,
+          ...extractionEvidence,
           composition: normalizeAuditPaths(source.candidateCompositions?.find(composition => composition.index === candidate.index) ?? null),
         }
       }))
@@ -447,10 +463,12 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
         if (metadata.width === undefined || metadata.height === undefined) throw new Error(`Cannot audit angler ${role} dimensions.`)
         return [role, raw[role].map(value => ({
           ...value,
-          extraction: {
-            ...value.extraction,
-            thresholds: value.extraction.thresholds ?? extractionThresholds(value.extraction.metrics, metadata.width!, metadata.height!),
-          },
+          extraction: canonicalExtractionAudit(
+            value.extraction,
+            { width: metadata.width!, height: metadata.height! },
+            join(sourceRoot, 'generation', 'part-components', 'head_angler_bulb', role, `head_angler_bulb-${role}-candidate-${value.index}-source.png`),
+            join(sourceRoot, 'generation', 'part-components', 'head_angler_bulb', role, `head_angler_bulb-${role}-candidate-${value.index}-rgba.png`),
+          ),
         }))]
       })))
     }
@@ -477,8 +495,16 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       paletteMaskAudit: normalizeAuditPaths(source.paletteMaskAudit ?? null),
       candidateEvaluations,
       selectedExtraction: selectedCandidate === undefined || selectedEvaluation === undefined ? null : {
-        ...selectedCandidate.extraction,
+        gateVersion: selectedEvaluation.gateVersion,
+        imageSize: selectedEvaluation.imageSize,
+        sourcePath: selectedEvaluation.sourcePath,
+        processedPath: selectedEvaluation.processedPath,
+        approved: selectedEvaluation.machineApproved,
+        diagnostics: selectedEvaluation.diagnostics,
+        metrics: selectedEvaluation.metrics,
         thresholds: selectedEvaluation.thresholds,
+        sourceSha256: selectedEvaluation.sourceSha256,
+        processedSha256: selectedEvaluation.processedSha256,
       },
       masterPath: normalizePath(source.master?.masterPath ?? source.masterPath!),
       masterSha256: source.master?.sha256 ?? source.masterSha256,
@@ -502,17 +528,22 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     if (sheetMetadata.width === undefined || sheetMetadata.height === undefined) throw new Error(`Cannot audit rig sheet dimensions: ${sheetPath}`)
     const candidateWidth = Math.floor(sheetMetadata.width / 2)
     const candidateHeight = Math.floor(sheetMetadata.height / 2)
-    const candidateEvaluations = audit.candidateEvaluations.map(candidate => ({
-      index: candidate.index,
-      selected: candidate.selected,
-      machineApproved: candidate.machineApproved,
-      reviewDecision: candidate.selected ? 'approved: selected after four-way visual and machine comparison.' : `rejected: ${provenance.rejected}`,
-      diagnostics: candidate.extraction.diagnostics,
-      metrics: candidate.extraction.metrics,
-      thresholds: candidate.extraction.thresholds ?? extractionThresholds(candidate.extraction.metrics, candidateWidth, candidateHeight),
-      sourceSha256: candidate.extraction.sourceSha256,
-      processedSha256: candidate.extraction.processedSha256,
-    }))
+    const candidateEvaluations = audit.candidateEvaluations.map(candidate => {
+      const extraction = canonicalExtractionAudit(
+        candidate.extraction,
+        { width: candidateWidth, height: candidateHeight },
+        join(sourceRoot, 'generation', 'rig-candidates', rig.sourceId, `${rig.sourceId}-candidate-${candidate.index}-source.png`),
+        join(sourceRoot, 'generation', 'rig-candidates', rig.sourceId, `${rig.sourceId}-candidate-${candidate.index}-rgba.png`),
+      )
+      const { approved, ...extractionEvidence } = extraction
+      return {
+        index: candidate.index,
+        selected: candidate.selected,
+        machineApproved: approved,
+        reviewDecision: candidate.selected ? 'approved: selected after four-way visual and machine comparison.' : `rejected: ${provenance.rejected}`,
+        ...extractionEvidence,
+      }
+    })
     const selectedEvaluation = candidateEvaluations.find(candidate => candidate.selected)!
     return {
       sourceId: rig.sourceId,
@@ -528,7 +559,18 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       chosenVariant: provenance.selected,
       rejectedVariants: provenance.rejected,
       candidateEvaluations,
-      selectedExtraction: { ...audit.selectedExtraction, thresholds: selectedEvaluation.thresholds },
+      selectedExtraction: {
+        gateVersion: selectedEvaluation.gateVersion,
+        imageSize: selectedEvaluation.imageSize,
+        sourcePath: selectedEvaluation.sourcePath,
+        processedPath: selectedEvaluation.processedPath,
+        approved: selectedEvaluation.machineApproved,
+        diagnostics: selectedEvaluation.diagnostics,
+        metrics: selectedEvaluation.metrics,
+        thresholds: selectedEvaluation.thresholds,
+        sourceSha256: selectedEvaluation.sourceSha256,
+        processedSha256: selectedEvaluation.processedSha256,
+      },
       masterPath,
       masterSha256: audit.master.sha256,
       runtimePngPath,
@@ -544,6 +586,10 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
   const sourceIndex: Record<string, unknown> = {
     catalogVersion: '0.1.0',
     pipelineVersion: 'chroma-extraction-v2-independent-edge',
+    extractionGate: {
+      gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
+      profile: PRODUCTION_CHROMA_GATE_PROFILE,
+    },
     immutablePromptTemplateSha256: sha256Text(buildPartPrompt(PRODUCTION_PARTS[0]!).replace(PRODUCTION_PARTS[0]!.slotId, '{slotId}').replace(PRODUCTION_PARTS[0]!.description, '{partDescription}')),
     generationSummary: {
       traceableRigSheets: 3,
@@ -581,6 +627,10 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     await writeJson(join(catalogDirectory, 'modifiers.json'), modifiers)
     await writeJson(join(catalogDirectory, 'catalog.json'), catalog)
     await writeJson('packages/asset-catalog/source-index.json', sourceIndex)
+    await writeJson(
+      'packages/asset-catalog/audit/v0.1.0/evidence-manifest.json',
+      buildProductionEvidenceManifest(sourceIndex),
+    )
     await mkdir(join(sourceRoot, 'prompts'), { recursive: true })
     for (const part of PRODUCTION_PARTS) {
       const resolvedPrompt = await resolveProductionPrompt(sourceRoot, part)

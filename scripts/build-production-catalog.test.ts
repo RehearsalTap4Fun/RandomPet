@@ -4,6 +4,14 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { VISUAL_SLOT_IDS } from '@qmonster/generator-core'
+import {
+  PRODUCTION_CHROMA_GATE_PROFILE,
+  PRODUCTION_CHROMA_GATE_VERSION,
+} from '../packages/asset-catalog/src/chroma-quality-gate.js'
+import {
+  PRODUCTION_EVIDENCE_MANIFEST_VERSION,
+  computeProductionEvidenceRoot,
+} from '../packages/asset-catalog/src/evidence-root.js'
 import { loadCommittedProductionCatalog, resolveProductionPrompt } from './build-production-catalog.js'
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
 
@@ -121,6 +129,70 @@ describe('v0.1 production catalog builder', () => {
       approvedRigSelectionsPassing: 3,
       approvedPartSelectionsPassing: 51,
     })
+  })
+
+  it('commits the immutable gate and source-rich paths for every chroma evaluation', async () => {
+    const { sourceIndex } = await loadCommittedProductionCatalog()
+    expect(sourceIndex.extractionGate).toEqual({
+      gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
+      profile: PRODUCTION_CHROMA_GATE_PROFILE,
+    })
+    const sources = sourceIndex.sources as Array<Record<string, any>>
+    const chromaSources = sources.filter(source => source.kind === 'rig-base' || source.kind === 'generated-slot-layer')
+    expect(chromaSources).toHaveLength(54)
+    expect(chromaSources.flatMap(source => source.candidateEvaluations)).toHaveLength(216)
+    for (const source of chromaSources) {
+      for (const candidate of source.candidateEvaluations) {
+        expect(candidate).toMatchObject({
+          gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
+          imageSize: { width: expect.any(Number), height: expect.any(Number) },
+          sourcePath: expect.stringMatching(/^asset-source\/v0\.1\.0\//u),
+          processedPath: expect.stringMatching(/^asset-source\/v0\.1\.0\//u),
+        })
+      }
+      expect(source.selectedExtraction.gateVersion).toBe(PRODUCTION_CHROMA_GATE_VERSION)
+    }
+    const angler = sources.find(source => source.sourceId === 'head_angler_bulb')
+    const componentEvaluations = [...angler.componentEvaluations.shell, ...angler.componentEvaluations.lure]
+    expect(componentEvaluations).toHaveLength(8)
+    for (const candidate of componentEvaluations) {
+      expect(candidate.extraction).toMatchObject({
+        gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
+        imageSize: { width: expect.any(Number), height: expect.any(Number) },
+        sourcePath: expect.stringMatching(/^asset-source\/v0\.1\.0\//u),
+        processedPath: expect.stringMatching(/^asset-source\/v0\.1\.0\//u),
+      })
+    }
+  })
+
+  it('anchors the canonical committed source-index in an independent evidence manifest', async () => {
+    const { sourceIndex } = await loadCommittedProductionCatalog()
+    const manifest = JSON.parse(await readFile(join(
+      process.cwd(),
+      'packages',
+      'asset-catalog',
+      'audit',
+      'v0.1.0',
+      'evidence-manifest.json',
+    ), 'utf8'))
+
+    expect(manifest).toEqual({
+      manifestVersion: PRODUCTION_EVIDENCE_MANIFEST_VERSION,
+      canonicalization: 'json-object-keys-lexicographic-v1',
+      catalogVersion: '0.1.0',
+      sourceIndexPath: 'packages/asset-catalog/source-index.json',
+      evidenceRootSha256: computeProductionEvidenceRoot(sourceIndex),
+    })
+  })
+
+  it('describes the deep-sea and fungal color assets with their actual theme palettes', async () => {
+    const { parts } = await loadCommittedProductionCatalog()
+    expect(parts.find(part => part.id === 'color_deep_sea_coral')?.description).toBe(
+      'a modular palette overlay of deep ocean-blue primary patches, aqua secondary patches, and warm-gold accents arranged in three broad body-following zones; color patches only',
+    )
+    expect(parts.find(part => part.id === 'color_fungal_amber')?.description).toBe(
+      'a modular palette overlay of olive primary patches, lime secondary patches, and warm-orange accents arranged in three broad body-following zones; color patches only',
+    )
   })
 
   it('keeps nested palette-mask audit paths repository-relative', async () => {
