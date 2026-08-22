@@ -11,8 +11,12 @@ import {
 
 function deferred<T>() {
   let resolve!: (value: T) => void
-  const promise = new Promise<T>(next => { resolve = next })
-  return { promise, resolve }
+  let reject!: (reason?: unknown) => void
+  const promise = new Promise<T>((next, fail) => {
+    resolve = next
+    reject = fail
+  })
+  return { promise, reject, resolve }
 }
 
 function installCanvasContexts() {
@@ -117,5 +121,104 @@ describe('PreviewCanvas', () => {
     expect(published.filter(items => items.length > 0)).toEqual([[newest]])
     const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
     expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1)
+  })
+
+  it('clears an existing preview when the latest render rejects and publishes the failure', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const oldSpec = generateMonster({ seed: 'visible', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const newSpec = { ...oldSpec, seed: 'latest-failure' }
+    const renderer: PreviewRenderer = vi.fn(async (_context, spec) => {
+      if (spec.seed === 'latest-failure') throw new Error('latest render failed')
+      return { drawnAssetIds: [], diagnostics: [] }
+    })
+    const onDiagnosticsChange = vi.fn()
+    const view = render(
+      <PreviewCanvas
+        spec={oldSpec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={onDiagnosticsChange}
+      />,
+    )
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    await waitFor(() => expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1))
+
+    view.rerender(
+      <PreviewCanvas
+        spec={newSpec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={onDiagnosticsChange}
+      />,
+    )
+
+    await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([
+      expect.objectContaining({ severity: 'error', code: 'PREVIEW_RENDER_FAILED' }),
+    ]))
+    expect(contexts.get(display)?.clearRect).toHaveBeenCalledTimes(2)
+    expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1)
+  })
+
+  it('ignores an obsolete rejection after the newest preview has committed', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const oldSpec = generateMonster({ seed: 'obsolete-failure', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const newSpec = { ...oldSpec, seed: 'newest-success' }
+    const oldRender = deferred<{ drawnAssetIds: string[]; diagnostics: Diagnostic[] }>()
+    const renderer: PreviewRenderer = vi.fn((_context, spec) => (
+      spec.seed === 'obsolete-failure'
+        ? oldRender.promise
+        : Promise.resolve({ drawnAssetIds: [], diagnostics: [] })
+    ))
+    const onDiagnosticsChange = vi.fn()
+    const view = render(
+      <PreviewCanvas
+        spec={oldSpec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={onDiagnosticsChange}
+      />,
+    )
+    await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
+    view.rerender(
+      <PreviewCanvas
+        spec={newSpec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={onDiagnosticsChange}
+      />,
+    )
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    await waitFor(() => expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1))
+    await act(async () => oldRender.reject(new Error('obsolete render failed')))
+
+    expect(onDiagnosticsChange.mock.calls.flatMap(([items]) => items as Diagnostic[]))
+      .not.toContainEqual(expect.objectContaining({ code: 'PREVIEW_RENDER_FAILED' }))
+    expect(contexts.get(display)?.clearRect).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not commit a pending render after unmount', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'unmounted', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const pending = deferred<{ drawnAssetIds: string[]; diagnostics: Diagnostic[] }>()
+    const renderer: PreviewRenderer = vi.fn(() => pending.promise)
+    const onDiagnosticsChange = vi.fn()
+    const view = render(
+      <PreviewCanvas
+        spec={spec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={onDiagnosticsChange}
+      />,
+    )
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
+    view.unmount()
+    await act(async () => pending.resolve({ drawnAssetIds: [], diagnostics: [] }))
+
+    expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
+    expect(onDiagnosticsChange.mock.calls.flatMap(([items]) => items as Diagnostic[])).toEqual([])
   })
 })

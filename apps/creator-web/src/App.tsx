@@ -149,20 +149,23 @@ export function CreatorWorkbench({
             </div>
             <code title={session.spec.seed}>seed · {session.spec.seed}</code>
           </div>
-          <div className="background-switcher" role="radiogroup" aria-label="观察背景">
+          <fieldset className="background-switcher">
+            <legend className="sr-only">观察背景</legend>
             {OBSERVATION_BACKGROUNDS.map(background => (
-              <button
-                type="button"
-                role="radio"
-                aria-checked={observationBackground === background.value}
-                onClick={() => setObservationBackground(background.value)}
-                key={background.value}
-              >
+              <label className="background-option" key={background.value}>
+                <input
+                  className="background-input"
+                  type="radio"
+                  name="observation-background"
+                  value={background.value}
+                  checked={observationBackground === background.value}
+                  onChange={() => setObservationBackground(background.value)}
+                />
                 <span className={`background-swatch background-swatch--${background.value}`} aria-hidden="true" />
-                {background.label}
-              </button>
+                <span>{background.label}</span>
+              </label>
             ))}
-          </div>
+          </fieldset>
           <div className="preview-stage" data-observation-background={observationBackground}>
             <PreviewCanvas
               spec={session.spec}

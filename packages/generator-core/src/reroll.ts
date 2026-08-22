@@ -10,6 +10,7 @@ import type {
   VisualSlotId,
 } from './contracts.js'
 import { projectSemanticTraits } from './projection.js'
+import { descendantsOf, evaluatePartSelection } from './selection.js'
 
 export type SlotLocks = Partial<Record<VisualSlotId, boolean>>
 
@@ -30,19 +31,6 @@ function result(spec: MonsterSpec, diagnostics: Diagnostic[]): GenerationResult 
 
 function cloneSpec(spec: MonsterSpec): MonsterSpec {
   return structuredClone(spec)
-}
-
-function descendantsOf(slotId: VisualSlotId, catalog: Catalog): Set<VisualSlotId> {
-  const descendants = new Set<VisualSlotId>()
-  const visit = (parent: VisualSlotId): void => {
-    for (const child of catalog.dependencies[parent] ?? []) {
-      if (descendants.has(child)) continue
-      descendants.add(child)
-      visit(child)
-    }
-  }
-  visit(slotId)
-  return descendants
 }
 
 function generationContext(
@@ -87,6 +75,10 @@ function regenerateDescendants(
   for (const slotId of descendants) {
     if (!locks[slotId]) continue
     const selectedPartId = spec.visualSlots[slotId].partId
+    spec.visualSlots[slotId] = {
+      partId: selectedPartId,
+      rigId: spec.visualSlots.bodyFrame.rigId,
+    }
     const part = catalog.parts.find(item => item.id === selectedPartId && item.slotId === slotId)
     if (part === undefined) {
       diagnostics.push({
@@ -139,11 +131,8 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
   const spec = cloneSpec(request.spec)
   const diagnostics: Diagnostic[] = []
   const part = request.catalog.parts.find(item => item.slotId === request.slotId && item.id === request.partId)
-  const descendants = descendantsOf(request.slotId, request.catalog)
-  const stableSelections = Object.fromEntries(Object.entries(spec.visualSlots).filter(
-    ([slotId]) => !descendants.has(slotId as VisualSlotId),
-  )) as Partial<Record<VisualSlotId, VisualSelection>>
-  if (part === undefined || !checkPartCompatibility(part, spec.visualSlots.bodyFrame.rigId, request.catalog, stableSelections)) {
+  const evaluation = part === undefined ? null : evaluatePartSelection(part, spec, request.catalog)
+  if (part === undefined || evaluation === null || !evaluation.selectable || evaluation.rigId === null) {
     diagnostics.push({
       severity: 'error',
       code: part === undefined ? 'PART_NOT_FOUND' : 'PART_INCOMPATIBLE',
@@ -152,7 +141,7 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
     })
     return result(spec, diagnostics)
   }
-  const selection: VisualSelection = { partId: part.id, rigId: spec.visualSlots.bodyFrame.rigId }
+  const selection: VisualSelection = { partId: part.id, rigId: evaluation.rigId }
   spec.visualSlots[request.slotId] = selection
   regenerateDescendants(spec, request.slotId, request.locks, request.catalog, diagnostics)
   spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)

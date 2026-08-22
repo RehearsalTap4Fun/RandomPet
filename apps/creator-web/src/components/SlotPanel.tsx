@@ -1,5 +1,5 @@
 import {
-  checkPartCompatibility,
+  evaluatePartSelection,
   type Catalog,
   type VisualPartDefinition,
   type VisualSlotId,
@@ -24,15 +24,15 @@ interface SlotRowProps extends SlotPanelProps {
 function SlotRow({ slotId, session, catalog, onAction }: SlotRowProps) {
   const label = SLOT_LABELS[slotId]
   const selection = session.spec.visualSlots[slotId]
-  const rigId = session.spec.visualSlots.bodyFrame.rigId
   const candidates = catalog.parts.filter(part => part.slotId === slotId)
-  const incompatible = candidates.filter(part => !checkPartCompatibility(
+  const evaluations = candidates.map(part => ({
     part,
-    rigId,
-    catalog,
-    session.spec.visualSlots,
-  ))
-  const incompatibleIds = new Set(incompatible.map(part => part.id))
+    evaluation: evaluatePartSelection(part, session.spec, catalog),
+  }))
+  const incompatible = evaluations.filter(item => !item.evaluation.selectable)
+  const wrongTheme = incompatible.filter(item => item.evaluation.reason === 'theme')
+  const structurallyIncompatible = incompatible.filter(item => item.evaluation.reason !== 'theme')
+  const incompatibleIds = new Set(incompatible.map(item => item.part.id))
   const selectedPart = candidates.find(part => part.id === selection.partId)
   const locked = session.locks[slotId]
   const selectId = `slot-control-${slotId}`
@@ -96,8 +96,11 @@ function SlotRow({ slotId, session, catalog, onAction }: SlotRowProps) {
         <p className="slot-reason" id={reasonId}>
           {locked && '此槽位已锁定，解锁后可重抽。'}
           {locked && incompatible.length > 0 && ' '}
-          {incompatible.length > 0
-            && `${incompatible.map(partLabel).join('、')}与当前骨架或部件组合不兼容。`}
+          {wrongTheme.length > 0
+            && `${wrongTheme.map(item => partLabel(item.part)).join('、')}不属于当前主题。`}
+          {wrongTheme.length > 0 && structurallyIncompatible.length > 0 && ' '}
+          {structurallyIncompatible.length > 0
+            && `${structurallyIncompatible.map(item => partLabel(item.part)).join('、')}与当前骨架或部件组合不兼容。`}
         </p>
       )}
     </article>

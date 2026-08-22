@@ -122,6 +122,200 @@ describe('candidate rules', () => {
 })
 
 describe('local changes', () => {
+  function makeRigSwitchCatalog(): Catalog {
+    const catalog = makeValidCatalogFixture()
+    const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!
+    const descendants = VISUAL_SLOT_IDS.filter(slotId => slotId !== 'bodyFrame')
+    const originalParts = catalog.parts.filter(part => part.slotId !== 'bodyFrame')
+    catalog.dependencies = { bodyFrame: descendants }
+    catalog.parts = [
+      { ...body, compatibleRigs: ['blob'] },
+      {
+        ...body,
+        id: 'body_biped_manual',
+        baseWeight: 0,
+        compatibleRigs: ['biped'],
+        semanticTraitId: 'frame_biped',
+      },
+      {
+        ...body,
+        id: 'body_floating_manual',
+        baseWeight: 0,
+        compatibleRigs: ['floating'],
+        semanticTraitId: 'frame_floating',
+      },
+      ...originalParts.map(part => ({ ...part, compatibleRigs: ['blob'] as const })),
+      ...descendants.flatMap(slotId => {
+        const source = originalParts.find(part => part.slotId === slotId)!
+        return [
+          { ...source, id: `${slotId}_biped`, compatibleRigs: ['biped'] as const },
+          { ...source, id: `${slotId}_floating`, compatibleRigs: ['floating'] as const },
+        ]
+      }),
+    ]
+    catalog.semanticTraits.push(
+      { id: 'frame_biped', semanticSlotId: 'frame' },
+      { id: 'frame_floating', semanticSlotId: 'frame' },
+    )
+    return catalog
+  }
+
+  it.each([
+    ['body_biped_manual', 'biped', 'frame_biped'],
+    ['body_floating_manual', 'floating', 'frame_floating'],
+  ] as const)('manual body selection changes to the target %s rig and rebuilds every unlocked descendant', (
+    partId,
+    targetRig,
+    frameTrait,
+  ) => {
+    const catalog = makeRigSwitchCatalog()
+    const before = generateMonster(baseRequest, catalog).spec
+    const snapshot = structuredClone(before)
+
+    const selected = selectVisualPart({
+      spec: before,
+      slotId: 'bodyFrame',
+      partId,
+      locks: {},
+      catalog,
+    })
+
+    expect(selected.blocked).toBe(false)
+    expect(selected.spec.visualSlots.bodyFrame).toEqual({ partId, rigId: targetRig })
+    for (const slotId of VISUAL_SLOT_IDS) {
+      expect(selected.spec.visualSlots[slotId].rigId, slotId).toBe(targetRig)
+      if (slotId !== 'bodyFrame') {
+        expect(selected.spec.visualSlots[slotId].partId, slotId).toBe(`${slotId}_${targetRig}`)
+      }
+    }
+    expect(selected.spec.semanticTraits.frame.primaryTraitId).toBe(frameTrait)
+    expect(before).toEqual(snapshot)
+  })
+
+  it('keeps the current rig when a manual body part supports it', () => {
+    const catalog = makeRigSwitchCatalog()
+    const body = catalog.parts.find(part => part.id === 'body_biped_manual')!
+    catalog.parts.push({
+      ...body,
+      id: 'body_current_rig',
+      compatibleRigs: ['floating', 'blob'],
+    })
+    const before = generateMonster(baseRequest, catalog).spec
+
+    const selected = selectVisualPart({
+      spec: before,
+      slotId: 'bodyFrame',
+      partId: 'body_current_rig',
+      locks: {},
+      catalog,
+    })
+
+    expect(selected.spec.visualSlots.bodyFrame.rigId).toBe('blob')
+  })
+
+  it('uses stable catalog rig order when a manual body part supports multiple new rigs', () => {
+    const catalog = makeRigSwitchCatalog()
+    const body = catalog.parts.find(part => part.id === 'body_biped_manual')!
+    catalog.parts.push({
+      ...body,
+      id: 'body_catalog_order',
+      compatibleRigs: ['floating', 'biped'],
+    })
+    const before = generateMonster(baseRequest, catalog).spec
+
+    const selected = selectVisualPart({
+      spec: before,
+      slotId: 'bodyFrame',
+      partId: 'body_catalog_order',
+      locks: {},
+      catalog,
+    })
+
+    expect(selected.spec.visualSlots.bodyFrame.rigId).toBe('biped')
+  })
+
+  it('manual cross-rig body selection preserves a compatible locked descendant', () => {
+    const catalog = makeRigSwitchCatalog()
+    const eyes = catalog.parts.find(part => part.id === 'eyes_asymmetric')!
+    catalog.parts = catalog.parts.map(part => (
+      part.id === eyes.id ? { ...part, compatibleRigs: ['blob', 'biped'] } : part
+    ))
+    const before = generateMonster(baseRequest, catalog).spec
+
+    const selected = selectVisualPart({
+      spec: before,
+      slotId: 'bodyFrame',
+      partId: 'body_biped_manual',
+      locks: { eyes: true },
+      catalog,
+    })
+
+    expect(selected.blocked).toBe(false)
+    expect(selected.spec.visualSlots.eyes).toEqual({
+      partId: before.visualSlots.eyes.partId,
+      rigId: 'biped',
+    })
+  })
+
+  it('manual cross-rig body selection preserves an incompatible lock and reports the blocker', () => {
+    const catalog = makeRigSwitchCatalog()
+    const before = generateMonster(baseRequest, catalog).spec
+
+    const selected = selectVisualPart({
+      spec: before,
+      slotId: 'bodyFrame',
+      partId: 'body_biped_manual',
+      locks: { legs: true },
+      catalog,
+    })
+
+    expect(selected.spec.visualSlots.bodyFrame).toEqual({ partId: 'body_biped_manual', rigId: 'biped' })
+    expect(selected.spec.visualSlots.legs).toEqual({
+      partId: before.visualSlots.legs.partId,
+      rigId: 'biped',
+    })
+    expect(selected.blocked).toBe(true)
+    expect(selected.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'LOCK_INCOMPATIBLE', path: ['visualSlots', 'legs'] }),
+    )
+  })
+
+  it('manual color selection is bound to the current theme without hard-binding other slots', () => {
+    const catalog = makeValidCatalogFixture()
+    const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
+    const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
+    catalog.parts.push(
+      { ...color, id: 'color_deep_sea_only', themeIds: ['deep-sea'] },
+      { ...eyes, id: 'eyes_deep_sea_only', themeIds: ['deep-sea'] },
+    )
+    const before = generateMonster(baseRequest, catalog).spec
+    const snapshot = structuredClone(before)
+
+    const rejected = selectVisualPart({
+      spec: before,
+      slotId: 'colorScheme',
+      partId: 'color_deep_sea_only',
+      locks: {},
+      catalog,
+    })
+    const crossThemeEyes = selectVisualPart({
+      spec: before,
+      slotId: 'eyes',
+      partId: 'eyes_deep_sea_only',
+      locks: {},
+      catalog,
+    })
+
+    expect(rejected.blocked).toBe(true)
+    expect(rejected.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'PART_INCOMPATIBLE', path: ['visualSlots', 'colorScheme'] }),
+    )
+    expect(rejected.spec).toEqual(snapshot)
+    expect(before).toEqual(snapshot)
+    expect(crossThemeEyes.blocked).toBe(false)
+    expect(crossThemeEyes.spec.visualSlots.eyes.partId).toBe('eyes_deep_sea_only')
+  })
+
   it('rerolls a slot without changing independent slots', () => {
     const catalog = makeValidCatalogFixture()
     const before = generateMonster(baseRequest, catalog).spec

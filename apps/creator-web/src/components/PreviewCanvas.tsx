@@ -139,6 +139,7 @@ export function PreviewCanvas({
       onDiagnosticsChange(result.diagnostics)
     }).catch(() => {
       if (requestId.current !== currentRequest) return
+      targetContext.clearRect(0, 0, 1024, 1024)
       onDiagnosticsChange(previewFailure())
     })
 

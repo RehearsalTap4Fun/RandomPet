@@ -67,7 +67,7 @@ describe('CreatorWorkbench', () => {
       .map(item => item.textContent)).toEqual(['错误 · 1', '提醒 · 1']))
   })
 
-  it('changes only the temporary observation background from labeled controls', async () => {
+  it('uses one native radio-group tab stop and arrow keys for the temporary observation background', async () => {
     installCanvasContexts()
     const user = userEvent.setup()
     const catalog = makeValidCatalogFixture()
@@ -86,9 +86,23 @@ describe('CreatorWorkbench', () => {
     )
 
     const stage = container.querySelector<HTMLElement>('.preview-stage')!
-    expect(screen.getByRole('radio', { name: '棚拍' }).getAttribute('aria-checked')).toBe('true')
-    await user.click(screen.getByRole('radio', { name: '深色' }))
-    expect(stage.dataset.observationBackground).toBe('dark')
+    expect(screen.getByRole('group', { name: '观察背景' }).tagName).toBe('FIELDSET')
+    const studio = screen.getByRole('radio', { name: '棚拍' }) as HTMLInputElement
+    const grid = screen.getByRole('radio', { name: '透明格' }) as HTMLInputElement
+    expect(studio.tagName).toBe('INPUT')
+    expect(studio.type).toBe('radio')
+    expect(studio.checked).toBe(true)
+
+    screen.getByRole('button', { name: '孵化整只生物' }).focus()
+    await user.tab()
+    expect(document.activeElement).toBe(studio)
+    await user.tab()
+    expect(document.activeElement).toBe(screen.getByRole('checkbox', { name: '锁定 体型骨架' }))
+
+    studio.focus()
+    await user.keyboard('{ArrowRight}')
+    expect(grid.checked).toBe(true)
+    expect(stage.dataset.observationBackground).toBe('grid')
     expect(onAction).not.toHaveBeenCalled()
   })
 })

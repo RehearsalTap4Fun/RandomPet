@@ -302,13 +302,16 @@ a:focus-visible {
 
 .background-switcher {
   margin: 1px 5px 8px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 5px;
+  border: 0;
 }
 
-.background-switcher button {
+.background-option {
+  position: relative;
   padding: 4px 7px;
   display: inline-flex;
   align-items: center;
@@ -318,13 +321,27 @@ a:focus-visible {
   border-radius: 999px;
   background: rgba(255, 253, 247, 0.65);
   font-size: 9px;
+  cursor: pointer;
 }
 
-.background-switcher button[aria-checked="true"] {
+.background-option:has(input:checked) {
   color: var(--purple-deep);
   border-color: #9e8ac8;
   background: var(--purple-soft);
   font-weight: 800;
+}
+
+.background-option:has(input:focus-visible) {
+  outline: 3px solid rgba(47, 136, 127, 0.32);
+  outline-offset: 2px;
+}
+
+.background-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .background-swatch {

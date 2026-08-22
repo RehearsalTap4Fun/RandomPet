@@ -7,6 +7,7 @@ import {
 } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { createCreatorSession } from '../state/contracts.js'
+import { productionCatalog } from '../App.js'
 import { SlotPanel } from './SlotPanel.js'
 
 function fixture(catalog: Catalog = makeValidCatalogFixture()) {
@@ -68,5 +69,29 @@ describe('SlotPanel', () => {
     expect(select.tagName).toBe('SELECT')
     expect(incompatible?.disabled).toBe(true)
     expect(screen.getByText(/双足专用眼与当前骨架或部件组合不兼容/)).toBeTruthy()
+  })
+
+  it('allows every production body rig while hard-binding only colors to the current theme', () => {
+    const session = createCreatorSession(generateMonster({
+      seed: 'production-selection',
+      themeId: 'fungal',
+      mode: 'normal',
+    }, productionCatalog))
+    render(<SlotPanel session={session} catalog={productionCatalog} onAction={() => undefined} />)
+
+    const body = screen.getByRole('combobox', { name: '体型骨架部件' }) as HTMLSelectElement
+    const colors = screen.getByRole('combobox', { name: '色彩方案部件' }) as HTMLSelectElement
+    const eyes = screen.getByRole('combobox', { name: '眼睛部件' }) as HTMLSelectElement
+    const bodyOptions = Array.from(body.options)
+    const deepSeaColor = Array.from(colors.options).find(option => option.value === 'color_deep_sea_coral')
+    const shadowColor = Array.from(colors.options).find(option => option.value === 'color_shadow_violet')
+    const shadowEyes = Array.from(eyes.options).find(option => option.value === 'eyes_sleepy_crescent')
+
+    expect(bodyOptions).toHaveLength(5)
+    expect(bodyOptions.every(option => !option.disabled)).toBe(true)
+    expect(deepSeaColor?.disabled).toBe(true)
+    expect(shadowColor?.disabled).toBe(true)
+    expect(shadowEyes?.disabled).toBe(false)
+    expect(screen.getByText(/深海珊瑚配色、幽影金紫配色不属于当前主题/)).toBeTruthy()
   })
 })
