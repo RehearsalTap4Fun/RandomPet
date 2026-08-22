@@ -13,6 +13,13 @@ export default defineConfig({
       },
       {
         test: {
+          name: 'creator-state-node',
+          environment: 'node',
+          include: ['apps/creator-web/src/state/**/*.test.ts'],
+        },
+      },
+      {
+        test: {
           name: 'creator-jsdom',
           environment: 'jsdom',
           include: ['apps/**/*.test.tsx'],
