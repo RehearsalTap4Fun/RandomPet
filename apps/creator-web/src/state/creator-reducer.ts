@@ -65,7 +65,7 @@ function isKnownTargetSlotDiagnostic(diagnostic: Diagnostic, slotId: VisualSlotI
 }
 
 function diagnosticKey(diagnostic: Diagnostic): string {
-  return JSON.stringify([diagnostic.severity, diagnostic.code, diagnostic.path])
+  return JSON.stringify([diagnostic.severity, diagnostic.code, diagnostic.path, diagnostic.message])
 }
 
 function reconcileLocalGenerationResult(
@@ -95,7 +95,9 @@ function reconcileLocalGenerationResult(
 
 function hasIncompatibleLockDiagnostic(session: CreatorSession, slotId: VisualSlotId): boolean {
   return session.diagnostics.some(diagnostic =>
-    (diagnostic.code === 'LOCK_INCOMPATIBLE' || diagnostic.code === 'LOCK_NOT_FOUND')
+    diagnostic.severity === 'error'
+    && (diagnostic.code === 'LOCK_INCOMPATIBLE' || diagnostic.code === 'LOCK_NOT_FOUND')
+    && diagnostic.path.length === 2
     && diagnostic.path[0] === 'visualSlots'
     && diagnostic.path[1] === slotId,
   )

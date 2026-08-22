@@ -52,6 +52,17 @@ function withManualTail(catalog: Catalog): Catalog {
   }
 }
 
+function catalogWithTwoDanglingExcludes(): Catalog {
+  const catalog = makeValidCatalogFixture()
+  const part = catalog.parts[0]!
+  return {
+    ...catalog,
+    parts: catalog.parts.map(candidate => candidate === part
+      ? { ...candidate, excludes: ['missing_a', 'missing_b'] }
+      : candidate),
+  }
+}
+
 function catalogWithIncompatibleShadowEyes(): Catalog {
   const catalog = makeValidCatalogFixture()
   const commonColor = catalog.parts.find(part => part.slotId === 'colorScheme')!
@@ -157,8 +168,71 @@ describe('createCreatorReducer', () => {
 
     expect(next.locks.eyes).toBe(false)
     expect(next.spec.visualSlots.eyes.partId).toBe('eyes_shadow_compatible')
+    expect(next.spec.slotRolls.eyes).toBe(blocked.spec.slotRolls.eyes + 1)
     expect(next.blocked).toBe(false)
     expect(next.diagnostics).toEqual([])
+  })
+
+  it('does not reroll on unlock for a warning that resembles an incompatible-lock error', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const before = withLocked(makeSession(catalog), 'eyes')
+    const warning = {
+      severity: 'warning' as const,
+      code: 'LOCK_INCOMPATIBLE',
+      path: ['visualSlots', 'eyes'],
+      message: 'Preview compatibility has not been rechecked.',
+    }
+    const warned: CreatorSession = { ...before, diagnostics: [warning] }
+
+    const next = reducer(warned, { type: 'toggleLock', slotId: 'eyes' })
+
+    expect(next.locks.eyes).toBe(false)
+    expect(next.spec).toBe(warned.spec)
+    expect(next.spec.slotRolls.eyes).toBe(warned.spec.slotRolls.eyes)
+    expect(next.diagnostics).toEqual([warning])
+  })
+
+  it('does not reroll on unlock for an extended incompatible-lock path', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const before = withLocked(makeSession(catalog), 'eyes')
+    const extended = {
+      severity: 'error' as const,
+      code: 'LOCK_NOT_FOUND',
+      path: ['visualSlots', 'eyes', 'partId'],
+      message: 'A nested validator owns this error.',
+    }
+    const blocked: CreatorSession = { ...before, diagnostics: [extended], blocked: true }
+
+    const next = reducer(blocked, { type: 'toggleLock', slotId: 'eyes' })
+
+    expect(next.locks.eyes).toBe(false)
+    expect(next.spec).toBe(blocked.spec)
+    expect(next.spec.slotRolls.eyes).toBe(blocked.spec.slotRolls.eyes)
+    expect(next.diagnostics).toEqual([extended])
+    expect(next.blocked).toBe(true)
+  })
+
+  it('does not reroll on unlock for an unrelated exact-path error', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const before = withLocked(makeSession(catalog), 'eyes')
+    const unrelated = {
+      severity: 'error' as const,
+      code: 'FUTURE_LOCK_ERROR',
+      path: ['visualSlots', 'eyes'],
+      message: 'A future validator owns this error.',
+    }
+    const blocked: CreatorSession = { ...before, diagnostics: [unrelated], blocked: true }
+
+    const next = reducer(blocked, { type: 'toggleLock', slotId: 'eyes' })
+
+    expect(next.locks.eyes).toBe(false)
+    expect(next.spec).toBe(blocked.spec)
+    expect(next.spec.slotRolls.eyes).toBe(blocked.spec.slotRolls.eyes)
+    expect(next.diagnostics).toEqual([unrelated])
+    expect(next.blocked).toBe(true)
   })
 
   it('keeps an incompatible locked slot blocked after an unrelated reroll', () => {
@@ -369,9 +443,8 @@ describe('createCreatorReducer', () => {
     expect(next.diagnostics).toEqual([])
   })
 
-  it('preserves warnings and stably deduplicates an old and new slot diagnostic', () => {
+  it('preserves warnings while replacing a repaired target-slot diagnostic', () => {
     const catalog = catalogWithIncompatibleShadowEyes()
-    catalog.dependencies = { tail: ['eyes'] }
     const reducer = createCreatorReducer(catalog)
     const before = withLocked(makeSession(catalog), 'eyes')
     const blocked = reducer(before, { type: 'setTheme', themeId: 'shadow' })
@@ -381,15 +454,59 @@ describe('createCreatorReducer', () => {
       diagnostics: [warning, ...blocked.diagnostics],
     }
 
-    const next = reducer(withWarning, { type: 'rerollSlot', slotId: 'tail' })
+    const next = reducer(withWarning, {
+      type: 'manualSelect',
+      slotId: 'eyes',
+      partId: 'eyes_shadow_compatible',
+    })
 
-    expect(next.diagnostics[0]).toEqual(warning)
-    expect(next.diagnostics.filter(diagnostic =>
-      diagnostic.code === 'LOCK_INCOMPATIBLE'
-      && diagnostic.path[0] === 'visualSlots'
-      && diagnostic.path[1] === 'eyes',
+    expect(next.diagnostics).toEqual([warning])
+    expect(next.blocked).toBe(false)
+  })
+
+  it('retains two catalog diagnostics with equal code and path but distinct messages after a local reroll', () => {
+    const catalog = catalogWithTwoDanglingExcludes()
+    const reducer = createCreatorReducer(catalog)
+    const before = makeSession(catalog)
+
+    const next = reducer(before, { type: 'rerollSlot', slotId: 'tail' })
+    const dangling = next.diagnostics.filter(diagnostic => diagnostic.code === 'CATALOG_DANGLING_EXCLUDE')
+
+    expect(dangling).toHaveLength(2)
+    expect(dangling.map(diagnostic => diagnostic.message)).toEqual([
+      `Part ${catalog.parts[0]!.id} excludes unknown part missing_a.`,
+      `Part ${catalog.parts[0]!.id} excludes unknown part missing_b.`,
+    ])
+  })
+
+  it('retains both distinct missing-part diagnostics from consecutive failed manual selections', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const before = makeSession(catalog)
+
+    const missingA = reducer(before, { type: 'manualSelect', slotId: 'tail', partId: 'missing_a' })
+    const missingB = reducer(missingA, { type: 'manualSelect', slotId: 'tail', partId: 'missing_b' })
+    const missing = missingB.diagnostics.filter(diagnostic => diagnostic.code === 'PART_NOT_FOUND')
+
+    expect(missing).toHaveLength(2)
+    expect(missing.map(diagnostic => diagnostic.message)).toEqual([
+      'Part missing_a cannot be selected for tail.',
+      'Part missing_b cannot be selected for tail.',
+    ])
+  })
+
+  it('stably deduplicates a completely identical diagnostic', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const before = makeSession(catalog)
+
+    const missingOnce = reducer(before, { type: 'manualSelect', slotId: 'tail', partId: 'missing_a' })
+    const missingTwice = reducer(missingOnce, { type: 'manualSelect', slotId: 'tail', partId: 'missing_a' })
+
+    expect(missingTwice.diagnostics.filter(diagnostic =>
+      diagnostic.code === 'PART_NOT_FOUND'
+      && diagnostic.message === 'Part missing_a cannot be selected for tail.',
     )).toHaveLength(1)
-    expect(next.blocked).toBe(true)
   })
 
   it('merges a new local error without dropping a global mode blocker', () => {
