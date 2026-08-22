@@ -404,6 +404,43 @@ describe('canvas rendering', () => {
     expect(calls.filter(call => call === 'injected-2:composite:source-in')).toHaveLength(2)
   })
 
+  it('selects three authored rig masks and uses color blending to preserve body luminance', async () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    const color = part(catalog, 'color_scheme_ocean')
+    Object.assign(color, {
+      rigMaskPaths: {
+        blob: {
+          primary: 'masks/ocean-blob-primary.png',
+          secondary: 'masks/ocean-blob-secondary.png',
+          accent: 'masks/ocean-blob-accent.png',
+        },
+        biped: {
+          primary: 'masks/ocean-biped-primary.png',
+          secondary: 'masks/ocean-biped-secondary.png',
+          accent: 'masks/ocean-biped-accent.png',
+        },
+      },
+    })
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext(calls),
+      spec,
+      catalog,
+      makeResolver(),
+      { ...options1024, surfaceFactory: makeRecordingSurfaceFactory(calls) },
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(calls).toContain('injected-2:draw:masks/ocean-blob-primary.png')
+    expect(calls).toContain('injected-2:draw:masks/ocean-blob-secondary.png')
+    expect(calls).toContain('injected-2:draw:masks/ocean-blob-accent.png')
+    expect(calls).not.toContain('injected-2:draw:masks/ocean-biped-primary.png')
+    expect(calls).toContain('composite:color')
+    expect(calls).toContain('injected-2:fillStyle:#f6d365')
+  })
+
   it('isolates mask composites from layers already drawn on the destination canvas', async () => {
     const catalog = makeValidCatalogFixture()
     const spec = makeValidMonsterSpecFixture()

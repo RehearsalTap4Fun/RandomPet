@@ -43,8 +43,25 @@ export interface ChromaExtractionResult {
   approved: boolean
   diagnostics: ChromaDiagnostic[]
   metrics: ChromaQualityMetrics
+  thresholds: ChromaQualityThresholds
   sourceSha256: string
   processedSha256: string
+}
+
+export interface ChromaQualityThresholds {
+  safeBorderPixels: number
+  maxBackgroundP95Delta: number
+  maxBorderContaminationRatio: number
+  borderContaminationDelta: number
+  minOpaquePixels: number
+  minSubjectBackgroundDistanceP05: number
+  maxSafeBorderForegroundPixels: number
+  maxPartialAlphaRatio: number
+  minPartialAlphaPixels: number
+  maxEdgeFringeP95: number
+  maxEdgeColorDeltaP95: number
+  maxEdgeNearestDistanceP95: number
+  maxEdgePixelsWithoutOpaqueCore: number
 }
 
 type Rgb = readonly [number, number, number]
@@ -353,7 +370,8 @@ export async function extractChromaAlpha(
 
   const subjectCoverage = opaquePixels / pixelCount
   const subjectBackgroundDistanceP05 = percentile(foregroundDistances, 0.05)
-  if (opaquePixels < Math.max(32, Math.floor(pixelCount * 0.005)) || subjectBackgroundDistanceP05 < 80) {
+  const minOpaquePixels = Math.max(32, Math.floor(pixelCount * 0.005))
+  if (opaquePixels < minOpaquePixels || subjectBackgroundDistanceP05 < 80) {
     diagnostics.push(error(
       'CHROMA_SUBJECT_SIMILARITY',
       `Opaque subject coverage ${(subjectCoverage * 100).toFixed(2)}% and key-distance p05 ${subjectBackgroundDistanceP05.toFixed(2)} do not safely separate foreground from chroma.`,
@@ -366,7 +384,8 @@ export async function extractChromaAlpha(
     safeBorderAlphaMax = Math.max(safeBorderAlphaMax, alphaBytes[index]!)
     if (alphaBytes[index]! > 8) safeBorderForegroundPixels += 1
   }
-  if (safeBorderForegroundPixels > Math.max(16, Math.floor(indices.length * 0.0001))) {
+  const maxSafeBorderForegroundPixels = Math.max(16, Math.floor(indices.length * 0.0001))
+  if (safeBorderForegroundPixels > maxSafeBorderForegroundPixels) {
     diagnostics.push(error(
       'CHROMA_SAFE_BORDER_CLIPPED',
       `${safeBorderForegroundPixels} foreground pixels (max alpha ${safeBorderAlphaMax}/255) enter the required ${border}px safe border.`,
@@ -377,6 +396,7 @@ export async function extractChromaAlpha(
   const edgeFringeP95 = percentile(edgeFringes, 0.95)
   const edgeColorDeltaP95 = percentile(edgeColorDeltas, 0.95)
   const edgeNearestDistanceP95 = percentile(edgeNearestDistances, 0.95)
+  const minPartialAlphaPixels = Math.max(16, Math.floor(opaquePixels * 0.001))
   if (edgePixelsWithoutOpaqueCore > 0) {
     diagnostics.push(error(
       'CHROMA_EDGE_NO_CORE',
@@ -384,7 +404,7 @@ export async function extractChromaAlpha(
     ))
   }
   if (
-    partialAlphaPixels < Math.max(16, Math.floor(opaquePixels * 0.001))
+    partialAlphaPixels < minPartialAlphaPixels
     || partialAlphaRatio > 0.45
     || edgeFringeP95 > 4
     || edgeColorDeltaP95 > 12
@@ -420,6 +440,21 @@ export async function extractChromaAlpha(
       edgePixelsWithoutOpaqueCore,
       safeBorderAlphaMax,
       safeBorderForegroundPixels,
+    },
+    thresholds: {
+      safeBorderPixels: border,
+      maxBackgroundP95Delta: 12,
+      maxBorderContaminationRatio: 0.01,
+      borderContaminationDelta: 24,
+      minOpaquePixels,
+      minSubjectBackgroundDistanceP05: 80,
+      maxSafeBorderForegroundPixels,
+      maxPartialAlphaRatio: 0.45,
+      minPartialAlphaPixels,
+      maxEdgeFringeP95: 4,
+      maxEdgeColorDeltaP95: 12,
+      maxEdgeNearestDistanceP95: 32,
+      maxEdgePixelsWithoutOpaqueCore: 0,
     },
     sourceSha256: sha256(source),
     processedSha256: sha256(processed),

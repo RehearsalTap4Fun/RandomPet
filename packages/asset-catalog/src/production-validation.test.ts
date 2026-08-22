@@ -1,7 +1,9 @@
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { afterEach, describe, expect, it } from 'vitest'
+import { execFile as execFileCallback } from 'node:child_process'
+import { promisify } from 'node:util'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { loadCatalog } from './load-catalog.js'
 import {
@@ -12,6 +14,7 @@ import {
 } from './production-validation.js'
 
 const temporaryDirectories: string[] = []
+const execFile = promisify(execFileCallback)
 
 afterEach(async () => {
   await Promise.all(temporaryDirectories.splice(0).map(path => rm(path, { recursive: true, force: true })))
@@ -37,6 +40,35 @@ describe('strict production catalog validation', () => {
 
     expect(validateProductionMetadata(parsed.value)).toEqual([])
     await expect(validateProductionSplitFiles(parsed.value, join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0'))).resolves.toEqual([])
+  })
+
+  it('requires every production color scheme to provide three hashed masks for every compatible rig', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const catalog = structuredClone(parsed.value)
+    const hash = 'a'.repeat(64)
+    for (const part of catalog.parts.filter(candidate => candidate.slotId === 'colorScheme')) {
+      part.rigMaskPaths = Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, {
+        primary: `masks/${part.id}-${rigId}-primary.png`,
+        secondary: `masks/${part.id}-${rigId}-secondary.png`,
+        accent: `masks/${part.id}-${rigId}-accent.png`,
+      }]))
+      part.rigMaskSha256 = Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, {
+        primary: hash,
+        secondary: hash,
+        accent: hash,
+      }]))
+    }
+    delete catalog.parts.find(candidate => candidate.id === 'color_deep_sea_coral')!
+      .rigMaskPaths!.blob!.primary
+
+    const diagnostics = validateProductionMetadata(catalog)
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_COLOR_MASKS_MISSING',
+      path: ['parts', expect.any(String), 'rigMaskPaths', 'blob', 'primary'],
+    }))
   })
 
   it('rejects any split file that drifts from the aggregate catalog', async () => {
@@ -105,6 +137,81 @@ describe('strict production catalog validation', () => {
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_SOURCE_MISSING' }))
   })
 
+  it('rejects a chroma source whose prompt evidence or prompt hash is missing', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const sourceIndex = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index.json'), 'utf8'))
+    const source = sourceIndex.sources.find((candidate: { sourceId: string }) => candidate.sourceId === 'eyes_glossy_pair')
+    delete source.prompt
+    delete source.promptSha256
+
+    const diagnostics = await validateProductionSourceIndex(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
+      sourceIndex,
+    )
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_SOURCE_AUDIT_INVALID',
+      path: ['sources', 'eyes_glossy_pair', 'prompt'],
+    }))
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_SOURCE_AUDIT_INVALID',
+      path: ['sources', 'eyes_glossy_pair', 'promptSha256'],
+    }))
+  })
+
+  it('rejects missing candidate metrics, diagnostics, thresholds, and extraction hashes', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const original = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index.json'), 'utf8'))
+    const mutations: Array<{ field: string; mutate: (candidate: Record<string, unknown>) => void }> = [
+      { field: 'metrics', mutate: candidate => { delete candidate.metrics } },
+      { field: 'diagnostics', mutate: candidate => { delete candidate.diagnostics } },
+      { field: 'sourceSha256', mutate: candidate => { candidate.sourceSha256 = 'bad-hash' } },
+      { field: 'processedSha256', mutate: candidate => { delete candidate.processedSha256 } },
+      { field: 'thresholds', mutate: candidate => { candidate.thresholds = { safeBorderPixels: 16 } } },
+    ]
+    for (const mutation of mutations) {
+      const sourceIndex = structuredClone(original)
+      const source = sourceIndex.sources.find((candidate: { sourceId: string }) => candidate.sourceId === 'eyes_glossy_pair')
+      mutation.mutate(source.candidateEvaluations[0])
+
+      const diagnostics = await validateProductionSourceIndex(
+        parsed.value,
+        join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
+        sourceIndex,
+      )
+
+      expect(diagnostics, mutation.field).toContainEqual(expect.objectContaining({
+        code: 'PRODUCTION_CANDIDATE_AUDIT_INVALID',
+        path: ['sources', 'eyes_glossy_pair', 'candidateEvaluations', '0', mutation.field],
+      }))
+    }
+  })
+
+  it('rejects selectedExtraction when it differs from the selected candidate evaluation', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const sourceIndex = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index.json'), 'utf8'))
+    const source = sourceIndex.sources.find((candidate: { sourceId: string }) => candidate.sourceId === 'eyes_glossy_pair')
+    source.selectedExtraction.processedSha256 = 'f'.repeat(64)
+
+    const diagnostics = await validateProductionSourceIndex(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
+      sourceIndex,
+    )
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_SELECTED_EXTRACTION_MISMATCH',
+      path: ['sources', 'eyes_glossy_pair', 'selectedExtraction'],
+    }))
+  })
+
   it('rejects incomplete two-source head-shell/lure composition provenance', async () => {
     const catalog = makeValidCatalogFixture()
     const selectedPart = catalog.parts[0]!
@@ -146,6 +253,108 @@ describe('strict production catalog validation', () => {
       code: 'PRODUCTION_COMPOSITE_PROVENANCE_INVALID',
       path: ['sources', selectedPart.id, 'composition', 'componentProvenance', 'lure', 'promptSha256'],
     }))
+  })
+
+  it('rejects incomplete or inconsistent four-candidate angler composition evidence', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const original = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index.json'), 'utf8'))
+    const mutations: Array<{ field: string; mutate: (source: Record<string, any>) => void }> = [
+      { field: 'outputSha256', mutate: source => { delete source.composition.outputSha256 } },
+      { field: 'outputBounds', mutate: source => { source.composition.outputBounds.width = 0 } },
+      { field: 'candidateEvaluations', mutate: source => { source.candidateEvaluations[2].composition = null } },
+      { field: 'selectedComposition', mutate: source => { source.composition.outputSha256 = 'f'.repeat(64) } },
+    ]
+    for (const mutation of mutations) {
+      const sourceIndex = structuredClone(original)
+      const source = sourceIndex.sources.find((candidate: { sourceId: string }) => candidate.sourceId === 'head_angler_bulb')
+      mutation.mutate(source)
+
+      const diagnostics = await validateProductionSourceIndex(
+        parsed.value,
+        join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
+        sourceIndex,
+      )
+
+      expect(diagnostics, mutation.field).toContainEqual(expect.objectContaining({
+        code: 'PRODUCTION_COMPOSITE_PROVENANCE_INVALID',
+      }))
+    }
+  })
+
+  it('rejects incomplete angler shell and lure component extraction evaluations', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const sourceIndex = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index.json'), 'utf8'))
+    const source = sourceIndex.sources.find((candidate: { sourceId: string }) => candidate.sourceId === 'head_angler_bulb')
+    delete source.componentEvaluations.lure[0].extraction.metrics
+
+    const diagnostics = await validateProductionSourceIndex(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
+      sourceIndex,
+    )
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_COMPOSITE_PROVENANCE_INVALID',
+      path: ['sources', 'head_angler_bulb', 'componentEvaluations', 'lure', '0', 'extraction', 'metrics'],
+    }))
+  })
+
+  it('rejects color mask audit drift from catalog, rig, and zero-overflow metrics', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const original = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index.json'), 'utf8'))
+    const mutations: Array<{ label: string; mutate: (source: Record<string, any>) => void }> = [
+      { label: 'audit missing', mutate: source => { delete source.paletteMaskAudit } },
+      { label: 'mask hash drift', mutate: source => { source.paletteMaskAudit.rigMasks.blob.sha256.primary = 'f'.repeat(64) } },
+      { label: 'mask overflow', mutate: source => { source.paletteMaskAudit.rigMasks.blob.metrics.outsideRigCorePixels = 1 } },
+      { label: 'layout source hash malformed', mutate: source => { source.paletteMaskAudit.sourceSha256 = 'bad' } },
+    ]
+    for (const mutation of mutations) {
+      const sourceIndex = structuredClone(original)
+      const source = sourceIndex.sources.find((candidate: { sourceId: string }) => candidate.sourceId === 'color_deep_sea_coral')
+      mutation.mutate(source)
+
+      const diagnostics = await validateProductionSourceIndex(
+        parsed.value,
+        join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
+        sourceIndex,
+      )
+
+      expect(diagnostics, mutation.label).toContainEqual(expect.objectContaining({
+        code: 'PRODUCTION_COLOR_MASK_AUDIT_INVALID',
+      }))
+    }
+  })
+
+  it('returns a nonzero production CLI status when candidate fallback evidence is deleted', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-production-cli-'))
+    temporaryDirectories.push(root)
+    const catalogDirectory = join(root, 'catalog', 'v0.1.0')
+    await mkdir(catalogDirectory, { recursive: true })
+    const committedDirectory = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.1.0')
+    for (const file of ['catalog.json', 'themes.json', 'rigs.json', 'parts.json', 'semantic-traits.json', 'modifiers.json']) {
+      await writeFile(join(catalogDirectory, file), await readFile(join(committedDirectory, file)))
+    }
+    const sourceIndex = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index.json'), 'utf8'))
+    const source = sourceIndex.sources.find((candidate: { sourceId: string }) => candidate.sourceId === 'eyes_glossy_pair')
+    delete source.candidateEvaluations[0].thresholds
+    await writeFile(join(root, 'source-index.json'), `${JSON.stringify(sourceIndex)}\n`)
+
+    await expect(execFile(process.execPath, [
+      join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'src', 'cli.ts'),
+      join(catalogDirectory, 'catalog.json'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
+      '--production',
+    ])).rejects.toMatchObject({
+      code: 1,
+      stderr: expect.stringContaining('PRODUCTION_CANDIDATE_AUDIT_INVALID'),
+    })
   })
 
   it('rejects user-machine absolute paths anywhere in committed source-index audit data', async () => {

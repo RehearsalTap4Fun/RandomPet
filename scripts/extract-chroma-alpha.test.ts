@@ -112,6 +112,21 @@ describe('extractChromaAlpha', () => {
     expect(result.metrics.edgeFringeP95).toBeLessThanOrEqual(2)
     expect(result.metrics.edgeColorDeltaP95).toBeLessThanOrEqual(12)
     expect(result.metrics.edgeNearestDistanceP95).toBeLessThanOrEqual(16)
+    expect(result.thresholds).toEqual({
+      safeBorderPixels: 8,
+      maxBackgroundP95Delta: 12,
+      maxBorderContaminationRatio: 0.01,
+      borderContaminationDelta: 24,
+      minOpaquePixels: 46,
+      minSubjectBackgroundDistanceP05: 80,
+      maxSafeBorderForegroundPixels: 16,
+      maxPartialAlphaRatio: 0.45,
+      minPartialAlphaPixels: 16,
+      maxEdgeFringeP95: 4,
+      maxEdgeColorDeltaP95: 12,
+      maxEdgeNearestDistanceP95: 32,
+      maxEdgePixelsWithoutOpaqueCore: 0,
+    })
     expect(result.sourceSha256).toMatch(/^[a-f0-9]{64}$/)
     expect(result.processedSha256).toBe(repeated.processedSha256)
     expect(await readFile(first.outputPath)).toEqual(await readFile(secondOutput))

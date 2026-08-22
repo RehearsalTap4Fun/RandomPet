@@ -77,6 +77,16 @@ const VisualPartDefinitionSchema = z.object({
   approvedTransforms: z.array(z.object({ scale: z.number().finite().positive(), mirrorX: z.boolean() })).optional(),
   maskPaths: z.object({ primary: z.string().min(1).optional(), secondary: z.string().min(1).optional() }),
   maskSha256: z.object({ primary: z.string().regex(/^[a-f0-9]{64}$/i).optional(), secondary: z.string().regex(/^[a-f0-9]{64}$/i).optional() }).optional(),
+  rigMaskPaths: z.partialRecord(RigIdSchema, z.object({
+    primary: z.string().min(1),
+    secondary: z.string().min(1),
+    accent: z.string().min(1),
+  })).optional(),
+  rigMaskSha256: z.partialRecord(RigIdSchema, z.object({
+    primary: sha256,
+    secondary: sha256,
+    accent: sha256,
+  })).optional(),
   origin: z.object({ x: coordinate, y: coordinate }),
   socket: z.string().min(1).nullable(),
   layer: RenderLayerSchema,

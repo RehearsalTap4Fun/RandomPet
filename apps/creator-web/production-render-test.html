@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QMonster production renderer audit</title>
+    <style>
+      canvas { display: block; width: 1024px; height: 1024px; }
+      body.contact #base-target { display: none; }
+      body.contact #render-target { width: 280px; height: 280px; }
+    </style>
+  </head>
+  <body>
+    <canvas id="base-target" aria-label="Locked production rig"></canvas>
+    <canvas id="render-target" aria-label="Rendered production part"></canvas>
+    <script type="module" src="/src/production-render-test.ts"></script>
+  </body>
+</html>

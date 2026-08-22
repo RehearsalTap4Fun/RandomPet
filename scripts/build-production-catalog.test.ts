@@ -122,4 +122,21 @@ describe('v0.1 production catalog builder', () => {
       approvedPartSelectionsPassing: 51,
     })
   })
+
+  it('keeps nested palette-mask audit paths repository-relative', async () => {
+    const { sourceIndex } = await loadCommittedProductionCatalog()
+    const sources = sourceIndex.sources as Array<Record<string, unknown>>
+    const colorSources = sources.filter(source => source.slotId === 'colorScheme')
+
+    expect(colorSources).toHaveLength(3)
+    for (const source of colorSources) {
+      const audit = source.paletteMaskAudit as { rigMasks: Record<string, { paths: Record<string, string> }> }
+      for (const rig of Object.values(audit.rigMasks)) {
+        for (const path of Object.values(rig.paths)) {
+          expect(path).not.toMatch(/^[a-z]:[\\/]/iu)
+          expect(path).toMatch(/^packages\/asset-catalog\/assets\/v0\.1\.0\/masks\//u)
+        }
+      }
+    }
+  })
 })

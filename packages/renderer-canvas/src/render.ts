@@ -23,14 +23,17 @@ interface CompositeSurfaces {
 function assetLoadDiagnostic(
   layer: RenderLayerInstance,
   assetPath: string,
-  maskName?: 'primary' | 'secondary',
+  maskName?: 'primary' | 'secondary' | 'accent',
+  rigMask = false,
 ): Diagnostic {
   return {
     severity: 'error',
     code: 'ASSET_LOAD_FAILED',
     path: maskName === undefined
       ? ['parts', layer.part.id]
-      : ['parts', layer.part.id, 'maskPaths', maskName],
+      : rigMask
+        ? ['parts', layer.part.id, 'rigMaskPaths', layer.rig.id, maskName]
+        : ['parts', layer.part.id, 'maskPaths', maskName],
     message: `Failed to load ${assetPath} for ${layer.part.id}.`,
   }
 }
@@ -95,7 +98,48 @@ function surfaceUnavailableDiagnostic(layer: RenderLayerInstance): Diagnostic {
 }
 
 function hasMasks(layer: RenderLayerInstance): boolean {
-  return layer.part.maskPaths.primary !== undefined || layer.part.maskPaths.secondary !== undefined
+  return layer.part.rigMaskPaths?.[layer.rig.id] !== undefined
+    || layer.part.maskPaths.primary !== undefined
+    || layer.part.maskPaths.secondary !== undefined
+}
+
+async function drawRigPaletteMasks(
+  context: CanvasRenderingContext2D,
+  surfaces: CompositeSurfaces,
+  layer: RenderLayerInstance,
+  placement: Placement,
+  palette: Palette,
+  resolver: ImageResolver,
+  drawnAssetIds: string[],
+  diagnostics: Diagnostic[],
+): Promise<void> {
+  const paths = layer.part.rigMaskPaths?.[layer.rig.id]
+  if (paths === undefined) return
+  const maskContext = surfaces.mask.context
+  for (const maskName of ['primary', 'secondary', 'accent'] as const) {
+    const assetPath = paths[maskName]
+    try {
+      const mask = await resolver.resolve(assetPath)
+      maskContext.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE)
+      maskContext.save()
+      maskContext.translate(placement.x, placement.y)
+      maskContext.scale(placement.scaleX, placement.scaleY)
+      maskContext.drawImage(mask, 0, 0)
+      maskContext.restore()
+      maskContext.save()
+      maskContext.globalCompositeOperation = 'source-in'
+      maskContext.fillStyle = palette[maskName]
+      maskContext.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
+      maskContext.restore()
+      context.save()
+      context.globalCompositeOperation = 'color'
+      context.drawImage(surfaces.mask.canvas, 0, 0)
+      context.restore()
+    } catch {
+      diagnostics.push(assetLoadDiagnostic(layer, assetPath, maskName, true))
+    }
+  }
+  if (!diagnostics.some(item => item.path[1] === layer.part.id)) drawnAssetIds.push(layer.part.id)
 }
 
 function placementFor(layer: RenderLayerInstance): { placement?: Placement; diagnostic?: Diagnostic } {
@@ -157,6 +201,12 @@ async function drawLayerBuffered(
   const placement = resolved.placement!
   const layerContext = surfaces.layer.context
   const maskContext = surfaces.mask.context
+  if (layer.part.rigMaskPaths?.[layer.rig.id] !== undefined) {
+    await drawRigPaletteMasks(
+      context, surfaces, layer, placement, palette, resolver, drawnAssetIds, diagnostics,
+    )
+    return
+  }
   layerContext.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE)
 
   layerContext.save()

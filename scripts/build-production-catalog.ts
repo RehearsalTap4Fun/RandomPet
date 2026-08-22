@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative } from 'node:path'
+import sharp from 'sharp'
 import type {
   Catalog,
   ModifierDefinition,
@@ -14,6 +15,15 @@ import type {
 } from '@qmonster/generator-core'
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
 import type { RigSheetAudit } from './process-rig-sheets.js'
+
+interface ProductionExtractionAudit {
+  approved: boolean
+  diagnostics: unknown[]
+  metrics: Record<string, number | string>
+  thresholds?: Record<string, number>
+  sourceSha256: string
+  processedSha256: string
+}
 
 interface ProductionIndexEntry {
   id: string
@@ -29,13 +39,7 @@ interface ProductionIndexEntry {
     index: number
     sourcePath: string
     rgbaPath: string
-    extraction: {
-      approved: boolean
-      diagnostics: unknown[]
-      metrics: Record<string, number | string>
-      sourceSha256: string
-      processedSha256: string
-    }
+    extraction: ProductionExtractionAudit
   }>
   master?: { masterPath: string; sha256: string; width: number; height: number; hasAlpha: boolean; boundaryAlphaPixels: number }
   masterPath?: string
@@ -49,6 +53,52 @@ interface ProductionIndexEntry {
   composition?: Record<string, unknown>
   candidateCompositions?: Array<Record<string, unknown> & { index: number }>
   componentEvaluations?: Record<string, unknown>
+  paletteMaskAudit?: {
+    version: string
+    sourceId: string
+    sourcePath: string
+    sourceSha256: string
+    runtimePngPath: string
+    runtimePngSha256: string
+    runtimeWebpPath: string
+    runtimeWebpSha256: string
+    rigMasks: Record<string, {
+      rigAssetPath: string
+      rigAssetSha256: string
+      paths: Record<'primary' | 'secondary' | 'accent', string>
+      sha256: Record<'primary' | 'secondary' | 'accent', string>
+      metrics: Record<string, number>
+    }>
+  }
+}
+
+function extractionThresholds(
+  metrics: Record<string, number | string>,
+  width: number,
+  height: number,
+  safeBorderPixels = 16,
+): Record<string, number> {
+  const border = Math.max(1, Math.min(Math.floor(Math.min(width, height) / 4), Math.floor(safeBorderPixels)))
+  const pixelCount = width * height
+  const innerWidth = Math.max(0, width - border * 2)
+  const innerHeight = Math.max(0, height - border * 2)
+  const borderPixelCount = pixelCount - innerWidth * innerHeight
+  const opaquePixels = Math.round(Number(metrics.subjectCoverage) * pixelCount)
+  return {
+    safeBorderPixels: border,
+    maxBackgroundP95Delta: 12,
+    maxBorderContaminationRatio: 0.01,
+    borderContaminationDelta: 24,
+    minOpaquePixels: Math.max(32, Math.floor(pixelCount * 0.005)),
+    minSubjectBackgroundDistanceP05: 80,
+    maxSafeBorderForegroundPixels: Math.max(16, Math.floor(borderPixelCount * 0.0001)),
+    maxPartialAlphaRatio: 0.45,
+    minPartialAlphaPixels: Math.max(16, Math.floor(opaquePixels * 0.001)),
+    maxEdgeFringeP95: 4,
+    maxEdgeColorDeltaP95: 12,
+    maxEdgeNearestDistanceP95: 32,
+    maxEdgePixelsWithoutOpaqueCore: 0,
+  }
 }
 
 export interface RichPart extends VisualPartDefinition {
@@ -177,6 +227,13 @@ function normalizePath(path: string): string {
   return portable.replaceAll('\\', '/')
 }
 
+function runtimeAssetPath(path: string): string {
+  const normalized = normalizePath(path)
+  const prefix = `${assetDirectory}/`
+  if (!normalized.startsWith(prefix)) throw new Error(`Runtime asset path is outside ${assetDirectory}: ${path}`)
+  return normalized.slice(prefix.length)
+}
+
 function normalizeAuditPaths(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(normalizeAuditPaths)
   if (value === null || typeof value !== 'object') return value
@@ -294,6 +351,18 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     const pngPath = `parts/${part.id}.png`
     if (await sha256File(join(assetDirectory, assetPath)) !== source.webpSha256) throw new Error(`WebP hash drift for ${part.id}`)
     if (await sha256File(join(assetDirectory, pngPath)) !== source.pngSha256) throw new Error(`PNG hash drift for ${part.id}`)
+    const paletteMaskAudit = source.paletteMaskAudit
+    if (part.slotId === 'colorScheme' && paletteMaskAudit === undefined) throw new Error(`Missing rig-aware palette-mask audit for ${part.id}`)
+    const rigMaskPaths = paletteMaskAudit === undefined ? undefined : Object.fromEntries(
+      Object.entries(paletteMaskAudit.rigMasks).map(([rigId, value]) => [rigId, {
+        primary: runtimeAssetPath(value.paths.primary),
+        secondary: runtimeAssetPath(value.paths.secondary),
+        accent: runtimeAssetPath(value.paths.accent),
+      }]),
+    )
+    const rigMaskSha256 = paletteMaskAudit === undefined ? undefined : Object.fromEntries(
+      Object.entries(paletteMaskAudit.rigMasks).map(([rigId, value]) => [rigId, value.sha256]),
+    )
     return {
       id: part.id,
       displayName: part.displayName,
@@ -311,6 +380,7 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       pngSha256: source.pngSha256,
       approvedTransforms: [{ scale: 1, mirrorX: false }],
       maskPaths: {},
+      ...(rigMaskPaths === undefined ? {} : { rigMaskPaths, rigMaskSha256 }),
       origin: part.origin,
       socket: part.socket,
       layer: part.layer,
@@ -347,6 +417,43 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     const resolvedPrompt = await resolveProductionPrompt(sourceRoot, part)
     const prompt = resolvedPrompt.prompt
     const selectedCandidate = source.candidates?.find(candidate => candidate.index === source.selected)
+    const candidateEvaluations = source.candidates === undefined
+      ? source.evaluatedVariants?.map((variant, index) => ({ index: index + 1, selected: index === 0, machineApproved: true, value: variant }))
+      : await Promise.all(source.candidates.map(async candidate => {
+        const metadata = await sharp(candidate.sourcePath).metadata()
+        if (metadata.width === undefined || metadata.height === undefined) throw new Error(`Cannot audit candidate dimensions: ${candidate.sourcePath}`)
+        return {
+          index: candidate.index,
+          selected: candidate.index === source.selected,
+          machineApproved: candidate.extraction.approved,
+          reviewDecision: candidate.index === source.selected
+            ? `approved: selected after four-way visual and machine comparison; ${source.rejectionSummary ?? 'best compatible candidate.'}`
+            : `rejected: ${source.rejectionSummary ?? 'not selected after four-way visual and machine comparison.'}`,
+          diagnostics: candidate.extraction.diagnostics,
+          metrics: candidate.extraction.metrics,
+          thresholds: candidate.extraction.thresholds ?? extractionThresholds(candidate.extraction.metrics, metadata.width, metadata.height),
+          sourceSha256: candidate.extraction.sourceSha256,
+          processedSha256: candidate.extraction.processedSha256,
+          composition: normalizeAuditPaths(source.candidateCompositions?.find(composition => composition.index === candidate.index) ?? null),
+        }
+      }))
+    const selectedEvaluation = candidateEvaluations?.find(candidate => candidate.selected)
+    let componentEvaluations: unknown = null
+    if (source.postProcess === 'head-shell-lure-composite-v1' && source.componentEvaluations !== undefined) {
+      const raw = source.componentEvaluations as Record<'shell' | 'lure', Array<{ index: number; extraction: ProductionExtractionAudit }>>
+      componentEvaluations = Object.fromEntries(await Promise.all((['shell', 'lure'] as const).map(async role => {
+        const samplePath = join(sourceRoot, 'generation', 'part-components', 'head_angler_bulb', role, `head_angler_bulb-${role}-candidate-1-source.png`)
+        const metadata = await sharp(samplePath).metadata()
+        if (metadata.width === undefined || metadata.height === undefined) throw new Error(`Cannot audit angler ${role} dimensions.`)
+        return [role, raw[role].map(value => ({
+          ...value,
+          extraction: {
+            ...value.extraction,
+            thresholds: value.extraction.thresholds ?? extractionThresholds(value.extraction.metrics, metadata.width!, metadata.height!),
+          },
+        }))]
+      })))
+    }
     return {
       sourceId: part.id,
       kind: part.visible ? 'generated-slot-layer' : 'explicit-none-layer',
@@ -366,21 +473,13 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       rejectionSummary: source.rejectionSummary ?? 'Four explicit none variants are identical by definition.',
       postProcess: source.postProcess ?? 'deterministic-transparent-none-v1',
       composition: normalizeAuditPaths(source.composition ?? null),
-      componentEvaluations: normalizeAuditPaths(source.componentEvaluations ?? null),
-      candidateEvaluations: source.candidates?.map(candidate => ({
-        index: candidate.index,
-        selected: candidate.index === source.selected,
-        machineApproved: candidate.extraction.approved,
-        reviewDecision: candidate.index === source.selected
-          ? `approved: selected after four-way visual and machine comparison; ${source.rejectionSummary ?? 'best compatible candidate.'}`
-          : `rejected: ${source.rejectionSummary ?? 'not selected after four-way visual and machine comparison.'}`,
-        diagnostics: candidate.extraction.diagnostics,
-        metrics: candidate.extraction.metrics,
-        sourceSha256: candidate.extraction.sourceSha256,
-        processedSha256: candidate.extraction.processedSha256,
-        composition: normalizeAuditPaths(source.candidateCompositions?.find(composition => composition.index === candidate.index) ?? null),
-      })) ?? source.evaluatedVariants?.map((variant, index) => ({ index: index + 1, selected: index === 0, machineApproved: true, value: variant })),
-      selectedExtraction: selectedCandidate?.extraction ?? null,
+      componentEvaluations: normalizeAuditPaths(componentEvaluations),
+      paletteMaskAudit: normalizeAuditPaths(source.paletteMaskAudit ?? null),
+      candidateEvaluations,
+      selectedExtraction: selectedCandidate === undefined || selectedEvaluation === undefined ? null : {
+        ...selectedCandidate.extraction,
+        thresholds: selectedEvaluation.thresholds,
+      },
       masterPath: normalizePath(source.master?.masterPath ?? source.masterPath!),
       masterSha256: source.master?.sha256 ?? source.masterSha256,
       runtimePngPath: normalizePath(source.pngPath),
@@ -390,7 +489,7 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     }
   }))
 
-  const rigSources = rigs.map(rig => {
+  const rigSources = await Promise.all(rigs.map(async rig => {
     const provenance = rigSheetProvenance[rig.sourceId]
     const audit = rigAudits.find(candidate => candidate.sourceId === rig.sourceId)
     if (audit === undefined) throw new Error(`Missing rig audit for ${rig.sourceId}`)
@@ -399,6 +498,22 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     const runtimePngPath = `${assetDirectory}/${audit.runtimePngPath}`
     const runtimeWebpPath = `${assetDirectory}/${audit.runtimeWebpPath}`
     const prompt = rigPrompt(rig)
+    const sheetMetadata = await sharp(sheetPath).metadata()
+    if (sheetMetadata.width === undefined || sheetMetadata.height === undefined) throw new Error(`Cannot audit rig sheet dimensions: ${sheetPath}`)
+    const candidateWidth = Math.floor(sheetMetadata.width / 2)
+    const candidateHeight = Math.floor(sheetMetadata.height / 2)
+    const candidateEvaluations = audit.candidateEvaluations.map(candidate => ({
+      index: candidate.index,
+      selected: candidate.selected,
+      machineApproved: candidate.machineApproved,
+      reviewDecision: candidate.selected ? 'approved: selected after four-way visual and machine comparison.' : `rejected: ${provenance.rejected}`,
+      diagnostics: candidate.extraction.diagnostics,
+      metrics: candidate.extraction.metrics,
+      thresholds: candidate.extraction.thresholds ?? extractionThresholds(candidate.extraction.metrics, candidateWidth, candidateHeight),
+      sourceSha256: candidate.extraction.sourceSha256,
+      processedSha256: candidate.extraction.processedSha256,
+    }))
+    const selectedEvaluation = candidateEvaluations.find(candidate => candidate.selected)!
     return {
       sourceId: rig.sourceId,
       kind: 'rig-base',
@@ -412,17 +527,8 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       prompt,
       chosenVariant: provenance.selected,
       rejectedVariants: provenance.rejected,
-      candidateEvaluations: audit.candidateEvaluations.map(candidate => ({
-        index: candidate.index,
-        selected: candidate.selected,
-        machineApproved: candidate.machineApproved,
-        reviewDecision: candidate.selected ? 'approved: selected after four-way visual and machine comparison.' : `rejected: ${provenance.rejected}`,
-        diagnostics: candidate.extraction.diagnostics,
-        metrics: candidate.extraction.metrics,
-        sourceSha256: candidate.extraction.sourceSha256,
-        processedSha256: candidate.extraction.processedSha256,
-      })),
-      selectedExtraction: audit.selectedExtraction,
+      candidateEvaluations,
+      selectedExtraction: { ...audit.selectedExtraction, thresholds: selectedEvaluation.thresholds },
       masterPath,
       masterSha256: audit.master.sha256,
       runtimePngPath,
@@ -430,7 +536,7 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       runtimeWebpPath,
       runtimeWebpSha256: audit.runtimeWebpSha256,
     }
-  })
+  }))
 
   const partCandidateEvaluations = productionIndex.flatMap(entry => entry.candidates ?? [])
   const rigCandidateEvaluations = rigAudits.flatMap(audit => audit.candidateEvaluations)

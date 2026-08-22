@@ -1,5 +1,6 @@
 {
   "catalogVersion": "0.1.0",
+  "renderer": "@qmonster/renderer-canvas browserSurfaceFactory",
   "generatedAt": "2026-08-23",
   "candidates": 55,
   "compatibleRigPlacements": 113,
@@ -48,7 +49,7 @@
         "effect_spore_glow"
       ],
       "outputPath": "packages/asset-catalog/review/v0.1.0/contact-sheet-blob.png",
-      "sha256": "5814a0435672625d77efbe1e420f7e90d29fc2df82d289ae9ef2ffad8c0c9a88",
+      "sha256": "a4a5d6f384f2e48fdafead0f4db3d2028994bfbc3d2e5a4a16bfea382f2b4ae8",
       "width": 1200,
       "height": 3482
     },
@@ -95,7 +96,7 @@
         "effect_spore_glow"
       ],
       "outputPath": "packages/asset-catalog/review/v0.1.0/contact-sheet-biped.png",
-      "sha256": "9e946d2a79c5cbe749dec2b3d5e65547e34e13583babaed9372f5d69010803fe",
+      "sha256": "bbe2dd098e366cf80f05829201c76e7e196b6078b8ac2e8c97afda59d8367910",
       "width": 1200,
       "height": 3482
     },
@@ -140,7 +141,7 @@
         "effect_spore_glow"
       ],
       "outputPath": "packages/asset-catalog/review/v0.1.0/contact-sheet-floating.png",
-      "sha256": "55b06a76edd153ed6c9c3d7bdee7e1e4e9f8b8d8d5b98e0959000d0c37539834",
+      "sha256": "7da6e3e50c15fecb6c797e03baf313cca572ed1627535afce5f7d565af7b3cab",
       "width": 1200,
       "height": 3142
     }

@@ -154,8 +154,8 @@
   {
     "id": "head_angler_bulb",
     "semanticSlotId": "headAndEyes",
-    "displayName": "潮泡脑袋",
-    "flavorText": "像深海里一颗还没破掉的圆泡。",
+    "displayName": "潮灯兜帽",
+    "flavorText": "一根短短的柔软灯茎，从暗紫兜帽上举起暖光。",
     "rarity": "R",
     "themeBoosts": {
       "deep-sea": 1.1

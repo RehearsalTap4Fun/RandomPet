@@ -304,9 +304,9 @@
   },
   {
     "id": "head_angler_bulb",
-    "displayName": "潮泡脑袋",
-    "flavorText": "像深海里一颗还没破掉的圆泡。",
-    "description": "a separate smooth bulbous deep-sea head shell shaped like a soft water droplet, no lure and no face",
+    "displayName": "潮灯兜帽",
+    "flavorText": "一根短短的柔软灯茎，从暗紫兜帽上举起暖光。",
+    "description": "a compact low deep-violet hood head shell with a flat hidden underside, composited with one short flexible dark-plum lure stalk ending in one warm orange bulb; no face or torso",
     "slotId": "headShape",
     "rarity": "R",
     "baseWeight": 1,
@@ -2112,9 +2112,9 @@
       "floating"
     ],
     "assetPath": "parts/color_deep_sea_coral.webp",
-    "assetSha256": "85f2499c68d1da2e6ec38d41590b296ff85e25440b8f4f14a41387768a7c36df",
+    "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
     "pngPath": "parts/color_deep_sea_coral.png",
-    "pngSha256": "c7ee99ab6b4f947929a24b1f38cacacc0d9d9da8f4bff9e8d9f3c61445ee4cf4",
+    "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
     "approvedTransforms": [
       {
         "scale": 1,
@@ -2122,6 +2122,40 @@
       }
     ],
     "maskPaths": {},
+    "rigMaskPaths": {
+      "blob": {
+        "primary": "masks/color_deep_sea_coral/blob-primary.png",
+        "secondary": "masks/color_deep_sea_coral/blob-secondary.png",
+        "accent": "masks/color_deep_sea_coral/blob-accent.png"
+      },
+      "biped": {
+        "primary": "masks/color_deep_sea_coral/biped-primary.png",
+        "secondary": "masks/color_deep_sea_coral/biped-secondary.png",
+        "accent": "masks/color_deep_sea_coral/biped-accent.png"
+      },
+      "floating": {
+        "primary": "masks/color_deep_sea_coral/floating-primary.png",
+        "secondary": "masks/color_deep_sea_coral/floating-secondary.png",
+        "accent": "masks/color_deep_sea_coral/floating-accent.png"
+      }
+    },
+    "rigMaskSha256": {
+      "blob": {
+        "primary": "eb034a5048b91a964ad8a8a41a856e67e4bd2846dab6d9d4064b458515bf1ac6",
+        "secondary": "6348b5ba54dc3c44dce504b5ac588f66d68b323f5b0903ba421cfd515a4e9ef1",
+        "accent": "c0796ccedf3c8eabb27a9a3dec2be65821fbd658269d70b93b8989352e56140d"
+      },
+      "biped": {
+        "primary": "efd36b2424e4acce57b39130779fe1c789a66cdad9bd8453743787f2ac97c1c7",
+        "secondary": "7e0afe2d68937ad80c8f6f6bca99744f6150af5c8c17302702f71a469741a5e9",
+        "accent": "b161055770d4123117663fe320184fd95cc293e48d939f2e4305bfe52c998e8f"
+      },
+      "floating": {
+        "primary": "e432164a8ca9087fbc2473302affa0b8e0ba8f48a41ba43546b41531312a5fd8",
+        "secondary": "2447534eb67e8e3c48a33b832a8b793daceb124e1066f997967be84f1b6a8daa",
+        "accent": "ba653a5a0fb1be1b281f0b1ca98fb019d95b24b6982f87aa51fc3ceaef80b5e8"
+      }
+    },
     "origin": {
       "x": 512,
       "y": 512
@@ -2153,9 +2187,9 @@
       "floating"
     ],
     "assetPath": "parts/color_fungal_amber.webp",
-    "assetSha256": "bdc756943d4b1818eea92c1aa9568438450271ed176a4d862d4104ea8e463b3c",
+    "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
     "pngPath": "parts/color_fungal_amber.png",
-    "pngSha256": "f6a5717f82bf7c38d6003e30336e87b023d74c3d316e5b55e73d7df30fe5ef02",
+    "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
     "approvedTransforms": [
       {
         "scale": 1,
@@ -2163,6 +2197,40 @@
       }
     ],
     "maskPaths": {},
+    "rigMaskPaths": {
+      "blob": {
+        "primary": "masks/color_fungal_amber/blob-primary.png",
+        "secondary": "masks/color_fungal_amber/blob-secondary.png",
+        "accent": "masks/color_fungal_amber/blob-accent.png"
+      },
+      "biped": {
+        "primary": "masks/color_fungal_amber/biped-primary.png",
+        "secondary": "masks/color_fungal_amber/biped-secondary.png",
+        "accent": "masks/color_fungal_amber/biped-accent.png"
+      },
+      "floating": {
+        "primary": "masks/color_fungal_amber/floating-primary.png",
+        "secondary": "masks/color_fungal_amber/floating-secondary.png",
+        "accent": "masks/color_fungal_amber/floating-accent.png"
+      }
+    },
+    "rigMaskSha256": {
+      "blob": {
+        "primary": "91a66835ccb17221e02554473a71bb1f731026b26ef7f86a4d8be5e3a76246e8",
+        "secondary": "c45cd8d6fe60e8d40175ad2c4471a622e24db048d4a4a2a966cc721ab54d00c0",
+        "accent": "86e7d78abcad7ca3462ec8da7a85a59b319039ff007ed649a609cbe006a6bbbc"
+      },
+      "biped": {
+        "primary": "87a64f9844d58485aa8c938dfcae9d42f2010bed9c0fd1bb414e661db533e289",
+        "secondary": "c37cd4777b33968c799bb5456a941b1bd38c15ae47160cb5bbc2bdc38ad168c1",
+        "accent": "8683b83aa0b04ed278a86da3ae7d88a54e224cc3f32b5b27e854b606cdc8284e"
+      },
+      "floating": {
+        "primary": "80f005ec28f676332e6ee6da581b66f6809ce0fbd99a12453935765a37a2e3cf",
+        "secondary": "e370915b13b3224ce91944454f1cefb51f8d5c7e52230661b867336c740103a7",
+        "accent": "6647bd4b87f8b937757bcb08a8ae5e2255fdacf93d158899675349cd44138aca"
+      }
+    },
     "origin": {
       "x": 512,
       "y": 512
@@ -2194,9 +2262,9 @@
       "floating"
     ],
     "assetPath": "parts/color_shadow_violet.webp",
-    "assetSha256": "255fcbfa7b4e65a0bda9d4da479a4c6cbd120393df930448233665f28c3ca529",
+    "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
     "pngPath": "parts/color_shadow_violet.png",
-    "pngSha256": "9799f94b9a26a0e8dce3057eecbd0508140e58dddebde4de23d45ad3016ded27",
+    "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
     "approvedTransforms": [
       {
         "scale": 1,
@@ -2204,6 +2272,40 @@
       }
     ],
     "maskPaths": {},
+    "rigMaskPaths": {
+      "blob": {
+        "primary": "masks/color_shadow_violet/blob-primary.png",
+        "secondary": "masks/color_shadow_violet/blob-secondary.png",
+        "accent": "masks/color_shadow_violet/blob-accent.png"
+      },
+      "biped": {
+        "primary": "masks/color_shadow_violet/biped-primary.png",
+        "secondary": "masks/color_shadow_violet/biped-secondary.png",
+        "accent": "masks/color_shadow_violet/biped-accent.png"
+      },
+      "floating": {
+        "primary": "masks/color_shadow_violet/floating-primary.png",
+        "secondary": "masks/color_shadow_violet/floating-secondary.png",
+        "accent": "masks/color_shadow_violet/floating-accent.png"
+      }
+    },
+    "rigMaskSha256": {
+      "blob": {
+        "primary": "9abcca855ee3a72a773aae92b24a147e46586a0a41821349533f12e8612d4f16",
+        "secondary": "9bd8c3c4ad0183e60631ce7418ba02fc9f87461ece099d3c99ee76f7a828891b",
+        "accent": "a92a90fb62c980cb9de07f51ccb1c59f59f0c89578597f0170dcdf57c9c1833c"
+      },
+      "biped": {
+        "primary": "eaee2f7035a87e8b0cc84db9a01d6c0eba13ef9a84ab74693dfeeaf2cbda5208",
+        "secondary": "5c9722b8a181fc23c31481f3e1a688976bb67456c8f60ba238cead6f07b2a82c",
+        "accent": "0291703b0887e5d30cf6d41a0e7d00cd140d99e17170e96fdcd47925a7a26810"
+      },
+      "floating": {
+        "primary": "9a9d1e281f8cf41cbcd540a8439f012cdfeb1cd6d2b1284fa970b05dd7d1e753",
+        "secondary": "e6ef7c11f2d927cd7a7c77d179200862694814edae5427e5e26c4403b500b7db",
+        "accent": "8f96d4da3f8c0fefd141fdde6abb7d47c2a0c5ea1075fcbc9925b988567460fd"
+      }
+    },
     "origin": {
       "x": 512,
       "y": 512

@@ -11,6 +11,8 @@ export interface ContactSheetPlan {
   partIds: string[]
 }
 
+export type ProductionContactRenderer = (rigId: RigId, partId: string) => Promise<Buffer>
+
 interface ContactSheetResult extends ContactSheetPlan {
   outputPath: string
   sha256: string
@@ -47,15 +49,14 @@ function escapeXml(value: string): string {
   return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 }
 
-function checkerboard(): Buffer {
+function checkerboard(width = 2048, height = 2048, size = 128): Buffer {
   const cells: string[] = []
-  const size = 128
-  for (let y = 0; y < 2048; y += size) {
-    for (let x = 0; x < 2048; x += size) {
+  for (let y = 0; y < height; y += size) {
+    for (let x = 0; x < width; x += size) {
       cells.push(`<rect x="${x}" y="${y}" width="${size}" height="${size}" fill="${(x / size + y / size) % 2 === 0 ? '#eef1f4' : '#dfe4e8'}"/>`)
     }
   }
-  return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="2048">${cells.join('')}</svg>`)
+  return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">${cells.join('')}</svg>`)
 }
 
 export function contactPlacement(
@@ -67,28 +68,19 @@ export function contactPlacement(
   return result.value
 }
 
-export async function renderContactCell(catalog: Catalog, rigId: RigId, partId: string): Promise<Buffer> {
+export async function renderContactCell(
+  catalog: Catalog,
+  rigId: RigId,
+  partId: string,
+  rendererFrame: Buffer,
+): Promise<Buffer> {
   const part = catalog.parts.find(candidate => candidate.id === partId)!
-  const rig = catalog.rigs.find(candidate => candidate.id === rigId)!
-  const basePath = join(assetsDirectory, 'rigs', `base_${rigId}_v1.png`)
-  const partPath = join(assetsDirectory, part.pngPath ?? part.assetPath.replace(/\.webp$/u, '.png'))
-  const base = await readFile(basePath)
-  const candidate = await readFile(partPath)
-  const placement = contactPlacement(part, rig)
-  const composites: sharp.OverlayOptions[] = [
-    { input: checkerboard(), left: 0, top: 0 },
-    ...contactCompositeOrder(part.layer, part.slotId).map(kind => ({
-      input: kind === 'base' ? base : candidate,
-      left: kind === 'base' ? 512 : placement.x,
-      top: kind === 'base' ? 512 : placement.y,
-    })),
-  ]
-  const stage = await sharp({ create: { width: 2048, height: 2048, channels: 4, background: '#ffffffff' } })
-    .composite(composites)
-    .png({ compressionLevel: 9, adaptiveFiltering: false, palette: false })
-    .toBuffer()
-  const art = await sharp(stage)
-    .resize(artSize, artSize)
+  const rendered = await sharp(rendererFrame).resize(artSize, artSize, { fit: 'fill' }).png().toBuffer()
+  const art = await sharp({ create: { width: artSize, height: artSize, channels: 4, background: '#00000000' } })
+    .composite([
+      { input: checkerboard(artSize, artSize, 20), left: 0, top: 0 },
+      { input: rendered, left: 0, top: 0 },
+    ])
     .png({ compressionLevel: 9, adaptiveFiltering: false, palette: false })
     .toBuffer()
   const label = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${cellWidth}" height="${cellHeight - artSize}">
@@ -150,16 +142,19 @@ export async function measureRearLayerVisibility(
   }
 }
 
-async function renderOne(catalog: Catalog, plan: ContactSheetPlan): Promise<ContactSheetResult> {
+async function renderOne(catalog: Catalog, plan: ContactSheetPlan, renderer: ProductionContactRenderer): Promise<ContactSheetResult> {
   const rows = Math.ceil(plan.partIds.length / columns)
   const width = columns * cellWidth
   const height = headerHeight + rows * cellHeight
   const header = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${headerHeight}">
     <rect width="100%" height="100%" fill="#0d1118"/>
     <text x="24" y="34" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="25" font-weight="700" fill="#ffffff">QMonster v0.1 · ${escapeXml(plan.rigId)} compatible-rig contact sheet</text>
-    <text x="24" y="64" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="16" fill="#9fb0c4">${plan.partIds.length} candidates · checker reveals alpha · bodyFrame shown standalone · all other layers composited on locked base</text>
+    <text x="24" y="64" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="16" fill="#9fb0c4">${plan.partIds.length} candidates · actual @qmonster/renderer-canvas pixels · checker reveals alpha</text>
   </svg>`)
-  const cells = await Promise.all(plan.partIds.map(partId => renderContactCell(catalog, plan.rigId, partId)))
+  const cells: Buffer[] = []
+  for (const partId of plan.partIds) {
+    cells.push(await renderContactCell(catalog, plan.rigId, partId, await renderer(plan.rigId, partId)))
+  }
   const outputPath = join(reviewDirectory, `contact-sheet-${plan.rigId}.png`)
   await mkdir(dirname(outputPath), { recursive: true })
   await sharp({ create: { width, height, channels: 4, background: '#0d1118ff' } })
@@ -177,21 +172,16 @@ async function renderOne(catalog: Catalog, plan: ContactSheetPlan): Promise<Cont
   return { ...plan, outputPath: outputPath.replaceAll('\\', '/'), sha256: createHash('sha256').update(bytes).digest('hex'), width, height }
 }
 
-export async function generateContactSheets(catalog: Catalog): Promise<ContactSheetResult[]> {
+export async function generateContactSheets(catalog: Catalog, renderer: ProductionContactRenderer): Promise<ContactSheetResult[]> {
   const results: ContactSheetResult[] = []
-  for (const plan of planContactSheets(catalog)) results.push(await renderOne(catalog, plan))
+  for (const plan of planContactSheets(catalog)) results.push(await renderOne(catalog, plan, renderer))
   await writeFile(join(reviewDirectory, 'contact-sheet-index.json'), `${JSON.stringify({
     catalogVersion: catalog.version,
+    renderer: '@qmonster/renderer-canvas browserSurfaceFactory',
     generatedAt: '2026-08-23',
     candidates: catalog.parts.length,
     compatibleRigPlacements: results.reduce((count, result) => count + result.partIds.length, 0),
     sheets: results,
   }, null, 2)}\n`)
   return results
-}
-
-if (process.argv[1]?.endsWith('render-production-contact-sheets.ts')) {
-  const { catalog } = await loadCommittedProductionCatalog()
-  const results = await generateContactSheets(catalog)
-  console.log(JSON.stringify(results.map(result => ({ rigId: result.rigId, candidates: result.partIds.length, width: result.width, height: result.height, outputPath: result.outputPath }))))
 }

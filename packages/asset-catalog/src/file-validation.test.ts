@@ -37,6 +37,30 @@ describe('validateCatalogFiles', () => {
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'ASSET_HASH_MISMATCH', path: expect.arrayContaining(['pngPath']) }))
   })
 
+  it('validates every rig-specific primary, secondary, and accent mask hash', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-rig-masks-'))
+    temporaryDirectories.push(tempRoot)
+    const png = await sharp({ create: { width: 1024, height: 1024, channels: 4, background: '#ffffffff' } }).png().toBuffer()
+    await writeFile(join(tempRoot, 'valid.png'), png)
+    const validHash = createHash('sha256').update(png).digest('hex')
+    const catalog = makeValidCatalogFixture()
+    for (const part of catalog.parts) part.assetPath = 'valid.png'
+    const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
+    color.rigMaskPaths = {
+      blob: { primary: 'valid.png', secondary: 'valid.png', accent: 'valid.png' },
+    }
+    color.rigMaskSha256 = {
+      blob: { primary: '0'.repeat(64), secondary: validHash, accent: validHash },
+    }
+
+    const diagnostics = await validateCatalogFiles(catalog, tempRoot)
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'ASSET_HASH_MISMATCH',
+      path: expect.arrayContaining(['rigMaskPaths', 'blob', 'primary']),
+    }))
+  })
+
   it('reports non-square RGB assets without alpha', async () => {
     const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-assets-'))
     temporaryDirectories.push(tempRoot)

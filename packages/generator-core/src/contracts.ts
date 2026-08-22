@@ -105,6 +105,16 @@ export interface VisualPartDefinition {
   approvedTransforms?: ApprovedTransform[]
   maskPaths: { primary?: string; secondary?: string }
   maskSha256?: { primary?: string; secondary?: string }
+  rigMaskPaths?: Partial<Record<RigId, {
+    primary: string
+    secondary: string
+    accent: string
+  }>>
+  rigMaskSha256?: Partial<Record<RigId, {
+    primary: string
+    secondary: string
+    accent: string
+  }>>
   origin: { x: number; y: number }
   socket: string | null
   layer: RenderLayer

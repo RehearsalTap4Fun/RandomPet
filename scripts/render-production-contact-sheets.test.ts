@@ -20,8 +20,11 @@ describe('production contact-sheet plan', () => {
 
   it('composites a compatible part and rig into one review cell', async () => {
     const { catalog } = await loadCommittedProductionCatalog()
-    const cell = await renderContactCell(catalog, 'blob', 'eyes_glossy_pair')
+    const rendererFrame = await sharp({ create: { width: 280, height: 280, channels: 4, background: '#ff0000ff' } }).png().toBuffer()
+    const cell = await renderContactCell(catalog, 'blob', 'eyes_glossy_pair', rendererFrame)
     await expect(sharp(cell).metadata()).resolves.toMatchObject({ width: 300, height: 340, hasAlpha: true })
+    const pixel = await sharp(cell).extract({ left: 150, top: 140, width: 1, height: 1 }).raw().toBuffer()
+    expect([...pixel.slice(0, 3)]).toEqual([255, 0, 0])
   })
 
   it('reviews rear appendages behind the locked base and body candidates standalone', () => {

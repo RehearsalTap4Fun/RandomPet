@@ -1,38 +1,38 @@
 {
   "status": "approved",
-  "reviewedAt": "2026-08-23T00:02:00+08:00",
+  "reviewedAt": "2026-08-23T16:40:00+08:00",
   "reviewer": "Codex visual QA",
-  "reviewMethod": "Pixel-alpha checks plus manual inspection of every candidate composited with catalog socket/origin/layer rules on each compatible locked rig.",
+  "reviewMethod": "Chromium screenshots from the production @qmonster/renderer-canvas browserSurfaceFactory plus pixel-alpha/luminance checks and manual inspection of every candidate on each compatible locked rig.",
   "contactSheets": [
     {
       "rigId": "blob",
       "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-blob.png",
-      "sha256": "5814a0435672625d77efbe1e420f7e90d29fc2df82d289ae9ef2ffad8c0c9a88",
+      "sha256": "a4a5d6f384f2e48fdafead0f4db3d2028994bfbc3d2e5a4a16bfea382f2b4ae8",
       "candidateCount": 39,
       "width": 1200,
       "height": 3482,
       "result": "approved",
-      "finding": "All 39 declared blob-compatible candidates are present once. The compact two-source angler shell/lure has a clean attachment seam; horn nubs are short; regenerated fin ears are low, ribbed and outward/downward-drooping; the curl tail and mirrored side fins remain attached; palette masks are flat; exactly seven opaque-core light orbs are visible without fringe or clipping."
+      "finding": "All 39 declared blob-compatible candidates are present once in actual renderer output. The compact two-source angler shell/lure has a clean attachment seam; horn nubs are short; regenerated fin ears are low, ribbed and outward/downward-drooping; the curl tail and mirrored side fins remain attached. All three per-rig palette mask sets stay inside the blob core and preserve fuzzy lighting volume; exactly seven opaque-core light orbs are visible without fringe or clipping."
     },
     {
       "rigId": "biped",
       "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-biped.png",
-      "sha256": "9e946d2a79c5cbe749dec2b3d5e65547e34e13583babaed9372f5d69010803fe",
+      "sha256": "bbe2dd098e366cf80f05829201c76e7e196b6078b8ac2e8c97afda59d8367910",
       "candidateCount": 38,
       "width": 1200,
       "height": 3482,
       "result": "approved",
-      "finding": "All 38 declared biped-compatible candidates are present once. The content-preserved broad moth wings expose 34.40% of generated foreground outside the rear body layer with both lobes and ribs clearly readable, clipped pixels 0. The mushroom tail attaches, scales are thin surface rows, regenerated fin ears droop, palette masks are flat, and exactly seven light orbs remain distinct."
+      "finding": "All 38 declared biped-compatible candidates are present once in actual renderer output. The content-preserved broad moth wings expose 34.40% of generated foreground outside the rear body layer with both lobes and ribs clearly readable, clipped pixels 0. The mushroom tail attaches, scales are thin surface rows, regenerated fin ears droop. All three per-rig palette mask sets stay inside the biped core and preserve fuzzy lighting volume; exactly seven light orbs remain distinct."
     },
     {
       "rigId": "floating",
       "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-floating.png",
-      "sha256": "55b06a76edd153ed6c9c3d7bdee7e1e4e9f8b8d8d5b98e0959000d0c37539834",
+      "sha256": "7da6e3e50c15fecb6c797e03baf313cca572ed1627535afce5f7d565af7b3cab",
       "candidateCount": 36,
       "width": 1200,
       "height": 3142,
       "result": "approved",
-      "finding": "All 36 declared floating-compatible candidates are present once on approved rig candidate 4. The fish tail attaches behind the body; all four soft tentacle components/endpoints remain intact and visible after content-aware scaling (29.05% visible, clipped pixels 0); regenerated fin ears droop; exactly seven light orbs remain separate; no transparent edge shows key-color fringe."
+      "finding": "All 36 declared floating-compatible candidates are present once on approved rig candidate 4 in actual renderer output. The fish tail attaches behind the body; all four soft tentacle components/endpoints remain intact and visible after content-aware scaling (29.05% visible, clipped pixels 0); regenerated fin ears droop. All three per-rig palette mask sets stay inside the floating core and preserve fuzzy lighting volume; exactly seven light orbs remain separate; no transparent edge shows key-color fringe."
     }
   ],
   "machineGateSummary": {

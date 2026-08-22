@@ -78,6 +78,13 @@ export async function validateCatalogFiles(catalog: Catalog, assetRoot: string):
     ...(part.pngPath === undefined ? [] : [{ assetPath: part.pngPath, expectedHash: part.pngSha256, path: ['parts', String(index), 'pngPath'] }]),
     ...(part.maskPaths.primary === undefined ? [] : [{ assetPath: part.maskPaths.primary, expectedHash: part.maskSha256?.primary, path: ['parts', String(index), 'maskPaths', 'primary'] }]),
     ...(part.maskPaths.secondary === undefined ? [] : [{ assetPath: part.maskPaths.secondary, expectedHash: part.maskSha256?.secondary, path: ['parts', String(index), 'maskPaths', 'secondary'] }]),
+    ...Object.entries(part.rigMaskPaths ?? {}).flatMap(([rigId, masks]) => (
+      masks === undefined ? [] : (['primary', 'secondary', 'accent'] as const).map(maskName => ({
+        assetPath: masks[maskName],
+        expectedHash: part.rigMaskSha256?.[rigId as keyof typeof part.rigMaskSha256]?.[maskName],
+        path: ['parts', String(index), 'rigMaskPaths', rigId, maskName],
+      }))
+    )),
   ])
   const results = await Promise.all(checks.map(check => validateAssetFile(root, check.assetPath, check.expectedHash, check.path)))
   return results.flat()
