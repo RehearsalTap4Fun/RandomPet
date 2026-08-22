@@ -56,6 +56,7 @@ function parseStoredSession(value: unknown): CreatorSession | null {
   const locks = parseLocks(value.locks)
   if (locks === null || !Array.isArray(value.diagnostics) || !value.diagnostics.every(isDiagnostic)) return null
   if (typeof value.blocked !== 'boolean' || !isRecord(value.exportCapabilities)) return null
+  if (value.blocked !== value.diagnostics.some(diagnostic => diagnostic.severity === 'error')) return null
   if (
     typeof value.exportCapabilities.png !== 'boolean'
     || typeof value.exportCapabilities.webp !== 'boolean'

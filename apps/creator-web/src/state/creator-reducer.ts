@@ -18,6 +18,15 @@ import {
 function modeFromSession(session: CreatorSession): GenerationMode {
   if (session.spec.aberrations.length > 0) return 'aberration'
   if (session.spec.mutation !== null) return 'mutation'
+  const failedModifierPath = (path: 'mutation' | 'aberrations'): boolean =>
+    session.diagnostics.some(diagnostic =>
+      diagnostic.severity === 'error'
+      && diagnostic.code === 'MODIFIER_NOT_FOUND'
+      && diagnostic.path.length === 1
+      && diagnostic.path[0] === path,
+    )
+  if (failedModifierPath('aberrations')) return 'aberration'
+  if (failedModifierPath('mutation')) return 'mutation'
   return 'normal'
 }
 

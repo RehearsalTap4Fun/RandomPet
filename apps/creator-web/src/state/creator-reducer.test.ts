@@ -40,6 +40,10 @@ function withLocked(session: CreatorSession, ...slotIds: VisualSlotId[]): Creato
   }
 }
 
+function catalogWithoutModifiers(): Catalog {
+  return { ...makeValidCatalogFixture(), modifiers: [] }
+}
+
 function catalogWithIncompatibleShadowEyes(): Catalog {
   const catalog = makeValidCatalogFixture()
   const commonColor = catalog.parts.find(part => part.slotId === 'colorScheme')!
@@ -180,6 +184,72 @@ describe('createCreatorReducer', () => {
     expect(next.spec.mutation).not.toBeNull()
     expect(next.spec.aberrations).toEqual([])
     expect(next.spec.visualSlots.eyes).toEqual(before.spec.visualSlots.eyes)
+  })
+
+  it('retains a failed mutation request across a new-creature command', () => {
+    const catalog = catalogWithoutModifiers()
+    const reducer = createCreatorReducer(catalog)
+    const failed = reducer(makeSession(catalog), { type: 'setMode', mode: 'mutation' })
+
+    const next = reducer(failed, { type: 'newCreature', seed: 'mutation-retry' })
+
+    expect(next.spec.seed).toBe('mutation-retry')
+    expect(next.blocked).toBe(true)
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'MODIFIER_NOT_FOUND',
+      path: ['mutation'],
+    }))
+  })
+
+  it('retains a failed aberration request across a theme change', () => {
+    const catalog = catalogWithoutModifiers()
+    const reducer = createCreatorReducer(catalog)
+    const failed = reducer(makeSession(catalog), { type: 'setMode', mode: 'aberration' })
+
+    const next = reducer(failed, { type: 'setTheme', themeId: 'shadow' })
+
+    expect(next.spec.themeId).toBe('shadow')
+    expect(next.blocked).toBe(true)
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'MODIFIER_NOT_FOUND',
+      path: ['aberrations'],
+    }))
+  })
+
+  it('clears a failed modifier request when normal mode is selected', () => {
+    const catalog = catalogWithoutModifiers()
+    const reducer = createCreatorReducer(catalog)
+    const failed = reducer(makeSession(catalog), { type: 'setMode', mode: 'mutation' })
+
+    const normal = reducer(failed, { type: 'setMode', mode: 'normal' })
+    const next = reducer(normal, { type: 'newCreature', seed: 'normal-again' })
+
+    expect(normal.blocked).toBe(false)
+    expect(next.blocked).toBe(false)
+    expect(next.diagnostics).not.toContainEqual(expect.objectContaining({ code: 'MODIFIER_NOT_FOUND' }))
+  })
+
+  it('does not infer a mode from an unrelated diagnostic path', () => {
+    const catalog = catalogWithoutModifiers()
+    const reducer = createCreatorReducer(catalog)
+    const normal = makeSession(catalog)
+    const unrelated: CreatorSession = {
+      ...normal,
+      diagnostics: [{
+        severity: 'error',
+        code: 'MODIFIER_NOT_FOUND',
+        path: ['visualSlots', 'mutation'],
+        message: 'unrelated',
+      }],
+      blocked: true,
+    }
+
+    const next = reducer(unrelated, { type: 'newCreature', seed: 'still-normal' })
+
+    expect(next.blocked).toBe(false)
+    expect(next.spec.mutation).toBeNull()
+    expect(next.spec.aberrations).toEqual([])
+    expect(next.diagnostics).toEqual([])
   })
 
   it('rerolls and manually selects through immutable core commands', () => {

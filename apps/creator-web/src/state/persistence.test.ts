@@ -37,6 +37,19 @@ function makeFreshSession(seed = 'fresh-seed'): CreatorSession {
   }, makeValidCatalogFixture()), { png: true, webp: false })
 }
 
+function blockingDiagnostic() {
+  return {
+    severity: 'error' as const,
+    code: 'LOCK_INCOMPATIBLE',
+    path: ['visualSlots', 'eyes'],
+    message: 'The locked eyes are incompatible.',
+  }
+}
+
+function storeSession(storage: MemoryStorage, session: CreatorSession): void {
+  storage.values.set(CREATOR_SESSION_STORAGE_KEY, JSON.stringify({ schemaVersion: 1, session }))
+}
+
 afterEach(() => {
   vi.useRealTimers()
 })
@@ -169,5 +182,83 @@ describe('creator session persistence', () => {
     ])
     expect(storage.writes).toBe(0)
     expect(storage.values.has(CREATOR_SESSION_STORAGE_KEY)).toBe(false)
+  })
+
+  it('rejects a stored error diagnostic whose blocked flag is false without partial hydration', () => {
+    const storage = new MemoryStorage()
+    storeSession(storage, {
+      ...makeFreshSession('semantically-corrupt'),
+      diagnostics: [blockingDiagnostic()],
+      blocked: false,
+    })
+
+    const loaded = loadSession(() => makeFreshSession(), storage)
+
+    expect(loaded.spec.seed).toBe('fresh-seed')
+    expect(loaded.blocked).toBe(false)
+    expect(loaded.diagnostics).toEqual([
+      expect.objectContaining({ severity: 'warning', code: 'SESSION_LOAD_FAILED' }),
+    ])
+  })
+
+  it('rejects a stored blocked flag when no error diagnostic explains it', () => {
+    const storage = new MemoryStorage()
+    storeSession(storage, {
+      ...makeFreshSession('semantically-corrupt'),
+      diagnostics: [{ severity: 'warning', code: 'EXAMPLE', path: [], message: 'not blocking' }],
+      blocked: true,
+    })
+
+    const loaded = loadSession(() => makeFreshSession(), storage)
+
+    expect(loaded.spec.seed).toBe('fresh-seed')
+    expect(loaded.blocked).toBe(false)
+    expect(loaded.diagnostics.at(-1)).toEqual(expect.objectContaining({ code: 'SESSION_LOAD_FAILED' }))
+  })
+
+  it('rejects both directions of blocked-diagnostic mismatch before saving', async () => {
+    vi.useFakeTimers()
+    const falseNegativeStorage = new MemoryStorage()
+    const falsePositiveStorage = new MemoryStorage()
+    const errorButUnblocked: CreatorSession = {
+      ...makeFreshSession(),
+      diagnostics: [blockingDiagnostic()],
+      blocked: false,
+    }
+    const blockedWithoutError: CreatorSession = {
+      ...makeFreshSession(),
+      diagnostics: [],
+      blocked: true,
+    }
+
+    const falseNegative = saveSession(errorButUnblocked, falseNegativeStorage)
+    const falsePositive = saveSession(blockedWithoutError, falsePositiveStorage)
+    await vi.advanceTimersByTimeAsync(250)
+
+    expect(await falseNegative).toEqual([
+      expect.objectContaining({ severity: 'warning', code: 'SESSION_SAVE_FAILED' }),
+    ])
+    expect(await falsePositive).toEqual([
+      expect.objectContaining({ severity: 'warning', code: 'SESSION_SAVE_FAILED' }),
+    ])
+    expect(falseNegativeStorage.writes).toBe(0)
+    expect(falsePositiveStorage.writes).toBe(0)
+  })
+
+  it('round-trips a coherently blocked session without erasing independent encoder capabilities', async () => {
+    vi.useFakeTimers()
+    const storage = new MemoryStorage()
+    const session: CreatorSession = {
+      ...makeFreshSession('blocked-but-capable'),
+      diagnostics: [blockingDiagnostic()],
+      blocked: true,
+      exportCapabilities: { png: true, webp: true },
+    }
+
+    const save = saveSession(session, storage)
+    await vi.advanceTimersByTimeAsync(250)
+
+    expect(await save).toEqual([])
+    expect(loadSession(() => makeFreshSession(), storage)).toEqual(session)
   })
 })
