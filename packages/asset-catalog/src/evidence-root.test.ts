@@ -21,6 +21,53 @@ test('canonical key order is Unicode code-point order rather than host locale or
   )
 })
 
+test.each([
+  {
+    label: 'private-use BMP before supplementary emoji',
+    value: { '😀': 2, '\uE000': 1 },
+    expected: '871954531859c7572c6279f90eb83a594ddc3a289e8bdc28d2a84ffb8c1a1703',
+  },
+  {
+    label: 'shared prefix before supplementary emoji',
+    value: { 'a😀': 2, 'a\uE000': 1 },
+    expected: '8e725bbe3fe7031becdac84550ef75a2e9806258a6c9ef4be8e2131dbe301dc1',
+  },
+  {
+    label: 'shared prefix with two supplementary keys',
+    value: { 'x🚀': 2, 'x😀': 1 },
+    expected: 'f038b7c03b59f05ef1acb4ced8e53d40c7916c74991f7c737d237c008324a23b',
+  },
+  {
+    label: 'mixed ASCII, BMP, and supplementary keys',
+    value: { '😀': 3, '\uE000': 2, z: 4, A: 1 },
+    expected: '1f0a637764f8179a0c5f76bff8963fd42a5fc8f85ff25e2d10b62f6b5ef35984',
+  },
+])('canonicalizes $label by Unicode scalar value', ({ value, expected }) => {
+  expect(computeProductionEvidenceRoot(value)).toBe(expected)
+})
+
+test('supplementary-key ordering is independent of insertion order', () => {
+  const left = { '😀': 3, '\uE000': 2, z: 4, A: 1 }
+  const right = { A: 1, z: 4, '\uE000': 2, '😀': 3 }
+  const expected = '1f0a637764f8179a0c5f76bff8963fd42a5fc8f85ff25e2d10b62f6b5ef35984'
+
+  expect(computeProductionEvidenceRoot(left)).toBe(expected)
+  expect(computeProductionEvidenceRoot(right)).toBe(expected)
+})
+
+test.each([
+  ['unpaired high surrogate key', { ['\uD800']: 1 }],
+  ['unpaired low surrogate key', { ['\uDC00']: 1 }],
+  ['unpaired high surrogate string value', { value: '\uD800' }],
+  ['unpaired low surrogate string value', { value: '\uDC00' }],
+])('rejects %s instead of hashing non-scalar Unicode', (_label, value) => {
+  expect(() => computeProductionEvidenceRoot(value)).toThrow(/unpaired (?:high|low) surrogate/iu)
+})
+
+test('does not normalize canonically equivalent NFC and NFD keys', () => {
+  expect(computeProductionEvidenceRoot({ 'é': 1 })).not.toBe(computeProductionEvidenceRoot({ 'e\u0301': 1 }))
+})
+
 test('independent manifest rejects a synchronized source-index forgery', () => {
   const sourceIndex = { catalogVersion: '0.1.0', prompt: 'original', promptSha256: '1'.repeat(64) }
   const manifest = buildProductionEvidenceManifest(sourceIndex)
@@ -38,6 +85,7 @@ test('rejects malformed or unsupported evidence manifests', () => {
   for (const invalid of [
     { ...manifest, manifestVersion: 'unknown' },
     { ...manifest, canonicalization: 'attacker-json-v1' },
+    { ...manifest, canonicalization: 'json-object-keys-lexicographic-v1' },
     { ...manifest, catalogVersion: '9.9.9' },
     { ...manifest, sourceIndexPath: 'elsewhere/source-index.json' },
     { ...manifest, evidenceRootSha256: 'not-a-hash' },

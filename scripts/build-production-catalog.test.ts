@@ -9,6 +9,7 @@ import {
   PRODUCTION_CHROMA_GATE_VERSION,
 } from '../packages/asset-catalog/src/chroma-quality-gate.js'
 import {
+  PRODUCTION_EVIDENCE_CANONICALIZATION,
   PRODUCTION_EVIDENCE_MANIFEST_VERSION,
   computeProductionEvidenceRoot,
 } from '../packages/asset-catalog/src/evidence-root.js'
@@ -178,7 +179,7 @@ describe('v0.1 production catalog builder', () => {
 
     expect(manifest).toEqual({
       manifestVersion: PRODUCTION_EVIDENCE_MANIFEST_VERSION,
-      canonicalization: 'json-object-keys-lexicographic-v1',
+      canonicalization: PRODUCTION_EVIDENCE_CANONICALIZATION,
       catalogVersion: '0.1.0',
       sourceIndexPath: 'packages/asset-catalog/source-index.json',
       evidenceRootSha256: computeProductionEvidenceRoot(sourceIndex),
