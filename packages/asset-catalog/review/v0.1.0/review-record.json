@@ -1,0 +1,89 @@
+{
+  "status": "approved",
+  "reviewedAt": "2026-08-22T18:40:00+08:00",
+  "reviewer": "Codex visual QA",
+  "reviewMethod": "Pixel-alpha checks plus manual inspection of every candidate composited with catalog socket/origin/layer rules on each compatible locked rig.",
+  "contactSheets": [
+    {
+      "rigId": "blob",
+      "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-blob.png",
+      "sha256": "9eacd5feeb5c9e8124d28b2a48ee8dafb99e74ea09d18ee5d41598e0457506fa",
+      "candidateCount": 39,
+      "width": 1200,
+      "height": 3482,
+      "result": "approved",
+      "finding": "All 39 declared blob-compatible candidates are present once. The curl tail attaches behind the body, both mirrored side fins remain visible, and all face, surface, pattern, palette, and effect layers are readable without fringe or clipping."
+    },
+    {
+      "rigId": "biped",
+      "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-biped.png",
+      "sha256": "82beeccc9cfe8c628a3d9eec1be904f1d40cccf60476f5e8a5ddd95da6a0ae25",
+      "candidateCount": 38,
+      "width": 1200,
+      "height": 3482,
+      "result": "approved",
+      "finding": "All 38 declared biped-compatible candidates are present once. The mushroom tail attaches behind the body, both moth-wing tips remain visible, limb counts are correct, and no layer is clipped or contaminated."
+    },
+    {
+      "rigId": "floating",
+      "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-floating.png",
+      "sha256": "24bee2b0111bd019649443d1d17c1b2c8f632a078dd6e4a9df3409c6be216ee6",
+      "candidateCount": 36,
+      "width": 1200,
+      "height": 3142,
+      "result": "approved",
+      "finding": "All 36 declared floating-compatible candidates are present once. The fish tail attaches behind the body, all four soft tentacle ends remain visible, and transparent edges show no key-color fringe."
+    }
+  ],
+  "machineGateSummary": {
+    "productionEntries": 55,
+    "visibleEntries": 51,
+    "explicitNoneEntries": 4,
+    "evaluatedVariantsInFinalSheets": 204,
+    "machinePassedVariants": 190,
+    "machineRejectedVariants": 14,
+    "approvedSelectionsPassingMachineGate": 51,
+    "approvedSelectionsWithBorderContamination": 0,
+    "approvedSelectionsWithEdgeFringe": 0,
+    "approvedSelectionsWithSafeBorderForeground": 0
+  },
+  "correctiveReview": [
+    {
+      "partId": "tail_soft_curl",
+      "decision": "keep generated candidate 1; catalog origin.x corrected to 384",
+      "result": "approved on blob"
+    },
+    {
+      "partId": "tail_mushroom_cluster",
+      "decision": "keep generated candidate 1; catalog origin.x corrected to 384",
+      "result": "approved on biped"
+    },
+    {
+      "partId": "tail_fish_fan",
+      "decision": "keep generated candidate 1; catalog origin.x corrected to 384",
+      "result": "approved on floating"
+    },
+    {
+      "partId": "extra_side_fins",
+      "decision": "use generated candidate 1 from the final key-color sheet and deterministically mirror that real generated one-side design into a bilateral modular layer",
+      "result": "approved on blob"
+    },
+    {
+      "partId": "extra_soft_tentacles",
+      "decision": "keep the original generated four-tentacle candidate 1 and center-scale its transparent layer by 1.5",
+      "result": "approved on floating"
+    }
+  ],
+  "rejectedVisibilityExperiments": [
+    {
+      "generationPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a02470-776f-7a43-a04d-42ea4ff47690/exec-028964ed-700a-4e30-8e92-359bccf17ba8.png",
+      "partId": "tail_soft_curl",
+      "reason": "The regenerated curl was overlarge and detached from the intended socket zone."
+    },
+    {
+      "generationPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a02470-776f-7a43-a04d-42ea4ff47690/exec-1417a100-ff2f-403b-9413-45b3dd4e01df.png",
+      "partId": "extra_soft_tentacles",
+      "reason": "Each quadrant contained three tentacles instead of the required four."
+    }
+  ]
+}

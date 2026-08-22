@@ -1,5 +1,6 @@
 .superpowers/
 .worktrees/
+asset-source/
 node_modules/
 dist/
 coverage/

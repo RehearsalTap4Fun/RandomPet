@@ -76,11 +76,15 @@ export interface MonsterSpec {
 export interface ThemeDefinition {
   id: ThemeId
   palette: Palette
+  displayName?: string
+  flavorText?: string
 }
 
 export interface RigDefinition {
   id: RigId
   sockets: Record<string, { x: number; y: number }>
+  sourceId?: string
+  displayName?: string
 }
 
 export interface ApprovedTransform {
@@ -108,11 +112,23 @@ export interface VisualPartDefinition {
   semanticPriority: number
   excludes: string[]
   boosts: Record<string, number>
+  displayName?: string
+  flavorText?: string
+  description?: string
+  pngPath?: string
+  pngSha256?: string
 }
 
 export interface SemanticTraitDefinition {
   id: string
   semanticSlotId: SemanticSlotId
+  displayName?: string
+  flavorText?: string
+  rarity?: 'N' | 'R' | 'L'
+  themeBoosts?: Partial<Record<ThemeId, number>>
+  excludes?: string[]
+  boosts?: Record<string, number>
+  visualMapping?: Record<string, unknown>
 }
 
 export interface ModifierDefinition {
@@ -121,6 +137,13 @@ export interface ModifierDefinition {
   baseWeight: number
   requiresMutation: boolean
   overrides: ModifierOverrides
+  displayName?: string
+  flavorText?: string
+  rarity?: 'N' | 'R' | 'L'
+  themeBoosts?: Partial<Record<ThemeId, number>>
+  excludes?: string[]
+  boosts?: Record<string, number>
+  visualMapping?: Record<string, unknown>
 }
 
 export interface Catalog {

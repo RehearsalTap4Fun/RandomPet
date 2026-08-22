@@ -17,6 +17,19 @@ const RenderLayerSchema = z.enum([
 ])
 const coordinate = z.number().finite().min(0).max(2048)
 const weight = z.number().finite().min(0)
+const sha256 = z.string().regex(/^[a-f0-9]{64}$/i)
+const displayMetadata = {
+  displayName: z.string().min(1).optional(),
+  flavorText: z.string().min(1).optional(),
+}
+const productionMetadata = {
+  ...displayMetadata,
+  rarity: z.enum(['N', 'R', 'L']).optional(),
+  themeBoosts: z.partialRecord(ThemeIdSchema, weight).optional(),
+  excludes: z.array(z.string().min(1)).optional(),
+  boosts: z.record(z.string().min(1), weight).optional(),
+  visualMapping: z.record(z.string().min(1), z.unknown()).optional(),
+}
 
 const PaletteSchema = z.object({
   primary: z.string().min(1),
@@ -45,6 +58,8 @@ const ModifierOverridesSchema = z.object({
 const RigDefinitionSchema = z.object({
   id: RigIdSchema,
   sockets: z.record(z.string().min(1), z.object({ x: coordinate, y: coordinate })),
+  sourceId: z.string().min(1).optional(),
+  displayName: z.string().min(1).optional(),
 })
 
 const VisualPartDefinitionSchema = z.object({
@@ -56,7 +71,9 @@ const VisualPartDefinitionSchema = z.object({
   themeWeights: z.partialRecord(ThemeIdSchema, weight),
   compatibleRigs: z.array(RigIdSchema).min(1),
   assetPath: z.string().min(1),
-  assetSha256: z.string().regex(/^[a-f0-9]{64}$/i).optional(),
+  assetSha256: sha256.optional(),
+  pngPath: z.string().min(1).optional(),
+  pngSha256: sha256.optional(),
   approvedTransforms: z.array(z.object({ scale: z.number().finite().positive(), mirrorX: z.boolean() })).optional(),
   maskPaths: z.object({ primary: z.string().min(1).optional(), secondary: z.string().min(1).optional() }),
   maskSha256: z.object({ primary: z.string().regex(/^[a-f0-9]{64}$/i).optional(), secondary: z.string().regex(/^[a-f0-9]{64}$/i).optional() }).optional(),
@@ -67,20 +84,27 @@ const VisualPartDefinitionSchema = z.object({
   semanticPriority: z.number().finite(),
   excludes: z.array(z.string().min(1)),
   boosts: z.record(z.string().min(1), weight),
+  ...displayMetadata,
+  description: z.string().min(1).optional(),
 })
 
 export const CatalogSchema = z.object({
   version: z.string().min(1),
-  themes: z.array(z.object({ id: ThemeIdSchema, palette: PaletteSchema })),
+  themes: z.array(z.object({ id: ThemeIdSchema, palette: PaletteSchema, ...displayMetadata })),
   rigs: z.array(RigDefinitionSchema),
   parts: z.array(VisualPartDefinitionSchema),
-  semanticTraits: z.array(z.object({ id: z.string().min(1), semanticSlotId: SemanticSlotIdSchema })),
+  semanticTraits: z.array(z.object({
+    id: z.string().min(1),
+    semanticSlotId: SemanticSlotIdSchema,
+    ...productionMetadata,
+  })),
   modifiers: z.array(z.object({
     id: z.string().min(1),
     kind: z.enum(['mutation', 'aberration']),
     baseWeight: weight,
     requiresMutation: z.boolean(),
     overrides: ModifierOverridesSchema,
+    ...productionMetadata,
   })),
   dependencies: z.partialRecord(VisualSlotIdSchema, z.array(VisualSlotIdSchema)),
 })
