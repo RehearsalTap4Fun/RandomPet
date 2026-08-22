@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import sharp from 'sharp'
-import { buildProductionCatalog } from './build-production-catalog.js'
-import { contactCompositeOrder, contactPlacement, planContactSheets, renderContactCell } from './render-production-contact-sheets.js'
+import { loadCommittedProductionCatalog } from './build-production-catalog.js'
+import { contactCompositeOrder, contactPlacement, measureRearLayerVisibility, planContactSheets, renderContactCell } from './render-production-contact-sheets.js'
 
 describe('production contact-sheet plan', () => {
   it('places every visual candidate on every declared compatible rig exactly once', async () => {
-    const { catalog } = await buildProductionCatalog({ write: false })
+    const { catalog } = await loadCommittedProductionCatalog()
     const plan = planContactSheets(catalog)
     const expectedPlacements = catalog.parts.reduce((count, part) => count + part.compatibleRigs.length, 0)
 
@@ -19,7 +19,7 @@ describe('production contact-sheet plan', () => {
   })
 
   it('composites a compatible part and rig into one review cell', async () => {
-    const { catalog } = await buildProductionCatalog({ write: false })
+    const { catalog } = await loadCommittedProductionCatalog()
     const cell = await renderContactCell(catalog, 'blob', 'eyes_glossy_pair')
     await expect(sharp(cell).metadata()).resolves.toMatchObject({ width: 300, height: 340, hasAlpha: true })
   })
@@ -30,10 +30,24 @@ describe('production contact-sheet plan', () => {
     expect(contactCompositeOrder('faceAndHeadwear', 'eyes')).toEqual(['base', 'candidate'])
   })
 
-  it('uses the catalog socket and origin on the renderer 2048 master canvas', async () => {
-    const { catalog } = await buildProductionCatalog({ write: false })
+  it('keeps broad biped moth wings clearly visible outside the body in renderer placement', async () => {
+    const { catalog } = await loadCommittedProductionCatalog()
+    const audit = await measureRearLayerVisibility(catalog, 'biped', 'extra_moth_wings')
+    expect(audit.visibleFraction).toBeGreaterThan(0.3)
+    expect(audit.clippedForegroundPixels).toBe(0)
+  })
+
+  it('uses renderer placement for representative body, head, mouth, appendage, and tail parts', async () => {
+    const { catalog } = await loadCommittedProductionCatalog()
     const rig = catalog.rigs.find(candidate => candidate.id === 'blob')!
-    const tail = catalog.parts.find(candidate => candidate.id === 'tail_soft_curl')!
-    expect(contactPlacement(tail, rig)).toEqual({ left: 1126, top: 748 })
+    const placement = (id: string) => contactPlacement(
+      catalog.parts.find(candidate => candidate.id === id)!,
+      rig,
+    )
+    expect(placement('body_blob_round')).toEqual({ x: 512, y: 512, scaleX: 1, scaleY: 1 })
+    expect(placement('head_round_dome')).toEqual({ x: 512, y: 188, scaleX: 1, scaleY: 1 })
+    expect(placement('mouth_wide_grin')).toEqual({ x: 512, y: 188, scaleX: 1, scaleY: 1 })
+    expect(placement('arms_short_plush')).toEqual({ x: 512, y: 512, scaleX: 1, scaleY: 1 })
+    expect(placement('tail_soft_curl')).toEqual({ x: 998, y: 748, scaleX: 1, scaleY: 1 })
   })
 })

@@ -17,6 +17,7 @@ export interface ChromaDiagnostic {
     | 'CHROMA_BACKGROUND_CONTAMINATED'
     | 'CHROMA_SUBJECT_SIMILARITY'
     | 'CHROMA_SAFE_BORDER_CLIPPED'
+    | 'CHROMA_EDGE_NO_CORE'
     | 'CHROMA_EDGE_DEGRADED'
   message: string
 }
@@ -33,6 +34,7 @@ export interface ChromaQualityMetrics {
   edgeFringeP95: number
   edgeColorDeltaP95: number
   edgeNearestDistanceP95: number
+  edgePixelsWithoutOpaqueCore: number
   safeBorderAlphaMax: number
   safeBorderForegroundPixels: number
 }
@@ -129,6 +131,50 @@ function keyFringe(rgb: Rgb, key: Rgb): number {
   const high = key.flatMap((value, index) => value === 255 ? [rgb[index]!] : [])
   const low = key.flatMap((value, index) => value === 0 ? [rgb[index]!] : [])
   return Math.max(0, Math.min(...high) - Math.max(...low))
+}
+
+function blendLineResidual(observed: Rgb, key: Rgb, intendedForeground: Rgb): number {
+  const vector = intendedForeground.map((value, channel) => value - key[channel]!)
+  const denominator = vector.reduce((sum, value) => sum + value ** 2, 0)
+  if (denominator === 0) return delta(observed, intendedForeground)
+  const alpha = Math.max(0, Math.min(1, vector.reduce(
+    (sum, value, channel) => sum + (observed[channel]! - key[channel]!) * value,
+    0,
+  ) / denominator))
+  const predicted = key.map((value, channel) => Math.round(
+    value + alpha * vector[channel]!,
+  )) as [number, number, number]
+  return delta(observed, predicted)
+}
+
+function bestLocalBlendResidual(input: {
+  observed: Rgb
+  key: Rgb
+  rgba: Uint8Array
+  alpha: Uint8Array
+  width: number
+  height: number
+  nearestCoreIndex: number
+}): number {
+  const centerX = input.nearestCoreIndex % input.width
+  const centerY = Math.floor(input.nearestCoreIndex / input.width)
+  const nearestOffset = input.nearestCoreIndex * 4
+  const nearestColor: Rgb = [input.rgba[nearestOffset]!, input.rgba[nearestOffset + 1]!, input.rgba[nearestOffset + 2]!]
+  let best = blendLineResidual(input.observed, input.key, nearestColor)
+  for (let y = Math.max(0, centerY - 32); y <= Math.min(input.height - 1, centerY + 32); y += 1) {
+    for (let x = Math.max(0, centerX - 32); x <= Math.min(input.width - 1, centerX + 32); x += 1) {
+      const index = y * input.width + x
+      // A high-confidence, independently observed foreground sample. Requiring
+      // substantial opacity avoids learning the colour from the very fringe we
+      // are auditing, while 192 still captures the lighter tips of soft fur
+      // that legitimately disappear before an entirely opaque core exists.
+      if (input.alpha[index]! < 192) continue
+      const offset = index * 4
+      const candidate: Rgb = [input.rgba[offset]!, input.rgba[offset + 1]!, input.rgba[offset + 2]!]
+      best = Math.min(best, blendLineResidual(input.observed, input.key, candidate))
+    }
+  }
+  return best
 }
 
 function nearestOpaquePixels(
@@ -273,21 +319,36 @@ export async function extractChromaAlpha(
   const edgeFringes: number[] = []
   const edgeColorDeltas: number[] = []
   const edgeNearestDistances: number[] = []
+  let edgePixelsWithoutOpaqueCore = 0
   for (let index = 0; index < pixelCount; index += 1) {
     const alphaByte = alphaBytes[index]!
     if (alphaByte === 0 || alphaByte === 255) continue
     const source = propagated.nearest[index]!
-    if (source < 0) continue
+    if (source < 0) {
+      edgePixelsWithoutOpaqueCore += 1
+      continue
+    }
     const offset = index * 4
     const sourceOffset = source * 4
     const nearestColor: Rgb = [rgba[sourceOffset]!, rgba[sourceOffset + 1]!, rgba[sourceOffset + 2]!]
+    // Fringe is an output-quality metric: this is the independently sampled
+    // inward colour that will be propagated into transparent RGB. The separate
+    // blend residual below deliberately uses the untouched source observation,
+    // so propagation cannot hide a genuinely coloured input fringe.
+    edgeFringes.push(keyFringe(nearestColor, key))
+    edgeColorDeltas.push(bestLocalBlendResidual({
+      observed: readRgb(decoded.data, index),
+      key: sampledKey,
+      rgba,
+      alpha: alphaBytes,
+      width,
+      height,
+      nearestCoreIndex: source,
+    }))
+    edgeNearestDistances.push(Math.sqrt(propagated.distanceSquared[index]!))
     rgba[offset] = nearestColor[0]
     rgba[offset + 1] = nearestColor[1]
     rgba[offset + 2] = nearestColor[2]
-    const finalColor: Rgb = [rgba[offset]!, rgba[offset + 1]!, rgba[offset + 2]!]
-    edgeFringes.push(keyFringe(finalColor, key))
-    edgeColorDeltas.push(delta(finalColor, nearestColor))
-    edgeNearestDistances.push(Math.sqrt(propagated.distanceSquared[index]!))
   }
 
   const subjectCoverage = opaquePixels / pixelCount
@@ -316,6 +377,12 @@ export async function extractChromaAlpha(
   const edgeFringeP95 = percentile(edgeFringes, 0.95)
   const edgeColorDeltaP95 = percentile(edgeColorDeltas, 0.95)
   const edgeNearestDistanceP95 = percentile(edgeNearestDistances, 0.95)
+  if (edgePixelsWithoutOpaqueCore > 0) {
+    diagnostics.push(error(
+      'CHROMA_EDGE_NO_CORE',
+      `${edgePixelsWithoutOpaqueCore} partial-alpha edge pixels have no opaque inward color core.`,
+    ))
+  }
   if (
     partialAlphaPixels < Math.max(16, Math.floor(opaquePixels * 0.001))
     || partialAlphaRatio > 0.45
@@ -350,6 +417,7 @@ export async function extractChromaAlpha(
       edgeFringeP95,
       edgeColorDeltaP95,
       edgeNearestDistanceP95,
+      edgePixelsWithoutOpaqueCore,
       safeBorderAlphaMax,
       safeBorderForegroundPixels,
     },

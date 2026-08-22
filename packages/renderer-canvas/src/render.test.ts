@@ -10,7 +10,7 @@ import {
   makeValidCatalogFixture,
   makeValidMonsterSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
-import { resolvePlacement } from './layout.js'
+import { resolvePartPlacement, resolvePlacement } from './layout.js'
 import { expandRenderLayers, RENDER_LAYER_ORDER } from './layers.js'
 import { renderMonster } from './render.js'
 import type { ImageResolver, RenderOptions } from './types.js'
@@ -156,6 +156,19 @@ function fixtureWithNineGroups(): { catalog: Catalog; spec: MonsterSpec; expecte
 }
 
 describe('socket placement', () => {
+  it('resolves a catalog part through renderer null-socket and named-socket semantics', () => {
+    const catalog = makeValidCatalogFixture()
+    const rig = catalog.rigs[0]!
+    expect(resolvePartPlacement(part(catalog, 'body_blob'), rig)).toEqual({
+      ok: true,
+      value: { x: 0, y: 0, scaleX: 1, scaleY: 1 },
+    })
+    expect(resolvePartPlacement(part(catalog, 'head_round'), rig)).toEqual({
+      ok: true,
+      value: { x: 0, y: -304, scaleX: 1, scaleY: 1 },
+    })
+  })
+
   it('aligns a part origin to the body socket', () => {
     expect(resolvePlacement(
       { x: 620, y: 360 },

@@ -1,5 +1,5 @@
 import type { Catalog, Diagnostic, MonsterSpec, Palette } from '@qmonster/generator-core'
-import { resolvePlacement } from './layout.js'
+import { resolvePartPlacement } from './layout.js'
 import { expandRenderLayers } from './layers.js'
 import type {
   ImageResolver,
@@ -99,25 +99,10 @@ function hasMasks(layer: RenderLayerInstance): boolean {
 }
 
 function placementFor(layer: RenderLayerInstance): { placement?: Placement; diagnostic?: Diagnostic } {
-  const socket = layer.socketName === null
-    ? { x: MASTER_SIZE / 2, y: MASTER_SIZE / 2 }
-    : layer.rig.sockets[layer.socketName]
-  if (socket === undefined) {
-    return {
-      diagnostic: {
-        severity: 'error',
-        code: 'RENDER_SOCKET_MISSING',
-        path: ['socket'],
-        message: `Rig ${layer.rig.id} has no ${layer.socketName} socket for ${layer.part.id}.`,
-      },
-    }
-  }
-  const result = resolvePlacement(
-    socket,
-    layer.part.origin,
-    layer.transform,
-    layer.part.approvedTransforms ?? [],
-  )
+  const part = layer.socketName === layer.part.socket
+    ? layer.part
+    : { ...layer.part, socket: layer.socketName }
+  const result = resolvePartPlacement(part, layer.rig, layer.transform)
   return result.ok ? { placement: result.value } : { diagnostic: result.diagnostic }
 }
 

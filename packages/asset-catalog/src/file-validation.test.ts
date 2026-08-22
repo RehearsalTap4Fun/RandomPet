@@ -1,8 +1,9 @@
-import { mkdir, mkdtemp, rm, symlink } from 'node:fs/promises'
+import { mkdir, mkdtemp, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { execFile as execFileCallback } from 'node:child_process'
 import { promisify } from 'node:util'
+import { createHash } from 'node:crypto'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
@@ -16,6 +17,26 @@ afterEach(async () => {
 })
 
 describe('validateCatalogFiles', () => {
+  it('validates both WebP and PNG runtime paths and hashes', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-assets-'))
+    temporaryDirectories.push(tempRoot)
+    const png = await sharp({ create: { width: 1024, height: 1024, channels: 4, background: '#00000000' } }).png().toBuffer()
+    const webp = await sharp(png).webp({ lossless: true }).toBuffer()
+    await writeFile(join(tempRoot, 'part.png'), png)
+    await writeFile(join(tempRoot, 'part.webp'), webp)
+    const catalog = makeValidCatalogFixture()
+    for (const part of catalog.parts) {
+      part.assetPath = 'part.webp'
+      part.assetSha256 = createHash('sha256').update(webp).digest('hex')
+      part.pngPath = 'part.png'
+      part.pngSha256 = '0'.repeat(64)
+    }
+
+    const diagnostics = await validateCatalogFiles(catalog, tempRoot)
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'ASSET_HASH_MISMATCH', path: expect.arrayContaining(['pngPath']) }))
+  })
+
   it('reports non-square RGB assets without alpha', async () => {
     const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-assets-'))
     temporaryDirectories.push(tempRoot)

@@ -15,6 +15,28 @@ describe('catalog validation', () => {
     expect(codes).toContain('CATALOG_SLOT_UNCOVERED')
   })
 
+  it('reports dangling semantic excludes and part boosts', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.semanticTraits[0]!.excludes = ['missing_semantic_trait']
+    catalog.semanticTraits[0]!.boosts = { missing_part: 1.2 }
+
+    const codes = validateCatalogStructure(catalog).map(item => item.code)
+
+    expect(codes).toContain('CATALOG_DANGLING_SEMANTIC_EXCLUDE')
+    expect(codes).toContain('CATALOG_DANGLING_SEMANTIC_BOOST')
+  })
+
+  it('reports dangling modifier excludes and part boosts', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.modifiers[0]!.excludes = ['missing_modifier']
+    catalog.modifiers[0]!.boosts = { missing_part: 1.2 }
+
+    const codes = validateCatalogStructure(catalog).map(item => item.code)
+
+    expect(codes).toContain('CATALOG_DANGLING_MODIFIER_EXCLUDE')
+    expect(codes).toContain('CATALOG_DANGLING_MODIFIER_BOOST')
+  })
+
   it('requires explicit none candidates for optional slots', () => {
     const catalog = makeValidCatalogFixture()
     catalog.parts = catalog.parts.filter(part => part.id !== 'tail_none')

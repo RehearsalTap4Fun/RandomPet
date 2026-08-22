@@ -60,7 +60,9 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
   )
 
   const themePool = compatible.filter(part => part.themeIds.includes(input.themeId))
-  const useThemePool = input.rng.nextFloat() < 0.7 && themePool.length > 0
+  const themeRoll = input.rng.nextFloat()
+  const hardThemeBound = input.slotId === 'colorScheme'
+  const useThemePool = hardThemeBound || (themeRoll < 0.7 && themePool.length > 0)
   const rangeMode: CandidateTrace['rangeMode'] = useThemePool ? 'theme' : 'full'
   const range = useThemePool ? themePool : compatible
   const availableRarities = (['N', 'R', 'L'] as const).filter(rarity =>

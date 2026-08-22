@@ -1259,7 +1259,7 @@
     },
     "excludes": [],
     "boosts": {
-      "ears": 1.05
+      "head_ears_floppy_fins": 1.05
     },
     "visualMapping": {
       "effectPartIds": [],

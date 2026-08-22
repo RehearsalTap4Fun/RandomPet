@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
-import { dirname, join } from 'node:path'
+import { dirname, isAbsolute, join, relative } from 'node:path'
 import type {
   Catalog,
   ModifierDefinition,
@@ -13,6 +13,7 @@ import type {
   VisualSlotId,
 } from '@qmonster/generator-core'
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
+import type { RigSheetAudit } from './process-rig-sheets.js'
 
 interface ProductionIndexEntry {
   id: string
@@ -45,6 +46,9 @@ interface ProductionIndexEntry {
   webpSha256: string
   evaluatedVariants?: string[]
   postProcess?: string
+  composition?: Record<string, unknown>
+  candidateCompositions?: Array<Record<string, unknown> & { index: number }>
+  componentEvaluations?: Record<string, unknown>
 }
 
 export interface RichPart extends VisualPartDefinition {
@@ -100,6 +104,7 @@ const assetDirectory = 'packages/asset-catalog/assets/v0.1.0'
 const sourceRoot = 'asset-source/v0.1.0'
 const productionIndexPath = join(sourceRoot, 'generation', 'production-index.json')
 const reviewRecordPath = 'packages/asset-catalog/review/v0.1.0/review-record.json'
+const rigAuditPath = join(sourceRoot, 'generation', 'rig-audit.json')
 
 const themes: RichTheme[] = [
   { id: 'deep-sea', displayName: '深海', flavorText: '潮光从柔软的深渊皮膜中缓慢呼吸。', palette: { primary: '#237aa3', secondary: '#74c9bf', accent: '#f6d365' } },
@@ -149,7 +154,7 @@ const semanticOnlyTraits: RichSemanticTrait[] = [
   { id: 'quirk_light_chaser', semanticSlotId: 'quirk', displayName: '追光癖', flavorText: '只要有一点亮，它就忍不住跟着走。', rarity: 'N', themeBoosts: { 'deep-sea': 1.2, shadow: 1.15 }, excludes: [], boosts: { effect_bioluminescent_orbs: 1.3 }, visualMapping: { effectPartIds: ['effect_bioluminescent_orbs'], suggestedParts: ['head_antennae_glow', 'pattern_constellation'] } },
   { id: 'quirk_spore_sneeze', semanticSlotId: 'quirk', displayName: '孢子喷嚏', flavorText: '一紧张，就会打出一串暖呼呼的小孢子。', rarity: 'N', themeBoosts: { fungal: 1.35 }, excludes: ['quirk_tide_hum'], boosts: { effect_spore_glow: 1.3 }, visualMapping: { effectPartIds: ['effect_spore_glow'], suggestedParts: ['surface_mushroom_velvet'] } },
   { id: 'quirk_tide_hum', semanticSlotId: 'quirk', displayName: '潮汐哼唱', flavorText: '安静时，肚子里会传出很小的海浪声。', rarity: 'N', themeBoosts: { 'deep-sea': 1.3 }, excludes: ['quirk_spore_sneeze'], boosts: { tail_fish_fan: 1.15 }, visualMapping: { effectPartIds: [], suggestedParts: ['tail_fish_fan', 'arms_paddle'] } },
-  { id: 'quirk_collects_echoes', semanticSlotId: 'quirk', displayName: '回声收藏家', flavorText: '它把喜欢的声音叠好，藏在柔软肚皮里。', rarity: 'N', themeBoosts: { 'deep-sea': 1.05, shadow: 1.1 }, excludes: [], boosts: { ears: 1.05 }, visualMapping: { effectPartIds: [], suggestedParts: ['head_ears_floppy_fins'] } },
+  { id: 'quirk_collects_echoes', semanticSlotId: 'quirk', displayName: '回声收藏家', flavorText: '它把喜欢的声音叠好，藏在柔软肚皮里。', rarity: 'N', themeBoosts: { 'deep-sea': 1.05, shadow: 1.1 }, excludes: [], boosts: { head_ears_floppy_fins: 1.05 }, visualMapping: { effectPartIds: [], suggestedParts: ['head_ears_floppy_fins'] } },
   { id: 'quirk_shadow_skip', semanticSlotId: 'quirk', displayName: '影子慢半拍', flavorText: '本体停下以后，影子还会多走一小步。', rarity: 'R', themeBoosts: { shadow: 1.4 }, excludes: [], boosts: { legs_shadow_tiptoe: 1.25 }, visualMapping: { effectPartIds: [], suggestedParts: ['legs_shadow_tiptoe', 'color_shadow_violet'] } },
   { id: 'quirk_dream_bubbles', semanticSlotId: 'quirk', displayName: '梦泡逸出', flavorText: '睡着以后，未做完的梦会变成小泡泡飘出去。', rarity: 'R', themeBoosts: { 'deep-sea': 1.15, fungal: 1.1 }, excludes: [], boosts: { surface_gel_bubbles: 1.2 }, visualMapping: { effectPartIds: ['effect_bioluminescent_orbs'], suggestedParts: ['surface_gel_bubbles', 'body_floating_drop'] } },
 ]
@@ -164,11 +169,21 @@ const modifiers: RichModifier[] = [
 const rigSheetProvenance = {
   base_blob_v1: { file: 'exec-3637fa25-94c1-4ff2-8867-dbfdbc54445c.png', selected: 1, rejected: 'Candidates 2-4 had weaker neutral silhouette or future socket clarity.' },
   base_biped_v1: { file: 'exec-4d96db4e-e09d-4c04-a410-cc4dfc79b829.png', selected: 2, rejected: 'Candidates 1,3,4 had stance, proportion, or attachment-zone drift.' },
-  base_floating_v1: { file: 'exec-eae82714-441a-41e0-9998-b7e8303e5681.png', selected: 2, rejected: 'Candidates 1,3,4 had weaker hovering silhouette or asymmetry balance.' },
+  base_floating_v1: { file: 'exec-eae82714-441a-41e0-9998-b7e8303e5681.png', selected: 4, rejected: 'Candidates 1-3 failed the independent edge-colour gate after full local comparison; candidate 4 preserved the hovering silhouette and passed at p95 11.92.' },
 } as const
 
 function normalizePath(path: string): string {
-  return path.replaceAll('\\', '/')
+  const portable = isAbsolute(path) ? relative(process.cwd(), path) : path
+  return portable.replaceAll('\\', '/')
+}
+
+function normalizeAuditPaths(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(normalizeAuditPaths)
+  if (value === null || typeof value !== 'object') return value
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key,
+    typeof item === 'string' && key.toLowerCase().endsWith('path') ? normalizePath(item) : normalizeAuditPaths(item),
+  ]))
 }
 
 async function sha256File(path: string): Promise<string> {
@@ -177,6 +192,27 @@ async function sha256File(path: string): Promise<string> {
 
 function sha256Text(value: string): string {
   return createHash('sha256').update(value).digest('hex')
+}
+
+export async function resolveProductionPrompt(
+  root: string,
+  part: (typeof PRODUCTION_PARTS)[number],
+): Promise<{ promptPath: string; prompt: string; source: 'recorded' | 'template-fallback' }> {
+  const promptPath = join(root, 'prompts', `${part.id}.txt`)
+  try {
+    const prompt = (await readFile(promptPath, 'utf8')).trimEnd()
+    if (prompt === '') throw new Error(`Recorded production prompt is empty: ${promptPath}`)
+    return { promptPath, prompt, source: 'recorded' }
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+    return {
+      promptPath,
+      prompt: part.visible
+        ? buildPartPrompt(part)
+        : `Explicit optional-slot none candidate for ${part.id}: deterministic fully transparent RGBA layer; no generated pixels.`,
+      source: 'template-fallback',
+    }
+  }
 }
 
 function rigPrompt(rig: RichRig): string {
@@ -222,9 +258,33 @@ async function writeJson(path: string, value: unknown): Promise<void> {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`)
 }
 
+async function readJson<T>(path: string): Promise<T> {
+  return JSON.parse(await readFile(path, 'utf8')) as T
+}
+
+/** Loads only committed runtime catalog data; it never reads ignored source-production files. */
+export async function loadCommittedProductionCatalog(
+  options: { repositoryRoot?: string } = {},
+): Promise<ProductionCatalogBundle> {
+  const root = options.repositoryRoot ?? '.'
+  const directory = join(root, catalogDirectory)
+  const [catalog, themes, rigs, parts, semanticTraits, modifiers, sourceIndex] = await Promise.all([
+    readJson<Catalog>(join(directory, 'catalog.json')),
+    readJson<RichTheme[]>(join(directory, 'themes.json')),
+    readJson<RichRig[]>(join(directory, 'rigs.json')),
+    readJson<RichPart[]>(join(directory, 'parts.json')),
+    readJson<RichSemanticTrait[]>(join(directory, 'semantic-traits.json')),
+    readJson<RichModifier[]>(join(directory, 'modifiers.json')),
+    readJson<Record<string, unknown>>(join(root, 'packages/asset-catalog/source-index.json')),
+  ])
+  return { catalog, themes, rigs, parts, semanticTraits, modifiers, sourceIndex }
+}
+
 export async function buildProductionCatalog(options: { write: boolean }): Promise<ProductionCatalogBundle> {
   const productionIndex = JSON.parse(await readFile(productionIndexPath, 'utf8')) as ProductionIndexEntry[]
+  const rigAudits = await readJson<RigSheetAudit[]>(rigAuditPath)
   if (productionIndex.length !== 55) throw new Error(`Expected 55 production entries, received ${productionIndex.length}`)
+  if (rigAudits.length !== 3) throw new Error(`Expected 3 rig audit entries, received ${rigAudits.length}`)
   const indexed = new Map(productionIndex.map(entry => [entry.id, entry]))
 
   const parts: RichPart[] = await Promise.all(PRODUCTION_PARTS.map(async part => {
@@ -251,8 +311,8 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       pngSha256: source.pngSha256,
       approvedTransforms: [{ scale: 1, mirrorX: false }],
       maskPaths: {},
-      origin: part.slotId === 'tail' && part.visible ? { x: 384, y: part.origin.y } : { x: 512, y: 512 },
-      socket: part.slotId === 'tail' && part.visible ? 'tail' : 'canvasCenter',
+      origin: part.origin,
+      socket: part.socket,
       layer: part.layer,
       semanticTraitId: part.semanticTraitId,
       semanticPriority: part.semanticPriority,
@@ -282,9 +342,10 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     reviewer: null,
     contactSheets: [],
   }
-  const partSources = PRODUCTION_PARTS.map(part => {
+  const partSources = await Promise.all(PRODUCTION_PARTS.map(async part => {
     const source = indexed.get(part.id)!
-    const prompt = part.visible ? buildPartPrompt(part) : `Explicit optional-slot none candidate for ${part.id}: deterministic fully transparent RGBA layer; no generated pixels.`
+    const resolvedPrompt = await resolveProductionPrompt(sourceRoot, part)
+    const prompt = resolvedPrompt.prompt
     const selectedCandidate = source.candidates?.find(candidate => candidate.index === source.selected)
     return {
       sourceId: part.id,
@@ -296,7 +357,7 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       generationPath: source.sourceSheet === undefined ? null : normalizePath(source.sourceSheet),
       sheetPath: source.sheetPath === undefined ? null : normalizePath(source.sheetPath),
       sheetSha256: source.sheetSha256 ?? null,
-      promptPath: `${sourceRoot}/prompts/${part.id}.txt`,
+      promptPath: normalizePath(resolvedPrompt.promptPath),
       promptSha256: sha256Text(prompt),
       prompt,
       slotMaskPath: `${sourceRoot}/guides/${part.rigId}-${part.slotId}.png`,
@@ -304,14 +365,20 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       attempt: source.attempt ?? 'deterministic-none',
       rejectionSummary: source.rejectionSummary ?? 'Four explicit none variants are identical by definition.',
       postProcess: source.postProcess ?? 'deterministic-transparent-none-v1',
+      composition: normalizeAuditPaths(source.composition ?? null),
+      componentEvaluations: normalizeAuditPaths(source.componentEvaluations ?? null),
       candidateEvaluations: source.candidates?.map(candidate => ({
         index: candidate.index,
         selected: candidate.index === source.selected,
         machineApproved: candidate.extraction.approved,
+        reviewDecision: candidate.index === source.selected
+          ? `approved: selected after four-way visual and machine comparison; ${source.rejectionSummary ?? 'best compatible candidate.'}`
+          : `rejected: ${source.rejectionSummary ?? 'not selected after four-way visual and machine comparison.'}`,
         diagnostics: candidate.extraction.diagnostics,
         metrics: candidate.extraction.metrics,
         sourceSha256: candidate.extraction.sourceSha256,
         processedSha256: candidate.extraction.processedSha256,
+        composition: normalizeAuditPaths(source.candidateCompositions?.find(composition => composition.index === candidate.index) ?? null),
       })) ?? source.evaluatedVariants?.map((variant, index) => ({ index: index + 1, selected: index === 0, machineApproved: true, value: variant })),
       selectedExtraction: selectedCandidate?.extraction ?? null,
       masterPath: normalizePath(source.master?.masterPath ?? source.masterPath!),
@@ -321,58 +388,80 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
       runtimeWebpPath: normalizePath(source.webpPath),
       runtimeWebpSha256: source.webpSha256,
     }
-  })
+  }))
 
-  const rigSources = await Promise.all(rigs.map(async rig => {
+  const rigSources = rigs.map(rig => {
     const provenance = rigSheetProvenance[rig.sourceId]
-    const sheetPath = `${sourceRoot}/generation/rig-sheets/${rig.sourceId}-sheet.png`
-    const masterPath = `${sourceRoot}/rigs/${rig.sourceId}.png`
-    const runtimePngPath = `${assetDirectory}/rigs/${rig.sourceId}.png`
-    const runtimeWebpPath = `${assetDirectory}/rigs/${rig.sourceId}.webp`
+    const audit = rigAudits.find(candidate => candidate.sourceId === rig.sourceId)
+    if (audit === undefined) throw new Error(`Missing rig audit for ${rig.sourceId}`)
+    const sheetPath = `${sourceRoot}/${audit.sheetPath}`
+    const masterPath = `${sourceRoot}/${audit.master.masterPath}`
+    const runtimePngPath = `${assetDirectory}/${audit.runtimePngPath}`
+    const runtimeWebpPath = `${assetDirectory}/${audit.runtimeWebpPath}`
     const prompt = rigPrompt(rig)
     return {
       sourceId: rig.sourceId,
       kind: 'rig-base',
       rigId: rig.id,
       generationTool: 'Codex built-in image_gen on uniform chroma key + deterministic local extraction',
-      generationPath: `C:/Users/jiangzhenyu/.codex/generated_images/01a02470-776f-7a43-a04d-42ea4ff47690/${provenance.file}`,
+      generationPath: sheetPath,
       sheetPath,
-      sheetSha256: await sha256File(sheetPath),
+      sheetSha256: audit.sheetSha256,
       promptPath: `${sourceRoot}/prompts/${rig.sourceId}.txt`,
       promptSha256: sha256Text(prompt),
       prompt,
       chosenVariant: provenance.selected,
       rejectedVariants: provenance.rejected,
-      candidateEvaluations: await Promise.all([1, 2, 3, 4].map(async index => ({
-        index,
-        selected: index === provenance.selected,
-        sourceSha256: await sha256File(`${sourceRoot}/generation/rig-candidates/${rig.sourceId}/${rig.sourceId}-candidate-${index}-source.png`),
-        processedSha256: await sha256File(`${sourceRoot}/generation/rig-candidates/${rig.sourceId}/${rig.sourceId}-candidate-${index}-rgba.png`),
-      }))),
+      candidateEvaluations: audit.candidateEvaluations.map(candidate => ({
+        index: candidate.index,
+        selected: candidate.selected,
+        machineApproved: candidate.machineApproved,
+        reviewDecision: candidate.selected ? 'approved: selected after four-way visual and machine comparison.' : `rejected: ${provenance.rejected}`,
+        diagnostics: candidate.extraction.diagnostics,
+        metrics: candidate.extraction.metrics,
+        sourceSha256: candidate.extraction.sourceSha256,
+        processedSha256: candidate.extraction.processedSha256,
+      })),
+      selectedExtraction: audit.selectedExtraction,
       masterPath,
-      masterSha256: await sha256File(masterPath),
+      masterSha256: audit.master.sha256,
       runtimePngPath,
-      runtimePngSha256: await sha256File(runtimePngPath),
+      runtimePngSha256: audit.runtimePngSha256,
       runtimeWebpPath,
-      runtimeWebpSha256: await sha256File(runtimeWebpPath),
+      runtimeWebpSha256: audit.runtimeWebpSha256,
     }
-  }))
+  })
+
+  const partCandidateEvaluations = productionIndex.flatMap(entry => entry.candidates ?? [])
+  const rigCandidateEvaluations = rigAudits.flatMap(audit => audit.candidateEvaluations)
 
   const sourceIndex: Record<string, unknown> = {
     catalogVersion: '0.1.0',
-    pipelineVersion: 'chroma-extraction-v1',
+    pipelineVersion: 'chroma-extraction-v2-independent-edge',
     immutablePromptTemplateSha256: sha256Text(buildPartPrompt(PRODUCTION_PARTS[0]!).replace(PRODUCTION_PARTS[0]!.slotId, '{slotId}').replace(PRODUCTION_PARTS[0]!.description, '{partDescription}')),
     generationSummary: {
-      rigSheets: 3,
-      rigGeneratedVariants: 12,
+      traceableRigSheets: 3,
+      traceableRigVariants: 12,
       approvedRigBases: 3,
-      acceptedVisiblePartSheets: 51,
-      totalPartGenerationSheetsIncludingRegeneration: 75,
-      totalGeneratedPartVariantsIncludingRegeneration: 300,
+      traceableVisiblePartSheets: 51,
+      traceableVisiblePartVariants: 204,
       approvedVisiblePartVariants: 51,
-      rejectedGeneratedPartVariants: 249,
+      machineRejectedTraceableVisiblePartVariants: partCandidateEvaluations.filter(candidate => !candidate.extraction.approved).length,
       explicitNoneCandidates: 4,
+      explicitNoneEvaluations: 16,
       catalogVisualCandidates: 55,
+      traceableCompositeComponentVariants: 8,
+    },
+    qualityGateSummary: {
+      rigCandidatesEvaluated: rigCandidateEvaluations.length,
+      rigCandidatesPassed: rigCandidateEvaluations.filter(candidate => candidate.machineApproved).length,
+      partCandidatesEvaluated: partCandidateEvaluations.length,
+      partCandidatesPassed: partCandidateEvaluations.filter(candidate => candidate.extraction.approved).length,
+      approvedRigSelectionsPassing: rigAudits.filter(audit => audit.selectedExtraction.approved).length,
+      approvedPartSelectionsPassing: productionIndex.filter(entry => {
+        if (!entry.visible) return false
+        return entry.candidates?.find(candidate => candidate.index === entry.selected)?.extraction.approved === true
+      }).length,
     },
     review,
     sources: [...rigSources, ...partSources],
@@ -388,8 +477,10 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     await writeJson('packages/asset-catalog/source-index.json', sourceIndex)
     await mkdir(join(sourceRoot, 'prompts'), { recursive: true })
     for (const part of PRODUCTION_PARTS) {
-      const prompt = part.visible ? buildPartPrompt(part) : `Explicit optional-slot none candidate for ${part.id}: deterministic fully transparent RGBA layer; no generated pixels.`
-      await writeFile(join(sourceRoot, 'prompts', `${part.id}.txt`), `${prompt}\n`)
+      const resolvedPrompt = await resolveProductionPrompt(sourceRoot, part)
+      if (resolvedPrompt.source === 'template-fallback') {
+        await writeFile(resolvedPrompt.promptPath, `${resolvedPrompt.prompt}\n`)
+      }
     }
     for (const rig of rigs) await writeFile(join(sourceRoot, 'prompts', `${rig.sourceId}.txt`), `${rigPrompt(rig)}\n`)
   }

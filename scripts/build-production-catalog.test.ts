@@ -1,8 +1,11 @@
 import { createHash } from 'node:crypto'
-import { readFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { VISUAL_SLOT_IDS } from '@qmonster/generator-core'
-import { buildProductionCatalog } from './build-production-catalog.js'
+import { loadCommittedProductionCatalog, resolveProductionPrompt } from './build-production-catalog.js'
+import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
 
 const expectedCounts = {
   bodyFrame: 5,
@@ -22,8 +25,24 @@ const expectedCounts = {
 } as const
 
 describe('v0.1 production catalog builder', () => {
+  it('preserves the exact locally recorded generation prompt instead of replacing it with a template', async () => {
+    const sourceRoot = await mkdtemp(join(tmpdir(), 'qmonster-prompt-'))
+    await mkdir(join(sourceRoot, 'prompts'), { recursive: true })
+    const part = PRODUCTION_PARTS.find(candidate => candidate.id === 'effect_bioluminescent_orbs')!
+    await writeFile(join(sourceRoot, 'prompts', `${part.id}.txt`), 'exact built-in image generation prompt\n')
+
+    await expect(resolveProductionPrompt(sourceRoot, part)).resolves.toMatchObject({
+      prompt: 'exact built-in image generation prompt',
+      source: 'recorded',
+    })
+    await expect(resolveProductionPrompt(sourceRoot, PRODUCTION_PARTS[0]!)).resolves.toMatchObject({
+      prompt: buildPartPrompt(PRODUCTION_PARTS[0]!),
+      source: 'template-fallback',
+    })
+  })
+
   it('builds the exact visual, semantic-only and modifier budgets with traceable runtime hashes', async () => {
-    const bundle = await buildProductionCatalog({ write: false })
+    const bundle = await loadCommittedProductionCatalog()
     const counts = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
       slotId,
       bundle.catalog.parts.filter(part => part.slotId === slotId).length,
@@ -57,5 +76,50 @@ describe('v0.1 production catalog builder', () => {
       expect(entry.boosts).toBeDefined()
       expect(entry.visualMapping).toBeDefined()
     }
+  })
+
+  it('preserves authored socket and origin for body, head, mouth, appendage, and tail layers', async () => {
+    const { parts } = await loadCommittedProductionCatalog()
+    const placement = (id: string) => {
+      const candidate = parts.find(part => part.id === id)
+      expect(candidate, `missing ${id}`).toBeDefined()
+      return { socket: candidate!.socket, origin: candidate!.origin }
+    }
+
+    expect(placement('body_blob_round')).toEqual({ socket: null, origin: { x: 512, y: 512 } })
+    expect(placement('head_round_dome')).toEqual({ socket: 'head', origin: { x: 512, y: 512 } })
+    expect(placement('mouth_wide_grin')).toEqual({ socket: 'head', origin: { x: 512, y: 512 } })
+    expect(placement('arms_short_plush')).toEqual({ socket: null, origin: { x: 512, y: 512 } })
+    expect(placement('tail_soft_curl')).toEqual({ socket: 'tail', origin: { x: 512, y: 512 } })
+  })
+
+  it('commits complete chroma-quality audit data for all twelve rig candidates', async () => {
+    const { sourceIndex } = await loadCommittedProductionCatalog()
+    const sources = sourceIndex.sources as Array<Record<string, unknown>>
+    const rigSources = sources.filter(source => source.kind === 'rig-base')
+    expect(rigSources).toHaveLength(3)
+    for (const rig of rigSources) {
+      const candidates = rig.candidateEvaluations as Array<Record<string, unknown>>
+      expect(candidates).toHaveLength(4)
+      expect(candidates.filter(candidate => candidate.selected)).toHaveLength(1)
+      for (const candidate of candidates) {
+        expect(candidate.machineApproved).toBeTypeOf('boolean')
+        expect(candidate.diagnostics).toBeInstanceOf(Array)
+        expect(candidate.metrics).toMatchObject({
+          detectedKeyHex: expect.stringMatching(/^#[a-f0-9]{6}$/),
+          edgeColorDeltaP95: expect.any(Number),
+          safeBorderForegroundPixels: expect.any(Number),
+        })
+        expect(candidate.sourceSha256).toMatch(/^[a-f0-9]{64}$/)
+        expect(candidate.processedSha256).toMatch(/^[a-f0-9]{64}$/)
+      }
+      expect(rig.selectedExtraction).toMatchObject({ approved: true })
+    }
+    expect(sourceIndex.qualityGateSummary).toMatchObject({
+      rigCandidatesEvaluated: 12,
+      partCandidatesEvaluated: 204,
+      approvedRigSelectionsPassing: 3,
+      approvedPartSelectionsPassing: 51,
+    })
   })
 })

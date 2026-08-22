@@ -14,6 +14,8 @@ interface FixtureOptions {
   crisp?: boolean
   contaminatedBorder?: boolean
   subject?: [number, number, number]
+  edgeTint?: [number, number, number]
+  maximumAlpha?: number
 }
 
 async function makeFixture(path: string, options: FixtureOptions = {}): Promise<void> {
@@ -30,9 +32,10 @@ async function makeFixture(path: string, options: FixtureOptions = {}): Promise<
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) {
       const distance = Math.hypot(x - centerX, y - centerY)
-      const alpha = feather === 0
+      const rawAlpha = feather === 0
         ? (distance <= radius ? 1 : 0)
         : Math.max(0, Math.min(1, (radius + feather - distance) / (feather * 2)))
+      const alpha = rawAlpha * (options.maximumAlpha ?? 1)
       const noise = ((x * 17 + y * 29) % 5) - 2
       const backgroundNoise = options.backgroundNoise ?? 0
       let key: [number, number, number] = options.backgroundBase ?? [0, 255, 0]
@@ -47,7 +50,10 @@ async function makeFixture(path: string, options: FixtureOptions = {}): Promise<
       if (options.contaminatedBorder && y < 8 && x > 24 && x < 72) key = [35, 205, 80]
       const offset = (y * width + x) * channels
       for (let channel = 0; channel < channels; channel += 1) {
-        const texturedForeground = Math.max(0, Math.min(255, foreground[channel]! + noise))
+        const edgeForeground = rawAlpha > 0 && rawAlpha < 0.65 && options.edgeTint !== undefined
+          ? options.edgeTint
+          : foreground
+        const texturedForeground = Math.max(0, Math.min(255, edgeForeground[channel]! + noise))
         pixels[offset + channel] = Math.round(
           texturedForeground * alpha + key[channel]! * (1 - alpha),
         )
@@ -94,7 +100,7 @@ describe('extractChromaAlpha', () => {
     }
     const softEdge = pixel(23, 48)
 
-    expect(result.approved).toBe(true)
+    expect(result.approved, JSON.stringify(result.metrics)).toBe(true)
     expect(result.diagnostics).toEqual([])
     expect(result.metrics.detectedKeyHex).toBe('#00ff00')
     expect(result.metrics.partialAlphaPixels).toBeGreaterThan(0)
@@ -117,7 +123,7 @@ describe('extractChromaAlpha', () => {
 
     const result = await extractChromaAlpha({ ...fixture, safeBorderPixels: 8 })
 
-    expect(result.approved).toBe(true)
+    expect(result.approved, JSON.stringify(result.metrics)).toBe(true)
     expect(result.metrics.detectedKeyHex).toBe('#00ff00')
     expect(result.metrics.safeBorderAlphaMax).toBe(0)
     expect(result.metrics.partialAlphaRatio).toBeLessThan(0.45)
@@ -166,5 +172,27 @@ describe('extractChromaAlpha', () => {
 
     expect(result.approved).toBe(false)
     expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'CHROMA_EDGE_DEGRADED' }))
+  })
+
+  it('rejects a real colored fringe measured before edge-color propagation', async () => {
+    const fixture = await paths()
+    await makeFixture(fixture.sourcePath, { edgeTint: [255, 220, 40] })
+
+    const result = await extractChromaAlpha({ ...fixture, safeBorderPixels: 8 })
+
+    expect(result.approved).toBe(false)
+    expect(result.metrics.edgeColorDeltaP95).toBeGreaterThan(12)
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'CHROMA_EDGE_DEGRADED' }))
+  })
+
+  it('rejects partial-alpha subject pixels that have no inward opaque core', async () => {
+    const fixture = await paths()
+    await makeFixture(fixture.sourcePath, { maximumAlpha: 0.55 })
+
+    const result = await extractChromaAlpha({ ...fixture, safeBorderPixels: 8 })
+
+    expect(result.approved).toBe(false)
+    expect(result.metrics.edgePixelsWithoutOpaqueCore).toBeGreaterThan(0)
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'CHROMA_EDGE_NO_CORE' }))
   })
 })

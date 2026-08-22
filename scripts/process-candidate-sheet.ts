@@ -170,6 +170,80 @@ export async function normalizeAlignedMaster(input: {
   }
 }
 
+/**
+ * Enlarges aligned content without the destructive centre crop used by the
+ * legacy contentScale path. The opaque bounds are scaled as one affine unit,
+ * positioned around their authored canvas centre, and clamped wholly inside
+ * the 96px master safe area. No source foreground pixel lies outside output.
+ */
+export async function normalizeContainedAlignedMaster(input: {
+  rgbaPath: string
+  masterPath: string
+  contentScale: number
+}): Promise<NormalizedMasterResult> {
+  if (input.contentScale < 1 || input.contentScale > 1.6) {
+    throw new Error('contentScale must be between 1 and 1.6.')
+  }
+  const decoded = await sharp(input.rgbaPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const { width: sourceWidth, height: sourceHeight } = decoded.info
+  let minX = sourceWidth
+  let minY = sourceHeight
+  let maxX = -1
+  let maxY = -1
+  for (let y = 0; y < sourceHeight; y += 1) {
+    for (let x = 0; x < sourceWidth; x += 1) {
+      if (decoded.data[(y * sourceWidth + x) * 4 + 3] === 0) continue
+      minX = Math.min(minX, x)
+      minY = Math.min(minY, y)
+      maxX = Math.max(maxX, x)
+      maxY = Math.max(maxY, y)
+    }
+  }
+  if (maxX < minX || maxY < minY) throw new Error('Cannot normalize an empty aligned layer.')
+
+  const boundsWidth = maxX - minX + 1
+  const boundsHeight = maxY - minY + 1
+  const baseScale = Math.min(1856 / sourceWidth, 1856 / sourceHeight)
+  const requestedScale = baseScale * input.contentScale
+  const scale = Math.min(requestedScale, 1856 / boundsWidth, 1856 / boundsHeight)
+  const targetWidth = Math.max(1, Math.round(boundsWidth * scale))
+  const targetHeight = Math.max(1, Math.round(boundsHeight * scale))
+  const trimmed = await sharp(input.rgbaPath)
+    .extract({ left: minX, top: minY, width: boundsWidth, height: boundsHeight })
+    .resize(targetWidth, targetHeight, { fit: 'fill' })
+    .png(PNG_OPTIONS)
+    .toBuffer()
+  const authoredCenterX = 96 + ((minX + maxX + 1) / 2 / sourceWidth) * 1856
+  const authoredCenterY = 96 + ((minY + maxY + 1) / 2 / sourceHeight) * 1856
+  const left = Math.max(96, Math.min(2048 - 96 - targetWidth, Math.round(authoredCenterX - targetWidth / 2)))
+  const top = Math.max(96, Math.min(2048 - 96 - targetHeight, Math.round(authoredCenterY - targetHeight / 2)))
+
+  await mkdir(dirname(input.masterPath), { recursive: true })
+  await sharp({ create: { width: 2048, height: 2048, channels: 4, background: '#00000000' } })
+    .composite([{ input: trimmed, left, top }])
+    .png(PNG_OPTIONS)
+    .toFile(input.masterPath)
+  const metadata = await sharp(input.masterPath).metadata()
+  const alpha = await sharp(input.masterPath).ensureAlpha().extractChannel('alpha').raw().toBuffer()
+  let boundaryAlphaPixels = 0
+  for (let x = 0; x < 2048; x += 1) {
+    if (alpha[x] !== 0) boundaryAlphaPixels += 1
+    if (alpha[2047 * 2048 + x] !== 0) boundaryAlphaPixels += 1
+  }
+  for (let y = 1; y < 2047; y += 1) {
+    if (alpha[y * 2048] !== 0) boundaryAlphaPixels += 1
+    if (alpha[y * 2048 + 2047] !== 0) boundaryAlphaPixels += 1
+  }
+  return {
+    masterPath: input.masterPath,
+    sha256: await sha256File(input.masterPath),
+    width: metadata.width!,
+    height: metadata.height!,
+    hasAlpha: metadata.hasAlpha ?? false,
+    boundaryAlphaPixels,
+  }
+}
+
 /** Builds a real bilateral layer from one approved generated side design. */
 export async function normalizeBilateralMaster(input: {
   rgbaPath: string

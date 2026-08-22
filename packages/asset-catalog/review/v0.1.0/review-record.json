@@ -1,66 +1,75 @@
 {
   "status": "approved",
-  "reviewedAt": "2026-08-22T18:40:00+08:00",
+  "reviewedAt": "2026-08-23T00:02:00+08:00",
   "reviewer": "Codex visual QA",
   "reviewMethod": "Pixel-alpha checks plus manual inspection of every candidate composited with catalog socket/origin/layer rules on each compatible locked rig.",
   "contactSheets": [
     {
       "rigId": "blob",
       "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-blob.png",
-      "sha256": "9eacd5feeb5c9e8124d28b2a48ee8dafb99e74ea09d18ee5d41598e0457506fa",
+      "sha256": "5814a0435672625d77efbe1e420f7e90d29fc2df82d289ae9ef2ffad8c0c9a88",
       "candidateCount": 39,
       "width": 1200,
       "height": 3482,
       "result": "approved",
-      "finding": "All 39 declared blob-compatible candidates are present once. The curl tail attaches behind the body, both mirrored side fins remain visible, and all face, surface, pattern, palette, and effect layers are readable without fringe or clipping."
+      "finding": "All 39 declared blob-compatible candidates are present once. The compact two-source angler shell/lure has a clean attachment seam; horn nubs are short; regenerated fin ears are low, ribbed and outward/downward-drooping; the curl tail and mirrored side fins remain attached; palette masks are flat; exactly seven opaque-core light orbs are visible without fringe or clipping."
     },
     {
       "rigId": "biped",
       "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-biped.png",
-      "sha256": "82beeccc9cfe8c628a3d9eec1be904f1d40cccf60476f5e8a5ddd95da6a0ae25",
+      "sha256": "9e946d2a79c5cbe749dec2b3d5e65547e34e13583babaed9372f5d69010803fe",
       "candidateCount": 38,
       "width": 1200,
       "height": 3482,
       "result": "approved",
-      "finding": "All 38 declared biped-compatible candidates are present once. The mushroom tail attaches behind the body, both moth-wing tips remain visible, limb counts are correct, and no layer is clipped or contaminated."
+      "finding": "All 38 declared biped-compatible candidates are present once. The content-preserved broad moth wings expose 34.40% of generated foreground outside the rear body layer with both lobes and ribs clearly readable, clipped pixels 0. The mushroom tail attaches, scales are thin surface rows, regenerated fin ears droop, palette masks are flat, and exactly seven light orbs remain distinct."
     },
     {
       "rigId": "floating",
       "path": "packages/asset-catalog/review/v0.1.0/contact-sheet-floating.png",
-      "sha256": "24bee2b0111bd019649443d1d17c1b2c8f632a078dd6e4a9df3409c6be216ee6",
+      "sha256": "55b06a76edd153ed6c9c3d7bdee7e1e4e9f8b8d8d5b98e0959000d0c37539834",
       "candidateCount": 36,
       "width": 1200,
       "height": 3142,
       "result": "approved",
-      "finding": "All 36 declared floating-compatible candidates are present once. The fish tail attaches behind the body, all four soft tentacle ends remain visible, and transparent edges show no key-color fringe."
+      "finding": "All 36 declared floating-compatible candidates are present once on approved rig candidate 4. The fish tail attaches behind the body; all four soft tentacle components/endpoints remain intact and visible after content-aware scaling (29.05% visible, clipped pixels 0); regenerated fin ears droop; exactly seven light orbs remain separate; no transparent edge shows key-color fringe."
     }
   ],
   "machineGateSummary": {
     "productionEntries": 55,
     "visibleEntries": 51,
     "explicitNoneEntries": 4,
-    "evaluatedVariantsInFinalSheets": 204,
-    "machinePassedVariants": 190,
-    "machineRejectedVariants": 14,
+    "rigCandidateVariants": 12,
+    "partCandidateVariants": 204,
+    "evaluatedVariantsInFinalSheets": 216,
+    "machinePassedRigVariants": 8,
+    "machineRejectedRigVariants": 4,
+    "machinePassedPartVariants": 173,
+    "machineRejectedPartVariants": 31,
+    "machinePassedVariants": 181,
+    "machineRejectedVariants": 35,
+    "approvedRigSelectionsPassingMachineGate": 3,
     "approvedSelectionsPassingMachineGate": 51,
-    "approvedSelectionsWithBorderContamination": 0,
+    "approvedSelectionsWithNonzeroAllowedBorderContamination": 4,
+    "approvedSelectionsFailingBorderContaminationGate": 0,
     "approvedSelectionsWithEdgeFringe": 0,
-    "approvedSelectionsWithSafeBorderForeground": 0
+    "approvedSelectionsWithNonzeroAllowedSafeBorderForeground": 1,
+    "approvedSelectionsFailingSafeBorderGate": 0
   },
   "correctiveReview": [
     {
       "partId": "tail_soft_curl",
-      "decision": "keep generated candidate 1; catalog origin.x corrected to 384",
+      "decision": "keep generated candidate 3; catalog tail socket and authored origin {x:512,y:512} preserved",
       "result": "approved on blob"
     },
     {
       "partId": "tail_mushroom_cluster",
-      "decision": "keep generated candidate 1; catalog origin.x corrected to 384",
+      "decision": "use regenerated candidate 1 with exactly three caps; catalog tail socket and authored origin {x:512,y:512} preserved",
       "result": "approved on biped"
     },
     {
       "partId": "tail_fish_fan",
-      "decision": "keep generated candidate 1; catalog origin.x corrected to 384",
+      "decision": "keep generated candidate 1; catalog tail socket and authored origin {x:512,y:512} preserved",
       "result": "approved on floating"
     },
     {
@@ -70,20 +79,61 @@
     },
     {
       "partId": "extra_soft_tentacles",
-      "decision": "keep the original generated four-tentacle candidate 1 and center-scale its transparent layer by 1.5",
+      "decision": "keep the generated four-tentacle candidate 1 and use content-aware contained scale 1.5; every component and endpoint is preserved with no centre crop",
       "result": "approved on floating"
+    },
+    {
+      "partId": "head_ears_floppy_fins",
+      "decision": "reject upright oval pair; regenerate low wide outward/downward-drooping bilateral fin ears with shallow ribs; select machine-approved candidate 1",
+      "result": "approved on blob, biped and floating contact sheets"
+    },
+    {
+      "partId": "extra_moth_wings",
+      "decision": "retain the real generated bilateral wing source; use content-aware contained scale 1.1 and authored origin {x:512,y:608} so broad upper lobes remain visible behind the body",
+      "result": "approved on rebuilt biped contact sheet; measured visible fraction 0.3439846 and clipped pixels 0"
+    },
+    {
+      "partId": "effect_bioluminescent_orbs",
+      "decision": "reject wide-halo and invalid-count/key sheets; regenerate exactly seven opaque-core internally luminous orbs; select machine-approved candidate 1",
+      "result": "approved on all compatible rigs; seven separated orbs visible"
     }
   ],
   "rejectedVisibilityExperiments": [
     {
-      "generationPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a02470-776f-7a43-a04d-42ea4ff47690/exec-028964ed-700a-4e30-8e92-359bccf17ba8.png",
+      "generationPath": "asset-source/v0.1.0/generation/rejected/tail_soft_curl-overlarge-detached.png",
+      "sha256": "e7d2d98c8bf4c83c8db4d006637af4e0c7d99125a0be7926ae6459acd914bddd",
       "partId": "tail_soft_curl",
       "reason": "The regenerated curl was overlarge and detached from the intended socket zone."
     },
     {
-      "generationPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a02470-776f-7a43-a04d-42ea4ff47690/exec-1417a100-ff2f-403b-9413-45b3dd4e01df.png",
+      "generationPath": "asset-source/v0.1.0/generation/rejected/extra_soft_tentacles-three-count.png",
+      "sha256": "fbf14f55fc16562f0d62a6f8a2acfea31c65e3f720fe1d0a5b5c0c347142f86b",
       "partId": "extra_soft_tentacles",
       "reason": "Each quadrant contained three tentacles instead of the required four."
+    },
+    {
+      "generationPath": "asset-source/v0.1.0/generation/rejected/head_ears_floppy_fins-upright-oval.png",
+      "sha256": "911a024aad8b314f8c4cbe22651a041f6b37ece71aa8febe3c09b5f8fa6d0445",
+      "partId": "head_ears_floppy_fins",
+      "reason": "The bilateral pair was upright and oval, read as bunny ears, and contained no fin ribbing."
+    },
+    {
+      "generationPath": "asset-source/v0.1.0/generation/rejected/effect_bioluminescent_orbs-wide-halo-green.png",
+      "sha256": "4cd2a899fd3fda454c46ba0fb3c2510a16071999b8caeb57d2cde2bd12182ca3",
+      "partId": "effect_bioluminescent_orbs",
+      "reason": "All four candidates failed nearest opaque-core distance at roughly 30px because the external halos were too broad."
+    },
+    {
+      "generationPath": "asset-source/v0.1.0/generation/rejected/effect_bioluminescent_orbs-six-count-cyan.png",
+      "sha256": "94c4f9fe9601463d505a3dfb42f263f7e42db28bced6d76c8c80716e0d0bec28",
+      "partId": "effect_bioluminescent_orbs",
+      "reason": "Every quadrant contained six orbs rather than exactly seven."
+    },
+    {
+      "generationPath": "asset-source/v0.1.0/generation/rejected/effect_bioluminescent_orbs-seven-invalid-cyan.png",
+      "sha256": "401fc55888b03b5debd766d618b55718ac578d113ebbe9b8a8bb351f0d118ad1",
+      "partId": "effect_bioluminescent_orbs",
+      "reason": "Every quadrant contained seven, but the generated background shifted to invalid #22FFFF and failed the binary chroma-key gate."
     }
   ]
 }

@@ -64,7 +64,7 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
   const rigIds = reportDuplicateIds(catalog.rigs, 'rigs', diagnostics)
   const partIds = reportDuplicateIds(catalog.parts, 'parts', diagnostics)
   const semanticTraitIds = reportDuplicateIds(catalog.semanticTraits, 'semanticTraits', diagnostics)
-  reportDuplicateIds(catalog.modifiers, 'modifiers', diagnostics)
+  const modifierIds = reportDuplicateIds(catalog.modifiers, 'modifiers', diagnostics)
   reportMissingFixedIds(themeIds, REQUIRED_THEME_IDS, 'THEME', diagnostics)
   reportMissingFixedIds(rigIds, REQUIRED_RIG_IDS, 'RIG', diagnostics)
 
@@ -101,6 +101,26 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
     }
     for (const boostedTraitId of Object.keys(part.boosts)) {
       if (!semanticTraitIds.has(boostedTraitId)) diagnostics.push(error('CATALOG_DANGLING_BOOST', path.concat('boosts', boostedTraitId), `Part ${part.id} boosts unknown trait ${boostedTraitId}.`))
+    }
+  }
+
+  for (const [index, semantic] of catalog.semanticTraits.entries()) {
+    const path = ['semanticTraits', String(index)]
+    for (const excludedId of semantic.excludes ?? []) {
+      if (!semanticTraitIds.has(excludedId) && !partIds.has(excludedId)) diagnostics.push(error('CATALOG_DANGLING_SEMANTIC_EXCLUDE', path.concat('excludes'), `Semantic trait ${semantic.id} excludes unknown semantic trait or part ${excludedId}.`))
+    }
+    for (const boostedPartId of Object.keys(semantic.boosts ?? {})) {
+      if (!partIds.has(boostedPartId)) diagnostics.push(error('CATALOG_DANGLING_SEMANTIC_BOOST', path.concat('boosts', boostedPartId), `Semantic trait ${semantic.id} boosts unknown part ${boostedPartId}.`))
+    }
+  }
+
+  for (const [index, modifier] of catalog.modifiers.entries()) {
+    const path = ['modifiers', String(index)]
+    for (const excludedId of modifier.excludes ?? []) {
+      if (!modifierIds.has(excludedId)) diagnostics.push(error('CATALOG_DANGLING_MODIFIER_EXCLUDE', path.concat('excludes'), `Modifier ${modifier.id} excludes unknown modifier ${excludedId}.`))
+    }
+    for (const boostedPartId of Object.keys(modifier.boosts ?? {})) {
+      if (!partIds.has(boostedPartId)) diagnostics.push(error('CATALOG_DANGLING_MODIFIER_BOOST', path.concat('boosts', boostedPartId), `Modifier ${modifier.id} boosts unknown part ${boostedPartId}.`))
     }
   }
 

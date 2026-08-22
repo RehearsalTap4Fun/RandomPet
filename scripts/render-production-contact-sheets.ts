@@ -3,7 +3,8 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import sharp from 'sharp'
 import type { Catalog, RenderLayer, RigDefinition, RigId, VisualPartDefinition, VisualSlotId } from '@qmonster/generator-core'
-import { buildProductionCatalog } from './build-production-catalog.js'
+import { RENDER_LAYER_ORDER, resolvePartPlacement, type Placement } from '@qmonster/renderer-canvas'
+import { loadCommittedProductionCatalog } from './build-production-catalog.js'
 
 export interface ContactSheetPlan {
   rigId: RigId
@@ -37,7 +38,9 @@ export function contactCompositeOrder(
   slotId: VisualSlotId,
 ): Array<'candidate' | 'base'> {
   if (slotId === 'bodyFrame') return ['candidate']
-  return layer === 'rearAppendage' ? ['candidate', 'base'] : ['base', 'candidate']
+  return RENDER_LAYER_ORDER.indexOf(layer) < RENDER_LAYER_ORDER.indexOf('body')
+    ? ['candidate', 'base']
+    : ['base', 'candidate']
 }
 
 function escapeXml(value: string): string {
@@ -58,10 +61,10 @@ function checkerboard(): Buffer {
 export function contactPlacement(
   part: VisualPartDefinition,
   rig: RigDefinition,
-): { left: number; top: number } {
-  const socket = part.socket === null ? { x: 1024, y: 1024 } : rig.sockets[part.socket]
-  if (socket === undefined) throw new Error(`Rig ${rig.id} is missing contact-sheet socket ${part.socket}`)
-  return { left: socket.x - part.origin.x, top: socket.y - part.origin.y }
+): Placement {
+  const result = resolvePartPlacement(part, rig)
+  if (!result.ok) throw new Error(result.diagnostic.message)
+  return result.value
 }
 
 export async function renderContactCell(catalog: Catalog, rigId: RigId, partId: string): Promise<Buffer> {
@@ -76,8 +79,8 @@ export async function renderContactCell(catalog: Catalog, rigId: RigId, partId: 
     { input: checkerboard(), left: 0, top: 0 },
     ...contactCompositeOrder(part.layer, part.slotId).map(kind => ({
       input: kind === 'base' ? base : candidate,
-      left: kind === 'base' ? 512 : placement.left,
-      top: kind === 'base' ? 512 : placement.top,
+      left: kind === 'base' ? 512 : placement.x,
+      top: kind === 'base' ? 512 : placement.y,
     })),
   ]
   const stage = await sharp({ create: { width: 2048, height: 2048, channels: 4, background: '#ffffffff' } })
@@ -97,6 +100,54 @@ export async function renderContactCell(catalog: Catalog, rigId: RigId, partId: 
     .composite([{ input: art, left: 10, top: 0 }, { input: label, left: 0, top: artSize }])
     .png({ compressionLevel: 9, adaptiveFiltering: false, palette: false })
     .toBuffer()
+}
+
+export async function measureRearLayerVisibility(
+  catalog: Catalog,
+  rigId: RigId,
+  partId: string,
+): Promise<{ foregroundPixels: number; visiblePixels: number; visibleFraction: number; clippedForegroundPixels: number }> {
+  const part = catalog.parts.find(candidate => candidate.id === partId)
+  const rig = catalog.rigs.find(candidate => candidate.id === rigId)
+  if (part === undefined || rig === undefined) throw new Error(`Unknown contact placement ${rigId}/${partId}`)
+  if (part.layer !== 'rearAppendage') throw new Error(`${partId} is not a rear appendage.`)
+  const placement = contactPlacement(part, rig)
+  if (placement.scaleX !== 1 || placement.scaleY !== 1) throw new Error('Visibility audit currently requires the renderer identity transform.')
+
+  const candidatePath = join(assetsDirectory, part.pngPath ?? part.assetPath.replace(/\.webp$/u, '.png'))
+  const basePath = join(assetsDirectory, 'rigs', `base_${rigId}_v1.png`)
+  const [candidate, base] = await Promise.all([
+    sharp(candidatePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
+    sharp(basePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
+  ])
+  let foregroundPixels = 0
+  let visiblePixels = 0
+  let clippedForegroundPixels = 0
+  for (let y = 0; y < candidate.info.height; y += 1) {
+    for (let x = 0; x < candidate.info.width; x += 1) {
+      if (candidate.data[(y * candidate.info.width + x) * 4 + 3]! <= 8) continue
+      foregroundPixels += 1
+      const stageX = placement.x + x
+      const stageY = placement.y + y
+      if (stageX < 0 || stageY < 0 || stageX >= 2048 || stageY >= 2048) {
+        clippedForegroundPixels += 1
+        continue
+      }
+      const baseX = stageX - 512
+      const baseY = stageY - 512
+      if (baseX < 0 || baseY < 0 || baseX >= base.info.width || baseY >= base.info.height) {
+        visiblePixels += 1
+        continue
+      }
+      if (base.data[(baseY * base.info.width + baseX) * 4 + 3]! <= 8) visiblePixels += 1
+    }
+  }
+  return {
+    foregroundPixels,
+    visiblePixels,
+    visibleFraction: visiblePixels / Math.max(1, foregroundPixels),
+    clippedForegroundPixels,
+  }
 }
 
 async function renderOne(catalog: Catalog, plan: ContactSheetPlan): Promise<ContactSheetResult> {
@@ -131,7 +182,7 @@ export async function generateContactSheets(catalog: Catalog): Promise<ContactSh
   for (const plan of planContactSheets(catalog)) results.push(await renderOne(catalog, plan))
   await writeFile(join(reviewDirectory, 'contact-sheet-index.json'), `${JSON.stringify({
     catalogVersion: catalog.version,
-    generatedAt: '2026-08-22',
+    generatedAt: '2026-08-23',
     candidates: catalog.parts.length,
     compatibleRigPlacements: results.reduce((count, result) => count + result.partIds.length, 0),
     sheets: results,
@@ -140,7 +191,7 @@ export async function generateContactSheets(catalog: Catalog): Promise<ContactSh
 }
 
 if (process.argv[1]?.endsWith('render-production-contact-sheets.ts')) {
-  const { catalog } = await buildProductionCatalog({ write: false })
+  const { catalog } = await loadCommittedProductionCatalog()
   const results = await generateContactSheets(catalog)
   console.log(JSON.stringify(results.map(result => ({ rigId: result.rigId, candidates: result.partIds.length, width: result.width, height: result.height, outputPath: result.outputPath }))))
 }

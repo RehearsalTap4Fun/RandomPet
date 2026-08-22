@@ -13,7 +13,7 @@ function pathWithinRoot(root: string, candidate: string): boolean {
   return remainder === '' || (!remainder.startsWith('..') && !isAbsolute(remainder))
 }
 
-async function validateOneFile(
+export async function validateAssetFile(
   assetRoot: string,
   assetPath: string,
   expectedHash: string | undefined,
@@ -75,9 +75,10 @@ export async function validateCatalogFiles(catalog: Catalog, assetRoot: string):
   const root = await realpath(lexicalRoot).catch(() => lexicalRoot)
   const checks = catalog.parts.flatMap((part, index) => [
     { assetPath: part.assetPath, expectedHash: part.assetSha256, path: ['parts', String(index), 'assetPath'] },
+    ...(part.pngPath === undefined ? [] : [{ assetPath: part.pngPath, expectedHash: part.pngSha256, path: ['parts', String(index), 'pngPath'] }]),
     ...(part.maskPaths.primary === undefined ? [] : [{ assetPath: part.maskPaths.primary, expectedHash: part.maskSha256?.primary, path: ['parts', String(index), 'maskPaths', 'primary'] }]),
     ...(part.maskPaths.secondary === undefined ? [] : [{ assetPath: part.maskPaths.secondary, expectedHash: part.maskSha256?.secondary, path: ['parts', String(index), 'maskPaths', 'secondary'] }]),
   ])
-  const results = await Promise.all(checks.map(check => validateOneFile(root, check.assetPath, check.expectedHash, check.path)))
+  const results = await Promise.all(checks.map(check => validateAssetFile(root, check.assetPath, check.expectedHash, check.path)))
   return results.flat()
 }

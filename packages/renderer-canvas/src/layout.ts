@@ -1,4 +1,9 @@
-import type { ApprovedTransform, Diagnostic } from '@qmonster/generator-core'
+import type {
+  ApprovedTransform,
+  Diagnostic,
+  RigDefinition,
+  VisualPartDefinition,
+} from '@qmonster/generator-core'
 import type { PlacementResult } from './types.js'
 
 interface Point {
@@ -42,4 +47,24 @@ export function resolvePlacement(
       scaleY: transform.scale,
     },
   }
+}
+
+export function resolvePartPlacement(
+  part: VisualPartDefinition,
+  rig: RigDefinition,
+  transform: ApprovedTransform = IDENTITY_TRANSFORM,
+): PlacementResult {
+  const socket = part.socket === null ? { x: 1024, y: 1024 } : rig.sockets[part.socket]
+  if (socket === undefined) {
+    return {
+      ok: false,
+      diagnostic: {
+        severity: 'error',
+        code: 'RENDER_SOCKET_MISSING',
+        path: ['socket'],
+        message: `Rig ${rig.id} has no ${part.socket} socket for ${part.id}.`,
+      },
+    }
+  }
+  return resolvePlacement(socket, part.origin, transform, part.approvedTransforms ?? [])
 }

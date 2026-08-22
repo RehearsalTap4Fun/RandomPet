@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildCandidates, type Rng, type VisualPartDefinition } from './index.js'
+import { buildCandidates, createRng, type Rng, type VisualPartDefinition } from './index.js'
 import { makeValidCatalogFixture } from './test-fixtures.js'
 
 function scriptedRng(...values: number[]): Rng {
@@ -15,6 +15,54 @@ function scriptedRng(...values: number[]): Rng {
 }
 
 describe('candidate pool boundaries', () => {
+  it('never exposes a cross-theme colorScheme candidate across many deterministic seeds', () => {
+    const catalog = makeValidCatalogFixture()
+    const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
+    catalog.parts = [
+      { ...color, id: 'color_fungal', themeIds: ['fungal'] },
+      { ...color, id: 'color_deep_sea', themeIds: ['deep-sea'] },
+      { ...color, id: 'color_shadow', themeIds: ['shadow'] },
+    ]
+
+    for (let seed = 0; seed < 1_000; seed += 1) {
+      const result = buildCandidates({
+        catalog,
+        slotId: 'colorScheme',
+        themeId: 'fungal',
+        rigId: 'blob',
+        selections: {},
+        rng: createRng(['hard-theme-color', seed]),
+      })
+      expect(result.trace.rangeMode).toBe('theme')
+      expect(result.trace.candidateIds).toEqual(['color_fungal'])
+      expect(result.part?.id).toBe('color_fungal')
+    }
+  })
+
+  it('retains both 70-percent theme and 30-percent full-pool branches for non-color slots', () => {
+    const catalog = makeValidCatalogFixture()
+    const eye = catalog.parts.find(part => part.slotId === 'eyes')!
+    catalog.parts = [
+      { ...eye, id: 'eyes_fungal', themeIds: ['fungal'] },
+      { ...eye, id: 'eyes_deep_sea', themeIds: ['deep-sea'] },
+    ]
+    const counts = { theme: 0, full: 0 }
+    for (let seed = 0; seed < 1_000; seed += 1) {
+      const result = buildCandidates({
+        catalog,
+        slotId: 'eyes',
+        themeId: 'fungal',
+        rigId: 'blob',
+        selections: {},
+        rng: createRng(['soft-theme-eyes', seed]),
+      })
+      counts[result.trace.rangeMode] += 1
+    }
+    expect(counts.theme).toBeGreaterThanOrEqual(650)
+    expect(counts.theme).toBeLessThanOrEqual(750)
+    expect(counts.full).toBe(1_000 - counts.theme)
+  })
+
   it('forces the theme branch below 0.7 and the full-pool branch at 0.7', () => {
     const catalog = makeValidCatalogFixture()
     const themePart = catalog.parts.find(part => part.slotId === 'eyes')!

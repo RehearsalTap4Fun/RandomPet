@@ -3,7 +3,11 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
-import { normalizeAlignedMaster, normalizeBilateralMaster } from './process-candidate-sheet.js'
+import {
+  normalizeAlignedMaster,
+  normalizeBilateralMaster,
+  normalizeContainedAlignedMaster,
+} from './process-candidate-sheet.js'
 
 const temporaryDirectories: string[] = []
 
@@ -68,5 +72,42 @@ describe('aligned master normalization', () => {
     expect(left).toBeGreaterThan(10_000)
     expect(right).toBe(left)
     expect(middle).toBe(0)
+  })
+
+  it('enlarges a four-ended appendage without center-cropping any component or coloured tip', async () => {
+    const directory = await mkdtemp(join(tmpdir(), 'qmonster-contained-master-'))
+    temporaryDirectories.push(directory)
+    const sourcePath = join(directory, 'four-appendages.png')
+    const masterPath = join(directory, 'four-appendages-master.png')
+    await sharp({ create: { width: 200, height: 200, channels: 4, background: '#00000000' } })
+      .composite([
+        { input: Buffer.from('<svg width="36" height="80"><rect x="13" width="10" height="67" fill="#8844cc"/><circle cx="18" cy="70" r="10" fill="#ff3344"/></svg>'), left: 4, top: 52 },
+        { input: Buffer.from('<svg width="36" height="80"><rect x="13" width="10" height="67" fill="#8844cc"/><circle cx="18" cy="70" r="10" fill="#33aaff"/></svg>'), left: 54, top: 52 },
+        { input: Buffer.from('<svg width="36" height="80"><rect x="13" width="10" height="67" fill="#8844cc"/><circle cx="18" cy="70" r="10" fill="#ffee33"/></svg>'), left: 104, top: 52 },
+        { input: Buffer.from('<svg width="36" height="80"><rect x="13" width="10" height="67" fill="#8844cc"/><circle cx="18" cy="70" r="10" fill="#33dd77"/></svg>'), left: 154, top: 52 },
+      ])
+      .png()
+      .toFile(sourcePath)
+
+    const result = await normalizeContainedAlignedMaster({
+      rgbaPath: sourcePath,
+      masterPath,
+      contentScale: 1.5,
+    })
+    const { data, info } = await sharp(masterPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+    const colouredTipPixels = ([red, green, blue]: readonly number[]) => {
+      let count = 0
+      for (let offset = 0; offset < data.length; offset += 4) {
+        if (data[offset]! > red - 20 && data[offset + 1]! > green - 20 && data[offset + 2]! > blue - 20 && data[offset + 3]! > 128) count += 1
+      }
+      return count
+    }
+
+    expect(result).toMatchObject({ width: 2048, height: 2048, hasAlpha: true, boundaryAlphaPixels: 0 })
+    expect(colouredTipPixels([255, 51, 68])).toBeGreaterThan(100)
+    expect(colouredTipPixels([51, 170, 255])).toBeGreaterThan(100)
+    expect(colouredTipPixels([255, 238, 51])).toBeGreaterThan(100)
+    expect(colouredTipPixels([51, 221, 119])).toBeGreaterThan(100)
+    expect(info.width).toBe(2048)
   })
 })
