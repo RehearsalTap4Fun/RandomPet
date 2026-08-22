@@ -5,6 +5,7 @@ import {
   selectVisualPart,
   VISUAL_SLOT_IDS,
   type Catalog,
+  type Diagnostic,
   type GenerationMode,
   type GenerationResult,
   type VisualSlotId,
@@ -47,6 +48,51 @@ function withGenerationResult(session: CreatorSession, generated: GenerationResu
   }
 }
 
+const REPLACEABLE_SLOT_DIAGNOSTIC_CODES = new Set([
+  'LOCK_NOT_FOUND',
+  'LOCK_INCOMPATIBLE',
+  'SLOT_LOCKED',
+  'NO_COMPATIBLE_CANDIDATE',
+  'PART_NOT_FOUND',
+  'PART_INCOMPATIBLE',
+])
+
+function isKnownTargetSlotDiagnostic(diagnostic: Diagnostic, slotId: VisualSlotId): boolean {
+  return REPLACEABLE_SLOT_DIAGNOSTIC_CODES.has(diagnostic.code)
+    && diagnostic.path.length === 2
+    && diagnostic.path[0] === 'visualSlots'
+    && diagnostic.path[1] === slotId
+}
+
+function diagnosticKey(diagnostic: Diagnostic): string {
+  return JSON.stringify([diagnostic.severity, diagnostic.code, diagnostic.path])
+}
+
+function reconcileLocalGenerationResult(
+  session: CreatorSession,
+  generated: GenerationResult,
+  slotId: VisualSlotId,
+  replaceTargetDiagnostics: boolean,
+): CreatorSession {
+  const retained = replaceTargetDiagnostics
+    ? session.diagnostics.filter(diagnostic => !isKnownTargetSlotDiagnostic(diagnostic, slotId))
+    : session.diagnostics
+  const diagnostics: Diagnostic[] = []
+  const seen = new Set<string>()
+  for (const diagnostic of [...retained, ...generated.diagnostics]) {
+    const key = diagnosticKey(diagnostic)
+    if (seen.has(key)) continue
+    seen.add(key)
+    diagnostics.push(diagnostic)
+  }
+  return {
+    ...session,
+    spec: generated.spec,
+    diagnostics,
+    blocked: diagnostics.some(diagnostic => diagnostic.severity === 'error'),
+  }
+}
+
 function hasIncompatibleLockDiagnostic(session: CreatorSession, slotId: VisualSlotId): boolean {
   return session.diagnostics.some(diagnostic =>
     (diagnostic.code === 'LOCK_INCOMPATIBLE' || diagnostic.code === 'LOCK_NOT_FOUND')
@@ -85,32 +131,52 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
         const locks = { ...state.locks, [action.slotId]: !state.locks[action.slotId] }
         if (state.locks[action.slotId] && hasIncompatibleLockDiagnostic(state, action.slotId)) {
           return {
-            ...withGenerationResult(state, rerollSlot({
+            ...reconcileLocalGenerationResult(state, rerollSlot({
               spec: state.spec,
               slotId: action.slotId,
               locks,
               catalog,
-            })),
+            }), action.slotId, true),
             locks,
           }
         }
         return { ...state, locks }
       }
-      case 'rerollSlot':
-        return withGenerationResult(state, rerollSlot({
+      case 'rerollSlot': {
+        const generated = rerollSlot({
           spec: state.spec,
           slotId: action.slotId,
           locks: state.locks,
           catalog,
-        }))
-      case 'manualSelect':
-        return withGenerationResult(state, selectVisualPart({
+        })
+        return reconcileLocalGenerationResult(
+          state,
+          generated,
+          action.slotId,
+          !state.locks[action.slotId],
+        )
+      }
+      case 'manualSelect': {
+        const generated = selectVisualPart({
           spec: state.spec,
           slotId: action.slotId,
           partId: action.partId,
           locks: state.locks,
           catalog,
-        }))
+        })
+        const selectionFailed = generated.diagnostics.some(diagnostic =>
+          (diagnostic.code === 'PART_NOT_FOUND' || diagnostic.code === 'PART_INCOMPATIBLE')
+          && diagnostic.path.length === 2
+          && diagnostic.path[0] === 'visualSlots'
+          && diagnostic.path[1] === action.slotId,
+        )
+        return reconcileLocalGenerationResult(
+          state,
+          generated,
+          action.slotId,
+          !selectionFailed,
+        )
+      }
       case 'importSpec':
         return {
           ...state,

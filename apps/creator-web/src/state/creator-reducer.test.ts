@@ -44,6 +44,14 @@ function catalogWithoutModifiers(): Catalog {
   return { ...makeValidCatalogFixture(), modifiers: [] }
 }
 
+function withManualTail(catalog: Catalog): Catalog {
+  const tail = catalog.parts.find(part => part.slotId === 'tail' && !part.id.endsWith('_none'))!
+  return {
+    ...catalog,
+    parts: [...catalog.parts, { ...tail, id: 'tail_manual', baseWeight: 0 }],
+  }
+}
+
 function catalogWithIncompatibleShadowEyes(): Catalog {
   const catalog = makeValidCatalogFixture()
   const commonColor = catalog.parts.find(part => part.slotId === 'colorScheme')!
@@ -153,6 +161,74 @@ describe('createCreatorReducer', () => {
     expect(next.diagnostics).toEqual([])
   })
 
+  it('keeps an incompatible locked slot blocked after an unrelated reroll', () => {
+    const catalog = catalogWithIncompatibleShadowEyes()
+    const reducer = createCreatorReducer(catalog)
+    const before = withLocked(makeSession(catalog), 'eyes')
+    const blocked = reducer(before, { type: 'setTheme', themeId: 'shadow' })
+    const snapshot = structuredClone(blocked)
+
+    const next = reducer(blocked, { type: 'rerollSlot', slotId: 'tail' })
+
+    expect(next.spec.visualSlots.eyes).toEqual(blocked.spec.visualSlots.eyes)
+    expect(next.locks.eyes).toBe(true)
+    expect(next.blocked).toBe(true)
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'LOCK_INCOMPATIBLE',
+      path: ['visualSlots', 'eyes'],
+    }))
+    expect(blocked).toEqual(snapshot)
+  })
+
+  it('keeps an incompatible locked slot blocked after an unrelated manual selection', () => {
+    const catalog = withManualTail(catalogWithIncompatibleShadowEyes())
+    const reducer = createCreatorReducer(catalog)
+    const before = withLocked(makeSession(catalog), 'eyes')
+    const blocked = reducer(before, { type: 'setTheme', themeId: 'shadow' })
+
+    const next = reducer(blocked, { type: 'manualSelect', slotId: 'tail', partId: 'tail_manual' })
+
+    expect(next.spec.visualSlots.tail.partId).toBe('tail_manual')
+    expect(next.spec.visualSlots.eyes).toEqual(blocked.spec.visualSlots.eyes)
+    expect(next.blocked).toBe(true)
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'LOCK_INCOMPATIBLE',
+      path: ['visualSlots', 'eyes'],
+    }))
+  })
+
+  it('clears an incompatible lock diagnostic when that slot receives a compatible manual selection', () => {
+    const catalog = catalogWithIncompatibleShadowEyes()
+    const reducer = createCreatorReducer(catalog)
+    const before = withLocked(makeSession(catalog), 'eyes')
+    const blocked = reducer(before, { type: 'setTheme', themeId: 'shadow' })
+
+    const next = reducer(blocked, {
+      type: 'manualSelect',
+      slotId: 'eyes',
+      partId: 'eyes_shadow_compatible',
+    })
+
+    expect(next.spec.visualSlots.eyes.partId).toBe('eyes_shadow_compatible')
+    expect(next.locks.eyes).toBe(true)
+    expect(next.blocked).toBe(false)
+    expect(next.diagnostics).toEqual([])
+  })
+
+  it('clears an incompatible lock diagnostic when the compatible theme is restored', () => {
+    const catalog = catalogWithIncompatibleShadowEyes()
+    const reducer = createCreatorReducer(catalog)
+    const before = withLocked(makeSession(catalog), 'eyes')
+    const blocked = reducer(before, { type: 'setTheme', themeId: 'shadow' })
+
+    const next = reducer(blocked, { type: 'setTheme', themeId: 'fungal' })
+
+    expect(next.spec.visualSlots.eyes).toEqual(before.spec.visualSlots.eyes)
+    expect(next.locks.eyes).toBe(true)
+    expect(next.blocked).toBe(false)
+    expect(next.diagnostics).toEqual([])
+  })
+
   it('creates a new creature with reset slot rolls while retaining locked selections', () => {
     const catalog = makeValidCatalogFixture()
     const reducer = createCreatorReducer(catalog)
@@ -201,6 +277,26 @@ describe('createCreatorReducer', () => {
     }))
   })
 
+  it('retains a failed mutation request through a local reroll and the next new creature', () => {
+    const catalog = catalogWithoutModifiers()
+    const reducer = createCreatorReducer(catalog)
+    const failed = reducer(makeSession(catalog), { type: 'setMode', mode: 'mutation' })
+
+    const local = reducer(failed, { type: 'rerollSlot', slotId: 'tail' })
+    const next = reducer(local, { type: 'newCreature', seed: 'mutation-after-local' })
+
+    expect(local.blocked).toBe(true)
+    expect(local.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'MODIFIER_NOT_FOUND',
+      path: ['mutation'],
+    }))
+    expect(next.blocked).toBe(true)
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'MODIFIER_NOT_FOUND',
+      path: ['mutation'],
+    }))
+  })
+
   it('retains a failed aberration request across a theme change', () => {
     const catalog = catalogWithoutModifiers()
     const reducer = createCreatorReducer(catalog)
@@ -209,6 +305,27 @@ describe('createCreatorReducer', () => {
     const next = reducer(failed, { type: 'setTheme', themeId: 'shadow' })
 
     expect(next.spec.themeId).toBe('shadow')
+    expect(next.blocked).toBe(true)
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'MODIFIER_NOT_FOUND',
+      path: ['aberrations'],
+    }))
+  })
+
+  it('retains a failed aberration request through manual selection and the next theme change', () => {
+    const catalog = withManualTail(catalogWithoutModifiers())
+    const reducer = createCreatorReducer(catalog)
+    const failed = reducer(makeSession(catalog), { type: 'setMode', mode: 'aberration' })
+
+    const local = reducer(failed, { type: 'manualSelect', slotId: 'tail', partId: 'tail_manual' })
+    const next = reducer(local, { type: 'setTheme', themeId: 'shadow' })
+
+    expect(local.spec.visualSlots.tail.partId).toBe('tail_manual')
+    expect(local.blocked).toBe(true)
+    expect(local.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'MODIFIER_NOT_FOUND',
+      path: ['aberrations'],
+    }))
     expect(next.blocked).toBe(true)
     expect(next.diagnostics).toContainEqual(expect.objectContaining({
       code: 'MODIFIER_NOT_FOUND',
@@ -250,6 +367,66 @@ describe('createCreatorReducer', () => {
     expect(next.spec.mutation).toBeNull()
     expect(next.spec.aberrations).toEqual([])
     expect(next.diagnostics).toEqual([])
+  })
+
+  it('preserves warnings and stably deduplicates an old and new slot diagnostic', () => {
+    const catalog = catalogWithIncompatibleShadowEyes()
+    catalog.dependencies = { tail: ['eyes'] }
+    const reducer = createCreatorReducer(catalog)
+    const before = withLocked(makeSession(catalog), 'eyes')
+    const blocked = reducer(before, { type: 'setTheme', themeId: 'shadow' })
+    const warning = { severity: 'warning' as const, code: 'PREVIEW_STALE', path: [], message: 'Preview is stale.' }
+    const withWarning: CreatorSession = {
+      ...blocked,
+      diagnostics: [warning, ...blocked.diagnostics],
+    }
+
+    const next = reducer(withWarning, { type: 'rerollSlot', slotId: 'tail' })
+
+    expect(next.diagnostics[0]).toEqual(warning)
+    expect(next.diagnostics.filter(diagnostic =>
+      diagnostic.code === 'LOCK_INCOMPATIBLE'
+      && diagnostic.path[0] === 'visualSlots'
+      && diagnostic.path[1] === 'eyes',
+    )).toHaveLength(1)
+    expect(next.blocked).toBe(true)
+  })
+
+  it('merges a new local error without dropping a global mode blocker', () => {
+    const catalog = catalogWithoutModifiers()
+    const reducer = createCreatorReducer(catalog)
+    const failed = reducer(makeSession(catalog), { type: 'setMode', mode: 'mutation' })
+    const lockedTail = withLocked(failed, 'tail')
+
+    const next = reducer(lockedTail, { type: 'rerollSlot', slotId: 'tail' })
+
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'MODIFIER_NOT_FOUND',
+      path: ['mutation'],
+    }))
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SLOT_LOCKED',
+      path: ['visualSlots', 'tail'],
+    }))
+    expect(next.blocked).toBe(true)
+  })
+
+  it('conservatively retains an unknown target-slot error after a local command', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const before = makeSession(catalog)
+    const unknown = {
+      severity: 'error' as const,
+      code: 'FUTURE_SLOT_ERROR',
+      path: ['visualSlots', 'tail'],
+      message: 'A future validator owns this error.',
+    }
+    const blocked: CreatorSession = { ...before, diagnostics: [unknown], blocked: true }
+
+    const next = reducer(blocked, { type: 'rerollSlot', slotId: 'tail' })
+
+    expect(next.diagnostics).toContainEqual(unknown)
+    expect(next.blocked).toBe(true)
   })
 
   it('rerolls and manually selects through immutable core commands', () => {
