@@ -60,9 +60,9 @@ function isDiagnostic(value: unknown): value is Diagnostic {
     && (value.severity === 'warning' || value.severity === 'error')
     && typeof value.code === 'string'
     && Array.isArray(value.path)
+    && value.path.length <= MAX_DIAGNOSTIC_PATH_SEGMENTS
     && value.path.every(item => typeof item === 'string')
     && typeof value.message === 'string'
-    && value.path.length <= MAX_DIAGNOSTIC_PATH_SEGMENTS
     && codePointLength(value.code) <= MAX_DIAGNOSTIC_CODE_POINTS
     && value.path.every(segment => codePointLength(segment) <= MAX_PATH_SEGMENT_CODE_POINTS)
     && codePointLength(value.message) <= MAX_DIAGNOSTIC_MESSAGE_CODE_POINTS

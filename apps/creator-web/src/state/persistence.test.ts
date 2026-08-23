@@ -209,6 +209,30 @@ describe('creator session persistence', () => {
     expect(storage.setItem).not.toHaveBeenCalled()
   })
 
+  it('rejects an over-depth save path without visiting its segments', async () => {
+    const storage = new MemoryStorage()
+    let segmentVisits = 0
+    const path = new Proxy(Array.from({ length: 17 }, () => 'segment'), {
+      get(target, property, receiver) {
+        if (typeof property === 'string' && /^\d+$/.test(property)) segmentVisits += 1
+        return Reflect.get(target, property, receiver)
+      },
+    })
+    const diagnostic = warningDiagnostic({ path })
+    const session: CreatorSession = {
+      ...makeFreshSession('over-depth-observed'),
+      generationDiagnostics: [diagnostic],
+      renderDiagnostics: [],
+      diagnostics: [diagnostic],
+      blocked: false,
+    }
+
+    const result = await saveSession(session, storage)
+
+    expect(result).toContainEqual(expect.objectContaining({ code: 'SESSION_SAVE_FAILED' }))
+    expect(segmentVisits).toBe(0)
+  })
+
   it('rejects a save with a code longer than 128 Unicode code points without calling setItem', async () => {
     const storage = new MemoryStorage()
     const setItem = vi.spyOn(storage, 'setItem')
