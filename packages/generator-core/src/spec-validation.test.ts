@@ -90,6 +90,21 @@ describe('validateMonsterSpecAgainstCatalog', () => {
     expect(diagnostics.filter(item => item.code === 'SPEC_MODIFIER_INVALID')).toHaveLength(2)
   })
 
+  it('rejects a modifier destination socket missing from its selected rig', () => {
+    const catalog = makeValidCatalogFixture()
+    delete catalog.rigs.find(rig => rig.id === 'blob')!.sockets.headAlternate
+    const spec = makeValidMonsterSpecFixture()
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog, versions)).toContainEqual(
+      expect.objectContaining({
+        code: 'SPEC_SOCKET_MISSING',
+        path: ['mutation', 'overrides', 'socket'],
+      }),
+    )
+  })
+
   it('orders visual-slot diagnostics before modifier diagnostics', () => {
     const catalog = makeValidCatalogFixture()
     const spec = makeValidMonsterSpecFixture()

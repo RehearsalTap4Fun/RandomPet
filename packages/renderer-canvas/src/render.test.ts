@@ -585,6 +585,47 @@ describe('canvas rendering', () => {
     }))
     expect(calls).toEqual([])
   })
+
+  it('does not allocate or render for a modifier socket absent from its selected rig', async () => {
+    const catalog = makeValidCatalogFixture()
+    delete catalog.rigs.find(rig => rig.id === 'blob')!.sockets.headAlternate
+    const spec = makeValidMonsterSpecFixture()
+    const modifier = catalog.modifiers.find(candidate => candidate.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+    const calls: string[] = []
+    let surfaceAllocations = 0
+    let resolverCalls = 0
+    const resolver: ImageResolver = {
+      async resolve(assetPath) {
+        resolverCalls += 1
+        return image(assetPath)
+      },
+    }
+
+    const result = await renderMonster(
+      makeRecordingContext(calls),
+      spec,
+      catalog,
+      resolver,
+      {
+        ...options1024,
+        surfaceFactory: () => {
+          surfaceAllocations += 1
+          return { canvas: image('surface'), context: makeRecordingContext(calls) }
+        },
+      },
+    )
+
+    expect(result.drawnAssetIds).toEqual([])
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error',
+      code: 'SPEC_SOCKET_MISSING',
+      path: ['mutation', 'overrides', 'socket'],
+    }))
+    expect(surfaceAllocations).toBe(0)
+    expect(resolverCalls).toBe(0)
+    expect(calls).toEqual([])
+  })
 })
 
 it('keeps fixture visual slots complete for the renderer test harness', () => {

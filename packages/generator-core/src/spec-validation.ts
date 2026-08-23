@@ -10,6 +10,7 @@ import {
   type Palette,
   type SupportedSpecVersions,
   type VisualPartDefinition,
+  type VisualSlotId,
 } from './contracts.js'
 
 export const CURRENT_SPEC_VERSIONS: SupportedSpecVersions = {
@@ -66,6 +67,8 @@ function validateModifier(
   kind: ModifierDefinition['kind'],
   path: string[],
   catalog: Catalog,
+  spec: MonsterSpec,
+  selectedParts: ReadonlyMap<VisualSlotId, VisualPartDefinition>,
   diagnostics: Diagnostic[],
 ): void {
   const definition = catalog.modifiers.find(candidate => (
@@ -82,6 +85,28 @@ function validateModifier(
       path,
       `Modifier ${application.id} is unknown or its overrides do not match catalog ${catalog.version}.`,
     ))
+    return
+  }
+
+  const destinationSocket = definition.overrides.socket
+  if (destinationSocket === undefined) return
+  for (const [slotId, part] of selectedParts) {
+    const appliesToPart = (
+      definition.overrides.duplicateLayerGroup === 'head'
+      && part.layer === 'head'
+    ) || (
+      definition.overrides.relocateSlot === 'eyes'
+      && slotId === 'eyes'
+    )
+    if (!appliesToPart) continue
+    const rig = catalog.rigs.find(candidate => candidate.id === spec.visualSlots[slotId].rigId)
+    if (rig !== undefined && rig.sockets[destinationSocket] === undefined) {
+      diagnostics.push(error(
+        'SPEC_SOCKET_MISSING',
+        path.concat('overrides', 'socket'),
+        `Rig ${rig.id} has no ${destinationSocket} socket for modifier ${application.id}.`,
+      ))
+    }
   }
 }
 
@@ -188,10 +213,18 @@ export function validateMonsterSpecAgainstCatalog(
   }
 
   if (spec.mutation !== null) {
-    validateModifier(spec.mutation, 'mutation', ['mutation'], catalog, diagnostics)
+    validateModifier(spec.mutation, 'mutation', ['mutation'], catalog, spec, selectedParts, diagnostics)
   }
   spec.aberrations.forEach((application, index) => {
-    validateModifier(application, 'aberration', ['aberrations', String(index)], catalog, diagnostics)
+    validateModifier(
+      application,
+      'aberration',
+      ['aberrations', String(index)],
+      catalog,
+      spec,
+      selectedParts,
+      diagnostics,
+    )
   })
   return diagnostics
 }
