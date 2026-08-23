@@ -364,6 +364,19 @@ describe('render layer expansion', () => {
 })
 
 describe('canvas rendering', () => {
+  it('reuses the two browser composite surfaces for sequential renders to one staging canvas', async () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    part(catalog, 'body_blob').maskPaths = { primary: 'masks/body-primary.png' }
+    const calls: string[] = []
+    const context = makeCanvasBackedRecordingContext(calls)
+
+    await renderMonster(context, spec, catalog, makeResolver(), options1024)
+    await renderMonster(context, spec, catalog, makeResolver(), options1024)
+
+    expect(calls.some(call => call.startsWith('buffer-3:'))).toBe(false)
+  })
+
   it('applies 1024 and 2048 output scaling from normalized master coordinates', async () => {
     const catalog = makeValidCatalogFixture()
     const spec = makeValidMonsterSpecFixture()

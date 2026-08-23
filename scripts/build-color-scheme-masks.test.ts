@@ -29,6 +29,33 @@ async function png(width: number, height: number, data: Buffer): Promise<Buffer>
   return sharp(data, { raw: { width, height, channels: 4 } }).png().toBuffer()
 }
 
+function opaqueComponents(mask: Buffer, width: number, height: number): number {
+  const visited = new Uint8Array(width * height)
+  let components = 0
+  for (let start = 0; start < width * height; start += 1) {
+    if (visited[start] === 1 || mask[start * 4 + 3] === 0) continue
+    components += 1
+    const pending = [start]
+    visited[start] = 1
+    while (pending.length > 0) {
+      const pixel = pending.pop()!
+      const x = pixel % width
+      const neighbours = [
+        x > 0 ? pixel - 1 : -1,
+        x + 1 < width ? pixel + 1 : -1,
+        pixel >= width ? pixel - width : -1,
+        pixel + width < width * height ? pixel + width : -1,
+      ]
+      for (const neighbour of neighbours) {
+        if (neighbour < 0 || visited[neighbour] === 1 || mask[neighbour * 4 + 3] === 0) continue
+        visited[neighbour] = 1
+        pending.push(neighbour)
+      }
+    }
+  }
+  return components
+}
+
 describe('rig-aware color-scheme mask derivation', () => {
   it('partitions the approved three-zone layout inside only the opaque rig body core', async () => {
     const width = 12
@@ -68,6 +95,26 @@ describe('rig-aware color-scheme mask derivation', () => {
     expect(createHash('sha256').update(first.primary).digest('hex')).toBe(
       createHash('sha256').update(second.primary).digest('hex'),
     )
+  })
+
+  it('keeps shaded highlight noise from fragmenting broad palette zones', async () => {
+    const width = 24
+    const height = 24
+    const accentHighlights = new Set(['4,11', '13,12', '19,15'])
+    const source = await png(width, height, rgba(width, height, (x, y) => {
+      if (y < 5 || accentHighlights.has(`${x},${y}`)) return [245, 185, 45, 255]
+      if (y >= 17) return [235, 95, 105, 255]
+      return [20, 120, 145, 255]
+    }))
+    const rig = await png(width, height, rgba(width, height, () => [90, 110, 130, 255]))
+
+    const masks = await deriveRigColorMasks(source, rig)
+    const decoded = await Promise.all(
+      [masks.primary, masks.secondary, masks.accent]
+        .map(mask => sharp(mask).ensureAlpha().raw().toBuffer()),
+    )
+
+    expect(decoded.map(mask => opaqueComponents(mask, width, height))).toEqual([1, 1, 1])
   })
 
   it('writes a transparent lighting layer plus hashed per-rig masks deterministically', async () => {

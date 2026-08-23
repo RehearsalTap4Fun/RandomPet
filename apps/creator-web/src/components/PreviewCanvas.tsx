@@ -28,6 +28,10 @@ export class CatalogImageResolverCache {
 
   public constructor(private readonly load: CatalogAssetLoader) {}
 
+  public size(): number {
+    return this.cache.size
+  }
+
   public forCatalog(catalogVersion: string): ImageResolver {
     return {
       resolve: assetPath => {
@@ -82,6 +86,11 @@ interface PreviewCanvasProps {
   resolver?: ImageResolver
 }
 
+interface StagingCanvasLease {
+  canvas: HTMLCanvasElement
+  inUse: boolean
+}
+
 function canvasUnavailable(): Diagnostic[] {
   return [{
     severity: 'error',
@@ -109,6 +118,7 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
 }: PreviewCanvasProps, forwardedRef) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const requestId = useRef(0)
+  const stagingPool = useRef<StagingCanvasLease[]>([])
   const setCanvasRef = useCallback((canvas: HTMLCanvasElement | null) => {
     canvasRef.current = canvas
     if (typeof forwardedRef === 'function') {
@@ -124,15 +134,25 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
     const target = canvasRef.current
     if (target === null) return undefined
     const targetContext = target.getContext('2d')
-    const staging = target.ownerDocument.createElement('canvas')
+    let lease = stagingPool.current.find(candidate => (
+      !candidate.inUse && candidate.canvas.ownerDocument === target.ownerDocument
+    ))
+    if (lease === undefined) {
+      lease = { canvas: target.ownerDocument.createElement('canvas'), inUse: false }
+      stagingPool.current.push(lease)
+    }
+    lease.inUse = true
+    const staging = lease.canvas
     staging.width = 1024
     staging.height = 1024
     const stagingContext = staging.getContext('2d')
 
     if (targetContext === null || stagingContext === null) {
+      lease.inUse = false
       onDiagnosticsChange(canvasUnavailable())
       return undefined
     }
+    stagingContext.clearRect(0, 0, 1024, 1024)
 
     void renderer(
       stagingContext,
@@ -144,11 +164,15 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
       if (requestId.current !== currentRequest) return
       targetContext.clearRect(0, 0, 1024, 1024)
       targetContext.drawImage(staging, 0, 0)
+      target.dataset.resolverCacheSize = String(browserImageCache.size())
+      performance.mark('qmonster-preview-commit')
       onDiagnosticsChange(result.diagnostics)
     }).catch(() => {
       if (requestId.current !== currentRequest) return
       targetContext.clearRect(0, 0, 1024, 1024)
       onDiagnosticsChange(previewFailure())
+    }).finally(() => {
+      lease.inUse = false
     })
 
     return () => {

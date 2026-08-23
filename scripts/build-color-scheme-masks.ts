@@ -92,6 +92,40 @@ function nearestCentroid(pixel: readonly number[], centroids: ReadonlyArray<read
   return best
 }
 
+function retainLargestRoleComponents(labels: Int8Array, width: number): Int8Array {
+  const coherent = new Int8Array(labels.length).fill(-1)
+  for (let role = 0; role < 3; role += 1) {
+    const visited = new Uint8Array(labels.length)
+    let largest: number[] = []
+    for (let start = 0; start < labels.length; start += 1) {
+      if (visited[start] === 1 || labels[start] !== role) continue
+      const component: number[] = []
+      const pending = [start]
+      visited[start] = 1
+      while (pending.length > 0) {
+        const pixel = pending.pop()!
+        component.push(pixel)
+        const x = pixel % width
+        const neighbours = [
+          x > 0 ? pixel - 1 : -1,
+          x + 1 < width ? pixel + 1 : -1,
+          pixel >= width ? pixel - width : -1,
+          pixel + width < labels.length ? pixel + width : -1,
+        ]
+        for (const neighbour of neighbours) {
+          if (neighbour < 0 || visited[neighbour] === 1 || labels[neighbour] !== role) continue
+          visited[neighbour] = 1
+          pending.push(neighbour)
+        }
+      }
+      if (component.length > largest.length) largest = component
+    }
+    if (largest.length === 0) throw new Error(`Approved color layout has no coherent zone for role ${role}.`)
+    for (const pixel of largest) coherent[pixel] = role
+  }
+  return coherent
+}
+
 function clusterSource(source: RawRgba): Int8Array {
   const pixels: number[][] = []
   const stride = Math.max(1, Math.floor(Math.sqrt(source.width * source.height / 50_000)))
@@ -147,6 +181,7 @@ function clusterSource(source: RawRgba): Int8Array {
     if (labels[pixel]! >= 0) labels[pixel] = roleForCluster[labels[pixel]!]!
   }
 
+  labels.set(retainLargestRoleComponents(labels, source.width))
   const queue = new Int32Array(labels.length)
   let read = 0
   let write = 0

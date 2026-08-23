@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useMemo,
   useReducer,
@@ -49,8 +50,12 @@ function initializeCreator(options: UseCreatorOptions): LoadSessionResult {
 export function useCreator(options: UseCreatorOptions): UseCreatorResult {
   const reducer = useMemo(() => createCreatorReducer(options.catalog), [options.catalog])
   const [loaded] = useState(() => initializeCreator(options))
-  const [editorSession, dispatch] = useReducer(reducer, loaded.session)
+  const [editorSession, baseDispatch] = useReducer(reducer, loaded.session)
   const [persistenceDiagnostics, setPersistenceDiagnostics] = useState<Diagnostic[]>(loaded.diagnostics)
+  const dispatch = useCallback((action: CreatorAction) => {
+    performance.mark('qmonster-command-start')
+    baseDispatch(action)
+  }, [])
 
   useEffect(() => {
     let active = true

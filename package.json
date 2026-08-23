@@ -13,8 +13,10 @@
     "test:render-golden": "playwright test tests/render/golden.spec.ts --project=chromium --workers=1",
     "test:render-golden:update": "playwright test tests/render/golden.spec.ts --project=chromium --workers=1",
     "test:coverage": "vitest run --coverage",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --grep-invert current-machine && npm run test:performance",
+    "test:performance": "playwright test tests/e2e/performance.spec.ts --project=chromium --workers=1",
     "test:production-smoke": "playwright test --config=playwright.production.config.ts --workers=1",
+    "acceptance:generate": "tsx scripts/generate-acceptance-set.ts --seed-start 2026082101 --count 20",
     "catalog:validate": "npm run validate -w @qmonster/asset-catalog",
     "verify": "npm run typecheck && npm test && npm run test:coverage && npm run catalog:validate && npm run build && npm run test:e2e"
   },

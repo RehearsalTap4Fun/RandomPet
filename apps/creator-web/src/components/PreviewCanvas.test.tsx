@@ -62,6 +62,7 @@ describe('CatalogImageResolverCache', () => {
       ['0.1.0', 'parts/eyes.webp'],
       ['0.2.0', 'parts/eyes.webp'],
     ])
+    expect(cache.size()).toBe(2)
   })
 })
 
@@ -100,6 +101,41 @@ describe('PreviewCanvas', () => {
     await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
   })
 
+  it('reuses a released staging canvas for the next sequential preview', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const firstSpec = generateMonster({ seed: 'first-buffer', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const nextSpec = { ...firstSpec, seed: 'next-buffer' }
+    const stagingContexts: CanvasRenderingContext2D[] = []
+    const renderer: PreviewRenderer = vi.fn(async context => {
+      stagingContexts.push(context)
+      return { drawnAssetIds: [], diagnostics: [] }
+    })
+    const view = render(
+      <PreviewCanvas
+        spec={firstSpec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={() => undefined}
+      />,
+    )
+    await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    await waitFor(() => expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1))
+
+    view.rerender(
+      <PreviewCanvas
+        spec={nextSpec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={() => undefined}
+      />,
+    )
+    await waitFor(() => expect(renderer).toHaveBeenCalledTimes(2))
+
+    expect(stagingContexts[1]).toBe(stagingContexts[0])
+  })
+
   it('commits only the newest async render and never publishes stale diagnostics', async () => {
     const { contexts } = installCanvasContexts()
     const catalog = makeValidCatalogFixture()
@@ -111,6 +147,7 @@ describe('PreviewCanvas', () => {
       spec.seed === 'old' ? oldRender.promise : newRender.promise
     ))
     const onDiagnosticsChange = vi.fn()
+    const mark = vi.spyOn(performance, 'mark')
     const view = render(
       <PreviewCanvas
         spec={oldSpec}
@@ -141,6 +178,7 @@ describe('PreviewCanvas', () => {
     expect(onDiagnosticsChange.mock.calls.flatMap(([items]) => items as Diagnostic[])).not.toContainEqual(assetError)
     const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
     expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1)
+    expect(mark.mock.calls.filter(([name]) => name === 'qmonster-preview-commit')).toHaveLength(1)
   })
 
   it('clears an existing preview when the latest render rejects and publishes the failure', async () => {

@@ -2318,19 +2318,19 @@
       },
       "rigMaskSha256": {
         "blob": {
-          "primary": "eb034a5048b91a964ad8a8a41a856e67e4bd2846dab6d9d4064b458515bf1ac6",
-          "secondary": "6348b5ba54dc3c44dce504b5ac588f66d68b323f5b0903ba421cfd515a4e9ef1",
-          "accent": "c0796ccedf3c8eabb27a9a3dec2be65821fbd658269d70b93b8989352e56140d"
+          "primary": "a0d0851194c674fae715ac2ef985404a911b308886caae8b2c9f29c31a73095f",
+          "secondary": "6c68a8c2abed6034be3f0bae2d762b9a77e60c00711931f5339f4f912fa569f9",
+          "accent": "7cdf2529e228fada2884b7510d2ce9c63e432cf9e82132bfa74537e80f2f2b2f"
         },
         "biped": {
-          "primary": "efd36b2424e4acce57b39130779fe1c789a66cdad9bd8453743787f2ac97c1c7",
-          "secondary": "7e0afe2d68937ad80c8f6f6bca99744f6150af5c8c17302702f71a469741a5e9",
-          "accent": "b161055770d4123117663fe320184fd95cc293e48d939f2e4305bfe52c998e8f"
+          "primary": "1e5b1fd987d24d2dacd042cf0216839ff85630a75c23abaf28476cbb3bf5778f",
+          "secondary": "5dcfa4ee0334fcdb0783a877e5cbb5d6b80674ac133ebcc21e38ef6b32841cf9",
+          "accent": "9ce8e104210070a6d229d46702a1aa85fa6eeb27857a0c3b0a0f75d6edad1002"
         },
         "floating": {
-          "primary": "e432164a8ca9087fbc2473302affa0b8e0ba8f48a41ba43546b41531312a5fd8",
-          "secondary": "2447534eb67e8e3c48a33b832a8b793daceb124e1066f997967be84f1b6a8daa",
-          "accent": "ba653a5a0fb1be1b281f0b1ca98fb019d95b24b6982f87aa51fc3ceaef80b5e8"
+          "primary": "cd8f06cc83b838c56d800196612bef4c8b6ea92b5435f3248c4be200ab5d74ec",
+          "secondary": "79601031c973e3cc9006fce028b26dcadcb6b81d1f0838638c14f0e84c5e310e",
+          "accent": "c8857e505339d58973e41329e94f610af11bdf69f545c60e4ed5bd806e8376e7"
         }
       },
       "origin": {
@@ -2393,19 +2393,19 @@
       },
       "rigMaskSha256": {
         "blob": {
-          "primary": "91a66835ccb17221e02554473a71bb1f731026b26ef7f86a4d8be5e3a76246e8",
-          "secondary": "c45cd8d6fe60e8d40175ad2c4471a622e24db048d4a4a2a966cc721ab54d00c0",
-          "accent": "86e7d78abcad7ca3462ec8da7a85a59b319039ff007ed649a609cbe006a6bbbc"
+          "primary": "38b6a7b4f3d3c2556d45547a751e2ae71e181b7b3c3cb3352e1677866d0a991f",
+          "secondary": "3aa55dd8c1c60c5d9ead5f06db7330cf7d10b9e83a952e0c64bf9f0a1b785caa",
+          "accent": "fccba96e1725e86701307682838be887a83f7cbbb421e1e3cb1e5cb4110ab1f8"
         },
         "biped": {
-          "primary": "87a64f9844d58485aa8c938dfcae9d42f2010bed9c0fd1bb414e661db533e289",
-          "secondary": "c37cd4777b33968c799bb5456a941b1bd38c15ae47160cb5bbc2bdc38ad168c1",
-          "accent": "8683b83aa0b04ed278a86da3ae7d88a54e224cc3f32b5b27e854b606cdc8284e"
+          "primary": "411a93c332d5efcd9eec3e7413cd838153913c4e4a0c4f6745b8a1138b881a6d",
+          "secondary": "047628c37370f1a6378a3a61c1cc3f420f9729ae48f211c1e63e628ee21a23d2",
+          "accent": "38fe49733d026468b1f586a698a5590cf14323055d3436dc19707f94171e76d6"
         },
         "floating": {
-          "primary": "80f005ec28f676332e6ee6da581b66f6809ce0fbd99a12453935765a37a2e3cf",
-          "secondary": "e370915b13b3224ce91944454f1cefb51f8d5c7e52230661b867336c740103a7",
-          "accent": "6647bd4b87f8b937757bcb08a8ae5e2255fdacf93d158899675349cd44138aca"
+          "primary": "e84eb1ebdd0ff2ba660c34d07efcddc5143dcf2168e0f981b240b8be11525754",
+          "secondary": "1e9df51b67bdbf19fddf605519622ee49a0bc390eff23cf2023214507f431833",
+          "accent": "1d35b7420f8412ff689f0137c590071568a2c9a903a849533fa96fc36a5697cf"
         }
       },
       "origin": {
@@ -2469,18 +2469,18 @@
       "rigMaskSha256": {
         "blob": {
           "primary": "9abcca855ee3a72a773aae92b24a147e46586a0a41821349533f12e8612d4f16",
-          "secondary": "9bd8c3c4ad0183e60631ce7418ba02fc9f87461ece099d3c99ee76f7a828891b",
-          "accent": "a92a90fb62c980cb9de07f51ccb1c59f59f0c89578597f0170dcdf57c9c1833c"
+          "secondary": "3219ed6e14726b012e600ad36facafe672d0e1b9015610bc641c6d886e1a3a8f",
+          "accent": "b849b99eb9b7580b2750b90e8cb58a703c64fab0342c69cdc94a8ae4e37190f8"
         },
         "biped": {
-          "primary": "eaee2f7035a87e8b0cc84db9a01d6c0eba13ef9a84ab74693dfeeaf2cbda5208",
-          "secondary": "5c9722b8a181fc23c31481f3e1a688976bb67456c8f60ba238cead6f07b2a82c",
-          "accent": "0291703b0887e5d30cf6d41a0e7d00cd140d99e17170e96fdcd47925a7a26810"
+          "primary": "ed61d86d34fff0d739cadc3466eba4fcbf95f28e2e9fd32c90dc238096d08b41",
+          "secondary": "f0b02d1fc31cff3dcdca97b2ca0a00da356e78fd41af85970ec46da73c3b66ae",
+          "accent": "b011b15bebaf748a4674c38c215dbcc70616c7267a360de332fb94dbed316737"
         },
         "floating": {
-          "primary": "9a9d1e281f8cf41cbcd540a8439f012cdfeb1cd6d2b1284fa970b05dd7d1e753",
-          "secondary": "e6ef7c11f2d927cd7a7c77d179200862694814edae5427e5e26c4403b500b7db",
-          "accent": "8f96d4da3f8c0fefd141fdde6abb7d47c2a0c5ea1075fcbc9925b988567460fd"
+          "primary": "c7bcb9937ff8270480db6ea151f909f05886ab75653ba069e9906faf906231b8",
+          "secondary": "ff3a4fe50007e96827e4b402676178f65825e09d4c1aa0da8c7db91379853e72",
+          "accent": "50befe624895b3c4b439513b0bc652a8357e5bd77fa518a319ae40d2cd41d695"
         }
       },
       "origin": {

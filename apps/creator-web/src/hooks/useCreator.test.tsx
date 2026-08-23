@@ -33,6 +33,18 @@ afterEach(() => {
 })
 
 describe('useCreator', () => {
+  it('marks the public command boundary before reducing an action', () => {
+    const catalog = makeValidCatalogFixture()
+    const storage = new MemoryStorage()
+    const mark = vi.spyOn(performance, 'mark')
+    const { result } = renderHook(() => useCreator({ catalog, initialRequest, storage }))
+
+    act(() => result.current.dispatch({ type: 'setMode', mode: 'mutation' }))
+
+    expect(mark).toHaveBeenCalledWith('qmonster-command-start')
+    expect(result.current.session.spec.mutation).not.toBeNull()
+  })
+
   it('hydrates the complete saved session before exposing editor state', async () => {
     vi.useFakeTimers()
     const catalog = makeValidCatalogFixture()

@@ -26,6 +26,8 @@ interface CompositeSurfaces {
   mask: RenderSurface
 }
 
+const browserCompositeCache = new WeakMap<object, CompositeSurfaces>()
+
 function assetLoadDiagnostic(
   layer: RenderLayerInstance,
   assetPath: string,
@@ -89,9 +91,17 @@ function createCompositeSurfaces(
   context: CanvasRenderingContext2D,
   factory: RenderSurfaceFactory,
 ): CompositeSurfaces | null {
+  const cacheKey = context.canvas as unknown as object
+  if (factory === browserSurfaceFactory) {
+    const cached = browserCompositeCache.get(cacheKey)
+    if (cached !== undefined) return cached
+  }
   const layer = factory(MASTER_SIZE, MASTER_SIZE, context)
   const mask = factory(MASTER_SIZE, MASTER_SIZE, context)
-  return layer === null || mask === null ? null : { layer, mask }
+  if (layer === null || mask === null) return null
+  const surfaces = { layer, mask }
+  if (factory === browserSurfaceFactory) browserCompositeCache.set(cacheKey, surfaces)
+  return surfaces
 }
 
 function surfaceUnavailableDiagnostic(layer: RenderLayerInstance): Diagnostic {
