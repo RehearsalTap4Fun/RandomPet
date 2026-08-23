@@ -1,4 +1,8 @@
-import type { MonsterSpec } from '@qmonster/generator-core'
+import type { Diagnostic, MonsterSpec } from '@qmonster/generator-core'
+
+export type AdapterResult<T> =
+  | { ok: true; value: T }
+  | { ok: false; diagnostics: Diagnostic[] }
 
 export interface IncubatorEggInput {
   id: string

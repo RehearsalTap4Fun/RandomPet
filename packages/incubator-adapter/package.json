@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@qmonster/generator-core": "0.1.0",
-    "@qmonster/renderer-canvas": "0.1.0"
+    "@qmonster/renderer-canvas": "0.1.0",
+    "zod": "~4.4.3"
   }
 }
