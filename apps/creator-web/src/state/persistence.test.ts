@@ -47,6 +47,39 @@ function blockingDiagnostic() {
   }
 }
 
+function warningDiagnostic(overrides: Partial<{
+  code: string
+  path: string[]
+  message: string
+}> = {}) {
+  return {
+    severity: 'warning' as const,
+    code: 'BOUNDARY',
+    path: [],
+    message: 'within bounds',
+    ...overrides,
+  }
+}
+
+function sessionWithDiagnostics(
+  generationDiagnostics: CreatorSession['generationDiagnostics'],
+  renderDiagnostics: CreatorSession['renderDiagnostics'] = [],
+): CreatorSession {
+  return refreshSessionValidity({
+    ...makeFreshSession('resource-limits'),
+    generationDiagnostics,
+    renderDiagnostics,
+  })
+}
+
+function storeV2Session(storage: MemoryStorage, session: CreatorSession, padding = ''): void {
+  storage.values.set(CREATOR_SESSION_STORAGE_KEY, JSON.stringify({
+    schemaVersion: 2,
+    session,
+    padding,
+  }))
+}
+
 function storeSession(storage: MemoryStorage, session: CreatorSession): void {
   storage.values.set(CREATOR_SESSION_STORAGE_KEY, JSON.stringify({ schemaVersion: 1, session }))
 }
@@ -56,6 +89,162 @@ afterEach(() => {
 })
 
 describe('creator session persistence', () => {
+  it('rejects a stored payload larger than 1 MiB before hydrating it', () => {
+    const storage = new MemoryStorage()
+    storeV2Session(storage, makeFreshSession('large-payload'), 'x'.repeat(1024 * 1024))
+
+    const result = loadSession(() => makeFreshSession(), storage)
+
+    expect(result.session.spec.seed).toBe('fresh-seed')
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SESSION_LOAD_FAILED',
+    }))
+  })
+
+  it('rejects 257 diagnostics combined across stored source buckets', () => {
+    const storage = new MemoryStorage()
+    storeV2Session(storage, sessionWithDiagnostics(
+      Array.from({ length: 128 }, () => warningDiagnostic()),
+      Array.from({ length: 129 }, () => warningDiagnostic()),
+    ))
+
+    const result = loadSession(() => makeFreshSession(), storage)
+
+    expect(result.session.spec.seed).toBe('fresh-seed')
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SESSION_LOAD_FAILED',
+    }))
+  })
+
+  it('rejects a stored diagnostic with a 17-segment path', () => {
+    const storage = new MemoryStorage()
+    storeV2Session(storage, sessionWithDiagnostics([
+      warningDiagnostic({ path: Array.from({ length: 17 }, () => 'segment') }),
+    ]))
+
+    const result = loadSession(() => makeFreshSession(), storage)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SESSION_LOAD_FAILED',
+    }))
+  })
+
+  it('rejects a stored diagnostic code longer than 128 Unicode code points', () => {
+    const storage = new MemoryStorage()
+    storeV2Session(storage, sessionWithDiagnostics([
+      warningDiagnostic({ code: '😀'.repeat(129) }),
+    ]))
+
+    const result = loadSession(() => makeFreshSession(), storage)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SESSION_LOAD_FAILED',
+    }))
+  })
+
+  it('rejects a stored diagnostic path segment longer than 256 Unicode code points', () => {
+    const storage = new MemoryStorage()
+    storeV2Session(storage, sessionWithDiagnostics([
+      warningDiagnostic({ path: ['😀'.repeat(257)] }),
+    ]))
+
+    const result = loadSession(() => makeFreshSession(), storage)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SESSION_LOAD_FAILED',
+    }))
+  })
+
+  it('rejects a stored diagnostic message longer than 2048 Unicode code points', () => {
+    const storage = new MemoryStorage()
+    storeV2Session(storage, sessionWithDiagnostics([
+      warningDiagnostic({ message: '😀'.repeat(2049) }),
+    ]))
+
+    const result = loadSession(() => makeFreshSession(), storage)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SESSION_LOAD_FAILED',
+    }))
+  })
+
+  it('rejects an over-1-MiB save without calling setItem', async () => {
+    const storage = new MemoryStorage()
+    const setItem = vi.spyOn(storage, 'setItem')
+    const diagnostic = warningDiagnostic({
+      code: 'c'.repeat(128),
+      path: Array.from({ length: 16 }, () => 'p'.repeat(256)),
+      message: '',
+    })
+    const session = sessionWithDiagnostics(Array.from({ length: 256 }, () => diagnostic))
+
+    const result = await saveSession(session, storage)
+
+    expect(result).toContainEqual(expect.objectContaining({ code: 'SESSION_SAVE_FAILED' }))
+    expect(storage.setItem).not.toHaveBeenCalled()
+  })
+
+  it('rejects a save with 257 diagnostics combined across source buckets without calling setItem', async () => {
+    const storage = new MemoryStorage()
+    const setItem = vi.spyOn(storage, 'setItem')
+
+    const result = await saveSession(sessionWithDiagnostics(
+      Array.from({ length: 128 }, () => warningDiagnostic()),
+      Array.from({ length: 129 }, () => warningDiagnostic()),
+    ), storage)
+
+    expect(result).toContainEqual(expect.objectContaining({ code: 'SESSION_SAVE_FAILED' }))
+    expect(storage.setItem).not.toHaveBeenCalled()
+  })
+
+  it('rejects a save with a 17-segment diagnostic path without calling setItem', async () => {
+    const storage = new MemoryStorage()
+    const setItem = vi.spyOn(storage, 'setItem')
+
+    const result = await saveSession(sessionWithDiagnostics([
+      warningDiagnostic({ path: Array.from({ length: 17 }, () => 'segment') }),
+    ]), storage)
+
+    expect(result).toContainEqual(expect.objectContaining({ code: 'SESSION_SAVE_FAILED' }))
+    expect(storage.setItem).not.toHaveBeenCalled()
+  })
+
+  it('rejects a save with a code longer than 128 Unicode code points without calling setItem', async () => {
+    const storage = new MemoryStorage()
+    const setItem = vi.spyOn(storage, 'setItem')
+
+    const result = await saveSession(sessionWithDiagnostics([
+      warningDiagnostic({ code: '😀'.repeat(129) }),
+    ]), storage)
+
+    expect(result).toContainEqual(expect.objectContaining({ code: 'SESSION_SAVE_FAILED' }))
+    expect(storage.setItem).not.toHaveBeenCalled()
+  })
+
+  it('rejects a save with a path segment longer than 256 Unicode code points without calling setItem', async () => {
+    const storage = new MemoryStorage()
+    const setItem = vi.spyOn(storage, 'setItem')
+
+    const result = await saveSession(sessionWithDiagnostics([
+      warningDiagnostic({ path: ['😀'.repeat(257)] }),
+    ]), storage)
+
+    expect(result).toContainEqual(expect.objectContaining({ code: 'SESSION_SAVE_FAILED' }))
+    expect(storage.setItem).not.toHaveBeenCalled()
+  })
+
+  it('rejects a save with a message longer than 2048 Unicode code points without calling setItem', async () => {
+    const storage = new MemoryStorage()
+    const setItem = vi.spyOn(storage, 'setItem')
+
+    const result = await saveSession(sessionWithDiagnostics([
+      warningDiagnostic({ message: '😀'.repeat(2049) }),
+    ]), storage)
+
+    expect(result).toContainEqual(expect.objectContaining({ code: 'SESSION_SAVE_FAILED' }))
+    expect(storage.setItem).not.toHaveBeenCalled()
+  })
+
   it('saves and loads one complete session without changing any field', async () => {
     vi.useFakeTimers()
     const storage = new MemoryStorage()
