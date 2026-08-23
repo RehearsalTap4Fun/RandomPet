@@ -108,7 +108,9 @@ export function checkPartCompatibility(
   rigId: RigId,
   catalog: Catalog,
   selections: Partial<Record<VisualSlotId, VisualSelection>>,
+  themeId: ThemeId,
 ): boolean {
+  if (part.slotId === 'colorScheme' && !part.themeIds.includes(themeId)) return false
   const selectedPartIds = new Set(Object.values(selections).map(selection => selection.partId))
   const replacedSelection = selections[part.slotId]
   if (replacedSelection !== undefined) selectedPartIds.delete(replacedSelection.partId)

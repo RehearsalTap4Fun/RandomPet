@@ -62,7 +62,11 @@ describe('SlotPanel', () => {
         },
       ],
     }
-    render(<SlotPanel session={fixture(catalog)} catalog={catalog} onAction={() => undefined} />)
+    const session = fixture(catalog)
+    const bipedOnlyEyes = catalog.parts.find(part => part.id === 'eyes_biped_only')!
+    const incompatibleRig = catalog.rigs.find(rig => rig.id !== session.spec.visualSlots.bodyFrame.rigId)!
+    bipedOnlyEyes.compatibleRigs = [incompatibleRig.id]
+    render(<SlotPanel session={session} catalog={catalog} onAction={() => undefined} />)
 
     const select = screen.getByRole('combobox', { name: '眼睛部件' }) as HTMLSelectElement
     const incompatible = Array.from(select.options).find(option => option.value === 'eyes_biped_only')

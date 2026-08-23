@@ -132,7 +132,10 @@ describe('createCreatorReducer', () => {
     const next = reducer(before, { type: 'setTheme', themeId: 'shadow' })
 
     expect(next.locks.eyes).toBe(true)
-    expect(next.spec.visualSlots.eyes).toEqual(before.spec.visualSlots.eyes)
+    expect(next.spec.visualSlots.eyes).toEqual({
+      partId: before.spec.visualSlots.eyes.partId,
+      rigId: next.spec.visualSlots.bodyFrame.rigId,
+    })
     expect(next.blocked).toBe(true)
     expect(next.diagnostics).toContainEqual(expect.objectContaining({
       code: 'LOCK_INCOMPATIBLE',
@@ -150,7 +153,10 @@ describe('createCreatorReducer', () => {
     const next = reducer(before, { type: 'setTheme', themeId: 'deep-sea' })
 
     expect(next.spec.themeId).toBe('deep-sea')
-    expect(next.spec.visualSlots.eyes).toEqual(before.spec.visualSlots.eyes)
+    expect(next.spec.visualSlots.eyes).toEqual({
+      partId: before.spec.visualSlots.eyes.partId,
+      rigId: next.spec.visualSlots.bodyFrame.rigId,
+    })
     for (const slotId of VISUAL_SLOT_IDS) {
       if (slotId === 'eyes') continue
       expect(next.spec.visualSlots[slotId].partId, slotId).toMatch(/_fresh$/)

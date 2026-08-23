@@ -214,3 +214,22 @@ export function makeValidCatalogFixture(): Catalog {
     dependencies: {},
   }
 }
+
+export function makeValidCatalogFixtureWithThreeRigs(): Catalog {
+  const catalog = makeValidCatalogFixture()
+  const bodyFrame = catalog.parts.find(part => part.slotId === 'bodyFrame')!
+  const colorScheme = catalog.parts.find(part => part.slotId === 'colorScheme')!
+
+  catalog.parts = [
+    ...catalog.parts.filter(part => part.slotId !== 'bodyFrame' && part.slotId !== 'colorScheme'),
+    ...(['blob', 'biped', 'floating'] as const).map(rigId => ({
+      ...bodyFrame,
+      id: `body_${rigId}`,
+      compatibleRigs: [rigId],
+    })),
+    { ...colorScheme, id: 'color_deep_sea_coral', themeIds: ['deep-sea'] },
+    { ...colorScheme, id: 'color_fungal_amber', themeIds: ['fungal'] },
+    { ...colorScheme, id: 'color_shadow_violet', themeIds: ['shadow'] },
+  ]
+  return catalog
+}

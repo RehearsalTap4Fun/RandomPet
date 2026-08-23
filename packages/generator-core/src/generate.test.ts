@@ -4,12 +4,13 @@ import {
   createRng,
   generateMonster,
   rerollSlot,
+  evaluatePartSelection,
   selectVisualPart,
   VISUAL_SLOT_IDS,
   type Catalog,
   type GenerationRequest,
 } from './index.js'
-import { makeValidCatalogFixture } from './test-fixtures.js'
+import { makeValidCatalogFixture, makeValidCatalogFixtureWithThreeRigs } from './test-fixtures.js'
 
 const baseRequest = {
   seed: '84721937',
@@ -53,6 +54,32 @@ describe('generateMonster', () => {
     expect(result.diagnostics).toContainEqual(
       expect.objectContaining({ code: 'LOCK_INCOMPATIBLE', path: ['visualSlots', 'legs'] }),
     )
+  })
+
+  it('retains a locked cross-theme color scheme and blocks', () => {
+    const catalog = makeValidCatalogFixtureWithThreeRigs()
+    const result = generateMonster({
+      seed: 'theme-lock', themeId: 'shadow', mode: 'normal',
+      lockedSelections: { colorScheme: 'color_fungal_amber' },
+    }, catalog)
+
+    expect(result.spec.visualSlots.colorScheme.partId).toBe('color_fungal_amber')
+    expect(result.blocked).toBe(true)
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'LOCK_INCOMPATIBLE', path: ['visualSlots', 'colorScheme'],
+    }))
+  })
+
+  it('marks a cross-theme color scheme as not manually selectable', () => {
+    const catalog = makeValidCatalogFixtureWithThreeRigs()
+    const spec = generateMonster({ seed: 'theme-manual', themeId: 'shadow', mode: 'normal' }, catalog).spec
+    const fungalColor = catalog.parts.find(part => part.id === 'color_fungal_amber')!
+
+    expect(evaluatePartSelection(fungalColor, spec, catalog)).toEqual({
+      selectable: false,
+      rigId: spec.visualSlots.bodyFrame.rigId,
+      reason: 'theme',
+    })
   })
 
   it('selects the same mutation for the same request', () => {
@@ -373,7 +400,10 @@ describe('local changes', () => {
     const result = rerollSlot({ spec: before, slotId: 'bodyFrame', locks: { tail: true }, catalog })
     expect(result.spec.slotRolls.bodyFrame).toBe(1)
     expect(result.spec.slotRolls.legs).toBe(0)
-    expect(result.spec.visualSlots.tail).toEqual(before.visualSlots.tail)
+    expect(result.spec.visualSlots.tail).toEqual({
+      partId: before.visualSlots.tail.partId,
+      rigId: result.spec.visualSlots.bodyFrame.rigId,
+    })
   })
 
   it('checks locked descendants after unlocked descendants finish recomputing', () => {
@@ -391,7 +421,10 @@ describe('local changes', () => {
       ],
     }
     const rerolled = rerollSlot({ spec: before, slotId: 'bodyFrame', locks: { arms: true }, catalog: changed })
-    expect(rerolled.spec.visualSlots.arms).toEqual(before.visualSlots.arms)
+    expect(rerolled.spec.visualSlots.arms).toEqual({
+      partId: before.visualSlots.arms.partId,
+      rigId: rerolled.spec.visualSlots.bodyFrame.rigId,
+    })
     expect(rerolled.spec.visualSlots.eyes.partId).toBe('eyes_after_lock')
     expect(rerolled.blocked).toBe(false)
   })
@@ -445,7 +478,8 @@ describe('local changes', () => {
     expect(selected.blocked).toBe(false)
     expect(selected.spec.visualSlots.tail.partId).toBe('tail_manual')
 
-    catalog.parts.push({ ...tail, id: 'tail_wrong_rig', compatibleRigs: ['biped'] })
+    const wrongRig = catalog.rigs.find(rig => rig.id !== before.visualSlots.bodyFrame.rigId)!
+    catalog.parts.push({ ...tail, id: 'tail_wrong_rig', compatibleRigs: [wrongRig.id] })
     const rejected = selectVisualPart({ spec: before, slotId: 'tail', partId: 'tail_wrong_rig', locks: {}, catalog })
     expect(rejected.blocked).toBe(true)
     expect(rejected.spec.visualSlots.tail).toEqual(before.visualSlots.tail)

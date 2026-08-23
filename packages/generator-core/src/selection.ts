@@ -54,7 +54,7 @@ export function evaluatePartSelection(
   const stableSelections = Object.fromEntries(Object.entries(spec.visualSlots).filter(
     ([slotId]) => !descendants.has(slotId as VisualSlotId),
   )) as Partial<Record<VisualSlotId, VisualSelection>>
-  if (!checkPartCompatibility(part, rigId, catalog, stableSelections)) {
+  if (!checkPartCompatibility(part, rigId, catalog, stableSelections, spec.themeId)) {
     return { selectable: false, rigId, reason: 'selection' }
   }
   return { selectable: true, rigId, reason: null }

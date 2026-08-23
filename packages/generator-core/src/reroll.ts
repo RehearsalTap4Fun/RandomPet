@@ -11,6 +11,7 @@ import type {
 } from './contracts.js'
 import { projectSemanticTraits } from './projection.js'
 import { descendantsOf, evaluatePartSelection } from './selection.js'
+import { selectRigId } from './rig-selection.js'
 
 export type SlotLocks = Partial<Record<VisualSlotId, boolean>>
 
@@ -87,7 +88,7 @@ function regenerateDescendants(
         path: ['visualSlots', slotId],
         message: `Locked part ${selectedPartId} no longer exists.`,
       })
-    } else if (!checkPartCompatibility(part, spec.visualSlots.bodyFrame.rigId, catalog, spec.visualSlots)) {
+    } else if (!checkPartCompatibility(part, spec.visualSlots.bodyFrame.rigId, catalog, spec.visualSlots, spec.themeId)) {
       diagnostics.push({
         severity: 'error',
         code: 'LOCK_INCOMPATIBLE',
@@ -114,6 +115,19 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
   }
   const affected = descendantsOf(request.slotId, request.catalog)
   affected.add(request.slotId)
+  if (request.slotId === 'bodyFrame') {
+    const rigId = selectRigId(generationRequest, request.catalog)
+    if (rigId === null) {
+      diagnostics.push({
+        severity: 'error',
+        code: 'NO_COMPATIBLE_RIG',
+        path: ['visualSlots', 'bodyFrame'],
+        message: 'No legal bodyFrame rig is available in the catalog.',
+      })
+    } else {
+      spec.visualSlots.bodyFrame.rigId = rigId
+    }
+  }
   spec.visualSlots[request.slotId] = resolveSlot(
     generationRequest,
     request.catalog,

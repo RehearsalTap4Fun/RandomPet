@@ -14,6 +14,7 @@ import {
 import { createRng, slotSeedParts } from './prng.js'
 import { applyModifiers } from './modifiers.js'
 import { projectSemanticTraits } from './projection.js'
+import { selectRigId } from './rig-selection.js'
 
 export const GENERATION_ORDER: readonly VisualSlotId[] = [
   'bodyFrame', 'colorScheme', 'surfaceMaterial', 'pattern',
@@ -27,6 +28,13 @@ function error(code: string, path: string[], message: string): Diagnostic {
 
 function defaultRig(catalog: Catalog): RigId {
   return catalog.rigs[0]?.id ?? 'blob'
+}
+
+function lockedBodyRig(request: GenerationRequest, catalog: Catalog): RigId | undefined {
+  const lockedBodyId = request.lockedSelections?.bodyFrame
+  if (lockedBodyId === undefined) return undefined
+  const lockedBody = catalog.parts.find(part => part.slotId === 'bodyFrame' && part.id === lockedBodyId)
+  return lockedBody?.compatibleRigs.find(rigId => catalog.rigs.some(rig => rig.id === rigId))
 }
 
 function selectionFor(part: VisualPartDefinition, rigId: RigId): VisualSelection {
@@ -48,7 +56,7 @@ export function resolveSlot(
       diagnostics.push(error('LOCK_NOT_FOUND', ['visualSlots', slotId], `Locked part ${lockedPartId} does not exist in ${slotId}.`))
       return { partId: lockedPartId, rigId }
     }
-    if (!checkPartCompatibility(lockedPart, rigId, catalog, visualSlots)) {
+    if (!checkPartCompatibility(lockedPart, rigId, catalog, visualSlots, request.themeId)) {
       diagnostics.push(error('LOCK_INCOMPATIBLE', ['visualSlots', slotId], `Locked part ${lockedPartId} is incompatible with the current selections.`))
     }
     return selectionFor(lockedPart, rigId)
@@ -77,11 +85,11 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     diagnostics.push(error('THEME_NOT_FOUND', ['themeId'], `Theme ${request.themeId} is not present in the catalog.`))
   }
 
-  let rigId = defaultRig(catalog)
-  const lockedBody = request.lockedSelections?.bodyFrame === undefined
-    ? undefined
-    : catalog.parts.find(part => part.slotId === 'bodyFrame' && part.id === request.lockedSelections?.bodyFrame)
-  rigId = lockedBody?.compatibleRigs[0] ?? rigId
+  const selectedRig = lockedBodyRig(request, catalog) ?? selectRigId(request, catalog)
+  const rigId = selectedRig ?? defaultRig(catalog)
+  if (selectedRig === null) {
+    diagnostics.push(error('NO_COMPATIBLE_RIG', ['visualSlots', 'bodyFrame'], 'No legal bodyFrame rig is available in the catalog.'))
+  }
   const visualSlots: Partial<Record<VisualSlotId, VisualSelection>> = {}
   for (const slotId of GENERATION_ORDER) {
     visualSlots[slotId] = resolveSlot(request, catalog, slotId, rigId, visualSlots, diagnostics)
