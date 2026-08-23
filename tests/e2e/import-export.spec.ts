@@ -3,6 +3,22 @@ import { join } from 'node:path'
 import { expect, test, type Download, type Page } from '@playwright/test'
 
 const invalidConflictPath = join(process.cwd(), 'tests', 'e2e', 'fixtures', 'invalid-conflict.json')
+const expectedSlotControlIds = [
+  'slot-control-arms',
+  'slot-control-bodyFrame',
+  'slot-control-colorScheme',
+  'slot-control-effect',
+  'slot-control-extraAppendage',
+  'slot-control-eyes',
+  'slot-control-headAppendage',
+  'slot-control-headShape',
+  'slot-control-legs',
+  'slot-control-mouthShape',
+  'slot-control-oralDetail',
+  'slot-control-pattern',
+  'slot-control-surfaceMaterial',
+  'slot-control-tail',
+] as const
 
 async function openWorkbench(page: Page): Promise<void> {
   await page.goto('/')
@@ -28,11 +44,22 @@ test('downloads exact JSON and PNG names, then re-imports the public seed and sl
   await openWorkbench(page)
   const seed = page.getByRole('textbox', { name: '种子' })
   const seedBefore = await seed.inputValue()
+  const slotControls = page.locator('select[id^="slot-control-"]')
+  await expect(slotControls).toHaveCount(14)
+  expect((await slotControls.evaluateAll(selects => selects.map(select => select.id))).sort()).toEqual(
+    [...expectedSlotControlIds],
+  )
   const slotsBefore = await publicSlotState(page)
+  expect(Object.keys(slotsBefore)).toHaveLength(14)
   const filenameStem = `qmonster-fungal-${seedBefore}`
 
   const jsonDownload = await expectDownload(page, '导出 JSON', `${filenameStem}.json`)
-  await expectDownload(page, '导出透明 PNG', `${filenameStem}.png`)
+  const pngDownload = await expectDownload(page, '导出透明 PNG', `${filenameStem}.png`)
+  expect(await pngDownload.failure()).toBeNull()
+  const pngPath = await pngDownload.path()
+  const pngBytes = await readFile(pngPath)
+  expect(pngBytes.byteLength).toBeGreaterThan(0)
+  expect([...pngBytes.subarray(0, 8)]).toEqual([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
   const jsonPath = await jsonDownload.path()
   expect(JSON.parse(await readFile(jsonPath, 'utf8'))).toMatchObject({ seed: seedBefore, themeId: 'fungal' })
 

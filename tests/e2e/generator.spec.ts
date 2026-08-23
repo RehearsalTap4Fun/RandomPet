@@ -48,8 +48,22 @@ test('locks, rerolls, manually selects, and blocks an incompatible theme lock', 
   await mouth.selectOption(manualMouth!)
   await expect(mouth).toHaveValue(manualMouth!)
 
-  await page.getByRole('checkbox', { name: '锁定 色彩方案' }).check()
+  const colorScheme = page.getByRole('combobox', { name: '色彩方案部件' })
+  const colorLock = page.getByRole('checkbox', { name: '锁定 色彩方案' })
+  const colorSchemeBefore = await colorScheme.inputValue()
+  await colorLock.check()
   await page.getByRole('combobox', { name: '主题' }).selectOption('shadow')
-  await expect(page.getByLabel('诊断信息')).toContainText('LOCK_INCOMPATIBLE')
+  await expect(colorScheme).toHaveValue(colorSchemeBefore)
+  await expect(colorLock).toBeChecked()
+
+  const diagnostics = page.getByLabel('诊断信息')
+  const colorLockDiagnostic = diagnostics.getByText('LOCK_INCOMPATIBLE', { exact: true }).locator('..')
+  await expect(colorLockDiagnostic).toHaveCount(1)
+  await expect(colorLockDiagnostic.getByRole('link', { name: '定位到色彩方案' })).toHaveAttribute(
+    'href',
+    '#slot-control-colorScheme',
+  )
   await expect(page.getByRole('button', { name: '导出 JSON' })).toBeDisabled()
+  await expect(page.getByRole('button', { name: '导出透明 PNG' })).toBeDisabled()
+  await expect(page.getByRole('button', { name: '导出透明 WebP' })).toBeDisabled()
 })
