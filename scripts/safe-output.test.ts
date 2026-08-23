@@ -1,8 +1,13 @@
 import { lstat, mkdtemp, mkdir, readFile, realpath, rm, symlink, writeFile } from 'node:fs/promises'
 import { isAbsolute, join, relative } from 'node:path'
 import { tmpdir } from 'node:os'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { pruneStaleFiles, resolveOutputPath } from './safe-output.js'
+
+vi.mock('node:fs/promises', async importOriginal => {
+  const actual = await importOriginal<typeof import('node:fs/promises')>()
+  return { ...actual, realpath: vi.fn(actual.realpath) }
+})
 
 const temporaryDirectories: string[] = []
 
@@ -42,6 +47,21 @@ describe('safe production outputs', () => {
     await expect(readFile(join(root, 'parts', 'notes.txt'), 'utf8')).resolves.toBe('user-owned')
   })
 
+  it('propagates ENOENT after the cleanup directory is confirmed present', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-root-'))
+    temporaryDirectories.push(root)
+    await mkdir(join(root, 'parts'))
+    const canonicalizationError = Object.assign(new Error('directory disappeared during canonicalization'), { code: 'ENOENT' })
+    vi.mocked(realpath).mockRejectedValueOnce(canonicalizationError)
+
+    await expect(pruneStaleFiles({
+      root,
+      directory: 'parts',
+      expected: new Set(),
+      extensions: new Set(['.png']),
+    })).rejects.toBe(canonicalizationError)
+  })
+
   it('does not prune through a linked output directory', async ({ skip }) => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-root-'))
     const outside = await mkdtemp(join(tmpdir(), 'qmonster-outside-'))
@@ -62,6 +82,29 @@ describe('safe production outputs', () => {
     })).rejects.toThrow(/symbolic link|junction|escapes output root/i)
     expect((await lstat(join(root, 'parts'))).isSymbolicLink()).toBe(true)
     await expect(readFile(join(outside, 'keep.png'), 'utf8')).resolves.toBe('outside')
+  })
+
+  it('rejects an ordinary cleanup directory reached through a linked ancestor', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-outside-'))
+    temporaryDirectories.push(root, outside)
+    await mkdir(join(outside, 'parts'))
+    await writeFile(join(outside, 'parts', 'keep.png'), 'outside')
+    try {
+      await symlink(outside, join(root, 'linked'), process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (isLinkPrivilegeError(error)) skip(`directory links unavailable: ${(error as NodeJS.ErrnoException).code}`)
+      throw error
+    }
+
+    expect((await lstat(join(root, 'linked', 'parts'))).isSymbolicLink()).toBe(false)
+    await expect(pruneStaleFiles({
+      root,
+      directory: 'linked/parts',
+      expected: new Set(['linked/parts/keep.png']),
+      extensions: new Set(['.png']),
+    })).rejects.toThrow(/escapes output root/i)
+    await expect(readFile(join(outside, 'parts', 'keep.png'), 'utf8')).resolves.toBe('outside')
   })
 
   it('does not prune a linked file inside an output directory', async ({ skip }) => {

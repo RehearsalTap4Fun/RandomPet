@@ -26,24 +26,22 @@ export async function pruneStaleFiles(input: {
   extensions: ReadonlySet<string>
 }): Promise<string[]> {
   const directoryPath = resolveOutputPath(input.root, input.directory)
-  let canonicalRoot: string
-  let canonicalDirectory: string
-  let entries
+  let directoryStats
   try {
-    const directoryStats = await lstat(directoryPath)
-    if (directoryStats.isSymbolicLink()) {
-      throw new Error(`Refusing to prune symbolic link or junction output directory: ${directoryPath}`)
-    }
-    ;[canonicalRoot, canonicalDirectory] = await Promise.all([
-      realpath(resolve(input.root)),
-      realpath(directoryPath),
-    ])
-    assertContained(canonicalRoot, canonicalDirectory)
-    entries = await readdir(canonicalDirectory, { withFileTypes: true })
+    directoryStats = await lstat(directoryPath)
   } catch (error) {
     if (isMissingPath(error)) return []
     throw error
   }
+  if (directoryStats.isSymbolicLink()) {
+    throw new Error(`Refusing to prune symbolic link or junction output directory: ${directoryPath}`)
+  }
+  const [canonicalRoot, canonicalDirectory] = await Promise.all([
+    realpath(resolve(input.root)),
+    realpath(directoryPath),
+  ])
+  assertContained(canonicalRoot, canonicalDirectory)
+  const entries = await readdir(canonicalDirectory, { withFileTypes: true })
   const removed: string[] = []
   for (const entry of entries) {
     if (!entry.isFile() && !entry.isSymbolicLink()) continue
