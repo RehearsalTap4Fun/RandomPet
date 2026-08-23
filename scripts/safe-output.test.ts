@@ -1,5 +1,5 @@
-import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { lstat, mkdtemp, mkdir, readFile, realpath, rm, symlink, writeFile } from 'node:fs/promises'
+import { isAbsolute, join, relative } from 'node:path'
 import { tmpdir } from 'node:os'
 import { afterEach, describe, expect, it } from 'vitest'
 import { pruneStaleFiles, resolveOutputPath } from './safe-output.js'
@@ -7,8 +7,21 @@ import { pruneStaleFiles, resolveOutputPath } from './safe-output.js'
 const temporaryDirectories: string[] = []
 
 afterEach(async () => {
-  await Promise.all(temporaryDirectories.splice(0).map(path => rm(path, { recursive: true, force: true })))
+  const canonicalTemporaryRoot = await realpath(tmpdir())
+  await Promise.all(temporaryDirectories.splice(0).map(async path => {
+    const canonicalPath = await realpath(path)
+    const remainder = relative(canonicalTemporaryRoot, canonicalPath)
+    if (!remainder || remainder.startsWith('..') || isAbsolute(remainder)) {
+      throw new Error(`Refusing to recursively remove non-temporary path: ${canonicalPath}`)
+    }
+    await rm(canonicalPath, { recursive: true, force: true })
+  }))
 })
+
+function isLinkPrivilegeError(error: unknown): boolean {
+  const code = (error as NodeJS.ErrnoException).code
+  return code === 'EPERM' || code === 'EACCES'
+}
 
 describe('safe production outputs', () => {
   it('rejects any output path that escapes its resolved known root', () => {
@@ -27,5 +40,52 @@ describe('safe production outputs', () => {
     await expect(pruneStaleFiles({ root, directory: 'parts', expected: new Set(['parts/kept.png']), extensions: new Set(['.png', '.webp']) })).resolves.toEqual(['parts/stale.webp'])
     await expect(pruneStaleFiles({ root, directory: 'parts', expected: new Set(['parts/kept.png']), extensions: new Set(['.png', '.webp']) })).resolves.toEqual([])
     await expect(readFile(join(root, 'parts', 'notes.txt'), 'utf8')).resolves.toBe('user-owned')
+  })
+
+  it('does not prune through a linked output directory', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-outside-'))
+    temporaryDirectories.push(root, outside)
+    await writeFile(join(outside, 'keep.png'), 'outside')
+    try {
+      await symlink(outside, join(root, 'parts'), process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (isLinkPrivilegeError(error)) skip(`directory links unavailable: ${(error as NodeJS.ErrnoException).code}`)
+      throw error
+    }
+
+    await expect(pruneStaleFiles({
+      root,
+      directory: 'parts',
+      expected: new Set(),
+      extensions: new Set(['.png']),
+    })).rejects.toThrow(/symbolic link|junction|escapes output root/i)
+    expect((await lstat(join(root, 'parts'))).isSymbolicLink()).toBe(true)
+    await expect(readFile(join(outside, 'keep.png'), 'utf8')).resolves.toBe('outside')
+  })
+
+  it('does not prune a linked file inside an output directory', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-outside-'))
+    temporaryDirectories.push(root, outside)
+    await mkdir(join(root, 'parts'))
+    const outsideFile = join(outside, 'keep.png')
+    const linkedFile = join(root, 'parts', 'stale.png')
+    await writeFile(outsideFile, 'outside')
+    try {
+      await symlink(outsideFile, linkedFile, 'file')
+    } catch (error) {
+      if (isLinkPrivilegeError(error)) skip(`file links unavailable: ${(error as NodeJS.ErrnoException).code}`)
+      throw error
+    }
+
+    await expect(pruneStaleFiles({
+      root,
+      directory: 'parts',
+      expected: new Set(),
+      extensions: new Set(['.png']),
+    })).rejects.toThrow(/symbolic link|junction|escapes output root/i)
+    expect((await lstat(linkedFile)).isSymbolicLink()).toBe(true)
+    await expect(readFile(outsideFile, 'utf8')).resolves.toBe('outside')
   })
 })
