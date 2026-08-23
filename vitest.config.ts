@@ -22,7 +22,7 @@ export default defineConfig({
         test: {
           name: 'creator-jsdom',
           environment: 'jsdom',
-          include: ['apps/**/*.test.tsx'],
+          include: ['apps/**/*.test.tsx', 'apps/creator-web/src/io/**/*.test.ts'],
           setupFiles: ['apps/creator-web/src/test/setup.ts'],
         },
       },

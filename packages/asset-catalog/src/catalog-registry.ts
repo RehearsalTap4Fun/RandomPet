@@ -9,8 +9,17 @@ function missingVersionDiagnostic(version: string): Diagnostic {
   }
 }
 
+function loadFailedDiagnostic(version: string): Diagnostic {
+  return {
+    severity: 'error',
+    code: 'CATALOG_LOAD_FAILED',
+    path: ['catalogVersion'],
+    message: `Catalog version ${version} could not be loaded.`,
+  }
+}
+
 export class CatalogRegistry {
-  public constructor(private readonly loaders: Map<string, () => Promise<Catalog>>) {}
+  public constructor(private readonly loaders: ReadonlyMap<string, () => Promise<Catalog>>) {}
 
   public has(version: string): boolean {
     return this.loaders.has(version)
@@ -19,6 +28,10 @@ export class CatalogRegistry {
   public async load(version: string): Promise<ParseResult<Catalog>> {
     const loader = this.loaders.get(version)
     if (loader === undefined) return { ok: false, diagnostics: [missingVersionDiagnostic(version)] }
-    return { ok: true, value: await loader() }
+    try {
+      return { ok: true, value: await loader() }
+    } catch {
+      return { ok: false, diagnostics: [loadFailedDiagnostic(version)] }
+    }
   }
 }
