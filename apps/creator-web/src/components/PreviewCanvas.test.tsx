@@ -108,17 +108,15 @@ describe('PreviewCanvas', () => {
     )
     await waitFor(() => expect(renderer).toHaveBeenCalledTimes(2))
 
-    const newest: Diagnostic = {
-      severity: 'warning', code: 'NEW_RENDER', path: [], message: 'new',
+    const assetError: Diagnostic = {
+      severity: 'error', code: 'ASSET_LOAD_FAILED',
+      path: ['parts', 'eyes'], message: 'stale asset failure',
     }
-    const stale: Diagnostic = {
-      severity: 'error', code: 'STALE_RENDER', path: [], message: 'old',
-    }
-    await act(async () => newRender.resolve({ drawnAssetIds: [], diagnostics: [newest] }))
-    await act(async () => oldRender.resolve({ drawnAssetIds: [], diagnostics: [stale] }))
+    await act(async () => newRender.resolve({ drawnAssetIds: [], diagnostics: [] }))
+    await act(async () => oldRender.resolve({ drawnAssetIds: [], diagnostics: [assetError] }))
 
-    const published = onDiagnosticsChange.mock.calls.map(([items]) => items as Diagnostic[])
-    expect(published.filter(items => items.length > 0)).toEqual([[newest]])
+    expect(onDiagnosticsChange).toHaveBeenLastCalledWith([])
+    expect(onDiagnosticsChange.mock.calls.flatMap(([items]) => items as Diagnostic[])).not.toContainEqual(assetError)
     const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
     expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1)
   })

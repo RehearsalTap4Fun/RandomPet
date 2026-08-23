@@ -1,9 +1,8 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   parseCatalog,
   VISUAL_SLOT_IDS,
   type Catalog,
-  type Diagnostic,
 } from '@qmonster/generator-core'
 import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.1.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
@@ -40,27 +39,6 @@ const OBSERVATION_BACKGROUNDS: ReadonlyArray<{
   { value: 'dark', label: '深色' },
 ]
 
-function diagnosticKey(diagnostic: Diagnostic): string {
-  return JSON.stringify([
-    diagnostic.severity,
-    diagnostic.code,
-    diagnostic.path,
-    diagnostic.message,
-  ])
-}
-
-function mergeDiagnostics(...groups: ReadonlyArray<readonly Diagnostic[]>): Diagnostic[] {
-  const merged: Diagnostic[] = []
-  const seen = new Set<string>()
-  for (const diagnostic of groups.flat()) {
-    const key = diagnosticKey(diagnostic)
-    if (seen.has(key)) continue
-    seen.add(key)
-    merged.push(diagnostic)
-  }
-  return merged
-}
-
 function ReservedActions({ capabilities }: { capabilities: CreatorSession['exportCapabilities'] }) {
   const upcoming = '导入与导出将在下一阶段启用。'
   return (
@@ -82,17 +60,15 @@ function ReservedActions({ capabilities }: { capabilities: CreatorSession['expor
 function StatusStrip({
   session,
   catalog,
-  diagnostics,
 }: {
   session: CreatorSession
   catalog: Catalog
-  diagnostics: readonly Diagnostic[]
 }) {
   const completeSlots = VISUAL_SLOT_IDS.filter(slotId => catalog.parts.some(part => (
     part.slotId === slotId && part.id === session.spec.visualSlots[slotId].partId
   ))).length
   const lockCount = VISUAL_SLOT_IDS.filter(slotId => session.locks[slotId]).length
-  const errorCount = diagnostics.filter(item => item.severity === 'error').length
+  const errorCount = session.diagnostics.filter(item => item.severity === 'error').length
   const theme = catalog.themes.find(item => item.id === session.spec.themeId)
 
   return (
@@ -114,15 +90,10 @@ export function CreatorWorkbench({
   onAction,
   previewRenderer,
 }: CreatorWorkbenchProps) {
-  const [renderDiagnostics, setRenderDiagnostics] = useState<Diagnostic[]>([])
   const [observationBackground, setObservationBackground] = useState<ObservationBackground>('studio')
-  const onRenderDiagnostics = useCallback((diagnostics: Diagnostic[]) => {
-    setRenderDiagnostics(diagnostics)
-  }, [])
-  const diagnostics = useMemo(
-    () => mergeDiagnostics(session.diagnostics, renderDiagnostics),
-    [renderDiagnostics, session.diagnostics],
-  )
+  const onRenderDiagnostics = useCallback((diagnostics: CreatorSession['renderDiagnostics']) => {
+    onAction({ type: 'setRenderDiagnostics', diagnostics })
+  }, [onAction])
 
   return (
     <div className="creator-app">
@@ -175,8 +146,8 @@ export function CreatorWorkbench({
             />
             <span className="preview-stage__label">1024 × 1024 · 实时合成</span>
           </div>
-          <StatusStrip session={session} catalog={catalog} diagnostics={diagnostics} />
-          <DiagnosticsPanel diagnostics={diagnostics} />
+          <StatusStrip session={session} catalog={catalog} />
+          <DiagnosticsPanel diagnostics={session.diagnostics} />
         </section>
 
         <SlotPanel session={session} catalog={catalog} onAction={onAction} />

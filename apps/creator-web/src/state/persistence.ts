@@ -5,15 +5,24 @@ import {
   type VisualSlotId,
 } from '@qmonster/generator-core'
 import type { CreatorSession } from './contracts.js'
+import {
+  mergeSessionDiagnostics,
+  refreshSessionValidity,
+} from './session-diagnostics.js'
 
 export const CREATOR_SESSION_STORAGE_KEY = 'qmonster.creator.session.v1'
-const PERSISTENCE_SCHEMA_VERSION = 1
+const PERSISTENCE_SCHEMA_VERSION = 2
 const MONSTER_SCHEMA_VERSION = '0.1.0'
 const DEFAULT_SAVE_DELAY_MS = 250
 
 export interface SessionStorage {
   getItem(key: string): string | null
   setItem(key: string, value: string): void
+}
+
+export interface LoadSessionResult {
+  session: CreatorSession
+  diagnostics: Diagnostic[]
 }
 
 interface PendingSave {
@@ -49,14 +58,25 @@ function parseLocks(value: unknown): Record<VisualSlotId, boolean> | null {
   ) as Record<VisualSlotId, boolean>
 }
 
-function parseStoredSession(value: unknown): CreatorSession | null {
-  if (!isRecord(value)) return null
+function equalDiagnostics(left: readonly Diagnostic[], right: readonly Diagnostic[]): boolean {
+  return left.length === right.length && left.every((diagnostic, index) => {
+    const expected = right[index]!
+    return diagnostic.severity === expected.severity
+      && diagnostic.code === expected.code
+      && diagnostic.message === expected.message
+      && diagnostic.path.length === expected.path.length
+      && diagnostic.path.every((segment, pathIndex) => segment === expected.path[pathIndex])
+  })
+}
+
+function parseStoredSessionBase(value: Record<string, unknown>): Omit<
+  CreatorSession,
+  'generationDiagnostics' | 'renderDiagnostics' | 'diagnostics' | 'blocked'
+> | null {
   const parsedSpec = parseMonsterSpec(value.spec)
   if (!parsedSpec.ok || parsedSpec.value.schemaVersion !== MONSTER_SCHEMA_VERSION) return null
   const locks = parseLocks(value.locks)
-  if (locks === null || !Array.isArray(value.diagnostics) || !value.diagnostics.every(isDiagnostic)) return null
-  if (typeof value.blocked !== 'boolean' || !isRecord(value.exportCapabilities)) return null
-  if (value.blocked !== value.diagnostics.some(diagnostic => diagnostic.severity === 'error')) return null
+  if (locks === null || !isRecord(value.exportCapabilities)) return null
   if (
     typeof value.exportCapabilities.png !== 'boolean'
     || typeof value.exportCapabilities.webp !== 'boolean'
@@ -64,13 +84,53 @@ function parseStoredSession(value: unknown): CreatorSession | null {
   return {
     spec: parsedSpec.value,
     locks,
-    diagnostics: value.diagnostics.map(item => ({ ...item, path: [...item.path] })),
-    blocked: value.blocked,
     exportCapabilities: {
       png: value.exportCapabilities.png,
       webp: value.exportCapabilities.webp,
     },
   }
+}
+
+function cloneDiagnostics(diagnostics: Diagnostic[]): Diagnostic[] {
+  return diagnostics.map(item => ({ ...item, path: [...item.path] }))
+}
+
+function parseStoredSessionV1(value: unknown): CreatorSession | null {
+  if (!isRecord(value)) return null
+  const base = parseStoredSessionBase(value)
+  if (base === null || !Array.isArray(value.diagnostics) || !value.diagnostics.every(isDiagnostic)) return null
+  if (typeof value.blocked !== 'boolean') return null
+  if (value.blocked !== value.diagnostics.some(diagnostic => diagnostic.severity === 'error')) return null
+  return refreshSessionValidity({
+    ...base,
+    generationDiagnostics: cloneDiagnostics(value.diagnostics),
+    renderDiagnostics: [],
+  })
+}
+
+function parseStoredSessionV2(value: unknown): CreatorSession | null {
+  if (!isRecord(value)) return null
+  const base = parseStoredSessionBase(value)
+  if (base === null) return null
+  if (
+    !Array.isArray(value.generationDiagnostics)
+    || !value.generationDiagnostics.every(isDiagnostic)
+    || !Array.isArray(value.renderDiagnostics)
+    || !value.renderDiagnostics.every(isDiagnostic)
+    || !Array.isArray(value.diagnostics)
+    || !value.diagnostics.every(isDiagnostic)
+    || typeof value.blocked !== 'boolean'
+  ) return null
+  const generationDiagnostics = cloneDiagnostics(value.generationDiagnostics)
+  const renderDiagnostics = cloneDiagnostics(value.renderDiagnostics)
+  const diagnostics = mergeSessionDiagnostics(generationDiagnostics, renderDiagnostics)
+  if (!equalDiagnostics(value.diagnostics, diagnostics)) return null
+  if (value.blocked !== diagnostics.some(diagnostic => diagnostic.severity === 'error')) return null
+  return refreshSessionValidity({
+    ...base,
+    generationDiagnostics,
+    renderDiagnostics,
+  })
 }
 
 function defaultStorage(): SessionStorage | undefined {
@@ -81,18 +141,17 @@ function defaultStorage(): SessionStorage | undefined {
   }
 }
 
-function loadFailure(createFreshSession: () => CreatorSession, message: string): CreatorSession {
-  const fresh = createFreshSession()
+function loadFailure(createFreshSession: () => CreatorSession, message: string): LoadSessionResult {
   return {
-    ...fresh,
-    diagnostics: [...fresh.diagnostics, warning('SESSION_LOAD_FAILED', message)],
+    session: createFreshSession(),
+    diagnostics: [warning('SESSION_LOAD_FAILED', message)],
   }
 }
 
 export function loadSession(
   createFreshSession: () => CreatorSession,
   storage: SessionStorage | undefined = defaultStorage(),
-): CreatorSession {
+): LoadSessionResult {
   if (storage === undefined) {
     return loadFailure(createFreshSession, 'Local session storage is unavailable.')
   }
@@ -102,17 +161,19 @@ export function loadSession(
   } catch {
     return loadFailure(createFreshSession, 'The saved creator session could not be read.')
   }
-  if (serialized === null) return createFreshSession()
+  if (serialized === null) return { session: createFreshSession(), diagnostics: [] }
   try {
     const envelope = JSON.parse(serialized) as unknown
-    if (!isRecord(envelope) || envelope.schemaVersion !== PERSISTENCE_SCHEMA_VERSION) {
+    if (!isRecord(envelope) || (envelope.schemaVersion !== 1 && envelope.schemaVersion !== 2)) {
       return loadFailure(createFreshSession, 'The saved creator session uses an unsupported version.')
     }
-    const session = parseStoredSession(envelope.session)
+    const session = envelope.schemaVersion === 1
+      ? parseStoredSessionV1(envelope.session)
+      : parseStoredSessionV2(envelope.session)
     if (session === null) {
       return loadFailure(createFreshSession, 'The saved creator session is incomplete or invalid.')
     }
-    return session
+    return { session, diagnostics: [] }
   } catch {
     return loadFailure(createFreshSession, 'The saved creator session is not valid JSON.')
   }
@@ -129,7 +190,7 @@ export function saveSession(
   if (storage === undefined) {
     return Promise.resolve(saveFailure('Local session storage is unavailable.'))
   }
-  const validated = parseStoredSession(session)
+  const validated = parseStoredSessionV2(session)
   if (validated === null) {
     return Promise.resolve(saveFailure('The creator session is incomplete or uses an unsupported version.'))
   }

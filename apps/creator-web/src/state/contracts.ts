@@ -7,10 +7,13 @@ import {
   type ThemeId,
   type VisualSlotId,
 } from '@qmonster/generator-core'
+import { refreshSessionValidity } from './session-diagnostics.js'
 
 export interface CreatorSession {
   spec: MonsterSpec
   locks: Record<VisualSlotId, boolean>
+  generationDiagnostics: Diagnostic[]
+  renderDiagnostics: Diagnostic[]
   diagnostics: Diagnostic[]
   blocked: boolean
   exportCapabilities: { png: boolean; webp: boolean }
@@ -24,6 +27,7 @@ export type CreatorAction =
   | { type: 'rerollSlot'; slotId: VisualSlotId }
   | { type: 'manualSelect'; slotId: VisualSlotId; partId: string }
   | { type: 'importSpec'; spec: MonsterSpec }
+  | { type: 'setRenderDiagnostics'; diagnostics: Diagnostic[] }
 
 export function createUnlockedLocks(): Record<VisualSlotId, boolean> {
   return Object.fromEntries(
@@ -35,11 +39,11 @@ export function createCreatorSession(
   generated: GenerationResult,
   exportCapabilities: CreatorSession['exportCapabilities'] = { png: true, webp: true },
 ): CreatorSession {
-  return {
+  return refreshSessionValidity({
     spec: generated.spec,
     locks: createUnlockedLocks(),
-    diagnostics: generated.diagnostics,
-    blocked: generated.blocked,
+    generationDiagnostics: generated.diagnostics,
+    renderDiagnostics: [],
     exportCapabilities: { ...exportCapabilities },
-  }
+  })
 }

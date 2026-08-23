@@ -84,5 +84,27 @@ describe('useCreator', () => {
       severity: 'warning',
       code: 'SESSION_SAVE_FAILED',
     }))
+    expect(result.current.session.blocked).toBe(false)
+    expect(result.current.session.generationDiagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'SESSION_SAVE_FAILED',
+    }))
+  })
+
+  it('keeps load failures out of current-work diagnostic sources and blocked state', () => {
+    const catalog = makeValidCatalogFixture()
+    const storage = new MemoryStorage()
+    storage.values.set('qmonster.creator.session.v1', '{bad json')
+
+    const { result } = renderHook(() => useCreator({ catalog, initialRequest, storage }))
+
+    expect(result.current.session.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'warning',
+      code: 'SESSION_LOAD_FAILED',
+    }))
+    expect(result.current.session.generationDiagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'SESSION_LOAD_FAILED',
+    }))
+    expect(result.current.session.renderDiagnostics).toEqual([])
+    expect(result.current.session.blocked).toBe(false)
   })
 })

@@ -20,6 +20,7 @@ import {
 import {
   loadSession,
   saveSession,
+  type LoadSessionResult,
   type SessionStorage,
 } from '../state/persistence.js'
 
@@ -35,7 +36,7 @@ export interface UseCreatorResult {
   dispatch: Dispatch<CreatorAction>
 }
 
-function initializeCreator(options: UseCreatorOptions): CreatorSession {
+function initializeCreator(options: UseCreatorOptions): LoadSessionResult {
   return loadSession(
     () => createCreatorSession(
       generateMonster(options.initialRequest, options.catalog),
@@ -47,8 +48,9 @@ function initializeCreator(options: UseCreatorOptions): CreatorSession {
 
 export function useCreator(options: UseCreatorOptions): UseCreatorResult {
   const reducer = useMemo(() => createCreatorReducer(options.catalog), [options.catalog])
-  const [editorSession, dispatch] = useReducer(reducer, options, initializeCreator)
-  const [persistenceDiagnostics, setPersistenceDiagnostics] = useState<Diagnostic[]>([])
+  const [loaded] = useState(() => initializeCreator(options))
+  const [editorSession, dispatch] = useReducer(reducer, loaded.session)
+  const [persistenceDiagnostics, setPersistenceDiagnostics] = useState<Diagnostic[]>(loaded.diagnostics)
 
   useEffect(() => {
     let active = true

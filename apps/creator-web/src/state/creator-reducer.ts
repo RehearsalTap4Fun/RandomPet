@@ -15,12 +15,13 @@ import {
   type CreatorAction,
   type CreatorSession,
 } from './contracts.js'
+import { refreshSessionValidity } from './session-diagnostics.js'
 
 function modeFromSession(session: CreatorSession): GenerationMode {
   if (session.spec.aberrations.length > 0) return 'aberration'
   if (session.spec.mutation !== null) return 'mutation'
   const failedModifierPath = (path: 'mutation' | 'aberrations'): boolean =>
-    session.diagnostics.some(diagnostic =>
+    session.generationDiagnostics.some(diagnostic =>
       diagnostic.severity === 'error'
       && diagnostic.code === 'MODIFIER_NOT_FOUND'
       && diagnostic.path.length === 1
@@ -40,12 +41,12 @@ function lockedSelections(session: CreatorSession): Partial<Record<VisualSlotId,
 }
 
 function withGenerationResult(session: CreatorSession, generated: GenerationResult): CreatorSession {
-  return {
+  return refreshSessionValidity({
     ...session,
     spec: generated.spec,
-    diagnostics: generated.diagnostics,
-    blocked: generated.blocked,
-  }
+    generationDiagnostics: generated.diagnostics,
+    renderDiagnostics: [],
+  })
 }
 
 const REPLACEABLE_SLOT_DIAGNOSTIC_CODES = new Set([
@@ -79,8 +80,8 @@ function reconcileLocalGenerationResult(
 ): CreatorSession {
   const affected = new Set(generated.affectedSlots)
   const retained = replaceAffectedDiagnostics
-    ? session.diagnostics.filter(diagnostic => !isReplaceableAffectedDiagnostic(diagnostic, affected))
-    : session.diagnostics
+    ? session.generationDiagnostics.filter(diagnostic => !isReplaceableAffectedDiagnostic(diagnostic, affected))
+    : session.generationDiagnostics
   const diagnostics: Diagnostic[] = []
   const seen = new Set<string>()
   for (const diagnostic of [...retained, ...generated.diagnostics]) {
@@ -89,16 +90,16 @@ function reconcileLocalGenerationResult(
     seen.add(key)
     diagnostics.push(diagnostic)
   }
-  return {
+  return refreshSessionValidity({
     ...session,
     spec: generated.spec,
-    diagnostics,
-    blocked: diagnostics.some(diagnostic => diagnostic.severity === 'error'),
-  }
+    generationDiagnostics: diagnostics,
+    renderDiagnostics: [],
+  })
 }
 
 function hasIncompatibleLockDiagnostic(session: CreatorSession, slotId: VisualSlotId): boolean {
-  return session.diagnostics.some(diagnostic =>
+  return session.generationDiagnostics.some(diagnostic =>
     diagnostic.severity === 'error'
     && (diagnostic.code === 'LOCK_INCOMPATIBLE' || diagnostic.code === 'LOCK_NOT_FOUND')
     && diagnostic.path.length === 2
@@ -182,13 +183,18 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
         )
       }
       case 'importSpec':
-        return {
+        return refreshSessionValidity({
           ...state,
           spec: structuredClone(action.spec),
           locks: createUnlockedLocks(),
-          diagnostics: [],
-          blocked: false,
-        }
+          generationDiagnostics: [],
+          renderDiagnostics: [],
+        })
+      case 'setRenderDiagnostics':
+        return refreshSessionValidity({
+          ...state,
+          renderDiagnostics: action.diagnostics,
+        })
     }
   }
 }

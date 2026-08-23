@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { generateMonster } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { createCreatorSession, type CreatorSession } from './contracts.js'
+import { refreshSessionValidity } from './session-diagnostics.js'
 import {
   CREATOR_SESSION_STORAGE_KEY,
   loadSession,
@@ -58,12 +59,12 @@ describe('creator session persistence', () => {
   it('saves and loads one complete session without changing any field', async () => {
     vi.useFakeTimers()
     const storage = new MemoryStorage()
-    const session: CreatorSession = {
+    const session = refreshSessionValidity({
       ...makeFreshSession('saved-seed'),
       locks: { ...makeFreshSession().locks, eyes: true, tail: true },
-      diagnostics: [{ severity: 'warning', code: 'EXAMPLE', path: ['tail'], message: 'kept' }],
+      generationDiagnostics: [{ severity: 'warning', code: 'EXAMPLE', path: ['tail'], message: 'kept' }],
       exportCapabilities: { png: true, webp: false },
-    }
+    })
 
     const save = saveSession(session, storage)
     expect(storage.writes).toBe(0)
@@ -74,7 +75,59 @@ describe('creator session persistence', () => {
     expect(await save).toEqual([])
     expect(storage.writes).toBe(1)
     expect([...storage.values.keys()]).toEqual(['qmonster.creator.session.v1'])
-    expect(loadSession(() => makeFreshSession(), storage)).toEqual(session)
+    expect(JSON.parse(storage.values.get(CREATOR_SESSION_STORAGE_KEY)!).schemaVersion).toBe(2)
+    expect(loadSession(() => makeFreshSession(), storage).session).toEqual(session)
+  })
+
+  it('migrates a v1 diagnostic list into the generation bucket for the next v2 save', async () => {
+    vi.useFakeTimers()
+    const storage = new MemoryStorage()
+    const legacy = {
+      ...makeFreshSession('legacy'),
+      diagnostics: [blockingDiagnostic()],
+      blocked: true,
+    }
+    delete (legacy as Partial<CreatorSession>).generationDiagnostics
+    delete (legacy as Partial<CreatorSession>).renderDiagnostics
+    storage.values.set(CREATOR_SESSION_STORAGE_KEY, JSON.stringify({ schemaVersion: 1, session: legacy }))
+
+    const loaded = loadSession(() => makeFreshSession(), storage)
+
+    expect(loaded.diagnostics).toEqual([])
+    expect(loaded.session.generationDiagnostics).toEqual([blockingDiagnostic()])
+    expect(loaded.session.renderDiagnostics).toEqual([])
+    expect(loaded.session.diagnostics).toEqual([blockingDiagnostic()])
+    expect(loaded.session.blocked).toBe(true)
+
+    const save = saveSession(loaded.session, storage)
+    await vi.advanceTimersByTimeAsync(250)
+    expect(await save).toEqual([])
+    const migrated = JSON.parse(storage.values.get(CREATOR_SESSION_STORAGE_KEY)!)
+    expect(migrated.schemaVersion).toBe(2)
+    expect(migrated.session.generationDiagnostics).toEqual([blockingDiagnostic()])
+    expect(migrated.session.renderDiagnostics).toEqual([])
+  })
+
+  it('accepts a valid v2 derived cache regardless of diagnostic object property order', () => {
+    const storage = new MemoryStorage()
+    const diagnostic = blockingDiagnostic()
+    const session = refreshSessionValidity({
+      ...makeFreshSession('property-order'),
+      renderDiagnostics: [diagnostic],
+    })
+    const stored = JSON.parse(JSON.stringify({ schemaVersion: 2, session }))
+    stored.session.diagnostics = [{
+      message: diagnostic.message,
+      path: diagnostic.path,
+      code: diagnostic.code,
+      severity: diagnostic.severity,
+    }]
+    storage.values.set(CREATOR_SESSION_STORAGE_KEY, JSON.stringify(stored))
+
+    const loaded = loadSession(() => makeFreshSession(), storage)
+
+    expect(loaded.diagnostics).toEqual([])
+    expect(loaded.session).toEqual(session)
   })
 
   it('debounces saves to one write containing only the latest complete snapshot', async () => {
@@ -91,7 +144,7 @@ describe('creator session persistence', () => {
     expect(await first).toEqual([])
     expect(await second).toEqual([])
     expect(storage.writes).toBe(1)
-    expect(loadSession(() => makeFreshSession(), storage).spec.seed).toBe('second')
+    expect(loadSession(() => makeFreshSession(), storage).session.spec.seed).toBe('second')
   })
 
   it('returns a fresh session plus one warning for corrupt JSON without partial hydration', () => {
@@ -101,11 +154,10 @@ describe('creator session persistence', () => {
 
     const loaded = loadSession(() => fresh, storage)
 
-    expect(loaded.spec).toEqual(fresh.spec)
-    expect(loaded.locks).toEqual(fresh.locks)
-    expect(loaded.blocked).toBe(fresh.blocked)
+    expect(loaded.session.spec).toEqual(fresh.spec)
+    expect(loaded.session.locks).toEqual(fresh.locks)
+    expect(loaded.session.blocked).toBe(fresh.blocked)
     expect(loaded.diagnostics).toEqual([
-      ...fresh.diagnostics,
       expect.objectContaining({ severity: 'warning', code: 'SESSION_LOAD_FAILED' }),
     ])
   })
@@ -113,15 +165,15 @@ describe('creator session persistence', () => {
   it('rejects an unsupported persistence schema as one whole transaction', () => {
     const storage = new MemoryStorage()
     storage.values.set(CREATOR_SESSION_STORAGE_KEY, JSON.stringify({
-      schemaVersion: 2,
+      schemaVersion: 99,
       session: { ...makeFreshSession('stored'), blocked: true },
     }))
     const fresh = makeFreshSession()
 
     const loaded = loadSession(() => fresh, storage)
 
-    expect(loaded.spec.seed).toBe('fresh-seed')
-    expect(loaded.blocked).toBe(false)
+    expect(loaded.session.spec.seed).toBe('fresh-seed')
+    expect(loaded.session.blocked).toBe(false)
     expect(loaded.diagnostics.at(-1)).toEqual(expect.objectContaining({ code: 'SESSION_LOAD_FAILED' }))
   })
 
@@ -138,9 +190,9 @@ describe('creator session persistence', () => {
 
     const loaded = loadSession(() => makeFreshSession(), storage)
 
-    expect(loaded.spec.seed).toBe('fresh-seed')
-    expect(Object.values(loaded.locks).every(value => value === false)).toBe(true)
-    expect(loaded.exportCapabilities).toEqual({ png: true, webp: false })
+    expect(loaded.session.spec.seed).toBe('fresh-seed')
+    expect(Object.values(loaded.session.locks).every(value => value === false)).toBe(true)
+    expect(loaded.session.exportCapabilities).toEqual({ png: true, webp: false })
     expect(loaded.diagnostics.at(-1)?.code).toBe('SESSION_LOAD_FAILED')
   })
 
@@ -150,7 +202,7 @@ describe('creator session persistence', () => {
 
     const loaded = loadSession(() => makeFreshSession(), storage)
 
-    expect(loaded.spec.seed).toBe('fresh-seed')
+    expect(loaded.session.spec.seed).toBe('fresh-seed')
     expect(loaded.diagnostics.at(-1)).toEqual(expect.objectContaining({ code: 'SESSION_LOAD_FAILED' }))
   })
 
@@ -194,8 +246,8 @@ describe('creator session persistence', () => {
 
     const loaded = loadSession(() => makeFreshSession(), storage)
 
-    expect(loaded.spec.seed).toBe('fresh-seed')
-    expect(loaded.blocked).toBe(false)
+    expect(loaded.session.spec.seed).toBe('fresh-seed')
+    expect(loaded.session.blocked).toBe(false)
     expect(loaded.diagnostics).toEqual([
       expect.objectContaining({ severity: 'warning', code: 'SESSION_LOAD_FAILED' }),
     ])
@@ -211,8 +263,8 @@ describe('creator session persistence', () => {
 
     const loaded = loadSession(() => makeFreshSession(), storage)
 
-    expect(loaded.spec.seed).toBe('fresh-seed')
-    expect(loaded.blocked).toBe(false)
+    expect(loaded.session.spec.seed).toBe('fresh-seed')
+    expect(loaded.session.blocked).toBe(false)
     expect(loaded.diagnostics.at(-1)).toEqual(expect.objectContaining({ code: 'SESSION_LOAD_FAILED' }))
   })
 
@@ -222,11 +274,14 @@ describe('creator session persistence', () => {
     const falsePositiveStorage = new MemoryStorage()
     const errorButUnblocked: CreatorSession = {
       ...makeFreshSession(),
+      generationDiagnostics: [blockingDiagnostic()],
       diagnostics: [blockingDiagnostic()],
       blocked: false,
     }
     const blockedWithoutError: CreatorSession = {
       ...makeFreshSession(),
+      generationDiagnostics: [],
+      renderDiagnostics: [],
       diagnostics: [],
       blocked: true,
     }
@@ -248,17 +303,16 @@ describe('creator session persistence', () => {
   it('round-trips a coherently blocked session without erasing independent encoder capabilities', async () => {
     vi.useFakeTimers()
     const storage = new MemoryStorage()
-    const session: CreatorSession = {
+    const session = refreshSessionValidity({
       ...makeFreshSession('blocked-but-capable'),
-      diagnostics: [blockingDiagnostic()],
-      blocked: true,
+      generationDiagnostics: [blockingDiagnostic()],
       exportCapabilities: { png: true, webp: true },
-    }
+    })
 
     const save = saveSession(session, storage)
     await vi.advanceTimersByTimeAsync(250)
 
     expect(await save).toEqual([])
-    expect(loadSession(() => makeFreshSession(), storage)).toEqual(session)
+    expect(loadSession(() => makeFreshSession(), storage).session).toEqual(session)
   })
 })

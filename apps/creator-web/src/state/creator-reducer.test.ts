@@ -14,6 +14,7 @@ import {
   createCreatorSession,
   type CreatorSession,
 } from './contracts.js'
+import { refreshSessionValidity } from './session-diagnostics.js'
 
 function unlockedSlots(): Record<VisualSlotId, boolean> {
   return Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [slotId, false])) as Record<VisualSlotId, boolean>
@@ -125,6 +126,45 @@ function catalogThatReplacesEveryUnlockedSlot(): Catalog {
 }
 
 describe('createCreatorReducer', () => {
+  it('blocks on current render errors and unblocks when they clear', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const failed = reducer(makeSession(catalog), {
+      type: 'setRenderDiagnostics',
+      diagnostics: [{
+        severity: 'error',
+        code: 'ASSET_LOAD_FAILED',
+        path: ['parts', 'eyes'],
+        message: 'missing',
+      }],
+    })
+
+    expect(failed.blocked).toBe(true)
+    expect(failed.diagnostics.map(item => item.code)).toContain('ASSET_LOAD_FAILED')
+    const recovered = reducer(failed, { type: 'setRenderDiagnostics', diagnostics: [] })
+    expect(recovered.blocked).toBe(false)
+  })
+
+  it('clears obsolete render diagnostics on generation without using them as generation intent', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const withRenderFailure = reducer(makeSession(catalog), {
+      type: 'setRenderDiagnostics',
+      diagnostics: [{
+        severity: 'error',
+        code: 'MODIFIER_NOT_FOUND',
+        path: ['mutation'],
+        message: 'render-only failure',
+      }],
+    })
+
+    const generated = reducer(withRenderFailure, { type: 'newCreature', seed: 'next' })
+
+    expect(generated.spec.mutation).toBeNull()
+    expect(generated.renderDiagnostics).toEqual([])
+    expect(generated.diagnostics).not.toContainEqual(expect.objectContaining({ message: 'render-only failure' }))
+  })
+
   it('retains an incompatible locked selection and surfaces the core blocking diagnostic on theme change', () => {
     const catalog = catalogWithIncompatibleShadowEyes()
     const reducer = createCreatorReducer(catalog)
@@ -190,7 +230,7 @@ describe('createCreatorReducer', () => {
       path: ['visualSlots', 'eyes'],
       message: 'Preview compatibility has not been rechecked.',
     }
-    const warned: CreatorSession = { ...before, diagnostics: [warning] }
+    const warned = refreshSessionValidity({ ...before, generationDiagnostics: [warning] })
 
     const next = reducer(warned, { type: 'toggleLock', slotId: 'eyes' })
 
@@ -210,7 +250,7 @@ describe('createCreatorReducer', () => {
       path: ['visualSlots', 'eyes', 'partId'],
       message: 'A nested validator owns this error.',
     }
-    const blocked: CreatorSession = { ...before, diagnostics: [extended], blocked: true }
+    const blocked = refreshSessionValidity({ ...before, generationDiagnostics: [extended] })
 
     const next = reducer(blocked, { type: 'toggleLock', slotId: 'eyes' })
 
@@ -231,7 +271,7 @@ describe('createCreatorReducer', () => {
       path: ['visualSlots', 'eyes'],
       message: 'A future validator owns this error.',
     }
-    const blocked: CreatorSession = { ...before, diagnostics: [unrelated], blocked: true }
+    const blocked = refreshSessionValidity({ ...before, generationDiagnostics: [unrelated] })
 
     const next = reducer(blocked, { type: 'toggleLock', slotId: 'eyes' })
 
@@ -320,7 +360,10 @@ describe('createCreatorReducer', () => {
       path: ['visualSlots', 'eyes'],
       message: 'old eyes failure',
     }
-    const before: CreatorSession = { ...makeSession(catalog), diagnostics: [diagnostic], blocked: true }
+    const before = refreshSessionValidity({
+      ...makeSession(catalog),
+      generationDiagnostics: [diagnostic],
+    })
 
     const after = reducer(before, { type: 'rerollSlot', slotId: 'headShape' })
 
@@ -451,16 +494,15 @@ describe('createCreatorReducer', () => {
     const catalog = catalogWithoutModifiers()
     const reducer = createCreatorReducer(catalog)
     const normal = makeSession(catalog)
-    const unrelated: CreatorSession = {
+    const unrelated = refreshSessionValidity({
       ...normal,
-      diagnostics: [{
+      generationDiagnostics: [{
         severity: 'error',
         code: 'MODIFIER_NOT_FOUND',
         path: ['visualSlots', 'mutation'],
         message: 'unrelated',
       }],
-      blocked: true,
-    }
+    })
 
     const next = reducer(unrelated, { type: 'newCreature', seed: 'still-normal' })
 
@@ -476,10 +518,10 @@ describe('createCreatorReducer', () => {
     const before = withLocked(makeSession(catalog), 'eyes')
     const blocked = reducer(before, { type: 'setTheme', themeId: 'shadow' })
     const warning = { severity: 'warning' as const, code: 'PREVIEW_STALE', path: [], message: 'Preview is stale.' }
-    const withWarning: CreatorSession = {
+    const withWarning = refreshSessionValidity({
       ...blocked,
-      diagnostics: [warning, ...blocked.diagnostics],
-    }
+      generationDiagnostics: [warning, ...blocked.generationDiagnostics],
+    })
 
     const next = reducer(withWarning, {
       type: 'manualSelect',
@@ -565,7 +607,7 @@ describe('createCreatorReducer', () => {
       path: ['visualSlots', 'tail'],
       message: 'A future validator owns this error.',
     }
-    const blocked: CreatorSession = { ...before, diagnostics: [unknown], blocked: true }
+    const blocked = refreshSessionValidity({ ...before, generationDiagnostics: [unknown] })
 
     const next = reducer(blocked, { type: 'rerollSlot', slotId: 'tail' })
 
@@ -609,11 +651,10 @@ describe('createCreatorReducer', () => {
   it('deep-clones an imported spec and clears every editor lock', () => {
     const catalog = makeValidCatalogFixture()
     const reducer = createCreatorReducer(catalog)
-    const before: CreatorSession = {
+    const before = refreshSessionValidity({
       ...withLocked(makeSession(catalog), ...VISUAL_SLOT_IDS),
-      diagnostics: [{ severity: 'error', code: 'OLD', path: [], message: 'old' }],
-      blocked: true,
-    }
+      generationDiagnostics: [{ severity: 'error', code: 'OLD', path: [], message: 'old' }],
+    })
     const imported: MonsterSpec = {
       ...makeSession(catalog, { seed: 'imported' }).spec,
       palette: { primary: '#111111', secondary: '#222222', accent: '#333333' },

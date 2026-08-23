@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { generateMonster, type Diagnostic } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { createCreatorSession } from './state/contracts.js'
+import { refreshSessionValidity } from './state/session-diagnostics.js'
 import { CreatorWorkbench } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
 
@@ -22,26 +23,59 @@ function installCanvasContexts() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CreatorWorkbench', () => {
+  it('routes completed preview diagnostics into the creator action stream', async () => {
+    installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const session = createCreatorSession(generateMonster({
+      seed: 'render-diagnostics', themeId: 'fungal', mode: 'normal',
+    }, catalog))
+    const renderError: Diagnostic = {
+      severity: 'error', code: 'ASSET_LOAD_FAILED', path: ['parts', 'eyes'], message: 'missing',
+    }
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [renderError],
+    }))
+    const onAction = vi.fn()
+
+    render(
+      <CreatorWorkbench
+        session={session}
+        catalog={catalog}
+        onAction={onAction}
+        previewRenderer={renderer}
+      />,
+    )
+
+    await waitFor(() => expect(onAction).toHaveBeenLastCalledWith({
+      type: 'setRenderDiagnostics',
+      diagnostics: [renderError],
+    }))
+  })
+
   it('presents the complete shell, reserved export affordances and live status summary', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()
     const generated = generateMonster({ seed: 'workbench', themeId: 'fungal', mode: 'normal' }, catalog)
-    const session = createCreatorSession(generated)
+    let session = createCreatorSession(generated)
     session.locks.eyes = true
     session.locks.tail = true
-    session.diagnostics = [{
+    const generationError: Diagnostic = {
       severity: 'error',
       code: 'LOCK_INCOMPATIBLE',
       path: ['visualSlots', 'eyes'],
       message: 'Eyes conflict.',
-    }]
-    session.blocked = true
+    }
     const renderWarning: Diagnostic = {
       severity: 'warning', code: 'PREVIEW_NOTE', path: [], message: 'Preview note.',
     }
     const renderer: PreviewRenderer = vi.fn(async () => ({
       drawnAssetIds: [], diagnostics: [renderWarning],
     }))
+    session = refreshSessionValidity({
+      ...session,
+      generationDiagnostics: [generationError],
+      renderDiagnostics: [renderWarning],
+    })
 
     render(
       <CreatorWorkbench
@@ -100,9 +134,10 @@ describe('CreatorWorkbench', () => {
     expect(document.activeElement).toBe(screen.getByRole('checkbox', { name: '锁定 体型骨架' }))
 
     studio.focus()
+    const actionCountBeforeBackgroundChange = onAction.mock.calls.length
     await user.keyboard('{ArrowRight}')
     expect(grid.checked).toBe(true)
     expect(stage.dataset.observationBackground).toBe('grid')
-    expect(onAction).not.toHaveBeenCalled()
+    expect(onAction).toHaveBeenCalledTimes(actionCountBeforeBackgroundChange)
   })
 })
