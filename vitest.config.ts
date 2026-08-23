@@ -9,6 +9,15 @@ export default defineConfig({
           name: 'packages-node',
           environment: 'node',
           include: ['packages/**/*.test.ts', 'scripts/**/*.test.ts'],
+          exclude: ['packages/asset-catalog/src/production-validation.test.ts'],
+        },
+      },
+      {
+        test: {
+          name: 'asset-production-heavy',
+          environment: 'node',
+          include: ['packages/asset-catalog/src/production-validation.test.ts'],
+          testTimeout: 20_000,
         },
       },
       {

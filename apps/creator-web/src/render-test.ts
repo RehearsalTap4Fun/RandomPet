@@ -90,7 +90,16 @@ const catalog: Catalog = {
     part('synthetic_color', 'colorScheme', 'pattern', 'transparent.png', { x: 0, y: 0 }, null),
     part('synthetic_effect', 'effect', 'foregroundEffect', 'transparent.png', { x: 0, y: 0 }, null),
   ],
-  semanticTraits: [],
+  semanticTraits: [
+    { id: 'synthetic_frame', semanticSlotId: 'frame' },
+    { id: 'synthetic_appendage', semanticSlotId: 'appendage' },
+    { id: 'synthetic_head', semanticSlotId: 'headAndEyes' },
+    { id: 'synthetic_mouth', semanticSlotId: 'mouth' },
+    { id: 'synthetic_surface', semanticSlotId: 'surface' },
+    { id: 'synthetic_pattern', semanticSlotId: 'pattern' },
+    { id: 'synthetic_calm', semanticSlotId: 'personality' },
+    { id: 'synthetic_mirrored', semanticSlotId: 'quirk' },
+  ],
   modifiers: [],
   dependencies: {},
 }

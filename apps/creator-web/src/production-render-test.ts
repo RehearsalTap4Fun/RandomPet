@@ -1,4 +1,5 @@
 import {
+  SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
   type Catalog,
   type MonsterSpec,
@@ -56,7 +57,7 @@ function reviewBundle(production: Catalog, rig: RigDefinition, target?: VisualPa
     themes: production.themes,
     rigs: [rig],
     parts: selectedParts,
-    semanticTraits: [],
+    semanticTraits: production.semanticTraits,
     modifiers: [],
     dependencies: {},
   }
@@ -65,6 +66,14 @@ function reviewBundle(production: Catalog, rig: RigDefinition, target?: VisualPa
     { partId: part.id, rigId: rig.id },
   ])) as MonsterSpec['visualSlots']
   const slotRolls = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [slotId, 0])) as MonsterSpec['slotRolls']
+  const semanticTraits = {} as MonsterSpec['semanticTraits']
+  for (const slotId of SEMANTIC_SLOT_IDS) {
+    const primaryTrait = production.semanticTraits.find(trait => trait.semanticSlotId === slotId)
+    if (primaryTrait === undefined) {
+      throw new Error(`Production catalog has no semantic trait for ${slotId}`)
+    }
+    semanticTraits[slotId] = { primaryTraitId: primaryTrait.id, detailTraitIds: [] }
+  }
   return {
     catalog,
     spec: {
@@ -76,7 +85,7 @@ function reviewBundle(production: Catalog, rig: RigDefinition, target?: VisualPa
       palette: { ...theme.palette },
       slotRolls,
       visualSlots,
-      semanticTraits: {} as MonsterSpec['semanticTraits'],
+      semanticTraits,
       mutation: null,
       aberrations: [],
     },

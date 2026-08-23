@@ -15,7 +15,8 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:production-smoke": "playwright test --config=playwright.production.config.ts --workers=1",
-    "catalog:validate": "npm run validate -w @qmonster/asset-catalog"
+    "catalog:validate": "npm run validate -w @qmonster/asset-catalog",
+    "verify": "npm run typecheck && npm test && npm run test:coverage && npm run catalog:validate && npm run build && npm run test:e2e"
   },
   "dependencies": {
     "react": "~19.2.8",

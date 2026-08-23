@@ -25,10 +25,12 @@ async function waitForRender(page: Page, size = 1024): Promise<void> {
   if (renderError !== undefined) throw new Error(renderError)
 }
 
-test('matches the reviewed 1024 decoded-pixel golden', async ({ page }) => {
-  await waitForRender(page)
-  const target = page.locator('#render-target')
-  const rendered = await target.evaluate((element) => {
+async function renderedRgbaHash(page: Page): Promise<{
+  width: number
+  height: number
+  hash: string
+}> {
+  const rendered = await page.locator('#render-target').evaluate((element) => {
     const canvas = element as HTMLCanvasElement
     const context = canvas.getContext('2d')
     if (context === null) throw new Error('2D context unavailable')
@@ -40,16 +42,25 @@ test('matches the reviewed 1024 decoded-pixel golden', async ({ page }) => {
     }
     return { width: canvas.width, height: canvas.height, rgbaBase64: btoa(binary) }
   })
-  expect(rendered).toMatchObject({ width: 1024, height: 1024 })
+  return {
+    width: rendered.width,
+    height: rendered.height,
+    hash: createHash('sha256').update(Buffer.from(rendered.rgbaBase64, 'base64')).digest('hex'),
+  }
+}
 
-  const rgba = Buffer.from(rendered.rgbaBase64, 'base64')
-  const actualHash = createHash('sha256').update(rgba).digest('hex')
+test('matches the reviewed RGBA golden', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'chromium', 'Reviewed RGBA golden belongs to bundled Chromium')
+  await waitForRender(page)
+  const target = page.locator('#render-target')
+  const rendered = await renderedRgbaHash(page)
+  expect(rendered).toMatchObject({ width: 1024, height: 1024 })
 
   if (updateRequested) {
     await replaceGoldenPair({
       hashPath: goldenPaths.hash,
       reviewPath: goldenPaths.review,
-      hash: actualHash,
+      hash: rendered.hash,
       async writeReview(temporaryPath) {
         await target.screenshot({ path: temporaryPath, omitBackground: true })
       },
@@ -57,7 +68,20 @@ test('matches the reviewed 1024 decoded-pixel golden', async ({ page }) => {
   }
 
   const expectedHash = (await readFile(goldenPaths.hash, 'utf8')).trim()
-  expect(actualHash).toBe(expectedHash)
+  expect(rendered.hash).toBe(expectedHash)
+})
+
+test('renders deterministic RGBA pixels within the current browser engine', async ({ context, page }) => {
+  await waitForRender(page)
+  const first = await renderedRgbaHash(page)
+  const secondPage = await context.newPage()
+  try {
+    await waitForRender(secondPage)
+    const second = await renderedRgbaHash(secondPage)
+    expect(second).toEqual(first)
+  } finally {
+    await secondPage.close()
+  }
 })
 
 test('surfaces renderer diagnostics without waiting for a timeout', async ({ page }) => {
@@ -71,7 +95,7 @@ test('surfaces renderer diagnostics without waiting for a timeout', async ({ pag
     await route.fulfill({ response, json: spec })
   })
 
-  await expect(waitForRender(page)).rejects.toThrow('RENDER_PART_MISSING')
+  await expect(waitForRender(page)).rejects.toThrow('SPEC_PART_MISSING')
 })
 
 test('renders 2048 without clipping the transparent crop boundary', async ({ page }) => {

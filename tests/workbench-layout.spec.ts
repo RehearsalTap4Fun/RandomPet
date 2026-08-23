@@ -32,6 +32,12 @@ async function snapshot(page: Page): Promise<LayoutSnapshot> {
   })
 }
 
+async function reloadReady(page: Page): Promise<void> {
+  await page.reload()
+  await expect(page.getByRole('status')).toContainText('组合状态良好')
+  await expect(page.locator('.generator-controls')).toBeVisible()
+}
+
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('status')).toContainText('组合状态良好')
@@ -40,8 +46,7 @@ test.beforeEach(async ({ page }) => {
 
 test('desktop keeps 210px and 320px rails around a square preview without page overflow', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  await page.reload()
-  await expect(page.getByRole('status')).toContainText('组合状态良好')
+  await reloadReady(page)
   const layout = await snapshot(page)
 
   expect(layout.controls.width).toBeCloseTo(210, 0)
@@ -55,7 +60,7 @@ test('desktop keeps 210px and 320px rails around a square preview without page o
 
 test('below 880px moves slots beneath preview while retaining the global rail', async ({ page }) => {
   await page.setViewportSize({ width: 820, height: 1000 })
-  await page.reload()
+  await reloadReady(page)
   const layout = await snapshot(page)
 
   expect(layout.controls.x).toBeLessThan(layout.preview.x)
@@ -66,7 +71,7 @@ test('below 880px moves slots beneath preview while retaining the global rail', 
 
 test('below 560px stacks controls, preview and slots without horizontal clipping', async ({ page }) => {
   await page.setViewportSize({ width: 520, height: 1000 })
-  await page.reload()
+  await reloadReady(page)
   const layout = await snapshot(page)
 
   expect(layout.preview.y).toBeGreaterThanOrEqual(layout.controls.bottom)

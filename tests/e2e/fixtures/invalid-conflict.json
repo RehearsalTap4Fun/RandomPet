@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "0.1.0",
+  "catalogVersion": "0.1.0",
+  "rendererVersion": "0.1.0",
+  "seed": "invalid-conflict-fixture",
+  "themeId": "fungal",
+  "palette": {
+    "primary": "#6b7d33",
+    "secondary": "#a7c957",
+    "accent": "#f4a261"
+  },
+  "slotRolls": {
+    "bodyFrame": 0,
+    "headShape": 0,
+    "eyes": 0,
+    "mouthShape": 0,
+    "oralDetail": 0,
+    "headAppendage": 0,
+    "arms": 0,
+    "legs": 0,
+    "tail": 0,
+    "extraAppendage": 0,
+    "surfaceMaterial": 0,
+    "pattern": 0,
+    "colorScheme": 0,
+    "effect": 0
+  },
+  "visualSlots": {
+    "bodyFrame": { "partId": "body_blob_round", "rigId": "blob" },
+    "colorScheme": { "partId": "color_deep_sea_coral", "rigId": "blob" },
+    "surfaceMaterial": { "partId": "surface_short_fur", "rigId": "blob" },
+    "pattern": { "partId": "pattern_spore_rings", "rigId": "blob" },
+    "headShape": { "partId": "head_round_dome", "rigId": "blob" },
+    "headAppendage": { "partId": "head_appendage_none", "rigId": "blob" },
+    "arms": { "partId": "arms_short_plush", "rigId": "blob" },
+    "legs": { "partId": "legs_stub_feet", "rigId": "blob" },
+    "tail": { "partId": "tail_soft_curl", "rigId": "blob" },
+    "extraAppendage": { "partId": "extra_appendage_none", "rigId": "blob" },
+    "eyes": { "partId": "eyes_glossy_pair", "rigId": "blob" },
+    "mouthShape": { "partId": "mouth_soft_beak", "rigId": "blob" },
+    "oralDetail": { "partId": "oral_single_fang", "rigId": "blob" },
+    "effect": { "partId": "effect_bioluminescent_orbs", "rigId": "blob" }
+  },
+  "semanticTraits": {
+    "frame": { "primaryTraitId": "frame_blob_round", "detailTraitIds": [] },
+    "appendage": { "primaryTraitId": "tail_soft_curl", "detailTraitIds": ["legs_stub", "arms_short"] },
+    "headAndEyes": { "primaryTraitId": "eyes_glossy_pair", "detailTraitIds": ["head_round"] },
+    "mouth": { "primaryTraitId": "oral_single_fang", "detailTraitIds": ["mouth_soft_beak"] },
+    "surface": { "primaryTraitId": "surface_short_fur", "detailTraitIds": [] },
+    "pattern": { "primaryTraitId": "pattern_spore_rings", "detailTraitIds": ["color_fungal"] },
+    "personality": { "primaryTraitId": "personality_gentle", "detailTraitIds": [] },
+    "quirk": { "primaryTraitId": "quirk_collects_echoes", "detailTraitIds": [] }
+  },
+  "mutation": null,
+  "aberrations": []
+}
