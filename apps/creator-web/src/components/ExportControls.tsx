@@ -1,5 +1,5 @@
 import { useRef, type ChangeEvent, type RefObject } from 'react'
-import { CatalogRegistry } from '@qmonster/asset-catalog'
+import type { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { CanvasExportError, type ExportMimeType } from '@qmonster/renderer-canvas'
 import type { Diagnostic, MonsterSpec } from '@qmonster/generator-core'
 import type { CreatorSession } from '../state/contracts.js'
@@ -108,11 +108,16 @@ export function ExportControls({
       <button
         type="button"
         disabled={exportsBlocked || !session.exportCapabilities.webp}
-        title={session.exportCapabilities.webp ? undefined : '当前浏览器不支持 WebP 编码。'}
+        aria-describedby={session.exportCapabilities.webp ? undefined : 'webp-export-unavailable'}
         onClick={() => void exportImage('image/webp')}
       >
         导出透明 WebP
       </button>
+      {!session.exportCapabilities.webp && (
+        <p className="export-capability-warning" id="webp-export-unavailable" role="status">
+          当前浏览器不支持 WebP 编码，请改用 PNG。
+        </p>
+      )}
     </div>
   )
 }

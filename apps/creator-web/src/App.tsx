@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { CatalogRegistry } from '@qmonster/asset-catalog'
+import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { detectExportCapabilities } from '@qmonster/renderer-canvas'
 import {
   parseCatalog,

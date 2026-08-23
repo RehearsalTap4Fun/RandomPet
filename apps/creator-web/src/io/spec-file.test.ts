@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { CatalogRegistry } from '@qmonster/asset-catalog'
+import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import {
   makeValidCatalogFixture,
   makeValidMonsterSpecFixture,

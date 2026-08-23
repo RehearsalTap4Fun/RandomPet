@@ -148,6 +148,14 @@ a:focus-visible {
 .topbar__actions button:hover:not(:disabled) { border-color: var(--purple); transform: translateY(-1px); }
 .topbar__actions button:disabled { color: #8c8390; background: #f2eee7; opacity: 0.72; }
 
+.export-capability-warning {
+  max-width: 185px;
+  margin: 0;
+  color: #765723;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
 .workbench-grid {
   height: calc(100vh - 74px);
   min-height: 0;

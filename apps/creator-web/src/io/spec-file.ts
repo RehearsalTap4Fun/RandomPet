@@ -1,4 +1,4 @@
-import { CatalogRegistry } from '@qmonster/asset-catalog'
+import type { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import {
   parseMonsterSpec,
   validateMonsterSpecAgainstCatalog,

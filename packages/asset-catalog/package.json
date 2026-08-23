@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./registry": "./src/catalog-registry.ts"
   },
   "scripts": {
     "validate": "tsx src/cli.ts catalog/v0.1.0/catalog.json assets/v0.1.0 --production"

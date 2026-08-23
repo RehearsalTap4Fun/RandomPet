@@ -2,7 +2,7 @@ import { createRef } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { CatalogRegistry } from '@qmonster/asset-catalog'
+import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { generateMonster } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { createCreatorSession } from '../state/contracts.js'
@@ -44,7 +44,11 @@ describe('ExportControls', () => {
     }} />)
     expect(screen.getByRole('button', { name: '导出 JSON' })).toBeEnabled()
     expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled()
-    expect(screen.getByRole('button', { name: '导出透明 WebP' })).toBeDisabled()
+    const webpButton = screen.getByRole('button', { name: '导出透明 WebP' })
+    expect(webpButton).toBeDisabled()
+    const warning = screen.getByRole('status')
+    expect(warning.textContent).toBe('当前浏览器不支持 WebP 编码，请改用 PNG。')
+    expect(webpButton.getAttribute('aria-describedby')).toBe(warning.id)
   })
 
   it('routes a valid imported spec only after registry-backed validation succeeds', async () => {
