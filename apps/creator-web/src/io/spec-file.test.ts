@@ -181,6 +181,32 @@ describe('parseSpecFile', () => {
     })
   })
 
+  it.each([
+    ['0.0.9', '0.1.0', true],
+    ['0.1.0', '0.1.0', false],
+    ['0.2.0', '0.1.0', false],
+    ['0.1.0-alpha.1', '0.1.0', true],
+    ['0.1.0-alpha.2', '0.1.0-alpha.1', false],
+    ['0.1.0+build.7', '0.1.0', false],
+  ] as const)(
+    'warns only when installed catalog %s is semantically older than %s',
+    async (catalogVersion, currentVersion, expectOldWarning) => {
+      const catalog = makeValidCatalogFixture()
+      catalog.version = catalogVersion
+      const spec = makeValidMonsterSpecFixture()
+      spec.catalogVersion = catalogVersion
+
+      const result = await parseSpecFile(createSpecFile(spec), createRegistry(catalog), currentVersion)
+
+      expect(result.ok).toBe(true)
+      if (result.ok) {
+        expect(result.diagnostics.some(item => item.code === 'CATALOG_VERSION_OLD')).toBe(
+          expectOldWarning,
+        )
+      }
+    },
+  )
+
   it('does not return the old-catalog warning when semantic validation fails', async () => {
     const oldCatalog = makeValidCatalogFixture()
     oldCatalog.version = '0.0.9'

@@ -8,6 +8,14 @@ import {
 } from '@qmonster/generator-core'
 
 const MAX_SPEC_FILE_BYTES = 1024 * 1024
+const SEMVER_PATTERN = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/
+
+interface SemanticVersion {
+  major: bigint
+  minor: bigint
+  patch: bigint
+  prerelease: string[] | null
+}
 
 export type SpecFileResult =
   | { ok: true; value: { spec: MonsterSpec; catalog: Catalog }; diagnostics: Diagnostic[] }
@@ -24,6 +32,53 @@ function oldCatalogWarning(version: string, currentVersion: string): Diagnostic 
     path: ['catalogVersion'],
     message: `Catalog version ${version} is installed but older than ${currentVersion}.`,
   }
+}
+
+function parseSemanticVersion(version: string): SemanticVersion | undefined {
+  const match = SEMVER_PATTERN.exec(version)
+  const major = match?.[1]
+  const minor = match?.[2]
+  const patch = match?.[3]
+  if (major === undefined || minor === undefined || patch === undefined) return undefined
+  const prerelease = match?.[4]?.split('.') ?? null
+  if (prerelease?.some(identifier => /^\d+$/.test(identifier) && /^0\d/.test(identifier))) {
+    return undefined
+  }
+  return {
+    major: BigInt(major),
+    minor: BigInt(minor),
+    patch: BigInt(patch),
+    prerelease,
+  }
+}
+
+function comparePrerelease(left: readonly string[], right: readonly string[]): number {
+  for (let index = 0; index < Math.min(left.length, right.length); index += 1) {
+    const leftIdentifier = left[index]!
+    const rightIdentifier = right[index]!
+    if (leftIdentifier === rightIdentifier) continue
+    const leftNumeric = /^\d+$/.test(leftIdentifier)
+    const rightNumeric = /^\d+$/.test(rightIdentifier)
+    if (leftNumeric && rightNumeric) {
+      return BigInt(leftIdentifier) < BigInt(rightIdentifier) ? -1 : 1
+    }
+    if (leftNumeric !== rightNumeric) return leftNumeric ? -1 : 1
+    return leftIdentifier < rightIdentifier ? -1 : 1
+  }
+  return Math.sign(left.length - right.length)
+}
+
+function isSemanticVersionOlder(version: string, currentVersion: string): boolean {
+  const candidate = parseSemanticVersion(version)
+  const current = parseSemanticVersion(currentVersion)
+  if (candidate === undefined || current === undefined) return false
+
+  for (const field of ['major', 'minor', 'patch'] as const) {
+    if (candidate[field] !== current[field]) return candidate[field] < current[field]
+  }
+  if (candidate.prerelease === null) return false
+  if (current.prerelease === null) return true
+  return comparePrerelease(candidate.prerelease, current.prerelease) < 0
 }
 
 export async function parseSpecFile(
@@ -77,7 +132,7 @@ export async function parseSpecFile(
   if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return { ok: false, diagnostics }
   }
-  if (parsed.value.catalogVersion !== currentCatalogVersion) {
+  if (isSemanticVersionOlder(parsed.value.catalogVersion, currentCatalogVersion)) {
     diagnostics.push(oldCatalogWarning(parsed.value.catalogVersion, currentCatalogVersion))
   }
 
