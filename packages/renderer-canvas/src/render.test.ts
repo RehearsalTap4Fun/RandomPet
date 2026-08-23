@@ -542,7 +542,7 @@ describe('canvas rendering', () => {
     expect(result.drawnAssetIds).toContain('effect_glow')
   })
 
-  it('reports a missing base socket at the selected part path', async () => {
+  it('rejects a missing base socket before rendering', async () => {
     const catalog = makeValidCatalogFixture()
     const spec = makeValidMonsterSpecFixture()
     part(catalog, 'eyes_asymmetric').socket = 'missingSocket'
@@ -552,8 +552,8 @@ describe('canvas rendering', () => {
     )
 
     expect(result.diagnostics).toContainEqual(expect.objectContaining({
-      code: 'RENDER_SOCKET_MISSING',
-      path: ['parts', 'eyes_asymmetric', 'socket'],
+      code: 'SPEC_SOCKET_MISSING',
+      path: ['visualSlots', 'eyes', 'rigId'],
     }))
   })
 
@@ -567,6 +567,23 @@ describe('canvas rendering', () => {
     await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), options1024)
 
     expect(spec).toEqual(snapshot)
+  })
+
+  it('draws nothing when catalog validation rejects an incompatible rig', async () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    part(catalog, 'legs_webbed').compatibleRigs = ['biped']
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext(calls), spec, catalog, makeResolver(), options1024,
+    )
+
+    expect(result.drawnAssetIds).toEqual([])
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'SPEC_RIG_INCOMPATIBLE',
+    }))
+    expect(calls).toEqual([])
   })
 })
 

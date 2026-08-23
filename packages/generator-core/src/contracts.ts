@@ -73,6 +73,11 @@ export interface MonsterSpec {
   aberrations: ModifierApplication[]
 }
 
+export interface SupportedSpecVersions {
+  schemaVersion: string
+  rendererVersion: string
+}
+
 export interface ThemeDefinition {
   id: ThemeId
   palette: Palette

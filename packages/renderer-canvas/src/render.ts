@@ -1,4 +1,10 @@
-import type { Catalog, Diagnostic, MonsterSpec, Palette } from '@qmonster/generator-core'
+import {
+  validateMonsterSpecAgainstCatalog,
+  type Catalog,
+  type Diagnostic,
+  type MonsterSpec,
+  type Palette,
+} from '@qmonster/generator-core'
 import { resolvePartPlacement } from './layout.js'
 import { expandRenderLayers } from './layers.js'
 import type {
@@ -258,6 +264,10 @@ export async function renderMonster(
   resolver: ImageResolver,
   options: RenderOptions,
 ): Promise<RenderResult> {
+  const validationDiagnostics = validateMonsterSpecAgainstCatalog(spec, catalog)
+  if (validationDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return { drawnAssetIds: [], diagnostics: validationDiagnostics }
+  }
   const expanded = expandRenderLayers(spec, catalog)
   const diagnostics = [...expanded.diagnostics]
   const drawnAssetIds: string[] = []
