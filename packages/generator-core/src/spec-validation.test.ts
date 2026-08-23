@@ -79,6 +79,55 @@ describe('validateMonsterSpecAgainstCatalog', () => {
     )
   })
 
+  it('rejects missing and wrong-slot primary and detail semantic traits', () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    spec.semanticTraits.frame.primaryTraitId = 'missing_frame_trait'
+    spec.semanticTraits.appendage.detailTraitIds = ['missing_detail_trait', 'mouth_wide']
+    spec.semanticTraits.pattern.primaryTraitId = 'mouth_wide'
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog, versions)).toEqual([
+      expect.objectContaining({
+        code: 'SPEC_SEMANTIC_TRAIT_MISSING',
+        path: ['semanticTraits', 'frame', 'primaryTraitId'],
+      }),
+      expect.objectContaining({
+        code: 'SPEC_SEMANTIC_TRAIT_MISSING',
+        path: ['semanticTraits', 'appendage', 'detailTraitIds', '0'],
+      }),
+      expect.objectContaining({
+        code: 'SPEC_SEMANTIC_TRAIT_SLOT_MISMATCH',
+        path: ['semanticTraits', 'appendage', 'detailTraitIds', '1'],
+      }),
+      expect.objectContaining({
+        code: 'SPEC_SEMANTIC_TRAIT_SLOT_MISMATCH',
+        path: ['semanticTraits', 'pattern', 'primaryTraitId'],
+      }),
+    ])
+  })
+
+  it('orders semantic-slot diagnostics before modifier diagnostics', () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    spec.semanticTraits.frame.primaryTraitId = 'missing_frame_trait'
+    spec.semanticTraits.mouth.detailTraitIds = ['surface_gel']
+    spec.mutation = { id: 'missing_mutation', overrides: {} }
+
+    const diagnostics = validateMonsterSpecAgainstCatalog(spec, catalog, versions)
+
+    expect(diagnostics.map(item => ({ code: item.code, path: item.path }))).toEqual([
+      {
+        code: 'SPEC_SEMANTIC_TRAIT_MISSING',
+        path: ['semanticTraits', 'frame', 'primaryTraitId'],
+      },
+      {
+        code: 'SPEC_SEMANTIC_TRAIT_SLOT_MISMATCH',
+        path: ['semanticTraits', 'mouth', 'detailTraitIds', '0'],
+      },
+      { code: 'SPEC_MODIFIER_INVALID', path: ['mutation'] },
+    ])
+  })
+
   it('rejects modifier applications with the wrong kind or overrides', () => {
     const catalog = makeValidCatalogFixture()
     const spec = makeValidMonsterSpecFixture()

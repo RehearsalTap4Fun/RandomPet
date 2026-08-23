@@ -1,4 +1,5 @@
 import {
+  SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
   type ApprovedTransform,
   type Catalog,
@@ -8,6 +9,7 @@ import {
   type ModifierOverrides,
   type MonsterSpec,
   type Palette,
+  type SemanticSlotId,
   type SupportedSpecVersions,
   type VisualPartDefinition,
   type VisualSlotId,
@@ -60,6 +62,31 @@ function hasRequiredBehaviorSocket(overrides: ModifierOverrides): boolean {
   const behavioral = overrides.duplicateLayerGroup !== undefined
     || overrides.relocateSlot !== undefined
   return !behavioral || (overrides.socket !== undefined && overrides.socket.length > 0)
+}
+
+function validateSemanticTrait(
+  traitId: string,
+  semanticSlotId: SemanticSlotId,
+  path: string[],
+  catalog: Catalog,
+  diagnostics: Diagnostic[],
+): void {
+  const definition = catalog.semanticTraits.find(candidate => candidate.id === traitId)
+  if (definition === undefined) {
+    diagnostics.push(error(
+      'SPEC_SEMANTIC_TRAIT_MISSING',
+      path,
+      `Catalog ${catalog.version} has no semantic trait ${traitId} for ${semanticSlotId}.`,
+    ))
+    return
+  }
+  if (definition.semanticSlotId !== semanticSlotId) {
+    diagnostics.push(error(
+      'SPEC_SEMANTIC_TRAIT_SLOT_MISMATCH',
+      path,
+      `Semantic trait ${traitId} belongs to ${definition.semanticSlotId}, not ${semanticSlotId}.`,
+    ))
+  }
 }
 
 function validateModifier(
@@ -210,6 +237,26 @@ export function validateMonsterSpecAgainstCatalog(
         ))
       }
     }
+  }
+
+  for (const semanticSlotId of SEMANTIC_SLOT_IDS) {
+    const selection = spec.semanticTraits[semanticSlotId]
+    validateSemanticTrait(
+      selection.primaryTraitId,
+      semanticSlotId,
+      ['semanticTraits', semanticSlotId, 'primaryTraitId'],
+      catalog,
+      diagnostics,
+    )
+    selection.detailTraitIds.forEach((traitId, index) => {
+      validateSemanticTrait(
+        traitId,
+        semanticSlotId,
+        ['semanticTraits', semanticSlotId, 'detailTraitIds', String(index)],
+        catalog,
+        diagnostics,
+      )
+    })
   }
 
   if (spec.mutation !== null) {

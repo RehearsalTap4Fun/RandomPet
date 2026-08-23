@@ -125,6 +125,31 @@ describe('incubator adapter', () => {
     })
   })
 
+  it('returns semantic catalog diagnostics and no record for a forged trait', () => {
+    const catalog = productionCatalog()
+    const spec = generatedSpec(catalog)
+    const invalid = {
+      ...spec,
+      semanticTraits: {
+        ...spec.semanticTraits,
+        personality: {
+          ...spec.semanticTraits.personality,
+          primaryTraitId: 'personality_not_in_catalog',
+        },
+      },
+    }
+
+    expect(toIncubatorRecord(invalid, catalog)).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({
+          code: 'SPEC_SEMANTIC_TRAIT_MISSING',
+          path: ['semanticTraits', 'personality', 'primaryTraitId'],
+        }),
+      ]),
+    })
+  })
+
   it('exports eight valid traits across themes, rigs, and modes', () => {
     const parsedCatalog = parseCatalog(productionCatalogDocument)
     expect(parsedCatalog.ok).toBe(true)
@@ -132,11 +157,17 @@ describe('incubator adapter', () => {
     const productionCatalog = parsedCatalog.value
     const themes = ['deep-sea', 'fungal', 'shadow'] as const
     const modes = ['normal', 'mutation', 'aberration'] as const
-    const productionSpecMatrix = themes.flatMap(themeId => modes.flatMap(mode =>
-      Array.from({ length: 60 }, (_, index) => generateMonster({
-        seed: `${themeId}-${mode}-${index}`, themeId, mode,
-      }, productionCatalog)).filter(result => !result.blocked).map(result => result.spec),
-    ))
+    const productionSpecMatrix: MonsterSpec[] = []
+    for (const themeId of themes) {
+      for (const mode of modes) {
+        const results = Array.from({ length: 60 }, (_, index) => generateMonster({
+          seed: `${themeId}-${mode}-${index}`, themeId, mode,
+        }, productionCatalog))
+        const unblockedSpecs = results.filter(result => !result.blocked).map(result => result.spec)
+        expect(unblockedSpecs, `${themeId}/${mode} unblocked specs`).toHaveLength(60)
+        productionSpecMatrix.push(...unblockedSpecs)
+      }
+    }
     expect(new Set(productionSpecMatrix.map(spec => spec.visualSlots.bodyFrame.rigId)))
       .toEqual(new Set(['blob', 'biped', 'floating']))
     for (const spec of productionSpecMatrix) {
