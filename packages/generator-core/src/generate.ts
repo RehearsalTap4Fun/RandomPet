@@ -128,5 +128,10 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     mutation: modifiers.mutation,
     aberrations: modifiers.aberrations,
   }
-  return { spec, diagnostics, blocked: diagnostics.some(item => item.severity === 'error') }
+  return {
+    spec,
+    diagnostics,
+    blocked: diagnostics.some(item => item.severity === 'error'),
+    affectedSlots: [...GENERATION_ORDER],
+  }
 }

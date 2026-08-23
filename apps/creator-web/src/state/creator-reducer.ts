@@ -57,11 +57,15 @@ const REPLACEABLE_SLOT_DIAGNOSTIC_CODES = new Set([
   'PART_INCOMPATIBLE',
 ])
 
-function isKnownTargetSlotDiagnostic(diagnostic: Diagnostic, slotId: VisualSlotId): boolean {
+function isReplaceableAffectedDiagnostic(
+  diagnostic: Diagnostic,
+  affected: ReadonlySet<VisualSlotId>,
+): boolean {
+  const slotId = diagnostic.path[1] as VisualSlotId | undefined
   return REPLACEABLE_SLOT_DIAGNOSTIC_CODES.has(diagnostic.code)
-    && diagnostic.path.length === 2
     && diagnostic.path[0] === 'visualSlots'
-    && diagnostic.path[1] === slotId
+    && slotId !== undefined
+    && affected.has(slotId)
 }
 
 function diagnosticKey(diagnostic: Diagnostic): string {
@@ -71,11 +75,11 @@ function diagnosticKey(diagnostic: Diagnostic): string {
 function reconcileLocalGenerationResult(
   session: CreatorSession,
   generated: GenerationResult,
-  slotId: VisualSlotId,
-  replaceTargetDiagnostics: boolean,
+  replaceAffectedDiagnostics: boolean,
 ): CreatorSession {
-  const retained = replaceTargetDiagnostics
-    ? session.diagnostics.filter(diagnostic => !isKnownTargetSlotDiagnostic(diagnostic, slotId))
+  const affected = new Set(generated.affectedSlots)
+  const retained = replaceAffectedDiagnostics
+    ? session.diagnostics.filter(diagnostic => !isReplaceableAffectedDiagnostic(diagnostic, affected))
     : session.diagnostics
   const diagnostics: Diagnostic[] = []
   const seen = new Set<string>()
@@ -135,10 +139,10 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
           return {
             ...reconcileLocalGenerationResult(state, rerollSlot({
               spec: state.spec,
-              slotId: action.slotId,
-              locks,
-              catalog,
-            }), action.slotId, true),
+            slotId: action.slotId,
+            locks,
+            catalog,
+            }), true),
             locks,
           }
         }
@@ -154,7 +158,6 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
         return reconcileLocalGenerationResult(
           state,
           generated,
-          action.slotId,
           !state.locks[action.slotId],
         )
       }
@@ -175,7 +178,6 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
         return reconcileLocalGenerationResult(
           state,
           generated,
-          action.slotId,
           !selectionFailed,
         )
       }

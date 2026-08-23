@@ -26,8 +26,18 @@ export interface SelectVisualPartRequest extends RerollSlotRequest {
   partId: string
 }
 
-function result(spec: MonsterSpec, diagnostics: Diagnostic[]): GenerationResult {
-  return { spec, diagnostics, blocked: diagnostics.some(item => item.severity === 'error') }
+function result(
+  spec: MonsterSpec,
+  diagnostics: Diagnostic[],
+  affectedSlots: VisualSlotId[],
+): GenerationResult {
+  return { spec, diagnostics, blocked: diagnostics.some(item => item.severity === 'error'), affectedSlots }
+}
+
+function orderedAffectedSlots(origin: VisualSlotId, catalog: Catalog): VisualSlotId[] {
+  const affected = descendantsOf(origin, catalog)
+  affected.add(origin)
+  return GENERATION_ORDER.filter(slotId => affected.has(slotId))
 }
 
 function cloneSpec(spec: MonsterSpec): MonsterSpec {
@@ -104,7 +114,7 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
   const diagnostics: Diagnostic[] = []
   if (request.locks[request.slotId]) {
     diagnostics.push({ severity: 'error', code: 'SLOT_LOCKED', path: ['visualSlots', request.slotId], message: `${request.slotId} is locked.` })
-    return result(spec, diagnostics)
+    return result(spec, diagnostics, [request.slotId])
   }
   spec.slotRolls[request.slotId] += 1
   const generationRequest: GenerationRequest = {
@@ -113,8 +123,8 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
     mode: 'normal',
     slotRolls: spec.slotRolls,
   }
-  const affected = descendantsOf(request.slotId, request.catalog)
-  affected.add(request.slotId)
+  const affectedSlots = orderedAffectedSlots(request.slotId, request.catalog)
+  const affected = new Set(affectedSlots)
   if (request.slotId === 'bodyFrame') {
     const rigId = selectRigId(generationRequest, request.catalog)
     if (rigId === null) {
@@ -138,7 +148,7 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
   )
   regenerateDescendants(spec, request.slotId, request.locks, request.catalog, diagnostics)
   spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
-  return result(spec, diagnostics)
+  return result(spec, diagnostics, affectedSlots)
 }
 
 export function selectVisualPart(request: SelectVisualPartRequest): GenerationResult {
@@ -153,11 +163,11 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
       path: ['visualSlots', request.slotId],
       message: `Part ${request.partId} cannot be selected for ${request.slotId}.`,
     })
-    return result(spec, diagnostics)
+    return result(spec, diagnostics, [request.slotId])
   }
   const selection: VisualSelection = { partId: part.id, rigId: evaluation.rigId }
   spec.visualSlots[request.slotId] = selection
   regenerateDescendants(spec, request.slotId, request.locks, request.catalog, diagnostics)
   spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
-  return result(spec, diagnostics)
+  return result(spec, diagnostics, orderedAffectedSlots(request.slotId, request.catalog))
 }

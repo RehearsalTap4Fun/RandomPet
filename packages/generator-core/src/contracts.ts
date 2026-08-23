@@ -178,4 +178,5 @@ export interface GenerationResult {
   spec: MonsterSpec
   diagnostics: Diagnostic[]
   blocked: boolean
+  affectedSlots: VisualSlotId[]
 }

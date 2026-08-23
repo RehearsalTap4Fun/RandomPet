@@ -3,6 +3,7 @@ import {
   generateMonster,
   VISUAL_SLOT_IDS,
   type Catalog,
+  type Diagnostic,
   type GenerationMode,
   type MonsterSpec,
   type VisualSlotId,
@@ -307,6 +308,26 @@ describe('createCreatorReducer', () => {
     expect(next.locks.eyes).toBe(true)
     expect(next.blocked).toBe(false)
     expect(next.diagnostics).toEqual([])
+  })
+
+  it('removes a repaired descendant error after parent reroll', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.dependencies = { headShape: ['eyes'] }
+    const reducer = createCreatorReducer(catalog)
+    const diagnostic: Diagnostic = {
+      severity: 'error',
+      code: 'NO_COMPATIBLE_CANDIDATE',
+      path: ['visualSlots', 'eyes'],
+      message: 'old eyes failure',
+    }
+    const before: CreatorSession = { ...makeSession(catalog), diagnostics: [diagnostic], blocked: true }
+
+    const after = reducer(before, { type: 'rerollSlot', slotId: 'headShape' })
+
+    expect(after.diagnostics).not.toContainEqual(expect.objectContaining({
+      path: ['visualSlots', 'eyes'],
+    }))
+    expect(after.blocked).toBe(false)
   })
 
   it('creates a new creature with reset slot rolls while retaining locked selections', () => {

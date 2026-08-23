@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest'
 import {
   buildCandidates,
   createRng,
+  descendantsOf,
+  GENERATION_ORDER,
   generateMonster,
   rerollSlot,
   evaluatePartSelection,
@@ -19,6 +21,12 @@ const baseRequest = {
 } as const satisfies GenerationRequest
 
 describe('generateMonster', () => {
+  it('reports every visual slot as affected during initial generation', () => {
+    const result = generateMonster(baseRequest, makeValidCatalogFixture())
+
+    expect(result.affectedSlots).toEqual(GENERATION_ORDER)
+  })
+
   it('repeats the same spec for the same request and catalog', () => {
     const catalog = makeValidCatalogFixture()
     expect(generateMonster(baseRequest, catalog).spec).toEqual(generateMonster(baseRequest, catalog).spec)
@@ -406,6 +414,27 @@ describe('local changes', () => {
     })
   })
 
+  it('reports the target and every regenerated or revalidated descendant', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.dependencies = { bodyFrame: ['legs', 'tail'], legs: ['effect'] }
+    const spec = generateMonster(baseRequest, catalog).spec
+
+    const result = rerollSlot({ spec, slotId: 'bodyFrame', locks: { tail: true }, catalog })
+
+    expect(result.affectedSlots).toEqual(
+      GENERATION_ORDER.filter(slotId => slotId === 'bodyFrame' || descendantsOf('bodyFrame', catalog).has(slotId)),
+    )
+  })
+
+  it('reports only the target slot when a reroll is blocked by its lock', () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster(baseRequest, catalog).spec
+
+    const result = rerollSlot({ spec, slotId: 'eyes', locks: { eyes: true }, catalog })
+
+    expect(result.affectedSlots).toEqual(['eyes'])
+  })
+
   it('checks locked descendants after unlocked descendants finish recomputing', () => {
     const baseCatalog = makeValidCatalogFixture()
     baseCatalog.dependencies = { bodyFrame: ['arms', 'eyes'] }
@@ -483,6 +512,31 @@ describe('local changes', () => {
     const rejected = selectVisualPart({ spec: before, slotId: 'tail', partId: 'tail_wrong_rig', locks: {}, catalog })
     expect(rejected.blocked).toBe(true)
     expect(rejected.spec.visualSlots.tail).toEqual(before.visualSlots.tail)
+  })
+
+  it('reports only the target slot when a manual selection is rejected', () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster(baseRequest, catalog).spec
+
+    const result = selectVisualPart({ spec, slotId: 'eyes', partId: 'missing_eyes', locks: {}, catalog })
+
+    expect(result.affectedSlots).toEqual(['eyes'])
+  })
+
+  it('reports the target and descendants after a manual selection', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.dependencies = { headShape: ['eyes'] }
+    const spec = generateMonster(baseRequest, catalog).spec
+
+    const result = selectVisualPart({
+      spec,
+      slotId: 'headShape',
+      partId: spec.visualSlots.headShape.partId,
+      locks: {},
+      catalog,
+    })
+
+    expect(result.affectedSlots).toEqual(['headShape', 'eyes'])
   })
 
   it('manual selection does not treat the replaced same-slot part as an active exclusion', () => {
