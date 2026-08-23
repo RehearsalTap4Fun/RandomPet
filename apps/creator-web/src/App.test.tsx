@@ -3,9 +3,10 @@ import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { generateMonster, type Diagnostic } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
+import { CatalogRegistry } from '@qmonster/asset-catalog'
 import { createCreatorSession } from './state/contracts.js'
 import { refreshSessionValidity } from './state/session-diagnostics.js'
-import { CreatorWorkbench } from './App.js'
+import { CreatorWorkbench, productionCatalogRegistry } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
 
 function installCanvasContexts() {
@@ -23,6 +24,14 @@ function installCanvasContexts() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CreatorWorkbench', () => {
+  it('registers only the exact bundled production catalog version', async () => {
+    expect((await productionCatalogRegistry.load('0.1.0')).ok).toBe(true)
+    expect(await productionCatalogRegistry.load('0.1')).toEqual({
+      ok: false,
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
+    })
+  })
+
   it('routes completed preview diagnostics into the creator action stream', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()
@@ -52,7 +61,7 @@ describe('CreatorWorkbench', () => {
     }))
   })
 
-  it('presents the complete shell, reserved export affordances and live status summary', async () => {
+  it('presents the complete shell, guarded export controls and live status summary', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()
     const generated = generateMonster({ seed: 'workbench', themeId: 'fungal', mode: 'normal' }, catalog)
@@ -81,6 +90,7 @@ describe('CreatorWorkbench', () => {
       <CreatorWorkbench
         session={session}
         catalog={catalog}
+        catalogRegistry={new CatalogRegistry(new Map([[catalog.version, async () => catalog]]))}
         onAction={() => undefined}
         previewRenderer={renderer}
       />,
@@ -88,8 +98,9 @@ describe('CreatorWorkbench', () => {
 
     expect(screen.getByRole('banner')).toBeTruthy()
     expect(screen.getByRole('main')).toBeTruthy()
-    for (const name of ['导入 JSON', '导出 JSON', '导出透明 PNG', '导出透明 WebP']) {
-      expect((screen.getByRole('button', { name }) as HTMLButtonElement).disabled).toBe(true)
+    expect(screen.getByRole('button', { name: '导入 JSON' })).toBeEnabled()
+    for (const name of ['导出 JSON', '导出透明 PNG', '导出透明 WebP']) {
+      expect(screen.getByRole('button', { name })).toBeDisabled()
     }
     expect(screen.getByText('槽位 14/14')).toBeTruthy()
     expect(screen.getByText('锁定 2')).toBeTruthy()
@@ -99,6 +110,40 @@ describe('CreatorWorkbench', () => {
     const diagnostics = screen.getByRole('region', { name: '诊断信息' })
     await waitFor(() => expect(within(diagnostics).getAllByRole('heading', { level: 3 })
       .map(item => item.textContent)).toEqual(['错误 · 1', '提醒 · 1']))
+  })
+
+  it('shows an invalid-import error without changing the current seed or export availability', async () => {
+    installCanvasContexts()
+    const user = userEvent.setup()
+    const catalog = makeValidCatalogFixture()
+    const session = createCreatorSession(generateMonster({
+      seed: 'keep-current-work', themeId: 'fungal', mode: 'normal',
+    }, catalog), { png: true, webp: true })
+    const onAction = vi.fn()
+    const renderer: PreviewRenderer = vi.fn(async () => ({ drawnAssetIds: [], diagnostics: [] }))
+
+    render(
+      <CreatorWorkbench
+        session={session}
+        catalog={catalog}
+        catalogRegistry={new CatalogRegistry(new Map([[catalog.version, async () => catalog]]))}
+        onAction={onAction}
+        previewRenderer={renderer}
+      />,
+    )
+
+    const seedBefore = screen.getByTitle('keep-current-work').textContent
+    await user.upload(
+      screen.getByLabelText('选择要导入的 JSON 文件'),
+      new File(['not-json'], 'broken.json', { type: 'application/json' }),
+    )
+
+    expect(await screen.findByText('SPEC_FILE_INVALID_JSON')).toBeTruthy()
+    expect(screen.getByTitle('keep-current-work').textContent).toBe(seedBefore)
+    expect(onAction).not.toHaveBeenCalledWith(expect.objectContaining({ type: 'importSpec' }))
+    expect(screen.getByRole('button', { name: '导出 JSON' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '导出透明 WebP' })).toBeEnabled()
   })
 
   it('uses one native radio-group tab stop and arrow keys for the temporary observation background', async () => {

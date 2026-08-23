@@ -136,14 +136,17 @@ a:focus-visible {
 .topbar__actions button {
   min-height: 34px;
   padding: 7px 10px;
-  color: #8c8390;
+  color: var(--purple-deep);
   border: 1px solid var(--line);
   border-radius: 9px;
-  background: #f2eee7;
+  background: var(--purple-soft);
   box-shadow: 0 2px 0 rgba(55, 44, 38, 0.08);
   font-size: 11px;
   font-weight: 700;
 }
+
+.topbar__actions button:hover:not(:disabled) { border-color: var(--purple); transform: translateY(-1px); }
+.topbar__actions button:disabled { color: #8c8390; background: #f2eee7; opacity: 0.72; }
 
 .workbench-grid {
   height: calc(100vh - 74px);

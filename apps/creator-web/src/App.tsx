@@ -1,8 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { CatalogRegistry } from '@qmonster/asset-catalog'
+import { detectExportCapabilities } from '@qmonster/renderer-canvas'
 import {
   parseCatalog,
   VISUAL_SLOT_IDS,
   type Catalog,
+  type Diagnostic,
 } from '@qmonster/generator-core'
 import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.1.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
@@ -14,16 +17,21 @@ import {
   type PreviewRenderer,
 } from './components/PreviewCanvas.js'
 import { SlotPanel } from './components/SlotPanel.js'
+import { ExportControls } from './components/ExportControls.js'
 
 const parsedProductionCatalog = parseCatalog(productionCatalogDocument)
 if (!parsedProductionCatalog.ok) {
   throw new Error(`Production catalog is invalid: ${parsedProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
 }
 export const productionCatalog = parsedProductionCatalog.value
+export const productionCatalogRegistry = new CatalogRegistry(new Map([
+  ['0.1.0', async () => productionCatalog],
+]))
 
 interface CreatorWorkbenchProps {
   session: CreatorSession
   catalog: Catalog
+  catalogRegistry?: CatalogRegistry
   onAction: (action: CreatorAction) => void
   previewRenderer?: PreviewRenderer
 }
@@ -38,24 +46,6 @@ const OBSERVATION_BACKGROUNDS: ReadonlyArray<{
   { value: 'grid', label: '透明格' },
   { value: 'dark', label: '深色' },
 ]
-
-function ReservedActions({ capabilities }: { capabilities: CreatorSession['exportCapabilities'] }) {
-  const upcoming = '导入与导出将在下一阶段启用。'
-  return (
-    <div className="topbar__actions" role="toolbar" aria-label="数据与导出">
-      <button type="button" disabled title={upcoming}>导入 JSON</button>
-      <button type="button" disabled title={upcoming}>导出 JSON</button>
-      <button type="button" disabled title={upcoming}>导出透明 PNG</button>
-      <button
-        type="button"
-        disabled
-        title={capabilities.webp ? upcoming : '当前浏览器不支持 WebP 编码。'}
-      >
-        导出透明 WebP
-      </button>
-    </div>
-  )
-}
 
 function StatusStrip({
   session,
@@ -87,10 +77,13 @@ function StatusStrip({
 export function CreatorWorkbench({
   session,
   catalog,
+  catalogRegistry = productionCatalogRegistry,
   onAction,
   previewRenderer,
 }: CreatorWorkbenchProps) {
   const [observationBackground, setObservationBackground] = useState<ObservationBackground>('studio')
+  const [operationDiagnostics, setOperationDiagnostics] = useState<Diagnostic[]>([])
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const onRenderDiagnostics = useCallback((diagnostics: CreatorSession['renderDiagnostics']) => {
     onAction({ type: 'setRenderDiagnostics', diagnostics })
   }, [onAction])
@@ -106,7 +99,13 @@ export function CreatorWorkbench({
           </div>
           <span className="version-pill">v0.1</span>
         </div>
-        <ReservedActions capabilities={session.exportCapabilities} />
+        <ExportControls
+          session={session}
+          registry={catalogRegistry}
+          canvasRef={previewCanvasRef}
+          onImportComplete={spec => onAction({ type: 'importSpec', spec })}
+          onOperationDiagnostics={setOperationDiagnostics}
+        />
       </header>
 
       <main className="workbench-grid">
@@ -139,6 +138,7 @@ export function CreatorWorkbench({
           </fieldset>
           <div className="preview-stage" data-observation-background={observationBackground}>
             <PreviewCanvas
+              ref={previewCanvasRef}
               spec={session.spec}
               catalog={catalog}
               onDiagnosticsChange={onRenderDiagnostics}
@@ -147,7 +147,7 @@ export function CreatorWorkbench({
             <span className="preview-stage__label">1024 × 1024 · 实时合成</span>
           </div>
           <StatusStrip session={session} catalog={catalog} />
-          <DiagnosticsPanel diagnostics={session.diagnostics} />
+          <DiagnosticsPanel diagnostics={[...session.diagnostics, ...operationDiagnostics]} />
         </section>
 
         <SlotPanel session={session} catalog={catalog} onAction={onAction} />
@@ -157,6 +157,32 @@ export function CreatorWorkbench({
 }
 
 export function App() {
+  const [exportCapabilities, setExportCapabilities] = useState<CreatorSession['exportCapabilities'] | null>(null)
+
+  useEffect(() => {
+    let active = true
+    void detectExportCapabilities().then(capabilities => {
+      if (active) setExportCapabilities(capabilities)
+    }).catch(() => {
+      if (active) setExportCapabilities({ png: false, webp: false })
+    })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  if (exportCapabilities === null) {
+    return <p role="status">正在检测导出能力…</p>
+  }
+
+  return <InitializedCreatorApp exportCapabilities={exportCapabilities} />
+}
+
+function InitializedCreatorApp({
+  exportCapabilities,
+}: {
+  exportCapabilities: CreatorSession['exportCapabilities']
+}) {
   const { session, dispatch } = useCreator({
     catalog: productionCatalog,
     initialRequest: {
@@ -164,8 +190,15 @@ export function App() {
       themeId: 'fungal',
       mode: 'normal',
     },
-    exportCapabilities: { png: true, webp: true },
+    exportCapabilities,
   })
 
-  return <CreatorWorkbench session={session} catalog={productionCatalog} onAction={dispatch} />
+  return (
+    <CreatorWorkbench
+      session={session}
+      catalog={productionCatalog}
+      catalogRegistry={productionCatalogRegistry}
+      onAction={dispatch}
+    />
+  )
 }

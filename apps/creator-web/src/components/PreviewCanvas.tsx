@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { forwardRef, useCallback, useEffect, useRef } from 'react'
 import type { Catalog, Diagnostic, MonsterSpec } from '@qmonster/generator-core'
 import {
   renderMonster,
@@ -100,15 +100,23 @@ function previewFailure(): Diagnostic[] {
   }]
 }
 
-export function PreviewCanvas({
+export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(function PreviewCanvas({
   spec,
   catalog,
   onDiagnosticsChange,
   renderer = renderMonster,
   resolver,
-}: PreviewCanvasProps) {
+}: PreviewCanvasProps, forwardedRef) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const requestId = useRef(0)
+  const setCanvasRef = useCallback((canvas: HTMLCanvasElement | null) => {
+    canvasRef.current = canvas
+    if (typeof forwardedRef === 'function') {
+      forwardedRef(canvas)
+    } else if (forwardedRef !== null) {
+      forwardedRef.current = canvas
+    }
+  }, [forwardedRef])
 
   useEffect(() => {
     const currentRequest = ++requestId.current
@@ -151,11 +159,11 @@ export function PreviewCanvas({
   return (
     <canvas
       className="preview-canvas"
-      ref={canvasRef}
+      ref={setCanvasRef}
       width={1024}
       height={1024}
       role="img"
       aria-label="生物预览"
     />
   )
-}
+})

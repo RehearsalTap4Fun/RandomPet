@@ -1,5 +1,5 @@
 import { cleanup } from '@testing-library/react'
-import { afterEach } from 'vitest'
+import { afterEach, expect } from 'vitest'
 
 if (globalThis.CSS?.escape === undefined) {
   Object.defineProperty(globalThis, 'CSS', {
@@ -12,3 +12,27 @@ if (globalThis.CSS?.escape === undefined) {
 }
 
 afterEach(() => cleanup())
+
+expect.extend({
+  toBeDisabled(received: HTMLButtonElement) {
+    const pass = received.disabled
+    return {
+      pass,
+      message: () => `expected button ${pass ? 'not ' : ''}to be disabled`,
+    }
+  },
+  toBeEnabled(received: HTMLButtonElement) {
+    const pass = !received.disabled
+    return {
+      pass,
+      message: () => `expected button ${pass ? 'not ' : ''}to be enabled`,
+    }
+  },
+})
+
+declare module 'vitest' {
+  interface Assertion<T = any> {
+    toBeDisabled(): T
+    toBeEnabled(): T
+  }
+}

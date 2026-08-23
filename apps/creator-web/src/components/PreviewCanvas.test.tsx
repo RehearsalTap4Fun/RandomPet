@@ -1,3 +1,4 @@
+import { createRef } from 'react'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { generateMonster, type Diagnostic } from '@qmonster/generator-core'
@@ -65,6 +66,27 @@ describe('CatalogImageResolverCache', () => {
 })
 
 describe('PreviewCanvas', () => {
+  it('forwards the displayed canvas used for committed renders', async () => {
+    installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'forwarded', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const renderer: PreviewRenderer = vi.fn(async () => ({ drawnAssetIds: [], diagnostics: [] }))
+    const canvasRef = createRef<HTMLCanvasElement>()
+
+    render(
+      <PreviewCanvas
+        ref={canvasRef}
+        spec={spec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={() => undefined}
+      />,
+    )
+
+    await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
+    expect(canvasRef.current).toBe(screen.getByRole('img', { name: '生物预览' }))
+  })
+
   it('always exposes a 1024 square backing canvas', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()
