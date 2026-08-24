@@ -1,12 +1,12 @@
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { generateMonster, type Diagnostic } from '@qmonster/generator-core'
+import { generateMonster, type Catalog, type Diagnostic } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { createCreatorSession } from './state/contracts.js'
 import { refreshSessionValidity } from './state/session-diagnostics.js'
-import { App, CreatorWorkbench, productionCatalog, productionCatalogRegistry } from './App.js'
+import { App, CreatorWorkbench, legacyProductionCatalog, productionCatalog, productionCatalogRegistry } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
 
 function installCanvasContexts() {
@@ -19,6 +19,12 @@ function installCanvasContexts() {
       drawImage: vi.fn(),
     } as unknown as CanvasRenderingContext2D
   } as unknown as typeof HTMLCanvasElement.prototype.getContext)
+}
+
+function deferred<T>() {
+  let resolve!: (value: T) => void
+  const promise = new Promise<T>(next => { resolve = next })
+  return { promise, resolve }
 }
 
 afterEach(() => vi.restoreAllMocks())
@@ -204,5 +210,41 @@ describe('CreatorWorkbench', () => {
     expect(grid.checked).toBe(true)
     expect(stage.dataset.observationBackground).toBe('grid')
     expect(onAction).toHaveBeenCalledTimes(actionCountBeforeBackgroundChange)
+  })
+
+  it('returns from legacy inspection without allowing an older concurrent import to mutate the v0.2 session', async () => {
+    installCanvasContexts()
+    const user = userEvent.setup()
+    const slowCurrent = deferred<{ ok: true; value: { spec: ReturnType<typeof generateMonster>['spec']; catalog: Catalog }; diagnostics: Diagnostic[] }>()
+    const fastLegacy = deferred<{ ok: true; value: { spec: ReturnType<typeof generateMonster>['spec']; catalog: Catalog }; diagnostics: Diagnostic[] }>()
+    const parseSpecFile = vi.fn((file: File) => file.name === 'current.json' ? slowCurrent.promise : fastLegacy.promise)
+    render(<App
+      initialExportCapabilities={{ png: true, webp: true }}
+      parseSpecFile={parseSpecFile}
+    />)
+
+    const seedBefore = (await screen.findByLabelText('种子') as HTMLInputElement).value
+    const themeBefore = (screen.getByLabelText('主题') as HTMLSelectElement).value
+    const eyesBefore = (screen.getByLabelText('眼睛部件') as HTMLSelectElement).value
+    const input = screen.getByLabelText('选择要导入的 JSON 文件')
+    await user.upload(input, new File(['current'], 'current.json'))
+    await user.upload(input, new File(['legacy'], 'legacy.json'))
+    fastLegacy.resolve({
+      ok: true,
+      value: { spec: generateMonster({ seed: 'legacy', themeId: 'fungal', mode: 'normal' }, legacyProductionCatalog).spec, catalog: legacyProductionCatalog },
+      diagnostics: [],
+    })
+    expect(await screen.findByText('旧版标本 · 只读查看')).toBeTruthy()
+    slowCurrent.resolve({
+      ok: true,
+      value: { spec: generateMonster({ seed: 'new-current', themeId: 'shadow', mode: 'normal' }, productionCatalog).spec, catalog: productionCatalog },
+      diagnostics: [],
+    })
+    await Promise.resolve()
+    await user.click(screen.getByRole('button', { name: '返回新版生成器' }))
+
+    expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe(seedBefore)
+    expect((screen.getByLabelText('主题') as HTMLSelectElement).value).toBe(themeBefore)
+    expect((screen.getByLabelText('眼睛部件') as HTMLSelectElement).value).toBe(eyesBefore)
   })
 })

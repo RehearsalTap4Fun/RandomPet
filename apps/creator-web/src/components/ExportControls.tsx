@@ -1,4 +1,4 @@
-import { useRef, type ChangeEvent, type RefObject } from 'react'
+import { useEffect, useRef, type ChangeEvent, type RefObject } from 'react'
 import type { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { CanvasExportError, type ExportMimeType } from '@qmonster/renderer-canvas'
 import type { Catalog, Diagnostic, MonsterSpec } from '@qmonster/generator-core'
@@ -12,6 +12,7 @@ export interface ExportControlsProps {
   canvasRef: RefObject<HTMLCanvasElement | null>
   onImportComplete: (payload: { spec: MonsterSpec; catalog: Catalog }) => void
   onOperationDiagnostics: (diagnostics: Diagnostic[]) => void
+  parseSpecFile?: typeof parseSpecFile
 }
 
 function operationDiagnostic(
@@ -40,16 +41,29 @@ export function ExportControls({
   canvasRef,
   onImportComplete,
   onOperationDiagnostics,
+  parseSpecFile: parseImportedSpec = parseSpecFile,
 }: ExportControlsProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const importRequestId = useRef(0)
+  const mounted = useRef(true)
   const exportsBlocked = session.blocked
+
+  useEffect(() => {
+    mounted.current = true
+    return () => {
+      mounted.current = false
+      importRequestId.current += 1
+    }
+  }, [])
 
   const importFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.currentTarget
     const file = input.files?.[0]
     if (file === undefined) return
+    const requestId = ++importRequestId.current
     onOperationDiagnostics([])
-    const result = await parseSpecFile(file, registry)
+    const result = await parseImportedSpec(file, registry)
+    if (!mounted.current || requestId !== importRequestId.current) return
     input.value = ''
     if (!result.ok) {
       onOperationDiagnostics(result.diagnostics)

@@ -19,6 +19,7 @@ import {
 } from './components/PreviewCanvas.js'
 import { SlotPanel } from './components/SlotPanel.js'
 import { ExportControls } from './components/ExportControls.js'
+import type { ExportControlsProps } from './components/ExportControls.js'
 import { CompositionStatus } from './components/CompositionStatus.js'
 import { LegacySpecViewer } from './components/LegacySpecViewer.js'
 
@@ -43,6 +44,7 @@ interface CreatorWorkbenchProps {
   catalogRegistry?: CatalogRegistry
   onAction: (action: CreatorAction) => void
   onInspectLegacy?: (payload: { spec: import('@qmonster/generator-core').MonsterSpec; catalog: Catalog }) => void
+  parseSpecFile?: ExportControlsProps['parseSpecFile']
   previewRenderer?: PreviewRenderer
 }
 
@@ -90,6 +92,7 @@ export function CreatorWorkbench({
   catalogRegistry = productionCatalogRegistry,
   onAction,
   onInspectLegacy,
+  parseSpecFile,
   previewRenderer,
 }: CreatorWorkbenchProps) {
   const [observationBackground, setObservationBackground] = useState<ObservationBackground>('studio')
@@ -122,6 +125,7 @@ export function CreatorWorkbench({
             onInspectLegacy?.(payload)
           }}
           onOperationDiagnostics={setOperationDiagnostics}
+          {...(parseSpecFile === undefined ? {} : { parseSpecFile })}
         />
       </header>
 
@@ -178,10 +182,18 @@ export function CreatorWorkbench({
   )
 }
 
-export function App() {
-  const [exportCapabilities, setExportCapabilities] = useState<CreatorSession['exportCapabilities'] | null>(null)
+interface AppProps {
+  initialExportCapabilities?: CreatorSession['exportCapabilities']
+  parseSpecFile?: ExportControlsProps['parseSpecFile']
+}
+
+export function App({ initialExportCapabilities, parseSpecFile }: AppProps = {}) {
+  const [exportCapabilities, setExportCapabilities] = useState<CreatorSession['exportCapabilities'] | null>(
+    initialExportCapabilities ?? null,
+  )
 
   useEffect(() => {
+    if (initialExportCapabilities !== undefined) return undefined
     let active = true
     void detectExportCapabilities().then(capabilities => {
       if (active) setExportCapabilities(capabilities)
@@ -191,19 +203,21 @@ export function App() {
     return () => {
       active = false
     }
-  }, [])
+  }, [initialExportCapabilities])
 
   if (exportCapabilities === null) {
     return <p role="status">正在检测导出能力…</p>
   }
 
-  return <InitializedCreatorApp exportCapabilities={exportCapabilities} />
+  return <InitializedCreatorApp exportCapabilities={exportCapabilities} parseSpecFile={parseSpecFile} />
 }
 
 function InitializedCreatorApp({
   exportCapabilities,
+  parseSpecFile,
 }: {
   exportCapabilities: CreatorSession['exportCapabilities']
+  parseSpecFile?: ExportControlsProps['parseSpecFile']
 }) {
   const { session, dispatch } = useCreator({
     catalog: productionCatalog,
@@ -235,6 +249,7 @@ function InitializedCreatorApp({
       catalogRegistry={productionCatalogRegistry}
       onAction={dispatch}
       onInspectLegacy={setLegacyInspection}
+      parseSpecFile={parseSpecFile}
     />
   )
 }

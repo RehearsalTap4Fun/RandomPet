@@ -1,4 +1,4 @@
-import { createRef } from 'react'
+import { createRef, StrictMode } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
@@ -7,6 +7,12 @@ import { generateMonster } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { createCreatorSession } from '../state/contracts.js'
 import { ExportControls, type ExportControlsProps } from './ExportControls.js'
+
+function deferred<T>() {
+  let resolve!: (value: T) => void
+  const promise = new Promise<T>(next => { resolve = next })
+  return { promise, resolve }
+}
 
 function makeExportControlsProps(): ExportControlsProps {
   const catalog = makeValidCatalogFixture()
@@ -54,7 +60,7 @@ describe('ExportControls', () => {
   it('routes a valid imported spec only after registry-backed validation succeeds', async () => {
     const user = userEvent.setup()
     const props = makeExportControlsProps()
-    render(<ExportControls {...props} />)
+    render(<StrictMode><ExportControls {...props} /></StrictMode>)
 
     await user.upload(
       screen.getByLabelText('选择要导入的 JSON 文件'),
@@ -85,5 +91,72 @@ describe('ExportControls', () => {
     ])
     expect(screen.getByRole('button', { name: '导出 JSON' })).toBeEnabled()
     expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled()
+  })
+
+  it('only completes the latest concurrent import request', async () => {
+    const user = userEvent.setup()
+    const props = makeExportControlsProps()
+    const slow = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    const fast = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    props.parseSpecFile = vi.fn((file: File) => file.name === 'slow.json' ? slow.promise : fast.promise)
+    render(<ExportControls {...props} />)
+
+    const input = screen.getByLabelText('选择要导入的 JSON 文件')
+    await user.upload(input, new File(['slow'], 'slow.json'))
+    await user.upload(input, new File(['fast'], 'fast.json'))
+    fast.resolve({ ok: false, diagnostics: [{ severity: 'error', code: 'FAST_FAILURE', path: [], message: 'fast' }] })
+    await vi.waitFor(() => expect(props.onOperationDiagnostics).toHaveBeenLastCalledWith([
+      expect.objectContaining({ code: 'FAST_FAILURE' }),
+    ]))
+
+    const callCountAfterLatest = vi.mocked(props.onOperationDiagnostics).mock.calls.length
+    slow.resolve({ ok: true, value: { spec: props.session.spec, catalog: makeValidCatalogFixture() }, diagnostics: [] })
+    await Promise.resolve()
+
+    expect(props.onImportComplete).not.toHaveBeenCalled()
+    expect(props.onOperationDiagnostics).toHaveBeenCalledTimes(callCountAfterLatest)
+  })
+
+  it('does not complete an import after unmount', async () => {
+    const user = userEvent.setup()
+    const props = makeExportControlsProps()
+    const pending = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    props.parseSpecFile = vi.fn(() => pending.promise)
+    const { unmount } = render(<ExportControls {...props} />)
+
+    await user.upload(screen.getByLabelText('选择要导入的 JSON 文件'), new File(['pending'], 'pending.json'))
+    vi.mocked(props.onOperationDiagnostics).mockClear()
+    unmount()
+    pending.resolve({ ok: true, value: { spec: props.session.spec, catalog: makeValidCatalogFixture() }, diagnostics: [] })
+    await Promise.resolve()
+
+    expect(props.onImportComplete).not.toHaveBeenCalled()
+    expect(props.onOperationDiagnostics).not.toHaveBeenCalled()
+  })
+
+  it('does not let an older failed import replace the latest successful import', async () => {
+    const user = userEvent.setup()
+    const props = makeExportControlsProps()
+    const slow = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    const fast = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    const importedCatalog = makeValidCatalogFixture()
+    props.parseSpecFile = vi.fn((file: File) => file.name === 'slow.json' ? slow.promise : fast.promise)
+    render(<ExportControls {...props} />)
+
+    const input = screen.getByLabelText('选择要导入的 JSON 文件')
+    await user.upload(input, new File(['slow'], 'slow.json'))
+    await user.upload(input, new File(['fast'], 'fast.json'))
+    fast.resolve({ ok: true, value: { spec: props.session.spec, catalog: importedCatalog }, diagnostics: [] })
+    await vi.waitFor(() => expect(props.onImportComplete).toHaveBeenCalledWith({
+      spec: props.session.spec,
+      catalog: importedCatalog,
+    }))
+    const diagnosticsAfterLatest = vi.mocked(props.onOperationDiagnostics).mock.calls.length
+
+    slow.resolve({ ok: false, diagnostics: [{ severity: 'error', code: 'SLOW_FAILURE', path: [], message: 'slow' }] })
+    await Promise.resolve()
+
+    expect(props.onImportComplete).toHaveBeenCalledTimes(1)
+    expect(props.onOperationDiagnostics).toHaveBeenCalledTimes(diagnosticsAfterLatest)
   })
 })

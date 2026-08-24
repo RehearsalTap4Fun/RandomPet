@@ -4,13 +4,16 @@ import type { ExportMimeType } from '@qmonster/renderer-canvas'
 import { downloadRenderedImage } from '../io/image-file.js'
 import { downloadSpec } from '../io/spec-file.js'
 import { DiagnosticsPanel } from './DiagnosticsPanel.js'
-import { PreviewCanvas } from './PreviewCanvas.js'
+import { PreviewCanvas, type PreviewRenderer } from './PreviewCanvas.js'
+import type { ImageResolver } from '@qmonster/renderer-canvas'
 
 interface LegacySpecViewerProps {
   spec: MonsterSpec
   catalog: Catalog
   exportCapabilities: { png: boolean; webp: boolean }
   onReturn: () => void
+  previewRenderer?: PreviewRenderer
+  resolver?: ImageResolver
 }
 
 function operationDiagnostic(code: string, message: string): Diagnostic {
@@ -22,6 +25,8 @@ export function LegacySpecViewer({
   catalog,
   exportCapabilities,
   onReturn,
+  previewRenderer,
+  resolver,
 }: LegacySpecViewerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [diagnostics, setDiagnostics] = useState<Diagnostic[]>([])
@@ -76,6 +81,8 @@ export function LegacySpecViewer({
               spec={spec}
               catalog={catalog}
               onDiagnosticsChange={setDiagnostics}
+              {...(previewRenderer === undefined ? {} : { renderer: previewRenderer })}
+              {...(resolver === undefined ? {} : { resolver })}
             />
           </div>
           <DiagnosticsPanel diagnostics={diagnostics} />
