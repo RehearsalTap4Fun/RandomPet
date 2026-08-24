@@ -155,7 +155,8 @@ function makeCompositionSurfaceFactory(
     [alpha.eyes],
     [alpha.mouth],
     [alpha.output],
-    [alpha.occluders[1] ?? sparseAlpha([]), alpha.occluders[0] ?? sparseAlpha([])],
+    [alpha.occluders[0] ?? sparseAlpha([]), alpha.occluders[1] ?? sparseAlpha([])],
+    [alpha.eyes, alpha.mouth],
   ]
   let nextCanvas = 0
   return () => {
@@ -170,6 +171,145 @@ function makeCompositionSurfaceFactory(
       }),
     })
     return { canvas: image(id), context }
+  }
+}
+
+const RASTER_WIDTH = 2048
+
+interface SparseRasterSource extends FakeImage {
+  alpha: Set<number>
+}
+
+interface SparseRasterState {
+  composite: GlobalCompositeOperation
+  scaleX: number
+  scaleY: number
+  x: number
+  y: number
+}
+
+function rasterPoint(x: number, y: number): number {
+  return y * RASTER_WIDTH + x
+}
+
+function sparseRasterImage(
+  id: string,
+  points: readonly (readonly [number, number])[],
+): CanvasImageSource {
+  return {
+    id,
+    alpha: new Set(points.map(([x, y]) => rasterPoint(x, y))),
+  } as unknown as CanvasImageSource
+}
+
+function compositeSparseAlpha(
+  destination: Set<number>,
+  source: ReadonlySet<number>,
+  operation: GlobalCompositeOperation,
+): void {
+  if (operation === 'destination-in') {
+    for (const pixel of destination) {
+      if (!source.has(pixel)) destination.delete(pixel)
+    }
+    return
+  }
+  if (operation === 'destination-out') {
+    for (const pixel of source) destination.delete(pixel)
+    return
+  }
+  for (const pixel of source) destination.add(pixel)
+}
+
+function makeSparseRasterContext(canvas: SparseRasterSource): CanvasRenderingContext2D {
+  let state: SparseRasterState = {
+    composite: 'source-over', scaleX: 1, scaleY: 1, x: 0, y: 0,
+  }
+  const stack: SparseRasterState[] = []
+  return {
+    canvas,
+    save() {
+      stack.push({ ...state })
+    },
+    restore() {
+      state = stack.pop() ?? state
+    },
+    translate(x: number, y: number) {
+      state.x += x * state.scaleX
+      state.y += y * state.scaleY
+    },
+    scale(x: number, y: number) {
+      state.scaleX *= x
+      state.scaleY *= y
+    },
+    drawImage(source: CanvasImageSource) {
+      const sourceAlpha = (source as unknown as SparseRasterSource).alpha
+      const transformed = new Set<number>()
+      for (const pixel of sourceAlpha) {
+        const localX = pixel % RASTER_WIDTH
+        const localY = Math.floor(pixel / RASTER_WIDTH)
+        const worldX = Math.round(state.x + localX * state.scaleX)
+        const worldY = Math.round(state.y + localY * state.scaleY)
+        if (worldX < 0 || worldX >= RASTER_WIDTH || worldY < 0 || worldY >= RASTER_WIDTH) continue
+        transformed.add(rasterPoint(worldX, worldY))
+      }
+      compositeSparseAlpha(canvas.alpha, transformed, state.composite)
+    },
+    clearRect() {
+      canvas.alpha.clear()
+    },
+    fillRect(x: number, y: number, width: number, height: number) {
+      if (state.composite !== 'destination-out') return
+      for (const pixel of canvas.alpha) {
+        const pixelX = pixel % RASTER_WIDTH
+        const pixelY = Math.floor(pixel / RASTER_WIDTH)
+        if (pixelX >= x && pixelX < x + width && pixelY >= y && pixelY < y + height) {
+          canvas.alpha.delete(pixel)
+        }
+      }
+    },
+    getImageData() {
+      const lastPixel = Math.max(-1, ...canvas.alpha)
+      const data = new Uint8ClampedArray(lastPixel < 0 ? 0 : lastPixel * 4 + 4)
+      for (const pixel of canvas.alpha) data[pixel * 4 + 3] = 255
+      return { data } as ImageData
+    },
+    get globalCompositeOperation() {
+      return state.composite
+    },
+    set globalCompositeOperation(value: GlobalCompositeOperation) {
+      state.composite = value
+    },
+  } as unknown as CanvasRenderingContext2D
+}
+
+function makeSparseRasterSurfaceFactory() {
+  let nextCanvas = 0
+  return () => {
+    const canvas = {
+      id: `raster-${nextCanvas += 1}`,
+      alpha: new Set<number>(),
+    }
+    return {
+      canvas: canvas as unknown as CanvasImageSource,
+      context: makeSparseRasterContext(canvas),
+    }
+  }
+}
+
+function makeDoubleHeadRasterResolver(occludeOriginalEyes: boolean): ImageResolver {
+  return {
+    async resolve(assetPath) {
+      if (assetPath === 'nodes/eyes_asymmetric_0.webp') {
+        return sparseRasterImage(assetPath, [[1200, 1200]])
+      }
+      if (assetPath === 'nodes/mouth_wide_0.webp') {
+        return sparseRasterImage(assetPath, [[1400, 1400]])
+      }
+      if (assetPath === 'nodes/effect_glow_0.webp' && occludeOriginalEyes) {
+        return sparseRasterImage(assetPath, [[0, 0]])
+      }
+      return sparseRasterImage(assetPath, [])
+    },
   }
 }
 
@@ -462,6 +602,55 @@ describe('composition canvas rendering', () => {
     expect(calls).toContain('composition-1:draw:composition-2')
     expect(calls).toContain('composition-1:composite:destination-out')
     expect(calls).toContain('composition-1:fillRect:-24,76,1048,900:')
+  })
+
+  it('does not count separated double-head eyes and mouths as occluders of their own slot', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeDoubleHeadRasterResolver(false), {
+        ...options1024, surfaceFactory: makeSparseRasterSurfaceFactory(),
+      },
+    )
+
+    expect(result.compositionMetrics).toMatchObject({
+      eyesInsideRatio: 1,
+      eyesVisibleRatio: 1,
+      mouthInsideRatio: 1,
+      mouthVisibleRatio: 1,
+    })
+    expect(result.diagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'COMPOSITION_FACE_OCCLUDED',
+    }))
+  })
+
+  it('still counts a later non-face effect as a real double-head eye occluder', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!
+    body.composition!.geometryByRig.blob!.sockets.effect = { x: 152, y: 552 }
+    const effect = catalog.parts.find(part => part.slotId === 'effect' && !part.composition!.isNone)!
+    effect.composition!.renderNodes[0]!.origin = { x: 0, y: 0 }
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeDoubleHeadRasterResolver(true), {
+        ...options1024, surfaceFactory: makeSparseRasterSurfaceFactory(),
+      },
+    )
+
+    expect(result.compositionMetrics).toMatchObject({
+      eyesVisibleRatio: 0.5,
+      mouthVisibleRatio: 1,
+    })
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'COMPOSITION_FACE_OCCLUDED',
+      path: ['visualSlots', 'eyes'],
+    }))
   })
 
   it('blocks face alpha below the 80% inside and 85% visible thresholds', async () => {

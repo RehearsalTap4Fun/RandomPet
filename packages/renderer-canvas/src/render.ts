@@ -382,6 +382,65 @@ function imageData(surface: RenderSurface): Uint8ClampedArray {
   return surface.context.getImageData(0, 0, MASTER_SIZE, MASTER_SIZE).data
 }
 
+function alphaTotal(pixels: Uint8ClampedArray): number {
+  let total = 0
+  for (let index = 3; index < pixels.length; index += 4) total += pixels[index] ?? 0
+  return total
+}
+
+function measureSlotVisibility(
+  slotId: 'eyes' | 'mouthShape',
+  nodes: readonly ResolvedRenderNode[],
+  sources: ReadonlyMap<string, CanvasImageSource>,
+  surfaces: CompositionSurfaces,
+  faceSafeZones: AttachmentTreeResult['faceSafeZones'],
+): number {
+  let weightedVisibleAlpha = 0
+  let featureAlpha = 0
+  for (const [featureIndex, featureNode] of nodes.entries()) {
+    if (featureNode.slotId !== slotId) continue
+    const featureSource = sources.get(featureNode.key)
+    if (featureSource === undefined) continue
+    drawCompositionNodeToSurface(
+      surfaces.occluderNodeLayer,
+      featureNode,
+      featureSource,
+      surfaces.bodyAlpha,
+      faceSafeZones,
+    )
+    const featurePixels = imageData(surfaces.occluderNodeLayer)
+    const nodeAlpha = alphaTotal(featurePixels)
+    featureAlpha += nodeAlpha
+
+    clearSurface(surfaces.laterOccluderAlpha)
+    for (let laterIndex = featureIndex + 1; laterIndex < nodes.length; laterIndex += 1) {
+      const laterNode = nodes[laterIndex]!
+      if (laterNode.slotId === slotId) continue
+      const laterSource = sources.get(laterNode.key)
+      if (laterSource === undefined) continue
+      drawCompositionNodeToSurface(
+        surfaces.occluderNodeLayer,
+        laterNode,
+        laterSource,
+        surfaces.bodyAlpha,
+        faceSafeZones,
+      )
+      surfaces.laterOccluderAlpha.context.drawImage(
+        surfaces.occluderNodeLayer.canvas, 0, 0,
+      )
+    }
+    const metric = measureFeatureAlpha(
+      featurePixels,
+      imageData(surfaces.laterOccluderAlpha),
+      MASTER_SIZE,
+      MASTER_SIZE,
+      faceSafeZones,
+    )
+    weightedVisibleAlpha += metric.visibleRatio * nodeAlpha
+  }
+  return featureAlpha === 0 ? 0 : weightedVisibleAlpha / featureAlpha
+}
+
 function metricDiagnostic(
   code: 'COMPOSITION_FACE_OUT_OF_ZONE' | 'COMPOSITION_FACE_OCCLUDED',
   slotId: 'eyes' | 'mouthShape',
@@ -490,39 +549,27 @@ async function renderCompositionMonster(
   }
   context.restore()
 
-  clearSurface(surfaces.laterOccluderAlpha)
-  let eyesOccluder: Uint8ClampedArray<ArrayBufferLike> = new Uint8ClampedArray()
-  let mouthOccluder: Uint8ClampedArray<ArrayBufferLike> = new Uint8ClampedArray()
-  for (let index = nodes.length - 1; index >= 0; index -= 1) {
-    const node = nodes[index]!
-    if (node.slotId === 'mouthShape') mouthOccluder = imageData(surfaces.laterOccluderAlpha)
-    if (node.slotId === 'eyes') eyesOccluder = imageData(surfaces.laterOccluderAlpha)
-    const source = sources.get(node.key)
-    if (source === undefined) continue
-    drawCompositionNodeToSurface(
-      surfaces.occluderNodeLayer,
-      node,
-      source,
-      surfaces.bodyAlpha,
-      attachment.faceSafeZones,
-    )
-    surfaces.laterOccluderAlpha.context.drawImage(surfaces.occluderNodeLayer.canvas, 0, 0)
-  }
-
   const policy = catalog.compositionPolicy!
+  const transparent = new Uint8ClampedArray()
   const eyes = measureFeatureAlpha(
     imageData(surfaces.eyesAlpha),
-    eyesOccluder,
+    transparent,
     MASTER_SIZE,
     MASTER_SIZE,
     attachment.faceSafeZones,
   )
+  eyes.visibleRatio = measureSlotVisibility(
+    'eyes', nodes, sources, surfaces, attachment.faceSafeZones,
+  )
   const mouth = measureFeatureAlpha(
     imageData(surfaces.mouthAlpha),
-    mouthOccluder,
+    transparent,
     MASTER_SIZE,
     MASTER_SIZE,
     attachment.faceSafeZones,
+  )
+  mouth.visibleRatio = measureSlotVisibility(
+    'mouthShape', nodes, sources, surfaces, attachment.faceSafeZones,
   )
   const visibleBounds = measureVisibleBounds(
     imageData(surfaces.outputAlpha), MASTER_SIZE, MASTER_SIZE,
