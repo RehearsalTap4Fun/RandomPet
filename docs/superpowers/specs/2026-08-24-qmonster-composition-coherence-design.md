@@ -1,7 +1,7 @@
 # QMonster Creator 生物组合一致性设计
 
 - 日期：2026-08-24
-- 状态：对话设计已批准，待书面规格复核
+- 状态：书面规格已批准，进入实施计划
 - 基线分支：`feature/qmonster-v0.1`
 - 前置规格：`docs/superpowers/specs/2026-08-21-qmonster-creator-design.md`
 - 前置加固规格：`docs/superpowers/specs/2026-08-23-qmonster-v0.1-hardening-design.md`
