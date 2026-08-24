@@ -70,7 +70,12 @@ async function main(): Promise<void> {
   ]
   let sourceRichResult: SourceRichValidationResult | undefined
   if (production) {
-    const catalogDirectory = dirname(resolve(catalogFile))
+    let catalogDirectory = dirname(resolve(catalogFile))
+    try {
+      catalogDirectory = dirname(await realpath(catalogFile))
+    } catch {
+      diagnostics.push({ severity: 'error', code: 'CATALOG_CLI_ARGUMENTS_INVALID', path: [catalogFile], message: 'Production catalog file cannot be canonicalized.' })
+    }
     let sourceIndexPath = resolve(sourceIndexInput!)
     let evidenceManifestPath = resolve(evidenceManifestInput!)
     let sourceIndex: ProductionSourceIndex = {}

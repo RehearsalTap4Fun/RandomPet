@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { tmpdir } from 'node:os'
@@ -132,6 +132,29 @@ describe('strict production catalog validation', () => {
         stderr: expect.stringContaining('PRODUCTION_EVIDENCE_PATH_INVALID'),
       })
     }
+  })
+
+  it('binds evidence to the canonical catalog target instead of a catalog junction parent', async () => {
+    const { root, catalogDirectory } = await makeProductionCliFixture()
+    const alternateRoot = join(root, 'alternate')
+    const alternateCatalogDirectory = join(alternateRoot, 'catalog', 'v0.1.0')
+    await mkdir(join(alternateRoot, 'audit', 'v0.1.0'), { recursive: true })
+    await writeFile(join(alternateRoot, 'source-index.json'), await readFile(join(root, 'source-index.json')))
+    await writeFile(join(alternateRoot, 'audit', 'v0.1.0', 'evidence-manifest.json'), await readFile(join(root, 'audit', 'v0.1.0', 'evidence-manifest.json')))
+    await mkdir(join(alternateRoot, 'catalog'), { recursive: true })
+    await symlink(catalogDirectory, alternateCatalogDirectory, 'junction')
+
+    await expect(execFile(process.execPath, [
+      join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'src', 'cli.ts'),
+      join(alternateCatalogDirectory, 'catalog.json'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'), '--production',
+      '--source-index', join(alternateRoot, 'source-index.json'),
+      '--evidence-manifest', join(alternateRoot, 'audit', 'v0.1.0', 'evidence-manifest.json'),
+    ])).rejects.toMatchObject({
+      code: 1,
+      stderr: expect.stringContaining('PRODUCTION_EVIDENCE_PATH_INVALID'),
+    })
   })
 
   it('requires exact PNG and WebP hashes for every 0.2.0 composition render node', () => {

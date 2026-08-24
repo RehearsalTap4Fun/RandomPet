@@ -1,6 +1,8 @@
 import { createHash } from 'node:crypto'
+import { realpathSync } from 'node:fs'
 import { mkdir, readdir, readFile } from 'node:fs/promises'
 import { dirname, extname, join, relative, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { productionPaths, type ProductionPaths } from './production-paths.js'
 
@@ -62,8 +64,9 @@ export async function buildVersionedRuntimeAssets(
   const inputs = (await Promise.all(sourceGroups.map(async group => {
     try {
       return await collectPngFiles(sourceRoot, group)
-    } catch {
-      return [] as string[]
+    } catch (caught) {
+      if ((caught as NodeJS.ErrnoException).code === 'ENOENT') return [] as string[]
+      throw caught
     }
   }))).flat()
   if (inputs.length === 0) throw new Error(`No runtime PNG inputs found below ${paths.sourceRoot}/parts or ${paths.sourceRoot}/rigs.`)
@@ -80,7 +83,17 @@ export async function buildVersionedRuntimeAssets(
   return { paths, built: inputs.length }
 }
 
-if (process.argv[1]?.endsWith('build-runtime-assets.ts')) {
+function isDirectExecution(): boolean {
+  const invoked = process.argv[1]
+  if (invoked === undefined) return false
+  try {
+    return realpathSync(resolve(invoked)) === realpathSync(fileURLToPath(import.meta.url))
+  } catch {
+    return false
+  }
+}
+
+if (isDirectExecution()) {
   const versionFlag = process.argv.indexOf('--version')
   const version = versionFlag === -1 ? undefined : process.argv[versionFlag + 1]
   if (versionFlag === -1 || version === undefined || version.startsWith('--') || process.argv.length !== 4) {
