@@ -215,6 +215,87 @@ export function makeValidCatalogFixture(): Catalog {
   }
 }
 
+export function makeCompositionCatalogFixture(): Catalog {
+  const catalog = makeValidCatalogFixture()
+  catalog.version = '0.2.0'
+  catalog.compositionPolicy = {
+    motifSlots: ['headShape', 'eyes', 'mouthShape', 'headAppendage', 'tail', 'extraAppendage', 'effect'],
+    surpriseRatio: 0.3,
+    maxStrongFeatures: 2,
+    optionalNoneRate: { min: 0.35, max: 0.5 },
+    frameBounds: { x: 128, y: 128, width: 1792, height: 1792 },
+    faceInsideRatio: 0.8,
+    faceVisibleRatio: 0.85,
+  }
+
+  const parentBySlot: Record<VisualSlotId, VisualSlotId | null> = {
+    bodyFrame: null, headShape: 'bodyFrame', eyes: 'headShape', mouthShape: 'headShape',
+    oralDetail: 'mouthShape', headAppendage: 'headShape', arms: 'bodyFrame', legs: 'bodyFrame',
+    tail: 'bodyFrame', extraAppendage: 'bodyFrame', surfaceMaterial: 'bodyFrame',
+    pattern: 'bodyFrame', colorScheme: 'bodyFrame', effect: 'bodyFrame',
+  }
+  const providerSockets: Partial<Record<VisualSlotId, string[]>> = {
+    bodyFrame: ['head', 'headAlternate', 'armLeft', 'armRight', 'legLeft', 'legRight', 'tail', 'wingLeft', 'wingRight', 'overlay', 'effect'],
+    headShape: ['eyes', 'mouth', 'headAppendage'],
+    mouthShape: ['oralDetail'],
+  }
+  const nodeSockets: Record<VisualSlotId, Array<string | null>> = {
+    bodyFrame: [null], headShape: ['head'], eyes: ['eyes'], mouthShape: ['mouth'], oralDetail: ['oralDetail'],
+    headAppendage: ['headAppendage'], arms: ['armLeft', 'armRight'], legs: ['legLeft', 'legRight'],
+    tail: ['tail'], extraAppendage: ['wingLeft', 'wingRight'], surfaceMaterial: ['overlay'],
+    pattern: ['overlay'], colorScheme: ['overlay'], effect: ['effect'],
+  }
+  catalog.parts = catalog.parts.map(part => {
+    const { approvedTransforms: _approvedTransforms, ...partWithoutApprovedTransforms } = part
+    const isNone = part.id.endsWith('_none')
+    const sockets = providerSockets[part.slotId] ?? []
+    const geometryByRig = Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, {
+      sockets: Object.fromEntries(sockets.map((socket, index) => [socket, { x: 500 + index * 80, y: 700 + index * 60 }])),
+      ...(part.slotId === 'headShape' ? { faceSafeZone: { x: 500, y: 400, width: 1048, height: 900 } } : {}),
+    }]))
+    return {
+      ...partWithoutApprovedTransforms,
+      composition: {
+        isNone,
+        motifTags: isNone ? [] : ['deep-sea', 'fungal', 'shadow'],
+        visualIntensity: 'quiet',
+        renderNodes: isNone ? [] : nodeSockets[part.slotId].map((socket, index) => ({
+          id: `${part.id}_${index}`,
+          assetPath: `nodes/${part.id}_${index}.webp`,
+          parentSlot: parentBySlot[part.slotId],
+          socket: parentBySlot[part.slotId] === null ? null : socket,
+          origin: { x: 1024, y: 1024 },
+          transform: { scale: 1, mirrorX: false },
+          layer: part.layer,
+          compatibleRigs: part.compatibleRigs,
+          clipPolicy: 'none',
+        })),
+        geometryByRig: isNone ? {} : geometryByRig,
+      },
+    }
+  })
+  const strongEyes = structuredClone(catalog.parts.find(part => part.slotId === 'eyes')!)
+  const strongEyesComposition = strongEyes.composition!
+  strongEyes.id = 'eyes_strong'
+  strongEyesComposition.visualIntensity = 'strong'
+  strongEyesComposition.renderNodes[0]!.id = 'eyes_strong_0'
+  catalog.parts.push(strongEyes)
+  return catalog
+}
+
+export function makeValidCompositionSpecFixture(
+  catalog: Catalog = makeCompositionCatalogFixture(),
+): MonsterSpec {
+  const spec = makeValidMonsterSpecFixture()
+  spec.catalogVersion = '0.2.0'
+  spec.rendererVersion = '0.2.0'
+  for (const slotId of VISUAL_SLOT_IDS) {
+    const part = catalog.parts.find(candidate => candidate.slotId === slotId)!
+    spec.visualSlots[slotId] = { partId: part.id, rigId: 'blob' }
+  }
+  return spec
+}
+
 export function makeValidCatalogFixtureWithThreeRigs(): Catalog {
   const catalog = makeValidCatalogFixture()
   const bodyFrame = catalog.parts.find(part => part.slotId === 'bodyFrame')!

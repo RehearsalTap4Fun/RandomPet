@@ -51,6 +51,7 @@ function isApprovedTransform(
   transform: ApprovedTransform | undefined,
   part: VisualPartDefinition,
 ): boolean {
+  if (part.composition !== undefined) return transform === undefined
   const candidate = transform ?? IDENTITY_TRANSFORM
   const presets = part.approvedTransforms ?? []
   return presets.length === 0

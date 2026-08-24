@@ -1,9 +1,90 @@
 import { describe, expect, it } from 'vitest'
-import { makeValidCatalogFixture } from './test-fixtures.js'
+import { makeCompositionCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
 import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 
 describe('catalog validation', () => {
+  it('rejects a visible non-root node without an explicit parent socket', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
+    eyes.composition!.renderNodes[0]!.socket = null
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'COMPOSITION_SOCKET_MISSING',
+    }))
+  })
+
+  it('requires quiet fallbacks and face geometry for every compatible rig', () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.parts = catalog.parts.filter(part => (
+      part.slotId !== 'eyes' || part.composition?.visualIntensity === 'strong'
+    ))
+    delete catalog.parts.find(part => part.slotId === 'headShape')!
+      .composition!.geometryByRig.blob!.faceSafeZone
+
+    const codes = validateCatalogStructure(catalog).map(item => item.code)
+
+    expect(codes).toContain('COMPOSITION_QUIET_FALLBACK_MISSING')
+    expect(codes).toContain('COMPOSITION_FACE_ZONE_MISSING')
+  })
+
+  it('rejects duplicate composition node IDs', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const arms = catalog.parts.find(part => part.slotId === 'arms')!
+    arms.composition!.renderNodes[1]!.id = arms.composition!.renderNodes[0]!.id
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'COMPOSITION_NODE_ID_DUPLICATE',
+    }))
+  })
+
+  it('rejects a node targeting a parent slot outside the composition hierarchy', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
+    eyes.composition!.renderNodes[0]!.parentSlot = 'bodyFrame'
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'COMPOSITION_PARENT_SLOT_INVALID',
+    }))
+  })
+
+  it('requires parent sockets on every compatible parent candidate', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const alternateHead = structuredClone(catalog.parts.find(part => part.slotId === 'headShape')!)
+    alternateHead.id = 'head_without_eyes_socket'
+    delete alternateHead.composition!.geometryByRig.blob!.sockets.eyes
+    catalog.parts.push(alternateHead)
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'COMPOSITION_SOCKET_MISSING',
+    }))
+  })
+
+  it('requires nodes for visible parts and forbids them for explicit none parts', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!
+    const tailNone = catalog.parts.find(part => part.slotId === 'tail' && part.composition!.isNone)!
+    body.composition!.renderNodes = []
+    tailNone.composition!.renderNodes = [structuredClone(
+      catalog.parts.find(part => part.slotId === 'tail' && !part.composition!.isNone)!
+        .composition!.renderNodes[0]!,
+    )]
+
+    const codes = validateCatalogStructure(catalog).map(item => item.code)
+    expect(codes).toContain('COMPOSITION_NODES_MISSING')
+    expect(codes).toContain('COMPOSITION_NONE_HAS_NODES')
+  })
+
+  it('rejects duplicate motif slots and legacy part transforms in a composition catalog', () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.compositionPolicy!.motifSlots.push('eyes')
+    catalog.parts[0]!.approvedTransforms = [{ scale: 1, mirrorX: false }]
+
+    const codes = validateCatalogStructure(catalog).map(item => item.code)
+    expect(codes).toContain('COMPOSITION_MOTIF_SLOT_DUPLICATE')
+    expect(codes).toContain('COMPOSITION_APPROVED_TRANSFORM_FORBIDDEN')
+  })
+
   it('reports dangling excludes and missing mandatory coverage', () => {
     const catalog = makeValidCatalogFixture()
     catalog.parts[0]!.excludes = ['missing_part']

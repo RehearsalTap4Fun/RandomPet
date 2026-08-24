@@ -1,9 +1,39 @@
 import { describe, expect, it } from 'vitest'
 import { VISUAL_SLOT_IDS } from './contracts.js'
+import { parseCatalog } from './catalog-schema.js'
 import { parseMonsterSpec } from './schema.js'
-import { makeValidCatalogFixture, makeValidMonsterSpecFixture } from './test-fixtures.js'
+import {
+  makeCompositionCatalogFixture,
+  makeValidCatalogFixture,
+  makeValidMonsterSpecFixture,
+} from './test-fixtures.js'
 
 describe('MonsterSpecSchema', () => {
+  it('keeps the installed 0.1.0 catalog parseable without composition metadata', () => {
+    expect(parseCatalog(makeValidCatalogFixture()).ok).toBe(true)
+  })
+
+  it('parses the exact 0.2.0 composition policy and render-node contract', () => {
+    const catalog = makeCompositionCatalogFixture()
+
+    expect(parseCatalog(catalog)).toEqual({ ok: true, value: catalog })
+  })
+
+  it('rejects non-positive render-node transforms and face rectangles', () => {
+    const catalog = makeCompositionCatalogFixture() as any
+    catalog.parts[0].composition.renderNodes[0].transform.scale = 0
+    catalog.parts[1].composition.geometryByRig.blob.faceSafeZone.width = -1
+
+    expect(parseCatalog(catalog).ok).toBe(false)
+  })
+
+  it('rejects a render node with an unknown parent slot', () => {
+    const catalog = makeCompositionCatalogFixture() as any
+    catalog.parts[1].composition.renderNodes[0].parentSlot = 'unknown-slot'
+
+    expect(parseCatalog(catalog).ok).toBe(false)
+  })
+
   it('accepts exactly fourteen visual slots and eight semantic slots', () => {
     const input = makeValidMonsterSpecFixture()
     expect(Object.keys(input.visualSlots)).toHaveLength(14)

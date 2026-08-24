@@ -4,6 +4,8 @@ import {
   type Catalog,
 } from './index.js'
 import {
+  makeCompositionCatalogFixture,
+  makeValidCompositionSpecFixture,
   makeValidCatalogFixture,
   makeValidCatalogFixtureWithThreeRigs,
   makeValidMonsterSpecFixture,
@@ -15,6 +17,18 @@ const versions = {
 } as const
 
 describe('validateMonsterSpecAgainstCatalog', () => {
+  it('rejects selection transforms for composition-aware parts', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    spec.visualSlots.eyes.transform = { scale: 1, mirrorX: false }
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog, {
+      schemaVersion: '0.1.0', rendererVersion: '0.2.0',
+    })).toContainEqual(expect.objectContaining({
+      code: 'SPEC_TRANSFORM_INVALID', path: ['visualSlots', 'eyes', 'transform'],
+    }))
+  })
+
   it.each([
     ['schemaVersion', '9.0.0', 'SPEC_SCHEMA_VERSION_UNSUPPORTED'],
     ['rendererVersion', '9.0.0', 'SPEC_RENDERER_VERSION_UNSUPPORTED'],

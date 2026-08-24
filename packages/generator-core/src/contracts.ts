@@ -18,6 +18,49 @@ export type RenderLayer =
   | 'groundShadow' | 'rearAppendage' | 'body' | 'surface' | 'pattern'
   | 'frontAppendage' | 'head' | 'faceAndHeadwear' | 'foregroundEffect'
 export type Severity = 'warning' | 'error'
+export type ClipPolicy = 'none' | 'body' | 'protect-face'
+export type VisualIntensity = 'quiet' | 'strong'
+
+export interface Point2D { x: number; y: number }
+export interface Rect { x: number; y: number; width: number; height: number }
+
+export interface RenderNodeDefinition {
+  id: string
+  assetPath: string
+  pngPath?: string
+  assetSha256?: string
+  pngSha256?: string
+  parentSlot: VisualSlotId | null
+  socket: string | null
+  origin: Point2D
+  transform: ApprovedTransform
+  layer: RenderLayer
+  compatibleRigs: RigId[]
+  clipPolicy: ClipPolicy
+}
+
+export interface CompositionGeometry {
+  sockets: Record<string, Point2D>
+  faceSafeZone?: Rect
+}
+
+export interface PartComposition {
+  isNone: boolean
+  motifTags: ThemeId[]
+  visualIntensity: VisualIntensity
+  renderNodes: RenderNodeDefinition[]
+  geometryByRig: Partial<Record<RigId, CompositionGeometry>>
+}
+
+export interface CompositionPolicy {
+  motifSlots: VisualSlotId[]
+  surpriseRatio: 0.3
+  maxStrongFeatures: 2
+  optionalNoneRate: { min: 0.35; max: 0.5 }
+  frameBounds: Rect
+  faceInsideRatio: 0.8
+  faceVisibleRatio: 0.85
+}
 
 export interface Diagnostic {
   severity: Severity
@@ -132,6 +175,7 @@ export interface VisualPartDefinition {
   description?: string
   pngPath?: string
   pngSha256?: string
+  composition?: PartComposition
 }
 
 export interface SemanticTraitDefinition {
@@ -169,6 +213,24 @@ export interface Catalog {
   semanticTraits: SemanticTraitDefinition[]
   modifiers: ModifierDefinition[]
   dependencies: Partial<Record<VisualSlotId, VisualSlotId[]>>
+  compositionPolicy?: CompositionPolicy
+}
+
+export const COMPOSITION_PARENT_BY_SLOT: Record<VisualSlotId, VisualSlotId | null> = {
+  bodyFrame: null,
+  headShape: 'bodyFrame',
+  eyes: 'headShape',
+  mouthShape: 'headShape',
+  oralDetail: 'mouthShape',
+  headAppendage: 'headShape',
+  arms: 'bodyFrame',
+  legs: 'bodyFrame',
+  tail: 'bodyFrame',
+  extraAppendage: 'bodyFrame',
+  surfaceMaterial: 'bodyFrame',
+  pattern: 'bodyFrame',
+  colorScheme: 'bodyFrame',
+  effect: 'bodyFrame',
 }
 
 export interface GenerationRequest {

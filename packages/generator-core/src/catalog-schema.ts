@@ -18,6 +18,53 @@ const RenderLayerSchema = z.enum([
 const coordinate = z.number().finite().min(0).max(2048)
 const weight = z.number().finite().min(0)
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/i)
+const ApprovedTransformSchema = z.object({
+  scale: z.number().finite().positive(),
+  mirrorX: z.boolean(),
+}).strict()
+const Point2DSchema = z.object({ x: coordinate, y: coordinate }).strict()
+const RectSchema = z.object({
+  x: coordinate,
+  y: coordinate,
+  width: z.number().finite().positive().max(2048),
+  height: z.number().finite().positive().max(2048),
+}).strict().refine(rect => rect.x + rect.width <= 2048 && rect.y + rect.height <= 2048, {
+  message: 'Rectangle must fit inside the 2048px local canvas.',
+})
+const RenderNodeDefinitionSchema = z.object({
+  id: z.string().min(1),
+  assetPath: z.string().min(1),
+  pngPath: z.string().min(1).optional(),
+  assetSha256: sha256.optional(),
+  pngSha256: sha256.optional(),
+  parentSlot: VisualSlotIdSchema.nullable(),
+  socket: z.string().min(1).nullable(),
+  origin: Point2DSchema,
+  transform: ApprovedTransformSchema,
+  layer: RenderLayerSchema,
+  compatibleRigs: z.array(RigIdSchema).min(1),
+  clipPolicy: z.enum(['none', 'body', 'protect-face']),
+}).strict()
+const CompositionGeometrySchema = z.object({
+  sockets: z.record(z.string().min(1), Point2DSchema),
+  faceSafeZone: RectSchema.optional(),
+}).strict()
+const PartCompositionSchema = z.object({
+  isNone: z.boolean(),
+  motifTags: z.array(ThemeIdSchema),
+  visualIntensity: z.enum(['quiet', 'strong']),
+  renderNodes: z.array(RenderNodeDefinitionSchema),
+  geometryByRig: z.partialRecord(RigIdSchema, CompositionGeometrySchema),
+}).strict()
+const CompositionPolicySchema = z.object({
+  motifSlots: z.array(VisualSlotIdSchema),
+  surpriseRatio: z.literal(0.3),
+  maxStrongFeatures: z.literal(2),
+  optionalNoneRate: z.object({ min: z.literal(0.35), max: z.literal(0.5) }).strict(),
+  frameBounds: RectSchema,
+  faceInsideRatio: z.literal(0.8),
+  faceVisibleRatio: z.literal(0.85),
+}).strict()
 const displayMetadata = {
   displayName: z.string().min(1).optional(),
   flavorText: z.string().min(1).optional(),
@@ -74,7 +121,7 @@ const VisualPartDefinitionSchema = z.object({
   assetSha256: sha256.optional(),
   pngPath: z.string().min(1).optional(),
   pngSha256: sha256.optional(),
-  approvedTransforms: z.array(z.object({ scale: z.number().finite().positive(), mirrorX: z.boolean() })).optional(),
+  approvedTransforms: z.array(ApprovedTransformSchema).optional(),
   maskPaths: z.object({ primary: z.string().min(1).optional(), secondary: z.string().min(1).optional() }),
   maskSha256: z.object({ primary: z.string().regex(/^[a-f0-9]{64}$/i).optional(), secondary: z.string().regex(/^[a-f0-9]{64}$/i).optional() }).optional(),
   rigMaskPaths: z.partialRecord(RigIdSchema, z.object({
@@ -96,6 +143,7 @@ const VisualPartDefinitionSchema = z.object({
   boosts: z.record(z.string().min(1), weight),
   ...displayMetadata,
   description: z.string().min(1).optional(),
+  composition: PartCompositionSchema.optional(),
 })
 
 export const CatalogSchema = z.object({
@@ -117,6 +165,7 @@ export const CatalogSchema = z.object({
     ...productionMetadata,
   })),
   dependencies: z.partialRecord(VisualSlotIdSchema, z.array(VisualSlotIdSchema)),
+  compositionPolicy: CompositionPolicySchema.optional(),
 })
 
 function toDiagnostic(issue: z.core.$ZodIssue): Diagnostic {

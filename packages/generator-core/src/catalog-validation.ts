@@ -1,4 +1,5 @@
 import {
+  COMPOSITION_PARENT_BY_SLOT,
   SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
   type Catalog,
@@ -10,6 +11,11 @@ const OPTIONAL_SLOTS = new Set<VisualSlotId>(['headAppendage', 'tail', 'extraApp
 const MANDATORY_SLOTS = VISUAL_SLOT_IDS.filter(slotId => !OPTIONAL_SLOTS.has(slotId))
 const REQUIRED_THEME_IDS = new Set(['deep-sea', 'fungal', 'shadow'])
 const REQUIRED_RIG_IDS = new Set(['blob', 'biped', 'floating'])
+const REQUIRED_PROVIDER_SOCKETS: Partial<Record<VisualSlotId, readonly string[]>> = {
+  bodyFrame: ['head', 'headAlternate', 'armLeft', 'armRight', 'legLeft', 'legRight', 'tail', 'wingLeft', 'wingRight', 'overlay', 'effect'],
+  headShape: ['eyes', 'mouth', 'headAppendage'],
+  mouthShape: ['oralDetail'],
+}
 
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
@@ -56,6 +62,164 @@ function hasCycle(dependencies: Catalog['dependencies']): boolean {
     return false
   }
   return VISUAL_SLOT_IDS.some(visit)
+}
+
+function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
+  if (catalog.compositionPolicy === undefined) return
+
+  const partsBySlot = new Map<VisualSlotId, Catalog['parts']>()
+  for (const part of catalog.parts) {
+    const parts = partsBySlot.get(part.slotId) ?? []
+    parts.push(part)
+    partsBySlot.set(part.slotId, parts)
+  }
+
+  const motifSlots = new Set<VisualSlotId>()
+  for (const [index, slotId] of catalog.compositionPolicy.motifSlots.entries()) {
+    if (motifSlots.has(slotId)) {
+      diagnostics.push(error(
+        'COMPOSITION_MOTIF_SLOT_DUPLICATE',
+        ['compositionPolicy', 'motifSlots', String(index)],
+        `Composition motif slot ${slotId} appears more than once.`,
+      ))
+    }
+    motifSlots.add(slotId)
+  }
+
+  const nodeIds = new Set<string>()
+  for (const [partIndex, part] of catalog.parts.entries()) {
+    const path = ['parts', String(partIndex)]
+    const composition = part.composition
+    if (composition === undefined) {
+      diagnostics.push(error(
+        'COMPOSITION_PART_METADATA_MISSING',
+        path.concat('composition'),
+        `Composition catalog part ${part.id} is missing composition metadata.`,
+      ))
+      continue
+    }
+    if ((part.approvedTransforms?.length ?? 0) > 0) {
+      diagnostics.push(error(
+        'COMPOSITION_APPROVED_TRANSFORM_FORBIDDEN',
+        path.concat('approvedTransforms'),
+        `Composition part ${part.id} must use render-node transforms only.`,
+      ))
+    }
+    if (composition.isNone) {
+      if (composition.renderNodes.length > 0) {
+        diagnostics.push(error(
+          'COMPOSITION_NONE_HAS_NODES',
+          path.concat('composition', 'renderNodes'),
+          `Explicit none part ${part.id} must not have visible render nodes.`,
+        ))
+      }
+      continue
+    }
+    if (composition.renderNodes.length === 0) {
+      diagnostics.push(error(
+        'COMPOSITION_NODES_MISSING',
+        path.concat('composition', 'renderNodes'),
+        `Visible composition part ${part.id} must define at least one render node.`,
+      ))
+    }
+
+    const expectedParentSlot = COMPOSITION_PARENT_BY_SLOT[part.slotId]
+    for (const [nodeIndex, node] of composition.renderNodes.entries()) {
+      const nodePath = path.concat('composition', 'renderNodes', String(nodeIndex))
+      if (nodeIds.has(node.id)) {
+        diagnostics.push(error(
+          'COMPOSITION_NODE_ID_DUPLICATE',
+          nodePath.concat('id'),
+          `Composition node ID ${node.id} is duplicated.`,
+        ))
+      }
+      nodeIds.add(node.id)
+
+      if (node.parentSlot !== expectedParentSlot) {
+        diagnostics.push(error(
+          'COMPOSITION_PARENT_SLOT_INVALID',
+          nodePath.concat('parentSlot'),
+          `Node ${node.id} must target ${expectedParentSlot ?? 'the composition root'}.`,
+        ))
+        continue
+      }
+      if (expectedParentSlot === null) continue
+      if (node.socket === null) {
+        diagnostics.push(error(
+          'COMPOSITION_SOCKET_MISSING',
+          nodePath.concat('socket'),
+          `Visible node ${node.id} requires an explicit parent socket.`,
+        ))
+        continue
+      }
+
+      for (const rigId of node.compatibleRigs) {
+        const parentCandidates = (partsBySlot.get(expectedParentSlot) ?? []).filter(candidate => (
+          candidate.compatibleRigs.includes(rigId) && !candidate.composition?.isNone
+        ))
+        if (parentCandidates.length === 0 || parentCandidates.some(candidate => (
+          candidate.composition?.geometryByRig[rigId]?.sockets[node.socket!] === undefined
+        ))) {
+          diagnostics.push(error(
+            'COMPOSITION_SOCKET_MISSING',
+            nodePath.concat('socket'),
+            `Every ${expectedParentSlot} candidate for ${rigId} must provide socket ${node.socket}.`,
+          ))
+        }
+      }
+    }
+
+    for (const rigId of part.compatibleRigs) {
+      const geometry = composition.geometryByRig[rigId]
+      for (const socket of REQUIRED_PROVIDER_SOCKETS[part.slotId] ?? []) {
+        if (geometry?.sockets[socket] === undefined) {
+          diagnostics.push(error(
+            'COMPOSITION_SOCKET_MISSING',
+            path.concat('composition', 'geometryByRig', rigId, 'sockets', socket),
+            `Part ${part.id} must provide ${socket} for ${rigId}.`,
+          ))
+        }
+      }
+      if (part.slotId === 'headShape' && geometry?.faceSafeZone === undefined) {
+        diagnostics.push(error(
+          'COMPOSITION_FACE_ZONE_MISSING',
+          path.concat('composition', 'geometryByRig', rigId, 'faceSafeZone'),
+          `Head part ${part.id} requires a face safe zone for ${rigId}.`,
+        ))
+      }
+    }
+  }
+
+  for (const slotId of MANDATORY_SLOTS) {
+    for (const themeId of REQUIRED_THEME_IDS) {
+      for (const rigId of REQUIRED_RIG_IDS) {
+        const hasQuietFallback = (partsBySlot.get(slotId) ?? []).some(part => {
+          const composition = part.composition
+          return composition?.isNone === false
+          && composition.visualIntensity === 'quiet'
+          && composition.motifTags.includes(themeId as typeof composition.motifTags[number])
+          && part.compatibleRigs.includes(rigId as typeof part.compatibleRigs[number])
+        })
+        if (!hasQuietFallback) {
+          diagnostics.push(error(
+            'COMPOSITION_QUIET_FALLBACK_MISSING',
+            ['parts', slotId],
+            `Mandatory slot ${slotId} has no quiet ${themeId} fallback for ${rigId}.`,
+          ))
+        }
+      }
+    }
+  }
+
+  for (const slotId of OPTIONAL_SLOTS) {
+    if (!(partsBySlot.get(slotId) ?? []).some(part => part.composition?.isNone === true)) {
+      diagnostics.push(error(
+        'COMPOSITION_OPTIONAL_NONE_MISSING',
+        ['parts', slotId],
+        `Optional slot ${slotId} requires an explicit composition none candidate.`,
+      ))
+    }
+  }
 }
 
 export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
@@ -130,10 +294,12 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
     }
   }
   for (const slotId of OPTIONAL_SLOTS) {
-    if (!catalog.parts.some(part => part.slotId === slotId && part.id.endsWith('_none'))) {
+    if (catalog.compositionPolicy === undefined && !catalog.parts.some(part => part.slotId === slotId && part.id.endsWith('_none'))) {
       diagnostics.push(error('CATALOG_OPTIONAL_NONE_MISSING', ['parts'], `Optional slot ${slotId} needs an explicit none candidate.`))
     }
   }
+
+  validateCompositionStructure(catalog, diagnostics)
 
   if (hasCycle(catalog.dependencies)) {
     diagnostics.push(error('CATALOG_DEPENDENCY_CYCLE', ['dependencies'], 'Catalog slot dependencies must be acyclic.'))
