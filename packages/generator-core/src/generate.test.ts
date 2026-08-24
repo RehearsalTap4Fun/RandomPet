@@ -69,7 +69,51 @@ describe('generateMonster', () => {
   it('reports every visual slot as affected during initial generation', () => {
     const result = generateMonster(baseRequest, makeValidCatalogFixture())
 
-    expect(result.affectedSlots).toEqual(GENERATION_ORDER)
+    expect(result.affectedSlots).toEqual([
+      'bodyFrame', 'colorScheme', 'surfaceMaterial', 'pattern',
+      'headShape', 'headAppendage', 'arms', 'legs', 'tail', 'extraAppendage',
+      'eyes', 'mouthShape', 'oralDetail', 'effect',
+    ])
+  })
+
+  it('keeps legacy affected slots in the legacy generation order', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.dependencies = { bodyFrame: ['colorScheme', 'eyes'] }
+    const initial = generateMonster(baseRequest, catalog)
+    const rerolled = rerollSlot({ spec: initial.spec, slotId: 'bodyFrame', locks: {}, catalog })
+    const selected = selectVisualPart({
+      spec: initial.spec,
+      slotId: 'bodyFrame',
+      partId: initial.spec.visualSlots.bodyFrame.partId,
+      locks: {},
+      catalog,
+    })
+
+    expect(initial.affectedSlots).toEqual([
+      'bodyFrame', 'colorScheme', 'surfaceMaterial', 'pattern',
+      'headShape', 'headAppendage', 'arms', 'legs', 'tail', 'extraAppendage',
+      'eyes', 'mouthShape', 'oralDetail', 'effect',
+    ])
+    expect(rerolled.affectedSlots).toEqual(['bodyFrame', 'colorScheme', 'eyes'])
+    expect(selected.affectedSlots).toEqual(['bodyFrame', 'colorScheme', 'eyes'])
+  })
+
+  it('reports composition affected slots in structure-first order', () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.dependencies = { bodyFrame: ['colorScheme', 'eyes'] }
+    const initial = generateMonster(baseRequest, catalog)
+    const rerolled = rerollSlot({ spec: initial.spec, slotId: 'bodyFrame', locks: {}, catalog })
+    const selected = selectVisualPart({
+      spec: initial.spec,
+      slotId: 'bodyFrame',
+      partId: initial.spec.visualSlots.bodyFrame.partId,
+      locks: {},
+      catalog,
+    })
+
+    expect(initial.affectedSlots).toEqual(GENERATION_ORDER)
+    expect(rerolled.affectedSlots).toEqual(['bodyFrame', 'eyes', 'colorScheme'])
+    expect(selected.affectedSlots).toEqual(['bodyFrame', 'eyes', 'colorScheme'])
   })
 
   it('repeats the same spec for the same request and catalog', () => {

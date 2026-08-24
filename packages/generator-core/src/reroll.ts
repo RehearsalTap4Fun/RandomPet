@@ -1,6 +1,6 @@
 import { checkPartCompatibility } from './candidates.js'
 import { VISUAL_SLOT_IDS } from './contracts.js'
-import { GENERATION_ORDER, generationOrderForCatalog, resolveSlot } from './generate.js'
+import { generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
   Catalog,
   Diagnostic,
@@ -44,7 +44,7 @@ function result(
 function orderedAffectedSlots(origin: VisualSlotId, catalog: Catalog): VisualSlotId[] {
   const affected = descendantsOf(origin, catalog)
   affected.add(origin)
-  return GENERATION_ORDER.filter(slotId => affected.has(slotId))
+  return generationOrderForCatalog(catalog).filter(slotId => affected.has(slotId))
 }
 
 function cloneSpec(spec: MonsterSpec): MonsterSpec {

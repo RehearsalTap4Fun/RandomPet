@@ -184,6 +184,6 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     spec,
     diagnostics,
     blocked: diagnostics.some(item => item.severity === 'error'),
-    affectedSlots: [...GENERATION_ORDER],
+    affectedSlots: [...generationOrderForCatalog(catalog)],
   }
 }
