@@ -775,6 +775,17 @@ export async function validateProductionSourceIndex(
       const expectedReworkPath = 'packages/asset-catalog/review/v0.2.0/rework-record.json'
       if (source.reworkRecordPath !== expectedReworkPath || !isSha256(source.reworkRecordSha256)) {
         diagnostics.push(error('PRODUCTION_REWORK_RECORD_MISSING', ['sources', part.id, 'reworkRecordPath'], `Part ${part.id} needs the hashed 0.2.0 rework-record.json.`))
+      } else {
+        const reworkRecordPath = resolve(assetRoot, '..', '..', 'review', 'v0.2.0', 'rework-record.json')
+        try {
+          const reworkRecord = await readFile(reworkRecordPath)
+          const actualHash = createHash('sha256').update(reworkRecord).digest('hex')
+          if (actualHash !== source.reworkRecordSha256) {
+            diagnostics.push(error('PRODUCTION_REWORK_RECORD_HASH_MISMATCH', ['sources', part.id, 'reworkRecordSha256'], `Part ${part.id} rework-record SHA-256 differs from the committed file.`))
+          }
+        } catch {
+          diagnostics.push(error('PRODUCTION_REWORK_RECORD_MISSING', ['sources', part.id, 'reworkRecordPath'], `Part ${part.id} rework-record.json cannot be read from ${reworkRecordPath}.`))
+        }
       }
       for (const [nodeIndex, node] of (part.composition?.renderNodes ?? []).entries()) {
         if (node.assetSha256 !== undefined) assetChecks.push(validateAssetFile(assetRoot, node.assetPath, node.assetSha256, ['parts', part.id, 'composition', 'renderNodes', String(nodeIndex), 'assetPath']))

@@ -1,6 +1,6 @@
 import { validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
 import { readFile, realpath } from 'node:fs/promises'
-import { dirname, resolve } from 'node:path'
+import { basename, dirname, resolve } from 'node:path'
 import { validateCatalogFiles } from './file-validation.js'
 import { loadCatalog } from './load-catalog.js'
 import { productionEvidenceSourceIndexPath, validateProductionEvidenceManifest } from './evidence-root.js'
@@ -88,12 +88,22 @@ async function main(): Promise<void> {
       diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_MANIFEST_MISSING', path: [evidenceManifestPath], message: 'Cannot resolve/read the explicit independent production evidence manifest.' })
     }
     const version = parsed.value.version
-    const sourceIndexFile = sourceIndexPath.replaceAll('\\', '/').split('/').at(-1)
-    if (sourceIndexFile !== productionEvidenceSourceIndexPath(version).split('/').at(-1)) {
-      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_VERSION_MISMATCH', path: [sourceIndexPath], message: `Source-index path does not match catalog version ${version}.` })
+    const packageRoot = resolve(catalogDirectory, '..', '..')
+    const expectedSourceIndex = resolve(packageRoot, basename(productionEvidenceSourceIndexPath(version)))
+    const expectedEvidenceManifest = resolve(packageRoot, 'audit', `v${version}`, 'evidence-manifest.json')
+    try {
+      if (sourceIndexPath !== await realpath(expectedSourceIndex)) {
+        diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [sourceIndexPath], message: `Source-index must be the canonical ${expectedSourceIndex} for catalog version ${version}.` })
+      }
+    } catch {
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [expectedSourceIndex], message: `Expected source-index cannot be resolved for catalog version ${version}.` })
     }
-    if (!evidenceManifestPath.replaceAll('\\', '/').includes(`/audit/v${version}/`)) {
-      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_VERSION_MISMATCH', path: [evidenceManifestPath], message: `Evidence manifest path does not match catalog version ${version}.` })
+    try {
+      if (evidenceManifestPath !== await realpath(expectedEvidenceManifest)) {
+        diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [evidenceManifestPath], message: `Evidence manifest must be the canonical ${expectedEvidenceManifest} for catalog version ${version}.` })
+      }
+    } catch {
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [expectedEvidenceManifest], message: `Expected evidence manifest cannot be resolved for catalog version ${version}.` })
     }
     if (sourceIndex.catalogVersion !== version) {
       diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_VERSION_MISMATCH', path: ['catalogVersion'], message: `Source-index version must equal catalog version ${version}.` })

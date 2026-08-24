@@ -1,18 +1,48 @@
 import { createHash } from 'node:crypto'
-import { mkdtemp, readFile, rm } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { execFile as execFileCallback } from 'node:child_process'
+import { promisify } from 'node:util'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
 import { buildRuntimeAsset, runtimeAssetBuildPaths } from './build-runtime-assets.js'
 
 const temporaryDirectories: string[] = []
+const execFile = promisify(execFileCallback)
 
 afterEach(async () => {
   await Promise.all(temporaryDirectories.splice(0).map(path => rm(path, { recursive: true, force: true })))
 })
 
 describe('buildRuntimeAsset', () => {
+  it('builds source PNGs into the explicit version production asset root through the CLI', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-runtime-cli-'))
+    temporaryDirectories.push(root)
+    const sourcePath = join(root, 'asset-source', 'v0.2.0', 'parts', 'eyes_test.png')
+    await mkdir(join(root, 'asset-source', 'v0.2.0', 'parts'), { recursive: true })
+    await sharp({
+      create: { width: 64, height: 64, channels: 4, background: { r: 1, g: 2, b: 3, alpha: 0.5 } },
+    }).png().toFile(sourcePath)
+
+    const result = await execFile(process.execPath, [
+      join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'),
+      join(process.cwd(), 'scripts', 'build-runtime-assets.ts'),
+      '--version', '0.2.0',
+    ], { cwd: root })
+    const outputPath = join(root, 'packages', 'asset-catalog', 'assets', 'v0.2.0', 'parts', 'eyes_test.webp')
+
+    await expect(sharp(await readFile(outputPath)).metadata()).resolves.toMatchObject({ format: 'webp', width: 1024, height: 1024 })
+    expect(JSON.parse(result.stdout)).toMatchObject({ built: 1, assetDirectory: 'packages/asset-catalog/assets/v0.2.0' })
+  })
+
+  it('rejects a runtime CLI invocation without an explicit version', async () => {
+    await expect(execFile(process.execPath, [
+      join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'),
+      join(process.cwd(), 'scripts', 'build-runtime-assets.ts'),
+    ])).rejects.toMatchObject({ code: 1, stderr: expect.stringContaining('Usage:') })
+  })
+
   it('uses an explicit release version to select production roots', () => {
     expect(runtimeAssetBuildPaths('0.2.0')).toMatchObject({
       sourceRoot: 'asset-source/v0.2.0',

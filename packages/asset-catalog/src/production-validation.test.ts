@@ -104,6 +104,36 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('rejects production evidence that is not the catalog root canonical source index and manifest', async () => {
+    const { root, catalogDirectory } = await makeProductionCliFixture()
+    const alternateRoot = join(root, 'alternate')
+    const alternateAudit = join(alternateRoot, 'audit', 'v0.1.0')
+    await mkdir(alternateAudit, { recursive: true })
+    await writeFile(join(alternateRoot, 'source-index.json'), await readFile(join(root, 'source-index.json')))
+    await writeFile(join(alternateAudit, 'evidence-manifest.json'), await readFile(join(root, 'audit', 'v0.1.0', 'evidence-manifest.json')))
+    await writeFile(join(root, 'audit', 'v0.1.0', 'renamed-manifest.json'), await readFile(join(root, 'audit', 'v0.1.0', 'evidence-manifest.json')))
+
+    const executable = join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs')
+    const cli = join(process.cwd(), 'packages', 'asset-catalog', 'src', 'cli.ts')
+    const shared = [
+      executable, cli, join(catalogDirectory, 'catalog.json'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'), '--production',
+    ]
+    for (const [sourceIndexPath, evidenceManifestPath] of [
+      [join(alternateRoot, 'source-index.json'), join(root, 'audit', 'v0.1.0', 'evidence-manifest.json')],
+      [join(root, 'source-index.json'), join(root, 'audit', 'v0.1.0', 'renamed-manifest.json')],
+    ]) {
+      await expect(execFile(process.execPath, [
+        ...shared,
+        '--source-index', sourceIndexPath,
+        '--evidence-manifest', evidenceManifestPath,
+      ])).rejects.toMatchObject({
+        code: 1,
+        stderr: expect.stringContaining('PRODUCTION_EVIDENCE_PATH_INVALID'),
+      })
+    }
+  })
+
   it('requires exact PNG and WebP hashes for every 0.2.0 composition render node', () => {
     const catalog = makeCompositionCatalogFixture()
     const node = catalog.parts.find(part => !part.composition!.isNone)!.composition!.renderNodes[0]!
@@ -115,6 +145,39 @@ describe('strict production catalog validation', () => {
     expect(diagnostics).toContainEqual(expect.objectContaining({
       code: 'PRODUCTION_COMPOSITION_NODE_METADATA_MISSING',
       path: expect.arrayContaining(['composition', 'renderNodes', '0']),
+    }))
+  })
+
+  it('requires every 0.2.0 part source to reference an existing rework record with its actual hash', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-rework-record-'))
+    temporaryDirectories.push(root)
+    const assetRoot = join(root, 'assets', 'v0.2.0')
+    const reworkDirectory = join(root, 'review', 'v0.2.0')
+    await mkdir(reworkDirectory, { recursive: true })
+    const reworkPath = join(reworkDirectory, 'rework-record.json')
+    const record = Buffer.from('{"parts":{}}\n')
+    const expectedPath = 'packages/asset-catalog/review/v0.2.0/rework-record.json'
+    const sourceIndex = (sha256: string) => ({
+      catalogVersion: '0.2.0',
+      sources: catalog.parts.map(part => ({
+        sourceId: part.id,
+        reworkRecordPath: expectedPath,
+        reworkRecordSha256: sha256,
+      })),
+      qualityGateSummary: {},
+    })
+
+    const missing = await validateProductionSourceIndex(catalog, assetRoot, sourceIndex(createHash('sha256').update(record).digest('hex')))
+    expect(missing).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_REWORK_RECORD_MISSING' }))
+
+    await writeFile(reworkPath, record)
+    const mismatched = await validateProductionSourceIndex(catalog, assetRoot, sourceIndex('f'.repeat(64)))
+    expect(mismatched).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_REWORK_RECORD_HASH_MISMATCH' }))
+
+    const matching = await validateProductionSourceIndex(catalog, assetRoot, sourceIndex(createHash('sha256').update(record).digest('hex')))
+    expect(matching).not.toContainEqual(expect.objectContaining({
+      code: expect.stringMatching(/^PRODUCTION_REWORK_RECORD_/u),
     }))
   })
 

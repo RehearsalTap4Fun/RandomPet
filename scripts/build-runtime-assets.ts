@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
-import { mkdir, readFile } from 'node:fs/promises'
-import { dirname } from 'node:path'
+import { mkdir, readdir, readFile } from 'node:fs/promises'
+import { dirname, extname, join, relative, resolve } from 'node:path'
 import sharp from 'sharp'
 import { productionPaths, type ProductionPaths } from './production-paths.js'
 
@@ -17,6 +17,17 @@ export interface RuntimeAssetHashes {
 
 export function runtimeAssetBuildPaths(version: string): ProductionPaths {
   return productionPaths(version)
+}
+
+async function collectPngFiles(root: string, prefix = ''): Promise<string[]> {
+  const entries = await readdir(join(root, prefix), { withFileTypes: true })
+  const files: string[] = []
+  for (const entry of entries) {
+    const path = prefix === '' ? entry.name : join(prefix, entry.name)
+    if (entry.isDirectory()) files.push(...await collectPngFiles(root, path))
+    else if (entry.isFile() && extname(entry.name).toLowerCase() === '.png') files.push(path)
+  }
+  return files
 }
 
 async function sha256File(path: string): Promise<string> {
@@ -39,12 +50,46 @@ export async function buildRuntimeAsset(
   }
 }
 
+export async function buildVersionedRuntimeAssets(
+  version: string,
+  options: { repositoryRoot?: string } = {},
+): Promise<{ paths: ProductionPaths, built: number }> {
+  const paths = runtimeAssetBuildPaths(version)
+  const repositoryRoot = options.repositoryRoot ?? process.cwd()
+  const sourceRoot = resolve(repositoryRoot, paths.sourceRoot)
+  const assetRoot = resolve(repositoryRoot, paths.assetDirectory)
+  const sourceGroups = ['parts', 'rigs']
+  const inputs = (await Promise.all(sourceGroups.map(async group => {
+    try {
+      return await collectPngFiles(sourceRoot, group)
+    } catch {
+      return [] as string[]
+    }
+  }))).flat()
+  if (inputs.length === 0) throw new Error(`No runtime PNG inputs found below ${paths.sourceRoot}/parts or ${paths.sourceRoot}/rigs.`)
+
+  await Promise.all(inputs.map(async input => {
+    const sourcePath = resolve(sourceRoot, input)
+    const outputRelative = input.replace(/\.png$/iu, '.webp')
+    const runtimePath = resolve(assetRoot, outputRelative)
+    const sourceRelative = relative(sourceRoot, sourcePath)
+    const runtimeRelative = relative(assetRoot, runtimePath)
+    if (sourceRelative.startsWith('..') || runtimeRelative.startsWith('..')) throw new Error(`Runtime asset path escaped version root: ${input}`)
+    await buildRuntimeAsset({ sourcePath, runtimePath, sourceId: outputRelative.replace(/\.webp$/iu, '') })
+  }))
+  return { paths, built: inputs.length }
+}
+
 if (process.argv[1]?.endsWith('build-runtime-assets.ts')) {
   const versionFlag = process.argv.indexOf('--version')
   const version = versionFlag === -1 ? undefined : process.argv[versionFlag + 1]
   if (versionFlag === -1 || version === undefined || version.startsWith('--') || process.argv.length !== 4) {
     throw new Error('Usage: tsx scripts/build-runtime-assets.ts --version <release-version>')
   }
-  const paths = runtimeAssetBuildPaths(version)
-  console.log(JSON.stringify({ sourceRoot: paths.sourceRoot, assetDirectory: paths.assetDirectory }))
+  const result = await buildVersionedRuntimeAssets(version)
+  console.log(JSON.stringify({
+    sourceRoot: result.paths.sourceRoot,
+    assetDirectory: result.paths.assetDirectory,
+    built: result.built,
+  }))
 }
