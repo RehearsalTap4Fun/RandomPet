@@ -1,15 +1,14 @@
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { generateMonster, VISUAL_SLOT_IDS, type Catalog, type Diagnostic } from '@qmonster/generator-core'
+import { generateMonster, type Catalog, type Diagnostic } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
-import { createCreatorSession } from './state/contracts.js'
+import { createCreatorSession, type CreatorSession } from './state/contracts.js'
 import { refreshSessionValidity } from './state/session-diagnostics.js'
 import type { SessionStorage } from './state/persistence.js'
 import { App, CreatorWorkbench, legacyProductionCatalog, productionCatalog, productionCatalogRegistry } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
-import { SLOT_LABELS } from './components/slot-config.js'
 
 function installCanvasContexts() {
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function (
@@ -233,6 +232,7 @@ describe('CreatorWorkbench', () => {
     const renderer: PreviewRenderer = vi.fn(async () => ({
       drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
     }))
+    let observedSession: CreatorSession | undefined
     const slowCurrent = deferred<{ ok: true; value: { spec: ReturnType<typeof generateMonster>['spec']; catalog: Catalog }; diagnostics: Diagnostic[] }>()
     const fastLegacy = deferred<{ ok: true; value: { spec: ReturnType<typeof generateMonster>['spec']; catalog: Catalog }; diagnostics: Diagnostic[] }>()
     const parseSpecFile = vi.fn((file: File) => file.name === 'current.json' ? slowCurrent.promise : fastLegacy.promise)
@@ -241,12 +241,13 @@ describe('CreatorWorkbench', () => {
       parseSpecFile={parseSpecFile}
       storage={storage}
       previewRenderer={renderer}
+      onSessionChange={session => { observedSession = structuredClone(session) }}
     />)
 
     const seedBefore = (await screen.findByLabelText('种子') as HTMLInputElement).value
     const themeBefore = (screen.getByLabelText('主题') as HTMLSelectElement).value
-    const visualSlotsBefore = structuredClone(preparedSession.spec.visualSlots)
-    const diagnosticsBefore = screen.getByRole('region', { name: '诊断信息' }).textContent
+    await waitFor(() => expect(observedSession).toBeDefined())
+    const sessionBefore = structuredClone(observedSession!)
     const input = screen.getByLabelText('选择要导入的 JSON 文件')
     await user.upload(input, new File(['current'], 'current.json'))
     await user.upload(input, new File(['legacy'], 'legacy.json'))
@@ -266,10 +267,10 @@ describe('CreatorWorkbench', () => {
 
     expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe(seedBefore)
     expect((screen.getByLabelText('主题') as HTMLSelectElement).value).toBe(themeBefore)
-    for (const slotId of VISUAL_SLOT_IDS) {
-      expect((screen.getByLabelText(`${SLOT_LABELS[slotId]}部件`) as HTMLSelectElement).value)
-        .toBe(visualSlotsBefore[slotId].partId)
-    }
-    expect(screen.getByRole('region', { name: '诊断信息' }).textContent).toBe(diagnosticsBefore)
+    await waitFor(() => expect(observedSession?.spec.seed).toBe(sessionBefore.spec.seed))
+    expect(observedSession?.spec.themeId).toBe(sessionBefore.spec.themeId)
+    expect(observedSession?.spec.visualSlots).toEqual(sessionBefore.spec.visualSlots)
+    expect(observedSession?.diagnostics).toEqual(sessionBefore.diagnostics)
+    expect(observedSession?.blocked).toBe(sessionBefore.blocked)
   })
 })

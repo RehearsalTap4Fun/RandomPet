@@ -188,6 +188,7 @@ interface AppProps {
   parseSpecFile?: ExportControlsProps['parseSpecFile']
   storage?: SessionStorage
   previewRenderer?: PreviewRenderer
+  onSessionChange?: (session: CreatorSession) => void
 }
 
 export function App({
@@ -195,6 +196,7 @@ export function App({
   parseSpecFile,
   storage,
   previewRenderer,
+  onSessionChange,
 }: AppProps = {}) {
   const [exportCapabilities, setExportCapabilities] = useState<CreatorSession['exportCapabilities'] | null>(
     initialExportCapabilities ?? null,
@@ -222,6 +224,7 @@ export function App({
     {...(parseSpecFile === undefined ? {} : { parseSpecFile })}
     {...(storage === undefined ? {} : { storage })}
     {...(previewRenderer === undefined ? {} : { previewRenderer })}
+    {...(onSessionChange === undefined ? {} : { onSessionChange })}
   />
 }
 
@@ -230,11 +233,13 @@ function InitializedCreatorApp({
   parseSpecFile,
   storage,
   previewRenderer,
+  onSessionChange,
 }: {
   exportCapabilities: CreatorSession['exportCapabilities']
   parseSpecFile?: ExportControlsProps['parseSpecFile']
   storage?: SessionStorage
   previewRenderer?: PreviewRenderer
+  onSessionChange?: (session: CreatorSession) => void
 }) {
   const { session, dispatch } = useCreator({
     catalog: productionCatalog,
@@ -250,6 +255,10 @@ function InitializedCreatorApp({
     spec: import('@qmonster/generator-core').MonsterSpec
     catalog: Catalog
   } | null>(null)
+
+  useEffect(() => {
+    onSessionChange?.(session)
+  }, [onSessionChange, session])
 
   if (legacyInspection !== null) {
     return <LegacySpecViewer
