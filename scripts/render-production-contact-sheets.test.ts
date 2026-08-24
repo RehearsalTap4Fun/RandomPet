@@ -1,8 +1,11 @@
+import { mkdtemp, readFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import sharp from 'sharp'
 import { loadCommittedProductionCatalog } from './build-production-catalog.js'
 import { productionPaths } from './production-paths.js'
-import { contactCompositeOrder, contactPlacement, measureRearLayerVisibility, planContactSheets, renderContactCell } from './render-production-contact-sheets.js'
+import { contactCompositeOrder, contactPlacement, generateContactSheets, measureRearLayerVisibility, planContactSheets, renderContactCell } from './render-production-contact-sheets.js'
 
 describe('production contact-sheet plan', () => {
   it('places every visual candidate on every declared compatible rig exactly once', async () => {
@@ -26,6 +29,40 @@ describe('production contact-sheet plan', () => {
     await expect(sharp(cell).metadata()).resolves.toMatchObject({ width: 300, height: 340, hasAlpha: true })
     const pixel = await sharp(cell).extract({ left: 150, top: 140, width: 1, height: 1 }).raw().toBuffer()
     expect([...pixel.slice(0, 3)]).toEqual([255, 0, 0])
+  })
+
+  it('records non-null composition metrics and every paired target-node resolver call', async () => {
+    const { catalog } = await loadCommittedProductionCatalog({ version: '0.2.0' })
+    const target = catalog.parts.find(part => part.id === 'legs_mushroom')!
+    const reviewDirectory = await mkdtemp(join(tmpdir(), 'qmonster-composition-sheet-'))
+    const frame = await sharp({ create: { width: 280, height: 280, channels: 4, background: '#ff0000ff' } }).png().toBuffer()
+    const reviewCatalog = {
+      ...catalog,
+      rigs: catalog.rigs.filter(rig => rig.id === 'biped'),
+      parts: [target],
+    }
+
+    await generateContactSheets(reviewCatalog, async () => ({
+      frame,
+      evidence: {
+        rendererVersion: '0.2.0',
+        compositionMetrics: {
+          eyesInsideRatio: 1,
+          eyesVisibleRatio: 1,
+          mouthInsideRatio: 1,
+          mouthVisibleRatio: 1,
+          visibleBounds: { x: 100, y: 100, width: 1000, height: 1000 },
+        },
+        drawnAssetIds: ['legs_mushroom_left', 'legs_mushroom_right'],
+        resolvedAssetPaths: ['nodes/legs_mushroom/left.webp', 'nodes/legs_mushroom/right.webp'],
+      },
+    }), { reviewDirectory })
+
+    const index = JSON.parse(await readFile(join(reviewDirectory, 'contact-sheet-index.json'), 'utf8'))
+    expect(index.sheets[0]).toMatchObject({
+      compositionVerified: true,
+      resolvedTargetNodePaths: ['nodes/legs_mushroom/left.webp', 'nodes/legs_mushroom/right.webp'],
+    })
   })
 
   it('reviews rear appendages behind the locked base and body candidates standalone', () => {

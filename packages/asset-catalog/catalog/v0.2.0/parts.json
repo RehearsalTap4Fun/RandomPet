@@ -679,10 +679,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         },
         "biped": {
@@ -701,10 +701,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         },
         "floating": {
@@ -723,10 +723,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         }
       }
@@ -815,10 +815,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         },
         "biped": {
@@ -837,10 +837,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         },
         "floating": {
@@ -859,10 +859,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         }
       }
@@ -953,10 +953,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         },
         "biped": {
@@ -975,10 +975,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         },
         "floating": {
@@ -997,10 +997,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         }
       }
@@ -1091,10 +1091,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         },
         "biped": {
@@ -1113,10 +1113,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         },
         "floating": {
@@ -1135,10 +1135,10 @@
             }
           },
           "faceSafeZone": {
-            "x": 270,
-            "y": 300,
-            "width": 484,
-            "height": 430
+            "x": 120,
+            "y": 160,
+            "width": 784,
+            "height": 720
           }
         }
       }
@@ -1204,7 +1204,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.45,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1279,7 +1279,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.45,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1354,7 +1354,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.45,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1427,7 +1427,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.45,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1500,7 +1500,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.45,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1575,7 +1575,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.35,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1675,7 +1675,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.35,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1775,7 +1775,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.35,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1877,7 +1877,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.35,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -1977,7 +1977,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.12,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -2052,7 +2052,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.12,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -2127,7 +2127,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.12,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -2204,7 +2204,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.12,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -2325,7 +2325,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.3,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -2398,7 +2398,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.3,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -2471,7 +2471,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.3,
             "mirrorX": false
           },
           "layer": "faceAndHeadwear",
@@ -3221,7 +3221,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.5,
             "mirrorX": false
           },
           "layer": "rearAppendage",
@@ -3294,7 +3294,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.5,
             "mirrorX": false
           },
           "layer": "rearAppendage",
@@ -3361,7 +3361,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.5,
             "mirrorX": false
           },
           "layer": "rearAppendage",
@@ -3564,7 +3564,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.5,
             "mirrorX": false
           },
           "layer": "rearAppendage",
@@ -3629,7 +3629,7 @@
             "y": 512
           },
           "transform": {
-            "scale": 1,
+            "scale": 0.5,
             "mirrorX": false
           },
           "layer": "rearAppendage",

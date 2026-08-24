@@ -269,7 +269,7 @@ function geometryForPart(part: (typeof PRODUCTION_PARTS)[number]): PartCompositi
         mouth: { x: 512, y: 590 },
         headAppendage: { x: 512, y: 245 },
       },
-      faceSafeZone: { x: 270, y: 300, width: 484, height: 430 },
+      faceSafeZone: { x: 120, y: 160, width: 784, height: 720 },
     }]))
   }
   if (part.slotId === 'mouthShape') {
@@ -303,6 +303,19 @@ function clipPolicy(part: (typeof PRODUCTION_PARTS)[number]): 'none' | 'body' | 
   if (part.slotId === 'surfaceMaterial' || part.slotId === 'pattern' || part.slotId === 'colorScheme') return 'body'
   if (part.slotId === 'effect') return 'protect-face'
   return 'none'
+}
+
+function singleNodeScale(part: (typeof PRODUCTION_PARTS)[number]): number {
+  if (part.id === 'head_mushroom_cap') return 0.78
+  switch (part.slotId) {
+    case 'eyes': return 0.45
+    case 'mouthShape': return 0.35
+    case 'oralDetail': return 0.12
+    case 'headAppendage': return 0.3
+    case 'tail': return 0.5
+    case 'extraAppendage': return 0.5
+    default: return 1
+  }
 }
 
 async function compositionForPart(input: {
@@ -357,7 +370,7 @@ async function compositionForPart(input: {
       parentSlot,
       socket: singleNodeSocket(part),
       origin: part.origin,
-      transform: { scale: part.id === 'head_mushroom_cap' ? 0.78 : 1, mirrorX: false },
+      transform: { scale: singleNodeScale(part), mirrorX: false },
       layer: part.layer,
       compatibleRigs: input.compatibleRigs,
       clipPolicy: clipPolicy(part),

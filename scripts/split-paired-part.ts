@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
-import { resolve, sep } from 'node:path'
+import { lstat, mkdir, readFile, realpath, writeFile } from 'node:fs/promises'
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { resolveOutputPath } from './safe-output.js'
 
@@ -30,15 +31,59 @@ const PNG_OPTIONS = {
   palette: false,
 } as const
 
-function assertSafeVersionedOutput(outputDirectory: string): void {
-  const normalized = resolve(outputDirectory).toLowerCase()
-  const allowedMarkers = [
-    `${sep}asset-source${sep}v0.2.0${sep}`,
-    `${sep}packages${sep}asset-catalog${sep}assets${sep}v0.2.0${sep}`,
-  ]
-  if (!allowedMarkers.some(marker => `${normalized}${sep}`.includes(marker))) {
-    throw new Error(`Paired-part output must stay inside a v0.2.0 safe root: ${outputDirectory}`)
+const REPOSITORY_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+const ALLOWED_OUTPUT_ROOTS = [
+  join(REPOSITORY_ROOT, 'asset-source', 'v0.2.0'),
+  join(REPOSITORY_ROOT, 'packages', 'asset-catalog', 'assets', 'v0.2.0'),
+] as const
+
+function contained(root: string, target: string): boolean {
+  const remainder = relative(root, target)
+  return remainder === '' || (!remainder.startsWith('..') && !isAbsolute(remainder))
+}
+
+async function existingAncestor(path: string): Promise<string> {
+  let candidate = path
+  while (true) {
+    try {
+      await lstat(candidate)
+      return candidate
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+      const parent = dirname(candidate)
+      if (parent === candidate) throw error
+      candidate = parent
+    }
   }
+}
+
+async function canonicalOutputDirectory(outputDirectory: string): Promise<{
+  directory: string
+  allowedRoot: string
+}> {
+  const requested = resolve(outputDirectory)
+  const lexicalAllowedRoot = ALLOWED_OUTPUT_ROOTS.find(root => contained(root, requested))
+  if (lexicalAllowedRoot === undefined) {
+    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+  }
+  const [allowedRoot, ancestor] = await Promise.all([
+    realpath(lexicalAllowedRoot),
+    existingAncestor(requested),
+  ])
+  const canonicalAncestor = await realpath(ancestor)
+  if (!contained(allowedRoot, canonicalAncestor)) {
+    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+  }
+  const canonicalRequested = resolve(canonicalAncestor, relative(ancestor, requested))
+  if (!contained(allowedRoot, canonicalRequested)) {
+    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+  }
+  await mkdir(canonicalRequested, { recursive: true })
+  const verifiedDirectory = await realpath(canonicalRequested)
+  if (!contained(allowedRoot, verifiedDirectory)) {
+    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+  }
+  return { directory: verifiedDirectory, allowedRoot }
 }
 
 function assertCrop(crop: PairCrop, width: number, height: number): void {
@@ -71,6 +116,7 @@ function sha256(value: Uint8Array): string {
 async function splitOne(
   inputPath: string,
   outputDirectory: string,
+  allowedRoot: string,
   crop: PairCrop,
 ): Promise<SplitNodeResult> {
   const cropped = await sharp(inputPath)
@@ -102,8 +148,12 @@ async function splitOne(
       channels: 4,
     },
   }).extract({ left: minX, top: minY, width, height }).png(PNG_OPTIONS).toBuffer()
-  const pngPath = resolveOutputPath(outputDirectory, `${crop.id}.png`)
-  const webpPath = resolveOutputPath(outputDirectory, `${crop.id}.webp`)
+  const verifiedDirectory = await realpath(outputDirectory)
+  if (!contained(allowedRoot, verifiedDirectory)) {
+    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+  }
+  const pngPath = resolveOutputPath(verifiedDirectory, `${crop.id}.png`)
+  const webpPath = resolveOutputPath(verifiedDirectory, `${crop.id}.webp`)
   const png = await sharp(input).png(PNG_OPTIONS).toBuffer()
   const webp = await sharp(input).webp({ lossless: true }).toBuffer()
   await Promise.all([writeFile(pngPath, png), writeFile(webpPath, webp)])
@@ -128,7 +178,6 @@ export async function splitPairedPart(
   outputDirectory: string,
   crops: readonly [PairCrop, PairCrop],
 ): Promise<readonly [SplitNodeResult, SplitNodeResult]> {
-  assertSafeVersionedOutput(outputDirectory)
   const metadata = await sharp(inputPath).metadata()
   if (metadata.width === undefined || metadata.height === undefined) {
     throw new Error(`Cannot read paired-part dimensions: ${inputPath}`)
@@ -138,9 +187,8 @@ export async function splitPairedPart(
   }
   for (const crop of crops) assertCrop(crop, metadata.width, metadata.height)
 
-  const root = resolve(outputDirectory)
-  await mkdir(root, { recursive: true })
-  const left = await splitOne(inputPath, root, crops[0])
-  const right = await splitOne(inputPath, root, crops[1])
+  const root = await canonicalOutputDirectory(outputDirectory)
+  const left = await splitOne(inputPath, root.directory, root.allowedRoot, crops[0])
+  const right = await splitOne(inputPath, root.directory, root.allowedRoot, crops[1])
   return [left, right]
 }

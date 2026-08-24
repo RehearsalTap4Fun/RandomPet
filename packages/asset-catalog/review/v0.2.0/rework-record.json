@@ -1,39 +1,39 @@
 {
   "status": "approved",
-  "reviewedAt": "2026-08-24T13:20:00+08:00",
+  "reviewedAt": "2026-08-24T14:03:47+08:00",
   "reviewer": "Codex visual QA",
-  "reviewMethod": "Original-resolution inspection of Chromium contact sheets rendered through @qmonster/renderer-canvas browserSurfaceFactory, plus immutable extraction-gate metrics and a separate 256x256 paired-feet readability check.",
+  "reviewMethod": "Original-resolution inspection of Chromium contact sheets rendered through the v0.2 renderCompositionMonster path with non-null compositionMetrics and asserted target-node resolver calls for all 115 compatible placements, plus immutable extraction-gate metrics and a separate 256x256 paired-feet readability check.",
   "taskBoundary": "Part-level composition contact sheets only; Task 7 whole-creature golden approval has not occurred and is not asserted here.",
   "contactSheets": [
     {
       "rigId": "blob",
       "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-blob.png",
-      "sha256": "46d3cbabcaee1eb869164c5c1a88d9101d9bb4892c26a6a936a5ba1f5b9f0aba",
+      "sha256": "1bf8f8678c5da08aabdf7c2121a012a2e693be52a339c85b46dfdf098c3ca1a7",
       "candidateCount": 39,
       "width": 1200,
       "height": 3482,
       "result": "approved",
-      "finding": "All 39 declared blob placements are present once; paired limbs attach on their declared nodes, face parts remain inside the head region, body-clipped overlays preserve the silhouette, and protect-face effects remain sparse and readable."
+      "finding": "All 39 declared blob placements are present once through real v0.2 composition; paired limbs attach on their declared nodes, resized face/head-appendage parts remain readable without diagnostic occlusion, body-clipped overlays preserve the silhouette, and protect-face effects remain sparse and readable."
     },
     {
       "rigId": "biped",
       "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-biped.png",
-      "sha256": "ba19aa7cdb508d2fc63c2f5a56c4729e0fb0b3e22ed656e39df8602d19213605",
+      "sha256": "82429973ef98e026803c3466cc946cc559bd570aee7fc44573920d92f3dd5032",
       "candidateCount": 39,
       "width": 1200,
       "height": 3482,
       "result": "approved",
-      "finding": "All 39 declared biped placements are present once. Candidate 3 mushroom legs read as two low weight-bearing feet with separate soles and ankle contacts, not hats or a second head; long arms and moth wings remain bilateral and attached."
+      "finding": "All 39 declared biped placements are present once through real v0.2 composition. Candidate 3 mushroom legs read as two low weight-bearing feet with separate soles and ankle contacts, not hats or a second head; left/right resolver evidence is recorded and long arms and moth wings remain bilateral and attached."
     },
     {
       "rigId": "floating",
       "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-floating.png",
-      "sha256": "12eb1120edef784b9cfc85ec9fddaa81da5285a0fac9b3685071977da6dbdf8d",
+      "sha256": "d1833e17d4a4f914fd566be844f76cc3f791c83b27e0bb8c0b2828e3de2af992",
       "candidateCount": 37,
       "width": 1200,
       "height": 3482,
       "result": "approved",
-      "finding": "All 37 declared floating placements are present once; paddle arms, tiptoe legs, fan tail and tentacles preserve their attachment, while quiet fur provides the mandatory cross-theme fallback without obscuring the floating silhouette."
+      "finding": "All 37 declared floating placements are present once through real v0.2 composition; paddle arms, tiptoe legs, fan tail and tentacles preserve their attachment, while quiet fur provides the mandatory cross-theme fallback without obscuring the floating silhouette."
     }
   ],
   "reworkActions": [

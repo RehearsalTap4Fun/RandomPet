@@ -3,8 +3,8 @@ import { mkdir, readFile } from 'node:fs/promises'
 import { chromium } from '@playwright/test'
 import { resolvePlacement } from '../../packages/renderer-canvas/src/layout.js'
 
-const runtimePath = 'packages/asset-catalog/assets/v0.1.0/rigs/base_blob_v1.png'
-const reviewPath = 'asset-source/v0.1.0/review/base_blob_v1-vertical-render.png'
+const runtimePath = 'packages/asset-catalog/assets/v0.2.0/rigs/base_blob_v1.png'
+const reviewPath = 'asset-source/v0.2.0/review/base_blob_v1-vertical-render.png'
 const runtime = await readFile(runtimePath)
 const placement = resolvePlacement(
   { x: 1024, y: 1024 },
@@ -60,7 +60,7 @@ try {
     runtimeBase64: runtime.toString('base64'),
     ...placement.value,
   })
-  await mkdir('asset-source/v0.1.0/review', { recursive: true })
+  await mkdir('asset-source/v0.2.0/review', { recursive: true })
   await page.locator('#target').screenshot({ path: reviewPath, omitBackground: true })
   const rgba = Buffer.from(metrics.rgbaBase64, 'base64')
   console.log(JSON.stringify({

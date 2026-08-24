@@ -32,9 +32,9 @@ const sockets: Record<typeof slots[number], [number, number]> = {
   surfaceMaterial: [512, 512], pattern: [512, 512], colorScheme: [512, 512], effect: [512, 512],
 }
 
-await mkdir('asset-source/v0.1.0/guides', { recursive: true })
+await mkdir('asset-source/v0.2.0/guides', { recursive: true })
 for (const rig of rigs) {
-  const base = `packages/asset-catalog/assets/v0.1.0/rigs/base_${rig}_v1.png`
+  const base = `packages/asset-catalog/assets/v0.2.0/rigs/base_${rig}_v1.png`
   for (const slot of slots) {
     const [socketX, socketY] = sockets[slot]
     const overlay = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024">
@@ -45,6 +45,6 @@ for (const rig of rigs) {
     await sharp({ create: { width: 1024, height: 1024, channels: 4, background: '#20242bff' } })
       .composite([{ input: base }, { input: overlay }])
       .png({ compressionLevel: 9, adaptiveFiltering: false, palette: false })
-      .toFile(`asset-source/v0.1.0/guides/${rig}-${slot}.png`)
+      .toFile(`asset-source/v0.2.0/guides/${rig}-${slot}.png`)
   }
 }

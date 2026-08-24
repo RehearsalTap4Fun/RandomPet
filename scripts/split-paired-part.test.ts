@@ -1,8 +1,8 @@
-import { mkdtemp, readdir } from 'node:fs/promises'
+import { mkdir, mkdtemp, readdir, rm, symlink, unlink } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { splitPairedPart, type PairCrop } from './split-paired-part.js'
 
 const PNG_OPTIONS = {
@@ -10,6 +10,20 @@ const PNG_OPTIONS = {
   adaptiveFiltering: false,
   palette: false,
 } as const
+
+const temporaryDirectories: string[] = []
+const junctions: string[] = []
+
+afterEach(async () => {
+  await Promise.all(junctions.splice(0).map(path => unlink(path).catch(() => undefined)))
+  await Promise.all(temporaryDirectories.splice(0).map(path => rm(path, { recursive: true, force: true })))
+})
+
+async function allowedOutputRoot(prefix: string): Promise<string> {
+  const root = await mkdtemp(join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.2.0', prefix))
+  temporaryDirectories.push(root)
+  return root
+}
 
 async function makeFixture(root: string): Promise<string> {
   const path = join(root, 'paired.png')
@@ -46,8 +60,10 @@ const CROPS: readonly [PairCrop, PairCrop] = [
 describe('splitPairedPart', () => {
   it('rejects an out-of-bounds crop before creating output files', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-pair-'))
+    temporaryDirectories.push(root)
     const inputPath = await makeFixture(root)
-    const outputDirectory = join(root, 'asset-source', 'v0.2.0', 'split-output')
+    const outputParent = await allowedOutputRoot('split-out-of-bounds-')
+    const outputDirectory = join(outputParent, 'split-output')
     const invalid = [
       CROPS[0],
       { ...CROPS[1], rect: { left: 7, top: 0, width: 2, height: 6 } },
@@ -60,8 +76,9 @@ describe('splitPairedPart', () => {
 
   it('trims transparent margins while preserving source-canvas anchor coordinates', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-pair-'))
+    temporaryDirectories.push(root)
     const inputPath = await makeFixture(root)
-    const outputDirectory = join(root, 'asset-source', 'v0.2.0', 'split-output')
+    const outputDirectory = await allowedOutputRoot('split-trim-')
 
     const [left, right] = await splitPairedPart(inputPath, outputDirectory, CROPS)
 
@@ -77,8 +94,9 @@ describe('splitPairedPart', () => {
 
   it('reruns deterministically for decoded RGBA and node metadata', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-pair-'))
+    temporaryDirectories.push(root)
     const inputPath = await makeFixture(root)
-    const outputDirectory = join(root, 'packages', 'asset-catalog', 'assets', 'v0.2.0', 'nodes')
+    const outputDirectory = await allowedOutputRoot('split-deterministic-')
 
     const first = await splitPairedPart(inputPath, outputDirectory, CROPS)
     const firstPixels = await Promise.all(first.map(node => sharp(node.pngPath).ensureAlpha().raw().toBuffer()))
@@ -87,5 +105,32 @@ describe('splitPairedPart', () => {
 
     expect(second).toEqual(first)
     expect(secondPixels).toEqual(firstPixels)
+  })
+
+  it('rejects an absolute lookalike path containing the allowed directory names', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-pair-lookalike-'))
+    temporaryDirectories.push(root)
+    const inputPath = await makeFixture(root)
+    const outputDirectory = join(root, 'asset-source', 'v0.2.0', 'split-output')
+
+    await expect(splitPairedPart(inputPath, outputDirectory, CROPS))
+      .rejects.toThrow(/canonical v0\.2\.0 output root/u)
+    await expect(readdir(outputDirectory)).rejects.toMatchObject({ code: 'ENOENT' })
+  })
+
+  it('rejects a junction that escapes a canonical repository output root', async () => {
+    const fixtureRoot = await mkdtemp(join(tmpdir(), 'qmonster-pair-junction-fixture-'))
+    const outsideRoot = await mkdtemp(join(tmpdir(), 'qmonster-pair-junction-outside-'))
+    temporaryDirectories.push(fixtureRoot, outsideRoot)
+    const inputPath = await makeFixture(fixtureRoot)
+    const allowedParent = await allowedOutputRoot('split-junction-')
+    const junction = join(allowedParent, 'escape')
+    await symlink(outsideRoot, junction, 'junction')
+    junctions.push(junction)
+    const outputDirectory = join(junction, 'nodes')
+
+    await expect(splitPairedPart(inputPath, outputDirectory, CROPS))
+      .rejects.toThrow(/canonical v0\.2\.0 output root/u)
+    expect(await readdir(outsideRoot)).toEqual([])
   })
 })

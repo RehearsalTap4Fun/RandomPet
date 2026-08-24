@@ -46,40 +46,40 @@
   },
   "review": {
     "status": "approved",
-    "reviewedAt": "2026-08-24T13:20:00+08:00",
+    "reviewedAt": "2026-08-24T14:03:47+08:00",
     "reviewer": "Codex visual QA",
-    "reviewMethod": "Original-resolution inspection of Chromium contact sheets rendered through @qmonster/renderer-canvas browserSurfaceFactory, plus immutable extraction-gate metrics and a separate 256x256 paired-feet readability check.",
+    "reviewMethod": "Original-resolution inspection of Chromium contact sheets rendered through the v0.2 renderCompositionMonster path with non-null compositionMetrics and asserted target-node resolver calls for all 115 compatible placements, plus immutable extraction-gate metrics and a separate 256x256 paired-feet readability check.",
     "taskBoundary": "Part-level composition contact sheets only; Task 7 whole-creature golden approval has not occurred and is not asserted here.",
     "contactSheets": [
       {
         "rigId": "blob",
         "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-blob.png",
-        "sha256": "46d3cbabcaee1eb869164c5c1a88d9101d9bb4892c26a6a936a5ba1f5b9f0aba",
+        "sha256": "1bf8f8678c5da08aabdf7c2121a012a2e693be52a339c85b46dfdf098c3ca1a7",
         "candidateCount": 39,
         "width": 1200,
         "height": 3482,
         "result": "approved",
-        "finding": "All 39 declared blob placements are present once; paired limbs attach on their declared nodes, face parts remain inside the head region, body-clipped overlays preserve the silhouette, and protect-face effects remain sparse and readable."
+        "finding": "All 39 declared blob placements are present once through real v0.2 composition; paired limbs attach on their declared nodes, resized face/head-appendage parts remain readable without diagnostic occlusion, body-clipped overlays preserve the silhouette, and protect-face effects remain sparse and readable."
       },
       {
         "rigId": "biped",
         "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-biped.png",
-        "sha256": "ba19aa7cdb508d2fc63c2f5a56c4729e0fb0b3e22ed656e39df8602d19213605",
+        "sha256": "82429973ef98e026803c3466cc946cc559bd570aee7fc44573920d92f3dd5032",
         "candidateCount": 39,
         "width": 1200,
         "height": 3482,
         "result": "approved",
-        "finding": "All 39 declared biped placements are present once. Candidate 3 mushroom legs read as two low weight-bearing feet with separate soles and ankle contacts, not hats or a second head; long arms and moth wings remain bilateral and attached."
+        "finding": "All 39 declared biped placements are present once through real v0.2 composition. Candidate 3 mushroom legs read as two low weight-bearing feet with separate soles and ankle contacts, not hats or a second head; left/right resolver evidence is recorded and long arms and moth wings remain bilateral and attached."
       },
       {
         "rigId": "floating",
         "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-floating.png",
-        "sha256": "12eb1120edef784b9cfc85ec9fddaa81da5285a0fac9b3685071977da6dbdf8d",
+        "sha256": "d1833e17d4a4f914fd566be844f76cc3f791c83b27e0bb8c0b2828e3de2af992",
         "candidateCount": 37,
         "width": 1200,
         "height": 3482,
         "result": "approved",
-        "finding": "All 37 declared floating placements are present once; paddle arms, tiptoe legs, fan tail and tentacles preserve their attachment, while quiet fur provides the mandatory cross-theme fallback without obscuring the floating silhouette."
+        "finding": "All 37 declared floating placements are present once through real v0.2 composition; paddle arms, tiptoe legs, fan tail and tentacles preserve their attachment, while quiet fur provides the mandatory cross-theme fallback without obscuring the floating silhouette."
       }
     ],
     "reworkActions": [
@@ -1286,7 +1286,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/body_blob_round.webp",
       "runtimeWebpSha256": "0a2444502f75e61e03bfde32c68b0755bc7fd0248afaf3df969c4a07d482fe67",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "body_blob_wide",
@@ -1558,7 +1558,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/body_blob_wide.webp",
       "runtimeWebpSha256": "9be46f2981c14dd25a152416144d4d42d82d4d46ac1fa70cc523a4aead0e2a31",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "body_biped_peanut",
@@ -1846,7 +1846,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/body_biped_peanut.webp",
       "runtimeWebpSha256": "42d05d13855af8518ce75a3e05f1b2dfaaae71a3d713053b024f878b14cd05ed",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "body_biped_tall",
@@ -2118,7 +2118,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/body_biped_tall.webp",
       "runtimeWebpSha256": "606cea406a1ed3ac9a81c41c903e19572e15ecf18cdecb98f182c963173da5ea",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "body_floating_drop",
@@ -2390,7 +2390,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/body_floating_drop.webp",
       "runtimeWebpSha256": "6291b631f5905888575ed786056ac709a307107d1d18b8cb8ad237ee62e678f3",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "head_round_dome",
@@ -2664,7 +2664,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/head_round_dome.webp",
       "runtimeWebpSha256": "6f0266737655bad4985cbd053bf3a345005c7863ea6c6b7933192cde9ffc94c8",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "head_mushroom_cap",
@@ -2956,7 +2956,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/head_mushroom_cap.webp",
       "runtimeWebpSha256": "b134cda23fd0cfbdc64daa9bd98de6f6e45c1fe13f0c8a1ed40fc230ca1ed465",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "head_angler_bulb",
@@ -3902,7 +3902,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/head_angler_bulb.webp",
       "runtimeWebpSha256": "14f1493fdf4af8bd638a257f897642c8fffac9fd90b72d4d7ac0dbb0791c2ded",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "head_shadow_hood",
@@ -4176,7 +4176,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/head_shadow_hood.webp",
       "runtimeWebpSha256": "190f68078e74811bad6d402286decc90fba9d4711a0530bc5935d0e844946270",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "eyes_glossy_pair",
@@ -4450,7 +4450,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/eyes_glossy_pair.webp",
       "runtimeWebpSha256": "05e266c2fc19dee879fbf4dba1b9d3f14cacc30bc8cb2b1e3ca1a102c61180bf",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "eyes_asymmetric",
@@ -4724,7 +4724,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/eyes_asymmetric.webp",
       "runtimeWebpSha256": "e873f3fe935a8e2cd776a96df0490b433a1efaa4cb4e1453835ff73bdccc9019",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "eyes_triple_pearl",
@@ -4998,7 +4998,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/eyes_triple_pearl.webp",
       "runtimeWebpSha256": "2e5810a5823fa92df8175361c799075fd5715feaa3bebd13c5fa03b97d4d38cb",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "eyes_sleepy_crescent",
@@ -5272,7 +5272,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/eyes_sleepy_crescent.webp",
       "runtimeWebpSha256": "60f66fe3a766889ff6eb2f66c82de9f3ede693d0a61a67c13751685422398972",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "eyes_stalk_pair",
@@ -5546,7 +5546,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/eyes_stalk_pair.webp",
       "runtimeWebpSha256": "9abd858962b64a4ea10c312cb4c2cdaf06a7f9d3df2b9f08c444c23d9c87edaa",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "mouth_wide_grin",
@@ -5820,7 +5820,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/mouth_wide_grin.webp",
       "runtimeWebpSha256": "4e45bc296e13e092511ede1ea3456be0b86a7f10f2a024be02dc4195ae0b8ff3",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "mouth_soft_pout",
@@ -6094,7 +6094,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/mouth_soft_pout.webp",
       "runtimeWebpSha256": "d7f0513e98c5224ba1bdb3b62eb50a5306aeb5867aaf38384371f60dad86e4f8",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "mouth_soft_beak",
@@ -6368,7 +6368,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/mouth_soft_beak.webp",
       "runtimeWebpSha256": "ef60af80676c994317a761314b26c01300998a979edb0e7b37404d112186a410",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "mouth_vertical_oval",
@@ -6642,7 +6642,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/mouth_vertical_oval.webp",
       "runtimeWebpSha256": "d1e88fb0e79f4afda634fd3c053d82b021642393034e84182b17b51c7971a366",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "oral_round_teeth",
@@ -6916,7 +6916,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/oral_round_teeth.webp",
       "runtimeWebpSha256": "80a546ac20c504423a702b359198ba5ee33754015bdf192753d27751628f4afb",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "oral_single_fang",
@@ -7196,7 +7196,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/oral_single_fang.webp",
       "runtimeWebpSha256": "62c523115a1f6b8f02580302b05fefbd4d51ec3e3415409fd17f36b12c123390",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "oral_lolling_tongue",
@@ -7470,7 +7470,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/oral_lolling_tongue.webp",
       "runtimeWebpSha256": "4bd14ac0d6cd265f6f5c2fa28ed13b4009c3d11a405b8f4d2b980dd662ee647e",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "oral_gummy_ridges",
@@ -7766,7 +7766,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/oral_gummy_ridges.webp",
       "runtimeWebpSha256": "705e748768ab86cd8a2aff1cb6a9a960fd9d3f1347c8da9a9e563dd6396498f6",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "head_appendage_none",
@@ -7829,7 +7829,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/head_appendage_none.webp",
       "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "head_horns_soft_nubs",
@@ -8109,7 +8109,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/head_horns_soft_nubs.webp",
       "runtimeWebpSha256": "31a1581d7fc9c6ae14491214158be02aecb0682791034e9424d1420725d0e849",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "head_antennae_glow",
@@ -8389,7 +8389,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/head_antennae_glow.webp",
       "runtimeWebpSha256": "c565506cdeddf6ba705a096eecc0a8c8b2c8249c5fc8cab126f72e42cdb43c9b",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "head_ears_floppy_fins",
@@ -8663,7 +8663,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/head_ears_floppy_fins.webp",
       "runtimeWebpSha256": "bb7678d607e328afcfcce807b7875582f6538eff57ca5ffdeffd89da4c714060",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "arms_short_plush",
@@ -8947,7 +8947,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/arms_short_plush.webp",
       "runtimeWebpSha256": "9e35f0a4a4a39f20e6df0e662e5aad78d78bff2ffef8211addafc141efe3bf29",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "arms_long_noodle",
@@ -9219,7 +9219,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/arms_long_noodle.webp",
       "runtimeWebpSha256": "df26977f1d2732deac697ad33f26362a2979288060eace13c5bd3d6578f6fa0f",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "arms_paddle",
@@ -9491,7 +9491,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/arms_paddle.webp",
       "runtimeWebpSha256": "ee1d225a6430617e6d0173ecb098c3a592b50c0977f316eb1328c00bf992d588",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "legs_stub_feet",
@@ -9775,7 +9775,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/legs_stub_feet.webp",
       "runtimeWebpSha256": "8aaedc0047ce5689813f8bb7e3fb6287fab73997663b8c2bafc5d4b5708aa533",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "legs_webbed",
@@ -10053,7 +10053,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/legs_webbed.webp",
       "runtimeWebpSha256": "d54726fc3fff8c3ef75eb6c09f192231e4fa6358ba45cfea44454876f0720028",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "legs_mushroom",
@@ -10351,7 +10351,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/legs_mushroom.webp",
       "runtimeWebpSha256": "db9643d75c2c15dde9d7e0b54de0a6160ad55806819ab51bfecbe62f7b1e63f9",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "legs_shadow_tiptoe",
@@ -10623,7 +10623,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/legs_shadow_tiptoe.webp",
       "runtimeWebpSha256": "22df1b67bb3e542367cc77b46e4379e5dba514fbfafad5b08607d3a204c41a2b",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "tail_none",
@@ -10686,7 +10686,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/tail_none.webp",
       "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "tail_fish_fan",
@@ -10958,7 +10958,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/tail_fish_fan.webp",
       "runtimeWebpSha256": "aa7ff6b4db9dde8920023b8feda4f5f1446fc0f8bbf15f37082566c81e047ec1",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "tail_soft_curl",
@@ -11248,7 +11248,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/tail_soft_curl.webp",
       "runtimeWebpSha256": "05adcb100bf7e4cbb0ef9403ceb3096b3da1b73d1509c5dbf5e1de42226b8fd4",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "tail_mushroom_cluster",
@@ -11526,7 +11526,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/tail_mushroom_cluster.webp",
       "runtimeWebpSha256": "18dac0ad4c1cbd7c1f4bb1c7832a0d11a31b9d2352b1949f6b8222aeb9919a94",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "extra_appendage_none",
@@ -11589,7 +11589,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/extra_appendage_none.webp",
       "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "extra_moth_wings",
@@ -11861,7 +11861,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/extra_moth_wings.webp",
       "runtimeWebpSha256": "3fa3176a9c96761a8b27cbfa3d0cf0ad17d4955cb5fdae8ef3013bddfcab99ee",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "extra_soft_tentacles",
@@ -12151,7 +12151,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/extra_soft_tentacles.webp",
       "runtimeWebpSha256": "dda365360ec065d8bb89aeeb974f33719126f531e7f5c7eb7611f9f454b319a9",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "extra_side_fins",
@@ -12423,7 +12423,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/extra_side_fins.webp",
       "runtimeWebpSha256": "679cd3dba10f07fa4fcf6b0da1e554bcc0a6999f36dd073eeab4b1bed4438717",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "surface_short_fur",
@@ -12713,7 +12713,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/surface_short_fur.webp",
       "runtimeWebpSha256": "96bd837b9f4a1b2c21ec11d17e8c8d14bc5d0c903bf7c619719d8741a4034c92",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "surface_gel_bubbles",
@@ -12985,7 +12985,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/surface_gel_bubbles.webp",
       "runtimeWebpSha256": "5bd9a96414b71fb192f8f6500d23c9d3b504a0f83100c5100f631afd82ddd4f6",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "surface_soft_scales",
@@ -13257,7 +13257,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/surface_soft_scales.webp",
       "runtimeWebpSha256": "eb79399a8fb23e338ca42ec08ffc19a386028a479237ac18f3a377c2664108aa",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "surface_mushroom_velvet",
@@ -13529,7 +13529,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/surface_mushroom_velvet.webp",
       "runtimeWebpSha256": "10c9d19c895f7aaf92266371e7e4fe8e3d32f886fb3004cc994ff822b2eaed66",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "pattern_soft_spots",
@@ -13807,7 +13807,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/pattern_soft_spots.webp",
       "runtimeWebpSha256": "35bfbc02f281fc45551277d04313533c4451c69e2ddab8dc9db1cb2f0febb1e6",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "pattern_gentle_stripes",
@@ -14079,7 +14079,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/pattern_gentle_stripes.webp",
       "runtimeWebpSha256": "fc2234dcca5bf634cc0e0a8d54966817c26d1f6be361694391e6c717c322f809",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "pattern_constellation",
@@ -14351,7 +14351,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/pattern_constellation.webp",
       "runtimeWebpSha256": "7fe75aa04b6d9d1b2f233700ffc891315d04bb3ea66cb52c0e2d6554126dc926",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "pattern_spore_rings",
@@ -14623,7 +14623,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/pattern_spore_rings.webp",
       "runtimeWebpSha256": "1e9dee01b3fb23cfe312d9313953a4f54522bd5a9be443bee2468334347390b2",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "color_deep_sea_coral",
@@ -14983,7 +14983,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/color_deep_sea_coral.webp",
       "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "color_fungal_amber",
@@ -15361,7 +15361,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/color_fungal_amber.webp",
       "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "color_shadow_violet",
@@ -15721,7 +15721,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/color_shadow_violet.webp",
       "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "effect_none",
@@ -15784,7 +15784,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/effect_none.webp",
       "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "effect_bioluminescent_orbs",
@@ -16058,7 +16058,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/effect_bioluminescent_orbs.webp",
       "runtimeWebpSha256": "c13562f95c12f67fd47a2f3c3232c27c74971bbb4bf0960bf77fa81a6d40142d",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     },
     {
       "sourceId": "effect_spore_glow",
@@ -16350,7 +16350,7 @@
       "runtimeWebpPath": "packages/asset-catalog/assets/v0.2.0/parts/effect_spore_glow.webp",
       "runtimeWebpSha256": "65c042bb80b3a9059d774ebd528b1f7f5b550993744c89c6c5a236cc31c0b978",
       "reworkRecordPath": "packages/asset-catalog/review/v0.2.0/rework-record.json",
-      "reworkRecordSha256": "88b818cdfe19d2a809335843ba595ebdb798bcf5d16c885ab299e1561e9313d1"
+      "reworkRecordSha256": "5de88ef2042ffae4a9ebc97ac496def74c73afca52db2a8311a5315038c8d4f0"
     }
   ]
 }

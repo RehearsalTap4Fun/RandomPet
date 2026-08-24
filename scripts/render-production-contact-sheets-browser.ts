@@ -46,7 +46,16 @@ async function main(): Promise<void> {
       await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
       const error = await page.evaluate(() => document.body.dataset.renderError)
       if (error !== undefined) throw new Error(`${partId}/${rigId}: ${error}`)
-      return page.locator('#render-target').screenshot({ omitBackground: true, type: 'png' })
+      const [frame, rendererVersion, evidenceText] = await Promise.all([
+        page.locator('#render-target').screenshot({ omitBackground: true, type: 'png' }),
+        page.evaluate(() => document.body.dataset.rendererVersion),
+        page.evaluate(() => document.body.dataset.renderEvidence),
+      ])
+      if (rendererVersion === undefined || evidenceText === undefined) {
+        throw new Error(`${partId}/${rigId}: production renderer did not expose review evidence.`)
+      }
+      const evidence = JSON.parse(evidenceText) as Omit<Awaited<ReturnType<ProductionContactRenderer>>['evidence'], 'rendererVersion'>
+      return { frame, evidence: { ...evidence, rendererVersion } }
     }
     const { catalog } = await loadCommittedProductionCatalog({ version })
     const results = await generateContactSheets(catalog, renderer, paths)

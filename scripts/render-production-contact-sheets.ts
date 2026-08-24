@@ -12,13 +12,27 @@ export interface ContactSheetPlan {
   partIds: string[]
 }
 
-export type ProductionContactRenderer = (rigId: RigId, partId: string) => Promise<Buffer>
+export interface ProductionRenderEvidence {
+  rendererVersion: string
+  compositionMetrics: unknown
+  drawnAssetIds: string[]
+  resolvedAssetPaths: string[]
+}
+
+export interface ProductionContactFrame {
+  frame: Buffer
+  evidence: ProductionRenderEvidence
+}
+
+export type ProductionContactRenderer = (rigId: RigId, partId: string) => Promise<ProductionContactFrame>
 
 interface ContactSheetResult extends ContactSheetPlan {
   outputPath: string
   sha256: string
   width: number
   height: number
+  compositionVerified: boolean
+  resolvedTargetNodePaths: string[]
 }
 
 const columns = 4
@@ -157,8 +171,28 @@ async function renderOne(
     <text x="24" y="64" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="16" fill="#9fb0c4">${plan.partIds.length} candidates · actual @qmonster/renderer-canvas pixels · checker reveals alpha</text>
   </svg>`)
   const cells: Buffer[] = []
+  const resolvedTargetNodePaths = new Set<string>()
+  let compositionVerified = catalog.version === '0.2.0'
   for (const partId of plan.partIds) {
-    cells.push(await renderContactCell(catalog, plan.rigId, partId, await renderer(plan.rigId, partId)))
+    const rendered = await renderer(plan.rigId, partId)
+    const part = catalog.parts.find(candidate => candidate.id === partId)!
+    if (catalog.version === '0.2.0') {
+      if (rendered.evidence.rendererVersion !== '0.2.0' || rendered.evidence.compositionMetrics === null) {
+        throw new Error(`${partId}/${plan.rigId} did not use the v0.2 composition renderer.`)
+      }
+      const expectedNodePaths = (part.composition?.renderNodes ?? [])
+        .filter(node => node.compatibleRigs.includes(plan.rigId))
+        .map(node => node.assetPath)
+      for (const nodePath of expectedNodePaths) {
+        if (!rendered.evidence.resolvedAssetPaths.includes(nodePath)) {
+          throw new Error(`${partId}/${plan.rigId} did not resolve composition node ${nodePath}.`)
+        }
+        resolvedTargetNodePaths.add(nodePath)
+      }
+    } else {
+      compositionVerified = false
+    }
+    cells.push(await renderContactCell(catalog, plan.rigId, partId, rendered.frame))
   }
   const outputPath = join(paths.reviewDirectory, `contact-sheet-${plan.rigId}.png`)
   await mkdir(dirname(outputPath), { recursive: true })
@@ -174,7 +208,15 @@ async function renderOne(
     .png({ compressionLevel: 9, adaptiveFiltering: false, palette: false })
     .toFile(outputPath)
   const bytes = await readFile(outputPath)
-  return { ...plan, outputPath: outputPath.replaceAll('\\', '/'), sha256: createHash('sha256').update(bytes).digest('hex'), width, height }
+  return {
+    ...plan,
+    outputPath: outputPath.replaceAll('\\', '/'),
+    sha256: createHash('sha256').update(bytes).digest('hex'),
+    width,
+    height,
+    compositionVerified,
+    resolvedTargetNodePaths: [...resolvedTargetNodePaths].sort(),
+  }
 }
 
 export async function generateContactSheets(
@@ -187,7 +229,7 @@ export async function generateContactSheets(
   await writeFile(join(paths.reviewDirectory, 'contact-sheet-index.json'), `${JSON.stringify({
     catalogVersion: catalog.version,
     renderer: '@qmonster/renderer-canvas browserSurfaceFactory',
-    generatedAt: '2026-08-23',
+    generatedAt: '2026-08-24',
     candidates: catalog.parts.length,
     compatibleRigPlacements: results.reduce((count, result) => count + result.partIds.length, 0),
     sheets: results,
