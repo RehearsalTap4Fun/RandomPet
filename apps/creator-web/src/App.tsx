@@ -11,6 +11,7 @@ import legacyProductionCatalogDocument from '../../../packages/asset-catalog/cat
 import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
 import type { CreatorAction, CreatorSession } from './state/contracts.js'
+import type { SessionStorage } from './state/persistence.js'
 import { DiagnosticsPanel } from './components/DiagnosticsPanel.js'
 import { GeneratorControls } from './components/GeneratorControls.js'
 import {
@@ -185,9 +186,16 @@ export function CreatorWorkbench({
 interface AppProps {
   initialExportCapabilities?: CreatorSession['exportCapabilities']
   parseSpecFile?: ExportControlsProps['parseSpecFile']
+  storage?: SessionStorage
+  previewRenderer?: PreviewRenderer
 }
 
-export function App({ initialExportCapabilities, parseSpecFile }: AppProps = {}) {
+export function App({
+  initialExportCapabilities,
+  parseSpecFile,
+  storage,
+  previewRenderer,
+}: AppProps = {}) {
   const [exportCapabilities, setExportCapabilities] = useState<CreatorSession['exportCapabilities'] | null>(
     initialExportCapabilities ?? null,
   )
@@ -209,15 +217,24 @@ export function App({ initialExportCapabilities, parseSpecFile }: AppProps = {})
     return <p role="status">正在检测导出能力…</p>
   }
 
-  return <InitializedCreatorApp exportCapabilities={exportCapabilities} parseSpecFile={parseSpecFile} />
+  return <InitializedCreatorApp
+    exportCapabilities={exportCapabilities}
+    {...(parseSpecFile === undefined ? {} : { parseSpecFile })}
+    {...(storage === undefined ? {} : { storage })}
+    {...(previewRenderer === undefined ? {} : { previewRenderer })}
+  />
 }
 
 function InitializedCreatorApp({
   exportCapabilities,
   parseSpecFile,
+  storage,
+  previewRenderer,
 }: {
   exportCapabilities: CreatorSession['exportCapabilities']
   parseSpecFile?: ExportControlsProps['parseSpecFile']
+  storage?: SessionStorage
+  previewRenderer?: PreviewRenderer
 }) {
   const { session, dispatch } = useCreator({
     catalog: productionCatalog,
@@ -227,6 +244,7 @@ function InitializedCreatorApp({
       mode: 'normal',
     },
     exportCapabilities,
+    ...(storage === undefined ? {} : { storage }),
   })
   const [legacyInspection, setLegacyInspection] = useState<{
     spec: import('@qmonster/generator-core').MonsterSpec
@@ -239,6 +257,7 @@ function InitializedCreatorApp({
       catalog={legacyInspection.catalog}
       exportCapabilities={exportCapabilities}
       onReturn={() => setLegacyInspection(null)}
+      {...(previewRenderer === undefined ? {} : { previewRenderer })}
     />
   }
 
@@ -249,7 +268,8 @@ function InitializedCreatorApp({
       catalogRegistry={productionCatalogRegistry}
       onAction={dispatch}
       onInspectLegacy={setLegacyInspection}
-      parseSpecFile={parseSpecFile}
+      {...(parseSpecFile === undefined ? {} : { parseSpecFile })}
+      {...(previewRenderer === undefined ? {} : { previewRenderer })}
     />
   )
 }

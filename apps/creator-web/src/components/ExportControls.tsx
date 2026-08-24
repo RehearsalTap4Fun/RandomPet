@@ -62,9 +62,23 @@ export function ExportControls({
     if (file === undefined) return
     const requestId = ++importRequestId.current
     onOperationDiagnostics([])
-    const result = await parseImportedSpec(file, registry)
-    if (!mounted.current || requestId !== importRequestId.current) return
-    input.value = ''
+    const isCurrentRequest = () => mounted.current && requestId === importRequestId.current
+    let result: Awaited<ReturnType<typeof parseImportedSpec>>
+    try {
+      result = await parseImportedSpec(file, registry)
+    } catch {
+      if (isCurrentRequest()) {
+        onOperationDiagnostics([operationDiagnostic(
+          'error',
+          'SPEC_FILE_IMPORT_FAILED',
+          '导入文件失败，请重试。',
+        )])
+      }
+      return
+    } finally {
+      if (isCurrentRequest()) input.value = ''
+    }
+    if (!isCurrentRequest()) return
     if (!result.ok) {
       onOperationDiagnostics(result.diagnostics)
       return

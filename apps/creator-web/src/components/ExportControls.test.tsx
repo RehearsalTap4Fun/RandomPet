@@ -10,8 +10,9 @@ import { ExportControls, type ExportControlsProps } from './ExportControls.js'
 
 function deferred<T>() {
   let resolve!: (value: T) => void
-  const promise = new Promise<T>(next => { resolve = next })
-  return { promise, resolve }
+  let reject!: (reason?: unknown) => void
+  const promise = new Promise<T>((next, fail) => { resolve = next; reject = fail })
+  return { promise, resolve, reject }
 }
 
 function makeExportControlsProps(): ExportControlsProps {
@@ -158,5 +159,77 @@ describe('ExportControls', () => {
 
     expect(props.onImportComplete).toHaveBeenCalledTimes(1)
     expect(props.onOperationDiagnostics).toHaveBeenCalledTimes(diagnosticsAfterLatest)
+  })
+
+  it('reports a stable diagnostic for the current rejected import and clears the input for reselecting the same file', async () => {
+    const user = userEvent.setup()
+    const props = makeExportControlsProps()
+    const first = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    const second = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    props.parseSpecFile = vi.fn()
+      .mockImplementationOnce(() => first.promise)
+      .mockImplementationOnce(() => second.promise)
+    render(<ExportControls {...props} />)
+
+    const input = screen.getByLabelText('选择要导入的 JSON 文件') as HTMLInputElement
+    const sameFile = new File(['broken'], 'same-file.json')
+    await user.upload(input, sameFile)
+    first.reject(new Error('parser unavailable'))
+
+    await vi.waitFor(() => expect(props.onOperationDiagnostics).toHaveBeenLastCalledWith([
+      expect.objectContaining({
+        severity: 'error',
+        code: 'SPEC_FILE_IMPORT_FAILED',
+        message: '导入文件失败，请重试。',
+      }),
+    ]))
+    expect(input.value).toBe('')
+    expect(props.onImportComplete).not.toHaveBeenCalled()
+
+    await user.upload(input, sameFile)
+    expect(props.parseSpecFile).toHaveBeenCalledTimes(2)
+  })
+
+  it('silently ignores a stale rejected import after a newer request completes', async () => {
+    const user = userEvent.setup()
+    const props = makeExportControlsProps()
+    const slow = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    const fast = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    const importedCatalog = makeValidCatalogFixture()
+    props.parseSpecFile = vi.fn((file: File) => file.name === 'slow.json' ? slow.promise : fast.promise)
+    render(<ExportControls {...props} />)
+
+    const input = screen.getByLabelText('选择要导入的 JSON 文件')
+    await user.upload(input, new File(['slow'], 'slow.json'))
+    await user.upload(input, new File(['fast'], 'fast.json'))
+    slow.reject(new Error('stale parser failure'))
+    await Promise.resolve()
+
+    expect((input as HTMLInputElement).value).not.toBe('')
+    expect(props.onImportComplete).not.toHaveBeenCalled()
+    expect(props.onOperationDiagnostics).toHaveBeenLastCalledWith([])
+
+    fast.resolve({ ok: true, value: { spec: props.session.spec, catalog: importedCatalog }, diagnostics: [] })
+    await vi.waitFor(() => expect(props.onImportComplete).toHaveBeenCalledWith({
+      spec: props.session.spec,
+      catalog: importedCatalog,
+    }))
+  })
+
+  it('silently ignores a rejected import after unmount', async () => {
+    const user = userEvent.setup()
+    const props = makeExportControlsProps()
+    const pending = deferred<Awaited<ReturnType<NonNullable<ExportControlsProps['parseSpecFile']>>>>()
+    props.parseSpecFile = vi.fn(() => pending.promise)
+    const { unmount } = render(<ExportControls {...props} />)
+
+    await user.upload(screen.getByLabelText('选择要导入的 JSON 文件'), new File(['pending'], 'pending.json'))
+    vi.mocked(props.onOperationDiagnostics).mockClear()
+    unmount()
+    pending.reject(new Error('unmounted parser failure'))
+    await Promise.resolve()
+
+    expect(props.onImportComplete).not.toHaveBeenCalled()
+    expect(props.onOperationDiagnostics).not.toHaveBeenCalled()
   })
 })
