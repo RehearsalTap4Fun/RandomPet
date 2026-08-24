@@ -19,6 +19,21 @@ describe('MonsterSpecSchema', () => {
     expect(parseCatalog(catalog)).toEqual({ ok: true, value: catalog })
   })
 
+  it('requires composition metadata for a 0.2.0 catalog', () => {
+    const catalog = makeCompositionCatalogFixture() as any
+    delete catalog.compositionPolicy
+    delete catalog.parts[0].composition
+
+    expect(parseCatalog(catalog).ok).toBe(false)
+  })
+
+  it('keeps legacy approved transforms parseable when they contain extension fields', () => {
+    const catalog = makeValidCatalogFixture() as any
+    catalog.parts[0].approvedTransforms = [{ scale: 1, mirrorX: false, legacyExtension: true }]
+
+    expect(parseCatalog(catalog).ok).toBe(true)
+  })
+
   it('rejects non-positive render-node transforms and face rectangles', () => {
     const catalog = makeCompositionCatalogFixture() as any
     catalog.parts[0].composition.renderNodes[0].transform.scale = 0

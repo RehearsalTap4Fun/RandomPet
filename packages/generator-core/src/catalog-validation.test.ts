@@ -14,6 +14,17 @@ describe('catalog validation', () => {
     }))
   })
 
+  it('requires composition metadata for every 0.2.0 catalog part', () => {
+    const catalog = makeCompositionCatalogFixture()
+    delete catalog.compositionPolicy
+    delete catalog.parts[0].composition
+
+    const codes = validateCatalogStructure(catalog).map(item => item.code)
+
+    expect(codes).toContain('COMPOSITION_POLICY_MISSING')
+    expect(codes).toContain('COMPOSITION_PART_METADATA_MISSING')
+  })
+
   it('requires quiet fallbacks and face geometry for every compatible rig', () => {
     const catalog = makeCompositionCatalogFixture()
     catalog.parts = catalog.parts.filter(part => (

@@ -65,7 +65,16 @@ function hasCycle(dependencies: Catalog['dependencies']): boolean {
 }
 
 function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
-  if (catalog.compositionPolicy === undefined) return
+  if (catalog.version !== '0.2.0') return
+
+  const policy = catalog.compositionPolicy
+  if (policy === undefined) {
+    diagnostics.push(error(
+      'COMPOSITION_POLICY_MISSING',
+      ['compositionPolicy'],
+      'Catalog 0.2.0 requires a composition policy.',
+    ))
+  }
 
   const partsBySlot = new Map<VisualSlotId, Catalog['parts']>()
   for (const part of catalog.parts) {
@@ -74,16 +83,18 @@ function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[
     partsBySlot.set(part.slotId, parts)
   }
 
-  const motifSlots = new Set<VisualSlotId>()
-  for (const [index, slotId] of catalog.compositionPolicy.motifSlots.entries()) {
-    if (motifSlots.has(slotId)) {
-      diagnostics.push(error(
-        'COMPOSITION_MOTIF_SLOT_DUPLICATE',
-        ['compositionPolicy', 'motifSlots', String(index)],
-        `Composition motif slot ${slotId} appears more than once.`,
-      ))
+  if (policy !== undefined) {
+    const motifSlots = new Set<VisualSlotId>()
+    for (const [index, slotId] of policy.motifSlots.entries()) {
+      if (motifSlots.has(slotId)) {
+        diagnostics.push(error(
+          'COMPOSITION_MOTIF_SLOT_DUPLICATE',
+          ['compositionPolicy', 'motifSlots', String(index)],
+          `Composition motif slot ${slotId} appears more than once.`,
+        ))
+      }
+      motifSlots.add(slotId)
     }
-    motifSlots.add(slotId)
   }
 
   const nodeIds = new Set<string>()

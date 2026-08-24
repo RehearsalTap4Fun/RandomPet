@@ -18,7 +18,11 @@ const RenderLayerSchema = z.enum([
 const coordinate = z.number().finite().min(0).max(2048)
 const weight = z.number().finite().min(0)
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/i)
-const ApprovedTransformSchema = z.object({
+const LegacyApprovedTransformSchema = z.object({
+  scale: z.number().finite().positive(),
+  mirrorX: z.boolean(),
+})
+const CompositionTransformSchema = z.object({
   scale: z.number().finite().positive(),
   mirrorX: z.boolean(),
 }).strict()
@@ -40,7 +44,7 @@ const RenderNodeDefinitionSchema = z.object({
   parentSlot: VisualSlotIdSchema.nullable(),
   socket: z.string().min(1).nullable(),
   origin: Point2DSchema,
-  transform: ApprovedTransformSchema,
+  transform: CompositionTransformSchema,
   layer: RenderLayerSchema,
   compatibleRigs: z.array(RigIdSchema).min(1),
   clipPolicy: z.enum(['none', 'body', 'protect-face']),
@@ -121,7 +125,7 @@ const VisualPartDefinitionSchema = z.object({
   assetSha256: sha256.optional(),
   pngPath: z.string().min(1).optional(),
   pngSha256: sha256.optional(),
-  approvedTransforms: z.array(ApprovedTransformSchema).optional(),
+  approvedTransforms: z.array(LegacyApprovedTransformSchema).optional(),
   maskPaths: z.object({ primary: z.string().min(1).optional(), secondary: z.string().min(1).optional() }),
   maskSha256: z.object({ primary: z.string().regex(/^[a-f0-9]{64}$/i).optional(), secondary: z.string().regex(/^[a-f0-9]{64}$/i).optional() }).optional(),
   rigMaskPaths: z.partialRecord(RigIdSchema, z.object({
@@ -166,6 +170,24 @@ export const CatalogSchema = z.object({
   })),
   dependencies: z.partialRecord(VisualSlotIdSchema, z.array(VisualSlotIdSchema)),
   compositionPolicy: CompositionPolicySchema.optional(),
+}).superRefine((catalog, context) => {
+  if (catalog.version !== '0.2.0') return
+  if (catalog.compositionPolicy === undefined) {
+    context.addIssue({
+      code: 'custom',
+      path: ['compositionPolicy'],
+      message: 'Catalog 0.2.0 requires composition metadata.',
+    })
+  }
+  for (const [index, part] of catalog.parts.entries()) {
+    if (part.composition === undefined) {
+      context.addIssue({
+        code: 'custom',
+        path: ['parts', index, 'composition'],
+        message: 'Catalog 0.2.0 requires composition metadata for every part.',
+      })
+    }
+  }
 })
 
 function toDiagnostic(issue: z.core.$ZodIssue): Diagnostic {
