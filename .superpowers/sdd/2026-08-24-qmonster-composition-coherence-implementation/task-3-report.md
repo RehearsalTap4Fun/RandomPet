@@ -127,3 +127,79 @@ Exit `0`: `2 passed` files, `14 passed` tests.
 
 - Per scope, no production `0.2.0` catalog or composition assets were added. Composition raster behavior is covered by Canvas test doubles plus browser-independent alpha-mask tests; the available browser golden exercises and preserves the production legacy `0.1.0` path.
 - No known Task 3 test, typecheck, golden, or full-suite failure remains.
+
+## Fix Round 1: Multi-instance Face Occlusion
+
+Fix commit: `110ca6f582a5a0dc4e38b80812cb1ab922c5b482`
+
+### Root cause
+
+The original reverse scan took one shared later-layer snapshot whenever it encountered an eyes or mouth node. With a double head, the final snapshot for the earliest instance already contained the cloned node from the same slot. The slot-wide feature mask contained both instances, so one of two separated instances was subtracted as if it were a real occluder and visibility fell to `0.5`.
+
+The fix measures each feature node against only the later nodes that can actually occlude that instance, excludes nodes from the same feature slot, and combines per-node visibility using authored alpha weight. Later nodes from other slots, including foreground effects, remain occluders.
+
+The new integration double is a sparse binary-alpha Canvas implementation. It executes the renderer's actual translate, scale, draw, clear, source-over, destination-in, destination-out, fill-rectangle, and image-data operations; its metric values are therefore produced by draw/composite order rather than preset `getImageData()` answers.
+
+### Red evidence
+
+`npx vitest run packages/renderer-canvas/src/render.test.ts`
+
+Exit `1`:
+
+```text
+Test Files  1 failed (1)
+Tests       2 failed | 34 passed (36)
+```
+
+- With two separated heads and no real occluder, eyes and mouth visibility were both `0.5` instead of `1`.
+- With a later effect covering one original eye, eyes visibility was `0` instead of `0.5`, while mouth visibility was incorrectly `0.5` instead of `1`.
+
+### Green and final verification
+
+Focused renderer regression:
+
+`npx vitest run packages/renderer-canvas/src/render.test.ts`
+
+Exit `0`: `1 passed` file, `36 passed` tests.
+
+Task 3 focused verification:
+
+`npx vitest run packages/renderer-canvas/src/attachment-tree.test.ts packages/renderer-canvas/src/composition-metrics.test.ts packages/renderer-canvas/src/render.test.ts packages/generator-core/src/spec-validation.test.ts`
+
+Exit `0`:
+
+```text
+Test Files  4 passed (4)
+Tests       63 passed (63)
+Duration    2.05s
+```
+
+Legacy synthetic golden:
+
+`npm run test:render-golden`
+
+Exit `0`: `4 passed (4.2s)`; the reviewed RGBA golden remained unchanged.
+
+TypeScript:
+
+`npm run typecheck`
+
+Exit `0` (`tsc -b --pretty false`).
+
+Full Vitest suite:
+
+`npm test`
+
+Exit `0`:
+
+```text
+Test Files  45 passed (45)
+Tests       403 passed | 1 skipped (404)
+Duration    20.51s
+```
+
+The previously observed `scripts/process-rig-sheets.test.ts` concurrency failure did not occur in this run.
+
+### Fix-round concerns
+
+- No remaining multi-instance face-metric failure is known. The production `0.2.0` asset/catalog boundary noted above remains unchanged by scope.
