@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative } from 'node:path'
 import sharp from 'sharp'
+import { productionPaths } from './production-paths.js'
 import { resolveOutputPath } from './safe-output.js'
 
 const PNG_OPTIONS = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
@@ -355,11 +356,15 @@ export async function buildProductionColorSchemeMasks(input: {
 }
 
 if (process.argv[1]?.endsWith('build-color-scheme-masks.ts')) {
-  const sourceRoot = process.argv[2] ?? 'asset-source/v0.1.0'
-  const runtimeAssetRoot = process.argv[3] ?? 'packages/asset-catalog/assets/v0.1.0'
+  const versionFlag = process.argv.indexOf('--version')
+  const version = versionFlag === -1 ? undefined : process.argv[versionFlag + 1]
+  if (versionFlag === -1 || version === undefined || version.startsWith('--') || process.argv.length !== 4) {
+    throw new Error('Usage: tsx scripts/build-color-scheme-masks.ts --version <release-version>')
+  }
+  const paths = productionPaths(version)
   const audits = await buildProductionColorSchemeMasks({
-    sourceRoot,
-    runtimeAssetRoot,
+    sourceRoot: paths.sourceRoot,
+    runtimeAssetRoot: paths.assetDirectory,
     productionIndexPath: 'generation/production-index.json',
     schemes: [
       { sourceId: 'color_deep_sea_coral', compatibleRigs: ['blob', 'biped', 'floating'] },

@@ -1,9 +1,9 @@
 import { validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
-import { readFile } from 'node:fs/promises'
+import { readFile, realpath } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { validateCatalogFiles } from './file-validation.js'
 import { loadCatalog } from './load-catalog.js'
-import { validateProductionEvidenceManifest } from './evidence-root.js'
+import { productionEvidenceSourceIndexPath, validateProductionEvidenceManifest } from './evidence-root.js'
 import { validateProductionSourceFiles, type SourceRichValidationResult } from './source-rich-validation.js'
 import {
   validateNoStaleRuntimeAssets,
@@ -25,20 +25,36 @@ async function main(): Promise<void> {
   const production = options.includes('--production')
   const sourceRootOption = options.indexOf('--source-root')
   const sourceRoot = sourceRootOption === -1 ? undefined : options[sourceRootOption + 1]
+  const sourceIndexOption = options.indexOf('--source-index')
+  const sourceIndexInput = sourceIndexOption === -1 ? undefined : options[sourceIndexOption + 1]
+  const evidenceManifestOption = options.indexOf('--evidence-manifest')
+  const evidenceManifestInput = evidenceManifestOption === -1 ? undefined : options[evidenceManifestOption + 1]
   const recognized = new Set<number>()
   if (production) recognized.add(options.indexOf('--production'))
   if (sourceRootOption !== -1) {
     recognized.add(sourceRootOption)
     recognized.add(sourceRootOption + 1)
   }
+  if (sourceIndexOption !== -1) {
+    recognized.add(sourceIndexOption)
+    recognized.add(sourceIndexOption + 1)
+  }
+  if (evidenceManifestOption !== -1) {
+    recognized.add(evidenceManifestOption)
+    recognized.add(evidenceManifestOption + 1)
+  }
   const invalidOptions = options.filter((_option, index) => !recognized.has(index))
   if (catalogFile === undefined || assetRoot === undefined) {
-    printDiagnostics([{ severity: 'error', code: 'CATALOG_CLI_ARGUMENTS_INVALID', path: [], message: 'Usage: tsx src/cli.ts <catalog-file> <asset-root> [--production] [--source-root <asset-source/v0.1.0>]' }])
+    printDiagnostics([{ severity: 'error', code: 'CATALOG_CLI_ARGUMENTS_INVALID', path: [], message: 'Usage: tsx src/cli.ts <catalog-file> <asset-root> [--production --source-index <source-index.json> --evidence-manifest <evidence-manifest.json>] [--source-root <asset-source/vX.Y.Z>]' }])
     process.exitCode = 1
     return
   }
-  if (invalidOptions.length > 0 || (sourceRootOption !== -1 && (sourceRoot === undefined || sourceRoot.startsWith('--'))) || (sourceRoot !== undefined && !production)) {
-    printDiagnostics([{ severity: 'error', code: 'CATALOG_CLI_ARGUMENTS_INVALID', path: [], message: '--source-root requires a path and may only be used together with --production.' }])
+  const missingProductionEvidence = production && (sourceIndexInput === undefined || evidenceManifestInput === undefined)
+  const malformedProductionPath = [sourceRoot, sourceIndexInput, evidenceManifestInput]
+    .some(value => value !== undefined && value.startsWith('--'))
+  const evidenceWithoutProduction = !production && (sourceIndexInput !== undefined || evidenceManifestInput !== undefined)
+  if (invalidOptions.length > 0 || malformedProductionPath || (sourceRoot !== undefined && !production) || evidenceWithoutProduction || missingProductionEvidence) {
+    printDiagnostics([{ severity: 'error', code: 'CATALOG_CLI_ARGUMENTS_INVALID', path: [], message: '--source-index and --evidence-manifest require paths and must be supplied together with --production; --source-root also requires --production.' }])
     process.exitCode = 1
     return
   }
@@ -55,19 +71,32 @@ async function main(): Promise<void> {
   let sourceRichResult: SourceRichValidationResult | undefined
   if (production) {
     const catalogDirectory = dirname(resolve(catalogFile))
-    const sourceIndexPath = resolve(catalogDirectory, '..', '..', 'source-index.json')
-    const evidenceManifestPath = resolve(catalogDirectory, '..', '..', 'audit', 'v0.1.0', 'evidence-manifest.json')
+    let sourceIndexPath = resolve(sourceIndexInput!)
+    let evidenceManifestPath = resolve(evidenceManifestInput!)
     let sourceIndex: ProductionSourceIndex = {}
     let evidenceManifest: unknown = null
     try {
+      sourceIndexPath = await realpath(sourceIndexPath)
       sourceIndex = JSON.parse(await readFile(sourceIndexPath, 'utf8')) as ProductionSourceIndex
     } catch {
-      diagnostics.push({ severity: 'error', code: 'PRODUCTION_SOURCE_INDEX_MISSING', path: [sourceIndexPath], message: 'Cannot read production source-index.json.' })
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_SOURCE_INDEX_MISSING', path: [sourceIndexPath], message: 'Cannot resolve/read the explicit production source-index.' })
     }
     try {
+      evidenceManifestPath = await realpath(evidenceManifestPath)
       evidenceManifest = JSON.parse(await readFile(evidenceManifestPath, 'utf8')) as unknown
     } catch {
-      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_MANIFEST_MISSING', path: [evidenceManifestPath], message: 'Cannot read independent production evidence manifest.' })
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_MANIFEST_MISSING', path: [evidenceManifestPath], message: 'Cannot resolve/read the explicit independent production evidence manifest.' })
+    }
+    const version = parsed.value.version
+    const sourceIndexFile = sourceIndexPath.replaceAll('\\', '/').split('/').at(-1)
+    if (sourceIndexFile !== productionEvidenceSourceIndexPath(version).split('/').at(-1)) {
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_VERSION_MISMATCH', path: [sourceIndexPath], message: `Source-index path does not match catalog version ${version}.` })
+    }
+    if (!evidenceManifestPath.replaceAll('\\', '/').includes(`/audit/v${version}/`)) {
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_VERSION_MISMATCH', path: [evidenceManifestPath], message: `Evidence manifest path does not match catalog version ${version}.` })
+    }
+    if (sourceIndex.catalogVersion !== version) {
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_VERSION_MISMATCH', path: ['catalogVersion'], message: `Source-index version must equal catalog version ${version}.` })
     }
     diagnostics.push(
       ...validateProductionMetadata(parsed.value),

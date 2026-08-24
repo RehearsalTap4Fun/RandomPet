@@ -3,7 +3,13 @@ import { readFile, realpath } from 'node:fs/promises'
 import { isAbsolute, relative, resolve } from 'node:path'
 import type { Diagnostic } from '@qmonster/generator-core'
 
-const PORTABLE_SOURCE_PREFIX = 'asset-source/v0.1.0/'
+function portableSourcePrefix(sourceIndex: unknown): string | null {
+  const version = record(sourceIndex)?.catalogVersion
+  if (version === undefined) return 'asset-source/v0.1.0/'
+  return typeof version === 'string' && /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/u.test(version)
+    ? `asset-source/v${version}/`
+    : null
+}
 
 interface FileClaim {
   path: string
@@ -123,6 +129,14 @@ export async function validateProductionSourceFiles(
   sourceRoot: string,
 ): Promise<SourceRichValidationResult> {
   const { claims, diagnostics } = collectProductionSourceClaims(sourceIndex)
+  const sourcePrefix = portableSourcePrefix(sourceIndex)
+  if (sourcePrefix === null) {
+    return {
+      diagnostics: [...diagnostics, error('PRODUCTION_SOURCE_VERSION_INVALID', ['catalogVersion'], 'Source-rich validation needs a strict catalogVersion.')],
+      referencesChecked: claims.length,
+      uniqueFilesChecked: 0,
+    }
+  }
   let canonicalRoot: string
   try {
     canonicalRoot = await realpath(resolve(sourceRoot))
@@ -137,11 +151,11 @@ export async function validateProductionSourceFiles(
   const unique = new Map<string, FileClaim>()
   for (const claim of claims) {
     const portable = claim.path.replaceAll('\\', '/')
-    if (isAbsolute(claim.path) || !portable.startsWith(PORTABLE_SOURCE_PREFIX)) {
-      diagnostics.push(error('PRODUCTION_SOURCE_FILE_PATH_INVALID', claim.diagnosticPath, `Source path must stay below ${PORTABLE_SOURCE_PREFIX}.`))
+    if (isAbsolute(claim.path) || !portable.startsWith(sourcePrefix)) {
+      diagnostics.push(error('PRODUCTION_SOURCE_FILE_PATH_INVALID', claim.diagnosticPath, `Source path must stay below ${sourcePrefix}.`))
       continue
     }
-    const suffix = portable.slice(PORTABLE_SOURCE_PREFIX.length)
+    const suffix = portable.slice(sourcePrefix.length)
     const unresolved = resolve(canonicalRoot, suffix)
     const rootRelative = relative(canonicalRoot, unresolved)
     if (suffix === '' || rootRelative.startsWith('..') || isAbsolute(rootRelative)) {

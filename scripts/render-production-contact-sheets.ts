@@ -5,6 +5,7 @@ import sharp from 'sharp'
 import type { Catalog, RenderLayer, RigDefinition, RigId, VisualPartDefinition, VisualSlotId } from '@qmonster/generator-core'
 import { RENDER_LAYER_ORDER, resolvePartPlacement, type Placement } from '@qmonster/renderer-canvas'
 import { loadCommittedProductionCatalog } from './build-production-catalog.js'
+import type { ProductionPaths } from './production-paths.js'
 
 export interface ContactSheetPlan {
   rigId: RigId
@@ -20,8 +21,6 @@ interface ContactSheetResult extends ContactSheetPlan {
   height: number
 }
 
-const reviewDirectory = 'packages/asset-catalog/review/v0.1.0'
-const assetsDirectory = 'packages/asset-catalog/assets/v0.1.0'
 const columns = 4
 const cellWidth = 300
 const cellHeight = 340
@@ -98,6 +97,7 @@ export async function measureRearLayerVisibility(
   catalog: Catalog,
   rigId: RigId,
   partId: string,
+  paths: Pick<ProductionPaths, 'assetDirectory'>,
 ): Promise<{ foregroundPixels: number; visiblePixels: number; visibleFraction: number; clippedForegroundPixels: number }> {
   const part = catalog.parts.find(candidate => candidate.id === partId)
   const rig = catalog.rigs.find(candidate => candidate.id === rigId)
@@ -106,8 +106,8 @@ export async function measureRearLayerVisibility(
   const placement = contactPlacement(part, rig)
   if (placement.scaleX !== 1 || placement.scaleY !== 1) throw new Error('Visibility audit currently requires the renderer identity transform.')
 
-  const candidatePath = join(assetsDirectory, part.pngPath ?? part.assetPath.replace(/\.webp$/u, '.png'))
-  const basePath = join(assetsDirectory, 'rigs', `base_${rigId}_v1.png`)
+  const candidatePath = join(paths.assetDirectory, part.pngPath ?? part.assetPath.replace(/\.webp$/u, '.png'))
+  const basePath = join(paths.assetDirectory, 'rigs', `base_${rigId}_v1.png`)
   const [candidate, base] = await Promise.all([
     sharp(candidatePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
     sharp(basePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
@@ -142,20 +142,25 @@ export async function measureRearLayerVisibility(
   }
 }
 
-async function renderOne(catalog: Catalog, plan: ContactSheetPlan, renderer: ProductionContactRenderer): Promise<ContactSheetResult> {
+async function renderOne(
+  catalog: Catalog,
+  plan: ContactSheetPlan,
+  renderer: ProductionContactRenderer,
+  paths: Pick<ProductionPaths, 'reviewDirectory'>,
+): Promise<ContactSheetResult> {
   const rows = Math.ceil(plan.partIds.length / columns)
   const width = columns * cellWidth
   const height = headerHeight + rows * cellHeight
   const header = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${headerHeight}">
     <rect width="100%" height="100%" fill="#0d1118"/>
-    <text x="24" y="34" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="25" font-weight="700" fill="#ffffff">QMonster v0.1 · ${escapeXml(plan.rigId)} compatible-rig contact sheet</text>
+    <text x="24" y="34" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="25" font-weight="700" fill="#ffffff">QMonster v${escapeXml(catalog.version)} · ${escapeXml(plan.rigId)} compatible-rig contact sheet</text>
     <text x="24" y="64" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="16" fill="#9fb0c4">${plan.partIds.length} candidates · actual @qmonster/renderer-canvas pixels · checker reveals alpha</text>
   </svg>`)
   const cells: Buffer[] = []
   for (const partId of plan.partIds) {
     cells.push(await renderContactCell(catalog, plan.rigId, partId, await renderer(plan.rigId, partId)))
   }
-  const outputPath = join(reviewDirectory, `contact-sheet-${plan.rigId}.png`)
+  const outputPath = join(paths.reviewDirectory, `contact-sheet-${plan.rigId}.png`)
   await mkdir(dirname(outputPath), { recursive: true })
   await sharp({ create: { width, height, channels: 4, background: '#0d1118ff' } })
     .composite([
@@ -172,10 +177,14 @@ async function renderOne(catalog: Catalog, plan: ContactSheetPlan, renderer: Pro
   return { ...plan, outputPath: outputPath.replaceAll('\\', '/'), sha256: createHash('sha256').update(bytes).digest('hex'), width, height }
 }
 
-export async function generateContactSheets(catalog: Catalog, renderer: ProductionContactRenderer): Promise<ContactSheetResult[]> {
+export async function generateContactSheets(
+  catalog: Catalog,
+  renderer: ProductionContactRenderer,
+  paths: Pick<ProductionPaths, 'reviewDirectory'>,
+): Promise<ContactSheetResult[]> {
   const results: ContactSheetResult[] = []
-  for (const plan of planContactSheets(catalog)) results.push(await renderOne(catalog, plan, renderer))
-  await writeFile(join(reviewDirectory, 'contact-sheet-index.json'), `${JSON.stringify({
+  for (const plan of planContactSheets(catalog)) results.push(await renderOne(catalog, plan, renderer, paths))
+  await writeFile(join(paths.reviewDirectory, 'contact-sheet-index.json'), `${JSON.stringify({
     catalogVersion: catalog.version,
     renderer: '@qmonster/renderer-canvas browserSurfaceFactory',
     generatedAt: '2026-08-23',

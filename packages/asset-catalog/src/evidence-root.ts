@@ -8,7 +8,7 @@ export interface ProductionEvidenceManifest {
   manifestVersion: typeof PRODUCTION_EVIDENCE_MANIFEST_VERSION
   canonicalization: typeof PRODUCTION_EVIDENCE_CANONICALIZATION
   catalogVersion: string
-  sourceIndexPath: 'packages/asset-catalog/source-index.json'
+  sourceIndexPath: string
   evidenceRootSha256: string
 }
 
@@ -67,6 +67,12 @@ export function computeProductionEvidenceRoot(sourceIndex: unknown): string {
   return createHash('sha256').update(canonicalJson(sourceIndex)).digest('hex')
 }
 
+export function productionEvidenceSourceIndexPath(version: string): string {
+  return version === '0.1.0'
+    ? 'packages/asset-catalog/source-index.json'
+    : `packages/asset-catalog/source-index-v${version}.json`
+}
+
 export function buildProductionEvidenceManifest(sourceIndex: { catalogVersion?: unknown }): ProductionEvidenceManifest {
   if (typeof sourceIndex.catalogVersion !== 'string' || sourceIndex.catalogVersion === '') {
     throw new Error('Production source-index needs catalogVersion before evidence-root generation.')
@@ -75,7 +81,7 @@ export function buildProductionEvidenceManifest(sourceIndex: { catalogVersion?: 
     manifestVersion: PRODUCTION_EVIDENCE_MANIFEST_VERSION,
     canonicalization: PRODUCTION_EVIDENCE_CANONICALIZATION,
     catalogVersion: sourceIndex.catalogVersion,
-    sourceIndexPath: 'packages/asset-catalog/source-index.json',
+    sourceIndexPath: productionEvidenceSourceIndexPath(sourceIndex.catalogVersion),
     evidenceRootSha256: computeProductionEvidenceRoot(sourceIndex),
   }
 }
@@ -84,14 +90,15 @@ export function validateProductionEvidenceManifest(
   sourceIndex: { catalogVersion?: unknown },
   manifest: unknown,
 ): Diagnostic[] {
-  const path = ['audit', 'v0.1.0', 'evidence-manifest.json']
+  const catalogVersion = typeof sourceIndex.catalogVersion === 'string' ? sourceIndex.catalogVersion : ''
+  const path = ['audit', `v${catalogVersion}`, 'evidence-manifest.json']
   if (
     manifest === null
     || typeof manifest !== 'object'
     || (manifest as Record<string, unknown>).manifestVersion !== PRODUCTION_EVIDENCE_MANIFEST_VERSION
     || (manifest as Record<string, unknown>).canonicalization !== PRODUCTION_EVIDENCE_CANONICALIZATION
     || (manifest as Record<string, unknown>).catalogVersion !== sourceIndex.catalogVersion
-    || (manifest as Record<string, unknown>).sourceIndexPath !== 'packages/asset-catalog/source-index.json'
+    || (manifest as Record<string, unknown>).sourceIndexPath !== productionEvidenceSourceIndexPath(catalogVersion)
     || !/^[a-f0-9]{64}$/u.test(String((manifest as Record<string, unknown>).evidenceRootSha256 ?? ''))
   ) {
     return [{

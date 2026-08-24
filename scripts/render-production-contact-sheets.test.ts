@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import sharp from 'sharp'
 import { loadCommittedProductionCatalog } from './build-production-catalog.js'
+import { productionPaths } from './production-paths.js'
 import { contactCompositeOrder, contactPlacement, measureRearLayerVisibility, planContactSheets, renderContactCell } from './render-production-contact-sheets.js'
 
 describe('production contact-sheet plan', () => {
   it('places every visual candidate on every declared compatible rig exactly once', async () => {
-    const { catalog } = await loadCommittedProductionCatalog()
+    const { catalog } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     const plan = planContactSheets(catalog)
     const expectedPlacements = catalog.parts.reduce((count, part) => count + part.compatibleRigs.length, 0)
 
@@ -19,7 +20,7 @@ describe('production contact-sheet plan', () => {
   })
 
   it('composites a compatible part and rig into one review cell', async () => {
-    const { catalog } = await loadCommittedProductionCatalog()
+    const { catalog } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     const rendererFrame = await sharp({ create: { width: 280, height: 280, channels: 4, background: '#ff0000ff' } }).png().toBuffer()
     const cell = await renderContactCell(catalog, 'blob', 'eyes_glossy_pair', rendererFrame)
     await expect(sharp(cell).metadata()).resolves.toMatchObject({ width: 300, height: 340, hasAlpha: true })
@@ -34,14 +35,14 @@ describe('production contact-sheet plan', () => {
   })
 
   it('keeps broad biped moth wings clearly visible outside the body in renderer placement', async () => {
-    const { catalog } = await loadCommittedProductionCatalog()
-    const audit = await measureRearLayerVisibility(catalog, 'biped', 'extra_moth_wings')
+    const { catalog } = await loadCommittedProductionCatalog({ version: '0.1.0' })
+    const audit = await measureRearLayerVisibility(catalog, 'biped', 'extra_moth_wings', productionPaths('0.1.0'))
     expect(audit.visibleFraction).toBeGreaterThan(0.3)
     expect(audit.clippedForegroundPixels).toBe(0)
   })
 
   it('uses renderer placement for representative body, head, mouth, appendage, and tail parts', async () => {
-    const { catalog } = await loadCommittedProductionCatalog()
+    const { catalog } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     const rig = catalog.rigs.find(candidate => candidate.id === 'blob')!
     const placement = (id: string) => contactPlacement(
       catalog.parts.find(candidate => candidate.id === id)!,

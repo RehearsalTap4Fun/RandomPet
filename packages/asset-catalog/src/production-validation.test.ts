@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os'
 import { afterEach, describe, expect, it } from 'vitest'
 import { execFile as execFileCallback } from 'node:child_process'
 import { promisify } from 'node:util'
-import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
+import { makeCompositionCatalogFixture, makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { buildProductionEvidenceManifest } from './evidence-root.js'
 import { loadCatalog } from './load-catalog.js'
 import {
@@ -104,6 +104,20 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('requires exact PNG and WebP hashes for every 0.2.0 composition render node', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const node = catalog.parts.find(part => !part.composition!.isNone)!.composition!.renderNodes[0]!
+    delete node.assetSha256
+    delete node.pngSha256
+
+    const diagnostics = validateProductionMetadata(catalog)
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_COMPOSITION_NODE_METADATA_MISSING',
+      path: expect.arrayContaining(['composition', 'renderNodes', '0']),
+    }))
+  })
+
   it('requires rich Task 8 metadata without tightening the general catalog schema', () => {
     const catalog = makeValidCatalogFixture()
     catalog.modifiers.pop()
@@ -527,6 +541,8 @@ describe('strict production catalog validation', () => {
       join(catalogDirectory, 'catalog.json'),
       join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
       '--production',
+      '--source-index', join(root, 'source-index.json'),
+      '--evidence-manifest', join(root, 'audit', 'v0.1.0', 'evidence-manifest.json'),
     ])).rejects.toMatchObject({
       code: 1,
       stderr: expect.stringContaining('PRODUCTION_CANDIDATE_AUDIT_INVALID'),
@@ -547,6 +563,8 @@ describe('strict production catalog validation', () => {
       join(catalogDirectory, 'catalog.json'),
       join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
       '--production',
+      '--source-index', join(root, 'source-index.json'),
+      '--evidence-manifest', join(root, 'audit', 'v0.1.0', 'evidence-manifest.json'),
     ])).rejects.toMatchObject({
       code: 1,
       stderr: expect.stringContaining('PRODUCTION_EVIDENCE_ROOT_MISMATCH'),
@@ -570,6 +588,8 @@ describe('strict production catalog validation', () => {
       join(catalogDirectory, 'catalog.json'),
       join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
       '--production',
+      '--source-index', join(root, 'source-index.json'),
+      '--evidence-manifest', join(root, 'audit', 'v0.1.0', 'evidence-manifest.json'),
       '--source-root',
       sourceRoot,
     ])).rejects.toMatchObject({
@@ -600,6 +620,8 @@ describe('strict production catalog validation', () => {
       join(catalogDirectory, 'catalog.json'),
       join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
       '--production',
+      '--source-index', join(root, 'source-index.json'),
+      '--evidence-manifest', join(root, 'audit', 'v0.1.0', 'evidence-manifest.json'),
     ])).rejects.toMatchObject({
       code: 1,
       stderr: expect.stringContaining('PRODUCTION_CANDIDATE_GATE_MISMATCH'),
@@ -619,6 +641,8 @@ describe('strict production catalog validation', () => {
       join(catalogDirectory, 'catalog.json'),
       join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
       '--production',
+      '--source-index', join(root, 'source-index.json'),
+      '--evidence-manifest', join(root, 'audit', 'v0.1.0', 'evidence-manifest.json'),
     ])).rejects.toMatchObject({
       code: 1,
       stderr: expect.stringContaining('PRODUCTION_COLOR_MASK_PIXELS_MISMATCH'),

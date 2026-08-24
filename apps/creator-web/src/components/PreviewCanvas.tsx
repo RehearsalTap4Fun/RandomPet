@@ -49,20 +49,21 @@ export class CatalogImageResolverCache {
   }
 }
 
-const PRODUCTION_ASSET_ROOT = '../../../../packages/asset-catalog/assets/v0.1.0/'
+const PRODUCTION_ASSET_ROOT = '../../../../packages/asset-catalog/assets/'
 const productionAssetUrls = import.meta.glob<string>(
-  '../../../../packages/asset-catalog/assets/v0.1.0/**/*.{png,webp}',
+  '../../../../packages/asset-catalog/assets/v*/**/*.{png,webp}',
   { query: '?url', import: 'default' },
 )
+
+export function catalogAssetKey(catalogVersion: string, assetPath: string): string {
+  return `${PRODUCTION_ASSET_ROOT}v${catalogVersion}/${assetPath}`
+}
 
 export async function resolveProductionAssetUrl(
   catalogVersion: string,
   assetPath: string,
 ): Promise<string> {
-  if (catalogVersion !== '0.1.0') {
-    throw new Error(`Catalog assets for ${catalogVersion} are not bundled.`)
-  }
-  const loadUrl = productionAssetUrls[`${PRODUCTION_ASSET_ROOT}${assetPath}`]
+  const loadUrl = productionAssetUrls[catalogAssetKey(catalogVersion, assetPath)]
   if (loadUrl === undefined) throw new Error(`Asset ${assetPath} is not bundled.`)
   return loadUrl()
 }

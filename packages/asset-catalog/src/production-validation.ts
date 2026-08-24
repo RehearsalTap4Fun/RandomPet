@@ -54,6 +54,21 @@ export function validateProductionMetadata(catalog: Catalog): Diagnostic[] {
     ) {
       diagnostics.push(error('PRODUCTION_PART_METADATA_MISSING', ['parts', String(index)], `Part ${part.id} needs display/flavor/description and PNG/WebP paths with hashes.`))
     }
+    if (catalog.version === '0.2.0') {
+      if (part.composition === undefined) {
+        diagnostics.push(error('PRODUCTION_COMPOSITION_METADATA_MISSING', ['parts', String(index), 'composition'], `Part ${part.id} needs composition metadata in a 0.2.0 production catalog.`))
+      } else {
+        for (const [nodeIndex, node] of part.composition.renderNodes.entries()) {
+          if (!nonemptyText(node.assetPath) || !nonemptyText(node.assetSha256) || !nonemptyText(node.pngPath) || !nonemptyText(node.pngSha256)) {
+            diagnostics.push(error(
+              'PRODUCTION_COMPOSITION_NODE_METADATA_MISSING',
+              ['parts', String(index), 'composition', 'renderNodes', String(nodeIndex)],
+              `Composition node ${node.id} needs PNG/WebP paths and hashes.`,
+            ))
+          }
+        }
+      }
+    }
     if (part.slotId === 'colorScheme') {
       for (const rigId of part.compatibleRigs) {
         for (const maskName of ['primary', 'secondary', 'accent'] as const) {
@@ -173,6 +188,10 @@ export async function validateNoStaleRuntimeAssets(catalog: Catalog, assetRoot: 
   for (const part of catalog.parts) {
     expected.add(part.assetPath.replaceAll('\\', '/'))
     if (part.pngPath !== undefined) expected.add(part.pngPath.replaceAll('\\', '/'))
+    for (const node of part.composition?.renderNodes ?? []) {
+      expected.add(node.assetPath.replaceAll('\\', '/'))
+      if (node.pngPath !== undefined) expected.add(node.pngPath.replaceAll('\\', '/'))
+    }
     for (const masks of Object.values(part.rigMaskPaths ?? {})) {
       if (masks === undefined) continue
       expected.add(masks.primary.replaceAll('\\', '/'))
@@ -256,6 +275,8 @@ interface ProductionSourceRecord {
   selectedExtraction?: ExtractionAudit | null
   composition?: CompositeAudit | null
   componentEvaluations?: unknown
+  reworkRecordPath?: string
+  reworkRecordSha256?: string
 }
 
 export interface ProductionSourceIndex {
@@ -285,10 +306,10 @@ function checkPortableAuditPaths(value: unknown, path: string[], diagnostics: Di
   }
 }
 
-function runtimePathMatches(recorded: unknown, expected: string): boolean {
+function runtimePathMatches(recorded: unknown, expected: string, version: string): boolean {
   if (typeof recorded !== 'string') return false
   const normalized = recorded.replaceAll('\\', '/')
-  return normalized === expected || normalized.endsWith(`/assets/v0.1.0/${expected}`)
+  return normalized === expected || normalized.endsWith(`/assets/v${version}/${expected}`)
 }
 
 async function decodeCommittedRgba(assetRoot: string, assetPath: string): Promise<{
@@ -584,6 +605,7 @@ async function checkColorMaskAudit(
   catalog: Catalog,
   indexed: ReadonlyMap<string, ProductionSourceRecord>,
   assetRoot: string,
+  version: string,
   path: string[],
   diagnostics: Diagnostic[],
 ): Promise<void> {
@@ -597,8 +619,8 @@ async function checkColorMaskAudit(
     diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', path.concat('paletteMaskAudit', 'sourceSha256'), 'Palette layout source path/hash must match the approved master.'))
   }
   if (
-    !runtimePathMatches(audit.runtimePngPath, part.pngPath ?? '')
-    || !runtimePathMatches(audit.runtimeWebpPath, part.assetPath)
+    !runtimePathMatches(audit.runtimePngPath, part.pngPath ?? '', version)
+    || !runtimePathMatches(audit.runtimeWebpPath, part.assetPath, version)
     || audit.runtimePngSha256 !== part.pngSha256
     || audit.runtimeWebpSha256 !== part.assetSha256
   ) {
@@ -615,7 +637,7 @@ async function checkColorMaskAudit(
     if (value === undefined) continue
     const rig = catalog.rigs.find(candidate => candidate.id === rigId)
     const rigSource = rig?.sourceId === undefined ? undefined : indexed.get(rig.sourceId)
-    if (!runtimePathMatches(value.rigAssetPath, `rigs/${rig?.sourceId}.png`) || value.rigAssetSha256 !== rigSource?.runtimePngSha256) {
+    if (!runtimePathMatches(value.rigAssetPath, `rigs/${rig?.sourceId}.png`, version) || value.rigAssetSha256 !== rigSource?.runtimePngSha256) {
       diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', valuePath.concat('rigAssetSha256'), 'Palette mask must identify the compatible rig runtime hash.'))
     }
     const paths = value.paths as Record<string, unknown> | null
@@ -623,7 +645,7 @@ async function checkColorMaskAudit(
     for (const maskName of ['primary', 'secondary', 'accent'] as const) {
       if (
         paths === null || typeof paths !== 'object'
-        || !runtimePathMatches(paths[maskName], part.rigMaskPaths?.[rigId]?.[maskName] ?? '')
+        || !runtimePathMatches(paths[maskName], part.rigMaskPaths?.[rigId]?.[maskName] ?? '', version)
         || hashes === null || typeof hashes !== 'object'
         || hashes[maskName] !== part.rigMaskSha256?.[rigId]?.[maskName]
       ) {
@@ -723,6 +745,9 @@ export async function validateProductionSourceIndex(
 ): Promise<Diagnostic[]> {
   const diagnostics: Diagnostic[] = []
   checkPortableAuditPaths(sourceIndex, [], diagnostics)
+  if (sourceIndex.catalogVersion !== catalog.version) {
+    diagnostics.push(error('PRODUCTION_EVIDENCE_VERSION_MISMATCH', ['catalogVersion'], `Source-index version must equal catalog version ${catalog.version}.`))
+  }
   if (
     sourceIndex.extractionGate?.gateVersion !== PRODUCTION_CHROMA_GATE_VERSION
     || !isDeepStrictEqual(sourceIndex.extractionGate.profile, PRODUCTION_CHROMA_GATE_PROFILE)
@@ -746,11 +771,21 @@ export async function validateProductionSourceIndex(
     checkSourceAuditEnvelope(source, ['sources', part.id], diagnostics)
     checkSourceSelection(source, ['sources', part.id], diagnostics)
     checkCompositeProvenance(source, ['sources', part.id], diagnostics)
-    await checkColorMaskAudit(source, part, catalog, indexed, assetRoot, ['sources', part.id], diagnostics)
-    if (!runtimePathMatches(source.runtimeWebpPath, part.assetPath) || source.runtimeWebpSha256 !== part.assetSha256) {
+    if (catalog.version === '0.2.0') {
+      const expectedReworkPath = 'packages/asset-catalog/review/v0.2.0/rework-record.json'
+      if (source.reworkRecordPath !== expectedReworkPath || !isSha256(source.reworkRecordSha256)) {
+        diagnostics.push(error('PRODUCTION_REWORK_RECORD_MISSING', ['sources', part.id, 'reworkRecordPath'], `Part ${part.id} needs the hashed 0.2.0 rework-record.json.`))
+      }
+      for (const [nodeIndex, node] of (part.composition?.renderNodes ?? []).entries()) {
+        if (node.assetSha256 !== undefined) assetChecks.push(validateAssetFile(assetRoot, node.assetPath, node.assetSha256, ['parts', part.id, 'composition', 'renderNodes', String(nodeIndex), 'assetPath']))
+        if (node.pngPath !== undefined && node.pngSha256 !== undefined) assetChecks.push(validateAssetFile(assetRoot, node.pngPath, node.pngSha256, ['parts', part.id, 'composition', 'renderNodes', String(nodeIndex), 'pngPath']))
+      }
+    }
+    await checkColorMaskAudit(source, part, catalog, indexed, assetRoot, catalog.version, ['sources', part.id], diagnostics)
+    if (!runtimePathMatches(source.runtimeWebpPath, part.assetPath, catalog.version) || source.runtimeWebpSha256 !== part.assetSha256) {
       diagnostics.push(error('PRODUCTION_SOURCE_RUNTIME_MISMATCH', ['sources', part.id, 'runtimeWebpPath'], `Source-index WebP metadata differs for ${part.id}.`))
     }
-    if (part.pngPath === undefined || !runtimePathMatches(source.runtimePngPath, part.pngPath) || source.runtimePngSha256 !== part.pngSha256) {
+    if (part.pngPath === undefined || !runtimePathMatches(source.runtimePngPath, part.pngPath, catalog.version) || source.runtimePngSha256 !== part.pngSha256) {
       diagnostics.push(error('PRODUCTION_SOURCE_RUNTIME_MISMATCH', ['sources', part.id, 'runtimePngPath'], `Source-index PNG metadata differs for ${part.id}.`))
     }
     if (typeof source.runtimeWebpSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, part.assetPath, source.runtimeWebpSha256, ['sources', part.id, 'runtimeWebpPath']))
@@ -771,7 +806,7 @@ export async function validateProductionSourceIndex(
     checkSourceSelection(source, ['sources', rig.sourceId], diagnostics)
     const pngPath = `rigs/${rig.sourceId}.png`
     const webpPath = `rigs/${rig.sourceId}.webp`
-    if (!runtimePathMatches(source.runtimePngPath, pngPath) || !runtimePathMatches(source.runtimeWebpPath, webpPath)) {
+    if (!runtimePathMatches(source.runtimePngPath, pngPath, catalog.version) || !runtimePathMatches(source.runtimeWebpPath, webpPath, catalog.version)) {
       diagnostics.push(error('PRODUCTION_SOURCE_RUNTIME_MISMATCH', ['sources', rig.sourceId], `Rig runtime paths differ for ${rig.sourceId}.`))
     }
     if (typeof source.runtimePngSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, pngPath, source.runtimePngSha256, ['sources', rig.sourceId, 'runtimePngPath']))

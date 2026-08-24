@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
-import { buildRuntimeAsset } from './build-runtime-assets.js'
+import { buildRuntimeAsset, runtimeAssetBuildPaths } from './build-runtime-assets.js'
 
 const temporaryDirectories: string[] = []
 
@@ -13,6 +13,13 @@ afterEach(async () => {
 })
 
 describe('buildRuntimeAsset', () => {
+  it('uses an explicit release version to select production roots', () => {
+    expect(runtimeAssetBuildPaths('0.2.0')).toMatchObject({
+      sourceRoot: 'asset-source/v0.2.0',
+      assetDirectory: 'packages/asset-catalog/assets/v0.2.0',
+    })
+  })
+
   it('converts a 2048 RGBA master to 1024 lossless WebP and reports exact hashes', async () => {
     const directory = await mkdtemp(join(tmpdir(), 'qmonster-runtime-'))
     temporaryDirectories.push(directory)

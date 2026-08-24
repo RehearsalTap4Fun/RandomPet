@@ -7,6 +7,7 @@ import type { RenderResult } from '@qmonster/renderer-canvas'
 import {
   CatalogImageResolverCache,
   PreviewCanvas,
+  catalogAssetKey,
   resolveProductionAssetUrl,
   type PreviewRenderer,
 } from './PreviewCanvas.js'
@@ -43,6 +44,13 @@ function installCanvasContexts() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CatalogImageResolverCache', () => {
+  it('builds an exact versioned asset key without fallback', async () => {
+    expect(catalogAssetKey('0.2.0', 'parts/eyes_glossy_pair.png'))
+      .toContain('/assets/v0.2.0/parts/eyes_glossy_pair.png')
+    await expect(resolveProductionAssetUrl('0.1.0', 'parts/eyes_glossy_pair.png')).resolves.toMatch(/v0\.1\.0/)
+    await expect(resolveProductionAssetUrl('9.9.9', 'parts/eyes_glossy_pair.png')).rejects.toThrow('not bundled')
+  })
+
   it('resolves a tracked production asset through the Vite asset graph', async () => {
     const url = await resolveProductionAssetUrl('0.1.0', 'parts/eyes_asymmetric.webp')
     expect(new URL(url, 'http://localhost').pathname).toMatch(/eyes_asymmetric/)

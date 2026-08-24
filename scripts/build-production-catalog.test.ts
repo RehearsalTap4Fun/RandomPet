@@ -51,7 +51,7 @@ describe('v0.1 production catalog builder', () => {
   })
 
   it('builds the exact visual, semantic-only and modifier budgets with traceable runtime hashes', async () => {
-    const bundle = await loadCommittedProductionCatalog()
+    const bundle = await loadCommittedProductionCatalog({ version: '0.1.0' })
     const counts = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
       slotId,
       bundle.catalog.parts.filter(part => part.slotId === slotId).length,
@@ -88,7 +88,7 @@ describe('v0.1 production catalog builder', () => {
   })
 
   it('preserves authored socket and origin for body, head, mouth, appendage, and tail layers', async () => {
-    const { parts } = await loadCommittedProductionCatalog()
+    const { parts } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     const placement = (id: string) => {
       const candidate = parts.find(part => part.id === id)
       expect(candidate, `missing ${id}`).toBeDefined()
@@ -103,7 +103,7 @@ describe('v0.1 production catalog builder', () => {
   })
 
   it('commits complete chroma-quality audit data for all twelve rig candidates', async () => {
-    const { sourceIndex } = await loadCommittedProductionCatalog()
+    const { sourceIndex } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     const sources = sourceIndex.sources as Array<Record<string, unknown>>
     const rigSources = sources.filter(source => source.kind === 'rig-base')
     expect(rigSources).toHaveLength(3)
@@ -133,7 +133,7 @@ describe('v0.1 production catalog builder', () => {
   })
 
   it('commits the immutable gate and source-rich paths for every chroma evaluation', async () => {
-    const { sourceIndex } = await loadCommittedProductionCatalog()
+    const { sourceIndex } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     expect(sourceIndex.extractionGate).toEqual({
       gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
       profile: PRODUCTION_CHROMA_GATE_PROFILE,
@@ -167,7 +167,7 @@ describe('v0.1 production catalog builder', () => {
   })
 
   it('anchors the canonical committed source-index in an independent evidence manifest', async () => {
-    const { sourceIndex } = await loadCommittedProductionCatalog()
+    const { sourceIndex } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     const manifest = JSON.parse(await readFile(join(
       process.cwd(),
       'packages',
@@ -187,7 +187,7 @@ describe('v0.1 production catalog builder', () => {
   })
 
   it('describes the deep-sea and fungal color assets with their actual theme palettes', async () => {
-    const { parts } = await loadCommittedProductionCatalog()
+    const { parts } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     expect(parts.find(part => part.id === 'color_deep_sea_coral')?.description).toBe(
       'a modular palette overlay of deep ocean-blue primary patches, aqua secondary patches, and warm-gold accents arranged in three broad body-following zones; color patches only',
     )
@@ -197,7 +197,7 @@ describe('v0.1 production catalog builder', () => {
   })
 
   it('keeps nested palette-mask audit paths repository-relative', async () => {
-    const { sourceIndex } = await loadCommittedProductionCatalog()
+    const { sourceIndex } = await loadCommittedProductionCatalog({ version: '0.1.0' })
     const sources = sourceIndex.sources as Array<Record<string, unknown>>
     const colorSources = sources.filter(source => source.slotId === 'colorScheme')
 

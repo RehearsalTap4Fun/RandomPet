@@ -22,6 +22,7 @@ import {
 } from '../packages/asset-catalog/src/chroma-quality-gate.js'
 import { buildProductionEvidenceManifest } from '../packages/asset-catalog/src/evidence-root.js'
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
+import { productionPaths } from './production-paths.js'
 import type { RigSheetAudit } from './process-rig-sheets.js'
 
 interface ProductionExtractionAudit {
@@ -136,13 +137,6 @@ export interface ProductionCatalogBundle {
   sourceIndex: Record<string, unknown>
 }
 
-const catalogDirectory = 'packages/asset-catalog/catalog/v0.1.0'
-const assetDirectory = 'packages/asset-catalog/assets/v0.1.0'
-const sourceRoot = 'asset-source/v0.1.0'
-const productionIndexPath = join(sourceRoot, 'generation', 'production-index.json')
-const reviewRecordPath = 'packages/asset-catalog/review/v0.1.0/review-record.json'
-const rigAuditPath = join(sourceRoot, 'generation', 'rig-audit.json')
-
 const themes: RichTheme[] = [
   { id: 'deep-sea', displayName: '深海', flavorText: '潮光从柔软的深渊皮膜中缓慢呼吸。', palette: { primary: '#237aa3', secondary: '#74c9bf', accent: '#f6d365' } },
   { id: 'fungal', displayName: '菌沼', flavorText: '孢子与湿润苔色长成一团好奇的生命。', palette: { primary: '#6b7d33', secondary: '#a7c957', accent: '#f4a261' } },
@@ -214,7 +208,7 @@ function normalizePath(path: string): string {
   return portable.replaceAll('\\', '/')
 }
 
-function runtimeAssetPath(path: string): string {
+function runtimeAssetPath(path: string, assetDirectory: string): string {
   const normalized = normalizePath(path)
   const prefix = `${assetDirectory}/`
   if (!normalized.startsWith(prefix)) throw new Error(`Runtime asset path is outside ${assetDirectory}: ${path}`)
@@ -334,10 +328,11 @@ async function readJson<T>(path: string): Promise<T> {
 
 /** Loads only committed runtime catalog data; it never reads ignored source-production files. */
 export async function loadCommittedProductionCatalog(
-  options: { repositoryRoot?: string } = {},
+  options: { repositoryRoot?: string, version: string },
 ): Promise<ProductionCatalogBundle> {
   const root = options.repositoryRoot ?? '.'
-  const directory = join(root, catalogDirectory)
+  const paths = productionPaths(options.version)
+  const directory = join(root, paths.catalogDirectory)
   const [catalog, themes, rigs, parts, semanticTraits, modifiers, sourceIndex] = await Promise.all([
     readJson<Catalog>(join(directory, 'catalog.json')),
     readJson<RichTheme[]>(join(directory, 'themes.json')),
@@ -345,12 +340,17 @@ export async function loadCommittedProductionCatalog(
     readJson<RichPart[]>(join(directory, 'parts.json')),
     readJson<RichSemanticTrait[]>(join(directory, 'semantic-traits.json')),
     readJson<RichModifier[]>(join(directory, 'modifiers.json')),
-    readJson<Record<string, unknown>>(join(root, 'packages/asset-catalog/source-index.json')),
+    readJson<Record<string, unknown>>(join(root, paths.sourceIndexPath)),
   ])
   return { catalog, themes, rigs, parts, semanticTraits, modifiers, sourceIndex }
 }
 
-export async function buildProductionCatalog(options: { write: boolean }): Promise<ProductionCatalogBundle> {
+export async function buildProductionCatalog(options: { write: boolean, version: string }): Promise<ProductionCatalogBundle> {
+  const paths = productionPaths(options.version)
+  const { catalogDirectory, assetDirectory, sourceRoot } = paths
+  const productionIndexPath = join(sourceRoot, 'generation', 'production-index.json')
+  const reviewRecordPath = join(paths.reviewDirectory, 'review-record.json')
+  const rigAuditPath = join(sourceRoot, 'generation', 'rig-audit.json')
   const productionIndex = JSON.parse(await readFile(productionIndexPath, 'utf8')) as ProductionIndexEntry[]
   const rigAudits = await readJson<RigSheetAudit[]>(rigAuditPath)
   if (productionIndex.length !== 55) throw new Error(`Expected 55 production entries, received ${productionIndex.length}`)
@@ -368,9 +368,9 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     if (part.slotId === 'colorScheme' && paletteMaskAudit === undefined) throw new Error(`Missing rig-aware palette-mask audit for ${part.id}`)
     const rigMaskPaths = paletteMaskAudit === undefined ? undefined : Object.fromEntries(
       Object.entries(paletteMaskAudit.rigMasks).map(([rigId, value]) => [rigId, {
-        primary: runtimeAssetPath(value.paths.primary),
-        secondary: runtimeAssetPath(value.paths.secondary),
-        accent: runtimeAssetPath(value.paths.accent),
+        primary: runtimeAssetPath(value.paths.primary, assetDirectory),
+        secondary: runtimeAssetPath(value.paths.secondary, assetDirectory),
+        accent: runtimeAssetPath(value.paths.accent, assetDirectory),
       }]),
     )
     const rigMaskSha256 = paletteMaskAudit === undefined ? undefined : Object.fromEntries(
@@ -406,7 +406,7 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
 
   const semanticTraits = [...visualSemanticTraits(), ...semanticOnlyTraits]
   const catalog = {
-    version: '0.1.0',
+    version: options.version,
     themes,
     rigs,
     parts,
@@ -584,7 +584,7 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
   const rigCandidateEvaluations = rigAudits.flatMap(audit => audit.candidateEvaluations)
 
   const sourceIndex: Record<string, unknown> = {
-    catalogVersion: '0.1.0',
+    catalogVersion: options.version,
     pipelineVersion: 'chroma-extraction-v2-independent-edge',
     extractionGate: {
       gateVersion: PRODUCTION_CHROMA_GATE_VERSION,
@@ -626,9 +626,9 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
     await writeJson(join(catalogDirectory, 'semantic-traits.json'), semanticTraits)
     await writeJson(join(catalogDirectory, 'modifiers.json'), modifiers)
     await writeJson(join(catalogDirectory, 'catalog.json'), catalog)
-    await writeJson('packages/asset-catalog/source-index.json', sourceIndex)
+    await writeJson(paths.sourceIndexPath, sourceIndex)
     await writeJson(
-      'packages/asset-catalog/audit/v0.1.0/evidence-manifest.json',
+      join(paths.auditDirectory, 'evidence-manifest.json'),
       buildProductionEvidenceManifest(sourceIndex),
     )
     await mkdir(join(sourceRoot, 'prompts'), { recursive: true })
@@ -645,7 +645,12 @@ export async function buildProductionCatalog(options: { write: boolean }): Promi
 }
 
 if (process.argv[1]?.endsWith('build-production-catalog.ts')) {
-  const bundle = await buildProductionCatalog({ write: true })
+  const versionFlag = process.argv.indexOf('--version')
+  const version = versionFlag === -1 ? undefined : process.argv[versionFlag + 1]
+  if (versionFlag === -1 || version === undefined || version.startsWith('--') || process.argv.length !== 4) {
+    throw new Error('Usage: tsx scripts/build-production-catalog.ts --version <release-version>')
+  }
+  const bundle = await buildProductionCatalog({ write: true, version })
   console.log(JSON.stringify({
     parts: bundle.parts.length,
     semanticOnly: bundle.semanticTraits.filter(trait => trait.semanticSlotId === 'personality' || trait.semanticSlotId === 'quirk').length,
