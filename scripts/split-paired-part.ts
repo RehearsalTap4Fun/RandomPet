@@ -1,6 +1,6 @@
-import { createHash } from 'node:crypto'
-import { lstat, mkdir, readFile, realpath, writeFile } from 'node:fs/promises'
-import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
+import { createHash, randomUUID } from 'node:crypto'
+import { lstat, mkdir, realpath, rename, unlink, writeFile } from 'node:fs/promises'
+import { basename, dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { resolveOutputPath } from './safe-output.js'
@@ -113,12 +113,55 @@ function sha256(value: Uint8Array): string {
   return createHash('sha256').update(value).digest('hex')
 }
 
-async function splitOne(
+function missingPath(error: unknown): boolean {
+  return (error as NodeJS.ErrnoException).code === 'ENOENT'
+}
+
+function samePath(left: string, right: string): boolean {
+  return relative(resolve(left), resolve(right)) === ''
+}
+
+async function assertSafeOutputLeaf(path: string): Promise<void> {
+  let stats
+  try {
+    stats = await lstat(path)
+  } catch (error) {
+    if (missingPath(error)) return
+    throw error
+  }
+  if (stats.isSymbolicLink() || !stats.isFile() || stats.nlink !== 1) {
+    throw new Error(`Paired-part output leaf must be an ordinary unlinked file: ${path}`)
+  }
+  const canonicalPath = await realpath(path)
+  if (!samePath(path, canonicalPath)) {
+    throw new Error(`Paired-part output leaf must be an ordinary unlinked file: ${path}`)
+  }
+}
+
+async function assertSafeOutputLeaves(paths: readonly string[]): Promise<void> {
+  for (const path of paths) await assertSafeOutputLeaf(path)
+}
+
+async function assertOutputDirectoryStable(directory: string, allowedRoot: string): Promise<void> {
+  const verifiedDirectory = await realpath(directory)
+  if (!contained(allowedRoot, verifiedDirectory) || !samePath(directory, verifiedDirectory)) {
+    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${directory}`)
+  }
+}
+
+interface PreparedSplitNode {
+  result: SplitNodeResult
+  outputs: readonly [
+    { path: string; bytes: Buffer },
+    { path: string; bytes: Buffer },
+  ]
+}
+
+async function prepareSplitNode(
   inputPath: string,
   outputDirectory: string,
-  allowedRoot: string,
   crop: PairCrop,
-): Promise<SplitNodeResult> {
+): Promise<PreparedSplitNode> {
   const cropped = await sharp(inputPath)
     .extract(crop.rect)
     .ensureAlpha()
@@ -148,28 +191,56 @@ async function splitOne(
       channels: 4,
     },
   }).extract({ left: minX, top: minY, width, height }).png(PNG_OPTIONS).toBuffer()
-  const verifiedDirectory = await realpath(outputDirectory)
-  if (!contained(allowedRoot, verifiedDirectory)) {
-    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
-  }
-  const pngPath = resolveOutputPath(verifiedDirectory, `${crop.id}.png`)
-  const webpPath = resolveOutputPath(verifiedDirectory, `${crop.id}.webp`)
+  const pngPath = resolveOutputPath(outputDirectory, `${crop.id}.png`)
+  const webpPath = resolveOutputPath(outputDirectory, `${crop.id}.webp`)
   const png = await sharp(input).png(PNG_OPTIONS).toBuffer()
   const webp = await sharp(input).webp({ lossless: true }).toBuffer()
-  await Promise.all([writeFile(pngPath, png), writeFile(webpPath, webp)])
   return {
-    id: crop.id,
-    pngPath,
-    webpPath,
-    pngSha256: sha256(await readFile(pngPath)),
-    webpSha256: sha256(await readFile(webpPath)),
-    width,
-    height,
-    origin: {
-      x: crop.anchor.x - crop.rect.left - minX,
-      y: crop.anchor.y - crop.rect.top - minY,
+    result: {
+      id: crop.id,
+      pngPath,
+      webpPath,
+      pngSha256: sha256(png),
+      webpSha256: sha256(webp),
+      width,
+      height,
+      origin: {
+        x: crop.anchor.x - crop.rect.left - minX,
+        y: crop.anchor.y - crop.rect.top - minY,
+      },
+      mirrorX: crop.mirrorX,
     },
-    mirrorX: crop.mirrorX,
+    outputs: [{ path: pngPath, bytes: png }, { path: webpPath, bytes: webp }],
+  }
+}
+
+async function commitPreparedOutputs(
+  outputDirectory: string,
+  allowedRoot: string,
+  outputs: readonly { path: string; bytes: Buffer }[],
+): Promise<void> {
+  const temporaryPaths = new Set<string>()
+  const staged: { temporaryPath: string; finalPath: string }[] = []
+  try {
+    for (const output of outputs) {
+      const temporaryPath = resolveOutputPath(
+        outputDirectory,
+        `.split-${basename(output.path)}-${randomUUID()}.tmp`,
+      )
+      await writeFile(temporaryPath, output.bytes, { flag: 'wx', mode: 0o600 })
+      temporaryPaths.add(temporaryPath)
+      staged.push({ temporaryPath, finalPath: output.path })
+    }
+    await assertOutputDirectoryStable(outputDirectory, allowedRoot)
+    await assertSafeOutputLeaves(staged.map(output => output.finalPath))
+    for (const output of staged) {
+      await assertOutputDirectoryStable(outputDirectory, allowedRoot)
+      await assertSafeOutputLeaf(output.finalPath)
+      await rename(output.temporaryPath, output.finalPath)
+      temporaryPaths.delete(output.temporaryPath)
+    }
+  } finally {
+    await Promise.all([...temporaryPaths].map(path => unlink(path).catch(() => undefined)))
   }
 }
 
@@ -188,7 +259,13 @@ export async function splitPairedPart(
   for (const crop of crops) assertCrop(crop, metadata.width, metadata.height)
 
   const root = await canonicalOutputDirectory(outputDirectory)
-  const left = await splitOne(inputPath, root.directory, root.allowedRoot, crops[0])
-  const right = await splitOne(inputPath, root.directory, root.allowedRoot, crops[1])
-  return [left, right]
+  const finalPaths = crops.flatMap(crop => [
+    resolveOutputPath(root.directory, `${crop.id}.png`),
+    resolveOutputPath(root.directory, `${crop.id}.webp`),
+  ])
+  await assertSafeOutputLeaves(finalPaths)
+  const left = await prepareSplitNode(inputPath, root.directory, crops[0])
+  const right = await prepareSplitNode(inputPath, root.directory, crops[1])
+  await commitPreparedOutputs(root.directory, root.allowedRoot, [...left.outputs, ...right.outputs])
+  return [left.result, right.result]
 }

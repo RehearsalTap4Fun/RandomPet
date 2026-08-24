@@ -1,4 +1,5 @@
-import { mkdir, mkdtemp, readdir, rm, symlink, unlink } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
+import { link, mkdir, mkdtemp, readFile, readdir, rm, stat, symlink, unlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
@@ -23,6 +24,11 @@ async function allowedOutputRoot(prefix: string): Promise<string> {
   const root = await mkdtemp(join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.2.0', prefix))
   temporaryDirectories.push(root)
   return root
+}
+
+function isLinkPrivilegeError(error: unknown): boolean {
+  const code = (error as NodeJS.ErrnoException).code
+  return code === 'EPERM' || code === 'EACCES'
 }
 
 async function makeFixture(root: string): Promise<string> {
@@ -132,5 +138,72 @@ describe('splitPairedPart', () => {
     await expect(splitPairedPart(inputPath, outputDirectory, CROPS))
       .rejects.toThrow(/canonical v0\.2\.0 output root/u)
     expect(await readdir(outsideRoot)).toEqual([])
+  })
+
+  it.each(['left.png', 'left.webp', 'right.png', 'right.webp'])(
+    'rejects hard-linked output leaf %s before writing any result',
+    async leafName => {
+      const fixtureRoot = await mkdtemp(join(tmpdir(), 'qmonster-pair-leaf-fixture-'))
+      const outsideRoot = await mkdtemp(join(tmpdir(), 'qmonster-pair-leaf-outside-'))
+      temporaryDirectories.push(fixtureRoot, outsideRoot)
+      const inputPath = await makeFixture(fixtureRoot)
+      const outputDirectory = await allowedOutputRoot('split-linked-leaf-')
+      const sentinelPath = join(outsideRoot, 'sentinel.bin')
+      const sentinel = Buffer.from('outside sentinel must remain byte-identical')
+      await writeFile(sentinelPath, sentinel)
+      const beforeStat = await stat(sentinelPath)
+      const beforeHash = createHash('sha256').update(sentinel).digest('hex')
+      const linkedLeaf = join(outputDirectory, leafName)
+      await link(sentinelPath, linkedLeaf)
+
+      const outcome = await splitPairedPart(inputPath, outputDirectory, CROPS).then(
+        () => 'resolved',
+        error => `rejected: ${(error as Error).message}`,
+      )
+      const afterBytes = await readFile(sentinelPath)
+      const afterStat = await stat(sentinelPath)
+      const afterHash = createHash('sha256').update(afterBytes).digest('hex')
+
+      expect.soft(outcome).toMatch(/^rejected: .*output leaf/u)
+      expect.soft(afterBytes).toEqual(sentinel)
+      expect.soft(afterStat.mtimeMs).toBe(beforeStat.mtimeMs)
+      expect.soft(afterHash).toBe(beforeHash)
+      expect((await readdir(outputDirectory)).sort()).toEqual([leafName])
+    },
+  )
+
+  it('rejects a file symlink leaf before writing any result', async ({ skip }) => {
+    const fixtureRoot = await mkdtemp(join(tmpdir(), 'qmonster-pair-symlink-fixture-'))
+    const outsideRoot = await mkdtemp(join(tmpdir(), 'qmonster-pair-symlink-outside-'))
+    temporaryDirectories.push(fixtureRoot, outsideRoot)
+    const inputPath = await makeFixture(fixtureRoot)
+    const outputDirectory = await allowedOutputRoot('split-symlink-leaf-')
+    const sentinelPath = join(outsideRoot, 'sentinel.bin')
+    const sentinel = Buffer.from('outside symlink sentinel must remain byte-identical')
+    await writeFile(sentinelPath, sentinel)
+    const beforeStat = await stat(sentinelPath)
+    const beforeHash = createHash('sha256').update(sentinel).digest('hex')
+    const linkedLeaf = join(outputDirectory, 'left.png')
+    try {
+      await symlink(sentinelPath, linkedLeaf, 'file')
+    } catch (error) {
+      if (isLinkPrivilegeError(error)) skip(`file links unavailable: ${(error as NodeJS.ErrnoException).code}`)
+      throw error
+    }
+    junctions.push(linkedLeaf)
+
+    const outcome = await splitPairedPart(inputPath, outputDirectory, CROPS).then(
+      () => 'resolved',
+      error => `rejected: ${(error as Error).message}`,
+    )
+    const afterBytes = await readFile(sentinelPath)
+    const afterStat = await stat(sentinelPath)
+    const afterHash = createHash('sha256').update(afterBytes).digest('hex')
+
+    expect.soft(outcome).toMatch(/^rejected: .*output leaf/u)
+    expect.soft(afterBytes).toEqual(sentinel)
+    expect.soft(afterStat.mtimeMs).toBe(beforeStat.mtimeMs)
+    expect.soft(afterHash).toBe(beforeHash)
+    expect((await readdir(outputDirectory)).sort()).toEqual(['left.png'])
   })
 })
