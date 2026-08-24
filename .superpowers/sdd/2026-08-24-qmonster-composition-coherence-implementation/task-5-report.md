@@ -161,3 +161,69 @@ Tests 422 passed | 1 skipped (423)
 - built-in `image_gen` 两轮都返回带烘焙 checkerboard 的全不透明 PNG，而不是直接可用的真透明输出；本任务没有伪称原始输出透明，而是完整保留原图，使用确定性背景恢复后再走 immutable extraction gate，并在 production index/source evidence 中记录 `built-in-transparent-recovery-v1`。
 - 本提交包含从 v0.1 非破坏性复制而来的完整 v0.2 source tree（约 418 MiB）和 runtime tree（约 68 MiB），这是 brief 明确要求，未修改 v0.1。
 - Task 7 的整只组合验收仍是后续工作；本报告不提前批准 full-composite goldens。
+
+## Fix round 1（审查基线 `1ec7ec25`）
+
+结论：DONE。实现提交为 `5a457fcfdff35756ed45d8e9b3ca38ef2b084806`（`fix: verify composition-aware asset reviews`）。本节作为独立报告提交追加，因此最终 HEAD 在该实现提交之后。以上初版 contact-sheet hashes 已被本轮真实 v0.2 composition 重渲结果取代；候选图、最终 legs asset、generation evidence、七项 rework、none calibration 与强弱分类均未重生或改项。
+
+### 审查问题与红→绿
+
+1. Production review harness：先新增测试要求完整 catalog/compositionPolicy、`rendererVersion=0.2.0` 与 mushroom legs 左右 node；RED 为缺少 `production-render-review` 模块。实现后 v0.2 保留完整 catalog，14 个 visual slot 以兼容 baseline 锁定，目标 slot 单独替换；legacy 0.1 仍走原隔离 harness。浏览器页面额外暴露 `drawnAssetIds`、`compositionMetrics` 与 `resolvedAssetPaths`。
+2. 真实浏览器组合：首个 Chromium RED 为 blob face 的 `COMPOSITION_FACE_OUT_OF_ZONE` / `COMPOSITION_FACE_OCCLUDED`，证明旧 metadata 在真实挂接下不可用。扩大 head face-safe zone，并按职责校准 head/eyes/mouth/oral/head-appendage 缩放后，完整 contact builder 又依次捕获 `oral_lolling_tongue/blob` mouth visible ratio `0.821 < 0.85` 与 `head_horns_soft_nubs/blob` eyes visible ratio `0.647 < 0.85`。最终 oral scale `0.12`、head-appendage scale `0.30`，未降低任何诊断阈值；115 个 cell 全部取得非空 composition metrics，并验证每个目标 part 的所有兼容 node resolver call。
+3. v0.2 source tools：静态测试 RED 同时发现 `create-guides.ts` 与 `vertical-render.ts` 含 `v0.1.0`；GREEN 后两者只读写 `asset-source/v0.2.0` 和 `packages/asset-catalog/assets/v0.2.0`。
+4. Splitter canonical root：lookalike 回归 RED 证明旧实现会在仓外生成 `left/right`，junction 回归 RED 证明可穿过仓内 junction 写仓外。实现改为从脚本位置锚定 repository roots，执行 lexical containment、deepest-existing-ancestor `realpath`、创建后 `realpath` 与写前再次解析；GREEN 为 5/5，lookalike/junction 均拒绝且仓外零写入，原越界零写入与 deterministic rerun 保持通过。
+
+### 真实 v0.2 composition contact sheets
+
+命令：
+
+```text
+npx tsx scripts/render-production-contact-sheets-browser.ts --version 0.2.0
+[{"rigId":"blob","candidates":39,"width":1200,"height":3482,"outputPath":"packages/asset-catalog/review/v0.2.0/contact-sheet-blob.png","sha256":"1bf8f8678c5da08aabdf7c2121a012a2e693be52a339c85b46dfdf098c3ca1a7"},{"rigId":"biped","candidates":39,"width":1200,"height":3482,"outputPath":"packages/asset-catalog/review/v0.2.0/contact-sheet-biped.png","sha256":"82429973ef98e026803c3466cc946cc559bd570aee7fc44573920d92f3dd5032"},{"rigId":"floating","candidates":37,"width":1200,"height":3482,"outputPath":"packages/asset-catalog/review/v0.2.0/contact-sheet-floating.png","sha256":"d1833e17d4a4f914fd566be844f76cc3f791c83b27e0bb8c0b2828e3de2af992"}]
+```
+
+三张均再次调用 `view_image(detail="original")` 审看：
+
+| rig | SHA-256 | 审看结果 |
+| --- | --- | --- |
+| blob | `1bf8f8678c5da08aabdf7c2121a012a2e693be52a339c85b46dfdf098c3ca1a7` | 39/39 完整组合；pair attach、face safe zone、body clip、protect-face 均清晰且无诊断 |
+| biped | `82429973ef98e026803c3466cc946cc559bd570aee7fc44573920d92f3dd5032` | 39/39；`legs_mushroom` 左右节点读作两只低矮承重脚而非帽子/第二头，长臂与蛾翅保持双侧挂接 |
+| floating | `d1833e17d4a4f914fd566be844f76cc3f791c83b27e0bb8c0b2828e3de2af992` | 37/37；paddle/tiptoe/tail/tentacles 挂接正常，body-clipped surface/pattern/color 与 protect-face effects 不破坏脸部或轮廓 |
+
+`contact-sheet-index.json` 现在逐 rig 记录 `compositionVerified: true` 和去重后的 `resolvedTargetNodePaths`；`rework-record.json`、source index、evidence manifest 已更新为上述新 hashes 与真实 composition 审看方法。exactly seven rework action 仍为七条，其中 eyes+mouth 仍是同一条 intensity audit；未提前批准 Task 7 full-composite goldens。
+
+### Fix round 1 验证
+
+```text
+npx vitest run scripts/production-render-review.test.ts scripts/render-production-contact-sheets.test.ts scripts/split-paired-part.test.ts scripts/v0.2-source-tools.test.ts scripts/build-production-catalog.test.ts packages/asset-catalog/src/production-validation.test.ts
+Test Files 6 passed (6)
+Tests 51 passed (51)
+
+npx playwright test tests/render/production-composition.spec.ts tests/render/production-color.spec.ts --project=chromium --workers=1
+2 passed (9.3s)
+
+npm run validate:v0.1.0 -w @qmonster/asset-catalog
+exit 0; no diagnostics
+
+npm run validate:v0.2.0 -w @qmonster/asset-catalog
+exit 0; no diagnostics
+
+npm run typecheck
+exit 0
+
+npm test
+Test Files 49 passed (49)
+Tests 428 passed | 1 skipped (429)
+
+git diff --name-only 1ec7ec25f08e4c5ecbd67182d01ec99fda8df415 -- asset-source/v0.1.0 packages/asset-catalog/catalog/v0.1.0 packages/asset-catalog/assets/v0.1.0 packages/asset-catalog/audit/v0.1.0
+(empty)
+
+git diff --check
+exit 0
+```
+
+### Fix round 1 concerns
+
+- 本轮的联系表是 part-by-part 的完整组合 harness，而不是 Task 7 的随机整只组合 golden；Task 7 验收边界不变。
+- 真实 composition 首次揭示的 face/occlusion 错误通过 catalog geometry 修复，没有退回 legacy renderer，也没有弱化阈值。
+- 初版报告中关于 built-in image generation 透明恢复与大体积 v0.2 非破坏性树的 concerns 仍成立；本轮没有重生或替换任何候选素材。
