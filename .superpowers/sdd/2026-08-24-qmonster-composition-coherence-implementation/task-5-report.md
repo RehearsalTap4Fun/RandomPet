@@ -227,3 +227,69 @@ exit 0
 - 本轮的联系表是 part-by-part 的完整组合 harness，而不是 Task 7 的随机整只组合 golden；Task 7 验收边界不变。
 - 真实 composition 首次揭示的 face/occlusion 错误通过 catalog geometry 修复，没有退回 legacy renderer，也没有弱化阈值。
 - 初版报告中关于 built-in image generation 透明恢复与大体积 v0.2 非破坏性树的 concerns 仍成立；本轮没有重生或替换任何候选素材。
+
+## Fix round 2（复审基线 `e823f28f`）
+
+结论：DONE。实现提交为 `3e12f6f26991d3ed17fa610ad4cd38a3ce3794d1`（`fix: secure paired-part output leaves`）。本节作为后续报告提交追加，因此最终 HEAD 在该实现提交之后。Round 1 的 contact sheets、assets、catalog、v0.1 树及其 hashes 均未修改。
+
+### Leaf-output 安全红→绿
+
+Root cause 是 splitter 只对输出目录执行 canonical `realpath`，随后对 `left.png`、`left.webp`、`right.png`、`right.webp` 直接 `writeFile`；叶文件若为 file symlink、reparse indirection 或 hardlink，写入会作用于仓外目标，而且按 left→right 顺序产生部分输出。
+
+当前 Windows 会话创建 file symlink 返回 `EPERM`，因此 symlink 回归保留为真实 filesystem test，并在缺少系统权限时明确 skip；为在本机完整证明漏洞与修复，另对四个叶分别使用无需特权的 NTFS hardlink 指向仓外 sentinel。RED 真实输出：
+
+```text
+npx vitest run scripts/split-paired-part.test.ts
+Test Files 1 failed (1)
+Tests 4 failed | 5 passed | 1 skipped (10)
+
+四个 hardlink case 均收到 "resolved" 而非拒绝；
+sentinel content、mtime、SHA-256 均改变；
+输出目录由预置的单个恶意叶扩张为 left.png/left.webp/right.png/right.webp 四个文件。
+```
+
+GREEN 实现：
+
+- 在任何生成/临时/最终写入前统一 `lstat` 四个最终叶；拒绝 symbolic link、junction/reparse（canonical path 不同）、非普通文件及 `nlink != 1` 的 hardlink。
+- 所有四个图片 buffer 先在内存确定性生成；同一已验证目录内用随机名和 `flag: "wx"` 独占创建临时文件。
+- 在任何 final replace 前再次检查目录 canonical identity 和全部四个叶；每个原子 `rename` 前再次检查目录与对应叶，避免跟随最终路径写入。
+- 失败时仅清理本次成功创建的随机临时文件，不 unlink/delete 用户提供的叶或仓外目标。
+- 已存在的普通 `nlink=1` 文件仍通过原子 replace，decoded RGBA、node metadata 和 hashes 的确定性重跑测试继续通过。
+
+```text
+npx vitest run scripts/split-paired-part.test.ts
+Test Files 1 passed (1)
+Tests 9 passed | 1 skipped (10)
+```
+
+### Fix round 2 验证
+
+```text
+npx vitest run scripts/production-render-review.test.ts scripts/render-production-contact-sheets.test.ts scripts/split-paired-part.test.ts scripts/v0.2-source-tools.test.ts scripts/build-production-catalog.test.ts packages/asset-catalog/src/production-validation.test.ts
+Test Files 6 passed (6)
+Tests 55 passed | 1 skipped (56)
+
+npm run validate:v0.1.0 -w @qmonster/asset-catalog
+exit 0; no diagnostics
+
+npm run validate:v0.2.0 -w @qmonster/asset-catalog
+exit 0; no diagnostics
+
+npm run typecheck
+exit 0
+
+npm test
+Test Files 49 passed (49)
+Tests 432 passed | 2 skipped (434)
+
+git diff --name-only e823f28fe6b9c3e459616e63c013077d67654af3 -- packages/asset-catalog/review packages/asset-catalog/assets packages/asset-catalog/catalog asset-source/v0.1.0
+(empty)
+
+git diff --check
+exit 0
+```
+
+### Fix round 2 concerns
+
+- 当前 Windows 安全策略不授予 file symlink 创建权限，所以该单项真实 symlink case 本机为 skip；测试在允许 symlink 的 Windows/Unix 环境会真实执行。四个 NTFS hardlink case 未 skip，并逐一证明仓外 sentinel 内容、mtime、hash 不变和其余输出零写入。
+- 原子 rename 与提交前重复验证显著缩小 TOCTOU 窗口；Node 在 Windows 不暴露 `O_NOFOLLOW`，因此实现不声称能防御拥有同目录并发改名权限的内核级竞争者。对任务要求的预置 leaf symlink/reparse/hardlink 场景会在任何 final write 前拒绝。
