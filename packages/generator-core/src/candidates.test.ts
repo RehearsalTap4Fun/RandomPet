@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { buildCandidates, createRng, type Rng, type VisualPartDefinition } from './index.js'
-import { makeValidCatalogFixture } from './test-fixtures.js'
+import { makeCompositionCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
 
 function scriptedRng(...values: number[]): Rng {
   let index = 0
@@ -14,7 +14,94 @@ function scriptedRng(...values: number[]): Rng {
   }
 }
 
+function makeStrongCompositionEyesCatalog() {
+  const catalog = makeCompositionCatalogFixture()
+  const source = catalog.parts.find(part => part.slotId === 'eyes' && !part.composition!.isNone)!
+  catalog.parts.push(
+    {
+      ...structuredClone(source),
+      id: 'eyes_quiet_fungal',
+      composition: { ...structuredClone(source.composition!), motifTags: ['fungal'], visualIntensity: 'quiet' },
+    },
+    {
+      ...structuredClone(source),
+      id: 'eyes_triple_foreign',
+      composition: {
+        ...structuredClone(source.composition!),
+        motifTags: ['shadow'],
+        visualIntensity: 'strong',
+        renderNodes: source.composition!.renderNodes.map(node => ({ ...node, id: `eyes_triple_foreign_${node.id}` })),
+      },
+    },
+  )
+  return catalog
+}
+
 describe('candidate pool boundaries', () => {
+  it('filters foreign motifs and strong candidates when the current allowance is exhausted', () => {
+    const result = buildCandidates({
+      catalog: makeStrongCompositionEyesCatalog(),
+      slotId: 'eyes', themeId: 'fungal', rigId: 'blob', selections: {},
+      rng: createRng(['budget-filter']),
+      composition: { motifMode: 'dominant', remainingStrong: 0 },
+    })
+
+    expect(result.trace.candidateIds).not.toContain('eyes_triple_foreign')
+    expect(result.trace.candidateIds).toContain('eyes_quiet_fungal')
+  })
+
+  it('lets a surprise slot draw both dominant and foreign motif candidates', () => {
+    const result = buildCandidates({
+      catalog: makeStrongCompositionEyesCatalog(),
+      slotId: 'eyes', themeId: 'fungal', rigId: 'blob', selections: {},
+      rng: createRng(['surprise-pool']),
+      composition: { motifMode: 'surprise', remainingStrong: 1 },
+    })
+
+    expect(result.trace.candidateIds).toContain('eyes_quiet_fungal')
+    expect(result.trace.candidateIds).toContain('eyes_triple_foreign')
+  })
+
+  it('treats explicit none as quiet and theme-neutral in a dominant pool', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const none = catalog.parts.find(part => part.id === 'head_appendage_none')!
+    const foreign = catalog.parts.find(part => part.slotId === 'headAppendage' && !part.composition!.isNone)!
+    catalog.parts = [{
+      ...structuredClone(none),
+      composition: { ...structuredClone(none.composition!), motifTags: ['shadow'], visualIntensity: 'strong' },
+    }, {
+      ...structuredClone(foreign),
+      id: 'head_appendage_strong_foreign',
+      composition: {
+        ...structuredClone(foreign.composition!), motifTags: ['shadow'], visualIntensity: 'strong',
+        renderNodes: foreign.composition!.renderNodes.map(node => ({ ...node, id: `foreign_${node.id}` })),
+      },
+    }]
+
+    const result = buildCandidates({
+      catalog, slotId: 'headAppendage', themeId: 'fungal', rigId: 'blob', selections: {},
+      rng: createRng(['none-is-neutral']),
+      composition: { motifMode: 'dominant', remainingStrong: 0 },
+    })
+
+    expect(result.trace.candidateIds).toEqual(['head_appendage_none'])
+    expect(result.part?.id).toBe('head_appendage_none')
+  })
+
+  it('marks the trace when an empty dominant pool falls back to a foreign candidate', () => {
+    const catalog = makeStrongCompositionEyesCatalog()
+    catalog.parts = catalog.parts.filter(part => part.id === 'eyes_triple_foreign')
+
+    const result = buildCandidates({
+      catalog, slotId: 'eyes', themeId: 'fungal', rigId: 'blob', selections: {},
+      rng: createRng(['dominant-fallback']),
+      composition: { motifMode: 'dominant', remainingStrong: 1 },
+    })
+
+    expect(result.trace.themeFallback).toBe(true)
+    expect(result.trace.candidateIds).toEqual(['eyes_triple_foreign'])
+  })
+
   it('never exposes a cross-theme colorScheme candidate across many deterministic seeds', () => {
     const catalog = makeValidCatalogFixture()
     const color = catalog.parts.find(part => part.slotId === 'colorScheme')!

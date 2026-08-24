@@ -1,5 +1,6 @@
 import { checkPartCompatibility } from './candidates.js'
-import { GENERATION_ORDER, resolveSlot } from './generate.js'
+import { VISUAL_SLOT_IDS } from './contracts.js'
+import { GENERATION_ORDER, generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
   Catalog,
   Diagnostic,
@@ -12,6 +13,12 @@ import type {
 import { projectSemanticTraits } from './projection.js'
 import { descendantsOf, evaluatePartSelection } from './selection.js'
 import { selectRigId } from './rig-selection.js'
+import {
+  compositionAllowanceForSlot,
+  planComposition,
+  strongFeatureCountForSelections,
+  validateCompositionSelections,
+} from './composition.js'
 
 export type SlotLocks = Partial<Record<VisualSlotId, boolean>>
 
@@ -48,12 +55,27 @@ function generationContext(
   spec: MonsterSpec,
   affected: Set<VisualSlotId>,
   slotId: VisualSlotId,
+  catalog: Catalog,
 ): Partial<Record<VisualSlotId, VisualSelection>> {
-  const currentIndex = GENERATION_ORDER.indexOf(slotId)
+  const generationOrder = generationOrderForCatalog(catalog)
+  const currentIndex = generationOrder.indexOf(slotId)
   return Object.fromEntries(Object.entries(spec.visualSlots).filter(([candidateSlotId]) => {
     const candidate = candidateSlotId as VisualSlotId
-    return !affected.has(candidate) || GENERATION_ORDER.indexOf(candidate) < currentIndex
+    return !affected.has(candidate) || generationOrder.indexOf(candidate) < currentIndex
   })) as Partial<Record<VisualSlotId, VisualSelection>>
+}
+
+function compositionAllowanceForReplacement(
+  spec: MonsterSpec,
+  slotId: VisualSlotId,
+  catalog: Catalog,
+) {
+  const otherSelections = Object.fromEntries(VISUAL_SLOT_IDS.filter(candidate => candidate !== slotId).map(candidate => [
+    candidate,
+    spec.visualSlots[candidate],
+  ])) as Partial<Record<VisualSlotId, VisualSelection>>
+  const plan = planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, catalog)
+  return compositionAllowanceForSlot(slotId, plan, strongFeatureCountForSelections(otherSelections, catalog))
 }
 
 function regenerateDescendants(
@@ -71,7 +93,7 @@ function regenerateDescendants(
     mode: 'normal',
     slotRolls: spec.slotRolls,
   }
-  for (const slotId of GENERATION_ORDER) {
+  for (const slotId of generationOrderForCatalog(catalog)) {
     if (!descendants.has(slotId)) continue
     if (locks[slotId]) continue
     spec.visualSlots[slotId] = resolveSlot(
@@ -79,8 +101,9 @@ function regenerateDescendants(
       catalog,
       slotId,
       spec.visualSlots.bodyFrame.rigId,
-      generationContext(spec, affected, slotId),
+      generationContext(spec, affected, slotId, catalog),
       diagnostics,
+      compositionAllowanceForReplacement(spec, slotId, catalog),
     )
   }
   for (const slotId of descendants) {
@@ -143,11 +166,17 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
     request.catalog,
     request.slotId,
     spec.visualSlots.bodyFrame.rigId,
-    generationContext(spec, affected, request.slotId),
+    generationContext(spec, affected, request.slotId, request.catalog),
     diagnostics,
+    compositionAllowanceForReplacement(spec, request.slotId, request.catalog),
   )
   regenerateDescendants(spec, request.slotId, request.locks, request.catalog, diagnostics)
   spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
+  diagnostics.push(...validateCompositionSelections(
+    spec,
+    request.catalog,
+    planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, request.catalog),
+  ))
   return result(spec, diagnostics, affectedSlots)
 }
 
@@ -169,5 +198,10 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
   spec.visualSlots[request.slotId] = selection
   regenerateDescendants(spec, request.slotId, request.locks, request.catalog, diagnostics)
   spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
+  diagnostics.push(...validateCompositionSelections(
+    spec,
+    request.catalog,
+    planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, request.catalog),
+  ))
   return result(spec, diagnostics, orderedAffectedSlots(request.slotId, request.catalog))
 }

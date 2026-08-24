@@ -17,6 +17,34 @@ const versions = {
 } as const
 
 describe('validateMonsterSpecAgainstCatalog', () => {
+  it('reports a warning when a composition-aware spec exceeds its strong feature budget', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    for (const slotId of ['headShape', 'eyes', 'effect'] as const) {
+      const source = catalog.parts.find(part => part.slotId === slotId && !part.composition!.isNone)!
+      const strong = {
+        ...structuredClone(source),
+        id: `${slotId}_validation_strong`,
+        composition: {
+          ...structuredClone(source.composition!),
+          visualIntensity: 'strong' as const,
+          renderNodes: source.composition!.renderNodes.map(node => ({
+            ...node,
+            id: `${slotId}_validation_strong_${node.id}`,
+          })),
+        },
+      }
+      catalog.parts.push(strong)
+      spec.visualSlots[slotId] = { partId: strong.id, rigId: 'blob' }
+    }
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog, {
+      schemaVersion: '0.1.0', rendererVersion: '0.2.0',
+    })).toContainEqual(expect.objectContaining({
+      severity: 'warning', code: 'COMPOSITION_INTENSITY_EXCEEDED',
+    }))
+  })
+
   it('rejects selection transforms for composition-aware parts', () => {
     const catalog = makeCompositionCatalogFixture()
     const spec = makeValidCompositionSpecFixture(catalog)

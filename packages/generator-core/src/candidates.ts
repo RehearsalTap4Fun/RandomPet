@@ -6,12 +6,14 @@ import type {
   VisualSelection,
   VisualSlotId,
 } from './contracts.js'
+import type { MotifMode } from './composition.js'
 import { pickWeighted, type Rng } from './prng.js'
 
 type Rarity = VisualPartDefinition['rarity']
 
 export interface CandidateTrace {
   rangeMode: 'theme' | 'full'
+  themeFallback: boolean
   rarityRoll: Rarity
   rarity: Rarity
   candidateIds: string[]
@@ -25,6 +27,10 @@ export interface BuildCandidatesInput {
   rigId: RigId
   selections: Partial<Record<VisualSlotId, VisualSelection>>
   rng: Rng
+  composition?: {
+    motifMode: MotifMode
+    remainingStrong: number
+  }
 }
 
 export interface CandidateResult {
@@ -59,12 +65,34 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
     && isHardCompatible(part, input.rigId, input.catalog, selectedPartIds, selectedParts),
   )
 
-  const themePool = compatible.filter(part => part.themeIds.includes(input.themeId))
-  const themeRoll = input.rng.nextFloat()
-  const hardThemeBound = input.slotId === 'colorScheme'
-  const useThemePool = hardThemeBound || (themeRoll < 0.7 && themePool.length > 0)
-  const rangeMode: CandidateTrace['rangeMode'] = useThemePool ? 'theme' : 'full'
-  const range = useThemePool ? themePool : compatible
+  let themeFallback = false
+  let rangeMode: CandidateTrace['rangeMode']
+  let range: VisualPartDefinition[]
+  if (input.composition !== undefined && input.catalog.compositionPolicy !== undefined) {
+    const withinIntensityBudget = compatible.filter(part => (
+      input.composition!.remainingStrong > 0
+      || part.composition?.isNone === true
+      || part.composition?.visualIntensity !== 'strong'
+    ))
+    if (input.composition.motifMode === 'dominant') {
+      const dominantPool = withinIntensityBudget.filter(part => (
+        part.composition?.isNone === true || part.composition?.motifTags.includes(input.themeId)
+      ))
+      themeFallback = dominantPool.length === 0 && withinIntensityBudget.length > 0
+      rangeMode = themeFallback ? 'full' : 'theme'
+      range = themeFallback ? withinIntensityBudget : dominantPool
+    } else {
+      rangeMode = 'full'
+      range = withinIntensityBudget
+    }
+  } else {
+    const themePool = compatible.filter(part => part.themeIds.includes(input.themeId))
+    const themeRoll = input.rng.nextFloat()
+    const hardThemeBound = input.slotId === 'colorScheme'
+    const useThemePool = hardThemeBound || (themeRoll < 0.7 && themePool.length > 0)
+    rangeMode = useThemePool ? 'theme' : 'full'
+    range = useThemePool ? themePool : compatible
+  }
   const availableRarities = (['N', 'R', 'L'] as const).filter(rarity =>
     range.some(part => part.rarity === rarity),
   )
@@ -95,6 +123,7 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
     part,
     trace: {
       rangeMode,
+      themeFallback,
       rarityRoll: rarity,
       rarity,
       candidateIds: candidates.map(item => item.id),

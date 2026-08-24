@@ -14,6 +14,7 @@ import {
   type VisualPartDefinition,
   type VisualSlotId,
 } from './contracts.js'
+import { planComposition, validateCompositionSelections } from './composition.js'
 
 export const CURRENT_SPEC_VERSIONS: SupportedSpecVersions = {
   schemaVersion: '0.1.0',
@@ -274,5 +275,10 @@ export function validateMonsterSpecAgainstCatalog(
       diagnostics,
     )
   })
+  diagnostics.push(...validateCompositionSelections(
+    spec,
+    catalog,
+    planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, catalog),
+  ))
   return diagnostics
 }

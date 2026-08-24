@@ -7,12 +7,18 @@ import {
   generateMonster,
   rerollSlot,
   evaluatePartSelection,
+  planComposition,
   selectVisualPart,
+  strongFeatureCount,
   VISUAL_SLOT_IDS,
   type Catalog,
   type GenerationRequest,
 } from './index.js'
-import { makeValidCatalogFixture, makeValidCatalogFixtureWithThreeRigs } from './test-fixtures.js'
+import {
+  makeCompositionCatalogFixture,
+  makeValidCatalogFixture,
+  makeValidCatalogFixtureWithThreeRigs,
+} from './test-fixtures.js'
 
 const baseRequest = {
   seed: '84721937',
@@ -20,7 +26,46 @@ const baseRequest = {
   mode: 'normal',
 } as const satisfies GenerationRequest
 
+function makeStrongBudgetCatalog(): Catalog {
+  const catalog = makeCompositionCatalogFixture()
+  for (const slotId of ['headShape', 'eyes', 'effect'] as const) {
+    const source = catalog.parts.find(part => part.slotId === slotId && !part.composition!.isNone)!
+    const strong = {
+      ...structuredClone(source),
+      id: `${slotId}_forced_strong`,
+      composition: {
+        ...structuredClone(source.composition!),
+        visualIntensity: 'strong' as const,
+        renderNodes: source.composition!.renderNodes.map(node => ({
+          ...node,
+          id: `${slotId}_forced_strong_${node.id}`,
+        })),
+      },
+    }
+    catalog.parts = catalog.parts.filter(part => part.slotId !== slotId)
+    catalog.parts.push(strong)
+  }
+  return catalog
+}
+
 describe('generateMonster', () => {
+  it('resolves visual slots in the composition dependency order', () => {
+    expect(GENERATION_ORDER).toEqual([
+      'bodyFrame', 'headShape', 'eyes', 'mouthShape', 'oralDetail',
+      'headAppendage', 'arms', 'legs', 'tail', 'extraAppendage',
+      'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
+    ])
+  })
+
+  it('never auto-generates more than two strong parts over 500 seeds', () => {
+    const catalog = makeStrongBudgetCatalog()
+
+    for (let index = 0; index < 500; index += 1) {
+      const result = generateMonster({ seed: `strong-${index}`, themeId: 'fungal', mode: 'normal' }, catalog)
+      expect(strongFeatureCount(result.spec, catalog)).toBeLessThanOrEqual(2)
+    }
+  })
+
   it('reports every visual slot as affected during initial generation', () => {
     const result = generateMonster(baseRequest, makeValidCatalogFixture())
 
@@ -586,5 +631,35 @@ describe('local changes', () => {
     expect(selected.diagnostics).toContainEqual(
       expect.objectContaining({ code: 'LOCK_INCOMPATIBLE', path: ['visualSlots', 'eyes'] }),
     )
+  })
+
+  it('keeps unrelated motif assignments and selections stable during a local reroll', () => {
+    const catalog = makeStrongBudgetCatalog()
+    const initial = generateMonster({ seed: 'local-budget', themeId: 'shadow', mode: 'normal' }, catalog).spec
+    const locks = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [slotId, false])) as Record<typeof VISUAL_SLOT_IDS[number], boolean>
+    const rerolled = rerollSlot({ spec: initial, slotId: 'eyes', locks, catalog }).spec
+    const rigId = initial.visualSlots.bodyFrame.rigId
+
+    expect(rerolled.visualSlots.tail).toEqual(initial.visualSlots.tail)
+    expect(planComposition(initial.seed, initial.themeId, rigId, catalog))
+      .toEqual(planComposition(rerolled.seed, rerolled.themeId, rigId, catalog))
+    expect(strongFeatureCount(rerolled, catalog)).toBeLessThanOrEqual(2)
+  })
+
+  it('preserves a third manual strong selection and returns an intensity warning', () => {
+    const catalog = makeStrongBudgetCatalog()
+    const initial = generateMonster(baseRequest, catalog).spec
+    const third = selectVisualPart({
+      spec: initial,
+      slotId: 'effect',
+      partId: 'effect_forced_strong',
+      locks: {},
+      catalog,
+    })
+
+    expect(third.spec.visualSlots.effect.partId).toBe('effect_forced_strong')
+    expect(third.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'warning', code: 'COMPOSITION_INTENSITY_EXCEEDED',
+    }))
   })
 })

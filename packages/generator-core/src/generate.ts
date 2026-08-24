@@ -15,12 +15,30 @@ import { createRng, slotSeedParts } from './prng.js'
 import { applyModifiers } from './modifiers.js'
 import { projectSemanticTraits } from './projection.js'
 import { selectRigId } from './rig-selection.js'
+import {
+  compositionAllowanceForSlot,
+  planComposition,
+  rendererVersionForCatalog,
+  strongFeatureCountForSelections,
+  validateCompositionSelections,
+  type CompositionAllowance,
+} from './composition.js'
 
 export const GENERATION_ORDER: readonly VisualSlotId[] = [
+  'bodyFrame', 'headShape', 'eyes', 'mouthShape', 'oralDetail',
+  'headAppendage', 'arms', 'legs', 'tail', 'extraAppendage',
+  'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
+]
+
+const LEGACY_GENERATION_ORDER: readonly VisualSlotId[] = [
   'bodyFrame', 'colorScheme', 'surfaceMaterial', 'pattern',
   'headShape', 'headAppendage', 'arms', 'legs', 'tail', 'extraAppendage',
   'eyes', 'mouthShape', 'oralDetail', 'effect',
 ]
+
+export function generationOrderForCatalog(catalog: Catalog): readonly VisualSlotId[] {
+  return catalog.compositionPolicy === undefined ? LEGACY_GENERATION_ORDER : GENERATION_ORDER
+}
 
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
@@ -48,6 +66,7 @@ export function resolveSlot(
   rigId: RigId,
   visualSlots: Partial<Record<VisualSlotId, VisualSelection>>,
   diagnostics: Diagnostic[],
+  composition?: CompositionAllowance,
 ): VisualSelection {
   const lockedPartId = request.lockedSelections?.[slotId]
   if (lockedPartId !== undefined) {
@@ -70,12 +89,33 @@ export function resolveSlot(
     rigId,
     selections: visualSlots,
     rng: createRng(slotSeedParts(request.seed, request.themeId, slotId, rerollIndex)),
+    ...(composition === undefined ? {} : { composition }),
   })
+  if (composition?.motifMode === 'dominant' && result.trace.themeFallback) {
+    diagnostics.push({
+      severity: 'warning',
+      code: 'COMPOSITION_THEME_FALLBACK',
+      path: ['visualSlots', slotId],
+      message: `No dominant ${request.themeId} motif candidate is available for ${slotId}; using a compatible fallback.`,
+    })
+  }
   if (result.part === null) {
     diagnostics.push(error('NO_COMPATIBLE_CANDIDATE', ['visualSlots', slotId], `No compatible weighted candidate exists for ${slotId}.`))
     return { partId: `missing_${slotId}`, rigId }
   }
   return selectionFor(result.part, rigId)
+}
+
+function reservedLockedStrongFeatures(
+  request: GenerationRequest,
+  visualSlots: Partial<Record<VisualSlotId, VisualSelection>>,
+  catalog: Catalog,
+): number {
+  const unresolvedLockedSelections = Object.fromEntries(VISUAL_SLOT_IDS.flatMap(slotId => {
+    const partId = request.lockedSelections?.[slotId]
+    return partId !== undefined && visualSlots[slotId] === undefined ? [[slotId, { partId }]] : []
+  })) as Partial<Record<VisualSlotId, { partId: string }>>
+  return strongFeatureCountForSelections(unresolvedLockedSelections, catalog)
 }
 
 export function generateMonster(request: GenerationRequest, catalog: Catalog): GenerationResult {
@@ -90,9 +130,20 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
   if (selectedRig === null) {
     diagnostics.push(error('NO_COMPATIBLE_RIG', ['visualSlots', 'bodyFrame'], 'No legal bodyFrame rig is available in the catalog.'))
   }
+  const compositionPlan = planComposition(request.seed, request.themeId, rigId, catalog)
   const visualSlots: Partial<Record<VisualSlotId, VisualSelection>> = {}
-  for (const slotId of GENERATION_ORDER) {
-    visualSlots[slotId] = resolveSlot(request, catalog, slotId, rigId, visualSlots, diagnostics)
+  for (const slotId of generationOrderForCatalog(catalog)) {
+    const strongFeaturesUsed = strongFeatureCountForSelections(visualSlots, catalog)
+      + reservedLockedStrongFeatures(request, visualSlots, catalog)
+    visualSlots[slotId] = resolveSlot(
+      request,
+      catalog,
+      slotId,
+      rigId,
+      visualSlots,
+      diagnostics,
+      compositionAllowanceForSlot(slotId, compositionPlan, strongFeaturesUsed),
+    )
   }
   const completeVisualSlots = visualSlots as Record<VisualSlotId, VisualSelection>
   const slotRolls = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
@@ -118,7 +169,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
   const spec = {
     schemaVersion: '0.1.0',
     catalogVersion: catalog.version,
-    rendererVersion: '0.1.0',
+    rendererVersion: rendererVersionForCatalog(catalog),
     seed: request.seed,
     themeId: request.themeId,
     palette: theme?.palette ?? { primary: '#000000', secondary: '#000000', accent: '#000000' },
@@ -128,6 +179,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     mutation: modifiers.mutation,
     aberrations: modifiers.aberrations,
   }
+  diagnostics.push(...validateCompositionSelections(spec, catalog, compositionPlan))
   return {
     spec,
     diagnostics,
