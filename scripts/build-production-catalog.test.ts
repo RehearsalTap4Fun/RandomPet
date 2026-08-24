@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { VISUAL_SLOT_IDS } from '@qmonster/generator-core'
+import { generateMonster, VISUAL_SLOT_IDS } from '@qmonster/generator-core'
 import {
   PRODUCTION_CHROMA_GATE_PROFILE,
   PRODUCTION_CHROMA_GATE_VERSION,
@@ -212,4 +212,89 @@ describe('v0.1 production catalog builder', () => {
       }
     }
   })
+})
+
+describe('v0.2 composition-aware production catalog builder', () => {
+  it('migrates all existing catalog budgets and gives every part explicit composition metadata', async () => {
+    const { catalog } = await loadCommittedProductionCatalog({ version: '0.2.0' })
+
+    expect(catalog.version).toBe('0.2.0')
+    expect(catalog.themes).toHaveLength(3)
+    expect(catalog.rigs).toHaveLength(3)
+    expect(catalog.parts).toHaveLength(55)
+    expect(catalog.semanticTraits).toHaveLength(61)
+    expect(catalog.compositionPolicy).toEqual({
+      motifSlots: ['headShape', 'eyes', 'mouthShape', 'oralDetail', 'headAppendage', 'arms', 'legs', 'tail', 'extraAppendage', 'surfaceMaterial', 'pattern', 'effect'],
+      surpriseRatio: 0.3,
+      maxStrongFeatures: 2,
+      optionalNoneRate: { min: 0.35, max: 0.5 },
+      frameBounds: { x: 96, y: 64, width: 1856, height: 1888 },
+      faceInsideRatio: 0.8,
+      faceVisibleRatio: 0.85,
+    })
+    expect(catalog.parts.every(part => part.composition !== undefined)).toBe(true)
+    for (const body of catalog.parts.filter(part => part.slotId === 'bodyFrame')) {
+      expect(body.composition?.renderNodes).toHaveLength(1)
+      expect(body.composition?.renderNodes[0]).toMatchObject({ parentSlot: null, socket: null })
+    }
+    for (const part of catalog.parts.filter(part => part.slotId === 'arms' || part.slotId === 'legs')) {
+      expect(part.composition?.renderNodes.map(node => node.socket)).toEqual(
+        part.slotId === 'arms' ? ['armLeft', 'armRight'] : ['legLeft', 'legRight'],
+      )
+    }
+    expect(catalog.parts.find(part => part.id === 'extra_moth_wings')?.composition?.renderNodes.map(node => node.socket))
+      .toEqual(['wingLeft', 'wingRight'])
+  })
+
+  it('records exactly the seven approved rework actions and intensity classifications', async () => {
+    const rework = JSON.parse(await readFile('asset-source/v0.2.0/generation/composition-rework.json', 'utf8'))
+    expect(rework.actions).toHaveLength(7)
+    expect(rework.actions.map((action: { partIds: string[] }) => action.partIds)).toEqual([
+      ['legs_mushroom'],
+      ['arms_long_noodle'],
+      ['head_mushroom_cap'],
+      ['surface_soft_scales'],
+      ['oral_gummy_ridges'],
+      ['effect_spore_glow'],
+      ['eyes_triple_pearl', 'mouth_wide_grin'],
+    ])
+
+    const { catalog } = await loadCommittedProductionCatalog({ version: '0.2.0' })
+    const intensity = (id: string) => catalog.parts.find(part => part.id === id)?.composition?.visualIntensity
+    expect(intensity('head_mushroom_cap')).toBe('strong')
+    expect(intensity('eyes_triple_pearl')).toBe('strong')
+    expect(intensity('mouth_wide_grin')).toBe('strong')
+    expect(intensity('oral_lolling_tongue')).toBe('strong')
+    expect(intensity('surface_gel_bubbles')).toBe('strong')
+    expect(intensity('surface_soft_scales')).toBe('quiet')
+    expect(intensity('oral_gummy_ridges')).toBe('quiet')
+    expect(intensity('effect_spore_glow')).toBe('strong')
+  })
+
+  it('keeps every optional explicit-none selection within 35%-50% over 10,000 normal seeds', async () => {
+    const { catalog } = await loadCommittedProductionCatalog({ version: '0.2.0' })
+    const counts = { headAppendage: 0, tail: 0, extraAppendage: 0, effect: 0 }
+    const noneIds = {
+      headAppendage: 'head_appendage_none',
+      tail: 'tail_none',
+      extraAppendage: 'extra_appendage_none',
+      effect: 'effect_none',
+    } as const
+    const themes = ['deep-sea', 'fungal', 'shadow'] as const
+    for (let index = 0; index < 10_000; index += 1) {
+      const result = generateMonster({ seed: `distribution-${index}`, themeId: themes[index % 3]!, mode: 'normal' }, catalog)
+      for (const slotId of Object.keys(noneIds) as Array<keyof typeof noneIds>) {
+        if (result.spec.visualSlots[slotId].partId === noneIds[slotId]) counts[slotId] += 1
+      }
+      const strong = Object.values(result.spec.visualSlots).filter(selection => (
+        catalog.parts.find(part => part.id === selection.partId)?.composition?.visualIntensity === 'strong'
+      )).length
+      expect(strong).toBeLessThanOrEqual(2)
+    }
+    console.log('v0.2 optional-none distribution', Object.fromEntries(Object.entries(counts).map(([slot, count]) => [slot, count / 10_000])))
+    for (const count of Object.values(counts)) {
+      expect(count / 10_000).toBeGreaterThanOrEqual(0.35)
+      expect(count / 10_000).toBeLessThanOrEqual(0.5)
+    }
+  }, 30_000)
 })

@@ -1,0 +1,13 @@
+{
+  "catalogVersion": "0.2.0",
+  "rendererVersion": "0.2.0",
+  "policy": {
+    "motifSlots": ["headShape", "eyes", "mouthShape", "oralDetail", "headAppendage", "arms", "legs", "tail", "extraAppendage", "surfaceMaterial", "pattern", "effect"],
+    "surpriseRatio": 0.3,
+    "maxStrongFeatures": 2,
+    "optionalNoneRate": { "min": 0.35, "max": 0.5 },
+    "frameBounds": { "x": 96, "y": 64, "width": 1856, "height": 1888 },
+    "faceInsideRatio": 0.8,
+    "faceVisibleRatio": 0.85
+  }
+}

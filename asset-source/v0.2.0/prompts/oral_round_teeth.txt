@@ -1,0 +1,15 @@
+Use case: precise-object-edit
+Asset type: QMonster modular oralDetail game-art layer, four-candidate production sheet
+Input images: Image 1 is STYLE REFERENCE ONLY for bright rounded tactile friendly 3D-cartoon rendering; never copy its character identity or palette. Image 2 is the LOCKED RIG BASE edit target (blob); preserve its camera, scale, light and pose as alignment reference. Image 3 is the SLOT MASK AND SOCKET GUIDE; the pink region is the only permitted design region and the cyan cross is the required attachment point.
+Primary request:
+Edit the supplied locked QMonster rig base. Change only the masked oralDetail region to: a separate curved row of six irregular blunt rounded cream cartoon teeth, gummy and harmless.
+Preserve the camera, 3/4 front pose, body silhouette outside the mask, eye-level perspective,
+upper-left soft key light, broad front fill, friendly rounded 3D cartoon proportions, and tactile material response.
+Keep attachment points aligned with the supplied socket guides. No text, no props, no environment,
+no extra limbs outside the requested slot, no gore, no horror-valley anatomy. Output a clean isolated subject.
+Candidate layout: create exactly four distinct variants of this one exact request in a clean unlabelled 2x2 sheet, reading order left-top, right-top, left-bottom, right-bottom. Each equal quadrant must contain only the requested modular oralDetail layer, aligned and scaled as if attached to the locked base. The locked base and every non-requested region must be completely absent from the output, replaced by key background. No dividers, labels or numbers.
+Scene/backdrop: perfectly uniform flat pure chroma green #00FF00 in every background pixel and every gap; no checkerboard, gradient, texture, vignette, floor, horizon, ambient scene or cast shadow. Pure green is an extraction key and must not appear in the requested layer.
+Style/medium: polished original friendly tactile 3D cartoon matching Image 1 only in general rendering language; rounded soft toy anatomy, controlled highlights, clean tactile edges.
+Composition/framing: preserve the guide's three-quarter front orientation, eye-level 50mm-equivalent camera, scale and socket alignment; generous green margin around each isolated layer.
+Constraints: only the requested modular layer visible; genuine flat key background; no locked-base pixels; no full creature overlay; no text, logo, watermark, gore, sharp photoreal anatomy, horror-valley forms, props, environment, extra subjects, extra limbs or cropped edges.
+Avoid: green spill, green details, camera drift, light drift, silhouette outside the guide, disconnected socket, fake transparency, copying Image 1.

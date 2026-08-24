@@ -1,0 +1,139 @@
+{
+  "status": "approved",
+  "reviewedAt": "2026-08-24T13:20:00+08:00",
+  "reviewer": "Codex visual QA",
+  "reviewMethod": "Original-resolution inspection of Chromium contact sheets rendered through @qmonster/renderer-canvas browserSurfaceFactory, plus immutable extraction-gate metrics and a separate 256x256 paired-feet readability check.",
+  "taskBoundary": "Part-level composition contact sheets only; Task 7 whole-creature golden approval has not occurred and is not asserted here.",
+  "contactSheets": [
+    {
+      "rigId": "blob",
+      "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-blob.png",
+      "sha256": "46d3cbabcaee1eb869164c5c1a88d9101d9bb4892c26a6a936a5ba1f5b9f0aba",
+      "candidateCount": 39,
+      "width": 1200,
+      "height": 3482,
+      "result": "approved",
+      "finding": "All 39 declared blob placements are present once; paired limbs attach on their declared nodes, face parts remain inside the head region, body-clipped overlays preserve the silhouette, and protect-face effects remain sparse and readable."
+    },
+    {
+      "rigId": "biped",
+      "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-biped.png",
+      "sha256": "ba19aa7cdb508d2fc63c2f5a56c4729e0fb0b3e22ed656e39df8602d19213605",
+      "candidateCount": 39,
+      "width": 1200,
+      "height": 3482,
+      "result": "approved",
+      "finding": "All 39 declared biped placements are present once. Candidate 3 mushroom legs read as two low weight-bearing feet with separate soles and ankle contacts, not hats or a second head; long arms and moth wings remain bilateral and attached."
+    },
+    {
+      "rigId": "floating",
+      "path": "packages/asset-catalog/review/v0.2.0/contact-sheet-floating.png",
+      "sha256": "12eb1120edef784b9cfc85ec9fddaa81da5285a0fac9b3685071977da6dbdf8d",
+      "candidateCount": 37,
+      "width": 1200,
+      "height": 3482,
+      "result": "approved",
+      "finding": "All 37 declared floating placements are present once; paddle arms, tiptoe legs, fan tail and tentacles preserve their attachment, while quiet fur provides the mandatory cross-theme fallback without obscuring the floating silhouette."
+    }
+  ],
+  "reworkActions": [
+    { "partIds": ["legs_mushroom"], "action": "regenerate, then split", "result": "approved built-in image_gen regeneration-2 candidate 3; split to legLeft and legRight nodes" },
+    { "partIds": ["arms_long_noodle"], "action": "crop/split", "result": "approved separate left/right nodes at armLeft/armRight" },
+    { "partIds": ["head_mushroom_cap"], "action": "metadata/scale", "result": "approved strong single node at scale 0.78 with explicit face safe zone" },
+    { "partIds": ["surface_soft_scales"], "action": "metadata/clip", "result": "approved quiet body-alpha clip" },
+    { "partIds": ["oral_gummy_ridges"], "action": "metadata/anchor", "result": "approved quiet child at mouthShape.oralDetail" },
+    { "partIds": ["effect_spore_glow"], "action": "metadata/clip", "result": "approved strong bodyFrame.effect node with protect-face" },
+    { "partIds": ["eyes_triple_pearl", "mouth_wide_grin"], "action": "intensity audit", "result": "approved both strong; maxStrongFeatures 2 prevents any third strong selection" }
+  ],
+  "legsMushroomSelection": {
+    "generationMode": "built-in image_gen",
+    "attempt": "regeneration-2",
+    "selectedCandidate": 3,
+    "sourcePath": "asset-source/v0.2.0/generation/part-candidates/legs_mushroom/regeneration-2/legs_mushroom-candidate-3-source.png",
+    "approvedRgbaPath": "asset-source/v0.2.0/generation/part-candidates/legs_mushroom/regeneration-2/legs_mushroom-candidate-3-rgba.png",
+    "runtimePath": "packages/asset-catalog/assets/v0.2.0/parts/legs_mushroom.png",
+    "machineResult": "approved without threshold changes",
+    "visualResult256": "approved: clear forefoot, toe lobes, sole thickness and narrow ankle connectors read as feet",
+    "rejectedSummary": "Initial four were fully opaque baked-checker outputs. In regeneration-2 candidate 1 passed but remained bulb/garlic-like; candidates 2 and 4 failed immutable edge/border gates; candidate 3 passed both machine and visual checks."
+  },
+  "optionalNoneCalibration": {
+    "seeds": 10000,
+    "mode": "normal",
+    "weights": {
+      "head_appendage_none": 1.8,
+      "tail_none": 0.67,
+      "extra_appendage_none": 0.08,
+      "effect_none": 0.15
+    },
+    "requiredRange": { "min": 0.35, "max": 0.5 },
+    "observedRates": {
+      "headAppendage": 0.3628,
+      "tail": 0.4141,
+      "extraAppendage": 0.4857,
+      "effect": 0.3713
+    },
+    "strongMaximum": 2,
+    "observedMaximumStrong": 2
+  },
+  "intensityClassifications": {
+    "strong": [
+      "head_mushroom_cap",
+      "eyes_triple_pearl",
+      "mouth_wide_grin",
+      "oral_lolling_tongue",
+      "extra_moth_wings",
+      "extra_soft_tentacles",
+      "extra_side_fins",
+      "surface_gel_bubbles",
+      "effect_bioluminescent_orbs",
+      "effect_spore_glow"
+    ],
+    "quiet": [
+      "body_blob_round",
+      "body_blob_wide",
+      "body_biped_peanut",
+      "body_biped_tall",
+      "body_floating_drop",
+      "head_round_dome",
+      "head_angler_bulb",
+      "head_shadow_hood",
+      "eyes_glossy_pair",
+      "eyes_asymmetric",
+      "eyes_sleepy_crescent",
+      "eyes_stalk_pair",
+      "mouth_soft_pout",
+      "mouth_soft_beak",
+      "mouth_vertical_oval",
+      "oral_round_teeth",
+      "oral_single_fang",
+      "oral_gummy_ridges",
+      "head_appendage_none",
+      "head_horns_soft_nubs",
+      "head_antennae_glow",
+      "head_ears_floppy_fins",
+      "arms_short_plush",
+      "arms_long_noodle",
+      "arms_paddle",
+      "legs_stub_feet",
+      "legs_webbed",
+      "legs_mushroom",
+      "legs_shadow_tiptoe",
+      "tail_none",
+      "tail_fish_fan",
+      "tail_soft_curl",
+      "tail_mushroom_cluster",
+      "extra_appendage_none",
+      "surface_short_fur",
+      "surface_soft_scales",
+      "surface_mushroom_velvet",
+      "pattern_soft_spots",
+      "pattern_gentle_stripes",
+      "pattern_constellation",
+      "pattern_spore_rings",
+      "color_deep_sea_coral",
+      "color_fungal_amber",
+      "color_shadow_violet",
+      "effect_none"
+    ]
+  }
+}

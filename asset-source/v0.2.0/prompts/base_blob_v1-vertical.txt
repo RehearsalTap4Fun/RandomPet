@@ -1,0 +1,10 @@
+Use case: stylized-concept
+Asset type: single QMonster locked rig-base production candidate for chroma extraction
+Input images: Image 1 is STYLE REFERENCE ONLY for bright, rounded, tactile, friendly 3D-cartoon rendering. Do not edit it and do not copy its exact creature identity, lime-green/turquoise palette, silhouette, facial layout, or markings.
+Primary request: Render exactly one original base_blob_v1 candidate: a featureless, low-center-of-gravity squat blob / soft-tuft creature body base with a rounded merged head-and-torso silhouette and readable future attachment zones. It must have absolutely no eyes, mouth, teeth, facial features, arms, legs, feet, tail, horns, antennae, wings, spots, patterns, theme ornament, ground plane, or contact shadow.
+Scene/backdrop: a single perfectly uniform flat pure chroma green #00FF00 background covering every background pixel. No checkerboard, gradient, texture, vignette, floor, horizon, ambient scene, or shadow. The pure green is an extraction key and must not appear in the subject.
+Style/medium: polished friendly tactile 3D cartoon; warm lavender-gray short plush / soft velour; rounded exaggerated proportions; subtle friendly asymmetry; original design.
+Composition/framing: exactly one centered body base with generous empty background margins on all sides; three-quarter front view; camera at the creature's eye level; 50mm-equivalent lens.
+Lighting/mood: upper-left soft key light and broad front fill affect the subject only; bright approachable whimsical-monster mood; do not cast any light or shadow onto the background.
+Constraints: all visible subject pixels inside a generous safe margin; clean continuous silhouette and fine tactile hairs; no text, logo, watermark, gore, horror-valley anatomy, sharp photoreal anatomy, props, environment, extra subjects, baked shadow, or cropped silhouette.
+Avoid: any green in the subject, background contamination, fake transparency pattern, limb-like protrusions, copying Image 1.

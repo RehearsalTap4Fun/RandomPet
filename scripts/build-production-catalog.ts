@@ -4,8 +4,11 @@ import { dirname, isAbsolute, join, relative } from 'node:path'
 import sharp from 'sharp'
 import type {
   Catalog,
+  CompositionPolicy,
   ModifierDefinition,
+  PartComposition,
   RigDefinition,
+  RigId,
   SemanticSlotId,
   SemanticTraitDefinition,
   ThemeDefinition,
@@ -13,6 +16,7 @@ import type {
   VisualPartDefinition,
   VisualSlotId,
 } from '@qmonster/generator-core'
+import { COMPOSITION_PARENT_BY_SLOT } from '@qmonster/generator-core'
 import {
   PRODUCTION_CHROMA_GATE_PROFILE,
   PRODUCTION_CHROMA_GATE_VERSION,
@@ -24,6 +28,7 @@ import { buildProductionEvidenceManifest } from '../packages/asset-catalog/src/e
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
 import { productionPaths } from './production-paths.js'
 import type { RigSheetAudit } from './process-rig-sheets.js'
+import { splitPairedPart } from './split-paired-part.js'
 
 interface ProductionExtractionAudit {
   approved: boolean
@@ -87,6 +92,14 @@ interface ProductionIndexEntry {
       metrics: Record<string, number>
     }>
   }
+  generationMode?: string
+  referenceEvidence?: unknown
+}
+
+interface CompositionManifest {
+  catalogVersion: '0.2.0'
+  rendererVersion: '0.2.0'
+  policy: CompositionPolicy
 }
 
 export interface RichPart extends VisualPartDefinition {
@@ -202,6 +215,162 @@ const rigSheetProvenance = {
   base_biped_v1: { file: 'exec-4d96db4e-e09d-4c04-a410-cc4dfc79b829.png', selected: 2, rejected: 'Candidates 1,3,4 had stance, proportion, or attachment-zone drift.' },
   base_floating_v1: { file: 'exec-eae82714-441a-41e0-9998-b7e8303e5681.png', selected: 4, rejected: 'Candidates 1-3 failed the independent edge-colour gate after full local comparison; candidate 4 preserved the hovering silhouette and passed at p95 11.92.' },
 } as const
+
+const STRONG_PART_IDS = new Set([
+  'head_mushroom_cap',
+  'eyes_triple_pearl',
+  'mouth_wide_grin',
+  'oral_lolling_tongue',
+  'extra_moth_wings',
+  'extra_soft_tentacles',
+  'extra_side_fins',
+  'surface_gel_bubbles',
+  'effect_bioluminescent_orbs',
+  'effect_spore_glow',
+])
+
+const PAIRED_PART_IDS = new Set([
+  ...PRODUCTION_PARTS.filter(part => part.slotId === 'arms' || part.slotId === 'legs').map(part => part.id),
+  'extra_moth_wings',
+])
+
+function bodyGeometry(rigId: RigId): PartComposition['geometryByRig'][RigId] {
+  const rig = rigs.find(candidate => candidate.id === rigId)!
+  const scaled = (socket: string) => {
+    const point = rig.sockets[socket]!
+    return { x: point.x / 2, y: point.y / 2 }
+  }
+  return {
+    sockets: {
+      head: scaled('head'),
+      headAlternate: scaled('headAlternate'),
+      armLeft: scaled('armLeft'),
+      armRight: scaled('armRight'),
+      legLeft: scaled('legLeft'),
+      legRight: scaled('legRight'),
+      tail: scaled('tail'),
+      wingLeft: scaled('wingLeft'),
+      wingRight: scaled('wingRight'),
+      overlay: { x: 512, y: 512 },
+      effect: { x: 512, y: 512 },
+    },
+  }
+}
+
+function geometryForPart(part: (typeof PRODUCTION_PARTS)[number]): PartComposition['geometryByRig'] {
+  if (!part.visible) return {}
+  if (part.slotId === 'bodyFrame') {
+    return Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, bodyGeometry(rigId)]))
+  }
+  if (part.slotId === 'headShape') {
+    return Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, {
+      sockets: {
+        eyes: { x: 512, y: 430 },
+        mouth: { x: 512, y: 590 },
+        headAppendage: { x: 512, y: 245 },
+      },
+      faceSafeZone: { x: 270, y: 300, width: 484, height: 430 },
+    }]))
+  }
+  if (part.slotId === 'mouthShape') {
+    return Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, {
+      sockets: { oralDetail: { x: 512, y: 512 } },
+    }]))
+  }
+  return {}
+}
+
+function singleNodeSocket(part: (typeof PRODUCTION_PARTS)[number]): string | null {
+  switch (part.slotId) {
+    case 'bodyFrame': return null
+    case 'headShape': return 'head'
+    case 'eyes': return 'eyes'
+    case 'mouthShape': return 'mouth'
+    case 'oralDetail': return 'oralDetail'
+    case 'headAppendage': return 'headAppendage'
+    case 'tail': return 'tail'
+    case 'extraAppendage': return 'overlay'
+    case 'surfaceMaterial':
+    case 'pattern':
+    case 'colorScheme': return 'overlay'
+    case 'effect': return 'effect'
+    case 'arms': return 'armLeft'
+    case 'legs': return 'legLeft'
+  }
+}
+
+function clipPolicy(part: (typeof PRODUCTION_PARTS)[number]): 'none' | 'body' | 'protect-face' {
+  if (part.slotId === 'surfaceMaterial' || part.slotId === 'pattern' || part.slotId === 'colorScheme') return 'body'
+  if (part.slotId === 'effect') return 'protect-face'
+  return 'none'
+}
+
+async function compositionForPart(input: {
+  part: (typeof PRODUCTION_PARTS)[number]
+  compatibleRigs: RigId[]
+  sourceRoot: string
+  assetDirectory: string
+  pngSha256: string
+  webpSha256: string
+}): Promise<PartComposition> {
+  const { part } = input
+  if (!part.visible) {
+    return { isNone: true, motifTags: [], visualIntensity: 'quiet', renderNodes: [], geometryByRig: {} }
+  }
+  const parentSlot = COMPOSITION_PARENT_BY_SLOT[part.slotId]
+  let renderNodes: PartComposition['renderNodes']
+  if (PAIRED_PART_IDS.has(part.id)) {
+    const rig = rigs.find(candidate => candidate.id === part.rigId)!
+    const isWings = part.id === 'extra_moth_wings'
+    const sockets = isWings ? ['wingLeft', 'wingRight'] as const
+      : part.slotId === 'arms' ? ['armLeft', 'armRight'] as const
+        : ['legLeft', 'legRight'] as const
+    const split = await splitPairedPart(
+      join(input.sourceRoot, 'parts', `${part.id}.png`),
+      join(input.assetDirectory, 'nodes', part.id),
+      [
+        { id: 'left', rect: { left: 0, top: 0, width: 1024, height: 2048 }, anchor: rig.sockets[sockets[0]]!, mirrorX: false },
+        { id: 'right', rect: { left: 1024, top: 0, width: 1024, height: 2048 }, anchor: rig.sockets[sockets[1]]!, mirrorX: false },
+      ],
+    )
+    renderNodes = split.map((node, index) => ({
+      id: `${part.id}_${node.id}`,
+      assetPath: `nodes/${part.id}/${node.id}.webp`,
+      pngPath: `nodes/${part.id}/${node.id}.png`,
+      assetSha256: node.webpSha256,
+      pngSha256: node.pngSha256,
+      parentSlot,
+      socket: sockets[index]!,
+      origin: node.origin,
+      transform: { scale: 0.5, mirrorX: node.mirrorX },
+      layer: part.layer,
+      compatibleRigs: input.compatibleRigs,
+      clipPolicy: clipPolicy(part),
+    }))
+  } else {
+    renderNodes = [{
+      id: `${part.id}_0`,
+      assetPath: `parts/${part.id}.webp`,
+      pngPath: `parts/${part.id}.png`,
+      assetSha256: input.webpSha256,
+      pngSha256: input.pngSha256,
+      parentSlot,
+      socket: singleNodeSocket(part),
+      origin: part.origin,
+      transform: { scale: part.id === 'head_mushroom_cap' ? 0.78 : 1, mirrorX: false },
+      layer: part.layer,
+      compatibleRigs: input.compatibleRigs,
+      clipPolicy: clipPolicy(part),
+    }]
+  }
+  return {
+    isNone: false,
+    motifTags: STRONG_PART_IDS.has(part.id) ? part.themeIds : themes.map(theme => theme.id),
+    visualIntensity: STRONG_PART_IDS.has(part.id) ? 'strong' : 'quiet',
+    renderNodes,
+    geometryByRig: geometryForPart(part),
+  }
+}
 
 function normalizePath(path: string): string {
   const portable = isAbsolute(path) ? relative(process.cwd(), path) : path
@@ -349,10 +518,13 @@ export async function buildProductionCatalog(options: { write: boolean, version:
   const paths = productionPaths(options.version)
   const { catalogDirectory, assetDirectory, sourceRoot } = paths
   const productionIndexPath = join(sourceRoot, 'generation', 'production-index.json')
-  const reviewRecordPath = join(paths.reviewDirectory, 'review-record.json')
+  const reviewRecordPath = join(paths.reviewDirectory, options.version === '0.2.0' ? 'rework-record.json' : 'review-record.json')
   const rigAuditPath = join(sourceRoot, 'generation', 'rig-audit.json')
   const productionIndex = JSON.parse(await readFile(productionIndexPath, 'utf8')) as ProductionIndexEntry[]
   const rigAudits = await readJson<RigSheetAudit[]>(rigAuditPath)
+  const compositionManifest = options.version === '0.2.0'
+    ? await readJson<CompositionManifest>(join(sourceRoot, 'composition-manifest.json'))
+    : null
   if (productionIndex.length !== 55) throw new Error(`Expected 55 production entries, received ${productionIndex.length}`)
   if (rigAudits.length !== 3) throw new Error(`Expected 3 rig audit entries, received ${rigAudits.length}`)
   const indexed = new Map(productionIndex.map(entry => [entry.id, entry]))
@@ -376,6 +548,17 @@ export async function buildProductionCatalog(options: { write: boolean, version:
     const rigMaskSha256 = paletteMaskAudit === undefined ? undefined : Object.fromEntries(
       Object.entries(paletteMaskAudit.rigMasks).map(([rigId, value]) => [rigId, value.sha256]),
     )
+    const compatibleRigs = options.version === '0.2.0' && part.id === 'surface_short_fur'
+      ? rigs.map(rig => rig.id)
+      : part.compatibleRigs
+    const composition = compositionManifest === null ? undefined : await compositionForPart({
+      part,
+      compatibleRigs,
+      sourceRoot,
+      assetDirectory,
+      pngSha256: source.pngSha256,
+      webpSha256: source.webpSha256,
+    })
     return {
       id: part.id,
       displayName: part.displayName,
@@ -383,15 +566,15 @@ export async function buildProductionCatalog(options: { write: boolean, version:
       description: part.description,
       slotId: part.slotId,
       rarity: part.rarity,
-      baseWeight: 1,
+      baseWeight: part.baseWeight,
       themeIds: part.themeIds,
       themeWeights: Object.fromEntries(part.themeIds.map(themeId => [themeId, 1.15])),
-      compatibleRigs: part.compatibleRigs,
+      compatibleRigs,
       assetPath,
       assetSha256: source.webpSha256,
       pngPath,
       pngSha256: source.pngSha256,
-      approvedTransforms: [{ scale: 1, mirrorX: false }],
+      ...(composition === undefined ? { approvedTransforms: [{ scale: 1, mirrorX: false }] } : { composition }),
       maskPaths: {},
       ...(rigMaskPaths === undefined ? {} : { rigMaskPaths, rigMaskSha256 }),
       origin: part.origin,
@@ -417,6 +600,7 @@ export async function buildProductionCatalog(options: { write: boolean, version:
       headShape: ['eyes', 'mouthShape', 'oralDetail', 'headAppendage'],
       mouthShape: ['oralDetail'],
     },
+    ...(compositionManifest === null ? {} : { compositionPolicy: compositionManifest.policy }),
   } satisfies Catalog
 
   const review = await optionalJson(reviewRecordPath) ?? {
@@ -425,6 +609,9 @@ export async function buildProductionCatalog(options: { write: boolean, version:
     reviewer: null,
     contactSheets: [],
   }
+  const reworkRecordSha256 = options.version === '0.2.0' && review.status === 'approved'
+    ? await sha256File(reviewRecordPath)
+    : null
   const partSources = await Promise.all(PRODUCTION_PARTS.map(async part => {
     const source = indexed.get(part.id)!
     const resolvedPrompt = await resolveProductionPrompt(sourceRoot, part)
@@ -478,7 +665,11 @@ export async function buildProductionCatalog(options: { write: boolean, version:
       slotId: part.slotId,
       lockedBaseId: `base_${part.rigId}_v1`,
       compatibleRigs: part.compatibleRigs,
-      generationTool: part.visible ? 'Codex built-in image_gen on uniform chroma key + deterministic local extraction' : 'Sharp deterministic transparent RGBA',
+      generationTool: part.visible
+        ? source.generationMode ?? 'Codex built-in image_gen on uniform chroma key + deterministic local extraction'
+        : 'Sharp deterministic transparent RGBA',
+      generationMode: source.generationMode ?? null,
+      referenceEvidence: normalizeAuditPaths(source.referenceEvidence ?? null),
       generationPath: source.sourceSheet === undefined ? null : normalizePath(source.sourceSheet),
       sheetPath: source.sheetPath === undefined ? null : normalizePath(source.sheetPath),
       sheetSha256: source.sheetSha256 ?? null,
@@ -512,6 +703,8 @@ export async function buildProductionCatalog(options: { write: boolean, version:
       runtimePngSha256: source.pngSha256,
       runtimeWebpPath: normalizePath(source.webpPath),
       runtimeWebpSha256: source.webpSha256,
+      reworkRecordPath: reworkRecordSha256 === null ? null : normalizePath(reviewRecordPath),
+      reworkRecordSha256,
     }
   }))
 

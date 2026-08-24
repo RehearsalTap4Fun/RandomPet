@@ -1,0 +1,479 @@
+[
+  {
+    "rigId": "blob",
+    "sourceId": "base_blob_v1",
+    "sheetPath": "generation/rig-sheets/base_blob_v1-sheet.png",
+    "sheetSha256": "d8395dd58226b64a8a78f47f4f81c9ac69fbb319025e110ee3c0152525b4408c",
+    "selected": 1,
+    "candidateEvaluations": [
+      {
+        "index": 1,
+        "selected": true,
+        "machineApproved": true,
+        "extraction": {
+          "approved": true,
+          "diagnostics": [],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa02",
+            "backgroundP95Delta": 2.8284271247461903,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.4999249610178847,
+            "subjectBackgroundDistanceP05": 222.12158832495325,
+            "partialAlphaPixels": 3952,
+            "partialAlphaRatio": 0.01971200127689077,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 8.485281374238571,
+            "edgeNearestDistanceP95": 7.0710678118654755,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "37246aa9c52ba62878261301488acdf90d7fd8955fb72e39c1e77b488cf606d3",
+          "processedSha256": "61ce67ccbd22154ad407043765f72bb0c3969062245cd642a1f4a2f894582a33"
+        }
+      },
+      {
+        "index": 2,
+        "selected": false,
+        "machineApproved": true,
+        "extraction": {
+          "approved": true,
+          "diagnostics": [],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa02",
+            "backgroundP95Delta": 3,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.507858743567633,
+            "subjectBackgroundDistanceP05": 223.25097984107484,
+            "partialAlphaPixels": 3932,
+            "partialAlphaRatio": 0.019313705264605623,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 10.770329614269007,
+            "edgeNearestDistanceP95": 7.0710678118654755,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "2fcc620552feff9884b9c2141a9bf5b3d22c1e2a92cd6219b38b89eb2a0dc529",
+          "processedSha256": "20c56e5261a209a5626519c604796c9d1ec6b8a292c48f13323a5ec339d95c85"
+        }
+      },
+      {
+        "index": 3,
+        "selected": false,
+        "machineApproved": true,
+        "extraction": {
+          "approved": true,
+          "diagnostics": [],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa02",
+            "backgroundP95Delta": 2.449489742783178,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.4249241343172343,
+            "subjectBackgroundDistanceP05": 220.59465088709652,
+            "partialAlphaPixels": 3505,
+            "partialAlphaRatio": 0.020550555539268857,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 8.485281374238571,
+            "edgeNearestDistanceP95": 7,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "b4529d65dabd6c9dc9aec7f6e93687314633a4393fa361e7a44d12d57cf77c07",
+          "processedSha256": "e3fb37c368e5402b8bcab41f0deb3cdbb0a8013081a67baec267a6cd6c05b54e"
+        }
+      },
+      {
+        "index": 4,
+        "selected": false,
+        "machineApproved": true,
+        "extraction": {
+          "approved": true,
+          "diagnostics": [],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa02",
+            "backgroundP95Delta": 2.23606797749979,
+            "borderContaminationRatio": 0.0003835924713584288,
+            "subjectCoverage": 0.45681951725769404,
+            "subjectBackgroundDistanceP05": 223.7409216035368,
+            "partialAlphaPixels": 3757,
+            "partialAlphaRatio": 0.020491311509386625,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 7.280109889280519,
+            "edgeNearestDistanceP95": 7.0710678118654755,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 96,
+            "safeBorderForegroundPixels": 15
+          },
+          "sourceSha256": "d9de397e724c4a04ad9eead0af1783ae984a3553b7d507c4045852275e32897b",
+          "processedSha256": "77604258246fff500c7427f9ebbf377a980752d43ed863760f6051cf29ad9b1e"
+        }
+      }
+    ],
+    "selectedExtraction": {
+      "approved": true,
+      "diagnostics": [],
+      "metrics": {
+        "detectedKeyHex": "#00ff00",
+        "sampledKeyHex": "#03fa02",
+        "backgroundP95Delta": 2.8284271247461903,
+        "borderContaminationRatio": 0,
+        "subjectCoverage": 0.4999249610178847,
+        "subjectBackgroundDistanceP05": 222.12158832495325,
+        "partialAlphaPixels": 3952,
+        "partialAlphaRatio": 0.01971200127689077,
+        "edgeFringeP95": 0,
+        "edgeColorDeltaP95": 8.485281374238571,
+        "edgeNearestDistanceP95": 7.0710678118654755,
+        "edgePixelsWithoutOpaqueCore": 0,
+        "safeBorderAlphaMax": 0,
+        "safeBorderForegroundPixels": 0
+      },
+      "sourceSha256": "37246aa9c52ba62878261301488acdf90d7fd8955fb72e39c1e77b488cf606d3",
+      "processedSha256": "61ce67ccbd22154ad407043765f72bb0c3969062245cd642a1f4a2f894582a33"
+    },
+    "master": {
+      "masterPath": "rigs/base_blob_v1.png",
+      "sha256": "59c7442f9395efdc7f7c54f3676a4fbf33ea974cacf8eab7c3ca4da0759be772",
+      "width": 2048,
+      "height": 2048,
+      "hasAlpha": true,
+      "boundaryAlphaPixels": 0
+    },
+    "runtimePngPath": "rigs/base_blob_v1.png",
+    "runtimePngSha256": "65bb84ade8615827c36a65c61f4598f167364d71976bcaa66cea6ae6b6ccd34b",
+    "runtimeWebpPath": "rigs/base_blob_v1.webp",
+    "runtimeWebpSha256": "7177fbb8c3e879ade523ccce3c2d62ffd0bf45b1f09691bb7db6951a4b6d96c1"
+  },
+  {
+    "rigId": "biped",
+    "sourceId": "base_biped_v1",
+    "sheetPath": "generation/rig-sheets/base_biped_v1-sheet.png",
+    "sheetSha256": "8612e04d40b93f73a90e403868faffd8782b98c0c66472535c1a6e6d9d3a909a",
+    "selected": 2,
+    "candidateEvaluations": [
+      {
+        "index": 1,
+        "selected": false,
+        "machineApproved": true,
+        "extraction": {
+          "approved": true,
+          "diagnostics": [],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa03",
+            "backgroundP95Delta": 2.449489742783178,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.5158408563092521,
+            "subjectBackgroundDistanceP05": 235.64804263986576,
+            "partialAlphaPixels": 4068,
+            "partialAlphaRatio": 0.019665474233781302,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 10.677078252031311,
+            "edgeNearestDistanceP95": 7,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "029dedf6d8058bd5cbf7116ebc2bf6e54e4e2d0667c87b6d188464b94fd574e8",
+          "processedSha256": "73a71d33d69b1cefaa43e476b007ca8a4cf3f5d900b7deb492776e83644f756a"
+        }
+      },
+      {
+        "index": 2,
+        "selected": true,
+        "machineApproved": true,
+        "extraction": {
+          "approved": true,
+          "diagnostics": [],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa03",
+            "backgroundP95Delta": 2.8284271247461903,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.4608182047114306,
+            "subjectBackgroundDistanceP05": 234.60179027449897,
+            "partialAlphaPixels": 4002,
+            "partialAlphaRatio": 0.02161338928403623,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 10.198039027185569,
+            "edgeNearestDistanceP95": 7,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "3581fed984d76ffcc2f1d095dd601599c3147a4002685d91fb3ea8f76f8d0b0b",
+          "processedSha256": "91c7830caca329e419e5c47336850ea2623f4f3d72589708113e6f8b8e40e2e0"
+        }
+      },
+      {
+        "index": 3,
+        "selected": false,
+        "machineApproved": true,
+        "extraction": {
+          "approved": true,
+          "diagnostics": [],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa03",
+            "backgroundP95Delta": 2.449489742783178,
+            "borderContaminationRatio": 0.000025572831423895255,
+            "subjectCoverage": 0.5177537144296147,
+            "subjectBackgroundDistanceP05": 235.88132609428834,
+            "partialAlphaPixels": 4122,
+            "partialAlphaRatio": 0.01984918089624686,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 9.899494936611665,
+            "edgeNearestDistanceP95": 7,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "7f14ae3bf09a1a8a4d2cd1b537dfa6527746b145ec5412c24777654ffc944c36",
+          "processedSha256": "88ad0bf43e3121763123291a7f3159e7ea62b213211038eed38f273e9bc7b35a"
+        }
+      },
+      {
+        "index": 4,
+        "selected": false,
+        "machineApproved": false,
+        "extraction": {
+          "approved": false,
+          "diagnostics": [
+            {
+              "severity": "error",
+              "code": "CHROMA_EDGE_DEGRADED",
+              "message": "Partial-alpha pixels 4457, ratio 1.94%, fringe p95 0.00, color delta p95 12.12, nearest distance p95 7.07 failed edge limits."
+            }
+          ],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa03",
+            "backgroundP95Delta": 2.23606797749979,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.5723108699688906,
+            "subjectBackgroundDistanceP05": 233.3880888134611,
+            "partialAlphaPixels": 4457,
+            "partialAlphaRatio": 0.01942479592414872,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 12.124355652982143,
+            "edgeNearestDistanceP95": 7.0710678118654755,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "b3e3d762b8d6465f0b8016a533f8689c321539686c124eb847561b597def5748",
+          "processedSha256": "de49a2a6d4036dc1889196bb04625873c48fe871f00649c01beb9db3f46c9594"
+        }
+      }
+    ],
+    "selectedExtraction": {
+      "approved": true,
+      "diagnostics": [],
+      "metrics": {
+        "detectedKeyHex": "#00ff00",
+        "sampledKeyHex": "#03fa03",
+        "backgroundP95Delta": 2.8284271247461903,
+        "borderContaminationRatio": 0,
+        "subjectCoverage": 0.4608182047114306,
+        "subjectBackgroundDistanceP05": 234.60179027449897,
+        "partialAlphaPixels": 4002,
+        "partialAlphaRatio": 0.02161338928403623,
+        "edgeFringeP95": 0,
+        "edgeColorDeltaP95": 10.198039027185569,
+        "edgeNearestDistanceP95": 7,
+        "edgePixelsWithoutOpaqueCore": 0,
+        "safeBorderAlphaMax": 0,
+        "safeBorderForegroundPixels": 0
+      },
+      "sourceSha256": "3581fed984d76ffcc2f1d095dd601599c3147a4002685d91fb3ea8f76f8d0b0b",
+      "processedSha256": "91c7830caca329e419e5c47336850ea2623f4f3d72589708113e6f8b8e40e2e0"
+    },
+    "master": {
+      "masterPath": "rigs/base_biped_v1.png",
+      "sha256": "0b71efbf8ad9a43fa1d1eab884e314e1e252c3e042c9f381ffeb07554ef3d6ef",
+      "width": 2048,
+      "height": 2048,
+      "hasAlpha": true,
+      "boundaryAlphaPixels": 0
+    },
+    "runtimePngPath": "rigs/base_biped_v1.png",
+    "runtimePngSha256": "01e7f4ba9039014976f400ec953b6f3893550e430d17832207ae6de33fb3ea6d",
+    "runtimeWebpPath": "rigs/base_biped_v1.webp",
+    "runtimeWebpSha256": "99bbf015b83ababd3b50397596d55c70e35bfb6cabf99832eefa75e0902f1341"
+  },
+  {
+    "rigId": "floating",
+    "sourceId": "base_floating_v1",
+    "sheetPath": "generation/rig-sheets/base_floating_v1-sheet.png",
+    "sheetSha256": "198262d8f5d613c74f16d3cc36cb641e1578c08721ce30e913b49bc275d695b5",
+    "selected": 4,
+    "candidateEvaluations": [
+      {
+        "index": 1,
+        "selected": false,
+        "machineApproved": false,
+        "extraction": {
+          "approved": false,
+          "diagnostics": [
+            {
+              "severity": "error",
+              "code": "CHROMA_EDGE_DEGRADED",
+              "message": "Partial-alpha pixels 4319, ratio 2.77%, fringe p95 0.00, color delta p95 12.04, nearest distance p95 6.32 failed edge limits."
+            }
+          ],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa03",
+            "backgroundP95Delta": 2.23606797749979,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.38621673801729206,
+            "subjectBackgroundDistanceP05": 240.41214611579008,
+            "partialAlphaPixels": 4319,
+            "partialAlphaRatio": 0.027658947691992418,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 12.041594578792296,
+            "edgeNearestDistanceP95": 6.324555320336759,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "78e93e042f21bc0a2a2a0e4d7b58d8cee1b0c630330e9ebd7bbe1b2f75385c44",
+          "processedSha256": "0696ac30f1edd8bce14908581a713c2ad9abe6f4c2bc5c53635902a6ecdd2a92"
+        }
+      },
+      {
+        "index": 2,
+        "selected": false,
+        "machineApproved": false,
+        "extraction": {
+          "approved": false,
+          "diagnostics": [
+            {
+              "severity": "error",
+              "code": "CHROMA_EDGE_DEGRADED",
+              "message": "Partial-alpha pixels 4130, ratio 2.61%, fringe p95 0.00, color delta p95 12.88, nearest distance p95 6.08 failed edge limits."
+            }
+          ],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa03",
+            "backgroundP95Delta": 2.449489742783178,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.3915763019263397,
+            "subjectBackgroundDistanceP05": 239.34285032145831,
+            "partialAlphaPixels": 4130,
+            "partialAlphaRatio": 0.02612766495856266,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 12.884098726725126,
+            "edgeNearestDistanceP95": 6.082762530298219,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "8f905ff04f3e2092c03d77ffba2780e7e96283b86ca8f3232037475a7d94ea88",
+          "processedSha256": "0bb63575a20de2cd7cfa52fcb54d1bae6c7f95212461f8cf8f3fa4e1c4ef4cd2"
+        }
+      },
+      {
+        "index": 3,
+        "selected": false,
+        "machineApproved": false,
+        "extraction": {
+          "approved": false,
+          "diagnostics": [
+            {
+              "severity": "error",
+              "code": "CHROMA_EDGE_DEGRADED",
+              "message": "Partial-alpha pixels 4575, ratio 2.93%, fringe p95 0.00, color delta p95 12.69, nearest distance p95 6.40 failed edge limits."
+            }
+          ],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa03",
+            "backgroundP95Delta": 2,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.3849423471684867,
+            "subjectBackgroundDistanceP05": 239.57879705850434,
+            "partialAlphaPixels": 4575,
+            "partialAlphaRatio": 0.029344416863899634,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 12.688577540449518,
+            "edgeNearestDistanceP95": 6.4031242374328485,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "c83eec4d9e2ac37748b6334df89686a05628c0ed5029304ae336d75b20d52579",
+          "processedSha256": "c028ee189a6817ce2224eeb095c165dd0947f0ab4385a08e207be5f1b7c91489"
+        }
+      },
+      {
+        "index": 4,
+        "selected": true,
+        "machineApproved": true,
+        "extraction": {
+          "approved": true,
+          "diagnostics": [],
+          "metrics": {
+            "detectedKeyHex": "#00ff00",
+            "sampledKeyHex": "#03fa03",
+            "backgroundP95Delta": 2,
+            "borderContaminationRatio": 0,
+            "subjectCoverage": 0.40883526781285534,
+            "subjectBackgroundDistanceP05": 238.94350796788768,
+            "partialAlphaPixels": 4659,
+            "partialAlphaRatio": 0.028170802496009287,
+            "edgeFringeP95": 0,
+            "edgeColorDeltaP95": 11.916375287812984,
+            "edgeNearestDistanceP95": 6.708203932499369,
+            "edgePixelsWithoutOpaqueCore": 0,
+            "safeBorderAlphaMax": 0,
+            "safeBorderForegroundPixels": 0
+          },
+          "sourceSha256": "10c5ee5a695da23d1d02c46215a9277143dc792eda1c74892625d2a8546b6f94",
+          "processedSha256": "18da40f61287bc9b94c2c5e75ad31b7a1d2aa9c9b7d0b6ca132bd2c88bf6e637"
+        }
+      }
+    ],
+    "selectedExtraction": {
+      "approved": true,
+      "diagnostics": [],
+      "metrics": {
+        "detectedKeyHex": "#00ff00",
+        "sampledKeyHex": "#03fa03",
+        "backgroundP95Delta": 2,
+        "borderContaminationRatio": 0,
+        "subjectCoverage": 0.40883526781285534,
+        "subjectBackgroundDistanceP05": 238.94350796788768,
+        "partialAlphaPixels": 4659,
+        "partialAlphaRatio": 0.028170802496009287,
+        "edgeFringeP95": 0,
+        "edgeColorDeltaP95": 11.916375287812984,
+        "edgeNearestDistanceP95": 6.708203932499369,
+        "edgePixelsWithoutOpaqueCore": 0,
+        "safeBorderAlphaMax": 0,
+        "safeBorderForegroundPixels": 0
+      },
+      "sourceSha256": "10c5ee5a695da23d1d02c46215a9277143dc792eda1c74892625d2a8546b6f94",
+      "processedSha256": "18da40f61287bc9b94c2c5e75ad31b7a1d2aa9c9b7d0b6ca132bd2c88bf6e637"
+    },
+    "master": {
+      "masterPath": "rigs/base_floating_v1.png",
+      "sha256": "aa3d83dbc5cfbb27a75518986596ed0f3dc74452db5910556951d8c9a53b2605",
+      "width": 2048,
+      "height": 2048,
+      "hasAlpha": true,
+      "boundaryAlphaPixels": 0
+    },
+    "runtimePngPath": "rigs/base_floating_v1.png",
+    "runtimePngSha256": "8c425243eacc73c389ccfee34a107c2506927636fef4668c6bb85256a6be2d5b",
+    "runtimeWebpPath": "rigs/base_floating_v1.webp",
+    "runtimeWebpSha256": "8406ecdc9cc2cdfcb9f77e7837af9af786ab2465c081df424dd24894a8d48397"
+  }
+]

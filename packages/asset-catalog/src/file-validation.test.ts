@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, rm, symlink, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, realpath, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { execFile as execFileCallback } from 'node:child_process'
@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
-import { validateCatalogFiles } from './file-validation.js'
+import { validateAssetFile, validateCatalogFiles } from './file-validation.js'
 
 const temporaryDirectories: string[] = []
 const execFile = promisify(execFileCallback)
@@ -17,6 +17,15 @@ afterEach(async () => {
 })
 
 describe('validateCatalogFiles', () => {
+  it('accepts compact non-square composition-node assets when explicitly requested', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-node-assets-'))
+    temporaryDirectories.push(tempRoot)
+    const png = await sharp({ create: { width: 137, height: 241, channels: 4, background: '#ffffffff' } }).png().toBuffer()
+    await writeFile(join(tempRoot, 'node.png'), png)
+
+    expect(await validateAssetFile(await realpath(tempRoot), 'node.png', createHash('sha256').update(png).digest('hex'), ['node'], { dimensions: 'trimmed-node' })).toEqual([])
+  })
+
   it('validates both WebP and PNG runtime paths and hashes', async () => {
     const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-assets-'))
     temporaryDirectories.push(tempRoot)

@@ -1,0 +1,13 @@
+{
+  "catalogVersion": "0.2.0",
+  "decision": "exactly-seven-part-rework",
+  "actions": [
+    { "partIds": ["legs_mushroom"], "action": "regenerate, then split", "requiredResult": "two weight-bearing foot nodes attached to legLeft/legRight; no cap-like mass in the face zone" },
+    { "partIds": ["arms_long_noodle"], "action": "crop/split", "requiredResult": "separate left/right nodes with body contact at armLeft/armRight" },
+    { "partIds": ["head_mushroom_cap"], "action": "metadata/scale", "requiredResult": "strong feature, one head node, explicit face safe zone" },
+    { "partIds": ["surface_soft_scales"], "action": "metadata/clip", "requiredResult": "quiet feature clipped to body alpha" },
+    { "partIds": ["oral_gummy_ridges"], "action": "metadata/anchor", "requiredResult": "quiet feature attached only to mouthShape.oralDetail" },
+    { "partIds": ["effect_spore_glow"], "action": "metadata/clip", "requiredResult": "strong feature at bodyFrame.effect with protect-face" },
+    { "partIds": ["eyes_triple_pearl", "mouth_wide_grin"], "action": "intensity audit", "requiredResult": "both strong; generator cannot combine both with a third strong part" }
+  ]
+}

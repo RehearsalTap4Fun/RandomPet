@@ -18,6 +18,7 @@ export async function validateAssetFile(
   assetPath: string,
   expectedHash: string | undefined,
   path: string[],
+  options: { dimensions?: 'canonical' | 'trimmed-node' } = {},
 ): Promise<Diagnostic[]> {
   const diagnostics: Diagnostic[] = []
   const resolvedPath = resolve(assetRoot, assetPath)
@@ -55,8 +56,14 @@ export async function validateAssetFile(
   if (metadata.format !== 'png' && metadata.format !== 'webp') {
     diagnostics.push(error('ASSET_FORMAT_INVALID', path, `Decoded asset format must be PNG or WebP: ${assetPath}`))
   }
-  if (metadata.width !== metadata.height || (metadata.width !== 1024 && metadata.width !== 2048)) {
-    diagnostics.push(error('ASSET_DIMENSION_INVALID', path, `Asset must be square 1024 or 2048 pixels: ${assetPath}`))
+  const dimensionsValid = options.dimensions === 'trimmed-node'
+    ? metadata.width !== undefined && metadata.height !== undefined && metadata.width > 0 && metadata.height > 0 && metadata.width <= 2048 && metadata.height <= 2048
+    : metadata.width === metadata.height && (metadata.width === 1024 || metadata.width === 2048)
+  if (!dimensionsValid) {
+    const requirement = options.dimensions === 'trimmed-node'
+      ? 'Composition node asset must have positive dimensions no larger than 2048 pixels per side'
+      : 'Asset must be square 1024 or 2048 pixels'
+    diagnostics.push(error('ASSET_DIMENSION_INVALID', path, `${requirement}: ${assetPath}`))
   }
   if (!metadata.hasAlpha) {
     diagnostics.push(error('ASSET_ALPHA_MISSING', path, `Asset must include an alpha channel: ${assetPath}`))

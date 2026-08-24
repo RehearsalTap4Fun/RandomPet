@@ -1,0 +1,1316 @@
+[
+  {
+    "id": "frame_blob_round",
+    "semanticSlotId": "frame",
+    "displayName": "圆团体",
+    "flavorText": "一团稳稳坐住的柔软圆影。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "body_blob_round"
+      ],
+      "sourceSlots": [
+        "bodyFrame"
+      ]
+    }
+  },
+  {
+    "id": "frame_blob_wide",
+    "semanticSlotId": "frame",
+    "displayName": "宽云体",
+    "flavorText": "像一小片落到地面的蓬松云。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "body_blob_wide"
+      ],
+      "sourceSlots": [
+        "bodyFrame"
+      ]
+    }
+  },
+  {
+    "id": "frame_biped_peanut",
+    "semanticSlotId": "frame",
+    "displayName": "豆豆双足体",
+    "flavorText": "圆肚皮下面藏着两只短短的脚墩。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "body_biped_peanut"
+      ],
+      "sourceSlots": [
+        "bodyFrame"
+      ]
+    }
+  },
+  {
+    "id": "frame_biped_tall",
+    "semanticSlotId": "frame",
+    "displayName": "高软双足体",
+    "flavorText": "它努力站高一点，又不舍得失去圆润。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "body_biped_tall"
+      ],
+      "sourceSlots": [
+        "bodyFrame"
+      ]
+    }
+  },
+  {
+    "id": "frame_floating_drop",
+    "semanticSlotId": "frame",
+    "displayName": "浮滴体",
+    "flavorText": "一滴没有落下的软光停在半空。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "body_floating_drop"
+      ],
+      "sourceSlots": [
+        "bodyFrame"
+      ]
+    }
+  },
+  {
+    "id": "head_round",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "软圆脑袋",
+    "flavorText": "一个适合装下许多好奇心的圆脑袋。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "head_round_dome"
+      ],
+      "sourceSlots": [
+        "headShape"
+      ]
+    }
+  },
+  {
+    "id": "head_mushroom",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "菌伞脑袋",
+    "flavorText": "软软的伞沿会在高兴时轻轻抖动。",
+    "rarity": "N",
+    "themeBoosts": {
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "head_mushroom_cap"
+      ],
+      "sourceSlots": [
+        "headShape"
+      ]
+    }
+  },
+  {
+    "id": "head_angler_bulb",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "潮灯兜帽",
+    "flavorText": "一根短短的柔软灯茎，从暗紫兜帽上举起暖光。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "head_angler_bulb"
+      ],
+      "sourceSlots": [
+        "headShape"
+      ]
+    }
+  },
+  {
+    "id": "head_shadow_hood",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "幽帽脑袋",
+    "flavorText": "暗色软帽里只藏着一点温柔。",
+    "rarity": "R",
+    "themeBoosts": {
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "head_shadow_hood"
+      ],
+      "sourceSlots": [
+        "headShape"
+      ]
+    }
+  },
+  {
+    "id": "eyes_glossy_pair",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "亮晶晶双眼",
+    "flavorText": "两颗亮眼总比嘴巴更早发现新朋友。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "eyes_glossy_pair"
+      ],
+      "sourceSlots": [
+        "eyes"
+      ]
+    }
+  },
+  {
+    "id": "eyes_asymmetric",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "一大一小眼",
+    "flavorText": "一只看现在，一只急着看下一秒。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "eyes_asymmetric"
+      ],
+      "sourceSlots": [
+        "eyes"
+      ]
+    }
+  },
+  {
+    "id": "eyes_triple",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "三珠眼",
+    "flavorText": "第三只眼只负责欣赏漂亮的光。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "eyes_triple_pearl"
+      ],
+      "sourceSlots": [
+        "eyes"
+      ]
+    }
+  },
+  {
+    "id": "eyes_sleepy",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "困困月牙眼",
+    "flavorText": "它看起来快睡着了，其实什么都知道。",
+    "rarity": "N",
+    "themeBoosts": {
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "eyes_sleepy_crescent"
+      ],
+      "sourceSlots": [
+        "eyes"
+      ]
+    }
+  },
+  {
+    "id": "eyes_stalk",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "短梗眼",
+    "flavorText": "两颗眼睛踮起脚尖向外张望。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "eyes_stalk_pair"
+      ],
+      "sourceSlots": [
+        "eyes"
+      ]
+    }
+  },
+  {
+    "id": "mouth_wide",
+    "semanticSlotId": "mouth",
+    "displayName": "阔阔笑口",
+    "flavorText": "它的笑容总是比脑袋先挤进画面。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "mouth_wide_grin"
+      ],
+      "sourceSlots": [
+        "mouthShape"
+      ]
+    }
+  },
+  {
+    "id": "mouth_pout",
+    "semanticSlotId": "mouth",
+    "displayName": "软嘟嘟嘴",
+    "flavorText": "并没有生气，只是在认真吹一颗看不见的泡泡。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "mouth_soft_pout"
+      ],
+      "sourceSlots": [
+        "mouthShape"
+      ]
+    }
+  },
+  {
+    "id": "mouth_soft_beak",
+    "semanticSlotId": "mouth",
+    "displayName": "软喙嘴",
+    "flavorText": "像小鸟一样啾一声，却软得像橡皮糖。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [
+      "oral_lolling_tongue"
+    ],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "mouth_soft_beak"
+      ],
+      "sourceSlots": [
+        "mouthShape"
+      ]
+    }
+  },
+  {
+    "id": "mouth_oval",
+    "semanticSlotId": "mouth",
+    "displayName": "惊讶竖圆口",
+    "flavorText": "每一件小事都值得发出一声圆圆的惊叹。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "mouth_vertical_oval"
+      ],
+      "sourceSlots": [
+        "mouthShape"
+      ]
+    }
+  },
+  {
+    "id": "oral_round_teeth",
+    "semanticSlotId": "mouth",
+    "displayName": "圆锥小牙",
+    "flavorText": "牙齿参差不齐，但每一颗都很钝。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "oral_round_teeth"
+      ],
+      "sourceSlots": [
+        "oralDetail"
+      ]
+    }
+  },
+  {
+    "id": "oral_single_fang",
+    "semanticSlotId": "mouth",
+    "displayName": "独颗软牙",
+    "flavorText": "唯一的一颗小牙非常努力地露在外面。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "oral_single_fang"
+      ],
+      "sourceSlots": [
+        "oralDetail"
+      ]
+    }
+  },
+  {
+    "id": "oral_tongue",
+    "semanticSlotId": "mouth",
+    "displayName": "歪歪软舌",
+    "flavorText": "它一专心，舌头就会偷偷跑出来。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [
+      "mouth_soft_beak"
+    ],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "oral_lolling_tongue"
+      ],
+      "sourceSlots": [
+        "oralDetail"
+      ]
+    }
+  },
+  {
+    "id": "oral_gummy",
+    "semanticSlotId": "mouth",
+    "displayName": "软胶齿脊",
+    "flavorText": "像牙又像软糖，咬什么都只会弹一下。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "oral_gummy_ridges"
+      ],
+      "sourceSlots": [
+        "oralDetail"
+      ]
+    }
+  },
+  {
+    "id": "head_horn_nubs",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "软角芽",
+    "flavorText": "两颗角还没决定要往哪边长。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "head_horns_soft_nubs"
+      ],
+      "sourceSlots": [
+        "headAppendage"
+      ]
+    }
+  },
+  {
+    "id": "head_glow_antennae",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "灯泡触角",
+    "flavorText": "想到好点子时，两颗小灯会一起亮。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "head_antennae_glow"
+      ],
+      "sourceSlots": [
+        "headAppendage"
+      ]
+    }
+  },
+  {
+    "id": "head_fin_ears",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "垂垂鳍耳",
+    "flavorText": "听见水声时，软鳍耳朵会轻轻张开。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "head_ears_floppy_fins"
+      ],
+      "sourceSlots": [
+        "headAppendage"
+      ]
+    }
+  },
+  {
+    "id": "arms_short",
+    "semanticSlotId": "appendage",
+    "displayName": "短短绒手",
+    "flavorText": "抱不住大东西，却很会挥手。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "arms_short_plush"
+      ],
+      "sourceSlots": [
+        "arms"
+      ]
+    }
+  },
+  {
+    "id": "arms_noodle",
+    "semanticSlotId": "appendage",
+    "displayName": "面条长手",
+    "flavorText": "手臂晃起来像两根开心的软面条。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "arms_long_noodle"
+      ],
+      "sourceSlots": [
+        "arms"
+      ]
+    }
+  },
+  {
+    "id": "arms_paddle",
+    "semanticSlotId": "appendage",
+    "displayName": "小桨手",
+    "flavorText": "不用船，它自己就是两把小桨。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "arms_paddle"
+      ],
+      "sourceSlots": [
+        "arms"
+      ]
+    }
+  },
+  {
+    "id": "legs_stub",
+    "semanticSlotId": "appendage",
+    "displayName": "圆墩脚",
+    "flavorText": "每一步都像软垫落地。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "legs_stub_feet"
+      ],
+      "sourceSlots": [
+        "legs"
+      ]
+    }
+  },
+  {
+    "id": "legs_webbed",
+    "semanticSlotId": "appendage",
+    "displayName": "蹼蹼脚",
+    "flavorText": "水洼再小，也值得认真划两下。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "legs_webbed"
+      ],
+      "sourceSlots": [
+        "legs"
+      ]
+    }
+  },
+  {
+    "id": "legs_mushroom",
+    "semanticSlotId": "appendage",
+    "displayName": "菌柄脚",
+    "flavorText": "走累了就把自己当成两朵小蘑菇。",
+    "rarity": "R",
+    "themeBoosts": {
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "legs_mushroom"
+      ],
+      "sourceSlots": [
+        "legs"
+      ]
+    }
+  },
+  {
+    "id": "legs_shadow",
+    "semanticSlotId": "appendage",
+    "displayName": "影尖脚",
+    "flavorText": "脚尖其实很圆，只是影子把它拉长了。",
+    "rarity": "R",
+    "themeBoosts": {
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "legs_shadow_tiptoe"
+      ],
+      "sourceSlots": [
+        "legs"
+      ]
+    }
+  },
+  {
+    "id": "tail_fish_fan",
+    "semanticSlotId": "appendage",
+    "displayName": "扇形鱼尾",
+    "flavorText": "轻轻一摆，就把想象里的海水推开。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [
+      "extra_moth_wings"
+    ],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "tail_fish_fan"
+      ],
+      "sourceSlots": [
+        "tail"
+      ]
+    }
+  },
+  {
+    "id": "tail_soft_curl",
+    "semanticSlotId": "appendage",
+    "displayName": "卷卷软尾",
+    "flavorText": "尾巴末端总在画一个没有画完的圆。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "tail_soft_curl"
+      ],
+      "sourceSlots": [
+        "tail"
+      ]
+    }
+  },
+  {
+    "id": "tail_mushroom",
+    "semanticSlotId": "appendage",
+    "displayName": "菌簇尾",
+    "flavorText": "尾巴上挤着三朵总想一起点头的小菌伞。",
+    "rarity": "N",
+    "themeBoosts": {
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "tail_mushroom_cluster"
+      ],
+      "sourceSlots": [
+        "tail"
+      ]
+    }
+  },
+  {
+    "id": "extra_moth_wings",
+    "semanticSlotId": "appendage",
+    "displayName": "圆蛾翅",
+    "flavorText": "翅膀像两片会呼吸的软绒叶。",
+    "rarity": "N",
+    "themeBoosts": {
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [
+      "tail_fish_fan"
+    ],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "extra_moth_wings"
+      ],
+      "sourceSlots": [
+        "extraAppendage"
+      ]
+    }
+  },
+  {
+    "id": "extra_soft_tentacles",
+    "semanticSlotId": "appendage",
+    "displayName": "软带附肢",
+    "flavorText": "几根软带在身后慢半拍地挥手。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "extra_soft_tentacles"
+      ],
+      "sourceSlots": [
+        "extraAppendage"
+      ]
+    }
+  },
+  {
+    "id": "extra_side_fins",
+    "semanticSlotId": "appendage",
+    "displayName": "侧边软鳍",
+    "flavorText": "它不一定会游泳，但鳍很乐意试试。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "extra_side_fins"
+      ],
+      "sourceSlots": [
+        "extraAppendage"
+      ]
+    }
+  },
+  {
+    "id": "surface_short_fur",
+    "semanticSlotId": "surface",
+    "displayName": "短绒表皮",
+    "flavorText": "摸起来像一阵刚晒过太阳的软风。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "surface_short_fur"
+      ],
+      "sourceSlots": [
+        "surfaceMaterial"
+      ]
+    }
+  },
+  {
+    "id": "surface_gel",
+    "semanticSlotId": "surface",
+    "displayName": "泡泡凝胶皮",
+    "flavorText": "半透明小泡在皮肤下面慢慢挪位置。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "surface_gel_bubbles"
+      ],
+      "sourceSlots": [
+        "surfaceMaterial"
+      ]
+    }
+  },
+  {
+    "id": "surface_soft_scales",
+    "semanticSlotId": "surface",
+    "displayName": "软鳞表皮",
+    "flavorText": "每片鳞都像圆圆的小指纹。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "surface_soft_scales"
+      ],
+      "sourceSlots": [
+        "surfaceMaterial"
+      ]
+    }
+  },
+  {
+    "id": "surface_mushroom_velvet",
+    "semanticSlotId": "surface",
+    "displayName": "菌绒表皮",
+    "flavorText": "细密菌绒让它总像刚从苔床上醒来。",
+    "rarity": "N",
+    "themeBoosts": {
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "surface_mushroom_velvet"
+      ],
+      "sourceSlots": [
+        "surfaceMaterial"
+      ]
+    }
+  },
+  {
+    "id": "pattern_spots",
+    "semanticSlotId": "pattern",
+    "displayName": "软斑纹",
+    "flavorText": "大小不一的圆斑像在皮肤上玩捉迷藏。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "pattern_soft_spots"
+      ],
+      "sourceSlots": [
+        "pattern"
+      ]
+    }
+  },
+  {
+    "id": "pattern_stripes",
+    "semanticSlotId": "pattern",
+    "displayName": "缓弧纹",
+    "flavorText": "几道弧线顺着圆肚皮慢慢弯过去。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1,
+      "fungal": 1.1,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "pattern_gentle_stripes"
+      ],
+      "sourceSlots": [
+        "pattern"
+      ]
+    }
+  },
+  {
+    "id": "pattern_constellation",
+    "semanticSlotId": "pattern",
+    "displayName": "星点纹",
+    "flavorText": "身上的小光点总想连成一幅新星图。",
+    "rarity": "R",
+    "themeBoosts": {
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "pattern_constellation"
+      ],
+      "sourceSlots": [
+        "pattern"
+      ]
+    }
+  },
+  {
+    "id": "pattern_spore_rings",
+    "semanticSlotId": "pattern",
+    "displayName": "孢环纹",
+    "flavorText": "一圈圈菌纹记录了它做过的软绵绵的梦。",
+    "rarity": "N",
+    "themeBoosts": {
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "pattern_spore_rings"
+      ],
+      "sourceSlots": [
+        "pattern"
+      ]
+    }
+  },
+  {
+    "id": "color_deep_sea",
+    "semanticSlotId": "pattern",
+    "displayName": "深海珊瑚配色",
+    "flavorText": "深蓝里藏着一小口温暖的珊瑚光。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "color_deep_sea_coral"
+      ],
+      "sourceSlots": [
+        "colorScheme"
+      ]
+    }
+  },
+  {
+    "id": "color_fungal",
+    "semanticSlotId": "pattern",
+    "displayName": "菌沼琥珀配色",
+    "flavorText": "泥土色、奶油色和琥珀橙在一起发芽。",
+    "rarity": "N",
+    "themeBoosts": {
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "color_fungal_amber"
+      ],
+      "sourceSlots": [
+        "colorScheme"
+      ]
+    }
+  },
+  {
+    "id": "color_shadow",
+    "semanticSlotId": "pattern",
+    "displayName": "幽影金紫配色",
+    "flavorText": "紫色把影子抱紧，金光从缝里探头。",
+    "rarity": "N",
+    "themeBoosts": {
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "sourcePartIds": [
+        "color_shadow_violet"
+      ],
+      "sourceSlots": [
+        "colorScheme"
+      ]
+    }
+  },
+  {
+    "id": "personality_gentle",
+    "semanticSlotId": "personality",
+    "displayName": "软心慢慢",
+    "flavorText": "遇到陌生声响时，它先递出一只软绒绒的手。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.05,
+      "fungal": 1.1
+    },
+    "excludes": [
+      "personality_mischievous"
+    ],
+    "boosts": {
+      "surface_short_fur": 1.15
+    },
+    "visualMapping": {
+      "mood": "relaxed",
+      "suggestedParts": [
+        "eyes_sleepy_crescent",
+        "mouth_soft_pout"
+      ]
+    }
+  },
+  {
+    "id": "personality_curious",
+    "semanticSlotId": "personality",
+    "displayName": "亮眼好奇",
+    "flavorText": "每一扇门缝后面，都可能藏着值得认识的新朋友。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.1
+    },
+    "excludes": [],
+    "boosts": {
+      "eyes_glossy_pair": 1.15
+    },
+    "visualMapping": {
+      "mood": "curious",
+      "suggestedParts": [
+        "eyes_glossy_pair",
+        "eyes_stalk_pair"
+      ]
+    }
+  },
+  {
+    "id": "personality_brave",
+    "semanticSlotId": "personality",
+    "displayName": "软胆勇士",
+    "flavorText": "腿会抖，但仍会往前挪半步。",
+    "rarity": "N",
+    "themeBoosts": {
+      "fungal": 1.05
+    },
+    "excludes": [
+      "personality_shy_shadow"
+    ],
+    "boosts": {
+      "arms_short_plush": 1.1
+    },
+    "visualMapping": {
+      "mood": "upright",
+      "suggestedParts": [
+        "body_biped_tall",
+        "legs_stub_feet"
+      ]
+    }
+  },
+  {
+    "id": "personality_dreamy",
+    "semanticSlotId": "personality",
+    "displayName": "走神云朵",
+    "flavorText": "它常常盯着空气里不存在的泡泡发呆。",
+    "rarity": "N",
+    "themeBoosts": {
+      "shadow": 1.15
+    },
+    "excludes": [],
+    "boosts": {
+      "body_floating_drop": 1.12
+    },
+    "visualMapping": {
+      "mood": "dreamy",
+      "suggestedParts": [
+        "body_floating_drop",
+        "eyes_sleepy_crescent"
+      ]
+    }
+  },
+  {
+    "id": "personality_mischievous",
+    "semanticSlotId": "personality",
+    "displayName": "淘气弹簧",
+    "flavorText": "藏好尾巴之前，它已经把恶作剧笑出了声。",
+    "rarity": "R",
+    "themeBoosts": {
+      "fungal": 1.2
+    },
+    "excludes": [
+      "personality_gentle"
+    ],
+    "boosts": {
+      "oral_lolling_tongue": 1.18
+    },
+    "visualMapping": {
+      "mood": "mischievous",
+      "suggestedParts": [
+        "mouth_wide_grin",
+        "oral_lolling_tongue"
+      ]
+    }
+  },
+  {
+    "id": "personality_shy_shadow",
+    "semanticSlotId": "personality",
+    "displayName": "藏光腼腆",
+    "flavorText": "被看见时，它会把自己的微光调暗一点。",
+    "rarity": "R",
+    "themeBoosts": {
+      "shadow": 1.3
+    },
+    "excludes": [
+      "personality_brave"
+    ],
+    "boosts": {
+      "head_shadow_hood": 1.2
+    },
+    "visualMapping": {
+      "mood": "shy",
+      "suggestedParts": [
+        "head_shadow_hood",
+        "eyes_sleepy_crescent"
+      ]
+    }
+  },
+  {
+    "id": "quirk_light_chaser",
+    "semanticSlotId": "quirk",
+    "displayName": "追光癖",
+    "flavorText": "只要有一点亮，它就忍不住跟着走。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.2,
+      "shadow": 1.15
+    },
+    "excludes": [],
+    "boosts": {
+      "effect_bioluminescent_orbs": 1.3
+    },
+    "visualMapping": {
+      "effectPartIds": [
+        "effect_bioluminescent_orbs"
+      ],
+      "suggestedParts": [
+        "head_antennae_glow",
+        "pattern_constellation"
+      ]
+    }
+  },
+  {
+    "id": "quirk_spore_sneeze",
+    "semanticSlotId": "quirk",
+    "displayName": "孢子喷嚏",
+    "flavorText": "一紧张，就会打出一串暖呼呼的小孢子。",
+    "rarity": "N",
+    "themeBoosts": {
+      "fungal": 1.35
+    },
+    "excludes": [
+      "quirk_tide_hum"
+    ],
+    "boosts": {
+      "effect_spore_glow": 1.3
+    },
+    "visualMapping": {
+      "effectPartIds": [
+        "effect_spore_glow"
+      ],
+      "suggestedParts": [
+        "surface_mushroom_velvet"
+      ]
+    }
+  },
+  {
+    "id": "quirk_tide_hum",
+    "semanticSlotId": "quirk",
+    "displayName": "潮汐哼唱",
+    "flavorText": "安静时，肚子里会传出很小的海浪声。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.3
+    },
+    "excludes": [
+      "quirk_spore_sneeze"
+    ],
+    "boosts": {
+      "tail_fish_fan": 1.15
+    },
+    "visualMapping": {
+      "effectPartIds": [],
+      "suggestedParts": [
+        "tail_fish_fan",
+        "arms_paddle"
+      ]
+    }
+  },
+  {
+    "id": "quirk_collects_echoes",
+    "semanticSlotId": "quirk",
+    "displayName": "回声收藏家",
+    "flavorText": "它把喜欢的声音叠好，藏在柔软肚皮里。",
+    "rarity": "N",
+    "themeBoosts": {
+      "deep-sea": 1.05,
+      "shadow": 1.1
+    },
+    "excludes": [],
+    "boosts": {
+      "head_ears_floppy_fins": 1.05
+    },
+    "visualMapping": {
+      "effectPartIds": [],
+      "suggestedParts": [
+        "head_ears_floppy_fins"
+      ]
+    }
+  },
+  {
+    "id": "quirk_shadow_skip",
+    "semanticSlotId": "quirk",
+    "displayName": "影子慢半拍",
+    "flavorText": "本体停下以后，影子还会多走一小步。",
+    "rarity": "R",
+    "themeBoosts": {
+      "shadow": 1.4
+    },
+    "excludes": [],
+    "boosts": {
+      "legs_shadow_tiptoe": 1.25
+    },
+    "visualMapping": {
+      "effectPartIds": [],
+      "suggestedParts": [
+        "legs_shadow_tiptoe",
+        "color_shadow_violet"
+      ]
+    }
+  },
+  {
+    "id": "quirk_dream_bubbles",
+    "semanticSlotId": "quirk",
+    "displayName": "梦泡逸出",
+    "flavorText": "睡着以后，未做完的梦会变成小泡泡飘出去。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.15,
+      "fungal": 1.1
+    },
+    "excludes": [],
+    "boosts": {
+      "surface_gel_bubbles": 1.2
+    },
+    "visualMapping": {
+      "effectPartIds": [
+        "effect_bioluminescent_orbs"
+      ],
+      "suggestedParts": [
+        "surface_gel_bubbles",
+        "body_floating_drop"
+      ]
+    }
+  }
+]

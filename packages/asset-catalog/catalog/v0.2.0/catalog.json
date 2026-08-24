@@ -1,0 +1,6378 @@
+{
+  "version": "0.2.0",
+  "themes": [
+    {
+      "id": "deep-sea",
+      "displayName": "深海",
+      "flavorText": "潮光从柔软的深渊皮膜中缓慢呼吸。",
+      "palette": {
+        "primary": "#237aa3",
+        "secondary": "#74c9bf",
+        "accent": "#f6d365"
+      }
+    },
+    {
+      "id": "fungal",
+      "displayName": "菌沼",
+      "flavorText": "孢子与湿润苔色长成一团好奇的生命。",
+      "palette": {
+        "primary": "#6b7d33",
+        "secondary": "#a7c957",
+        "accent": "#f4a261"
+      }
+    },
+    {
+      "id": "shadow",
+      "displayName": "幽影",
+      "flavorText": "温柔的暗色轮廓把微光悄悄藏在身后。",
+      "palette": {
+        "primary": "#463c78",
+        "secondary": "#8377d1",
+        "accent": "#f9c74f"
+      }
+    }
+  ],
+  "rigs": [
+    {
+      "id": "blob",
+      "sourceId": "base_blob_v1",
+      "displayName": "团絮矮墩",
+      "sockets": {
+        "canvasCenter": {
+          "x": 1024,
+          "y": 1024
+        },
+        "head": {
+          "x": 1024,
+          "y": 700
+        },
+        "headAlternate": {
+          "x": 1320,
+          "y": 735
+        },
+        "armLeft": {
+          "x": 700,
+          "y": 1120
+        },
+        "armRight": {
+          "x": 1348,
+          "y": 1120
+        },
+        "legLeft": {
+          "x": 830,
+          "y": 1450
+        },
+        "legRight": {
+          "x": 1218,
+          "y": 1450
+        },
+        "tail": {
+          "x": 1510,
+          "y": 1260
+        },
+        "wingLeft": {
+          "x": 650,
+          "y": 930
+        },
+        "wingRight": {
+          "x": 1398,
+          "y": 930
+        }
+      }
+    },
+    {
+      "id": "biped",
+      "sourceId": "base_biped_v1",
+      "displayName": "圆身双足",
+      "sockets": {
+        "canvasCenter": {
+          "x": 1024,
+          "y": 1024
+        },
+        "head": {
+          "x": 1024,
+          "y": 620
+        },
+        "headAlternate": {
+          "x": 1300,
+          "y": 670
+        },
+        "armLeft": {
+          "x": 710,
+          "y": 1030
+        },
+        "armRight": {
+          "x": 1338,
+          "y": 1030
+        },
+        "legLeft": {
+          "x": 850,
+          "y": 1530
+        },
+        "legRight": {
+          "x": 1198,
+          "y": 1530
+        },
+        "tail": {
+          "x": 1460,
+          "y": 1240
+        },
+        "wingLeft": {
+          "x": 675,
+          "y": 900
+        },
+        "wingRight": {
+          "x": 1373,
+          "y": 900
+        }
+      }
+    },
+    {
+      "id": "floating",
+      "sourceId": "base_floating_v1",
+      "displayName": "悬浮软团",
+      "sockets": {
+        "canvasCenter": {
+          "x": 1024,
+          "y": 1024
+        },
+        "head": {
+          "x": 1024,
+          "y": 690
+        },
+        "headAlternate": {
+          "x": 1300,
+          "y": 730
+        },
+        "armLeft": {
+          "x": 720,
+          "y": 1080
+        },
+        "armRight": {
+          "x": 1328,
+          "y": 1080
+        },
+        "legLeft": {
+          "x": 870,
+          "y": 1460
+        },
+        "legRight": {
+          "x": 1178,
+          "y": 1460
+        },
+        "tail": {
+          "x": 1480,
+          "y": 1240
+        },
+        "wingLeft": {
+          "x": 680,
+          "y": 920
+        },
+        "wingRight": {
+          "x": 1368,
+          "y": 920
+        }
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "body_blob_round",
+      "displayName": "圆团体",
+      "flavorText": "一团稳稳坐住的柔软圆影。",
+      "description": "a complete squat rounded blob body silhouette, featureless and limb-free, with a softly flattened bottom",
+      "slotId": "bodyFrame",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/body_blob_round.webp",
+      "assetSha256": "0a2444502f75e61e03bfde32c68b0755bc7fd0248afaf3df969c4a07d482fe67",
+      "pngPath": "parts/body_blob_round.png",
+      "pngSha256": "f3a4930a9e67f43eb8c07958e264750d66ca633b53288c011492a456a2a08360",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "body_blob_round_0",
+            "assetPath": "parts/body_blob_round.webp",
+            "pngPath": "parts/body_blob_round.png",
+            "assetSha256": "0a2444502f75e61e03bfde32c68b0755bc7fd0248afaf3df969c4a07d482fe67",
+            "pngSha256": "f3a4930a9e67f43eb8c07958e264750d66ca633b53288c011492a456a2a08360",
+            "parentSlot": null,
+            "socket": null,
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "body",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "head": {
+                "x": 512,
+                "y": 350
+              },
+              "headAlternate": {
+                "x": 660,
+                "y": 367.5
+              },
+              "armLeft": {
+                "x": 350,
+                "y": 560
+              },
+              "armRight": {
+                "x": 674,
+                "y": 560
+              },
+              "legLeft": {
+                "x": 415,
+                "y": 725
+              },
+              "legRight": {
+                "x": 609,
+                "y": 725
+              },
+              "tail": {
+                "x": 755,
+                "y": 630
+              },
+              "wingLeft": {
+                "x": 325,
+                "y": 465
+              },
+              "wingRight": {
+                "x": 699,
+                "y": 465
+              },
+              "overlay": {
+                "x": 512,
+                "y": 512
+              },
+              "effect": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "body",
+      "semanticTraitId": "frame_blob_round",
+      "semanticPriority": 10,
+      "excludes": [],
+      "boosts": {
+        "personality_gentle": 1.12
+      }
+    },
+    {
+      "id": "body_blob_wide",
+      "displayName": "宽云体",
+      "flavorText": "像一小片落到地面的蓬松云。",
+      "description": "a complete extra-wide low cloud-blob body silhouette with two gentle asymmetric lobes, featureless and limb-free",
+      "slotId": "bodyFrame",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/body_blob_wide.webp",
+      "assetSha256": "9be46f2981c14dd25a152416144d4d42d82d4d46ac1fa70cc523a4aead0e2a31",
+      "pngPath": "parts/body_blob_wide.png",
+      "pngSha256": "4cad4d518160425ce05b0b0c775a13a3972d0c282cc3da574ace58236eccb99d",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "body_blob_wide_0",
+            "assetPath": "parts/body_blob_wide.webp",
+            "pngPath": "parts/body_blob_wide.png",
+            "assetSha256": "9be46f2981c14dd25a152416144d4d42d82d4d46ac1fa70cc523a4aead0e2a31",
+            "pngSha256": "4cad4d518160425ce05b0b0c775a13a3972d0c282cc3da574ace58236eccb99d",
+            "parentSlot": null,
+            "socket": null,
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "body",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "head": {
+                "x": 512,
+                "y": 350
+              },
+              "headAlternate": {
+                "x": 660,
+                "y": 367.5
+              },
+              "armLeft": {
+                "x": 350,
+                "y": 560
+              },
+              "armRight": {
+                "x": 674,
+                "y": 560
+              },
+              "legLeft": {
+                "x": 415,
+                "y": 725
+              },
+              "legRight": {
+                "x": 609,
+                "y": 725
+              },
+              "tail": {
+                "x": 755,
+                "y": 630
+              },
+              "wingLeft": {
+                "x": 325,
+                "y": 465
+              },
+              "wingRight": {
+                "x": 699,
+                "y": 465
+              },
+              "overlay": {
+                "x": 512,
+                "y": 512
+              },
+              "effect": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "body",
+      "semanticTraitId": "frame_blob_wide",
+      "semanticPriority": 10,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "body_biped_peanut",
+      "displayName": "豆豆双足体",
+      "flavorText": "圆肚皮下面藏着两只短短的脚墩。",
+      "description": "a complete upright peanut-shaped biped torso with two very short rounded leg-stump foundations and no feet details",
+      "slotId": "bodyFrame",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/body_biped_peanut.webp",
+      "assetSha256": "42d05d13855af8518ce75a3e05f1b2dfaaae71a3d713053b024f878b14cd05ed",
+      "pngPath": "parts/body_biped_peanut.png",
+      "pngSha256": "e0ecf99dd2895f6ec888aa48c812a92a697edbefbba40bbc4b734fbbc5ae4f52",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "body_biped_peanut_0",
+            "assetPath": "parts/body_biped_peanut.webp",
+            "pngPath": "parts/body_biped_peanut.png",
+            "assetSha256": "42d05d13855af8518ce75a3e05f1b2dfaaae71a3d713053b024f878b14cd05ed",
+            "pngSha256": "e0ecf99dd2895f6ec888aa48c812a92a697edbefbba40bbc4b734fbbc5ae4f52",
+            "parentSlot": null,
+            "socket": null,
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "body",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "biped": {
+            "sockets": {
+              "head": {
+                "x": 512,
+                "y": 310
+              },
+              "headAlternate": {
+                "x": 650,
+                "y": 335
+              },
+              "armLeft": {
+                "x": 355,
+                "y": 515
+              },
+              "armRight": {
+                "x": 669,
+                "y": 515
+              },
+              "legLeft": {
+                "x": 425,
+                "y": 765
+              },
+              "legRight": {
+                "x": 599,
+                "y": 765
+              },
+              "tail": {
+                "x": 730,
+                "y": 620
+              },
+              "wingLeft": {
+                "x": 337.5,
+                "y": 450
+              },
+              "wingRight": {
+                "x": 686.5,
+                "y": 450
+              },
+              "overlay": {
+                "x": 512,
+                "y": 512
+              },
+              "effect": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "body",
+      "semanticTraitId": "frame_biped_peanut",
+      "semanticPriority": 10,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "body_biped_tall",
+      "displayName": "高软双足体",
+      "flavorText": "它努力站高一点，又不舍得失去圆润。",
+      "description": "a complete slightly taller rounded biped body silhouette with a small waist and two soft leg-stump foundations",
+      "slotId": "bodyFrame",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/body_biped_tall.webp",
+      "assetSha256": "606cea406a1ed3ac9a81c41c903e19572e15ecf18cdecb98f182c963173da5ea",
+      "pngPath": "parts/body_biped_tall.png",
+      "pngSha256": "0665541e8c9a74a69598353f4528b5ffb9b625845c928abc78bb8247f2647736",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "body_biped_tall_0",
+            "assetPath": "parts/body_biped_tall.webp",
+            "pngPath": "parts/body_biped_tall.png",
+            "assetSha256": "606cea406a1ed3ac9a81c41c903e19572e15ecf18cdecb98f182c963173da5ea",
+            "pngSha256": "0665541e8c9a74a69598353f4528b5ffb9b625845c928abc78bb8247f2647736",
+            "parentSlot": null,
+            "socket": null,
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "body",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "biped": {
+            "sockets": {
+              "head": {
+                "x": 512,
+                "y": 310
+              },
+              "headAlternate": {
+                "x": 650,
+                "y": 335
+              },
+              "armLeft": {
+                "x": 355,
+                "y": 515
+              },
+              "armRight": {
+                "x": 669,
+                "y": 515
+              },
+              "legLeft": {
+                "x": 425,
+                "y": 765
+              },
+              "legRight": {
+                "x": 599,
+                "y": 765
+              },
+              "tail": {
+                "x": 730,
+                "y": 620
+              },
+              "wingLeft": {
+                "x": 337.5,
+                "y": 450
+              },
+              "wingRight": {
+                "x": 686.5,
+                "y": 450
+              },
+              "overlay": {
+                "x": 512,
+                "y": 512
+              },
+              "effect": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "body",
+      "semanticTraitId": "frame_biped_tall",
+      "semanticPriority": 10,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "body_floating_drop",
+      "displayName": "浮滴体",
+      "flavorText": "一滴没有落下的软光停在半空。",
+      "description": "a complete hovering teardrop-cloud body silhouette with a rounded crown and gently tapered lower edge, no ground contact",
+      "slotId": "bodyFrame",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "floating"
+      ],
+      "assetPath": "parts/body_floating_drop.webp",
+      "assetSha256": "6291b631f5905888575ed786056ac709a307107d1d18b8cb8ad237ee62e678f3",
+      "pngPath": "parts/body_floating_drop.png",
+      "pngSha256": "e0bb60347de893b4859ea64697f37eaea78c6ab874ce9a57bae09232bf3c7d6d",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "body_floating_drop_0",
+            "assetPath": "parts/body_floating_drop.webp",
+            "pngPath": "parts/body_floating_drop.png",
+            "assetSha256": "6291b631f5905888575ed786056ac709a307107d1d18b8cb8ad237ee62e678f3",
+            "pngSha256": "e0bb60347de893b4859ea64697f37eaea78c6ab874ce9a57bae09232bf3c7d6d",
+            "parentSlot": null,
+            "socket": null,
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "body",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "floating": {
+            "sockets": {
+              "head": {
+                "x": 512,
+                "y": 345
+              },
+              "headAlternate": {
+                "x": 650,
+                "y": 365
+              },
+              "armLeft": {
+                "x": 360,
+                "y": 540
+              },
+              "armRight": {
+                "x": 664,
+                "y": 540
+              },
+              "legLeft": {
+                "x": 435,
+                "y": 730
+              },
+              "legRight": {
+                "x": 589,
+                "y": 730
+              },
+              "tail": {
+                "x": 740,
+                "y": 620
+              },
+              "wingLeft": {
+                "x": 340,
+                "y": 460
+              },
+              "wingRight": {
+                "x": 684,
+                "y": 460
+              },
+              "overlay": {
+                "x": 512,
+                "y": 512
+              },
+              "effect": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "body",
+      "semanticTraitId": "frame_floating_drop",
+      "semanticPriority": 10,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "head_round_dome",
+      "displayName": "软圆脑袋",
+      "flavorText": "一个适合装下许多好奇心的圆脑袋。",
+      "description": "a separate rounded dome-shaped plush monster head shell with a flat hidden attachment underside and no face",
+      "slotId": "headShape",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/head_round_dome.webp",
+      "assetSha256": "6f0266737655bad4985cbd053bf3a345005c7863ea6c6b7933192cde9ffc94c8",
+      "pngPath": "parts/head_round_dome.png",
+      "pngSha256": "f5b1a895083f466340bc7ab52cc8869f0dec4e6224b83ceb0228f7450878a476",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "head_round_dome_0",
+            "assetPath": "parts/head_round_dome.webp",
+            "pngPath": "parts/head_round_dome.png",
+            "assetSha256": "6f0266737655bad4985cbd053bf3a345005c7863ea6c6b7933192cde9ffc94c8",
+            "pngSha256": "f5b1a895083f466340bc7ab52cc8869f0dec4e6224b83ceb0228f7450878a476",
+            "parentSlot": "bodyFrame",
+            "socket": "head",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "head",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          },
+          "biped": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          },
+          "floating": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "head",
+      "semanticTraitId": "head_round",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "head_mushroom_cap",
+      "displayName": "菌伞脑袋",
+      "flavorText": "软软的伞沿会在高兴时轻轻抖动。",
+      "description": "a separate friendly mushroom-cap head shell with a thick rounded brim, velvety texture, and no face",
+      "slotId": "headShape",
+      "rarity": "N",
+      "baseWeight": 0.35,
+      "themeIds": [
+        "fungal"
+      ],
+      "themeWeights": {
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/head_mushroom_cap.webp",
+      "assetSha256": "b134cda23fd0cfbdc64daa9bd98de6f6e45c1fe13f0c8a1ed40fc230ca1ed465",
+      "pngPath": "parts/head_mushroom_cap.png",
+      "pngSha256": "d368119fb15e498d674d7c003259e38ba56b40d129d85203c39336b99bd425e5",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "fungal"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "head_mushroom_cap_0",
+            "assetPath": "parts/head_mushroom_cap.webp",
+            "pngPath": "parts/head_mushroom_cap.png",
+            "assetSha256": "b134cda23fd0cfbdc64daa9bd98de6f6e45c1fe13f0c8a1ed40fc230ca1ed465",
+            "pngSha256": "d368119fb15e498d674d7c003259e38ba56b40d129d85203c39336b99bd425e5",
+            "parentSlot": "bodyFrame",
+            "socket": "head",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 0.78,
+              "mirrorX": false
+            },
+            "layer": "head",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          },
+          "biped": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          },
+          "floating": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "head",
+      "semanticTraitId": "head_mushroom",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "head_angler_bulb",
+      "displayName": "潮灯兜帽",
+      "flavorText": "一根短短的柔软灯茎，从暗紫兜帽上举起暖光。",
+      "description": "a compact low deep-violet hood head shell with a flat hidden underside, composited with one short flexible dark-plum lure stalk ending in one warm orange bulb; no face or torso",
+      "slotId": "headShape",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/head_angler_bulb.webp",
+      "assetSha256": "14f1493fdf4af8bd638a257f897642c8fffac9fd90b72d4d7ac0dbb0791c2ded",
+      "pngPath": "parts/head_angler_bulb.png",
+      "pngSha256": "ce729d353b79f3ff456c55402515692a57236788baa68e516489ae26973068c6",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "head_angler_bulb_0",
+            "assetPath": "parts/head_angler_bulb.webp",
+            "pngPath": "parts/head_angler_bulb.png",
+            "assetSha256": "14f1493fdf4af8bd638a257f897642c8fffac9fd90b72d4d7ac0dbb0791c2ded",
+            "pngSha256": "ce729d353b79f3ff456c55402515692a57236788baa68e516489ae26973068c6",
+            "parentSlot": "bodyFrame",
+            "socket": "head",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "head",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          },
+          "biped": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          },
+          "floating": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "head",
+      "semanticTraitId": "head_angler_bulb",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "head_shadow_hood",
+      "displayName": "幽帽脑袋",
+      "flavorText": "暗色软帽里只藏着一点温柔。",
+      "description": "a separate rounded hood-like plush head shell with a softly folded crown, friendly not sinister, no face",
+      "slotId": "headShape",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "shadow"
+      ],
+      "themeWeights": {
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/head_shadow_hood.webp",
+      "assetSha256": "190f68078e74811bad6d402286decc90fba9d4711a0530bc5935d0e844946270",
+      "pngPath": "parts/head_shadow_hood.png",
+      "pngSha256": "95dec5a1ddf3fbfca7c30532922fbb01a3fe1b53487608d27e3d4650dd03c67e",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "head_shadow_hood_0",
+            "assetPath": "parts/head_shadow_hood.webp",
+            "pngPath": "parts/head_shadow_hood.png",
+            "assetSha256": "190f68078e74811bad6d402286decc90fba9d4711a0530bc5935d0e844946270",
+            "pngSha256": "95dec5a1ddf3fbfca7c30532922fbb01a3fe1b53487608d27e3d4650dd03c67e",
+            "parentSlot": "bodyFrame",
+            "socket": "head",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "head",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          },
+          "biped": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          },
+          "floating": {
+            "sockets": {
+              "eyes": {
+                "x": 512,
+                "y": 430
+              },
+              "mouth": {
+                "x": 512,
+                "y": 590
+              },
+              "headAppendage": {
+                "x": 512,
+                "y": 245
+              }
+            },
+            "faceSafeZone": {
+              "x": 270,
+              "y": 300,
+              "width": 484,
+              "height": 430
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "head",
+      "semanticTraitId": "head_shadow_hood",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "eyes_glossy_pair",
+      "displayName": "亮晶晶双眼",
+      "flavorText": "两颗亮眼总比嘴巴更早发现新朋友。",
+      "description": "a matched pair of oversized glossy off-white cartoon eyeballs with large dark pupils and soft toy-like rims",
+      "slotId": "eyes",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/eyes_glossy_pair.webp",
+      "assetSha256": "05e266c2fc19dee879fbf4dba1b9d3f14cacc30bc8cb2b1e3ca1a102c61180bf",
+      "pngPath": "parts/eyes_glossy_pair.png",
+      "pngSha256": "d3d8adf36d45b53e1c8bc54ca3cc81260754054a13ba99c3b2aab7d7908e9c22",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "eyes_glossy_pair_0",
+            "assetPath": "parts/eyes_glossy_pair.webp",
+            "pngPath": "parts/eyes_glossy_pair.png",
+            "assetSha256": "05e266c2fc19dee879fbf4dba1b9d3f14cacc30bc8cb2b1e3ca1a102c61180bf",
+            "pngSha256": "d3d8adf36d45b53e1c8bc54ca3cc81260754054a13ba99c3b2aab7d7908e9c22",
+            "parentSlot": "headShape",
+            "socket": "eyes",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "eyes_glossy_pair",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "eyes_asymmetric",
+      "displayName": "一大一小眼",
+      "flavorText": "一只看现在，一只急着看下一秒。",
+      "description": "a friendly asymmetric pair of glossy cartoon eyes, one large and one small, with coordinated curious pupils",
+      "slotId": "eyes",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/eyes_asymmetric.webp",
+      "assetSha256": "e873f3fe935a8e2cd776a96df0490b433a1efaa4cb4e1453835ff73bdccc9019",
+      "pngPath": "parts/eyes_asymmetric.png",
+      "pngSha256": "ebf2dd684394ae1f691226c37687e1a8d526503c9d7430e7da38b4b5b7df9ae0",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "eyes_asymmetric_0",
+            "assetPath": "parts/eyes_asymmetric.webp",
+            "pngPath": "parts/eyes_asymmetric.png",
+            "assetSha256": "e873f3fe935a8e2cd776a96df0490b433a1efaa4cb4e1453835ff73bdccc9019",
+            "pngSha256": "ebf2dd684394ae1f691226c37687e1a8d526503c9d7430e7da38b4b5b7df9ae0",
+            "parentSlot": "headShape",
+            "socket": "eyes",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "eyes_asymmetric",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "eyes_triple_pearl",
+      "displayName": "三珠眼",
+      "flavorText": "第三只眼只负责欣赏漂亮的光。",
+      "description": "three rounded pearl-like glossy cartoon eyes arranged in a gentle shallow arc, cute rather than eerie",
+      "slotId": "eyes",
+      "rarity": "R",
+      "baseWeight": 0.35,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/eyes_triple_pearl.webp",
+      "assetSha256": "2e5810a5823fa92df8175361c799075fd5715feaa3bebd13c5fa03b97d4d38cb",
+      "pngPath": "parts/eyes_triple_pearl.png",
+      "pngSha256": "6f553f3486310d63a2938bf6d334453037b874882c704c5e323583774eab2af6",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "eyes_triple_pearl_0",
+            "assetPath": "parts/eyes_triple_pearl.webp",
+            "pngPath": "parts/eyes_triple_pearl.png",
+            "assetSha256": "2e5810a5823fa92df8175361c799075fd5715feaa3bebd13c5fa03b97d4d38cb",
+            "pngSha256": "6f553f3486310d63a2938bf6d334453037b874882c704c5e323583774eab2af6",
+            "parentSlot": "headShape",
+            "socket": "eyes",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "eyes_triple",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {
+        "quirk_light_chaser": 1.2
+      }
+    },
+    {
+      "id": "eyes_sleepy_crescent",
+      "displayName": "困困月牙眼",
+      "flavorText": "它看起来快睡着了，其实什么都知道。",
+      "description": "a pair of soft crescent-shaped sleepy eyelids with tiny glossy pupils, calm and friendly",
+      "slotId": "eyes",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "shadow"
+      ],
+      "themeWeights": {
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/eyes_sleepy_crescent.webp",
+      "assetSha256": "60f66fe3a766889ff6eb2f66c82de9f3ede693d0a61a67c13751685422398972",
+      "pngPath": "parts/eyes_sleepy_crescent.png",
+      "pngSha256": "24e10502fabdb115a48369ca7aa0b57fa967faeb9362c4b8b3aec75adfe2cfa4",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "eyes_sleepy_crescent_0",
+            "assetPath": "parts/eyes_sleepy_crescent.webp",
+            "pngPath": "parts/eyes_sleepy_crescent.png",
+            "assetSha256": "60f66fe3a766889ff6eb2f66c82de9f3ede693d0a61a67c13751685422398972",
+            "pngSha256": "24e10502fabdb115a48369ca7aa0b57fa967faeb9362c4b8b3aec75adfe2cfa4",
+            "parentSlot": "headShape",
+            "socket": "eyes",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "eyes_sleepy",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "eyes_stalk_pair",
+      "displayName": "短梗眼",
+      "flavorText": "两颗眼睛踮起脚尖向外张望。",
+      "description": "a pair of short rounded eye stalks ending in oversized glossy friendly eyeballs, compact and toy-like",
+      "slotId": "eyes",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/eyes_stalk_pair.webp",
+      "assetSha256": "9abd858962b64a4ea10c312cb4c2cdaf06a7f9d3df2b9f08c444c23d9c87edaa",
+      "pngPath": "parts/eyes_stalk_pair.png",
+      "pngSha256": "e8f3e0dce78376d2248dee38e0ee405911490d6187a5c759bb4f50474be91328",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "eyes_stalk_pair_0",
+            "assetPath": "parts/eyes_stalk_pair.webp",
+            "pngPath": "parts/eyes_stalk_pair.png",
+            "assetSha256": "9abd858962b64a4ea10c312cb4c2cdaf06a7f9d3df2b9f08c444c23d9c87edaa",
+            "pngSha256": "e8f3e0dce78376d2248dee38e0ee405911490d6187a5c759bb4f50474be91328",
+            "parentSlot": "headShape",
+            "socket": "eyes",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "eyes_stalk",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "mouth_wide_grin",
+      "displayName": "阔阔笑口",
+      "flavorText": "它的笑容总是比脑袋先挤进画面。",
+      "description": "a separate oversized wide smiling cartoon mouth opening with thick soft rounded lips and a dark warm interior, no teeth",
+      "slotId": "mouthShape",
+      "rarity": "N",
+      "baseWeight": 0.35,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/mouth_wide_grin.webp",
+      "assetSha256": "4e45bc296e13e092511ede1ea3456be0b86a7f10f2a024be02dc4195ae0b8ff3",
+      "pngPath": "parts/mouth_wide_grin.png",
+      "pngSha256": "ff5f6023c7bbddfeb02134b13fa65df0a3332bbbb6d5211612009f3c11ec5763",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "mouth_wide_grin_0",
+            "assetPath": "parts/mouth_wide_grin.webp",
+            "pngPath": "parts/mouth_wide_grin.png",
+            "assetSha256": "4e45bc296e13e092511ede1ea3456be0b86a7f10f2a024be02dc4195ae0b8ff3",
+            "pngSha256": "ff5f6023c7bbddfeb02134b13fa65df0a3332bbbb6d5211612009f3c11ec5763",
+            "parentSlot": "headShape",
+            "socket": "mouth",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          },
+          "biped": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          },
+          "floating": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "mouth_wide",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "mouth_soft_pout",
+      "displayName": "软嘟嘟嘴",
+      "flavorText": "并没有生气，只是在认真吹一颗看不见的泡泡。",
+      "description": "a separate small plush puckered pout mouth with rounded lips, playful and friendly, no teeth",
+      "slotId": "mouthShape",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/mouth_soft_pout.webp",
+      "assetSha256": "d7f0513e98c5224ba1bdb3b62eb50a5306aeb5867aaf38384371f60dad86e4f8",
+      "pngPath": "parts/mouth_soft_pout.png",
+      "pngSha256": "c3721e18ff56d1270ffee110783fafc2b1d3c7038ec6630645cf25bb922438e2",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "mouth_soft_pout_0",
+            "assetPath": "parts/mouth_soft_pout.webp",
+            "pngPath": "parts/mouth_soft_pout.png",
+            "assetSha256": "d7f0513e98c5224ba1bdb3b62eb50a5306aeb5867aaf38384371f60dad86e4f8",
+            "pngSha256": "c3721e18ff56d1270ffee110783fafc2b1d3c7038ec6630645cf25bb922438e2",
+            "parentSlot": "headShape",
+            "socket": "mouth",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          },
+          "biped": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          },
+          "floating": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "mouth_pout",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "mouth_soft_beak",
+      "displayName": "软喙嘴",
+      "flavorText": "像小鸟一样啾一声，却软得像橡皮糖。",
+      "description": "a separate short rounded soft-cartoon beak mouth made of flexible toy-like material, no sharp point",
+      "slotId": "mouthShape",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/mouth_soft_beak.webp",
+      "assetSha256": "ef60af80676c994317a761314b26c01300998a979edb0e7b37404d112186a410",
+      "pngPath": "parts/mouth_soft_beak.png",
+      "pngSha256": "00e1e277b04e972c483093b9f6d1e036d12fc2e957744737aa7b82d9ea48a03b",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "mouth_soft_beak_0",
+            "assetPath": "parts/mouth_soft_beak.webp",
+            "pngPath": "parts/mouth_soft_beak.png",
+            "assetSha256": "ef60af80676c994317a761314b26c01300998a979edb0e7b37404d112186a410",
+            "pngSha256": "00e1e277b04e972c483093b9f6d1e036d12fc2e957744737aa7b82d9ea48a03b",
+            "parentSlot": "headShape",
+            "socket": "mouth",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          },
+          "biped": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          },
+          "floating": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "mouth_soft_beak",
+      "semanticPriority": 5,
+      "excludes": [
+        "oral_lolling_tongue"
+      ],
+      "boosts": {}
+    },
+    {
+      "id": "mouth_vertical_oval",
+      "displayName": "惊讶竖圆口",
+      "flavorText": "每一件小事都值得发出一声圆圆的惊叹。",
+      "description": "a separate vertical oval surprised mouth opening with a thick rounded rim and warm dark interior, friendly not frightened",
+      "slotId": "mouthShape",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/mouth_vertical_oval.webp",
+      "assetSha256": "d1e88fb0e79f4afda634fd3c053d82b021642393034e84182b17b51c7971a366",
+      "pngPath": "parts/mouth_vertical_oval.png",
+      "pngSha256": "b86ab4f0976f7feedbc3e11792e259ae465e855ccda2eb281346524c64e16318",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "mouth_vertical_oval_0",
+            "assetPath": "parts/mouth_vertical_oval.webp",
+            "pngPath": "parts/mouth_vertical_oval.png",
+            "assetSha256": "d1e88fb0e79f4afda634fd3c053d82b021642393034e84182b17b51c7971a366",
+            "pngSha256": "b86ab4f0976f7feedbc3e11792e259ae465e855ccda2eb281346524c64e16318",
+            "parentSlot": "headShape",
+            "socket": "mouth",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {
+          "blob": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          },
+          "biped": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          },
+          "floating": {
+            "sockets": {
+              "oralDetail": {
+                "x": 512,
+                "y": 512
+              }
+            }
+          }
+        }
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "mouth_oval",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "oral_round_teeth",
+      "displayName": "圆锥小牙",
+      "flavorText": "牙齿参差不齐，但每一颗都很钝。",
+      "description": "a separate curved row of six irregular blunt rounded cream cartoon teeth, gummy and harmless",
+      "slotId": "oralDetail",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/oral_round_teeth.webp",
+      "assetSha256": "80a546ac20c504423a702b359198ba5ee33754015bdf192753d27751628f4afb",
+      "pngPath": "parts/oral_round_teeth.png",
+      "pngSha256": "92fc77be1355093ce811b996816af242a2126a2846a3b79dc40d78c0ef07d74d",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "oral_round_teeth_0",
+            "assetPath": "parts/oral_round_teeth.webp",
+            "pngPath": "parts/oral_round_teeth.png",
+            "assetSha256": "80a546ac20c504423a702b359198ba5ee33754015bdf192753d27751628f4afb",
+            "pngSha256": "92fc77be1355093ce811b996816af242a2126a2846a3b79dc40d78c0ef07d74d",
+            "parentSlot": "mouthShape",
+            "socket": "oralDetail",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "oral_round_teeth",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "oral_single_fang",
+      "displayName": "独颗软牙",
+      "flavorText": "唯一的一颗小牙非常努力地露在外面。",
+      "description": "one oversized but blunt rounded cream toy-like fang with a soft gum base, cute and harmless",
+      "slotId": "oralDetail",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/oral_single_fang.webp",
+      "assetSha256": "62c523115a1f6b8f02580302b05fefbd4d51ec3e3415409fd17f36b12c123390",
+      "pngPath": "parts/oral_single_fang.png",
+      "pngSha256": "2a9fd7d65ba0a35d2c0cb6a8c5670d3b14657822d6f553ff27b67b965be78e98",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "oral_single_fang_0",
+            "assetPath": "parts/oral_single_fang.webp",
+            "pngPath": "parts/oral_single_fang.png",
+            "assetSha256": "62c523115a1f6b8f02580302b05fefbd4d51ec3e3415409fd17f36b12c123390",
+            "pngSha256": "2a9fd7d65ba0a35d2c0cb6a8c5670d3b14657822d6f553ff27b67b965be78e98",
+            "parentSlot": "mouthShape",
+            "socket": "oralDetail",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "oral_single_fang",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "oral_lolling_tongue",
+      "displayName": "歪歪软舌",
+      "flavorText": "它一专心，舌头就会偷偷跑出来。",
+      "description": "a separate short lolling coral-pink cartoon tongue with a rounded tip and soft moist-gel material",
+      "slotId": "oralDetail",
+      "rarity": "N",
+      "baseWeight": 0.35,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/oral_lolling_tongue.webp",
+      "assetSha256": "4bd14ac0d6cd265f6f5c2fa28ed13b4009c3d11a405b8f4d2b980dd662ee647e",
+      "pngPath": "parts/oral_lolling_tongue.png",
+      "pngSha256": "545b13787dc2cd5e5eaccb80e016800abb2a789bcafed5a29cac03089c175378",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "oral_lolling_tongue_0",
+            "assetPath": "parts/oral_lolling_tongue.webp",
+            "pngPath": "parts/oral_lolling_tongue.png",
+            "assetSha256": "4bd14ac0d6cd265f6f5c2fa28ed13b4009c3d11a405b8f4d2b980dd662ee647e",
+            "pngSha256": "545b13787dc2cd5e5eaccb80e016800abb2a789bcafed5a29cac03089c175378",
+            "parentSlot": "mouthShape",
+            "socket": "oralDetail",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "oral_tongue",
+      "semanticPriority": 5,
+      "excludes": [
+        "mouth_soft_beak"
+      ],
+      "boosts": {}
+    },
+    {
+      "id": "oral_gummy_ridges",
+      "displayName": "软胶齿脊",
+      "flavorText": "像牙又像软糖，咬什么都只会弹一下。",
+      "description": "a separate row of rounded translucent gummy mouth ridges, tooth-like but soft and friendly",
+      "slotId": "oralDetail",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/oral_gummy_ridges.webp",
+      "assetSha256": "705e748768ab86cd8a2aff1cb6a9a960fd9d3f1347c8da9a9e563dd6396498f6",
+      "pngPath": "parts/oral_gummy_ridges.png",
+      "pngSha256": "d60ccd5584be9cefd8d5829ee7b971c3d3d206b2c3b730230b7d89d2e0defd08",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "oral_gummy_ridges_0",
+            "assetPath": "parts/oral_gummy_ridges.webp",
+            "pngPath": "parts/oral_gummy_ridges.png",
+            "assetSha256": "705e748768ab86cd8a2aff1cb6a9a960fd9d3f1347c8da9a9e563dd6396498f6",
+            "pngSha256": "d60ccd5584be9cefd8d5829ee7b971c3d3d206b2c3b730230b7d89d2e0defd08",
+            "parentSlot": "mouthShape",
+            "socket": "oralDetail",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "oral_gummy",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "head_appendage_none",
+      "displayName": "没有头饰",
+      "flavorText": "光秃秃也很神气。",
+      "description": "no visible head appendage at all",
+      "slotId": "headAppendage",
+      "rarity": "N",
+      "baseWeight": 1.8,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/head_appendage_none.webp",
+      "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "pngPath": "parts/head_appendage_none.png",
+      "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "composition": {
+        "isNone": true,
+        "motifTags": [],
+        "visualIntensity": "quiet",
+        "renderNodes": [],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": null,
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "head_horns_soft_nubs",
+      "displayName": "软角芽",
+      "flavorText": "两颗角还没决定要往哪边长。",
+      "description": "a symmetric pair of very short rounded plush horn nubs, flexible and harmless, no sharp tips",
+      "slotId": "headAppendage",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/head_horns_soft_nubs.webp",
+      "assetSha256": "31a1581d7fc9c6ae14491214158be02aecb0682791034e9424d1420725d0e849",
+      "pngPath": "parts/head_horns_soft_nubs.png",
+      "pngSha256": "eb77375261eaea1c087a217b4aeadd26364d631ea746afd472cb1216bcd58a7c",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "head_horns_soft_nubs_0",
+            "assetPath": "parts/head_horns_soft_nubs.webp",
+            "pngPath": "parts/head_horns_soft_nubs.png",
+            "assetSha256": "31a1581d7fc9c6ae14491214158be02aecb0682791034e9424d1420725d0e849",
+            "pngSha256": "eb77375261eaea1c087a217b4aeadd26364d631ea746afd472cb1216bcd58a7c",
+            "parentSlot": "headShape",
+            "socket": "headAppendage",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "head_horn_nubs",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "head_antennae_glow",
+      "displayName": "灯泡触角",
+      "flavorText": "想到好点子时，两颗小灯会一起亮。",
+      "description": "a pair of soft curved antennae ending in round warm glowing bulbs, toy-like and friendly",
+      "slotId": "headAppendage",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/head_antennae_glow.webp",
+      "assetSha256": "c565506cdeddf6ba705a096eecc0a8c8b2c8249c5fc8cab126f72e42cdb43c9b",
+      "pngPath": "parts/head_antennae_glow.png",
+      "pngSha256": "1bfa3b94bf5500953f089d43d71782eb28f8c28369e11fbd592a6261404b7d30",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "head_antennae_glow_0",
+            "assetPath": "parts/head_antennae_glow.webp",
+            "pngPath": "parts/head_antennae_glow.png",
+            "assetSha256": "c565506cdeddf6ba705a096eecc0a8c8b2c8249c5fc8cab126f72e42cdb43c9b",
+            "pngSha256": "1bfa3b94bf5500953f089d43d71782eb28f8c28369e11fbd592a6261404b7d30",
+            "parentSlot": "headShape",
+            "socket": "headAppendage",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "head_glow_antennae",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {
+        "quirk_light_chaser": 1.25
+      }
+    },
+    {
+      "id": "head_ears_floppy_fins",
+      "displayName": "垂垂鳍耳",
+      "flavorText": "听见水声时，软鳍耳朵会轻轻张开。",
+      "description": "a bilateral pair of floppy rounded fin-like ears with soft ribbing, no sharp edges",
+      "slotId": "headAppendage",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/head_ears_floppy_fins.webp",
+      "assetSha256": "bb7678d607e328afcfcce807b7875582f6538eff57ca5ffdeffd89da4c714060",
+      "pngPath": "parts/head_ears_floppy_fins.png",
+      "pngSha256": "56b1e0982f688769baa5c1c26c56860ba79345cd4585f0ec5ea16ffaac09808d",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "head_ears_floppy_fins_0",
+            "assetPath": "parts/head_ears_floppy_fins.webp",
+            "pngPath": "parts/head_ears_floppy_fins.png",
+            "assetSha256": "bb7678d607e328afcfcce807b7875582f6538eff57ca5ffdeffd89da4c714060",
+            "pngSha256": "56b1e0982f688769baa5c1c26c56860ba79345cd4585f0ec5ea16ffaac09808d",
+            "parentSlot": "headShape",
+            "socket": "headAppendage",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "faceAndHeadwear",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "head",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": "head_fin_ears",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "arms_short_plush",
+      "displayName": "短短绒手",
+      "flavorText": "抱不住大东西，却很会挥手。",
+      "description": "a separate bilateral pair of short dangling plush arms with mitten-like rounded ends, aligned symmetrically",
+      "slotId": "arms",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/arms_short_plush.webp",
+      "assetSha256": "9e35f0a4a4a39f20e6df0e662e5aad78d78bff2ffef8211addafc141efe3bf29",
+      "pngPath": "parts/arms_short_plush.png",
+      "pngSha256": "eb940c1205dcee9f77b0fb887d038adbd9c691981b17f814949c9aec3e12d5b2",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "arms_short_plush_left",
+            "assetPath": "nodes/arms_short_plush/left.webp",
+            "pngPath": "nodes/arms_short_plush/left.png",
+            "assetSha256": "7ddee9de36d5a7ef5053fe65e4b3c87a3635c42a08c5ff62801078ba5939d4b4",
+            "pngSha256": "c118b29f6831cc308c181b8b3fa5dc43ea183e9481abc985131d7b085bc7c3bb",
+            "parentSlot": "bodyFrame",
+            "socket": "armLeft",
+            "origin": {
+              "x": 425,
+              "y": 611
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "none"
+          },
+          {
+            "id": "arms_short_plush_right",
+            "assetPath": "nodes/arms_short_plush/right.webp",
+            "pngPath": "nodes/arms_short_plush/right.png",
+            "assetSha256": "d36ae0324607f067b0a2b89c3057a2677ea882d3987f89c4307908da5c5a78ee",
+            "pngSha256": "9cf3be449fe6256b2c519b9cead90982fe8dbcb7fb5b49f1690835f2e96cf3bd",
+            "parentSlot": "bodyFrame",
+            "socket": "armRight",
+            "origin": {
+              "x": 48,
+              "y": 613
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "frontAppendage",
+      "semanticTraitId": "arms_short",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "arms_long_noodle",
+      "displayName": "面条长手",
+      "flavorText": "手臂晃起来像两根开心的软面条。",
+      "description": "a separate bilateral pair of long flexible noodle-like soft arms with rounded mitten tips, playful not anatomical",
+      "slotId": "arms",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/arms_long_noodle.webp",
+      "assetSha256": "df26977f1d2732deac697ad33f26362a2979288060eace13c5bd3d6578f6fa0f",
+      "pngPath": "parts/arms_long_noodle.png",
+      "pngSha256": "d6b19e2e5558c32374726e24238983fb293455eb1731d0d97d12f9316cbdda9c",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "arms_long_noodle_left",
+            "assetPath": "nodes/arms_long_noodle/left.webp",
+            "pngPath": "nodes/arms_long_noodle/left.png",
+            "assetSha256": "362b759da8f48c54a8965ef4423a24ea507c6b2aab181b151fb305f4a945467c",
+            "pngSha256": "e0f2d6f8889c53e51d5122990610be93e4474d25e63b6afed3d4c40f3ac026c5",
+            "parentSlot": "bodyFrame",
+            "socket": "armLeft",
+            "origin": {
+              "x": 462,
+              "y": 742
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          },
+          {
+            "id": "arms_long_noodle_right",
+            "assetPath": "nodes/arms_long_noodle/right.webp",
+            "pngPath": "nodes/arms_long_noodle/right.png",
+            "assetSha256": "e47acbe7e931511177ac71144fe4268856e3c58d6e4fe417e16cfc1eee5f6634",
+            "pngSha256": "9d0acb62ed0de17bd133b762c29367c5c94a17962938ab4ad2521fe8709ceb2e",
+            "parentSlot": "bodyFrame",
+            "socket": "armRight",
+            "origin": {
+              "x": 202,
+              "y": 739
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "frontAppendage",
+      "semanticTraitId": "arms_noodle",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "arms_paddle",
+      "displayName": "小桨手",
+      "flavorText": "不用船，它自己就是两把小桨。",
+      "description": "a separate bilateral pair of short rounded paddle-like fin arms with soft webbed edges",
+      "slotId": "arms",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "floating"
+      ],
+      "assetPath": "parts/arms_paddle.webp",
+      "assetSha256": "ee1d225a6430617e6d0173ecb098c3a592b50c0977f316eb1328c00bf992d588",
+      "pngPath": "parts/arms_paddle.png",
+      "pngSha256": "3145ddaa51f71427e31b832adc74020ad9b689dea9ab94cd0bdc55f69c93dfec",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "arms_paddle_left",
+            "assetPath": "nodes/arms_paddle/left.webp",
+            "pngPath": "nodes/arms_paddle/left.png",
+            "assetSha256": "f95d7049b7a0d9284258bec616f9a09e5c23f550d64a232df666004ff330b537",
+            "pngSha256": "c0e0e992306853b777fcb43e24e498e6025f539c72f6279c26d66f4097feafbf",
+            "parentSlot": "bodyFrame",
+            "socket": "armLeft",
+            "origin": {
+              "x": 469,
+              "y": 574
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "none"
+          },
+          {
+            "id": "arms_paddle_right",
+            "assetPath": "nodes/arms_paddle/right.webp",
+            "pngPath": "nodes/arms_paddle/right.png",
+            "assetSha256": "8fcb7b7ae03f2a0a10c5f0a1f475753c1df3d794e5dd1feb7d16ed4d14988fd7",
+            "pngSha256": "cd1066ceffeb461d22a70f09b3349b312550421d0ebcde63c549688e414c63ef",
+            "parentSlot": "bodyFrame",
+            "socket": "armRight",
+            "origin": {
+              "x": 156,
+              "y": 576
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "frontAppendage",
+      "semanticTraitId": "arms_paddle",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "legs_stub_feet",
+      "displayName": "圆墩脚",
+      "flavorText": "每一步都像软垫落地。",
+      "description": "a separate bilateral pair of short sturdy plush legs ending in broad rounded pad feet",
+      "slotId": "legs",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/legs_stub_feet.webp",
+      "assetSha256": "8aaedc0047ce5689813f8bb7e3fb6287fab73997663b8c2bafc5d4b5708aa533",
+      "pngPath": "parts/legs_stub_feet.png",
+      "pngSha256": "b4cc6ab6f16ccf9be723a2e170f5fb8c76f34b8e39e479acf3f983eb46d9fcf6",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "legs_stub_feet_left",
+            "assetPath": "nodes/legs_stub_feet/left.webp",
+            "pngPath": "nodes/legs_stub_feet/left.png",
+            "assetSha256": "285c908a371579a5622a4342e4ac66d73c20362491e905e6965a67d31b592da2",
+            "pngSha256": "f9a51c63060697992a11e5738fcd4b734fb96050687d86944f8504f2d7543f0a",
+            "parentSlot": "bodyFrame",
+            "socket": "legLeft",
+            "origin": {
+              "x": 594,
+              "y": 758
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "none"
+          },
+          {
+            "id": "legs_stub_feet_right",
+            "assetPath": "nodes/legs_stub_feet/right.webp",
+            "pngPath": "nodes/legs_stub_feet/right.png",
+            "assetSha256": "7d32d2558db4856d3d861d9c03e7a533b0aef648f6e9bdb0d02a2b0f6053f5df",
+            "pngSha256": "f648369af31c976dd8789f2cf3b3d75632c32f54b181064838980d07121ec9d9",
+            "parentSlot": "bodyFrame",
+            "socket": "legRight",
+            "origin": {
+              "x": 194,
+              "y": 749
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "frontAppendage",
+      "semanticTraitId": "legs_stub",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "legs_webbed",
+      "displayName": "蹼蹼脚",
+      "flavorText": "水洼再小，也值得认真划两下。",
+      "description": "a separate bilateral pair of short rounded legs with soft three-lobed webbed feet, no claws",
+      "slotId": "legs",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/legs_webbed.webp",
+      "assetSha256": "d54726fc3fff8c3ef75eb6c09f192231e4fa6358ba45cfea44454876f0720028",
+      "pngPath": "parts/legs_webbed.png",
+      "pngSha256": "50d178bf2ca3c4b0b850bf657f6131427c6b05b380374760a4393018623acb08",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "legs_webbed_left",
+            "assetPath": "nodes/legs_webbed/left.webp",
+            "pngPath": "nodes/legs_webbed/left.png",
+            "assetSha256": "3bb55b6447b6a1b647829c785f9c74d32cc2106cbfd1985bfa76826b6a4adcd8",
+            "pngSha256": "38dfe806908ee97a7ca33cc485c70cb4a6e5823ea655f68396f3ba99dedff900",
+            "parentSlot": "bodyFrame",
+            "socket": "legLeft",
+            "origin": {
+              "x": 555,
+              "y": 698
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          },
+          {
+            "id": "legs_webbed_right",
+            "assetPath": "nodes/legs_webbed/right.webp",
+            "pngPath": "nodes/legs_webbed/right.png",
+            "assetSha256": "1ac507d44f8f4357049a3e5ee2174a5dab9f37366e0e38a2066055c638201dc4",
+            "pngSha256": "f5a5db574075e2f5ce7523ba9398e415b2317bbb08ab61fbf528d911b7e2e54b",
+            "parentSlot": "bodyFrame",
+            "socket": "legRight",
+            "origin": {
+              "x": 139,
+              "y": 699
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "frontAppendage",
+      "semanticTraitId": "legs_webbed",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "legs_mushroom",
+      "displayName": "菌柄脚",
+      "flavorText": "走累了就把自己当成两朵小蘑菇。",
+      "description": "a separate bilateral pair of stout mushroom-stem legs with small rounded cap-like feet",
+      "slotId": "legs",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "fungal"
+      ],
+      "themeWeights": {
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/legs_mushroom.webp",
+      "assetSha256": "db9643d75c2c15dde9d7e0b54de0a6160ad55806819ab51bfecbe62f7b1e63f9",
+      "pngPath": "parts/legs_mushroom.png",
+      "pngSha256": "e81741103c1507c5427dd43d52f78c3f70e388fd84cd4648457a1f4ed6e513cc",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "legs_mushroom_left",
+            "assetPath": "nodes/legs_mushroom/left.webp",
+            "pngPath": "nodes/legs_mushroom/left.png",
+            "assetSha256": "56bd75948842daccaaa9a0f0f30dfa46ebaebca807d18900c83ac8eb164b8303",
+            "pngSha256": "120a523bbda38c77a3fb4f39dcbd83e98e2328f7157e035a4ddec43b9006da0a",
+            "parentSlot": "bodyFrame",
+            "socket": "legLeft",
+            "origin": {
+              "x": 576,
+              "y": 834
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          },
+          {
+            "id": "legs_mushroom_right",
+            "assetPath": "nodes/legs_mushroom/right.webp",
+            "pngPath": "nodes/legs_mushroom/right.png",
+            "assetSha256": "baa17b5f3132b7295322a52253bea9f79bc4e1078b383be805828ce61946e4ce",
+            "pngSha256": "732375f377431661f0cc1859a919441dabbc0f9910bce5d7046eb2939b2d4c45",
+            "parentSlot": "bodyFrame",
+            "socket": "legRight",
+            "origin": {
+              "x": 150,
+              "y": 834
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "frontAppendage",
+      "semanticTraitId": "legs_mushroom",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "legs_shadow_tiptoe",
+      "displayName": "影尖脚",
+      "flavorText": "脚尖其实很圆，只是影子把它拉长了。",
+      "description": "a separate bilateral pair of tapered shadow-plush legs ending in tiny rounded tiptoe pads, soft not sharp",
+      "slotId": "legs",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "shadow"
+      ],
+      "themeWeights": {
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "floating"
+      ],
+      "assetPath": "parts/legs_shadow_tiptoe.webp",
+      "assetSha256": "22df1b67bb3e542367cc77b46e4379e5dba514fbfafad5b08607d3a204c41a2b",
+      "pngPath": "parts/legs_shadow_tiptoe.png",
+      "pngSha256": "efa7951a3cd92dd047366abfe44106795bee00053f18e9a5518167524b2d3749",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "legs_shadow_tiptoe_left",
+            "assetPath": "nodes/legs_shadow_tiptoe/left.webp",
+            "pngPath": "nodes/legs_shadow_tiptoe/left.png",
+            "assetSha256": "2edf8a0f520f7e755178351aba49c63fffbe745d927962d4da5ca68f9c453b51",
+            "pngSha256": "84994bc208a8722c48769f554a714481b3c4d4fb421c449148143fddef003a95",
+            "parentSlot": "bodyFrame",
+            "socket": "legLeft",
+            "origin": {
+              "x": 504,
+              "y": 1250
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "none"
+          },
+          {
+            "id": "legs_shadow_tiptoe_right",
+            "assetPath": "nodes/legs_shadow_tiptoe/right.webp",
+            "pngPath": "nodes/legs_shadow_tiptoe/right.png",
+            "assetSha256": "f670fcb2c0299867cb266e82bb6b6b8b22fcd4b92a9a40d6552c0b3ee06a447c",
+            "pngSha256": "fba56df8e93be8bad53bbbabd866ce4f812c06e920795b512ef806f666dd6d60",
+            "parentSlot": "bodyFrame",
+            "socket": "legRight",
+            "origin": {
+              "x": 154,
+              "y": 1244
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "frontAppendage",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "frontAppendage",
+      "semanticTraitId": "legs_shadow",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "tail_none",
+      "displayName": "没有尾巴",
+      "flavorText": "身后空空的，转身更轻松。",
+      "description": "no visible tail at all",
+      "slotId": "tail",
+      "rarity": "N",
+      "baseWeight": 0.67,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/tail_none.webp",
+      "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "pngPath": "parts/tail_none.png",
+      "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "composition": {
+        "isNone": true,
+        "motifTags": [],
+        "visualIntensity": "quiet",
+        "renderNodes": [],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "rearAppendage",
+      "semanticTraitId": null,
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "tail_fish_fan",
+      "displayName": "扇形鱼尾",
+      "flavorText": "轻轻一摆，就把想象里的海水推开。",
+      "description": "a separate side-view rounded fan-shaped fish tail with soft translucent ribbing and a compact attachment base",
+      "slotId": "tail",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "floating"
+      ],
+      "assetPath": "parts/tail_fish_fan.webp",
+      "assetSha256": "aa7ff6b4db9dde8920023b8feda4f5f1446fc0f8bbf15f37082566c81e047ec1",
+      "pngPath": "parts/tail_fish_fan.png",
+      "pngSha256": "938fbae1998e4d34c61da0d2b5a73296c2d9c3173513faed159bf322ddd65c3c",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "tail_fish_fan_0",
+            "assetPath": "parts/tail_fish_fan.webp",
+            "pngPath": "parts/tail_fish_fan.png",
+            "assetSha256": "aa7ff6b4db9dde8920023b8feda4f5f1446fc0f8bbf15f37082566c81e047ec1",
+            "pngSha256": "938fbae1998e4d34c61da0d2b5a73296c2d9c3173513faed159bf322ddd65c3c",
+            "parentSlot": "bodyFrame",
+            "socket": "tail",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "rearAppendage",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "tail",
+      "layer": "rearAppendage",
+      "semanticTraitId": "tail_fish_fan",
+      "semanticPriority": 5,
+      "excludes": [
+        "extra_moth_wings"
+      ],
+      "boosts": {}
+    },
+    {
+      "id": "tail_soft_curl",
+      "displayName": "卷卷软尾",
+      "flavorText": "尾巴末端总在画一个没有画完的圆。",
+      "description": "a separate thick curled plush tail shaped like a loose spiral, with a rounded attachment base and tip",
+      "slotId": "tail",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/tail_soft_curl.webp",
+      "assetSha256": "05adcb100bf7e4cbb0ef9403ceb3096b3da1b73d1509c5dbf5e1de42226b8fd4",
+      "pngPath": "parts/tail_soft_curl.png",
+      "pngSha256": "4ae6f7e8c64cea84e0cf9970f44fa9c4ef788fcfee398d325a96f783f0d292f9",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "tail_soft_curl_0",
+            "assetPath": "parts/tail_soft_curl.webp",
+            "pngPath": "parts/tail_soft_curl.png",
+            "assetSha256": "05adcb100bf7e4cbb0ef9403ceb3096b3da1b73d1509c5dbf5e1de42226b8fd4",
+            "pngSha256": "4ae6f7e8c64cea84e0cf9970f44fa9c4ef788fcfee398d325a96f783f0d292f9",
+            "parentSlot": "bodyFrame",
+            "socket": "tail",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "rearAppendage",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "tail",
+      "layer": "rearAppendage",
+      "semanticTraitId": "tail_soft_curl",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "tail_mushroom_cluster",
+      "displayName": "菌簇尾",
+      "flavorText": "尾巴上挤着三朵总想一起点头的小菌伞。",
+      "description": "a separate short plush tail ending in a cluster of three tiny rounded mushroom caps, compact and friendly",
+      "slotId": "tail",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "fungal"
+      ],
+      "themeWeights": {
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/tail_mushroom_cluster.webp",
+      "assetSha256": "18dac0ad4c1cbd7c1f4bb1c7832a0d11a31b9d2352b1949f6b8222aeb9919a94",
+      "pngPath": "parts/tail_mushroom_cluster.png",
+      "pngSha256": "c35ec314b715a75834d827236832432b724254c7708d3ebecc5969151d580689",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "tail_mushroom_cluster_0",
+            "assetPath": "parts/tail_mushroom_cluster.webp",
+            "pngPath": "parts/tail_mushroom_cluster.png",
+            "assetSha256": "18dac0ad4c1cbd7c1f4bb1c7832a0d11a31b9d2352b1949f6b8222aeb9919a94",
+            "pngSha256": "c35ec314b715a75834d827236832432b724254c7708d3ebecc5969151d580689",
+            "parentSlot": "bodyFrame",
+            "socket": "tail",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "rearAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": "tail",
+      "layer": "rearAppendage",
+      "semanticTraitId": "tail_mushroom",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "extra_appendage_none",
+      "displayName": "没有额外附肢",
+      "flavorText": "两侧留白，刚好装下风。",
+      "description": "no visible extra appendage at all",
+      "slotId": "extraAppendage",
+      "rarity": "N",
+      "baseWeight": 0.08,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/extra_appendage_none.webp",
+      "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "pngPath": "parts/extra_appendage_none.png",
+      "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "composition": {
+        "isNone": true,
+        "motifTags": [],
+        "visualIntensity": "quiet",
+        "renderNodes": [],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "rearAppendage",
+      "semanticTraitId": null,
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "extra_moth_wings",
+      "displayName": "圆蛾翅",
+      "flavorText": "翅膀像两片会呼吸的软绒叶。",
+      "description": "a separate bilateral pair of small rounded moth wings with plush edges and simple soft eye-spot-free ribbing",
+      "slotId": "extraAppendage",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/extra_moth_wings.webp",
+      "assetSha256": "3fa3176a9c96761a8b27cbfa3d0cf0ad17d4955cb5fdae8ef3013bddfcab99ee",
+      "pngPath": "parts/extra_moth_wings.png",
+      "pngSha256": "04670ef4e1e2d5ab9823e119c0f84f68ba381141cf35ded6e9b2584d873220f7",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "extra_moth_wings_left",
+            "assetPath": "nodes/extra_moth_wings/left.webp",
+            "pngPath": "nodes/extra_moth_wings/left.png",
+            "assetSha256": "36017c5d733bb9655a1759a3c6c40d7f9249c42de27224fc7d468053e5ecb35e",
+            "pngSha256": "e672957a1747cf0edca97906c7ecf5d5943459cd0fb7be1bb4f1d8961fb753d7",
+            "parentSlot": "bodyFrame",
+            "socket": "wingLeft",
+            "origin": {
+              "x": 579,
+              "y": 615
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "rearAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          },
+          {
+            "id": "extra_moth_wings_right",
+            "assetPath": "nodes/extra_moth_wings/right.webp",
+            "pngPath": "nodes/extra_moth_wings/right.png",
+            "assetSha256": "fb77247c6dc75d689a8ca34dcdce78f1291c82dab653b2993f831a85ad9381c9",
+            "pngSha256": "bca2dbc41754ae9aa38212a6aaa02142a385d7cdeb6f3c433ca6d4441551ca12",
+            "parentSlot": "bodyFrame",
+            "socket": "wingRight",
+            "origin": {
+              "x": 322,
+              "y": 610
+            },
+            "transform": {
+              "scale": 0.5,
+              "mirrorX": false
+            },
+            "layer": "rearAppendage",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 608
+      },
+      "socket": null,
+      "layer": "rearAppendage",
+      "semanticTraitId": "extra_moth_wings",
+      "semanticPriority": 5,
+      "excludes": [
+        "tail_fish_fan"
+      ],
+      "boosts": {}
+    },
+    {
+      "id": "extra_soft_tentacles",
+      "displayName": "软带附肢",
+      "flavorText": "几根软带在身后慢半拍地挥手。",
+      "description": "a separate bilateral arrangement of four short ribbon-like soft tentacle appendages with rounded tips, cute and non-anatomical",
+      "slotId": "extraAppendage",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "floating"
+      ],
+      "assetPath": "parts/extra_soft_tentacles.webp",
+      "assetSha256": "dda365360ec065d8bb89aeeb974f33719126f531e7f5c7eb7611f9f454b319a9",
+      "pngPath": "parts/extra_soft_tentacles.png",
+      "pngSha256": "0a33831cb08bbf7274e2e6247f40103d899233ceda69501b486f97f56c236b42",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "extra_soft_tentacles_0",
+            "assetPath": "parts/extra_soft_tentacles.webp",
+            "pngPath": "parts/extra_soft_tentacles.png",
+            "assetSha256": "dda365360ec065d8bb89aeeb974f33719126f531e7f5c7eb7611f9f454b319a9",
+            "pngSha256": "0a33831cb08bbf7274e2e6247f40103d899233ceda69501b486f97f56c236b42",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "rearAppendage",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "rearAppendage",
+      "semanticTraitId": "extra_soft_tentacles",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "extra_side_fins",
+      "displayName": "侧边软鳍",
+      "flavorText": "它不一定会游泳，但鳍很乐意试试。",
+      "description": "a separate bilateral pair of broad rounded side fins with soft scalloped edges and gentle ribbing",
+      "slotId": "extraAppendage",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/extra_side_fins.webp",
+      "assetSha256": "679cd3dba10f07fa4fcf6b0da1e554bcc0a6999f36dd073eeab4b1bed4438717",
+      "pngPath": "parts/extra_side_fins.png",
+      "pngSha256": "c18b4b7a224f5cefa2ae849604d48dfd979ee3fc9d7fc6930096329757741240",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "extra_side_fins_0",
+            "assetPath": "parts/extra_side_fins.webp",
+            "pngPath": "parts/extra_side_fins.png",
+            "assetSha256": "679cd3dba10f07fa4fcf6b0da1e554bcc0a6999f36dd073eeab4b1bed4438717",
+            "pngSha256": "c18b4b7a224f5cefa2ae849604d48dfd979ee3fc9d7fc6930096329757741240",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "rearAppendage",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "none"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "rearAppendage",
+      "semanticTraitId": "extra_side_fins",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "surface_short_fur",
+      "displayName": "短绒表皮",
+      "flavorText": "摸起来像一阵刚晒过太阳的软风。",
+      "description": "a sparse modular overlay of fine short plush fibers and soft highlight tufts following the masked body surface; only fibers visible, no opaque body fill",
+      "slotId": "surfaceMaterial",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/surface_short_fur.webp",
+      "assetSha256": "96bd837b9f4a1b2c21ec11d17e8c8d14bc5d0c903bf7c619719d8741a4034c92",
+      "pngPath": "parts/surface_short_fur.png",
+      "pngSha256": "71d5e16928014a44588e1f28a23b7f6f479b772b71e3f594013c5e16c6c2c889",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "surface_short_fur_0",
+            "assetPath": "parts/surface_short_fur.webp",
+            "pngPath": "parts/surface_short_fur.png",
+            "assetSha256": "96bd837b9f4a1b2c21ec11d17e8c8d14bc5d0c903bf7c619719d8741a4034c92",
+            "pngSha256": "71d5e16928014a44588e1f28a23b7f6f479b772b71e3f594013c5e16c6c2c889",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "surface",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "surface",
+      "semanticTraitId": "surface_short_fur",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "surface_gel_bubbles",
+      "displayName": "泡泡凝胶皮",
+      "flavorText": "半透明小泡在皮肤下面慢慢挪位置。",
+      "description": "a modular overlay of rounded translucent gel bubbles, glossy soft highlights, and sparse droplets following the body mask; no opaque body fill",
+      "slotId": "surfaceMaterial",
+      "rarity": "R",
+      "baseWeight": 0.35,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "floating"
+      ],
+      "assetPath": "parts/surface_gel_bubbles.webp",
+      "assetSha256": "5bd9a96414b71fb192f8f6500d23c9d3b504a0f83100c5100f631afd82ddd4f6",
+      "pngPath": "parts/surface_gel_bubbles.png",
+      "pngSha256": "1524cc3557fe38a80f3d95ba69eab1b256cd599e69f79fcf4f1f5b109c749d37",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "surface_gel_bubbles_0",
+            "assetPath": "parts/surface_gel_bubbles.webp",
+            "pngPath": "parts/surface_gel_bubbles.png",
+            "assetSha256": "5bd9a96414b71fb192f8f6500d23c9d3b504a0f83100c5100f631afd82ddd4f6",
+            "pngSha256": "1524cc3557fe38a80f3d95ba69eab1b256cd599e69f79fcf4f1f5b109c749d37",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "surface",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "surface",
+      "semanticTraitId": "surface_gel",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "surface_soft_scales",
+      "displayName": "软鳞表皮",
+      "flavorText": "每片鳞都像圆圆的小指纹。",
+      "description": "a modular overlay of broad overlapping rounded soft scales with subtle highlights, sparse enough to reveal the base; no opaque body fill",
+      "slotId": "surfaceMaterial",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/surface_soft_scales.webp",
+      "assetSha256": "eb79399a8fb23e338ca42ec08ffc19a386028a479237ac18f3a377c2664108aa",
+      "pngPath": "parts/surface_soft_scales.png",
+      "pngSha256": "122f0cb016b5e4c62007df9dd50e9956736174696340a8adb38ff0b29b080e67",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "surface_soft_scales_0",
+            "assetPath": "parts/surface_soft_scales.webp",
+            "pngPath": "parts/surface_soft_scales.png",
+            "assetSha256": "eb79399a8fb23e338ca42ec08ffc19a386028a479237ac18f3a377c2664108aa",
+            "pngSha256": "122f0cb016b5e4c62007df9dd50e9956736174696340a8adb38ff0b29b080e67",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "surface",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "surface",
+      "semanticTraitId": "surface_soft_scales",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "surface_mushroom_velvet",
+      "displayName": "菌绒表皮",
+      "flavorText": "细密菌绒让它总像刚从苔床上醒来。",
+      "description": "a modular overlay of velvety micro-spore fuzz and a few soft raised patches following the body mask; no opaque body fill",
+      "slotId": "surfaceMaterial",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "fungal"
+      ],
+      "themeWeights": {
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/surface_mushroom_velvet.webp",
+      "assetSha256": "10c9d19c895f7aaf92266371e7e4fe8e3d32f886fb3004cc994ff822b2eaed66",
+      "pngPath": "parts/surface_mushroom_velvet.png",
+      "pngSha256": "1c8f12c07c263c73787e09139d09175710c8be31bd500fe81e1dea1f7f18aefc",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "surface_mushroom_velvet_0",
+            "assetPath": "parts/surface_mushroom_velvet.webp",
+            "pngPath": "parts/surface_mushroom_velvet.png",
+            "assetSha256": "10c9d19c895f7aaf92266371e7e4fe8e3d32f886fb3004cc994ff822b2eaed66",
+            "pngSha256": "1c8f12c07c263c73787e09139d09175710c8be31bd500fe81e1dea1f7f18aefc",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "surface",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "surface",
+      "semanticTraitId": "surface_mushroom_velvet",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "pattern_soft_spots",
+      "displayName": "软斑纹",
+      "flavorText": "大小不一的圆斑像在皮肤上玩捉迷藏。",
+      "description": "a modular overlay of twelve irregular rounded coral and cream spots distributed within the body mask; spots only, no body fill",
+      "slotId": "pattern",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/pattern_soft_spots.webp",
+      "assetSha256": "35bfbc02f281fc45551277d04313533c4451c69e2ddab8dc9db1cb2f0febb1e6",
+      "pngPath": "parts/pattern_soft_spots.png",
+      "pngSha256": "9f13cbbfa34ad806fcda72c330fa7cddbf3c85e8293ba19a0fc027c669030dc7",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "pattern_soft_spots_0",
+            "assetPath": "parts/pattern_soft_spots.webp",
+            "pngPath": "parts/pattern_soft_spots.png",
+            "assetSha256": "35bfbc02f281fc45551277d04313533c4451c69e2ddab8dc9db1cb2f0febb1e6",
+            "pngSha256": "9f13cbbfa34ad806fcda72c330fa7cddbf3c85e8293ba19a0fc027c669030dc7",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "pattern",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "pattern",
+      "semanticTraitId": "pattern_spots",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "pattern_gentle_stripes",
+      "displayName": "缓弧纹",
+      "flavorText": "几道弧线顺着圆肚皮慢慢弯过去。",
+      "description": "a modular overlay of five broad softly curved lavender-blue stripes following the body volume; stripes only, no body fill",
+      "slotId": "pattern",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "biped"
+      ],
+      "assetPath": "parts/pattern_gentle_stripes.webp",
+      "assetSha256": "fc2234dcca5bf634cc0e0a8d54966817c26d1f6be361694391e6c717c322f809",
+      "pngPath": "parts/pattern_gentle_stripes.png",
+      "pngSha256": "d473dbfd9a29eb170972deced3f72e95c7644f105151603d48f941bef3014fa0",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "pattern_gentle_stripes_0",
+            "assetPath": "parts/pattern_gentle_stripes.webp",
+            "pngPath": "parts/pattern_gentle_stripes.png",
+            "assetSha256": "fc2234dcca5bf634cc0e0a8d54966817c26d1f6be361694391e6c717c322f809",
+            "pngSha256": "d473dbfd9a29eb170972deced3f72e95c7644f105151603d48f941bef3014fa0",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "pattern",
+            "compatibleRigs": [
+              "biped"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "pattern",
+      "semanticTraitId": "pattern_stripes",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "pattern_constellation",
+      "displayName": "星点纹",
+      "flavorText": "身上的小光点总想连成一幅新星图。",
+      "description": "a modular overlay of tiny warm-gold star dots connected by a few faint curved lines within the body mask; marks only",
+      "slotId": "pattern",
+      "rarity": "R",
+      "baseWeight": 1,
+      "themeIds": [
+        "shadow"
+      ],
+      "themeWeights": {
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "floating"
+      ],
+      "assetPath": "parts/pattern_constellation.webp",
+      "assetSha256": "7fe75aa04b6d9d1b2f233700ffc891315d04bb3ea66cb52c0e2d6554126dc926",
+      "pngPath": "parts/pattern_constellation.png",
+      "pngSha256": "fbed6738f0e3083218d008f1f8a01bff091a13c3abfb488e33857bb43235c02f",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "pattern_constellation_0",
+            "assetPath": "parts/pattern_constellation.webp",
+            "pngPath": "parts/pattern_constellation.png",
+            "assetSha256": "7fe75aa04b6d9d1b2f233700ffc891315d04bb3ea66cb52c0e2d6554126dc926",
+            "pngSha256": "fbed6738f0e3083218d008f1f8a01bff091a13c3abfb488e33857bb43235c02f",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "pattern",
+            "compatibleRigs": [
+              "floating"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "pattern",
+      "semanticTraitId": "pattern_constellation",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {
+        "quirk_light_chaser": 1.2
+      }
+    },
+    {
+      "id": "pattern_spore_rings",
+      "displayName": "孢环纹",
+      "flavorText": "一圈圈菌纹记录了它做过的软绵绵的梦。",
+      "description": "a modular overlay of soft amber concentric spore rings and dotted arcs within the body mask; marks only, no body fill",
+      "slotId": "pattern",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "fungal"
+      ],
+      "themeWeights": {
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "blob"
+      ],
+      "assetPath": "parts/pattern_spore_rings.webp",
+      "assetSha256": "1e9dee01b3fb23cfe312d9313953a4f54522bd5a9be443bee2468334347390b2",
+      "pngPath": "parts/pattern_spore_rings.png",
+      "pngSha256": "155a187332cf17399ecec6783d1e448130eb01ef83762c629141253740c2a447",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "pattern_spore_rings_0",
+            "assetPath": "parts/pattern_spore_rings.webp",
+            "pngPath": "parts/pattern_spore_rings.png",
+            "assetSha256": "1e9dee01b3fb23cfe312d9313953a4f54522bd5a9be443bee2468334347390b2",
+            "pngSha256": "155a187332cf17399ecec6783d1e448130eb01ef83762c629141253740c2a447",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "pattern",
+            "compatibleRigs": [
+              "blob"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "pattern",
+      "semanticTraitId": "pattern_spore_rings",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "color_deep_sea_coral",
+      "displayName": "深海珊瑚配色",
+      "flavorText": "深蓝里藏着一小口温暖的珊瑚光。",
+      "description": "a modular palette overlay of deep ocean-blue primary patches, aqua secondary patches, and warm-gold accents arranged in three broad body-following zones; color patches only",
+      "slotId": "colorScheme",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/color_deep_sea_coral.webp",
+      "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "pngPath": "parts/color_deep_sea_coral.png",
+      "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "color_deep_sea_coral_0",
+            "assetPath": "parts/color_deep_sea_coral.webp",
+            "pngPath": "parts/color_deep_sea_coral.png",
+            "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+            "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "pattern",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "rigMaskPaths": {
+        "blob": {
+          "primary": "masks/color_deep_sea_coral/blob-primary.png",
+          "secondary": "masks/color_deep_sea_coral/blob-secondary.png",
+          "accent": "masks/color_deep_sea_coral/blob-accent.png"
+        },
+        "biped": {
+          "primary": "masks/color_deep_sea_coral/biped-primary.png",
+          "secondary": "masks/color_deep_sea_coral/biped-secondary.png",
+          "accent": "masks/color_deep_sea_coral/biped-accent.png"
+        },
+        "floating": {
+          "primary": "masks/color_deep_sea_coral/floating-primary.png",
+          "secondary": "masks/color_deep_sea_coral/floating-secondary.png",
+          "accent": "masks/color_deep_sea_coral/floating-accent.png"
+        }
+      },
+      "rigMaskSha256": {
+        "blob": {
+          "primary": "a0d0851194c674fae715ac2ef985404a911b308886caae8b2c9f29c31a73095f",
+          "secondary": "6c68a8c2abed6034be3f0bae2d762b9a77e60c00711931f5339f4f912fa569f9",
+          "accent": "7cdf2529e228fada2884b7510d2ce9c63e432cf9e82132bfa74537e80f2f2b2f"
+        },
+        "biped": {
+          "primary": "1e5b1fd987d24d2dacd042cf0216839ff85630a75c23abaf28476cbb3bf5778f",
+          "secondary": "5dcfa4ee0334fcdb0783a877e5cbb5d6b80674ac133ebcc21e38ef6b32841cf9",
+          "accent": "9ce8e104210070a6d229d46702a1aa85fa6eeb27857a0c3b0a0f75d6edad1002"
+        },
+        "floating": {
+          "primary": "cd8f06cc83b838c56d800196612bef4c8b6ea92b5435f3248c4be200ab5d74ec",
+          "secondary": "79601031c973e3cc9006fce028b26dcadcb6b81d1f0838638c14f0e84c5e310e",
+          "accent": "c8857e505339d58973e41329e94f610af11bdf69f545c60e4ed5bd806e8376e7"
+        }
+      },
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "pattern",
+      "semanticTraitId": "color_deep_sea",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "color_fungal_amber",
+      "displayName": "菌沼琥珀配色",
+      "flavorText": "泥土色、奶油色和琥珀橙在一起发芽。",
+      "description": "a modular palette overlay of olive primary patches, lime secondary patches, and warm-orange accents arranged in three broad body-following zones; color patches only",
+      "slotId": "colorScheme",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "fungal"
+      ],
+      "themeWeights": {
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/color_fungal_amber.webp",
+      "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "pngPath": "parts/color_fungal_amber.png",
+      "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "color_fungal_amber_0",
+            "assetPath": "parts/color_fungal_amber.webp",
+            "pngPath": "parts/color_fungal_amber.png",
+            "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+            "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "pattern",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "rigMaskPaths": {
+        "blob": {
+          "primary": "masks/color_fungal_amber/blob-primary.png",
+          "secondary": "masks/color_fungal_amber/blob-secondary.png",
+          "accent": "masks/color_fungal_amber/blob-accent.png"
+        },
+        "biped": {
+          "primary": "masks/color_fungal_amber/biped-primary.png",
+          "secondary": "masks/color_fungal_amber/biped-secondary.png",
+          "accent": "masks/color_fungal_amber/biped-accent.png"
+        },
+        "floating": {
+          "primary": "masks/color_fungal_amber/floating-primary.png",
+          "secondary": "masks/color_fungal_amber/floating-secondary.png",
+          "accent": "masks/color_fungal_amber/floating-accent.png"
+        }
+      },
+      "rigMaskSha256": {
+        "blob": {
+          "primary": "38b6a7b4f3d3c2556d45547a751e2ae71e181b7b3c3cb3352e1677866d0a991f",
+          "secondary": "3aa55dd8c1c60c5d9ead5f06db7330cf7d10b9e83a952e0c64bf9f0a1b785caa",
+          "accent": "fccba96e1725e86701307682838be887a83f7cbbb421e1e3cb1e5cb4110ab1f8"
+        },
+        "biped": {
+          "primary": "411a93c332d5efcd9eec3e7413cd838153913c4e4a0c4f6745b8a1138b881a6d",
+          "secondary": "047628c37370f1a6378a3a61c1cc3f420f9729ae48f211c1e63e628ee21a23d2",
+          "accent": "38fe49733d026468b1f586a698a5590cf14323055d3436dc19707f94171e76d6"
+        },
+        "floating": {
+          "primary": "e84eb1ebdd0ff2ba660c34d07efcddc5143dcf2168e0f981b240b8be11525754",
+          "secondary": "1e9df51b67bdbf19fddf605519622ee49a0bc390eff23cf2023214507f431833",
+          "accent": "1d35b7420f8412ff689f0137c590071568a2c9a903a849533fa96fc36a5697cf"
+        }
+      },
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "pattern",
+      "semanticTraitId": "color_fungal",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "color_shadow_violet",
+      "displayName": "幽影金紫配色",
+      "flavorText": "紫色把影子抱紧，金光从缝里探头。",
+      "description": "a modular palette overlay of deep violet primary patches, dusty lilac secondary patches, and warm gold accents arranged in three broad body-following zones; color patches only",
+      "slotId": "colorScheme",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "shadow"
+      ],
+      "themeWeights": {
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/color_shadow_violet.webp",
+      "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "pngPath": "parts/color_shadow_violet.png",
+      "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "fungal",
+          "shadow"
+        ],
+        "visualIntensity": "quiet",
+        "renderNodes": [
+          {
+            "id": "color_shadow_violet_0",
+            "assetPath": "parts/color_shadow_violet.webp",
+            "pngPath": "parts/color_shadow_violet.png",
+            "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+            "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+            "parentSlot": "bodyFrame",
+            "socket": "overlay",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "pattern",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "body"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "rigMaskPaths": {
+        "blob": {
+          "primary": "masks/color_shadow_violet/blob-primary.png",
+          "secondary": "masks/color_shadow_violet/blob-secondary.png",
+          "accent": "masks/color_shadow_violet/blob-accent.png"
+        },
+        "biped": {
+          "primary": "masks/color_shadow_violet/biped-primary.png",
+          "secondary": "masks/color_shadow_violet/biped-secondary.png",
+          "accent": "masks/color_shadow_violet/biped-accent.png"
+        },
+        "floating": {
+          "primary": "masks/color_shadow_violet/floating-primary.png",
+          "secondary": "masks/color_shadow_violet/floating-secondary.png",
+          "accent": "masks/color_shadow_violet/floating-accent.png"
+        }
+      },
+      "rigMaskSha256": {
+        "blob": {
+          "primary": "9abcca855ee3a72a773aae92b24a147e46586a0a41821349533f12e8612d4f16",
+          "secondary": "3219ed6e14726b012e600ad36facafe672d0e1b9015610bc641c6d886e1a3a8f",
+          "accent": "b849b99eb9b7580b2750b90e8cb58a703c64fab0342c69cdc94a8ae4e37190f8"
+        },
+        "biped": {
+          "primary": "ed61d86d34fff0d739cadc3466eba4fcbf95f28e2e9fd32c90dc238096d08b41",
+          "secondary": "f0b02d1fc31cff3dcdca97b2ca0a00da356e78fd41af85970ec46da73c3b66ae",
+          "accent": "b011b15bebaf748a4674c38c215dbcc70616c7267a360de332fb94dbed316737"
+        },
+        "floating": {
+          "primary": "c7bcb9937ff8270480db6ea151f909f05886ab75653ba069e9906faf906231b8",
+          "secondary": "ff3a4fe50007e96827e4b402676178f65825e09d4c1aa0da8c7db91379853e72",
+          "accent": "50befe624895b3c4b439513b0bc652a8357e5bd77fa518a319ae40d2cd41d695"
+        }
+      },
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "pattern",
+      "semanticTraitId": "color_shadow",
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "effect_none",
+      "displayName": "没有特效",
+      "flavorText": "安安静静地站着，本身就足够奇妙。",
+      "description": "no visible effect at all",
+      "slotId": "effect",
+      "rarity": "N",
+      "baseWeight": 0.15,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "fungal": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/effect_none.webp",
+      "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "pngPath": "parts/effect_none.png",
+      "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "composition": {
+        "isNone": true,
+        "motifTags": [],
+        "visualIntensity": "quiet",
+        "renderNodes": [],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "foregroundEffect",
+      "semanticTraitId": null,
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {}
+    },
+    {
+      "id": "effect_bioluminescent_orbs",
+      "displayName": "浮游光泡",
+      "flavorText": "几颗小光泡像朋友一样围着它慢慢游。",
+      "description": "a modular foreground effect layer of seven small warm bioluminescent floating orbs with very soft halos, sparse and isolated",
+      "slotId": "effect",
+      "rarity": "N",
+      "baseWeight": 0.35,
+      "themeIds": [
+        "deep-sea",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1.15,
+        "shadow": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/effect_bioluminescent_orbs.webp",
+      "assetSha256": "c13562f95c12f67fd47a2f3c3232c27c74971bbb4bf0960bf77fa81a6d40142d",
+      "pngPath": "parts/effect_bioluminescent_orbs.png",
+      "pngSha256": "c2a7ad732ae8ee96d4ce5bff3e5d167919d345529dc8c68ae4d01b5217e42d2f",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "deep-sea",
+          "shadow"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "effect_bioluminescent_orbs_0",
+            "assetPath": "parts/effect_bioluminescent_orbs.webp",
+            "pngPath": "parts/effect_bioluminescent_orbs.png",
+            "assetSha256": "c13562f95c12f67fd47a2f3c3232c27c74971bbb4bf0960bf77fa81a6d40142d",
+            "pngSha256": "c2a7ad732ae8ee96d4ce5bff3e5d167919d345529dc8c68ae4d01b5217e42d2f",
+            "parentSlot": "bodyFrame",
+            "socket": "effect",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "foregroundEffect",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "protect-face"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "foregroundEffect",
+      "semanticTraitId": null,
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {
+        "quirk_light_chaser": 1.3
+      }
+    },
+    {
+      "id": "effect_spore_glow",
+      "displayName": "暖孢微光",
+      "flavorText": "轻轻一抖，身边就亮起一阵会打哈欠的孢子。",
+      "description": "a modular foreground effect layer of sparse amber glowing spores drifting upward in a gentle arc, isolated particles only",
+      "slotId": "effect",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "fungal"
+      ],
+      "themeWeights": {
+        "fungal": 1.15
+      },
+      "compatibleRigs": [
+        "blob",
+        "biped",
+        "floating"
+      ],
+      "assetPath": "parts/effect_spore_glow.webp",
+      "assetSha256": "65c042bb80b3a9059d774ebd528b1f7f5b550993744c89c6c5a236cc31c0b978",
+      "pngPath": "parts/effect_spore_glow.png",
+      "pngSha256": "9ad95b9e25d5f2913b41636f9b68c50d314e8954ef6bf2a75b44e62055ef5978",
+      "composition": {
+        "isNone": false,
+        "motifTags": [
+          "fungal"
+        ],
+        "visualIntensity": "strong",
+        "renderNodes": [
+          {
+            "id": "effect_spore_glow_0",
+            "assetPath": "parts/effect_spore_glow.webp",
+            "pngPath": "parts/effect_spore_glow.png",
+            "assetSha256": "65c042bb80b3a9059d774ebd528b1f7f5b550993744c89c6c5a236cc31c0b978",
+            "pngSha256": "9ad95b9e25d5f2913b41636f9b68c50d314e8954ef6bf2a75b44e62055ef5978",
+            "parentSlot": "bodyFrame",
+            "socket": "effect",
+            "origin": {
+              "x": 512,
+              "y": 512
+            },
+            "transform": {
+              "scale": 1,
+              "mirrorX": false
+            },
+            "layer": "foregroundEffect",
+            "compatibleRigs": [
+              "blob",
+              "biped",
+              "floating"
+            ],
+            "clipPolicy": "protect-face"
+          }
+        ],
+        "geometryByRig": {}
+      },
+      "maskPaths": {},
+      "origin": {
+        "x": 512,
+        "y": 512
+      },
+      "socket": null,
+      "layer": "foregroundEffect",
+      "semanticTraitId": null,
+      "semanticPriority": 5,
+      "excludes": [],
+      "boosts": {
+        "quirk_spore_sneeze": 1.3
+      }
+    }
+  ],
+  "semanticTraits": [
+    {
+      "id": "frame_blob_round",
+      "semanticSlotId": "frame",
+      "displayName": "圆团体",
+      "flavorText": "一团稳稳坐住的柔软圆影。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "body_blob_round"
+        ],
+        "sourceSlots": [
+          "bodyFrame"
+        ]
+      }
+    },
+    {
+      "id": "frame_blob_wide",
+      "semanticSlotId": "frame",
+      "displayName": "宽云体",
+      "flavorText": "像一小片落到地面的蓬松云。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "body_blob_wide"
+        ],
+        "sourceSlots": [
+          "bodyFrame"
+        ]
+      }
+    },
+    {
+      "id": "frame_biped_peanut",
+      "semanticSlotId": "frame",
+      "displayName": "豆豆双足体",
+      "flavorText": "圆肚皮下面藏着两只短短的脚墩。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "body_biped_peanut"
+        ],
+        "sourceSlots": [
+          "bodyFrame"
+        ]
+      }
+    },
+    {
+      "id": "frame_biped_tall",
+      "semanticSlotId": "frame",
+      "displayName": "高软双足体",
+      "flavorText": "它努力站高一点，又不舍得失去圆润。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "body_biped_tall"
+        ],
+        "sourceSlots": [
+          "bodyFrame"
+        ]
+      }
+    },
+    {
+      "id": "frame_floating_drop",
+      "semanticSlotId": "frame",
+      "displayName": "浮滴体",
+      "flavorText": "一滴没有落下的软光停在半空。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "body_floating_drop"
+        ],
+        "sourceSlots": [
+          "bodyFrame"
+        ]
+      }
+    },
+    {
+      "id": "head_round",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "软圆脑袋",
+      "flavorText": "一个适合装下许多好奇心的圆脑袋。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "head_round_dome"
+        ],
+        "sourceSlots": [
+          "headShape"
+        ]
+      }
+    },
+    {
+      "id": "head_mushroom",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "菌伞脑袋",
+      "flavorText": "软软的伞沿会在高兴时轻轻抖动。",
+      "rarity": "N",
+      "themeBoosts": {
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "head_mushroom_cap"
+        ],
+        "sourceSlots": [
+          "headShape"
+        ]
+      }
+    },
+    {
+      "id": "head_angler_bulb",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "潮灯兜帽",
+      "flavorText": "一根短短的柔软灯茎，从暗紫兜帽上举起暖光。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "head_angler_bulb"
+        ],
+        "sourceSlots": [
+          "headShape"
+        ]
+      }
+    },
+    {
+      "id": "head_shadow_hood",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "幽帽脑袋",
+      "flavorText": "暗色软帽里只藏着一点温柔。",
+      "rarity": "R",
+      "themeBoosts": {
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "head_shadow_hood"
+        ],
+        "sourceSlots": [
+          "headShape"
+        ]
+      }
+    },
+    {
+      "id": "eyes_glossy_pair",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "亮晶晶双眼",
+      "flavorText": "两颗亮眼总比嘴巴更早发现新朋友。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "eyes_glossy_pair"
+        ],
+        "sourceSlots": [
+          "eyes"
+        ]
+      }
+    },
+    {
+      "id": "eyes_asymmetric",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "一大一小眼",
+      "flavorText": "一只看现在，一只急着看下一秒。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "eyes_asymmetric"
+        ],
+        "sourceSlots": [
+          "eyes"
+        ]
+      }
+    },
+    {
+      "id": "eyes_triple",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "三珠眼",
+      "flavorText": "第三只眼只负责欣赏漂亮的光。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "eyes_triple_pearl"
+        ],
+        "sourceSlots": [
+          "eyes"
+        ]
+      }
+    },
+    {
+      "id": "eyes_sleepy",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "困困月牙眼",
+      "flavorText": "它看起来快睡着了，其实什么都知道。",
+      "rarity": "N",
+      "themeBoosts": {
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "eyes_sleepy_crescent"
+        ],
+        "sourceSlots": [
+          "eyes"
+        ]
+      }
+    },
+    {
+      "id": "eyes_stalk",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "短梗眼",
+      "flavorText": "两颗眼睛踮起脚尖向外张望。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "eyes_stalk_pair"
+        ],
+        "sourceSlots": [
+          "eyes"
+        ]
+      }
+    },
+    {
+      "id": "mouth_wide",
+      "semanticSlotId": "mouth",
+      "displayName": "阔阔笑口",
+      "flavorText": "它的笑容总是比脑袋先挤进画面。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "mouth_wide_grin"
+        ],
+        "sourceSlots": [
+          "mouthShape"
+        ]
+      }
+    },
+    {
+      "id": "mouth_pout",
+      "semanticSlotId": "mouth",
+      "displayName": "软嘟嘟嘴",
+      "flavorText": "并没有生气，只是在认真吹一颗看不见的泡泡。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "mouth_soft_pout"
+        ],
+        "sourceSlots": [
+          "mouthShape"
+        ]
+      }
+    },
+    {
+      "id": "mouth_soft_beak",
+      "semanticSlotId": "mouth",
+      "displayName": "软喙嘴",
+      "flavorText": "像小鸟一样啾一声，却软得像橡皮糖。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [
+        "oral_lolling_tongue"
+      ],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "mouth_soft_beak"
+        ],
+        "sourceSlots": [
+          "mouthShape"
+        ]
+      }
+    },
+    {
+      "id": "mouth_oval",
+      "semanticSlotId": "mouth",
+      "displayName": "惊讶竖圆口",
+      "flavorText": "每一件小事都值得发出一声圆圆的惊叹。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "mouth_vertical_oval"
+        ],
+        "sourceSlots": [
+          "mouthShape"
+        ]
+      }
+    },
+    {
+      "id": "oral_round_teeth",
+      "semanticSlotId": "mouth",
+      "displayName": "圆锥小牙",
+      "flavorText": "牙齿参差不齐，但每一颗都很钝。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "oral_round_teeth"
+        ],
+        "sourceSlots": [
+          "oralDetail"
+        ]
+      }
+    },
+    {
+      "id": "oral_single_fang",
+      "semanticSlotId": "mouth",
+      "displayName": "独颗软牙",
+      "flavorText": "唯一的一颗小牙非常努力地露在外面。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "oral_single_fang"
+        ],
+        "sourceSlots": [
+          "oralDetail"
+        ]
+      }
+    },
+    {
+      "id": "oral_tongue",
+      "semanticSlotId": "mouth",
+      "displayName": "歪歪软舌",
+      "flavorText": "它一专心，舌头就会偷偷跑出来。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [
+        "mouth_soft_beak"
+      ],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "oral_lolling_tongue"
+        ],
+        "sourceSlots": [
+          "oralDetail"
+        ]
+      }
+    },
+    {
+      "id": "oral_gummy",
+      "semanticSlotId": "mouth",
+      "displayName": "软胶齿脊",
+      "flavorText": "像牙又像软糖，咬什么都只会弹一下。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "oral_gummy_ridges"
+        ],
+        "sourceSlots": [
+          "oralDetail"
+        ]
+      }
+    },
+    {
+      "id": "head_horn_nubs",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "软角芽",
+      "flavorText": "两颗角还没决定要往哪边长。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "head_horns_soft_nubs"
+        ],
+        "sourceSlots": [
+          "headAppendage"
+        ]
+      }
+    },
+    {
+      "id": "head_glow_antennae",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "灯泡触角",
+      "flavorText": "想到好点子时，两颗小灯会一起亮。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "head_antennae_glow"
+        ],
+        "sourceSlots": [
+          "headAppendage"
+        ]
+      }
+    },
+    {
+      "id": "head_fin_ears",
+      "semanticSlotId": "headAndEyes",
+      "displayName": "垂垂鳍耳",
+      "flavorText": "听见水声时，软鳍耳朵会轻轻张开。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "head_ears_floppy_fins"
+        ],
+        "sourceSlots": [
+          "headAppendage"
+        ]
+      }
+    },
+    {
+      "id": "arms_short",
+      "semanticSlotId": "appendage",
+      "displayName": "短短绒手",
+      "flavorText": "抱不住大东西，却很会挥手。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "arms_short_plush"
+        ],
+        "sourceSlots": [
+          "arms"
+        ]
+      }
+    },
+    {
+      "id": "arms_noodle",
+      "semanticSlotId": "appendage",
+      "displayName": "面条长手",
+      "flavorText": "手臂晃起来像两根开心的软面条。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "arms_long_noodle"
+        ],
+        "sourceSlots": [
+          "arms"
+        ]
+      }
+    },
+    {
+      "id": "arms_paddle",
+      "semanticSlotId": "appendage",
+      "displayName": "小桨手",
+      "flavorText": "不用船，它自己就是两把小桨。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "arms_paddle"
+        ],
+        "sourceSlots": [
+          "arms"
+        ]
+      }
+    },
+    {
+      "id": "legs_stub",
+      "semanticSlotId": "appendage",
+      "displayName": "圆墩脚",
+      "flavorText": "每一步都像软垫落地。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "legs_stub_feet"
+        ],
+        "sourceSlots": [
+          "legs"
+        ]
+      }
+    },
+    {
+      "id": "legs_webbed",
+      "semanticSlotId": "appendage",
+      "displayName": "蹼蹼脚",
+      "flavorText": "水洼再小，也值得认真划两下。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "legs_webbed"
+        ],
+        "sourceSlots": [
+          "legs"
+        ]
+      }
+    },
+    {
+      "id": "legs_mushroom",
+      "semanticSlotId": "appendage",
+      "displayName": "菌柄脚",
+      "flavorText": "走累了就把自己当成两朵小蘑菇。",
+      "rarity": "R",
+      "themeBoosts": {
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "legs_mushroom"
+        ],
+        "sourceSlots": [
+          "legs"
+        ]
+      }
+    },
+    {
+      "id": "legs_shadow",
+      "semanticSlotId": "appendage",
+      "displayName": "影尖脚",
+      "flavorText": "脚尖其实很圆，只是影子把它拉长了。",
+      "rarity": "R",
+      "themeBoosts": {
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "legs_shadow_tiptoe"
+        ],
+        "sourceSlots": [
+          "legs"
+        ]
+      }
+    },
+    {
+      "id": "tail_fish_fan",
+      "semanticSlotId": "appendage",
+      "displayName": "扇形鱼尾",
+      "flavorText": "轻轻一摆，就把想象里的海水推开。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [
+        "extra_moth_wings"
+      ],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "tail_fish_fan"
+        ],
+        "sourceSlots": [
+          "tail"
+        ]
+      }
+    },
+    {
+      "id": "tail_soft_curl",
+      "semanticSlotId": "appendage",
+      "displayName": "卷卷软尾",
+      "flavorText": "尾巴末端总在画一个没有画完的圆。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "tail_soft_curl"
+        ],
+        "sourceSlots": [
+          "tail"
+        ]
+      }
+    },
+    {
+      "id": "tail_mushroom",
+      "semanticSlotId": "appendage",
+      "displayName": "菌簇尾",
+      "flavorText": "尾巴上挤着三朵总想一起点头的小菌伞。",
+      "rarity": "N",
+      "themeBoosts": {
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "tail_mushroom_cluster"
+        ],
+        "sourceSlots": [
+          "tail"
+        ]
+      }
+    },
+    {
+      "id": "extra_moth_wings",
+      "semanticSlotId": "appendage",
+      "displayName": "圆蛾翅",
+      "flavorText": "翅膀像两片会呼吸的软绒叶。",
+      "rarity": "N",
+      "themeBoosts": {
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [
+        "tail_fish_fan"
+      ],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "extra_moth_wings"
+        ],
+        "sourceSlots": [
+          "extraAppendage"
+        ]
+      }
+    },
+    {
+      "id": "extra_soft_tentacles",
+      "semanticSlotId": "appendage",
+      "displayName": "软带附肢",
+      "flavorText": "几根软带在身后慢半拍地挥手。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "extra_soft_tentacles"
+        ],
+        "sourceSlots": [
+          "extraAppendage"
+        ]
+      }
+    },
+    {
+      "id": "extra_side_fins",
+      "semanticSlotId": "appendage",
+      "displayName": "侧边软鳍",
+      "flavorText": "它不一定会游泳，但鳍很乐意试试。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "extra_side_fins"
+        ],
+        "sourceSlots": [
+          "extraAppendage"
+        ]
+      }
+    },
+    {
+      "id": "surface_short_fur",
+      "semanticSlotId": "surface",
+      "displayName": "短绒表皮",
+      "flavorText": "摸起来像一阵刚晒过太阳的软风。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "surface_short_fur"
+        ],
+        "sourceSlots": [
+          "surfaceMaterial"
+        ]
+      }
+    },
+    {
+      "id": "surface_gel",
+      "semanticSlotId": "surface",
+      "displayName": "泡泡凝胶皮",
+      "flavorText": "半透明小泡在皮肤下面慢慢挪位置。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "surface_gel_bubbles"
+        ],
+        "sourceSlots": [
+          "surfaceMaterial"
+        ]
+      }
+    },
+    {
+      "id": "surface_soft_scales",
+      "semanticSlotId": "surface",
+      "displayName": "软鳞表皮",
+      "flavorText": "每片鳞都像圆圆的小指纹。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "surface_soft_scales"
+        ],
+        "sourceSlots": [
+          "surfaceMaterial"
+        ]
+      }
+    },
+    {
+      "id": "surface_mushroom_velvet",
+      "semanticSlotId": "surface",
+      "displayName": "菌绒表皮",
+      "flavorText": "细密菌绒让它总像刚从苔床上醒来。",
+      "rarity": "N",
+      "themeBoosts": {
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "surface_mushroom_velvet"
+        ],
+        "sourceSlots": [
+          "surfaceMaterial"
+        ]
+      }
+    },
+    {
+      "id": "pattern_spots",
+      "semanticSlotId": "pattern",
+      "displayName": "软斑纹",
+      "flavorText": "大小不一的圆斑像在皮肤上玩捉迷藏。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "pattern_soft_spots"
+        ],
+        "sourceSlots": [
+          "pattern"
+        ]
+      }
+    },
+    {
+      "id": "pattern_stripes",
+      "semanticSlotId": "pattern",
+      "displayName": "缓弧纹",
+      "flavorText": "几道弧线顺着圆肚皮慢慢弯过去。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1,
+        "fungal": 1.1,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "pattern_gentle_stripes"
+        ],
+        "sourceSlots": [
+          "pattern"
+        ]
+      }
+    },
+    {
+      "id": "pattern_constellation",
+      "semanticSlotId": "pattern",
+      "displayName": "星点纹",
+      "flavorText": "身上的小光点总想连成一幅新星图。",
+      "rarity": "R",
+      "themeBoosts": {
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "pattern_constellation"
+        ],
+        "sourceSlots": [
+          "pattern"
+        ]
+      }
+    },
+    {
+      "id": "pattern_spore_rings",
+      "semanticSlotId": "pattern",
+      "displayName": "孢环纹",
+      "flavorText": "一圈圈菌纹记录了它做过的软绵绵的梦。",
+      "rarity": "N",
+      "themeBoosts": {
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "pattern_spore_rings"
+        ],
+        "sourceSlots": [
+          "pattern"
+        ]
+      }
+    },
+    {
+      "id": "color_deep_sea",
+      "semanticSlotId": "pattern",
+      "displayName": "深海珊瑚配色",
+      "flavorText": "深蓝里藏着一小口温暖的珊瑚光。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "color_deep_sea_coral"
+        ],
+        "sourceSlots": [
+          "colorScheme"
+        ]
+      }
+    },
+    {
+      "id": "color_fungal",
+      "semanticSlotId": "pattern",
+      "displayName": "菌沼琥珀配色",
+      "flavorText": "泥土色、奶油色和琥珀橙在一起发芽。",
+      "rarity": "N",
+      "themeBoosts": {
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "color_fungal_amber"
+        ],
+        "sourceSlots": [
+          "colorScheme"
+        ]
+      }
+    },
+    {
+      "id": "color_shadow",
+      "semanticSlotId": "pattern",
+      "displayName": "幽影金紫配色",
+      "flavorText": "紫色把影子抱紧，金光从缝里探头。",
+      "rarity": "N",
+      "themeBoosts": {
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "sourcePartIds": [
+          "color_shadow_violet"
+        ],
+        "sourceSlots": [
+          "colorScheme"
+        ]
+      }
+    },
+    {
+      "id": "personality_gentle",
+      "semanticSlotId": "personality",
+      "displayName": "软心慢慢",
+      "flavorText": "遇到陌生声响时，它先递出一只软绒绒的手。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.05,
+        "fungal": 1.1
+      },
+      "excludes": [
+        "personality_mischievous"
+      ],
+      "boosts": {
+        "surface_short_fur": 1.15
+      },
+      "visualMapping": {
+        "mood": "relaxed",
+        "suggestedParts": [
+          "eyes_sleepy_crescent",
+          "mouth_soft_pout"
+        ]
+      }
+    },
+    {
+      "id": "personality_curious",
+      "semanticSlotId": "personality",
+      "displayName": "亮眼好奇",
+      "flavorText": "每一扇门缝后面，都可能藏着值得认识的新朋友。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.1
+      },
+      "excludes": [],
+      "boosts": {
+        "eyes_glossy_pair": 1.15
+      },
+      "visualMapping": {
+        "mood": "curious",
+        "suggestedParts": [
+          "eyes_glossy_pair",
+          "eyes_stalk_pair"
+        ]
+      }
+    },
+    {
+      "id": "personality_brave",
+      "semanticSlotId": "personality",
+      "displayName": "软胆勇士",
+      "flavorText": "腿会抖，但仍会往前挪半步。",
+      "rarity": "N",
+      "themeBoosts": {
+        "fungal": 1.05
+      },
+      "excludes": [
+        "personality_shy_shadow"
+      ],
+      "boosts": {
+        "arms_short_plush": 1.1
+      },
+      "visualMapping": {
+        "mood": "upright",
+        "suggestedParts": [
+          "body_biped_tall",
+          "legs_stub_feet"
+        ]
+      }
+    },
+    {
+      "id": "personality_dreamy",
+      "semanticSlotId": "personality",
+      "displayName": "走神云朵",
+      "flavorText": "它常常盯着空气里不存在的泡泡发呆。",
+      "rarity": "N",
+      "themeBoosts": {
+        "shadow": 1.15
+      },
+      "excludes": [],
+      "boosts": {
+        "body_floating_drop": 1.12
+      },
+      "visualMapping": {
+        "mood": "dreamy",
+        "suggestedParts": [
+          "body_floating_drop",
+          "eyes_sleepy_crescent"
+        ]
+      }
+    },
+    {
+      "id": "personality_mischievous",
+      "semanticSlotId": "personality",
+      "displayName": "淘气弹簧",
+      "flavorText": "藏好尾巴之前，它已经把恶作剧笑出了声。",
+      "rarity": "R",
+      "themeBoosts": {
+        "fungal": 1.2
+      },
+      "excludes": [
+        "personality_gentle"
+      ],
+      "boosts": {
+        "oral_lolling_tongue": 1.18
+      },
+      "visualMapping": {
+        "mood": "mischievous",
+        "suggestedParts": [
+          "mouth_wide_grin",
+          "oral_lolling_tongue"
+        ]
+      }
+    },
+    {
+      "id": "personality_shy_shadow",
+      "semanticSlotId": "personality",
+      "displayName": "藏光腼腆",
+      "flavorText": "被看见时，它会把自己的微光调暗一点。",
+      "rarity": "R",
+      "themeBoosts": {
+        "shadow": 1.3
+      },
+      "excludes": [
+        "personality_brave"
+      ],
+      "boosts": {
+        "head_shadow_hood": 1.2
+      },
+      "visualMapping": {
+        "mood": "shy",
+        "suggestedParts": [
+          "head_shadow_hood",
+          "eyes_sleepy_crescent"
+        ]
+      }
+    },
+    {
+      "id": "quirk_light_chaser",
+      "semanticSlotId": "quirk",
+      "displayName": "追光癖",
+      "flavorText": "只要有一点亮，它就忍不住跟着走。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.2,
+        "shadow": 1.15
+      },
+      "excludes": [],
+      "boosts": {
+        "effect_bioluminescent_orbs": 1.3
+      },
+      "visualMapping": {
+        "effectPartIds": [
+          "effect_bioluminescent_orbs"
+        ],
+        "suggestedParts": [
+          "head_antennae_glow",
+          "pattern_constellation"
+        ]
+      }
+    },
+    {
+      "id": "quirk_spore_sneeze",
+      "semanticSlotId": "quirk",
+      "displayName": "孢子喷嚏",
+      "flavorText": "一紧张，就会打出一串暖呼呼的小孢子。",
+      "rarity": "N",
+      "themeBoosts": {
+        "fungal": 1.35
+      },
+      "excludes": [
+        "quirk_tide_hum"
+      ],
+      "boosts": {
+        "effect_spore_glow": 1.3
+      },
+      "visualMapping": {
+        "effectPartIds": [
+          "effect_spore_glow"
+        ],
+        "suggestedParts": [
+          "surface_mushroom_velvet"
+        ]
+      }
+    },
+    {
+      "id": "quirk_tide_hum",
+      "semanticSlotId": "quirk",
+      "displayName": "潮汐哼唱",
+      "flavorText": "安静时，肚子里会传出很小的海浪声。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.3
+      },
+      "excludes": [
+        "quirk_spore_sneeze"
+      ],
+      "boosts": {
+        "tail_fish_fan": 1.15
+      },
+      "visualMapping": {
+        "effectPartIds": [],
+        "suggestedParts": [
+          "tail_fish_fan",
+          "arms_paddle"
+        ]
+      }
+    },
+    {
+      "id": "quirk_collects_echoes",
+      "semanticSlotId": "quirk",
+      "displayName": "回声收藏家",
+      "flavorText": "它把喜欢的声音叠好，藏在柔软肚皮里。",
+      "rarity": "N",
+      "themeBoosts": {
+        "deep-sea": 1.05,
+        "shadow": 1.1
+      },
+      "excludes": [],
+      "boosts": {
+        "head_ears_floppy_fins": 1.05
+      },
+      "visualMapping": {
+        "effectPartIds": [],
+        "suggestedParts": [
+          "head_ears_floppy_fins"
+        ]
+      }
+    },
+    {
+      "id": "quirk_shadow_skip",
+      "semanticSlotId": "quirk",
+      "displayName": "影子慢半拍",
+      "flavorText": "本体停下以后，影子还会多走一小步。",
+      "rarity": "R",
+      "themeBoosts": {
+        "shadow": 1.4
+      },
+      "excludes": [],
+      "boosts": {
+        "legs_shadow_tiptoe": 1.25
+      },
+      "visualMapping": {
+        "effectPartIds": [],
+        "suggestedParts": [
+          "legs_shadow_tiptoe",
+          "color_shadow_violet"
+        ]
+      }
+    },
+    {
+      "id": "quirk_dream_bubbles",
+      "semanticSlotId": "quirk",
+      "displayName": "梦泡逸出",
+      "flavorText": "睡着以后，未做完的梦会变成小泡泡飘出去。",
+      "rarity": "R",
+      "themeBoosts": {
+        "deep-sea": 1.15,
+        "fungal": 1.1
+      },
+      "excludes": [],
+      "boosts": {
+        "surface_gel_bubbles": 1.2
+      },
+      "visualMapping": {
+        "effectPartIds": [
+          "effect_bioluminescent_orbs"
+        ],
+        "suggestedParts": [
+          "surface_gel_bubbles",
+          "body_floating_drop"
+        ]
+      }
+    }
+  ],
+  "modifiers": [
+    {
+      "id": "mutation_albino",
+      "kind": "mutation",
+      "displayName": "月白变异",
+      "flavorText": "色素退成月光般的奶白，暖色仍藏在耳尖与软边里。",
+      "rarity": "R",
+      "baseWeight": 1,
+      "requiresMutation": false,
+      "overrides": {
+        "palette": {
+          "primary": "#f4f0ea",
+          "secondary": "#dce9ef",
+          "accent": "#f4c7b8"
+        }
+      },
+      "themeBoosts": {
+        "shadow": 1.2
+      },
+      "excludes": [
+        "aberration_color_discord"
+      ],
+      "boosts": {},
+      "visualMapping": {
+        "type": "paletteOverride",
+        "targetSlot": null,
+        "assetIds": []
+      }
+    },
+    {
+      "id": "mutation_double_head",
+      "kind": "mutation",
+      "displayName": "双头萌芽",
+      "flavorText": "第二颗脑袋从旁边探出，和第一颗共享同一份好奇。",
+      "rarity": "R",
+      "baseWeight": 1,
+      "requiresMutation": false,
+      "overrides": {
+        "duplicateLayerGroup": "head",
+        "socket": "headAlternate"
+      },
+      "themeBoosts": {
+        "fungal": 1.15
+      },
+      "excludes": [
+        "aberration_misplaced_eye"
+      ],
+      "boosts": {},
+      "visualMapping": {
+        "type": "duplicateLayerGroup",
+        "targetSlot": "headShape",
+        "socket": "headAlternate",
+        "assetIds": []
+      }
+    },
+    {
+      "id": "aberration_color_discord",
+      "kind": "aberration",
+      "displayName": "错彩乐章",
+      "flavorText": "本不该相遇的颜色挤到一起，却意外唱得很响亮。",
+      "rarity": "R",
+      "baseWeight": 1,
+      "requiresMutation": false,
+      "overrides": {
+        "palette": {
+          "primary": "#ff5d8f",
+          "secondary": "#4cc9f0",
+          "accent": "#ffd166"
+        }
+      },
+      "themeBoosts": {
+        "deep-sea": 1.05,
+        "fungal": 1.05,
+        "shadow": 1.05
+      },
+      "excludes": [
+        "mutation_albino"
+      ],
+      "boosts": {},
+      "visualMapping": {
+        "type": "paletteOverride",
+        "targetSlot": "colorScheme",
+        "assetIds": []
+      }
+    },
+    {
+      "id": "aberration_misplaced_eye",
+      "kind": "aberration",
+      "displayName": "迷路之眼",
+      "flavorText": "有一组眼睛走错了位置，仍然认真地看着同一个方向。",
+      "rarity": "R",
+      "baseWeight": 1,
+      "requiresMutation": false,
+      "overrides": {
+        "relocateSlot": "eyes",
+        "socket": "headAlternate"
+      },
+      "themeBoosts": {
+        "shadow": 1.25
+      },
+      "excludes": [
+        "mutation_double_head"
+      ],
+      "boosts": {},
+      "visualMapping": {
+        "type": "relocateSlot",
+        "targetSlot": "eyes",
+        "socket": "headAlternate",
+        "assetIds": []
+      }
+    }
+  ],
+  "dependencies": {
+    "bodyFrame": [
+      "headShape",
+      "eyes",
+      "mouthShape",
+      "oralDetail",
+      "headAppendage",
+      "arms",
+      "legs",
+      "tail",
+      "extraAppendage",
+      "surfaceMaterial",
+      "pattern",
+      "colorScheme",
+      "effect"
+    ],
+    "headShape": [
+      "eyes",
+      "mouthShape",
+      "oralDetail",
+      "headAppendage"
+    ],
+    "mouthShape": [
+      "oralDetail"
+    ]
+  },
+  "compositionPolicy": {
+    "motifSlots": [
+      "headShape",
+      "eyes",
+      "mouthShape",
+      "oralDetail",
+      "headAppendage",
+      "arms",
+      "legs",
+      "tail",
+      "extraAppendage",
+      "surfaceMaterial",
+      "pattern",
+      "effect"
+    ],
+    "surpriseRatio": 0.3,
+    "maxStrongFeatures": 2,
+    "optionalNoneRate": {
+      "min": 0.35,
+      "max": 0.5
+    },
+    "frameBounds": {
+      "x": 96,
+      "y": 64,
+      "width": 1856,
+      "height": 1888
+    },
+    "faceInsideRatio": 0.8,
+    "faceVisibleRatio": 0.85
+  }
+}

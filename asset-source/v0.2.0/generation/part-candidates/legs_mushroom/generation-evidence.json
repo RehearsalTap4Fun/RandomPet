@@ -1,0 +1,24 @@
+{
+  "mode": "built-in image_gen",
+  "useCase": "stylized-concept",
+  "assetType": "game modular paired-feet part asset",
+  "references": [
+    { "path": "asset-source/v0.1.0/rigs/base_biped_v1.png", "role": "reference base for proportions, viewpoint, material, and warm studio lighting" },
+    { "path": "asset-source/v0.1.0/parts/legs_mushroom.png", "role": "current-leg silhouette failure/reference; not an edit target" }
+  ],
+  "attempts": [
+    { "id": "initial-four", "result": "rejected-all", "reason": "built-in outputs baked a checkerboard into fully opaque PNG pixels; immutable extraction gate rejected all four" },
+    { "id": "regeneration-2", "result": "machine-approved-candidates-1-and-3", "selected": 3, "selectionReason": "candidate 3 has a clear forefoot, toe lobes, sole thickness, and narrow ankle connectors; at 256x256 it reads as weight-bearing feet rather than hats, bulbs, or a second head" }
+  ],
+  "generatedFiles": [
+    "exec-cb12450a-9744-4c5b-925f-0c709331267b.png",
+    "exec-ecd76d5c-86ff-4004-85d6-709b777b2ac7.png",
+    "exec-92a421e1-21ea-4f3d-82cc-c46c10542542.png",
+    "exec-8e316a41-4b75-43eb-bf48-c14434d82bec.png",
+    "exec-b79f157f-18a9-42e0-9477-8e79589b2538.png",
+    "exec-59eab0b9-7239-4b9f-a6df-f45a600a3a5a.png",
+    "exec-ba3006d6-72e1-4871-a4b6-c71a54634c2a.png",
+    "exec-8716db47-8245-4f38-be09-3e83f2202763.png"
+  ],
+  "finalPromptPath": "asset-source/v0.2.0/prompts/legs_mushroom.txt"
+}

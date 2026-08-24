@@ -1,0 +1,7 @@
+{
+  "manifestVersion": "qmonster-production-evidence-v1",
+  "canonicalization": "json-object-keys-unicode-code-point-v1",
+  "catalogVersion": "0.2.0",
+  "sourceIndexPath": "packages/asset-catalog/source-index-v0.2.0.json",
+  "evidenceRootSha256": "78748aa35796b415f8c6f78e991a90442f8e53c6cccc9c6916caf6646e2c4fdc"
+}

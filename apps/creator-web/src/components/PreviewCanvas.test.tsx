@@ -48,6 +48,7 @@ describe('CatalogImageResolverCache', () => {
     expect(catalogAssetKey('0.2.0', 'parts/eyes_glossy_pair.png'))
       .toContain('/assets/v0.2.0/parts/eyes_glossy_pair.png')
     await expect(resolveProductionAssetUrl('0.1.0', 'parts/eyes_glossy_pair.png')).resolves.toMatch(/v0\.1\.0/)
+    await expect(resolveProductionAssetUrl('0.2.0', 'parts/eyes_glossy_pair.png')).resolves.toMatch(/v0\.2\.0/)
     await expect(resolveProductionAssetUrl('9.9.9', 'parts/eyes_glossy_pair.png')).rejects.toThrow('not bundled')
   })
 

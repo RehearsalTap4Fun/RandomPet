@@ -1,0 +1,1 @@
+Explicit optional-slot none candidate for tail_none: deterministic fully transparent RGBA layer; no generated pixels.

@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: game modular paired-feet part asset
+Input images: Image 1 is the reference base for creature proportions, three-quarter-front viewpoint, soft tactile 3D rendering, and warm studio lighting. Image 2 is the current leg asset used only as a silhouette failure/reference; do not copy its tall cap-like or second-head reading.
+Primary request: Create one modular paired-feet asset for the supplied friendly 3D cartoon monster base: two short mushroom-inspired feet with clear soles and narrow ankle attachment points.
+Scene/backdrop: no scene; genuinely transparent background.
+Subject: exactly two weight-bearing feet, left and right clearly separated, each with a low foot/sole shape and a short narrow ankle connector.
+Style/medium: polished stylized 3D game asset; soft tactile fungal material matching the reference base.
+Composition/framing: three-quarter front view; centered on a 2048×2048 production canvas; generous clear space around and between each foot; both complete feet fully visible.
+Lighting/mood: warm studio light matching Image 1, but no cast ground shadow.
+Constraints: deliver a PNG with true RGBA transparency: every pixel outside the two feet must have alpha 0. Do not draw, bake, or rasterize a transparency checkerboard, white backdrop, gray backdrop, or any background pixels. The feet must unmistakably read as legs/feet at 256×256, not hats or a second head; keep left and right feet separated; include no body, face, eyes, mouth, spores, ground plane, ground shadow, text, border, watermark, or background.
+Avoid: mushroom-cap silhouette dominating either foot; tall stalks; merged pair; cropped edges; extra objects.
