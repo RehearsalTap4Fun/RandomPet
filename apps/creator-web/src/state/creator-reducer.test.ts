@@ -145,6 +145,60 @@ describe('createCreatorReducer', () => {
     expect(recovered.blocked).toBe(false)
   })
 
+  it('keeps strong-feature warnings non-blocking while face render errors block export', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const warned = refreshSessionValidity({
+      ...makeSession(catalog),
+      generationDiagnostics: [{
+        severity: 'warning',
+        code: 'COMPOSITION_INTENSITY_EXCEEDED',
+        path: ['visualSlots'],
+        message: 'three strong features',
+      }],
+    })
+
+    const blocked = reducer(warned, {
+      type: 'setRenderDiagnostics',
+      diagnostics: [{
+        severity: 'error',
+        code: 'COMPOSITION_FACE_OCCLUDED',
+        path: ['visualSlots', 'eyes'],
+        message: 'eyes hidden',
+      }],
+    })
+
+    expect(warned.blocked).toBe(false)
+    expect(blocked.blocked).toBe(true)
+  })
+
+  it('replaces stale composition warnings when the affected local slot is recomputed', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const stale = refreshSessionValidity({
+      ...makeSession(catalog),
+      generationDiagnostics: [
+        {
+          severity: 'warning',
+          code: 'COMPOSITION_THEME_FALLBACK',
+          path: ['visualSlots', 'tail'],
+          message: 'old theme fallback',
+        },
+        {
+          severity: 'warning',
+          code: 'COMPOSITION_INTENSITY_EXCEEDED',
+          path: ['visualSlots'],
+          message: 'old intensity',
+        },
+      ],
+    })
+
+    const next = reducer(stale, { type: 'rerollSlot', slotId: 'tail' })
+
+    expect(next.diagnostics).not.toContainEqual(expect.objectContaining({ message: 'old theme fallback' }))
+    expect(next.diagnostics).not.toContainEqual(expect.objectContaining({ message: 'old intensity' }))
+  })
+
   it('clears obsolete render diagnostics on generation without using them as generation intent', () => {
     const catalog = makeValidCatalogFixture()
     const reducer = createCreatorReducer(catalog)

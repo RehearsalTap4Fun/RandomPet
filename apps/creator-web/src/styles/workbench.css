@@ -463,6 +463,42 @@ a:focus-visible {
 
 .status-strip .status-strip__error span { color: var(--coral); }
 
+.composition-status {
+  margin: 7px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  list-style: none;
+}
+
+.composition-status li {
+  padding: 5px 8px;
+  color: #356d64;
+  border: 1px solid #aad5c9;
+  border-radius: 999px;
+  background: rgba(217, 240, 232, 0.6);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.legacy-spec-viewer__main {
+  min-height: calc(100vh - 74px);
+  padding: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.legacy-spec-viewer__preview {
+  width: min(100%, 700px);
+}
+
+.legacy-spec-viewer__preview > p:not(.eyebrow) {
+  color: var(--ink-soft);
+}
+
 .diagnostics-panel {
   width: min(100%, 650px);
   margin: 9px auto 0;

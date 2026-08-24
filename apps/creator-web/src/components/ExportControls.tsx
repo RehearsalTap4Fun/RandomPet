@@ -1,7 +1,7 @@
 import { useRef, type ChangeEvent, type RefObject } from 'react'
 import type { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { CanvasExportError, type ExportMimeType } from '@qmonster/renderer-canvas'
-import type { Diagnostic, MonsterSpec } from '@qmonster/generator-core'
+import type { Catalog, Diagnostic, MonsterSpec } from '@qmonster/generator-core'
 import type { CreatorSession } from '../state/contracts.js'
 import { downloadRenderedImage } from '../io/image-file.js'
 import { downloadSpec, parseSpecFile } from '../io/spec-file.js'
@@ -10,7 +10,7 @@ export interface ExportControlsProps {
   session: CreatorSession
   registry: CatalogRegistry
   canvasRef: RefObject<HTMLCanvasElement | null>
-  onImportComplete: (spec: MonsterSpec) => void
+  onImportComplete: (payload: { spec: MonsterSpec; catalog: Catalog }) => void
   onOperationDiagnostics: (diagnostics: Diagnostic[]) => void
 }
 
@@ -56,7 +56,7 @@ export function ExportControls({
       return
     }
     onOperationDiagnostics(result.diagnostics)
-    onImportComplete(result.value.spec)
+    onImportComplete(result.value)
   }
 
   const exportJson = () => {

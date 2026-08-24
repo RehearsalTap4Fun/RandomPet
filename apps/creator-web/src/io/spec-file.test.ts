@@ -227,14 +227,26 @@ describe('parseSpecFile', () => {
     }
   })
 
-  it('round-trips a valid spec with its exact catalog and no diagnostics', async () => {
+  it('round-trips a valid spec with its exact catalog and legacy warning', async () => {
     const spec = makeValidMonsterSpecFixture()
 
     await expect(parseSpecFile(createSpecFile(spec), registry)).resolves.toEqual({
       ok: true,
       value: { spec, catalog: currentCatalog },
-      diagnostics: [],
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_OLD' })],
     })
+  })
+
+  it('uses 0.2.0 as the default current catalog for legacy import warnings', async () => {
+    const oldCatalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+
+    const result = await parseSpecFile(createSpecFile(spec), createRegistry(oldCatalog))
+
+    expect(result.ok).toBe(true)
+    if (result.ok) expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_VERSION_OLD',
+    }))
   })
 })
 

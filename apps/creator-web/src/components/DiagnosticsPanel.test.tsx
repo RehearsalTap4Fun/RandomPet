@@ -44,4 +44,29 @@ describe('DiagnosticsPanel', () => {
     render(<DiagnosticsPanel diagnostics={[]} />)
     expect(screen.getByRole('status').textContent).toMatch(/组合状态良好/)
   })
+
+  it('links composition face and bounds diagnostics to their responsible controls with Chinese guidance', () => {
+    const diagnostics: Diagnostic[] = [
+      {
+        severity: 'error',
+        code: 'COMPOSITION_FACE_OCCLUDED',
+        path: ['renderNodes', 'effect_glow_0'],
+        message: 'obsolete renderer message',
+      },
+      {
+        severity: 'error',
+        code: 'COMPOSITION_BOUNDS_EXCEEDED',
+        path: ['visibleBounds'],
+        message: 'obsolete renderer message',
+      },
+    ]
+
+    render(<DiagnosticsPanel diagnostics={diagnostics} />)
+
+    expect(screen.getByText('COMPOSITION_FACE_OCCLUDED')).toBeTruthy()
+    expect(screen.getByRole('link', { name: '定位到氛围效果' }).getAttribute('href')).toBe('#slot-control-effect')
+    expect(screen.getByRole('link', { name: '定位到体型骨架' }).getAttribute('href')).toBe('#slot-control-bodyFrame')
+    expect(screen.getAllByText(/面部/).length).toBeGreaterThan(0)
+    expect(screen.getByText(/画面边界/)).toBeTruthy()
+  })
 })

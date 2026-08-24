@@ -56,17 +56,21 @@ const REPLACEABLE_SLOT_DIAGNOSTIC_CODES = new Set([
   'NO_COMPATIBLE_CANDIDATE',
   'PART_NOT_FOUND',
   'PART_INCOMPATIBLE',
+  'COMPOSITION_THEME_FALLBACK',
+  'COMPOSITION_INTENSITY_EXCEEDED',
 ])
 
 function isReplaceableAffectedDiagnostic(
   diagnostic: Diagnostic,
   affected: ReadonlySet<VisualSlotId>,
 ): boolean {
+  if (!REPLACEABLE_SLOT_DIAGNOSTIC_CODES.has(diagnostic.code)) return false
+  if (diagnostic.code === 'COMPOSITION_INTENSITY_EXCEEDED') return affected.size > 0
   const slotId = diagnostic.path[1] as VisualSlotId | undefined
-  return REPLACEABLE_SLOT_DIAGNOSTIC_CODES.has(diagnostic.code)
-    && diagnostic.path[0] === 'visualSlots'
-    && slotId !== undefined
-    && affected.has(slotId)
+  if (diagnostic.code === 'COMPOSITION_THEME_FALLBACK') {
+    return diagnostic.path[0] === 'visualSlots' && slotId !== undefined && affected.has(slotId)
+  }
+  return diagnostic.path[0] === 'visualSlots' && slotId !== undefined && affected.has(slotId)
 }
 
 function diagnosticKey(diagnostic: Diagnostic): string {

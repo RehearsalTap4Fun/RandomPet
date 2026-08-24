@@ -7,7 +7,8 @@ import {
   type Catalog,
   type Diagnostic,
 } from '@qmonster/generator-core'
-import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.1.0/catalog.json'
+import legacyProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.1.0/catalog.json'
+import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
 import type { CreatorAction, CreatorSession } from './state/contracts.js'
 import { DiagnosticsPanel } from './components/DiagnosticsPanel.js'
@@ -18,14 +19,22 @@ import {
 } from './components/PreviewCanvas.js'
 import { SlotPanel } from './components/SlotPanel.js'
 import { ExportControls } from './components/ExportControls.js'
+import { CompositionStatus } from './components/CompositionStatus.js'
+import { LegacySpecViewer } from './components/LegacySpecViewer.js'
 
 const parsedProductionCatalog = parseCatalog(productionCatalogDocument)
 if (!parsedProductionCatalog.ok) {
   throw new Error(`Production catalog is invalid: ${parsedProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
 }
 export const productionCatalog = parsedProductionCatalog.value
+const parsedLegacyProductionCatalog = parseCatalog(legacyProductionCatalogDocument)
+if (!parsedLegacyProductionCatalog.ok) {
+  throw new Error(`Legacy production catalog is invalid: ${parsedLegacyProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
+}
+export const legacyProductionCatalog = parsedLegacyProductionCatalog.value
 export const productionCatalogRegistry = new CatalogRegistry(new Map([
-  ['0.1.0', async () => productionCatalog],
+  ['0.1.0', async () => legacyProductionCatalog],
+  ['0.2.0', async () => productionCatalog],
 ]))
 
 interface CreatorWorkbenchProps {
@@ -33,6 +42,7 @@ interface CreatorWorkbenchProps {
   catalog: Catalog
   catalogRegistry?: CatalogRegistry
   onAction: (action: CreatorAction) => void
+  onInspectLegacy?: (payload: { spec: import('@qmonster/generator-core').MonsterSpec; catalog: Catalog }) => void
   previewRenderer?: PreviewRenderer
 }
 
@@ -79,6 +89,7 @@ export function CreatorWorkbench({
   catalog,
   catalogRegistry = productionCatalogRegistry,
   onAction,
+  onInspectLegacy,
   previewRenderer,
 }: CreatorWorkbenchProps) {
   const [observationBackground, setObservationBackground] = useState<ObservationBackground>('studio')
@@ -103,7 +114,13 @@ export function CreatorWorkbench({
           session={session}
           registry={catalogRegistry}
           canvasRef={previewCanvasRef}
-          onImportComplete={spec => onAction({ type: 'importSpec', spec })}
+          onImportComplete={payload => {
+            if (payload.catalog.version === productionCatalog.version) {
+              onAction({ type: 'importSpec', spec: payload.spec })
+              return
+            }
+            onInspectLegacy?.(payload)
+          }}
           onOperationDiagnostics={setOperationDiagnostics}
         />
       </header>
@@ -147,6 +164,11 @@ export function CreatorWorkbench({
             <span className="preview-stage__label">1024 × 1024 · 实时合成</span>
           </div>
           <StatusStrip session={session} catalog={catalog} />
+          <CompositionStatus
+            spec={session.spec}
+            catalog={catalog}
+            diagnostics={session.diagnostics}
+          />
           <DiagnosticsPanel diagnostics={[...session.diagnostics, ...operationDiagnostics]} />
         </section>
 
@@ -192,6 +214,19 @@ function InitializedCreatorApp({
     },
     exportCapabilities,
   })
+  const [legacyInspection, setLegacyInspection] = useState<{
+    spec: import('@qmonster/generator-core').MonsterSpec
+    catalog: Catalog
+  } | null>(null)
+
+  if (legacyInspection !== null) {
+    return <LegacySpecViewer
+      spec={legacyInspection.spec}
+      catalog={legacyInspection.catalog}
+      exportCapabilities={exportCapabilities}
+      onReturn={() => setLegacyInspection(null)}
+    />
+  }
 
   return (
     <CreatorWorkbench
@@ -199,6 +234,7 @@ function InitializedCreatorApp({
       catalog={productionCatalog}
       catalogRegistry={productionCatalogRegistry}
       onAction={dispatch}
+      onInspectLegacy={setLegacyInspection}
     />
   )
 }

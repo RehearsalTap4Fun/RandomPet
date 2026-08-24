@@ -6,7 +6,7 @@ import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { createCreatorSession } from './state/contracts.js'
 import { refreshSessionValidity } from './state/session-diagnostics.js'
-import { CreatorWorkbench, productionCatalogRegistry } from './App.js'
+import { App, CreatorWorkbench, productionCatalog, productionCatalogRegistry } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
 
 function installCanvasContexts() {
@@ -24,9 +24,25 @@ function installCanvasContexts() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CreatorWorkbench', () => {
-  it('registers only the exact bundled production catalog version', async () => {
+  it('starts first-hatch with catalog and renderer 0.2.0', async () => {
+    installCanvasContexts()
+    vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation(callback => {
+      callback(new Blob([], { type: 'image/webp' }))
+    })
+    render(<App />)
+
+    expect(await screen.findByText('目录 v0.2.0')).toBeTruthy()
+    expect(productionCatalog.version).toBe('0.2.0')
+  })
+
+  it('installs both exact catalog versions without fallback', async () => {
     expect((await productionCatalogRegistry.load('0.1.0')).ok).toBe(true)
+    expect((await productionCatalogRegistry.load('0.2.0')).ok).toBe(true)
     expect(await productionCatalogRegistry.load('0.1')).toEqual({
+      ok: false,
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
+    })
+    expect(await productionCatalogRegistry.load('0.2.1')).toEqual({
       ok: false,
       diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
     })
@@ -106,7 +122,7 @@ describe('CreatorWorkbench', () => {
     expect(screen.getByText('锁定 2')).toBeTruthy()
     expect(screen.getByText('错误 1')).toBeTruthy()
     expect(screen.getByText('主题 fungal')).toBeTruthy()
-    expect(screen.getByText('目录 v0.1.0')).toBeTruthy()
+    expect(screen.getByText(`目录 v${catalog.version}`)).toBeTruthy()
     const diagnostics = screen.getByRole('region', { name: '诊断信息' })
     await waitFor(() => expect(within(diagnostics).getAllByRole('heading', { level: 3 })
       .map(item => item.textContent)).toEqual(['错误 · 1', '提醒 · 1']))

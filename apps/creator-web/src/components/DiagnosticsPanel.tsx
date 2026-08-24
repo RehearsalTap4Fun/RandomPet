@@ -7,9 +7,30 @@ interface DiagnosticsPanelProps {
 }
 
 function targetSlot(diagnostic: Diagnostic): VisualSlotId | null {
+  if (diagnostic.code === 'COMPOSITION_BOUNDS_EXCEEDED') return 'bodyFrame'
+  if (diagnostic.code === 'COMPOSITION_FACE_OUT_OF_ZONE' || diagnostic.code === 'COMPOSITION_FACE_OCCLUDED') {
+    if (diagnostic.code === 'COMPOSITION_FACE_OCCLUDED' && diagnostic.path.some(segment => (
+      segment === 'effect' || segment.startsWith('effect_')
+    ))) return 'effect'
+    if (diagnostic.path.includes('mouthShape')) return 'mouthShape'
+    return 'eyes'
+  }
   if (diagnostic.path[0] !== 'visualSlots') return null
   const value = diagnostic.path[1]
   return VISUAL_SLOT_IDS.find(slotId => slotId === value) ?? null
+}
+
+function diagnosticMessage(diagnostic: Diagnostic): string {
+  switch (diagnostic.code) {
+    case 'COMPOSITION_FACE_OUT_OF_ZONE':
+      return '面部位置偏离安全区域，请调整相关特征。'
+    case 'COMPOSITION_FACE_OCCLUDED':
+      return '面部被遮挡，请调整眼睛、嘴型或氛围效果。'
+    case 'COMPOSITION_BOUNDS_EXCEEDED':
+      return '生物轮廓超出画面边界，请调整体型骨架。'
+    default:
+      return diagnostic.message
+  }
 }
 
 function DiagnosticItem({ diagnostic }: { diagnostic: Diagnostic }) {
@@ -18,7 +39,7 @@ function DiagnosticItem({ diagnostic }: { diagnostic: Diagnostic }) {
   return (
     <li className={`diagnostic diagnostic--${diagnostic.severity}`}>
       <div className="diagnostic__code">{diagnostic.code}</div>
-      <p>{diagnostic.message}</p>
+      <p>{diagnosticMessage(diagnostic)}</p>
       {slotId !== null && (
         <a
           href={`#slot-control-${slotId}`}

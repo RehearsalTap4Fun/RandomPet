@@ -62,8 +62,13 @@ describe('ExportControls', () => {
     )
 
     expect(props.onImportComplete).toHaveBeenCalledTimes(1)
-    expect(props.onImportComplete).toHaveBeenCalledWith(props.session.spec)
-    expect(props.onOperationDiagnostics).toHaveBeenLastCalledWith([])
+    expect(props.onImportComplete).toHaveBeenCalledWith({
+      spec: props.session.spec,
+      catalog: expect.objectContaining({ version: props.session.spec.catalogVersion }),
+    })
+    expect(props.onOperationDiagnostics).toHaveBeenLastCalledWith([
+      expect.objectContaining({ code: 'CATALOG_VERSION_OLD' }),
+    ])
   })
 
   it('reports unsupported WebP as a warning without disabling other exports', async () => {
