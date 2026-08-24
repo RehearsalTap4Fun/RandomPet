@@ -1,5 +1,7 @@
 export * from './types.js'
 export * from './layout.js'
 export * from './layers.js'
+export * from './attachment-tree.js'
+export * from './composition-metrics.js'
 export * from './render.js'
 export * from './export.js'

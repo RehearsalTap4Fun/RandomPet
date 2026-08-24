@@ -14,7 +14,11 @@ import {
   type VisualPartDefinition,
   type VisualSlotId,
 } from './contracts.js'
-import { planComposition, validateCompositionSelections } from './composition.js'
+import {
+  planComposition,
+  rendererVersionForCatalog,
+  validateCompositionSelections,
+} from './composition.js'
 
 export const CURRENT_SPEC_VERSIONS: SupportedSpecVersions = {
   schemaVersion: '0.1.0',
@@ -119,6 +123,21 @@ function validateModifier(
 
   const destinationSocket = definition.overrides.socket
   if (destinationSocket === undefined) return
+  if (catalog.compositionPolicy !== undefined) {
+    const bodySelection = spec.visualSlots.bodyFrame
+    const bodyPart = selectedParts.get('bodyFrame')
+    if (
+      bodyPart?.composition?.geometryByRig[bodySelection.rigId]
+        ?.sockets[destinationSocket] === undefined
+    ) {
+      diagnostics.push(error(
+        'SPEC_SOCKET_MISSING',
+        path.concat('overrides', 'socket'),
+        `Body part ${bodyPart?.id ?? bodySelection.partId} has no ${destinationSocket} composition socket.`,
+      ))
+    }
+    return
+  }
   for (const [slotId, part] of selectedParts) {
     const appliesToPart = (
       definition.overrides.duplicateLayerGroup === 'head'
@@ -152,11 +171,12 @@ export function validateMonsterSpecAgainstCatalog(
       `MonsterSpec schema version ${spec.schemaVersion} is unsupported; expected ${versions.schemaVersion}.`,
     ))
   }
-  if (spec.rendererVersion !== versions.rendererVersion) {
+  const expectedRenderer = rendererVersionForCatalog(catalog)
+  if (spec.rendererVersion !== expectedRenderer) {
     diagnostics.push(error(
       'SPEC_RENDERER_VERSION_UNSUPPORTED',
       ['rendererVersion'],
-      `MonsterSpec renderer version ${spec.rendererVersion} is unsupported; expected ${versions.rendererVersion}.`,
+      `Catalog ${catalog.version} requires renderer ${expectedRenderer}.`,
     ))
   }
   if (spec.catalogVersion !== catalog.version) {
@@ -204,7 +224,11 @@ export function validateMonsterSpecAgainstCatalog(
           `Part ${part.id} is not compatible with rig ${rig.id}.`,
         ))
       }
-      if (part.socket !== null && rig.sockets[part.socket] === undefined) {
+      if (
+        catalog.compositionPolicy === undefined
+        && part.socket !== null
+        && rig.sockets[part.socket] === undefined
+      ) {
         diagnostics.push(error(
           'SPEC_SOCKET_MISSING',
           ['visualSlots', slotId, 'rigId'],

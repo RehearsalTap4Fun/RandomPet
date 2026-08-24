@@ -17,6 +17,36 @@ const versions = {
 } as const
 
 describe('validateMonsterSpecAgainstCatalog', () => {
+  it('derives the required renderer version from the catalog', () => {
+    const legacyCatalog = makeValidCatalogFixture()
+    const compositionCatalog = makeCompositionCatalogFixture()
+
+    expect(validateMonsterSpecAgainstCatalog(
+      makeValidMonsterSpecFixture(), legacyCatalog,
+    )).not.toContainEqual(expect.objectContaining({
+      code: 'SPEC_RENDERER_VERSION_UNSUPPORTED',
+    }))
+    expect(validateMonsterSpecAgainstCatalog(
+      makeValidCompositionSpecFixture(compositionCatalog), compositionCatalog,
+    )).not.toContainEqual(expect.objectContaining({
+      code: 'SPEC_RENDERER_VERSION_UNSUPPORTED',
+    }))
+  })
+
+  it('uses composition geometry rather than legacy rig sockets for composition modifiers', () => {
+    const catalog = makeCompositionCatalogFixture()
+    delete catalog.rigs.find(rig => rig.id === 'blob')!.sockets.headAlternate
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).not.toContainEqual(
+      expect.objectContaining({
+        code: 'SPEC_SOCKET_MISSING', path: ['mutation', 'overrides', 'socket'],
+      }),
+    )
+  })
+
   it('reports a warning when a composition-aware spec exceeds its strong feature budget', () => {
     const catalog = makeCompositionCatalogFixture()
     const spec = makeValidCompositionSpecFixture(catalog)

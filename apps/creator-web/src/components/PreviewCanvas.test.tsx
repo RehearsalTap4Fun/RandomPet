@@ -3,6 +3,7 @@ import { act, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { generateMonster, type Diagnostic } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
+import type { RenderResult } from '@qmonster/renderer-canvas'
 import {
   CatalogImageResolverCache,
   PreviewCanvas,
@@ -71,7 +72,9 @@ describe('PreviewCanvas', () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()
     const spec = generateMonster({ seed: 'forwarded', themeId: 'fungal', mode: 'normal' }, catalog).spec
-    const renderer: PreviewRenderer = vi.fn(async () => ({ drawnAssetIds: [], diagnostics: [] }))
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+    }))
     const canvasRef = createRef<HTMLCanvasElement>()
 
     render(
@@ -92,7 +95,9 @@ describe('PreviewCanvas', () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()
     const spec = generateMonster({ seed: 'preview', themeId: 'fungal', mode: 'normal' }, catalog).spec
-    const renderer: PreviewRenderer = vi.fn(async () => ({ drawnAssetIds: [], diagnostics: [] }))
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+    }))
     render(<PreviewCanvas spec={spec} catalog={catalog} renderer={renderer} onDiagnosticsChange={() => undefined} />)
 
     const canvas = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
@@ -109,7 +114,7 @@ describe('PreviewCanvas', () => {
     const stagingContexts: CanvasRenderingContext2D[] = []
     const renderer: PreviewRenderer = vi.fn(async context => {
       stagingContexts.push(context)
-      return { drawnAssetIds: [], diagnostics: [] }
+      return { drawnAssetIds: [], diagnostics: [], compositionMetrics: null }
     })
     const view = render(
       <PreviewCanvas
@@ -141,8 +146,8 @@ describe('PreviewCanvas', () => {
     const catalog = makeValidCatalogFixture()
     const oldSpec = generateMonster({ seed: 'old', themeId: 'fungal', mode: 'normal' }, catalog).spec
     const newSpec = { ...oldSpec, seed: 'new' }
-    const oldRender = deferred<{ drawnAssetIds: string[]; diagnostics: Diagnostic[] }>()
-    const newRender = deferred<{ drawnAssetIds: string[]; diagnostics: Diagnostic[] }>()
+    const oldRender = deferred<RenderResult>()
+    const newRender = deferred<RenderResult>()
     const renderer: PreviewRenderer = vi.fn((_context, spec) => (
       spec.seed === 'old' ? oldRender.promise : newRender.promise
     ))
@@ -171,8 +176,12 @@ describe('PreviewCanvas', () => {
       severity: 'error', code: 'ASSET_LOAD_FAILED',
       path: ['parts', 'eyes'], message: 'stale asset failure',
     }
-    await act(async () => newRender.resolve({ drawnAssetIds: [], diagnostics: [] }))
-    await act(async () => oldRender.resolve({ drawnAssetIds: [], diagnostics: [assetError] }))
+    await act(async () => newRender.resolve({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+    }))
+    await act(async () => oldRender.resolve({
+      drawnAssetIds: [], diagnostics: [assetError], compositionMetrics: null,
+    }))
 
     expect(onDiagnosticsChange).toHaveBeenLastCalledWith([])
     expect(onDiagnosticsChange.mock.calls.flatMap(([items]) => items as Diagnostic[])).not.toContainEqual(assetError)
@@ -188,7 +197,7 @@ describe('PreviewCanvas', () => {
     const newSpec = { ...oldSpec, seed: 'latest-failure' }
     const renderer: PreviewRenderer = vi.fn(async (_context, spec) => {
       if (spec.seed === 'latest-failure') throw new Error('latest render failed')
-      return { drawnAssetIds: [], diagnostics: [] }
+      return { drawnAssetIds: [], diagnostics: [], compositionMetrics: null }
     })
     const onDiagnosticsChange = vi.fn()
     const view = render(
@@ -223,11 +232,11 @@ describe('PreviewCanvas', () => {
     const catalog = makeValidCatalogFixture()
     const oldSpec = generateMonster({ seed: 'obsolete-failure', themeId: 'fungal', mode: 'normal' }, catalog).spec
     const newSpec = { ...oldSpec, seed: 'newest-success' }
-    const oldRender = deferred<{ drawnAssetIds: string[]; diagnostics: Diagnostic[] }>()
+    const oldRender = deferred<RenderResult>()
     const renderer: PreviewRenderer = vi.fn((_context, spec) => (
       spec.seed === 'obsolete-failure'
         ? oldRender.promise
-        : Promise.resolve({ drawnAssetIds: [], diagnostics: [] })
+        : Promise.resolve({ drawnAssetIds: [], diagnostics: [], compositionMetrics: null })
     ))
     const onDiagnosticsChange = vi.fn()
     const view = render(
@@ -260,7 +269,7 @@ describe('PreviewCanvas', () => {
     const { contexts } = installCanvasContexts()
     const catalog = makeValidCatalogFixture()
     const spec = generateMonster({ seed: 'unmounted', themeId: 'fungal', mode: 'normal' }, catalog).spec
-    const pending = deferred<{ drawnAssetIds: string[]; diagnostics: Diagnostic[] }>()
+    const pending = deferred<RenderResult>()
     const renderer: PreviewRenderer = vi.fn(() => pending.promise)
     const onDiagnosticsChange = vi.fn()
     const view = render(
@@ -274,7 +283,9 @@ describe('PreviewCanvas', () => {
     const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
     await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
     view.unmount()
-    await act(async () => pending.resolve({ drawnAssetIds: [], diagnostics: [] }))
+    await act(async () => pending.resolve({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+    }))
 
     expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
     expect(onDiagnosticsChange.mock.calls.flatMap(([items]) => items as Diagnostic[])).toEqual([])

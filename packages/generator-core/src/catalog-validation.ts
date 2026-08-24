@@ -133,6 +133,16 @@ function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[
         `Visible composition part ${part.id} must define at least one render node.`,
       ))
     }
+    if (
+      REQUIRED_PROVIDER_SOCKETS[part.slotId] !== undefined
+      && composition.renderNodes.length !== 1
+    ) {
+      diagnostics.push(error(
+        'COMPOSITION_PROVIDER_AMBIGUOUS',
+        path.concat('composition', 'renderNodes'),
+        `Socket-providing part ${part.id} must define exactly one render node.`,
+      ))
+    }
 
     const expectedParentSlot = COMPOSITION_PARENT_BY_SLOT[part.slotId]
     for (const [nodeIndex, node] of composition.renderNodes.entries()) {

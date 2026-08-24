@@ -8,6 +8,8 @@ import {
 } from '@qmonster/generator-core'
 import {
   makeValidCatalogFixture,
+  makeCompositionCatalogFixture,
+  makeValidCompositionSpecFixture,
   makeValidMonsterSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
 import { resolvePartPlacement, resolvePlacement } from './layout.js'
@@ -112,6 +114,62 @@ function makeRecordingSurfaceFactory(calls: string[]) {
       canvas: image(id),
       context: makeRecordingContext(calls, `${id}:`),
     }
+  }
+}
+
+function sparseAlpha(points: readonly (readonly [number, number])[]): Uint8ClampedArray {
+  const width = 2048
+  const lastIndex = points.reduce((maximum, [x, y]) => (
+    Math.max(maximum, (y * width + x) * 4 + 3)
+  ), -1)
+  const pixels = new Uint8ClampedArray(lastIndex + 1)
+  for (const [x, y] of points) pixels[(y * width + x) * 4 + 3] = 255
+  return pixels
+}
+
+interface CompositionAlphaFixture {
+  body: Uint8ClampedArray
+  eyes: Uint8ClampedArray
+  mouth: Uint8ClampedArray
+  output: Uint8ClampedArray
+  occluders: Uint8ClampedArray[]
+}
+
+function healthyCompositionAlpha(): CompositionAlphaFixture {
+  return {
+    body: sparseAlpha([[500, 500]]),
+    eyes: sparseAlpha([[100, 100]]),
+    mouth: sparseAlpha([[100, 100]]),
+    output: sparseAlpha([[500, 500]]),
+    occluders: [sparseAlpha([]), sparseAlpha([])],
+  }
+}
+
+function makeCompositionSurfaceFactory(
+  calls: string[],
+  alpha: CompositionAlphaFixture = healthyCompositionAlpha(),
+) {
+  const reads = [
+    [sparseAlpha([])],
+    [alpha.body],
+    [alpha.eyes],
+    [alpha.mouth],
+    [alpha.output],
+    [alpha.occluders[1] ?? sparseAlpha([]), alpha.occluders[0] ?? sparseAlpha([])],
+  ]
+  let nextCanvas = 0
+  return () => {
+    const index = nextCanvas
+    const id = `composition-${nextCanvas += 1}`
+    const context = makeRecordingContext(calls, `${id}:`)
+    let readIndex = 0
+    Object.assign(context, {
+      getImageData: () => ({
+        data: reads[index]?.[Math.min(readIndex++, (reads[index]?.length ?? 1) - 1)]
+          ?? sparseAlpha([]),
+      }),
+    })
+    return { canvas: image(id), context }
   }
 }
 
@@ -234,6 +292,7 @@ describe('render layer expansion', () => {
     expect(calls.filter(call => call.startsWith('draw:'))).toEqual(
       expected.map(id => `draw:parts/${id}.webp`),
     )
+    expect(result.compositionMetrics).toBeNull()
   })
 
   it('omits only the ground shadow group when requested', async () => {
@@ -360,6 +419,143 @@ describe('render layer expansion', () => {
     expandRenderLayers(spec, catalog)
 
     expect(spec).toEqual(snapshot)
+  })
+})
+
+describe('composition canvas rendering', () => {
+  it('draws multi-node parts in layer order and applies body and face clipping', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    catalog.parts.find(part => part.slotId === 'arms')!
+      .composition!.renderNodes[0]!.clipPolicy = 'body'
+    catalog.parts.find(part => part.slotId === 'effect')!
+      .composition!.renderNodes[0]!.clipPolicy = 'protect-face'
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext(calls), spec, catalog, makeResolver(), {
+        ...options1024, surfaceFactory: makeCompositionSurfaceFactory(calls),
+      },
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(calls.filter(call => call.startsWith('composition-1:draw:nodes/'))).toEqual([
+      'composition-1:draw:nodes/tail_anchor_0.webp',
+      'composition-1:draw:nodes/extra_wings_0.webp',
+      'composition-1:draw:nodes/extra_wings_1.webp',
+      'composition-1:draw:nodes/body_blob_0.webp',
+      'composition-1:draw:nodes/surface_gel_0.webp',
+      'composition-1:draw:nodes/pattern_spots_0.webp',
+      'composition-1:draw:nodes/color_scheme_ocean_0.webp',
+      'composition-1:draw:nodes/arms_short_0.webp',
+      'composition-1:draw:nodes/arms_short_1.webp',
+      'composition-1:draw:nodes/legs_webbed_0.webp',
+      'composition-1:draw:nodes/legs_webbed_1.webp',
+      'composition-1:draw:nodes/head_round_0.webp',
+      'composition-1:draw:nodes/eyes_asymmetric_0.webp',
+      'composition-1:draw:nodes/mouth_wide_0.webp',
+      'composition-1:draw:nodes/oral_teeth_0.webp',
+      'composition-1:draw:nodes/head_antennae_0.webp',
+      'composition-1:draw:nodes/effect_glow_0.webp',
+    ])
+    expect(calls).toContain('composition-1:composite:destination-in')
+    expect(calls).toContain('composition-1:draw:composition-2')
+    expect(calls).toContain('composition-1:composite:destination-out')
+    expect(calls).toContain('composition-1:fillRect:-24,76,1048,900:')
+  })
+
+  it('blocks face alpha below the 80% inside and 85% visible thresholds', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const inside = Array.from({ length: 79 }, (_, x) => [x, 100] as const)
+    const outside = Array.from({ length: 21 }, (_, x) => [x, 0] as const)
+    const occluded = Array.from({ length: 16 }, (_, x) => [x, 100] as const)
+    const alpha = healthyCompositionAlpha()
+    alpha.eyes = sparseAlpha([...inside, ...outside])
+    alpha.occluders = [sparseAlpha(occluded), sparseAlpha([])]
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024, surfaceFactory: makeCompositionSurfaceFactory([], alpha),
+      },
+    )
+
+    expect(result.compositionMetrics).toMatchObject({
+      eyesInsideRatio: 0.79,
+      eyesVisibleRatio: 0.84,
+      mouthInsideRatio: 1,
+      mouthVisibleRatio: 1,
+    })
+    expect(result.diagnostics).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        severity: 'error', code: 'COMPOSITION_FACE_OUT_OF_ZONE',
+        path: ['visualSlots', 'eyes'],
+      }),
+      expect.objectContaining({
+        severity: 'error', code: 'COMPOSITION_FACE_OCCLUDED',
+        path: ['visualSlots', 'eyes'],
+      }),
+    ]))
+  })
+
+  it('blocks visible pixels outside the catalog frame bounds', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const alpha = healthyCompositionAlpha()
+    alpha.output = sparseAlpha([[127, 128]])
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024, surfaceFactory: makeCompositionSurfaceFactory([], alpha),
+      },
+    )
+
+    expect(result.compositionMetrics?.visibleBounds).toEqual({
+      x: 127, y: 128, width: 1, height: 1,
+    })
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'COMPOSITION_BOUNDS_EXCEEDED',
+      path: ['visualSlots', 'bodyFrame'],
+    }))
+  })
+
+  it('preserves the source MonsterSpec across a composition render', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+    const snapshot = structuredClone(spec)
+
+    await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeCompositionSurfaceFactory([]),
+    })
+
+    expect(spec).toEqual(snapshot)
+  })
+
+  it('does not resolve assets after attachment structure validation fails', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    delete catalog.parts.find(part => part.slotId === 'headShape')!
+      .composition!.geometryByRig.blob!.sockets.eyes
+    const spec = makeValidCompositionSpecFixture(catalog)
+    let resolverCalls = 0
+    const resolver: ImageResolver = {
+      async resolve(assetPath) {
+        resolverCalls += 1
+        return image(assetPath)
+      },
+    }
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, resolver, options1024,
+    )
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'COMPOSITION_SOCKET_MISSING',
+    }))
+    expect(result.drawnAssetIds).toEqual([])
+    expect(result.compositionMetrics).toBeNull()
+    expect(resolverCalls).toBe(0)
   })
 })
 

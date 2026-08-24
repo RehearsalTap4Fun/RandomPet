@@ -42,7 +42,7 @@ describe('CreatorWorkbench', () => {
       severity: 'error', code: 'ASSET_LOAD_FAILED', path: ['parts', 'eyes'], message: 'missing',
     }
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [renderError],
+      drawnAssetIds: [], diagnostics: [renderError], compositionMetrics: null,
     }))
     const onAction = vi.fn()
 
@@ -78,7 +78,7 @@ describe('CreatorWorkbench', () => {
       severity: 'warning', code: 'PREVIEW_NOTE', path: [], message: 'Preview note.',
     }
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [renderWarning],
+      drawnAssetIds: [], diagnostics: [renderWarning], compositionMetrics: null,
     }))
     session = refreshSessionValidity({
       ...session,
@@ -120,7 +120,9 @@ describe('CreatorWorkbench', () => {
       seed: 'keep-current-work', themeId: 'fungal', mode: 'normal',
     }, catalog), { png: true, webp: true })
     const onAction = vi.fn()
-    const renderer: PreviewRenderer = vi.fn(async () => ({ drawnAssetIds: [], diagnostics: [] }))
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+    }))
 
     render(
       <CreatorWorkbench
@@ -153,7 +155,9 @@ describe('CreatorWorkbench', () => {
     const session = createCreatorSession(generateMonster({
       seed: 'background', themeId: 'fungal', mode: 'normal',
     }, catalog))
-    const renderer: PreviewRenderer = vi.fn(async () => ({ drawnAssetIds: [], diagnostics: [] }))
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+    }))
     const onAction = vi.fn()
     const { container } = render(
       <CreatorWorkbench

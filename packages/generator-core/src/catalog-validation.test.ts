@@ -4,6 +4,19 @@ import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 
 describe('catalog validation', () => {
+  it('rejects multiple provider nodes for a socket-providing composition part', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!
+    const duplicate = structuredClone(body.composition!.renderNodes[0]!)
+    duplicate.id = `${duplicate.id}_ambiguous_provider`
+    body.composition!.renderNodes.push(duplicate)
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'COMPOSITION_PROVIDER_AMBIGUOUS',
+      path: expect.arrayContaining(['composition', 'renderNodes']),
+    }))
+  })
+
   it('rejects a visible non-root node without an explicit parent socket', () => {
     const catalog = makeCompositionCatalogFixture()
     const eyes = catalog.parts.find(part => part.slotId === 'eyes')!

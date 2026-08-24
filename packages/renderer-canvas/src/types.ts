@@ -2,6 +2,7 @@ import type {
   ApprovedTransform,
   Diagnostic,
   Palette,
+  RenderNodeDefinition,
   RigDefinition,
   VisualPartDefinition,
   VisualSlotId,
@@ -32,6 +33,7 @@ export interface RenderOptions {
 export interface RenderResult {
   drawnAssetIds: string[]
   diagnostics: Diagnostic[]
+  compositionMetrics: CompositionMetrics | null
 }
 
 export interface Placement {
@@ -39,6 +41,32 @@ export interface Placement {
   y: number
   scaleX: number
   scaleY: number
+}
+
+export interface WorldRect { x: number; y: number; width: number; height: number }
+
+export interface ResolvedRenderNode {
+  key: string
+  slotId: VisualSlotId
+  part: VisualPartDefinition
+  node: RenderNodeDefinition
+  placement: Placement
+  sequence: number
+}
+
+export interface CompositionMetrics {
+  eyesInsideRatio: number
+  eyesVisibleRatio: number
+  mouthInsideRatio: number
+  mouthVisibleRatio: number
+  visibleBounds: WorldRect | null
+}
+
+export interface AttachmentTreeResult {
+  nodes: ResolvedRenderNode[]
+  faceSafeZones: WorldRect[]
+  parentChainBySlot: Partial<Record<VisualSlotId, VisualSlotId[]>>
+  diagnostics: Diagnostic[]
 }
 
 export type PlacementResult =
