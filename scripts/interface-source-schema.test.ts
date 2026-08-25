@@ -32,7 +32,7 @@ export function makeValidInterfaceSourceManifest(): any {
     renderNodes: slotId === 'bodyFrame'
       ? [{ id: `${id}-body`, sourcePngPath: `asset-source/v0.3.0/production/${id}.png` }]
       : (slotId === 'headShape' ? ['neck'] : slotId === 'arms' ? ['shoulderLeft', 'shoulderRight'] : ['hipLeft', 'hipRight'])
-        .map(connectorId => ({ id: `${id}-${connectorId}`, connectorId, sourcePngPath: `asset-source/v0.3.0/production/${id}.png` })),
+        .map(connectorId => ({ id: `${id}-${connectorId}`, connectorId, sourcePngPath: `asset-source/v0.3.0/production/nodes/${id}/${connectorId}.png` })),
   }))
   return {
     schemaVersion: 'interface-source-v1',
@@ -46,10 +46,10 @@ export function makeValidInterfaceSourceManifest(): any {
       connectorClass,
       materialFamilies: ['short-fur', 'mushroom-velvet'],
       sourcePngPath: `asset-source/v0.3.0/production/bridges/${connectorClass}.png`,
-      neutralPngPath: `bridges/biped/${connectorClass}.png`,
-      neutralWebpPath: `bridges/biped/${connectorClass}.webp`,
-      frontMaskPath: `bridges/biped/${connectorClass}-front.png`,
-      backMaskPath: `bridges/biped/${connectorClass}-back.png`,
+      neutralPngPath: `assets/v0.3.0/bridges/biped/${connectorClass}.png`,
+      neutralWebpPath: `assets/v0.3.0/bridges/biped/${connectorClass}.webp`,
+      frontMaskPath: `assets/v0.3.0/bridges/biped/${connectorClass}-front.png`,
+      backMaskPath: `assets/v0.3.0/bridges/biped/${connectorClass}-back.png`,
       promptEvidence: {
         promptId: `bridge-${connectorClass}`,
         promptPath: 'asset-source/v0.3.0/prompts/structural-prompts.json',
@@ -71,9 +71,9 @@ function profile(assetId: string, id: string, role: 'receiver' | 'plug'): any {
     outwardNormal: { x: 0, y: role === 'receiver' ? -1 : 1 },
     width: 256,
     depth: 128,
-    contourMaskPath: `connectors/biped/${assetId}-${id}-contour.png`,
-    foregroundMaskPath: `connectors/biped/${assetId}-${id}-foreground.png`,
-    backgroundMaskPath: `connectors/biped/${assetId}-${id}-background.png`,
+    contourMaskPath: `assets/v0.3.0/connectors/biped/${assetId}-${id}-contour.png`,
+    foregroundMaskPath: `assets/v0.3.0/connectors/biped/${assetId}-${id}-foreground.png`,
+    backgroundMaskPath: `assets/v0.3.0/connectors/biped/${assetId}-${id}-background.png`,
     materialSampleRegion: { x: 896, y: 896, width: 256, height: 256 },
     warpLimits: {
       widthRatio: { min: 0.85, max: 1.15 },
@@ -106,6 +106,14 @@ describe('parseInterfaceSourceManifest', () => {
     const invalid = makeValidInterfaceSourceManifest()
     invalid.assets[0].connectors[0].tangent = { x: 0, y: 0 }
     invalid.assets[0].connectors[0].outwardNormal = { x: 0, y: 0 }
+    expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
+  })
+
+  it('rejects duplicate render node IDs and paired source paths', () => {
+    const invalid = makeValidInterfaceSourceManifest()
+    const arms = invalid.assets.find((item: any) => item.id === 'arms_short_plush')
+    arms.renderNodes[1].id = arms.renderNodes[0].id
+    arms.renderNodes[1].sourcePngPath = arms.renderNodes[0].sourcePngPath
     expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
   })
 })

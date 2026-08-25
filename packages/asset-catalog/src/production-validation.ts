@@ -10,7 +10,8 @@ import {
   evaluateChromaQuality,
   type ChromaQualityMetrics,
 } from './chroma-quality-gate.js'
-import { validateAssetFile } from './file-validation.js'
+import { assetPathBelowVersionRoot, validateAssetFile } from './file-validation.js'
+import { parseInterfaceSourceManifest, validateInterfaceSourceIndex, type InterfaceSourceManifest } from './interface-source-schema.js'
 
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
@@ -213,20 +214,21 @@ async function collectFiles(root: string, prefix = ''): Promise<string[]> {
 
 export async function validateNoStaleRuntimeAssets(catalog: Catalog, assetRoot: string): Promise<Diagnostic[]> {
   const expected = new Set<string>()
+  const runtimePath = (path: string): string => assetPathBelowVersionRoot(path.replaceAll('\\', '/'), catalog.version)
   for (const part of catalog.parts) {
-    expected.add(part.assetPath.replaceAll('\\', '/'))
-    if (part.pngPath !== undefined) expected.add(part.pngPath.replaceAll('\\', '/'))
+    expected.add(runtimePath(part.assetPath))
+    if (part.pngPath !== undefined) expected.add(runtimePath(part.pngPath))
     for (const node of (isAttachmentPartComposition(part.composition)
       ? part.composition.renderNodes
       : [])) {
-      expected.add(node.assetPath.replaceAll('\\', '/'))
-      if (node.pngPath !== undefined) expected.add(node.pngPath.replaceAll('\\', '/'))
+      expected.add(runtimePath(node.assetPath))
+      if (node.pngPath !== undefined) expected.add(runtimePath(node.pngPath))
     }
     for (const masks of Object.values(part.rigMaskPaths ?? {})) {
       if (masks === undefined) continue
-      expected.add(masks.primary.replaceAll('\\', '/'))
-      expected.add(masks.secondary.replaceAll('\\', '/'))
-      expected.add(masks.accent.replaceAll('\\', '/'))
+      expected.add(runtimePath(masks.primary))
+      expected.add(runtimePath(masks.secondary))
+      expected.add(runtimePath(masks.accent))
     }
   }
   for (const rig of catalog.rigs) {
@@ -239,27 +241,26 @@ export async function validateNoStaleRuntimeAssets(catalog: Catalog, assetRoot: 
       if (part.composition?.mode !== 'interface') continue
       for (const variant of Object.values(part.composition.variantsByRig)) {
         if (variant === undefined) continue
+        for (const node of variant.renderNodes) {
+          expected.add(runtimePath(node.assetPath))
+          if (node.pngPath !== undefined) expected.add(runtimePath(node.pngPath))
+        }
         for (const connector of variant.connectors) {
-          expected.add(connector.contourMaskPath.replaceAll('\\', '/'))
-          expected.add(connector.foregroundMaskPath.replaceAll('\\', '/'))
-          expected.add(connector.backgroundMaskPath.replaceAll('\\', '/'))
+          expected.add(runtimePath(connector.contourMaskPath))
+          expected.add(runtimePath(connector.foregroundMaskPath))
+          expected.add(runtimePath(connector.backgroundMaskPath))
         }
       }
     }
     for (const bridge of catalog.transitionBridges ?? []) {
-      expected.add(bridge.neutralAssetPath.replaceAll('\\', '/'))
-      expected.add(bridge.neutralPngPath.replaceAll('\\', '/'))
-      expected.add(bridge.frontMaskPath.replaceAll('\\', '/'))
-      expected.add(bridge.backMaskPath.replaceAll('\\', '/'))
+      expected.add(runtimePath(bridge.neutralAssetPath))
+      expected.add(runtimePath(bridge.neutralPngPath))
+      expected.add(runtimePath(bridge.frontMaskPath))
+      expected.add(runtimePath(bridge.backMaskPath))
     }
   }
-  const actual = [
-    ...(await collectFiles(assetRoot, 'parts')),
-    ...(await collectFiles(assetRoot, 'rigs')),
-    ...(await collectFiles(assetRoot, 'masks')),
-    ...(await collectFiles(assetRoot, 'connectors')),
-    ...(await collectFiles(assetRoot, 'bridges')),
-  ].filter(path => path.endsWith('.png') || path.endsWith('.webp'))
+  const actual = (await collectFiles(assetRoot))
+    .filter(path => path.endsWith('.png') || path.endsWith('.webp'))
   return actual
     .filter(path => !expected.has(path))
     .map(path => error('PRODUCTION_RUNTIME_STALE', path.split('/'), `Runtime asset is not referenced by the production catalog: ${path}`))
@@ -415,15 +416,74 @@ export async function validateProductionInterfaceResources(
   catalog: Catalog,
   assetRoot: string,
   sourceIndex: ProductionSourceIndex,
+  options: { manifestPath?: string } = {},
 ): Promise<Diagnostic[]> {
   if (catalog.version !== '0.3.0') return []
   const diagnostics: Diagnostic[] = []
   const canonicalAssetRoot = await realpath(resolve(assetRoot)).catch(() => resolve(assetRoot))
+  const manifestPath = options.manifestPath ?? resolve(canonicalAssetRoot, '..', '..', '..', '..', 'asset-source', 'v0.3.0', 'interface-manifest.json')
+  let manifest: InterfaceSourceManifest | undefined
+  try {
+    const parsed = parseInterfaceSourceManifest(JSON.parse(await readFile(manifestPath, 'utf8')))
+    if (!parsed.ok) diagnostics.push(...parsed.diagnostics.map(item => ({ ...item, code: 'PRODUCTION_INTERFACE_MANIFEST_INVALID' })))
+    else manifest = parsed.value
+  } catch {
+    diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISSING', [manifestPath], 'Cannot read the canonical v0.3 interface manifest.'))
+  }
+  if (manifest !== undefined) {
+    try {
+      validateInterfaceSourceIndex(manifest, sourceIndex)
+    } catch (caught) {
+      diagnostics.push(error('PRODUCTION_INTERFACE_SOURCE_INDEX_INVALID', ['sources'], caught instanceof Error ? caught.message : String(caught)))
+    }
+    const catalogParts = new Map(catalog.parts.filter(part => part.composition?.mode === 'interface').map(part => [part.id, part]))
+    for (const source of manifest.assets) {
+      const part = catalogParts.get(source.id)
+      const composition = part?.composition
+      const variant = composition?.mode === 'interface' ? composition.variantsByRig.biped : undefined
+      if (
+        part === undefined || composition?.mode !== 'interface' || variant === undefined || Object.keys(composition.variantsByRig).length !== 1
+        || variant.rigId !== 'biped' || variant.materialFamily !== source.materialFamily
+        || variant.renderNodes.length !== source.renderNodes.length
+        || source.renderNodes.some(node => {
+          const actual = variant.renderNodes.find(candidate => candidate.id === node.id)
+          return actual === undefined || actual.connectorId !== node.connectorId
+        })
+        || variant.connectors.length !== source.connectors.length
+        || source.connectors.some(connector => {
+          const actual = variant.connectors.find(candidate => candidate.id === connector.id)
+          return actual === undefined
+            || actual.rigId !== source.rigId || actual.role !== connector.role || actual.connectorClass !== connector.connectorClass
+            || !sameJson(actual.origin, connector.origin) || !sameJson(actual.tangent, connector.tangent)
+            || !sameJson(actual.outwardNormal, connector.outwardNormal) || actual.width !== connector.width || actual.depth !== connector.depth
+            || actual.contourMaskPath !== connector.contourMaskPath
+            || actual.foregroundMaskPath !== connector.foregroundMaskPath
+            || actual.backgroundMaskPath !== connector.backgroundMaskPath
+            || !sameJson(actual.materialSampleRegion, connector.materialSampleRegion)
+            || !sameJson(actual.warpLimits, connector.warpLimits)
+        })
+      ) diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISMATCH', ['parts', source.id], 'Catalog interface variant differs from the canonical manifest inventory, mapping, material, or provenance contract.'))
+    }
+    if (catalogParts.size !== manifest.assets.length || [...catalogParts.keys()].some(id => !manifest!.assets.some(asset => asset.id === id))) {
+      diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISMATCH', ['parts'], 'Catalog contains missing or extra interface structural records.'))
+    }
+    const catalogBridges = new Map((catalog.transitionBridges ?? []).filter(bridge => bridge.rigId === 'biped').map(bridge => [bridge.id, bridge]))
+    if (catalogBridges.size !== manifest.bridges.length || manifest.bridges.some(source => {
+      const bridge = catalogBridges.get(source.id)
+      return bridge === undefined || bridge.neutralPngPath !== source.neutralPngPath || bridge.neutralAssetPath !== source.neutralWebpPath
+        || bridge.frontMaskPath !== source.frontMaskPath || bridge.backMaskPath !== source.backMaskPath
+        || !sameJson(bridge.materialFamilies, source.materialFamilies)
+    })) diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISMATCH', ['transitionBridges'], 'Catalog bridges differ from the canonical interface manifest.'))
+  }
   const sources = Array.isArray(sourceIndex.sources) ? sourceIndex.sources : []
   const indexed = new Map(sources.flatMap(source => typeof source.sourceId === 'string' ? [[source.sourceId, source] as const] : []))
   const checks: Array<Promise<Diagnostic[]>> = []
   const maskChecks: Array<Promise<Diagnostic[]>> = []
   const reviewed = new Map<string, string>()
+  const checkedRuntimePath = (path: string): string => assetPathBelowVersionRoot(path, catalog.version)
+  const globalNodeIds = new Set<string>()
+  const globalNodePaths = new Set<string>()
+  const globalNodeHashes = new Set<string>()
   for (const [partIndex, part] of catalog.parts.entries()) {
     if (part.composition?.mode !== 'interface') continue
     const source = indexed.get(part.id)
@@ -445,17 +505,37 @@ export async function validateProductionInterfaceResources(
     ]
     const uniqueRuntime = [...new Map(expectedRuntime.map(item => [item.path, item])).values()]
     checkInterfaceRuntimeResources(source, uniqueRuntime, ['sources', part.id], diagnostics)
-    if (source?.reviewRecordPath !== undefined && source.reviewRecordSha256 !== undefined) reviewed.set(source.reviewRecordPath, source.reviewRecordSha256)
+    if (source?.reviewRecordPath !== undefined && source.reviewRecordSha256 !== undefined) {
+      const existingHash = reviewed.get(source.reviewRecordPath)
+      if (existingHash !== undefined && existingHash !== source.reviewRecordSha256) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_HASH_CONFLICT', ['sources', part.id, 'reviewRecordSha256'], 'Interface sources declare conflicting hashes for the same review record.'))
+      reviewed.set(source.reviewRecordPath, source.reviewRecordSha256)
+    }
     for (const [rigId, variant] of Object.entries(part.composition.variantsByRig)) {
       if (variant === undefined) continue
+      for (const [nodeIndex, node] of variant.renderNodes.entries()) {
+        const base = ['parts', String(partIndex), 'composition', 'variantsByRig', rigId, 'renderNodes', String(nodeIndex)]
+        if (globalNodeIds.has(node.id)) diagnostics.push(error('PRODUCTION_INTERFACE_NODE_DUPLICATE', base.concat('id'), `Interface render node ID is duplicated: ${node.id}`))
+        globalNodeIds.add(node.id)
+        for (const [field, path, hash] of [
+          ['assetPath', node.assetPath, node.assetSha256],
+          ['pngPath', node.pngPath, node.pngSha256],
+        ] as const) {
+          if (path === undefined) continue
+          if (globalNodePaths.has(path)) diagnostics.push(error('PRODUCTION_INTERFACE_NODE_RESOURCE_DUPLICATE', base.concat(field), `Interface render nodes must use distinct runtime paths: ${path}`))
+          globalNodePaths.add(path)
+          if (hash !== undefined && globalNodeHashes.has(hash)) diagnostics.push(error('PRODUCTION_INTERFACE_NODE_HASH_DUPLICATE', base.concat(field), 'Interface render node runtime hashes must be distinct.'))
+          if (hash !== undefined) globalNodeHashes.add(hash)
+          checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(path), hash, base.concat(field), { dimensions: 'trimmed-node' }))
+        }
+      }
       for (const [connectorIndex, connector] of variant.connectors.entries()) {
         const base = ['parts', String(partIndex), 'composition', 'variantsByRig', rigId, 'connectors', String(connectorIndex)]
-        checks.push(validateAssetFile(canonicalAssetRoot, connector.contourMaskPath, connector.contourMaskSha256, base.concat('contourMaskPath')))
-        checks.push(validateAssetFile(canonicalAssetRoot, connector.foregroundMaskPath, connector.foregroundMaskSha256, base.concat('foregroundMaskPath')))
-        checks.push(validateAssetFile(canonicalAssetRoot, connector.backgroundMaskPath, connector.backgroundMaskSha256, base.concat('backgroundMaskPath')))
-        maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, connector.contourMaskPath, base.concat('contourMaskPath')))
-        maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, connector.foregroundMaskPath, base.concat('foregroundMaskPath')))
-        maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, connector.backgroundMaskPath, base.concat('backgroundMaskPath')))
+        checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(connector.contourMaskPath), connector.contourMaskSha256, base.concat('contourMaskPath')))
+        checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(connector.foregroundMaskPath), connector.foregroundMaskSha256, base.concat('foregroundMaskPath')))
+        checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(connector.backgroundMaskPath), connector.backgroundMaskSha256, base.concat('backgroundMaskPath')))
+        maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(connector.contourMaskPath), base.concat('contourMaskPath')))
+        maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(connector.foregroundMaskPath), base.concat('foregroundMaskPath')))
+        maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(connector.backgroundMaskPath), base.concat('backgroundMaskPath')))
       }
     }
   }
@@ -468,14 +548,18 @@ export async function validateProductionInterfaceResources(
       { path: bridge.frontMaskPath, sha256: bridge.frontMaskSha256 },
       { path: bridge.backMaskPath, sha256: bridge.backMaskSha256 },
     ], ['sources', bridge.id], diagnostics)
-    if (source?.reviewRecordPath !== undefined && source.reviewRecordSha256 !== undefined) reviewed.set(source.reviewRecordPath, source.reviewRecordSha256)
+    if (source?.reviewRecordPath !== undefined && source.reviewRecordSha256 !== undefined) {
+      const existingHash = reviewed.get(source.reviewRecordPath)
+      if (existingHash !== undefined && existingHash !== source.reviewRecordSha256) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_HASH_CONFLICT', ['sources', bridge.id, 'reviewRecordSha256'], 'Interface sources declare conflicting hashes for the same review record.'))
+      reviewed.set(source.reviewRecordPath, source.reviewRecordSha256)
+    }
     const base = ['transitionBridges', String(bridgeIndex)]
-    checks.push(validateAssetFile(canonicalAssetRoot, bridge.neutralAssetPath, bridge.neutralAssetSha256, base.concat('neutralAssetPath')))
-    checks.push(validateAssetFile(canonicalAssetRoot, bridge.neutralPngPath, bridge.neutralPngSha256, base.concat('neutralPngPath')))
-    checks.push(validateAssetFile(canonicalAssetRoot, bridge.frontMaskPath, bridge.frontMaskSha256, base.concat('frontMaskPath')))
-    checks.push(validateAssetFile(canonicalAssetRoot, bridge.backMaskPath, bridge.backMaskSha256, base.concat('backMaskPath')))
-    maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, bridge.frontMaskPath, base.concat('frontMaskPath')))
-    maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, bridge.backMaskPath, base.concat('backMaskPath')))
+    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.neutralAssetPath), bridge.neutralAssetSha256, base.concat('neutralAssetPath')))
+    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.neutralPngPath), bridge.neutralPngSha256, base.concat('neutralPngPath')))
+    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.frontMaskPath), bridge.frontMaskSha256, base.concat('frontMaskPath')))
+    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.backMaskPath), bridge.backMaskSha256, base.concat('backMaskPath')))
+    maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(bridge.frontMaskPath), base.concat('frontMaskPath')))
+    maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(bridge.backMaskPath), base.concat('backMaskPath')))
   }
   diagnostics.push(...(await Promise.all(checks)).flat())
   diagnostics.push(...(await Promise.all(maskChecks)).flat())

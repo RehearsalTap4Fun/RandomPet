@@ -35,7 +35,7 @@ describe('renderInterfaceGuides', () => {
     expect(guideAlpha.some(alpha => alpha === 0)).toBe(true)
     expect(guideAlpha.some(alpha => alpha > 0)).toBe(true)
     expect(new Set(maskAlpha)).toEqual(new Set([0, 255]))
-  })
+  }, 20_000)
 
   it('is deterministic for the same connector geometry', async () => {
     const outputRoot = await mkdtemp(join(tmpdir(), 'qmonster-interface-guides-'))

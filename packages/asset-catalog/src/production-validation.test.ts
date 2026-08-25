@@ -121,9 +121,17 @@ describe('strict production catalog validation', () => {
     body.assetSha256 = 'a'.repeat(64)
     body.pngPath = `parts/${body.id}.png`
     body.pngSha256 = 'b'.repeat(64)
-    variant.renderNodes[0]!.assetSha256 = 'c'.repeat(64)
-    variant.renderNodes[0]!.pngPath = `nodes/${body.id}_0.png`
-    variant.renderNodes[0]!.pngSha256 = 'd'.repeat(64)
+    variant.renderNodes[0]!.assetPath = `assets/v0.3.0/nodes/${body.id}_0.webp`
+    variant.renderNodes[0]!.pngPath = `assets/v0.3.0/nodes/${body.id}_0.png`
+    for (const [path, format] of [[variant.renderNodes[0]!.assetPath, 'webp'], [variant.renderNodes[0]!.pngPath, 'png']] as const) {
+      const target = join(assetRoot, path.replace(/^assets\/v0\.3\.0\//u, ''))
+      await mkdir(dirname(target), { recursive: true })
+      const image = sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="48"><rect width="32" height="48" fill="red"/></svg>'))
+      if (format === 'webp') await image.webp({ lossless: true }).toFile(target)
+      else await image.png().toFile(target)
+      if (format === 'webp') variant.renderNodes[0]!.assetSha256 = createHash('sha256').update(await readFile(target)).digest('hex')
+      else variant.renderNodes[0]!.pngSha256 = createHash('sha256').update(await readFile(target)).digest('hex')
+    }
     const bridge = catalog.transitionBridges!.find(item => item.rigId === 'biped' && item.connectorClass === 'neck')!
     catalog.transitionBridges = [bridge]
     const claims = [
@@ -141,11 +149,11 @@ describe('strict production catalog validation', () => {
         const pathField = hashField === 'neutralPngSha256' ? 'neutralPngPath'
           : hashField === 'neutralAssetSha256' ? 'neutralAssetPath'
             : hashField === 'frontMaskSha256' ? 'frontMaskPath' : 'backMaskPath'
-        ;(bridge as any)[pathField] = runtimePath
+        ;(bridge as any)[pathField] = originalPath
       } else {
         const pathField = hashField === 'contourMaskSha256' ? 'contourMaskPath'
           : hashField === 'foregroundMaskSha256' ? 'foregroundMaskPath' : 'backgroundMaskPath'
-        ;(variant.connectors[0] as any)[pathField] = runtimePath
+        ;(variant.connectors[0] as any)[pathField] = originalPath
       }
       const target = join(assetRoot, runtimePath)
       await mkdir(dirname(target), { recursive: true })
@@ -205,11 +213,20 @@ describe('strict production catalog validation', () => {
       }],
     }
 
-    await expect(validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)).resolves.toEqual([])
+    const baseline = await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)
+    expect(baseline).toEqual([expect.objectContaining({ code: 'PRODUCTION_INTERFACE_MANIFEST_MISSING' })])
+    const nodePng = join(assetRoot, variant.renderNodes[0]!.pngPath!.replace(/^assets\/v0\.3\.0\//u, ''))
+    const originalNodePng = await readFile(nodePng)
+    await rm(nodePng)
+    expect(await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)).toContainEqual(expect.objectContaining({ code: 'ASSET_FILE_MISSING' }))
+    await writeFile(nodePng, Buffer.from('corrupt'))
+    expect(await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)).toContainEqual(expect.objectContaining({ code: 'ASSET_IMAGE_INVALID' }))
+    await writeFile(nodePng, originalNodePng)
     const antialiasedMask = sharp(Buffer.from([255, 255, 255, 128]), { raw: { width: 1, height: 1, channels: 4 } })
       .resize(2048, 2048, { kernel: 'nearest' })
-    await antialiasedMask.png().toFile(join(assetRoot, bridge.frontMaskPath))
-    bridge.frontMaskSha256 = createHash('sha256').update(await readFile(join(assetRoot, bridge.frontMaskPath))).digest('hex')
+    const bridgeFrontPath = join(assetRoot, bridge.frontMaskPath.replace(/^assets\/v0\.3\.0\//u, ''))
+    await antialiasedMask.png().toFile(bridgeFrontPath)
+    bridge.frontMaskSha256 = createHash('sha256').update(await readFile(bridgeFrontPath)).digest('hex')
     const bridgeSource = sourceIndex.sources.find(source => source.sourceId === bridge.id)!
     bridgeSource.runtimeResources.find(resource => resource.path === bridge.frontMaskPath)!.sha256 = bridge.frontMaskSha256
     const nonBinary = await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)
@@ -228,12 +245,39 @@ describe('strict production catalog validation', () => {
     const catalog = makeInterfaceCatalogFixture()
     await mkdir(join(root, 'connectors'), { recursive: true })
     await mkdir(join(root, 'bridges'), { recursive: true })
+    await mkdir(join(root, 'nodes'), { recursive: true })
     await writeFile(join(root, 'connectors', 'stale.png'), 'stale')
     await writeFile(join(root, 'bridges', 'stale.webp'), 'stale')
+    await writeFile(join(root, 'nodes', 'stale.png'), 'stale')
     const diagnostics = await validateNoStaleRuntimeAssets(catalog, root)
     expect(diagnostics.filter(item => item.code === 'PRODUCTION_RUNTIME_STALE').map(item => item.path.join('/'))).toEqual([
-      'connectors/stale.png', 'bridges/stale.webp',
+      'bridges/stale.webp', 'connectors/stale.png', 'nodes/stale.png',
     ])
+  })
+
+  it('binds production validation to the canonical manifest, exact source inventory, and one review hash', async () => {
+    const catalog = makeInterfaceCatalogFixture()
+    const parts = catalog.parts.filter(part => part.composition?.mode === 'interface').slice(0, 2)
+    catalog.parts = parts
+    catalog.transitionBridges = []
+    const sources = parts.map((part, index) => ({
+      sourceId: part.id,
+      kind: 'interface-structural',
+      sourceResources: [{ path: `asset-source/v0.3.0/production/${part.id}.png`, sha256: '1'.repeat(64) }],
+      promptPath: 'asset-source/v0.3.0/prompts/structural-prompts.json',
+      promptSha256: '2'.repeat(64),
+      promptId: part.id,
+      reviewRecordPath: 'packages/asset-catalog/review/v0.3.0/review-record.json',
+      reviewRecordSha256: String(index + 3).repeat(64),
+      runtimeResources: [],
+    }))
+    const diagnostics = await validateProductionInterfaceResources(catalog, 'missing-assets', {
+      catalogVersion: '0.3.0',
+      sources: [...sources, structuredClone(sources[0]), { ...structuredClone(sources[0]), sourceId: 'extra-interface' }],
+    }, { manifestPath: join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json') })
+    expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_SOURCE_INDEX_INVALID' }))
+    expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_MANIFEST_MISMATCH' }))
+    expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_REVIEW_HASH_CONFLICT' }))
   })
 
   it('requires complete v0.3 connector, render-node, and bridge hash metadata', () => {

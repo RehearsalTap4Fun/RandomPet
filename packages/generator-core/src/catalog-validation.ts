@@ -23,6 +23,7 @@ const REQUIRED_PROVIDER_SOCKETS: Partial<Record<VisualSlotId, readonly string[]>
 const STRUCTURAL_SLOTS = new Set<VisualSlotId>([
   'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
 ])
+const V03_BIPED_SLICE_BODY_IDS = new Set(['body_biped_peanut', 'body_biped_tall'])
 const REQUIRED_CONNECTORS: Partial<Record<VisualSlotId, ReadonlyArray<{
   id: string
   role: 'receiver' | 'plug'
@@ -156,7 +157,10 @@ function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[])
           ))
         }
       }
-      for (const expected of REQUIRED_CONNECTORS[part.slotId] ?? []) {
+      const requiredConnectors = (REQUIRED_CONNECTORS[part.slotId] ?? []).filter(expected => (
+        !V03_BIPED_SLICE_BODY_IDS.has(part.id) || !['tail', 'extra'].includes(expected.connectorClass)
+      ))
+      for (const expected of requiredConnectors) {
         const matching = variant.connectors.filter(connector => connector.id === expected.id)
         if (
           matching.length !== 1

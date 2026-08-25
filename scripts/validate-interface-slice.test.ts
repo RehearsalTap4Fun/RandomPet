@@ -1,9 +1,10 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile, symlink } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
 import { validateInterfaceProductionReadiness, validateInterfaceSlice } from './validate-interface-slice.js'
+import { renderInterfaceGuides } from './render-interface-guides.js'
 
 const roots: string[] = []
 afterEach(async () => Promise.all(roots.splice(0).map(root => rm(root, { recursive: true, force: true }))))
@@ -21,20 +22,12 @@ describe('validateInterfaceSlice', () => {
     const guideRoot = join(root, 'guides')
     await mkdir(guideRoot, { recursive: true })
     await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`)
-    const guideSvg = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="2048"><rect x="900" y="900" width="200" height="200" fill="white"/></svg>')
-    const maskPixel = Buffer.from([255, 255, 255, 255])
-    for (const asset of manifest.assets) {
-      for (const connector of asset.connectors) {
-        const stem = `${asset.id}-${connector.id}-${connector.role}`
-        await sharp(guideSvg).png().toFile(join(guideRoot, `${stem}-guide.png`))
-        await sharp(maskPixel, { raw: { width: 1, height: 1, channels: 4 } }).resize(2048, 2048, { kernel: 'nearest' }).png().toFile(join(guideRoot, `${stem}-mask.png`))
-      }
-    }
+    await renderInterfaceGuides({ outputRoot: guideRoot, rigId: 'biped', profiles: manifest.assets.flatMap((asset: any) => asset.connectors.map((connector: any) => ({ ...connector, assetId: asset.id }))) })
 
     const result = await validateInterfaceSlice({ manifestPath, guideRoot })
     expect(result.ok).toBe(true)
     expect(result.productionAssetsChecked).toBe(0)
-  })
+  }, 20_000)
 
   it('rejects stale guide resources', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-interface-slice-'))
@@ -46,7 +39,29 @@ describe('validateInterfaceSlice', () => {
     await writeFile(join(guideRoot, 'stale.png'), 'stale')
     const result = await validateInterfaceSlice({ manifestPath, guideRoot })
     expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_GUIDE_STALE' }))
-  })
+  }, 20_000)
+
+  it('rejects opaque or empty masks, transparent guides, renamed WebP, and deterministic drift', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-interface-guide-negative-'))
+    roots.push(root)
+    const manifest = await manifestFixture()
+    const manifestPath = join(root, 'interface-manifest.json')
+    const guideRoot = join(root, 'guides')
+    await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`)
+    await renderInterfaceGuides({ outputRoot: guideRoot, rigId: 'biped', profiles: manifest.assets.flatMap((asset: any) => asset.connectors.map((connector: any) => ({ ...connector, assetId: asset.id }))) })
+    const stems = manifest.assets.flatMap((asset: any) => asset.connectors.map((connector: any) => `${asset.id}-${connector.id}-${connector.role}`))
+    await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 1 } } }).png().toFile(join(guideRoot, `${stems[0]}-mask.png`))
+    await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).png().toFile(join(guideRoot, `${stems[1]}-mask.png`))
+    await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).png().toFile(join(guideRoot, `${stems[2]}-guide.png`))
+    await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 255, g: 0, b: 0, alpha: 0.5 } } }).webp().toFile(join(guideRoot, `${stems[3]}-guide.png`))
+    const driftPath = join(guideRoot, `${stems[4]}-guide.png`)
+    const drift = await readFile(driftPath)
+    drift[drift.length - 1] = drift[drift.length - 1]! ^ 1
+    await writeFile(driftPath, drift)
+    const result = await validateInterfaceSlice({ manifestPath, guideRoot, repositoryRoot: process.cwd() })
+    expect(result.diagnostics.filter(item => item.code === 'INTERFACE_GUIDE_INVALID').length).toBeGreaterThanOrEqual(4)
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_GUIDE_DRIFT' }))
+  }, 20_000)
 
   it('fails production readiness specifically for missing source art', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-interface-production-'))
@@ -74,5 +89,35 @@ describe('validateInterfaceSlice', () => {
     })
     expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PROMPT_HASH_MISMATCH' }))
     expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PROMPT_ID_MISSING' }))
+  })
+
+  it('rejects prompt and readiness symlinks that resolve outside the repository root', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-interface-symlink-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-interface-outside-'))
+    roots.push(root, outside)
+    const manifest = await manifestFixture()
+    const outsidePrompt = join(outside, 'structural-prompts.json')
+    await writeFile(outsidePrompt, JSON.stringify({ prompts: [] }))
+    const promptTarget = join(root, 'asset-source', 'v0.3.0', 'prompts', 'structural-prompts.json')
+    await mkdir(join(root, 'asset-source', 'v0.3.0', 'prompts'), { recursive: true })
+    try {
+      await symlink(outsidePrompt, promptTarget, 'file')
+    } catch (caught: any) {
+      if (caught?.code === 'EPERM' || caught?.code === 'EACCES') return
+      throw caught
+    }
+    const manifestPath = join(root, 'interface-manifest.json')
+    await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`)
+    const promptResult = await validateInterfaceSlice({ manifestPath, guideRoot: join(process.cwd(), 'asset-source', 'v0.3.0', 'guides'), repositoryRoot: root })
+    expect(promptResult.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PROMPT_PATH_INVALID' }))
+
+    const source = manifest.assets[0].sourcePngPath
+    const outsideSource = join(outside, 'source.png')
+    await writeFile(outsideSource, 'outside')
+    const sourceTarget = join(root, source)
+    await mkdir(join(sourceTarget, '..'), { recursive: true })
+    await symlink(outsideSource, sourceTarget, 'file')
+    const readiness = await validateInterfaceProductionReadiness({ repositoryRoot: root, manifest })
+    expect(readiness.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PRODUCTION_SOURCE_PATH_INVALID' }))
   })
 })

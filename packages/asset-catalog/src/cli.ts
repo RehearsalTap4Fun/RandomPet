@@ -118,7 +118,9 @@ async function main(): Promise<void> {
       ...validateProductionMetadata(parsed.value),
       ...(await validateProductionSplitFiles(parsed.value, catalogDirectory)),
       ...(await validateProductionSourceIndex(parsed.value, assetRoot, sourceIndex)),
-      ...(await validateProductionInterfaceResources(parsed.value, assetRoot, sourceIndex)),
+      ...(await validateProductionInterfaceResources(parsed.value, assetRoot, sourceIndex, {
+        manifestPath: resolve(packageRoot, '..', '..', 'asset-source', `v${version}`, 'interface-manifest.json'),
+      })),
       ...validateProductionEvidenceManifest(sourceIndex, evidenceManifest),
       ...(await validateNoStaleRuntimeAssets(parsed.value, assetRoot)),
     )

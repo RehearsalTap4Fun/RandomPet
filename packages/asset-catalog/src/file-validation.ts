@@ -77,6 +77,11 @@ export async function validateAssetFile(
   return diagnostics
 }
 
+export function assetPathBelowVersionRoot(assetPath: string, version: string): string {
+  const prefix = `assets/v${version}/`
+  return assetPath.startsWith(prefix) ? assetPath.slice(prefix.length) : assetPath
+}
+
 export async function validateCatalogFiles(catalog: Catalog, assetRoot: string): Promise<Diagnostic[]> {
   const lexicalRoot = resolve(assetRoot)
   const root = await realpath(lexicalRoot).catch(() => lexicalRoot)
@@ -93,6 +98,11 @@ export async function validateCatalogFiles(catalog: Catalog, assetRoot: string):
       }))
     )),
   ])
-  const results = await Promise.all(checks.map(check => validateAssetFile(root, check.assetPath, check.expectedHash, check.path)))
+  const results = await Promise.all(checks.map(check => validateAssetFile(
+    root,
+    assetPathBelowVersionRoot(check.assetPath, catalog.version),
+    check.expectedHash,
+    check.path,
+  )))
   return results.flat()
 }
