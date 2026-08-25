@@ -300,11 +300,20 @@ describe('v0.2 composition-aware production catalog builder', () => {
 })
 
 describe('v0.3 interface production catalog builder', () => {
-  it('builds from the processed interface index without exposing the retired round head', async () => {
+  it('builds the re-authored connection-aware round head without restoring retired provenance', async () => {
     const result = await buildProductionCatalog({ write: false, version: '0.3.0' })
 
-    expect(result.catalog.parts.find(part => part.id === 'head_round_dome')).toBeUndefined()
+    const round = result.catalog.parts.find(part => part.id === 'head_round_dome')
+    expect(round?.composition?.mode).toBe('interface')
+    expect(round?.composition?.mode === 'interface' ? Object.keys(round.composition.variantsByRig).sort() : []).toEqual(['biped', 'blob', 'floating'])
     expect(result.catalog.parts.find(part => part.id === 'head_mushroom_cap')).toBeDefined()
     expect(result.sourceIndex.sources.find(source => source.sourceId === 'head_round_dome')).toBeUndefined()
+    for (const rigId of ['biped', 'blob', 'floating']) {
+      expect(result.sourceIndex.sources.find(source => source.sourceId === `head_round_dome:${rigId}`)).toEqual(expect.objectContaining({
+        kind: 'interface-structural',
+        promptId: 'task7-body-head-connection-aware',
+        promptPath: 'asset-source/v0.3.0/prompts/task7-body-head-prompts.json',
+      }))
+    }
   })
 })

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "task7-imagegen-prompts-v1",
+  "generator": "built-in-image_gen",
+  "prompts": [
+    {
+      "id": "task7-body-head-connection-aware",
+      "kind": "structural-part-batch",
+      "text": "Author the exact Task 7 body or head identity against its rig-specific organic connector grammar, keeping the head shell blank and preserving a layered foreground/background seam."
+    }
+  ],
+  "styleReference": "C:/Users/JIANGZ~1/AppData/Local/Temp/codex-clipboard-8e9526c0-53bf-4748-8606-d79f99406855.png",
+  "sharedContract": "One isolated front-orthographic plush 3D structural component. Preserve the v0.2 identity reference but author against the exact rig guide. Bodies use an organic recessed neck receiver with continuous shoulder lips. Heads use a downward tapered organic neck tongue and distinct lower back/foreground seam regions. No flat cuts, rectangular notches, baked pedestals, hardware, body on a head, head on a body, limbs, or baked facial features. Keep generous transparent-looking margin for deterministic checker extraction.",
+  "variants": {
+    "body_blob_round:blob": "Compact round blob body; broad top-center receiver valley; no head or limbs.",
+    "body_blob_wide:blob": "Low broad bean/blob body; broad top-center receiver valley; remain distinct from round.",
+    "body_floating_drop:floating": "Suspended inverted-teardrop body; narrow receiver valley; no legs.",
+    "head_round_dome:biped": "New round-dome shell with compact inverted-teardrop neck tongue; re-authored, never reuse retired art.",
+    "head_angler_bulb:biped": "Blank angler crown with one integral furry lure and compact organic neck tongue.",
+    "head_shadow_hood:biped": "Empty soft hood face opening with compact organic neck tongue and cowl seam.",
+    "head_round_dome:blob": "New round-dome shell with broad inverted-teardrop neck tongue, no pedestal.",
+    "head_mushroom_cap:blob": "Broad spotted mushroom cap with short inverted-teardrop neck tongue, not a stem.",
+    "head_angler_bulb:blob": "Blank deep-purple angler crown, seamless furry lure, broad organic neck tongue.",
+    "head_shadow_hood:blob": "Broad soft hood with empty face opening and broad organic lower cowl tongue.",
+    "head_round_dome:floating": "Round dome with slender rounded neck tongue continuing floating vertical flow.",
+    "head_mushroom_cap:floating": "Spotted cap with slender integrated neck tongue, never a conventional stem.",
+    "head_angler_bulb:floating": "Blank angler crown with furry lure and slender integrated neck tongue.",
+    "head_shadow_hood:floating": "Soft hood opening with slender lower cowl tongue and layered seam."
+  },
+  "rejections": {
+    "head_round_dome:blob:candidate-1": "Rejected: lower attachment read as a cylindrical baked pedestal.",
+    "head_mushroom_cap:blob:candidate-1": "Rejected: conventional rectangular stem with flat bottom.",
+    "head_angler_bulb:blob:candidate-1": "Rejected: baked dark eye cavities.",
+    "head_angler_bulb:blob:candidate-2": "Rejected: plastic lure and visible base ring with palette drift."
+  }
+}

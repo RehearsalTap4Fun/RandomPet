@@ -4,7 +4,13 @@ import { join, relative, resolve, isAbsolute } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { parseCatalog, validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
-import { parseInterfaceSourceManifest, type InterfaceSourceManifest } from './interface-source-schema.js'
+import {
+  BIPED_SLICE,
+  parseInterfaceSourceManifest,
+  structuralVariants,
+  type InterfaceRigId,
+  type InterfaceSourceManifest,
+} from './interface-source-schema.js'
 import { productionPaths } from './production-paths.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 import { tmpdir } from 'node:os'
@@ -23,7 +29,7 @@ export async function validateInterfacePromptEvidence(input: {
   const repositoryRoot = await realpath(lexicalRepositoryRoot).catch(() => lexicalRepositoryRoot)
   const promptClaims = new Map<string, { hashes: Set<string>; ids: Set<string> }>()
   for (const evidence of [
-    ...input.manifest.assets.map(asset => asset.promptEvidence),
+    ...structuralVariants(input.manifest).map(asset => asset.promptEvidence),
     ...input.manifest.bridges.map(bridge => bridge.promptEvidence),
   ]) {
     const claim = promptClaims.get(evidence.promptPath) ?? { hashes: new Set<string>(), ids: new Set<string>() }
@@ -64,6 +70,11 @@ export async function validateInterfacePromptEvidence(input: {
   return diagnostics
 }
 
+function canonicalBipedGuideVariants(manifest: InterfaceSourceManifest) {
+  const idsBySlot = new Map(Object.entries(BIPED_SLICE).map(([slotId, ids]) => [slotId, new Set<string>(ids)]))
+  return structuralVariants(manifest).filter(asset => asset.rigId === 'biped' && idsBySlot.get(asset.slotId)?.has(asset.partId))
+}
+
 async function inspectPng(path: string, mask: boolean): Promise<string | null> {
   try {
     const bytes = await readFile(path)
@@ -99,15 +110,16 @@ export async function validateInterfaceSlice(input: { manifestPath: string; guid
   diagnostics.push(...await validateInterfacePromptEvidence({ manifest: parsed.value, repositoryRoot: input.repositoryRoot }))
   const expected = new Set<string>()
   const regeneratedRoot = await mkdtemp(join(tmpdir(), 'qmonster-interface-guides-'))
+  const guideVariants = canonicalBipedGuideVariants(parsed.value)
   const regenerated = await renderInterfaceGuides({
     outputRoot: regeneratedRoot,
     rigId: 'biped',
-    profiles: parsed.value.assets.flatMap(asset => asset.connectors.map(profile => ({ ...profile, assetId: asset.id }))),
+    profiles: guideVariants.flatMap(asset => asset.connectors.map(profile => ({ ...profile, assetId: asset.partId }))),
   })
   const regeneratedByName = new Map(regenerated.files.flatMap(file => [file.guidePath, file.maskPath].map(path => [path.split(/[\\/]/u).at(-1)!, path] as const)))
-  for (const asset of parsed.value.assets) {
+  for (const asset of guideVariants) {
     for (const connector of asset.connectors) {
-      const stem = `${asset.id}-${connector.id}-${connector.role}`
+      const stem = `${asset.partId}-${connector.id}-${connector.role}`
       for (const [suffix, mask] of [['guide', false], ['mask', true]] as const) {
         const file = `${stem}-${suffix}.png`
         expected.add(file)
@@ -150,7 +162,7 @@ export async function validateInterfaceProductionReadiness(input: {
   const sourceRootEscapesRepository = sourceRootRemainder.startsWith('..') || isAbsolute(sourceRootRemainder)
   let productionAssetsChecked = 0
   const productionSources = [...new Set([
-    ...input.manifest.assets.flatMap(asset => [asset.sourcePngPath, ...asset.renderNodes.map(node => node.sourcePngPath)]),
+    ...structuralVariants(input.manifest).flatMap(asset => [asset.sourcePngPath, ...asset.renderNodes.map(node => node.sourcePngPath)]),
     ...input.manifest.bridges.map(bridge => bridge.sourcePngPath),
   ])]
   for (const [index, path] of productionSources.entries()) {
@@ -178,15 +190,86 @@ export async function validateInterfaceProductionReadiness(input: {
   return { ok: diagnostics.length === 0, diagnostics, productionAssetsChecked }
 }
 
+interface BodyHeadReviewEntry {
+  rigId: InterfaceRigId
+  bodyId: string
+  headId: string
+  largestComponentRatio: number
+  centerlineGapPx: number
+}
+
+interface BodyHeadReviewManifest {
+  rigId: InterfaceRigId
+  entries: BodyHeadReviewEntry[]
+  thresholds: { largestComponentRatio: number; centerlineGapPx: number }
+  sheetSha256: string
+  sheet256Sha256: string
+  status: string
+}
+
+const BODY_HEAD_ROSTER = {
+  blob: { bodies: ['body_blob_round', 'body_blob_wide'], heads: ['head_round_dome', 'head_mushroom_cap', 'head_angler_bulb', 'head_shadow_hood'] },
+  biped: { bodies: ['body_biped_peanut', 'body_biped_tall'], heads: ['head_round_dome', 'head_mushroom_cap', 'head_angler_bulb', 'head_shadow_hood'] },
+  floating: { bodies: ['body_floating_drop'], heads: ['head_round_dome', 'head_mushroom_cap', 'head_angler_bulb', 'head_shadow_hood'] },
+} as const
+
+function sha256Bytes(bytes: Uint8Array): string { return createHash('sha256').update(bytes).digest('hex') }
+
+export async function validateBodyHeadReview(input: { repositoryRoot: string; reviewRoot: string }): Promise<{
+  diagnostics: Diagnostic[]
+  entryCountByRig: Record<InterfaceRigId, number>
+}> {
+  const diagnostics: Diagnostic[] = []
+  const entryCountByRig: Record<InterfaceRigId, number> = { blob: 0, biped: 0, floating: 0 }
+  for (const rigId of ['blob', 'biped', 'floating'] as const) {
+    const stem = `body-head-contact-sheet-${rigId}`
+    let review: BodyHeadReviewManifest
+    try {
+      review = JSON.parse(await readFile(join(input.reviewRoot, `${stem}-manifest.json`), 'utf8')) as BodyHeadReviewManifest
+    } catch {
+      diagnostics.push(error('BODY_HEAD_REVIEW_MISSING', [rigId], 'Cannot read the body/head review manifest.'))
+      continue
+    }
+    const roster = BODY_HEAD_ROSTER[rigId]
+    const expectedKeys = new Set(roster.bodies.flatMap(bodyId => roster.heads.map(headId => `${bodyId}:${headId}`)))
+    const actualKeys = review.entries.map(entry => `${entry.bodyId}:${entry.headId}`)
+    entryCountByRig[rigId] = review.entries.length
+    if (review.rigId !== rigId || review.entries.some(entry => entry.rigId !== rigId) || actualKeys.length !== expectedKeys.size || new Set(actualKeys).size !== expectedKeys.size || actualKeys.some(key => !expectedKeys.has(key))) {
+      diagnostics.push(error('BODY_HEAD_REVIEW_ROSTER_INVALID', [rigId, 'entries'], 'Review must contain every exact body × head pair once.'))
+    }
+    if (review.thresholds?.largestComponentRatio !== 0.99 || review.thresholds?.centerlineGapPx !== 2 || review.entries.some(entry => !Number.isFinite(entry.largestComponentRatio) || entry.largestComponentRatio < 0.99 || !Number.isFinite(entry.centerlineGapPx) || entry.centerlineGapPx < 0 || entry.centerlineGapPx > 2) || review.status !== 'machine-pass-awaiting-user-approval') {
+      diagnostics.push(error('BODY_HEAD_REVIEW_METRICS_INVALID', [rigId, 'entries'], 'Every pair must pass continuity metrics while remaining awaiting user approval.'))
+    }
+    const rows = Math.ceil(expectedKeys.size / 4)
+    for (const [suffix, declaredHash, width, height] of [
+      ['', review.sheetSha256, 4 * 512, rows * 512],
+      ['-256', review.sheet256Sha256, 4 * 256, rows * 256],
+    ] as const) {
+      try {
+        const sheet = await readFile(join(input.reviewRoot, `${stem}${suffix}.png`))
+        const metadata = await sharp(sheet).metadata()
+        if (sha256Bytes(sheet) !== declaredHash || metadata.format !== 'png' || metadata.width !== width || metadata.height !== height) {
+          diagnostics.push(error('BODY_HEAD_REVIEW_SHEET_INVALID', [rigId, suffix || 'original'], 'Sheet bytes, declared SHA-256, or dimensions differ.'))
+        }
+      } catch {
+        diagnostics.push(error('BODY_HEAD_REVIEW_SHEET_MISSING', [rigId, suffix || 'original'], 'Cannot read the declared body/head contact sheet.'))
+      }
+    }
+  }
+  return { diagnostics, entryCountByRig }
+}
+
 async function main(): Promise<void> {
   const versionIndex = process.argv.indexOf('--version')
   const version = versionIndex === -1 ? undefined : process.argv[versionIndex + 1]
   const production = process.argv.includes('--production')
+  const scopeIndex = process.argv.indexOf('--scope')
+  const scope = scopeIndex === -1 ? undefined : process.argv[scopeIndex + 1]
   const rigIndex = process.argv.indexOf('--rig')
   const rig = rigIndex === -1 ? undefined : process.argv[rigIndex + 1]
   const catalogIndex = process.argv.indexOf('--catalog-if-present')
   const catalogPath = catalogIndex === -1 ? undefined : process.argv[catalogIndex + 1]
-  if (version !== '0.3.0') throw new Error('Usage: tsx scripts/validate-interface-slice.ts --version 0.3.0 [--production]')
+  if (version !== '0.3.0' || (scope !== undefined && scope !== 'body-head')) throw new Error('Usage: tsx scripts/validate-interface-slice.ts --version 0.3.0 [--production] [--scope body-head]')
   const paths = productionPaths(version)
   const repositoryRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
   const manifestPath = join(repositoryRoot, paths.sourceRoot, 'interface-manifest.json')
@@ -202,7 +285,7 @@ async function main(): Promise<void> {
     }
   }
   let productionAssetsChecked = 0
-  if (diagnostics.length === 0 && production) {
+  if (diagnostics.length === 0 && (production || scope === 'body-head')) {
     const parsed = parseInterfaceSourceManifest(JSON.parse(await readFile(manifestPath, 'utf8')))
     if (parsed.ok) {
       const readiness = await validateInterfaceProductionReadiness({ repositoryRoot, manifest: parsed.value })
@@ -216,8 +299,14 @@ async function main(): Promise<void> {
     bipedEntriesChecked = review.entryCount
     for (const message of review.diagnostics) diagnostics.push(error('BIPED_SLICE_INVALID', ['review'], message))
   }
+  let bodyHeadEntriesChecked: Record<InterfaceRigId, number> | undefined
+  if (diagnostics.length === 0 && scope === 'body-head') {
+    const review = await validateBodyHeadReview({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
+    bodyHeadEntriesChecked = review.entryCountByRig
+    diagnostics.push(...review.diagnostics)
+  }
   for (const diagnostic of diagnostics) console.error(`ERROR ${diagnostic.code} ${diagnostic.path.join('.')}: ${diagnostic.message}`)
-  console.log(JSON.stringify({ version, rig, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, diagnostics: diagnostics.length }))
+  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, diagnostics: diagnostics.length }))
   if (diagnostics.length > 0) process.exitCode = 1
 }
 

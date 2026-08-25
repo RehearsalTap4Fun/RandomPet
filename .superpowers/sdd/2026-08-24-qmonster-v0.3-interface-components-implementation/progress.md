@@ -88,3 +88,10 @@
 - Task 6: fix round 1/5 complete (5 addressed, 0 open; approved slice/sheet/manifest bytes unchanged from 500d800)
 - Task 6: fix round 2/5 started (semantic visual-mapping closure, canonical acceptance identity/version/timestamp enforcement, and clean-checkout retired-runtime residue; fix base a19b619)
 - Task 6: fix round 2/5 complete (3 addressed, 0 open; approved sheet/256-sheet/manifest/acceptance bytes unchanged from a19b619)
+- Task 6: complete remains valid after scoped re-review of fix round 2 (commit f029247; review clean)
+- Task 7: in progress (base f029247)
+- Task 7: Ruling: re-author `head_round_dome` from a new connection-aware candidate for each exact rig now, while keeping every retired Task 6 round-head file historical-only and preserving all frozen Task 6 hashes — cost if wrong: the new dome may need targeted regeneration, but the approved biped slice remains byte-identical and reversible.
+- Task 7: completeness TDD RED recorded (real manifest had 2 bodies), then GREEN with 5 bodies and four exact head identities per rig.
+- Task 7: 18 built-in image-generation calls complete (14 first pass, 4 targeted); blob round c1, blob mushroom c1, blob angler c1/c2 rejected with reasons preserved; all 14 exact new variants processed.
+- Task 7: body/head matrices machine-pass at original and 256 (blob 8, biped 8, floating 4), validation checks 49 production sources with zero diagnostics; focused 15/15, validator 8/8, typecheck pass, single-worker full suite 71/71 files and 592 pass/2 skip.
+- Task 7: `WAITING_FOR_USER_APPROVAL`; canonical sheets and manifest hashes are recorded in task-7-report.md; no approval/acceptance JSON exists and all four frozen Task 6 hashes remain unchanged.

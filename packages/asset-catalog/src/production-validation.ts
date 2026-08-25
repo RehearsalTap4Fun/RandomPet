@@ -11,7 +11,13 @@ import {
   type ChromaQualityMetrics,
 } from './chroma-quality-gate.js'
 import { assetPathBelowVersionRoot, validateAssetFile } from './file-validation.js'
-import { parseInterfaceSourceManifest, validateInterfaceSourceIndex, type InterfaceSourceManifest } from './interface-source-schema.js'
+import {
+  interfaceVariantKey,
+  parseInterfaceSourceManifest,
+  structuralVariants,
+  validateInterfaceSourceIndex,
+  type InterfaceSourceManifest,
+} from './interface-source-schema.js'
 
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
@@ -502,13 +508,13 @@ export async function validateProductionInterfaceResources(
       diagnostics.push(error('PRODUCTION_INTERFACE_SOURCE_INDEX_INVALID', ['sources'], caught instanceof Error ? caught.message : String(caught)))
     }
     const catalogParts = new Map(catalog.parts.filter(part => part.composition?.mode === 'interface').map(part => [part.id, part]))
-    for (const source of manifest.assets) {
-      const part = catalogParts.get(source.id)
+    for (const source of structuralVariants(manifest)) {
+      const part = catalogParts.get(source.partId)
       const composition = part?.composition
-      const variant = composition?.mode === 'interface' ? composition.variantsByRig.biped : undefined
+      const variant = composition?.mode === 'interface' ? composition.variantsByRig[source.rigId] : undefined
       if (
-        part === undefined || composition?.mode !== 'interface' || variant === undefined || Object.keys(composition.variantsByRig).length !== 1
-        || variant.rigId !== 'biped' || variant.materialFamily !== source.materialFamily
+        part === undefined || composition?.mode !== 'interface' || variant === undefined
+        || variant.rigId !== source.rigId || variant.materialFamily !== source.materialFamily
         || variant.renderNodes.length !== source.renderNodes.length
         || source.renderNodes.some(node => {
           const actual = variant.renderNodes.find(candidate => candidate.id === node.id)
@@ -527,12 +533,12 @@ export async function validateProductionInterfaceResources(
             || !sameJson(actual.materialSampleRegion, connector.materialSampleRegion)
             || !sameJson(actual.warpLimits, connector.warpLimits)
         })
-      ) diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISMATCH', ['parts', source.id], 'Catalog interface variant differs from the canonical manifest inventory, mapping, material, or provenance contract.'))
+      ) diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISMATCH', ['parts', source.partId, source.rigId], 'Catalog interface variant differs from the canonical manifest inventory, mapping, material, or provenance contract.'))
     }
     if (catalogParts.size !== manifest.assets.length || [...catalogParts.keys()].some(id => !manifest!.assets.some(asset => asset.id === id))) {
       diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISMATCH', ['parts'], 'Catalog contains missing or extra interface structural records.'))
     }
-    const catalogBridges = new Map((catalog.transitionBridges ?? []).filter(bridge => bridge.rigId === 'biped').map(bridge => [bridge.id, bridge]))
+    const catalogBridges = new Map((catalog.transitionBridges ?? []).map(bridge => [bridge.id, bridge]))
     if (catalogBridges.size !== manifest.bridges.length || manifest.bridges.some(source => {
       const bridge = catalogBridges.get(source.id)
       return bridge === undefined || bridge.neutralPngPath !== source.neutralPngPath || bridge.neutralAssetPath !== source.neutralWebpPath

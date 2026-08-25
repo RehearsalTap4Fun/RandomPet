@@ -2,7 +2,7 @@
   "catalogVersion": "0.3.0",
   "sources": [
     {
-      "sourceId": "body_biped_peanut",
+      "sourceId": "body_biped_peanut:biped",
       "kind": "interface-structural",
       "promptId": "body_biped_peanut",
       "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "sourceId": "body_biped_tall",
+      "sourceId": "body_biped_tall:biped",
       "kind": "interface-structural",
       "promptId": "body_biped_tall",
       "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "sourceId": "head_mushroom_cap",
+      "sourceId": "head_mushroom_cap:biped",
       "kind": "interface-structural",
       "promptId": "head_mushroom_cap",
       "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
@@ -59,7 +59,45 @@
       ]
     },
     {
-      "sourceId": "arms_short_plush",
+      "sourceId": "head_mushroom_cap:blob",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/blob/head_mushroom_cap.png",
+          "sha256": "0a1000558f0adfce23cc4752cf8ceef5bd44b1fc5eff5eb252c290a437908d1b"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/blob/nodes/head_mushroom_cap/neck.png",
+          "sha256": "0a1000558f0adfce23cc4752cf8ceef5bd44b1fc5eff5eb252c290a437908d1b"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_mushroom_cap:floating",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/floating/head_mushroom_cap.png",
+          "sha256": "244c29ec25c2a64aad7e87cfc12dd1bdaad87e1acc59758ebfaef2cef0249457"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/floating/nodes/head_mushroom_cap/neck.png",
+          "sha256": "244c29ec25c2a64aad7e87cfc12dd1bdaad87e1acc59758ebfaef2cef0249457"
+        }
+      ]
+    },
+    {
+      "sourceId": "arms_short_plush:biped",
       "kind": "interface-structural",
       "promptId": "arms_short_plush",
       "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
@@ -82,7 +120,7 @@
       ]
     },
     {
-      "sourceId": "arms_long_noodle",
+      "sourceId": "arms_long_noodle:biped",
       "kind": "interface-structural",
       "promptId": "arms_long_noodle",
       "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
@@ -105,7 +143,7 @@
       ]
     },
     {
-      "sourceId": "legs_webbed",
+      "sourceId": "legs_webbed:biped",
       "kind": "interface-structural",
       "promptId": "legs_webbed",
       "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
@@ -128,7 +166,7 @@
       ]
     },
     {
-      "sourceId": "legs_mushroom",
+      "sourceId": "legs_mushroom:biped",
       "kind": "interface-structural",
       "promptId": "legs_mushroom",
       "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
@@ -147,6 +185,234 @@
         {
           "path": "asset-source/v0.3.0/production/nodes/legs_mushroom/hipRight.png",
           "sha256": "466accf42e69f823f428f0ab543c86ad18153b3fc1bdfa4e9d9bcf3b094caea5"
+        }
+      ]
+    },
+    {
+      "sourceId": "body_blob_round:blob",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/blob/body_blob_round.png",
+          "sha256": "e91e7c04949f1af155d4749b1cb9cc9e63b61731762463e472225a9a0249fffd"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/blob/nodes/body_blob_round/body.png",
+          "sha256": "e91e7c04949f1af155d4749b1cb9cc9e63b61731762463e472225a9a0249fffd"
+        }
+      ]
+    },
+    {
+      "sourceId": "body_blob_wide:blob",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/blob/body_blob_wide.png",
+          "sha256": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/blob/nodes/body_blob_wide/body.png",
+          "sha256": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a"
+        }
+      ]
+    },
+    {
+      "sourceId": "body_floating_drop:floating",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/floating/body_floating_drop.png",
+          "sha256": "831bbedae94957879817e8d9872f532ee2a65af7ff22383acc47c223e599b7e9"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/floating/nodes/body_floating_drop/body.png",
+          "sha256": "831bbedae94957879817e8d9872f532ee2a65af7ff22383acc47c223e599b7e9"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_round_dome:biped",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/biped/head_round_dome.png",
+          "sha256": "4fa8088867f6aad240f7191b68c7e5af5b7e88ec3a034e6b3cfcbe16680a518d"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/biped/nodes/head_round_dome/neck.png",
+          "sha256": "4fa8088867f6aad240f7191b68c7e5af5b7e88ec3a034e6b3cfcbe16680a518d"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_round_dome:blob",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/blob/head_round_dome.png",
+          "sha256": "e21d7dd1ec70a177178610bddaf65d4835bb3d314559b62d5a8d57db78064b88"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/blob/nodes/head_round_dome/neck.png",
+          "sha256": "e21d7dd1ec70a177178610bddaf65d4835bb3d314559b62d5a8d57db78064b88"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_round_dome:floating",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/floating/head_round_dome.png",
+          "sha256": "876ff6102e32e4423bdfd20ec115845155ce20eb8ec96500c5749529ea2faa17"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/floating/nodes/head_round_dome/neck.png",
+          "sha256": "876ff6102e32e4423bdfd20ec115845155ce20eb8ec96500c5749529ea2faa17"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_angler_bulb:biped",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/biped/head_angler_bulb.png",
+          "sha256": "01522a839b4dcb8f1c6655d7069f77abc47601a2dec6bf8d3417a9e1f3baec6f"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/biped/nodes/head_angler_bulb/neck.png",
+          "sha256": "01522a839b4dcb8f1c6655d7069f77abc47601a2dec6bf8d3417a9e1f3baec6f"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_angler_bulb:blob",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/blob/head_angler_bulb.png",
+          "sha256": "86c610348486164889002a5e38495b3685ba909a7f67e89980a4a3ddaa1d995a"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/blob/nodes/head_angler_bulb/neck.png",
+          "sha256": "86c610348486164889002a5e38495b3685ba909a7f67e89980a4a3ddaa1d995a"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_angler_bulb:floating",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/floating/head_angler_bulb.png",
+          "sha256": "aa866fd51f83c46fd1c7c72bb875c1cb51c9bd5273ed5a684c0077ef64b9f9ab"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/floating/nodes/head_angler_bulb/neck.png",
+          "sha256": "aa866fd51f83c46fd1c7c72bb875c1cb51c9bd5273ed5a684c0077ef64b9f9ab"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_shadow_hood:biped",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/biped/head_shadow_hood.png",
+          "sha256": "a403cfa87e2d7678fe7a1b5191afda71d04106e88301b5e81c135977f790f181"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/biped/nodes/head_shadow_hood/neck.png",
+          "sha256": "a403cfa87e2d7678fe7a1b5191afda71d04106e88301b5e81c135977f790f181"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_shadow_hood:blob",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/blob/head_shadow_hood.png",
+          "sha256": "6000e283f2f7487b64cc5bf3ae196a9958fe9580fc9ee9f4b09fda65d7ab34b5"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/blob/nodes/head_shadow_hood/neck.png",
+          "sha256": "6000e283f2f7487b64cc5bf3ae196a9958fe9580fc9ee9f4b09fda65d7ab34b5"
+        }
+      ]
+    },
+    {
+      "sourceId": "head_shadow_hood:floating",
+      "kind": "interface-structural",
+      "promptId": "task7-body-head-connection-aware",
+      "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+      "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+      "reviewRecordSha256": "ad4246e62be1bf7c80d5b74d8dfc13ee1b28f1a9c5edc4c10c51e24d6969d699",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/structural/floating/head_shadow_hood.png",
+          "sha256": "6241d30df0e93485b4a6e3ece48c91bfcdd295ce11ef53b1fa83d879abedf00f"
+        },
+        {
+          "path": "asset-source/v0.3.0/structural/floating/nodes/head_shadow_hood/neck.png",
+          "sha256": "6241d30df0e93485b4a6e3ece48c91bfcdd295ce11ef53b1fa83d879abedf00f"
         }
       ]
     },
@@ -182,6 +448,96 @@
     },
     {
       "sourceId": "biped-hip-bridge",
+      "kind": "interface-bridge",
+      "promptId": "bridge-hip",
+      "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+      "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+      "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/production/bridges/hip.png",
+          "sha256": "9e380f8d862473d71a78042ad457875610e9f0769150ca2e768c1fc9d9455c0f"
+        }
+      ]
+    },
+    {
+      "sourceId": "blob-neck-bridge",
+      "kind": "interface-bridge",
+      "promptId": "bridge-neck",
+      "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+      "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+      "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/production/bridges/neck.png",
+          "sha256": "5cf3d6468d3b49714a8b5102851ab853fd744a2bad913ccbe7a40012c86cf6d3"
+        }
+      ]
+    },
+    {
+      "sourceId": "blob-shoulder-bridge",
+      "kind": "interface-bridge",
+      "promptId": "bridge-shoulder",
+      "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+      "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+      "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/production/bridges/shoulder.png",
+          "sha256": "d21222a01d71361aea745c0e26d13214b3e3eee7c2eafef2e7a9d37d36f01d34"
+        }
+      ]
+    },
+    {
+      "sourceId": "blob-hip-bridge",
+      "kind": "interface-bridge",
+      "promptId": "bridge-hip",
+      "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+      "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+      "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/production/bridges/hip.png",
+          "sha256": "9e380f8d862473d71a78042ad457875610e9f0769150ca2e768c1fc9d9455c0f"
+        }
+      ]
+    },
+    {
+      "sourceId": "floating-neck-bridge",
+      "kind": "interface-bridge",
+      "promptId": "bridge-neck",
+      "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+      "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+      "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/production/bridges/neck.png",
+          "sha256": "5cf3d6468d3b49714a8b5102851ab853fd744a2bad913ccbe7a40012c86cf6d3"
+        }
+      ]
+    },
+    {
+      "sourceId": "floating-shoulder-bridge",
+      "kind": "interface-bridge",
+      "promptId": "bridge-shoulder",
+      "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+      "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+      "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+      "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+      "sourceResources": [
+        {
+          "path": "asset-source/v0.3.0/production/bridges/shoulder.png",
+          "sha256": "d21222a01d71361aea745c0e26d13214b3e3eee7c2eafef2e7a9d37d36f01d34"
+        }
+      ]
+    },
+    {
+      "sourceId": "floating-hip-bridge",
       "kind": "interface-bridge",
       "promptId": "bridge-hip",
       "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",

@@ -1,0 +1,68 @@
+{
+  "rigId": "blob",
+  "entries": [
+    {
+      "rigId": "blob",
+      "bodyId": "body_blob_round",
+      "headId": "head_round_dome",
+      "largestComponentRatio": 0.9999864305261912,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "blob",
+      "bodyId": "body_blob_round",
+      "headId": "head_mushroom_cap",
+      "largestComponentRatio": 0.9999786417049518,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "blob",
+      "bodyId": "body_blob_round",
+      "headId": "head_angler_bulb",
+      "largestComponentRatio": 0.9999862026823335,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "blob",
+      "bodyId": "body_blob_round",
+      "headId": "head_shadow_hood",
+      "largestComponentRatio": 0.9999880365507238,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "blob",
+      "bodyId": "body_blob_wide",
+      "headId": "head_round_dome",
+      "largestComponentRatio": 0.9999917776132528,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "blob",
+      "bodyId": "body_blob_wide",
+      "headId": "head_mushroom_cap",
+      "largestComponentRatio": 0.9999850516912516,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "blob",
+      "bodyId": "body_blob_wide",
+      "headId": "head_angler_bulb",
+      "largestComponentRatio": 0.9999916819632131,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "blob",
+      "bodyId": "body_blob_wide",
+      "headId": "head_shadow_hood",
+      "largestComponentRatio": 0.9999935060859653,
+      "centerlineGapPx": 0
+    }
+  ],
+  "thresholds": {
+    "largestComponentRatio": 0.99,
+    "centerlineGapPx": 2
+  },
+  "sheetSha256": "24fd7568094399343a7e274fa557a4a08bf694e5380c3fbc7785a055af4da787",
+  "sheet256Sha256": "b89833969528e24efe16704349025c8f6af2ae83b0bf33145f299b0d9335eeb2",
+  "status": "machine-pass-awaiting-user-approval"
+}

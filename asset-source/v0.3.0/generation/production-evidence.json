@@ -1,0 +1,482 @@
+{
+  "schemaVersion": "body-head-production-v1",
+  "generator": "built-in-image_gen",
+  "initialCandidateCalls": 14,
+  "targetedRegenerationCalls": 4,
+  "assets": {
+    "body_blob_round:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/body_blob_round/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 6678,
+        "subjectCoverage": 0.5558372697002765,
+        "sourceSha256": "bef2a6886254e6213c6a2b9c0afb042466c02c158e81f101817df9c7f6aacef9",
+        "rgbaSha256": "047495a463e41a4716a3fa8a3b1ed8bd4342fbd00407aa45c0c592b4021951c8"
+      },
+      "connectorCoverage": {
+        "neck": 1,
+        "shoulderLeft": 1,
+        "shoulderRight": 1,
+        "hipLeft": 1,
+        "hipRight": 1
+      }
+    },
+    "body_blob_wide:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/body_blob_wide/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 2194,
+        "subjectCoverage": 0.3777850273065584,
+        "sourceSha256": "98c3ee086b8545f9c415a0a85731d0431b041150b53993b104c48d1f8e10c5bc",
+        "rgbaSha256": "1b2fe894b75669bf86bfc046c19566b84d842f1e153fcae84dd5e51c87b593d7"
+      },
+      "connectorCoverage": {
+        "neck": 1,
+        "shoulderLeft": 1,
+        "shoulderRight": 1,
+        "hipLeft": 1,
+        "hipRight": 1
+      }
+    },
+    "body_floating_drop:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/body_floating_drop/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 3339,
+        "subjectCoverage": 0.42777815933192415,
+        "sourceSha256": "1aea0da850651483202f566fa2518115faeb773dc0b890fa74c48737a9f74b5c",
+        "rgbaSha256": "82823118662f0a10f8861df1c1b3e95db753d4012afa9597b1f8a466cf7a2a02"
+      },
+      "connectorCoverage": {
+        "neck": 1,
+        "shoulderLeft": 0.9293201410658307,
+        "shoulderRight": 0.9320630877742947,
+        "hipLeft": 0.9717868338557993,
+        "hipRight": 0.9672315830721003
+      }
+    },
+    "head_round_dome:biped": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/biped/head_round_dome/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 2887,
+        "subjectCoverage": 0.4170100653983807,
+        "sourceSha256": "6bbc28ad95803fb5a03ba1ba0e0fbc1ade6d451a935df6279c32f55182f563a2",
+        "rgbaSha256": "8a4245ff98e4ad34901163ba5ac0f81847f9b3df134481736f20a0c4cca9b652"
+      },
+      "connectorCoverage": {
+        "neck": 0.9866707366707367
+      }
+    },
+    "head_angler_bulb:biped": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/biped/head_angler_bulb/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 1509,
+        "subjectCoverage": 0.33875458182937407,
+        "sourceSha256": "670abb32da51dd397e77a06bf9bf1c86ead8d751f18f3a13b13a8ef5ebc564f1",
+        "rgbaSha256": "149cfc0474ab006e265518bddd89832fbbf19e683e6a099cb24b5ef3c5502a20"
+      },
+      "connectorCoverage": {
+        "neck": 1
+      }
+    },
+    "head_shadow_hood:biped": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/biped/head_shadow_hood/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 2373,
+        "subjectCoverage": 0.4595037506772586,
+        "sourceSha256": "d56b233fd215a21584abf4e40529cf827cc803da0f67c99417787f0f24454bbd",
+        "rgbaSha256": "899dcbcf8c224d43dfd358d6d37378680b6cb465d94ca20a3c3166e0584f7495"
+      },
+      "connectorCoverage": {
+        "neck": 0.9525335775335775
+      }
+    },
+    "head_round_dome:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-1.png",
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-2.png"
+      ],
+      "selectedCandidate": 2,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 1963,
+        "subjectCoverage": 0.4594128136057121,
+        "sourceSha256": "b92082aba991db7fcf566a6752589648ddea4de53c7f03bd2afdd0d5d0dd0e79",
+        "rgbaSha256": "25c1e22d67fedf2b14e72257cd83469c25db1bd53beae3f75664c5c7e0ca82bd"
+      },
+      "connectorCoverage": {
+        "neck": 1
+      }
+    },
+    "head_mushroom_cap:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_mushroom_cap/candidate-1.png",
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_mushroom_cap/candidate-2.png"
+      ],
+      "selectedCandidate": 2,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 17385,
+        "subjectCoverage": 0.35957281197774776,
+        "sourceSha256": "754e41599a613b63f80014aa37a525a66b60fb4809e1a932244f606ea55c28be",
+        "rgbaSha256": "edba825df6a268b57640142fc9a594d7c632b1c0343d4a13ca919344966d81ea"
+      },
+      "connectorCoverage": {
+        "neck": 1
+      }
+    },
+    "head_angler_bulb:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_angler_bulb/candidate-1.png",
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_angler_bulb/candidate-2.png",
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_angler_bulb/candidate-3.png"
+      ],
+      "selectedCandidate": 3,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 1251,
+        "subjectCoverage": 0.3997053130143032,
+        "sourceSha256": "e10c0463ce30f93b5770915471606efdb58cc8ad191e3fcaab85d48caa768dd8",
+        "rgbaSha256": "ad3e35d709bc33c2fecf9466fa2dd27f31484b10c242a241e718a7a5c91a71ff"
+      },
+      "connectorCoverage": {
+        "neck": 1
+      }
+    },
+    "head_shadow_hood:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_shadow_hood/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 2115,
+        "subjectCoverage": 0.4089764428470044,
+        "sourceSha256": "3b4234a0c645017660d857451ab3c4f158e59711401a0653e98d0ea39135928c",
+        "rgbaSha256": "1fa656b30e54468de08b202d825d599c201f7c4b5e7414eb608136a0b19094ce"
+      },
+      "connectorCoverage": {
+        "neck": 1
+      }
+    },
+    "head_round_dome:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/head_round_dome/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 2547,
+        "subjectCoverage": 0.3315998056617548,
+        "sourceSha256": "a8d576fda3f962bc228656796f18842eedd1b82847e95d4a40f84679b1cc8253",
+        "rgbaSha256": "5904aa52d93a3846ee67b0cf4c11e249e74ac4c870f04d0554103300b758bf84"
+      },
+      "connectorCoverage": {
+        "neck": 0.9936507936507937
+      }
+    },
+    "head_mushroom_cap:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/head_mushroom_cap/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 28412,
+        "subjectCoverage": 0.31213354903861074,
+        "sourceSha256": "4db1c852dc46ac5c78c7ef5d2b89cfd29a2d609835ef1d5973e870ec84c3de3c",
+        "rgbaSha256": "87e9af22d29323126942e87e2f53fbd353c92db63943f6f735979f6aa01a9760"
+      },
+      "connectorCoverage": {
+        "neck": 0.9665608465608465
+      }
+    },
+    "head_angler_bulb:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/head_angler_bulb/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 969,
+        "subjectCoverage": 0.283292507039674,
+        "sourceSha256": "7028affa3b0bd655d7faa0f20664ee335d19a6a673904c5f8b7be857b6ba790a",
+        "rgbaSha256": "517df8ad58065ffc924ab641b4aaf5cc314bf7488ade6549df2626b1e37485d5"
+      },
+      "connectorCoverage": {
+        "neck": 0.9232275132275132
+      }
+    },
+    "head_shadow_hood:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/head_shadow_hood/candidate-1.png"
+      ],
+      "selectedCandidate": 1,
+      "selectedReason": "Passed original-size identity and organic connector review; no flat cut, pedestal, notch, or baked facial features.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 2360,
+        "subjectCoverage": 0.34184389856764574,
+        "sourceSha256": "bbe385ef5bbfd7c4e284a9976639046ee1819a187e93c6cd74e1405c7ba36cc0",
+        "rgbaSha256": "c7894a8962acc9a314b6d03f70db442e337e78765914c8942925ed4376de0312"
+      },
+      "connectorCoverage": {
+        "neck": 0.901005291005291
+      }
+    }
+  },
+  "matrices": {
+    "blob": {
+      "rigId": "blob",
+      "entries": [
+        {
+          "rigId": "blob",
+          "bodyId": "body_blob_round",
+          "headId": "head_round_dome",
+          "largestComponentRatio": 0.9999864305261912,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "blob",
+          "bodyId": "body_blob_round",
+          "headId": "head_mushroom_cap",
+          "largestComponentRatio": 0.9999786417049518,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "blob",
+          "bodyId": "body_blob_round",
+          "headId": "head_angler_bulb",
+          "largestComponentRatio": 0.9999862026823335,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "blob",
+          "bodyId": "body_blob_round",
+          "headId": "head_shadow_hood",
+          "largestComponentRatio": 0.9999880365507238,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "blob",
+          "bodyId": "body_blob_wide",
+          "headId": "head_round_dome",
+          "largestComponentRatio": 0.9999917776132528,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "blob",
+          "bodyId": "body_blob_wide",
+          "headId": "head_mushroom_cap",
+          "largestComponentRatio": 0.9999850516912516,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "blob",
+          "bodyId": "body_blob_wide",
+          "headId": "head_angler_bulb",
+          "largestComponentRatio": 0.9999916819632131,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "blob",
+          "bodyId": "body_blob_wide",
+          "headId": "head_shadow_hood",
+          "largestComponentRatio": 0.9999935060859653,
+          "centerlineGapPx": 0
+        }
+      ],
+      "thresholds": {
+        "largestComponentRatio": 0.99,
+        "centerlineGapPx": 2
+      },
+      "sheetSha256": "24fd7568094399343a7e274fa557a4a08bf694e5380c3fbc7785a055af4da787",
+      "sheet256Sha256": "b89833969528e24efe16704349025c8f6af2ae83b0bf33145f299b0d9335eeb2",
+      "status": "machine-pass-awaiting-user-approval"
+    },
+    "biped": {
+      "rigId": "biped",
+      "entries": [
+        {
+          "rigId": "biped",
+          "bodyId": "body_biped_peanut",
+          "headId": "head_round_dome",
+          "largestComponentRatio": 0.9999941580313022,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "biped",
+          "bodyId": "body_biped_peanut",
+          "headId": "head_mushroom_cap",
+          "largestComponentRatio": 0.9999907958145152,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "biped",
+          "bodyId": "body_biped_peanut",
+          "headId": "head_angler_bulb",
+          "largestComponentRatio": 0.9999930044846224,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "biped",
+          "bodyId": "body_biped_peanut",
+          "headId": "head_shadow_hood",
+          "largestComponentRatio": 0.9999931356057019,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "biped",
+          "bodyId": "body_biped_tall",
+          "headId": "head_round_dome",
+          "largestComponentRatio": 0.9999933098142951,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "biped",
+          "bodyId": "body_biped_tall",
+          "headId": "head_mushroom_cap",
+          "largestComponentRatio": 0.999987115154997,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "biped",
+          "bodyId": "body_biped_tall",
+          "headId": "head_angler_bulb",
+          "largestComponentRatio": 0.9999916639348105,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "biped",
+          "bodyId": "body_biped_tall",
+          "headId": "head_shadow_hood",
+          "largestComponentRatio": 0.9999915806145254,
+          "centerlineGapPx": 0
+        }
+      ],
+      "thresholds": {
+        "largestComponentRatio": 0.99,
+        "centerlineGapPx": 2
+      },
+      "sheetSha256": "f7cb497c270076a19cb367592e7c49687db32be6dfc8fa1093b40dfa9ca4e4d1",
+      "sheet256Sha256": "a6e5e7e654078c2de927aab10b6ffd0b6dc6eb6576dc50a73c2794f0518bb591",
+      "status": "machine-pass-awaiting-user-approval"
+    },
+    "floating": {
+      "rigId": "floating",
+      "entries": [
+        {
+          "rigId": "floating",
+          "bodyId": "body_floating_drop",
+          "headId": "head_round_dome",
+          "largestComponentRatio": 0.9999827274172225,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "floating",
+          "bodyId": "body_floating_drop",
+          "headId": "head_mushroom_cap",
+          "largestComponentRatio": 0.9999819375126406,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "floating",
+          "bodyId": "body_floating_drop",
+          "headId": "head_angler_bulb",
+          "largestComponentRatio": 0.9999805983427509,
+          "centerlineGapPx": 0
+        },
+        {
+          "rigId": "floating",
+          "bodyId": "body_floating_drop",
+          "headId": "head_shadow_hood",
+          "largestComponentRatio": 0.9999835101548157,
+          "centerlineGapPx": 0
+        }
+      ],
+      "thresholds": {
+        "largestComponentRatio": 0.99,
+        "centerlineGapPx": 2
+      },
+      "sheetSha256": "621685b5dd955cc8aa731941e2fec9fe613a49940f66ab059de3033b78001cbc",
+      "sheet256Sha256": "19b3f17de3ae2cf00a6d84324243f6f2dbc014dab8873e761ccc59f2c367be91",
+      "status": "machine-pass-awaiting-user-approval"
+    }
+  }
+}

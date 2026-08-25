@@ -13,7 +13,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "body_blob_round"
+      ],
       "sourceSlots": [
         "bodyFrame"
       ]
@@ -33,7 +35,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "body_blob_wide"
+      ],
       "sourceSlots": [
         "bodyFrame"
       ]
@@ -97,7 +101,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "body_floating_drop"
+      ],
       "sourceSlots": [
         "bodyFrame"
       ]
@@ -117,7 +123,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "head_round_dome"
+      ],
       "sourceSlots": [
         "headShape"
       ]
@@ -155,7 +163,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "head_angler_bulb"
+      ],
       "sourceSlots": [
         "headShape"
       ]
@@ -173,7 +183,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "head_shadow_hood"
+      ],
       "sourceSlots": [
         "headShape"
       ]
@@ -1088,10 +1100,13 @@
       "shadow": 1.15
     },
     "excludes": [],
-    "boosts": {},
+    "boosts": {
+      "body_floating_drop": 1.12
+    },
     "visualMapping": {
       "mood": "dreamy",
       "suggestedParts": [
+        "body_floating_drop",
         "eyes_sleepy_crescent"
       ]
     }
@@ -1131,10 +1146,13 @@
     "excludes": [
       "personality_brave"
     ],
-    "boosts": {},
+    "boosts": {
+      "head_shadow_hood": 1.2
+    },
     "visualMapping": {
       "mood": "shy",
       "suggestedParts": [
+        "head_shadow_hood",
         "eyes_sleepy_crescent"
       ]
     }
@@ -1263,7 +1281,8 @@
         "effect_bioluminescent_orbs"
       ],
       "suggestedParts": [
-        "surface_gel_bubbles"
+        "surface_gel_bubbles",
+        "body_floating_drop"
       ]
     }
   }

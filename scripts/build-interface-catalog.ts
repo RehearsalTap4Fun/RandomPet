@@ -11,7 +11,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { InterfaceSourceManifest } from './interface-source-schema.js'
-import { validateInterfaceSourceIndex as assertInterfaceSourceIndex } from './interface-source-schema.js'
+import { interfaceVariantKey, structuralVariants, validateInterfaceSourceIndex as assertInterfaceSourceIndex } from './interface-source-schema.js'
 import { productionPaths } from './production-paths.js'
 export { validateInterfaceSourceIndex } from './interface-source-schema.js'
 
@@ -70,84 +70,77 @@ export function buildInterfaceCatalog(input: {
   const existing = new Map(input.baseCatalog.parts.map(part => [part.id, part]))
   const processedNodePaths = new Set<string>()
   const processedNodeHashes = new Set<string>()
-  const structuralParts: VisualPartDefinition[] = input.manifest.assets.map(source => {
-    const base = existing.get(source.id)
-    const processed = input.processedAssets[source.id]
-    if (base === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing base metadata for ${source.id}`)
-    if (processed === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing processed asset for ${source.id}`)
-    validateProcessedNodeResources(source.id, processed)
-    for (const node of Object.values(processed.renderNodes)) {
-      for (const path of [node.pngPath, node.webpPath]) {
-        if (processedNodePaths.has(path)) throw new Error(`INTERFACE_CATALOG_INVALID: render node paths must be globally distinct: ${path}`)
-        processedNodePaths.add(path)
+  const grouped = new Map<string, ReturnType<typeof structuralVariants>>()
+  for (const source of structuralVariants(input.manifest)) {
+    const values = grouped.get(source.partId) ?? []
+    values.push(source); grouped.set(source.partId, values)
+  }
+  const structuralParts: VisualPartDefinition[] = [...grouped.entries()].map(([partId, sources]) => {
+    const base = existing.get(partId)
+    if (base === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing base metadata for ${partId}`)
+    const variantsByRig: InterfacePartComposition['variantsByRig'] = {}
+    let primary: ProcessedInterfaceAsset | undefined
+    for (const source of sources) {
+      const processed = input.processedAssets[interfaceVariantKey(partId, source.rigId)]
+        ?? (source.rigId === 'biped' ? input.processedAssets[partId] : undefined)
+      const sourceId = interfaceVariantKey(partId, source.rigId)
+      if (processed === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing processed asset for ${sourceId}`)
+      primary ??= processed
+      validateProcessedNodeResources(sourceId, processed)
+      for (const node of Object.values(processed.renderNodes)) {
+        for (const path of [node.pngPath, node.webpPath]) {
+          if (processedNodePaths.has(path)) throw new Error(`INTERFACE_CATALOG_INVALID: render node paths must be globally distinct: ${path}`)
+          processedNodePaths.add(path)
+        }
+        for (const digest of [node.pngSha256, node.webpSha256]) {
+          if (processedNodeHashes.has(digest)) throw new Error(`INTERFACE_CATALOG_INVALID: render node hashes must be globally distinct for ${sourceId}`)
+          processedNodeHashes.add(digest)
+        }
       }
-      for (const hash of [node.pngSha256, node.webpSha256]) {
-        if (processedNodeHashes.has(hash)) throw new Error(`INTERFACE_CATALOG_INVALID: render node hashes must be globally distinct for ${source.id}`)
-        processedNodeHashes.add(hash)
+      const connectors: ConnectorProfile[] = source.connectors.map(profile => {
+        const hashes = processed.connectorHashes[profile.id]
+        if (hashes === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing connector hashes for ${sourceId}:${profile.id}`)
+        return { ...profile, rigId: source.rigId, ...hashes }
+      })
+      const renderNodes: RenderNodeDefinition[] = source.renderNodes.map(node => {
+        const nodeAsset = processed.renderNodes[node.id]
+        if (nodeAsset === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing processed render node for ${sourceId}:${node.id}`)
+        return {
+          id: node.id, ...(node.connectorId === undefined ? {} : { connectorId: node.connectorId }),
+          assetPath: nodeAsset.webpPath, pngPath: nodeAsset.pngPath,
+          assetSha256: nodeAsset.webpSha256, pngSha256: nodeAsset.pngSha256,
+          parentSlot: source.slotId === 'bodyFrame' ? null : 'bodyFrame', socket: node.connectorId ?? null,
+          origin: { x: 1024, y: 1024 }, transform: { scale: 1, mirrorX: false },
+          layer: source.slotId === 'bodyFrame' ? 'body' : source.slotId === 'headShape' ? 'head' : 'frontAppendage',
+          compatibleRigs: [source.rigId], clipPolicy: 'none',
+        }
+      })
+      variantsByRig[source.rigId] = {
+        rigId: source.rigId, materialFamily: source.materialFamily, renderNodes, connectors,
+        ...(source.slotId === 'headShape' ? {
+          faceSafeZones: source.faceSafeZones ?? [{ x: 760, y: 1136, width: 528, height: 310 }],
+          featureSockets: source.featureSockets ?? { eyes: { x: 1024, y: 1236 }, mouth: { x: 1024, y: 1376 }, headAppendage: { x: 1024, y: 1116 } },
+        } : {}),
       }
     }
-    const connectors: ConnectorProfile[] = source.connectors.map(profile => {
-      const hashes = processed.connectorHashes[profile.id]
-      if (hashes === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing connector hashes for ${source.id}:${profile.id}`)
-      return { ...profile, rigId: 'biped', ...hashes }
-    })
-    const renderNodes: RenderNodeDefinition[] = source.renderNodes.map(node => {
-      const nodeAsset = processed.renderNodes[node.id]
-      if (nodeAsset === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing processed render node for ${source.id}:${node.id}`)
-      return {
-        id: node.id,
-        ...(node.connectorId === undefined ? {} : { connectorId: node.connectorId }),
-        assetPath: nodeAsset.webpPath,
-        pngPath: nodeAsset.pngPath,
-        assetSha256: nodeAsset.webpSha256,
-        pngSha256: nodeAsset.pngSha256,
-        parentSlot: source.slotId === 'bodyFrame' ? null : 'bodyFrame',
-        socket: node.connectorId ?? null,
-        origin: { x: 1024, y: 1024 },
-        transform: { scale: 1, mirrorX: false },
-        layer: source.slotId === 'bodyFrame' ? 'body' : source.slotId === 'headShape' ? 'head' : 'frontAppendage',
-        compatibleRigs: ['biped'],
-        clipPolicy: 'none',
-      }
-    })
     const composition: InterfacePartComposition = {
-      mode: 'interface',
-      isNone: false,
-      motifTags: base.composition?.motifTags ?? [],
-      visualIntensity: base.composition?.visualIntensity ?? 'quiet',
-      variantsByRig: {
-        biped: {
-          rigId: 'biped', materialFamily: source.materialFamily, renderNodes, connectors,
-          ...(source.slotId === 'headShape' ? {
-            // Keep the shared face declaration inside the tall-body review
-            // frame while preserving the accepted head art and connector.
-            faceSafeZones: [{ x: 760, y: 1136, width: 528, height: 310 }],
-            featureSockets: {
-              eyes: { x: 1024, y: 1236 },
-              mouth: { x: 1024, y: 1376 },
-              headAppendage: { x: 1024, y: 1116 },
-            },
-          } : {}),
-        },
-      },
+      mode: 'interface', isNone: false, motifTags: base.composition?.motifTags ?? [],
+      visualIntensity: base.composition?.visualIntensity ?? 'quiet', variantsByRig,
     }
     const { approvedTransforms: _approvedTransforms, ...baseWithoutTransforms } = base
     return {
-      ...baseWithoutTransforms,
-      compatibleRigs: ['biped'],
-      assetPath: processed.webpPath,
-      assetSha256: processed.webpSha256,
-      pngPath: processed.pngPath,
-      pngSha256: processed.pngSha256,
-      composition,
+      ...baseWithoutTransforms, compatibleRigs: sources.map(source => source.rigId),
+      assetPath: primary!.webpPath, assetSha256: primary!.webpSha256,
+      pngPath: primary!.pngPath, pngSha256: primary!.pngSha256, composition,
     }
   })
   const transitionBridges: TransitionBridgeDefinition[] = input.manifest.bridges.map(source => {
-    const processed = input.processedBridges[source.connectorClass]
-    if (processed === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing bridge hashes for ${source.connectorClass}`)
+    const processed = input.processedBridges[`${source.rigId}:${source.connectorClass}`]
+      ?? (source.rigId === 'biped' ? input.processedBridges[source.connectorClass] : undefined)
+    if (processed === undefined) throw new Error(`INTERFACE_CATALOG_INVALID: missing bridge hashes for ${source.rigId}:${source.connectorClass}`)
     return {
       id: source.id,
-      rigId: 'biped',
+      rigId: source.rigId,
       connectorClass: source.connectorClass,
       materialFamilies: source.materialFamilies,
       neutralAssetPath: source.neutralWebpPath,
@@ -164,7 +157,7 @@ export function buildInterfaceCatalog(input: {
     ...input.baseCatalog.parts.filter(part => (
       !structuralSlots.has(part.slotId)
       && (!['tail', 'extraAppendage'].includes(part.slotId) || part.composition?.isNone === true)
-    )).map(part => ({ ...part, compatibleRigs: ['biped'] as const })),
+    )).map(part => ({ ...part, compatibleRigs: ['blob', 'biped', 'floating'] as const })),
     ...structuralParts,
   ] as VisualPartDefinition[]
   const partIds = new Set(parts.map(part => part.id))
@@ -217,8 +210,8 @@ function isDirectExecution(): boolean {
 
 if (isDirectExecution()) {
   const args = process.argv.slice(2).join(' ')
-  if (args !== '--slice biped' && args !== '--version 0.3.0 --slice biped') {
-    throw new Error('Usage: tsx scripts/build-interface-catalog.ts --version 0.3.0 --slice biped')
+  if (!['--slice biped', '--version 0.3.0 --slice biped', '--scope body-head', '--version 0.3.0 --scope body-head'].includes(args)) {
+    throw new Error('Usage: tsx scripts/build-interface-catalog.ts --version 0.3.0 --scope body-head')
   }
   const paths = productionPaths('0.3.0')
   const manifest = JSON.parse(await readFile(join(paths.sourceRoot, 'interface-manifest.json'), 'utf8')) as InterfaceSourceManifest

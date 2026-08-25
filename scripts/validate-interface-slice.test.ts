@@ -3,14 +3,20 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
-import { validateInterfaceProductionReadiness, validateInterfacePromptEvidence, validateInterfaceSlice } from './validate-interface-slice.js'
+import { validateBodyHeadReview, validateInterfaceProductionReadiness, validateInterfacePromptEvidence, validateInterfaceSlice } from './validate-interface-slice.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
+import { BIPED_SLICE, structuralVariants } from '../packages/asset-catalog/src/interface-source-schema.js'
 
 const roots: string[] = []
 afterEach(async () => Promise.all(roots.splice(0).map(root => rm(root, { recursive: true, force: true }))))
 
 async function manifestFixture(): Promise<any> {
   return JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8'))
+}
+
+function canonicalGuideVariants(manifest: any): ReturnType<typeof structuralVariants> {
+  const canonical = new Map(Object.entries(BIPED_SLICE).map(([slotId, ids]) => [slotId, new Set(ids)]))
+  return structuralVariants(manifest).filter(item => item.rigId === 'biped' && canonical.get(item.slotId)?.has(item.partId))
 }
 
 describe('validateInterfaceSlice', () => {
@@ -32,7 +38,7 @@ describe('validateInterfaceSlice', () => {
     const guideRoot = join(root, 'guides')
     await mkdir(guideRoot, { recursive: true })
     await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`)
-    await renderInterfaceGuides({ outputRoot: guideRoot, rigId: 'biped', profiles: manifest.assets.flatMap((asset: any) => asset.connectors.map((connector: any) => ({ ...connector, assetId: asset.id }))) })
+    await renderInterfaceGuides({ outputRoot: guideRoot, rigId: 'biped', profiles: canonicalGuideVariants(manifest).flatMap(asset => asset.connectors.map(connector => ({ ...connector, assetId: asset.partId }))) })
 
     const result = await validateInterfaceSlice({ manifestPath, guideRoot })
     expect(result.ok).toBe(true)
@@ -58,8 +64,8 @@ describe('validateInterfaceSlice', () => {
     const manifestPath = join(root, 'interface-manifest.json')
     const guideRoot = join(root, 'guides')
     await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`)
-    await renderInterfaceGuides({ outputRoot: guideRoot, rigId: 'biped', profiles: manifest.assets.flatMap((asset: any) => asset.connectors.map((connector: any) => ({ ...connector, assetId: asset.id }))) })
-    const stems = manifest.assets.flatMap((asset: any) => asset.connectors.map((connector: any) => `${asset.id}-${connector.id}-${connector.role}`))
+    await renderInterfaceGuides({ outputRoot: guideRoot, rigId: 'biped', profiles: canonicalGuideVariants(manifest).flatMap(asset => asset.connectors.map(connector => ({ ...connector, assetId: asset.partId }))) })
+    const stems = canonicalGuideVariants(manifest).flatMap(asset => asset.connectors.map(connector => `${asset.partId}-${connector.id}-${connector.role}`))
     await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 1 } } }).png().toFile(join(guideRoot, `${stems[0]}-mask.png`))
     await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).png().toFile(join(guideRoot, `${stems[1]}-mask.png`))
     await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).png().toFile(join(guideRoot, `${stems[2]}-guide.png`))
@@ -79,7 +85,7 @@ describe('validateInterfaceSlice', () => {
     const manifest = await manifestFixture()
     const result = await validateInterfaceProductionReadiness({ repositoryRoot: root, manifest })
     const expectedSources = new Set([
-      ...manifest.assets.flatMap((asset: any) => [asset.sourcePngPath, ...asset.renderNodes.map((node: any) => node.sourcePngPath)]),
+      ...structuralVariants(manifest).flatMap(asset => [asset.sourcePngPath, ...asset.renderNodes.map(node => node.sourcePngPath)]),
       ...manifest.bridges.map((bridge: any) => bridge.sourcePngPath),
     ]).size
     expect(result.ok).toBe(false)
@@ -90,8 +96,9 @@ describe('validateInterfaceSlice', () => {
 
   it('binds prompt evidence to the actual committed prompt catalog bytes', async () => {
     const manifest = await manifestFixture()
-    manifest.assets[0].promptEvidence.promptSha256 = 'f'.repeat(64)
-    manifest.assets[0].promptEvidence.promptId = 'missing-prompt-id'
+    const firstVariant = structuralVariants(manifest)[0]!
+    firstVariant.promptEvidence.promptSha256 = 'f'.repeat(64)
+    firstVariant.promptEvidence.promptId = 'missing-prompt-id'
     const diagnostics = await validateInterfacePromptEvidence({
       manifest,
       repositoryRoot: process.cwd(),
@@ -120,13 +127,14 @@ describe('validateInterfaceSlice', () => {
     const promptResult = await validateInterfaceSlice({ manifestPath, guideRoot: join(process.cwd(), 'asset-source', 'v0.3.0', 'guides'), repositoryRoot: root })
     expect(promptResult.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PROMPT_PATH_INVALID' }))
 
-    const source = manifest.assets[0].sourcePngPath
+    const variants = structuralVariants(manifest)
+    const source = variants[0]!.sourcePngPath
     const outsideSource = join(outside, 'source.png')
     await writeFile(outsideSource, 'outside')
     const sourceTarget = join(root, source)
     await mkdir(join(sourceTarget, '..'), { recursive: true })
     await symlink(outsideSource, sourceTarget, 'file')
-    const otherSource = manifest.assets[1].sourcePngPath
+    const otherSource = variants[1]!.sourcePngPath
     const otherDirectory = join(root, 'other-repository-subdir')
     await mkdir(otherDirectory)
     const otherFile = join(otherDirectory, 'source.png')
@@ -138,4 +146,14 @@ describe('validateInterfaceSlice', () => {
     expect(readiness.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PRODUCTION_SOURCE_PATH_INVALID', path: ['productionAssets', '0'] }))
     expect(readiness.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PRODUCTION_SOURCE_PATH_INVALID', path: ['productionAssets', '1'] }))
   })
+
+  it('validates the exact body-head matrix roster, continuity metrics, and sheet hashes', async () => {
+    const result = await validateBodyHeadReview({
+      repositoryRoot: process.cwd(),
+      reviewRoot: join(process.cwd(), 'packages', 'asset-catalog', 'review', 'v0.3.0'),
+    })
+
+    expect(result.entryCountByRig).toEqual({ blob: 8, biped: 8, floating: 4 })
+    expect(result.diagnostics).toEqual([])
+  }, 20_000)
 })

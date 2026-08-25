@@ -1,976 +1,2672 @@
 {
-  "schemaVersion": "interface-source-v1",
+  "schemaVersion": "interface-source-v2",
   "catalogVersion": "0.3.0",
-  "rigId": "biped",
   "canvasSize": 2048,
   "assets": [
     {
       "id": "body_biped_peanut",
       "slotId": "bodyFrame",
-      "rigId": "biped",
-      "materialFamily": "short-fur",
-      "sourcePngPath": "asset-source/v0.3.0/production/body_biped_peanut.png",
-      "promptEvidence": {
-        "promptId": "body_biped_peanut",
-        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
-        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
-      },
-      "connectors": [
+      "variants": [
         {
-          "id": "neck",
-          "role": "receiver",
-          "connectorClass": "neck",
-          "origin": {
-            "x": 1024,
-            "y": 580
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/production/body_biped_peanut.png",
+          "promptEvidence": {
+            "promptId": "body_biped_peanut",
+            "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+            "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
           },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": -1
-          },
-          "width": 300,
-          "depth": 150,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "receiver",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 580
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 300,
+              "depth": 150,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
+            {
+              "id": "shoulderLeft",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 720,
+                "y": 900
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "shoulderRight",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1328,
+                "y": 900
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipLeft",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 850,
+                "y": 1400
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 250,
+              "depth": 150,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1198,
+                "y": 1400
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 250,
+              "depth": 150,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             }
-          }
-        },
-        {
-          "id": "shoulderLeft",
-          "role": "receiver",
-          "connectorClass": "shoulder",
-          "origin": {
-            "x": 720,
-            "y": 900
-          },
-          "tangent": {
-            "x": 0,
-            "y": 1
-          },
-          "outwardNormal": {
-            "x": -1,
-            "y": 0
-          },
-          "width": 240,
-          "depth": 140,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+          ],
+          "renderNodes": [
+            {
+              "id": "body_biped_peanut-body",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/body_biped_peanut/body.png"
             }
-          }
-        },
-        {
-          "id": "shoulderRight",
-          "role": "receiver",
-          "connectorClass": "shoulder",
-          "origin": {
-            "x": 1328,
-            "y": 900
-          },
-          "tangent": {
-            "x": 0,
-            "y": 1
-          },
-          "outwardNormal": {
-            "x": 1,
-            "y": 0
-          },
-          "width": 240,
-          "depth": 140,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
-            }
-          }
-        },
-        {
-          "id": "hipLeft",
-          "role": "receiver",
-          "connectorClass": "hip",
-          "origin": {
-            "x": 850,
-            "y": 1400
-          },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": 1
-          },
-          "width": 250,
-          "depth": 150,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
-            }
-          }
-        },
-        {
-          "id": "hipRight",
-          "role": "receiver",
-          "connectorClass": "hip",
-          "origin": {
-            "x": 1198,
-            "y": 1400
-          },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": 1
-          },
-          "width": 250,
-          "depth": 150,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
-            }
-          }
-        }
-      ],
-      "renderNodes": [
-        {
-          "id": "body_biped_peanut-body",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/body_biped_peanut/body.png"
+          ]
         }
       ]
     },
     {
       "id": "body_biped_tall",
       "slotId": "bodyFrame",
-      "rigId": "biped",
-      "materialFamily": "short-fur",
-      "sourcePngPath": "asset-source/v0.3.0/production/body_biped_tall.png",
-      "promptEvidence": {
-        "promptId": "body_biped_tall",
-        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
-        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
-      },
-      "connectors": [
+      "variants": [
         {
-          "id": "neck",
-          "role": "receiver",
-          "connectorClass": "neck",
-          "origin": {
-            "x": 1024,
-            "y": 400
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/production/body_biped_tall.png",
+          "promptEvidence": {
+            "promptId": "body_biped_tall",
+            "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+            "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
           },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": -1
-          },
-          "width": 280,
-          "depth": 140,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "receiver",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 400
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 280,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
+            {
+              "id": "shoulderLeft",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 700,
+                "y": 720
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 130,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "shoulderRight",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1348,
+                "y": 720
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 130,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipLeft",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 850,
+                "y": 1540
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 230,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1198,
+                "y": 1540
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 230,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             }
-          }
-        },
-        {
-          "id": "shoulderLeft",
-          "role": "receiver",
-          "connectorClass": "shoulder",
-          "origin": {
-            "x": 700,
-            "y": 720
-          },
-          "tangent": {
-            "x": 0,
-            "y": 1
-          },
-          "outwardNormal": {
-            "x": -1,
-            "y": 0
-          },
-          "width": 220,
-          "depth": 130,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+          ],
+          "renderNodes": [
+            {
+              "id": "body_biped_tall-body",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/body_biped_tall/body.png"
             }
-          }
-        },
-        {
-          "id": "shoulderRight",
-          "role": "receiver",
-          "connectorClass": "shoulder",
-          "origin": {
-            "x": 1348,
-            "y": 720
-          },
-          "tangent": {
-            "x": 0,
-            "y": 1
-          },
-          "outwardNormal": {
-            "x": 1,
-            "y": 0
-          },
-          "width": 220,
-          "depth": 130,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
-            }
-          }
-        },
-        {
-          "id": "hipLeft",
-          "role": "receiver",
-          "connectorClass": "hip",
-          "origin": {
-            "x": 850,
-            "y": 1540
-          },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": 1
-          },
-          "width": 230,
-          "depth": 140,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
-            }
-          }
-        },
-        {
-          "id": "hipRight",
-          "role": "receiver",
-          "connectorClass": "hip",
-          "origin": {
-            "x": 1198,
-            "y": 1540
-          },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": 1
-          },
-          "width": 230,
-          "depth": 140,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
-            }
-          }
-        }
-      ],
-      "renderNodes": [
-        {
-          "id": "body_biped_tall-body",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/body_biped_tall/body.png"
+          ]
         }
       ]
     },
     {
       "id": "head_mushroom_cap",
       "slotId": "headShape",
-      "rigId": "biped",
-      "materialFamily": "mushroom-velvet",
-      "sourcePngPath": "asset-source/v0.3.0/production/head_mushroom_cap.png",
-      "promptEvidence": {
-        "promptId": "head_mushroom_cap",
-        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
-        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
-      },
-      "connectors": [
+      "variants": [
         {
-          "id": "neck",
-          "role": "plug",
-          "connectorClass": "neck",
-          "origin": {
-            "x": 1024,
-            "y": 1460
+          "rigId": "biped",
+          "materialFamily": "mushroom-velvet",
+          "sourcePngPath": "asset-source/v0.3.0/production/head_mushroom_cap.png",
+          "promptEvidence": {
+            "promptId": "head_mushroom_cap",
+            "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+            "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
           },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": 1
-          },
-          "width": 310,
-          "depth": 160,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1460
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 310,
+              "depth": 160,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_mushroom_cap-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/head_mushroom_cap/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 790,
+              "y": 1050,
+              "width": 468,
+              "height": 300
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1160
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
+            "mouth": {
+              "x": 1024,
+              "y": 1310
             },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            "headAppendage": {
+              "x": 1024,
+              "y": 940
             }
           }
-        }
-      ],
-      "renderNodes": [
+        },
         {
-          "id": "head_mushroom_cap-neck",
-          "connectorId": "neck",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/head_mushroom_cap/neck.png"
+          "rigId": "blob",
+          "materialFamily": "mushroom-velvet",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/head_mushroom_cap.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 400,
+              "depth": 200,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_mushroom_cap-blob-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/head_mushroom_cap/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 770,
+              "y": 1020,
+              "width": 508,
+              "height": 320
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1150
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1300
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 920
+            }
+          }
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "mushroom-velvet",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/head_mushroom_cap.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1430
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 300,
+              "depth": 180,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_mushroom_cap-floating-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/head_mushroom_cap/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 800,
+              "y": 1050,
+              "width": 448,
+              "height": 290
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1160
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1300
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 940
+            }
+          }
         }
       ]
     },
     {
       "id": "arms_short_plush",
       "slotId": "arms",
-      "rigId": "biped",
-      "materialFamily": "short-fur",
-      "sourcePngPath": "asset-source/v0.3.0/production/arms_short_plush.png",
-      "promptEvidence": {
-        "promptId": "arms_short_plush",
-        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
-        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
-      },
-      "connectors": [
+      "variants": [
         {
-          "id": "shoulderLeft",
-          "role": "plug",
-          "connectorClass": "shoulder",
-          "origin": {
-            "x": 1500,
-            "y": 900
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/production/arms_short_plush.png",
+          "promptEvidence": {
+            "promptId": "arms_short_plush",
+            "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+            "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
           },
-          "tangent": {
-            "x": 0,
-            "y": 1
-          },
-          "outwardNormal": {
-            "x": 1,
-            "y": 0
-          },
-          "width": 230,
-          "depth": 130,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderLeft-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderLeft-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderLeft-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1500,
+                "y": 900
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 230,
+              "depth": 130,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 548,
+                "y": 900
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 230,
+              "depth": 130,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             }
-          }
-        },
-        {
-          "id": "shoulderRight",
-          "role": "plug",
-          "connectorClass": "shoulder",
-          "origin": {
-            "x": 548,
-            "y": 900
-          },
-          "tangent": {
-            "x": 0,
-            "y": 1
-          },
-          "outwardNormal": {
-            "x": -1,
-            "y": 0
-          },
-          "width": 230,
-          "depth": 130,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderRight-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderRight-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_short_plush-shoulderRight-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_short_plush-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_short_plush/shoulderLeft.png"
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "arms_short_plush-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_short_plush/shoulderRight.png"
             }
-          }
-        }
-      ],
-      "renderNodes": [
-        {
-          "id": "arms_short_plush-shoulderLeft",
-          "connectorId": "shoulderLeft",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_short_plush/shoulderLeft.png"
-        },
-        {
-          "id": "arms_short_plush-shoulderRight",
-          "connectorId": "shoulderRight",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_short_plush/shoulderRight.png"
+          ]
         }
       ]
     },
     {
       "id": "arms_long_noodle",
       "slotId": "arms",
-      "rigId": "biped",
-      "materialFamily": "short-fur",
-      "sourcePngPath": "asset-source/v0.3.0/production/arms_long_noodle.png",
-      "promptEvidence": {
-        "promptId": "arms_long_noodle",
-        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
-        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
-      },
-      "connectors": [
+      "variants": [
         {
-          "id": "shoulderLeft",
-          "role": "plug",
-          "connectorClass": "shoulder",
-          "origin": {
-            "x": 1560,
-            "y": 760
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/production/arms_long_noodle.png",
+          "promptEvidence": {
+            "promptId": "arms_long_noodle",
+            "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+            "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
           },
-          "tangent": {
-            "x": 0,
-            "y": 1
-          },
-          "outwardNormal": {
-            "x": 1,
-            "y": 0
-          },
-          "width": 210,
-          "depth": 120,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderLeft-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderLeft-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderLeft-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1560,
+                "y": 760
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 210,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 488,
+                "y": 760
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 210,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             }
-          }
-        },
-        {
-          "id": "shoulderRight",
-          "role": "plug",
-          "connectorClass": "shoulder",
-          "origin": {
-            "x": 488,
-            "y": 760
-          },
-          "tangent": {
-            "x": 0,
-            "y": 1
-          },
-          "outwardNormal": {
-            "x": -1,
-            "y": 0
-          },
-          "width": 210,
-          "depth": 120,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_long_noodle-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_long_noodle/shoulderLeft.png"
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "arms_long_noodle-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_long_noodle/shoulderRight.png"
             }
-          }
-        }
-      ],
-      "renderNodes": [
-        {
-          "id": "arms_long_noodle-shoulderLeft",
-          "connectorId": "shoulderLeft",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_long_noodle/shoulderLeft.png"
-        },
-        {
-          "id": "arms_long_noodle-shoulderRight",
-          "connectorId": "shoulderRight",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_long_noodle/shoulderRight.png"
+          ]
         }
       ]
     },
     {
       "id": "legs_webbed",
       "slotId": "legs",
-      "rigId": "biped",
-      "materialFamily": "short-fur",
-      "sourcePngPath": "asset-source/v0.3.0/production/legs_webbed.png",
-      "promptEvidence": {
-        "promptId": "legs_webbed",
-        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
-        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
-      },
-      "connectors": [
+      "variants": [
         {
-          "id": "hipLeft",
-          "role": "plug",
-          "connectorClass": "hip",
-          "origin": {
-            "x": 850,
-            "y": 520
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/production/legs_webbed.png",
+          "promptEvidence": {
+            "promptId": "legs_webbed",
+            "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+            "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
           },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": -1
-          },
-          "width": 240,
-          "depth": 140,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 850,
+                "y": 520
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1198,
+                "y": 520
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             }
-          }
-        },
-        {
-          "id": "hipRight",
-          "role": "plug",
-          "connectorClass": "hip",
-          "origin": {
-            "x": 1198,
-            "y": 520
-          },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": -1
-          },
-          "width": 240,
-          "depth": 140,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipRight-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipRight-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_webbed-hipRight-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_webbed-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_webbed/hipLeft.png"
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "legs_webbed-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_webbed/hipRight.png"
             }
-          }
-        }
-      ],
-      "renderNodes": [
-        {
-          "id": "legs_webbed-hipLeft",
-          "connectorId": "hipLeft",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_webbed/hipLeft.png"
-        },
-        {
-          "id": "legs_webbed-hipRight",
-          "connectorId": "hipRight",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_webbed/hipRight.png"
+          ]
         }
       ]
     },
     {
       "id": "legs_mushroom",
       "slotId": "legs",
-      "rigId": "biped",
-      "materialFamily": "mushroom-velvet",
-      "sourcePngPath": "asset-source/v0.3.0/production/legs_mushroom.png",
-      "promptEvidence": {
-        "promptId": "legs_mushroom",
-        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
-        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
-      },
-      "connectors": [
+      "variants": [
         {
-          "id": "hipLeft",
-          "role": "plug",
-          "connectorClass": "hip",
-          "origin": {
-            "x": 850,
-            "y": 500
+          "rigId": "biped",
+          "materialFamily": "mushroom-velvet",
+          "sourcePngPath": "asset-source/v0.3.0/production/legs_mushroom.png",
+          "promptEvidence": {
+            "promptId": "legs_mushroom",
+            "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+            "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
           },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": -1
-          },
-          "width": 250,
-          "depth": 150,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipLeft-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipLeft-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipLeft-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 850,
+                "y": 500
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 250,
+              "depth": 150,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1198,
+                "y": 500
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 250,
+              "depth": 150,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_mushroom-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_mushroom/hipLeft.png"
             },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            {
+              "id": "legs_mushroom-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_mushroom/hipRight.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "body_blob_round",
+      "slotId": "bodyFrame",
+      "variants": [
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/body_blob_round.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "receiver",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 620
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 400,
+              "depth": 200,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderLeft",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 600,
+                "y": 930
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1448,
+                "y": 930
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipLeft",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 820,
+                "y": 1200
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1228,
+                "y": 1200
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "body_blob_round-blob-body",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/body_blob_round/body.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "body_blob_wide",
+      "slotId": "bodyFrame",
+      "variants": [
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/body_blob_wide.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "receiver",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 620
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 400,
+              "depth": 200,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderLeft",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 500,
+                "y": 870
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1548,
+                "y": 870
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipLeft",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 800,
+                "y": 1080
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1248,
+                "y": 1080
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "body_blob_wide-blob-body",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/body_blob_wide/body.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "body_floating_drop",
+      "slotId": "bodyFrame",
+      "variants": [
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/body_floating_drop.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "receiver",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 520
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 300,
+              "depth": 180,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderLeft",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 650,
+                "y": 900
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "receiver",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1398,
+                "y": 900
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipLeft",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 860,
+                "y": 1260
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "receiver",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1188,
+                "y": 1260
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "body_floating_drop-floating-body",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/body_floating_drop/body.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "head_round_dome",
+      "slotId": "headShape",
+      "variants": [
+        {
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/head_round_dome.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1460
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 310,
+              "depth": 180,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_round_dome-biped-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/head_round_dome/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 790,
+              "y": 1050,
+              "width": 468,
+              "height": 300
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1160
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1310
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 940
             }
           }
         },
         {
-          "id": "hipRight",
-          "role": "plug",
-          "connectorClass": "hip",
-          "origin": {
-            "x": 1198,
-            "y": 500
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/head_round_dome.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": -1
-          },
-          "width": 250,
-          "depth": 150,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipRight-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipRight-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_mushroom-hipRight-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 400,
+              "depth": 200,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_round_dome-blob-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/head_round_dome/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 770,
+              "y": 1020,
+              "width": 508,
+              "height": 320
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1150
             },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
+            "mouth": {
+              "x": 1024,
+              "y": 1300
             },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
+            "headAppendage": {
+              "x": 1024,
+              "y": 920
+            }
+          }
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/head_round_dome.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1430
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 300,
+              "depth": 180,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_round_dome-floating-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/head_round_dome/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 800,
+              "y": 1050,
+              "width": 448,
+              "height": 290
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1160
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1300
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 940
             }
           }
         }
-      ],
-      "renderNodes": [
+      ]
+    },
+    {
+      "id": "head_angler_bulb",
+      "slotId": "headShape",
+      "variants": [
         {
-          "id": "legs_mushroom-hipLeft",
-          "connectorId": "hipLeft",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_mushroom/hipLeft.png"
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/head_angler_bulb.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1460
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 310,
+              "depth": 180,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_angler_bulb-biped-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/head_angler_bulb/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 790,
+              "y": 1050,
+              "width": 468,
+              "height": 300
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1160
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1310
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 940
+            }
+          }
         },
         {
-          "id": "legs_mushroom-hipRight",
-          "connectorId": "hipRight",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_mushroom/hipRight.png"
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/head_angler_bulb.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 400,
+              "depth": 200,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_angler_bulb-blob-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/head_angler_bulb/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 770,
+              "y": 1020,
+              "width": 508,
+              "height": 320
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1150
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1300
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 920
+            }
+          }
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/head_angler_bulb.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1430
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 300,
+              "depth": 180,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_angler_bulb-floating-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/head_angler_bulb/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 800,
+              "y": 1050,
+              "width": 448,
+              "height": 290
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1160
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1300
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 940
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "head_shadow_hood",
+      "slotId": "headShape",
+      "variants": [
+        {
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/head_shadow_hood.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1460
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 310,
+              "depth": 180,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_shadow_hood-biped-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/head_shadow_hood/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 790,
+              "y": 1050,
+              "width": 468,
+              "height": 300
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1160
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1310
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 940
+            }
+          }
+        },
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/head_shadow_hood.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 400,
+              "depth": 200,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_shadow_hood-blob-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/head_shadow_hood/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 770,
+              "y": 1020,
+              "width": 508,
+              "height": 320
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1150
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1300
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 920
+            }
+          }
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/head_shadow_hood.png",
+          "promptEvidence": {
+            "promptId": "task7-body-head-connection-aware",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "origin": {
+                "x": 1024,
+                "y": 1430
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 300,
+              "depth": 180,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-background.png",
+              "materialSampleRegion": {
+                "x": 896,
+                "y": 896,
+                "width": 256,
+                "height": 256
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "head_shadow_hood-floating-neck",
+              "connectorId": "neck",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/head_shadow_hood/neck.png"
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 800,
+              "y": 1050,
+              "width": 448,
+              "height": 290
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 1160
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 1300
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 940
+            }
+          }
         }
       ]
     }
@@ -1035,6 +2731,131 @@
         "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
       }
+    },
+    {
+      "id": "blob-neck-bridge",
+      "rigId": "blob",
+      "connectorClass": "neck",
+      "materialFamilies": [
+        "short-fur",
+        "mushroom-velvet"
+      ],
+      "sourcePngPath": "asset-source/v0.3.0/production/bridges/neck.png",
+      "neutralPngPath": "assets/v0.3.0/bridges/blob/neck.png",
+      "neutralWebpPath": "assets/v0.3.0/bridges/blob/neck.webp",
+      "frontMaskPath": "assets/v0.3.0/bridges/blob/neck-front.png",
+      "backMaskPath": "assets/v0.3.0/bridges/blob/neck-back.png",
+      "promptEvidence": {
+        "promptId": "bridge-neck",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
+      }
+    },
+    {
+      "id": "blob-shoulder-bridge",
+      "rigId": "blob",
+      "connectorClass": "shoulder",
+      "materialFamilies": [
+        "short-fur",
+        "mushroom-velvet"
+      ],
+      "sourcePngPath": "asset-source/v0.3.0/production/bridges/shoulder.png",
+      "neutralPngPath": "assets/v0.3.0/bridges/blob/shoulder.png",
+      "neutralWebpPath": "assets/v0.3.0/bridges/blob/shoulder.webp",
+      "frontMaskPath": "assets/v0.3.0/bridges/blob/shoulder-front.png",
+      "backMaskPath": "assets/v0.3.0/bridges/blob/shoulder-back.png",
+      "promptEvidence": {
+        "promptId": "bridge-shoulder",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
+      }
+    },
+    {
+      "id": "blob-hip-bridge",
+      "rigId": "blob",
+      "connectorClass": "hip",
+      "materialFamilies": [
+        "short-fur",
+        "mushroom-velvet"
+      ],
+      "sourcePngPath": "asset-source/v0.3.0/production/bridges/hip.png",
+      "neutralPngPath": "assets/v0.3.0/bridges/blob/hip.png",
+      "neutralWebpPath": "assets/v0.3.0/bridges/blob/hip.webp",
+      "frontMaskPath": "assets/v0.3.0/bridges/blob/hip-front.png",
+      "backMaskPath": "assets/v0.3.0/bridges/blob/hip-back.png",
+      "promptEvidence": {
+        "promptId": "bridge-hip",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
+      }
+    },
+    {
+      "id": "floating-neck-bridge",
+      "rigId": "floating",
+      "connectorClass": "neck",
+      "materialFamilies": [
+        "short-fur",
+        "mushroom-velvet"
+      ],
+      "sourcePngPath": "asset-source/v0.3.0/production/bridges/neck.png",
+      "neutralPngPath": "assets/v0.3.0/bridges/floating/neck.png",
+      "neutralWebpPath": "assets/v0.3.0/bridges/floating/neck.webp",
+      "frontMaskPath": "assets/v0.3.0/bridges/floating/neck-front.png",
+      "backMaskPath": "assets/v0.3.0/bridges/floating/neck-back.png",
+      "promptEvidence": {
+        "promptId": "bridge-neck",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
+      }
+    },
+    {
+      "id": "floating-shoulder-bridge",
+      "rigId": "floating",
+      "connectorClass": "shoulder",
+      "materialFamilies": [
+        "short-fur",
+        "mushroom-velvet"
+      ],
+      "sourcePngPath": "asset-source/v0.3.0/production/bridges/shoulder.png",
+      "neutralPngPath": "assets/v0.3.0/bridges/floating/shoulder.png",
+      "neutralWebpPath": "assets/v0.3.0/bridges/floating/shoulder.webp",
+      "frontMaskPath": "assets/v0.3.0/bridges/floating/shoulder-front.png",
+      "backMaskPath": "assets/v0.3.0/bridges/floating/shoulder-back.png",
+      "promptEvidence": {
+        "promptId": "bridge-shoulder",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
+      }
+    },
+    {
+      "id": "floating-hip-bridge",
+      "rigId": "floating",
+      "connectorClass": "hip",
+      "materialFamilies": [
+        "short-fur",
+        "mushroom-velvet"
+      ],
+      "sourcePngPath": "asset-source/v0.3.0/production/bridges/hip.png",
+      "neutralPngPath": "assets/v0.3.0/bridges/floating/hip.png",
+      "neutralWebpPath": "assets/v0.3.0/bridges/floating/hip.webp",
+      "frontMaskPath": "assets/v0.3.0/bridges/floating/hip-front.png",
+      "backMaskPath": "assets/v0.3.0/bridges/floating/hip-back.png",
+      "promptEvidence": {
+        "promptId": "bridge-hip",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
+      }
     }
+  ],
+  "rigIds": [
+    "blob",
+    "biped",
+    "floating"
   ]
 }

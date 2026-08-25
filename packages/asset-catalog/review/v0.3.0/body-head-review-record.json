@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "body-head-self-review-v1",
+  "status": "WAITING_FOR_USER_APPROVAL",
+  "reviewer": "Codex visual self-review",
+  "userApproved": false,
+  "selections": {
+    "body_blob_round:blob": 1,
+    "body_blob_wide:blob": 1,
+    "body_floating_drop:floating": 1,
+    "head_round_dome:biped": 1,
+    "head_angler_bulb:biped": 1,
+    "head_shadow_hood:biped": 1,
+    "head_round_dome:blob": 2,
+    "head_mushroom_cap:blob": 2,
+    "head_angler_bulb:blob": 3,
+    "head_shadow_hood:blob": 1,
+    "head_round_dome:floating": 1,
+    "head_mushroom_cap:floating": 1,
+    "head_angler_bulb:floating": 1,
+    "head_shadow_hood:floating": 1
+  }
+}

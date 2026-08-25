@@ -6,32 +6,60 @@ import { validateCatalogStructure } from '@qmonster/generator-core'
 import type { Catalog } from '@qmonster/generator-core'
 import { validateProductionMetadata } from '../packages/asset-catalog/src/production-validation.js'
 import { buildInterfaceCatalog, validateInterfaceSourceIndex } from './build-interface-catalog.js'
+import { interfaceVariantKey, structuralVariants } from './interface-source-schema.js'
+import type { InterfaceSourceManifest } from './interface-source-schema.js'
 
 const hashFor = (value: string): string => createHash('sha256').update(value).digest('hex')
 
 describe('buildInterfaceCatalog', () => {
+  it('contains five body variants and four head identities for every rig', async () => {
+    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as {
+      assets: Array<{
+        id: string
+        slotId: string
+        rigId?: 'blob' | 'biped' | 'floating'
+        variants?: Array<{ rigId: 'blob' | 'biped' | 'floating' }>
+      }>
+    }
+    const structuralVariants = manifest.assets.flatMap(asset => (
+      asset.variants?.map(variant => ({ partId: asset.id, slotId: asset.slotId, rigId: variant.rigId }))
+      ?? (asset.rigId === undefined ? [] : [{ partId: asset.id, slotId: asset.slotId, rigId: asset.rigId }])
+    ))
+
+    expect(structuralVariants.filter(item => item.slotId === 'bodyFrame')).toHaveLength(5)
+    for (const rigId of ['blob', 'biped', 'floating'] as const) {
+      expect(structuralVariants
+        .filter(item => item.slotId === 'headShape' && item.rigId === rigId)
+        .map(item => item.partId)
+        .sort()).toEqual([
+        'head_angler_bulb', 'head_mushroom_cap', 'head_round_dome', 'head_shadow_hood',
+      ])
+    }
+  })
+
   it('builds the exact biped structural slice and three bridge classes from processed hashes', async () => {
     const base = makeCompositionCatalogFixture()
-    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8'))
+    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest
+    const variants = structuralVariants(manifest)
     for (const asset of manifest.assets) {
       if (base.parts.some(part => part.id === asset.id)) continue
       const template = base.parts.find(part => part.slotId === asset.slotId)!
       base.parts.push({ ...structuredClone(template), id: asset.id })
     }
-    const processed = Object.fromEntries(manifest.assets.map((asset: any) => [asset.id, {
-      pngPath: `assets/v0.3.0/parts/${asset.id}.png`, pngSha256: hashFor(`${asset.id}:png`),
-      webpPath: `assets/v0.3.0/parts/${asset.id}.webp`, webpSha256: hashFor(`${asset.id}:webp`),
-      renderNodes: Object.fromEntries(asset.renderNodes.map((node: any) => [node.id, {
-        pngPath: `assets/v0.3.0/nodes/${asset.id}/${node.id}.png`, pngSha256: hashFor(`${asset.id}:${node.id}:png`),
-        webpPath: `assets/v0.3.0/nodes/${asset.id}/${node.id}.webp`, webpSha256: hashFor(`${asset.id}:${node.id}:webp`),
+    const processed = Object.fromEntries(variants.map(asset => [interfaceVariantKey(asset.partId, asset.rigId), {
+      pngPath: `assets/v0.3.0/parts/${asset.rigId}/${asset.partId}.png`, pngSha256: hashFor(`${asset.partId}:${asset.rigId}:png`),
+      webpPath: `assets/v0.3.0/parts/${asset.rigId}/${asset.partId}.webp`, webpSha256: hashFor(`${asset.partId}:${asset.rigId}:webp`),
+      renderNodes: Object.fromEntries(asset.renderNodes.map(node => [node.id, {
+        pngPath: `assets/v0.3.0/nodes/${asset.rigId}/${asset.partId}/${node.id}.png`, pngSha256: hashFor(`${asset.partId}:${asset.rigId}:${node.id}:png`),
+        webpPath: `assets/v0.3.0/nodes/${asset.rigId}/${asset.partId}/${node.id}.webp`, webpSha256: hashFor(`${asset.partId}:${asset.rigId}:${node.id}:webp`),
       }])),
-      connectorHashes: Object.fromEntries(asset.connectors.map((connector: any) => [connector.id, {
-        contourMaskSha256: hashFor(`${asset.id}:${connector.id}:contour`),
-        foregroundMaskSha256: hashFor(`${asset.id}:${connector.id}:foreground`),
-        backgroundMaskSha256: hashFor(`${asset.id}:${connector.id}:background`),
+      connectorHashes: Object.fromEntries(asset.connectors.map(connector => [connector.id, {
+        contourMaskSha256: hashFor(`${asset.partId}:${asset.rigId}:${connector.id}:contour`),
+        foregroundMaskSha256: hashFor(`${asset.partId}:${asset.rigId}:${connector.id}:foreground`),
+        backgroundMaskSha256: hashFor(`${asset.partId}:${asset.rigId}:${connector.id}:background`),
       }])),
     }]))
-    const bridges = Object.fromEntries(manifest.bridges.map((bridge: any) => [bridge.connectorClass, {
+    const bridges = Object.fromEntries(manifest.bridges.map(bridge => [`${bridge.rigId}:${bridge.connectorClass}`, {
       neutralPngSha256: hashFor(`${bridge.id}:png`), neutralWebpSha256: hashFor(`${bridge.id}:webp`),
       frontMaskSha256: hashFor(`${bridge.id}:front`), backMaskSha256: hashFor(`${bridge.id}:back`),
     }]))
@@ -58,19 +86,20 @@ describe('buildInterfaceCatalog', () => {
     const catalog = buildInterfaceCatalog({ baseCatalog: base, manifest, processedAssets: processed, processedBridges: bridges })
 
     expect(catalog.version).toBe('0.3.0')
-    expect(catalog.parts.filter(part => ['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)).map(part => part.id)).toEqual([
-      'body_biped_peanut', 'body_biped_tall', 'head_mushroom_cap',
-      'arms_short_plush', 'arms_long_noodle', 'legs_webbed', 'legs_mushroom',
+    expect(catalog.parts.filter(part => ['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)).map(part => part.id)).toEqual(manifest.assets.map(asset => asset.id))
+    expect(catalog.parts.find(part => part.id === 'head_round_dome')?.composition?.mode).toBe('interface')
+    expect(catalog.transitionBridges?.map(bridge => `${bridge.rigId}:${bridge.connectorClass}`)).toEqual([
+      'biped:neck', 'biped:shoulder', 'biped:hip',
+      'blob:neck', 'blob:shoulder', 'blob:hip',
+      'floating:neck', 'floating:shoulder', 'floating:hip',
     ])
-    expect(catalog.parts.find(part => part.id === 'head_round_dome')).toBeUndefined()
-    expect(catalog.transitionBridges?.map(bridge => bridge.connectorClass)).toEqual(['neck', 'shoulder', 'hip'])
     const arms = catalog.parts.find(part => part.id === 'arms_short_plush')!
     expect(arms.composition?.mode).toBe('interface')
     if (arms.composition?.mode !== 'interface') throw new Error('expected interface composition')
     expect(arms.composition.variantsByRig.biped?.renderNodes.map(node => node.connectorId)).toEqual(['shoulderLeft', 'shoulderRight'])
     expect(arms.composition.variantsByRig.biped?.renderNodes.map(node => node.assetPath)).toEqual([
-      'assets/v0.3.0/nodes/arms_short_plush/arms_short_plush-shoulderLeft.webp',
-      'assets/v0.3.0/nodes/arms_short_plush/arms_short_plush-shoulderRight.webp',
+      'assets/v0.3.0/nodes/biped/arms_short_plush/arms_short_plush-shoulderLeft.webp',
+      'assets/v0.3.0/nodes/biped/arms_short_plush/arms_short_plush-shoulderRight.webp',
     ])
     expect(catalog.semanticTraits[0]?.boosts).toEqual({ [retainedPartId]: 2 })
     expect(catalog.semanticTraits[0]?.excludes).toEqual([semanticExclude])
@@ -87,22 +116,30 @@ describe('buildInterfaceCatalog', () => {
     expect(validateCatalogStructure(catalog)).toEqual([])
 
     const duplicateProcessed = structuredClone(processed)
-    const paired = Object.values(duplicateProcessed.arms_short_plush.renderNodes) as any[]
+    const paired = Object.values(duplicateProcessed['arms_short_plush:biped'].renderNodes) as any[]
     paired[1].pngPath = paired[0].pngPath
     paired[1].pngSha256 = paired[0].pngSha256
     expect(() => buildInterfaceCatalog({ baseCatalog: base, manifest, processedAssets: duplicateProcessed, processedBridges: bridges }))
       .toThrow('canonical distinct paths and hashes')
   })
 
-  it('keeps retired structural IDs out of the real generated semantic mappings', async () => {
+  it('maps only the re-authored connection-aware round head after retiring the flawed source', async () => {
     const catalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.3.0/catalog.json', 'utf8')) as Catalog
+    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest
     const partMappingFields = ['suggestedParts', 'effectPartIds', 'sourcePartIds', 'assetIds']
     const mappedPartIds = catalog.semanticTraits.flatMap(trait => partMappingFields.flatMap(field => {
       const value = trait.visualMapping?.[field]
       return Array.isArray(value) ? value : []
     }))
 
-    expect(mappedPartIds).not.toContain('head_round_dome')
+    const roundVariants = structuralVariants(manifest).filter(item => item.partId === 'head_round_dome')
+    expect(mappedPartIds).toContain('head_round_dome')
+    expect(roundVariants.map(item => item.rigId).sort()).toEqual(['biped', 'blob', 'floating'])
+    expect(roundVariants.every(item => (
+      item.promptEvidence.promptId === 'task7-body-head-connection-aware'
+      && item.sourcePngPath.includes('/structural/')
+      && !item.sourcePngPath.includes('/retired/')
+    ))).toBe(true)
     expect(validateProductionMetadata(catalog).filter(diagnostic => (
       diagnostic.code === 'PRODUCTION_DANGLING_VISUAL_MAPPING'
       && diagnostic.message.includes('head_round_dome')
@@ -110,10 +147,11 @@ describe('buildInterfaceCatalog', () => {
   })
 
   it('requires exact source-index coverage for every master node and bridge source PNG', async () => {
-    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8'))
+    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest
+    const variants = structuralVariants(manifest)
     const sources = [
-      ...manifest.assets.map((asset: any) => ({
-        sourceId: asset.id,
+      ...variants.map(asset => ({
+        sourceId: interfaceVariantKey(asset.partId, asset.rigId),
         kind: 'interface-structural',
         promptId: asset.promptEvidence.promptId,
         promptPath: asset.promptEvidence.promptPath,
