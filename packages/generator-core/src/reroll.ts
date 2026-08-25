@@ -1,5 +1,9 @@
 import { checkPartCompatibility } from './candidates.js'
-import { validateStructuralSelections } from './connector-compatibility.js'
+import {
+  connectorExclusions,
+  type StructuralPartSelection,
+  validateStructuralSelections,
+} from './connector-compatibility.js'
 import { VISUAL_SLOT_IDS } from './contracts.js'
 import { generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
@@ -8,6 +12,7 @@ import type {
   GenerationRequest,
   GenerationResult,
   MonsterSpec,
+  StructuralSlotId,
   VisualSelection,
   VisualSlotId,
 } from './contracts.js'
@@ -34,6 +39,28 @@ export interface SelectVisualPartRequest extends RerollSlotRequest {
   partId: string
 }
 
+const STRUCTURAL_SLOTS = new Set<StructuralSlotId>([
+  'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
+])
+
+function isInterfaceCatalog(catalog: Catalog): boolean {
+  return catalog.version === '0.3.0'
+}
+
+function isStructuralSlot(slotId: VisualSlotId): slotId is StructuralSlotId {
+  return STRUCTURAL_SLOTS.has(slotId as StructuralSlotId)
+}
+
+function selectedStructuralParts(spec: MonsterSpec, catalog: Catalog) {
+  const selected = new Map<StructuralSlotId, StructuralPartSelection>()
+  for (const slotId of STRUCTURAL_SLOTS) {
+    const selection = spec.visualSlots[slotId]
+    const part = catalog.parts.find(candidate => candidate.id === selection.partId && candidate.slotId === slotId)
+    if (part !== undefined) selected.set(slotId, { part, rigId: selection.rigId })
+  }
+  return selected
+}
+
 function result(
   spec: MonsterSpec,
   diagnostics: Diagnostic[],
@@ -44,6 +71,11 @@ function result(
 
 function orderedAffectedSlots(origin: VisualSlotId, catalog: Catalog): VisualSlotId[] {
   const affected = descendantsOf(origin, catalog)
+  if (isInterfaceCatalog(catalog)) {
+    for (const slotId of affected) {
+      if (slotId !== origin && isStructuralSlot(slotId)) affected.delete(slotId)
+    }
+  }
   affected.add(origin)
   return generationOrderForCatalog(catalog).filter(slotId => affected.has(slotId))
 }
@@ -87,6 +119,11 @@ function regenerateDescendants(
   diagnostics: Diagnostic[],
 ): void {
   const descendants = descendantsOf(origin, catalog)
+  if (isInterfaceCatalog(catalog)) {
+    for (const slotId of descendants) {
+      if (slotId !== origin && isStructuralSlot(slotId)) descendants.delete(slotId)
+    }
+  }
   const affected = new Set<VisualSlotId>([origin, ...descendants])
   const generationRequest: GenerationRequest = {
     seed: spec.seed,
@@ -179,6 +216,9 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
     planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, request.catalog),
   ))
   diagnostics.push(...validateStructuralSelections(spec, request.catalog))
+  if (isInterfaceCatalog(request.catalog) && diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return result(cloneSpec(request.spec), diagnostics, affectedSlots)
+  }
   return result(spec, diagnostics, affectedSlots)
 }
 
@@ -187,7 +227,19 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
   const diagnostics: Diagnostic[] = []
   const part = request.catalog.parts.find(item => item.slotId === request.slotId && item.id === request.partId)
   const evaluation = part === undefined ? null : evaluatePartSelection(part, spec, request.catalog)
+  const connectorFailures = part !== undefined && evaluation !== null && evaluation.rigId !== null
+    ? connectorExclusions(request.catalog, part, evaluation.rigId, selectedStructuralParts(spec, request.catalog))
+    : []
   if (part === undefined || evaluation === null || !evaluation.selectable || evaluation.rigId === null) {
+    for (const failure of connectorFailures) {
+      diagnostics.push({
+        severity: 'error',
+        code: failure.result.code,
+        path: ['visualSlots', failure.slotId],
+        message: failure.result.message,
+      })
+    }
+    if (diagnostics.length > 0) return result(spec, diagnostics, [request.slotId])
     diagnostics.push({
       severity: 'error',
       code: part === undefined ? 'PART_NOT_FOUND' : 'PART_INCOMPATIBLE',

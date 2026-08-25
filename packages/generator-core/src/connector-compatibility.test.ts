@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   evaluateConnectorPair,
   selectVisualPart,
+  validateStructuralSelections,
   type Catalog,
   type MonsterSpec,
 } from './index.js'
@@ -88,6 +89,20 @@ function makeIncompatibleInterfaceCatalog(): Catalog {
 }
 
 describe('evaluateConnectorPair', () => {
+  it('blocks a selected child whose recorded rig differs from the body even when both variants exist', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    spec.catalogVersion = '0.3.0'
+    spec.rendererVersion = '0.3.0'
+    spec.visualSlots.headShape.rigId = 'biped'
+
+    expect(validateStructuralSelections(spec, catalog)).toContainEqual(expect.objectContaining({
+      severity: 'error',
+      code: 'CONNECTOR_VARIANT_MISSING',
+      path: ['visualSlots', 'headShape'],
+    }))
+  })
+
   it('accepts an exact-rig pair only when one bridge satisfies both warp limits', () => {
     const catalog = makeExactRigCatalog()
 

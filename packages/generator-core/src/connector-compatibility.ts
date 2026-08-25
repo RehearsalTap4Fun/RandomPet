@@ -16,6 +16,8 @@ export type ConnectorPairResult =
     message: string
   }
 
+export type ConnectorFailure = Extract<ConnectorPairResult, { ok: false }>
+
 const CONNECTOR_IDS_BY_CHILD_SLOT: Partial<Record<StructuralSlotId, readonly string[]>> = {
   headShape: ['neck'],
   arms: ['shoulderLeft', 'shoulderRight'],
@@ -25,6 +27,16 @@ const CONNECTOR_IDS_BY_CHILD_SLOT: Partial<Record<StructuralSlotId, readonly str
 }
 
 const STRUCTURAL_CHILD_SLOTS = Object.keys(CONNECTOR_IDS_BY_CHILD_SLOT) as StructuralSlotId[]
+
+export interface StructuralPartSelection {
+  part: VisualPartDefinition
+  rigId: RigId
+}
+
+export interface ConnectorExclusion {
+  slotId: StructuralSlotId
+  result: ConnectorFailure
+}
 
 function isInterfaceCatalog(catalog: Catalog): boolean {
   return catalog.version === '0.3.0'
@@ -129,27 +141,55 @@ export function connectorExclusionCodes(
   catalog: Catalog,
   candidate: VisualPartDefinition,
   rigId: RigId,
-  selectedParts: ReadonlyMap<StructuralSlotId, VisualPartDefinition>,
+  selectedParts: ReadonlyMap<StructuralSlotId, StructuralPartSelection>,
 ): string[] {
+  return connectorExclusions(catalog, candidate, rigId, selectedParts).map(exclusion => exclusion.result.code)
+}
+
+function mismatchedRigResult(
+  receiverPartId: string,
+  receiverRigId: RigId,
+  plugPartId: string,
+  plugRigId: RigId,
+): ConnectorPairResult {
+  return {
+    ok: false,
+    code: 'CONNECTOR_VARIANT_MISSING',
+    message: `Parts ${receiverPartId} and ${plugPartId} require one exact shared rig; received ${receiverRigId} and ${plugRigId}.`,
+  }
+}
+
+export function connectorExclusions(
+  catalog: Catalog,
+  candidate: VisualPartDefinition,
+  rigId: RigId,
+  selectedParts: ReadonlyMap<StructuralSlotId, StructuralPartSelection>,
+): ConnectorExclusion[] {
   if (!isInterfaceCatalog(catalog) || candidate.composition?.isNone) return []
-  const results: ConnectorPairResult[] = []
+  const exclusions: ConnectorExclusion[] = []
   if (candidate.slotId === 'bodyFrame') {
     for (const slotId of STRUCTURAL_CHILD_SLOTS) {
-      const child = selectedParts.get(slotId)
-      if (child === undefined || child.composition?.isNone) continue
+      const childSelection = selectedParts.get(slotId)
+      if (childSelection === undefined || childSelection.part.composition?.isNone) continue
       for (const connectorId of CONNECTOR_IDS_BY_CHILD_SLOT[slotId] ?? []) {
-        results.push(evaluateConnectorPair(catalog, candidate.id, child.id, rigId, connectorId))
+        const result = childSelection.rigId === rigId
+          ? evaluateConnectorPair(catalog, candidate.id, childSelection.part.id, rigId, connectorId)
+          : mismatchedRigResult(candidate.id, rigId, childSelection.part.id, childSelection.rigId)
+        if (!result.ok) exclusions.push({ slotId, result })
       }
     }
   } else if (STRUCTURAL_CHILD_SLOTS.includes(candidate.slotId as StructuralSlotId)) {
-    const body = selectedParts.get('bodyFrame')
-    if (body !== undefined) {
+    const bodySelection = selectedParts.get('bodyFrame')
+    if (bodySelection !== undefined) {
       for (const connectorId of CONNECTOR_IDS_BY_CHILD_SLOT[candidate.slotId as StructuralSlotId] ?? []) {
-        results.push(evaluateConnectorPair(catalog, body.id, candidate.id, rigId, connectorId))
+        const result = bodySelection.rigId === rigId
+          ? evaluateConnectorPair(catalog, bodySelection.part.id, candidate.id, rigId, connectorId)
+          : mismatchedRigResult(bodySelection.part.id, bodySelection.rigId, candidate.id, rigId)
+        if (!result.ok) exclusions.push({ slotId: candidate.slotId as StructuralSlotId, result })
       }
     }
   }
-  return results.flatMap(result => result.ok ? [] : [result.code])
+  return exclusions
 }
 
 function error(code: string, slotId: StructuralSlotId, message: string): Diagnostic {
@@ -162,15 +202,15 @@ export function validateStructuralSelections(spec: MonsterSpec, catalog: Catalog
   const body = catalog.parts.find(part => part.id === bodySelection.partId && part.slotId === 'bodyFrame')
   if (body === undefined || body.composition?.isNone) return []
 
-  const diagnostics: Diagnostic[] = []
+  const selectedParts = new Map<StructuralSlotId, StructuralPartSelection>([
+    ['bodyFrame', { part: body, rigId: bodySelection.rigId }],
+  ])
   for (const slotId of STRUCTURAL_CHILD_SLOTS) {
     const selection = spec.visualSlots[slotId]
     const child = catalog.parts.find(part => part.id === selection.partId && part.slotId === slotId)
     if (child === undefined || child.composition?.isNone) continue
-    for (const connectorId of CONNECTOR_IDS_BY_CHILD_SLOT[slotId] ?? []) {
-      const result = evaluateConnectorPair(catalog, body.id, child.id, bodySelection.rigId, connectorId)
-      if (!result.ok) diagnostics.push(error(result.code, slotId, result.message))
-    }
+    selectedParts.set(slotId, { part: child, rigId: selection.rigId })
   }
-  return diagnostics
+  return connectorExclusions(catalog, body, bodySelection.rigId, selectedParts)
+    .map(exclusion => error(exclusion.result.code, exclusion.slotId, exclusion.result.message))
 }
