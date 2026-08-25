@@ -1,6 +1,7 @@
 import {
   SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  isAttachmentPartComposition,
   type ApprovedTransform,
   type Catalog,
   type Diagnostic,
@@ -127,7 +128,9 @@ function validateModifier(
     const bodySelection = spec.visualSlots.bodyFrame
     const bodyPart = selectedParts.get('bodyFrame')
     if (
-      bodyPart?.composition?.geometryByRig[bodySelection.rigId]
+      (isAttachmentPartComposition(bodyPart?.composition)
+        ? bodyPart.composition.geometryByRig[bodySelection.rigId]
+        : undefined)
         ?.sockets[destinationSocket] === undefined
     ) {
       diagnostics.push(error(

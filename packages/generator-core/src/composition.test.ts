@@ -7,9 +7,11 @@ import {
 } from './contracts.js'
 import {
   makeCompositionCatalogFixture,
+  makeInterfaceCatalogFixture,
+  makeLegacyCatalogFixture,
   makeValidCompositionSpecFixture,
 } from './test-fixtures.js'
-import { planComposition, strongFeatureCount, validateCompositionSelections } from './composition.js'
+import { planComposition, rendererVersionForCatalog, strongFeatureCount, validateCompositionSelections } from './composition.js'
 
 export function makeCompositionCatalogFixtureWithStrongParts(): Catalog {
   const catalog = makeCompositionCatalogFixture()
@@ -56,6 +58,12 @@ export function selectStrongParts(
 }
 
 describe('composition planning', () => {
+  it('maps catalog versions to exact renderers without fallback', () => {
+    expect(rendererVersionForCatalog(makeLegacyCatalogFixture())).toBe('0.1.0')
+    expect(rendererVersionForCatalog(makeCompositionCatalogFixture())).toBe('0.2.0')
+    expect(rendererVersionForCatalog(makeInterfaceCatalogFixture())).toBe('0.3.0')
+  })
+
   it('assigns at most floor(M * 0.3) stable surprise opportunities', () => {
     const catalog = makeCompositionCatalogFixture()
     const first = planComposition('motif-seed', 'fungal', 'blob', catalog)

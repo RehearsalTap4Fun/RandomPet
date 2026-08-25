@@ -44,12 +44,85 @@ export interface CompositionGeometry {
   faceSafeZone?: Rect
 }
 
-export interface PartComposition {
+export type StructuralSlotId = Extract<VisualSlotId,
+  'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>
+export type ConnectorRole = 'receiver' | 'plug'
+export type ConnectorClass = 'neck' | 'shoulder' | 'hip' | 'tail' | 'extra'
+export type MaterialFamily = 'short-fur' | 'mushroom-velvet' | 'soft-skin'
+
+export interface WarpLimits {
+  widthRatio: { min: number; max: number }
+  depthRatio: { min: number; max: number }
+  rotationDegrees: { min: number; max: number }
+}
+
+export interface ConnectorProfile {
+  id: string
+  role: ConnectorRole
+  connectorClass: ConnectorClass
+  rigId: RigId
+  origin: Point2D
+  tangent: Point2D
+  outwardNormal: Point2D
+  width: number
+  depth: number
+  contourMaskPath: string
+  contourMaskSha256: string
+  foregroundMaskPath: string
+  foregroundMaskSha256: string
+  backgroundMaskPath: string
+  backgroundMaskSha256: string
+  materialSampleRegion: Rect
+  warpLimits: WarpLimits
+}
+
+export interface StructuralVariantDefinition {
+  rigId: RigId
+  materialFamily: MaterialFamily
+  renderNodes: RenderNodeDefinition[]
+  connectors: ConnectorProfile[]
+  faceSafeZones?: Rect[]
+  featureSockets?: Record<string, Point2D>
+}
+
+export interface TransitionBridgeDefinition {
+  id: string
+  rigId: RigId
+  connectorClass: ConnectorClass
+  materialFamilies: MaterialFamily[]
+  neutralAssetPath: string
+  neutralPngPath: string
+  neutralAssetSha256: string
+  neutralPngSha256: string
+  frontMaskPath: string
+  frontMaskSha256: string
+  backMaskPath: string
+  backMaskSha256: string
+}
+
+interface CompositionMetadata {
   isNone: boolean
   motifTags: ThemeId[]
   visualIntensity: VisualIntensity
+}
+
+export interface AttachmentPartComposition extends CompositionMetadata {
+  mode?: 'attachment'
   renderNodes: RenderNodeDefinition[]
   geometryByRig: Partial<Record<RigId, CompositionGeometry>>
+}
+
+export interface InterfacePartComposition extends CompositionMetadata {
+  mode: 'interface'
+  variantsByRig: Partial<Record<RigId, StructuralVariantDefinition>>
+}
+
+export type PartComposition = AttachmentPartComposition | InterfacePartComposition
+
+export function isAttachmentPartComposition(
+  composition: PartComposition | undefined,
+): composition is AttachmentPartComposition {
+  return composition !== undefined && composition.mode !== 'interface'
 }
 
 export interface CompositionPolicy {
@@ -214,6 +287,7 @@ export interface Catalog {
   modifiers: ModifierDefinition[]
   dependencies: Partial<Record<VisualSlotId, VisualSlotId[]>>
   compositionPolicy?: CompositionPolicy
+  transitionBridges?: TransitionBridgeDefinition[]
 }
 
 export const COMPOSITION_PARENT_BY_SLOT: Record<VisualSlotId, VisualSlotId | null> = {

@@ -215,6 +215,10 @@ export function makeValidCatalogFixture(): Catalog {
   }
 }
 
+export function makeLegacyCatalogFixture(): Catalog {
+  return makeValidCatalogFixture()
+}
+
 export function makeCompositionCatalogFixture(): Catalog {
   const catalog = makeValidCatalogFixture()
   catalog.version = '0.2.0'
@@ -276,11 +280,115 @@ export function makeCompositionCatalogFixture(): Catalog {
   })
   const strongEyes = structuredClone(catalog.parts.find(part => part.slotId === 'eyes')!)
   const strongEyesComposition = strongEyes.composition!
+  if (strongEyesComposition.mode === 'interface') throw new Error('Expected attachment composition fixture')
   strongEyes.id = 'eyes_strong'
   strongEyesComposition.visualIntensity = 'strong'
   strongEyesComposition.renderNodes[0]!.id = 'eyes_strong_0'
   catalog.parts.push(strongEyes)
   return catalog
+}
+
+const fixtureHash = 'a'.repeat(64)
+
+function interfaceConnector(
+  id: string,
+  role: 'receiver' | 'plug',
+  connectorClass: 'neck' | 'shoulder' | 'hip' | 'tail' | 'extra',
+  rigId: RigId,
+) {
+  return {
+    id,
+    role,
+    connectorClass,
+    rigId,
+    origin: { x: 1024, y: 1024 },
+    tangent: { x: 1, y: 0 },
+    outwardNormal: { x: 0, y: 1 },
+    width: 100,
+    depth: 60,
+    contourMaskPath: `assets/v0.3.0/connectors/${rigId}/${id}-contour.png`,
+    contourMaskSha256: fixtureHash,
+    foregroundMaskPath: `assets/v0.3.0/connectors/${rigId}/${id}-foreground.png`,
+    foregroundMaskSha256: fixtureHash,
+    backgroundMaskPath: `assets/v0.3.0/connectors/${rigId}/${id}-background.png`,
+    backgroundMaskSha256: fixtureHash,
+    materialSampleRegion: { x: 900, y: 900, width: 100, height: 100 },
+    warpLimits: {
+      widthRatio: { min: 0.8, max: 1.2 },
+      depthRatio: { min: 0.8, max: 1.2 },
+      rotationDegrees: { min: -15, max: 15 },
+    },
+  }
+}
+
+const interfaceConnectorsBySlot: Partial<Record<VisualSlotId, Array<[
+  string,
+  'receiver' | 'plug',
+  'neck' | 'shoulder' | 'hip' | 'tail' | 'extra',
+]>>> = {
+  bodyFrame: [
+    ['neck', 'receiver', 'neck'],
+    ['shoulderLeft', 'receiver', 'shoulder'], ['shoulderRight', 'receiver', 'shoulder'],
+    ['hipLeft', 'receiver', 'hip'], ['hipRight', 'receiver', 'hip'],
+    ['tailRoot', 'receiver', 'tail'],
+    ['extraLeft', 'receiver', 'extra'], ['extraRight', 'receiver', 'extra'],
+  ],
+  headShape: [['neck', 'plug', 'neck']],
+  arms: [['shoulderLeft', 'plug', 'shoulder'], ['shoulderRight', 'plug', 'shoulder']],
+  legs: [['hipLeft', 'plug', 'hip'], ['hipRight', 'plug', 'hip']],
+  tail: [['tailRoot', 'plug', 'tail']],
+  extraAppendage: [['extraLeft', 'plug', 'extra'], ['extraRight', 'plug', 'extra']],
+}
+
+export function makeInterfaceCatalogFixture(): Catalog {
+  const catalog = makeCompositionCatalogFixture() as unknown as Record<string, any>
+  catalog.version = '0.3.0'
+  const structuralSlots = new Set<VisualSlotId>([
+    'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
+  ])
+  catalog.parts = catalog.parts.map((part: any) => {
+    if (!structuralSlots.has(part.slotId) || part.composition.isNone) return part
+    const attachment = part.composition
+    return {
+      ...part,
+      composition: {
+        mode: 'interface',
+        isNone: false,
+        motifTags: attachment.motifTags,
+        visualIntensity: attachment.visualIntensity,
+        variantsByRig: Object.fromEntries(part.compatibleRigs.map((rigId: RigId) => [rigId, {
+          rigId,
+          materialFamily: 'soft-skin',
+          renderNodes: attachment.renderNodes.map((node: any) => ({
+            ...node,
+            id: `${node.id}_${rigId}`,
+            compatibleRigs: [rigId],
+          })),
+          connectors: (interfaceConnectorsBySlot[part.slotId as VisualSlotId] ?? []).map(([id, role, connectorClass]) => (
+            interfaceConnector(id, role, connectorClass, rigId)
+          )),
+          ...(part.slotId === 'headShape' ? { faceSafeZones: [{ x: 500, y: 400, width: 1048, height: 900 }] } : {}),
+        }])),
+      },
+    }
+  })
+  catalog.transitionBridges = (['blob', 'biped', 'floating'] as const).flatMap(rigId => (
+    (['neck', 'shoulder', 'hip', 'tail', 'extra'] as const).map(connectorClass => ({
+      id: `${rigId}_${connectorClass}_bridge`,
+      rigId,
+      connectorClass,
+      materialFamilies: ['short-fur', 'mushroom-velvet', 'soft-skin'],
+      neutralAssetPath: `assets/v0.3.0/bridges/${rigId}/${connectorClass}.webp`,
+      neutralPngPath: `assets/v0.3.0/bridges/${rigId}/${connectorClass}.png`,
+      neutralAssetSha256: fixtureHash,
+      neutralPngSha256: fixtureHash,
+      frontMaskPath: `assets/v0.3.0/bridges/${rigId}/${connectorClass}-front.png`,
+      frontMaskSha256: fixtureHash,
+      backMaskPath: `assets/v0.3.0/bridges/${rigId}/${connectorClass}-back.png`,
+      backMaskSha256: fixtureHash,
+    }))
+  ))
+  return catalog as Catalog
 }
 
 export function makeValidCompositionSpecFixture(

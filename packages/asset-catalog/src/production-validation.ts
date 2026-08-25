@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { isAbsolute, join, relative, resolve } from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
 import sharp from 'sharp'
-import type { Catalog, Diagnostic } from '@qmonster/generator-core'
+import { isAttachmentPartComposition, type Catalog, type Diagnostic } from '@qmonster/generator-core'
 import {
   PRODUCTION_CHROMA_GATE_PROFILE,
   PRODUCTION_CHROMA_GATE_VERSION,
@@ -57,7 +57,7 @@ export function validateProductionMetadata(catalog: Catalog): Diagnostic[] {
     if (catalog.version === '0.2.0') {
       if (part.composition === undefined) {
         diagnostics.push(error('PRODUCTION_COMPOSITION_METADATA_MISSING', ['parts', String(index), 'composition'], `Part ${part.id} needs composition metadata in a 0.2.0 production catalog.`))
-      } else {
+      } else if (isAttachmentPartComposition(part.composition)) {
         for (const [nodeIndex, node] of part.composition.renderNodes.entries()) {
           if (!nonemptyText(node.assetPath) || !nonemptyText(node.assetSha256) || !nonemptyText(node.pngPath) || !nonemptyText(node.pngSha256)) {
             diagnostics.push(error(
@@ -188,7 +188,9 @@ export async function validateNoStaleRuntimeAssets(catalog: Catalog, assetRoot: 
   for (const part of catalog.parts) {
     expected.add(part.assetPath.replaceAll('\\', '/'))
     if (part.pngPath !== undefined) expected.add(part.pngPath.replaceAll('\\', '/'))
-    for (const node of part.composition?.renderNodes ?? []) {
+    for (const node of (isAttachmentPartComposition(part.composition)
+      ? part.composition.renderNodes
+      : [])) {
       expected.add(node.assetPath.replaceAll('\\', '/'))
       if (node.pngPath !== undefined) expected.add(node.pngPath.replaceAll('\\', '/'))
     }
@@ -787,7 +789,9 @@ export async function validateProductionSourceIndex(
           diagnostics.push(error('PRODUCTION_REWORK_RECORD_MISSING', ['sources', part.id, 'reworkRecordPath'], `Part ${part.id} rework-record.json cannot be read from ${reworkRecordPath}.`))
         }
       }
-      for (const [nodeIndex, node] of (part.composition?.renderNodes ?? []).entries()) {
+      for (const [nodeIndex, node] of (isAttachmentPartComposition(part.composition)
+        ? part.composition.renderNodes
+        : []).entries()) {
         if (node.assetSha256 !== undefined) assetChecks.push(validateAssetFile(assetRoot, node.assetPath, node.assetSha256, ['parts', part.id, 'composition', 'renderNodes', String(nodeIndex), 'assetPath'], { dimensions: 'trimmed-node' }))
         if (node.pngPath !== undefined && node.pngSha256 !== undefined) assetChecks.push(validateAssetFile(assetRoot, node.pngPath, node.pngSha256, ['parts', part.id, 'composition', 'renderNodes', String(nodeIndex), 'pngPath'], { dimensions: 'trimmed-node' }))
       }

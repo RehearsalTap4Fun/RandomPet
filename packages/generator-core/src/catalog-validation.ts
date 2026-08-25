@@ -2,8 +2,12 @@ import {
   COMPOSITION_PARENT_BY_SLOT,
   SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  isAttachmentPartComposition,
   type Catalog,
+  type ConnectorClass,
   type Diagnostic,
+  type MaterialFamily,
+  type RigId,
   type VisualSlotId,
 } from './contracts.js'
 
@@ -15,6 +19,39 @@ const REQUIRED_PROVIDER_SOCKETS: Partial<Record<VisualSlotId, readonly string[]>
   bodyFrame: ['head', 'headAlternate', 'armLeft', 'armRight', 'legLeft', 'legRight', 'tail', 'wingLeft', 'wingRight', 'overlay', 'effect'],
   headShape: ['eyes', 'mouth', 'headAppendage'],
   mouthShape: ['oralDetail'],
+}
+const STRUCTURAL_SLOTS = new Set<VisualSlotId>([
+  'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
+])
+const REQUIRED_CONNECTORS: Partial<Record<VisualSlotId, ReadonlyArray<{
+  id: string
+  role: 'receiver' | 'plug'
+  connectorClass: ConnectorClass
+}>>> = {
+  bodyFrame: [
+    { id: 'neck', role: 'receiver', connectorClass: 'neck' },
+    { id: 'shoulderLeft', role: 'receiver', connectorClass: 'shoulder' },
+    { id: 'shoulderRight', role: 'receiver', connectorClass: 'shoulder' },
+    { id: 'hipLeft', role: 'receiver', connectorClass: 'hip' },
+    { id: 'hipRight', role: 'receiver', connectorClass: 'hip' },
+    { id: 'tailRoot', role: 'receiver', connectorClass: 'tail' },
+    { id: 'extraLeft', role: 'receiver', connectorClass: 'extra' },
+    { id: 'extraRight', role: 'receiver', connectorClass: 'extra' },
+  ],
+  headShape: [{ id: 'neck', role: 'plug', connectorClass: 'neck' }],
+  arms: [
+    { id: 'shoulderLeft', role: 'plug', connectorClass: 'shoulder' },
+    { id: 'shoulderRight', role: 'plug', connectorClass: 'shoulder' },
+  ],
+  legs: [
+    { id: 'hipLeft', role: 'plug', connectorClass: 'hip' },
+    { id: 'hipRight', role: 'plug', connectorClass: 'hip' },
+  ],
+  tail: [{ id: 'tailRoot', role: 'plug', connectorClass: 'tail' }],
+  extraAppendage: [
+    { id: 'extraLeft', role: 'plug', connectorClass: 'extra' },
+    { id: 'extraRight', role: 'plug', connectorClass: 'extra' },
+  ],
 }
 
 function error(code: string, path: string[], message: string): Diagnostic {
@@ -64,6 +101,145 @@ function hasCycle(dependencies: Catalog['dependencies']): boolean {
   return VISUAL_SLOT_IDS.some(visit)
 }
 
+function isUnitVector(vector: { x: number; y: number }): boolean {
+  const length = Math.hypot(vector.x, vector.y)
+  return Math.abs(length - 1) < 0.0001
+}
+
+function isCanonicalResourcePath(path: string, extension: '.png' | '.webp'): boolean {
+  return path.startsWith('assets/v0.3.0/')
+    && path.endsWith(extension)
+    && !path.includes('..')
+    && !path.includes('\\')
+}
+
+function hasCanonicalHash(hash: string): boolean {
+  return /^[a-f0-9]{64}$/i.test(hash)
+}
+
+function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
+  if (catalog.version !== '0.3.0') return
+  const bridges = catalog.transitionBridges ?? []
+  for (const [partIndex, part] of catalog.parts.entries()) {
+    if (!STRUCTURAL_SLOTS.has(part.slotId) || part.composition?.isNone) continue
+    const composition = part.composition
+    const path = ['parts', String(partIndex), 'composition']
+    if (composition?.mode !== 'interface') {
+      diagnostics.push(error(
+        'CONNECTOR_INTERFACE_MODE_REQUIRED',
+        path,
+        `Structural part ${part.id} must use interface composition mode in catalog 0.3.0.`,
+      ))
+      continue
+    }
+    const variantRigIds = Array.from(new Set([
+      ...part.compatibleRigs,
+      ...Object.keys(composition.variantsByRig),
+    ])) as RigId[]
+    for (const rigId of variantRigIds) {
+      const variant = composition.variantsByRig[rigId]
+      const variantPath = path.concat('variantsByRig', rigId)
+      if (variant === undefined || variant.rigId !== rigId) {
+        diagnostics.push(error(
+          'CONNECTOR_VARIANT_MISSING',
+          variantPath,
+          `Structural part ${part.id} requires an exact ${rigId} variant.`,
+        ))
+        continue
+      }
+      for (const [nodeIndex, node] of variant.renderNodes.entries()) {
+        if (node.compatibleRigs.length !== 1 || node.compatibleRigs[0] !== rigId) {
+          diagnostics.push(error(
+            'CONNECTOR_RENDER_NODE_UNIVERSAL',
+            variantPath.concat('renderNodes', String(nodeIndex), 'compatibleRigs'),
+            `Structural node ${node.id} must target only its exact ${rigId} rig.`,
+          ))
+        }
+      }
+      for (const expected of REQUIRED_CONNECTORS[part.slotId] ?? []) {
+        const matching = variant.connectors.filter(connector => connector.id === expected.id)
+        if (
+          matching.length !== 1
+          || matching[0]!.role !== expected.role
+          || matching[0]!.connectorClass !== expected.connectorClass
+        ) {
+          diagnostics.push(error(
+            'CONNECTOR_PROFILE_INVALID',
+            variantPath.concat('connectors'),
+            `Structural variant ${part.id}/${rigId} requires one ${expected.role} ${expected.id} connector.`,
+          ))
+        }
+      }
+      for (const [connectorIndex, connector] of variant.connectors.entries()) {
+        const connectorPath = variantPath.concat('connectors', String(connectorIndex))
+        if (connector.rigId !== rigId) {
+          diagnostics.push(error(
+            'CONNECTOR_RIG_MISMATCH',
+            connectorPath.concat('rigId'),
+            `Connector ${connector.id} must match its containing ${rigId} variant.`,
+          ))
+        }
+        if (
+          !isUnitVector(connector.tangent)
+          || !isUnitVector(connector.outwardNormal)
+          || connector.width <= 0
+          || connector.depth <= 0
+        ) {
+          diagnostics.push(error(
+            'CONNECTOR_PROFILE_INVALID',
+            connectorPath,
+            `Connector ${connector.id} requires normalized tangent and normal vectors with positive dimensions.`,
+          ))
+        }
+        const connectorResources = [
+          [connector.contourMaskPath, connector.contourMaskSha256],
+          [connector.foregroundMaskPath, connector.foregroundMaskSha256],
+          [connector.backgroundMaskPath, connector.backgroundMaskSha256],
+        ] as const
+        if (connectorResources.some(([resourcePath, hash]) => (
+          !isCanonicalResourcePath(resourcePath, '.png') || !hasCanonicalHash(hash)
+        ))) {
+          diagnostics.push(error(
+            'CONNECTOR_RESOURCE_INVALID',
+            connectorPath,
+            `Connector ${connector.id} must declare canonical mask paths and SHA-256 hashes.`,
+          ))
+        }
+        const hasBridge = bridges.some(bridge => (
+          bridge.rigId === rigId
+          && bridge.connectorClass === connector.connectorClass
+          && bridge.materialFamilies.includes(variant.materialFamily as MaterialFamily)
+        ))
+        if (!hasBridge) {
+          diagnostics.push(error(
+            'CONNECTOR_BRIDGE_MISSING',
+            connectorPath,
+            `Connector ${connector.id} requires a matching ${rigId} ${connector.connectorClass} bridge.`,
+          ))
+        }
+      }
+    }
+  }
+  for (const [bridgeIndex, bridge] of bridges.entries()) {
+    const bridgePath = ['transitionBridges', String(bridgeIndex)]
+    const resources: ReadonlyArray<[string, string, '.png' | '.webp']> = [
+      [bridge.neutralAssetPath, bridge.neutralAssetSha256, '.webp'],
+      [bridge.neutralPngPath, bridge.neutralPngSha256, '.png'],
+      [bridge.frontMaskPath, bridge.frontMaskSha256, '.png'],
+      [bridge.backMaskPath, bridge.backMaskSha256, '.png'],
+    ]
+    if (resources.some(([resourcePath, hash, extension]) => (
+      !isCanonicalResourcePath(resourcePath, extension) || !hasCanonicalHash(hash)
+    ))) {
+      diagnostics.push(error(
+        'CONNECTOR_BRIDGE_RESOURCE_INVALID',
+        bridgePath,
+        `Bridge ${bridge.id} must declare canonical resource paths and SHA-256 hashes.`,
+      ))
+    }
+  }
+}
+
 function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
   if (catalog.version !== '0.2.0') return
 
@@ -101,7 +277,7 @@ function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[
   for (const [partIndex, part] of catalog.parts.entries()) {
     const path = ['parts', String(partIndex)]
     const composition = part.composition
-    if (composition === undefined) {
+    if (composition === undefined || composition.mode === 'interface') {
       diagnostics.push(error(
         'COMPOSITION_PART_METADATA_MISSING',
         path.concat('composition'),
@@ -179,7 +355,8 @@ function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[
           candidate.compatibleRigs.includes(rigId) && !candidate.composition?.isNone
         ))
         if (parentCandidates.length === 0 || parentCandidates.some(candidate => (
-          candidate.composition?.geometryByRig[rigId]?.sockets[node.socket!] === undefined
+          !isAttachmentPartComposition(candidate.composition)
+          || candidate.composition.geometryByRig[rigId]?.sockets[node.socket!] === undefined
         ))) {
           diagnostics.push(error(
             'COMPOSITION_SOCKET_MISSING',
@@ -321,6 +498,7 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
   }
 
   validateCompositionStructure(catalog, diagnostics)
+  validateInterfaceStructure(catalog, diagnostics)
 
   if (hasCycle(catalog.dependencies)) {
     diagnostics.push(error('CATALOG_DEPENDENCY_CYCLE', ['dependencies'], 'Catalog slot dependencies must be acyclic.'))

@@ -1,9 +1,42 @@
 import { describe, expect, it } from 'vitest'
-import { makeCompositionCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
+import { makeCompositionCatalogFixture, makeInterfaceCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
 import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 
 describe('catalog validation', () => {
+  it('rejects non-interface structural parts in a v0.3 catalog', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    const head = catalog.parts.find((part: { slotId: string; composition: { isNone: boolean } }) => (
+      part.slotId === 'headShape' && !part.composition.isNone
+    ))
+    head.composition = makeCompositionCatalogFixture().parts.find(part => part.id === head.id)!.composition
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_INTERFACE_MODE_REQUIRED',
+    }))
+  })
+
+  it('rejects connector profiles that do not match their exact-rig variant', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    catalog.parts.find((part: { id: string }) => part.id === 'head_round')!
+      .composition.variantsByRig.blob.connectors[0].rigId = 'biped'
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_RIG_MISMATCH',
+    }))
+  })
+
+  it('rejects a structural connector without a matching bridge', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    catalog.transitionBridges = catalog.transitionBridges.filter((bridge: { rigId: string; connectorClass: string }) => (
+      bridge.rigId !== 'blob' || bridge.connectorClass !== 'neck'
+    ))
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_BRIDGE_MISSING',
+    }))
+  })
+
   it('rejects multiple provider nodes for a socket-providing composition part', () => {
     const catalog = makeCompositionCatalogFixture()
     const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!

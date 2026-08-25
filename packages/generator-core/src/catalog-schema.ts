@@ -53,13 +53,67 @@ const CompositionGeometrySchema = z.object({
   sockets: z.record(z.string().min(1), Point2DSchema),
   faceSafeZone: RectSchema.optional(),
 }).strict()
-const PartCompositionSchema = z.object({
+const CompositionMetadataSchema = {
   isNone: z.boolean(),
   motifTags: z.array(ThemeIdSchema),
   visualIntensity: z.enum(['quiet', 'strong']),
+}
+const AttachmentPartCompositionSchema = z.object({
+  mode: z.literal('attachment').optional(),
+  ...CompositionMetadataSchema,
   renderNodes: z.array(RenderNodeDefinitionSchema),
   geometryByRig: z.partialRecord(RigIdSchema, CompositionGeometrySchema),
 }).strict()
+const vector = z.object({
+  x: z.number().finite().min(-1).max(1),
+  y: z.number().finite().min(-1).max(1),
+}).strict()
+const boundedRange = z.object({
+  min: z.number().finite(),
+  max: z.number().finite(),
+}).strict().refine(range => range.min <= range.max, {
+  message: 'Range minimum must not exceed its maximum.',
+})
+const ConnectorProfileSchema = z.object({
+  id: z.string().min(1),
+  role: z.enum(['receiver', 'plug']),
+  connectorClass: z.enum(['neck', 'shoulder', 'hip', 'tail', 'extra']),
+  rigId: RigIdSchema,
+  origin: Point2DSchema,
+  tangent: vector,
+  outwardNormal: vector,
+  width: z.number().finite().positive(),
+  depth: z.number().finite().positive(),
+  contourMaskPath: z.string().min(1),
+  contourMaskSha256: sha256,
+  foregroundMaskPath: z.string().min(1),
+  foregroundMaskSha256: sha256,
+  backgroundMaskPath: z.string().min(1),
+  backgroundMaskSha256: sha256,
+  materialSampleRegion: RectSchema,
+  warpLimits: z.object({
+    widthRatio: boundedRange,
+    depthRatio: boundedRange,
+    rotationDegrees: boundedRange,
+  }).strict(),
+}).strict()
+const StructuralVariantDefinitionSchema = z.object({
+  rigId: RigIdSchema,
+  materialFamily: z.enum(['short-fur', 'mushroom-velvet', 'soft-skin']),
+  renderNodes: z.array(RenderNodeDefinitionSchema),
+  connectors: z.array(ConnectorProfileSchema),
+  faceSafeZones: z.array(RectSchema).optional(),
+  featureSockets: z.record(z.string().min(1), Point2DSchema).optional(),
+}).strict()
+const InterfacePartCompositionSchema = z.object({
+  mode: z.literal('interface'),
+  ...CompositionMetadataSchema,
+  variantsByRig: z.partialRecord(RigIdSchema, StructuralVariantDefinitionSchema),
+}).strict()
+const PartCompositionSchema = z.union([
+  AttachmentPartCompositionSchema,
+  InterfacePartCompositionSchema,
+])
 const CompositionPolicySchema = z.object({
   motifSlots: z.array(VisualSlotIdSchema),
   surpriseRatio: z.literal(0.3),
@@ -68,6 +122,20 @@ const CompositionPolicySchema = z.object({
   frameBounds: RectSchema,
   faceInsideRatio: z.literal(0.8),
   faceVisibleRatio: z.literal(0.85),
+}).strict()
+const TransitionBridgeDefinitionSchema = z.object({
+  id: z.string().min(1),
+  rigId: RigIdSchema,
+  connectorClass: z.enum(['neck', 'shoulder', 'hip', 'tail', 'extra']),
+  materialFamilies: z.array(z.enum(['short-fur', 'mushroom-velvet', 'soft-skin'])).min(1),
+  neutralAssetPath: z.string().min(1),
+  neutralPngPath: z.string().min(1),
+  neutralAssetSha256: sha256,
+  neutralPngSha256: sha256,
+  frontMaskPath: z.string().min(1),
+  frontMaskSha256: sha256,
+  backMaskPath: z.string().min(1),
+  backMaskSha256: sha256,
 }).strict()
 const displayMetadata = {
   displayName: z.string().min(1).optional(),
@@ -170,22 +238,54 @@ export const CatalogSchema = z.object({
   })),
   dependencies: z.partialRecord(VisualSlotIdSchema, z.array(VisualSlotIdSchema)),
   compositionPolicy: CompositionPolicySchema.optional(),
+  transitionBridges: z.array(TransitionBridgeDefinitionSchema).optional(),
 }).superRefine((catalog, context) => {
-  if (catalog.version !== '0.2.0') return
-  if (catalog.compositionPolicy === undefined) {
+  if (catalog.version === '0.2.0') {
+    if (catalog.compositionPolicy === undefined) {
+      context.addIssue({
+        code: 'custom',
+        path: ['compositionPolicy'],
+        message: 'Catalog 0.2.0 requires composition metadata.',
+      })
+    }
+    for (const [index, part] of catalog.parts.entries()) {
+      if (part.composition === undefined) {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'composition'],
+          message: 'Catalog 0.2.0 requires composition metadata for every part.',
+        })
+      }
+    }
+  }
+  if (catalog.version !== '0.3.0') return
+  if (catalog.transitionBridges === undefined) {
     context.addIssue({
       code: 'custom',
-      path: ['compositionPolicy'],
-      message: 'Catalog 0.2.0 requires composition metadata.',
+      path: ['transitionBridges'],
+      message: 'Catalog 0.3.0 requires transition bridge definitions.',
     })
   }
+  const structuralSlots = new Set(['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'])
   for (const [index, part] of catalog.parts.entries()) {
-    if (part.composition === undefined) {
+    if (!structuralSlots.has(part.slotId) || part.composition?.isNone) continue
+    const composition = part.composition
+    if (composition?.mode !== 'interface') {
       context.addIssue({
         code: 'custom',
         path: ['parts', index, 'composition'],
-        message: 'Catalog 0.2.0 requires composition metadata for every part.',
+        message: 'Catalog 0.3.0 structural parts require interface composition metadata.',
       })
+      continue
+    }
+    for (const rigId of part.compatibleRigs) {
+      if (composition.variantsByRig[rigId] === undefined) {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'composition', 'variantsByRig', rigId],
+          message: `Catalog 0.3.0 structural part ${part.id} requires an exact ${rigId} variant.`,
+        })
+      }
     }
   }
 })

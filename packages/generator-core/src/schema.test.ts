@@ -4,6 +4,7 @@ import { parseCatalog } from './catalog-schema.js'
 import { parseMonsterSpec } from './schema.js'
 import {
   makeCompositionCatalogFixture,
+  makeInterfaceCatalogFixture,
   makeValidCatalogFixture,
   makeValidMonsterSpecFixture,
 } from './test-fixtures.js'
@@ -17,6 +18,19 @@ describe('MonsterSpecSchema', () => {
     const catalog = makeCompositionCatalogFixture()
 
     expect(parseCatalog(catalog)).toEqual({ ok: true, value: catalog })
+  })
+
+  it('parses a complete v0.3 interface catalog and preserves v0.2 behavior', () => {
+    expect(parseCatalog(makeInterfaceCatalogFixture()).ok).toBe(true)
+    expect(parseCatalog(makeCompositionCatalogFixture()).ok).toBe(true)
+  })
+
+  it('requires exact-rig structural variants and bridge resources in v0.3', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    delete catalog.parts.find((part: { id: string }) => part.id === 'head_round')!
+      .composition.variantsByRig.biped
+
+    expect(parseCatalog(catalog)).toEqual(expect.objectContaining({ ok: false }))
   })
 
   it('requires composition metadata for a 0.2.0 catalog', () => {

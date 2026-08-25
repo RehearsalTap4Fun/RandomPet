@@ -67,7 +67,8 @@ export function strongFeatureCountForSelections(
   }, 0)
 }
 
-export function rendererVersionForCatalog(catalog: Catalog): '0.1.0' | '0.2.0' {
+export function rendererVersionForCatalog(catalog: Catalog): '0.1.0' | '0.2.0' | '0.3.0' {
+  if (catalog.version === '0.3.0') return '0.3.0'
   return catalog.compositionPolicy === undefined ? '0.1.0' : '0.2.0'
 }
 

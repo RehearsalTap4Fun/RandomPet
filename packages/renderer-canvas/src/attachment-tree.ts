@@ -1,6 +1,7 @@
 import {
   COMPOSITION_PARENT_BY_SLOT,
   generationOrderForCatalog,
+  isAttachmentPartComposition,
   type Catalog,
   type Diagnostic,
   type MonsterSpec,
@@ -74,7 +75,9 @@ function bodySocketDelta(
 ): Point2D | null {
   const body = selectedPart('bodyFrame', spec, catalog)
   const rigId = spec.visualSlots.bodyFrame.rigId
-  const geometry = body?.composition?.geometryByRig[rigId]
+  const geometry = isAttachmentPartComposition(body?.composition)
+    ? body.composition.geometryByRig[rigId]
+    : undefined
   const head = geometry?.sockets.head
   const alternate = geometry?.sockets.headAlternate
   if (head === undefined || alternate === undefined) return null
@@ -94,7 +97,7 @@ export function resolveAttachmentTree(spec: MonsterSpec, catalog: Catalog): Atta
   for (const slotId of generationOrderForCatalog(catalog)) {
     const part = selectedPart(slotId, spec, catalog)
     const composition = part?.composition
-    if (part === undefined || composition === undefined || composition.isNone) continue
+    if (part === undefined || !isAttachmentPartComposition(composition) || composition.isNone) continue
     const rigId = spec.visualSlots[slotId].rigId
 
     for (const node of composition.renderNodes) {
@@ -112,8 +115,10 @@ export function resolveAttachmentTree(spec: MonsterSpec, catalog: Catalog): Atta
         }
         const parent = parentNodes[0]!
         const parentRigId = spec.visualSlots[node.parentSlot].rigId
-        const localSocket = parent.part.composition?.geometryByRig[parentRigId]
-          ?.sockets[node.socket ?? '']
+        const parentComposition = parent.part.composition
+        const localSocket = isAttachmentPartComposition(parentComposition)
+          ? parentComposition.geometryByRig[parentRigId]?.sockets[node.socket ?? '']
+          : undefined
         if (localSocket === undefined) {
           diagnostics.push(error(
             'COMPOSITION_SOCKET_MISSING',
@@ -148,7 +153,9 @@ export function resolveAttachmentTree(spec: MonsterSpec, catalog: Catalog): Atta
 
   const head = selectedPart('headShape', spec, catalog)
   const headRigId = spec.visualSlots.headShape.rigId
-  const localFace = head?.composition?.geometryByRig[headRigId]?.faceSafeZone
+  const localFace = isAttachmentPartComposition(head?.composition)
+    ? head.composition.geometryByRig[headRigId]?.faceSafeZone
+    : undefined
   for (const headNode of providers.get('headShape') ?? []) {
     if (localFace !== undefined) faceSafeZones.push(worldRect(headNode.placement, localFace))
   }
