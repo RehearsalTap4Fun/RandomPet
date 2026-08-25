@@ -6,6 +6,10 @@ import {
   type VisualPartDefinition,
   type VisualSlotId,
 } from '@qmonster/generator-core'
+import {
+  makeInterfaceCatalogFixture,
+  makeValidCompositionSpecFixture,
+} from '@qmonster/generator-core/test-fixtures'
 import { renderMonster, type ImageResolver } from '@qmonster/renderer-canvas'
 
 const assetRoot = '/render-fixtures/assets'
@@ -144,6 +148,155 @@ async function renderFixture(): Promise<void> {
   document.body.dataset.renderComplete = 'true'
 }
 
-void renderFixture().catch((error: unknown) => {
+type InterfaceVariant = 'baseline' | 'swapped' | 'shifted-contour'
+
+function raster(
+  width: number,
+  height: number,
+  draw: (context: CanvasRenderingContext2D) => void,
+): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const context = canvas.getContext('2d')
+  if (context === null) throw new Error('2D asset context unavailable')
+  draw(context)
+  return canvas
+}
+
+function opaqueRect(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  color = '#ffffff',
+): HTMLCanvasElement {
+  return raster(2048, 2048, context => {
+    context.fillStyle = color
+    context.fillRect(x, y, width, height)
+  })
+}
+
+function interfaceFixture(variant: InterfaceVariant): { catalog: Catalog; spec: MonsterSpec } {
+  const interfaceCatalog = makeInterfaceCatalogFixture()
+  const spec = makeValidCompositionSpecFixture(interfaceCatalog)
+  spec.catalogVersion = '0.3.0'
+  spec.rendererVersion = '0.3.0'
+  spec.seed = `real-raster-${variant}`
+  for (const slotId of ['arms', 'legs', 'tail', 'extraAppendage'] as const) {
+    const selected = interfaceCatalog.parts.find(candidate => (
+      candidate.id === spec.visualSlots[slotId].partId && candidate.slotId === slotId
+    ))
+    if (selected?.composition === undefined) throw new Error(`Missing selected ${slotId} fixture`)
+    selected.composition.isNone = true
+  }
+  const body = interfaceCatalog.parts.find(candidate => candidate.slotId === 'bodyFrame')
+  const head = interfaceCatalog.parts.find(candidate => candidate.slotId === 'headShape')
+  if (body?.composition?.mode !== 'interface' || head?.composition?.mode !== 'interface') {
+    throw new Error('Expected interface body/head fixtures')
+  }
+  const receiver = body.composition.variantsByRig.blob!.connectors.find(item => item.id === 'neck')!
+  const plug = head.composition.variantsByRig.blob!.connectors.find(item => item.id === 'neck')!
+  const assignRolePaths = (profile: typeof receiver, role: 'receiver' | 'plug') => {
+    const root = `assets/v0.3.0/connectors/blob/neck-${role}`
+    profile.contourMaskPath = `${root}-contour.png`
+    profile.foregroundMaskPath = `${root}-foreground.png`
+    profile.backgroundMaskPath = `${root}-background.png`
+  }
+  assignRolePaths(receiver, 'receiver')
+  assignRolePaths(plug, 'plug')
+  plug.outwardNormal = { x: 0, y: -1 }
+  head.composition.variantsByRig.blob!.faceSafeZones = [
+    { x: 200, y: 150, width: 400, height: 300 },
+  ]
+  return { catalog: interfaceCatalog, spec }
+}
+
+function interfaceResolver(variant: InterfaceVariant): ImageResolver {
+  const cache = new Map<string, CanvasImageSource>()
+  return {
+    async resolve(assetPath) {
+      const cached = cache.get(assetPath)
+      if (cached !== undefined) return cached
+      let source: CanvasImageSource
+      if (/bridges\/blob\/neck\.webp$/.test(assetPath)) {
+        source = raster(4, 4, context => {
+          context.fillStyle = '#ffffff'
+          context.fillRect(0, 0, 4, 4)
+        })
+      } else if (/bridges\/blob\/neck-(front|back)\.png$/.test(assetPath)) {
+        source = raster(4, 4, context => {
+          context.fillStyle = '#ffffff'
+          context.fillRect(0, 0, 4, 4)
+        })
+      } else if (assetPath.includes('/connectors/') && assetPath.endsWith('-contour.png')) {
+        const receiver = assetPath.includes('-receiver-')
+        const x = variant === 'shifted-contour' ? 1018 : 990
+        source = opaqueRect(x, receiver ? 999 : 1050, 69, 1)
+      } else if (assetPath.includes('/connectors/') && assetPath.endsWith('-foreground.png')) {
+        const foregroundOnLeft = variant === 'swapped'
+        source = foregroundOnLeft
+          ? opaqueRect(980, 980, 44, 90)
+          : opaqueRect(1024, 980, 66, 90)
+      } else if (assetPath.includes('/connectors/') && assetPath.endsWith('-background.png')) {
+        const backgroundOnLeft = variant !== 'swapped'
+        source = backgroundOnLeft
+          ? opaqueRect(980, 980, 44, 90)
+          : opaqueRect(1024, 980, 66, 90)
+      } else if (assetPath === 'nodes/body_blob_0.webp') {
+        source = raster(2048, 2048, context => {
+          context.fillStyle = '#ff2000'
+          context.fillRect(900, 900, 100, 100)
+          context.fillStyle = '#0040ff'
+          context.fillRect(990, 980, 69, 19)
+          context.fillRect(980, 1020, 110, 11)
+        })
+      } else if (assetPath === 'nodes/head_round_0.webp') {
+        source = raster(2048, 2048, context => {
+          context.fillStyle = '#ff2000'
+          context.fillRect(900, 900, 100, 100)
+          context.fillRect(990, 1050, 69, 21)
+        })
+      } else if (assetPath.includes('eyes_asymmetric')) {
+        source = opaqueRect(900, 800, 40, 20, '#111111')
+      } else if (assetPath.includes('mouth_wide')) {
+        source = opaqueRect(900, 900, 40, 20, '#111111')
+      } else {
+        source = raster(1, 1, () => undefined)
+      }
+      cache.set(assetPath, source)
+      return source
+    },
+  }
+}
+
+async function renderInterfaceFixture(variant: InterfaceVariant): Promise<void> {
+  const canvas = document.querySelector<HTMLCanvasElement>('#render-target')
+  if (canvas === null) throw new Error('Missing #render-target canvas')
+  canvas.width = 2048
+  canvas.height = 2048
+  const context = canvas.getContext('2d')
+  if (context === null) throw new Error('2D context unavailable')
+  const { catalog: interfaceCatalog, spec } = interfaceFixture(variant)
+  const result = await renderMonster(context, spec, interfaceCatalog, interfaceResolver(variant), {
+    width: 2048,
+    height: 2048,
+    includeGroundShadow: true,
+  })
+  document.body.dataset.interfaceResult = JSON.stringify({
+    diagnostics: result.diagnostics,
+    connectorMetrics: result.connectorMetrics,
+  })
+  document.body.dataset.renderComplete = 'true'
+}
+
+const requestedInterfaceVariant = new URLSearchParams(location.search).get('interfaceVariant')
+const pendingRender = requestedInterfaceVariant === 'baseline'
+  || requestedInterfaceVariant === 'swapped'
+  || requestedInterfaceVariant === 'shifted-contour'
+  ? renderInterfaceFixture(requestedInterfaceVariant)
+  : renderFixture()
+
+void pendingRender.catch((error: unknown) => {
   document.body.dataset.renderError = error instanceof Error ? error.message : String(error)
 })

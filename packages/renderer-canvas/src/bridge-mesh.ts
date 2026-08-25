@@ -78,7 +78,7 @@ function contourEndRow(
     }
   }
   if (frontierCount === 0) throw new Error('Bridge contour requires a visible frontier.')
-  const meanNormal = normalSum / frontierCount
+  const meanNormal = normalSum / frontierCount - 0.5
   return Array.from({ length: SIZE }, (_, column) => {
     const along = interpolate(tangentMin, tangentMax, column / (SIZE - 1))
     return {

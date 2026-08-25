@@ -56,10 +56,10 @@ describe('buildBridgeMesh', () => {
 
     const mesh = buildBridgeMesh(solved(), { receiver: receiverContour, plug: plugContour })
 
-    expect(mesh.rows[0]![0]).toEqual({ x: 3.5, y: 4.5 })
-    expect(mesh.rows[0]![3]).toEqual({ x: 7.5, y: 4.5 })
-    expect(mesh.rows[3]![0]).toEqual({ x: 4.5, y: 12.5 })
-    expect(mesh.rows[3]![3]).toEqual({ x: 11.5, y: 12.5 })
+    expect(mesh.rows[0]![0]).toEqual({ x: 3.5, y: 4 })
+    expect(mesh.rows[0]![3]).toEqual({ x: 7.5, y: 4 })
+    expect(mesh.rows[3]![0]).toEqual({ x: 4.5, y: 13 })
+    expect(mesh.rows[3]![3]).toEqual({ x: 11.5, y: 13 })
   })
 
   it('rejects non-finite solved connector geometry', () => {
