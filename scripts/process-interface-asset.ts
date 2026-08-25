@@ -9,6 +9,13 @@ interface ConnectorAssetInput {
   contourMaskPath: string
   foregroundMaskPath: string
   backgroundMaskPath: string
+  role?: 'receiver' | 'plug'
+  nodeLayer?: string
+  occlusionNodePath?: string
+  origin?: { x: number, y: number }
+  outwardNormal?: { x: number, y: number }
+  depth?: number
+  faceSafeZones?: Rect[]
 }
 
 export interface ProcessInterfaceAssetInput {
@@ -81,6 +88,44 @@ export async function processInterfaceAsset(input: ProcessInterfaceAssetInput): 
         if (alpha === 255) visible = true
       }
       if (!visible) throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} ${maskName} mask is empty`)
+    }
+    if (connector.role === 'plug' && connector.nodeLayer === 'head') {
+      const node = await decode(connector.occlusionNodePath ?? input.sourcePath)
+      if (node.width !== source.width || node.height !== source.height) {
+        throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} occlusion node does not match source dimensions`)
+      }
+      let overlap = 0
+      let uncovered = 0
+      let outside = 0
+      for (let pixel = 0; pixel < source.width * source.height; pixel += 1) {
+        const supported = node.pixels[pixel * 4 + 3]! > 0
+        const front = foreground.pixels[pixel * 4 + 3]! > 0
+        const back = background.pixels[pixel * 4 + 3]! > 0
+        if (front && back) overlap += 1
+        if (supported && !front && !back) uncovered += 1
+        if (!supported && (front || back)) outside += 1
+      }
+      if (overlap > 0) throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} foreground/background masks overlap`)
+      if (uncovered > 0) throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} foreground/background masks do not cover the node alpha`)
+      if (outside > 0) throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} foreground/background masks extend outside the node alpha`)
+      for (const zone of connector.faceSafeZones ?? []) {
+        for (let y = zone.y; y < zone.y + zone.height; y += 1) for (let x = zone.x; x < zone.x + zone.width; x += 1) {
+          const pixel = y * node.width + x
+          if (node.pixels[pixel * 4 + 3]! > 0 && foreground.pixels[pixel * 4 + 3]! === 0) {
+            throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} face-safe alpha is not foreground`)
+          }
+        }
+      }
+      if (connector.origin !== undefined && connector.outwardNormal !== undefined && connector.depth !== undefined) {
+        const x = Math.round(connector.origin.x + connector.outwardNormal.x * connector.depth / 2)
+        const y = Math.round(connector.origin.y + connector.outwardNormal.y * connector.depth / 2)
+        const pixel = y * node.width + x
+        if (
+          x < 0 || y < 0 || x >= node.width || y >= node.height
+          || node.pixels[pixel * 4 + 3]! === 0
+          || background.pixels[pixel * 4 + 3]! === 0
+        ) throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} outward plug seed is not background`)
+      }
     }
     let maskPixels = 0
     let coveredPixels = 0

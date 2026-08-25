@@ -231,7 +231,7 @@
       "renderNodes": [
         {
           "id": "body_biped_peanut-body",
-          "sourcePngPath": "asset-source/v0.3.0/production/body_biped_peanut.png"
+          "sourcePngPath": "asset-source/v0.3.0/production/nodes/body_biped_peanut/body.png"
         }
       ]
     },
@@ -462,71 +462,7 @@
       "renderNodes": [
         {
           "id": "body_biped_tall-body",
-          "sourcePngPath": "asset-source/v0.3.0/production/body_biped_tall.png"
-        }
-      ]
-    },
-    {
-      "id": "head_round_dome",
-      "slotId": "headShape",
-      "rigId": "biped",
-      "materialFamily": "short-fur",
-      "sourcePngPath": "asset-source/v0.3.0/production/head_round_dome.png",
-      "promptEvidence": {
-        "promptId": "head_round_dome",
-        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
-        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
-      },
-      "connectors": [
-        {
-          "id": "neck",
-          "role": "plug",
-          "connectorClass": "neck",
-          "origin": {
-            "x": 1024,
-            "y": 1450
-          },
-          "tangent": {
-            "x": 1,
-            "y": 0
-          },
-          "outwardNormal": {
-            "x": 0,
-            "y": 1
-          },
-          "width": 290,
-          "depth": 150,
-          "contourMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-contour.png",
-          "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-foreground.png",
-          "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-background.png",
-          "materialSampleRegion": {
-            "x": 896,
-            "y": 896,
-            "width": 256,
-            "height": 256
-          },
-          "warpLimits": {
-            "widthRatio": {
-              "min": 0.85,
-              "max": 1.15
-            },
-            "depthRatio": {
-              "min": 0.8,
-              "max": 1.2
-            },
-            "rotationDegrees": {
-              "min": -12,
-              "max": 12
-            }
-          }
-        }
-      ],
-      "renderNodes": [
-        {
-          "id": "head_round_dome-neck",
-          "connectorId": "neck",
-          "sourcePngPath": "asset-source/v0.3.0/production/nodes/head_round_dome/neck.png"
+          "sourcePngPath": "asset-source/v0.3.0/production/nodes/body_biped_tall/body.png"
         }
       ]
     },
@@ -620,7 +556,7 @@
             "y": 1
           },
           "outwardNormal": {
-            "x": -1,
+            "x": 1,
             "y": 0
           },
           "width": 230,
@@ -662,7 +598,7 @@
             "y": 1
           },
           "outwardNormal": {
-            "x": 1,
+            "x": -1,
             "y": 0
           },
           "width": 230,
@@ -731,7 +667,7 @@
             "y": 1
           },
           "outwardNormal": {
-            "x": -1,
+            "x": 1,
             "y": 0
           },
           "width": 210,
@@ -773,7 +709,7 @@
             "y": 1
           },
           "outwardNormal": {
-            "x": 1,
+            "x": -1,
             "y": 0
           },
           "width": 210,

@@ -5,6 +5,7 @@ import { dirname, extname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { productionPaths, type ProductionPaths } from './production-paths.js'
+import { prepareBipedInterfaceAssets } from './prepare-biped-interface-assets.js'
 
 export interface RuntimeAssetBuildInput {
   sourcePath: string
@@ -58,6 +59,13 @@ export async function buildVersionedRuntimeAssets(
 ): Promise<{ paths: ProductionPaths, built: number }> {
   const paths = runtimeAssetBuildPaths(version)
   const repositoryRoot = options.repositoryRoot ?? process.cwd()
+  if (version === '0.3.0') {
+    if (resolve(repositoryRoot) !== resolve(process.cwd())) {
+      throw new Error('The v0.3.0 biped slice builder must run from its repository root.')
+    }
+    const prepared = await prepareBipedInterfaceAssets()
+    return { paths, built: prepared.processedAssets + prepared.processedBridges }
+  }
   const sourceRoot = resolve(repositoryRoot, paths.sourceRoot)
   const assetRoot = resolve(repositoryRoot, paths.assetDirectory)
   const sourceGroups = ['parts', 'rigs']

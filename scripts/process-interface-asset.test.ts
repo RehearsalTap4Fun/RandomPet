@@ -66,6 +66,22 @@ describe('processInterfaceAsset', () => {
     await expect(processInterfaceAsset(input)).rejects.toThrow('CONNECTOR_PROFILE_INVALID')
   })
 
+  it('rejects identical incomplete foreground and background masks for a head plug', async () => {
+    const input = await fixture(0.95)
+    Object.assign(input.connectors[0]!, {
+      role: 'plug',
+      nodeLayer: 'head',
+      origin: { x: 16, y: 16 },
+      outwardNormal: { x: 0, y: 1 },
+      depth: 8,
+      faceSafeZones: [{ x: 0, y: 0, width: 8, height: 8 }],
+    })
+
+    await expect(processInterfaceAsset(input)).rejects.toThrow(
+      'CONNECTOR_PROFILE_INVALID: neck foreground/background masks overlap',
+    )
+  })
+
   it('rejects a material sample region without opaque source pixels', async () => {
     const input = await fixture(0.95)
     input.materialSampleRegion = { x: 24, y: 24, width: 8, height: 8 }

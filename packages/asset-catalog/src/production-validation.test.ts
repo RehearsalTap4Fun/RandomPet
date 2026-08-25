@@ -1007,4 +1007,37 @@ describe('strict production catalog validation', () => {
       path: ['review', 'rejectedAttempts', '0', 'generationPath'],
     }))
   })
+
+  it('validates canonical v0.3 head splits and rejects a merged foreground/background mutation', async () => {
+    const catalog = JSON.parse(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json',
+    ), 'utf8'))
+    const sourceIndex = JSON.parse(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.3.0.json',
+    ), 'utf8'))
+
+    const diagnostics = await validateProductionInterfaceResources(
+      catalog,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.3.0'),
+      sourceIndex,
+      { manifestPath: join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json') },
+    )
+
+    expect(diagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_INTERFACE_HEAD_OCCLUSION_INVALID',
+    }))
+    const head = catalog.parts.find((part: any) => part.slotId === 'headShape')
+    const connector = head.composition.variantsByRig.biped.connectors[0]
+    connector.backgroundMaskPath = connector.foregroundMaskPath
+    connector.backgroundMaskSha256 = connector.foregroundMaskSha256
+    const mutated = await validateProductionInterfaceResources(
+      catalog,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.3.0'),
+      sourceIndex,
+      { manifestPath: join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json') },
+    )
+    expect(mutated).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_INTERFACE_HEAD_OCCLUSION_INVALID',
+    }))
+  })
 })

@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "biped-slice-generation-v1",
+  "generator": "built-in-image_gen",
+  "candidateCount": 44,
+  "targetedEditCallCount": 2,
+  "totalBuiltInCallCount": 46,
+  "assets": {
+    "body_biped_peanut": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/body_biped_peanut/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/body_biped_peanut/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/body_biped_peanut/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/body_biped_peanut/candidate-4.png"
+      ],
+      "selectedCandidate": 3,
+      "editedCandidatePath": "asset-source/v0.3.0/generation/biped/edited/body_biped_peanut.png",
+      "editPurpose": "Heal visible receiver markers into continuous fur while preserving the selected candidate identity.",
+      "selectedReason": "Best silhouette, connector-root readability, material coherence, and 256px recognition in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 6549,
+        "subjectCoverage": 0.18694054623291592,
+        "sourceSha256": "e68755534e9ed1c60dba288a7e42396d91eecc9bd4353d80c7b1b69c9c1620fd",
+        "rgbaSha256": "9f63be967502688382627a9971c0d0a991268f1f9589e9ad892c2a051a788d23"
+      },
+      "connectorCoverage": {
+        "neck": 1,
+        "shoulderLeft": 1,
+        "shoulderRight": 1,
+        "hipLeft": 1,
+        "hipRight": 1
+      },
+      "guidePaths": [
+        "asset-source/v0.3.0/guides/body_biped_peanut-neck-receiver-mask.png",
+        "asset-source/v0.3.0/guides/body_biped_peanut-shoulderLeft-receiver-mask.png",
+        "asset-source/v0.3.0/guides/body_biped_peanut-shoulderRight-receiver-mask.png",
+        "asset-source/v0.3.0/guides/body_biped_peanut-hipLeft-receiver-mask.png",
+        "asset-source/v0.3.0/guides/body_biped_peanut-hipRight-receiver-mask.png"
+      ]
+    },
+    "body_biped_tall": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/body_biped_tall/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/body_biped_tall/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/body_biped_tall/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/body_biped_tall/candidate-4.png"
+      ],
+      "selectedCandidate": 2,
+      "editedCandidatePath": "asset-source/v0.3.0/generation/biped/edited/body_biped_tall.png",
+      "editPurpose": "Heal visible receiver markers into continuous fur while preserving the selected candidate identity.",
+      "selectedReason": "Best silhouette, connector-root readability, material coherence, and 256px recognition in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 5901,
+        "subjectCoverage": 0.21466045496516412,
+        "sourceSha256": "3be1dc40e9fe739eed7e43582994ca289be4e8a5b38006ee7249fdd100edf1b5",
+        "rgbaSha256": "38284fb6b2905563dc1b90a3445f38a7824d52a1ca54751eac093ee945b99dfa"
+      },
+      "connectorCoverage": {
+        "neck": 1,
+        "shoulderLeft": 1,
+        "shoulderRight": 1,
+        "hipLeft": 1,
+        "hipRight": 1
+      },
+      "guidePaths": [
+        "asset-source/v0.3.0/guides/body_biped_tall-neck-receiver-mask.png",
+        "asset-source/v0.3.0/guides/body_biped_tall-shoulderLeft-receiver-mask.png",
+        "asset-source/v0.3.0/guides/body_biped_tall-shoulderRight-receiver-mask.png",
+        "asset-source/v0.3.0/guides/body_biped_tall-hipLeft-receiver-mask.png",
+        "asset-source/v0.3.0/guides/body_biped_tall-hipRight-receiver-mask.png"
+      ]
+    },
+    "head_mushroom_cap": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/head_mushroom_cap/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/head_mushroom_cap/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/head_mushroom_cap/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/head_mushroom_cap/candidate-4.png"
+      ],
+      "selectedCandidate": 3,
+      "selectedReason": "Best silhouette, connector-root readability, material coherence, and 256px recognition in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 13901,
+        "subjectCoverage": 0.2845134803079905,
+        "sourceSha256": "61c411e64a0f4e9dc9b4f82fd3640db6fcbc5c4799d1f2f2ca193d2245e283ce",
+        "rgbaSha256": "80511bc7851337bd35ff0429547e3b233a5c5837676f94282a9ef2df288d80e7"
+      },
+      "connectorCoverage": {
+        "neck": 1
+      },
+      "guidePaths": [
+        "asset-source/v0.3.0/guides/head_mushroom_cap-neck-plug-mask.png"
+      ]
+    },
+    "arms_short_plush": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/arms_short_plush/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/arms_short_plush/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/arms_short_plush/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/arms_short_plush/candidate-4.png"
+      ],
+      "selectedCandidate": 4,
+      "selectedReason": "Best silhouette, connector-root readability, material coherence, and 256px recognition in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 8197,
+        "subjectCoverage": 0.2400942184372051,
+        "sourceSha256": "5ed942da664398abe55430fc9f38a12b8c4887d89c332a0f1b65b1f012d7d619",
+        "rgbaSha256": "182dc4bd671c0b5e42182b3ad016364594b3473d6a3c5e0a531ad7be503af44d"
+      },
+      "connectorCoverage": {
+        "shoulderLeft": 1,
+        "shoulderRight": 1
+      },
+      "guidePaths": [
+        "asset-source/v0.3.0/guides/arms_short_plush-shoulderLeft-plug-mask.png",
+        "asset-source/v0.3.0/guides/arms_short_plush-shoulderRight-plug-mask.png"
+      ]
+    },
+    "arms_long_noodle": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/arms_long_noodle/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/arms_long_noodle/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/arms_long_noodle/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/arms_long_noodle/candidate-4.png"
+      ],
+      "selectedCandidate": 4,
+      "selectedReason": "Best silhouette, connector-root readability, material coherence, and 256px recognition in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 5145,
+        "subjectCoverage": 0.1874244840752018,
+        "sourceSha256": "84f6571b621ed4e46a38bfaea703272aa7aaee9e5a201470796df37b1dca80ed",
+        "rgbaSha256": "199aa23f404c650caba7a9183f85c5778181aa7602493eb84a67cc980bcd1d27"
+      },
+      "connectorCoverage": {
+        "shoulderLeft": 1,
+        "shoulderRight": 1
+      },
+      "guidePaths": [
+        "asset-source/v0.3.0/guides/arms_long_noodle-shoulderLeft-plug-mask.png",
+        "asset-source/v0.3.0/guides/arms_long_noodle-shoulderRight-plug-mask.png"
+      ]
+    },
+    "legs_webbed": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/legs_webbed/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/legs_webbed/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/legs_webbed/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/legs_webbed/candidate-4.png"
+      ],
+      "selectedCandidate": 3,
+      "selectedReason": "Best silhouette, connector-root readability, material coherence, and 256px recognition in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 5412,
+        "subjectCoverage": 0.32778998751046096,
+        "sourceSha256": "3a78ab1d119ce992e8df1dd99dd1fd9840918afb2a8f3afebb01288ff6c396ae",
+        "rgbaSha256": "926dc8108989d21d4589f9db96aeea6b299b7a6d7f33d93a7537184a65f5279f"
+      },
+      "connectorCoverage": {
+        "hipLeft": 1,
+        "hipRight": 1
+      },
+      "guidePaths": [
+        "asset-source/v0.3.0/guides/legs_webbed-hipLeft-plug-mask.png",
+        "asset-source/v0.3.0/guides/legs_webbed-hipRight-plug-mask.png"
+      ]
+    },
+    "legs_mushroom": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/legs_mushroom/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/legs_mushroom/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/legs_mushroom/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/legs_mushroom/candidate-4.png"
+      ],
+      "selectedCandidate": 3,
+      "selectedReason": "Best silhouette, connector-root readability, material coherence, and 256px recognition in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 3957,
+        "subjectCoverage": 0.32917439313813024,
+        "sourceSha256": "6e5c4ef20d59057716329427d83d811d1d2c24735abed366148650f740e051d2",
+        "rgbaSha256": "eab28c82a54b526d47c4750a18426df57acd39c37dd8f937cbff81b35fc59628"
+      },
+      "connectorCoverage": {
+        "hipLeft": 1,
+        "hipRight": 1
+      },
+      "guidePaths": [
+        "asset-source/v0.3.0/guides/legs_mushroom-hipLeft-plug-mask.png",
+        "asset-source/v0.3.0/guides/legs_mushroom-hipRight-plug-mask.png"
+      ]
+    }
+  },
+  "bridges": {
+    "neck": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/bridges/neck/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/bridges/neck/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/bridges/neck/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/bridges/neck/candidate-4.png"
+      ],
+      "selectedCandidate": 3,
+      "selectedReason": "Best opaque-end silhouette and flexible-center readability in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 14433,
+        "subjectCoverage": 0.21679652226114074,
+        "sourceSha256": "347cf3b245254615746644983a793dcbe5ade82ac9de4a62b32602545e901b8d",
+        "rgbaSha256": "0125868a7560a66ee608aae4a0a4c9e4687859d52c4fd5000b605fae84283e30"
+      }
+    },
+    "shoulder": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/bridges/shoulder/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/bridges/shoulder/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/bridges/shoulder/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/bridges/shoulder/candidate-4.png"
+      ],
+      "selectedCandidate": 2,
+      "selectedReason": "Best opaque-end silhouette and flexible-center readability in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 25001,
+        "subjectCoverage": 0.22930895456707595,
+        "sourceSha256": "004403e75016a55fe04c3b9397f723ccacfa04b544d9d4534b26d7afd2168ac6",
+        "rgbaSha256": "7038ea526cd239be54d5047602ffcc2f7c2a811292a1eeaa5de8b2344d13add6"
+      }
+    },
+    "hip": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/biped/bridges/hip/candidate-1.png",
+        "asset-source/v0.3.0/generation/biped/bridges/hip/candidate-2.png",
+        "asset-source/v0.3.0/generation/biped/bridges/hip/candidate-3.png",
+        "asset-source/v0.3.0/generation/biped/bridges/hip/candidate-4.png"
+      ],
+      "selectedCandidate": 4,
+      "selectedReason": "Best opaque-end silhouette and flexible-center readability in the four-way self-review.",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 36503,
+        "subjectCoverage": 0.2540680031236566,
+        "sourceSha256": "3cb9b1f8cacc0824ed43b32f8b333c2c3c58e37478775021be3739dc773c5278",
+        "rgbaSha256": "39462c6092b46802c4d43e788993bcc5a76287d02142776de2e6395254dce426"
+      }
+    }
+  }
+}

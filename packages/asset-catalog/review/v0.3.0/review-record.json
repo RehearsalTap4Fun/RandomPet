@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "interface-self-review-v1",
+  "status": "machine-valid-self-reviewed-awaiting-user-slice-approval",
+  "reviewer": "Codex visual self-review",
+  "userApproved": false,
+  "selections": {
+    "body_biped_peanut": 3,
+    "body_biped_tall": 2,
+    "head_round_dome": 3,
+    "head_mushroom_cap": 3,
+    "arms_short_plush": 4,
+    "arms_long_noodle": 4,
+    "legs_webbed": 3,
+    "legs_mushroom": 3,
+    "bridge-neck": 3,
+    "bridge-shoulder": 2,
+    "bridge-hip": 4
+  }
+}

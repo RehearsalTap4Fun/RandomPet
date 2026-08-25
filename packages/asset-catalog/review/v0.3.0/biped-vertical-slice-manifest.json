@@ -1,0 +1,564 @@
+{
+  "catalogVersion": "0.3.0",
+  "rendererVersion": "0.3.0",
+  "rigId": "biped",
+  "entryCount": 8,
+  "entries": [
+    {
+      "index": 0,
+      "structuralKey": "body_biped_peanut|head_mushroom_cap|arms_short_plush|legs_webbed",
+      "selections": {
+        "bodyFrame": "body_biped_peanut",
+        "headShape": "head_mushroom_cap",
+        "arms": "arms_short_plush",
+        "legs": "legs_webbed"
+      },
+      "originalPngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries/00.png",
+      "review256PngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries-256/00.png",
+      "diagnostics": [],
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.9927550835148874,
+          "plugCoverage": 0.9536982388263223,
+          "largestComponentRatio": 0.9999864862750809,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.9469717893376256,
+          "plugCoverage": 0.9915870871490251,
+          "largestComponentRatio": 0.9999864862750809,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.8050803093244547
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.9469757523656228,
+          "plugCoverage": 0.9915913840992218,
+          "largestComponentRatio": 0.9999864862750809,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.8043383064812142
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.9506356209150327,
+          "plugCoverage": 0.9922464881474978,
+          "largestComponentRatio": 0.9999864862750809,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.8283569439443336
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.9506356209150327,
+          "plugCoverage": 0.9922464881474978,
+          "largestComponentRatio": 0.9999864862750809,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.829813674044313
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0.9997559802437851,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 0.9010895840593112,
+        "mouthVisibleRatio": 0.9356429259351737,
+        "visibleBounds": {
+          "x": 320,
+          "y": 244,
+          "width": 1400,
+          "height": 1536
+        }
+      },
+      "originalSha256": "f1ac00c7b50ffb1524e20eff0fde65529c3cc1756d084c7461ce5330a7ff446a",
+      "review256Sha256": "0c7a3972c93a4fca163af9e5894e8e0f668b20bb61516bdb45e1d8745242b5cb"
+    },
+    {
+      "index": 1,
+      "structuralKey": "body_biped_peanut|head_mushroom_cap|arms_short_plush|legs_mushroom",
+      "selections": {
+        "bodyFrame": "body_biped_peanut",
+        "headShape": "head_mushroom_cap",
+        "arms": "arms_short_plush",
+        "legs": "legs_mushroom"
+      },
+      "originalPngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries/01.png",
+      "review256PngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries-256/01.png",
+      "diagnostics": [],
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.9927550835148874,
+          "plugCoverage": 0.9536982388263223,
+          "largestComponentRatio": 0.9999868839328668,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.9469717893376256,
+          "plugCoverage": 0.9915870871490251,
+          "largestComponentRatio": 0.9999868839328668,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.8050803093244547
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.9469757523656228,
+          "plugCoverage": 0.9915913840992218,
+          "largestComponentRatio": 0.9999868839328668,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.8043383064812142
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.9853570261437908,
+          "plugCoverage": 0.9853570261437908,
+          "largestComponentRatio": 0.9999868839328668,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.861345420318055
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.9853570261437908,
+          "plugCoverage": 0.9853570261437908,
+          "largestComponentRatio": 0.9999868839328668,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.8621472912082551
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0.9997559802437851,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 0.9010895840593112,
+        "mouthVisibleRatio": 0.9356429259351737,
+        "visibleBounds": {
+          "x": 320,
+          "y": 244,
+          "width": 1400,
+          "height": 1536
+        }
+      },
+      "originalSha256": "5858f0a14e8f710e99272e628d682f6591f8f89338ee6be8b93b5c9aef1f9d20",
+      "review256Sha256": "cbbbca8432f90d4ed9eeaec75afbc539a7ee95d7b74dfe6e10fa55809f00b669"
+    },
+    {
+      "index": 2,
+      "structuralKey": "body_biped_peanut|head_mushroom_cap|arms_long_noodle|legs_webbed",
+      "selections": {
+        "bodyFrame": "body_biped_peanut",
+        "headShape": "head_mushroom_cap",
+        "arms": "arms_long_noodle",
+        "legs": "legs_webbed"
+      },
+      "originalPngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries/02.png",
+      "review256PngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries-256/02.png",
+      "diagnostics": [],
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.9927550835148874,
+          "plugCoverage": 0.9536982388263223,
+          "largestComponentRatio": 0.9999783890640669,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.9171419251780314,
+          "plugCoverage": 0.9910156878843491,
+          "largestComponentRatio": 0.9999783890640669,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.6792692377099788
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.917136285484343,
+          "plugCoverage": 0.9910086448372453,
+          "largestComponentRatio": 0.9999783890640669,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.6639970832192579
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.9506356209150327,
+          "plugCoverage": 0.9922464881474978,
+          "largestComponentRatio": 0.9999783890640669,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.8283569439443336
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.9506356209150327,
+          "plugCoverage": 0.9922464881474978,
+          "largestComponentRatio": 0.9999783890640669,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.829813674044313
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0.9997559802437851,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 0.9010895840593112,
+        "mouthVisibleRatio": 0.9356429259351737,
+        "visibleBounds": {
+          "x": 404,
+          "y": 244,
+          "width": 1224,
+          "height": 1536
+        }
+      },
+      "originalSha256": "8c212958310180643f5da9d2f0b8e01b101abcf5105b04762d3761f081e5a5a6",
+      "review256Sha256": "1b0b2d4b7e81142d33a4eca270af7ac0a9a47710a42bc10237824e7b03a5c4fc"
+    },
+    {
+      "index": 3,
+      "structuralKey": "body_biped_peanut|head_mushroom_cap|arms_long_noodle|legs_mushroom",
+      "selections": {
+        "bodyFrame": "body_biped_peanut",
+        "headShape": "head_mushroom_cap",
+        "arms": "arms_long_noodle",
+        "legs": "legs_mushroom"
+      },
+      "originalPngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries/03.png",
+      "review256PngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries-256/03.png",
+      "diagnostics": [],
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.9927550835148874,
+          "plugCoverage": 0.9536982388263223,
+          "largestComponentRatio": 0.9999790641928705,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.9171419251780314,
+          "plugCoverage": 0.9910156878843491,
+          "largestComponentRatio": 0.9999790641928705,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.6792692377099788
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.917136285484343,
+          "plugCoverage": 0.9910086448372453,
+          "largestComponentRatio": 0.9999790641928705,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.6639970832192579
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.9853570261437908,
+          "plugCoverage": 0.9853570261437908,
+          "largestComponentRatio": 0.9999790641928705,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.861345420318055
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.9853570261437908,
+          "plugCoverage": 0.9853570261437908,
+          "largestComponentRatio": 0.9999790641928705,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.8621472912082551
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0.9997559802437851,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 0.9010895840593112,
+        "mouthVisibleRatio": 0.9356429259351737,
+        "visibleBounds": {
+          "x": 404,
+          "y": 244,
+          "width": 1224,
+          "height": 1536
+        }
+      },
+      "originalSha256": "c243cd5aaec377fc61895cfada2ae0c598c61df39dba4e63f36fc49f4890a71c",
+      "review256Sha256": "9c7e6bf67b4877c6b501025e5dec20d8c035cf16be401aa9c9b80b8e12a7c55b"
+    },
+    {
+      "index": 4,
+      "structuralKey": "body_biped_tall|head_mushroom_cap|arms_short_plush|legs_webbed",
+      "selections": {
+        "bodyFrame": "body_biped_tall",
+        "headShape": "head_mushroom_cap",
+        "arms": "arms_short_plush",
+        "legs": "legs_webbed"
+      },
+      "originalPngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries/04.png",
+      "review256PngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries-256/04.png",
+      "diagnostics": [],
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.9922212728374932,
+          "plugCoverage": 0.9212605863459753,
+          "largestComponentRatio": 0.9999856924242139,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.9835200319130585,
+          "plugCoverage": 0.9830547190825839,
+          "largestComponentRatio": 0.9999856924242139,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9844352894596599
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.9835200319130585,
+          "plugCoverage": 0.9830543753265683,
+          "largestComponentRatio": 0.9999856924242139,
+          "centerlineGapPixels": 0.011764705882352955,
+          "childOutsideBodyRatio": 0.9864912778096577
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.9847797457724167,
+          "plugCoverage": 0.9843126585211199,
+          "largestComponentRatio": 0.9999856924242139,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.9249186188840961
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.9847797457724167,
+          "plugCoverage": 0.9843126585211199,
+          "largestComponentRatio": 0.9999856924242139,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.9246363923772806
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0.9997559802437851,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 0.9010895840593112,
+        "mouthVisibleRatio": 0.9356429259351737,
+        "visibleBounds": {
+          "x": 300,
+          "y": 64,
+          "width": 1440,
+          "height": 1856
+        }
+      },
+      "originalSha256": "e88f15c924bae35898b3e1cc92319271a28ee6f23e4d9b90e487103a0f9b0807",
+      "review256Sha256": "4ee6b4b91bb9d627262adc7b0cecdd2ee9b89c8c85d461006c3d7d6cda11cb96"
+    },
+    {
+      "index": 5,
+      "structuralKey": "body_biped_tall|head_mushroom_cap|arms_short_plush|legs_mushroom",
+      "selections": {
+        "bodyFrame": "body_biped_tall",
+        "headShape": "head_mushroom_cap",
+        "arms": "arms_short_plush",
+        "legs": "legs_mushroom"
+      },
+      "originalPngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries/05.png",
+      "review256PngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries-256/05.png",
+      "diagnostics": [],
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.9922212728374932,
+          "plugCoverage": 0.9212605863459753,
+          "largestComponentRatio": 0.9999869302832356,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.9835200319130585,
+          "plugCoverage": 0.9830547190825839,
+          "largestComponentRatio": 0.9999869302832356,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9844352894596599
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.9835200319130585,
+          "plugCoverage": 0.9830543753265683,
+          "largestComponentRatio": 0.9999869302832356,
+          "centerlineGapPixels": 0.011764705882352955,
+          "childOutsideBodyRatio": 0.9864912778096577
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.9922464086218524,
+          "plugCoverage": 0.9506356209150327,
+          "largestComponentRatio": 0.9999869302832356,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9220763660868366
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.9922464086218524,
+          "plugCoverage": 0.9506356209150327,
+          "largestComponentRatio": 0.9999869302832356,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9219331500506717
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0.9997559802437851,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 0.9010895840593112,
+        "mouthVisibleRatio": 0.9356429259351737,
+        "visibleBounds": {
+          "x": 300,
+          "y": 64,
+          "width": 1440,
+          "height": 1856
+        }
+      },
+      "originalSha256": "d25c1f111da9668a103323eed89c3992d2a8442fb072349dc508d6cb197ab813",
+      "review256Sha256": "c2ff912ebb6dbd39f245a9667696a09c96ea7ea2a4de64ff584a3e7af4f54777"
+    },
+    {
+      "index": 6,
+      "structuralKey": "body_biped_tall|head_mushroom_cap|arms_long_noodle|legs_webbed",
+      "selections": {
+        "bodyFrame": "body_biped_tall",
+        "headShape": "head_mushroom_cap",
+        "arms": "arms_long_noodle",
+        "legs": "legs_webbed"
+      },
+      "originalPngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries/06.png",
+      "review256PngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries-256/06.png",
+      "diagnostics": [],
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.9922212728374932,
+          "plugCoverage": 0.9212605863459753,
+          "largestComponentRatio": 0.9999779402773815,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.950971587315278,
+          "plugCoverage": 0.9911730496796419,
+          "largestComponentRatio": 0.9999779402773815,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9308243663177165
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.9509694310275429,
+          "plugCoverage": 0.991171439840304,
+          "largestComponentRatio": 0.9999779402773815,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9271961737148582
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.9847797457724167,
+          "plugCoverage": 0.9843126585211199,
+          "largestComponentRatio": 0.9999779402773815,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.9249186188840961
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.9847797457724167,
+          "plugCoverage": 0.9843126585211199,
+          "largestComponentRatio": 0.9999779402773815,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.9246363923772806
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0.9997559802437851,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 0.9010895840593112,
+        "mouthVisibleRatio": 0.9356429259351737,
+        "visibleBounds": {
+          "x": 384,
+          "y": 64,
+          "width": 1264,
+          "height": 1856
+        }
+      },
+      "originalSha256": "47f78aa0b78a69039ca6c7252650119a5eb745417ed77d2e57ab596cf7e27a02",
+      "review256Sha256": "82e773ad98c61736e8611bb154da691d4f64743ccc15c904e93f0c67e226041e"
+    },
+    {
+      "index": 7,
+      "structuralKey": "body_biped_tall|head_mushroom_cap|arms_long_noodle|legs_mushroom",
+      "selections": {
+        "bodyFrame": "body_biped_tall",
+        "headShape": "head_mushroom_cap",
+        "arms": "arms_long_noodle",
+        "legs": "legs_mushroom"
+      },
+      "originalPngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries/07.png",
+      "review256PngPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-entries-256/07.png",
+      "diagnostics": [],
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.9922212728374932,
+          "plugCoverage": 0.9212605863459753,
+          "largestComponentRatio": 0.9999795213581752,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.950971587315278,
+          "plugCoverage": 0.9911730496796419,
+          "largestComponentRatio": 0.9999795213581752,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9308243663177165
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.9509694310275429,
+          "plugCoverage": 0.991171439840304,
+          "largestComponentRatio": 0.9999795213581752,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9271961737148582
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.9922464086218524,
+          "plugCoverage": 0.9506356209150327,
+          "largestComponentRatio": 0.9999795213581752,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9220763660868366
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.9922464086218524,
+          "plugCoverage": 0.9506356209150327,
+          "largestComponentRatio": 0.9999795213581752,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.9219331500506717
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0.9997559802437851,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 0.9010895840593112,
+        "mouthVisibleRatio": 0.9356429259351737,
+        "visibleBounds": {
+          "x": 384,
+          "y": 64,
+          "width": 1264,
+          "height": 1856
+        }
+      },
+      "originalSha256": "82401c2bbeb588ad49b2ac8564eba4eae478831a31898c9eed4b8f6d06ba1c09",
+      "review256Sha256": "263b9d905f4b4064eaea1e840e892c0b6f49800958034d1831da5d96f1cf896c"
+    }
+  ],
+  "sheetPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice.png",
+  "sheetSha256": "58766df74141fae1abcb66f447529b8d32ede934b11394877c12d2c478feaef4",
+  "review256SheetPath": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-256.png",
+  "review256SheetSha256": "0fa54d8968155465f84eec0de75303520bea637d1debae1f58e1f12301bd9974"
+}

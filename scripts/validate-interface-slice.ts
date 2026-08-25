@@ -8,49 +8,23 @@ import { parseInterfaceSourceManifest, type InterfaceSourceManifest } from './in
 import { productionPaths } from './production-paths.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 import { tmpdir } from 'node:os'
+import { validateBipedSliceReview } from './validate-biped-slice-review.js'
 
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
 }
 
-async function inspectPng(path: string, mask: boolean): Promise<string | null> {
-  try {
-    const bytes = await readFile(path)
-    if (!bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return 'must have the native PNG signature'
-    const metadata = await sharp(bytes).metadata()
-    if (metadata.format !== 'png' || metadata.hasAlpha !== true) return 'must be a native PNG with an alpha channel'
-    const decoded = await sharp(bytes).raw().toBuffer({ resolveWithObject: true })
-    if (decoded.info.width !== 2048 || decoded.info.height !== 2048 || decoded.info.channels !== 4) return 'must be a 2048x2048 RGBA PNG'
-    const alphas = new Set<number>()
-    for (let index = 3; index < decoded.data.length; index += 4) alphas.add(decoded.data[index]!)
-    if (mask && ([...alphas].some(alpha => alpha !== 0 && alpha !== 255) || !alphas.has(0) || !alphas.has(255))) return 'machine mask alpha must be binary and contain transparent and opaque pixels'
-    if (!mask && (!alphas.has(0) || ![...alphas].some(alpha => alpha > 0))) return 'guide must contain meaningful transparent and visible pixels'
-    return null
-  } catch (caught) {
-    return caught instanceof Error ? caught.message : String(caught)
-  }
-}
-
-export async function validateInterfaceSlice(input: { manifestPath: string; guideRoot: string; repositoryRoot?: string }): Promise<{
-  ok: boolean
-  diagnostics: Diagnostic[]
-  productionAssetsChecked: 0
-}> {
+export async function validateInterfacePromptEvidence(input: {
+  manifest: InterfaceSourceManifest
+  repositoryRoot?: string
+}): Promise<Diagnostic[]> {
   const diagnostics: Diagnostic[] = []
-  let raw: unknown
-  try {
-    raw = JSON.parse(await readFile(input.manifestPath, 'utf8'))
-  } catch {
-    return { ok: false, diagnostics: [error('INTERFACE_MANIFEST_MISSING', [input.manifestPath], 'Cannot read interface source manifest.')], productionAssetsChecked: 0 }
-  }
-  const parsed = parseInterfaceSourceManifest(raw)
-  if (!parsed.ok) return { ok: false, diagnostics: parsed.diagnostics, productionAssetsChecked: 0 }
   const lexicalRepositoryRoot = resolve(input.repositoryRoot ?? process.cwd())
   const repositoryRoot = await realpath(lexicalRepositoryRoot).catch(() => lexicalRepositoryRoot)
   const promptClaims = new Map<string, { hashes: Set<string>; ids: Set<string> }>()
   for (const evidence of [
-    ...parsed.value.assets.map(asset => asset.promptEvidence),
-    ...parsed.value.bridges.map(bridge => bridge.promptEvidence),
+    ...input.manifest.assets.map(asset => asset.promptEvidence),
+    ...input.manifest.bridges.map(bridge => bridge.promptEvidence),
   ]) {
     const claim = promptClaims.get(evidence.promptPath) ?? { hashes: new Set<string>(), ids: new Set<string>() }
     claim.hashes.add(evidence.promptSha256)
@@ -87,6 +61,42 @@ export async function validateInterfaceSlice(input: { manifestPath: string; guid
       diagnostics.push(error('INTERFACE_PROMPT_MISSING', [portablePath], 'Cannot read the declared prompt evidence file.'))
     }
   }
+  return diagnostics
+}
+
+async function inspectPng(path: string, mask: boolean): Promise<string | null> {
+  try {
+    const bytes = await readFile(path)
+    if (!bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return 'must have the native PNG signature'
+    const metadata = await sharp(bytes).metadata()
+    if (metadata.format !== 'png' || metadata.hasAlpha !== true) return 'must be a native PNG with an alpha channel'
+    const decoded = await sharp(bytes).raw().toBuffer({ resolveWithObject: true })
+    if (decoded.info.width !== 2048 || decoded.info.height !== 2048 || decoded.info.channels !== 4) return 'must be a 2048x2048 RGBA PNG'
+    const alphas = new Set<number>()
+    for (let index = 3; index < decoded.data.length; index += 4) alphas.add(decoded.data[index]!)
+    if (mask && ([...alphas].some(alpha => alpha !== 0 && alpha !== 255) || !alphas.has(0) || !alphas.has(255))) return 'machine mask alpha must be binary and contain transparent and opaque pixels'
+    if (!mask && (!alphas.has(0) || ![...alphas].some(alpha => alpha > 0))) return 'guide must contain meaningful transparent and visible pixels'
+    return null
+  } catch (caught) {
+    return caught instanceof Error ? caught.message : String(caught)
+  }
+}
+
+export async function validateInterfaceSlice(input: { manifestPath: string; guideRoot: string; repositoryRoot?: string }): Promise<{
+  ok: boolean
+  diagnostics: Diagnostic[]
+  productionAssetsChecked: 0
+}> {
+  const diagnostics: Diagnostic[] = []
+  let raw: unknown
+  try {
+    raw = JSON.parse(await readFile(input.manifestPath, 'utf8'))
+  } catch {
+    return { ok: false, diagnostics: [error('INTERFACE_MANIFEST_MISSING', [input.manifestPath], 'Cannot read interface source manifest.')], productionAssetsChecked: 0 }
+  }
+  const parsed = parseInterfaceSourceManifest(raw)
+  if (!parsed.ok) return { ok: false, diagnostics: parsed.diagnostics, productionAssetsChecked: 0 }
+  diagnostics.push(...await validateInterfacePromptEvidence({ manifest: parsed.value, repositoryRoot: input.repositoryRoot }))
   const expected = new Set<string>()
   const regeneratedRoot = await mkdtemp(join(tmpdir(), 'qmonster-interface-guides-'))
   const regenerated = await renderInterfaceGuides({
@@ -172,6 +182,8 @@ async function main(): Promise<void> {
   const versionIndex = process.argv.indexOf('--version')
   const version = versionIndex === -1 ? undefined : process.argv[versionIndex + 1]
   const production = process.argv.includes('--production')
+  const rigIndex = process.argv.indexOf('--rig')
+  const rig = rigIndex === -1 ? undefined : process.argv[rigIndex + 1]
   const catalogIndex = process.argv.indexOf('--catalog-if-present')
   const catalogPath = catalogIndex === -1 ? undefined : process.argv[catalogIndex + 1]
   if (version !== '0.3.0') throw new Error('Usage: tsx scripts/validate-interface-slice.ts --version 0.3.0 [--production]')
@@ -198,8 +210,14 @@ async function main(): Promise<void> {
       productionAssetsChecked = readiness.productionAssetsChecked
     }
   }
+  let bipedEntriesChecked = 0
+  if (diagnostics.length === 0 && rig === 'biped') {
+    const review = await validateBipedSliceReview(join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0', 'biped-vertical-slice-manifest.json'))
+    bipedEntriesChecked = review.entryCount
+    for (const message of review.diagnostics) diagnostics.push(error('BIPED_SLICE_INVALID', ['review'], message))
+  }
   for (const diagnostic of diagnostics) console.error(`ERROR ${diagnostic.code} ${diagnostic.path.join('.')}: ${diagnostic.message}`)
-  console.log(JSON.stringify({ version, sliceGuides: slice.ok, productionAssetsChecked }))
+  console.log(JSON.stringify({ version, rig, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, diagnostics: diagnostics.length }))
   if (diagnostics.length > 0) process.exitCode = 1
 }
 

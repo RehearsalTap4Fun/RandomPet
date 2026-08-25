@@ -300,8 +300,11 @@ describe('v0.2 composition-aware production catalog builder', () => {
 })
 
 describe('v0.3 interface production catalog builder', () => {
-  it('fails specifically for the absent processed interface asset index before production art exists', async () => {
-    await expect(buildProductionCatalog({ write: false, version: '0.3.0' }))
-      .rejects.toThrow('INTERFACE_PRODUCTION_ASSET_MISSING')
+  it('builds from the processed interface index without exposing the retired round head', async () => {
+    const result = await buildProductionCatalog({ write: false, version: '0.3.0' })
+
+    expect(result.catalog.parts.find(part => part.id === 'head_round_dome')).toBeUndefined()
+    expect(result.catalog.parts.find(part => part.id === 'head_mushroom_cap')).toBeDefined()
+    expect(result.sourceIndex.sources.find(source => source.sourceId === 'head_round_dome')).toBeUndefined()
   })
 })

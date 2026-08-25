@@ -1139,6 +1139,29 @@ describe('v0.3 interface rendering', () => {
     return { catalog, spec }
   }
 
+  it('draws limb roots behind the body, then the head, then facial features', async () => {
+    const { catalog, spec } = fixture()
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+      },
+    )
+
+    const index = (id: string) => result.drawnAssetIds.indexOf(id)
+    const bodyIndex = index('body_blob_0_blob')
+    const headIndex = index('head_round_0_blob')
+    const limbIndices = [
+      index('arms_short_0_blob'), index('arms_short_1_blob'),
+      index('legs_webbed_0_blob'), index('legs_webbed_1_blob'),
+    ]
+    const faceIndices = [index('eyes_asymmetric_0'), index('mouth_wide_0')]
+
+    expect(limbIndices.every(limbIndex => limbIndex < bodyIndex)).toBe(true)
+    expect(bodyIndex).toBeLessThan(headIndex)
+    expect(faceIndices.every(faceIndex => headIndex < faceIndex)).toBe(true)
+  })
+
   it('short-circuits the resolver when a selected connector exceeds declared warp', async () => {
     const { catalog, spec } = fixture()
     const arms = catalog.parts.find(item => item.slotId === 'arms')!
@@ -1178,8 +1201,10 @@ describe('v0.3 interface rendering', () => {
     expect(result.connectorMetrics).toEqual([])
   })
 
-  it('turns an undrawable bridge mask into a blocking composite failure', async () => {
+  it('does not use transition-mask pixels in final color or structural metrics', async () => {
     const { catalog, spec } = fixture()
+    catalog.compositionPolicy!.faceInsideRatio = 0
+    catalog.compositionPolicy!.faceVisibleRatio = 0
     const calls: string[] = []
     const healthyFactory = makeHealthyInterfaceSurfaceFactory(calls)
     const surfaceFactory = (width: number, height: number, destination: CanvasRenderingContext2D) => {
@@ -1196,9 +1221,11 @@ describe('v0.3 interface rendering', () => {
       ...options1024, surfaceFactory,
     })
 
-    expect(result.diagnostics).toContainEqual(expect.objectContaining({
-      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+    expect(result.diagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_COMPOSITE_FAILED',
     }))
+    expect(result.connectorMetrics).toHaveLength(8)
+    expect(calls.some(call => call.endsWith('draw:bridges/blob/neck-back.png'))).toBe(false)
   })
 
   it('draws declared connector foreground and background masks into seam partitions', async () => {
@@ -1269,8 +1296,10 @@ describe('v0.3 interface rendering', () => {
     expect(spec).toEqual(snapshot)
   })
 
-  it('uses affine mesh triangles, sampled material gradients, and the declared seam order', async () => {
+  it('uses affine neutral-bridge geometry for metrics and keeps it out of final color', async () => {
     const { catalog, spec } = fixture()
+    catalog.compositionPolicy!.faceInsideRatio = 0
+    catalog.compositionPolicy!.faceVisibleRatio = 0
     const calls: string[] = []
 
     const result = await renderMonster(
@@ -1291,16 +1320,13 @@ describe('v0.3 interface rendering', () => {
     ))
       .every(metric => (metric.childOutsideBodyRatio ?? 0) >= 0.65)).toBe(true)
     expect(result.diagnostics).toEqual([])
-    expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(8 * 18 * 3)
-    expect(calls).toContain('interface-5:gradientStop:0:rgba(240, 40, 20, 1)')
-    expect(calls).toContain('interface-5:gradientStop:1:rgba(20, 40, 240, 1)')
+    expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(0)
+    expect(calls.filter(call => call.startsWith('interface-15:transform:'))).toHaveLength(8 * 18)
+    expect(calls.some(call => call.startsWith('interface-5:gradientStop:'))).toBe(false)
     const isolatedDraws = calls.filter(call => call.startsWith('interface-18:draw:'))
-    const firstNode = isolatedDraws.indexOf('interface-18:draw:interface-1')
-    const firstBridge = isolatedDraws.indexOf('interface-18:draw:interface-7')
-    const lastBridge = isolatedDraws.lastIndexOf('interface-18:draw:interface-7')
-    expect(firstBridge).toBeLessThan(firstNode)
-    expect(lastBridge).toBeGreaterThan(firstNode)
-    expect(lastBridge).toBeLessThan(isolatedDraws.length - 1)
+    expect(isolatedDraws.length).toBeGreaterThan(0)
+    expect(isolatedDraws.every(call => call === 'interface-18:draw:interface-1')).toBe(true)
+    expect(calls).not.toContain('interface-18:draw:interface-7')
     expect(calls.filter(call => call.startsWith('main:draw:'))).toEqual([
       'main:draw:interface-18',
     ])

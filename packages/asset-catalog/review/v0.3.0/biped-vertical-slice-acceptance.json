@@ -1,0 +1,18 @@
+{
+  "catalogVersion": "0.3.0",
+  "rendererVersion": "0.3.0",
+  "decision": "approved",
+  "reviewedAt": "2026-08-25T19:18:10.2315125+08:00",
+  "reviewer": "user",
+  "entryCount": 8,
+  "contactSheetSha256": "58766df74141fae1abcb66f447529b8d32ede934b11394877c12d2c478feaef4",
+  "review256ContactSheetSha256": "0fa54d8968155465f84eec0de75303520bea637d1debae1f58e1f12301bd9974",
+  "manifestSha256": "058dec48847ed6caa93dd58359c887c32c440de01f7522e14ee151d00ab7aa15",
+  "userApproved": true,
+  "approvalResponse": "ok",
+  "notes": [
+    "User approved the current canonical 8-entry contact sheet after an explicit visual-approval question.",
+    "Approval is valid only for the exact contact-sheet, 256-sheet, and manifest hashes recorded here.",
+    "head_round_dome remains retired from v0.3 production selection while its source and candidate evidence are retained for future rework."
+  ]
+}

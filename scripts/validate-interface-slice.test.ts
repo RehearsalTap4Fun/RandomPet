@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
-import { validateInterfaceProductionReadiness, validateInterfaceSlice } from './validate-interface-slice.js'
+import { validateInterfaceProductionReadiness, validateInterfacePromptEvidence, validateInterfaceSlice } from './validate-interface-slice.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 
 const roots: string[] = []
@@ -14,6 +14,16 @@ async function manifestFixture(): Promise<any> {
 }
 
 describe('validateInterfaceSlice', () => {
+  it('keeps retired guide evidence outside the canonical active guide inventory', async () => {
+    const result = await validateInterfaceSlice({
+      manifestPath: join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json'),
+      guideRoot: join(process.cwd(), 'asset-source', 'v0.3.0', 'guides'),
+      repositoryRoot: process.cwd(),
+    })
+
+    expect(result.diagnostics.filter(item => item.code === 'INTERFACE_GUIDE_STALE')).toEqual([])
+  }, 20_000)
+
   it('validates manifest and deterministic guide inventory without requiring production art', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-interface-slice-'))
     roots.push(root)
@@ -68,27 +78,26 @@ describe('validateInterfaceSlice', () => {
     roots.push(root)
     const manifest = await manifestFixture()
     const result = await validateInterfaceProductionReadiness({ repositoryRoot: root, manifest })
+    const expectedSources = new Set([
+      ...manifest.assets.flatMap((asset: any) => [asset.sourcePngPath, ...asset.renderNodes.map((node: any) => node.sourcePngPath)]),
+      ...manifest.bridges.map((bridge: any) => bridge.sourcePngPath),
+    ]).size
     expect(result.ok).toBe(false)
     expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PRODUCTION_ASSET_MISSING' }))
-    expect(result.diagnostics.filter(item => item.code === 'INTERFACE_PRODUCTION_ASSET_MISSING')).toHaveLength(21)
+    expect(result.diagnostics.filter(item => item.code === 'INTERFACE_PRODUCTION_ASSET_MISSING')).toHaveLength(expectedSources)
     expect(result.diagnostics).not.toContainEqual(expect.objectContaining({ code: 'INTERFACE_MANIFEST_MISSING' }))
   })
 
   it('binds prompt evidence to the actual committed prompt catalog bytes', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'qmonster-interface-prompts-'))
-    roots.push(root)
     const manifest = await manifestFixture()
     manifest.assets[0].promptEvidence.promptSha256 = 'f'.repeat(64)
     manifest.assets[0].promptEvidence.promptId = 'missing-prompt-id'
-    const manifestPath = join(root, 'interface-manifest.json')
-    await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`)
-    const result = await validateInterfaceSlice({
-      manifestPath,
-      guideRoot: join(process.cwd(), 'asset-source', 'v0.3.0', 'guides'),
+    const diagnostics = await validateInterfacePromptEvidence({
+      manifest,
       repositoryRoot: process.cwd(),
     })
-    expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PROMPT_HASH_MISMATCH' }))
-    expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PROMPT_ID_MISSING' }))
+    expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PROMPT_HASH_MISMATCH' }))
+    expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PROMPT_ID_MISSING' }))
   })
 
   it('rejects prompt and readiness symlinks that resolve outside the repository root', async () => {

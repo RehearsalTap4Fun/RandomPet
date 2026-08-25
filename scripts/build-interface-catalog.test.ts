@@ -38,9 +38,10 @@ describe('buildInterfaceCatalog', () => {
 
     expect(catalog.version).toBe('0.3.0')
     expect(catalog.parts.filter(part => ['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)).map(part => part.id)).toEqual([
-      'body_biped_peanut', 'body_biped_tall', 'head_round_dome', 'head_mushroom_cap',
+      'body_biped_peanut', 'body_biped_tall', 'head_mushroom_cap',
       'arms_short_plush', 'arms_long_noodle', 'legs_webbed', 'legs_mushroom',
     ])
+    expect(catalog.parts.find(part => part.id === 'head_round_dome')).toBeUndefined()
     expect(catalog.transitionBridges?.map(bridge => bridge.connectorClass)).toEqual(['neck', 'shoulder', 'hip'])
     const arms = catalog.parts.find(part => part.id === 'arms_short_plush')!
     expect(arms.composition?.mode).toBe('interface')

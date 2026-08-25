@@ -97,12 +97,34 @@ export function buildBridgeMesh(solved: SolvedConnector, contours?: BridgeContou
   if (numericValues.some(value => !Number.isFinite(value))) {
     throw new Error('Bridge mesh requires finite connector geometry.')
   }
-  const receiver = contours === undefined
+  let receiver = contours === undefined
     ? endRow(solved.receiverOrigin, solved.receiverTangent, solved.receiverWidth)
     : contourEndRow(contours.receiver, solved.receiverTangent, solved.receiverNormal)
-  const plug = contours === undefined
+  let plug = contours === undefined
     ? endRow(solved.plugOrigin, solved.plugTangent, solved.plugWidth)
     : contourEndRow(contours.plug, solved.plugTangent, solved.plugNormal)
+  if (contours !== undefined) {
+    // Raster contour widths legitimately differ within the approved warp
+    // range. Use their common enclosing tangent span so a trapezoid does not
+    // shave the wider profile's corners below the 0.9 coverage contract.
+    const rowSpan = (row: Point2D[]) => Math.hypot(
+      row[row.length - 1]!.x - row[0]!.x,
+      row[row.length - 1]!.y - row[0]!.y,
+    )
+    const targetSpan = Math.max(rowSpan(receiver), rowSpan(plug)) + 2
+    const expand = (row: Point2D[], tangent: Point2D): Point2D[] => {
+      const center = {
+        x: (row[0]!.x + row[row.length - 1]!.x) / 2,
+        y: (row[0]!.y + row[row.length - 1]!.y) / 2,
+      }
+      return Array.from({ length: SIZE }, (_, column) => {
+        const offset = interpolate(-targetSpan / 2, targetSpan / 2, column / (SIZE - 1))
+        return { x: center.x + tangent.x * offset, y: center.y + tangent.y * offset }
+      })
+    }
+    receiver = expand(receiver, solved.receiverTangent)
+    plug = expand(plug, solved.plugTangent)
+  }
   if (![...receiver, ...plug].every(finitePoint)) {
     throw new Error('Bridge mesh requires finite connector geometry.')
   }

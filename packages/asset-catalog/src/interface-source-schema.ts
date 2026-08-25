@@ -13,7 +13,7 @@ import type {
 
 export const BIPED_SLICE = {
   bodyFrame: ['body_biped_peanut', 'body_biped_tall'],
-  headShape: ['head_round_dome', 'head_mushroom_cap'],
+  headShape: ['head_mushroom_cap'],
   arms: ['arms_short_plush', 'arms_long_noodle'],
   legs: ['legs_webbed', 'legs_mushroom'],
 } as const

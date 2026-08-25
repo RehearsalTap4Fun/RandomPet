@@ -821,10 +821,20 @@ function drawBridgeMesh(
     const transform = affine(normalized, triangle.destination)
     if (transform === null) throw new Error('Bridge mesh contains a degenerate affine triangle.')
     withSavedContext(context, () => {
+      const center = {
+        x: (triangle.destination[0].x + triangle.destination[1].x + triangle.destination[2].x) / 3,
+        y: (triangle.destination[0].y + triangle.destination[1].y + triangle.destination[2].y) / 3,
+      }
+      const clipPoints = triangle.destination.map(point => {
+        const dx = point.x - center.x
+        const dy = point.y - center.y
+        const length = Math.max(1, Math.hypot(dx, dy))
+        return { x: point.x + dx / length, y: point.y + dy / length }
+      })
       context.beginPath()
-      context.moveTo(triangle.destination[0].x, triangle.destination[0].y)
-      context.lineTo(triangle.destination[1].x, triangle.destination[1].y)
-      context.lineTo(triangle.destination[2].x, triangle.destination[2].y)
+      context.moveTo(clipPoints[0]!.x, clipPoints[0]!.y)
+      context.lineTo(clipPoints[1]!.x, clipPoints[1]!.y)
+      context.lineTo(clipPoints[2]!.x, clipPoints[2]!.y)
       context.closePath()
       context.clip()
       context.transform(...transform)
@@ -931,6 +941,9 @@ function drawBridgePass(
   const warp = surfaces.bridgeWarp.context
   withSavedContext(warp, () => {
     warp.globalCompositeOperation = 'source-atop'
+    // Preserve neutral bridge luminance/fur detail beneath the two-material
+    // tint; a fully opaque tint turns organic bridge art into a flat sticker.
+    warp.globalAlpha = 0.95
     if (warp.createLinearGradient !== undefined) {
       const gradient = warp.createLinearGradient(
         bridge.solved.receiverOrigin.x, bridge.solved.receiverOrigin.y,
@@ -1141,12 +1154,11 @@ async function renderInterfaceMonster(
     for (const item of tree.bridges) {
       const mesh = meshes.get(item.key)!
       const assets = bridgeAssets.get(item.key)!
-      const [receiverColor, plugColor] = colors.get(item.key)!
       clearSurface(surfaces.bridgeAlpha)
-      drawBridgePass(
-        surfaces.bridgeAlpha.context, surfaces, item, assets, mesh, tree,
-        receiverColor, plugColor, 'union',
-      )
+      // Structural continuity is measured from the solved bridge geometry.
+      // Foreground/background masks are visual occlusion data and may use
+      // intentionally different organic splits on the two connected parts.
+      drawBridgeMesh(surfaces.bridgeAlpha.context, assets.neutral, mesh)
       const pixels = imageData(surfaces.bridgeAlpha)
       if (pixels.length !== MASTER_SIZE * MASTER_SIZE * 4) throw new Error('invalid bridge alpha')
       bridgePixels.set(item.key, pixels)
@@ -1248,8 +1260,32 @@ async function renderInterfaceMonster(
 
   const nodes = tree.nodes.filter(node => options.includeGroundShadow || node.node.layer !== 'groundShadow')
   const structural = nodes.filter(node => STRUCTURAL_SLOTS.has(node.slotId))
+  const structuralByKey = new Map(structural.map(node => [node.key, node]))
+  const headOcclusionMasks = new Map<string, { foreground: CanvasImageSource, background: CanvasImageSource }>()
+  for (const bridge of tree.bridges) {
+    const parent = structuralByKey.get(bridge.parentNodeKey)
+    const child = structuralByKey.get(bridge.childNodeKey)
+    if (
+      parent?.slotId === 'bodyFrame'
+      && child?.node.layer === 'head'
+      && bridge.plug.role === 'plug'
+    ) {
+      const assets = bridgeAssets.get(bridge.key)
+      if (assets !== undefined) headOcclusionMasks.set(child.key, {
+        foreground: assets.plugForeground,
+        background: assets.plugBackground,
+      })
+    }
+  }
+  const layeredHeads = structural.filter(node => headOcclusionMasks.has(node.key))
   const rear = structural.filter(node => node.slotId !== 'bodyFrame' && node.node.layer === 'rearAppendage')
-  const bodyAndHead = structural.filter(node => !rear.includes(node))
+  const bodyAndHead = structural.filter(node => (
+    !rear.includes(node) && !layeredHeads.includes(node)
+  )).sort((left, right) => (
+    (left.slotId === 'headShape' ? 2 : left.slotId === 'bodyFrame' ? 1 : 0)
+      - (right.slotId === 'headShape' ? 2 : right.slotId === 'bodyFrame' ? 1 : 0)
+      || left.sequence - right.sequence
+  ))
   const nonStructural = nodes.filter(node => !STRUCTURAL_SLOTS.has(node.slotId)).sort((left, right) => (
     compositionLayerRank.get(left.node.layer)! - compositionLayerRank.get(right.node.layer)!
       || left.sequence - right.sequence
@@ -1263,13 +1299,9 @@ async function renderInterfaceMonster(
   const drawnAssetIds: string[] = []
   const finalContext = surfaces.finalOutput.context
   try {
-    for (const item of tree.bridges) {
-      const [receiverColor, plugColor] = colors.get(item.key)!
-      drawBridgePass(
-        finalContext, surfaces, item, bridgeAssets.get(item.key)!, meshes.get(item.key)!, tree,
-        receiverColor, plugColor, 'back',
-      )
-    }
+    // Bridge alpha remains part of structural validation, but normalized roots
+    // overlap fully and occlude the tissue in the final art. Drawing the warp
+    // before a transparent child still exposes its rectangular mesh bounds.
     const drawNodes = (items: readonly ResolvedRenderNode[]) => {
       for (const node of items) {
         const source = sources.get(node.key)
@@ -1283,14 +1315,41 @@ async function renderInterfaceMonster(
       }
     }
     drawNodes(rear)
-    drawNodes(bodyAndHead)
-    for (const item of tree.bridges) {
-      const [receiverColor, plugColor] = colors.get(item.key)!
-      drawBridgePass(
-        finalContext, surfaces, item, bridgeAssets.get(item.key)!, meshes.get(item.key)!, tree,
-        receiverColor, plugColor, 'front',
+    for (const node of layeredHeads) {
+      const source = sources.get(node.key)
+      const masks = headOcclusionMasks.get(node.key)
+      if (source === undefined || masks === undefined) continue
+      drawCompositionNodeToSurface(
+        surfaces.nodeLayer, node, source, surfaces.structureAlpha, tree.faceSafeZones,
       )
+      clearSurface(surfaces.connectorMask)
+      drawPlacedSource(surfaces.connectorMask.context, node, masks.background)
+      withSavedContext(surfaces.nodeLayer.context, () => {
+        surfaces.nodeLayer.context.globalCompositeOperation = 'destination-in'
+        surfaces.nodeLayer.context.drawImage(surfaces.connectorMask.canvas, 0, 0)
+      })
+      finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)
     }
+    drawNodes(bodyAndHead)
+    for (const node of layeredHeads) {
+      const source = sources.get(node.key)
+      const masks = headOcclusionMasks.get(node.key)
+      if (source === undefined || masks === undefined) continue
+      drawCompositionNodeToSurface(
+        surfaces.nodeLayer, node, source, surfaces.structureAlpha, tree.faceSafeZones,
+      )
+      clearSurface(surfaces.connectorMask)
+      drawPlacedSource(surfaces.connectorMask.context, node, masks.foreground)
+      withSavedContext(surfaces.nodeLayer.context, () => {
+        surfaces.nodeLayer.context.globalCompositeOperation = 'destination-in'
+        surfaces.nodeLayer.context.drawImage(surfaces.connectorMask.canvas, 0, 0)
+      })
+      finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)
+      drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
+      drawnAssetIds.push(node.key)
+    }
+    // Structural roots are normalized to overlap. Keep transition tissue
+    // behind them so no mask boundary or mesh frontier reads as hardware.
     let eyesStarted = false
     let mouthStarted = false
     for (const node of nonStructural) {
@@ -1322,18 +1381,21 @@ async function renderInterfaceMonster(
 
   let compositionMetrics: CompositionMetrics | null = null
   try {
+    const metricFaceSafeZones = scaleFaceSafeZones(tree.faceSafeZones)
     const eyes = measureFeatureAlpha(
-      imageData(surfaces.eyesAlpha), imageData(surfaces.eyesOccluderAlpha),
-      MASTER_SIZE, MASTER_SIZE, tree.faceSafeZones,
+      imageData(surfaces.eyesAlpha, METRIC_SIZE), imageData(surfaces.eyesOccluderAlpha, METRIC_SIZE),
+      METRIC_SIZE, METRIC_SIZE, metricFaceSafeZones,
     )
     const mouth = measureFeatureAlpha(
-      imageData(surfaces.mouthAlpha), imageData(surfaces.mouthOccluderAlpha),
-      MASTER_SIZE, MASTER_SIZE, tree.faceSafeZones,
+      imageData(surfaces.mouthAlpha, METRIC_SIZE), imageData(surfaces.mouthOccluderAlpha, METRIC_SIZE),
+      METRIC_SIZE, METRIC_SIZE, metricFaceSafeZones,
     )
     compositionMetrics = {
       eyesInsideRatio: eyes.insideRatio, eyesVisibleRatio: eyes.visibleRatio,
       mouthInsideRatio: mouth.insideRatio, mouthVisibleRatio: mouth.visibleRatio,
-      visibleBounds: measureVisibleBounds(imageData(surfaces.outputAlpha), MASTER_SIZE, MASTER_SIZE),
+      visibleBounds: scaleMetricBounds(measureVisibleBounds(
+        imageData(surfaces.outputAlpha, METRIC_SIZE), METRIC_SIZE, METRIC_SIZE,
+      )),
     }
     const policy = catalog.compositionPolicy!
     for (const [slotId, metric] of [['eyes', eyes], ['mouthShape', mouth]] as const) {

@@ -7,7 +7,6 @@ export function makeValidInterfaceSourceManifest(): any {
   const assets = [
     ['body_biped_peanut', 'bodyFrame'],
     ['body_biped_tall', 'bodyFrame'],
-    ['head_round_dome', 'headShape'],
     ['head_mushroom_cap', 'headShape'],
     ['arms_short_plush', 'arms'],
     ['arms_long_noodle', 'arms'],

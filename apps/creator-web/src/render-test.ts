@@ -148,7 +148,7 @@ async function renderFixture(): Promise<void> {
   document.body.dataset.renderComplete = 'true'
 }
 
-type InterfaceVariant = 'baseline' | 'foreground-hole' | 'background-hole' | 'shifted-contour'
+type InterfaceVariant = 'baseline' | 'foreground-hole' | 'background-hole' | 'shifted-contour' | 'curved-head-split' | 'misaligned-occlusion-masks'
 
 function raster(
   width: number,
@@ -177,7 +177,7 @@ function opaqueRect(
   })
 }
 
-function interfaceFixture(): { catalog: Catalog; spec: MonsterSpec } {
+function interfaceFixture(variant: InterfaceVariant): { catalog: Catalog; spec: MonsterSpec } {
   const interfaceCatalog = makeInterfaceCatalogFixture()
   const spec = makeValidCompositionSpecFixture(interfaceCatalog)
   spec.catalogVersion = '0.3.0'
@@ -205,9 +205,12 @@ function interfaceFixture(): { catalog: Catalog; spec: MonsterSpec } {
   }
   assignRolePaths(receiver, 'receiver')
   assignRolePaths(plug, 'plug')
-  plug.outwardNormal = { x: 0, y: -1 }
+  if (variant === 'curved-head-split') {
+    receiver.outwardNormal = { x: 0, y: -1 }
+    plug.outwardNormal = { x: 0, y: 1 }
+  } else plug.outwardNormal = { x: 0, y: -1 }
   head.composition.variantsByRig.blob!.faceSafeZones = [
-    { x: 200, y: 150, width: 400, height: 300 },
+    { x: 850, y: 750, width: 250, height: 250 },
   ]
   return { catalog: interfaceCatalog, spec }
 }
@@ -227,12 +230,44 @@ function interfaceResolver(variant: InterfaceVariant): ImageResolver {
       } else if (/bridges\/blob\/neck-(front|back)\.png$/.test(assetPath)) {
         source = raster(4, 4, context => {
           context.fillStyle = '#ffffff'
-          context.fillRect(0, 0, 4, 4)
+          if (variant === 'misaligned-occlusion-masks') {
+            context.fillRect(assetPath.endsWith('-front.png') ? 0 : 2, 0, 2, 4)
+          } else context.fillRect(0, 0, 4, 4)
         })
       } else if (assetPath.includes('/connectors/') && assetPath.endsWith('-contour.png')) {
         const receiver = assetPath.includes('-receiver-')
-        const x = variant === 'shifted-contour' ? 1018 : 990
+        const x = variant === 'shifted-contour' && !receiver ? 998 : 990
         source = opaqueRect(x, receiver ? 999 : 1050, 69, 1)
+      } else if (
+        variant === 'curved-head-split'
+        && assetPath.includes('-plug-foreground.png')
+      ) {
+        source = raster(2048, 2048, context => {
+          context.fillStyle = '#ffffff'
+          context.beginPath()
+          context.moveTo(900, 900)
+          context.lineTo(1148, 900)
+          context.lineTo(1148, 1020)
+          context.quadraticCurveTo(1024, 1100, 900, 1020)
+          context.closePath()
+          context.fill()
+        })
+      } else if (
+        variant === 'curved-head-split'
+        && assetPath.includes('-plug-background.png')
+      ) {
+        source = raster(2048, 2048, context => {
+          context.fillStyle = '#ffffff'
+          context.fillRect(995, 1040, 58, 100)
+          context.globalCompositeOperation = 'destination-out'
+          context.beginPath()
+          context.moveTo(900, 900)
+          context.lineTo(1148, 900)
+          context.lineTo(1148, 1020)
+          context.quadraticCurveTo(1024, 1100, 900, 1020)
+          context.closePath()
+          context.fill()
+        })
       } else if (assetPath.includes('/connectors/') && assetPath.endsWith('-foreground.png')) {
         source = raster(2048, 2048, context => {
           context.fillStyle = '#ffffff'
@@ -245,6 +280,8 @@ function interfaceResolver(variant: InterfaceVariant): ImageResolver {
           context.fillRect(980, 980, 44, 90)
           if (variant === 'background-hole') context.clearRect(1001, 1006, 9, 9)
         })
+      } else if (variant === 'curved-head-split' && assetPath === 'nodes/body_blob_0.webp') {
+        source = opaqueRect(850, 1000, 348, 180, '#0040ff')
       } else if (assetPath === 'nodes/body_blob_0.webp') {
         source = raster(2048, 2048, context => {
           context.fillStyle = '#ff2000'
@@ -253,11 +290,23 @@ function interfaceResolver(variant: InterfaceVariant): ImageResolver {
           context.fillRect(990, 980, 69, 19)
           context.fillRect(980, 1020, 110, 11)
         })
+      } else if (variant === 'curved-head-split' && assetPath === 'nodes/head_round_0.webp') {
+        source = raster(2048, 2048, context => {
+          context.fillStyle = '#ff2000'
+          context.beginPath()
+          context.moveTo(900, 900)
+          context.lineTo(1148, 900)
+          context.lineTo(1148, 1020)
+          context.quadraticCurveTo(1024, 1100, 900, 1020)
+          context.closePath()
+          context.fill()
+          context.fillRect(995, 1040, 58, 100)
+        })
       } else if (assetPath === 'nodes/head_round_0.webp') {
         source = raster(2048, 2048, context => {
           context.fillStyle = '#ff2000'
           context.fillRect(900, 900, 100, 100)
-          context.fillRect(990, 1050, 69, 21)
+          context.fillRect(980, 980, 110, 90)
         })
       } else if (assetPath.includes('eyes_asymmetric')) {
         source = opaqueRect(900, 800, 40, 20, '#111111')
@@ -279,7 +328,7 @@ async function renderInterfaceFixture(variant: InterfaceVariant): Promise<void> 
   canvas.height = 2048
   const context = canvas.getContext('2d')
   if (context === null) throw new Error('2D context unavailable')
-  const { catalog: interfaceCatalog, spec } = interfaceFixture()
+  const { catalog: interfaceCatalog, spec } = interfaceFixture(variant)
   const result = await renderMonster(context, spec, interfaceCatalog, interfaceResolver(variant), {
     width: 2048,
     height: 2048,
@@ -294,11 +343,40 @@ async function renderInterfaceFixture(variant: InterfaceVariant): Promise<void> 
   document.body.dataset.renderComplete = 'true'
 }
 
-const requestedInterfaceVariant = new URLSearchParams(location.search).get('interfaceVariant')
-const pendingRender = requestedInterfaceVariant === 'baseline'
+async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
+  const canvas = document.querySelector<HTMLCanvasElement>('#render-target')
+  if (canvas === null) throw new Error('Missing #render-target canvas')
+  canvas.width = 2048
+  canvas.height = 2048
+  const context = canvas.getContext('2d')
+  if (context === null) throw new Error('2D context unavailable')
+  const response = await fetch(inputUrl)
+  if (!response.ok) throw new Error(`Could not load biped slice input: ${response.status}`)
+  const input = await response.json() as { catalog: Catalog, spec: MonsterSpec }
+  const result = await renderMonster(context, input.spec, input.catalog, imageResolver, {
+    width: 2048,
+    height: 2048,
+    includeGroundShadow: false,
+  })
+  document.body.dataset.interfaceResult = JSON.stringify({
+    diagnostics: result.diagnostics,
+    connectorMetrics: result.connectorMetrics,
+    compositionMetrics: result.compositionMetrics,
+  })
+  document.body.dataset.renderComplete = 'true'
+}
+
+const search = new URLSearchParams(location.search)
+const requestedInterfaceVariant = search.get('interfaceVariant')
+const requestedBipedSlice = search.get('bipedSlice')
+const pendingRender = requestedBipedSlice !== null
+  ? renderBipedSliceFixture(requestedBipedSlice)
+  : requestedInterfaceVariant === 'baseline'
   || requestedInterfaceVariant === 'foreground-hole'
   || requestedInterfaceVariant === 'background-hole'
   || requestedInterfaceVariant === 'shifted-contour'
+  || requestedInterfaceVariant === 'curved-head-split'
+  || requestedInterfaceVariant === 'misaligned-occlusion-masks'
   ? renderInterfaceFixture(requestedInterfaceVariant)
   : renderFixture()
 

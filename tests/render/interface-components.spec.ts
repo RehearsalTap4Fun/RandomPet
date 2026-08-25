@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-type Variant = 'baseline' | 'foreground-hole' | 'background-hole' | 'shifted-contour'
+type Variant = 'baseline' | 'foreground-hole' | 'background-hole' | 'shifted-contour' | 'curved-head-split' | 'misaligned-occlusion-masks'
 
 interface InterfaceSnapshot {
   specJson: string
@@ -16,6 +16,11 @@ interface InterfaceSnapshot {
   frontSeam: number[]
   rearSeam: number[]
   contourProbe: number[]
+  outwardPlug: number[]
+  inwardHeadShell: number[]
+  face: number[]
+  curvedShellEdge: number[]
+  pedestal: number[]
 }
 
 async function renderVariant(page: Page, variant: Variant): Promise<InterfaceSnapshot> {
@@ -38,9 +43,29 @@ async function renderVariant(page: Page, variant: Variant): Promise<InterfaceSna
       frontSeam: pixel(1043, 1025),
       rearSeam: pixel(1005, 1010),
       contourProbe: pixel(1005, 1010),
+      outwardPlug: pixel(995, 990),
+      inwardHeadShell: pixel(1005, 1055),
+      face: pixel(910, 810),
+      curvedShellEdge: pixel(960, 1045),
+      pedestal: pixel(1024, 1120),
     }
   })
 }
+
+test('keeps a head plug under the body while its inward shell and face stay in front', async ({ page }) => {
+  const rendered = await renderVariant(page, 'baseline')
+
+  expect(rendered.outwardPlug).toEqual([0, 64, 255, 255])
+  expect(rendered.inwardHeadShell).toEqual([255, 32, 0, 255])
+  expect(rendered.face).toEqual([17, 17, 17, 255])
+})
+
+test('uses the declared organic head shell mask instead of a connector half-plane', async ({ page }) => {
+  const rendered = await renderVariant(page, 'curved-head-split')
+
+  expect(rendered.curvedShellEdge).toEqual([255, 32, 0, 255])
+  expect(rendered.pedestal).toEqual([0, 64, 255, 255])
+})
 
 test('changing only foreground connector pixels changes the front seam', async ({ browser }) => {
   const baselinePage = await browser.newPage()
@@ -109,10 +134,20 @@ test('real rasterized contours and warped masks feed bridge metrics and geometry
     expect(shiftedMetric.receiverCoverage).toBeGreaterThanOrEqual(0.9)
     expect(shiftedMetric.plugCoverage).toBeGreaterThanOrEqual(0.9)
     expect(shiftedMetric.centerlineGapPixels).toBeLessThanOrEqual(2)
-    expect(shifted.contourProbe[3]).toBe(0)
-    expect(baseline.contourProbe[3]).toBeGreaterThan(0)
+    expect(metric.centerlineGapPixels).toBeLessThan(0.1)
+    expect(shiftedMetric.centerlineGapPixels).toBe(0)
   } finally {
     await baselinePage.close()
     await shiftedPage.close()
   }
+})
+
+test('structural bridge metrics do not depend on visual occlusion-mask alignment', async ({ page }) => {
+  const rendered = await renderVariant(page, 'misaligned-occlusion-masks')
+  const metric = rendered.connectorMetrics[0]!
+
+  expect(rendered.diagnostics).toEqual([])
+  expect(metric.receiverCoverage).toBeGreaterThanOrEqual(0.9)
+  expect(metric.plugCoverage).toBeGreaterThanOrEqual(0.9)
+  expect(metric.centerlineGapPixels).toBeLessThanOrEqual(2)
 })

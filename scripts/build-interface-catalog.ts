@@ -6,7 +6,13 @@ import type {
   TransitionBridgeDefinition,
   VisualPartDefinition,
 } from '@qmonster/generator-core'
+import { realpathSync } from 'node:fs'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { dirname, join, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type { InterfaceSourceManifest } from './interface-source-schema.js'
+import { validateInterfaceSourceIndex as assertInterfaceSourceIndex } from './interface-source-schema.js'
+import { productionPaths } from './production-paths.js'
 export { validateInterfaceSourceIndex } from './interface-source-schema.js'
 
 export interface ProcessedInterfaceAsset {
@@ -34,7 +40,10 @@ export interface ProcessedInterfaceBridge {
   backMaskSha256: string
 }
 
-const structuralSlots = new Set(['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'])
+// The Task 6 slice replaces only the four supplied structural slots. Preserve
+// the v0.2 optional-none tail and extra-appendage entries so a complete spec can
+// still select an explicit absence for those slots.
+const structuralSlots = new Set(['bodyFrame', 'headShape', 'arms', 'legs'])
 const sha256 = /^[a-f0-9]{64}$/u
 const canonicalRuntime = /^assets\/v0\.3\.0\/.+\.(?:png|webp)$/u
 
@@ -109,6 +118,16 @@ export function buildInterfaceCatalog(input: {
       variantsByRig: {
         biped: {
           rigId: 'biped', materialFamily: source.materialFamily, renderNodes, connectors,
+          ...(source.slotId === 'headShape' ? {
+            // Keep the shared face declaration inside the tall-body review
+            // frame while preserving the accepted head art and connector.
+            faceSafeZones: [{ x: 760, y: 1136, width: 528, height: 310 }],
+            featureSockets: {
+              eyes: { x: 1024, y: 1236 },
+              mouth: { x: 1024, y: 1376 },
+              headAppendage: { x: 1024, y: 1116 },
+            },
+          } : {}),
         },
       },
     }
@@ -146,9 +165,59 @@ export function buildInterfaceCatalog(input: {
     version: '0.3.0',
     rigs: input.baseCatalog.rigs,
     parts: [
-      ...input.baseCatalog.parts.filter(part => !structuralSlots.has(part.slotId)).map(part => ({ ...part, compatibleRigs: ['biped'] as const })),
+      ...input.baseCatalog.parts.filter(part => (
+        !structuralSlots.has(part.slotId)
+        && (!['tail', 'extraAppendage'].includes(part.slotId) || part.composition?.isNone === true)
+      )).map(part => ({ ...part, compatibleRigs: ['biped'] as const })),
       ...structuralParts,
     ] as VisualPartDefinition[],
     transitionBridges,
   }
+}
+
+function isDirectExecution(): boolean {
+  const invoked = process.argv[1]
+  if (invoked === undefined) return false
+  try {
+    return realpathSync(resolve(invoked)) === realpathSync(fileURLToPath(import.meta.url))
+  } catch {
+    return false
+  }
+}
+
+if (isDirectExecution()) {
+  const args = process.argv.slice(2).join(' ')
+  if (args !== '--slice biped' && args !== '--version 0.3.0 --slice biped') {
+    throw new Error('Usage: tsx scripts/build-interface-catalog.ts --version 0.3.0 --slice biped')
+  }
+  const paths = productionPaths('0.3.0')
+  const manifest = JSON.parse(await readFile(join(paths.sourceRoot, 'interface-manifest.json'), 'utf8')) as InterfaceSourceManifest
+  const processed = JSON.parse(await readFile(join(paths.sourceRoot, 'production', 'processed-index.json'), 'utf8')) as {
+    processedAssets: Record<string, ProcessedInterfaceAsset>
+    processedBridges: Record<string, ProcessedInterfaceBridge>
+    sourceIndex: Record<string, unknown>
+  }
+  assertInterfaceSourceIndex(manifest, processed.sourceIndex)
+  const base = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.2.0/catalog.json', 'utf8')) as Catalog
+  const catalog = buildInterfaceCatalog({
+    baseCatalog: base, manifest,
+    processedAssets: processed.processedAssets,
+    processedBridges: processed.processedBridges,
+  })
+  const documents: Record<string, unknown> = {
+    'catalog.json': catalog,
+    'themes.json': catalog.themes,
+    'rigs.json': catalog.rigs,
+    'parts.json': catalog.parts,
+    'semantic-traits.json': catalog.semanticTraits,
+    'modifiers.json': catalog.modifiers,
+  }
+  for (const [name, value] of Object.entries(documents)) {
+    const path = join(paths.catalogDirectory, name)
+    await mkdir(dirname(path), { recursive: true })
+    await writeFile(path, `${JSON.stringify(value, null, 2)}\n`)
+  }
+  await mkdir(dirname(paths.sourceIndexPath), { recursive: true })
+  await writeFile(paths.sourceIndexPath, `${JSON.stringify(processed.sourceIndex, null, 2)}\n`)
+  console.log(JSON.stringify({ version: catalog.version, parts: catalog.parts.length }))
 }

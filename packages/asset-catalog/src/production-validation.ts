@@ -412,6 +412,66 @@ async function validateBinaryInterfaceMask(assetRoot: string, assetPath: string,
   }
 }
 
+async function validateHeadOcclusionSplit(
+  assetRoot: string,
+  nodePath: string,
+  foregroundPath: string,
+  backgroundPath: string,
+  connector: { origin: { x: number, y: number }, outwardNormal: { x: number, y: number }, depth: number },
+  faceSafeZones: readonly { x: number, y: number, width: number, height: number }[],
+  path: string[],
+): Promise<Diagnostic[]> {
+  try {
+    const decode = async (relativePath: string) => sharp(await readFile(join(assetRoot, relativePath)))
+      .ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+    const [node, foreground, background] = await Promise.all([
+      decode(nodePath), decode(foregroundPath), decode(backgroundPath),
+    ])
+    if ([foreground, background].some(item => item.info.width !== node.info.width || item.info.height !== node.info.height)) {
+      return [error('PRODUCTION_INTERFACE_HEAD_OCCLUSION_INVALID', path, 'Head occlusion masks must match the render-node dimensions.')]
+    }
+    let foregroundPixels = 0
+    let backgroundPixels = 0
+    let overlap = 0
+    let uncovered = 0
+    let outside = 0
+    for (let pixel = 0; pixel < node.info.width * node.info.height; pixel += 1) {
+      const supported = node.data[pixel * 4 + 3]! > 0
+      const front = foreground.data[pixel * 4 + 3]! > 0
+      const back = background.data[pixel * 4 + 3]! > 0
+      foregroundPixels += Number(front)
+      backgroundPixels += Number(back)
+      overlap += Number(front && back)
+      uncovered += Number(supported && !front && !back)
+      outside += Number(!supported && (front || back))
+    }
+    let invalidFacePixels = 0
+    for (const zone of faceSafeZones) {
+      for (let y = zone.y; y < zone.y + zone.height; y += 1) for (let x = zone.x; x < zone.x + zone.width; x += 1) {
+        if (x < 0 || y < 0 || x >= node.info.width || y >= node.info.height) continue
+        const pixel = y * node.info.width + x
+        if (node.data[pixel * 4 + 3]! > 0 && foreground.data[pixel * 4 + 3]! === 0) invalidFacePixels += 1
+      }
+    }
+    const seedX = Math.round(connector.origin.x + connector.outwardNormal.x * connector.depth / 2)
+    const seedY = Math.round(connector.origin.y + connector.outwardNormal.y * connector.depth / 2)
+    const seed = seedY * node.info.width + seedX
+    const invalidSeed = seedX < 0 || seedY < 0 || seedX >= node.info.width || seedY >= node.info.height
+      || node.data[seed * 4 + 3]! === 0 || background.data[seed * 4 + 3]! === 0
+    if (
+      foregroundPixels === 0 || backgroundPixels === 0 || overlap > 0 || uncovered > 0
+      || outside > 0 || invalidFacePixels > 0 || invalidSeed
+    ) return [error(
+      'PRODUCTION_INTERFACE_HEAD_OCCLUSION_INVALID',
+      path,
+      `Head foreground/background masks must be nonempty, disjoint, node-alpha-complete subsets with face alpha in foreground and the outward plug seed in background; overlap=${overlap}, uncovered=${uncovered}, outside=${outside}, invalidFace=${invalidFacePixels}, invalidSeed=${invalidSeed}.`,
+    )]
+    return []
+  } catch (caught) {
+    return [error('PRODUCTION_INTERFACE_HEAD_OCCLUSION_INVALID', path, `Head occlusion masks cannot be decoded: ${caught instanceof Error ? caught.message : String(caught)}`)]
+  }
+}
+
 export async function validateProductionInterfaceResources(
   catalog: Catalog,
   assetRoot: string,
@@ -541,6 +601,18 @@ export async function validateProductionInterfaceResources(
         maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(connector.contourMaskPath), base.concat('contourMaskPath')))
         maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(connector.foregroundMaskPath), base.concat('foregroundMaskPath')))
         maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(connector.backgroundMaskPath), base.concat('backgroundMaskPath')))
+        const headNode = connector.role === 'plug'
+          ? variant.renderNodes.find(node => node.connectorId === connector.id && node.layer === 'head')
+          : undefined
+        if (headNode?.pngPath !== undefined) maskChecks.push(validateHeadOcclusionSplit(
+          canonicalAssetRoot,
+          checkedRuntimePath(headNode.pngPath),
+          checkedRuntimePath(connector.foregroundMaskPath),
+          checkedRuntimePath(connector.backgroundMaskPath),
+          connector,
+          variant.faceSafeZones ?? [],
+          base,
+        ))
       }
     }
   }
