@@ -255,8 +255,21 @@ export const CatalogSchema = z.object({
           path: ['parts', index, 'composition'],
           message: 'Catalog 0.2.0 requires composition metadata for every part.',
         })
+      } else if (part.composition.mode === 'interface') {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'composition', 'mode'],
+          message: 'Catalog 0.2.0 supports attachment composition metadata only.',
+        })
       }
     }
+  }
+  if (catalog.version === '0.1.0' && catalog.compositionPolicy !== undefined) {
+    context.addIssue({
+      code: 'custom',
+      path: ['compositionPolicy'],
+      message: 'Catalog 0.1.0 does not support composition policy metadata.',
+    })
   }
   if (catalog.version !== '0.3.0') return
   if (catalog.transitionBridges === undefined) {

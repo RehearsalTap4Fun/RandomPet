@@ -4,6 +4,26 @@ import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 
 describe('catalog validation', () => {
+  it('reports interface composition metadata as incompatible with v0.2', () => {
+    const catalog = makeCompositionCatalogFixture() as any
+    const interfaceCatalog = makeInterfaceCatalogFixture() as any
+    catalog.parts.find((part: { id: string }) => part.id === 'head_round')!.composition = interfaceCatalog.parts
+      .find((part: { id: string }) => part.id === 'head_round')!.composition
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'COMPOSITION_INTERFACE_MODE_FORBIDDEN',
+    }))
+  })
+
+  it('reports composition policy metadata as incompatible with v0.1', () => {
+    const catalog = makeValidCatalogFixture() as any
+    catalog.compositionPolicy = makeCompositionCatalogFixture().compositionPolicy
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_COMPOSITION_POLICY_FORBIDDEN',
+    }))
+  })
+
   it('rejects non-interface structural parts in a v0.3 catalog', () => {
     const catalog = makeInterfaceCatalogFixture() as any
     const head = catalog.parts.find((part: { slotId: string; composition: { isNone: boolean } }) => (

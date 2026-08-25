@@ -41,6 +41,22 @@ describe('MonsterSpecSchema', () => {
     expect(parseCatalog(catalog).ok).toBe(false)
   })
 
+  it('rejects interface composition metadata in a 0.2.0 catalog', () => {
+    const catalog = makeCompositionCatalogFixture() as any
+    const interfaceCatalog = makeInterfaceCatalogFixture() as any
+    catalog.parts.find((part: { id: string }) => part.id === 'head_round')!.composition = interfaceCatalog.parts
+      .find((part: { id: string }) => part.id === 'head_round')!.composition
+
+    expect(parseCatalog(catalog)).toMatchObject({ ok: false })
+  })
+
+  it('rejects composition policy metadata in a 0.1.0 catalog', () => {
+    const catalog = makeValidCatalogFixture() as any
+    catalog.compositionPolicy = makeCompositionCatalogFixture().compositionPolicy
+
+    expect(parseCatalog(catalog)).toMatchObject({ ok: false })
+  })
+
   it('keeps legacy approved transforms parseable when they contain extension fields', () => {
     const catalog = makeValidCatalogFixture() as any
     catalog.parts[0].approvedTransforms = [{ scale: 1, mirrorX: false, legacyExtension: true }]

@@ -277,11 +277,19 @@ function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[
   for (const [partIndex, part] of catalog.parts.entries()) {
     const path = ['parts', String(partIndex)]
     const composition = part.composition
-    if (composition === undefined || composition.mode === 'interface') {
+    if (composition === undefined) {
       diagnostics.push(error(
         'COMPOSITION_PART_METADATA_MISSING',
         path.concat('composition'),
         `Composition catalog part ${part.id} is missing composition metadata.`,
+      ))
+      continue
+    }
+    if (composition.mode === 'interface') {
+      diagnostics.push(error(
+        'COMPOSITION_INTERFACE_MODE_FORBIDDEN',
+        path.concat('composition', 'mode'),
+        `Composition catalog part ${part.id} must use attachment mode in catalog 0.2.0.`,
       ))
       continue
     }
@@ -422,6 +430,13 @@ function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[
 
 export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
   const diagnostics: Diagnostic[] = []
+  if (catalog.version === '0.1.0' && catalog.compositionPolicy !== undefined) {
+    diagnostics.push(error(
+      'CATALOG_COMPOSITION_POLICY_FORBIDDEN',
+      ['compositionPolicy'],
+      'Catalog 0.1.0 does not support composition policy metadata.',
+    ))
+  }
   const themeIds = reportDuplicateIds(catalog.themes, 'themes', diagnostics)
   const rigIds = reportDuplicateIds(catalog.rigs, 'rigs', diagnostics)
   const partIds = reportDuplicateIds(catalog.parts, 'parts', diagnostics)

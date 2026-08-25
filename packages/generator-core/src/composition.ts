@@ -68,8 +68,12 @@ export function strongFeatureCountForSelections(
 }
 
 export function rendererVersionForCatalog(catalog: Catalog): '0.1.0' | '0.2.0' | '0.3.0' {
-  if (catalog.version === '0.3.0') return '0.3.0'
-  return catalog.compositionPolicy === undefined ? '0.1.0' : '0.2.0'
+  switch (catalog.version) {
+    case '0.1.0': return '0.1.0'
+    case '0.2.0': return '0.2.0'
+    case '0.3.0': return '0.3.0'
+    default: throw new Error(`Unsupported catalog version: ${catalog.version}`)
+  }
 }
 
 export function compositionAllowanceForSlot(

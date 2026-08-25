@@ -64,6 +64,13 @@ describe('composition planning', () => {
     expect(rendererVersionForCatalog(makeInterfaceCatalogFixture())).toBe('0.3.0')
   })
 
+  it('rejects an unsupported catalog version instead of falling back to a renderer', () => {
+    const catalog = makeLegacyCatalogFixture() as Catalog
+    catalog.version = '0.4.0'
+
+    expect(() => rendererVersionForCatalog(catalog)).toThrow('Unsupported catalog version: 0.4.0')
+  })
+
   it('assigns at most floor(M * 0.3) stable surprise opportunities', () => {
     const catalog = makeCompositionCatalogFixture()
     const first = planComposition('motif-seed', 'fungal', 'blob', catalog)
