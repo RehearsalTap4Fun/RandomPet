@@ -65,7 +65,7 @@ describe('CreatorWorkbench', () => {
       severity: 'error', code: 'ASSET_LOAD_FAILED', path: ['parts', 'eyes'], message: 'missing',
     }
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [renderError], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [renderError], compositionMetrics: null, connectorMetrics: null,
     }))
     const onAction = vi.fn()
 
@@ -101,7 +101,7 @@ describe('CreatorWorkbench', () => {
       severity: 'warning', code: 'PREVIEW_NOTE', path: [], message: 'Preview note.',
     }
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [renderWarning], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [renderWarning], compositionMetrics: null, connectorMetrics: null,
     }))
     session = refreshSessionValidity({
       ...session,
@@ -144,7 +144,7 @@ describe('CreatorWorkbench', () => {
     }, catalog), { png: true, webp: true })
     const onAction = vi.fn()
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }))
 
     render(
@@ -179,7 +179,7 @@ describe('CreatorWorkbench', () => {
       seed: 'background', themeId: 'fungal', mode: 'normal',
     }, catalog))
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }))
     const onAction = vi.fn()
     const { container } = render(
@@ -230,7 +230,7 @@ describe('CreatorWorkbench', () => {
       setItem: vi.fn(),
     }
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }))
     let observedSession: CreatorSession | undefined
     const slowCurrent = deferred<{ ok: true; value: { spec: ReturnType<typeof generateMonster>['spec']; catalog: Catalog }; diagnostics: Diagnostic[] }>()

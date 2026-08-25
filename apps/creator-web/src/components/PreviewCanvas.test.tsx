@@ -77,12 +77,40 @@ describe('CatalogImageResolverCache', () => {
 })
 
 describe('PreviewCanvas', () => {
+  it.each(['CONNECTOR_COMPOSITE_FAILED', 'STRUCTURE_DISCONNECTED'])(
+    'publishes blocking %s diagnostics without committing or completing the preview',
+    async code => {
+      const { contexts } = installCanvasContexts()
+      const catalog = makeValidCatalogFixture()
+      const spec = generateMonster({ seed: code, themeId: 'fungal', mode: 'normal' }, catalog).spec
+      const blocking: Diagnostic = { severity: 'error', code, path: ['visualSlots', 'arms'], message: code }
+      const renderer: PreviewRenderer = vi.fn(async () => ({
+        drawnAssetIds: [], diagnostics: [blocking], compositionMetrics: null, connectorMetrics: [],
+      }))
+      const onDiagnosticsChange = vi.fn()
+      const onRenderComplete = vi.fn()
+
+      render(<PreviewCanvas
+        spec={spec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={onDiagnosticsChange}
+        onRenderComplete={onRenderComplete}
+      />)
+
+      await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([blocking]))
+      const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+      expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
+      expect(onRenderComplete).not.toHaveBeenCalled()
+    },
+  )
+
   it('forwards the displayed canvas used for committed renders', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()
     const spec = generateMonster({ seed: 'forwarded', themeId: 'fungal', mode: 'normal' }, catalog).spec
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }))
     const canvasRef = createRef<HTMLCanvasElement>()
 
@@ -105,7 +133,7 @@ describe('PreviewCanvas', () => {
     const catalog = makeValidCatalogFixture()
     const spec = generateMonster({ seed: 'preview', themeId: 'fungal', mode: 'normal' }, catalog).spec
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }))
     render(<PreviewCanvas spec={spec} catalog={catalog} renderer={renderer} onDiagnosticsChange={() => undefined} />)
 
@@ -123,7 +151,7 @@ describe('PreviewCanvas', () => {
     const stagingContexts: CanvasRenderingContext2D[] = []
     const renderer: PreviewRenderer = vi.fn(async context => {
       stagingContexts.push(context)
-      return { drawnAssetIds: [], diagnostics: [], compositionMetrics: null }
+      return { drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null }
     })
     const view = render(
       <PreviewCanvas
@@ -159,7 +187,7 @@ describe('PreviewCanvas', () => {
       slotRolls: { ...spec.slotRolls, tail: spec.slotRolls.tail + 1 },
     }
     const result: RenderResult = {
-      drawnAssetIds: ['tail_anchor'], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: ['tail_anchor'], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }
     const renderer: PreviewRenderer = vi.fn(async () => result)
     const onRenderComplete = vi.fn()
@@ -230,10 +258,10 @@ describe('PreviewCanvas', () => {
       path: ['parts', 'eyes'], message: 'stale asset failure',
     }
     await act(async () => newRender.resolve({
-      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }))
     await act(async () => oldRender.resolve({
-      drawnAssetIds: [], diagnostics: [assetError], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [assetError], compositionMetrics: null, connectorMetrics: null,
     }))
 
     expect(onDiagnosticsChange).toHaveBeenLastCalledWith([])
@@ -252,7 +280,7 @@ describe('PreviewCanvas', () => {
     const newSpec = { ...oldSpec, seed: 'latest-failure' }
     const renderer: PreviewRenderer = vi.fn(async (_context, spec) => {
       if (spec.seed === 'latest-failure') throw new Error('latest render failed')
-      return { drawnAssetIds: [], diagnostics: [], compositionMetrics: null }
+      return { drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null }
     })
     const onDiagnosticsChange = vi.fn()
     const view = render(
@@ -291,7 +319,7 @@ describe('PreviewCanvas', () => {
     const renderer: PreviewRenderer = vi.fn((_context, spec) => (
       spec.seed === 'obsolete-failure'
         ? oldRender.promise
-        : Promise.resolve({ drawnAssetIds: [], diagnostics: [], compositionMetrics: null })
+        : Promise.resolve({ drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null })
     ))
     const onDiagnosticsChange = vi.fn()
     const view = render(
@@ -341,7 +369,7 @@ describe('PreviewCanvas', () => {
     await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
     view.unmount()
     await act(async () => pending.resolve({
-      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }))
 
     expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()

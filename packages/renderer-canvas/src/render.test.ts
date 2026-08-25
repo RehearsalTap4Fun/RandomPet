@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import {
   VISUAL_SLOT_IDS,
   type Catalog,
@@ -9,12 +9,13 @@ import {
 import {
   makeValidCatalogFixture,
   makeCompositionCatalogFixture,
+  makeInterfaceCatalogFixture,
   makeValidCompositionSpecFixture,
   makeValidMonsterSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
 import { resolvePartPlacement, resolvePlacement } from './layout.js'
 import { expandRenderLayers, RENDER_LAYER_ORDER } from './layers.js'
-import { renderMonster } from './render.js'
+import { interfaceRenderCacheSize, renderMonster } from './render.js'
 import type { ImageResolver, RenderOptions } from './types.js'
 
 interface FakeImage {
@@ -41,9 +42,24 @@ function makeRecordingContext(calls: string[], prefix = ''): CanvasRenderingCont
     save: () => calls.push(`${prefix}save`),
     restore: () => calls.push(`${prefix}restore`),
     translate: (x: number, y: number) => calls.push(`${prefix}translate:${x},${y}`),
+    rotate: (angle: number) => calls.push(`${prefix}rotate:${angle}`),
     scale: (x: number, y: number) => calls.push(`${prefix}scale:${x},${y}`),
     drawImage: (source: CanvasImageSource) => {
       calls.push(`${prefix}draw:${(source as unknown as FakeImage).id}`)
+    },
+    beginPath: () => calls.push(`${prefix}beginPath`),
+    moveTo: (x: number, y: number) => calls.push(`${prefix}moveTo:${x},${y}`),
+    lineTo: (x: number, y: number) => calls.push(`${prefix}lineTo:${x},${y}`),
+    closePath: () => calls.push(`${prefix}closePath`),
+    clip: () => calls.push(`${prefix}clip`),
+    transform: (...values: number[]) => calls.push(`${prefix}transform:${values.join(',')}`),
+    createLinearGradient: (x0: number, y0: number, x1: number, y1: number) => {
+      calls.push(`${prefix}gradient:${x0},${y0},${x1},${y1}`)
+      return {
+        addColorStop: (offset: number, color: string) => {
+          calls.push(`${prefix}gradientStop:${offset}:${color}`)
+        },
+      } as unknown as CanvasGradient
     },
     fillRect: (x: number, y: number, width: number, height: number) => {
       calls.push(`${prefix}fillRect:${x},${y},${width},${height}:${fillStyle}`)
@@ -114,6 +130,57 @@ function makeRecordingSurfaceFactory(calls: string[]) {
       canvas: image(id),
       context: makeRecordingContext(calls, `${id}:`),
     }
+  }
+}
+
+function makeHealthyInterfaceSurfaceFactory(
+  calls: string[],
+  mode: 'healthy' | 'disconnected' | 'internal-child' | 'invalid-body' = 'healthy',
+) {
+  const size = RASTER_WIDTH * RASTER_WIDTH * 4
+  const opaque = new Uint8ClampedArray(size)
+  const body = new Uint8ClampedArray(size)
+  const child = new Uint8ClampedArray(size)
+  for (let y = 990; y <= 1058; y += 1) {
+    for (let x = 960; x <= 1088; x += 1) {
+      if (mode !== 'disconnected' || y <= 994 || y >= 1054) {
+        opaque[(y * RASTER_WIDTH + x) * 4 + 3] = 255
+      }
+      if (x < 1024) body[(y * RASTER_WIDTH + x) * 4 + 3] = 255
+      if (mode === 'internal-child' ? x < 1024 : x >= 1024) {
+        child[(y * RASTER_WIDTH + x) * 4 + 3] = 255
+      }
+    }
+  }
+  let nextCanvas = 0
+  let materialRead = 0
+  return (width: number, height: number) => {
+    const index = nextCanvas
+    const id = `interface-${nextCanvas += 1}`
+    const context = makeRecordingContext(calls, `${id}:`)
+    Object.assign(context, {
+      getImageData: (_x: number, _y: number, readWidth: number, readHeight: number) => {
+        if (index === 7) {
+          const pixels = new Uint8ClampedArray(readWidth * readHeight * 4)
+          const isReceiver = materialRead++ % 2 === 0
+          for (let offset = 0; offset < pixels.length; offset += 4) {
+            pixels[offset] = isReceiver ? 240 : 20
+            pixels[offset + 1] = 40
+            pixels[offset + 2] = isReceiver ? 20 : 240
+            pixels[offset + 3] = 255
+          }
+          return { data: pixels }
+        }
+        return {
+          data: index === 11 || index === 12
+            ? new Uint8ClampedArray(size)
+            : index === 1
+            ? mode === 'invalid-body' ? new Uint8ClampedArray(4) : body
+            : index === 2 ? child : opaque,
+        }
+      },
+    })
+    return { canvas: image(id), context }
   }
 }
 
@@ -452,6 +519,7 @@ describe('render layer expansion', () => {
       expected.map(id => `draw:parts/${id}.webp`),
     )
     expect(result.compositionMetrics).toBeNull()
+    expect(result.connectorMetrics).toBeNull()
   })
 
   it('omits only the ground shadow group when requested', async () => {
@@ -598,6 +666,7 @@ describe('composition canvas rendering', () => {
     )
 
     expect(result.diagnostics).toEqual([])
+    expect(result.connectorMetrics).toBeNull()
     expect(calls.filter(call => call.startsWith('composition-surface:'))).toEqual([
       'composition-surface:0:2048x2048',
       'composition-surface:1:2048x2048',
@@ -1051,6 +1120,196 @@ describe('canvas rendering', () => {
     expect(surfaceAllocations).toBe(0)
     expect(resolverCalls).toBe(0)
     expect(calls).toEqual([])
+  })
+})
+
+describe('v0.3 interface rendering', () => {
+  function fixture() {
+    const catalog = makeInterfaceCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    spec.catalogVersion = '0.3.0'
+    spec.rendererVersion = '0.3.0'
+    return { catalog, spec }
+  }
+
+  it('short-circuits the resolver when a selected connector exceeds declared warp', async () => {
+    const { catalog, spec } = fixture()
+    const arms = catalog.parts.find(item => item.slotId === 'arms')!
+    if (arms.composition?.mode !== 'interface') throw new Error('expected interface arms')
+    arms.composition.variantsByRig.blob!.connectors[0]!.width = 200
+    let resolverCalls = 0
+
+    const result = await renderMonster(makeRecordingContext([]), spec, catalog, {
+      async resolve(path) {
+        resolverCalls += 1
+        return image(path)
+      },
+    }, options1024)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_WARP_EXCEEDED',
+    }))
+    expect(result.connectorMetrics).toEqual([])
+    expect(result.drawnAssetIds).toEqual([])
+    expect(resolverCalls).toBe(0)
+  })
+
+  it('turns a missing neutral bridge resource into a blocking composite failure', async () => {
+    const { catalog, spec } = fixture()
+    const missing = catalog.transitionBridges![0]!.neutralAssetPath
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(new Set([missing])), {
+        ...options1024, surfaceFactory: makeRecordingSurfaceFactory([]),
+      },
+    )
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+    }))
+    expect(result.drawnAssetIds).toEqual([])
+    expect(result.connectorMetrics).toEqual([])
+  })
+
+  it('turns an undrawable bridge mask into a blocking composite failure', async () => {
+    const { catalog, spec } = fixture()
+    const calls: string[] = []
+    const healthyFactory = makeHealthyInterfaceSurfaceFactory(calls)
+    const surfaceFactory = (width: number, height: number, destination: CanvasRenderingContext2D) => {
+      const surface = healthyFactory(width, height, destination)
+      const drawImage = surface.context.drawImage.bind(surface.context)
+      surface.context.drawImage = ((source: CanvasImageSource, ...args: number[]) => {
+        if ((source as unknown as FakeImage).id.endsWith('-back.png')) throw new Error('undrawable')
+        drawImage(source, ...args)
+      }) as typeof surface.context.drawImage
+      return surface
+    }
+
+    const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory,
+    })
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+    }))
+  })
+
+  it('does not mutate the v0.3 source spec when resolving interfaces', async () => {
+    const { catalog, spec } = fixture()
+    const snapshot = structuredClone(spec)
+    const head = catalog.parts.find(item => item.slotId === 'headShape')!
+    if (head.composition?.mode !== 'interface') throw new Error('expected interface head')
+    delete head.composition.variantsByRig.blob
+
+    await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), options1024)
+
+    expect(spec).toEqual(snapshot)
+  })
+
+  it('uses affine mesh triangles, sampled material gradients, and the declared seam order', async () => {
+    const { catalog, spec } = fixture()
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext(calls, 'main:'), spec, catalog, makeResolver(), {
+        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls),
+      },
+    )
+
+    expect(result.connectorMetrics).toHaveLength(8)
+    expect(result.connectorMetrics?.every(metric => (
+      metric.receiverCoverage === 1
+      && metric.plugCoverage === 1
+      && metric.largestComponentRatio === 1
+      && metric.centerlineGapPixels === 0
+    ))).toBe(true)
+    expect(result.connectorMetrics?.filter(metric => metric.connectorId !== 'neck')
+      .every(metric => (metric.childOutsideBodyRatio ?? 0) >= 0.65)).toBe(true)
+    expect(result.diagnostics).toEqual([])
+    expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(8 * 18 * 3)
+    expect(calls).toContain('interface-5:gradientStop:0:rgba(240, 40, 20, 1)')
+    expect(calls).toContain('interface-5:gradientStop:1:rgba(20, 40, 240, 1)')
+    const mainDraws = calls.filter(call => call.startsWith('main:draw:'))
+    const firstNode = mainDraws.indexOf('main:draw:interface-1')
+    const firstBridge = mainDraws.indexOf('main:draw:interface-7')
+    const lastBridge = mainDraws.lastIndexOf('main:draw:interface-7')
+    expect(firstBridge).toBeLessThan(firstNode)
+    expect(lastBridge).toBeGreaterThan(firstNode)
+    expect(lastBridge).toBeLessThan(mainDraws.length - 1)
+    expect(result.compositionMetrics).toEqual(expect.objectContaining({
+      eyesVisibleRatio: expect.any(Number), mouthVisibleRatio: expect.any(Number),
+    }))
+  })
+
+  it('bounds derived interface frame cache growth to the 16 latest visual specs', async () => {
+    const { catalog, spec } = fixture()
+    const surfaceFactory = makeRecordingSurfaceFactory([])
+    for (let index = 0; index < 17; index += 1) {
+      await renderMonster(makeRecordingContext([]), { ...spec, seed: `cache-${index}` }, catalog, makeResolver(), {
+        ...options1024, surfaceFactory,
+      })
+    }
+
+    expect(interfaceRenderCacheSize()).toBe(16)
+  })
+
+  it('blocks disconnected structural alpha below 0.99 and incomplete bridge centerlines', async () => {
+    const { catalog, spec } = fixture()
+    const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'disconnected'),
+    })
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'STRUCTURE_DISCONNECTED',
+    }))
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+    }))
+    expect(result.connectorMetrics?.[0]).toEqual(expect.objectContaining({
+      receiverCoverage: 1, plugCoverage: 1,
+    }))
+    expect(result.connectorMetrics?.[0]?.largestComponentRatio).toBeLessThan(0.99)
+    expect(result.connectorMetrics?.[0]?.centerlineGapPixels).toBeGreaterThan(0)
+  })
+
+  it('blocks a limb whose external structural alpha is below 0.65', async () => {
+    const { catalog, spec } = fixture()
+    const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'internal-child'),
+    })
+
+    expect(result.connectorMetrics?.find(metric => metric.connectorId === 'shoulderLeft')
+      ?.childOutsideBodyRatio).toBe(0)
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+      message: expect.stringContaining('below 0.65'),
+    }))
+  })
+
+  it('converts an invalid metric mask into CONNECTOR_COMPOSITE_FAILED', async () => {
+    const { catalog, spec } = fixture()
+
+    const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'invalid-body'),
+    })
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+      message: expect.stringContaining('mask'),
+    }))
+  })
+
+  it('caches decoded neutral bridges once per exact catalog path and resolver', async () => {
+    const { catalog, spec } = fixture()
+    const resolve = vi.fn(async (path: string) => image(path))
+    const resolver: ImageResolver = { resolve }
+    for (let index = 0; index < 2; index += 1) {
+      await renderMonster(makeRecordingContext([]), { ...spec, seed: `decode-${index}` }, catalog, resolver, {
+        ...options1024, surfaceFactory: makeRecordingSurfaceFactory([]),
+      })
+    }
+    const neutral = catalog.transitionBridges![0]!.neutralAssetPath
+    expect(resolve.mock.calls.filter(([path]) => path === neutral)).toHaveLength(1)
   })
 })
 

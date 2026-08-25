@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.1.0",
-  "catalogVersion": "synthetic-0.1.0",
+  "catalogVersion": "0.1.0",
   "rendererVersion": "0.1.0",
   "seed": "synthetic-render-golden",
   "themeId": "fungal",

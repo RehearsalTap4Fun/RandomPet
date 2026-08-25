@@ -103,6 +103,16 @@ interface CachedPreviewFrame {
 }
 
 const PREVIEW_FRAME_CACHE_LIMIT = 16
+const BLOCKING_RENDER_CODES = new Set([
+  'CONNECTOR_COMPOSITE_FAILED',
+  'STRUCTURE_DISCONNECTED',
+])
+
+function hasBlockingRenderDiagnostic(result: RenderResult): boolean {
+  return result.diagnostics.some(diagnostic => (
+    diagnostic.severity === 'error' && BLOCKING_RENDER_CODES.has(diagnostic.code)
+  ))
+}
 
 function previewFrameKey(spec: MonsterSpec): string {
   const { slotRolls: _slotRolls, ...renderedSpec } = spec
@@ -213,6 +223,11 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
       { width: 1024, height: 1024, includeGroundShadow: true },
     ).then(result => {
       if (requestId.current !== currentRequest) return
+      if (hasBlockingRenderDiagnostic(result)) {
+        targetContext.clearRect(0, 0, 1024, 1024)
+        onDiagnosticsChange(result.diagnostics)
+        return
+      }
       const snapshot = target.ownerDocument.createElement('canvas')
       snapshot.width = 1024
       snapshot.height = 1024

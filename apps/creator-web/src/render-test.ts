@@ -42,7 +42,7 @@ function part(
 }
 
 const catalog: Catalog = {
-  version: 'synthetic-0.1.0',
+  version: '0.1.0',
   themes: [{
     id: 'fungal',
     palette: { primary: '#4dd6b3', secondary: '#8f63e9', accent: '#ffcf5a' },

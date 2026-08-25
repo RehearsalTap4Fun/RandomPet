@@ -1,9 +1,11 @@
 import type {
   ApprovedTransform,
+  ConnectorProfile,
   Diagnostic,
   Palette,
   RenderNodeDefinition,
   RigDefinition,
+  TransitionBridgeDefinition,
   VisualPartDefinition,
   VisualSlotId,
 } from '@qmonster/generator-core'
@@ -34,6 +36,7 @@ export interface RenderResult {
   drawnAssetIds: string[]
   diagnostics: Diagnostic[]
   compositionMetrics: CompositionMetrics | null
+  connectorMetrics: ConnectorMetric[] | null
 }
 
 export interface Placement {
@@ -41,6 +44,7 @@ export interface Placement {
   y: number
   scaleX: number
   scaleY: number
+  rotationDegrees?: number
 }
 
 export interface WorldRect { x: number; y: number; width: number; height: number }
@@ -60,6 +64,33 @@ export interface CompositionMetrics {
   mouthInsideRatio: number
   mouthVisibleRatio: number
   visibleBounds: WorldRect | null
+}
+
+export interface ConnectorMetric {
+  connectorId: string
+  receiverCoverage: number
+  plugCoverage: number
+  largestComponentRatio: number
+  centerlineGapPixels: number
+  childOutsideBodyRatio: number | null
+}
+
+export interface ResolvedBridge {
+  key: string
+  connectorId: string
+  parentNodeKey: string
+  childNodeKey: string
+  receiver: ConnectorProfile
+  plug: ConnectorProfile
+  bridge: TransitionBridgeDefinition
+  solved: import('./connector-solver.js').SolvedConnector
+}
+
+export interface InterfaceRenderResult {
+  nodes: ResolvedRenderNode[]
+  bridges: ResolvedBridge[]
+  faceSafeZones: WorldRect[]
+  diagnostics: Diagnostic[]
 }
 
 export interface AttachmentTreeResult {

@@ -33,7 +33,7 @@ describe('LegacySpecViewer', () => {
     const onReturn = vi.fn()
     const resolver = { resolve: vi.fn() }
     const renderer: PreviewRenderer = vi.fn(async () => ({
-      drawnAssetIds: [], diagnostics: [], compositionMetrics: null,
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
     }))
 
     render(<LegacySpecViewer

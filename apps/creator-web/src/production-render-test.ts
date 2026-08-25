@@ -5,6 +5,7 @@ import { buildProductionReviewBundle, type ProductionReviewBundle } from './prod
 async function draw(canvas: HTMLCanvasElement, bundle: ProductionReviewBundle): Promise<{
   drawnAssetIds: string[]
   compositionMetrics: unknown
+  connectorMetrics: unknown
   resolvedAssetPaths: string[]
 }> {
   canvas.width = 2048
@@ -30,6 +31,7 @@ async function draw(canvas: HTMLCanvasElement, bundle: ProductionReviewBundle): 
   return {
     drawnAssetIds: result.drawnAssetIds,
     compositionMetrics: result.compositionMetrics,
+    connectorMetrics: result.connectorMetrics,
     resolvedAssetPaths,
   }
 }
