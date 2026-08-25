@@ -148,7 +148,7 @@ async function renderFixture(): Promise<void> {
   document.body.dataset.renderComplete = 'true'
 }
 
-type InterfaceVariant = 'baseline' | 'swapped' | 'shifted-contour'
+type InterfaceVariant = 'baseline' | 'foreground-hole' | 'background-hole' | 'shifted-contour'
 
 function raster(
   width: number,
@@ -177,12 +177,12 @@ function opaqueRect(
   })
 }
 
-function interfaceFixture(variant: InterfaceVariant): { catalog: Catalog; spec: MonsterSpec } {
+function interfaceFixture(): { catalog: Catalog; spec: MonsterSpec } {
   const interfaceCatalog = makeInterfaceCatalogFixture()
   const spec = makeValidCompositionSpecFixture(interfaceCatalog)
   spec.catalogVersion = '0.3.0'
   spec.rendererVersion = '0.3.0'
-  spec.seed = `real-raster-${variant}`
+  spec.seed = 'real-raster-causal-isolation'
   for (const slotId of ['arms', 'legs', 'tail', 'extraAppendage'] as const) {
     const selected = interfaceCatalog.parts.find(candidate => (
       candidate.id === spec.visualSlots[slotId].partId && candidate.slotId === slotId
@@ -234,15 +234,17 @@ function interfaceResolver(variant: InterfaceVariant): ImageResolver {
         const x = variant === 'shifted-contour' ? 1018 : 990
         source = opaqueRect(x, receiver ? 999 : 1050, 69, 1)
       } else if (assetPath.includes('/connectors/') && assetPath.endsWith('-foreground.png')) {
-        const foregroundOnLeft = variant === 'swapped'
-        source = foregroundOnLeft
-          ? opaqueRect(980, 980, 44, 90)
-          : opaqueRect(1024, 980, 66, 90)
+        source = raster(2048, 2048, context => {
+          context.fillStyle = '#ffffff'
+          context.fillRect(1024, 980, 66, 90)
+          if (variant === 'foreground-hole') context.clearRect(1040, 1020, 8, 11)
+        })
       } else if (assetPath.includes('/connectors/') && assetPath.endsWith('-background.png')) {
-        const backgroundOnLeft = variant !== 'swapped'
-        source = backgroundOnLeft
-          ? opaqueRect(980, 980, 44, 90)
-          : opaqueRect(1024, 980, 66, 90)
+        source = raster(2048, 2048, context => {
+          context.fillStyle = '#ffffff'
+          context.fillRect(980, 980, 44, 90)
+          if (variant === 'background-hole') context.clearRect(1001, 1006, 9, 9)
+        })
       } else if (assetPath === 'nodes/body_blob_0.webp') {
         source = raster(2048, 2048, context => {
           context.fillStyle = '#ff2000'
@@ -277,13 +279,15 @@ async function renderInterfaceFixture(variant: InterfaceVariant): Promise<void> 
   canvas.height = 2048
   const context = canvas.getContext('2d')
   if (context === null) throw new Error('2D context unavailable')
-  const { catalog: interfaceCatalog, spec } = interfaceFixture(variant)
+  const { catalog: interfaceCatalog, spec } = interfaceFixture()
   const result = await renderMonster(context, spec, interfaceCatalog, interfaceResolver(variant), {
     width: 2048,
     height: 2048,
     includeGroundShadow: true,
   })
   document.body.dataset.interfaceResult = JSON.stringify({
+    specJson: JSON.stringify(spec),
+    catalogJson: JSON.stringify(interfaceCatalog),
     diagnostics: result.diagnostics,
     connectorMetrics: result.connectorMetrics,
   })
@@ -292,7 +296,8 @@ async function renderInterfaceFixture(variant: InterfaceVariant): Promise<void> 
 
 const requestedInterfaceVariant = new URLSearchParams(location.search).get('interfaceVariant')
 const pendingRender = requestedInterfaceVariant === 'baseline'
-  || requestedInterfaceVariant === 'swapped'
+  || requestedInterfaceVariant === 'foreground-hole'
+  || requestedInterfaceVariant === 'background-hole'
   || requestedInterfaceVariant === 'shifted-contour'
   ? renderInterfaceFixture(requestedInterfaceVariant)
   : renderFixture()
