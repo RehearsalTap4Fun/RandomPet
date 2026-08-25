@@ -51,6 +51,20 @@ describe('validateMonsterSpecAgainstCatalog', () => {
     }))
   })
 
+  it('returns an unsupported-catalog diagnostic instead of throwing for an unknown version', () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    catalog.version = '0.0.9'
+    spec.catalogVersion = '0.0.9'
+
+    expect(() => validateMonsterSpecAgainstCatalog(spec, catalog)).not.toThrow()
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).toContainEqual(expect.objectContaining({
+      severity: 'error',
+      code: 'SPEC_CATALOG_VERSION_UNSUPPORTED',
+      path: ['catalogVersion'],
+    }))
+  })
+
   it('uses composition geometry rather than legacy rig sockets for composition modifiers', () => {
     const catalog = makeCompositionCatalogFixture()
     delete catalog.rigs.find(rig => rig.id === 'blob')!.sockets.headAlternate

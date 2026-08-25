@@ -175,7 +175,17 @@ export function validateMonsterSpecAgainstCatalog(
       `MonsterSpec schema version ${spec.schemaVersion} is unsupported; expected ${versions.schemaVersion}.`,
     ))
   }
-  const expectedRenderer = rendererVersionForCatalog(catalog)
+  let expectedRenderer: MonsterSpec['rendererVersion']
+  try {
+    expectedRenderer = rendererVersionForCatalog(catalog)
+  } catch {
+    diagnostics.push(error(
+      'SPEC_CATALOG_VERSION_UNSUPPORTED',
+      ['catalogVersion'],
+      `Catalog version ${catalog.version} is not installed or supported.`,
+    ))
+    return diagnostics
+  }
   if (spec.rendererVersion !== expectedRenderer) {
     diagnostics.push(error(
       'SPEC_RENDERER_VERSION_UNSUPPORTED',

@@ -1,7 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import {
+  makeCompositionCatalogFixture,
   makeValidCatalogFixture,
+  makeValidCompositionSpecFixture,
   makeValidMonsterSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
 import type { Catalog, MonsterSpec } from '@qmonster/generator-core'
@@ -165,9 +167,7 @@ describe('parseSpecFile', () => {
 
   it('loads an installed old catalog and warns only after complete validation succeeds', async () => {
     const oldCatalog = makeValidCatalogFixture()
-    oldCatalog.version = '0.0.9'
     const spec = makeValidMonsterSpecFixture()
-    spec.catalogVersion = oldCatalog.version
 
     const result = await parseSpecFile(createSpecFile(spec), createRegistry(oldCatalog))
 
@@ -182,19 +182,19 @@ describe('parseSpecFile', () => {
   })
 
   it.each([
-    ['0.0.9', '0.1.0', true],
     ['0.1.0', '0.1.0', false],
+    ['0.1.0', '0.2.0', true],
     ['0.2.0', '0.1.0', false],
-    ['0.1.0-alpha.1', '0.1.0', true],
-    ['0.1.0-alpha.2', '0.1.0-alpha.1', false],
-    ['0.1.0+build.7', '0.1.0', false],
+    ['0.2.0', '0.2.0', false],
   ] as const)(
-    'warns only when installed catalog %s is semantically older than %s',
+    'warns only when exact installed catalog %s is older than %s',
     async (catalogVersion, currentVersion, expectOldWarning) => {
-      const catalog = makeValidCatalogFixture()
-      catalog.version = catalogVersion
-      const spec = makeValidMonsterSpecFixture()
-      spec.catalogVersion = catalogVersion
+      const catalog = catalogVersion === '0.2.0'
+        ? makeCompositionCatalogFixture()
+        : makeValidCatalogFixture()
+      const spec = catalogVersion === '0.2.0'
+        ? makeValidCompositionSpecFixture(catalog)
+        : makeValidMonsterSpecFixture()
 
       const result = await parseSpecFile(createSpecFile(spec), createRegistry(catalog), currentVersion)
 
@@ -207,12 +207,33 @@ describe('parseSpecFile', () => {
     },
   )
 
+  it.each(['0.0.9', '0.1.0-alpha.1', '0.1.0+build.7'] as const)(
+    'rejects unsupported exact catalog version %s without an old-catalog warning',
+    async catalogVersion => {
+      const catalog = makeValidCatalogFixture()
+      const spec = makeValidMonsterSpecFixture()
+      catalog.version = catalogVersion
+      spec.catalogVersion = catalogVersion
+
+      const result = await parseSpecFile(createSpecFile(spec), createRegistry(catalog), '0.2.0')
+
+      expect(result.ok).toBe(false)
+      if (!result.ok) {
+        expect(result.diagnostics).toContainEqual(expect.objectContaining({
+          severity: 'error',
+          code: 'SPEC_CATALOG_VERSION_UNSUPPORTED',
+        }))
+        expect(result.diagnostics).not.toContainEqual(expect.objectContaining({
+          code: 'CATALOG_VERSION_OLD',
+        }))
+      }
+    },
+  )
+
   it('does not return the old-catalog warning when semantic validation fails', async () => {
     const oldCatalog = makeValidCatalogFixture()
-    oldCatalog.version = '0.0.9'
     oldCatalog.parts.find(part => part.slotId === 'legs')!.compatibleRigs = ['biped']
     const spec = makeValidMonsterSpecFixture()
-    spec.catalogVersion = oldCatalog.version
 
     const result = await parseSpecFile(createSpecFile(spec), createRegistry(oldCatalog))
 
