@@ -7,6 +7,7 @@ import { productionEvidenceSourceIndexPath, validateProductionEvidenceManifest }
 import { validateProductionSourceFiles, type SourceRichValidationResult } from './source-rich-validation.js'
 import {
   validateNoStaleRuntimeAssets,
+  validateProductionInterfaceResources,
   validateProductionMetadata,
   validateProductionSourceIndex,
   validateProductionSplitFiles,
@@ -117,6 +118,7 @@ async function main(): Promise<void> {
       ...validateProductionMetadata(parsed.value),
       ...(await validateProductionSplitFiles(parsed.value, catalogDirectory)),
       ...(await validateProductionSourceIndex(parsed.value, assetRoot, sourceIndex)),
+      ...(await validateProductionInterfaceResources(parsed.value, assetRoot, sourceIndex)),
       ...validateProductionEvidenceManifest(sourceIndex, evidenceManifest),
       ...(await validateNoStaleRuntimeAssets(parsed.value, assetRoot)),
     )

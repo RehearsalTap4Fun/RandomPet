@@ -34,6 +34,8 @@ import {
 } from './alpha-junction-calibration.js'
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
 import { productionPaths } from './production-paths.js'
+import { buildInterfaceCatalog, validateInterfaceSourceIndex, type ProcessedInterfaceAsset, type ProcessedInterfaceBridge } from './build-interface-catalog.js'
+import { parseInterfaceSourceManifest } from './interface-source-schema.js'
 import type { RigSheetAudit } from './process-rig-sheets.js'
 import { splitPairedPart } from './split-paired-part.js'
 
@@ -626,6 +628,55 @@ export async function loadCommittedProductionCatalog(
 }
 
 export async function buildProductionCatalog(options: { write: boolean, version: string }): Promise<ProductionCatalogBundle> {
+  if (options.version === '0.3.0') {
+    const paths = productionPaths(options.version)
+    let manifestInput: unknown
+    try {
+      manifestInput = await readJson(join(paths.sourceRoot, 'interface-manifest.json'))
+    } catch {
+      throw new Error('INTERFACE_SOURCE_MANIFEST_MISSING: asset-source/v0.3.0/interface-manifest.json is required')
+    }
+    const manifest = parseInterfaceSourceManifest(manifestInput)
+    if (!manifest.ok) throw new Error(`INTERFACE_SOURCE_MANIFEST_INVALID: ${JSON.stringify(manifest.diagnostics)}`)
+    let processed: {
+      processedAssets: Record<string, ProcessedInterfaceAsset>
+      processedBridges: Record<string, ProcessedInterfaceBridge>
+      sourceIndex: Record<string, unknown>
+    }
+    try {
+      processed = await readJson(join(paths.sourceRoot, 'production', 'processed-index.json'))
+    } catch {
+      throw new Error('INTERFACE_PRODUCTION_ASSET_MISSING: asset-source/v0.3.0/production/processed-index.json is required after production art processing')
+    }
+    validateInterfaceSourceIndex(manifest.value, processed.sourceIndex)
+    const base = await loadCommittedProductionCatalog({ version: '0.2.0' })
+    const catalog = buildInterfaceCatalog({
+      baseCatalog: base.catalog,
+      manifest: manifest.value,
+      processedAssets: processed.processedAssets,
+      processedBridges: processed.processedBridges,
+    })
+    const bundle: ProductionCatalogBundle = {
+      catalog,
+      themes: catalog.themes,
+      rigs: catalog.rigs,
+      parts: catalog.parts,
+      semanticTraits: catalog.semanticTraits,
+      modifiers: catalog.modifiers,
+      sourceIndex: processed.sourceIndex,
+    }
+    if (options.write) {
+      await writeJson(join(paths.catalogDirectory, 'themes.json'), bundle.themes)
+      await writeJson(join(paths.catalogDirectory, 'rigs.json'), bundle.rigs)
+      await writeJson(join(paths.catalogDirectory, 'parts.json'), bundle.parts)
+      await writeJson(join(paths.catalogDirectory, 'semantic-traits.json'), bundle.semanticTraits)
+      await writeJson(join(paths.catalogDirectory, 'modifiers.json'), bundle.modifiers)
+      await writeJson(join(paths.catalogDirectory, 'catalog.json'), bundle.catalog)
+      await writeJson(paths.sourceIndexPath, bundle.sourceIndex)
+      await writeJson(join(paths.auditDirectory, 'evidence-manifest.json'), buildProductionEvidenceManifest(bundle.sourceIndex))
+    }
+    return bundle
+  }
   const paths = productionPaths(options.version)
   const { catalogDirectory, assetDirectory, sourceRoot } = paths
   const productionIndexPath = join(sourceRoot, 'generation', 'production-index.json')

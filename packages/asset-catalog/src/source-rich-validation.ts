@@ -16,6 +16,7 @@ interface FileClaim {
   sha256: string
   diagnosticPath: string[]
   prompt?: string
+  canonicalText?: boolean
 }
 
 export interface SourceRichValidationResult {
@@ -46,6 +47,7 @@ function collectProductionSourceClaims(sourceIndex: unknown): { claims: FileClai
     shaField: string,
     diagnosticPath: string[],
     promptField?: string,
+    canonicalText = false,
   ): void {
     const path = owner[pathField]
     const sha256 = owner[shaField]
@@ -63,7 +65,7 @@ function collectProductionSourceClaims(sourceIndex: unknown): { claims: FileClai
       diagnostics.push(error('PRODUCTION_SOURCE_FILE_CLAIM_INVALID', [...diagnosticPath, promptField], 'Prompt file claims need the exact recorded prompt text.'))
       return
     }
-    claims.push({ path, sha256, diagnosticPath, ...(prompt === undefined ? {} : { prompt }) })
+    claims.push({ path, sha256, diagnosticPath, ...(prompt === undefined ? {} : { prompt }), ...(canonicalText ? { canonicalText: true } : {}) })
   }
 
   function addExtraction(value: unknown, path: string[]): void {
@@ -96,9 +98,24 @@ function collectProductionSourceClaims(sourceIndex: unknown): { claims: FileClai
     const source = record(value)
     if (source === null) continue
     const sourcePath = ['sources', String(source.sourceId ?? sourceIndexPosition)]
-    add(source, 'promptPath', 'promptSha256', [...sourcePath, 'promptPath'], 'prompt')
+    const interfacePromptCatalog = source.kind === 'interface-structural' || source.kind === 'interface-bridge'
+    add(
+      source,
+      'promptPath',
+      'promptSha256',
+      [...sourcePath, 'promptPath'],
+      interfacePromptCatalog ? undefined : 'prompt',
+      interfacePromptCatalog,
+    )
     add(source, 'sheetPath', 'sheetSha256', [...sourcePath, 'sheetPath'])
     add(source, 'masterPath', 'masterSha256', [...sourcePath, 'masterPath'])
+    add(source, 'sourcePngPath', 'sourcePngSha256', [...sourcePath, 'sourcePngPath'])
+    if (Array.isArray(source.sourceResources)) {
+      for (const [index, resource] of source.sourceResources.entries()) {
+        const sourceResource = record(resource)
+        if (sourceResource !== null) add(sourceResource, 'path', 'sha256', [...sourcePath, 'sourceResources', String(index)])
+      }
+    }
 
     if (Array.isArray(source.candidateEvaluations)) {
       for (const [index, candidateValue] of source.candidateEvaluations.entries()) {
@@ -163,7 +180,11 @@ export async function validateProductionSourceFiles(
       continue
     }
     const previous = unique.get(unresolved)
-    if (previous !== undefined && (previous.sha256 !== claim.sha256 || previous.prompt !== claim.prompt)) {
+    if (previous !== undefined && (
+      previous.sha256 !== claim.sha256
+      || previous.prompt !== claim.prompt
+      || previous.canonicalText !== claim.canonicalText
+    )) {
       diagnostics.push(error('PRODUCTION_SOURCE_FILE_CLAIM_CONFLICT', claim.diagnosticPath, 'The same source file has conflicting provenance claims.'))
       continue
     }
@@ -193,7 +214,10 @@ export async function validateProductionSourceFiles(
         diagnostics.push(error('PRODUCTION_SOURCE_FILE_HASH_MISMATCH', claim.diagnosticPath, `Prompt source hash differs for ${claim.path}.`))
       }
     } else {
-      const observedHash = createHash('sha256').update(bytes).digest('hex')
+      const hashInput = claim.canonicalText
+        ? Buffer.from(bytes.toString('utf8').replaceAll('\r\n', '\n'))
+        : bytes
+      const observedHash = createHash('sha256').update(hashInput).digest('hex')
       if (observedHash !== claim.sha256) {
         diagnostics.push(error('PRODUCTION_SOURCE_FILE_HASH_MISMATCH', claim.diagnosticPath, `Source file hash differs for ${claim.path}.`))
       }

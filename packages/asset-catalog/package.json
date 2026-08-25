@@ -10,7 +10,8 @@
   "scripts": {
     "validate": "npm run validate:v0.2.0",
     "validate:v0.1.0": "tsx src/cli.ts catalog/v0.1.0/catalog.json assets/v0.1.0 --production --source-index source-index.json --evidence-manifest audit/v0.1.0/evidence-manifest.json",
-    "validate:v0.2.0": "tsx src/cli.ts catalog/v0.2.0/catalog.json assets/v0.2.0 --production --source-index source-index-v0.2.0.json --evidence-manifest audit/v0.2.0/evidence-manifest.json"
+    "validate:v0.2.0": "tsx src/cli.ts catalog/v0.2.0/catalog.json assets/v0.2.0 --production --source-index source-index-v0.2.0.json --evidence-manifest audit/v0.2.0/evidence-manifest.json",
+    "validate:v0.3.0": "tsx ../../scripts/validate-interface-slice.ts --version 0.3.0 --production && tsx src/cli.ts catalog/v0.3.0/catalog.json assets/v0.3.0 --production --source-index source-index-v0.3.0.json --evidence-manifest audit/v0.3.0/evidence-manifest.json --source-root ../../asset-source/v0.3.0"
   },
   "dependencies": {
     "@qmonster/generator-core": "0.1.0",

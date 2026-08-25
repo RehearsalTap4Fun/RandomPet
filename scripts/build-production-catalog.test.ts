@@ -13,7 +13,7 @@ import {
   PRODUCTION_EVIDENCE_MANIFEST_VERSION,
   computeProductionEvidenceRoot,
 } from '../packages/asset-catalog/src/evidence-root.js'
-import { loadCommittedProductionCatalog, resolveProductionPrompt } from './build-production-catalog.js'
+import { buildProductionCatalog, loadCommittedProductionCatalog, resolveProductionPrompt } from './build-production-catalog.js'
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
 
 const expectedCounts = {
@@ -297,4 +297,11 @@ describe('v0.2 composition-aware production catalog builder', () => {
       expect(count / 10_000).toBeLessThanOrEqual(0.5)
     }
   }, 30_000)
+})
+
+describe('v0.3 interface production catalog builder', () => {
+  it('fails specifically for the absent processed interface asset index before production art exists', async () => {
+    await expect(buildProductionCatalog({ write: false, version: '0.3.0' }))
+      .rejects.toThrow('INTERFACE_PRODUCTION_ASSET_MISSING')
+  })
 })

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "interface-prompts-v1",
+  "catalogVersion": "0.3.0",
+  "constraints": {
+    "canvasSize": 2048,
+    "background": "transparent",
+    "view": "front orthographic",
+    "runtimeGuidesExcluded": true,
+    "connectorIds": ["neck", "shoulderLeft", "shoulderRight", "hipLeft", "hipRight"]
+  },
+  "prompts": [
+    {
+      "id": "body_biped_peanut",
+      "kind": "structural-part",
+      "text": "Front-facing peanut-shaped biped torso, short-fur material family, symmetric neck shoulder and hip receiver zones, no face and no detached limbs. Preserve transparent margins and the supplied connector geometry."
+    },
+    {
+      "id": "body_biped_tall",
+      "kind": "structural-part",
+      "text": "Front-facing tall biped torso, short-fur material family, symmetric neck shoulder and hip receiver zones, no face and no detached limbs. Preserve transparent margins and the supplied connector geometry."
+    },
+    {
+      "id": "head_round_dome",
+      "kind": "structural-part",
+      "text": "Front-facing round dome head shell, short-fur material family, clean neck plug silhouette, no eyes mouth or headwear. Preserve the supplied neck geometry and transparent margins."
+    },
+    {
+      "id": "head_mushroom_cap",
+      "kind": "structural-part",
+      "text": "Front-facing mushroom-cap head shell, mushroom-velvet material family, clean neck plug silhouette, no eyes mouth or headwear. Preserve the supplied neck geometry and transparent margins."
+    },
+    {
+      "id": "arms_short_plush",
+      "kind": "structural-part",
+      "text": "Matched left and right short plush arms, short-fur material family, symmetric shoulder plugs and no torso pixels. Preserve each supplied shoulder connector geometry and transparent separation."
+    },
+    {
+      "id": "arms_long_noodle",
+      "kind": "structural-part",
+      "text": "Matched left and right long noodle arms, short-fur material family, symmetric shoulder plugs and no torso pixels. Preserve each supplied shoulder connector geometry and transparent separation."
+    },
+    {
+      "id": "legs_webbed",
+      "kind": "structural-part",
+      "text": "Matched left and right webbed legs, short-fur material family, symmetric hip plugs and no torso pixels. Preserve each supplied hip connector geometry and transparent separation."
+    },
+    {
+      "id": "legs_mushroom",
+      "kind": "structural-part",
+      "text": "Matched left and right mushroom legs, mushroom-velvet material family, symmetric hip plugs and no torso pixels. Preserve each supplied hip connector geometry and transparent separation."
+    },
+    {
+      "id": "bridge-neck",
+      "kind": "transition-bridge",
+      "text": "Neutral biped neck transition strip for short-fur and mushroom-velvet sampling, seamless along both connector contours, with independently authored front and back binary masks."
+    },
+    {
+      "id": "bridge-shoulder",
+      "kind": "transition-bridge",
+      "text": "Neutral biped shoulder transition strip for short-fur and mushroom-velvet sampling, seamless along both connector contours, with independently authored front and back binary masks."
+    },
+    {
+      "id": "bridge-hip",
+      "kind": "transition-bridge",
+      "text": "Neutral biped hip transition strip for short-fur and mushroom-velvet sampling, seamless along both connector contours, with independently authored front and back binary masks."
+    }
+  ]
+}
