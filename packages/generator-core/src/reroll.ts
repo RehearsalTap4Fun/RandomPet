@@ -1,4 +1,5 @@
 import { checkPartCompatibility } from './candidates.js'
+import { validateStructuralSelections } from './connector-compatibility.js'
 import { VISUAL_SLOT_IDS } from './contracts.js'
 import { generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
@@ -177,6 +178,7 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
     request.catalog,
     planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, request.catalog),
   ))
+  diagnostics.push(...validateStructuralSelections(spec, request.catalog))
   return result(spec, diagnostics, affectedSlots)
 }
 
@@ -203,5 +205,9 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
     request.catalog,
     planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, request.catalog),
   ))
+  diagnostics.push(...validateStructuralSelections(spec, request.catalog))
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return result(cloneSpec(request.spec), diagnostics, orderedAffectedSlots(request.slotId, request.catalog))
+  }
   return result(spec, diagnostics, orderedAffectedSlots(request.slotId, request.catalog))
 }

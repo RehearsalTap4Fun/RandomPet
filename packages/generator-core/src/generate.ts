@@ -1,4 +1,5 @@
 import { buildCandidates, checkPartCompatibility } from './candidates.js'
+import { validateStructuralSelections } from './connector-compatibility.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 import {
   VISUAL_SLOT_IDS,
@@ -180,6 +181,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     aberrations: modifiers.aberrations,
   }
   diagnostics.push(...validateCompositionSelections(spec, catalog, compositionPlan))
+  diagnostics.push(...validateStructuralSelections(spec, catalog))
   return {
     spec,
     diagnostics,

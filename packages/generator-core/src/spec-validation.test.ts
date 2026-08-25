@@ -5,6 +5,7 @@ import {
 } from './index.js'
 import {
   makeCompositionCatalogFixture,
+  makeInterfaceCatalogFixture,
   makeValidCompositionSpecFixture,
   makeValidCatalogFixture,
   makeValidCatalogFixtureWithThreeRigs,
@@ -17,6 +18,23 @@ const versions = {
 } as const
 
 describe('validateMonsterSpecAgainstCatalog', () => {
+  it('reports a blocking connector diagnostic with literal pair measurements', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    spec.catalogVersion = '0.3.0'
+    spec.rendererVersion = '0.3.0'
+    const head = catalog.parts.find(part => part.slotId === 'headShape')!
+    if (head.composition?.mode !== 'interface') throw new Error('Expected interface head')
+    head.composition.variantsByRig.blob!.connectors.find(connector => connector.id === 'neck')!.width = 300
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).toContainEqual(expect.objectContaining({
+      severity: 'error',
+      code: 'CONNECTOR_WARP_EXCEEDED',
+      path: ['visualSlots', 'headShape'],
+      message: expect.stringContaining('Parts body_blob and head_round at neck measure widthRatio=3'),
+    }))
+  })
+
   it('derives the required renderer version from the catalog', () => {
     const legacyCatalog = makeValidCatalogFixture()
     const compositionCatalog = makeCompositionCatalogFixture()

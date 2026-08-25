@@ -381,7 +381,7 @@ describe('local changes', () => {
     })
   })
 
-  it('manual cross-rig body selection preserves an incompatible lock and reports the blocker', () => {
+  it('keeps a manual cross-rig body replacement transactional when a lock is incompatible', () => {
     const catalog = makeRigSwitchCatalog()
     const before = generateMonster(baseRequest, catalog).spec
 
@@ -393,11 +393,7 @@ describe('local changes', () => {
       catalog,
     })
 
-    expect(selected.spec.visualSlots.bodyFrame).toEqual({ partId: 'body_biped_manual', rigId: 'biped' })
-    expect(selected.spec.visualSlots.legs).toEqual({
-      partId: before.visualSlots.legs.partId,
-      rigId: 'biped',
-    })
+    expect(selected.spec).toEqual(before)
     expect(selected.blocked).toBe(true)
     expect(selected.diagnostics).toContainEqual(
       expect.objectContaining({ code: 'LOCK_INCOMPATIBLE', path: ['visualSlots', 'legs'] }),
@@ -655,7 +651,7 @@ describe('local changes', () => {
     expect(selected.spec.visualSlots.eyes.partId).toBe('eyes_compatible')
   })
 
-  it('manual parent selection preserves an incompatible locked descendant and blocks', () => {
+  it('keeps manual parent selection transactional when a locked descendant is incompatible', () => {
     const catalog = makeValidCatalogFixture()
     catalog.dependencies = { arms: ['eyes'] }
     const arms = catalog.parts.find(part => part.slotId === 'arms')!
@@ -669,8 +665,7 @@ describe('local changes', () => {
       locks: { eyes: true },
       catalog,
     })
-    expect(selected.spec.visualSlots.arms.partId).toBe('arms_manual')
-    expect(selected.spec.visualSlots.eyes).toEqual(before.visualSlots.eyes)
+    expect(selected.spec).toEqual(before)
     expect(selected.blocked).toBe(true)
     expect(selected.diagnostics).toContainEqual(
       expect.objectContaining({ code: 'LOCK_INCOMPATIBLE', path: ['visualSlots', 'eyes'] }),

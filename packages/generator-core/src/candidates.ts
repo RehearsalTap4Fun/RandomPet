@@ -6,6 +6,7 @@ import type {
   VisualSelection,
   VisualSlotId,
 } from './contracts.js'
+import { connectorExclusionCodes } from './connector-compatibility.js'
 import type { MotifMode } from './composition.js'
 import { pickWeighted, type Rng } from './prng.js'
 
@@ -18,6 +19,7 @@ export interface CandidateTrace {
   rarity: Rarity
   candidateIds: string[]
   finalWeights: Record<string, number>
+  connectorExclusions: Record<string, string[]>
 }
 
 export interface BuildCandidatesInput {
@@ -55,15 +57,35 @@ function isHardCompatible(
     && !selectedParts.some(selected => selected.excludes.includes(part.id))
 }
 
+function structuralSelections(
+  catalog: Catalog,
+  selections: Partial<Record<VisualSlotId, VisualSelection>>,
+): Map<Extract<VisualSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>, VisualPartDefinition> {
+  const structural = new Map<Extract<VisualSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>, VisualPartDefinition>()
+  for (const [slotId, selection] of Object.entries(selections) as [VisualSlotId, VisualSelection][]) {
+    if (!['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'].includes(slotId)) continue
+    const part = catalog.parts.find(candidate => candidate.id === selection.partId && candidate.slotId === slotId)
+    if (part !== undefined) structural.set(slotId as Extract<VisualSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>, part)
+  }
+  return structural
+}
+
 export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
   const selectedPartIds = new Set(Object.entries(input.selections)
     .filter(([slotId]) => slotId !== input.slotId)
     .map(([, selection]) => selection.partId))
   const selectedParts = input.catalog.parts.filter(part => selectedPartIds.has(part.id))
-  const compatible = input.catalog.parts.filter(part =>
-    part.slotId === input.slotId
-    && isHardCompatible(part, input.rigId, input.catalog, selectedPartIds, selectedParts),
-  )
+  const selectedStructuralParts = structuralSelections(input.catalog, input.selections)
+  const connectorExclusions: Record<string, string[]> = {}
+  const compatible = input.catalog.parts.filter(part => {
+    if (part.slotId !== input.slotId || !isHardCompatible(part, input.rigId, input.catalog, selectedPartIds, selectedParts)) return false
+    const exclusions = connectorExclusionCodes(input.catalog, part, input.rigId, selectedStructuralParts)
+    if (exclusions.length > 0) {
+      connectorExclusions[part.id] = exclusions
+      return false
+    }
+    return true
+  })
 
   let themeFallback = false
   let rangeMode: CandidateTrace['rangeMode']
@@ -131,6 +153,7 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
       rarity,
       candidateIds: candidates.map(item => item.id),
       finalWeights,
+      connectorExclusions,
     },
   }
 }
@@ -149,4 +172,5 @@ export function checkPartCompatibility(
   selectedPartIds.delete(part.id)
   const selectedParts = catalog.parts.filter(item => selectedPartIds.has(item.id))
   return isHardCompatible(part, rigId, catalog, selectedPartIds, selectedParts)
+    && connectorExclusionCodes(catalog, part, rigId, structuralSelections(catalog, selections)).length === 0
 }

@@ -1,4 +1,5 @@
 import { checkPartCompatibility } from './candidates.js'
+import { connectorExclusionCodes } from './connector-compatibility.js'
 import type {
   Catalog,
   MonsterSpec,
@@ -8,7 +9,16 @@ import type {
   VisualSlotId,
 } from './contracts.js'
 
-export type PartSelectionBlockReason = 'theme' | 'rig' | 'selection'
+export type PartSelectionBlockReason = 'theme' | 'rig' | 'selection' | 'connector'
+
+function selectedStructuralParts(spec: MonsterSpec, catalog: Catalog) {
+  const selected = new Map<Extract<VisualSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>, VisualPartDefinition>()
+  for (const slotId of ['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'] as const) {
+    const part = catalog.parts.find(candidate => candidate.id === spec.visualSlots[slotId].partId && candidate.slotId === slotId)
+    if (part !== undefined) selected.set(slotId, part)
+  }
+  return selected
+}
 
 export interface PartSelectionEvaluation {
   selectable: boolean
@@ -49,6 +59,10 @@ export function evaluatePartSelection(
     return { selectable: false, rigId, reason: 'theme' }
   }
   if (rigId === null) return { selectable: false, rigId, reason: 'rig' }
+
+  if (connectorExclusionCodes(catalog, part, rigId, selectedStructuralParts(spec, catalog)).length > 0) {
+    return { selectable: false, rigId, reason: 'connector' }
+  }
 
   const descendants = descendantsOf(part.slotId, catalog)
   const stableSelections = Object.fromEntries(Object.entries(spec.visualSlots).filter(

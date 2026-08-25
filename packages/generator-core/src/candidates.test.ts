@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { buildCandidates, createRng, type Rng, type VisualPartDefinition } from './index.js'
-import { makeCompositionCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
+import { makeCompositionCatalogFixture, makeInterfaceCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
 
 function scriptedRng(...values: number[]): Rng {
   let index = 0
@@ -38,6 +38,23 @@ function makeStrongCompositionEyesCatalog() {
 }
 
 describe('candidate pool boundaries', () => {
+  it('records connector exclusions before theme and rarity selection in interface catalogs', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    const head = catalog.parts.find(part => part.slotId === 'headShape')!
+    if (head.composition?.mode !== 'interface') throw new Error('Expected interface head')
+    head.composition.variantsByRig.blob!.connectors.find(connector => connector.id === 'neck')!.width = 300
+
+    const result = buildCandidates({
+      catalog,
+      slotId: 'headShape', themeId: 'fungal', rigId: 'blob',
+      selections: { bodyFrame: { partId: 'body_blob', rigId: 'blob' } },
+      rng: scriptedRng(0, 0),
+    })
+
+    expect(result.trace.candidateIds).toEqual([])
+    expect(result.trace.connectorExclusions).toEqual({ head_round: ['CONNECTOR_WARP_EXCEEDED'] })
+  })
+
   it('filters foreign motifs and strong candidates when the current allowance is exhausted', () => {
     const result = buildCandidates({
       catalog: makeStrongCompositionEyesCatalog(),

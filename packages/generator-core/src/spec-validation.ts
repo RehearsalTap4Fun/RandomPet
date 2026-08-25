@@ -20,6 +20,7 @@ import {
   rendererVersionForCatalog,
   validateCompositionSelections,
 } from './composition.js'
+import { validateStructuralSelections } from './connector-compatibility.js'
 
 export const CURRENT_SPEC_VERSIONS: SupportedSpecVersions = {
   schemaVersion: '0.1.0',
@@ -307,5 +308,6 @@ export function validateMonsterSpecAgainstCatalog(
     catalog,
     planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, catalog),
   ))
+  diagnostics.push(...validateStructuralSelections(spec, catalog))
   return diagnostics
 }
