@@ -4166,9 +4166,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "body_blob_round"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "bodyFrame"
         ]
@@ -4188,9 +4186,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "body_blob_wide"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "bodyFrame"
         ]
@@ -4254,9 +4250,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "body_floating_drop"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "bodyFrame"
         ]
@@ -4276,9 +4270,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "head_round_dome"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "headShape"
         ]
@@ -4316,9 +4308,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "head_angler_bulb"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "headShape"
         ]
@@ -4336,9 +4326,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "head_shadow_hood"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "headShape"
         ]
@@ -4750,9 +4738,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "arms_paddle"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "arms"
         ]
@@ -4772,9 +4758,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "legs_stub_feet"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "legs"
         ]
@@ -4832,9 +4816,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "legs_shadow_tiptoe"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "legs"
         ]
@@ -4854,9 +4836,7 @@
       ],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "tail_fish_fan"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "tail"
         ]
@@ -4876,9 +4856,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "tail_soft_curl"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "tail"
         ]
@@ -4896,9 +4874,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "tail_mushroom_cluster"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "tail"
         ]
@@ -4919,9 +4895,7 @@
       ],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "extra_moth_wings"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "extraAppendage"
         ]
@@ -4939,9 +4913,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "extra_soft_tentacles"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "extraAppendage"
         ]
@@ -4959,9 +4931,7 @@
       "excludes": [],
       "boosts": {},
       "visualMapping": {
-        "sourcePartIds": [
-          "extra_side_fins"
-        ],
+        "sourcePartIds": [],
         "sourceSlots": [
           "extraAppendage"
         ]
@@ -5257,8 +5227,7 @@
       "visualMapping": {
         "mood": "upright",
         "suggestedParts": [
-          "body_biped_tall",
-          "legs_stub_feet"
+          "body_biped_tall"
         ]
       }
     },
@@ -5276,7 +5245,6 @@
       "visualMapping": {
         "mood": "dreamy",
         "suggestedParts": [
-          "body_floating_drop",
           "eyes_sleepy_crescent"
         ]
       }
@@ -5320,7 +5288,6 @@
       "visualMapping": {
         "mood": "shy",
         "suggestedParts": [
-          "head_shadow_hood",
           "eyes_sleepy_crescent"
         ]
       }
@@ -5388,10 +5355,7 @@
       "boosts": {},
       "visualMapping": {
         "effectPartIds": [],
-        "suggestedParts": [
-          "tail_fish_fan",
-          "arms_paddle"
-        ]
+        "suggestedParts": []
       }
     },
     {
@@ -5429,7 +5393,6 @@
       "visualMapping": {
         "effectPartIds": [],
         "suggestedParts": [
-          "legs_shadow_tiptoe",
           "color_shadow_violet"
         ]
       }
@@ -5453,8 +5416,7 @@
           "effect_bioluminescent_orbs"
         ],
         "suggestedParts": [
-          "surface_gel_bubbles",
-          "body_floating_drop"
+          "surface_gel_bubbles"
         ]
       }
     }

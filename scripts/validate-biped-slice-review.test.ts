@@ -1,6 +1,6 @@
 import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { makeCompositionCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import {
@@ -90,12 +90,30 @@ describe('biped interface slice review validation', () => {
     const missing = await validateBipedSliceReview(manifestPath, { repositoryRoot: root })
     expect(missing.diagnostics).toContain('canonical acceptance record missing')
 
-    const acceptancePath = join(root, 'review', 'biped-vertical-slice-acceptance.json')
-    await mkdir(join(root, 'review'), { recursive: true })
+    const misplacedPath = join(root, 'review', 'biped-vertical-slice-acceptance.json')
+    await mkdir(dirname(misplacedPath), { recursive: true })
+    await copyFile(canonicalAcceptance, misplacedPath)
+    const misplaced = await validateBipedSliceReview(manifestPath, { repositoryRoot: root })
+    expect(misplaced.diagnostics).toContain(
+      'canonical acceptance record must use exact path: packages/asset-catalog/review/v0.3.0/biped-vertical-slice-acceptance.json',
+    )
+    await rm(misplacedPath)
+
+    const acceptancePath = join(
+      root,
+      'packages/asset-catalog/review/v0.3.0/biped-vertical-slice-acceptance.json',
+    )
+    await mkdir(dirname(acceptancePath), { recursive: true })
     const tampered = JSON.parse(await readFile(canonicalAcceptance, 'utf8'))
     tampered.contactSheetSha256 = 'f'.repeat(64)
+    tampered.catalogVersion = '0.2.0'
+    tampered.rendererVersion = '0.2.0'
+    tampered.reviewedAt = 'not-a-timestamp'
     await writeFile(acceptancePath, `${JSON.stringify(tampered)}\n`)
     const invalid = await validateBipedSliceReview(manifestPath, { repositoryRoot: root })
+    expect(invalid.diagnostics).toContain('canonical acceptance catalogVersion must be 0.3.0')
+    expect(invalid.diagnostics).toContain('canonical acceptance rendererVersion must be 0.3.0')
+    expect(invalid.diagnostics).toContain('canonical acceptance reviewedAt must be a valid timestamp')
     expect(invalid.diagnostics).toContain('canonical acceptance record does not match the approved live review bytes')
 
     await mkdir(join(root, 'duplicate'), { recursive: true })

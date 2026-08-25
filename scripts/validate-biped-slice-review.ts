@@ -106,6 +106,7 @@ function hash(bytes: Uint8Array): string {
 }
 
 const ACCEPTANCE_FILENAME = 'biped-vertical-slice-acceptance.json'
+const CANONICAL_ACCEPTANCE_PATH = 'packages/asset-catalog/review/v0.3.0/biped-vertical-slice-acceptance.json'
 
 async function findAcceptanceRecords(root: string): Promise<string[]> {
   const records: string[] = []
@@ -176,31 +177,43 @@ export async function validateBipedSliceReview(
       if (hash(bytes) !== expected || metadata.width !== width || metadata.height !== height || metadata.hasAlpha !== true) diagnostics.push(`contact sheet bytes invalid: ${path}`)
     } catch { diagnostics.push(`contact sheet missing: ${path}`) }
   }
-  const acceptanceRecords = await findAcceptanceRecords(resolve(options.repositoryRoot ?? process.cwd()))
+  const repositoryRoot = resolve(options.repositoryRoot ?? process.cwd())
+  const canonicalAcceptancePath = resolve(repositoryRoot, CANONICAL_ACCEPTANCE_PATH)
+  const acceptanceRecords = await findAcceptanceRecords(repositoryRoot)
   if (acceptanceRecords.length === 0) {
     diagnostics.push('canonical acceptance record missing')
   } else {
     if (acceptanceRecords.length !== 1) diagnostics.push(`canonical acceptance record must be unique: found ${acceptanceRecords.length}`)
-    try {
-      const acceptance = JSON.parse(await readFile(acceptanceRecords[0]!, 'utf8')) as Record<string, unknown>
-      const sheetBytes = manifest.sheetPath === undefined ? null : await readFile(resolve(manifest.sheetPath))
-      const review256Bytes = manifest.review256SheetPath === undefined ? null : await readFile(resolve(manifest.review256SheetPath))
-      if (
-        acceptance.decision !== 'approved'
-        || acceptance.reviewer !== 'user'
-        || acceptance.userApproved !== true
-        || acceptance.approvalResponse !== 'ok'
-        || acceptance.entryCount !== BIPED_SLICE_ENTRY_COUNT
-        || sheetBytes === null
-        || review256Bytes === null
-        || acceptance.contactSheetSha256 !== hash(sheetBytes)
-        || acceptance.contactSheetSha256 !== manifest.sheetSha256
-        || acceptance.review256ContactSheetSha256 !== hash(review256Bytes)
-        || acceptance.review256ContactSheetSha256 !== manifest.review256SheetSha256
-        || acceptance.manifestSha256 !== hash(manifestBytes)
-      ) diagnostics.push('canonical acceptance record does not match the approved live review bytes')
-    } catch {
-      diagnostics.push('canonical acceptance record does not match the approved live review bytes')
+    const hasCanonicalAcceptance = acceptanceRecords.some(record => resolve(record) === canonicalAcceptancePath)
+    if (!hasCanonicalAcceptance) {
+      diagnostics.push(`canonical acceptance record must use exact path: ${CANONICAL_ACCEPTANCE_PATH}`)
+    } else {
+      try {
+        const acceptance = JSON.parse(await readFile(canonicalAcceptancePath, 'utf8')) as Record<string, unknown>
+        const sheetBytes = manifest.sheetPath === undefined ? null : await readFile(resolve(manifest.sheetPath))
+        const review256Bytes = manifest.review256SheetPath === undefined ? null : await readFile(resolve(manifest.review256SheetPath))
+        if (acceptance.catalogVersion !== '0.3.0') diagnostics.push('canonical acceptance catalogVersion must be 0.3.0')
+        if (acceptance.rendererVersion !== '0.3.0') diagnostics.push('canonical acceptance rendererVersion must be 0.3.0')
+        if (typeof acceptance.reviewedAt !== 'string' || !Number.isFinite(Date.parse(acceptance.reviewedAt))) {
+          diagnostics.push('canonical acceptance reviewedAt must be a valid timestamp')
+        }
+        if (
+          acceptance.decision !== 'approved'
+          || acceptance.reviewer !== 'user'
+          || acceptance.userApproved !== true
+          || acceptance.approvalResponse !== 'ok'
+          || acceptance.entryCount !== BIPED_SLICE_ENTRY_COUNT
+          || sheetBytes === null
+          || review256Bytes === null
+          || acceptance.contactSheetSha256 !== hash(sheetBytes)
+          || acceptance.contactSheetSha256 !== manifest.sheetSha256
+          || acceptance.review256ContactSheetSha256 !== hash(review256Bytes)
+          || acceptance.review256ContactSheetSha256 !== manifest.review256SheetSha256
+          || acceptance.manifestSha256 !== hash(manifestBytes)
+        ) diagnostics.push('canonical acceptance record does not match the approved live review bytes')
+      } catch {
+        diagnostics.push('canonical acceptance record does not match the approved live review bytes')
+      }
     }
   }
   return { entryCount: manifest.entries.length, diagnostics }

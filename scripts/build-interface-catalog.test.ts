@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { makeCompositionCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { validateCatalogStructure } from '@qmonster/generator-core'
+import type { Catalog } from '@qmonster/generator-core'
+import { validateProductionMetadata } from '../packages/asset-catalog/src/production-validation.js'
 import { buildInterfaceCatalog, validateInterfaceSourceIndex } from './build-interface-catalog.js'
 
 const hashFor = (value: string): string => createHash('sha256').update(value).digest('hex')
@@ -42,6 +44,14 @@ describe('buildInterfaceCatalog', () => {
     const modifierExclude = base.modifiers[1]!.id
     base.semanticTraits[0]!.boosts = { [retainedPartId]: 2, [removedPartId]: 3 }
     base.semanticTraits[0]!.excludes = [semanticExclude]
+    base.semanticTraits[0]!.visualMapping = {
+      sourcePartIds: [retainedPartId, removedPartId],
+      suggestedParts: [removedPartId, retainedPartId],
+      effectPartIds: [retainedPartId, removedPartId],
+      assetIds: [removedPartId, retainedPartId],
+      sourceSlots: ['eyes'],
+      mood: 'curious',
+    }
     base.modifiers[0]!.boosts = { [retainedPartId]: 4, [removedPartId]: 5 }
     base.modifiers[0]!.excludes = [modifierExclude]
 
@@ -64,6 +74,14 @@ describe('buildInterfaceCatalog', () => {
     ])
     expect(catalog.semanticTraits[0]?.boosts).toEqual({ [retainedPartId]: 2 })
     expect(catalog.semanticTraits[0]?.excludes).toEqual([semanticExclude])
+    expect(catalog.semanticTraits[0]?.visualMapping).toEqual({
+      sourcePartIds: [retainedPartId],
+      suggestedParts: [retainedPartId],
+      effectPartIds: [retainedPartId],
+      assetIds: [retainedPartId],
+      sourceSlots: ['eyes'],
+      mood: 'curious',
+    })
     expect(catalog.modifiers[0]?.boosts).toEqual({ [retainedPartId]: 4 })
     expect(catalog.modifiers[0]?.excludes).toEqual([modifierExclude])
     expect(validateCatalogStructure(catalog)).toEqual([])
@@ -74,6 +92,21 @@ describe('buildInterfaceCatalog', () => {
     paired[1].pngSha256 = paired[0].pngSha256
     expect(() => buildInterfaceCatalog({ baseCatalog: base, manifest, processedAssets: duplicateProcessed, processedBridges: bridges }))
       .toThrow('canonical distinct paths and hashes')
+  })
+
+  it('keeps retired structural IDs out of the real generated semantic mappings', async () => {
+    const catalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.3.0/catalog.json', 'utf8')) as Catalog
+    const partMappingFields = ['suggestedParts', 'effectPartIds', 'sourcePartIds', 'assetIds']
+    const mappedPartIds = catalog.semanticTraits.flatMap(trait => partMappingFields.flatMap(field => {
+      const value = trait.visualMapping?.[field]
+      return Array.isArray(value) ? value : []
+    }))
+
+    expect(mappedPartIds).not.toContain('head_round_dome')
+    expect(validateProductionMetadata(catalog).filter(diagnostic => (
+      diagnostic.code === 'PRODUCTION_DANGLING_VISUAL_MAPPING'
+      && diagnostic.message.includes('head_round_dome')
+    ))).toEqual([])
   })
 
   it('requires exact source-index coverage for every master node and bridge source PNG', async () => {

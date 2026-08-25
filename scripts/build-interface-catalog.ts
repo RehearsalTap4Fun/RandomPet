@@ -176,12 +176,30 @@ export function buildInterfaceCatalog(input: {
           boosts: Object.fromEntries(Object.entries(definition.boosts).filter(([partId]) => partIds.has(partId))),
         }
   )
+  const semanticPartIdArrayFields = ['suggestedParts', 'effectPartIds', 'sourcePartIds', 'assetIds'] as const
+  const retainExistingSemanticPartReferences = <T extends {
+    boosts?: Record<string, number>
+    visualMapping?: Record<string, unknown>
+  }>(definition: T): T => {
+    const retained = retainExistingPartBoosts(definition)
+    if (retained.visualMapping === undefined) return retained
+    const visualMapping = { ...retained.visualMapping }
+    for (const field of semanticPartIdArrayFields) {
+      const references = visualMapping[field]
+      if (Array.isArray(references)) {
+        visualMapping[field] = references.filter(reference => (
+          typeof reference !== 'string' || partIds.has(reference)
+        ))
+      }
+    }
+    return { ...retained, visualMapping }
+  }
   return {
     ...input.baseCatalog,
     version: '0.3.0',
     rigs: input.baseCatalog.rigs,
     parts,
-    semanticTraits: input.baseCatalog.semanticTraits.map(retainExistingPartBoosts),
+    semanticTraits: input.baseCatalog.semanticTraits.map(retainExistingSemanticPartReferences),
     modifiers: input.baseCatalog.modifiers.map(retainExistingPartBoosts),
     transitionBridges,
   }

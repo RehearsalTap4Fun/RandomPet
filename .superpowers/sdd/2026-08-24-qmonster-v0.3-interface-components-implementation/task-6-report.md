@@ -121,7 +121,7 @@ The post-approval independent review returned five actionable findings. All five
 2. Acceptance enforcement: `validateBipedSliceReview` now recursively finds the exact acceptance filename outside dependency metadata, requires exactly one record, verifies the user-approval fields, entry count, and live sheet/256/manifest hashes, and rejects missing, tampered, or duplicate records. The existing acceptance bytes remain unchanged.
 3. Metric completeness: every entry must contain exactly one `neck`, `shoulderLeft`, `shoulderRight`, `hipLeft`, and `hipRight` metric; every existing connector threshold remains enforced. Face ratios and visible bounds are checked against the canonical catalog's loaded `compositionPolicy`, not duplicated threshold literals. RED mutations covered missing/duplicate connectors plus face and bounds tampering.
 4. Temporary browser inputs: render-only browser JSON now lives below an OS `mkdtemp` directory and is removed in `finally`, including failure paths. The tracked review `biped-vertical-slice-inputs/00..07.json` delivery was removed; the test proves the temporary root is outside review and absent after failure.
-5. Obsolete artifacts: after resolving and verifying every target below this worktree, 47 exact Task-6 files and four empty directories were removed. These comprised retired round-head runtime copies, obsolete review entries 08–15 at both sizes, all obsolete browser inputs, three `tdd-*` review directories, and `debug-half.png`. Round-head source art, four candidates, prompt/selection evidence, and retired guides remain preserved.
+5. Obsolete artifacts: after resolving and verifying every target below this worktree, 47 exact Task-6 files and four empty directories were removed from the local working tree. Only the eight formerly tracked browser-input JSON files are represented as deletions in the fix-round commit; the retired round-head runtime copies, obsolete review entries 08–15, `tdd-*`/debug artifacts, and empty directories were untracked local residue and are absent from a clean checkout. Round-head source art, four candidates, prompt/selection evidence, and retired guides remain preserved.
 
 Task-boundary ruling: Task 5 Step 7 explicitly expects the full package `validate:v0.3.0` command to remain red before later production tasks. Its generated-catalog/interface stage is now green with zero diagnostics. The subsequent full-production CLI still reports the intentionally absent non-structural v0.3 runtime/source/audit matrix owned by Tasks 7–9; this fix round did not copy those assets, fabricate the future audit manifest, broaden the interface-only source index, or weaken that later gate.
 
@@ -137,4 +137,24 @@ Fix-round verification:
 - `validate-interface-slice --version 0.3.0 --rig biped --production --catalog-if-present ...`: 21 sources, 8 entries, 0 diagnostics.
 - Canonical acceptance validator: 8 entries, 0 diagnostics.
 - Leftover/preservation audit: obsolete targets absent; all four retired round-head candidates and both retired guides present.
+- Approved hashes rechecked unchanged: sheet `58766df74141fae1abcb66f447529b8d32ede934b11394877c12d2c478feaef4`, 256 sheet `0fa54d8968155465f84eec0de75303520bea637d1debae1f58e1f12301bd9974`, manifest `058dec48847ed6caa93dd58359c887c32c440de01f7522e14ee151d00ab7aa15`, acceptance `f1c14462fb4f14ad359cbe3cc029d13c1e85592bf5d25cb5630bd8b938be3520`.
+
+## Independent review fix round 2
+
+The scoped rereview found three remaining closure issues. All were fixed without running the slice renderer and without changing any approved review or acceptance bytes.
+
+1. Semantic visual-mapping closure: `buildInterfaceCatalog` now filters every semantic visual-mapping array whose values are part IDs (`suggestedParts`, `effectPartIds`, `sourcePartIds`, and `assetIds`) against the final retained part-ID set. Non-part semantic fields such as `sourceSlots` and `mood` remain unchanged. The real rebuilt catalog contains zero `head_round_dome` visual-mapping references and zero corresponding production dangling-mapping diagnostics.
+2. Canonical acceptance identity: `validateBipedSliceReview` now reads approval only from the exact repository-relative path `packages/asset-catalog/review/v0.3.0/biped-vertical-slice-acceptance.json`, while the repository scan still rejects duplicate exact filenames elsewhere. It also enforces `catalogVersion === 0.3.0`, `rendererVersion === 0.3.0`, and a parseable `reviewedAt` timestamp. RED evidence covered a valid record placed elsewhere plus simultaneous catalog-version, renderer-version, timestamp, and live-hash tampering.
+3. Clean-checkout residue: the local empty retired runtime directory `packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/head_round_dome/` was resolved inside this worktree, verified empty, and removed. Git does not track empty directories, so this is local cleanup rather than a tracked deletion; a clean checkout does not recreate it.
+
+Rereview verification:
+
+- P1 RED/GREEN: the fixture retained all four removed visual-mapping references and the real generated catalog retained `head_round_dome`; after the boundary fix and catalog-only rebuild, `scripts/build-interface-catalog.test.ts` passed 3/3.
+- P2 RED/GREEN: a correctly signed acceptance at a noncanonical path was previously accepted; after the exact-path/version/timestamp enforcement, `scripts/validate-biped-slice-review.test.ts` passed 7/7.
+- Combined focused Vitest: 2 files, 10 tests passed.
+- `npm run typecheck`: passed.
+- Production interface validation: 21 sources, 8 entries, 0 diagnostics.
+- Canonical acceptance CLI: 8 entries, 0 diagnostics.
+- Generated semantic visual-mapping audit: 229 references inspected, 0 `head_round_dome` references.
+- Resource-isolated full Vitest: 71/71 files; 590 passed, 2 skipped (`97.25 s`).
 - Approved hashes rechecked unchanged: sheet `58766df74141fae1abcb66f447529b8d32ede934b11394877c12d2c478feaef4`, 256 sheet `0fa54d8968155465f84eec0de75303520bea637d1debae1f58e1f12301bd9974`, manifest `058dec48847ed6caa93dd58359c887c32c440de01f7522e14ee151d00ab7aa15`, acceptance `f1c14462fb4f14ad359cbe3cc029d13c1e85592bf5d25cb5630bd8b938be3520`.
