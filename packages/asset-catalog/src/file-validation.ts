@@ -25,6 +25,9 @@ export async function validateAssetFile(
   if (!pathWithinRoot(assetRoot, resolvedPath)) {
     return [error('ASSET_PATH_OUTSIDE_ROOT', path, `Asset path escapes the asset root: ${assetPath}`)]
   }
+  if (!/^[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.(?:png|webp)$/u.test(assetPath)) {
+    return [error('ASSET_PATH_INVALID', path, `Asset path must use canonical portable segments without traversal, queries, or alternate separators: ${assetPath}`)]
+  }
   const extension = extname(resolvedPath).toLowerCase()
   if (extension !== '.png' && extension !== '.webp') {
     return [error('ASSET_EXTENSION_INVALID', path, `Asset must be a PNG or WebP: ${assetPath}`)]
@@ -55,6 +58,8 @@ export async function validateAssetFile(
   }
   if (metadata.format !== 'png' && metadata.format !== 'webp') {
     diagnostics.push(error('ASSET_FORMAT_INVALID', path, `Decoded asset format must be PNG or WebP: ${assetPath}`))
+  } else if (`.${metadata.format}` !== extension) {
+    diagnostics.push(error('ASSET_FORMAT_MISMATCH', path, `Decoded ${metadata.format.toUpperCase()} payload does not match declared ${extension} path: ${assetPath}`))
   }
   const dimensionsValid = options.dimensions === 'trimmed-node'
     ? metadata.width !== undefined && metadata.height !== undefined && metadata.width > 0 && metadata.height > 0 && metadata.width <= 2048 && metadata.height <= 2048

@@ -81,8 +81,8 @@ export interface InterfaceSourceManifest {
 }
 
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/u)
-const runtimePngPath = z.string().regex(/^assets\/v0\.3\.0\/.+\.png$/u)
-const runtimeWebpPath = z.string().regex(/^assets\/v0\.3\.0\/.+\.webp$/u)
+const runtimePngPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
+const runtimeWebpPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.webp$/u)
 const point = z.object({
   x: z.number().finite().min(0).max(2048),
   y: z.number().finite().min(0).max(2048),
@@ -202,6 +202,8 @@ const InterfaceSourceManifestSchema = z.object({
     }
   }
   const bridgeClasses = value.bridges.map(item => item.connectorClass)
+  const bridgeIds = value.bridges.map(item => item.id)
+  if (new Set(bridgeIds).size !== bridgeIds.length) context.addIssue({ code: 'custom', path: ['bridges'], message: 'Transition bridge IDs must be unique.' })
   if (
     bridgeClasses.length !== 3
     || new Set(bridgeClasses).size !== 3

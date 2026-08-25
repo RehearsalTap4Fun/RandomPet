@@ -420,6 +420,11 @@ export async function validateProductionInterfaceResources(
 ): Promise<Diagnostic[]> {
   if (catalog.version !== '0.3.0') return []
   const diagnostics: Diagnostic[] = []
+  const bridgeIds = new Set<string>()
+  for (const [bridgeIndex, bridge] of (catalog.transitionBridges ?? []).entries()) {
+    if (bridgeIds.has(bridge.id)) diagnostics.push(error('PRODUCTION_INTERFACE_BRIDGE_ID_DUPLICATE', ['transitionBridges', String(bridgeIndex), 'id'], `Duplicate transition bridge ID: ${bridge.id}`))
+    bridgeIds.add(bridge.id)
+  }
   const canonicalAssetRoot = await realpath(resolve(assetRoot)).catch(() => resolve(assetRoot))
   const manifestPath = options.manifestPath ?? resolve(canonicalAssetRoot, '..', '..', '..', '..', 'asset-source', 'v0.3.0', 'interface-manifest.json')
   let manifest: InterfaceSourceManifest | undefined

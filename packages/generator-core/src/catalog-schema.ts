@@ -280,6 +280,10 @@ export const CatalogSchema = z.object({
       message: 'Catalog 0.3.0 requires transition bridge definitions.',
     })
   }
+  const bridgeIds = (catalog.transitionBridges ?? []).map(bridge => bridge.id)
+  if (new Set(bridgeIds).size !== bridgeIds.length) {
+    context.addIssue({ code: 'custom', path: ['transitionBridges'], message: 'Catalog 0.3.0 transition bridge IDs must be unique.' })
+  }
   const structuralSlots = new Set(['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'])
   for (const [index, part] of catalog.parts.entries()) {
     if (!structuralSlots.has(part.slotId) || part.composition?.isNone) continue

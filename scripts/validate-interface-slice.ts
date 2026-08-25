@@ -134,6 +134,10 @@ export async function validateInterfaceProductionReadiness(input: {
   const paths = productionPaths(input.manifest.catalogVersion)
   const lexicalRoot = resolve(input.repositoryRoot)
   const root = await realpath(lexicalRoot).catch(() => lexicalRoot)
+  const lexicalSourceRoot = resolve(root, paths.sourceRoot)
+  const sourceRoot = await realpath(lexicalSourceRoot).catch(() => lexicalSourceRoot)
+  const sourceRootRemainder = relative(root, sourceRoot)
+  const sourceRootEscapesRepository = sourceRootRemainder.startsWith('..') || isAbsolute(sourceRootRemainder)
   let productionAssetsChecked = 0
   const productionSources = [...new Set([
     ...input.manifest.assets.flatMap(asset => [asset.sourcePngPath, ...asset.renderNodes.map(node => node.sourcePngPath)]),
@@ -149,8 +153,8 @@ export async function validateInterfaceProductionReadiness(input: {
     }
     try {
       const canonicalTarget = await realpath(target)
-      const canonicalRemainder = relative(root, canonicalTarget)
-      if (canonicalRemainder.startsWith('..') || isAbsolute(canonicalRemainder)) {
+      const canonicalRemainder = relative(sourceRoot, canonicalTarget)
+      if (sourceRootEscapesRepository || canonicalRemainder.startsWith('..') || isAbsolute(canonicalRemainder)) {
         diagnostics.push(error('INTERFACE_PRODUCTION_SOURCE_PATH_INVALID', ['productionAssets', String(index)], `Production source resolves outside ${paths.sourceRoot}: ${path}`))
         continue
       }

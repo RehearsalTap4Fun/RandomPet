@@ -135,6 +135,29 @@ describe('validateCatalogFiles', () => {
     )
   })
 
+  it('rejects PNG and WebP payloads whose decoded format disagrees with the filename', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-format-mismatch-'))
+    temporaryDirectories.push(tempRoot)
+    const source = sharp({ create: { width: 1024, height: 1024, channels: 4, background: '#00000000' } })
+    await writeFile(join(tempRoot, 'webp-as-png.png'), await source.clone().webp({ lossless: true }).toBuffer())
+    await writeFile(join(tempRoot, 'png-as-webp.webp'), await source.clone().png().toBuffer())
+
+    const canonicalRoot = await realpath(tempRoot)
+    expect(await validateAssetFile(canonicalRoot, 'webp-as-png.png', undefined, ['node', 'pngPath']))
+      .toContainEqual(expect.objectContaining({ code: 'ASSET_FORMAT_MISMATCH' }))
+    expect(await validateAssetFile(canonicalRoot, 'png-as-webp.webp', undefined, ['node', 'assetPath']))
+      .toContainEqual(expect.objectContaining({ code: 'ASSET_FORMAT_MISMATCH' }))
+  })
+
+  it('rejects dot segments, backslashes, query-like names, and noncanonical separators', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-path-syntax-'))
+    temporaryDirectories.push(tempRoot)
+    for (const path of ['nodes/../part.png', 'nodes\\part.png', 'nodes//part.png', 'nodes/part?draft.png', './part.png']) {
+      expect(await validateAssetFile(tempRoot, path, undefined, ['assetPath']))
+        .toContainEqual(expect.objectContaining({ code: 'ASSET_PATH_INVALID' }))
+    }
+  })
+
   it('returns a nonzero CLI status when file diagnostics are present', async () => {
     await expect(execFile(process.execPath, [
       join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'),

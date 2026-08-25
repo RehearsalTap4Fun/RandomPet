@@ -23,7 +23,6 @@ const REQUIRED_PROVIDER_SOCKETS: Partial<Record<VisualSlotId, readonly string[]>
 const STRUCTURAL_SLOTS = new Set<VisualSlotId>([
   'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
 ])
-const V03_BIPED_SLICE_BODY_IDS = new Set(['body_biped_peanut', 'body_biped_tall'])
 const REQUIRED_CONNECTORS: Partial<Record<VisualSlotId, ReadonlyArray<{
   id: string
   role: 'receiver' | 'plug'
@@ -108,19 +107,39 @@ function isUnitVector(vector: { x: number; y: number }): boolean {
 }
 
 function isCanonicalResourcePath(path: string, extension: '.png' | '.webp'): boolean {
-  return path.startsWith('assets/v0.3.0/')
-    && path.endsWith(extension)
-    && !path.includes('..')
-    && !path.includes('\\')
+  const suffix = extension === '.png' ? 'png' : 'webp'
+  return new RegExp(`^assets/v0\\.3\\.0/[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*\\.${suffix}$`, 'u').test(path)
 }
 
 function hasCanonicalHash(hash: string): boolean {
   return /^[a-f0-9]{64}$/i.test(hash)
 }
 
+function requiredConnectorProfiles(catalog: Catalog, part: Catalog['parts'][number], rigId: RigId): ReadonlyArray<{
+  id: string
+  role: 'receiver' | 'plug'
+  connectorClass: ConnectorClass
+}> {
+  if (part.slotId !== 'bodyFrame') return REQUIRED_CONNECTORS[part.slotId] ?? []
+  const required = new Map<string, { id: string; role: 'receiver'; connectorClass: ConnectorClass }>()
+  for (const child of catalog.parts) {
+    if (child.slotId === 'bodyFrame' || !STRUCTURAL_SLOTS.has(child.slotId) || child.composition?.isNone || !child.compatibleRigs.includes(rigId)) continue
+    const composition = child.composition
+    if (composition?.mode !== 'interface') continue
+    const variant = composition.variantsByRig[rigId]
+    if (variant === undefined) continue
+    for (const connector of variant.connectors) {
+      if (connector.role !== 'plug') continue
+      required.set(`${connector.id}:${connector.connectorClass}`, { id: connector.id, role: 'receiver', connectorClass: connector.connectorClass })
+    }
+  }
+  return [...required.values()]
+}
+
 function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
   if (catalog.version !== '0.3.0') return
   const bridges = catalog.transitionBridges ?? []
+  reportDuplicateIds(bridges, 'transitionBridges', diagnostics)
   for (const [partIndex, part] of catalog.parts.entries()) {
     if (!STRUCTURAL_SLOTS.has(part.slotId) || part.composition?.isNone) continue
     const composition = part.composition
@@ -157,9 +176,7 @@ function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[])
           ))
         }
       }
-      const requiredConnectors = (REQUIRED_CONNECTORS[part.slotId] ?? []).filter(expected => (
-        !V03_BIPED_SLICE_BODY_IDS.has(part.id) || !['tail', 'extra'].includes(expected.connectorClass)
-      ))
+      const requiredConnectors = requiredConnectorProfiles(catalog, part, rigId)
       for (const expected of requiredConnectors) {
         const matching = variant.connectors.filter(connector => connector.id === expected.id)
         if (

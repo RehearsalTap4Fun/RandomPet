@@ -116,4 +116,21 @@ describe('parseInterfaceSourceManifest', () => {
     arms.renderNodes[1].sourcePngPath = arms.renderNodes[0].sourcePngPath
     expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
   })
+
+  it('rejects duplicate bridge IDs and noncanonical runtime paths', () => {
+    const duplicate = makeValidInterfaceSourceManifest()
+    duplicate.bridges[1].id = duplicate.bridges[0].id
+    expect(parseInterfaceSourceManifest(duplicate).ok).toBe(false)
+
+    for (const path of [
+      'assets/v0.3.0/bridges/biped/../neck.png',
+      'assets\\v0.3.0\\bridges\\biped\\neck.png',
+      'assets/v0.3.0/bridges//biped/neck.png',
+      'assets/v0.3.0/bridges/biped/neck?draft.png',
+    ]) {
+      const invalid = makeValidInterfaceSourceManifest()
+      invalid.bridges[0].neutralPngPath = path
+      expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
+    }
+  })
 })

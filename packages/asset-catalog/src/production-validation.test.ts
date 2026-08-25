@@ -221,7 +221,34 @@ describe('strict production catalog validation', () => {
     expect(await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)).toContainEqual(expect.objectContaining({ code: 'ASSET_FILE_MISSING' }))
     await writeFile(nodePng, Buffer.from('corrupt'))
     expect(await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)).toContainEqual(expect.objectContaining({ code: 'ASSET_IMAGE_INVALID' }))
+    const renamedWebp = await sharp({ create: { width: 64, height: 48, channels: 4, background: '#ff000080' } }).webp({ lossless: true }).toBuffer()
+    await writeFile(nodePng, renamedWebp)
+    variant.renderNodes[0]!.pngSha256 = createHash('sha256').update(renamedWebp).digest('hex')
+    sourceIndex.sources[0].runtimeResources.find(resource => resource.path === variant.renderNodes[0]!.pngPath)!.sha256 = variant.renderNodes[0]!.pngSha256
+    expect(await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)).toContainEqual(expect.objectContaining({ code: 'ASSET_FORMAT_MISMATCH' }))
     await writeFile(nodePng, originalNodePng)
+    variant.renderNodes[0]!.pngSha256 = createHash('sha256').update(originalNodePng).digest('hex')
+    sourceIndex.sources[0].runtimeResources.find(resource => resource.path === variant.renderNodes[0]!.pngPath)!.sha256 = variant.renderNodes[0]!.pngSha256
+    const wrongEncodingCases = [
+      { owner: variant.connectors[0] as any, pathField: 'contourMaskPath', hashField: 'contourMaskSha256', source: sourceIndex.sources[0], format: 'webp' },
+      { owner: bridge as any, pathField: 'frontMaskPath', hashField: 'frontMaskSha256', source: sourceIndex.sources[1], format: 'webp' },
+      { owner: bridge as any, pathField: 'neutralAssetPath', hashField: 'neutralAssetSha256', source: sourceIndex.sources[1], format: 'png' },
+    ] as const
+    for (const mismatch of wrongEncodingCases) {
+      const portablePath = mismatch.owner[mismatch.pathField] as string
+      const target = join(assetRoot, portablePath.replace(/^assets\/v0\.3\.0\//u, ''))
+      const originalBytes = await readFile(target)
+      const wrongBytes = mismatch.format === 'webp'
+        ? await sharp({ create: { width: 2048, height: 2048, channels: 4, background: '#ffffff80' } }).webp({ lossless: true }).toBuffer()
+        : await sharp({ create: { width: 2048, height: 2048, channels: 4, background: '#ffffff80' } }).png().toBuffer()
+      await writeFile(target, wrongBytes)
+      mismatch.owner[mismatch.hashField] = createHash('sha256').update(wrongBytes).digest('hex')
+      mismatch.source.runtimeResources.find(resource => resource.path === portablePath)!.sha256 = mismatch.owner[mismatch.hashField]
+      expect(await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex)).toContainEqual(expect.objectContaining({ code: 'ASSET_FORMAT_MISMATCH' }))
+      await writeFile(target, originalBytes)
+      mismatch.owner[mismatch.hashField] = createHash('sha256').update(originalBytes).digest('hex')
+      mismatch.source.runtimeResources.find(resource => resource.path === portablePath)!.sha256 = mismatch.owner[mismatch.hashField]
+    }
     const antialiasedMask = sharp(Buffer.from([255, 255, 255, 128]), { raw: { width: 1, height: 1, channels: 4 } })
       .resize(2048, 2048, { kernel: 'nearest' })
     const bridgeFrontPath = join(assetRoot, bridge.frontMaskPath.replace(/^assets\/v0\.3\.0\//u, ''))
@@ -278,6 +305,15 @@ describe('strict production catalog validation', () => {
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_SOURCE_INDEX_INVALID' }))
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_MANIFEST_MISMATCH' }))
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_REVIEW_HASH_CONFLICT' }))
+  })
+
+  it('rejects duplicate transition bridge IDs before exact-inventory Map construction', async () => {
+    const catalog = makeInterfaceCatalogFixture()
+    catalog.transitionBridges![1]!.id = catalog.transitionBridges![0]!.id
+    const diagnostics = await validateProductionInterfaceResources(catalog, 'missing-assets', { catalogVersion: '0.3.0', sources: [] }, {
+      manifestPath: join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json'),
+    })
+    expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_BRIDGE_ID_DUPLICATE' }))
   })
 
   it('requires complete v0.3 connector, render-node, and bridge hash metadata', () => {

@@ -80,6 +80,40 @@ describe('catalog validation', () => {
     }))
   })
 
+  it('rejects duplicate transition bridge IDs and noncanonical bridge paths', () => {
+    const duplicate = makeInterfaceCatalogFixture() as any
+    duplicate.transitionBridges[1].id = duplicate.transitionBridges[0].id
+    expect(parseCatalog(duplicate)).toMatchObject({ ok: false })
+    expect(validateCatalogStructure(duplicate)).toContainEqual(expect.objectContaining({ code: 'CATALOG_ID_DUPLICATE' }))
+
+    const invalidPath = makeInterfaceCatalogFixture() as any
+    invalidPath.transitionBridges[0].neutralPngPath = 'assets/v0.3.0/bridges/blob/../neck.png'
+    expect(validateCatalogStructure(invalidPath)).toContainEqual(expect.objectContaining({ code: 'CONNECTOR_BRIDGE_RESOURCE_INVALID' }))
+  })
+
+  it('derives body receivers from compatible non-none child capabilities rather than body IDs', () => {
+    const full = makeInterfaceCatalogFixture() as any
+    const fullBody = full.parts.find((part: any) => part.slotId === 'bodyFrame')
+    fullBody.id = 'renamed_body_without_special_case'
+    fullBody.composition.variantsByRig.blob.connectors = fullBody.composition.variantsByRig.blob.connectors
+      .filter((connector: any) => connector.id !== 'tailRoot')
+    expect(validateCatalogStructure(full)).toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_PROFILE_INVALID',
+      message: expect.stringContaining('tailRoot'),
+    }))
+
+    const slice = makeInterfaceCatalogFixture() as any
+    const sliceBody = slice.parts.find((part: any) => part.slotId === 'bodyFrame')
+    sliceBody.id = 'renamed_slice_body'
+    slice.parts = slice.parts.filter((part: any) => !(['tail', 'extraAppendage'].includes(part.slotId) && !part.composition?.isNone))
+    sliceBody.composition.variantsByRig.blob.connectors = sliceBody.composition.variantsByRig.blob.connectors
+      .filter((connector: any) => !['tailRoot', 'extraLeft', 'extraRight'].includes(connector.id))
+    expect(validateCatalogStructure(slice)).not.toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_PROFILE_INVALID',
+      message: expect.stringMatching(/tailRoot|extraLeft|extraRight/u),
+    }))
+  })
+
   it('rejects multiple provider nodes for a socket-providing composition part', () => {
     const catalog = makeCompositionCatalogFixture()
     const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!
