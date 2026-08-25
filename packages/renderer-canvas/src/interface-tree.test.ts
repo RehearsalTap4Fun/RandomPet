@@ -36,6 +36,40 @@ describe('resolveInterfaceTree', () => {
     expect(catalog).toEqual(originalCatalog)
   })
 
+  it('associates plug connectors to render nodes by connector ID instead of array position', () => {
+    const { catalog, spec } = interfaceFixture()
+    const arms = catalog.parts.find(part => part.slotId === 'arms')!
+    if (arms.composition?.mode !== 'interface') throw new Error('expected interface arms')
+    const variant = arms.composition.variantsByRig.blob!
+    variant.renderNodes.reverse()
+
+    const result = resolveInterfaceTree(spec, catalog)
+
+    const armsByConnector = Object.fromEntries(result.bridges
+      .filter(bridge => bridge.plug.connectorClass === 'shoulder')
+      .map(bridge => [bridge.connectorId, bridge.childNodeKey]))
+    expect(armsByConnector).toEqual({
+      shoulderLeft: expect.stringContaining('short_0'),
+      shoulderRight: expect.stringContaining('short_1'),
+    })
+  })
+
+  it('blocks a malformed runtime variant that reuses one connector ID', () => {
+    const { catalog, spec } = interfaceFixture()
+    const arms = catalog.parts.find(part => part.slotId === 'arms')!
+    if (arms.composition?.mode !== 'interface') throw new Error('expected interface arms')
+    const variant = arms.composition.variantsByRig.blob!
+    variant.renderNodes[1]!.connectorId = variant.renderNodes[0]!.connectorId
+
+    const result = resolveInterfaceTree(spec, catalog)
+
+    expect(result.nodes).toEqual([])
+    expect(result.bridges).toEqual([])
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_PROFILE_INVALID', path: ['visualSlots', 'arms'],
+    }))
+  })
+
   it('translates head face zones and reanchors face nodes through variant feature sockets', () => {
     const { catalog, spec } = interfaceFixture()
     const head = catalog.parts.find(part => part.slotId === 'headShape')!
@@ -53,6 +87,25 @@ describe('resolveInterfaceTree', () => {
     expect(result.faceSafeZones).toEqual([{ x: 500, y: 400, width: 1048, height: 900 }])
     expect(result.nodes.find(node => node.slotId === 'eyes')?.placement).toEqual({
       x: -124, y: -224, scaleX: 1, scaleY: 1,
+    })
+  })
+
+  it('bounds a rotated face-safe-zone from all four transformed corners', () => {
+    const { catalog, spec } = interfaceFixture()
+    const head = catalog.parts.find(part => part.slotId === 'headShape')!
+    if (head.composition?.mode !== 'interface') throw new Error('expected interface head')
+    const variant = head.composition.variantsByRig.blob!
+    const plug = variant.connectors.find(connector => connector.id === 'neck')!
+    const angle = 10 * Math.PI / 180
+    plug.tangent = { x: Math.cos(angle), y: Math.sin(angle) }
+
+    const result = resolveInterfaceTree(spec, catalog)
+
+    expect(result.faceSafeZones[0]).toEqual({
+      x: expect.closeTo(399.604, 3),
+      y: expect.closeTo(318.488, 3),
+      width: expect.closeTo(1188.362, 3),
+      height: expect.closeTo(1068.310, 3),
     })
   })
 

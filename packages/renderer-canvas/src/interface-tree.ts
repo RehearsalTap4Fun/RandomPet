@@ -88,8 +88,16 @@ function childNodeForConnector(
   variant: StructuralVariantDefinition,
   connector: ConnectorProfile,
 ) {
-  const plugIndex = variant.connectors.filter(item => item.role === 'plug').findIndex(item => item === connector)
-  return variant.renderNodes[plugIndex < 0 ? 0 : Math.min(plugIndex, variant.renderNodes.length - 1)]
+  return variant.renderNodes.find(node => node.connectorId === connector.id)
+}
+
+function hasOneNodePerPlug(variant: StructuralVariantDefinition): boolean {
+  const plugIds = variant.connectors.filter(item => item.role === 'plug').map(item => item.id)
+  const nodeIds = variant.renderNodes.map(node => node.connectorId)
+  return plugIds.length === nodeIds.length
+    && nodeIds.every((id): id is string => id !== undefined)
+    && new Set(nodeIds).size === nodeIds.length
+    && plugIds.every(id => nodeIds.includes(id))
 }
 
 function structuralTree(spec: MonsterSpec, catalog: Catalog): InterfaceRenderResult {
@@ -133,6 +141,13 @@ function structuralTree(spec: MonsterSpec, catalog: Catalog): InterfaceRenderRes
       ))
       continue
     }
+    if (!hasOneNodePerPlug(childVariant)) {
+      diagnostics.push(diagnostic(
+        'CONNECTOR_PROFILE_INVALID', slotId,
+        `Selected ${slotId} requires one render node for every plug connector ID.`,
+      ))
+      continue
+    }
     const childNodes: ResolvedRenderNode[] = []
     for (const plug of childVariant.connectors.filter(item => item.role === 'plug')) {
       const receiver = bodyVariant.connectors.find(item => (
@@ -158,7 +173,7 @@ function structuralTree(spec: MonsterSpec, catalog: Catalog): InterfaceRenderRes
         continue
       }
       const receiverWorld = worldConnector(receiver, bodyNode.placement)
-      const solved = solveConnector(receiverWorld, plug, bridge)
+      const solved = solveConnector(receiverWorld, plug, bridge, node.transform)
       if (!solved.ok) {
         diagnostics.push(diagnostic(solved.code, slotId, solved.message))
         continue
@@ -168,11 +183,7 @@ function structuralTree(spec: MonsterSpec, catalog: Catalog): InterfaceRenderRes
         slotId,
         part: childPart,
         node,
-        placement: {
-          ...solved.childPlacement,
-          scaleX: node.transform.mirrorX ? -node.transform.scale : node.transform.scale,
-          scaleY: node.transform.scale,
-        },
+        placement: solved.childPlacement,
         sequence: sequence++,
       }
       nodes.push(resolvedNode)
@@ -191,13 +202,20 @@ function structuralTree(spec: MonsterSpec, catalog: Catalog): InterfaceRenderRes
     providers.set(slotId, childNodes)
     for (const node of childNodes) {
       for (const zone of childVariant.faceSafeZones ?? []) {
-        const first = worldPoint(node.placement, zone)
-        const second = worldPoint(node.placement, {
-          x: zone.x + zone.width, y: zone.y + zone.height,
-        })
+        const corners = [
+          worldPoint(node.placement, zone),
+          worldPoint(node.placement, { x: zone.x + zone.width, y: zone.y }),
+          worldPoint(node.placement, { x: zone.x, y: zone.y + zone.height }),
+          worldPoint(node.placement, { x: zone.x + zone.width, y: zone.y + zone.height }),
+        ]
+        const xs = corners.map(point => point.x)
+        const ys = corners.map(point => point.y)
+        const minX = Math.min(...xs)
+        const maxX = Math.max(...xs)
+        const minY = Math.min(...ys)
+        const maxY = Math.max(...ys)
         faceSafeZones.push({
-          x: Math.min(first.x, second.x), y: Math.min(first.y, second.y),
-          width: Math.abs(second.x - first.x), height: Math.abs(second.y - first.y),
+          x: minX, y: minY, width: maxX - minX, height: maxY - minY,
         })
       }
     }

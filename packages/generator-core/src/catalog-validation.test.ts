@@ -4,6 +4,29 @@ import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 
 describe('catalog validation', () => {
+  it('requires a one-to-one connector ID association for v0.3 plug render nodes', () => {
+    const missing = makeInterfaceCatalogFixture() as any
+    const missingArms = missing.parts.find((part: { slotId: string }) => part.slotId === 'arms')
+    delete missingArms.composition.variantsByRig.blob.renderNodes[0].connectorId
+
+    const duplicate = makeInterfaceCatalogFixture() as any
+    const duplicateArms = duplicate.parts.find((part: { slotId: string }) => part.slotId === 'arms')
+    duplicateArms.composition.variantsByRig.blob.renderNodes[1].connectorId = 'shoulderLeft'
+
+    expect(parseCatalog(missing)).toMatchObject({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining('one render node') }),
+      ]),
+    })
+    expect(parseCatalog(duplicate)).toMatchObject({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining('one render node') }),
+      ]),
+    })
+  })
+
   it('reports interface composition metadata as incompatible with v0.2', () => {
     const catalog = makeCompositionCatalogFixture() as any
     const interfaceCatalog = makeInterfaceCatalogFixture() as any

@@ -41,6 +41,27 @@ describe('buildBridgeMesh', () => {
     expect(mesh.triangles).toHaveLength(18)
   })
 
+  it('fixes asymmetric bridge endpoints to the declared raster contour frontiers', () => {
+    const pixels = (points: readonly (readonly [number, number])[]) => {
+      const value = new Uint8ClampedArray(16 * 16 * 4)
+      for (const [x, y] of points) value[(y * 16 + x) * 4 + 3] = 255
+      return value
+    }
+    const receiverContour = {
+      pixels: pixels([[2, 3], [8, 3], [3, 4], [7, 4]]), width: 16, height: 16,
+    }
+    const plugContour = {
+      pixels: pixels([[4, 12], [11, 12], [5, 13], [10, 13]]), width: 16, height: 16,
+    }
+
+    const mesh = buildBridgeMesh(solved(), { receiver: receiverContour, plug: plugContour })
+
+    expect(mesh.rows[0]![0]).toEqual({ x: 3.5, y: 4.5 })
+    expect(mesh.rows[0]![3]).toEqual({ x: 7.5, y: 4.5 })
+    expect(mesh.rows[3]![0]).toEqual({ x: 4.5, y: 12.5 })
+    expect(mesh.rows[3]![3]).toEqual({ x: 11.5, y: 12.5 })
+  })
+
   it('rejects non-finite solved connector geometry', () => {
     const invalid = solved()
     invalid.plugOrigin.x = Number.NaN

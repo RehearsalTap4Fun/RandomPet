@@ -1,4 +1,5 @@
 import type {
+  ApprovedTransform,
   ConnectorProfile,
   Point2D,
   TransitionBridgeDefinition,
@@ -62,9 +63,9 @@ function unit(point: Point2D): Point2D {
   return { x: point.x / length, y: point.y / length }
 }
 
-function angleDegrees(receiver: ConnectorProfile, plug: ConnectorProfile): number {
+function angleDegrees(receiver: ConnectorProfile, plugTangent: Point2D): number {
   const left = unit(receiver.tangent)
-  const right = unit(plug.tangent)
+  const right = unit(plugTangent)
   return Math.atan2(
     left.x * right.y - left.y * right.x,
     left.x * right.x + left.y * right.y,
@@ -75,6 +76,7 @@ export function solveConnector(
   receiver: ConnectorProfile,
   plug: ConnectorProfile,
   bridge: TransitionBridgeDefinition | undefined,
+  transform: ApprovedTransform = { scale: 1, mirrorX: false },
 ): ConnectorSolveResult {
   if (
     receiver.role !== 'receiver'
@@ -103,9 +105,23 @@ export function solveConnector(
     }
   }
 
-  const widthRatio = plug.width / receiver.width
-  const depthRatio = plug.depth / receiver.depth
-  const rotationDegrees = angleDegrees(receiver, plug)
+  const scaleX = transform.mirrorX ? -transform.scale : transform.scale
+  const scaleY = transform.scale
+  const transformedPlugOrigin = {
+    x: plug.origin.x * scaleX,
+    y: plug.origin.y * scaleY,
+  }
+  const transformedPlugTangent = unit({
+    x: plug.tangent.x * scaleX,
+    y: plug.tangent.y * scaleY,
+  })
+  const transformedPlugNormal = unit({
+    x: plug.outwardNormal.x * scaleX,
+    y: plug.outwardNormal.y * scaleY,
+  })
+  const widthRatio = plug.width * Math.abs(scaleX) / receiver.width
+  const depthRatio = plug.depth * Math.abs(scaleY) / receiver.depth
+  const rotationDegrees = angleDegrees(receiver, transformedPlugTangent)
   if (
     !within(widthRatio, receiver.warpLimits.widthRatio)
     || !within(widthRatio, plug.warpLimits.widthRatio)
@@ -124,26 +140,34 @@ export function solveConnector(
   const childPlacement: Placement = {
     x: receiver.origin.x,
     y: receiver.origin.y,
-    scaleX: 1,
-    scaleY: 1,
+    scaleX,
+    scaleY,
     ...(rotationDegrees === 0 ? {} : { rotationDegrees: -rotationDegrees }),
   }
   const childRadians = -rotationDegrees * Math.PI / 180
   const rotatedPlugOrigin = {
-    x: plug.origin.x * Math.cos(childRadians) - plug.origin.y * Math.sin(childRadians),
-    y: plug.origin.x * Math.sin(childRadians) + plug.origin.y * Math.cos(childRadians),
+    x: transformedPlugOrigin.x * Math.cos(childRadians) - transformedPlugOrigin.y * Math.sin(childRadians),
+    y: transformedPlugOrigin.x * Math.sin(childRadians) + transformedPlugOrigin.y * Math.cos(childRadians),
   }
   childPlacement.x -= rotatedPlugOrigin.x
   childPlacement.y -= rotatedPlugOrigin.y
   const receiverNormal = unit(receiver.outwardNormal)
   const receiverTangent = unit(receiver.tangent)
+  const plugTangent = {
+    x: transformedPlugTangent.x * Math.cos(childRadians) - transformedPlugTangent.y * Math.sin(childRadians),
+    y: transformedPlugTangent.x * Math.sin(childRadians) + transformedPlugTangent.y * Math.cos(childRadians),
+  }
+  const plugNormal = {
+    x: transformedPlugNormal.x * Math.cos(childRadians) - transformedPlugNormal.y * Math.sin(childRadians),
+    y: transformedPlugNormal.x * Math.sin(childRadians) + transformedPlugNormal.y * Math.cos(childRadians),
+  }
   const receiverOrigin = {
     x: receiver.origin.x - receiverNormal.x * receiver.depth / 2,
     y: receiver.origin.y - receiverNormal.y * receiver.depth / 2,
   }
   const plugOrigin = {
-    x: receiver.origin.x + receiverNormal.x * plug.depth / 2,
-    y: receiver.origin.y + receiverNormal.y * plug.depth / 2,
+    x: receiver.origin.x - plugNormal.x * plug.depth * Math.abs(scaleY) / 2,
+    y: receiver.origin.y - plugNormal.y * plug.depth * Math.abs(scaleY) / 2,
   }
   return {
     ok: true,
@@ -153,13 +177,13 @@ export function solveConnector(
     receiverOrigin,
     plugOrigin,
     receiverTangent,
-    plugTangent: { ...receiverTangent },
+    plugTangent,
     receiverNormal,
-    plugNormal: { x: -receiverNormal.x, y: -receiverNormal.y },
+    plugNormal,
     receiverWidth: receiver.width,
-    plugWidth: plug.width,
+    plugWidth: plug.width * Math.abs(scaleX),
     receiverDepth: receiver.depth,
-    plugDepth: plug.depth,
+    plugDepth: plug.depth * Math.abs(scaleY),
     widthRatio,
     depthRatio,
     rotationDegrees,

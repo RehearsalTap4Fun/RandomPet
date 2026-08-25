@@ -95,4 +95,34 @@ describe('solveConnector', () => {
       plugTangent: { x: 1, y: 0 },
     })
   })
+
+  it('solves the scaled mirrored and rotated plug profile before translation', () => {
+    const receiver = profile('receiver')
+    receiver.width = 60
+    receiver.depth = 36
+    receiver.warpLimits.rotationDegrees = { min: -180, max: 180 }
+    const plug = profile('plug')
+    plug.origin = { x: 10, y: 4 }
+    plug.outwardNormal = { x: 0, y: 1 }
+    plug.warpLimits.rotationDegrees = { min: -180, max: 180 }
+
+    const result = solveConnector(receiver, plug, bridge(), { scale: 1.5, mirrorX: true })
+
+    expect(result).toMatchObject({
+      ok: true,
+      widthRatio: 1,
+      depthRatio: 1,
+      rotationDegrees: 180,
+      childPlacement: {
+        x: expect.closeTo(105, 8),
+        y: expect.closeTo(86, 8),
+        scaleX: -1.5,
+        scaleY: 1.5,
+        rotationDegrees: -180,
+      },
+      plugTangent: { x: expect.closeTo(1, 8), y: expect.closeTo(0, 8) },
+      plugNormal: { x: expect.closeTo(0, 8), y: expect.closeTo(-1, 8) },
+      plugOrigin: { x: expect.closeTo(120, 8), y: expect.closeTo(98, 8) },
+    })
+  })
 })

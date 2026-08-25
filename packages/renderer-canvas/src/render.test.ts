@@ -141,6 +141,8 @@ function makeHealthyInterfaceSurfaceFactory(
   const opaque = new Uint8ClampedArray(size)
   const body = new Uint8ClampedArray(size)
   const child = new Uint8ClampedArray(size)
+  const receiverContour = new Uint8ClampedArray(size)
+  const plugContour = new Uint8ClampedArray(size)
   for (let y = 990; y <= 1058; y += 1) {
     for (let x = 960; x <= 1088; x += 1) {
       if (mode !== 'disconnected' || y <= 994 || y >= 1054) {
@@ -150,6 +152,8 @@ function makeHealthyInterfaceSurfaceFactory(
       if (mode === 'internal-child' ? x < 1024 : x >= 1024) {
         child[(y * RASTER_WIDTH + x) * 4 + 3] = 255
       }
+      if (y <= 994) receiverContour[(y * RASTER_WIDTH + x) * 4 + 3] = 255
+      if (y >= 1054) plugContour[(y * RASTER_WIDTH + x) * 4 + 3] = 255
     }
   }
   let nextCanvas = 0
@@ -176,7 +180,10 @@ function makeHealthyInterfaceSurfaceFactory(
             ? new Uint8ClampedArray(size)
             : index === 1
             ? mode === 'invalid-body' ? new Uint8ClampedArray(4) : body
-            : index === 2 ? child : opaque,
+            : index === 2 ? child
+            : index === 15 ? receiverContour
+            : index === 16 ? plugContour
+            : opaque,
         }
       },
     })
@@ -1194,6 +1201,62 @@ describe('v0.3 interface rendering', () => {
     }))
   })
 
+  it('draws declared connector foreground and background masks into seam partitions', async () => {
+    const { catalog, spec } = fixture()
+    const calls: string[] = []
+
+    await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls),
+    })
+
+    expect(calls.some(call => call.includes(
+      'draw:assets/v0.3.0/connectors/blob/neck-background.png',
+    ))).toBe(true)
+    expect(calls.some(call => call.includes(
+      'draw:assets/v0.3.0/connectors/blob/neck-foreground.png',
+    ))).toBe(true)
+  })
+
+  it('blocks instead of using a bounding-box bridge when affine canvas APIs are unavailable', async () => {
+    const { catalog, spec } = fixture()
+    const calls: string[] = []
+    const healthy = makeHealthyInterfaceSurfaceFactory(calls)
+    const surfaceFactory = (width: number, height: number, destination: CanvasRenderingContext2D) => {
+      const surface = healthy(width, height, destination)
+      Object.assign(surface.context, { transform: undefined })
+      return surface
+    }
+
+    const result = await renderMonster(makeRecordingContext(calls, 'main:'), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory,
+    })
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+      message: expect.stringContaining('affine'),
+    }))
+    expect(calls.filter(call => call === 'main:save')).toHaveLength(0)
+  })
+
+  it('isolates a final composition failure and restores the caller canvas state', async () => {
+    const { catalog, spec } = fixture()
+    const calls: string[] = []
+    const context = makeRecordingContext(calls, 'main:')
+    context.drawImage = (() => { throw new Error('commit failed') }) as typeof context.drawImage
+
+    const result = await renderMonster(context, spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+    })
+
+    expect(result.drawnAssetIds).toEqual([])
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+      message: expect.stringContaining('final'),
+    }))
+    expect(calls.filter(call => call === 'main:save')).toHaveLength(1)
+    expect(calls.filter(call => call === 'main:restore')).toHaveLength(1)
+  })
+
   it('does not mutate the v0.3 source spec when resolving interfaces', async () => {
     const { catalog, spec } = fixture()
     const snapshot = structuredClone(spec)
@@ -1223,19 +1286,24 @@ describe('v0.3 interface rendering', () => {
       && metric.largestComponentRatio === 1
       && metric.centerlineGapPixels === 0
     ))).toBe(true)
-    expect(result.connectorMetrics?.filter(metric => metric.connectorId !== 'neck')
+    expect(result.connectorMetrics?.filter(metric => (
+      metric.connectorId.startsWith('shoulder') || metric.connectorId.startsWith('hip')
+    ))
       .every(metric => (metric.childOutsideBodyRatio ?? 0) >= 0.65)).toBe(true)
     expect(result.diagnostics).toEqual([])
     expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(8 * 18 * 3)
     expect(calls).toContain('interface-5:gradientStop:0:rgba(240, 40, 20, 1)')
     expect(calls).toContain('interface-5:gradientStop:1:rgba(20, 40, 240, 1)')
-    const mainDraws = calls.filter(call => call.startsWith('main:draw:'))
-    const firstNode = mainDraws.indexOf('main:draw:interface-1')
-    const firstBridge = mainDraws.indexOf('main:draw:interface-7')
-    const lastBridge = mainDraws.lastIndexOf('main:draw:interface-7')
+    const isolatedDraws = calls.filter(call => call.startsWith('interface-18:draw:'))
+    const firstNode = isolatedDraws.indexOf('interface-18:draw:interface-1')
+    const firstBridge = isolatedDraws.indexOf('interface-18:draw:interface-7')
+    const lastBridge = isolatedDraws.lastIndexOf('interface-18:draw:interface-7')
     expect(firstBridge).toBeLessThan(firstNode)
     expect(lastBridge).toBeGreaterThan(firstNode)
-    expect(lastBridge).toBeLessThan(mainDraws.length - 1)
+    expect(lastBridge).toBeLessThan(isolatedDraws.length - 1)
+    expect(calls.filter(call => call.startsWith('main:draw:'))).toEqual([
+      'main:draw:interface-18',
+    ])
     expect(result.compositionMetrics).toEqual(expect.objectContaining({
       eyesVisibleRatio: expect.any(Number), mouthVisibleRatio: expect.any(Number),
     }))
@@ -1251,6 +1319,23 @@ describe('v0.3 interface rendering', () => {
     }
 
     expect(interfaceRenderCacheSize()).toBe(16)
+  })
+
+  it('does not reuse contour-derived geometry across image resolvers', async () => {
+    const { catalog, spec } = fixture()
+    spec.seed = 'resolver-specific-contours'
+    const before = interfaceRenderCacheSize()
+
+    await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+    })
+    const afterFirst = interfaceRenderCacheSize()
+    await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+    })
+
+    expect(afterFirst).toBe(Math.min(16, before + 1))
+    expect(interfaceRenderCacheSize()).toBe(Math.min(16, before + 2))
   })
 
   it('blocks disconnected structural alpha below 0.99 and incomplete bridge centerlines', async () => {

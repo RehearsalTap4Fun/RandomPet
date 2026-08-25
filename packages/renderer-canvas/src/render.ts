@@ -7,9 +7,14 @@ import {
 } from '@qmonster/generator-core'
 import { resolveAttachmentTree } from './attachment-tree.js'
 import { buildBridgeMesh, type BridgeMesh } from './bridge-mesh.js'
-import { measureConnectorAlpha } from './connector-metrics.js'
+import {
+  connectorMetricMeetsThresholds,
+  measureConnectorAlpha,
+  structureMetricMeetsThreshold,
+} from './connector-metrics.js'
 import { measureFeatureAlpha, measureVisibleBounds } from './composition-metrics.js'
 import { resolveInterfaceTree } from './interface-tree.js'
+import { rgbaInsideTransformedRegion } from './material-sampling.js'
 import { resolvePartPlacement } from './layout.js'
 import { expandRenderLayers, RENDER_LAYER_ORDER } from './layers.js'
 import type {
@@ -195,20 +200,20 @@ async function drawRigPaletteMasks(
     try {
       const mask = await resolver.resolve(assetPath)
       maskContext.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE)
-      maskContext.save()
-      maskContext.translate(placement.x, placement.y)
-      maskContext.scale(placement.scaleX, placement.scaleY)
-      maskContext.drawImage(mask, 0, 0)
-      maskContext.restore()
-      maskContext.save()
-      maskContext.globalCompositeOperation = 'source-in'
-      maskContext.fillStyle = palette[maskName]
-      maskContext.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
-      maskContext.restore()
-      context.save()
-      context.globalCompositeOperation = 'color'
-      context.drawImage(surfaces.mask.canvas, 0, 0)
-      context.restore()
+      withSavedContext(maskContext, () => {
+        maskContext.translate(placement.x, placement.y)
+        maskContext.scale(placement.scaleX, placement.scaleY)
+        maskContext.drawImage(mask, 0, 0)
+      })
+      withSavedContext(maskContext, () => {
+        maskContext.globalCompositeOperation = 'source-in'
+        maskContext.fillStyle = palette[maskName]
+        maskContext.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
+      })
+      withSavedContext(context, () => {
+        context.globalCompositeOperation = 'color'
+        context.drawImage(surfaces.mask.canvas, 0, 0)
+      })
     } catch {
       diagnostics.push(assetLoadDiagnostic(layer, assetPath, maskName, true))
     }
@@ -241,18 +246,18 @@ async function drawLayerDirect(
   }
 
   const placement = resolved.placement!
-  context.save()
-  context.translate(placement.x, placement.y)
-  context.scale(placement.scaleX, placement.scaleY)
-  try {
-    const base = await resolver.resolve(layer.part.assetPath)
-    context.drawImage(base, 0, 0)
-    drawnAssetIds.push(layer.part.id)
-  } catch {
-    diagnostics.push(assetLoadDiagnostic(layer, layer.part.assetPath))
-    drawMissingPlaceholder(context, layer.part.id)
-  }
-  context.restore()
+  await withSavedContextAsync(context, async () => {
+    context.translate(placement.x, placement.y)
+    context.scale(placement.scaleX, placement.scaleY)
+    try {
+      const base = await resolver.resolve(layer.part.assetPath)
+      context.drawImage(base, 0, 0)
+      drawnAssetIds.push(layer.part.id)
+    } catch {
+      diagnostics.push(assetLoadDiagnostic(layer, layer.part.assetPath))
+      drawMissingPlaceholder(context, layer.part.id)
+    }
+  })
 }
 
 async function drawLayerBuffered(
@@ -283,18 +288,18 @@ async function drawLayerBuffered(
   }
   layerContext.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE)
 
-  layerContext.save()
-  layerContext.translate(placement.x, placement.y)
-  layerContext.scale(placement.scaleX, placement.scaleY)
-  try {
-    const base = await resolver.resolve(layer.part.assetPath)
-    layerContext.drawImage(base, 0, 0)
-    drawnAssetIds.push(layer.part.id)
-  } catch {
-    diagnostics.push(assetLoadDiagnostic(layer, layer.part.assetPath))
-    drawMissingPlaceholder(layerContext, layer.part.id)
-  }
-  layerContext.restore()
+  await withSavedContextAsync(layerContext, async () => {
+    layerContext.translate(placement.x, placement.y)
+    layerContext.scale(placement.scaleX, placement.scaleY)
+    try {
+      const base = await resolver.resolve(layer.part.assetPath)
+      layerContext.drawImage(base, 0, 0)
+      drawnAssetIds.push(layer.part.id)
+    } catch {
+      diagnostics.push(assetLoadDiagnostic(layer, layer.part.assetPath))
+      drawMissingPlaceholder(layerContext, layer.part.id)
+    }
+  })
 
   for (const maskName of ['primary', 'secondary'] as const) {
     const assetPath = layer.part.maskPaths[maskName]
@@ -302,24 +307,24 @@ async function drawLayerBuffered(
     try {
       const mask = await resolver.resolve(assetPath)
       maskContext.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE)
-      maskContext.save()
-      maskContext.translate(placement.x, placement.y)
-      maskContext.scale(placement.scaleX, placement.scaleY)
-      maskContext.drawImage(mask, 0, 0)
-      maskContext.restore()
-      maskContext.save()
-      maskContext.globalCompositeOperation = 'source-in'
-      maskContext.fillStyle = palette[maskName]
-      maskContext.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
-      maskContext.restore()
+      withSavedContext(maskContext, () => {
+        maskContext.translate(placement.x, placement.y)
+        maskContext.scale(placement.scaleX, placement.scaleY)
+        maskContext.drawImage(mask, 0, 0)
+      })
+      withSavedContext(maskContext, () => {
+        maskContext.globalCompositeOperation = 'source-in'
+        maskContext.fillStyle = palette[maskName]
+        maskContext.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
+      })
       layerContext.drawImage(surfaces.mask.canvas, 0, 0)
     } catch {
       diagnostics.push(assetLoadDiagnostic(layer, assetPath, maskName))
-      layerContext.save()
-      layerContext.translate(placement.x, placement.y)
-      layerContext.scale(placement.scaleX, placement.scaleY)
-      drawMissingPlaceholder(layerContext, assetPath)
-      layerContext.restore()
+      withSavedContext(layerContext, () => {
+        layerContext.translate(placement.x, placement.y)
+        layerContext.scale(placement.scaleX, placement.scaleY)
+        drawMissingPlaceholder(layerContext, assetPath)
+      })
     }
   }
   context.drawImage(surfaces.layer.canvas, 0, 0)
@@ -347,6 +352,27 @@ function clearSurface(surface: RenderSurface): void {
   surface.context.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE)
 }
 
+function withSavedContext<T>(context: CanvasRenderingContext2D, action: () => T): T {
+  context.save()
+  try {
+    return action()
+  } finally {
+    context.restore()
+  }
+}
+
+async function withSavedContextAsync<T>(
+  context: CanvasRenderingContext2D,
+  action: () => Promise<T>,
+): Promise<T> {
+  context.save()
+  try {
+    return await action()
+  } finally {
+    context.restore()
+  }
+}
+
 function applyCompositionClip(
   surface: RenderSurface,
   node: ResolvedRenderNode,
@@ -356,18 +382,18 @@ function applyCompositionClip(
   const layerContext = surface.context
   switch (node.node.clipPolicy) {
     case 'body':
-      layerContext.save()
-      layerContext.globalCompositeOperation = 'destination-in'
-      layerContext.drawImage(bodyAlpha.canvas, 0, 0)
-      layerContext.restore()
+      withSavedContext(layerContext, () => {
+        layerContext.globalCompositeOperation = 'destination-in'
+        layerContext.drawImage(bodyAlpha.canvas, 0, 0)
+      })
       break
     case 'protect-face':
-      layerContext.save()
-      layerContext.globalCompositeOperation = 'destination-out'
-      for (const face of faceSafeZones) {
-        layerContext.fillRect(face.x, face.y, face.width, face.height)
-      }
-      layerContext.restore()
+      withSavedContext(layerContext, () => {
+        layerContext.globalCompositeOperation = 'destination-out'
+        for (const face of faceSafeZones) {
+          layerContext.fillRect(face.x, face.y, face.width, face.height)
+        }
+      })
       break
     case 'none':
       break
@@ -383,14 +409,14 @@ function drawCompositionNodeToSurface(
 ): void {
   clearSurface(surface)
   const layerContext = surface.context
-  layerContext.save()
-  layerContext.translate(node.placement.x, node.placement.y)
-  if (node.placement.rotationDegrees !== undefined) {
-    layerContext.rotate(node.placement.rotationDegrees * Math.PI / 180)
-  }
-  layerContext.scale(node.placement.scaleX, node.placement.scaleY)
-  layerContext.drawImage(source, 0, 0)
-  layerContext.restore()
+  withSavedContext(layerContext, () => {
+    layerContext.translate(node.placement.x, node.placement.y)
+    if (node.placement.rotationDegrees !== undefined) {
+      layerContext.rotate(node.placement.rotationDegrees * Math.PI / 180)
+    }
+    layerContext.scale(node.placement.scaleX, node.placement.scaleY)
+    layerContext.drawImage(source, 0, 0)
+  })
   applyCompositionClip(surface, node, bodyAlpha, faceSafeZones)
 }
 
@@ -404,10 +430,10 @@ function drawMetricAlpha(
   operation: GlobalCompositeOperation = 'source-over',
 ): void {
   const metricContext = destination.context
-  metricContext.save()
-  metricContext.globalCompositeOperation = operation
-  metricContext.drawImage(source.canvas, 0, 0, METRIC_SIZE, METRIC_SIZE)
-  metricContext.restore()
+  withSavedContext(metricContext, () => {
+    metricContext.globalCompositeOperation = operation
+    metricContext.drawImage(source.canvas, 0, 0, METRIC_SIZE, METRIC_SIZE)
+  })
 }
 
 function scaleFaceSafeZones(
@@ -524,42 +550,42 @@ async function renderCompositionMonster(
   const bodySource = bodyNode === undefined ? undefined : sources.get(bodyNode.key)
   if (bodyNode !== undefined && bodySource !== undefined) {
     const bodyContext = surfaces.bodyAlpha.context
-    bodyContext.save()
-    bodyContext.translate(bodyNode.placement.x, bodyNode.placement.y)
-    bodyContext.scale(bodyNode.placement.scaleX, bodyNode.placement.scaleY)
-    bodyContext.drawImage(bodySource, 0, 0)
-    bodyContext.restore()
+    withSavedContext(bodyContext, () => {
+      bodyContext.translate(bodyNode.placement.x, bodyNode.placement.y)
+      bodyContext.scale(bodyNode.placement.scaleX, bodyNode.placement.scaleY)
+      bodyContext.drawImage(bodySource, 0, 0)
+    })
   }
 
-  context.save()
-  context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
-  let eyesStarted = false
-  let mouthStarted = false
-  for (const node of nodes) {
-    const source = sources.get(node.key)
-    if (source === undefined) continue
-    drawCompositionNodeToSurface(
-      surfaces.nodeLayer, node, source, surfaces.bodyAlpha, attachment.faceSafeZones,
-    )
-    context.drawImage(surfaces.nodeLayer.canvas, 0, 0)
-    drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
-    if (node.slotId === 'eyes') {
-      drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer, 'destination-out')
-      drawMetricAlpha(surfaces.eyesAlpha, surfaces.nodeLayer)
-      eyesStarted = true
-    } else if (eyesStarted) {
-      drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer)
+  withSavedContext(context, () => {
+    context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
+    let eyesStarted = false
+    let mouthStarted = false
+    for (const node of nodes) {
+      const source = sources.get(node.key)
+      if (source === undefined) continue
+      drawCompositionNodeToSurface(
+        surfaces.nodeLayer, node, source, surfaces.bodyAlpha, attachment.faceSafeZones,
+      )
+      context.drawImage(surfaces.nodeLayer.canvas, 0, 0)
+      drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
+      if (node.slotId === 'eyes') {
+        drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+        drawMetricAlpha(surfaces.eyesAlpha, surfaces.nodeLayer)
+        eyesStarted = true
+      } else if (eyesStarted) {
+        drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer)
+      }
+      if (node.slotId === 'mouthShape') {
+        drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+        drawMetricAlpha(surfaces.mouthAlpha, surfaces.nodeLayer)
+        mouthStarted = true
+      } else if (mouthStarted) {
+        drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
+      }
+      drawnAssetIds.push(node.key)
     }
-    if (node.slotId === 'mouthShape') {
-      drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer, 'destination-out')
-      drawMetricAlpha(surfaces.mouthAlpha, surfaces.nodeLayer)
-      mouthStarted = true
-    } else if (mouthStarted) {
-      drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
-    }
-    drawnAssetIds.push(node.key)
-  }
-  context.restore()
+  })
 
   const policy = catalog.compositionPolicy!
   const metricFaceSafeZones = scaleFaceSafeZones(attachment.faceSafeZones)
@@ -615,6 +641,11 @@ interface InterfaceSurfaces {
   bridgeWarp: RenderSurface
   bridgeMask: RenderSurface
   bridgePass: RenderSurface
+  connectorMask: RenderSurface
+  bridgeAlpha: RenderSurface
+  receiverContour: RenderSurface
+  plugContour: RenderSurface
+  finalOutput: RenderSurface
   materialSample: RenderSurface
   eyesAlpha: RenderSurface
   mouthAlpha: RenderSurface
@@ -627,10 +658,18 @@ interface ResolvedBridgeAssets {
   neutral: CanvasImageSource
   frontMask: CanvasImageSource
   backMask: CanvasImageSource
+  receiverContour: CanvasImageSource
+  receiverForeground: CanvasImageSource
+  receiverBackground: CanvasImageSource
+  plugContour: CanvasImageSource
+  plugForeground: CanvasImageSource
+  plugBackground: CanvasImageSource
 }
 
 const decodedBridgeAssets = new WeakMap<ImageResolver, Map<string, Promise<CanvasImageSource>>>()
 const derivedInterfaceFrames = new Map<string, Map<string, BridgeMesh>>()
+const interfaceResolverIds = new WeakMap<ImageResolver, number>()
+let nextInterfaceResolverId = 1
 const INTERFACE_FRAME_CACHE_LIMIT = 16
 const STRUCTURAL_SLOTS = new Set([
   'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
@@ -640,13 +679,37 @@ export function interfaceRenderCacheSize(): number {
   return derivedInterfaceFrames.size
 }
 
-function interfaceFrameKey(spec: MonsterSpec): string {
+function interfaceFrameKey(
+  spec: MonsterSpec,
+  tree: InterfaceRenderResult,
+  resolver: ImageResolver,
+): string {
   const { slotRolls: _slotRolls, ...visualSpec } = spec
-  return JSON.stringify(visualSpec)
+  let resolverId = interfaceResolverIds.get(resolver)
+  if (resolverId === undefined) {
+    resolverId = nextInterfaceResolverId
+    nextInterfaceResolverId += 1
+    interfaceResolverIds.set(resolver, resolverId)
+  }
+  return JSON.stringify({
+    resolverId,
+    visualSpec,
+    contours: tree.bridges.map(item => [
+      item.key,
+      item.receiver.contourMaskPath,
+      item.receiver.contourMaskSha256,
+      item.plug.contourMaskPath,
+      item.plug.contourMaskSha256,
+    ]),
+  })
 }
 
-function interfaceFrameMeshes(spec: MonsterSpec): Map<string, BridgeMesh> {
-  const key = interfaceFrameKey(spec)
+function interfaceFrameMeshes(
+  spec: MonsterSpec,
+  tree: InterfaceRenderResult,
+  resolver: ImageResolver,
+): Map<string, BridgeMesh> {
+  const key = interfaceFrameKey(spec, tree, resolver)
   const cached = derivedInterfaceFrames.get(key)
   if (cached !== undefined) {
     derivedInterfaceFrames.delete(key)
@@ -688,14 +751,15 @@ function createInterfaceSurfaces(
   context: CanvasRenderingContext2D,
   factory: RenderSurfaceFactory,
 ): InterfaceSurfaces | null {
-  const list = Array.from({ length: 13 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))
+  const list = Array.from({ length: 18 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))
   if (list.some(item => item === null)) return null
   return {
     nodeLayer: list[0]!, bodyAlpha: list[1]!, childAlpha: list[2]!,
     structureAlpha: list[3]!, bridgeWarp: list[4]!, bridgeMask: list[5]!,
     bridgePass: list[6]!, materialSample: list[7]!, eyesAlpha: list[8]!,
     mouthAlpha: list[9]!, outputAlpha: list[10]!, eyesOccluderAlpha: list[11]!,
-    mouthOccluderAlpha: list[12]!,
+    mouthOccluderAlpha: list[12]!, connectorMask: list[13]!, bridgeAlpha: list[14]!,
+    receiverContour: list[15]!, plugContour: list[16]!, finalOutput: list[17]!,
   }
 }
 
@@ -748,13 +812,7 @@ function drawBridgeMesh(
     || context.lineTo === undefined || context.clip === undefined
     || context.transform === undefined || context.closePath === undefined
   ) {
-    const points = mesh.rows.flat()
-    const minX = Math.min(...points.map(point => point.x))
-    const minY = Math.min(...points.map(point => point.y))
-    const maxX = Math.max(...points.map(point => point.x))
-    const maxY = Math.max(...points.map(point => point.y))
-    context.drawImage(source, minX, minY, Math.max(1, maxX - minX), Math.max(1, maxY - minY))
-    return
+    throw new Error('Bridge mesh requires affine canvas APIs.')
   }
   for (const triangle of mesh.triangles) {
     const normalized = triangle.source.map(point => ({ x: point.x * width, y: point.y * height })) as [
@@ -762,33 +820,17 @@ function drawBridgeMesh(
     ]
     const transform = affine(normalized, triangle.destination)
     if (transform === null) throw new Error('Bridge mesh contains a degenerate affine triangle.')
-    context.save()
-    context.beginPath()
-    context.moveTo(triangle.destination[0].x, triangle.destination[0].y)
-    context.lineTo(triangle.destination[1].x, triangle.destination[1].y)
-    context.lineTo(triangle.destination[2].x, triangle.destination[2].y)
-    context.closePath()
-    context.clip()
-    context.transform(...transform)
-    context.drawImage(source, 0, 0)
-    context.restore()
+    withSavedContext(context, () => {
+      context.beginPath()
+      context.moveTo(triangle.destination[0].x, triangle.destination[0].y)
+      context.lineTo(triangle.destination[1].x, triangle.destination[1].y)
+      context.lineTo(triangle.destination[2].x, triangle.destination[2].y)
+      context.closePath()
+      context.clip()
+      context.transform(...transform)
+      context.drawImage(source, 0, 0)
+    })
   }
-}
-
-function rgba(pixels: Uint8ClampedArray): string | null {
-  if (pixels.length === 0 || pixels.length % 4 !== 0) return null
-  let red = 0
-  let green = 0
-  let blue = 0
-  let alpha = 0
-  const count = pixels.length / 4
-  for (let offset = 0; offset < pixels.length; offset += 4) {
-    red += pixels[offset] ?? 0
-    green += pixels[offset + 1] ?? 0
-    blue += pixels[offset + 2] ?? 0
-    alpha += pixels[offset + 3] ?? 0
-  }
-  return `rgba(${Math.round(red / count)}, ${Math.round(green / count)}, ${Math.round(blue / count)}, ${alpha / count / 255})`
 }
 
 function sampleMaterial(
@@ -799,14 +841,14 @@ function sampleMaterial(
 ): string | null {
   clearSurface(surface)
   const context = surface.context
-  context.save()
-  context.translate(node.placement.x, node.placement.y)
-  if (node.placement.rotationDegrees !== undefined) {
-    context.rotate(node.placement.rotationDegrees * Math.PI / 180)
-  }
-  context.scale(node.placement.scaleX, node.placement.scaleY)
-  context.drawImage(source, 0, 0)
-  context.restore()
+  withSavedContext(context, () => {
+    context.translate(node.placement.x, node.placement.y)
+    if (node.placement.rotationDegrees !== undefined) {
+      context.rotate(node.placement.rotationDegrees * Math.PI / 180)
+    }
+    context.scale(node.placement.scaleX, node.placement.scaleY)
+    context.drawImage(source, 0, 0)
+  })
   const radians = (node.placement.rotationDegrees ?? 0) * Math.PI / 180
   const placed = (localX: number, localY: number) => {
     const scaledX = localX * node.placement.scaleX
@@ -832,10 +874,17 @@ function sampleMaterial(
   }
   const x = Math.floor(Math.min(first.x, second.x))
   const y = Math.floor(Math.min(first.y, second.y))
-  const width = Math.max(1, Math.ceil(Math.abs(second.x - first.x)))
-  const height = Math.max(1, Math.ceil(Math.abs(second.y - first.y)))
+  const width = Math.max(1, Math.ceil(Math.max(first.x, second.x)) - x)
+  const height = Math.max(1, Math.ceil(Math.max(first.y, second.y)) - y)
   try {
-    return rgba(context.getImageData(x, y, width, height).data)
+    return rgbaInsideTransformedRegion(
+      context.getImageData(x, y, width, height).data,
+      width,
+      height,
+      { x, y },
+      node.placement,
+      region,
+    )
   } catch {
     return null
   }
@@ -851,12 +900,28 @@ function nodeSource(
   return node === undefined ? undefined : { node, source: sources.get(node.key) }
 }
 
+function drawPlacedSource(
+  context: CanvasRenderingContext2D,
+  node: ResolvedRenderNode,
+  source: CanvasImageSource,
+): void {
+  withSavedContext(context, () => {
+    context.translate(node.placement.x, node.placement.y)
+    if (node.placement.rotationDegrees !== undefined) {
+      context.rotate(node.placement.rotationDegrees * Math.PI / 180)
+    }
+    context.scale(node.placement.scaleX, node.placement.scaleY)
+    context.drawImage(source, 0, 0)
+  })
+}
+
 function drawBridgePass(
   destination: CanvasRenderingContext2D,
   surfaces: InterfaceSurfaces,
   bridge: ResolvedBridge,
   assets: ResolvedBridgeAssets,
   mesh: BridgeMesh,
+  tree: InterfaceRenderResult,
   receiverColor: string,
   plugColor: string,
   pass: 'back' | 'front' | 'union',
@@ -864,40 +929,86 @@ function drawBridgePass(
   clearSurface(surfaces.bridgeWarp)
   drawBridgeMesh(surfaces.bridgeWarp.context, assets.neutral, mesh)
   const warp = surfaces.bridgeWarp.context
-  warp.save()
-  warp.globalCompositeOperation = 'source-atop'
-  if (warp.createLinearGradient !== undefined) {
-    const gradient = warp.createLinearGradient(
-      bridge.solved.receiverOrigin.x, bridge.solved.receiverOrigin.y,
-      bridge.solved.plugOrigin.x, bridge.solved.plugOrigin.y,
-    )
-    gradient.addColorStop(0, receiverColor)
-    gradient.addColorStop(1, plugColor)
-    warp.fillStyle = gradient
-  } else {
-    warp.fillStyle = receiverColor
-  }
-  warp.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
-  warp.restore()
+  withSavedContext(warp, () => {
+    warp.globalCompositeOperation = 'source-atop'
+    if (warp.createLinearGradient !== undefined) {
+      const gradient = warp.createLinearGradient(
+        bridge.solved.receiverOrigin.x, bridge.solved.receiverOrigin.y,
+        bridge.solved.plugOrigin.x, bridge.solved.plugOrigin.y,
+      )
+      gradient.addColorStop(0, receiverColor)
+      gradient.addColorStop(1, plugColor)
+      warp.fillStyle = gradient
+    } else {
+      warp.fillStyle = receiverColor
+    }
+    warp.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
+  })
 
+  const parentNode = tree.nodes.find(node => node.key === bridge.parentNodeKey)
+  const childNode = tree.nodes.find(node => node.key === bridge.childNodeKey)
+  if (parentNode === undefined || childNode === undefined) {
+    throw new Error('Bridge connector mask nodes are unavailable.')
+  }
   const masks = pass === 'union'
-    ? [assets.backMask, assets.frontMask]
-    : [pass === 'back' ? assets.backMask : assets.frontMask]
-  for (const mask of masks) {
+    ? [
+        [assets.backMask, assets.receiverBackground, assets.plugBackground],
+        [assets.frontMask, assets.receiverForeground, assets.plugForeground],
+      ] as const
+    : [pass === 'back'
+        ? [assets.backMask, assets.receiverBackground, assets.plugBackground]
+        : [assets.frontMask, assets.receiverForeground, assets.plugForeground]] as const
+  for (const [transitionMask, receiverMask, plugMask] of masks) {
     clearSurface(surfaces.bridgeMask)
-    drawBridgeMesh(surfaces.bridgeMask.context, mask, mesh)
+    drawBridgeMesh(surfaces.bridgeMask.context, transitionMask, mesh)
+    clearSurface(surfaces.connectorMask)
+    drawPlacedSource(surfaces.connectorMask.context, parentNode, receiverMask)
+    drawPlacedSource(surfaces.connectorMask.context, childNode, plugMask)
     clearSurface(surfaces.bridgePass)
     surfaces.bridgePass.context.drawImage(surfaces.bridgeWarp.canvas, 0, 0)
-    surfaces.bridgePass.context.save()
-    surfaces.bridgePass.context.globalCompositeOperation = 'destination-in'
-    surfaces.bridgePass.context.drawImage(surfaces.bridgeMask.canvas, 0, 0)
-    surfaces.bridgePass.context.restore()
+    withSavedContext(surfaces.bridgePass.context, () => {
+      surfaces.bridgePass.context.globalCompositeOperation = 'destination-in'
+      surfaces.bridgePass.context.drawImage(surfaces.bridgeMask.canvas, 0, 0)
+      surfaces.bridgePass.context.drawImage(surfaces.connectorMask.canvas, 0, 0)
+    })
     destination.drawImage(surfaces.bridgePass.canvas, 0, 0)
   }
 }
 
-function rasterPoints(points: readonly { x: number; y: number }[]) {
-  return points.map(point => ({ x: Math.round(point.x), y: Math.round(point.y) }))
+function alphaCentroid(pixels: Uint8ClampedArray, width: number): { x: number; y: number } | null {
+  let mass = 0
+  let weightedX = 0
+  let weightedY = 0
+  for (let offset = 3; offset < pixels.length; offset += 4) {
+    const alpha = pixels[offset] ?? 0
+    if (alpha === 0) continue
+    const index = (offset - 3) / 4
+    weightedX += (index % width) * alpha
+    weightedY += Math.floor(index / width) * alpha
+    mass += alpha
+  }
+  return mass === 0 ? null : { x: weightedX / mass, y: weightedY / mass }
+}
+
+function rasterLine(from: { x: number; y: number }, to: { x: number; y: number }) {
+  let x = Math.round(from.x)
+  let y = Math.round(from.y)
+  const endX = Math.round(to.x)
+  const endY = Math.round(to.y)
+  const deltaX = Math.abs(endX - x)
+  const deltaY = Math.abs(endY - y)
+  const stepX = x < endX ? 1 : -1
+  const stepY = y < endY ? 1 : -1
+  let error = deltaX - deltaY
+  const points = []
+  for (;;) {
+    points.push({ x, y })
+    if (x === endX && y === endY) break
+    const twiceError = 2 * error
+    if (twiceError > -deltaY) { error -= deltaY; x += stepX }
+    if (twiceError < deltaX) { error += deltaX; y += stepY }
+  }
+  return points
 }
 
 async function renderInterfaceMonster(
@@ -935,7 +1046,11 @@ async function renderInterfaceMonster(
   const bridgeAssets = new Map<string, ResolvedBridgeAssets>()
   for (const item of tree.bridges) {
     try {
-      const [neutral, frontMask, backMask] = await Promise.all([
+      const [
+        neutral, frontMask, backMask,
+        receiverContour, receiverForeground, receiverBackground,
+        plugContour, plugForeground, plugBackground,
+      ] = await Promise.all([
         resolveDecodedBridge(resolver, catalog.version, item.bridge.neutralAssetPath),
         resolver.resolve(item.bridge.frontMaskPath),
         resolver.resolve(item.bridge.backMaskPath),
@@ -946,7 +1061,11 @@ async function renderInterfaceMonster(
         resolver.resolve(item.plug.foregroundMaskPath),
         resolver.resolve(item.plug.backgroundMaskPath),
       ])
-      bridgeAssets.set(item.key, { neutral, frontMask, backMask })
+      bridgeAssets.set(item.key, {
+        neutral, frontMask, backMask,
+        receiverContour, receiverForeground, receiverBackground,
+        plugContour, plugForeground, plugBackground,
+      })
     } catch {
       diagnostics.push(connectorCompositeDiagnostic(
         item.connectorId, `Bridge resources for ${item.bridge.id} are unavailable or invalid.`,
@@ -957,19 +1076,38 @@ async function renderInterfaceMonster(
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
 
-  const frameMeshes = interfaceFrameMeshes(spec)
+  const frameMeshes = interfaceFrameMeshes(spec, tree, resolver)
   const meshes = new Map<string, BridgeMesh>()
   const colors = new Map<string, readonly [string, string]>()
+  const receiverContours = new Map<string, Uint8ClampedArray>()
+  const plugContours = new Map<string, Uint8ClampedArray>()
   for (const item of tree.bridges) {
     try {
+      const assets = bridgeAssets.get(item.key)!
+      const receiver = nodeSource(item, 'parentNodeKey', tree, sources)
+      const plug = nodeSource(item, 'childNodeKey', tree, sources)
+      if (receiver === undefined || plug === undefined) throw new Error('invalid connector nodes')
+      clearSurface(surfaces.receiverContour)
+      clearSurface(surfaces.plugContour)
+      drawPlacedSource(surfaces.receiverContour.context, receiver.node, assets.receiverContour)
+      drawPlacedSource(surfaces.plugContour.context, plug.node, assets.plugContour)
+      const receiverContour = imageData(surfaces.receiverContour)
+      const plugContour = imageData(surfaces.plugContour)
+      if (
+        receiverContour.length !== MASTER_SIZE * MASTER_SIZE * 4
+        || plugContour.length !== receiverContour.length
+      ) throw new Error('invalid connector contours')
+      receiverContours.set(item.key, receiverContour)
+      plugContours.set(item.key, plugContour)
       let mesh = frameMeshes.get(item.key)
       if (mesh === undefined) {
-        mesh = buildBridgeMesh(item.solved)
+        mesh = buildBridgeMesh(item.solved, {
+          receiver: { pixels: receiverContour, width: MASTER_SIZE, height: MASTER_SIZE },
+          plug: { pixels: plugContour, width: MASTER_SIZE, height: MASTER_SIZE },
+        })
         frameMeshes.set(item.key, mesh)
       }
       meshes.set(item.key, mesh)
-      const receiver = nodeSource(item, 'parentNodeKey', tree, sources)
-      const plug = nodeSource(item, 'childNodeKey', tree, sources)
       const receiverColor = receiver?.source === undefined ? null : sampleMaterial(
         surfaces.materialSample, receiver.source, receiver.node, item.receiver.materialSampleRegion,
       )
@@ -988,6 +1126,7 @@ async function renderInterfaceMonster(
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
 
+  const bridgePixels = new Map<string, Uint8ClampedArray>()
   try {
     clearSurface(surfaces.bodyAlpha)
     clearSurface(surfaces.structureAlpha)
@@ -1003,10 +1142,15 @@ async function renderInterfaceMonster(
       const mesh = meshes.get(item.key)!
       const assets = bridgeAssets.get(item.key)!
       const [receiverColor, plugColor] = colors.get(item.key)!
+      clearSurface(surfaces.bridgeAlpha)
       drawBridgePass(
-        surfaces.structureAlpha.context, surfaces, item, assets, mesh,
+        surfaces.bridgeAlpha.context, surfaces, item, assets, mesh, tree,
         receiverColor, plugColor, 'union',
       )
+      const pixels = imageData(surfaces.bridgeAlpha)
+      if (pixels.length !== MASTER_SIZE * MASTER_SIZE * 4) throw new Error('invalid bridge alpha')
+      bridgePixels.set(item.key, pixels)
+      surfaces.structureAlpha.context.drawImage(surfaces.bridgeAlpha.canvas, 0, 0)
     }
     for (const node of tree.nodes.filter(item => STRUCTURAL_SLOTS.has(item.slotId))) {
       const source = sources.get(node.key)
@@ -1016,9 +1160,11 @@ async function renderInterfaceMonster(
       )
       surfaces.structureAlpha.context.drawImage(surfaces.nodeLayer.canvas, 0, 0)
     }
-  } catch {
+  } catch (error) {
     diagnostics.push(connectorCompositeDiagnostic(
-      'structure', 'A bridge mesh or catalog seam mask could not be drawn.',
+      'structure', error instanceof Error && error.message.includes('affine')
+        ? 'A bridge mesh requires affine canvas APIs.'
+        : 'A bridge mesh or catalog seam mask could not be drawn.',
     ))
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
@@ -1050,20 +1196,27 @@ async function renderInterfaceMonster(
       )
       surfaces.childAlpha.context.drawImage(surfaces.nodeLayer.canvas, 0, 0)
     }
-    const mesh = meshes.get(item.key)!
-    const centerColumn = Math.floor(mesh.rows[0]!.length / 2)
     let metric: ConnectorMetric
     try {
+      const receiverContour = receiverContours.get(item.key)!
+      const plugContour = plugContours.get(item.key)!
+      const receiverCenter = alphaCentroid(receiverContour, MASTER_SIZE)
+      const plugCenter = alphaCentroid(plugContour, MASTER_SIZE)
+      if (receiverCenter === null || plugCenter === null) throw new Error('empty contour')
+      const measuresExternalAlpha = child?.slotId === 'arms' || child?.slotId === 'legs'
       metric = measureConnectorAlpha({
         connectorId: item.connectorId,
+        bridge: bridgePixels.get(item.key)!,
+        receiverContour,
+        plugContour,
         structure: structurePixels,
-        body: bodyPixels,
-        child: imageData(surfaces.childAlpha),
+        ...(measuresExternalAlpha ? {
+          body: bodyPixels,
+          child: imageData(surfaces.childAlpha),
+        } : {}),
         width: MASTER_SIZE,
         height: MASTER_SIZE,
-        receiverEnd: rasterPoints(mesh.rows[0]!),
-        plugEnd: rasterPoints(mesh.rows[mesh.rows.length - 1]!),
-        centerline: rasterPoints(mesh.rows.map(row => row[centerColumn]!)),
+        centerline: rasterLine(receiverCenter, plugCenter),
       })
     } catch {
       diagnostics.push(connectorCompositeDiagnostic(
@@ -1072,19 +1225,26 @@ async function renderInterfaceMonster(
       continue
     }
     connectorMetrics.push(metric)
-    if (metric.receiverCoverage < 1 || metric.plugCoverage < 1 || metric.centerlineGapPixels > 0) {
+    const measuresExternalAlpha = child?.slotId === 'arms' || child?.slotId === 'legs'
+    if (!connectorMetricMeetsThresholds(metric, false)) {
       diagnostics.push(connectorCompositeDiagnostic(
-        item.connectorId, `Bridge ${item.bridge.id} does not completely cover both connector ends.`,
+        item.connectorId, `Bridge ${item.bridge.id} is below 0.9 contour coverage or above a 2px gap.`,
       ))
     }
-    if (child?.slotId !== 'headShape' && (metric.childOutsideBodyRatio ?? 0) < 0.65) {
+    if (
+      measuresExternalAlpha
+      && (metric.childOutsideBodyRatio ?? 0) < 0.65
+    ) {
       diagnostics.push(connectorCompositeDiagnostic(
         item.connectorId, `Structural child alpha outside the body is below 0.65.`,
       ))
     }
   }
-  const connectedRatio = connectorMetrics[0]?.largestComponentRatio ?? 0
-  if (connectedRatio < 0.99) diagnostics.push(structureDisconnectedDiagnostic(connectedRatio))
+  const structureMetric = connectorMetrics[0]
+  const connectedRatio = structureMetric?.largestComponentRatio ?? 0
+  if (structureMetric === undefined || !structureMetricMeetsThreshold(structureMetric)) {
+    diagnostics.push(structureDisconnectedDiagnostic(connectedRatio))
+  }
 
   const nodes = tree.nodes.filter(node => options.includeGroundShadow || node.node.layer !== 'groundShadow')
   const structural = nodes.filter(node => STRUCTURAL_SLOTS.has(node.slotId))
@@ -1099,54 +1259,66 @@ async function renderInterfaceMonster(
   clearSurface(surfaces.outputAlpha)
   clearSurface(surfaces.eyesOccluderAlpha)
   clearSurface(surfaces.mouthOccluderAlpha)
+  clearSurface(surfaces.finalOutput)
   const drawnAssetIds: string[] = []
-  context.save()
-  context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
-  for (const item of tree.bridges) {
-    const [receiverColor, plugColor] = colors.get(item.key)!
-    drawBridgePass(context, surfaces, item, bridgeAssets.get(item.key)!, meshes.get(item.key)!, receiverColor, plugColor, 'back')
-  }
-  const drawNodes = (items: readonly ResolvedRenderNode[]) => {
-    for (const node of items) {
+  const finalContext = surfaces.finalOutput.context
+  try {
+    for (const item of tree.bridges) {
+      const [receiverColor, plugColor] = colors.get(item.key)!
+      drawBridgePass(
+        finalContext, surfaces, item, bridgeAssets.get(item.key)!, meshes.get(item.key)!, tree,
+        receiverColor, plugColor, 'back',
+      )
+    }
+    const drawNodes = (items: readonly ResolvedRenderNode[]) => {
+      for (const node of items) {
+        const source = sources.get(node.key)
+        if (source === undefined) continue
+        drawCompositionNodeToSurface(
+          surfaces.nodeLayer, node, source, surfaces.structureAlpha, tree.faceSafeZones,
+        )
+        finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)
+        drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
+        drawnAssetIds.push(node.key)
+      }
+    }
+    drawNodes(rear)
+    drawNodes(bodyAndHead)
+    for (const item of tree.bridges) {
+      const [receiverColor, plugColor] = colors.get(item.key)!
+      drawBridgePass(
+        finalContext, surfaces, item, bridgeAssets.get(item.key)!, meshes.get(item.key)!, tree,
+        receiverColor, plugColor, 'front',
+      )
+    }
+    let eyesStarted = false
+    let mouthStarted = false
+    for (const node of nonStructural) {
       const source = sources.get(node.key)
       if (source === undefined) continue
       drawCompositionNodeToSurface(
         surfaces.nodeLayer, node, source, surfaces.structureAlpha, tree.faceSafeZones,
       )
-      context.drawImage(surfaces.nodeLayer.canvas, 0, 0)
+      finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)
       drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
+      if (node.slotId === 'eyes') {
+        drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+        drawMetricAlpha(surfaces.eyesAlpha, surfaces.nodeLayer)
+        eyesStarted = true
+      } else if (eyesStarted) drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer)
+      if (node.slotId === 'mouthShape') {
+        drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+        drawMetricAlpha(surfaces.mouthAlpha, surfaces.nodeLayer)
+        mouthStarted = true
+      } else if (mouthStarted) drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
       drawnAssetIds.push(node.key)
     }
+  } catch {
+    diagnostics.push(connectorCompositeDiagnostic(
+      'structure', 'The final isolated bridge composition failed.',
+    ))
+    return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics }
   }
-  drawNodes(rear)
-  drawNodes(bodyAndHead)
-  for (const item of tree.bridges) {
-    const [receiverColor, plugColor] = colors.get(item.key)!
-    drawBridgePass(context, surfaces, item, bridgeAssets.get(item.key)!, meshes.get(item.key)!, receiverColor, plugColor, 'front')
-  }
-  let eyesStarted = false
-  let mouthStarted = false
-  for (const node of nonStructural) {
-    const source = sources.get(node.key)
-    if (source === undefined) continue
-    drawCompositionNodeToSurface(
-      surfaces.nodeLayer, node, source, surfaces.structureAlpha, tree.faceSafeZones,
-    )
-    context.drawImage(surfaces.nodeLayer.canvas, 0, 0)
-    drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
-    if (node.slotId === 'eyes') {
-      drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer, 'destination-out')
-      drawMetricAlpha(surfaces.eyesAlpha, surfaces.nodeLayer)
-      eyesStarted = true
-    } else if (eyesStarted) drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer)
-    if (node.slotId === 'mouthShape') {
-      drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer, 'destination-out')
-      drawMetricAlpha(surfaces.mouthAlpha, surfaces.nodeLayer)
-      mouthStarted = true
-    } else if (mouthStarted) drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
-    drawnAssetIds.push(node.key)
-  }
-  context.restore()
 
   let compositionMetrics: CompositionMetrics | null = null
   try {
@@ -1183,6 +1355,17 @@ async function renderInterfaceMonster(
   } catch {
     diagnostics.push(connectorCompositeDiagnostic('structure', 'Interface alpha metrics are unreadable.'))
   }
+  try {
+    withSavedContext(context, () => {
+      context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
+      context.drawImage(surfaces.finalOutput.canvas, 0, 0)
+    })
+  } catch {
+    diagnostics.push(connectorCompositeDiagnostic(
+      'structure', 'The final isolated composition could not be committed.',
+    ))
+    return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics }
+  }
   return { drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics }
 }
 
@@ -1214,23 +1397,23 @@ export async function renderMonster(
     options.surfaceFactory ?? browserSurfaceFactory,
   )
 
-  context.save()
-  context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
-  for (const layer of expanded.layers) {
-    if (!options.includeGroundShadow && layer.part.layer === 'groundShadow') continue
-    if (surfaces === null) {
-      if (hasMasks(layer)) {
-        diagnostics.push(surfaceUnavailableDiagnostic(layer))
-        continue
+  await withSavedContextAsync(context, async () => {
+    context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
+    for (const layer of expanded.layers) {
+      if (!options.includeGroundShadow && layer.part.layer === 'groundShadow') continue
+      if (surfaces === null) {
+        if (hasMasks(layer)) {
+          diagnostics.push(surfaceUnavailableDiagnostic(layer))
+          continue
+        }
+        await drawLayerDirect(context, layer, resolver, drawnAssetIds, diagnostics)
+      } else {
+        await drawLayerBuffered(
+          context, surfaces, layer, expanded.palette, resolver, drawnAssetIds, diagnostics,
+        )
       }
-      await drawLayerDirect(context, layer, resolver, drawnAssetIds, diagnostics)
-    } else {
-      await drawLayerBuffered(
-        context, surfaces, layer, expanded.palette, resolver, drawnAssetIds, diagnostics,
-      )
     }
-  }
-  context.restore()
+  })
 
   return { drawnAssetIds, diagnostics, compositionMetrics: null, connectorMetrics: null }
 }

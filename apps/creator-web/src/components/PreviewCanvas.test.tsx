@@ -77,7 +77,14 @@ describe('CatalogImageResolverCache', () => {
 })
 
 describe('PreviewCanvas', () => {
-  it.each(['CONNECTOR_COMPOSITE_FAILED', 'STRUCTURE_DISCONNECTED'])(
+  it.each([
+    'CONNECTOR_VARIANT_MISSING',
+    'CONNECTOR_PROFILE_INVALID',
+    'CONNECTOR_WARP_EXCEEDED',
+    'CONNECTOR_BRIDGE_MISSING',
+    'CONNECTOR_COMPOSITE_FAILED',
+    'STRUCTURE_DISCONNECTED',
+  ])(
     'publishes blocking %s diagnostics without committing or completing the preview',
     async code => {
       const { contexts } = installCanvasContexts()
@@ -104,6 +111,39 @@ describe('PreviewCanvas', () => {
       expect(onRenderComplete).not.toHaveBeenCalled()
     },
   )
+
+  it('does not prime export for a missing bridge definition', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'missing-definition', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const toBlob = vi.spyOn(HTMLCanvasElement.prototype, 'toBlob')
+    const missingBridge: Diagnostic = {
+      severity: 'error', code: 'CONNECTOR_BRIDGE_MISSING',
+      path: ['visualSlots', 'arms'], message: 'missing',
+    }
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [],
+      diagnostics: [missingBridge],
+      compositionMetrics: null,
+      connectorMetrics: [],
+    }))
+    const onRenderComplete = vi.fn()
+
+    render(<PreviewCanvas
+      spec={spec}
+      catalog={catalog}
+      renderer={renderer}
+      onDiagnosticsChange={() => undefined}
+      onRenderComplete={onRenderComplete}
+    />)
+
+    await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
+    await Promise.resolve()
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
+    expect(toBlob).not.toHaveBeenCalled()
+    expect(onRenderComplete).not.toHaveBeenCalled()
+  })
 
   it('forwards the displayed canvas used for committed renders', async () => {
     installCanvasContexts()

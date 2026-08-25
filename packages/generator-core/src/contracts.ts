@@ -26,6 +26,7 @@ export interface Rect { x: number; y: number; width: number; height: number }
 
 export interface RenderNodeDefinition {
   id: string
+  connectorId?: string
   assetPath: string
   pngPath?: string
   assetSha256?: string

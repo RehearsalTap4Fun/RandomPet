@@ -359,10 +359,13 @@ export function makeInterfaceCatalogFixture(): Catalog {
         variantsByRig: Object.fromEntries(part.compatibleRigs.map((rigId: RigId) => [rigId, {
           rigId,
           materialFamily: 'soft-skin',
-          renderNodes: attachment.renderNodes.map((node: any) => ({
+          renderNodes: attachment.renderNodes.map((node: any, nodeIndex: number) => ({
             ...node,
             id: `${node.id}_${rigId}`,
             compatibleRigs: [rigId],
+            ...((interfaceConnectorsBySlot[part.slotId as VisualSlotId]?.[nodeIndex]?.[1] === 'plug')
+              ? { connectorId: interfaceConnectorsBySlot[part.slotId as VisualSlotId]![nodeIndex]![0] }
+              : {}),
           })),
           connectors: (interfaceConnectorsBySlot[part.slotId as VisualSlotId] ?? []).map(([id, role, connectorClass]) => (
             interfaceConnector(id, role, connectorClass, rigId)

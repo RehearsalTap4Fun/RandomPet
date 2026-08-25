@@ -37,6 +37,7 @@ const RectSchema = z.object({
 })
 const RenderNodeDefinitionSchema = z.object({
   id: z.string().min(1),
+  connectorId: z.string().min(1).optional(),
   assetPath: z.string().min(1),
   pngPath: z.string().min(1).optional(),
   assetSha256: sha256.optional(),
@@ -292,11 +293,29 @@ export const CatalogSchema = z.object({
       continue
     }
     for (const rigId of part.compatibleRigs) {
-      if (composition.variantsByRig[rigId] === undefined) {
+      const variant = composition.variantsByRig[rigId]
+      if (variant === undefined) {
         context.addIssue({
           code: 'custom',
           path: ['parts', index, 'composition', 'variantsByRig', rigId],
           message: `Catalog 0.3.0 structural part ${part.id} requires an exact ${rigId} variant.`,
+        })
+        continue
+      }
+      const plugIds = variant.connectors
+        .filter(connector => connector.role === 'plug')
+        .map(connector => connector.id)
+      if (plugIds.length === 0) continue
+      const nodeConnectorIds = variant.renderNodes.map(node => node.connectorId)
+      const hasOneNodePerPlug = nodeConnectorIds.length === plugIds.length
+        && nodeConnectorIds.every((id): id is string => id !== undefined)
+        && new Set(nodeConnectorIds).size === nodeConnectorIds.length
+        && plugIds.every(id => nodeConnectorIds.includes(id))
+      if (!hasOneNodePerPlug) {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'composition', 'variantsByRig', rigId, 'renderNodes'],
+          message: 'Every plug connector requires exactly one render node with the same connectorId.',
         })
       }
     }
