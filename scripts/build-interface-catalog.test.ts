@@ -33,6 +33,17 @@ describe('buildInterfaceCatalog', () => {
       neutralPngSha256: hashFor(`${bridge.id}:png`), neutralWebpSha256: hashFor(`${bridge.id}:webp`),
       frontMaskSha256: hashFor(`${bridge.id}:front`), backMaskSha256: hashFor(`${bridge.id}:back`),
     }]))
+    const retainedPartId = base.parts.find(part => part.slotId === 'eyes')!.id
+    const removedPartId = base.parts.find(part => (
+      ['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)
+      && !manifest.assets.some((asset: any) => asset.id === part.id)
+    ))!.id
+    const semanticExclude = base.semanticTraits[1]!.id
+    const modifierExclude = base.modifiers[1]!.id
+    base.semanticTraits[0]!.boosts = { [retainedPartId]: 2, [removedPartId]: 3 }
+    base.semanticTraits[0]!.excludes = [semanticExclude]
+    base.modifiers[0]!.boosts = { [retainedPartId]: 4, [removedPartId]: 5 }
+    base.modifiers[0]!.excludes = [modifierExclude]
 
     const catalog = buildInterfaceCatalog({ baseCatalog: base, manifest, processedAssets: processed, processedBridges: bridges })
 
@@ -51,6 +62,10 @@ describe('buildInterfaceCatalog', () => {
       'assets/v0.3.0/nodes/arms_short_plush/arms_short_plush-shoulderLeft.webp',
       'assets/v0.3.0/nodes/arms_short_plush/arms_short_plush-shoulderRight.webp',
     ])
+    expect(catalog.semanticTraits[0]?.boosts).toEqual({ [retainedPartId]: 2 })
+    expect(catalog.semanticTraits[0]?.excludes).toEqual([semanticExclude])
+    expect(catalog.modifiers[0]?.boosts).toEqual({ [retainedPartId]: 4 })
+    expect(catalog.modifiers[0]?.excludes).toEqual([modifierExclude])
     expect(validateCatalogStructure(catalog)).toEqual([])
 
     const duplicateProcessed = structuredClone(processed)

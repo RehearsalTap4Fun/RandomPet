@@ -5,6 +5,7 @@ import {
   STRUCTURE_ALPHA_MASS_MIN,
   type ConnectorMetric,
 } from '@qmonster/renderer-canvas'
+import type { Catalog } from '@qmonster/generator-core'
 import type { BipedSliceEntry } from './render-biped-interface-slice.js'
 import type { BipedSliceManifest } from './render-biped-interface-slice.js'
 import {
@@ -14,8 +15,8 @@ import {
   BIPED_SLICE_ROWS,
 } from './render-biped-interface-slice.js'
 import { createHash } from 'node:crypto'
-import { readFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { readFile, readdir } from 'node:fs/promises'
+import { join, resolve } from 'node:path'
 import sharp from 'sharp'
 
 export function makeValidSliceEntry(): BipedSliceEntry {
@@ -39,7 +40,8 @@ export function makeValidSliceEntry(): BipedSliceEntry {
     originalPngPath: 'entries/00.png',
     review256PngPath: 'entries-256/00.png',
     diagnostics: [],
-    connectorMetrics: [metric],
+    connectorMetrics: ['neck', 'shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight']
+      .map(connectorId => ({ ...metric, connectorId })),
     compositionMetrics: {
       eyesInsideRatio: 1,
       eyesVisibleRatio: 1,
@@ -52,16 +54,50 @@ export function makeValidSliceEntry(): BipedSliceEntry {
   }
 }
 
-export function assertBipedSliceEntry(entry: BipedSliceEntry): void {
+const REQUIRED_CONNECTOR_IDS = ['neck', 'shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight'] as const
+
+export function assertBipedSliceEntry(
+  entry: BipedSliceEntry,
+  compositionPolicy: NonNullable<Catalog['compositionPolicy']>,
+): void {
+  const connectorIds = entry.connectorMetrics.map(metric => metric.connectorId)
+  const connectorIdSet = new Set(connectorIds)
+  const bounds = entry.compositionMetrics.visibleBounds
+  const finiteFaceMetrics = [
+    entry.compositionMetrics.eyesInsideRatio,
+    entry.compositionMetrics.eyesVisibleRatio,
+    entry.compositionMetrics.mouthInsideRatio,
+    entry.compositionMetrics.mouthVisibleRatio,
+  ].every(Number.isFinite)
   const invalid = entry.diagnostics.length > 0
-    || entry.connectorMetrics.length === 0
+    || connectorIds.length !== REQUIRED_CONNECTOR_IDS.length
+    || connectorIdSet.size !== REQUIRED_CONNECTOR_IDS.length
+    || REQUIRED_CONNECTOR_IDS.some(connectorId => !connectorIdSet.has(connectorId))
     || entry.connectorMetrics.some(metric => (
-      metric.receiverCoverage < CONNECTOR_COVERAGE_MIN
+      ![
+        metric.receiverCoverage,
+        metric.plugCoverage,
+        metric.largestComponentRatio,
+        metric.centerlineGapPixels,
+        metric.childOutsideBodyRatio ?? 0,
+      ].every(Number.isFinite)
+      || metric.receiverCoverage < CONNECTOR_COVERAGE_MIN
       || metric.plugCoverage < CONNECTOR_COVERAGE_MIN
       || metric.largestComponentRatio < STRUCTURE_ALPHA_MASS_MIN
       || metric.centerlineGapPixels > CONNECTOR_GAP_MAX_1024
       || (metric.childOutsideBodyRatio !== null && metric.childOutsideBodyRatio < EXTERNAL_LIMB_ALPHA_MIN)
     ))
+    || !finiteFaceMetrics
+    || entry.compositionMetrics.eyesInsideRatio < compositionPolicy.faceInsideRatio
+    || entry.compositionMetrics.eyesVisibleRatio < compositionPolicy.faceVisibleRatio
+    || entry.compositionMetrics.mouthInsideRatio < compositionPolicy.faceInsideRatio
+    || entry.compositionMetrics.mouthVisibleRatio < compositionPolicy.faceVisibleRatio
+    || bounds === null
+    || ![bounds?.x, bounds?.y, bounds?.width, bounds?.height].every(value => Number.isFinite(value))
+    || bounds.x < compositionPolicy.frameBounds.x
+    || bounds.y < compositionPolicy.frameBounds.y
+    || bounds.x + bounds.width > compositionPolicy.frameBounds.x + compositionPolicy.frameBounds.width
+    || bounds.y + bounds.height > compositionPolicy.frameBounds.y + compositionPolicy.frameBounds.height
   if (invalid) throw new Error(`BIPED_SLICE_INVALID: ${entry.structuralKey}`)
 }
 
@@ -69,9 +105,34 @@ function hash(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex')
 }
 
-export async function validateBipedSliceReview(manifestPath: string): Promise<{ entryCount: number, diagnostics: string[] }> {
-  const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as BipedSliceManifest
+const ACCEPTANCE_FILENAME = 'biped-vertical-slice-acceptance.json'
+
+async function findAcceptanceRecords(root: string): Promise<string[]> {
+  const records: string[] = []
+  const visit = async (directory: string): Promise<void> => {
+    const entries = await readdir(directory, { withFileTypes: true })
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        if (entry.name !== '.git' && entry.name !== 'node_modules') await visit(join(directory, entry.name))
+      } else if (entry.isFile() && entry.name === ACCEPTANCE_FILENAME) records.push(join(directory, entry.name))
+    }
+  }
+  await visit(root)
+  return records
+}
+
+export async function validateBipedSliceReview(
+  manifestPath: string,
+  options: { repositoryRoot?: string, catalogPath?: string } = {},
+): Promise<{ entryCount: number, diagnostics: string[] }> {
+  const manifestBytes = await readFile(manifestPath)
+  const manifest = JSON.parse(manifestBytes.toString('utf8')) as BipedSliceManifest
   const diagnostics: string[] = []
+  const catalog = JSON.parse(await readFile(resolve(
+    options.catalogPath ?? 'packages/asset-catalog/catalog/v0.3.0/catalog.json',
+  ), 'utf8')) as Catalog
+  const compositionPolicy = catalog.compositionPolicy
+  if (compositionPolicy === undefined) diagnostics.push('canonical catalog composition policy missing')
   if (manifest.catalogVersion !== '0.3.0' || manifest.rendererVersion !== '0.3.0' || manifest.rigId !== 'biped') diagnostics.push('version/rig mismatch')
   const canonicalKeys = new Set<string>()
   for (const bodyFrame of BIPED_SLICE_OPTIONS.bodyFrame) {
@@ -90,7 +151,9 @@ export async function validateBipedSliceReview(manifestPath: string): Promise<{ 
     || manifest.entries.some(entry => entry.selections.headShape !== BIPED_SLICE_OPTIONS.headShape[0])
   ) diagnostics.push(`slice roster is not canonical ${BIPED_SLICE_ENTRY_COUNT} unique mushroom-head entries`)
   for (const entry of manifest.entries) {
-    try { assertBipedSliceEntry(entry) } catch (caught) { diagnostics.push(caught instanceof Error ? caught.message : String(caught)) }
+    if (compositionPolicy !== undefined) {
+      try { assertBipedSliceEntry(entry, compositionPolicy) } catch (caught) { diagnostics.push(caught instanceof Error ? caught.message : String(caught)) }
+    }
     for (const [path, expected, size] of [
       [entry.originalPngPath, entry.originalSha256, 2048],
       [entry.review256PngPath, entry.review256Sha256, 256],
@@ -112,6 +175,33 @@ export async function validateBipedSliceReview(manifestPath: string): Promise<{ 
       const metadata = await sharp(bytes).metadata()
       if (hash(bytes) !== expected || metadata.width !== width || metadata.height !== height || metadata.hasAlpha !== true) diagnostics.push(`contact sheet bytes invalid: ${path}`)
     } catch { diagnostics.push(`contact sheet missing: ${path}`) }
+  }
+  const acceptanceRecords = await findAcceptanceRecords(resolve(options.repositoryRoot ?? process.cwd()))
+  if (acceptanceRecords.length === 0) {
+    diagnostics.push('canonical acceptance record missing')
+  } else {
+    if (acceptanceRecords.length !== 1) diagnostics.push(`canonical acceptance record must be unique: found ${acceptanceRecords.length}`)
+    try {
+      const acceptance = JSON.parse(await readFile(acceptanceRecords[0]!, 'utf8')) as Record<string, unknown>
+      const sheetBytes = manifest.sheetPath === undefined ? null : await readFile(resolve(manifest.sheetPath))
+      const review256Bytes = manifest.review256SheetPath === undefined ? null : await readFile(resolve(manifest.review256SheetPath))
+      if (
+        acceptance.decision !== 'approved'
+        || acceptance.reviewer !== 'user'
+        || acceptance.userApproved !== true
+        || acceptance.approvalResponse !== 'ok'
+        || acceptance.entryCount !== BIPED_SLICE_ENTRY_COUNT
+        || sheetBytes === null
+        || review256Bytes === null
+        || acceptance.contactSheetSha256 !== hash(sheetBytes)
+        || acceptance.contactSheetSha256 !== manifest.sheetSha256
+        || acceptance.review256ContactSheetSha256 !== hash(review256Bytes)
+        || acceptance.review256ContactSheetSha256 !== manifest.review256SheetSha256
+        || acceptance.manifestSha256 !== hash(manifestBytes)
+      ) diagnostics.push('canonical acceptance record does not match the approved live review bytes')
+    } catch {
+      diagnostics.push('canonical acceptance record does not match the approved live review bytes')
+    }
   }
   return { entryCount: manifest.entries.length, diagnostics }
 }

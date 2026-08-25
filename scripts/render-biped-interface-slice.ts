@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import { realpathSync } from 'node:fs'
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from '@playwright/test'
@@ -186,12 +187,21 @@ function makeSliceSpec(catalog: Catalog, selections: BipedSliceEntry['selections
   }
 }
 
+export async function withTemporaryBipedSliceInputRoot<T>(run: (inputRoot: string) => Promise<T>): Promise<T> {
+  const inputRoot = await mkdtemp(join(tmpdir(), 'qmonster-biped-slice-inputs-'))
+  try {
+    return await run(inputRoot)
+  } finally {
+    await rm(inputRoot, { recursive: true, force: true })
+  }
+}
+
 export async function renderBipedSlice(): Promise<BipedSliceManifest> {
+  return withTemporaryBipedSliceInputRoot(async inputRoot => {
   const reviewRoot = join('packages', 'asset-catalog', 'review', 'v0.3.0')
   const entriesRoot = join(reviewRoot, 'biped-vertical-slice-entries')
   const review256Root = join(reviewRoot, 'biped-vertical-slice-entries-256')
-  const inputRoot = join(reviewRoot, 'biped-vertical-slice-inputs')
-  await Promise.all([mkdir(entriesRoot, { recursive: true }), mkdir(review256Root, { recursive: true }), mkdir(inputRoot, { recursive: true })])
+  await Promise.all([mkdir(entriesRoot, { recursive: true }), mkdir(review256Root, { recursive: true })])
   const sourceCatalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.3.0/catalog.json', 'utf8')) as Catalog
   const catalog = browserCatalog(sourceCatalog)
   const manifest = await buildBipedSliceManifest(makeBipedSliceCatalog())
@@ -259,6 +269,7 @@ export async function renderBipedSlice(): Promise<BipedSliceManifest> {
     review256SheetSha256: sha256(review256Sheet),
   }, null, 2)}\n`)
   return manifest
+  })
 }
 
 function isDirectExecution(): boolean {

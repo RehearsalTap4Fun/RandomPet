@@ -5272,9 +5272,7 @@
         "shadow": 1.15
       },
       "excludes": [],
-      "boosts": {
-        "body_floating_drop": 1.12
-      },
+      "boosts": {},
       "visualMapping": {
         "mood": "dreamy",
         "suggestedParts": [
@@ -5318,9 +5316,7 @@
       "excludes": [
         "personality_brave"
       ],
-      "boosts": {
-        "head_shadow_hood": 1.2
-      },
+      "boosts": {},
       "visualMapping": {
         "mood": "shy",
         "suggestedParts": [
@@ -5389,9 +5385,7 @@
       "excludes": [
         "quirk_spore_sneeze"
       ],
-      "boosts": {
-        "tail_fish_fan": 1.15
-      },
+      "boosts": {},
       "visualMapping": {
         "effectPartIds": [],
         "suggestedParts": [
@@ -5431,9 +5425,7 @@
         "shadow": 1.4
       },
       "excludes": [],
-      "boosts": {
-        "legs_shadow_tiptoe": 1.25
-      },
+      "boosts": {},
       "visualMapping": {
         "effectPartIds": [],
         "suggestedParts": [

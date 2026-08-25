@@ -160,17 +160,29 @@ export function buildInterfaceCatalog(input: {
       backMaskSha256: processed.backMaskSha256,
     }
   })
+  const parts = [
+    ...input.baseCatalog.parts.filter(part => (
+      !structuralSlots.has(part.slotId)
+      && (!['tail', 'extraAppendage'].includes(part.slotId) || part.composition?.isNone === true)
+    )).map(part => ({ ...part, compatibleRigs: ['biped'] as const })),
+    ...structuralParts,
+  ] as VisualPartDefinition[]
+  const partIds = new Set(parts.map(part => part.id))
+  const retainExistingPartBoosts = <T extends { boosts?: Record<string, number> }>(definition: T): T => (
+    definition.boosts === undefined
+      ? definition
+      : {
+          ...definition,
+          boosts: Object.fromEntries(Object.entries(definition.boosts).filter(([partId]) => partIds.has(partId))),
+        }
+  )
   return {
     ...input.baseCatalog,
     version: '0.3.0',
     rigs: input.baseCatalog.rigs,
-    parts: [
-      ...input.baseCatalog.parts.filter(part => (
-        !structuralSlots.has(part.slotId)
-        && (!['tail', 'extraAppendage'].includes(part.slotId) || part.composition?.isNone === true)
-      )).map(part => ({ ...part, compatibleRigs: ['biped'] as const })),
-      ...structuralParts,
-    ] as VisualPartDefinition[],
+    parts,
+    semanticTraits: input.baseCatalog.semanticTraits.map(retainExistingPartBoosts),
+    modifiers: input.baseCatalog.modifiers.map(retainExistingPartBoosts),
     transitionBridges,
   }
 }

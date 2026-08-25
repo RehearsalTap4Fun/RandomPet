@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest'
+import { access, readdir, writeFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
 import {
   buildBipedSliceManifest,
   makeBipedSliceCatalog,
+  withTemporaryBipedSliceInputRoot,
 } from './render-biped-interface-slice.js'
 
 describe('biped interface slice manifest', () => {
@@ -20,5 +23,17 @@ describe('biped interface slice manifest', () => {
     expect(manifest.entries[7]?.structuralKey).toBe(
       'body_biped_tall|head_mushroom_cap|arms_long_noodle|legs_mushroom',
     )
+  })
+
+  it('keeps browser input JSON outside review delivery and cleans it after failures', async () => {
+    let temporaryRoot = ''
+    await expect(withTemporaryBipedSliceInputRoot(async root => {
+      temporaryRoot = root
+      expect(resolve(root).startsWith(resolve('packages/asset-catalog/review/v0.3.0'))).toBe(false)
+      await writeFile(resolve(root, '00.json'), '{"fixture":true}\n')
+      throw new Error('fixture failure')
+    })).rejects.toThrow('fixture failure')
+    await expect(access(temporaryRoot)).rejects.toThrow()
+    expect(await readdir('packages/asset-catalog/review/v0.3.0')).not.toContain('biped-vertical-slice-inputs')
   })
 })
