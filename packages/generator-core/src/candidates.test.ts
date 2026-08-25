@@ -126,6 +126,40 @@ describe('candidate pool boundaries', () => {
     }
   })
 
+  it('keeps colorScheme hard-bound to the selected theme with composition planning enabled', () => {
+    const catalog = makeValidCatalogFixture()
+    const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
+    catalog.parts = [
+      { ...color, id: 'color_fungal', themeIds: ['fungal'] },
+      { ...color, id: 'color_deep_sea', themeIds: ['deep-sea'] },
+      { ...color, id: 'color_shadow', themeIds: ['shadow'] },
+    ]
+    catalog.compositionPolicy = {
+      motifSlots: ['eyes'],
+      surpriseRatio: 0.3,
+      maxStrongFeatures: 2,
+      optionalNoneRate: { min: 0.35, max: 0.5 },
+      frameBounds: { x: 96, y: 64, width: 1856, height: 1888 },
+      faceInsideRatio: 0.8,
+      faceVisibleRatio: 0.85,
+    }
+
+    for (let seed = 0; seed < 1_000; seed += 1) {
+      const result = buildCandidates({
+        catalog,
+        slotId: 'colorScheme',
+        themeId: 'fungal',
+        rigId: 'blob',
+        selections: {},
+        rng: createRng(['composition-hard-theme-color', seed]),
+        composition: { motifMode: 'neutral', remainingStrong: 2 },
+      })
+      expect(result.trace.rangeMode).toBe('theme')
+      expect(result.trace.candidateIds).toEqual(['color_fungal'])
+      expect(result.part?.id).toBe('color_fungal')
+    }
+  })
+
   it('retains both 70-percent theme and 30-percent full-pool branches for non-color slots', () => {
     const catalog = makeValidCatalogFixture()
     const eye = catalog.parts.find(part => part.slotId === 'eyes')!

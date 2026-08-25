@@ -117,8 +117,10 @@ function makeRecordingSurfaceFactory(calls: string[]) {
   }
 }
 
-function sparseAlpha(points: readonly (readonly [number, number])[]): Uint8ClampedArray {
-  const width = 2048
+function sparseAlpha(
+  points: readonly (readonly [number, number])[],
+  width = 2048,
+): Uint8ClampedArray {
   const lastIndex = points.reduce((maximum, [x, y]) => (
     Math.max(maximum, (y * width + x) * 4 + 3)
   ), -1)
@@ -138,10 +140,10 @@ interface CompositionAlphaFixture {
 function healthyCompositionAlpha(): CompositionAlphaFixture {
   return {
     body: sparseAlpha([[500, 500]]),
-    eyes: sparseAlpha([[100, 100]]),
-    mouth: sparseAlpha([[100, 100]]),
-    output: sparseAlpha([[500, 500]]),
-    occluders: [sparseAlpha([]), sparseAlpha([])],
+    eyes: sparseAlpha([[25, 25]], 512),
+    mouth: sparseAlpha([[25, 25]], 512),
+    output: sparseAlpha([[125, 125]], 512),
+    occluders: [sparseAlpha([], 512), sparseAlpha([], 512)],
   }
 }
 
@@ -155,19 +157,20 @@ function makeCompositionSurfaceFactory(
     [alpha.eyes],
     [alpha.mouth],
     [alpha.output],
-    [alpha.occluders[0] ?? sparseAlpha([]), alpha.occluders[1] ?? sparseAlpha([])],
-    [alpha.eyes, alpha.mouth],
+    [alpha.occluders[0] ?? sparseAlpha([], 512)],
+    [alpha.occluders[1] ?? sparseAlpha([], 512)],
   ]
   let nextCanvas = 0
-  return () => {
+  return (width: number, height: number) => {
     const index = nextCanvas
     const id = `composition-${nextCanvas += 1}`
+    calls.push(`composition-surface:${index}:${width}x${height}`)
     const context = makeRecordingContext(calls, `${id}:`)
     let readIndex = 0
     Object.assign(context, {
       getImageData: () => ({
         data: reads[index]?.[Math.min(readIndex++, (reads[index]?.length ?? 1) - 1)]
-          ?? sparseAlpha([]),
+          ?? sparseAlpha([], index === 0 || index === 1 ? 2048 : 512),
       }),
     })
     return { canvas: image(id), context }
@@ -178,6 +181,8 @@ const RASTER_WIDTH = 2048
 
 interface SparseRasterSource extends FakeImage {
   alpha: Set<number>
+  width: number
+  height: number
 }
 
 interface SparseRasterState {
@@ -188,8 +193,8 @@ interface SparseRasterState {
   y: number
 }
 
-function rasterPoint(x: number, y: number): number {
-  return y * RASTER_WIDTH + x
+function rasterPoint(x: number, y: number, width = RASTER_WIDTH): number {
+  return y * width + x
 }
 
 function sparseRasterImage(
@@ -198,6 +203,8 @@ function sparseRasterImage(
 ): CanvasImageSource {
   return {
     id,
+    width: RASTER_WIDTH,
+    height: RASTER_WIDTH,
     alpha: new Set(points.map(([x, y]) => rasterPoint(x, y))),
   } as unknown as CanvasImageSource
 }
@@ -241,16 +248,26 @@ function makeSparseRasterContext(canvas: SparseRasterSource): CanvasRenderingCon
       state.scaleX *= x
       state.scaleY *= y
     },
-    drawImage(source: CanvasImageSource) {
+    drawImage(source: CanvasImageSource, ...coordinates: number[]) {
       const sourceAlpha = (source as unknown as SparseRasterSource).alpha
+      const sourceWidth = (source as unknown as SparseRasterSource).width
+      const sourceHeight = (source as unknown as SparseRasterSource).height
+      const destinationX = coordinates[0] ?? 0
+      const destinationY = coordinates[1] ?? 0
+      const destinationWidth = coordinates[2] ?? sourceWidth
+      const destinationHeight = coordinates[3] ?? sourceHeight
       const transformed = new Set<number>()
       for (const pixel of sourceAlpha) {
-        const localX = pixel % RASTER_WIDTH
-        const localY = Math.floor(pixel / RASTER_WIDTH)
-        const worldX = Math.round(state.x + localX * state.scaleX)
-        const worldY = Math.round(state.y + localY * state.scaleY)
-        if (worldX < 0 || worldX >= RASTER_WIDTH || worldY < 0 || worldY >= RASTER_WIDTH) continue
-        transformed.add(rasterPoint(worldX, worldY))
+        const localX = pixel % sourceWidth
+        const localY = Math.floor(pixel / sourceWidth)
+        const worldX = Math.round(
+          state.x + (destinationX + localX * destinationWidth / sourceWidth) * state.scaleX,
+        )
+        const worldY = Math.round(
+          state.y + (destinationY + localY * destinationHeight / sourceHeight) * state.scaleY,
+        )
+        if (worldX < 0 || worldX >= canvas.width || worldY < 0 || worldY >= canvas.height) continue
+        transformed.add(rasterPoint(worldX, worldY, canvas.width))
       }
       compositeSparseAlpha(canvas.alpha, transformed, state.composite)
     },
@@ -260,8 +277,8 @@ function makeSparseRasterContext(canvas: SparseRasterSource): CanvasRenderingCon
     fillRect(x: number, y: number, width: number, height: number) {
       if (state.composite !== 'destination-out') return
       for (const pixel of canvas.alpha) {
-        const pixelX = pixel % RASTER_WIDTH
-        const pixelY = Math.floor(pixel / RASTER_WIDTH)
+        const pixelX = pixel % canvas.width
+        const pixelY = Math.floor(pixel / canvas.width)
         if (pixelX >= x && pixelX < x + width && pixelY >= y && pixelY < y + height) {
           canvas.alpha.delete(pixel)
         }
@@ -284,9 +301,11 @@ function makeSparseRasterContext(canvas: SparseRasterSource): CanvasRenderingCon
 
 function makeSparseRasterSurfaceFactory() {
   let nextCanvas = 0
-  return () => {
+  return (width: number, height: number) => {
     const canvas = {
       id: `raster-${nextCanvas += 1}`,
+      width,
+      height,
       alpha: new Set<number>(),
     }
     return {
@@ -579,6 +598,15 @@ describe('composition canvas rendering', () => {
     )
 
     expect(result.diagnostics).toEqual([])
+    expect(calls.filter(call => call.startsWith('composition-surface:'))).toEqual([
+      'composition-surface:0:2048x2048',
+      'composition-surface:1:2048x2048',
+      'composition-surface:2:512x512',
+      'composition-surface:3:512x512',
+      'composition-surface:4:512x512',
+      'composition-surface:5:512x512',
+      'composition-surface:6:512x512',
+    ])
     expect(calls.filter(call => call.startsWith('composition-1:draw:nodes/'))).toEqual([
       'composition-1:draw:nodes/tail_anchor_0.webp',
       'composition-1:draw:nodes/extra_wings_0.webp',
@@ -660,8 +688,8 @@ describe('composition canvas rendering', () => {
     const outside = Array.from({ length: 21 }, (_, x) => [x, 0] as const)
     const occluded = Array.from({ length: 16 }, (_, x) => [x, 100] as const)
     const alpha = healthyCompositionAlpha()
-    alpha.eyes = sparseAlpha([...inside, ...outside])
-    alpha.occluders = [sparseAlpha(occluded), sparseAlpha([])]
+    alpha.eyes = sparseAlpha([...inside, ...outside], 512)
+    alpha.occluders = [sparseAlpha(occluded, 512), sparseAlpha([], 512)]
 
     const result = await renderMonster(
       makeRecordingContext([]), spec, catalog, makeResolver(), {
@@ -691,7 +719,7 @@ describe('composition canvas rendering', () => {
     const catalog = makeCompositionCatalogFixture()
     const spec = makeValidCompositionSpecFixture(catalog)
     const alpha = healthyCompositionAlpha()
-    alpha.output = sparseAlpha([[127, 128]])
+    alpha.output = sparseAlpha([[31, 32]], 512)
 
     const result = await renderMonster(
       makeRecordingContext([]), spec, catalog, makeResolver(), {
@@ -700,7 +728,7 @@ describe('composition canvas rendering', () => {
     )
 
     expect(result.compositionMetrics?.visibleBounds).toEqual({
-      x: 127, y: 128, width: 1, height: 1,
+      x: 124, y: 128, width: 4, height: 4,
     })
     expect(result.diagnostics).toContainEqual(expect.objectContaining({
       severity: 'error', code: 'COMPOSITION_BOUNDS_EXCEEDED',

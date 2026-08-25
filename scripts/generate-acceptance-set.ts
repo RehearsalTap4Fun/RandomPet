@@ -8,20 +8,23 @@ import { createServer } from 'vite'
 import {
   generateMonster,
   parseCatalog,
+  planComposition,
+  strongFeatureCount,
   type Catalog,
   type Diagnostic,
   type MonsterSpec,
   type RigId,
   type ThemeId,
 } from '@qmonster/generator-core'
-import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.1.0/catalog.json'
+import type { CompositionMetrics } from '@qmonster/renderer-canvas'
+import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import { pruneStaleFiles } from './safe-output.js'
 
 const ACCEPTANCE_THEMES = ['deep-sea', 'fungal', 'shadow'] as const
 const ACCEPTANCE_RIGS = ['blob', 'biped', 'floating'] as const
 const DEFAULT_SEED_START = 2026082101
 const DEFAULT_COUNT = 20
-const OUTPUT_DIRECTORY = 'artifacts/acceptance/v0.1'
+const OUTPUT_DIRECTORY = 'artifacts/acceptance/v0.2'
 const RENDER_SIZE = 1024
 
 export interface AcceptanceManifestEntry {
@@ -32,12 +35,18 @@ export interface AcceptanceManifestEntry {
   filename: string
   spec: MonsterSpec
   generationDiagnostics: Diagnostic[]
+  regression: boolean
+  strongFeatureCount: number
+  surpriseSlots: number
+  motifOpportunityCount: number
 }
 
-interface RenderedAcceptanceEntry extends AcceptanceManifestEntry {
+export interface RenderedAcceptanceEntry extends AcceptanceManifestEntry {
   pngSha256: string
   pngBytes: number
   specSha256: string
+  renderDiagnostics: Diagnostic[]
+  compositionMetrics: CompositionMetrics | null
 }
 
 function sha256(bytes: Buffer | string): string {
@@ -56,14 +65,27 @@ export async function buildAcceptanceManifest(
   if (!Number.isSafeInteger(seedStart) || !Number.isSafeInteger(count) || count <= 0) {
     throw new Error('Acceptance seed start and count must be positive safe integers.')
   }
-  const entries = Array.from({ length: count }, (_, offset): AcceptanceManifestEntry => {
-    const seed = String(seedStart + offset)
-    const themeId = ACCEPTANCE_THEMES[offset % ACCEPTANCE_THEMES.length]!
+  const inputs = [
+    ...Array.from({ length: count }, (_, offset) => ({
+      seed: String(seedStart + offset),
+      themeId: ACCEPTANCE_THEMES[offset % ACCEPTANCE_THEMES.length]!,
+      regression: false,
+    })),
+    { seed: 'qmonster-v0.1-first-hatch', themeId: 'fungal' as const, regression: true },
+  ]
+  const entries = inputs.map(({ seed, themeId, regression }, offset): AcceptanceManifestEntry => {
     const generated = generateMonster({ seed, themeId, mode: 'normal' }, catalog)
-    if (generated.blocked || generated.diagnostics.some(item => item.severity === 'error')) {
+    if (generated.blocked || generated.diagnostics.length > 0) {
       throw new Error(`Acceptance generation failed for ${seed}: ${JSON.stringify(generated.diagnostics)}`)
     }
     const rigId = generated.spec.visualSlots.bodyFrame.rigId
+    const compositionPlan = planComposition(seed, themeId, rigId, catalog)
+    const motifOpportunityCount = catalog.compositionPolicy?.motifSlots.length ?? 0
+    const surpriseSlots = (catalog.compositionPolicy?.motifSlots ?? []).filter(slotId => {
+      if (compositionPlan.motifModes[slotId] !== 'surprise') return false
+      const partId = generated.spec.visualSlots[slotId].partId
+      return catalog.parts.find(part => part.slotId === slotId && part.id === partId)?.composition?.isNone === false
+    }).length
     return {
       index: offset + 1,
       seed,
@@ -72,6 +94,10 @@ export async function buildAcceptanceManifest(
       filename: filenameFor(offset + 1, themeId, seed),
       spec: generated.spec,
       generationDiagnostics: generated.diagnostics,
+      regression,
+      strongFeatureCount: strongFeatureCount(generated.spec, catalog),
+      surpriseSlots,
+      motifOpportunityCount,
     }
   })
   const coveredRigs = new Set(entries.map(entry => entry.rigId))
@@ -79,6 +105,29 @@ export async function buildAcceptanceManifest(
     throw new Error(`Acceptance generation did not naturally cover every rig: ${[...coveredRigs].join(', ')}`)
   }
   return entries
+}
+
+export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
+  | 'generationDiagnostics'
+  | 'strongFeatureCount'
+  | 'surpriseSlots'
+  | 'motifOpportunityCount'
+  | 'compositionMetrics'
+  | 'renderDiagnostics'
+>): void {
+  const metrics = entry.compositionMetrics
+  const accepted = entry.generationDiagnostics.length === 0
+    && entry.strongFeatureCount <= 2
+    && entry.surpriseSlots <= Math.floor(entry.motifOpportunityCount * 0.3)
+    && metrics !== null
+    && metrics.eyesInsideRatio >= 0.8
+    && metrics.eyesVisibleRatio >= 0.85
+    && metrics.mouthInsideRatio >= 0.8
+    && metrics.mouthVisibleRatio >= 0.85
+    && entry.renderDiagnostics.length === 0
+  if (!accepted) {
+    throw new Error(`composition acceptance failed: ${JSON.stringify(entry)}`)
+  }
 }
 
 function parseArguments(args: readonly string[]): { seedStart: number; count: number } {
@@ -136,7 +185,8 @@ async function assembleContactSheet(
     const label = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${artSize}" height="56">
       <rect width="100%" height="100%" fill="#111827"/>
       <text x="8" y="21" font-family="Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#ffffff">${escapeXml(`${String(entry.index).padStart(3, '0')} · ${entry.themeId}`)}</text>
-      <text x="8" y="43" font-family="Segoe UI, sans-serif" font-size="13" fill="#b8c4d6">${escapeXml(`${entry.seed} · ${entry.rigId}`)}</text>
+      <text x="8" y="41" font-family="Segoe UI, sans-serif" font-size="12" fill="#b8c4d6">${escapeXml(`${entry.seed} · ${entry.rigId}`)}</text>
+      <text x="8" y="54" font-family="Segoe UI, sans-serif" font-size="11" fill="#7dd3fc">${escapeXml(`strong ${entry.strongFeatureCount} · surprise ${entry.surpriseSlots}`)}</text>
     </svg>`)
     composites.push({ input: image, left: left + 2, top: top + 2 })
     composites.push({ input: label, left: left + 2, top: top + artSize + 2 })
@@ -193,21 +243,30 @@ export async function generateAcceptanceSet(args = process.argv.slice(2)): Promi
     await page.waitForFunction(() => document.body.dataset.rendererReady === 'true')
     const renderedEntries: RenderedAcceptanceEntry[] = []
     for (const entry of entries) {
-      const rendered = await page.evaluate(async spec => window.renderAcceptanceMonster(spec), entry.spec)
+      let rendered: Awaited<ReturnType<Window['renderAcceptanceMonster']>>
+      try {
+        rendered = await page.evaluate(async spec => window.renderAcceptanceMonster(spec), entry.spec)
+      } catch (error) {
+        throw new Error(`Acceptance render failed for ${entry.seed}.`, { cause: error })
+      }
       const bytes = decodePng(rendered.dataUrl)
       const outputPath = join(outputDirectory, entry.filename)
       await writeFile(outputPath, bytes)
       const serializedSpec = JSON.stringify(entry.spec)
-      renderedEntries.push({
+      const renderedEntry: RenderedAcceptanceEntry = {
         ...entry,
         pngSha256: sha256(bytes),
         pngBytes: bytes.byteLength,
         specSha256: sha256(serializedSpec),
-      })
+        renderDiagnostics: rendered.diagnostics,
+        compositionMetrics: rendered.compositionMetrics,
+      }
+      assertCompositionAcceptance(renderedEntry)
+      renderedEntries.push(renderedEntry)
     }
     const contactSheet = await assembleContactSheet(renderedEntries, outputDirectory)
     const manifest = {
-      manifestVersion: 'qmonster-v0.1-acceptance-v1',
+      manifestVersion: 'qmonster-v0.2-acceptance-v1',
       catalogVersion: parsedCatalog.value.version,
       schemaVersion: renderedEntries[0]?.spec.schemaVersion,
       rendererVersion: renderedEntries[0]?.spec.rendererVersion,
@@ -215,7 +274,8 @@ export async function generateAcceptanceSet(args = process.argv.slice(2)): Promi
       browser: { name: 'bundled-chromium', version: browser.version() },
       render: { width: RENDER_SIZE, height: RENDER_SIZE, transparent: true },
       seedStart,
-      count,
+      count: renderedEntries.length,
+      fixedSeedCount: count,
       themes: ACCEPTANCE_THEMES,
       rigs: ACCEPTANCE_RIGS,
       contactSheet: {

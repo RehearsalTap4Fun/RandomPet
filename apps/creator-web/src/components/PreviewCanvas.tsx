@@ -1,6 +1,7 @@
 import { forwardRef, useCallback, useEffect, useRef } from 'react'
 import type { Catalog, Diagnostic, MonsterSpec } from '@qmonster/generator-core'
 import {
+  primeCanvasExport,
   renderMonster,
   type ImageResolver,
   type RenderResult,
@@ -51,7 +52,10 @@ export class CatalogImageResolverCache {
 
 const PRODUCTION_ASSET_ROOT = '../../../../packages/asset-catalog/assets/'
 const productionAssetUrls = import.meta.glob<string>(
-  '../../../../packages/asset-catalog/assets/v*/**/*.{png,webp}',
+  [
+    '../../../../packages/asset-catalog/assets/v*/**/*.{png,webp}',
+    '!../../../../packages/asset-catalog/assets/v*/split-*/**/*.{png,webp}',
+  ],
   { query: '?url', import: 'default' },
 )
 
@@ -83,6 +87,7 @@ interface PreviewCanvasProps {
   spec: MonsterSpec
   catalog: Catalog
   onDiagnosticsChange: (diagnostics: Diagnostic[]) => void
+  onRenderComplete?: (result: RenderResult) => void
   renderer?: PreviewRenderer
   resolver?: ImageResolver
 }
@@ -90,6 +95,18 @@ interface PreviewCanvasProps {
 interface StagingCanvasLease {
   canvas: HTMLCanvasElement
   inUse: boolean
+}
+
+interface CachedPreviewFrame {
+  canvas: HTMLCanvasElement
+  result: RenderResult
+}
+
+const PREVIEW_FRAME_CACHE_LIMIT = 16
+
+function previewFrameKey(spec: MonsterSpec): string {
+  const { slotRolls: _slotRolls, ...renderedSpec } = spec
+  return JSON.stringify(renderedSpec)
 }
 
 function canvasUnavailable(): Diagnostic[] {
@@ -114,12 +131,15 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
   spec,
   catalog,
   onDiagnosticsChange,
+  onRenderComplete,
   renderer = renderMonster,
   resolver,
 }: PreviewCanvasProps, forwardedRef) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const requestId = useRef(0)
   const stagingPool = useRef<StagingCanvasLease[]>([])
+  const frameCache = useRef(new Map<string, CachedPreviewFrame>())
+  const cacheOwner = useRef({ catalog, renderer, resolver })
   const setCanvasRef = useCallback((canvas: HTMLCanvasElement | null) => {
     canvasRef.current = canvas
     if (typeof forwardedRef === 'function') {
@@ -132,6 +152,14 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
   useEffect(() => {
     const currentRequest = ++requestId.current
     onDiagnosticsChange([])
+    if (
+      cacheOwner.current.catalog !== catalog
+      || cacheOwner.current.renderer !== renderer
+      || cacheOwner.current.resolver !== resolver
+    ) {
+      frameCache.current.clear()
+      cacheOwner.current = { catalog, renderer, resolver }
+    }
     const target = canvasRef.current
     if (target === null) return undefined
     const targetContext = target.getContext('2d')
@@ -155,6 +183,28 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
     }
     stagingContext.clearRect(0, 0, 1024, 1024)
 
+    const commit = (source: CanvasImageSource, result: RenderResult): void => {
+      if (requestId.current !== currentRequest) return
+      targetContext.clearRect(0, 0, 1024, 1024)
+      targetContext.drawImage(source, 0, 0)
+      void primeCanvasExport(target, 'image/png').catch(() => undefined)
+      target.dataset.resolverCacheSize = String(browserImageCache.size())
+      performance.mark('qmonster-preview-commit')
+      onDiagnosticsChange(result.diagnostics)
+      onRenderComplete?.(result)
+    }
+    const cacheKey = previewFrameKey(spec)
+    const cached = frameCache.current.get(cacheKey)
+    if (cached !== undefined) {
+      frameCache.current.delete(cacheKey)
+      frameCache.current.set(cacheKey, cached)
+      commit(cached.canvas, cached.result)
+      lease.inUse = false
+      return () => {
+        if (requestId.current === currentRequest) requestId.current += 1
+      }
+    }
+
     void renderer(
       stagingContext,
       spec,
@@ -163,11 +213,20 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
       { width: 1024, height: 1024, includeGroundShadow: true },
     ).then(result => {
       if (requestId.current !== currentRequest) return
-      targetContext.clearRect(0, 0, 1024, 1024)
-      targetContext.drawImage(staging, 0, 0)
-      target.dataset.resolverCacheSize = String(browserImageCache.size())
-      performance.mark('qmonster-preview-commit')
-      onDiagnosticsChange(result.diagnostics)
+      const snapshot = target.ownerDocument.createElement('canvas')
+      snapshot.width = 1024
+      snapshot.height = 1024
+      const snapshotContext = snapshot.getContext('2d')
+      if (snapshotContext !== null) {
+        snapshotContext.drawImage(staging, 0, 0)
+        frameCache.current.set(cacheKey, { canvas: snapshot, result })
+        while (frameCache.current.size > PREVIEW_FRAME_CACHE_LIMIT) {
+          const oldestKey = frameCache.current.keys().next().value as string | undefined
+          if (oldestKey === undefined) break
+          frameCache.current.delete(oldestKey)
+        }
+      }
+      commit(staging, result)
     }).catch(() => {
       if (requestId.current !== currentRequest) return
       targetContext.clearRect(0, 0, 1024, 1024)
@@ -179,7 +238,7 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
     return () => {
       if (requestId.current === currentRequest) requestId.current += 1
     }
-  }, [catalog, onDiagnosticsChange, renderer, resolver, spec])
+  }, [catalog, onDiagnosticsChange, onRenderComplete, renderer, resolver, spec])
 
   return (
     <canvas

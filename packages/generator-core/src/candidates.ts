@@ -74,7 +74,10 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
       || part.composition?.isNone === true
       || part.composition?.visualIntensity !== 'strong'
     ))
-    if (input.composition.motifMode === 'dominant') {
+    if (input.slotId === 'colorScheme') {
+      rangeMode = 'theme'
+      range = withinIntensityBudget.filter(part => part.themeIds.includes(input.themeId))
+    } else if (input.composition.motifMode === 'dominant') {
       const dominantPool = withinIntensityBudget.filter(part => (
         part.composition?.isNone === true || part.composition?.motifTags.includes(input.themeId)
       ))

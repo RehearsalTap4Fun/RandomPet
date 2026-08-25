@@ -25,6 +25,13 @@ import {
   type ChromaQualityThresholds,
 } from '../packages/asset-catalog/src/chroma-quality-gate.js'
 import { buildProductionEvidenceManifest } from '../packages/asset-catalog/src/evidence-root.js'
+import {
+  calibrateBodySocket,
+  calibrateChildOrigin,
+  cropAlphaMask,
+  loadAlphaMask,
+  type CalibrationPoint,
+} from './alpha-junction-calibration.js'
 import { PRODUCTION_PARTS, buildPartPrompt } from './qmonster-part-production.js'
 import { productionPaths } from './production-paths.js'
 import type { RigSheetAudit } from './process-rig-sheets.js'
@@ -233,21 +240,104 @@ const PAIRED_PART_IDS = new Set([
   ...PRODUCTION_PARTS.filter(part => part.slotId === 'arms' || part.slotId === 'legs').map(part => part.id),
   'extra_moth_wings',
 ])
+const ARM_NODE_SCALE = 0.65
+const LEG_NODE_SCALE = 0.34
+const HEAD_NODE_SCALE = 0.78
 
-function bodyGeometry(rigId: RigId): PartComposition['geometryByRig'][RigId] {
+interface PairedJunctionCalibration {
+  anchors: readonly [CalibrationPoint, CalibrationPoint]
+  origins: readonly [CalibrationPoint, CalibrationPoint]
+}
+
+interface CatalogJunctionCalibration {
+  bodySockets: ReadonlyMap<string, Record<string, CalibrationPoint>>
+  childOrigins: ReadonlyMap<string, CalibrationPoint>
+  paired: ReadonlyMap<string, PairedJunctionCalibration>
+}
+
+async function calibrateCatalogJunctions(
+  sourceRoot: string,
+  assetDirectory: string,
+): Promise<CatalogJunctionCalibration> {
+  const childOrigins = new Map<string, CalibrationPoint>()
+  for (const part of PRODUCTION_PARTS.filter(candidate => candidate.visible && candidate.slotId === 'headShape')) {
+    const mask = await loadAlphaMask(join(assetDirectory, 'parts', `${part.id}.png`))
+    childOrigins.set(part.id, calibrateChildOrigin(mask, { junction: 'head', insetPx: 24 }))
+  }
+
+  const paired = new Map<string, PairedJunctionCalibration>()
+  for (const part of PRODUCTION_PARTS.filter(candidate => candidate.visible && PAIRED_PART_IDS.has(candidate.id))) {
+    const mask = await loadAlphaMask(join(sourceRoot, 'parts', `${part.id}.png`))
+    const rects = [
+      { left: 0, top: 0, width: 1024, height: 2048 },
+      { left: 1024, top: 0, width: 1024, height: 2048 },
+    ] as const
+    const junctions = part.slotId === 'legs'
+      ? ['legLeft', 'legRight'] as const
+      : part.slotId === 'arms' || part.slotId === 'extraAppendage'
+      ? ['armLeft', 'armRight'] as const
+      : (() => { throw new Error(`Unsupported paired junction slot ${part.slotId}`) })()
+    const cropMasks = rects.map(rect => cropAlphaMask(mask, rect))
+    const localPoints = rects.map((_, index) => calibrateChildOrigin(cropMasks[index]!, {
+      junction: junctions[index]!,
+      insetPx: part.slotId === 'legs' ? 16 : part.slotId === 'arms' ? 30 : 39,
+    })) as unknown as readonly [CalibrationPoint, CalibrationPoint]
+    paired.set(part.id, {
+      anchors: localPoints.map((point, index) => ({
+        x: point.x + rects[index]!.left,
+        y: point.y + rects[index]!.top,
+      })) as unknown as readonly [CalibrationPoint, CalibrationPoint],
+      origins: localPoints.map((point, index) => ({
+        x: point.x - cropMasks[index]!.bounds.x,
+        y: point.y - cropMasks[index]!.bounds.y,
+      })) as unknown as readonly [CalibrationPoint, CalibrationPoint],
+    })
+  }
+
+  const armCalibrationByRig = new Map<RigId, PairedJunctionCalibration>()
+  for (const part of PRODUCTION_PARTS.filter(candidate => candidate.visible && candidate.slotId === 'arms')) {
+    armCalibrationByRig.set(part.rigId!, paired.get(part.id)!)
+  }
+
+  const bodySockets = new Map<string, Record<string, CalibrationPoint>>()
+  for (const part of PRODUCTION_PARTS.filter(candidate => candidate.visible && candidate.slotId === 'bodyFrame')) {
+    const rigId = part.compatibleRigs[0]!
+    const mask = await loadAlphaMask(join(assetDirectory, 'parts', `${part.id}.png`))
+    const arms = armCalibrationByRig.get(rigId)
+    if (arms === undefined) throw new Error(`Missing arm calibration for ${rigId}`)
+    const armTargetY = (origin: CalibrationPoint) => Math.round(mask.bounds.y - 12 + origin.y * ARM_NODE_SCALE)
+    bodySockets.set(part.id, {
+      head: calibrateBodySocket(mask, { socket: 'head', insetPx: 19 }),
+      headAlternate: calibrateBodySocket(mask, { socket: 'headAlternate', insetPx: 19 }),
+      armLeft: calibrateBodySocket(mask, { socket: 'armLeft', insetPx: -8, targetY: armTargetY(arms.origins[0]) }),
+      armRight: calibrateBodySocket(mask, { socket: 'armRight', insetPx: -8, targetY: armTargetY(arms.origins[1]) }),
+      legLeft: calibrateBodySocket(mask, { socket: 'legLeft', insetPx: 8 }),
+      legRight: calibrateBodySocket(mask, { socket: 'legRight', insetPx: 8 }),
+    })
+  }
+  return { bodySockets, childOrigins, paired }
+}
+
+function bodyGeometry(
+  partId: string,
+  rigId: RigId,
+  calibration: CatalogJunctionCalibration,
+): PartComposition['geometryByRig'][RigId] {
   const rig = rigs.find(candidate => candidate.id === rigId)!
+  const calibrated = calibration.bodySockets.get(partId)
+  if (calibrated === undefined) throw new Error(`Missing body junction calibration for ${partId}`)
   const scaled = (socket: string) => {
     const point = rig.sockets[socket]!
     return { x: point.x / 2, y: point.y / 2 }
   }
   return {
     sockets: {
-      head: scaled('head'),
-      headAlternate: scaled('headAlternate'),
-      armLeft: scaled('armLeft'),
-      armRight: scaled('armRight'),
-      legLeft: scaled('legLeft'),
-      legRight: scaled('legRight'),
+      head: calibrated.head!,
+      headAlternate: calibrated.headAlternate!,
+      armLeft: calibrated.armLeft!,
+      armRight: calibrated.armRight!,
+      legLeft: calibrated.legLeft!,
+      legRight: calibrated.legRight!,
       tail: scaled('tail'),
       wingLeft: scaled('wingLeft'),
       wingRight: scaled('wingRight'),
@@ -257,10 +347,13 @@ function bodyGeometry(rigId: RigId): PartComposition['geometryByRig'][RigId] {
   }
 }
 
-function geometryForPart(part: (typeof PRODUCTION_PARTS)[number]): PartComposition['geometryByRig'] {
+function geometryForPart(
+  part: (typeof PRODUCTION_PARTS)[number],
+  calibration: CatalogJunctionCalibration,
+): PartComposition['geometryByRig'] {
   if (!part.visible) return {}
   if (part.slotId === 'bodyFrame') {
-    return Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, bodyGeometry(rigId)]))
+    return Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, bodyGeometry(part.id, rigId, calibration)]))
   }
   if (part.slotId === 'headShape') {
     return Object.fromEntries(part.compatibleRigs.map(rigId => [rigId, {
@@ -306,12 +399,12 @@ function clipPolicy(part: (typeof PRODUCTION_PARTS)[number]): 'none' | 'body' | 
 }
 
 function singleNodeScale(part: (typeof PRODUCTION_PARTS)[number]): number {
-  if (part.id === 'head_mushroom_cap') return 0.78
+  if (part.slotId === 'headShape') return HEAD_NODE_SCALE
   switch (part.slotId) {
-    case 'eyes': return 0.45
-    case 'mouthShape': return 0.35
-    case 'oralDetail': return 0.12
-    case 'headAppendage': return 0.3
+    case 'eyes': return 0.45 * HEAD_NODE_SCALE
+    case 'mouthShape': return 0.35 * HEAD_NODE_SCALE
+    case 'oralDetail': return 0.11 * HEAD_NODE_SCALE
+    case 'headAppendage': return 0.3 * HEAD_NODE_SCALE
     case 'tail': return 0.5
     case 'extraAppendage': return 0.5
     default: return 1
@@ -325,6 +418,7 @@ async function compositionForPart(input: {
   assetDirectory: string
   pngSha256: string
   webpSha256: string
+  calibration: CatalogJunctionCalibration
 }): Promise<PartComposition> {
   const { part } = input
   if (!part.visible) {
@@ -333,17 +427,18 @@ async function compositionForPart(input: {
   const parentSlot = COMPOSITION_PARENT_BY_SLOT[part.slotId]
   let renderNodes: PartComposition['renderNodes']
   if (PAIRED_PART_IDS.has(part.id)) {
-    const rig = rigs.find(candidate => candidate.id === part.rigId)!
     const isWings = part.id === 'extra_moth_wings'
     const sockets = isWings ? ['wingLeft', 'wingRight'] as const
       : part.slotId === 'arms' ? ['armLeft', 'armRight'] as const
         : ['legLeft', 'legRight'] as const
+    const calibrated = input.calibration.paired.get(part.id)
+    const rig = rigs.find(candidate => candidate.id === part.rigId)!
     const split = await splitPairedPart(
       join(input.sourceRoot, 'parts', `${part.id}.png`),
       join(input.assetDirectory, 'nodes', part.id),
       [
-        { id: 'left', rect: { left: 0, top: 0, width: 1024, height: 2048 }, anchor: rig.sockets[sockets[0]]!, mirrorX: false },
-        { id: 'right', rect: { left: 1024, top: 0, width: 1024, height: 2048 }, anchor: rig.sockets[sockets[1]]!, mirrorX: false },
+        { id: 'left', rect: { left: 0, top: 0, width: 1024, height: 2048 }, anchor: calibrated?.anchors[0] ?? rig.sockets[sockets[0]]!, mirrorX: false },
+        { id: 'right', rect: { left: 1024, top: 0, width: 1024, height: 2048 }, anchor: calibrated?.anchors[1] ?? rig.sockets[sockets[1]]!, mirrorX: false },
       ],
     )
     renderNodes = split.map((node, index) => ({
@@ -355,7 +450,10 @@ async function compositionForPart(input: {
       parentSlot,
       socket: sockets[index]!,
       origin: node.origin,
-      transform: { scale: 0.5, mirrorX: node.mirrorX },
+      transform: {
+        scale: part.slotId === 'arms' ? ARM_NODE_SCALE : part.slotId === 'legs' ? LEG_NODE_SCALE : 0.5,
+        mirrorX: node.mirrorX,
+      },
       layer: part.layer,
       compatibleRigs: input.compatibleRigs,
       clipPolicy: clipPolicy(part),
@@ -369,7 +467,7 @@ async function compositionForPart(input: {
       pngSha256: input.pngSha256,
       parentSlot,
       socket: singleNodeSocket(part),
-      origin: part.origin,
+      origin: part.slotId === 'headShape' ? input.calibration.childOrigins.get(part.id)! : part.origin,
       transform: { scale: singleNodeScale(part), mirrorX: false },
       layer: part.layer,
       compatibleRigs: input.compatibleRigs,
@@ -381,7 +479,7 @@ async function compositionForPart(input: {
     motifTags: STRONG_PART_IDS.has(part.id) ? part.themeIds : themes.map(theme => theme.id),
     visualIntensity: STRONG_PART_IDS.has(part.id) ? 'strong' : 'quiet',
     renderNodes,
-    geometryByRig: geometryForPart(part),
+    geometryByRig: geometryForPart(part, input.calibration),
   }
 }
 
@@ -538,6 +636,9 @@ export async function buildProductionCatalog(options: { write: boolean, version:
   const compositionManifest = options.version === '0.2.0'
     ? await readJson<CompositionManifest>(join(sourceRoot, 'composition-manifest.json'))
     : null
+  const junctionCalibration = compositionManifest === null
+    ? null
+    : await calibrateCatalogJunctions(sourceRoot, assetDirectory)
   if (productionIndex.length !== 55) throw new Error(`Expected 55 production entries, received ${productionIndex.length}`)
   if (rigAudits.length !== 3) throw new Error(`Expected 3 rig audit entries, received ${rigAudits.length}`)
   const indexed = new Map(productionIndex.map(entry => [entry.id, entry]))
@@ -571,6 +672,7 @@ export async function buildProductionCatalog(options: { write: boolean, version:
       assetDirectory,
       pngSha256: source.pngSha256,
       webpSha256: source.webpSha256,
+      calibration: junctionCalibration!,
     })
     return {
       id: part.id,

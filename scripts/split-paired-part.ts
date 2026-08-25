@@ -3,6 +3,10 @@ import { lstat, mkdir, realpath, rename, unlink, writeFile } from 'node:fs/promi
 import { basename, dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import {
+  alphaMaskFromRgba,
+  assertNearOpaqueProximalContour,
+} from './alpha-junction-calibration.js'
 import { resolveOutputPath } from './safe-output.js'
 
 export interface PairCrop {
@@ -181,6 +185,21 @@ async function prepareSplitNode(
     }
   }
   if (maxX < minX || maxY < minY) throw new Error(`${crop.id} crop has no foreground pixels`)
+
+  const cropMask = alphaMaskFromRgba(
+    cropped.data,
+    cropped.info.width,
+    cropped.info.height,
+    cropped.info.channels,
+  )
+  try {
+    assertNearOpaqueProximalContour(cropMask, {
+      x: crop.anchor.x - crop.rect.left,
+      y: crop.anchor.y - crop.rect.top,
+    })
+  } catch (error) {
+    throw new Error(`${crop.id} ${(error as Error).message}`)
+  }
 
   const width = maxX - minX + 1
   const height = maxY - minY + 1

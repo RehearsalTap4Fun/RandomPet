@@ -1,0 +1,24 @@
+{
+  "catalogVersion": "0.2.0",
+  "rendererVersion": "0.2.0",
+  "reviews": [
+    {
+      "reviewedAt": "2026-08-24T08:00:00.000Z",
+      "reviewer": "user",
+      "decision": "rejected",
+      "contactSheetSha256": "7cad7a5c551fcd7e1f510fd84fd1f46b47e921e36e9a4ae5822000155ea6b3bc",
+      "artifactPath": null,
+      "manifestPath": null,
+      "feedback": "The positioning is correct, but the parts overlap."
+    },
+    {
+      "reviewedAt": "2026-08-24T09:00:00.000Z",
+      "reviewer": "user",
+      "decision": "rejected",
+      "contactSheetSha256": "36bfca5567a6470b27fdf5cd1cc3a6c28bbbf61a532bee22159e595d4563b34f",
+      "artifactPath": "position-correct-seams-rejected.png",
+      "manifestPath": "position-correct-seams-manifest.json",
+      "feedback": "There are no designed seams between the parts."
+    }
+  ]
+}

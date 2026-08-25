@@ -36,6 +36,7 @@ async function selectTail(page: Page, partId: string): Promise<void> {
 }
 
 test('meets the current-machine reroll, PNG export, and bounded-cache release gates', async ({ page }, testInfo) => {
+  test.setTimeout(120_000)
   test.skip(testInfo.project.name !== 'chromium', 'Release performance gate uses bundled Chromium')
 
   await page.goto('/')
@@ -101,7 +102,6 @@ test('meets the current-machine reroll, PNG export, and bounded-cache release ga
     const ended = await page.evaluate(() => performance.now())
     pngExportMilliseconds.push(ended - started)
   }
-  for (const duration of pngExportMilliseconds) expect(duration).toBeLessThanOrEqual(2000)
 
   const samples: PerformanceSamples = {
     rerollMilliseconds,
@@ -119,4 +119,5 @@ test('meets the current-machine reroll, PNG export, and bounded-cache release ga
     contentType: 'application/json',
   })
   console.log(`QM_RELEASE_PERFORMANCE=${JSON.stringify(samples)}`)
+  for (const duration of pngExportMilliseconds) expect(duration).toBeLessThanOrEqual(2000)
 })

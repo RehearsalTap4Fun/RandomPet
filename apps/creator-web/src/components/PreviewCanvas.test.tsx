@@ -150,6 +150,47 @@ describe('PreviewCanvas', () => {
     expect(stagingContexts[1]).toBe(stagingContexts[0])
   })
 
+  it('reuses a bounded cached frame when only non-visual slot rolls change', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'cached-frame', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const rerolledSpec = {
+      ...spec,
+      slotRolls: { ...spec.slotRolls, tail: spec.slotRolls.tail + 1 },
+    }
+    const result: RenderResult = {
+      drawnAssetIds: ['tail_anchor'], diagnostics: [], compositionMetrics: null,
+    }
+    const renderer: PreviewRenderer = vi.fn(async () => result)
+    const onRenderComplete = vi.fn()
+    const view = render(
+      <PreviewCanvas
+        spec={spec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={() => undefined}
+        onRenderComplete={onRenderComplete}
+      />,
+    )
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    await waitFor(() => expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1))
+
+    view.rerender(
+      <PreviewCanvas
+        spec={rerolledSpec}
+        catalog={catalog}
+        renderer={renderer}
+        onDiagnosticsChange={() => undefined}
+        onRenderComplete={onRenderComplete}
+      />,
+    )
+    await waitFor(() => expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(2))
+
+    expect(renderer).toHaveBeenCalledTimes(1)
+    expect(onRenderComplete).toHaveBeenCalledTimes(2)
+    expect(onRenderComplete).toHaveBeenLastCalledWith(result)
+  })
+
   it('commits only the newest async render and never publishes stale diagnostics', async () => {
     const { contexts } = installCanvasContexts()
     const catalog = makeValidCatalogFixture()
@@ -161,6 +202,7 @@ describe('PreviewCanvas', () => {
       spec.seed === 'old' ? oldRender.promise : newRender.promise
     ))
     const onDiagnosticsChange = vi.fn()
+    const onRenderComplete = vi.fn()
     const mark = vi.spyOn(performance, 'mark')
     const view = render(
       <PreviewCanvas
@@ -168,6 +210,7 @@ describe('PreviewCanvas', () => {
         catalog={catalog}
         renderer={renderer}
         onDiagnosticsChange={onDiagnosticsChange}
+        onRenderComplete={onRenderComplete}
       />,
     )
     await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
@@ -177,6 +220,7 @@ describe('PreviewCanvas', () => {
         catalog={catalog}
         renderer={renderer}
         onDiagnosticsChange={onDiagnosticsChange}
+        onRenderComplete={onRenderComplete}
       />,
     )
     await waitFor(() => expect(renderer).toHaveBeenCalledTimes(2))
@@ -197,6 +241,8 @@ describe('PreviewCanvas', () => {
     const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
     expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1)
     expect(mark.mock.calls.filter(([name]) => name === 'qmonster-preview-commit')).toHaveLength(1)
+    expect(onRenderComplete).toHaveBeenCalledTimes(1)
+    expect(onRenderComplete).toHaveBeenLastCalledWith(expect.objectContaining({ diagnostics: [] }))
   })
 
   it('clears an existing preview when the latest render rejects and publishes the failure', async () => {
@@ -281,12 +327,14 @@ describe('PreviewCanvas', () => {
     const pending = deferred<RenderResult>()
     const renderer: PreviewRenderer = vi.fn(() => pending.promise)
     const onDiagnosticsChange = vi.fn()
+    const onRenderComplete = vi.fn()
     const view = render(
       <PreviewCanvas
         spec={spec}
         catalog={catalog}
         renderer={renderer}
         onDiagnosticsChange={onDiagnosticsChange}
+        onRenderComplete={onRenderComplete}
       />,
     )
     const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
@@ -298,5 +346,6 @@ describe('PreviewCanvas', () => {
 
     expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
     expect(onDiagnosticsChange.mock.calls.flatMap(([items]) => items as Diagnostic[])).toEqual([])
+    expect(onRenderComplete).not.toHaveBeenCalled()
   })
 })

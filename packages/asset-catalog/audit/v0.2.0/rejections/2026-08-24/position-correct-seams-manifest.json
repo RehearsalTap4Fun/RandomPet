@@ -1,0 +1,3393 @@
+{
+  "manifestVersion": "qmonster-v0.2-acceptance-v1",
+  "catalogVersion": "0.2.0",
+  "schemaVersion": "0.1.0",
+  "rendererVersion": "0.2.0",
+  "rendererPath": "product PreviewCanvas -> @qmonster/renderer-canvas -> browser canvas PNG",
+  "browser": {
+    "name": "bundled-chromium",
+    "version": "151.0.7922.34"
+  },
+  "render": {
+    "width": 1024,
+    "height": 1024,
+    "transparent": true
+  },
+  "seedStart": 2026082101,
+  "count": 21,
+  "fixedSeedCount": 20,
+  "themes": [
+    "deep-sea",
+    "fungal",
+    "shadow"
+  ],
+  "rigs": [
+    "blob",
+    "biped",
+    "floating"
+  ],
+  "contactSheet": {
+    "filename": "contact-sheet.png",
+    "sha256": "36bfca5567a6470b27fdf5cd1cc3a6c28bbbf61a532bee22159e595d4563b34f",
+    "width": 1300,
+    "height": 1580
+  },
+  "entries": [
+    {
+      "index": 1,
+      "seed": "2026082101",
+      "themeId": "deep-sea",
+      "rigId": "blob",
+      "filename": "001-deep-sea-2026082101.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082101",
+        "themeId": "deep-sea",
+        "palette": {
+          "primary": "#237aa3",
+          "secondary": "#74c9bf",
+          "accent": "#f6d365"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_blob_round",
+            "rigId": "blob"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "blob"
+          },
+          "eyes": {
+            "partId": "eyes_glossy_pair",
+            "rigId": "blob"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_pout",
+            "rigId": "blob"
+          },
+          "oralDetail": {
+            "partId": "oral_single_fang",
+            "rigId": "blob"
+          },
+          "headAppendage": {
+            "partId": "head_horns_soft_nubs",
+            "rigId": "blob"
+          },
+          "arms": {
+            "partId": "arms_short_plush",
+            "rigId": "blob"
+          },
+          "legs": {
+            "partId": "legs_stub_feet",
+            "rigId": "blob"
+          },
+          "tail": {
+            "partId": "tail_none",
+            "rigId": "blob"
+          },
+          "extraAppendage": {
+            "partId": "extra_side_fins",
+            "rigId": "blob"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_mushroom_velvet",
+            "rigId": "blob"
+          },
+          "pattern": {
+            "partId": "pattern_soft_spots",
+            "rigId": "blob"
+          },
+          "colorScheme": {
+            "partId": "color_deep_sea_coral",
+            "rigId": "blob"
+          },
+          "effect": {
+            "partId": "effect_bioluminescent_orbs",
+            "rigId": "blob"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_blob_round",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_side_fins",
+            "detailTraitIds": [
+              "legs_stub",
+              "arms_short"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_glossy_pair",
+            "detailTraitIds": [
+              "head_horn_nubs",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_single_fang",
+            "detailTraitIds": [
+              "mouth_pout"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_mushroom_velvet",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_spots",
+            "detailTraitIds": [
+              "color_deep_sea"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_collects_echoes",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "020df97c691a8708695add25340b189e7b0c5373c383e2b43406173bff9e0d3c",
+      "pngBytes": 683754,
+      "specSha256": "172604e22180d2a53149c407af660895c0dbe060c83e3a9b3058681542f8a296",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.9428009597447942,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9428818505385607,
+        "visibleBounds": {
+          "x": 468,
+          "y": 192,
+          "width": 1216,
+          "height": 1492
+        }
+      }
+    },
+    {
+      "index": 2,
+      "seed": "2026082102",
+      "themeId": "fungal",
+      "rigId": "floating",
+      "filename": "002-fungal-2026082102.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082102",
+        "themeId": "fungal",
+        "palette": {
+          "primary": "#6b7d33",
+          "secondary": "#a7c957",
+          "accent": "#f4a261"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_triple_pearl",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_beak",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_horns_soft_nubs",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_fungal_amber",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_spore_glow",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "tail_fish_fan",
+            "detailTraitIds": [
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_triple",
+            "detailTraitIds": [
+              "head_horn_nubs",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_soft_beak"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_fungal"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_tide_hum",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "4f7777e650afb8050afbc88a7013201172449ea73821ffe09d61b3a67c8af934",
+      "pngBytes": 714464,
+      "specSha256": "1bff3c00745278bc0291d1ab59e1699f46cd5334ab2d74f09bf8904741d6ec6a",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9139497860179483,
+        "visibleBounds": {
+          "x": 412,
+          "y": 140,
+          "width": 1248,
+          "height": 1804
+        }
+      }
+    },
+    {
+      "index": 3,
+      "seed": "2026082103",
+      "themeId": "shadow",
+      "rigId": "floating",
+      "filename": "003-shadow-2026082103.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082103",
+        "themeId": "shadow",
+        "palette": {
+          "primary": "#463c78",
+          "secondary": "#8377d1",
+          "accent": "#f9c74f"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_angler_bulb",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_sleepy_crescent",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_pout",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_gummy_ridges",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_soft_tentacles",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_shadow_violet",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_spore_glow",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_soft_tentacles",
+            "detailTraitIds": [
+              "tail_fish_fan",
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_sleepy",
+            "detailTraitIds": [
+              "head_angler_bulb"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_gummy",
+            "detailTraitIds": [
+              "mouth_pout"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_shadow"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_spore_sneeze",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "a08f1fd746d38df43bc0785cffd868bf342b73ab59c33d6c3364e8d09738dde0",
+      "pngBytes": 656937,
+      "specSha256": "a849e119456394e095ec218e43a8ed89f1f917e47aa23235f9985e83505afad9",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.8587191031723844,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9129956861481853,
+        "visibleBounds": {
+          "x": 412,
+          "y": 204,
+          "width": 1248,
+          "height": 1740
+        }
+      }
+    },
+    {
+      "index": 4,
+      "seed": "2026082104",
+      "themeId": "deep-sea",
+      "rigId": "biped",
+      "filename": "004-deep-sea-2026082104.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082104",
+        "themeId": "deep-sea",
+        "palette": {
+          "primary": "#237aa3",
+          "secondary": "#74c9bf",
+          "accent": "#f6d365"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_biped_peanut",
+            "rigId": "biped"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "biped"
+          },
+          "eyes": {
+            "partId": "eyes_glossy_pair",
+            "rigId": "biped"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_beak",
+            "rigId": "biped"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "biped"
+          },
+          "headAppendage": {
+            "partId": "head_antennae_glow",
+            "rigId": "biped"
+          },
+          "arms": {
+            "partId": "arms_long_noodle",
+            "rigId": "biped"
+          },
+          "legs": {
+            "partId": "legs_webbed",
+            "rigId": "biped"
+          },
+          "tail": {
+            "partId": "tail_none",
+            "rigId": "biped"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "biped"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "biped"
+          },
+          "pattern": {
+            "partId": "pattern_gentle_stripes",
+            "rigId": "biped"
+          },
+          "colorScheme": {
+            "partId": "color_deep_sea_coral",
+            "rigId": "biped"
+          },
+          "effect": {
+            "partId": "effect_none",
+            "rigId": "biped"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_biped_peanut",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "legs_webbed",
+            "detailTraitIds": [
+              "arms_noodle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_glossy_pair",
+            "detailTraitIds": [
+              "head_glow_antennae",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_soft_beak"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_stripes",
+            "detailTraitIds": [
+              "color_deep_sea"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_light_chaser",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 0,
+      "surpriseSlots": 2,
+      "motifOpportunityCount": 12,
+      "pngSha256": "b84d7af443efd4714d67ade986702586ff85e236b37c9e1a6514ecc7866e4600",
+      "pngBytes": 665221,
+      "specSha256": "6715634b34f6b2df2adf32bdc70736437b221b95af379005ddffaa6f7d2f73d4",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.9975172589943506,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9150899272928271,
+        "visibleBounds": {
+          "x": 472,
+          "y": 104,
+          "width": 1168,
+          "height": 1592
+        }
+      }
+    },
+    {
+      "index": 5,
+      "seed": "2026082105",
+      "themeId": "fungal",
+      "rigId": "floating",
+      "filename": "005-fungal-2026082105.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082105",
+        "themeId": "fungal",
+        "palette": {
+          "primary": "#6b7d33",
+          "secondary": "#a7c957",
+          "accent": "#f4a261"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_glossy_pair",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_wide_grin",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_gummy_ridges",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_ears_floppy_fins",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_fungal_amber",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_spore_glow",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "tail_fish_fan",
+            "detailTraitIds": [
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_glossy_pair",
+            "detailTraitIds": [
+              "head_fin_ears",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_gummy",
+            "detailTraitIds": [
+              "mouth_wide"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_fungal"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_tide_hum",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "f92d083cb92bde39bf2fab10252e61f2c4cddc9cc2eba06ba8c17fb7bbe91775",
+      "pngBytes": 714557,
+      "specSha256": "fca4f7e6202a3fdf073a030c6d0d9da0f4c5ed51dd7b53eb7615396264feeebe",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.9940760895428894,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9261163518986437,
+        "visibleBounds": {
+          "x": 412,
+          "y": 120,
+          "width": 1248,
+          "height": 1824
+        }
+      }
+    },
+    {
+      "index": 6,
+      "seed": "2026082106",
+      "themeId": "shadow",
+      "rigId": "biped",
+      "filename": "006-shadow-2026082106.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082106",
+        "themeId": "shadow",
+        "palette": {
+          "primary": "#463c78",
+          "secondary": "#8377d1",
+          "accent": "#f9c74f"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_biped_peanut",
+            "rigId": "biped"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "biped"
+          },
+          "eyes": {
+            "partId": "eyes_glossy_pair",
+            "rigId": "biped"
+          },
+          "mouthShape": {
+            "partId": "mouth_vertical_oval",
+            "rigId": "biped"
+          },
+          "oralDetail": {
+            "partId": "oral_lolling_tongue",
+            "rigId": "biped"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "biped"
+          },
+          "arms": {
+            "partId": "arms_long_noodle",
+            "rigId": "biped"
+          },
+          "legs": {
+            "partId": "legs_webbed",
+            "rigId": "biped"
+          },
+          "tail": {
+            "partId": "tail_none",
+            "rigId": "biped"
+          },
+          "extraAppendage": {
+            "partId": "extra_moth_wings",
+            "rigId": "biped"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "biped"
+          },
+          "pattern": {
+            "partId": "pattern_gentle_stripes",
+            "rigId": "biped"
+          },
+          "colorScheme": {
+            "partId": "color_shadow_violet",
+            "rigId": "biped"
+          },
+          "effect": {
+            "partId": "effect_none",
+            "rigId": "biped"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_biped_peanut",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_moth_wings",
+            "detailTraitIds": [
+              "legs_webbed",
+              "arms_noodle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_glossy_pair",
+            "detailTraitIds": [
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_tongue",
+            "detailTraitIds": [
+              "mouth_oval"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_stripes",
+            "detailTraitIds": [
+              "color_shadow"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_dreamy",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_dream_bubbles",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 2,
+      "motifOpportunityCount": 12,
+      "pngSha256": "939aaca591d15609cb5f5170e633b709aaf453682901eb92d224561e3999cb28",
+      "pngBytes": 770808,
+      "specSha256": "5dc470bd029832342d82554a9ae77fb82a24f8aa01ee444e495654b56027a7ec",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.8661408544912349,
+        "visibleBounds": {
+          "x": 416,
+          "y": 196,
+          "width": 1224,
+          "height": 1500
+        }
+      }
+    },
+    {
+      "index": 7,
+      "seed": "2026082107",
+      "themeId": "deep-sea",
+      "rigId": "floating",
+      "filename": "007-deep-sea-2026082107.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082107",
+        "themeId": "deep-sea",
+        "palette": {
+          "primary": "#237aa3",
+          "secondary": "#74c9bf",
+          "accent": "#f6d365"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_asymmetric",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_beak",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_ears_floppy_fins",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_soft_tentacles",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_deep_sea_coral",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_bioluminescent_orbs",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_soft_tentacles",
+            "detailTraitIds": [
+              "tail_fish_fan",
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_asymmetric",
+            "detailTraitIds": [
+              "head_fin_ears",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_soft_beak"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_deep_sea"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_curious",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_shadow_skip",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "1dfd8febe11f91d6e0c11dda62907bf3de007113b46205a5c4fb5bbab7ae9c07",
+      "pngBytes": 703212,
+      "specSha256": "6f79e99d84bca4a43f7390ecb3eef7333f5af97b78e68a2f86591a6f81443cd9",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9139497860179483,
+        "visibleBounds": {
+          "x": 412,
+          "y": 120,
+          "width": 1248,
+          "height": 1824
+        }
+      }
+    },
+    {
+      "index": 8,
+      "seed": "2026082108",
+      "themeId": "fungal",
+      "rigId": "floating",
+      "filename": "008-fungal-2026082108.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082108",
+        "themeId": "fungal",
+        "palette": {
+          "primary": "#6b7d33",
+          "secondary": "#a7c957",
+          "accent": "#f4a261"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_glossy_pair",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_pout",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_gel_bubbles",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_fungal_amber",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_spore_glow",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "tail_fish_fan",
+            "detailTraitIds": [
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_glossy_pair",
+            "detailTraitIds": [
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_pout"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_gel",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_fungal"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_gentle",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_light_chaser",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "de1e9b633256afd47013f71dc5e48c92e90b0284fb7cfda287c54fee69e1b538",
+      "pngBytes": 697662,
+      "specSha256": "12976d58df2095fe326b62d8f109a01cf9d655574ab89241e68f982d3d51e3b4",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9192742029371165,
+        "visibleBounds": {
+          "x": 412,
+          "y": 172,
+          "width": 1248,
+          "height": 1772
+        }
+      }
+    },
+    {
+      "index": 9,
+      "seed": "2026082109",
+      "themeId": "shadow",
+      "rigId": "biped",
+      "filename": "009-shadow-2026082109.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082109",
+        "themeId": "shadow",
+        "palette": {
+          "primary": "#463c78",
+          "secondary": "#8377d1",
+          "accent": "#f9c74f"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_biped_peanut",
+            "rigId": "biped"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "biped"
+          },
+          "eyes": {
+            "partId": "eyes_sleepy_crescent",
+            "rigId": "biped"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_pout",
+            "rigId": "biped"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "biped"
+          },
+          "headAppendage": {
+            "partId": "head_antennae_glow",
+            "rigId": "biped"
+          },
+          "arms": {
+            "partId": "arms_long_noodle",
+            "rigId": "biped"
+          },
+          "legs": {
+            "partId": "legs_webbed",
+            "rigId": "biped"
+          },
+          "tail": {
+            "partId": "tail_mushroom_cluster",
+            "rigId": "biped"
+          },
+          "extraAppendage": {
+            "partId": "extra_moth_wings",
+            "rigId": "biped"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_soft_scales",
+            "rigId": "biped"
+          },
+          "pattern": {
+            "partId": "pattern_gentle_stripes",
+            "rigId": "biped"
+          },
+          "colorScheme": {
+            "partId": "color_shadow_violet",
+            "rigId": "biped"
+          },
+          "effect": {
+            "partId": "effect_bioluminescent_orbs",
+            "rigId": "biped"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_biped_peanut",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_moth_wings",
+            "detailTraitIds": [
+              "tail_mushroom",
+              "legs_webbed",
+              "arms_noodle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_sleepy",
+            "detailTraitIds": [
+              "head_glow_antennae",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_pout"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_soft_scales",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_stripes",
+            "detailTraitIds": [
+              "color_shadow"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_collects_echoes",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "1f1e262bd1bcc5209d28f2f3b13e4e0ba51239efba9db08ede20bfd9492628e9",
+      "pngBytes": 776621,
+      "specSha256": "abb7da228890dd78fe0194d88d89ddf1641e497012a1e142e26023ce396c56c1",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.8600799725028956,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9199692754687996,
+        "visibleBounds": {
+          "x": 416,
+          "y": 104,
+          "width": 1224,
+          "height": 1592
+        }
+      }
+    },
+    {
+      "index": 10,
+      "seed": "2026082110",
+      "themeId": "deep-sea",
+      "rigId": "blob",
+      "filename": "010-deep-sea-2026082110.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082110",
+        "themeId": "deep-sea",
+        "palette": {
+          "primary": "#237aa3",
+          "secondary": "#74c9bf",
+          "accent": "#f6d365"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_blob_round",
+            "rigId": "blob"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "blob"
+          },
+          "eyes": {
+            "partId": "eyes_asymmetric",
+            "rigId": "blob"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_beak",
+            "rigId": "blob"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "blob"
+          },
+          "headAppendage": {
+            "partId": "head_ears_floppy_fins",
+            "rigId": "blob"
+          },
+          "arms": {
+            "partId": "arms_short_plush",
+            "rigId": "blob"
+          },
+          "legs": {
+            "partId": "legs_stub_feet",
+            "rigId": "blob"
+          },
+          "tail": {
+            "partId": "tail_none",
+            "rigId": "blob"
+          },
+          "extraAppendage": {
+            "partId": "extra_side_fins",
+            "rigId": "blob"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_mushroom_velvet",
+            "rigId": "blob"
+          },
+          "pattern": {
+            "partId": "pattern_soft_spots",
+            "rigId": "blob"
+          },
+          "colorScheme": {
+            "partId": "color_deep_sea_coral",
+            "rigId": "blob"
+          },
+          "effect": {
+            "partId": "effect_bioluminescent_orbs",
+            "rigId": "blob"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_blob_round",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_side_fins",
+            "detailTraitIds": [
+              "legs_stub",
+              "arms_short"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_asymmetric",
+            "detailTraitIds": [
+              "head_fin_ears",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_soft_beak"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_mushroom_velvet",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_spots",
+            "detailTraitIds": [
+              "color_deep_sea"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_brave",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_spore_sneeze",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "2dba318d6e143a4be3520113d7480975a279a876ce63a3ccd2e37de0cabaa35a",
+      "pngBytes": 688023,
+      "specSha256": "a7fe3dbb1f394c0851e9a4c7740061834483c688171d6abf89dba45f2e8e6fc9",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9153757299166619,
+        "visibleBounds": {
+          "x": 468,
+          "y": 172,
+          "width": 1216,
+          "height": 1512
+        }
+      }
+    },
+    {
+      "index": 11,
+      "seed": "2026082111",
+      "themeId": "fungal",
+      "rigId": "floating",
+      "filename": "011-fungal-2026082111.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082111",
+        "themeId": "fungal",
+        "palette": {
+          "primary": "#6b7d33",
+          "secondary": "#a7c957",
+          "accent": "#f4a261"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_sleepy_crescent",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_pout",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_none",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_fungal_amber",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_spore_glow",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "legs_shadow",
+            "detailTraitIds": [
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_sleepy",
+            "detailTraitIds": [
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_pout"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_fungal"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_curious",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_light_chaser",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 1,
+      "surpriseSlots": 2,
+      "motifOpportunityCount": 12,
+      "pngSha256": "2661e38470d4ab92cdeba72888c0e6a9221ec12cb22db3a3d5739e4898a03886",
+      "pngBytes": 708708,
+      "specSha256": "ccec70cf9b8a9e0324395156d3c8d03257b2769a31c73a843ddd962f4b44ffb5",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.8590026680473164,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9192742029371165,
+        "visibleBounds": {
+          "x": 412,
+          "y": 172,
+          "width": 1248,
+          "height": 1772
+        }
+      }
+    },
+    {
+      "index": 12,
+      "seed": "2026082112",
+      "themeId": "shadow",
+      "rigId": "biped",
+      "filename": "012-shadow-2026082112.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082112",
+        "themeId": "shadow",
+        "palette": {
+          "primary": "#463c78",
+          "secondary": "#8377d1",
+          "accent": "#f9c74f"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_biped_peanut",
+            "rigId": "biped"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "biped"
+          },
+          "eyes": {
+            "partId": "eyes_stalk_pair",
+            "rigId": "biped"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_pout",
+            "rigId": "biped"
+          },
+          "oralDetail": {
+            "partId": "oral_gummy_ridges",
+            "rigId": "biped"
+          },
+          "headAppendage": {
+            "partId": "head_ears_floppy_fins",
+            "rigId": "biped"
+          },
+          "arms": {
+            "partId": "arms_long_noodle",
+            "rigId": "biped"
+          },
+          "legs": {
+            "partId": "legs_mushroom",
+            "rigId": "biped"
+          },
+          "tail": {
+            "partId": "tail_mushroom_cluster",
+            "rigId": "biped"
+          },
+          "extraAppendage": {
+            "partId": "extra_moth_wings",
+            "rigId": "biped"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_soft_scales",
+            "rigId": "biped"
+          },
+          "pattern": {
+            "partId": "pattern_gentle_stripes",
+            "rigId": "biped"
+          },
+          "colorScheme": {
+            "partId": "color_shadow_violet",
+            "rigId": "biped"
+          },
+          "effect": {
+            "partId": "effect_none",
+            "rigId": "biped"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_biped_peanut",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_moth_wings",
+            "detailTraitIds": [
+              "tail_mushroom",
+              "legs_mushroom",
+              "arms_noodle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_stalk",
+            "detailTraitIds": [
+              "head_fin_ears",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_gummy",
+            "detailTraitIds": [
+              "mouth_pout"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_soft_scales",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_stripes",
+            "detailTraitIds": [
+              "color_shadow"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_light_chaser",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 1,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "05c0bc3de44ffbb0b0c22efe103dd1e8f6e05eaad8ced145fe730c4272025d46",
+      "pngBytes": 762343,
+      "specSha256": "8876f4efee6c9f381c7809ba7fb63ac3ebbea26cbd4a9b9505c08d65f6f6978d",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.9270264388445291,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9115400671264214,
+        "visibleBounds": {
+          "x": 416,
+          "y": 140,
+          "width": 1224,
+          "height": 1492
+        }
+      }
+    },
+    {
+      "index": 13,
+      "seed": "2026082113",
+      "themeId": "deep-sea",
+      "rigId": "floating",
+      "filename": "013-deep-sea-2026082113.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082113",
+        "themeId": "deep-sea",
+        "palette": {
+          "primary": "#237aa3",
+          "secondary": "#74c9bf",
+          "accent": "#f6d365"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_glossy_pair",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_vertical_oval",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_single_fang",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_antennae_glow",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_soft_tentacles",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_gel_bubbles",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_deep_sea_coral",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_none",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_soft_tentacles",
+            "detailTraitIds": [
+              "tail_fish_fan",
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_glossy_pair",
+            "detailTraitIds": [
+              "head_glow_antennae",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_single_fang",
+            "detailTraitIds": [
+              "mouth_oval"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_gel",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_deep_sea"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_curious",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_tide_hum",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "67ef5a3b2ff5638c49fd6ad63b533902fa4aa3eb9e6ca636131459bfc3da975f",
+      "pngBytes": 697210,
+      "specSha256": "ae3dc4820b236fd0d10affcc6475b4ab6d8317b5d2fa183a0a668e33ae2c53b3",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.9966462826405421,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9201957270591731,
+        "visibleBounds": {
+          "x": 412,
+          "y": 84,
+          "width": 1248,
+          "height": 1860
+        }
+      }
+    },
+    {
+      "index": 14,
+      "seed": "2026082114",
+      "themeId": "fungal",
+      "rigId": "floating",
+      "filename": "014-fungal-2026082114.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082114",
+        "themeId": "fungal",
+        "palette": {
+          "primary": "#6b7d33",
+          "secondary": "#a7c957",
+          "accent": "#f4a261"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_sleepy_crescent",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_vertical_oval",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_gummy_ridges",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_ears_floppy_fins",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_none",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_fungal_amber",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_none",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "legs_shadow",
+            "detailTraitIds": [
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_sleepy",
+            "detailTraitIds": [
+              "head_fin_ears",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_gummy",
+            "detailTraitIds": [
+              "mouth_oval"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_fungal"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_gentle",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_collects_echoes",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 0,
+      "surpriseSlots": 2,
+      "motifOpportunityCount": 12,
+      "pngSha256": "330048d5be0ce1ffc59beb7d6fa14bfd97ac1160be626fc9bcbc9e98f334f214",
+      "pngBytes": 708273,
+      "specSha256": "dab953ecd6bc78f0fa7234e9e9151958f6121924a427f6a5470dc6e16bdfffd8",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.8780834029918083,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.8752472121893019,
+        "visibleBounds": {
+          "x": 412,
+          "y": 120,
+          "width": 1248,
+          "height": 1824
+        }
+      }
+    },
+    {
+      "index": 15,
+      "seed": "2026082115",
+      "themeId": "shadow",
+      "rigId": "blob",
+      "filename": "015-shadow-2026082115.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082115",
+        "themeId": "shadow",
+        "palette": {
+          "primary": "#463c78",
+          "secondary": "#8377d1",
+          "accent": "#f9c74f"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_blob_round",
+            "rigId": "blob"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "blob"
+          },
+          "eyes": {
+            "partId": "eyes_asymmetric",
+            "rigId": "blob"
+          },
+          "mouthShape": {
+            "partId": "mouth_vertical_oval",
+            "rigId": "blob"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "blob"
+          },
+          "headAppendage": {
+            "partId": "head_ears_floppy_fins",
+            "rigId": "blob"
+          },
+          "arms": {
+            "partId": "arms_short_plush",
+            "rigId": "blob"
+          },
+          "legs": {
+            "partId": "legs_stub_feet",
+            "rigId": "blob"
+          },
+          "tail": {
+            "partId": "tail_soft_curl",
+            "rigId": "blob"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "blob"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "blob"
+          },
+          "pattern": {
+            "partId": "pattern_soft_spots",
+            "rigId": "blob"
+          },
+          "colorScheme": {
+            "partId": "color_shadow_violet",
+            "rigId": "blob"
+          },
+          "effect": {
+            "partId": "effect_spore_glow",
+            "rigId": "blob"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_blob_round",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "tail_soft_curl",
+            "detailTraitIds": [
+              "legs_stub",
+              "arms_short"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_asymmetric",
+            "detailTraitIds": [
+              "head_fin_ears",
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_oval"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_spots",
+            "detailTraitIds": [
+              "color_shadow"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_gentle",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_shadow_skip",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 1,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "a7c891ae708c39626578315cfacb391efa5fb2a5aecd35eddd70d6f1a2f0cae5",
+      "pngBytes": 693585,
+      "specSha256": "f6d938c16b0ef86d57bf74535f0bda4e9dde21fbfb4f60f7624463d1d8669211",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.9879707702718976,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.8892418564962529,
+        "visibleBounds": {
+          "x": 468,
+          "y": 172,
+          "width": 1216,
+          "height": 1512
+        }
+      }
+    },
+    {
+      "index": 16,
+      "seed": "2026082116",
+      "themeId": "deep-sea",
+      "rigId": "floating",
+      "filename": "016-deep-sea-2026082116.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082116",
+        "themeId": "deep-sea",
+        "palette": {
+          "primary": "#237aa3",
+          "secondary": "#74c9bf",
+          "accent": "#f6d365"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_angler_bulb",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_glossy_pair",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_wide_grin",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_deep_sea_coral",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_bioluminescent_orbs",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "tail_fish_fan",
+            "detailTraitIds": [
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_glossy_pair",
+            "detailTraitIds": [
+              "head_angler_bulb"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_wide"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_deep_sea"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_dreamy",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_light_chaser",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 2,
+      "motifOpportunityCount": 12,
+      "pngSha256": "868ec369037893b6af9acf14f4a65edff58ff3d2e749e4cfd5694458e36dce9b",
+      "pngBytes": 649215,
+      "specSha256": "60382ca1944c50cb506bfd3ddc8bed240225951366aa9e829cb1ebfeddea23b2",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9330548529464269,
+        "visibleBounds": {
+          "x": 412,
+          "y": 204,
+          "width": 1248,
+          "height": 1740
+        }
+      }
+    },
+    {
+      "index": 17,
+      "seed": "2026082117",
+      "themeId": "fungal",
+      "rigId": "biped",
+      "filename": "017-fungal-2026082117.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082117",
+        "themeId": "fungal",
+        "palette": {
+          "primary": "#6b7d33",
+          "secondary": "#a7c957",
+          "accent": "#f4a261"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_biped_peanut",
+            "rigId": "biped"
+          },
+          "headShape": {
+            "partId": "head_shadow_hood",
+            "rigId": "biped"
+          },
+          "eyes": {
+            "partId": "eyes_asymmetric",
+            "rigId": "biped"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_beak",
+            "rigId": "biped"
+          },
+          "oralDetail": {
+            "partId": "oral_gummy_ridges",
+            "rigId": "biped"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "biped"
+          },
+          "arms": {
+            "partId": "arms_long_noodle",
+            "rigId": "biped"
+          },
+          "legs": {
+            "partId": "legs_webbed",
+            "rigId": "biped"
+          },
+          "tail": {
+            "partId": "tail_none",
+            "rigId": "biped"
+          },
+          "extraAppendage": {
+            "partId": "extra_moth_wings",
+            "rigId": "biped"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "biped"
+          },
+          "pattern": {
+            "partId": "pattern_gentle_stripes",
+            "rigId": "biped"
+          },
+          "colorScheme": {
+            "partId": "color_fungal_amber",
+            "rigId": "biped"
+          },
+          "effect": {
+            "partId": "effect_spore_glow",
+            "rigId": "biped"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_biped_peanut",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_moth_wings",
+            "detailTraitIds": [
+              "legs_webbed",
+              "arms_noodle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_asymmetric",
+            "detailTraitIds": [
+              "head_shadow_hood"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_gummy",
+            "detailTraitIds": [
+              "mouth_soft_beak"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_stripes",
+            "detailTraitIds": [
+              "color_fungal"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_brave",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_spore_sneeze",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "e5439708a34908263a284cd986639d36cfa5fb8faf7a30582bcfd46e59aae55f",
+      "pngBytes": 723194,
+      "specSha256": "34f49b31f5c5125abfe2535fa0a3e7878261e221b43306ee2ce6dca04c9895ce",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.906745216886409,
+        "visibleBounds": {
+          "x": 416,
+          "y": 356,
+          "width": 1224,
+          "height": 1340
+        }
+      }
+    },
+    {
+      "index": 18,
+      "seed": "2026082118",
+      "themeId": "shadow",
+      "rigId": "biped",
+      "filename": "018-shadow-2026082118.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082118",
+        "themeId": "shadow",
+        "palette": {
+          "primary": "#463c78",
+          "secondary": "#8377d1",
+          "accent": "#f9c74f"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_biped_tall",
+            "rigId": "biped"
+          },
+          "headShape": {
+            "partId": "head_shadow_hood",
+            "rigId": "biped"
+          },
+          "eyes": {
+            "partId": "eyes_triple_pearl",
+            "rigId": "biped"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_beak",
+            "rigId": "biped"
+          },
+          "oralDetail": {
+            "partId": "oral_single_fang",
+            "rigId": "biped"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "biped"
+          },
+          "arms": {
+            "partId": "arms_long_noodle",
+            "rigId": "biped"
+          },
+          "legs": {
+            "partId": "legs_webbed",
+            "rigId": "biped"
+          },
+          "tail": {
+            "partId": "tail_mushroom_cluster",
+            "rigId": "biped"
+          },
+          "extraAppendage": {
+            "partId": "extra_moth_wings",
+            "rigId": "biped"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "biped"
+          },
+          "pattern": {
+            "partId": "pattern_gentle_stripes",
+            "rigId": "biped"
+          },
+          "colorScheme": {
+            "partId": "color_shadow_violet",
+            "rigId": "biped"
+          },
+          "effect": {
+            "partId": "effect_none",
+            "rigId": "biped"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_biped_tall",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_moth_wings",
+            "detailTraitIds": [
+              "tail_mushroom",
+              "legs_webbed",
+              "arms_noodle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_triple",
+            "detailTraitIds": [
+              "head_shadow_hood"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_single_fang",
+            "detailTraitIds": [
+              "mouth_soft_beak"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_stripes",
+            "detailTraitIds": [
+              "color_shadow"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_light_chaser",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "66022eccbae6ff49ef580037aa0571c22908007ae7c8b437252aef0491da2033",
+      "pngBytes": 712194,
+      "specSha256": "d2d0e920927ef94e92afff3982eb01c98e17a75b53ed309b8e5e0d0b92d800a2",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9392980753221081,
+        "visibleBounds": {
+          "x": 416,
+          "y": 320,
+          "width": 1204,
+          "height": 1356
+        }
+      }
+    },
+    {
+      "index": 19,
+      "seed": "2026082119",
+      "themeId": "deep-sea",
+      "rigId": "floating",
+      "filename": "019-deep-sea-2026082119.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082119",
+        "themeId": "deep-sea",
+        "palette": {
+          "primary": "#237aa3",
+          "secondary": "#74c9bf",
+          "accent": "#f6d365"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_glossy_pair",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_pout",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_round_teeth",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_soft_tentacles",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_deep_sea_coral",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_bioluminescent_orbs",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_soft_tentacles",
+            "detailTraitIds": [
+              "tail_fish_fan",
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_glossy_pair",
+            "detailTraitIds": [
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_round_teeth",
+            "detailTraitIds": [
+              "mouth_pout"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_deep_sea"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_dream_bubbles",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "020c5842eee2a110634d1c4d9e4ac3279f5b15692e835ee7e99671c3bff3b0f9",
+      "pngBytes": 695780,
+      "specSha256": "e8c372ac38e02822da9f00f3043753fa782f0fc1d23e54e3bcc9824671f4fed6",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 1,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9192742029371165,
+        "visibleBounds": {
+          "x": 412,
+          "y": 172,
+          "width": 1248,
+          "height": 1772
+        }
+      }
+    },
+    {
+      "index": 20,
+      "seed": "2026082120",
+      "themeId": "fungal",
+      "rigId": "floating",
+      "filename": "020-fungal-2026082120.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "2026082120",
+        "themeId": "fungal",
+        "palette": {
+          "primary": "#6b7d33",
+          "secondary": "#a7c957",
+          "accent": "#f4a261"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_floating_drop",
+            "rigId": "floating"
+          },
+          "headShape": {
+            "partId": "head_mushroom_cap",
+            "rigId": "floating"
+          },
+          "eyes": {
+            "partId": "eyes_stalk_pair",
+            "rigId": "floating"
+          },
+          "mouthShape": {
+            "partId": "mouth_vertical_oval",
+            "rigId": "floating"
+          },
+          "oralDetail": {
+            "partId": "oral_single_fang",
+            "rigId": "floating"
+          },
+          "headAppendage": {
+            "partId": "head_antennae_glow",
+            "rigId": "floating"
+          },
+          "arms": {
+            "partId": "arms_paddle",
+            "rigId": "floating"
+          },
+          "legs": {
+            "partId": "legs_shadow_tiptoe",
+            "rigId": "floating"
+          },
+          "tail": {
+            "partId": "tail_fish_fan",
+            "rigId": "floating"
+          },
+          "extraAppendage": {
+            "partId": "extra_appendage_none",
+            "rigId": "floating"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "floating"
+          },
+          "pattern": {
+            "partId": "pattern_constellation",
+            "rigId": "floating"
+          },
+          "colorScheme": {
+            "partId": "color_fungal_amber",
+            "rigId": "floating"
+          },
+          "effect": {
+            "partId": "effect_spore_glow",
+            "rigId": "floating"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_floating_drop",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "tail_fish_fan",
+            "detailTraitIds": [
+              "legs_shadow",
+              "arms_paddle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_stalk",
+            "detailTraitIds": [
+              "head_glow_antennae",
+              "head_mushroom"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_single_fang",
+            "detailTraitIds": [
+              "mouth_oval"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_constellation",
+            "detailTraitIds": [
+              "color_fungal"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_mischievous",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_shadow_skip",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": false,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "19db78261dfef33f0254c48786e6f463131da1a5f72d9866a9f807a918154d21",
+      "pngBytes": 716977,
+      "specSha256": "41fac82534409ab721a4482c0bd3f973d47daa9e6ecefeb7ce588bfe0d2c1043",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.9036129810879742,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9203409048663519,
+        "visibleBounds": {
+          "x": 412,
+          "y": 132,
+          "width": 1248,
+          "height": 1812
+        }
+      }
+    },
+    {
+      "index": 21,
+      "seed": "qmonster-v0.1-first-hatch",
+      "themeId": "fungal",
+      "rigId": "biped",
+      "filename": "021-fungal-qmonster-v0.1-first-hatch.png",
+      "spec": {
+        "schemaVersion": "0.1.0",
+        "catalogVersion": "0.2.0",
+        "rendererVersion": "0.2.0",
+        "seed": "qmonster-v0.1-first-hatch",
+        "themeId": "fungal",
+        "palette": {
+          "primary": "#6b7d33",
+          "secondary": "#a7c957",
+          "accent": "#f4a261"
+        },
+        "slotRolls": {
+          "bodyFrame": 0,
+          "headShape": 0,
+          "eyes": 0,
+          "mouthShape": 0,
+          "oralDetail": 0,
+          "headAppendage": 0,
+          "arms": 0,
+          "legs": 0,
+          "tail": 0,
+          "extraAppendage": 0,
+          "surfaceMaterial": 0,
+          "pattern": 0,
+          "colorScheme": 0,
+          "effect": 0
+        },
+        "visualSlots": {
+          "bodyFrame": {
+            "partId": "body_biped_peanut",
+            "rigId": "biped"
+          },
+          "headShape": {
+            "partId": "head_round_dome",
+            "rigId": "biped"
+          },
+          "eyes": {
+            "partId": "eyes_sleepy_crescent",
+            "rigId": "biped"
+          },
+          "mouthShape": {
+            "partId": "mouth_soft_pout",
+            "rigId": "biped"
+          },
+          "oralDetail": {
+            "partId": "oral_lolling_tongue",
+            "rigId": "biped"
+          },
+          "headAppendage": {
+            "partId": "head_appendage_none",
+            "rigId": "biped"
+          },
+          "arms": {
+            "partId": "arms_long_noodle",
+            "rigId": "biped"
+          },
+          "legs": {
+            "partId": "legs_webbed",
+            "rigId": "biped"
+          },
+          "tail": {
+            "partId": "tail_mushroom_cluster",
+            "rigId": "biped"
+          },
+          "extraAppendage": {
+            "partId": "extra_moth_wings",
+            "rigId": "biped"
+          },
+          "surfaceMaterial": {
+            "partId": "surface_short_fur",
+            "rigId": "biped"
+          },
+          "pattern": {
+            "partId": "pattern_gentle_stripes",
+            "rigId": "biped"
+          },
+          "colorScheme": {
+            "partId": "color_fungal_amber",
+            "rigId": "biped"
+          },
+          "effect": {
+            "partId": "effect_none",
+            "rigId": "biped"
+          }
+        },
+        "semanticTraits": {
+          "frame": {
+            "primaryTraitId": "frame_biped_peanut",
+            "detailTraitIds": []
+          },
+          "appendage": {
+            "primaryTraitId": "extra_moth_wings",
+            "detailTraitIds": [
+              "tail_mushroom",
+              "legs_webbed",
+              "arms_noodle"
+            ]
+          },
+          "headAndEyes": {
+            "primaryTraitId": "eyes_sleepy",
+            "detailTraitIds": [
+              "head_round"
+            ]
+          },
+          "mouth": {
+            "primaryTraitId": "oral_tongue",
+            "detailTraitIds": [
+              "mouth_pout"
+            ]
+          },
+          "surface": {
+            "primaryTraitId": "surface_short_fur",
+            "detailTraitIds": []
+          },
+          "pattern": {
+            "primaryTraitId": "pattern_stripes",
+            "detailTraitIds": [
+              "color_fungal"
+            ]
+          },
+          "personality": {
+            "primaryTraitId": "personality_gentle",
+            "detailTraitIds": []
+          },
+          "quirk": {
+            "primaryTraitId": "quirk_shadow_skip",
+            "detailTraitIds": []
+          }
+        },
+        "mutation": null,
+        "aberrations": []
+      },
+      "generationDiagnostics": [],
+      "regression": true,
+      "strongFeatureCount": 2,
+      "surpriseSlots": 3,
+      "motifOpportunityCount": 12,
+      "pngSha256": "1018caf1b2536b71e4a5392293639e3758b6107d6e3b17319dc014b5e29237fe",
+      "pngBytes": 771235,
+      "specSha256": "3baf5078e91955011fd106ff400d10e6e7828f3dcd74b929b6acbbe260ed07d9",
+      "renderDiagnostics": [],
+      "compositionMetrics": {
+        "eyesInsideRatio": 1,
+        "eyesVisibleRatio": 0.8600799725028956,
+        "mouthInsideRatio": 1,
+        "mouthVisibleRatio": 0.9037587456376175,
+        "visibleBounds": {
+          "x": 416,
+          "y": 196,
+          "width": 1224,
+          "height": 1500
+        }
+      }
+    }
+  ]
+}

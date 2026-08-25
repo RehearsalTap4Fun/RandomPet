@@ -11,6 +11,22 @@ async function openWorkbench(page: Page): Promise<void> {
   await expect(page.getByRole('img', { name: '生物预览' })).toBeVisible()
 }
 
+async function previewCommitCount(page: Page): Promise<number> {
+  return page.evaluate(() => performance.getEntriesByName('qmonster-preview-commit', 'mark').length)
+}
+
+async function waitForCommitAfter(page: Page, previousCount: number): Promise<void> {
+  await expect.poll(() => previewCommitCount(page)).toBeGreaterThan(previousCount)
+}
+
+async function strongFeatureCount(page: Page): Promise<number> {
+  const composition = page.getByRole('list', { name: '组合约束' })
+  const text = await composition.textContent()
+  const match = text?.match(/强特征\s+(\d+)\/2/u)
+  if (match?.[1] === undefined) throw new Error(`Missing strong-feature status in: ${text ?? ''}`)
+  return Number(match[1])
+}
+
 async function downloadJson(page: Page): Promise<Download> {
   const downloadPromise = page.waitForEvent('download')
   await page.getByRole('button', { name: '导出 JSON' }).click()
@@ -66,4 +82,43 @@ test('locks, rerolls, manually selects, and blocks an incompatible theme lock', 
   await expect(page.getByRole('button', { name: '导出 JSON' })).toBeDisabled()
   await expect(page.getByRole('button', { name: '导出透明 PNG' })).toBeDisabled()
   await expect(page.getByRole('button', { name: '导出透明 WebP' })).toBeDisabled()
+})
+
+test('keeps automatic composition within budget and leaves warning-only manual composites exportable', async ({ page }) => {
+  await openWorkbench(page)
+  await expect(page.getByLabel('作品状态')).toContainText('错误 0')
+  const composition = page.getByRole('list', { name: '组合约束' })
+  await expect(composition).toContainText(/强特征 \d\/2/u)
+  expect(await strongFeatureCount(page)).toBeLessThanOrEqual(2)
+  await expect(composition).toContainText('面部清晰')
+
+  const oralDetail = page.getByRole('combobox', { name: '口腔细节部件' })
+  await expect(oralDetail).toHaveValue('oral_lolling_tongue')
+  await page.getByRole('checkbox', { name: '锁定 口腔细节' }).check()
+
+  let commits: number
+  const rerollEffect = page.getByRole('button', { name: '重抽氛围效果' })
+  for (let index = 0; index < 8; index += 1) {
+    commits = await previewCommitCount(page)
+    await rerollEffect.click()
+    await waitForCommitAfter(page, commits)
+    expect(await strongFeatureCount(page)).toBeLessThanOrEqual(2)
+    await expect(oralDetail).toHaveValue('oral_lolling_tongue')
+  }
+
+  const effect = page.getByRole('combobox', { name: '氛围效果部件' })
+  commits = await previewCommitCount(page)
+  await effect.selectOption('effect_none')
+  await waitForCommitAfter(page, commits)
+  const eyes = page.getByRole('combobox', { name: '眼睛部件' })
+  commits = await previewCommitCount(page)
+  await eyes.selectOption('eyes_triple_pearl')
+  await waitForCommitAfter(page, commits)
+
+  await expect(composition).toContainText('强特征 3/2')
+  const warning = page.getByLabel('诊断信息').getByText('COMPOSITION_INTENSITY_EXCEEDED', { exact: true })
+  await expect(warning).toBeVisible()
+  await expect(page.getByRole('button', { name: '导出 JSON' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '导出透明 WebP' })).toBeEnabled()
 })

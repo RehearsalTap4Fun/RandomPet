@@ -48,6 +48,20 @@ async function makeFixture(root: string): Promise<string> {
   return path
 }
 
+async function makeDetachedAnchorFixture(root: string): Promise<string> {
+  const path = join(root, 'detached-anchor.png')
+  const limb = await sharp({
+    create: { width: 16, height: 24, channels: 4, background: '#ff8844ff' },
+  }).png(PNG_OPTIONS).toBuffer()
+  await sharp({
+    create: { width: 256, height: 128, channels: 4, background: '#00000000' },
+  }).composite([
+    { input: limb, left: 8, top: 8 },
+    { input: limb, left: 136, top: 8 },
+  ]).png(PNG_OPTIONS).toFile(path)
+  return path
+}
+
 const CROPS: readonly [PairCrop, PairCrop] = [
   {
     id: 'left',
@@ -96,6 +110,21 @@ describe('splitPairedPart', () => {
     })
     await expect(sharp(left.pngPath).metadata()).resolves.toMatchObject({ width: 2, height: 3, hasAlpha: true })
     await expect(sharp(right.pngPath).metadata()).resolves.toMatchObject({ width: 2, height: 3, hasAlpha: true })
+  })
+
+  it('rejects an in-crop anchor detached from the actual opaque proximal contour', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-pair-detached-anchor-'))
+    temporaryDirectories.push(root)
+    const inputPath = await makeDetachedAnchorFixture(root)
+    const outputDirectory = await allowedOutputRoot('split-detached-anchor-')
+    const detached = [
+      { id: 'left', rect: { left: 0, top: 0, width: 128, height: 128 }, anchor: { x: 112, y: 112 }, mirrorX: false },
+      { id: 'right', rect: { left: 128, top: 0, width: 128, height: 128 }, anchor: { x: 240, y: 112 }, mirrorX: false },
+    ] as const
+
+    await expect(splitPairedPart(inputPath, outputDirectory, detached))
+      .rejects.toThrow(/opaque proximal contour/u)
+    expect(await readdir(outputDirectory)).toEqual([])
   })
 
   it('reruns deterministically for decoded RGBA and node metadata', async () => {

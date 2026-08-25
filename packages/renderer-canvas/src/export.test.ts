@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { exportCanvas } from './export.js'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { exportCanvas, primeCanvasExport } from './export.js'
 
 function makeCanvasProbe(resultType: string | null): {
   canvas: HTMLCanvasElement
@@ -45,6 +45,30 @@ describe('export capabilities', () => {
 })
 
 describe('canvas export', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it('reuses a PNG blob primed outside the export click path', async () => {
+    const blob = new Blob(['pixels'], { type: 'image/png' })
+    const drawImage = vi.fn()
+    const convertToBlob = vi.fn(async () => blob)
+    class FakeOffscreenCanvas {
+      public constructor(_width: number, _height: number) {}
+      public getContext() { return { drawImage } }
+      public convertToBlob = convertToBlob
+    }
+    vi.stubGlobal('OffscreenCanvas', FakeOffscreenCanvas)
+    const canvas = { width: 1024, height: 1024 } as HTMLCanvasElement
+
+    await primeCanvasExport(canvas, 'image/png')
+    const exported = await exportCanvas(canvas, 'image/png')
+
+    expect(exported).toBe(blob)
+    expect(convertToBlob).toHaveBeenCalledTimes(1)
+    expect(drawImage).toHaveBeenCalledWith(canvas, 0, 0)
+  })
+
   it('exports PNG through toBlob', async () => {
     const png = makeCanvasProbe('image/png')
 

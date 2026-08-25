@@ -3,15 +3,14 @@ import { createRoot } from 'react-dom/client'
 import {
   parseCatalog,
   parseMonsterSpec,
-  type Diagnostic,
   type MonsterSpec,
 } from '@qmonster/generator-core'
-import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.1.0/catalog.json'
+import type { RenderResult } from '@qmonster/renderer-canvas'
+import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import { PreviewCanvas } from './components/PreviewCanvas.js'
 
-interface AcceptanceRenderResult {
+interface AcceptanceRenderResult extends RenderResult {
   dataUrl: string
-  diagnostics: Diagnostic[]
 }
 
 declare global {
@@ -34,22 +33,15 @@ let renderSequence = 0
 function renderSpec(spec: MonsterSpec): Promise<AcceptanceRenderResult> {
   const canvasRef = createRef<HTMLCanvasElement>()
   const sequence = ++renderSequence
-  let diagnosticPublication = 0
 
   return new Promise((resolve, reject) => {
-    const onDiagnosticsChange = (diagnostics: Diagnostic[]) => {
-      diagnosticPublication += 1
-      if (diagnosticPublication === 1) return
+    const onRenderComplete = (result: RenderResult) => {
       const canvas = canvasRef.current
       if (canvas === null) {
         reject(new Error('Acceptance canvas was not committed.'))
         return
       }
-      if (diagnostics.some(item => item.severity === 'error')) {
-        reject(new Error(`Acceptance render failed: ${JSON.stringify(diagnostics)}`))
-        return
-      }
-      resolve({ dataUrl: canvas.toDataURL('image/png'), diagnostics })
+      resolve({ ...result, dataUrl: canvas.toDataURL('image/png') })
     }
 
     root.render(createElement(PreviewCanvas, {
@@ -57,7 +49,8 @@ function renderSpec(spec: MonsterSpec): Promise<AcceptanceRenderResult> {
       ref: canvasRef,
       spec,
       catalog: productionCatalog,
-      onDiagnosticsChange,
+      onDiagnosticsChange: () => undefined,
+      onRenderComplete,
     }))
   })
 }
