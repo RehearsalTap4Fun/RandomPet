@@ -20,6 +20,8 @@ function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
 }
 
+const TASK7_BODY_HEAD_REVIEW_RECORD_PATH = 'packages/asset-catalog/review/v0.3.0/body-head-review-record.json'
+
 export async function validateInterfacePromptEvidence(input: {
   manifest: InterfaceSourceManifest
   repositoryRoot?: string
@@ -165,6 +167,31 @@ export async function validateInterfaceProductionReadiness(input: {
     ...structuralVariants(input.manifest).flatMap(asset => [asset.sourcePngPath, ...asset.renderNodes.map(node => node.sourcePngPath)]),
     ...input.manifest.bridges.map(bridge => bridge.sourcePngPath),
   ])]
+  const naturalNeckHeads = structuralVariants(input.manifest).filter(asset => (
+    asset.slotId === 'headShape'
+    && [asset.sourcePngPath, ...asset.renderNodes.map(node => node.sourcePngPath)]
+      .some(path => path.replaceAll('\\', '/').includes('/task7-natural-neck/'))
+  ))
+  let approvedTask7Review = false
+  try {
+    const review = JSON.parse(await readFile(resolve(root, TASK7_BODY_HEAD_REVIEW_RECORD_PATH), 'utf8')) as Record<string, unknown>
+    approvedTask7Review = review.status === 'APPROVED'
+      && review.decision === 'approved'
+      && review.reviewer === 'user'
+      && review.userApproved === true
+      && review.approvalResponse === 'A'
+  } catch {
+    approvedTask7Review = false
+  }
+  for (const head of naturalNeckHeads) {
+    if (head.promptEvidence.reviewRecordPath !== TASK7_BODY_HEAD_REVIEW_RECORD_PATH || !approvedTask7Review) {
+      diagnostics.push(error(
+        'INTERFACE_NATURAL_NECK_REVIEW_INVALID',
+        ['productionAssets', `${head.partId}:${head.rigId}`, 'reviewRecordPath'],
+        'Every Task 7 natural-neck head must bind to the canonical approved Task 7 body/head review record.',
+      ))
+    }
+  }
   for (const [index, path] of productionSources.entries()) {
     const target = resolve(root, path)
     const remainder = relative(root, target)
@@ -293,9 +320,105 @@ export async function validateBodyHeadReview(input: { repositoryRoot: string; re
 
 const BODY_HEAD_ACCEPTANCE_FILENAME = 'body-head-contact-sheets-acceptance.json'
 const BODY_HEAD_ACCEPTANCE_PATH = `packages/asset-catalog/review/v0.3.0/${BODY_HEAD_ACCEPTANCE_FILENAME}`
-const BODY_HEAD_REVIEW_RECORD_PATH = 'packages/asset-catalog/review/v0.3.0/body-head-review-record.json'
+const BODY_HEAD_REVIEW_RECORD_PATH = TASK7_BODY_HEAD_REVIEW_RECORD_PATH
 const BODY_HEAD_REJECTION_PATH = 'packages/asset-catalog/review/v0.3.0/rejected/task7-visible-tongue-round-1/rejection-record.json'
 const TASK6_INTEGRITY_PATH = 'packages/asset-catalog/review/v0.3.0/task6-approved-input-integrity.json'
+
+function bodyHeadRejectedArtifactPaths(rigId: InterfaceRigId): {
+  originalPath: string
+  review256Path: string
+  manifestPath: string
+} {
+  const stem = 'packages/asset-catalog/review/v0.3.0/rejected/task7-visible-tongue-round-1/body-head-contact-sheet-'
+  return {
+    originalPath: `${stem}${rigId}.png`,
+    review256Path: `${stem}${rigId}-256.png`,
+    manifestPath: `${stem}${rigId}-manifest.json`,
+  }
+}
+
+export async function validateBodyHeadRejectionEvidence(input: { repositoryRoot: string }): Promise<Diagnostic[]> {
+  const diagnostics: Diagnostic[] = []
+  const repositoryRoot = await realpath(resolve(input.repositoryRoot)).catch(() => resolve(input.repositoryRoot))
+  const recordPath = resolve(repositoryRoot, BODY_HEAD_REJECTION_PATH)
+  const rejectionDirectory = resolve(recordPath, '..')
+  let record: Record<string, any>
+  try {
+    record = JSON.parse(await readFile(recordPath, 'utf8')) as Record<string, any>
+  } catch {
+    return [error('BODY_HEAD_REJECTION_RECORD_INVALID', ['rejection'], 'Cannot read the canonical Task 7 rejected-round record.')]
+  }
+  if (
+    record.schemaVersion !== 'body-head-user-rejection-v1'
+    || record.status !== 'REJECTED'
+    || record.userDecision !== 'B'
+    || record.userApproved !== false
+  ) diagnostics.push(error('BODY_HEAD_REJECTION_FIELDS_INVALID', ['rejection'], 'Rejected-round decision and user fields must remain rejected/B/false.'))
+
+  const rigs = ['blob', 'biped', 'floating'] as const
+  const declarations = record.artifacts !== null && typeof record.artifacts === 'object' && !Array.isArray(record.artifacts)
+    ? record.artifacts as Record<string, Record<string, unknown>>
+    : {}
+  if (Object.keys(declarations).length !== rigs.length || Object.keys(declarations).some(rigId => !rigs.includes(rigId as InterfaceRigId))) {
+    diagnostics.push(error('BODY_HEAD_REJECTION_ARTIFACT_SET_INVALID', ['rejection', 'artifacts'], 'Rejected evidence must declare each exact rig once.'))
+  }
+
+  const expectedPaths = new Set<string>()
+  for (const rigId of rigs) {
+    const paths = bodyHeadRejectedArtifactPaths(rigId)
+    const declaration = declarations[rigId] ?? {}
+    for (const [kind, portablePath, declaredHash] of [
+      ['original', paths.originalPath, declaration.originalSha256],
+      ['256', paths.review256Path, declaration.downsample256Sha256],
+      ['manifest', paths.manifestPath, declaration.manifestSha256],
+    ] as const) {
+      const relativePath = relative(rejectionDirectory, resolve(repositoryRoot, portablePath)).replaceAll('\\', '/')
+      expectedPaths.add(relativePath)
+      try {
+        const target = await realpath(resolve(repositoryRoot, portablePath))
+        const repositoryRemainder = relative(repositoryRoot, target)
+        const rejectionRemainder = relative(rejectionDirectory, target)
+        if (
+          repositoryRemainder.startsWith('..') || isAbsolute(repositoryRemainder)
+          || rejectionRemainder.startsWith('..') || isAbsolute(rejectionRemainder)
+          || rejectionRemainder.replaceAll('\\', '/') !== relativePath
+        ) {
+          diagnostics.push(error('BODY_HEAD_REJECTION_ARTIFACT_PATH_INVALID', ['rejection', 'artifacts', rigId, kind], 'Rejected artifact must resolve to its exact contained canonical path.'))
+          continue
+        }
+        const bytes = await readFile(target)
+        if (typeof declaredHash !== 'string' || sha256Bytes(bytes) !== declaredHash) {
+          diagnostics.push(error('BODY_HEAD_REJECTION_ARTIFACT_HASH_INVALID', ['rejection', 'artifacts', rigId, kind], 'Rejected artifact SHA-256 must match the live immutable bytes.'))
+        }
+      } catch {
+        diagnostics.push(error('BODY_HEAD_REJECTION_ARTIFACT_MISSING', ['rejection', 'artifacts', rigId, kind], 'Rejected artifact is missing from its canonical path.'))
+      }
+    }
+  }
+
+  const actualPaths: string[] = []
+  const visit = async (directory: string): Promise<void> => {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const target = join(directory, entry.name)
+      if (entry.isDirectory()) await visit(target)
+      else if (entry.isFile() && entry.name !== 'rejection-record.json') {
+        actualPaths.push(relative(rejectionDirectory, target).replaceAll('\\', '/'))
+      }
+    }
+  }
+  try {
+    await visit(rejectionDirectory)
+  } catch {
+    diagnostics.push(error('BODY_HEAD_REJECTION_ARTIFACT_PATH_INVALID', ['rejection', 'artifacts'], 'Cannot enumerate the canonical rejected artifact directory.'))
+  }
+  if (
+    actualPaths.length !== expectedPaths.size
+    || new Set(actualPaths).size !== expectedPaths.size
+    || actualPaths.some(path => !expectedPaths.has(path))
+    || [...expectedPaths].some(path => !actualPaths.includes(path))
+  ) diagnostics.push(error('BODY_HEAD_REJECTION_ARTIFACT_PATH_INVALID', ['rejection', 'artifacts'], 'Rejected evidence must contain exactly the canonical three-rig original/256/manifest set with no misplaced or duplicate files.'))
+  return diagnostics
+}
 
 function bodyHeadArtifactPaths(rigId: InterfaceRigId): { originalPath: string, review256Path: string, manifestPath: string } {
   const stem = `packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-${rigId}`
@@ -414,16 +537,14 @@ export async function validateBodyHeadAcceptanceDocument(input: {
 
   try {
     const rejectionBytes = await readFile(resolve(input.repositoryRoot, BODY_HEAD_REJECTION_PATH))
-    const rejection = JSON.parse(rejectionBytes.toString('utf8')) as Record<string, unknown>
     if (
       document.rejectionRound?.recordPath !== BODY_HEAD_REJECTION_PATH
       || document.rejectionRound?.recordSha256 !== sha256Bytes(rejectionBytes)
-      || rejection.status !== 'REJECTED'
-      || rejection.userDecision !== 'B'
     ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_REJECTION_INVALID', ['acceptance', 'rejectionRound'], 'Acceptance must retain the exact hash-bound rejected round reference.'))
   } catch {
     diagnostics.push(error('BODY_HEAD_ACCEPTANCE_REJECTION_INVALID', ['acceptance', 'rejectionRound'], 'Cannot read the rejected round evidence.'))
   }
+  diagnostics.push(...await validateBodyHeadRejectionEvidence({ repositoryRoot: input.repositoryRoot }))
 
   try {
     const integrityBytes = await readFile(resolve(input.repositoryRoot, TASK6_INTEGRITY_PATH))

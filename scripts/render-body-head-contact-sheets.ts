@@ -103,6 +103,7 @@ async function compose(body: any, head: any) {
       ...(await measureVisibleConnectorTongue({ root: ROOT, body, head })),
       centralLobeDepthRatio: await measureCentralLobeDepthRatio({
         imagePath: resolve(ROOT, headNode.sourcePngPath),
+        rigId: head.rigId,
         connector: plug,
       }),
     },

@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile, symlink } from 'node:fs/promises'
+import { cp, mkdir, mkdtemp, readFile, rename, rm, writeFile, symlink } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import sharp from 'sharp'
@@ -7,6 +7,7 @@ import {
   validateBodyHeadAcceptanceDocument,
   validateBodyHeadAcceptanceLocations,
   validateBodyHeadApproval,
+  validateBodyHeadRejectionEvidence,
   validateBodyHeadReview,
   validateInterfaceProductionReadiness,
   validateInterfacePromptEvidence,
@@ -155,6 +156,20 @@ describe('validateInterfaceSlice', () => {
     expect(readiness.diagnostics).toContainEqual(expect.objectContaining({ code: 'INTERFACE_PRODUCTION_SOURCE_PATH_INVALID', path: ['productionAssets', '1'] }))
   })
 
+  it('rejects Task 7 natural-neck sources bound to the old unapproved review record', async () => {
+    const manifest = await manifestFixture()
+    const head = structuralVariants(manifest).find(item => (
+      item.partId === 'head_mushroom_cap' && item.rigId === 'biped'
+    ))!
+    head.promptEvidence.reviewRecordPath = 'packages/asset-catalog/review/v0.3.0/review-record.json'
+
+    const result = await validateInterfaceProductionReadiness({ repositoryRoot: process.cwd(), manifest })
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'INTERFACE_NATURAL_NECK_REVIEW_INVALID',
+      path: ['productionAssets', 'head_mushroom_cap:biped', 'reviewRecordPath'],
+    }))
+  })
+
   it('validates the exact body-head matrix roster, continuity metrics, and sheet hashes', async () => {
     const result = await validateBodyHeadReview({
       repositoryRoot: process.cwd(),
@@ -202,5 +217,53 @@ describe('validateInterfaceSlice', () => {
     expect(validateBodyHeadAcceptanceLocations([join(process.cwd(), 'elsewhere', 'body-head-contact-sheets-acceptance.json')], canonical)).not.toEqual([])
     expect(validateBodyHeadAcceptanceLocations([canonical, join(process.cwd(), 'copy', 'body-head-contact-sheets-acceptance.json')], canonical)).not.toEqual([])
     expect(validateBodyHeadAcceptanceLocations([canonical], canonical)).toEqual([])
+  })
+
+  it('binds the rejected round to exactly nine canonical live artifact bytes and rejected user fields', async () => {
+    const repositoryRoot = await mkdtemp(join(tmpdir(), 'qmonster-task7-rejection-'))
+    roots.push(repositoryRoot)
+    const relativeDirectory = join('packages', 'asset-catalog', 'review', 'v0.3.0', 'rejected', 'task7-visible-tongue-round-1')
+    const sourceDirectory = join(process.cwd(), relativeDirectory)
+    const rejectionDirectory = join(repositoryRoot, relativeDirectory)
+    await mkdir(join(rejectionDirectory, '..'), { recursive: true })
+    await cp(sourceDirectory, rejectionDirectory, { recursive: true })
+
+    expect(await validateBodyHeadRejectionEvidence({ repositoryRoot })).toEqual([])
+
+    const original = 'body-head-contact-sheet-blob.png'
+    const originalBytes = await readFile(join(sourceDirectory, original))
+    await rm(join(rejectionDirectory, original))
+    expect(await validateBodyHeadRejectionEvidence({ repositoryRoot })).toContainEqual(
+      expect.objectContaining({ code: 'BODY_HEAD_REJECTION_ARTIFACT_MISSING' }),
+    )
+    await writeFile(join(rejectionDirectory, original), originalBytes)
+
+    await writeFile(join(rejectionDirectory, original), Buffer.concat([originalBytes, Buffer.from('tampered')]))
+    expect(await validateBodyHeadRejectionEvidence({ repositoryRoot })).toContainEqual(
+      expect.objectContaining({ code: 'BODY_HEAD_REJECTION_ARTIFACT_HASH_INVALID' }),
+    )
+    await writeFile(join(rejectionDirectory, original), originalBytes)
+
+    const misplacedDirectory = join(rejectionDirectory, 'misplaced')
+    await mkdir(misplacedDirectory)
+    await rename(join(rejectionDirectory, original), join(misplacedDirectory, original))
+    expect(await validateBodyHeadRejectionEvidence({ repositoryRoot })).toContainEqual(
+      expect.objectContaining({ code: 'BODY_HEAD_REJECTION_ARTIFACT_PATH_INVALID' }),
+    )
+    await rename(join(misplacedDirectory, original), join(rejectionDirectory, original))
+    await rm(misplacedDirectory, { recursive: true })
+
+    await writeFile(join(rejectionDirectory, 'body-head-contact-sheet-blob-copy.png'), originalBytes)
+    expect(await validateBodyHeadRejectionEvidence({ repositoryRoot })).toContainEqual(
+      expect.objectContaining({ code: 'BODY_HEAD_REJECTION_ARTIFACT_PATH_INVALID' }),
+    )
+    await rm(join(rejectionDirectory, 'body-head-contact-sheet-blob-copy.png'))
+
+    const recordPath = join(rejectionDirectory, 'rejection-record.json')
+    const record = JSON.parse(await readFile(recordPath, 'utf8'))
+    await writeFile(recordPath, `${JSON.stringify({ ...record, userApproved: true })}\n`)
+    expect(await validateBodyHeadRejectionEvidence({ repositoryRoot })).toContainEqual(
+      expect.objectContaining({ code: 'BODY_HEAD_REJECTION_FIELDS_INVALID' }),
+    )
   })
 })

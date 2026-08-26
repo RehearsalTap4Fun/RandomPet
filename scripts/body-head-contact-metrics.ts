@@ -1,10 +1,19 @@
 import { resolve } from 'node:path'
 import sharp from 'sharp'
-import type { FlattenedInterfaceVariant } from './interface-source-schema.js'
+import type { FlattenedInterfaceVariant, InterfaceRigId } from './interface-source-schema.js'
 
 export const MAX_VISIBLE_TONGUE_DEPTH_RATIO = 0.1
 export const MAX_VISIBLE_TONGUE_AREA_RATIO = 0.1
 export const MAX_CENTRAL_LOBE_DEPTH_RATIO = 0.2
+
+// Frozen to the approved Task 7 exact-rig neck grammar. These metric scales are deliberately
+// separate from candidate connector declarations: changing width/depth metadata cannot make
+// identical head/body alpha score better without changing the authored silhouette or occlusion.
+const NECK_METRIC_BASELINE: Record<InterfaceRigId, { width: number, depth: number }> = {
+  blob: { width: 400, depth: 200 },
+  biped: { width: 310, depth: 180 },
+  floating: { width: 300, depth: 180 },
+}
 
 export function naturalNeckSeamLiftRatio(normalizedTangentDistance: number): number {
   const tangent = Math.min(1, Math.max(0, Math.abs(normalizedTangentDistance)))
@@ -19,16 +28,19 @@ interface AlphaPlane {
 
 export async function measureCentralLobeDepthRatio(input: {
   imagePath: string
+  rigId: InterfaceRigId
   connector: FlattenedInterfaceVariant['connectors'][number]
 }): Promise<number> {
   const alpha = await alphaPlane(input.imagePath)
-  const { centralBottom, shoulderBaseline } = centralLobeEnvelope(alpha, input.connector)
-  return Math.max(0, centralBottom - shoulderBaseline) / Math.max(1, input.connector.depth)
+  const baseline = NECK_METRIC_BASELINE[input.rigId]
+  const { centralBottom, shoulderBaseline } = centralLobeEnvelope(alpha, input.connector, baseline.width)
+  return Math.max(0, centralBottom - shoulderBaseline) / baseline.depth
 }
 
 function centralLobeEnvelope(
   alpha: AlphaPlane,
   plug: FlattenedInterfaceVariant['connectors'][number],
+  metricWidth: number,
 ): { centralBottom: number, shoulderBaseline: number } {
   const bottomByTangent = new Map<number, number>()
   for (let y = 0; y < alpha.height; y += 1) for (let x = 0; x < alpha.width; x += 1) {
@@ -40,10 +52,10 @@ function centralLobeEnvelope(
     bottomByTangent.set(tangent, Math.max(bottomByTangent.get(tangent) ?? -Infinity, outward))
   }
   const central = [...bottomByTangent]
-    .filter(([tangent]) => Math.abs(tangent) <= plug.width * 0.4)
+    .filter(([tangent]) => Math.abs(tangent) <= metricWidth * 0.4)
     .map(([, bottom]) => bottom)
   const shoulders = [...bottomByTangent]
-    .filter(([tangent]) => Math.abs(tangent) >= plug.width * 0.65 && Math.abs(tangent) <= plug.width * 1.5)
+    .filter(([tangent]) => Math.abs(tangent) >= metricWidth * 0.65 && Math.abs(tangent) <= metricWidth * 1.5)
     .map(([, bottom]) => bottom)
     .sort((left, right) => left - right)
   if (central.length === 0 || shoulders.length === 0) throw new Error('Head silhouette lacks central or shoulder alpha for lobe measurement.')
@@ -86,7 +98,8 @@ export async function measureVisibleConnectorTongue(input: {
   ])
   const dx = Math.round(receiver.origin.x - plug.origin.x)
   const dy = Math.round(receiver.origin.y - plug.origin.y)
-  const { shoulderBaseline } = centralLobeEnvelope(headAlpha, plug)
+  const baseline = NECK_METRIC_BASELINE[input.head.rigId]
+  const { shoulderBaseline } = centralLobeEnvelope(headAlpha, plug, baseline.width)
   const depthBins = new Map<number, number>()
   let visibleHeadMass = 0
   for (let y = 0; y < headAlpha.height; y += 1) for (let x = 0; x < headAlpha.width; x += 1) {
@@ -96,7 +109,7 @@ export async function measureVisibleConnectorTongue(input: {
     const deltaY = y + 0.5 - plug.origin.y
     const tangentDistance = deltaX * plug.tangent.x + deltaY * plug.tangent.y
     const outwardDistance = deltaX * plug.outwardNormal.x + deltaY * plug.outwardNormal.y
-    if (Math.abs(tangentDistance) > plug.width * 0.4) continue
+    if (Math.abs(tangentDistance) > baseline.width * 0.4) continue
     const tongueDepth = outwardDistance - shoulderBaseline
     if (tongueDepth <= 0) continue
     const foreground = alphaAt(foregroundAlpha, x, y)
@@ -109,14 +122,14 @@ export async function measureVisibleConnectorTongue(input: {
     const binIndex = Math.floor(tongueDepth)
     depthBins.set(binIndex, (depthBins.get(binIndex) ?? 0) + visible)
   }
-  const significantBinMass = Math.max(2, plug.width * 0.02) * 255
+  const significantBinMass = Math.max(2, baseline.width * 0.02) * 255
   const lastVisibleDepth = Math.max(-1, ...[...depthBins]
     .filter(([, mass]) => mass >= significantBinMass)
     .map(([depth]) => depth))
   return {
     visibleTongueDepthRatio: lastVisibleDepth < 0
       ? 0
-      : (lastVisibleDepth + 1) / Math.max(1, plug.depth),
-    visibleTongueAreaRatio: visibleHeadMass / Math.max(1, plug.width * plug.depth * 255),
+      : (lastVisibleDepth + 1) / baseline.depth,
+    visibleTongueAreaRatio: visibleHeadMass / (baseline.width * baseline.depth * 255),
   }
 }

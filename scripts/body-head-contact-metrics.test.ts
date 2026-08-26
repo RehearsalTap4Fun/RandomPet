@@ -32,9 +32,58 @@ describe('body/head visible connector tongue', () => {
     const plug = head.connectors.find(item => item.id === 'neck')!
     const ratio = await measureCentralLobeDepthRatio({
       imagePath: resolve(root, 'asset-source/v0.3.0/production/nodes/head_mushroom_cap/neck.png'),
+      rigId: 'biped',
       connector: plug,
     })
     expect(ratio).toBeGreaterThan(MAX_CENTRAL_LOBE_DEPTH_RATIO)
+  })
+
+  it('cannot hide the rejected mushroom tongue by scaling compatible connector width and depth declarations', async () => {
+    const root = process.cwd()
+    const manifest = JSON.parse(
+      await readFile(resolve(root, 'asset-source/v0.3.0/interface-manifest.json'), 'utf8'),
+    ) as InterfaceSourceManifest
+    const variants = structuralVariants(manifest)
+    const body = variants.find(item => item.partId === 'body_biped_tall' && item.rigId === 'biped')!
+    const head = variants.find(item => item.partId === 'head_mushroom_cap' && item.rigId === 'biped')!
+    const oldHead = {
+      ...head,
+      renderNodes: head.renderNodes.map(node => ({
+        ...node,
+        sourcePngPath: 'asset-source/v0.3.0/production/nodes/head_mushroom_cap/neck.png',
+      })),
+      connectors: head.connectors.map(connector => connector.id === 'neck' ? {
+        ...connector,
+        foregroundMaskPath: 'assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-foreground.png',
+        backgroundMaskPath: 'assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-background.png',
+      } : connector),
+    }
+    const scale = <T extends typeof body>(variant: T): T => ({
+      ...variant,
+      connectors: variant.connectors.map(connector => connector.id === 'neck' ? {
+        ...connector,
+        width: connector.width * 1.2,
+        depth: connector.depth * 10,
+      } : connector),
+    })
+    const baselineLobe = await measureCentralLobeDepthRatio({
+      imagePath: resolve(root, oldHead.renderNodes[0]!.sourcePngPath),
+      rigId: 'biped',
+      connector: oldHead.connectors.find(item => item.id === 'neck')!,
+    })
+    const scaledLobe = await measureCentralLobeDepthRatio({
+      imagePath: resolve(root, oldHead.renderNodes[0]!.sourcePngPath),
+      rigId: 'biped',
+      connector: scale(oldHead).connectors.find(item => item.id === 'neck')!,
+    })
+    const baselineVisible = await measureVisibleConnectorTongue({ root, body, head: oldHead })
+    const scaledVisible = await measureVisibleConnectorTongue({ root, body: scale(body), head: scale(oldHead) })
+
+    expect(baselineLobe).toBeGreaterThan(MAX_CENTRAL_LOBE_DEPTH_RATIO)
+    expect(baselineVisible.visibleTongueDepthRatio).toBeGreaterThan(MAX_VISIBLE_TONGUE_DEPTH_RATIO)
+    expect(scaledLobe).toBeCloseTo(baselineLobe, 12)
+    expect(scaledVisible.visibleTongueDepthRatio).toBeCloseTo(baselineVisible.visibleTongueDepthRatio, 12)
+    expect(scaledVisible.visibleTongueAreaRatio).toBeCloseTo(baselineVisible.visibleTongueAreaRatio, 12)
   })
 
   it('limits exposed plug depth and area for every exact body × head pair', async () => {
@@ -56,6 +105,7 @@ describe('body/head visible connector tongue', () => {
           headId: head.partId,
           centralLobeDepthRatio: await measureCentralLobeDepthRatio({
             imagePath: resolve(root, head.renderNodes[0]!.sourcePngPath),
+            rigId,
             connector: head.connectors.find(item => item.id === 'neck')!,
           }),
           ...(await measureVisibleConnectorTongue({ root, body, head })),

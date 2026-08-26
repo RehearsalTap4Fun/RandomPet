@@ -6,6 +6,7 @@ import sharp from 'sharp'
 import { interfaceVariantKey, structuralVariants, type InterfaceSourceManifest } from './interface-source-schema.js'
 
 const PNG = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
+const TASK7_BODY_HEAD_REVIEW_PATH = 'packages/asset-catalog/review/v0.3.0/body-head-review-record.json'
 
 function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex')
@@ -202,6 +203,7 @@ export async function prepareAllNaturalNeckHeads(root: string): Promise<Record<s
     variant.promptEvidence.promptId = 'task7-head-natural-neck-rework'
     variant.promptEvidence.promptPath = promptRelative
     variant.promptEvidence.promptSha256 = promptSha256
+    variant.promptEvidence.reviewRecordPath = TASK7_BODY_HEAD_REVIEW_PATH
 
     const key = interfaceVariantKey(variant.partId, variant.rigId)
     const record = processed.processedAssets[key] ?? processed.processedAssets[variant.partId]

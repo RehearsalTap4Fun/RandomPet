@@ -22,7 +22,7 @@
     "production": "../../../../asset-source/v0.3.0/generation/task7-head-natural-neck-production.json",
     "occlusion": "../../../../asset-source/v0.3.0/generation/task7-body-head-occlusion-rework.json",
     "promptCatalog": "../../../../asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
-    "visualInspection": "20/20 original and 20/20 downsampled combinations passed Codex self-review; explicit user approval is still required.",
+    "visualInspection": "20/20 original and 20/20 downsampled combinations passed Codex self-review; user approval response A was received and recorded on 2026-08-26.",
     "knownConcern": "At 256 px, body_biped_tall × head_round_dome retains a dark shallow curved crease; centerline gap is zero and no structural tongue is exposed."
   },
   "selections": {

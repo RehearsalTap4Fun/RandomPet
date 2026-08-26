@@ -485,7 +485,7 @@
             "promptId": "task7-head-natural-neck-rework",
             "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
             "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
-            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
             {
