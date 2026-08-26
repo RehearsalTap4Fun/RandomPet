@@ -1,10 +1,22 @@
 {
-  "schemaVersion": "body-head-self-review-v1",
-  "status": "WAITING_FOR_USER_APPROVAL",
-  "reviewer": "Codex visual self-review",
-  "userApproved": false,
-  "latestUserDecision": "B",
-  "latestUserFeedback": "Hide or weaken the exposed connector tongue so heads look naturally grown from bodies.",
+  "schemaVersion": "body-head-review-approval-v2",
+  "status": "APPROVED",
+  "catalogVersion": "0.3.0",
+  "rendererVersion": "0.3.0",
+  "decision": "approved",
+  "reviewer": "user",
+  "reviewedAt": "2026-08-26T13:43:27.6827914+08:00",
+  "userApproved": true,
+  "approvalResponse": "A",
+  "entryCount": 20,
+  "entryCountByRig": {
+    "blob": 8,
+    "biped": 8,
+    "floating": 4
+  },
+  "latestUserDecision": "A",
+  "latestUserFeedback": "Approved the current natural-neck Task 7 body/head matrices and authorized continuation to limbs.",
+  "acceptanceRecord": "body-head-contact-sheets-acceptance.json",
   "rejectedEvidence": "rejected/task7-visible-tongue-round-1/rejection-record.json",
   "reworkEvidence": {
     "production": "../../../../asset-source/v0.3.0/generation/task7-head-natural-neck-production.json",

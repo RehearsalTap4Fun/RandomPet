@@ -198,6 +198,7 @@ interface BodyHeadReviewEntry {
   centerlineGapPx: number
   visibleTongueDepthRatio: number
   visibleTongueAreaRatio: number
+  centralLobeDepthRatio: number
 }
 
 interface BodyHeadReviewManifest {
@@ -208,6 +209,7 @@ interface BodyHeadReviewManifest {
     centerlineGapPx: number
     visibleTongueDepthRatio: number
     visibleTongueAreaRatio: number
+    centralLobeDepthRatio: number
   }
   sheetSha256: string
   sheet256Sha256: string
@@ -249,6 +251,7 @@ export async function validateBodyHeadReview(input: { repositoryRoot: string; re
       || review.thresholds?.centerlineGapPx !== 2
       || review.thresholds?.visibleTongueDepthRatio !== 0.1
       || review.thresholds?.visibleTongueAreaRatio !== 0.1
+      || review.thresholds?.centralLobeDepthRatio !== 0.2
       || review.entries.some(entry => (
         !Number.isFinite(entry.largestComponentRatio)
         || entry.largestComponentRatio < 0.99
@@ -261,6 +264,9 @@ export async function validateBodyHeadReview(input: { repositoryRoot: string; re
         || !Number.isFinite(entry.visibleTongueAreaRatio)
         || entry.visibleTongueAreaRatio < 0
         || entry.visibleTongueAreaRatio > 0.1
+        || !Number.isFinite(entry.centralLobeDepthRatio)
+        || entry.centralLobeDepthRatio < 0
+        || entry.centralLobeDepthRatio > 0.2
       ))
       || review.status !== 'machine-pass-awaiting-user-approval'
     ) {
@@ -283,6 +289,198 @@ export async function validateBodyHeadReview(input: { repositoryRoot: string; re
     }
   }
   return { diagnostics, entryCountByRig }
+}
+
+const BODY_HEAD_ACCEPTANCE_FILENAME = 'body-head-contact-sheets-acceptance.json'
+const BODY_HEAD_ACCEPTANCE_PATH = `packages/asset-catalog/review/v0.3.0/${BODY_HEAD_ACCEPTANCE_FILENAME}`
+const BODY_HEAD_REVIEW_RECORD_PATH = 'packages/asset-catalog/review/v0.3.0/body-head-review-record.json'
+const BODY_HEAD_REJECTION_PATH = 'packages/asset-catalog/review/v0.3.0/rejected/task7-visible-tongue-round-1/rejection-record.json'
+const TASK6_INTEGRITY_PATH = 'packages/asset-catalog/review/v0.3.0/task6-approved-input-integrity.json'
+
+function bodyHeadArtifactPaths(rigId: InterfaceRigId): { originalPath: string, review256Path: string, manifestPath: string } {
+  const stem = `packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-${rigId}`
+  return { originalPath: `${stem}.png`, review256Path: `${stem}-256.png`, manifestPath: `${stem}-manifest.json` }
+}
+
+export function validateBodyHeadAcceptanceLocations(records: string[], canonicalPath: string): Diagnostic[] {
+  const diagnostics: Diagnostic[] = []
+  if (records.length === 0) return [error('BODY_HEAD_ACCEPTANCE_MISSING', ['acceptance'], 'Canonical Task 7 body/head acceptance record is missing.')]
+  if (records.length !== 1) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_NOT_UNIQUE', ['acceptance'], `Canonical Task 7 body/head acceptance record must be unique; found ${records.length}.`))
+  if (!records.some(path => resolve(path) === resolve(canonicalPath))) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_PATH_INVALID', ['acceptance'], `Acceptance record must use exact path ${BODY_HEAD_ACCEPTANCE_PATH}.`))
+  return diagnostics
+}
+
+async function findBodyHeadAcceptanceRecords(repositoryRoot: string): Promise<string[]> {
+  const records: string[] = []
+  const visit = async (directory: string): Promise<void> => {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      if (entry.isDirectory()) {
+        if (entry.name !== '.git' && entry.name !== 'node_modules') await visit(join(directory, entry.name))
+      } else if (entry.isFile() && entry.name === BODY_HEAD_ACCEPTANCE_FILENAME) records.push(join(directory, entry.name))
+    }
+  }
+  await visit(repositoryRoot)
+  return records
+}
+
+export async function validateBodyHeadAcceptanceDocument(input: {
+  document: unknown
+  repositoryRoot: string
+  reviewRoot: string
+}): Promise<Diagnostic[]> {
+  const diagnostics: Diagnostic[] = []
+  const document = input.document !== null && typeof input.document === 'object' && !Array.isArray(input.document)
+    ? input.document as Record<string, any>
+    : {}
+  if (
+    document.schemaVersion !== 'body-head-acceptance-v1'
+    || document.catalogVersion !== '0.3.0'
+    || document.rendererVersion !== '0.3.0'
+    || document.decision !== 'approved'
+    || document.reviewer !== 'user'
+    || document.userApproved !== true
+    || document.approvalResponse !== 'A'
+    || document.entryCount !== 20
+    || document.entryCountByRig?.blob !== 8
+    || document.entryCountByRig?.biped !== 8
+    || document.entryCountByRig?.floating !== 4
+  ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_FIELDS_INVALID', ['acceptance'], 'Approval fields, versions, decision, or canonical entry counts are invalid.'))
+  if (typeof document.reviewedAt !== 'string' || !Number.isFinite(Date.parse(document.reviewedAt))) {
+    diagnostics.push(error('BODY_HEAD_ACCEPTANCE_TIME_INVALID', ['acceptance', 'reviewedAt'], 'reviewedAt must be a valid timestamp.'))
+  }
+
+  const artifacts = Array.isArray(document.artifacts) ? document.artifacts as Array<Record<string, any>> : []
+  const exactArtifactPaths = new Set<string>()
+  const allEntries: BodyHeadReviewEntry[] = []
+  for (const rigId of ['blob', 'biped', 'floating'] as const) {
+    const expectedPaths = bodyHeadArtifactPaths(rigId)
+    const artifact = artifacts.find(item => item.rigId === rigId)
+    if (artifact === undefined
+      || artifact.originalPath !== expectedPaths.originalPath
+      || artifact.review256Path !== expectedPaths.review256Path
+      || artifact.manifestPath !== expectedPaths.manifestPath) {
+      diagnostics.push(error('BODY_HEAD_ACCEPTANCE_ARTIFACT_PATH_INVALID', ['acceptance', 'artifacts', rigId], 'Every rig must declare the exact canonical original, 256, and manifest paths.'))
+      continue
+    }
+    exactArtifactPaths.add(artifact.originalPath)
+    exactArtifactPaths.add(artifact.review256Path)
+    exactArtifactPaths.add(artifact.manifestPath)
+    try {
+      const [originalBytes, review256Bytes, manifestBytes] = await Promise.all([
+        readFile(resolve(input.repositoryRoot, artifact.originalPath)),
+        readFile(resolve(input.repositoryRoot, artifact.review256Path)),
+        readFile(resolve(input.repositoryRoot, artifact.manifestPath)),
+      ])
+      const manifest = JSON.parse(manifestBytes.toString('utf8')) as BodyHeadReviewManifest
+      allEntries.push(...manifest.entries)
+      if (
+        artifact.originalSha256 !== sha256Bytes(originalBytes)
+        || artifact.review256Sha256 !== sha256Bytes(review256Bytes)
+        || artifact.manifestSha256 !== sha256Bytes(manifestBytes)
+        || artifact.originalSha256 !== manifest.sheetSha256
+        || artifact.review256Sha256 !== manifest.sheet256Sha256
+      ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_HASH_INVALID', ['acceptance', 'artifacts', rigId], 'Acceptance hashes must match all live canonical review bytes and manifest declarations.'))
+    } catch {
+      diagnostics.push(error('BODY_HEAD_ACCEPTANCE_ARTIFACT_MISSING', ['acceptance', 'artifacts', rigId], 'Cannot read one or more approved canonical review artifacts.'))
+    }
+  }
+  if (artifacts.length !== 3 || new Set(artifacts.map(item => item.rigId)).size !== 3 || exactArtifactPaths.size !== 9) {
+    diagnostics.push(error('BODY_HEAD_ACCEPTANCE_ARTIFACTS_INVALID', ['acceptance', 'artifacts'], 'Acceptance must bind exactly three rigs and nine unique canonical artifacts.'))
+  }
+
+  const thresholds = document.causalMetrics?.thresholds
+  const results = document.causalMetrics?.results
+  const calculated = {
+    entryCount: allEntries.length,
+    largestComponentRatioMin: allEntries.length === 0 ? null : Math.min(...allEntries.map(item => item.largestComponentRatio)),
+    centerlineGapPxMax: allEntries.length === 0 ? null : Math.max(...allEntries.map(item => item.centerlineGapPx)),
+    visibleTongueDepthRatioMax: allEntries.length === 0 ? null : Math.max(...allEntries.map(item => item.visibleTongueDepthRatio)),
+    visibleTongueAreaRatioMax: allEntries.length === 0 ? null : Math.max(...allEntries.map(item => item.visibleTongueAreaRatio)),
+    centralLobeDepthRatioMax: allEntries.length === 0 ? null : Math.max(...allEntries.map(item => item.centralLobeDepthRatio ?? Number.POSITIVE_INFINITY)),
+  }
+  if (
+    thresholds?.largestComponentRatioMin !== 0.99
+    || thresholds?.centerlineGapPxMax !== 2
+    || thresholds?.visibleTongueDepthRatioMax !== 0.1
+    || thresholds?.visibleTongueAreaRatioMax !== 0.1
+    || thresholds?.centralLobeDepthRatioMax !== 0.2
+    || results?.entryCount !== calculated.entryCount
+    || results?.largestComponentRatioMin !== calculated.largestComponentRatioMin
+    || results?.centerlineGapPxMax !== calculated.centerlineGapPxMax
+    || results?.visibleTongueDepthRatioMax !== calculated.visibleTongueDepthRatioMax
+    || results?.visibleTongueAreaRatioMax !== calculated.visibleTongueAreaRatioMax
+    || results?.centralLobeDepthRatioMax !== calculated.centralLobeDepthRatioMax
+  ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_METRICS_INVALID', ['acceptance', 'causalMetrics'], 'Causal thresholds and results must exactly match the 20 live matrix entries.'))
+
+  try {
+    const rejectionBytes = await readFile(resolve(input.repositoryRoot, BODY_HEAD_REJECTION_PATH))
+    const rejection = JSON.parse(rejectionBytes.toString('utf8')) as Record<string, unknown>
+    if (
+      document.rejectionRound?.recordPath !== BODY_HEAD_REJECTION_PATH
+      || document.rejectionRound?.recordSha256 !== sha256Bytes(rejectionBytes)
+      || rejection.status !== 'REJECTED'
+      || rejection.userDecision !== 'B'
+    ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_REJECTION_INVALID', ['acceptance', 'rejectionRound'], 'Acceptance must retain the exact hash-bound rejected round reference.'))
+  } catch {
+    diagnostics.push(error('BODY_HEAD_ACCEPTANCE_REJECTION_INVALID', ['acceptance', 'rejectionRound'], 'Cannot read the rejected round evidence.'))
+  }
+
+  try {
+    const integrityBytes = await readFile(resolve(input.repositoryRoot, TASK6_INTEGRITY_PATH))
+    const integrity = JSON.parse(integrityBytes.toString('utf8')) as { files?: Array<{ path?: unknown, sha256?: unknown }> }
+    const files = Array.isArray(integrity.files) ? integrity.files : []
+    if (
+      document.task6Integrity?.manifestPath !== TASK6_INTEGRITY_PATH
+      || document.task6Integrity?.manifestSha256 !== sha256Bytes(integrityBytes)
+      || document.task6Integrity?.fileCount !== 132
+      || files.length !== 132
+    ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_TASK6_INTEGRITY_INVALID', ['acceptance', 'task6Integrity'], 'Task 6 integrity manifest path, hash, and 132-file count must be exact.'))
+    for (const [index, item] of files.entries()) {
+      if (typeof item.path !== 'string' || typeof item.sha256 !== 'string') {
+        diagnostics.push(error('BODY_HEAD_ACCEPTANCE_TASK6_INTEGRITY_INVALID', ['acceptance', 'task6Integrity', String(index)], 'Task 6 integrity entry is malformed.'))
+        continue
+      }
+      try {
+        if (sha256Bytes(await readFile(resolve(input.repositoryRoot, item.path))) !== item.sha256) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_TASK6_INPUT_CHANGED', ['acceptance', 'task6Integrity', item.path], 'Frozen Task 6 input bytes changed.'))
+      } catch {
+        diagnostics.push(error('BODY_HEAD_ACCEPTANCE_TASK6_INPUT_CHANGED', ['acceptance', 'task6Integrity', item.path], 'Frozen Task 6 input is missing.'))
+      }
+    }
+  } catch {
+    diagnostics.push(error('BODY_HEAD_ACCEPTANCE_TASK6_INTEGRITY_INVALID', ['acceptance', 'task6Integrity'], 'Cannot read the Task 6 integrity manifest.'))
+  }
+
+  try {
+    const review = JSON.parse(await readFile(resolve(input.repositoryRoot, BODY_HEAD_REVIEW_RECORD_PATH), 'utf8')) as Record<string, unknown>
+    if (
+      review.status !== 'APPROVED'
+      || review.reviewer !== 'user'
+      || review.userApproved !== true
+      || review.approvalResponse !== 'A'
+      || review.entryCount !== 20
+    ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_REVIEW_RECORD_INVALID', ['acceptance', 'reviewRecord'], 'Canonical body/head review record must reflect the same user approval.'))
+  } catch {
+    diagnostics.push(error('BODY_HEAD_ACCEPTANCE_REVIEW_RECORD_INVALID', ['acceptance', 'reviewRecord'], 'Cannot read the canonical body/head review record.'))
+  }
+  return diagnostics
+}
+
+export async function validateBodyHeadApproval(input: { repositoryRoot: string, reviewRoot: string }): Promise<{
+  diagnostics: Diagnostic[]
+  entryCount: number
+}> {
+  const canonicalPath = resolve(input.repositoryRoot, BODY_HEAD_ACCEPTANCE_PATH)
+  const records = await findBodyHeadAcceptanceRecords(input.repositoryRoot)
+  const diagnostics = validateBodyHeadAcceptanceLocations(records, canonicalPath)
+  if (!records.some(path => resolve(path) === canonicalPath)) return { diagnostics, entryCount: 0 }
+  try {
+    const document = JSON.parse(await readFile(canonicalPath, 'utf8'))
+    diagnostics.push(...await validateBodyHeadAcceptanceDocument({ document, repositoryRoot: input.repositoryRoot, reviewRoot: input.reviewRoot }))
+    return { diagnostics, entryCount: document.entryCount === 20 ? 20 : 0 }
+  } catch {
+    diagnostics.push(error('BODY_HEAD_ACCEPTANCE_INVALID', ['acceptance'], 'Cannot parse the canonical Task 7 acceptance record.'))
+    return { diagnostics, entryCount: 0 }
+  }
 }
 
 async function main(): Promise<void> {
@@ -326,13 +524,19 @@ async function main(): Promise<void> {
     for (const message of review.diagnostics) diagnostics.push(error('BIPED_SLICE_INVALID', ['review'], message))
   }
   let bodyHeadEntriesChecked: Record<InterfaceRigId, number> | undefined
+  let bodyHeadApprovalEntriesChecked = 0
   if (diagnostics.length === 0 && scope === 'body-head') {
     const review = await validateBodyHeadReview({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
     bodyHeadEntriesChecked = review.entryCountByRig
     diagnostics.push(...review.diagnostics)
+    if (diagnostics.length === 0) {
+      const approval = await validateBodyHeadApproval({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
+      bodyHeadApprovalEntriesChecked = approval.entryCount
+      diagnostics.push(...approval.diagnostics)
+    }
   }
   for (const diagnostic of diagnostics) console.error(`ERROR ${diagnostic.code} ${diagnostic.path.join('.')}: ${diagnostic.message}`)
-  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, diagnostics: diagnostics.length }))
+  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, bodyHeadApprovalEntriesChecked, diagnostics: diagnostics.length }))
   if (diagnostics.length > 0) process.exitCode = 1
 }
 

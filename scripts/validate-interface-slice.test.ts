@@ -3,7 +3,15 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
-import { validateBodyHeadReview, validateInterfaceProductionReadiness, validateInterfacePromptEvidence, validateInterfaceSlice } from './validate-interface-slice.js'
+import {
+  validateBodyHeadAcceptanceDocument,
+  validateBodyHeadAcceptanceLocations,
+  validateBodyHeadApproval,
+  validateBodyHeadReview,
+  validateInterfaceProductionReadiness,
+  validateInterfacePromptEvidence,
+  validateInterfaceSlice,
+} from './validate-interface-slice.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 import { BIPED_SLICE, structuralVariants } from '../packages/asset-catalog/src/interface-source-schema.js'
 
@@ -166,4 +174,33 @@ describe('validateInterfaceSlice', () => {
       ))).toBe(true)
     }
   }, 20_000)
+
+  it('requires one canonical user approval bound to every live body-head review byte', async () => {
+    const repositoryRoot = process.cwd()
+    const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
+    const result = await validateBodyHeadApproval({ repositoryRoot, reviewRoot })
+    expect(result.entryCount).toBe(20)
+    expect(result.diagnostics).toEqual([])
+
+    const approval = JSON.parse(await readFile(join(reviewRoot, 'body-head-contact-sheets-acceptance.json'), 'utf8'))
+    for (const invalid of [
+      { ...approval, userApproved: false },
+      { ...approval, approvalResponse: 'B' },
+      { ...approval, catalogVersion: '0.2.0' },
+      { ...approval, reviewedAt: 'not-a-time' },
+      { ...approval, artifacts: approval.artifacts.map((item: any, index: number) => index === 0 ? { ...item, originalSha256: 'f'.repeat(64) } : item) },
+      { ...approval, artifacts: [approval.artifacts[0], approval.artifacts[0], approval.artifacts[2]] },
+      { ...approval, task6Integrity: { ...approval.task6Integrity, manifestSha256: 'f'.repeat(64) } },
+    ]) {
+      expect(await validateBodyHeadAcceptanceDocument({ document: invalid, repositoryRoot, reviewRoot })).not.toEqual([])
+    }
+  }, 30_000)
+
+  it('rejects missing, misplaced, and duplicate Task 7 acceptance locations', () => {
+    const canonical = join(process.cwd(), 'packages', 'asset-catalog', 'review', 'v0.3.0', 'body-head-contact-sheets-acceptance.json')
+    expect(validateBodyHeadAcceptanceLocations([], canonical)).not.toEqual([])
+    expect(validateBodyHeadAcceptanceLocations([join(process.cwd(), 'elsewhere', 'body-head-contact-sheets-acceptance.json')], canonical)).not.toEqual([])
+    expect(validateBodyHeadAcceptanceLocations([canonical, join(process.cwd(), 'copy', 'body-head-contact-sheets-acceptance.json')], canonical)).not.toEqual([])
+    expect(validateBodyHeadAcceptanceLocations([canonical], canonical)).toEqual([])
+  })
 })

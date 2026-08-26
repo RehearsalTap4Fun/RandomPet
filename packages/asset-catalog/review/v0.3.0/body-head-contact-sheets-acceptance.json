@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "body-head-acceptance-v1",
+  "catalogVersion": "0.3.0",
+  "rendererVersion": "0.3.0",
+  "decision": "approved",
+  "reviewedAt": "2026-08-26T13:43:27.6827914+08:00",
+  "reviewer": "user",
+  "userApproved": true,
+  "approvalResponse": "A",
+  "entryCount": 20,
+  "entryCountByRig": {
+    "blob": 8,
+    "biped": 8,
+    "floating": 4
+  },
+  "artifacts": [
+    {
+      "rigId": "blob",
+      "originalPath": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-blob.png",
+      "originalSha256": "a3c60b8d67b3721bcac3aa5c95212aed18016b77df0c3b46100d2a5fba3038e6",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-blob-256.png",
+      "review256Sha256": "8bcab56a62aa05a7466d1ca82c6fb9af3744d6bc44a91406c9a3f95e3678d479",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-blob-manifest.json",
+      "manifestSha256": "955fd4203b790459ec8b84bce662a790560b48be7dc726b106a9844fa0da1eab"
+    },
+    {
+      "rigId": "biped",
+      "originalPath": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-biped.png",
+      "originalSha256": "69615b11a7bb796eabbe287d5992e19211fa4775171131905f57895381ef79b1",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-biped-256.png",
+      "review256Sha256": "e26d9f0b7dec2ddcfb206990fe9e61287968451ecc1ca8d96ead9cbfa08d9758",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-biped-manifest.json",
+      "manifestSha256": "2721544327105e3503f626e00a4e6f6283c6f008b5a8051e4270ccc718783bf0"
+    },
+    {
+      "rigId": "floating",
+      "originalPath": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-floating.png",
+      "originalSha256": "6cb4f5abfc019e2584f73614223a322279c30e334eba76f2097014ef7d2a64c9",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-floating-256.png",
+      "review256Sha256": "38ca09c7ebe5cae15b69a704057e2c306d1d499eb5d98e2b88240b08121b9ae6",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheet-floating-manifest.json",
+      "manifestSha256": "aee93449185eedadb602a2a66d1903dd1896b57aad12bf5a57c053df1794faa3"
+    }
+  ],
+  "rejectionRound": {
+    "recordPath": "packages/asset-catalog/review/v0.3.0/rejected/task7-visible-tongue-round-1/rejection-record.json",
+    "recordSha256": "4207566342c7a89b8181922e66ba6b180231bb3eda3dcd1b42e270a375f7e746"
+  },
+  "causalMetrics": {
+    "thresholds": {
+      "largestComponentRatioMin": 0.99,
+      "centerlineGapPxMax": 2,
+      "visibleTongueDepthRatioMax": 0.1,
+      "visibleTongueAreaRatioMax": 0.1,
+      "centralLobeDepthRatioMax": 0.2
+    },
+    "results": {
+      "entryCount": 20,
+      "largestComponentRatioMin": 0.9999835505550172,
+      "centerlineGapPxMax": 0,
+      "visibleTongueDepthRatioMax": 0,
+      "visibleTongueAreaRatioMax": 0,
+      "centralLobeDepthRatioMax": 0.18888888888888888
+    }
+  },
+  "task6Integrity": {
+    "manifestPath": "packages/asset-catalog/review/v0.3.0/task6-approved-input-integrity.json",
+    "manifestSha256": "e9b55e1f52d89bb022c2515dd6bb987ae76a61770422b38f84393bc4c824d650",
+    "fileCount": 132
+  },
+  "notes": [
+    "User selected A and approved the exact current Task 7 natural-neck body/head matrices.",
+    "Approval is valid only for the nine canonical artifact paths and SHA-256 values recorded here.",
+    "The rejected visible-tongue round remains immutable historical evidence; approval authorizes continuation to Task 8 limbs."
+  ]
+}

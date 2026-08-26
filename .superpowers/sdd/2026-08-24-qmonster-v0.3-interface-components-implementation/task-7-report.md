@@ -1,6 +1,6 @@
 # Task 7 body/head variant report
 
-Status: `REWORK_IN_PROGRESS_AFTER_USER_REJECTION`
+Status: `APPROVED_COMPLETE`
 
 Date: 2026-08-25
 
@@ -130,4 +130,13 @@ All six sheets were inspected. Twenty of twenty entries pass the natural-neck vi
 - Exact frozen Task6 input audit: `132/132` files unchanged; integrity record SHA-256 `e9b55e1f52d89bb022c2515dd6bb987ae76a61770422b38f84393bc4c824d650`.
 - Frozen Task6 review hashes remain: original `58766df74141fae1abcb66f447529b8d32ede934b11394877c12d2c478feaef4`, 256 `0fa54d8968155465f84eec0de75303520bea637d1debae1f58e1f12301bd9974`, manifest `058dec48847ed6caa93dd58359c887c32c440de01f7522e14ee151d00ab7aa15`, acceptance `f1c14462fb4f14ad359cbe3cc029d13c1e85592bf5d25cb5630bd8b938be3520`.
 
-Status: `WAITING_FOR_USER_APPROVAL`. `userApproved` is `false`; no Task7 approval or acceptance JSON has been created.
+### User approval and completion
+
+- On 2026-08-26, the user replied `A` to the natural-neck rework review and approved the exact current 20-entry matrices (`blob` 8, `biped` 8, `floating` 4), authorizing continuation to Task 8 limbs.
+- Canonical acceptance: `packages/asset-catalog/review/v0.3.0/body-head-contact-sheets-acceptance.json` (SHA-256 `f69608e9361d4dd05e79bfe9e7edeb316633b92528185927ec9532707ecf2759`).
+- The acceptance binds the nine canonical original/256/manifest paths and exact SHA-256 values listed above, catalog and renderer version `0.3.0`, the first-round rejection record, the fixed causal thresholds/results, and the exact 132-input Task 6 integrity manifest.
+- The body/head approval validator enforces the exact canonical acceptance location, uniqueness, approval fields, valid review time, all nine live artifact hashes, exact 20-entry rig counts, metric thresholds/results, rejection reference, and the live 132-file Task 6 integrity boundary.
+- No approved review artifact, Task 7 natural-neck source/runtime input, or frozen Task 6 input byte was modified while recording approval.
+- Approval verification: focused approval/catalog tests `26/26` passed; approval CLI checked 49 production sources and 20 approval entries with zero diagnostics; `npm run typecheck` passed; fresh single-worker full suite passed `73/73` files and `598` tests with `2` skipped.
+
+Status: `APPROVED_COMPLETE`. `userApproved` is `true`; approval response is `A`.
