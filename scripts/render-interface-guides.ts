@@ -4,7 +4,7 @@ import { basename, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import type { ConnectorClass, ConnectorRole, Point2D } from '@qmonster/generator-core'
-import { parseInterfaceSourceManifest } from './interface-source-schema.js'
+import { BIPED_SLICE, parseInterfaceSourceManifest, structuralVariants } from './interface-source-schema.js'
 
 const CANVAS_SIZE = 2048
 
@@ -130,7 +130,10 @@ async function main(): Promise<void> {
   const manifestPath = join('asset-source', 'v0.3.0', 'interface-manifest.json')
   const parsed = parseInterfaceSourceManifest(JSON.parse(await readFile(manifestPath, 'utf8')))
   if (!parsed.ok) throw new Error(`INTERFACE_SOURCE_INVALID: ${JSON.stringify(parsed.diagnostics)}`)
-  const profiles = parsed.value.assets.flatMap(asset => asset.connectors.map(profile => ({ ...profile, assetId: asset.id })))
+  const idsBySlot = new Map(Object.entries(BIPED_SLICE).map(([slotId, ids]) => [slotId, new Set<string>(ids)]))
+  const profiles = structuralVariants(parsed.value)
+    .filter(asset => asset.rigId === 'biped' && idsBySlot.get(asset.slotId)?.has(asset.partId))
+    .flatMap(asset => asset.connectors.map(profile => ({ ...profile, assetId: asset.partId })))
   const result = await renderInterfaceGuides({ outputRoot: join('asset-source', 'v0.3.0', 'guides'), rigId: 'biped', profiles })
   console.log(JSON.stringify({ rig: 'biped', guides: result.files.length, output: basename(join('asset-source', 'v0.3.0', 'guides')) }))
 }

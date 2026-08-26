@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "task7-head-natural-neck-prototype-v1",
+  "status": "PROTOTYPE_EXTRACTED_PENDING_COMPOSITION_GATE",
+  "variantKey": "head_mushroom_cap:biped",
+  "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/biped/head_mushroom_cap/candidate-natural-neck-1.png",
+  "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/biped/head_mushroom_cap-natural-neck-v2.png",
+  "productionSourcePath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
+  "runtimePath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
+  "extraction": {
+    "inputHasAlpha": false,
+    "width": 1254,
+    "height": 1254,
+    "boundaryAlphaPixels": 0,
+    "partialAlphaPixels": 8190,
+    "subjectCoverage": 0.14378613635727713,
+    "sourceSha256": "058131b6e0c5ae3db8dbd01548b3b69b5dc5aaec349784c541ff43ce2adaa592",
+    "extractedSha256": "2520006c475ee362d441150649355a203f350784fd4175009c1eca724096b071"
+  }
+}

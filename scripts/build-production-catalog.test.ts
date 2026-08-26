@@ -311,8 +311,8 @@ describe('v0.3 interface production catalog builder', () => {
     for (const rigId of ['biped', 'blob', 'floating']) {
       expect(result.sourceIndex.sources.find(source => source.sourceId === `head_round_dome:${rigId}`)).toEqual(expect.objectContaining({
         kind: 'interface-structural',
-        promptId: 'task7-body-head-connection-aware',
-        promptPath: 'asset-source/v0.3.0/prompts/task7-body-head-prompts.json',
+        promptId: 'task7-head-natural-neck-rework',
+        promptPath: 'asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json',
       }))
     }
   })

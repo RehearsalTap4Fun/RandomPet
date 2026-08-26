@@ -1,0 +1,68 @@
+{
+  "rigId": "biped",
+  "entries": [
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_peanut",
+      "headId": "head_round_dome",
+      "largestComponentRatio": 0.9999941580313022,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_peanut",
+      "headId": "head_mushroom_cap",
+      "largestComponentRatio": 0.9999907958145152,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_peanut",
+      "headId": "head_angler_bulb",
+      "largestComponentRatio": 0.9999930044846224,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_peanut",
+      "headId": "head_shadow_hood",
+      "largestComponentRatio": 0.9999931356057019,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_tall",
+      "headId": "head_round_dome",
+      "largestComponentRatio": 0.9999933098142951,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_tall",
+      "headId": "head_mushroom_cap",
+      "largestComponentRatio": 0.999987115154997,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_tall",
+      "headId": "head_angler_bulb",
+      "largestComponentRatio": 0.9999916639348105,
+      "centerlineGapPx": 0
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_tall",
+      "headId": "head_shadow_hood",
+      "largestComponentRatio": 0.9999915806145254,
+      "centerlineGapPx": 0
+    }
+  ],
+  "thresholds": {
+    "largestComponentRatio": 0.99,
+    "centerlineGapPx": 2
+  },
+  "sheetSha256": "f7cb497c270076a19cb367592e7c49687db32be6dfc8fa1093b40dfa9ca4e4d1",
+  "sheet256Sha256": "a6e5e7e654078c2de927aab10b6ffd0b6dc6eb6576dc50a73c2794f0518bb591",
+  "status": "machine-pass-awaiting-user-approval"
+}

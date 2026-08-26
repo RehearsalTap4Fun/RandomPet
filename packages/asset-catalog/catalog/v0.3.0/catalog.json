@@ -2753,7 +2753,7 @@
                 "connectorClass": "neck",
                 "origin": {
                   "x": 1024,
-                  "y": 580
+                  "y": 680
                 },
                 "tangent": {
                   "x": 1,
@@ -2765,9 +2765,9 @@
                 },
                 "width": 300,
                 "depth": 150,
-                "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-background.png",
+                "contourMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-contour.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -2789,9 +2789,9 @@
                   }
                 },
                 "rigId": "biped",
-                "contourMaskSha256": "ab2bb9b880c875907b4241826e222c401282687cc63dfce94abeb6f61cb1a9f3",
-                "foregroundMaskSha256": "ab2bb9b880c875907b4241826e222c401282687cc63dfce94abeb6f61cb1a9f3",
-                "backgroundMaskSha256": "ab2bb9b880c875907b4241826e222c401282687cc63dfce94abeb6f61cb1a9f3"
+                "contourMaskSha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68",
+                "foregroundMaskSha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68",
+                "backgroundMaskSha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68"
               },
               {
                 "id": "shoulderLeft",
@@ -3062,7 +3062,7 @@
                 "connectorClass": "neck",
                 "origin": {
                   "x": 1024,
-                  "y": 400
+                  "y": 500
                 },
                 "tangent": {
                   "x": 1,
@@ -3074,9 +3074,9 @@
                 },
                 "width": 280,
                 "depth": 140,
-                "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-background.png",
+                "contourMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-contour.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -3098,9 +3098,9 @@
                   }
                 },
                 "rigId": "biped",
-                "contourMaskSha256": "5b538314fde9744eb23d6ba45c7391951e81a7092dc98e3e5093e913755b0105",
-                "foregroundMaskSha256": "5b538314fde9744eb23d6ba45c7391951e81a7092dc98e3e5093e913755b0105",
-                "backgroundMaskSha256": "5b538314fde9744eb23d6ba45c7391951e81a7092dc98e3e5093e913755b0105"
+                "contourMaskSha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d",
+                "foregroundMaskSha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d",
+                "backgroundMaskSha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d"
               },
               {
                 "id": "shoulderLeft",
@@ -3321,10 +3321,10 @@
         "blob",
         "floating"
       ],
-      "assetPath": "assets/v0.3.0/structural/biped/head_mushroom_cap.webp",
-      "assetSha256": "8d699b0a2a7d301b189b4fbf8e56ecfc5bd6984dc4505c04271ae1615bcff346",
-      "pngPath": "assets/v0.3.0/structural/biped/head_mushroom_cap.png",
-      "pngSha256": "0905ec04451782516764dfbff469562a1febcf63c2e3888af373d7ee9b1c5532",
+      "assetPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.webp",
+      "assetSha256": "554681da3b6e2ed240cee4d7b9ba3670e66f6aabdd805ec18b6f5cb1aeb91885",
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
+      "pngSha256": "49cf663abc0db74599e2eedef8c88f6db6b808f73dacb90393bba19123cae024",
       "composition": {
         "mode": "interface",
         "isNone": false,
@@ -3338,12 +3338,12 @@
             "materialFamily": "mushroom-velvet",
             "renderNodes": [
               {
-                "id": "head_mushroom_cap-neck",
+                "id": "head_mushroom_cap-biped-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/biped/nodes/head_mushroom_cap/head_mushroom_cap-neck.webp",
-                "pngPath": "assets/v0.3.0/structural/biped/nodes/head_mushroom_cap/head_mushroom_cap-neck.png",
-                "assetSha256": "40bb824f7cf8bfc6f753047b607e02ccddf4f8c908dd461567aaafc4fda60f34",
-                "pngSha256": "25796f6a554876ffd7eb98620da4b176f9f82a278e401457e6dbb3d146a83e89",
+                "assetPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_mushroom_cap/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+                "assetSha256": "554681da3b6e2ed240cee4d7b9ba3670e66f6aabdd805ec18b6f5cb1aeb91885",
+                "pngSha256": "49cf663abc0db74599e2eedef8c88f6db6b808f73dacb90393bba19123cae024",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -3381,8 +3381,8 @@
                 "width": 310,
                 "depth": 160,
                 "contourMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_mushroom_cap-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -3405,8 +3405,8 @@
                 },
                 "rigId": "biped",
                 "contourMaskSha256": "8c5d4ce06c6cc91e9603b96a3c0290d2e0109aa4742b78de22a332739de43ebb",
-                "foregroundMaskSha256": "a859980ca55787649e6868e1a5c56d68591ab56446a727f7b3b3ea31042ab0f2",
-                "backgroundMaskSha256": "bcbcf0c850b2ac0d30c4e783cda47590c2a3c5a64fcf1f4f08d2755190a4075a"
+                "foregroundMaskSha256": "1de63a00037b74bb34cc304ab785265c9325b4c7bcc96879b90070c7d7579faf",
+                "backgroundMaskSha256": "681efe03e3a4072bc5b837eb8af3376b7447465500e4eb5c141fc509456c4524"
               }
             ],
             "faceSafeZones": [
@@ -3414,7 +3414,7 @@
                 "x": 790,
                 "y": 1050,
                 "width": 468,
-                "height": 300
+                "height": 295
               }
             ],
             "featureSockets": {
@@ -3424,7 +3424,7 @@
               },
               "mouth": {
                 "x": 1024,
-                "y": 1310
+                "y": 1273
               },
               "headAppendage": {
                 "x": 1024,
@@ -3437,12 +3437,12 @@
             "materialFamily": "mushroom-velvet",
             "renderNodes": [
               {
-                "id": "head_mushroom_cap-blob-neck",
+                "id": "head_mushroom_cap-blob-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/blob/nodes/head_mushroom_cap/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/blob/nodes/head_mushroom_cap/neck.png",
-                "assetSha256": "f28cb100b1268e063d0ccd9fc4d4673d694593f1935677c1cd511f63b732751c",
-                "pngSha256": "0a1000558f0adfce23cc4752cf8ceef5bd44b1fc5eff5eb252c290a437908d1b",
+                "assetPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_mushroom_cap/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+                "assetSha256": "2bb89cede32c61682f7caaac8c41d418aa8995dffba153cd97f4494df7e190b3",
+                "pngSha256": "fcca733af44538adb0a63ef93f6e6a5f8d78ea7484bcf7a5f85343b6b8929afc",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -3480,8 +3480,8 @@
                 "width": 400,
                 "depth": 200,
                 "contourMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_mushroom_cap-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -3504,8 +3504,8 @@
                 },
                 "rigId": "blob",
                 "contourMaskSha256": "3dee9e97f9d670b367eed78dc89a94e1060199cfe0f61365b72786c1fe6565a5",
-                "foregroundMaskSha256": "8737e9afb4a93687bd3b781b51e6e9087b0b3f4cb8f4c95ecfa6a1823442be91",
-                "backgroundMaskSha256": "a2ecbf97d6b7e42fb33532e6090452c5f7c78658114a3f1400acb64f50d08a51"
+                "foregroundMaskSha256": "e27b0142e109fbcebdf9e7ef84fc6829580c897c345411ff4c46d81e5900ac12",
+                "backgroundMaskSha256": "a809ea7cd1ea32b2d4728250760ff9b6ad9a8540d4f3b2f20f3137bfb02787f5"
               }
             ],
             "faceSafeZones": [
@@ -3513,17 +3513,17 @@
                 "x": 770,
                 "y": 1020,
                 "width": 508,
-                "height": 320
+                "height": 331
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1150
+                "y": 1072
               },
               "mouth": {
                 "x": 1024,
-                "y": 1300
+                "y": 1128
               },
               "headAppendage": {
                 "x": 1024,
@@ -3536,12 +3536,12 @@
             "materialFamily": "mushroom-velvet",
             "renderNodes": [
               {
-                "id": "head_mushroom_cap-floating-neck",
+                "id": "head_mushroom_cap-floating-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/floating/nodes/head_mushroom_cap/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/floating/nodes/head_mushroom_cap/neck.png",
-                "assetSha256": "266dc7857dceb1f2e321fb246df98aed3ae1eea8ffb07ced5b570d47891dc2ca",
-                "pngSha256": "244c29ec25c2a64aad7e87cfc12dd1bdaad87e1acc59758ebfaef2cef0249457",
+                "assetPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_mushroom_cap/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+                "assetSha256": "61de1b5d9df00a939c658f0081f370f3ea4aa9e6df627495566429a7100e5836",
+                "pngSha256": "629b5463619b1eca62bdbd54041c0c240633f13dac9ac337523d45dd46c4527e",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -3579,8 +3579,8 @@
                 "width": 300,
                 "depth": 180,
                 "contourMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_mushroom_cap-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -3603,8 +3603,8 @@
                 },
                 "rigId": "floating",
                 "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
-                "foregroundMaskSha256": "5023e2dbe8a3cb66fdf9b4e77559e32a5444d1deb09d4c0236488bd3c700a5f3",
-                "backgroundMaskSha256": "7c2c2bf1f7a1d71026352cbc82288fbf11a5c208bcb384872c9eeef4d3e3b799"
+                "foregroundMaskSha256": "6d6cb09081f0a4e7cd3ee497a866d950fefda61624e7f229b254a4e8df2d96ba",
+                "backgroundMaskSha256": "e7c302151955e386d7538652c2f849221ead74247bca6d58897eec07f2f52538"
               }
             ],
             "faceSafeZones": [
@@ -3612,17 +3612,17 @@
                 "x": 800,
                 "y": 1050,
                 "width": 448,
-                "height": 290
+                "height": 296
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1160
+                "y": 1109
               },
               "mouth": {
                 "x": 1024,
-                "y": 1300
+                "y": 1165
               },
               "headAppendage": {
                 "x": 1024,
@@ -4485,7 +4485,7 @@
                 "connectorClass": "neck",
                 "origin": {
                   "x": 1024,
-                  "y": 620
+                  "y": 740
                 },
                 "tangent": {
                   "x": 1,
@@ -4497,9 +4497,9 @@
                 },
                 "width": 400,
                 "depth": 200,
-                "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-background.png",
+                "contourMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-contour.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -4521,9 +4521,9 @@
                   }
                 },
                 "rigId": "blob",
-                "contourMaskSha256": "d7a3d15c7a1f20a2bbfe2146916e0a9a0a76e82a4a6654312deed9a1c9d1a53c",
-                "foregroundMaskSha256": "518e7fe788473a856a9a56db5849c80fddd5a62c83f10f85e353208115df3134",
-                "backgroundMaskSha256": "8abc26db4dba2b1a24bf32ac1abd323b50270d7c81e5835de265b88df1b06d2a"
+                "contourMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+                "foregroundMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+                "backgroundMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d"
               },
               {
                 "id": "shoulderLeft",
@@ -4796,7 +4796,7 @@
                 "connectorClass": "neck",
                 "origin": {
                   "x": 1024,
-                  "y": 620
+                  "y": 740
                 },
                 "tangent": {
                   "x": 1,
@@ -4808,9 +4808,9 @@
                 },
                 "width": 400,
                 "depth": 200,
-                "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-background.png",
+                "contourMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-contour.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -4832,9 +4832,9 @@
                   }
                 },
                 "rigId": "blob",
-                "contourMaskSha256": "d7a3d15c7a1f20a2bbfe2146916e0a9a0a76e82a4a6654312deed9a1c9d1a53c",
-                "foregroundMaskSha256": "518e7fe788473a856a9a56db5849c80fddd5a62c83f10f85e353208115df3134",
-                "backgroundMaskSha256": "8abc26db4dba2b1a24bf32ac1abd323b50270d7c81e5835de265b88df1b06d2a"
+                "contourMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+                "foregroundMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+                "backgroundMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d"
               },
               {
                 "id": "shoulderLeft",
@@ -5105,7 +5105,7 @@
                 "connectorClass": "neck",
                 "origin": {
                   "x": 1024,
-                  "y": 520
+                  "y": 650
                 },
                 "tangent": {
                   "x": 1,
@@ -5117,9 +5117,9 @@
                 },
                 "width": 300,
                 "depth": 180,
-                "contourMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-background.png",
+                "contourMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-contour.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -5141,9 +5141,9 @@
                   }
                 },
                 "rigId": "floating",
-                "contourMaskSha256": "ae7859520480799a182934edb99f46f624ed7305c6a0b996a13d91748b9196f9",
-                "foregroundMaskSha256": "b7941e9aaacb08af184560080ba42ed40237c3c5c49db29fd6edced106484fdb",
-                "backgroundMaskSha256": "3c71fbc683efdadf14d77aadeb596fa9c65ec89a983296744a8d76003cdf1b88"
+                "contourMaskSha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b",
+                "foregroundMaskSha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b",
+                "backgroundMaskSha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b"
               },
               {
                 "id": "shoulderLeft",
@@ -5368,10 +5368,10 @@
         "blob",
         "floating"
       ],
-      "assetPath": "assets/v0.3.0/structural/biped/head_round_dome.webp",
-      "assetSha256": "44e99a4b29b54fbe824e5c810e442596e5572f1ee2188e015dafaa8b2d82484f",
-      "pngPath": "assets/v0.3.0/structural/biped/head_round_dome.png",
-      "pngSha256": "4fa8088867f6aad240f7191b68c7e5af5b7e88ec3a034e6b3cfcbe16680a518d",
+      "assetPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.webp",
+      "assetSha256": "de1eef77cb2d158de7fff5fe567a93c9af2b26b34922dda95c25bd31fc4e2afa",
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.png",
+      "pngSha256": "eb9ff62be42c303e59b8208e3f22738695f2222b7cf7406bc38f2f8c58db0a08",
       "composition": {
         "mode": "interface",
         "isNone": false,
@@ -5387,12 +5387,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_round_dome-biped-neck",
+                "id": "head_round_dome-biped-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/biped/nodes/head_round_dome/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/biped/nodes/head_round_dome/neck.png",
-                "assetSha256": "44e99a4b29b54fbe824e5c810e442596e5572f1ee2188e015dafaa8b2d82484f",
-                "pngSha256": "4fa8088867f6aad240f7191b68c7e5af5b7e88ec3a034e6b3cfcbe16680a518d",
+                "assetPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_round_dome/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_round_dome/neck.png",
+                "assetSha256": "de1eef77cb2d158de7fff5fe567a93c9af2b26b34922dda95c25bd31fc4e2afa",
+                "pngSha256": "eb9ff62be42c303e59b8208e3f22738695f2222b7cf7406bc38f2f8c58db0a08",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -5430,8 +5430,8 @@
                 "width": 310,
                 "depth": 180,
                 "contourMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -5454,8 +5454,8 @@
                 },
                 "rigId": "biped",
                 "contourMaskSha256": "5c92801eb3946a61ff5a20d77bb870daf2752c6f3d1eda0d7cee8e646701ecae",
-                "foregroundMaskSha256": "34ae141ea47f1641851b55ce1bee4358d705b9a7538ce40122aca0da020a7607",
-                "backgroundMaskSha256": "7a27b9dca2551ebe53f5b95fa401665cb603f287836751a4ab1411b82c1a8bf8"
+                "foregroundMaskSha256": "63d988d12a975057aabfbd08918dccac31ec70d6cd4dedbe428713641c04e1e3",
+                "backgroundMaskSha256": "3209e24be93b74679dc2ed2e1f0c287ee88833edf2c1debe3b1f0a1af57fe3c9"
               }
             ],
             "faceSafeZones": [
@@ -5463,17 +5463,17 @@
                 "x": 790,
                 "y": 1050,
                 "width": 468,
-                "height": 300
+                "height": 241
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1160
+                "y": 1096
               },
               "mouth": {
                 "x": 1024,
-                "y": 1310
+                "y": 1152
               },
               "headAppendage": {
                 "x": 1024,
@@ -5486,12 +5486,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_round_dome-blob-neck",
+                "id": "head_round_dome-blob-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/blob/nodes/head_round_dome/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/blob/nodes/head_round_dome/neck.png",
-                "assetSha256": "29c2a3834261cb80484a6134346c28dca1e55ff9fa246a8cfa232fb630922691",
-                "pngSha256": "e21d7dd1ec70a177178610bddaf65d4835bb3d314559b62d5a8d57db78064b88",
+                "assetPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_round_dome/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_round_dome/neck.png",
+                "assetSha256": "0f0978ec2859e6225f25ee4c4923221be74253548d934f7c2cc5eb647e926d5e",
+                "pngSha256": "8e2f9877f0352d76ccd3844a2bc527a87b54d29d6853486970e334d72278d04f",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -5529,8 +5529,8 @@
                 "width": 400,
                 "depth": 200,
                 "contourMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_round_dome-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_round_dome-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -5553,8 +5553,8 @@
                 },
                 "rigId": "blob",
                 "contourMaskSha256": "3dee9e97f9d670b367eed78dc89a94e1060199cfe0f61365b72786c1fe6565a5",
-                "foregroundMaskSha256": "cc6cfcf5077f805eae4bd03116388fc6ae925d120a9669c89517fcbef2b03f90",
-                "backgroundMaskSha256": "a2a1342eb526deb25eccf882348f6d215d54dee57867d7580e6f3c9311e5695c"
+                "foregroundMaskSha256": "0fbe6efdb7ef5cebda99d0ed385ad7434250784c43ba9b20fd20033d454987e5",
+                "backgroundMaskSha256": "688b756c300435c61903df0391bd2256f88eb6b55be83e25d1ff0754e515f67c"
               }
             ],
             "faceSafeZones": [
@@ -5562,17 +5562,17 @@
                 "x": 770,
                 "y": 1020,
                 "width": 508,
-                "height": 320
+                "height": 273
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1150
+                "y": 1033
               },
               "mouth": {
                 "x": 1024,
-                "y": 1300
+                "y": 1089
               },
               "headAppendage": {
                 "x": 1024,
@@ -5585,12 +5585,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_round_dome-floating-neck",
+                "id": "head_round_dome-floating-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/floating/nodes/head_round_dome/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/floating/nodes/head_round_dome/neck.png",
-                "assetSha256": "9c989cccb4bd1b73287a4d9374dff897bb687ec78e2c34402b6e08af3970f8c9",
-                "pngSha256": "876ff6102e32e4423bdfd20ec115845155ce20eb8ec96500c5749529ea2faa17",
+                "assetPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_round_dome/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_round_dome/neck.png",
+                "assetSha256": "6f831b1e03f470e2a24bcb96869a6d2434d477b0e1958cd314545be9ae09cf3c",
+                "pngSha256": "acb0a798bc1425f0ae5473e5dd8da7b724762c2fe8e83782cfe5671308219332",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -5628,8 +5628,8 @@
                 "width": 300,
                 "depth": 180,
                 "contourMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -5652,8 +5652,8 @@
                 },
                 "rigId": "floating",
                 "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
-                "foregroundMaskSha256": "b025d71175d9cb5d3fe45d165bd53311a41d09286becd295d92cf754c9a1e0b7",
-                "backgroundMaskSha256": "704eaf90b4636a5bf37f7075f7492b5887e50b594f4ca5120701be8e2dc7bb29"
+                "foregroundMaskSha256": "ae66adf793355af4ca95a7f6a63fbe680cf8abe49b75da80f30d4c9e9ae3d136",
+                "backgroundMaskSha256": "9565779c13ee584d2153798b3de0cea05158bab62519c44152e36f9be1b44212"
               }
             ],
             "faceSafeZones": [
@@ -5661,17 +5661,17 @@
                 "x": 800,
                 "y": 1050,
                 "width": 448,
-                "height": 290
+                "height": 266
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1160
+                "y": 1098
               },
               "mouth": {
                 "x": 1024,
-                "y": 1300
+                "y": 1154
               },
               "headAppendage": {
                 "x": 1024,
@@ -5712,10 +5712,10 @@
         "blob",
         "floating"
       ],
-      "assetPath": "assets/v0.3.0/structural/biped/head_angler_bulb.webp",
-      "assetSha256": "cb4aadadc07d367cdede5c93b0a03893717f0a1d9e6ed5d37a7c9e76ab498fa1",
-      "pngPath": "assets/v0.3.0/structural/biped/head_angler_bulb.png",
-      "pngSha256": "01522a839b4dcb8f1c6655d7069f77abc47601a2dec6bf8d3417a9e1f3baec6f",
+      "assetPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.webp",
+      "assetSha256": "d5b10fe5a69700e5b900613c49b12375a917a0e2b41e50d59af6e5b74563318b",
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.png",
+      "pngSha256": "c42b2b82e6e6eff11e1e9cc5bb915c15c28bcb56ab33032d0c20e4a536d482ae",
       "composition": {
         "mode": "interface",
         "isNone": false,
@@ -5731,12 +5731,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_angler_bulb-biped-neck",
+                "id": "head_angler_bulb-biped-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/biped/nodes/head_angler_bulb/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/biped/nodes/head_angler_bulb/neck.png",
-                "assetSha256": "cb4aadadc07d367cdede5c93b0a03893717f0a1d9e6ed5d37a7c9e76ab498fa1",
-                "pngSha256": "01522a839b4dcb8f1c6655d7069f77abc47601a2dec6bf8d3417a9e1f3baec6f",
+                "assetPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_angler_bulb/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+                "assetSha256": "d5b10fe5a69700e5b900613c49b12375a917a0e2b41e50d59af6e5b74563318b",
+                "pngSha256": "c42b2b82e6e6eff11e1e9cc5bb915c15c28bcb56ab33032d0c20e4a536d482ae",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -5774,8 +5774,8 @@
                 "width": 310,
                 "depth": 180,
                 "contourMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_angler_bulb-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -5798,8 +5798,8 @@
                 },
                 "rigId": "biped",
                 "contourMaskSha256": "5c92801eb3946a61ff5a20d77bb870daf2752c6f3d1eda0d7cee8e646701ecae",
-                "foregroundMaskSha256": "bbabfa20678175584122e2068182bc75b9e770f8ad61adcc70782a9ca39bf548",
-                "backgroundMaskSha256": "f3e31b2430a0f5728d74697388e0f9f0c772e00bf10b36d77820a4fa10c5e7db"
+                "foregroundMaskSha256": "3b807da1f1dd5c58e94b2a214dd0d006742fc4439f668e6cc5f1a01fffba8918",
+                "backgroundMaskSha256": "63931bba5fd311b7cdd3114848db5052e60c425e7ccf8014f7a17d3504adf7fd"
               }
             ],
             "faceSafeZones": [
@@ -5807,7 +5807,7 @@
                 "x": 790,
                 "y": 1050,
                 "width": 468,
-                "height": 300
+                "height": 313
               }
             ],
             "featureSockets": {
@@ -5817,7 +5817,7 @@
               },
               "mouth": {
                 "x": 1024,
-                "y": 1310
+                "y": 1224
               },
               "headAppendage": {
                 "x": 1024,
@@ -5830,12 +5830,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_angler_bulb-blob-neck",
+                "id": "head_angler_bulb-blob-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/blob/nodes/head_angler_bulb/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/blob/nodes/head_angler_bulb/neck.png",
-                "assetSha256": "81b91aa6d2ddeda41d7971e7df6dd4a32606b7149452d54b184d99f7e4a3b207",
-                "pngSha256": "86c610348486164889002a5e38495b3685ba909a7f67e89980a4a3ddaa1d995a",
+                "assetPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_angler_bulb/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+                "assetSha256": "dfdec3765dd759faa1b34b0be20b2be62aad1e81e97b53b259d42835efa1f5da",
+                "pngSha256": "95ca8dcf515db49a7206181ecf966e84e3f1ed0ede497794742364c39ebba9d8",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -5873,8 +5873,8 @@
                 "width": 400,
                 "depth": 200,
                 "contourMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_angler_bulb-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -5897,8 +5897,8 @@
                 },
                 "rigId": "blob",
                 "contourMaskSha256": "3dee9e97f9d670b367eed78dc89a94e1060199cfe0f61365b72786c1fe6565a5",
-                "foregroundMaskSha256": "cd1c83dc18dc9ebcfd30dfc3b53d0168657675a1c3e121482b9778bb4093df57",
-                "backgroundMaskSha256": "65701042cf8b9de89b386a1b0b47a1872af9824ba026f392a30dd363adeb086f"
+                "foregroundMaskSha256": "58110a55e305d64651262ed6d8902374c65859cbd7011c970d60338878a51b0c",
+                "backgroundMaskSha256": "249d4d808ba626f07152fbf95317ebfdb55a8ad2025bbd44b4ebc92ec2dca811"
               }
             ],
             "faceSafeZones": [
@@ -5906,17 +5906,17 @@
                 "x": 770,
                 "y": 1020,
                 "width": 508,
-                "height": 320
+                "height": 305
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1150
+                "y": 1144
               },
               "mouth": {
                 "x": 1024,
-                "y": 1300
+                "y": 1200
               },
               "headAppendage": {
                 "x": 1024,
@@ -5929,12 +5929,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_angler_bulb-floating-neck",
+                "id": "head_angler_bulb-floating-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/floating/nodes/head_angler_bulb/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/floating/nodes/head_angler_bulb/neck.png",
-                "assetSha256": "bc5f149db73e89b8a46e9258493b2a6b7462ca62f1010a298d4b1eca109e2c27",
-                "pngSha256": "aa866fd51f83c46fd1c7c72bb875c1cb51c9bd5273ed5a684c0077ef64b9f9ab",
+                "assetPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_angler_bulb/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+                "assetSha256": "d62f6fd5a477026ad4f1b3062a7bd2fe80942377e43eacfc3f7d36995adaf82d",
+                "pngSha256": "9772b5703112d13f21b308307f81f4ecb712b2eed71aad218bf918ebfb9f35c2",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -5972,8 +5972,8 @@
                 "width": 300,
                 "depth": 180,
                 "contourMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_angler_bulb-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -5996,8 +5996,8 @@
                 },
                 "rigId": "floating",
                 "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
-                "foregroundMaskSha256": "63a23daabf797d618936503f350da37cf16dc76b19166b715414d83c7a9e79b7",
-                "backgroundMaskSha256": "9046ac9f8b3222b4edf56309d78fc811258028627a413202e8052d60db2fa264"
+                "foregroundMaskSha256": "398b8e04aa3fd5bd782b60292e23643fe23389297433ab7a600a1b4fa9e574da",
+                "backgroundMaskSha256": "7f9e33c7ac4fd8414d69e7e14ce794de9627d34015c44761eb6439759f8fe2e4"
               }
             ],
             "faceSafeZones": [
@@ -6005,7 +6005,7 @@
                 "x": 800,
                 "y": 1050,
                 "width": 448,
-                "height": 290
+                "height": 341
               }
             ],
             "featureSockets": {
@@ -6015,7 +6015,7 @@
               },
               "mouth": {
                 "x": 1024,
-                "y": 1300
+                "y": 1229
               },
               "headAppendage": {
                 "x": 1024,
@@ -6056,10 +6056,10 @@
         "blob",
         "floating"
       ],
-      "assetPath": "assets/v0.3.0/structural/biped/head_shadow_hood.webp",
-      "assetSha256": "fb436a9df6496833059c1daa67c67dc09a6e3a1af430e889bbf9ee8e7253b847",
-      "pngPath": "assets/v0.3.0/structural/biped/head_shadow_hood.png",
-      "pngSha256": "a403cfa87e2d7678fe7a1b5191afda71d04106e88301b5e81c135977f790f181",
+      "assetPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.webp",
+      "assetSha256": "8e633e56527bfbb04620268598ac337e7e8f26407be2104ea8d73ea5e2436d8f",
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.png",
+      "pngSha256": "b3702fa3e0ad7b43708bf5bb453c84bcb9782d2a757f88f8a774bf094accddb5",
       "composition": {
         "mode": "interface",
         "isNone": false,
@@ -6075,12 +6075,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_shadow_hood-biped-neck",
+                "id": "head_shadow_hood-biped-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/biped/nodes/head_shadow_hood/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/biped/nodes/head_shadow_hood/neck.png",
-                "assetSha256": "fb436a9df6496833059c1daa67c67dc09a6e3a1af430e889bbf9ee8e7253b847",
-                "pngSha256": "a403cfa87e2d7678fe7a1b5191afda71d04106e88301b5e81c135977f790f181",
+                "assetPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+                "assetSha256": "8e633e56527bfbb04620268598ac337e7e8f26407be2104ea8d73ea5e2436d8f",
+                "pngSha256": "b3702fa3e0ad7b43708bf5bb453c84bcb9782d2a757f88f8a774bf094accddb5",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -6118,8 +6118,8 @@
                 "width": 310,
                 "depth": 180,
                 "contourMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -6142,8 +6142,8 @@
                 },
                 "rigId": "biped",
                 "contourMaskSha256": "5c92801eb3946a61ff5a20d77bb870daf2752c6f3d1eda0d7cee8e646701ecae",
-                "foregroundMaskSha256": "cc627bed1c93319193974c0988cbc9f4b239461419796ee73d3e313043e11de9",
-                "backgroundMaskSha256": "cfe56d70206bbf5ec52ac15f95405b8d78f24abb7b32025b146ccef69629cb77"
+                "foregroundMaskSha256": "3c800001179c0f66a71e35c698bb7d8c006b3136a4513c04ccfec786ababbbe6",
+                "backgroundMaskSha256": "693dd4bc4ef1e67199bf3a3841bb7ffcf4759964c2cefd61d44e75e733c928e7"
               }
             ],
             "faceSafeZones": [
@@ -6151,17 +6151,17 @@
                 "x": 790,
                 "y": 1050,
                 "width": 468,
-                "height": 300
+                "height": 326
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1160
+                "y": 1106
               },
               "mouth": {
                 "x": 1024,
-                "y": 1310
+                "y": 1162
               },
               "headAppendage": {
                 "x": 1024,
@@ -6174,12 +6174,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_shadow_hood-blob-neck",
+                "id": "head_shadow_hood-blob-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/blob/nodes/head_shadow_hood/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/blob/nodes/head_shadow_hood/neck.png",
-                "assetSha256": "a9503932a8c75f156fbe36c67a1dca54ecab1637b8832a22ee15d5801153a6a2",
-                "pngSha256": "6000e283f2f7487b64cc5bf3ae196a9958fe9580fc9ee9f4b09fda65d7ab34b5",
+                "assetPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+                "assetSha256": "df6c97627bdfa15255bdea88016428f72623f7a1248f8a1954046bfc5e31b462",
+                "pngSha256": "05bd244f778cd39fff93dfc063414f537b6858d018f29fbb13fbe5cdb49d974a",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -6217,8 +6217,8 @@
                 "width": 400,
                 "depth": 200,
                 "contourMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_shadow_hood-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -6241,8 +6241,8 @@
                 },
                 "rigId": "blob",
                 "contourMaskSha256": "3dee9e97f9d670b367eed78dc89a94e1060199cfe0f61365b72786c1fe6565a5",
-                "foregroundMaskSha256": "be184585d6727f98d6cab07d8663d238ced480fc1778f065ce1fb4c909e50ba3",
-                "backgroundMaskSha256": "247bac99ca4e978a07ada5499a93edab001499bd68f94525b6856a6008cc0d5c"
+                "foregroundMaskSha256": "21ded8ecbdefaf41e1c288a694cac3840c326d01f49c5de4c6a540bc23252822",
+                "backgroundMaskSha256": "56bd131b3eee743d6c4b1a3d4c74223ed2a33bd472d06cdea9da4701ffd94ac2"
               }
             ],
             "faceSafeZones": [
@@ -6250,17 +6250,17 @@
                 "x": 770,
                 "y": 1020,
                 "width": 508,
-                "height": 320
+                "height": 262
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1150
+                "y": 1045
               },
               "mouth": {
                 "x": 1024,
-                "y": 1300
+                "y": 1101
               },
               "headAppendage": {
                 "x": 1024,
@@ -6273,12 +6273,12 @@
             "materialFamily": "short-fur",
             "renderNodes": [
               {
-                "id": "head_shadow_hood-floating-neck",
+                "id": "head_shadow_hood-floating-neck-natural-v2",
                 "connectorId": "neck",
-                "assetPath": "assets/v0.3.0/structural/floating/nodes/head_shadow_hood/neck.webp",
-                "pngPath": "assets/v0.3.0/structural/floating/nodes/head_shadow_hood/neck.png",
-                "assetSha256": "a29fac27ef0c77a081066cb7516130c47d929d4ec9ce6741ddfe4af821250bf0",
-                "pngSha256": "6241d30df0e93485b4a6e3ece48c91bfcdd295ce11ef53b1fa83d879abedf00f",
+                "assetPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
+                "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+                "assetSha256": "6851517b12019d82b9b9de8edf101f66644dd94bc590ac6c22030d97f4949160",
+                "pngSha256": "33dd458c8039f1775499696807e7ceb37ad7684166e2d5a14639168f9198bcda",
                 "parentSlot": "bodyFrame",
                 "socket": "neck",
                 "origin": {
@@ -6316,8 +6316,8 @@
                 "width": 300,
                 "depth": 180,
                 "contourMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-contour.png",
-                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-foreground.png",
-                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-background.png",
+                "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+                "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -6340,8 +6340,8 @@
                 },
                 "rigId": "floating",
                 "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
-                "foregroundMaskSha256": "87e920f62793c033f372e8e26a31f4c4ca9050c330659996662736949aa401af",
-                "backgroundMaskSha256": "57adfde5631e3b37d95b3fbc04bd0166a34cf2ddb41ec5aee4825855c305c1fd"
+                "foregroundMaskSha256": "1aab57d718754a94b00b2d6c1b49014bcad76dda9e285a1ade2b11ef460a9914",
+                "backgroundMaskSha256": "a6f5b0c96020d44e9cb989dfc5a4858bbe699195983982781c6292d7e7579b25"
               }
             ],
             "faceSafeZones": [
@@ -6349,17 +6349,17 @@
                 "x": 800,
                 "y": 1050,
                 "width": 448,
-                "height": 290
+                "height": 234
               }
             ],
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1160
+                "y": 1078
               },
               "mouth": {
                 "x": 1024,
-                "y": 1300
+                "y": 1134
               },
               "headAppendage": {
                 "x": 1024,

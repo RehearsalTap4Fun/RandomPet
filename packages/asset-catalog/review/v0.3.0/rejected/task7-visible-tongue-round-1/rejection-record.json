@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "body-head-user-rejection-v1",
+  "status": "REJECTED",
+  "reviewedAt": "2026-08-26",
+  "userDecision": "B",
+  "userApproved": false,
+  "feedback": "Rework the interfaces to weaken or hide the visible organic connector tongue so every head reads as naturally grown from its body.",
+  "rootCause": "The head foreground connector mask exposed too much of the structural plug after the body layer, producing a visible tongue, chin, or stem despite passing continuity metrics.",
+  "artifacts": {
+    "blob": {
+      "originalSha256": "24fd7568094399343a7e274fa557a4a08bf694e5380c3fbc7785a055af4da787",
+      "downsample256Sha256": "b89833969528e24efe16704349025c8f6af2ae83b0bf33145f299b0d9335eeb2",
+      "manifestSha256": "2f0e231776d7928fe15c0c171cdc392e79a546c214bf860b128bb6355ab85cc2"
+    },
+    "biped": {
+      "originalSha256": "f7cb497c270076a19cb367592e7c49687db32be6dfc8fa1093b40dfa9ca4e4d1",
+      "downsample256Sha256": "a6e5e7e654078c2de927aab10b6ffd0b6dc6eb6576dc50a73c2794f0518bb591",
+      "manifestSha256": "24175e37a49590f6483f8b4108a06ccf4ee02c9d16240f20682263edc43b5fbf"
+    },
+    "floating": {
+      "originalSha256": "621685b5dd955cc8aa731941e2fec9fe613a49940f66ab059de3033b78001cbc",
+      "downsample256Sha256": "19b3f17de3ae2cf00a6d84324243f6f2dbc014dab8873e761ccc59f2c367be91",
+      "manifestSha256": "8d6f50bd55cd2e88af06b2f4d34e811750956b79cb535e70c376ebc0d40e6624"
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "task7-head-natural-neck-rework-v2",
+  "generator": "Codex built-in image_gen",
+  "sharedGrammar": "Preserve each head identity and rig proportions. Replace the visible lower shell with a shallow, soft, continuous organic collar. No protruding central tongue, stem, chin, pedestal, flat hard cut, or rectangular notch. Keep the hidden structural plug behind the shell so body foreground can occlude it. Isolated front-view component only, with feature-safe face area retained.",
+  "prompts": [
+    {
+      "id": "task7-head-natural-neck-rework",
+      "text": "Apply the shared natural-neck grammar to the exact rig/head identity and preserve its face-safe region and feature sockets."
+    }
+  ],
+  "calls": {
+    "head_round_dome:biped": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/biped/head_round_dome/candidate-1.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/biped/head_round_dome/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "lilac plush round dome, biped proportions"
+    },
+    "head_mushroom_cap:biped": {
+      "referencePath": "asset-source/v0.3.0/production/nodes/head_mushroom_cap/neck.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/biped/head_mushroom_cap/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "sky-blue spotted plush mushroom cap with rounded rim",
+      "prompt": "Re-author the existing friendly sky-blue plush mushroom head as a connection-aware modular component. Preserve its rounded cap, pale cream and pink spots, front view, lighting, material, scale, and centered composition. Remove the long visible central stalk/tongue completely. The visible shell must end in one shallow, softly curved organic underside/collar spanning the cap width, with no central downward protrusion, chin, stem, pedestal, notch, or flat cut. A very short structural plug may exist only recessed behind the foreground rim so body foreground can occlude it entirely. Use a genuinely transparent background, orthographic front view, symmetric connector centerline, no face, body, limbs, text, watermark, detached pieces, shadow, or mechanical socket."
+    },
+    "head_angler_bulb:biped": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/biped/head_angler_bulb/candidate-1.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/biped/head_angler_bulb/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "deep-purple plush angler bulb with orange lure"
+    },
+    "head_shadow_hood:biped": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/biped/head_shadow_hood/candidate-1.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/biped/head_shadow_hood/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "deep-purple plush shadow hood with open face cavity"
+    },
+    "head_round_dome:blob": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-natural-neck-1.png",
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-natural-neck-1.png",
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-natural-neck-2.png",
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-natural-neck-3.png"
+      ],
+      "selectedCandidate": 3,
+      "identity": "broad lilac plush round dome, blob proportions",
+      "rejections": [
+        "candidate 1 failed the fixed central-lobe metric at 0.215 (>0.200)",
+        "candidate 2 removed the lobe but introduced a visually near-straight lower cut"
+      ],
+      "targetedPrompt": "Keep the same broad lilac plush round-dome identity. Make the lower contour a shallow feathered organic seam with no downward central bulge, tongue, stem, chin, pedestal, notch, or hard horizontal cut; keep the structural plug hidden behind the shell."
+    },
+    "head_mushroom_cap:blob": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/blob/head_mushroom_cap/candidate-2.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/blob/head_mushroom_cap/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "wide sky-blue spotted plush mushroom cap"
+    },
+    "head_angler_bulb:blob": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/blob/head_angler_bulb/candidate-3.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/blob/head_angler_bulb/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "wide deep-purple plush angler bulb with orange lure"
+    },
+    "head_shadow_hood:blob": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/blob/head_shadow_hood/candidate-1.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/blob/head_shadow_hood/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "wide deep-purple plush shadow hood"
+    },
+    "head_round_dome:floating": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/floating/head_round_dome/candidate-1.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/floating/head_round_dome/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "lilac plush round dome, floating proportions"
+    },
+    "head_mushroom_cap:floating": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/floating/head_mushroom_cap/candidate-1.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/floating/head_mushroom_cap/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "sky-blue spotted plush mushroom cap, floating proportions"
+    },
+    "head_angler_bulb:floating": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/floating/head_angler_bulb/candidate-1.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/floating/head_angler_bulb/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "deep-purple plush angler bulb with orange lure, floating proportions"
+    },
+    "head_shadow_hood:floating": {
+      "referencePath": "asset-source/v0.3.0/generation/task7-candidates/floating/head_shadow_hood/candidate-1.png",
+      "candidatePaths": ["asset-source/v0.3.0/generation/task7-candidates/floating/head_shadow_hood/candidate-natural-neck-1.png"],
+      "selectedCandidate": 1,
+      "identity": "deep-purple plush shadow hood, floating proportions"
+    }
+  },
+  "callSummary": {
+    "initialPrototypeAndFanout": 12,
+    "targetedRegenerations": 2,
+    "totalBuiltInImageGenCalls": 14
+  }
+}

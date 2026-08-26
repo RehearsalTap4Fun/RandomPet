@@ -1,6 +1,27 @@
 {
   "schemaVersion": "body-head-production-v1",
   "generator": "built-in-image_gen",
+  "naturalNeckRework": {
+    "status": "MACHINE_PASS_AWAITING_USER_APPROVAL",
+    "reason": "The user rejected the first matrices because the authored head plugs remained visible as tongues, chins, or stems.",
+    "strategy": "Re-authored all 12 exact rig/head variants with shallow shell bases and hidden plugs, then composed them with Task7-versioned data-declared foreground/background masks.",
+    "builtInImageGenCalls": 14,
+    "targetedRegenerationCalls": 2,
+    "selectedCandidateOverrides": {
+      "head_round_dome:blob": 3
+    },
+    "productionEvidencePath": "asset-source/v0.3.0/generation/task7-head-natural-neck-production.json",
+    "occlusionEvidencePath": "asset-source/v0.3.0/generation/task7-body-head-occlusion-rework.json",
+    "promptEvidencePath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+    "rejectedMatrixEvidencePath": "packages/asset-catalog/review/v0.3.0/rejected/task7-visible-tongue-round-1/rejection-record.json",
+    "thresholds": {
+      "largestComponentRatioMin": 0.99,
+      "centerlineGapPxMax": 2,
+      "visibleTongueDepthRatioMax": 0.1,
+      "visibleTongueAreaRatioMax": 0.1,
+      "centralLobeDepthRatioMax": 0.2
+    }
+  },
   "initialCandidateCalls": 14,
   "targetedRegenerationCalls": 4,
   "assets": {
@@ -309,65 +330,92 @@
           "rigId": "blob",
           "bodyId": "body_blob_round",
           "headId": "head_round_dome",
-          "largestComponentRatio": 0.9999864305261912,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999938472950276,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.055
         },
         {
           "rigId": "blob",
           "bodyId": "body_blob_round",
           "headId": "head_mushroom_cap",
-          "largestComponentRatio": 0.9999786417049518,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999934673086016,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.06
         },
         {
           "rigId": "blob",
           "bodyId": "body_blob_round",
           "headId": "head_angler_bulb",
-          "largestComponentRatio": 0.9999862026823335,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999936331112946,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.145
         },
         {
           "rigId": "blob",
           "bodyId": "body_blob_round",
           "headId": "head_shadow_hood",
-          "largestComponentRatio": 0.9999880365507238,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999943939687813,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.185
         },
         {
           "rigId": "blob",
           "bodyId": "body_blob_wide",
           "headId": "head_round_dome",
-          "largestComponentRatio": 0.9999917776132528,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999990529324604,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.055
         },
         {
           "rigId": "blob",
           "bodyId": "body_blob_wide",
           "headId": "head_mushroom_cap",
-          "largestComponentRatio": 0.9999850516912516,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999992697813674,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.06
         },
         {
           "rigId": "blob",
           "bodyId": "body_blob_wide",
           "headId": "head_angler_bulb",
-          "largestComponentRatio": 0.9999916819632131,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999993132385556,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.145
         },
         {
           "rigId": "blob",
           "bodyId": "body_blob_wide",
           "headId": "head_shadow_hood",
-          "largestComponentRatio": 0.9999935060859653,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999991170098358,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.185
         }
       ],
       "thresholds": {
         "largestComponentRatio": 0.99,
-        "centerlineGapPx": 2
+        "centerlineGapPx": 2,
+        "visibleTongueDepthRatio": 0.1,
+        "visibleTongueAreaRatio": 0.1,
+        "centralLobeDepthRatio": 0.2
       },
-      "sheetSha256": "24fd7568094399343a7e274fa557a4a08bf694e5380c3fbc7785a055af4da787",
-      "sheet256Sha256": "b89833969528e24efe16704349025c8f6af2ae83b0bf33145f299b0d9335eeb2",
+      "sheetSha256": "a3c60b8d67b3721bcac3aa5c95212aed18016b77df0c3b46100d2a5fba3038e6",
+      "sheet256Sha256": "8bcab56a62aa05a7466d1ca82c6fb9af3744d6bc44a91406c9a3f95e3678d479",
       "status": "machine-pass-awaiting-user-approval"
     },
     "biped": {
@@ -377,65 +425,92 @@
           "rigId": "biped",
           "bodyId": "body_biped_peanut",
           "headId": "head_round_dome",
-          "largestComponentRatio": 0.9999941580313022,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999995469020133,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.16666666666666666
         },
         {
           "rigId": "biped",
           "bodyId": "body_biped_peanut",
           "headId": "head_mushroom_cap",
-          "largestComponentRatio": 0.9999907958145152,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999946407808445,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.15625
         },
         {
           "rigId": "biped",
           "bodyId": "body_biped_peanut",
           "headId": "head_angler_bulb",
-          "largestComponentRatio": 0.9999930044846224,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999997878345747,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.18888888888888888
         },
         {
           "rigId": "biped",
           "bodyId": "body_biped_peanut",
           "headId": "head_shadow_hood",
-          "largestComponentRatio": 0.9999931356057019,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999925837516598,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.17222222222222222
         },
         {
           "rigId": "biped",
           "bodyId": "body_biped_tall",
           "headId": "head_round_dome",
-          "largestComponentRatio": 0.9999933098142951,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.99999930402814,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.16666666666666666
         },
         {
           "rigId": "biped",
           "bodyId": "body_biped_tall",
           "headId": "head_mushroom_cap",
-          "largestComponentRatio": 0.999987115154997,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999848917041548,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.15625
         },
         {
           "rigId": "biped",
           "bodyId": "body_biped_tall",
           "headId": "head_angler_bulb",
-          "largestComponentRatio": 0.9999916639348105,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999996205677829,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.18888888888888888
         },
         {
           "rigId": "biped",
           "bodyId": "body_biped_tall",
           "headId": "head_shadow_hood",
-          "largestComponentRatio": 0.9999915806145254,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999835505550172,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.17222222222222222
         }
       ],
       "thresholds": {
         "largestComponentRatio": 0.99,
-        "centerlineGapPx": 2
+        "centerlineGapPx": 2,
+        "visibleTongueDepthRatio": 0.1,
+        "visibleTongueAreaRatio": 0.1,
+        "centralLobeDepthRatio": 0.2
       },
-      "sheetSha256": "f7cb497c270076a19cb367592e7c49687db32be6dfc8fa1093b40dfa9ca4e4d1",
-      "sheet256Sha256": "a6e5e7e654078c2de927aab10b6ffd0b6dc6eb6576dc50a73c2794f0518bb591",
+      "sheetSha256": "69615b11a7bb796eabbe287d5992e19211fa4775171131905f57895381ef79b1",
+      "sheet256Sha256": "e26d9f0b7dec2ddcfb206990fe9e61287968451ecc1ca8d96ead9cbfa08d9758",
       "status": "machine-pass-awaiting-user-approval"
     },
     "floating": {
@@ -445,37 +520,52 @@
           "rigId": "floating",
           "bodyId": "body_floating_drop",
           "headId": "head_round_dome",
-          "largestComponentRatio": 0.9999827274172225,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999924056484649,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.03888888888888889
         },
         {
           "rigId": "floating",
           "bodyId": "body_floating_drop",
           "headId": "head_mushroom_cap",
-          "largestComponentRatio": 0.9999819375126406,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999912939271983,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.15
         },
         {
           "rigId": "floating",
           "bodyId": "body_floating_drop",
           "headId": "head_angler_bulb",
-          "largestComponentRatio": 0.9999805983427509,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999888994610598,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.06111111111111111
         },
         {
           "rigId": "floating",
           "bodyId": "body_floating_drop",
           "headId": "head_shadow_hood",
-          "largestComponentRatio": 0.9999835101548157,
-          "centerlineGapPx": 0
+          "largestComponentRatio": 0.9999920096255659,
+          "centerlineGapPx": 0,
+          "visibleTongueDepthRatio": 0,
+          "visibleTongueAreaRatio": 0,
+          "centralLobeDepthRatio": 0.18888888888888888
         }
       ],
       "thresholds": {
         "largestComponentRatio": 0.99,
-        "centerlineGapPx": 2
+        "centerlineGapPx": 2,
+        "visibleTongueDepthRatio": 0.1,
+        "visibleTongueAreaRatio": 0.1,
+        "centralLobeDepthRatio": 0.2
       },
-      "sheetSha256": "621685b5dd955cc8aa731941e2fec9fe613a49940f66ab059de3033b78001cbc",
-      "sheet256Sha256": "19b3f17de3ae2cf00a6d84324243f6f2dbc014dab8873e761ccc59f2c367be91",
+      "sheetSha256": "6cb4f5abfc019e2584f73614223a322279c30e334eba76f2097014ef7d2a64c9",
+      "sheet256Sha256": "38ca09c7ebe5cae15b69a704057e2c306d1d499eb5d98e2b88240b08121b9ae6",
       "status": "machine-pass-awaiting-user-approval"
     }
   }

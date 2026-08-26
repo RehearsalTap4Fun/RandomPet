@@ -1,0 +1,491 @@
+{
+  "schemaVersion": "body-head-occlusion-rework-v1",
+  "status": "MACHINE_PASS_AWAITING_USER_APPROVAL",
+  "reason": "User rejected the exposed connector tongue/chin/stem in the first Task 7 matrices.",
+  "algorithm": {
+    "coordinateSpace": "declared neck plug tangent/outward-normal envelope",
+    "centerSeamLiftDepthRatio": 0.55,
+    "edgeSeamLiftDepthRatio": 0,
+    "shape": "silhouette-relative quadratic U seam anchored to the widest organic head row",
+    "compositionOrder": [
+      "head-background",
+      "body",
+      "head-foreground"
+    ]
+  },
+  "thresholds": {
+    "maxVisibleTongueDepthRatio": 0.1,
+    "maxVisibleTongueAreaRatio": 0.1,
+    "maxCentralLobeDepthRatio": 0.2
+  },
+  "receiverInsetPxByRig": {
+    "blob": 120,
+    "biped": 100,
+    "floating": 130
+  },
+  "receivers": {
+    "body_biped_peanut:biped": {
+      "origin": {
+        "x": 1024,
+        "y": 680
+      },
+      "centerlinePreserved": true,
+      "connectorCoverage": 1,
+      "contourMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/body_biped_peanut-neck-contour.png",
+      "contourMaskSha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68",
+      "runtimeContourMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-contour.png",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-background.png"
+    },
+    "body_biped_tall:biped": {
+      "origin": {
+        "x": 1024,
+        "y": 500
+      },
+      "centerlinePreserved": true,
+      "connectorCoverage": 1,
+      "contourMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/body_biped_tall-neck-contour.png",
+      "contourMaskSha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d",
+      "runtimeContourMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-contour.png",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-background.png"
+    },
+    "body_blob_round:blob": {
+      "origin": {
+        "x": 1024,
+        "y": 740
+      },
+      "centerlinePreserved": true,
+      "connectorCoverage": 1,
+      "contourMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/body_blob_round-neck-contour.png",
+      "contourMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+      "runtimeContourMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-contour.png",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-background.png"
+    },
+    "body_blob_wide:blob": {
+      "origin": {
+        "x": 1024,
+        "y": 740
+      },
+      "centerlinePreserved": true,
+      "connectorCoverage": 1,
+      "contourMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/body_blob_wide-neck-contour.png",
+      "contourMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+      "runtimeContourMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-contour.png",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-background.png"
+    },
+    "body_floating_drop:floating": {
+      "origin": {
+        "x": 1024,
+        "y": 650
+      },
+      "centerlinePreserved": true,
+      "connectorCoverage": 1,
+      "contourMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/body_floating_drop-neck-contour.png",
+      "contourMaskSha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b",
+      "runtimeContourMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-contour.png",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-background.png"
+    }
+  },
+  "masks": {
+    "head_mushroom_cap:biped": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+      "foregroundMaskSha256": "1de63a00037b74bb34cc304ab785265c9325b4c7bcc96879b90070c7d7579faf",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/head_mushroom_cap-neck-background.png",
+      "backgroundMaskSha256": "681efe03e3a4072bc5b837eb8af3376b7447465500e4eb5c141fc509456c4524",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_mushroom_cap-neck-background.png",
+      "widestNormalDistance": -11,
+      "halfTangentSpan": 325,
+      "centerSeamY": 1361,
+      "faceSafeZones": [
+        {
+          "x": 790,
+          "y": 1050,
+          "width": 468,
+          "height": 295
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1160
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1273
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      }
+    },
+    "head_mushroom_cap:blob": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+      "foregroundMaskSha256": "e27b0142e109fbcebdf9e7ef84fc6829580c897c345411ff4c46d81e5900ac12",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/head_mushroom_cap-neck-background.png",
+      "backgroundMaskSha256": "a809ea7cd1ea32b2d4728250760ff9b6ad9a8540d4f3b2f20f3137bfb02787f5",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_mushroom_cap-neck-background.png",
+      "widestNormalDistance": 57,
+      "halfTangentSpan": 425,
+      "centerSeamY": 1367,
+      "faceSafeZones": [
+        {
+          "x": 770,
+          "y": 1020,
+          "width": 508,
+          "height": 331
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1072
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1128
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 920
+        }
+      }
+    },
+    "head_mushroom_cap:floating": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+      "foregroundMaskSha256": "6d6cb09081f0a4e7cd3ee497a866d950fefda61624e7f229b254a4e8df2d96ba",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/head_mushroom_cap-neck-background.png",
+      "backgroundMaskSha256": "e7c302151955e386d7538652c2f849221ead74247bca6d58897eec07f2f52538",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_mushroom_cap-neck-background.png",
+      "widestNormalDistance": 31,
+      "halfTangentSpan": 340,
+      "centerSeamY": 1362,
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 296
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1109
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1165
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      }
+    },
+    "head_round_dome:biped": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/head_round_dome-neck-foreground.png",
+      "foregroundMaskSha256": "63d988d12a975057aabfbd08918dccac31ec70d6cd4dedbe428713641c04e1e3",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/head_round_dome-neck-background.png",
+      "backgroundMaskSha256": "3209e24be93b74679dc2ed2e1f0c287ee88833edf2c1debe3b1f0a1af57fe3c9",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-background.png",
+      "widestNormalDistance": -54,
+      "halfTangentSpan": 325,
+      "centerSeamY": 1307,
+      "faceSafeZones": [
+        {
+          "x": 790,
+          "y": 1050,
+          "width": 468,
+          "height": 241
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1096
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1152
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      }
+    },
+    "head_round_dome:blob": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/head_round_dome-neck-foreground.png",
+      "foregroundMaskSha256": "0fbe6efdb7ef5cebda99d0ed385ad7434250784c43ba9b20fd20033d454987e5",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/head_round_dome-neck-background.png",
+      "backgroundMaskSha256": "688b756c300435c61903df0391bd2256f88eb6b55be83e25d1ff0754e515f67c",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_round_dome-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_round_dome-neck-background.png",
+      "widestNormalDistance": -1,
+      "halfTangentSpan": 425,
+      "centerSeamY": 1309,
+      "faceSafeZones": [
+        {
+          "x": 770,
+          "y": 1020,
+          "width": 508,
+          "height": 273
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1033
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1089
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 920
+        }
+      }
+    },
+    "head_round_dome:floating": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/head_round_dome-neck-foreground.png",
+      "foregroundMaskSha256": "ae66adf793355af4ca95a7f6a63fbe680cf8abe49b75da80f30d4c9e9ae3d136",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/head_round_dome-neck-background.png",
+      "backgroundMaskSha256": "9565779c13ee584d2153798b3de0cea05158bab62519c44152e36f9be1b44212",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-background.png",
+      "widestNormalDistance": 1,
+      "halfTangentSpan": 340,
+      "centerSeamY": 1332,
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 266
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1098
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1154
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      }
+    },
+    "head_angler_bulb:biped": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+      "foregroundMaskSha256": "3b807da1f1dd5c58e94b2a214dd0d006742fc4439f668e6cc5f1a01fffba8918",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/head_angler_bulb-neck-background.png",
+      "backgroundMaskSha256": "63931bba5fd311b7cdd3114848db5052e60c425e7ccf8014f7a17d3504adf7fd",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_angler_bulb-neck-background.png",
+      "widestNormalDistance": 18,
+      "halfTangentSpan": 305.5,
+      "centerSeamY": 1379,
+      "faceSafeZones": [
+        {
+          "x": 790,
+          "y": 1050,
+          "width": 468,
+          "height": 313
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1160
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1224
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      }
+    },
+    "head_angler_bulb:blob": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+      "foregroundMaskSha256": "58110a55e305d64651262ed6d8902374c65859cbd7011c970d60338878a51b0c",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/head_angler_bulb-neck-background.png",
+      "backgroundMaskSha256": "249d4d808ba626f07152fbf95317ebfdb55a8ad2025bbd44b4ebc92ec2dca811",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_angler_bulb-neck-background.png",
+      "widestNormalDistance": 31,
+      "halfTangentSpan": 388,
+      "centerSeamY": 1341,
+      "faceSafeZones": [
+        {
+          "x": 770,
+          "y": 1020,
+          "width": 508,
+          "height": 305
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1144
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1200
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 920
+        }
+      }
+    },
+    "head_angler_bulb:floating": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+      "foregroundMaskSha256": "398b8e04aa3fd5bd782b60292e23643fe23389297433ab7a600a1b4fa9e574da",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/head_angler_bulb-neck-background.png",
+      "backgroundMaskSha256": "7f9e33c7ac4fd8414d69e7e14ce794de9627d34015c44761eb6439759f8fe2e4",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_angler_bulb-neck-background.png",
+      "widestNormalDistance": 76,
+      "halfTangentSpan": 291,
+      "centerSeamY": 1407,
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 341
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1160
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1229
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      }
+    },
+    "head_shadow_hood:biped": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+      "foregroundMaskSha256": "3c800001179c0f66a71e35c698bb7d8c006b3136a4513c04ccfec786ababbbe6",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/biped/task7-natural-neck/head_shadow_hood-neck-background.png",
+      "backgroundMaskSha256": "693dd4bc4ef1e67199bf3a3841bb7ffcf4759964c2cefd61d44e75e733c928e7",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-background.png",
+      "widestNormalDistance": 31,
+      "halfTangentSpan": 290,
+      "centerSeamY": 1392,
+      "faceSafeZones": [
+        {
+          "x": 790,
+          "y": 1050,
+          "width": 468,
+          "height": 326
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1106
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1162
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      }
+    },
+    "head_shadow_hood:blob": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+      "foregroundMaskSha256": "21ded8ecbdefaf41e1c288a694cac3840c326d01f49c5de4c6a540bc23252822",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/blob/task7-natural-neck/head_shadow_hood-neck-background.png",
+      "backgroundMaskSha256": "56bd131b3eee743d6c4b1a3d4c74223ed2a33bd472d06cdea9da4701ffd94ac2",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_shadow_hood-neck-background.png",
+      "widestNormalDistance": -12,
+      "halfTangentSpan": 424,
+      "centerSeamY": 1298,
+      "faceSafeZones": [
+        {
+          "x": 770,
+          "y": 1020,
+          "width": 508,
+          "height": 262
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1045
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1101
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 920
+        }
+      }
+    },
+    "head_shadow_hood:floating": {
+      "foregroundMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+      "foregroundMaskSha256": "1aab57d718754a94b00b2d6c1b49014bcad76dda9e285a1ade2b11ef460a9914",
+      "backgroundMaskPath": "asset-source/v0.3.0/masks/floating/task7-natural-neck/head_shadow_hood-neck-background.png",
+      "backgroundMaskSha256": "a6f5b0c96020d44e9cb989dfc5a4858bbe699195983982781c6292d7e7579b25",
+      "runtimeForegroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+      "runtimeBackgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png",
+      "widestNormalDistance": -31,
+      "halfTangentSpan": 324,
+      "centerSeamY": 1300,
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 234
+        }
+      ],
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1078
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1134
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      }
+    }
+  }
+}

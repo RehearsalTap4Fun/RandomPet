@@ -136,7 +136,7 @@ describe('buildInterfaceCatalog', () => {
     expect(mappedPartIds).toContain('head_round_dome')
     expect(roundVariants.map(item => item.rigId).sort()).toEqual(['biped', 'blob', 'floating'])
     expect(roundVariants.every(item => (
-      item.promptEvidence.promptId === 'task7-body-head-connection-aware'
+      item.promptEvidence.promptId === 'task7-head-natural-neck-rework'
       && item.sourcePngPath.includes('/structural/')
       && !item.sourcePngPath.includes('/retired/')
     ))).toBe(true)

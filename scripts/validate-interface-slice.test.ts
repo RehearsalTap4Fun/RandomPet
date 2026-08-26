@@ -155,5 +155,15 @@ describe('validateInterfaceSlice', () => {
 
     expect(result.entryCountByRig).toEqual({ blob: 8, biped: 8, floating: 4 })
     expect(result.diagnostics).toEqual([])
+    for (const rigId of ['blob', 'biped', 'floating'] as const) {
+      const review = JSON.parse(await readFile(join(
+        process.cwd(), 'packages', 'asset-catalog', 'review', 'v0.3.0',
+        `body-head-contact-sheet-${rigId}-manifest.json`,
+      ), 'utf8'))
+      expect(review.thresholds).toMatchObject({ visibleTongueDepthRatio: 0.1, visibleTongueAreaRatio: 0.1 })
+      expect(review.entries.every((entry: any) => (
+        entry.visibleTongueDepthRatio <= 0.1 && entry.visibleTongueAreaRatio <= 0.1
+      ))).toBe(true)
+    }
   }, 20_000)
 })

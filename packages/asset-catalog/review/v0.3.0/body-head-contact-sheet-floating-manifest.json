@@ -5,36 +5,51 @@
       "rigId": "floating",
       "bodyId": "body_floating_drop",
       "headId": "head_round_dome",
-      "largestComponentRatio": 0.9999827274172225,
-      "centerlineGapPx": 0
+      "largestComponentRatio": 0.9999924056484649,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.03888888888888889
     },
     {
       "rigId": "floating",
       "bodyId": "body_floating_drop",
       "headId": "head_mushroom_cap",
-      "largestComponentRatio": 0.9999819375126406,
-      "centerlineGapPx": 0
+      "largestComponentRatio": 0.9999912939271983,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.15
     },
     {
       "rigId": "floating",
       "bodyId": "body_floating_drop",
       "headId": "head_angler_bulb",
-      "largestComponentRatio": 0.9999805983427509,
-      "centerlineGapPx": 0
+      "largestComponentRatio": 0.9999888994610598,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.06111111111111111
     },
     {
       "rigId": "floating",
       "bodyId": "body_floating_drop",
       "headId": "head_shadow_hood",
-      "largestComponentRatio": 0.9999835101548157,
-      "centerlineGapPx": 0
+      "largestComponentRatio": 0.9999920096255659,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.18888888888888888
     }
   ],
   "thresholds": {
     "largestComponentRatio": 0.99,
-    "centerlineGapPx": 2
+    "centerlineGapPx": 2,
+    "visibleTongueDepthRatio": 0.1,
+    "visibleTongueAreaRatio": 0.1,
+    "centralLobeDepthRatio": 0.2
   },
-  "sheetSha256": "621685b5dd955cc8aa731941e2fec9fe613a49940f66ab059de3033b78001cbc",
-  "sheet256Sha256": "19b3f17de3ae2cf00a6d84324243f6f2dbc014dab8873e761ccc59f2c367be91",
+  "sheetSha256": "6cb4f5abfc019e2584f73614223a322279c30e334eba76f2097014ef7d2a64c9",
+  "sheet256Sha256": "38ca09c7ebe5cae15b69a704057e2c306d1d499eb5d98e2b88240b08121b9ae6",
   "status": "machine-pass-awaiting-user-approval"
 }

@@ -3,20 +3,31 @@
   "status": "WAITING_FOR_USER_APPROVAL",
   "reviewer": "Codex visual self-review",
   "userApproved": false,
+  "latestUserDecision": "B",
+  "latestUserFeedback": "Hide or weaken the exposed connector tongue so heads look naturally grown from bodies.",
+  "rejectedEvidence": "rejected/task7-visible-tongue-round-1/rejection-record.json",
+  "reworkEvidence": {
+    "production": "../../../../asset-source/v0.3.0/generation/task7-head-natural-neck-production.json",
+    "occlusion": "../../../../asset-source/v0.3.0/generation/task7-body-head-occlusion-rework.json",
+    "promptCatalog": "../../../../asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+    "visualInspection": "20/20 original and 20/20 downsampled combinations passed Codex self-review; explicit user approval is still required.",
+    "knownConcern": "At 256 px, body_biped_tall × head_round_dome retains a dark shallow curved crease; centerline gap is zero and no structural tongue is exposed."
+  },
   "selections": {
     "body_blob_round:blob": 1,
     "body_blob_wide:blob": 1,
     "body_floating_drop:floating": 1,
-    "head_round_dome:biped": 1,
-    "head_angler_bulb:biped": 1,
-    "head_shadow_hood:biped": 1,
-    "head_round_dome:blob": 2,
-    "head_mushroom_cap:blob": 2,
-    "head_angler_bulb:blob": 3,
-    "head_shadow_hood:blob": 1,
-    "head_round_dome:floating": 1,
-    "head_mushroom_cap:floating": 1,
-    "head_angler_bulb:floating": 1,
-    "head_shadow_hood:floating": 1
+    "head_round_dome:biped": "natural-neck-1",
+    "head_mushroom_cap:biped": "natural-neck-1",
+    "head_angler_bulb:biped": "natural-neck-1",
+    "head_shadow_hood:biped": "natural-neck-1",
+    "head_round_dome:blob": "natural-neck-3",
+    "head_mushroom_cap:blob": "natural-neck-1",
+    "head_angler_bulb:blob": "natural-neck-1",
+    "head_shadow_hood:blob": "natural-neck-1",
+    "head_round_dome:floating": "natural-neck-1",
+    "head_mushroom_cap:floating": "natural-neck-1",
+    "head_angler_bulb:floating": "natural-neck-1",
+    "head_shadow_hood:floating": "natural-neck-1"
   }
 }

@@ -1,6 +1,6 @@
 # Task 7 body/head variant report
 
-Status: `WAITING_FOR_USER_APPROVAL`
+Status: `REWORK_IN_PROGRESS_AFTER_USER_REJECTION`
 
 Date: 2026-08-25
 
@@ -14,6 +14,21 @@ Date: 2026-08-25
 ## User ruling
 
 The user selected `A`: re-author `head_round_dome` now as a new connection-aware component.
+
+The user subsequently selected `B` on 2026-08-26, rejecting all three first-round body/head matrices. The exact feedback is to weaken or hide the exposed organic connector tongue so heads read as naturally grown from bodies. The rejected original, 256, and manifest bytes are preserved immutably under `packages/asset-catalog/review/v0.3.0/rejected/task7-visible-tongue-round-1/`; `rejection-record.json` binds the decision to all nine SHA-256 values. No Task 7 approval JSON exists.
+
+### Rework root cause and frozen boundary
+
+- Root cause: the head plug's lower pixels were still allocated to the head foreground mask. Because composition is `head background -> body -> head foreground`, this repainted the plug over the body as a tongue/chin/stem even though continuity and gap metrics passed.
+- The exact Task 6 approved input boundary was reconstructed from final Task 6 commit `f0292476de84c5c17b5fd8a392f8b00d0cdf3f7d`: 132 distinct source/runtime input files, including the approved biped bodies, mushroom head, arms, legs, bridges, connector masks, render nodes, and retained facial parts.
+- Every one of those 132 current bytes matches its Task 6 SHA-256. The exact path/hash manifest is `packages/asset-catalog/review/v0.3.0/task6-approved-input-integrity.json` (SHA-256 `e9b55e1f52d89bb022c2515dd6bb987ae76a61770422b38f84393bc4c824d650`). Rework must use Task 7-versioned masks/geometry for any frozen biped input rather than mutating these bytes.
+
+### Rework TDD RED
+
+- Added a connector-local, composition-aware regression metric. `visibleTongueDepthRatio` measures the visible head-attributed span inside the declared inward plug envelope divided by declared plug depth; `visibleTongueAreaRatio` measures visible head-attributed alpha in that envelope divided by structural head alpha there after `background -> body -> foreground` occlusion attribution. This uses connector geometry and layer masks, not screenshot coordinates.
+- Frozen limits: depth `<= 0.25`, area `<= 0.25`.
+- RED command: `npx vitest run scripts/body-head-contact-metrics.test.ts`.
+- RED result: all 20 rejected pairs fail. Nineteen pairs report depth `0.65` and area `0.65–0.681008040160278`; the frozen Task 6 biped mushroom pair reports depth `1` and area `1` on both biped bodies. This isolates the causal foreground allocation instead of merely rechecking connectivity.
 
 ## Evidence log
 
@@ -74,3 +89,45 @@ All frozen hashes remain byte-identical:
 - The 256 sheets preserve silhouette/identity readability, but long labels are truncated; the canonical matrix order above is the unambiguous legend.
 
 No Task 7 approval/acceptance JSON was created and no user approval is claimed. The nonapproval selection record remains explicitly `WAITING_FOR_USER_APPROVAL` with `userApproved: false`.
+
+## Superseding natural-neck rework after user rejection B
+
+This section supersedes the first-round visual result and its obsolete tongue/stem concerns above. The user rejected the original three matrices with decision `B`. The rejected bytes remain immutable under `packages/asset-catalog/review/v0.3.0/rejected/task7-visible-tongue-round-1/`; its rejection record SHA-256 is `4207566342c7a89b8181922e66ba6b180231bb3eda3dcd1b42e270a375f7e746`.
+
+### Root cause and causal regression
+
+- The authored head rasters, not only their masks, contained long central lobes outside the declared plug envelope. Receiver-depth/mask-only sweeps therefore could not make the joins natural.
+- The fixed causal gates are: visible connector depth ratio `<= 0.10`, visible connector area ratio `<= 0.10`, and silhouette-relative central-lobe depth ratio `<= 0.20`. Connectivity remains `>= 0.99` and centerline gap remains `<= 2 px`.
+- The rejected old biped mushroom source exceeds the central-lobe limit, proving the test detects the original stem independently of receiver depth.
+- All 12 exact rig/head variants now use new Task7-versioned natural-neck source/runtime paths. No frozen Task6 head/body source, runtime image, or connector mask was overwritten.
+
+### Image generation and selection
+
+- One biped mushroom prototype passed both biped bodies at original and 256 before fan-out.
+- Eleven further distinct rig/head candidates were produced in eleven separate built-in image-generation calls.
+- Blob round candidate 1 failed the fixed central-lobe metric at `0.215`; candidate 2 removed the lobe but was rejected on visual inspection for a near-straight lower cut; candidate 3 passed the same unchanged threshold and the full matrix gate.
+- Rework total: 14 built-in image-generation calls, comprising 12 prototype/fan-out calls and 2 targeted blob-round regenerations.
+- Every selected output was extracted to true alpha with zero boundary-alpha pixels and retained partial alpha. Prompt, extraction, candidate-selection, and mask evidence are recorded in `task7-head-natural-neck-production.json`, `task7-body-head-occlusion-rework.json`, and `task7-head-natural-neck-rework.json`.
+
+### Current canonical review artifacts
+
+Matrix legend: rows are exact body identities. Columns are `head_round_dome`, `head_mushroom_cap`, `head_angler_bulb`, and `head_shadow_hood`, in that order.
+
+| Rig | Original SHA-256 | 256 SHA-256 | Manifest SHA-256 | Metric extrema |
+| --- | --- | --- | --- | --- |
+| blob | `a3c60b8d67b3721bcac3aa5c95212aed18016b77df0c3b46100d2a5fba3038e6` | `8bcab56a62aa05a7466d1ca82c6fb9af3744d6bc44a91406c9a3f95e3678d479` | `955fd4203b790459ec8b84bce662a790560b48be7dc726b106a9844fa0da1eab` | 8/8; component `>=0.999993467308602`; gap/depth/area `0`; lobe `<=0.185` |
+| biped | `69615b11a7bb796eabbe287d5992e19211fa4775171131905f57895381ef79b1` | `e26d9f0b7dec2ddcfb206990fe9e61287968451ecc1ca8d96ead9cbfa08d9758` | `2721544327105e3503f626e00a4e6f6283c6f008b5a8051e4270ccc718783bf0` | 8/8; component `>=0.999983550555017`; gap/depth/area `0`; lobe `<=0.188888888888889` |
+| floating | `6cb4f5abfc019e2584f73614223a322279c30e334eba76f2097014ef7d2a64c9` | `38ca09c7ebe5cae15b69a704057e2c306d1d499eb5d98e2b88240b08121b9ae6` | `aee93449185eedadb602a2a66d1903dd1896b57aad12bf5a57c053df1794faa3` | 4/4; component `>=0.99998889946106`; gap/depth/area `0`; lobe `<=0.188888888888889` |
+
+All six sheets were inspected. Twenty of twenty entries pass the natural-neck visual gate. Known concern for user review: at 256 px, `body_biped_tall × head_round_dome` retains a dark shallow curved crease; it is connected (`0 px` gap) and exposes no structural plug.
+
+### Rework verification
+
+- Focused: `6` files, `27` tests passed.
+- Validator: `49` production source assets checked; blob `8`, biped `8`, floating `4`; zero diagnostics.
+- TypeScript: `npm run typecheck` passed.
+- Full single-worker: `73/73` files passed; `596` tests passed and `2` skipped.
+- Exact frozen Task6 input audit: `132/132` files unchanged; integrity record SHA-256 `e9b55e1f52d89bb022c2515dd6bb987ae76a61770422b38f84393bc4c824d650`.
+- Frozen Task6 review hashes remain: original `58766df74141fae1abcb66f447529b8d32ede934b11394877c12d2c478feaef4`, 256 `0fa54d8968155465f84eec0de75303520bea637d1debae1f58e1f12301bd9974`, manifest `058dec48847ed6caa93dd58359c887c32c440de01f7522e14ee151d00ab7aa15`, acceptance `f1c14462fb4f14ad359cbe3cc029d13c1e85592bf5d25cb5630bd8b938be3520`.
+
+Status: `WAITING_FOR_USER_APPROVAL`. `userApproved` is `false`; no Task7 approval or acceptance JSON has been created.

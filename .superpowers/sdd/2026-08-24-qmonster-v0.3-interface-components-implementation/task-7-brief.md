@@ -35,3 +35,12 @@ Stop at `WAITING_FOR_USER_APPROVAL` after writing the three canonical original/2
 - `biped-vertical-slice-256.png`: `0fa54d8968155465f84eec0de75303520bea637d1debae1f58e1f12301bd9974`
 - `biped-vertical-slice-manifest.json`: `058dec48847ed6caa93dd58359c887c32c440de01f7522e14ee151d00ab7aa15`
 - `biped-vertical-slice-acceptance.json`: `f1c14462fb4f14ad359cbe3cc029d13c1e85592bf5d25cb5630bd8b938be3520`
+
+## User rejection rework ruling
+
+- The first Task7 matrices were rejected with decision `B` because too much of the head plug remained visible as a tongue, chin, or stem. Preserve those bytes and their exact hashes as rejected evidence; do not overwrite the rejection record and do not create approval evidence.
+- Stop receiver-depth/mask-only sweeps. Re-author all 12 exact rig/head identities into Task7-versioned natural-neck paths, including a new Task7 biped mushroom, because the original raster silhouettes themselves encode excessive central lobes.
+- The visible head shell must end in a shallow, soft, curved collar with no protruding central lobe. The hidden structural plug stays behind the shell and must be occludable by data-declared body foreground geometry.
+- Add a causal silhouette-relative central-lobe test in addition to exposed plug depth/area. Fixed limits: visible depth `<=0.10`, visible area `<=0.10`, central lobe `<=0.20`, connectivity `>=0.99`, and centerline gap `<=2 px`.
+- Prove one biped mushroom prototype on both biped bodies at original and 256 before fan-out. Generate remaining exact candidates only after the prototype passes, and regenerate only the exact failed variant without weakening thresholds.
+- Treat the 132-file Task6 approved input boundary recorded at commit `f0292476de84c5c17b5fd8a392f8b00d0cdf3f7d` as immutable. New Task7 source/runtime/masks must be versioned outside those frozen paths.

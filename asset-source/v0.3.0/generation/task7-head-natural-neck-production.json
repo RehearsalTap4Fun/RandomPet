@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "task7-head-natural-neck-production-v1",
+  "status": "MACHINE_PASS_AWAITING_USER_APPROVAL",
+  "builtInImageGenCalls": 14,
+  "targetedRegenerationCalls": 2,
+  "compositionGate": {
+    "entries": 20,
+    "originalSheetsInspected": 3,
+    "downsampledSheetsInspected": 3,
+    "largestComponentRatioMin": 0.999983550555017,
+    "centerlineGapPxMax": 0,
+    "visibleTongueDepthRatioMax": 0,
+    "visibleTongueAreaRatioMax": 0,
+    "centralLobeDepthRatioMax": 0.188888888888889,
+    "userApproved": false
+  },
+  "assets": {
+    "head_round_dome:biped": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/biped/head_round_dome/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/biped/head_round_dome/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/biped/head_round_dome-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.png",
+      "runtimePath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 849,
+        "subjectCoverage": 0.15710301198843127,
+        "sourceSha256": "cc74e23c1b4fa235b138ba9b8e6c1c5260525bacf61547e3f15e8e4b9ef624ec",
+        "extractedSha256": "26b906ecf7e9932ba61f7cf8aee1b22228c1cc2ba65f848eab9dabab379feddc"
+      }
+    },
+    "head_mushroom_cap:biped": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/biped/head_mushroom_cap/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/biped/head_mushroom_cap/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/biped/head_mushroom_cap-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
+      "runtimePath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 8190,
+        "subjectCoverage": 0.14378613635727713,
+        "sourceSha256": "058131b6e0c5ae3db8dbd01548b3b69b5dc5aaec349784c541ff43ce2adaa592",
+        "extractedSha256": "2520006c475ee362d441150649355a203f350784fd4175009c1eca724096b071"
+      }
+    },
+    "head_angler_bulb:biped": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/biped/head_angler_bulb/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/biped/head_angler_bulb/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/biped/head_angler_bulb-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.png",
+      "runtimePath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 381,
+        "subjectCoverage": 0.13394458307578427,
+        "sourceSha256": "74142454b1eb50fb3530e203630eb4e43a9bbd65c0f610eed85be3e8571db692",
+        "extractedSha256": "c54761608483697c5686e97bfa43b802b6e451d63d6a044dc31bbe4e81f04c1c"
+      }
+    },
+    "head_shadow_hood:biped": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/biped/head_shadow_hood/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/biped/head_shadow_hood/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/biped/head_shadow_hood-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.png",
+      "runtimePath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 78538,
+        "subjectCoverage": 0.2478156025121525,
+        "sourceSha256": "5a5d5c6ce5d49f1ed20d34ced91b7f6aac871eb98b02c5d5333da661f3621072",
+        "extractedSha256": "6cdb8b141fc73d5b19a0aa634364d3cb2dfda9ddac1ee98d751410a09de43dc1"
+      }
+    },
+    "head_round_dome:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-natural-neck-1.png",
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-natural-neck-2.png",
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-natural-neck-3.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/blob/head_round_dome/candidate-natural-neck-3.png",
+      "selectedCandidate": 3,
+      "selectionReason": "Candidate 1 failed central-lobe depth (0.215 > 0.200); candidate 2 was visually rejected for a near-straight lower cut; candidate 3 passed the fixed metric and original/256 composition gate.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/blob/head_round_dome-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_round_dome.png",
+      "runtimePath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_round_dome.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 148,
+        "subjectCoverage": 0.21711829959122833,
+        "sourceSha256": "2ebb2989553cb211a1b2d63a1dcb9d94f3dc48f6aa9801667c1b961b0a4f35a5",
+        "extractedSha256": "6c84a0b1507d5e3d7860a94cf6af8ea223b8bc0695186bf3df4c6f6745447372"
+      }
+    },
+    "head_mushroom_cap:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_mushroom_cap/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/blob/head_mushroom_cap/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/blob/head_mushroom_cap-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_mushroom_cap.png",
+      "runtimePath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_mushroom_cap.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 19975,
+        "subjectCoverage": 0.1499088085590226,
+        "sourceSha256": "57228ac5efc9ff6a7104e13f16ef9ba4426ce4f8f988baae32be1deb88b9be8c",
+        "extractedSha256": "1dd19c2742612ae476bd8dc9cd7198f9fb09f1a128db7f60432e0ebba715d3ab"
+      }
+    },
+    "head_angler_bulb:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_angler_bulb/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/blob/head_angler_bulb/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/blob/head_angler_bulb-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_angler_bulb.png",
+      "runtimePath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_angler_bulb.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 466166,
+        "subjectCoverage": 0.4910423804908821,
+        "sourceSha256": "a39272e76cf069ecf00dfc97f9db0c5b899a175f3b56e634312f2bdad3f4ab1d",
+        "extractedSha256": "33dcbc2fd9b762469b2d0bbeceeb91717f1eb72c622b719ec7df48378abeb883"
+      }
+    },
+    "head_shadow_hood:blob": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/blob/head_shadow_hood/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/blob/head_shadow_hood/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/blob/head_shadow_hood-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_shadow_hood.png",
+      "runtimePath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_shadow_hood.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 412,
+        "subjectCoverage": 0.246681750773919,
+        "sourceSha256": "e887f8018d1084430f5df80fec4df57b47f883d131c27940796bf703ebecfca8",
+        "extractedSha256": "d5bd90f3073b6e6eb4e9161ada02ebcb297a263707c98459e52fedcec173f588"
+      }
+    },
+    "head_round_dome:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/head_round_dome/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/floating/head_round_dome/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/floating/head_round_dome-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_round_dome.png",
+      "runtimePath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_round_dome.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 1263,
+        "subjectCoverage": 0.15400352047292365,
+        "sourceSha256": "3d229d0858cf5bb499189560a99a09e2b23453c7245a752d17408ac40408e587",
+        "extractedSha256": "dfac7b08fb6e75aeea5578a844da7d2f63d753f0b8b4052b931c65d670e097de"
+      }
+    },
+    "head_mushroom_cap:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/head_mushroom_cap/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/floating/head_mushroom_cap/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/floating/head_mushroom_cap-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_mushroom_cap.png",
+      "runtimePath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_mushroom_cap.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 16033,
+        "subjectCoverage": 0.1360183298611906,
+        "sourceSha256": "4a13a3aa87ce87881390a0822ad11e283fe00b236ae24e9f118aa1ab6fa55c5a",
+        "extractedSha256": "74ab22df0db30a113ead1f89d3dc53f7b9c1eea96bcb3deaa013b09dfa3a6cd8"
+      }
+    },
+    "head_angler_bulb:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/head_angler_bulb/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/floating/head_angler_bulb/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/floating/head_angler_bulb-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_angler_bulb.png",
+      "runtimePath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_angler_bulb.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 283,
+        "subjectCoverage": 0.1206416977633296,
+        "sourceSha256": "b79ade48aa89ca9f1ce519332eb425fb898fece66a2e7ee701bae3ebc3fa1de1",
+        "extractedSha256": "e0f176e362cc5ee60631a68dcb815b3b1e5500f0ed75cfe935fb5408be102edd"
+      }
+    },
+    "head_shadow_hood:floating": {
+      "candidatePaths": [
+        "asset-source/v0.3.0/generation/task7-candidates/floating/head_shadow_hood/candidate-natural-neck-1.png"
+      ],
+      "candidatePath": "asset-source/v0.3.0/generation/task7-candidates/floating/head_shadow_hood/candidate-natural-neck-1.png",
+      "selectedCandidate": 1,
+      "selectionReason": "First natural-neck candidate preserved identity and passed shell-base, extraction, fixed-metric, and original/256 composition gates.",
+      "extractedPath": "asset-source/v0.3.0/generation/task7-extracted/floating/head_shadow_hood-natural-neck-v2.png",
+      "productionSourcePath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_shadow_hood.png",
+      "runtimePath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_shadow_hood.png",
+      "extraction": {
+        "inputHasAlpha": false,
+        "width": 1254,
+        "height": 1254,
+        "boundaryAlphaPixels": 0,
+        "partialAlphaPixels": 512,
+        "subjectCoverage": 0.12477774470975177,
+        "sourceSha256": "6df794a88cc4c24a59b87d8be6a2ff9e08e3a27b497fd10c018222dcacb51c6b",
+        "extractedSha256": "d3014b8da9b93dcfd62ad0c93500036881c52bdcf19bd326ddf6add6a629a601"
+      }
+    }
+  }
+}

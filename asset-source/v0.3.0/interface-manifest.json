@@ -24,7 +24,7 @@
               "connectorClass": "neck",
               "origin": {
                 "x": 1024,
-                "y": 580
+                "y": 680
               },
               "tangent": {
                 "x": 1,
@@ -36,9 +36,9 @@
               },
               "width": 300,
               "depth": 150,
-              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_peanut-neck-background.png",
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -259,7 +259,7 @@
               "connectorClass": "neck",
               "origin": {
                 "x": 1024,
-                "y": 400
+                "y": 500
               },
               "tangent": {
                 "x": 1,
@@ -271,9 +271,9 @@
               },
               "width": 280,
               "depth": 140,
-              "contourMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/body_biped_tall-neck-background.png",
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -480,11 +480,11 @@
         {
           "rigId": "biped",
           "materialFamily": "mushroom-velvet",
-          "sourcePngPath": "asset-source/v0.3.0/production/head_mushroom_cap.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
           "promptEvidence": {
-            "promptId": "head_mushroom_cap",
-            "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
-            "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json"
           },
           "connectors": [
@@ -507,8 +507,8 @@
               "width": 310,
               "depth": 160,
               "contourMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_mushroom_cap-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_mushroom_cap-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -533,9 +533,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_mushroom_cap-neck",
+              "id": "head_mushroom_cap-biped-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/production/nodes/head_mushroom_cap/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/nodes/head_mushroom_cap/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -543,7 +543,7 @@
               "x": 790,
               "y": 1050,
               "width": 468,
-              "height": 300
+              "height": 295
             }
           ],
           "featureSockets": {
@@ -553,7 +553,7 @@
             },
             "mouth": {
               "x": 1024,
-              "y": 1310
+              "y": 1273
             },
             "headAppendage": {
               "x": 1024,
@@ -564,11 +564,11 @@
         {
           "rigId": "blob",
           "materialFamily": "mushroom-velvet",
-          "sourcePngPath": "asset-source/v0.3.0/structural/blob/head_mushroom_cap.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_mushroom_cap.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -591,8 +591,8 @@
               "width": 400,
               "depth": 200,
               "contourMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_mushroom_cap-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -617,9 +617,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_mushroom_cap-blob-neck",
+              "id": "head_mushroom_cap-blob-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/head_mushroom_cap/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/nodes/head_mushroom_cap/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -627,17 +627,17 @@
               "x": 770,
               "y": 1020,
               "width": 508,
-              "height": 320
+              "height": 331
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1150
+              "y": 1072
             },
             "mouth": {
               "x": 1024,
-              "y": 1300
+              "y": 1128
             },
             "headAppendage": {
               "x": 1024,
@@ -648,11 +648,11 @@
         {
           "rigId": "floating",
           "materialFamily": "mushroom-velvet",
-          "sourcePngPath": "asset-source/v0.3.0/structural/floating/head_mushroom_cap.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_mushroom_cap.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -675,8 +675,8 @@
               "width": 300,
               "depth": 180,
               "contourMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_mushroom_cap-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_mushroom_cap-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -701,9 +701,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_mushroom_cap-floating-neck",
+              "id": "head_mushroom_cap-floating-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/head_mushroom_cap/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/nodes/head_mushroom_cap/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -711,17 +711,17 @@
               "x": 800,
               "y": 1050,
               "width": 448,
-              "height": 290
+              "height": 296
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1160
+              "y": 1109
             },
             "mouth": {
               "x": 1024,
-              "y": 1300
+              "y": 1165
             },
             "headAppendage": {
               "x": 1024,
@@ -1212,7 +1212,7 @@
               "connectorClass": "neck",
               "origin": {
                 "x": 1024,
-                "y": 620
+                "y": 740
               },
               "tangent": {
                 "x": 1,
@@ -1224,9 +1224,9 @@
               },
               "width": 400,
               "depth": 200,
-              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_round-neck-background.png",
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_round-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -1447,7 +1447,7 @@
               "connectorClass": "neck",
               "origin": {
                 "x": 1024,
-                "y": 620
+                "y": 740
               },
               "tangent": {
                 "x": 1,
@@ -1459,9 +1459,9 @@
               },
               "width": 400,
               "depth": 200,
-              "contourMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/body_blob_wide-neck-background.png",
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/body_blob_wide-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -1682,7 +1682,7 @@
               "connectorClass": "neck",
               "origin": {
                 "x": 1024,
-                "y": 520
+                "y": 650
               },
               "tangent": {
                 "x": 1,
@@ -1694,9 +1694,9 @@
               },
               "width": 300,
               "depth": 180,
-              "contourMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/body_floating_drop-neck-background.png",
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -1903,11 +1903,11 @@
         {
           "rigId": "biped",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/biped/head_round_dome.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -1930,8 +1930,8 @@
               "width": 310,
               "depth": 180,
               "contourMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_round_dome-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -1956,9 +1956,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_round_dome-biped-neck",
+              "id": "head_round_dome-biped-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/head_round_dome/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/nodes/head_round_dome/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -1966,17 +1966,17 @@
               "x": 790,
               "y": 1050,
               "width": 468,
-              "height": 300
+              "height": 241
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1160
+              "y": 1096
             },
             "mouth": {
               "x": 1024,
-              "y": 1310
+              "y": 1152
             },
             "headAppendage": {
               "x": 1024,
@@ -1987,11 +1987,11 @@
         {
           "rigId": "blob",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/blob/head_round_dome.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_round_dome.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -2014,8 +2014,8 @@
               "width": 400,
               "depth": 200,
               "contourMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_round_dome-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_round_dome-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_round_dome-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -2040,9 +2040,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_round_dome-blob-neck",
+              "id": "head_round_dome-blob-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/head_round_dome/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/nodes/head_round_dome/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -2050,17 +2050,17 @@
               "x": 770,
               "y": 1020,
               "width": 508,
-              "height": 320
+              "height": 273
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1150
+              "y": 1033
             },
             "mouth": {
               "x": 1024,
-              "y": 1300
+              "y": 1089
             },
             "headAppendage": {
               "x": 1024,
@@ -2071,11 +2071,11 @@
         {
           "rigId": "floating",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/floating/head_round_dome.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_round_dome.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -2098,8 +2098,8 @@
               "width": 300,
               "depth": 180,
               "contourMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_round_dome-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -2124,9 +2124,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_round_dome-floating-neck",
+              "id": "head_round_dome-floating-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/head_round_dome/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/nodes/head_round_dome/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -2134,17 +2134,17 @@
               "x": 800,
               "y": 1050,
               "width": 448,
-              "height": 290
+              "height": 266
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1160
+              "y": 1098
             },
             "mouth": {
               "x": 1024,
-              "y": 1300
+              "y": 1154
             },
             "headAppendage": {
               "x": 1024,
@@ -2161,11 +2161,11 @@
         {
           "rigId": "biped",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/biped/head_angler_bulb.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -2188,8 +2188,8 @@
               "width": 310,
               "depth": 180,
               "contourMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_angler_bulb-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_angler_bulb-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -2214,9 +2214,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_angler_bulb-biped-neck",
+              "id": "head_angler_bulb-biped-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/head_angler_bulb/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/nodes/head_angler_bulb/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -2224,7 +2224,7 @@
               "x": 790,
               "y": 1050,
               "width": 468,
-              "height": 300
+              "height": 313
             }
           ],
           "featureSockets": {
@@ -2234,7 +2234,7 @@
             },
             "mouth": {
               "x": 1024,
-              "y": 1310
+              "y": 1224
             },
             "headAppendage": {
               "x": 1024,
@@ -2245,11 +2245,11 @@
         {
           "rigId": "blob",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/blob/head_angler_bulb.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_angler_bulb.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -2272,8 +2272,8 @@
               "width": 400,
               "depth": 200,
               "contourMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_angler_bulb-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_angler_bulb-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -2298,9 +2298,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_angler_bulb-blob-neck",
+              "id": "head_angler_bulb-blob-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/head_angler_bulb/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/nodes/head_angler_bulb/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -2308,17 +2308,17 @@
               "x": 770,
               "y": 1020,
               "width": 508,
-              "height": 320
+              "height": 305
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1150
+              "y": 1144
             },
             "mouth": {
               "x": 1024,
-              "y": 1300
+              "y": 1200
             },
             "headAppendage": {
               "x": 1024,
@@ -2329,11 +2329,11 @@
         {
           "rigId": "floating",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/floating/head_angler_bulb.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_angler_bulb.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -2356,8 +2356,8 @@
               "width": 300,
               "depth": 180,
               "contourMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_angler_bulb-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_angler_bulb-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_angler_bulb-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -2382,9 +2382,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_angler_bulb-floating-neck",
+              "id": "head_angler_bulb-floating-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/head_angler_bulb/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/nodes/head_angler_bulb/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -2392,7 +2392,7 @@
               "x": 800,
               "y": 1050,
               "width": 448,
-              "height": 290
+              "height": 341
             }
           ],
           "featureSockets": {
@@ -2402,7 +2402,7 @@
             },
             "mouth": {
               "x": 1024,
-              "y": 1300
+              "y": 1229
             },
             "headAppendage": {
               "x": 1024,
@@ -2419,11 +2419,11 @@
         {
           "rigId": "biped",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/biped/head_shadow_hood.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -2446,8 +2446,8 @@
               "width": 310,
               "depth": 180,
               "contourMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -2472,9 +2472,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_shadow_hood-biped-neck",
+              "id": "head_shadow_hood-biped-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/head_shadow_hood/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/task7-natural-neck/nodes/head_shadow_hood/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -2482,17 +2482,17 @@
               "x": 790,
               "y": 1050,
               "width": 468,
-              "height": 300
+              "height": 326
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1160
+              "y": 1106
             },
             "mouth": {
               "x": 1024,
-              "y": 1310
+              "y": 1162
             },
             "headAppendage": {
               "x": 1024,
@@ -2503,11 +2503,11 @@
         {
           "rigId": "blob",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/blob/head_shadow_hood.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_shadow_hood.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -2530,8 +2530,8 @@
               "width": 400,
               "depth": 200,
               "contourMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/head_shadow_hood-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/task7-natural-neck/head_shadow_hood-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -2556,9 +2556,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_shadow_hood-blob-neck",
+              "id": "head_shadow_hood-blob-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/head_shadow_hood/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/task7-natural-neck/nodes/head_shadow_hood/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -2566,17 +2566,17 @@
               "x": 770,
               "y": 1020,
               "width": 508,
-              "height": 320
+              "height": 262
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1150
+              "y": 1045
             },
             "mouth": {
               "x": 1024,
-              "y": 1300
+              "y": 1101
             },
             "headAppendage": {
               "x": 1024,
@@ -2587,11 +2587,11 @@
         {
           "rigId": "floating",
           "materialFamily": "short-fur",
-          "sourcePngPath": "asset-source/v0.3.0/structural/floating/head_shadow_hood.png",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_shadow_hood.png",
           "promptEvidence": {
-            "promptId": "task7-body-head-connection-aware",
-            "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
-            "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+            "promptId": "task7-head-natural-neck-rework",
+            "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+            "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
             "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json"
           },
           "connectors": [
@@ -2614,8 +2614,8 @@
               "width": 300,
               "depth": 180,
               "contourMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-contour.png",
-              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-foreground.png",
-              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/head_shadow_hood-neck-background.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png",
               "materialSampleRegion": {
                 "x": 896,
                 "y": 896,
@@ -2640,9 +2640,9 @@
           ],
           "renderNodes": [
             {
-              "id": "head_shadow_hood-floating-neck",
+              "id": "head_shadow_hood-floating-neck-natural-v2",
               "connectorId": "neck",
-              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/head_shadow_hood/neck.png"
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.png"
             }
           ],
           "faceSafeZones": [
@@ -2650,17 +2650,17 @@
               "x": 800,
               "y": 1050,
               "width": 448,
-              "height": 290
+              "height": 234
             }
           ],
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 1160
+              "y": 1078
             },
             "mouth": {
               "x": 1024,
-              "y": 1300
+              "y": 1134
             },
             "headAppendage": {
               "x": 1024,

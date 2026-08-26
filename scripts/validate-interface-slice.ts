@@ -196,12 +196,19 @@ interface BodyHeadReviewEntry {
   headId: string
   largestComponentRatio: number
   centerlineGapPx: number
+  visibleTongueDepthRatio: number
+  visibleTongueAreaRatio: number
 }
 
 interface BodyHeadReviewManifest {
   rigId: InterfaceRigId
   entries: BodyHeadReviewEntry[]
-  thresholds: { largestComponentRatio: number; centerlineGapPx: number }
+  thresholds: {
+    largestComponentRatio: number
+    centerlineGapPx: number
+    visibleTongueDepthRatio: number
+    visibleTongueAreaRatio: number
+  }
   sheetSha256: string
   sheet256Sha256: string
   status: string
@@ -237,7 +244,26 @@ export async function validateBodyHeadReview(input: { repositoryRoot: string; re
     if (review.rigId !== rigId || review.entries.some(entry => entry.rigId !== rigId) || actualKeys.length !== expectedKeys.size || new Set(actualKeys).size !== expectedKeys.size || actualKeys.some(key => !expectedKeys.has(key))) {
       diagnostics.push(error('BODY_HEAD_REVIEW_ROSTER_INVALID', [rigId, 'entries'], 'Review must contain every exact body × head pair once.'))
     }
-    if (review.thresholds?.largestComponentRatio !== 0.99 || review.thresholds?.centerlineGapPx !== 2 || review.entries.some(entry => !Number.isFinite(entry.largestComponentRatio) || entry.largestComponentRatio < 0.99 || !Number.isFinite(entry.centerlineGapPx) || entry.centerlineGapPx < 0 || entry.centerlineGapPx > 2) || review.status !== 'machine-pass-awaiting-user-approval') {
+    if (
+      review.thresholds?.largestComponentRatio !== 0.99
+      || review.thresholds?.centerlineGapPx !== 2
+      || review.thresholds?.visibleTongueDepthRatio !== 0.1
+      || review.thresholds?.visibleTongueAreaRatio !== 0.1
+      || review.entries.some(entry => (
+        !Number.isFinite(entry.largestComponentRatio)
+        || entry.largestComponentRatio < 0.99
+        || !Number.isFinite(entry.centerlineGapPx)
+        || entry.centerlineGapPx < 0
+        || entry.centerlineGapPx > 2
+        || !Number.isFinite(entry.visibleTongueDepthRatio)
+        || entry.visibleTongueDepthRatio < 0
+        || entry.visibleTongueDepthRatio > 0.1
+        || !Number.isFinite(entry.visibleTongueAreaRatio)
+        || entry.visibleTongueAreaRatio < 0
+        || entry.visibleTongueAreaRatio > 0.1
+      ))
+      || review.status !== 'machine-pass-awaiting-user-approval'
+    ) {
       diagnostics.push(error('BODY_HEAD_REVIEW_METRICS_INVALID', [rigId, 'entries'], 'Every pair must pass continuity metrics while remaining awaiting user approval.'))
     }
     const rows = Math.ceil(expectedKeys.size / 4)

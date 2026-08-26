@@ -4,6 +4,13 @@ import { dirname, join, resolve } from 'node:path'
 import sharp from 'sharp'
 import type { InterfaceRigId, InterfaceSourceManifest } from './interface-source-schema.js'
 import { structuralVariants } from './interface-source-schema.js'
+import {
+  MAX_VISIBLE_TONGUE_AREA_RATIO,
+  MAX_VISIBLE_TONGUE_DEPTH_RATIO,
+  MAX_CENTRAL_LOBE_DEPTH_RATIO,
+  measureCentralLobeDepthRatio,
+  measureVisibleConnectorTongue,
+} from './body-head-contact-metrics.js'
 
 const ROOT = process.cwd()
 const REVIEW_ROOT = join(ROOT, 'packages', 'asset-catalog', 'review', 'v0.3.0')
@@ -89,7 +96,17 @@ async function compose(body: any, head: any) {
   const [placedBack, placedFront] = await Promise.all([translated(back, dx, dy), translated(front, dx, dy)])
   const result = await sharp({ create: { width: 2048, height: 2048, channels: 4, background: '#00000000' } })
     .composite([{ input: placedBack }, { input: bodyPng }, { input: placedFront }]).png(PNG).toBuffer()
-  return { result, metrics: await metrics(result, receiver.origin.x, receiver.origin.y, Math.max(receiver.depth, plug.depth)) }
+  return {
+    result,
+    metrics: {
+      ...(await metrics(result, receiver.origin.x, receiver.origin.y, Math.max(receiver.depth, plug.depth))),
+      ...(await measureVisibleConnectorTongue({ root: ROOT, body, head })),
+      centralLobeDepthRatio: await measureCentralLobeDepthRatio({
+        imagePath: resolve(ROOT, headNode.sourcePngPath),
+        connector: plug,
+      }),
+    },
+  }
 }
 
 async function renderRig(manifest: InterfaceSourceManifest, rigId: InterfaceRigId) {
@@ -109,7 +126,26 @@ async function renderRig(manifest: InterfaceSourceManifest, rigId: InterfaceRigI
     .composite(small.map((input, index) => ({ input, left: index % columns * 256, top: Math.floor(index / columns) * 256 }))).png(PNG).toBuffer()
   const path = join(REVIEW_ROOT, `body-head-contact-sheet-${rigId}.png`); const path256 = join(REVIEW_ROOT, `body-head-contact-sheet-${rigId}-256.png`)
   await mkdir(dirname(path), { recursive: true }); await writeFile(path, sheet); await writeFile(path256, sheet256)
-  const record = { rigId, entries, thresholds: { largestComponentRatio: 0.99, centerlineGapPx: 2 }, sheetSha256: sha256(sheet), sheet256Sha256: sha256(sheet256), status: entries.every(item => item.largestComponentRatio >= 0.99 && item.centerlineGapPx <= 2) ? 'machine-pass-awaiting-user-approval' : 'machine-fail' }
+  const record = {
+    rigId,
+    entries,
+    thresholds: {
+      largestComponentRatio: 0.99,
+      centerlineGapPx: 2,
+      visibleTongueDepthRatio: MAX_VISIBLE_TONGUE_DEPTH_RATIO,
+      visibleTongueAreaRatio: MAX_VISIBLE_TONGUE_AREA_RATIO,
+      centralLobeDepthRatio: MAX_CENTRAL_LOBE_DEPTH_RATIO,
+    },
+    sheetSha256: sha256(sheet),
+    sheet256Sha256: sha256(sheet256),
+    status: entries.every(item => (
+      item.largestComponentRatio >= 0.99
+      && item.centerlineGapPx <= 2
+      && item.visibleTongueDepthRatio <= MAX_VISIBLE_TONGUE_DEPTH_RATIO
+      && item.visibleTongueAreaRatio <= MAX_VISIBLE_TONGUE_AREA_RATIO
+      && item.centralLobeDepthRatio <= MAX_CENTRAL_LOBE_DEPTH_RATIO
+    )) ? 'machine-pass-awaiting-user-approval' : 'machine-fail',
+  }
   await writeJson(join(REVIEW_ROOT, `body-head-contact-sheet-${rigId}-manifest.json`), record)
   return record
 }
