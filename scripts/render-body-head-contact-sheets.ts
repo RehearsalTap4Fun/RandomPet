@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
-import { dirname, join, resolve } from 'node:path'
+import { dirname, join } from 'node:path'
 import sharp from 'sharp'
 import type { InterfaceRigId, InterfaceSourceManifest } from './interface-source-schema.js'
 import { structuralVariants } from './interface-source-schema.js'
@@ -8,66 +8,16 @@ import {
   MAX_VISIBLE_TONGUE_AREA_RATIO,
   MAX_VISIBLE_TONGUE_DEPTH_RATIO,
   MAX_CENTRAL_LOBE_DEPTH_RATIO,
-  measureCentralLobeDepthRatio,
-  measureVisibleConnectorTongue,
+  composeBodyHeadMetricEvidence,
 } from './body-head-contact-metrics.js'
 
 const ROOT = process.cwd()
 const REVIEW_ROOT = join(ROOT, 'packages', 'asset-catalog', 'review', 'v0.3.0')
-const CATALOG_ROOT = join(ROOT, 'packages', 'asset-catalog')
 const PNG = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
 const HEAD_IDS = ['head_round_dome', 'head_mushroom_cap', 'head_angler_bulb', 'head_shadow_hood']
 
 function sha256(bytes: Uint8Array): string { return createHash('sha256').update(bytes).digest('hex') }
 async function writeJson(path: string, value: unknown) { await mkdir(dirname(path), { recursive: true }); await writeFile(path, `${JSON.stringify(value, null, 2)}\n`) }
-
-async function maskSource(sourcePath: string, maskPath: string): Promise<Buffer> {
-  const [source, mask] = await Promise.all([
-    sharp(resolve(ROOT, sourcePath)).ensureAlpha().png(PNG).toBuffer(),
-    sharp(resolve(CATALOG_ROOT, maskPath)).ensureAlpha().extractChannel('alpha').png(PNG).toBuffer(),
-  ])
-  return sharp(source).composite([{ input: mask, blend: 'dest-in' }]).png(PNG).toBuffer()
-}
-
-async function translated(source: Buffer, dx: number, dy: number): Promise<Buffer> {
-  const sourceLeft = Math.max(0, -dx); const sourceTop = Math.max(0, -dy)
-  const targetLeft = Math.max(0, dx); const targetTop = Math.max(0, dy)
-  const width = Math.min(2048 - sourceLeft, 2048 - targetLeft)
-  const height = Math.min(2048 - sourceTop, 2048 - targetTop)
-  const cropped = await sharp(source).extract({ left: sourceLeft, top: sourceTop, width, height }).png(PNG).toBuffer()
-  return sharp({ create: { width: 2048, height: 2048, channels: 4, background: '#00000000' } })
-    .composite([{ input: cropped, left: targetLeft, top: targetTop }]).png(PNG).toBuffer()
-}
-
-function largestComponentRatio(alpha: Buffer, width: number, height: number): number {
-  const labels = new Int32Array(width * height); const queue = new Int32Array(width * height); const masses = [0]; let label = 0; let total = 0
-  for (const value of alpha) total += value
-  for (let first = 0; first < labels.length; first += 1) {
-    if (labels[first] !== 0 || alpha[first] === 0) continue
-    label += 1; labels[first] = label; queue[0] = first; let queued = 1; let mass = 0
-    for (let cursor = 0; cursor < queued; cursor += 1) {
-      const current = queue[cursor]!; mass += alpha[current]!
-      const x = current % width; const y = Math.floor(current / width)
-      for (const next of [x > 0 ? current - 1 : -1, x + 1 < width ? current + 1 : -1, y > 0 ? current - width : -1, y + 1 < height ? current + width : -1]) {
-        if (next < 0 || labels[next] !== 0 || alpha[next] === 0) continue
-        labels[next] = label; queue[queued++] = next
-      }
-    }
-    masses[label] = mass
-  }
-  return total === 0 ? 0 : Math.max(...masses) / total
-}
-
-async function metrics(image: Buffer, centerX: number, centerY: number, depth: number) {
-  const alpha = await sharp(image).ensureAlpha().extractChannel('alpha').raw().toBuffer({ resolveWithObject: true })
-  let maxGap = 0; let gap = 0
-  for (let y = Math.max(0, Math.round(centerY - depth)); y <= Math.min(2047, Math.round(centerY + depth)); y += 1) {
-    let opaque = false
-    for (let x = centerX - 2; x <= centerX + 2; x += 1) if (alpha.data[y * alpha.info.width + x]! > 0) opaque = true
-    if (opaque) gap = 0; else { gap += 1; maxGap = Math.max(maxGap, gap) }
-  }
-  return { largestComponentRatio: largestComponentRatio(alpha.data, alpha.info.width, alpha.info.height), centerlineGapPx: maxGap }
-}
 
 async function label(text: string, width: number, height: number): Promise<Buffer> {
   const escaped = text.replaceAll('&', '&amp;').replaceAll('<', '&lt;')
@@ -86,28 +36,7 @@ async function cell(composite: Buffer, title: string, size: number): Promise<Buf
 }
 
 async function compose(body: any, head: any) {
-  const receiver = body.connectors.find((item: any) => item.id === 'neck')
-  const plug = head.connectors.find((item: any) => item.id === 'neck')
-  const bodyNode = body.renderNodes[0]; const headNode = head.renderNodes.find((node: any) => node.connectorId === 'neck')
-  const dx = Math.round(receiver.origin.x - plug.origin.x); const dy = Math.round(receiver.origin.y - plug.origin.y)
-  const [back, front, bodyPng] = await Promise.all([
-    maskSource(headNode.sourcePngPath, plug.backgroundMaskPath), maskSource(headNode.sourcePngPath, plug.foregroundMaskPath), readFile(resolve(ROOT, bodyNode.sourcePngPath)),
-  ])
-  const [placedBack, placedFront] = await Promise.all([translated(back, dx, dy), translated(front, dx, dy)])
-  const result = await sharp({ create: { width: 2048, height: 2048, channels: 4, background: '#00000000' } })
-    .composite([{ input: placedBack }, { input: bodyPng }, { input: placedFront }]).png(PNG).toBuffer()
-  return {
-    result,
-    metrics: {
-      ...(await metrics(result, receiver.origin.x, receiver.origin.y, Math.max(receiver.depth, plug.depth))),
-      ...(await measureVisibleConnectorTongue({ root: ROOT, body, head })),
-      centralLobeDepthRatio: await measureCentralLobeDepthRatio({
-        imagePath: resolve(ROOT, headNode.sourcePngPath),
-        rigId: head.rigId,
-        connector: plug,
-      }),
-    },
-  }
+  return composeBodyHeadMetricEvidence({ root: ROOT, body, head })
 }
 
 async function renderRig(manifest: InterfaceSourceManifest, rigId: InterfaceRigId) {

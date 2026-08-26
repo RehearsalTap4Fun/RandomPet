@@ -711,7 +711,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
@@ -730,7 +730,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_mushroom_cap.png",
@@ -749,7 +749,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_mushroom_cap.png",
@@ -860,7 +860,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
         "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/body_blob_round.png",
@@ -879,7 +879,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
         "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/body_blob_wide.png",
@@ -898,7 +898,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
         "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/body_floating_drop.png",
@@ -917,7 +917,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.png",
@@ -936,7 +936,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_round_dome.png",
@@ -955,7 +955,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_round_dome.png",
@@ -974,7 +974,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.png",
@@ -993,7 +993,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_angler_bulb.png",
@@ -1012,7 +1012,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_angler_bulb.png",
@@ -1031,7 +1031,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.png",
@@ -1050,7 +1050,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_shadow_hood.png",
@@ -1069,7 +1069,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "4030a4a75d5b01b60ba51fe3595035466395e0f9665039ce03fc02c7d5916bc4",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_shadow_hood.png",

@@ -7,6 +7,7 @@ import {
   validateBodyHeadAcceptanceDocument,
   validateBodyHeadAcceptanceLocations,
   validateBodyHeadApproval,
+  validateBodyHeadCausalMetricEvidence,
   validateBodyHeadRejectionEvidence,
   validateBodyHeadReview,
   validateInterfaceProductionReadiness,
@@ -190,6 +191,27 @@ describe('validateInterfaceSlice', () => {
     }
   }, 20_000)
 
+  it('recomputes every stored causal metric from the live approved sources and detects drift', async () => {
+    const repositoryRoot = process.cwd()
+    const liveReviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
+    expect(await validateBodyHeadCausalMetricEvidence({ repositoryRoot, reviewRoot: liveReviewRoot })).toEqual([])
+
+    const reviewRoot = await mkdtemp(join(tmpdir(), 'qmonster-task7-metric-drift-'))
+    roots.push(reviewRoot)
+    for (const rigId of ['blob', 'biped', 'floating']) {
+      const name = `body-head-contact-sheet-${rigId}-manifest.json`
+      await cp(join(liveReviewRoot, name), join(reviewRoot, name))
+    }
+    const bipedPath = join(reviewRoot, 'body-head-contact-sheet-biped-manifest.json')
+    const biped = JSON.parse(await readFile(bipedPath, 'utf8'))
+    biped.entries[0].largestComponentRatio -= 0.01
+    await writeFile(bipedPath, `${JSON.stringify(biped, null, 2)}\n`)
+
+    expect(await validateBodyHeadCausalMetricEvidence({ repositoryRoot, reviewRoot })).toContainEqual(
+      expect.objectContaining({ code: 'BODY_HEAD_CAUSAL_METRIC_DRIFT' }),
+    )
+  }, 120_000)
+
   it('requires one canonical user approval bound to every live body-head review byte', async () => {
     const repositoryRoot = process.cwd()
     const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
@@ -209,7 +231,7 @@ describe('validateInterfaceSlice', () => {
     ]) {
       expect(await validateBodyHeadAcceptanceDocument({ document: invalid, repositoryRoot, reviewRoot })).not.toEqual([])
     }
-  }, 30_000)
+  }, 60_000)
 
   it('rejects missing, misplaced, and duplicate Task 7 acceptance locations', () => {
     const canonical = join(process.cwd(), 'packages', 'asset-catalog', 'review', 'v0.3.0', 'body-head-contact-sheets-acceptance.json')

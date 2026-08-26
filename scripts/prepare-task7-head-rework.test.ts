@@ -58,6 +58,7 @@ describe('Task 7 natural-neck head preparation', () => {
     expect(await measureCentralLobeDepthRatio({
       imagePath: normalized,
       rigId: 'biped',
+      headId: 'head_mushroom_cap',
       connector: head.connectors.find(item => item.id === 'neck')!,
     })).toBeLessThanOrEqual(MAX_CENTRAL_LOBE_DEPTH_RATIO)
   }, 30_000)

@@ -15,6 +15,7 @@ import { productionPaths } from './production-paths.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 import { tmpdir } from 'node:os'
 import { validateBipedSliceReview } from './validate-biped-slice-review.js'
+import { measureBodyHeadCausalMetrics } from './body-head-contact-metrics.js'
 
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
@@ -318,6 +319,73 @@ export async function validateBodyHeadReview(input: { repositoryRoot: string; re
   return { diagnostics, entryCountByRig }
 }
 
+const BODY_HEAD_CAUSAL_METRIC_TOLERANCE = 1e-12
+
+export async function validateBodyHeadCausalMetricEvidence(input: {
+  repositoryRoot: string
+  reviewRoot: string
+}): Promise<Diagnostic[]> {
+  const diagnostics: Diagnostic[] = []
+  let manifest: InterfaceSourceManifest
+  try {
+    const parsed = parseInterfaceSourceManifest(JSON.parse(await readFile(
+      resolve(input.repositoryRoot, 'asset-source/v0.3.0/interface-manifest.json'),
+      'utf8',
+    )))
+    if (!parsed.ok) return [error('BODY_HEAD_CAUSAL_METRIC_SOURCE_INVALID', ['causalMetrics', 'manifest'], 'Cannot parse the live interface source manifest.')]
+    manifest = parsed.value
+  } catch {
+    return [error('BODY_HEAD_CAUSAL_METRIC_SOURCE_INVALID', ['causalMetrics', 'manifest'], 'Cannot read the live interface source manifest.')]
+  }
+  const variants = structuralVariants(manifest)
+  for (const rigId of ['blob', 'biped', 'floating'] as const) {
+    let review: BodyHeadReviewManifest
+    try {
+      review = JSON.parse(await readFile(
+        join(input.reviewRoot, `body-head-contact-sheet-${rigId}-manifest.json`),
+        'utf8',
+      )) as BodyHeadReviewManifest
+    } catch {
+      diagnostics.push(error('BODY_HEAD_CAUSAL_METRIC_SOURCE_INVALID', ['causalMetrics', rigId], 'Cannot read the approved body/head review manifest.'))
+      continue
+    }
+    for (const entry of review.entries) {
+      const body = variants.find(item => item.rigId === rigId && item.partId === entry.bodyId && item.slotId === 'bodyFrame')
+      const head = variants.find(item => item.rigId === rigId && item.partId === entry.headId && item.slotId === 'headShape')
+      if (body === undefined || head === undefined) {
+        diagnostics.push(error('BODY_HEAD_CAUSAL_METRIC_SOURCE_INVALID', ['causalMetrics', rigId, entry.bodyId, entry.headId], 'Approved pair lacks a live exact-rig body or head source.'))
+        continue
+      }
+      try {
+        const actual = await measureBodyHeadCausalMetrics({ root: input.repositoryRoot, body, head })
+        for (const metric of [
+          'largestComponentRatio',
+          'centerlineGapPx',
+          'visibleTongueDepthRatio',
+          'visibleTongueAreaRatio',
+          'centralLobeDepthRatio',
+        ] as const) {
+          const stored = entry[metric]
+          if (!Number.isFinite(stored) || Math.abs(actual[metric] - stored) > BODY_HEAD_CAUSAL_METRIC_TOLERANCE) {
+            diagnostics.push(error(
+              'BODY_HEAD_CAUSAL_METRIC_DRIFT',
+              ['causalMetrics', rigId, entry.bodyId, entry.headId, metric],
+              `Stored ${metric}=${stored} differs from live recomputation ${actual[metric]}.`,
+            ))
+          }
+        }
+      } catch (caught) {
+        diagnostics.push(error(
+          'BODY_HEAD_CAUSAL_METRIC_SOURCE_INVALID',
+          ['causalMetrics', rigId, entry.bodyId, entry.headId],
+          caught instanceof Error ? caught.message : 'Cannot recompute causal metrics from live sources.',
+        ))
+      }
+    }
+  }
+  return diagnostics
+}
+
 const BODY_HEAD_ACCEPTANCE_FILENAME = 'body-head-contact-sheets-acceptance.json'
 const BODY_HEAD_ACCEPTANCE_PATH = `packages/asset-catalog/review/v0.3.0/${BODY_HEAD_ACCEPTANCE_FILENAME}`
 const BODY_HEAD_REVIEW_RECORD_PATH = TASK7_BODY_HEAD_REVIEW_RECORD_PATH
@@ -582,6 +650,12 @@ export async function validateBodyHeadAcceptanceDocument(input: {
     ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_REVIEW_RECORD_INVALID', ['acceptance', 'reviewRecord'], 'Canonical body/head review record must reflect the same user approval.'))
   } catch {
     diagnostics.push(error('BODY_HEAD_ACCEPTANCE_REVIEW_RECORD_INVALID', ['acceptance', 'reviewRecord'], 'Cannot read the canonical body/head review record.'))
+  }
+  if (diagnostics.length === 0) {
+    diagnostics.push(...await validateBodyHeadCausalMetricEvidence({
+      repositoryRoot: input.repositoryRoot,
+      reviewRoot: input.reviewRoot,
+    }))
   }
   return diagnostics
 }

@@ -6,6 +6,7 @@ import {
   MAX_VISIBLE_TONGUE_AREA_RATIO,
   MAX_VISIBLE_TONGUE_DEPTH_RATIO,
   MAX_CENTRAL_LOBE_DEPTH_RATIO,
+  approvedNeckMetricBaseline,
   measureCentralLobeDepthRatio,
   measureVisibleConnectorTongue,
   naturalNeckSeamLiftRatio,
@@ -23,6 +24,21 @@ describe('body/head visible connector tongue', () => {
     expect(naturalNeckSeamLiftRatio(1)).toBe(0)
   })
 
+  it('defines immutable metric grammar for every approved exact-rig head and no implicit fallback', async () => {
+    const manifest = JSON.parse(
+      await readFile(resolve(process.cwd(), 'asset-source/v0.3.0/interface-manifest.json'), 'utf8'),
+    ) as InterfaceSourceManifest
+    const approvedHeads = structuralVariants(manifest).filter(item => (
+      item.slotId === 'headShape' && HEAD_IDS.includes(item.partId)
+    ))
+
+    expect(approvedHeads).toHaveLength(12)
+    for (const head of approvedHeads) {
+      expect(() => approvedNeckMetricBaseline(head.rigId, head.partId)).not.toThrow()
+    }
+    expect(() => approvedNeckMetricBaseline('biped', 'head_future_unknown')).toThrow(/immutable neck metric grammar/u)
+  })
+
   it('rejects the authored biped mushroom stem independently of receiver depth', async () => {
     const root = process.cwd()
     const manifest = JSON.parse(
@@ -33,6 +49,7 @@ describe('body/head visible connector tongue', () => {
     const ratio = await measureCentralLobeDepthRatio({
       imagePath: resolve(root, 'asset-source/v0.3.0/production/nodes/head_mushroom_cap/neck.png'),
       rigId: 'biped',
+      headId: 'head_mushroom_cap',
       connector: plug,
     })
     expect(ratio).toBeGreaterThan(MAX_CENTRAL_LOBE_DEPTH_RATIO)
@@ -69,11 +86,13 @@ describe('body/head visible connector tongue', () => {
     const baselineLobe = await measureCentralLobeDepthRatio({
       imagePath: resolve(root, oldHead.renderNodes[0]!.sourcePngPath),
       rigId: 'biped',
+      headId: 'head_mushroom_cap',
       connector: oldHead.connectors.find(item => item.id === 'neck')!,
     })
     const scaledLobe = await measureCentralLobeDepthRatio({
       imagePath: resolve(root, oldHead.renderNodes[0]!.sourcePngPath),
       rigId: 'biped',
+      headId: 'head_mushroom_cap',
       connector: scale(oldHead).connectors.find(item => item.id === 'neck')!,
     })
     const baselineVisible = await measureVisibleConnectorTongue({ root, body, head: oldHead })
@@ -106,6 +125,7 @@ describe('body/head visible connector tongue', () => {
           centralLobeDepthRatio: await measureCentralLobeDepthRatio({
             imagePath: resolve(root, head.renderNodes[0]!.sourcePngPath),
             rigId,
+            headId: head.partId,
             connector: head.connectors.find(item => item.id === 'neck')!,
           }),
           ...(await measureVisibleConnectorTongue({ root, body, head })),
