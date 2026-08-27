@@ -13,6 +13,7 @@ import {
   validateInterfaceProductionReadiness,
   validateInterfacePromptEvidence,
   validateInterfaceSlice,
+  validateLimbApproval,
   validateLimbReview,
 } from './validate-interface-slice.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
@@ -50,6 +51,14 @@ describe('validateInterfaceSlice', () => {
       expect.objectContaining({ code: 'LIMB_REVIEW_THRESHOLD_INVALID', path: ['blob', 'thresholds', 'childOutsideBodyRatioMin'] }),
     )
   }, 30_000)
+
+  it('requires one user-approved Task 8 acceptance bound to all live limb review bytes and amendments', async () => {
+    const repositoryRoot = process.cwd()
+    const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
+    const result = await validateLimbApproval({ repositoryRoot, reviewRoot })
+    expect(result.entryCount).toBe(60)
+    expect(result.diagnostics).toEqual([])
+  })
 
   it('keeps retired guide evidence outside the canonical active guide inventory', async () => {
     const result = await validateInterfaceSlice({
@@ -233,19 +242,23 @@ describe('validateInterfaceSlice', () => {
     )
   }, 120_000)
 
-  it('requires the pending connector amendment to replace, not coexist with, live Task 7 approval', async () => {
+  it('requires the Task 7 reapproval to bind the connector amendment and unchanged visual evidence', async () => {
     const repositoryRoot = process.cwd()
     const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
     const result = await validateBodyHeadApproval({ repositoryRoot, reviewRoot })
     expect(result.entryCount).toBe(20)
     expect(result.diagnostics).toEqual([])
-    await expect(readFile(join(reviewRoot, 'body-head-contact-sheets-acceptance.json'))).rejects.toMatchObject({ code: 'ENOENT' })
+    const acceptance = JSON.parse(await readFile(join(reviewRoot, 'body-head-contact-sheets-acceptance.json'), 'utf8'))
+    expect(acceptance).toMatchObject({
+      decision: 'approved', userApproved: true, approvalResponse: 'A',
+      reapproval: { reason: 'body_blob_wide-shoulder-connector-amendment', visualArtifactsByteIdentical: true },
+    })
     const superseded = JSON.parse(await readFile(join(
       reviewRoot, 'superseded', 'task7-pre-wide-shoulder-amendment',
       'body-head-contact-sheets-acceptance.pre-amendment.json',
     ), 'utf8'))
     expect(await validateBodyHeadAcceptanceDocument({ document: superseded, repositoryRoot, reviewRoot })).toContainEqual(
-      expect.objectContaining({ code: 'BODY_HEAD_ACCEPTANCE_REVIEW_RECORD_INVALID' }),
+      expect.objectContaining({ code: 'BODY_HEAD_REAPPROVAL_BINDING_INVALID' }),
     )
   }, 60_000)
 

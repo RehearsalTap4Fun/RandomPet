@@ -1,7 +1,7 @@
 {
   "schemaVersion": "body-head-connector-amendment-v1",
-  "status": "WAITING_FOR_USER_REAPPROVAL",
-  "userApproved": false,
+  "status": "APPROVED",
+  "userApproved": true,
   "userDecision": "B",
   "latestThresholdDecision": "C",
   "scope": {
@@ -793,5 +793,7 @@
   "notes": [
     "The historical Task 7 approval is preserved but no longer applies to amended shoulder metadata.",
     "No amendment acceptance exists; user reapproval is required after Task 7 and Task 8 visual review."
-  ]
+  ],
+  "reapprovalDecision": "A",
+  "reapprovedAt": "2026-08-27T02:22:50.208Z"
 }

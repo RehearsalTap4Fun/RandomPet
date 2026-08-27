@@ -1,11 +1,11 @@
 {
   "schemaVersion": "body-head-review-amendment-v1",
-  "status": "WAITING_FOR_USER_REAPPROVAL",
-  "decision": "pending",
-  "reviewer": "Codex visual self-review",
-  "userApproved": false,
-  "latestUserDecision": "C",
-  "latestUserFeedback": "Authorized one global visible-limb outside-alpha threshold of exactly 0.614 while retaining the hash-bound x490/1558 shoulder and c3 composition.",
+  "status": "APPROVED",
+  "decision": "approved",
+  "reviewer": "user",
+  "userApproved": true,
+  "latestUserDecision": "A",
+  "latestUserFeedback": "Approved the unchanged Task 7 visual matrices under the body_blob_wide x490/1558 shoulder connector amendment.",
   "entryCount": 20,
   "entryCountByRig": {
     "blob": 8,
@@ -37,5 +37,7 @@
     "path": "packages/asset-catalog/review/v0.3.0/superseded/task7-pre-wide-shoulder-amendment/pre-amendment-evidence.json",
     "sha256": "7e4de691a3c8acd93eb57f3033883610e289216d483e754c99f8a34459b35caa"
   },
-  "amendmentRecord": "packages/asset-catalog/review/v0.3.0/body-head-connector-amendment.json"
+  "amendmentRecord": "packages/asset-catalog/review/v0.3.0/body-head-connector-amendment.json",
+  "approvalResponse": "A",
+  "reviewedAt": "2026-08-27T02:22:50.208Z"
 }

@@ -1,8 +1,8 @@
 {
   "schemaVersion": "limb-self-review-v1",
-  "status": "WAITING_FOR_USER_APPROVAL",
-  "reviewer": "Codex visual self-review",
-  "userApproved": false,
+  "status": "APPROVED",
+  "reviewer": "user",
+  "userApproved": true,
   "mode": "all",
   "selections": {
     "arms_short_plush:blob": 3,
@@ -22,5 +22,14 @@
     "legs_webbed:floating": 1,
     "legs_mushroom:floating": 1,
     "legs_shadow_tiptoe:floating": 1
+  },
+  "decision": "approved",
+  "approvalResponse": "A",
+  "reviewedAt": "2026-08-27T02:22:50.208Z",
+  "entryCount": 60,
+  "entryCountByRig": {
+    "blob": 24,
+    "biped": 24,
+    "floating": 12
   }
 }

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "limb-acceptance-v1",
+  "catalogVersion": "0.3.0",
+  "rendererVersion": "0.3.0",
+  "decision": "approved",
+  "reviewedAt": "2026-08-27T02:22:50.208Z",
+  "reviewer": "user",
+  "userApproved": true,
+  "approvalResponse": "A",
+  "entryCount": 60,
+  "entryCountByRig": {
+    "blob": 24,
+    "biped": 24,
+    "floating": 12
+  },
+  "artifacts": [
+    {
+      "rigId": "blob",
+      "originalPath": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-blob.png",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-blob-256.png",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-blob-manifest.json",
+      "originalSha256": "482193fd33505284e764b814e6cbc03be5b5b32399e76c1afe765f621000e699",
+      "review256Sha256": "3727a7d2837b3dd4bface6f756286be66ddd4a0b015e41f2922d3d8eeaa390d6",
+      "manifestSha256": "86a2799685294805f17bbe64fe9c61b1287749b62c6b0c1e7549f9f7091e0c7c"
+    },
+    {
+      "rigId": "biped",
+      "originalPath": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped.png",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped-256.png",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped-manifest.json",
+      "originalSha256": "4a6024bda8ee955f8d69512509630123244a3aea7dfab8cc6fec28aefd9e0c05",
+      "review256Sha256": "ba7238ea42b18d72ddd4edb1e65bd786e9a66e1905d37ed554be3ad78f5c34b1",
+      "manifestSha256": "68fe6cc9b92a5febe183028d5ad0d2bfc01d641df19ea9a8ca73da36a5ca60ee"
+    },
+    {
+      "rigId": "floating",
+      "originalPath": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-floating.png",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-floating-256.png",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-floating-manifest.json",
+      "originalSha256": "62384d0d8b7aca079b6112efa01c6c8bbd4ee377579d621246553874cacef0bb",
+      "review256Sha256": "d80bf4a13468afc60ac712276ec8e713b8fa12223447744adb3b91d5aa62f103",
+      "manifestSha256": "c83d16ea0ff7e14d88d9200c4de7624d3460e88316d5ece2f40d1134a8d67115"
+    }
+  ],
+  "reviewRecord": {
+    "path": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+    "sha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a"
+  },
+  "thresholdContract": {
+    "path": "packages/asset-catalog/review/v0.3.0/visible-limb-threshold-amendment.json",
+    "sha256": "2971fd0cd8b076944f3204ea8cb55643dd554510a296d25f01b0fb57c5ab27d6",
+    "activeMinimum": 0.614,
+    "rejects": 0.613999,
+    "noOverrides": true
+  },
+  "connectorAmendment": {
+    "path": "packages/asset-catalog/review/v0.3.0/body-head-connector-amendment.json",
+    "sha256": "2b3c958f50533ae61e49f04ca2d51b3bcee944ebb809f315cafb6b72d8a20806",
+    "bodyId": "body_blob_wide",
+    "shoulderOrigins": {
+      "left": 490,
+      "right": 1558
+    }
+  },
+  "task7Reapproval": {
+    "path": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheets-acceptance.json",
+    "sha256": "74714be881de769c03a609008b960f7c4cbc8e6ce808ee7c50b2dbf2f8ed7ba8"
+  },
+  "productionEvidence": {
+    "path": "asset-source/v0.3.0/generation/task8-limb-production.json",
+    "sha256": "20ddbe969532e752d5d97d979fd3e02455b371bb975c269fa1ac668c83e15993",
+    "imageGenCalls": 35,
+    "targetedRegenerationCalls": 18
+  },
+  "causalMetrics": {
+    "thresholds": {
+      "receiverCoverageMin": 0.9,
+      "plugCoverageMin": 0.9,
+      "largestComponentRatioMin": 0.99,
+      "centerlineGapPixelsMax": 2,
+      "childOutsideBodyRatioMin": 0.614
+    },
+    "results": {
+      "entryCount": 60,
+      "receiverCoverageMin": 0.9018838507625272,
+      "plugCoverageMin": 0.9222820884723295,
+      "largestComponentRatioMin": 0.999977511237958,
+      "centerlineGapPixelsMax": 0.011764705882352955,
+      "childOutsideBodyRatioMin": 0.6147777796310275
+    }
+  },
+  "notes": [
+    "User selected A and approved all 60 exact-rig limb matrix cells.",
+    "Approval is exact to the six sheets, three manifests, review record, global threshold, connector amendment, and Task 7 reapproval hashes recorded here."
+  ]
+}

@@ -1255,7 +1255,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
@@ -1274,7 +1274,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_mushroom_cap.png",
@@ -1293,7 +1293,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_mushroom_cap.png",
@@ -1335,7 +1335,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/arms_short_plush.png",
@@ -1358,7 +1358,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/arms_short_plush.png",
@@ -1404,7 +1404,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/arms_long_noodle.png",
@@ -1427,7 +1427,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/arms_long_noodle.png",
@@ -1473,7 +1473,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/legs_webbed.png",
@@ -1496,7 +1496,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/legs_webbed.png",
@@ -1542,7 +1542,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/legs_mushroom.png",
@@ -1565,7 +1565,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/legs_mushroom.png",
@@ -1588,7 +1588,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
         "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/body_blob_round.png",
@@ -1607,7 +1607,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
         "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/body_blob_wide.png",
@@ -1626,7 +1626,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
         "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/body_floating_drop.png",
@@ -1645,7 +1645,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.png",
@@ -1664,7 +1664,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_round_dome.png",
@@ -1683,7 +1683,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_round_dome.png",
@@ -1702,7 +1702,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.png",
@@ -1721,7 +1721,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_angler_bulb.png",
@@ -1740,7 +1740,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_angler_bulb.png",
@@ -1759,7 +1759,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.png",
@@ -1778,7 +1778,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_shadow_hood.png",
@@ -1797,7 +1797,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
         "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
-        "reviewRecordSha256": "6ce29251ae7b1ac85964f6ca7dc1472e7a504681a9350c30e1e27dd6a4d8f03e",
+        "reviewRecordSha256": "d998ee8cdbc3864f925a67d914b112681207d04871f76910cdcf6b04f2bec7aa",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_shadow_hood.png",
@@ -1816,7 +1816,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/arms_paddle.png",
@@ -1839,7 +1839,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/arms_paddle.png",
@@ -1862,7 +1862,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/arms_paddle.png",
@@ -1885,7 +1885,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/legs_stub_feet.png",
@@ -1908,7 +1908,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/legs_stub_feet.png",
@@ -1931,7 +1931,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/legs_stub_feet.png",
@@ -1954,7 +1954,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/blob/legs_shadow_tiptoe.png",
@@ -1977,7 +1977,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/biped/legs_shadow_tiptoe.png",
@@ -2000,7 +2000,7 @@
         "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
         "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
         "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
-        "reviewRecordSha256": "b32f9f3e725205daad59065c269b4450df3b2848c529e64ff9c63400ba08cefb",
+        "reviewRecordSha256": "b8dcb5c9a886632d639010bbac33ae86371393252cf4410fe9a81d5908b6998a",
         "sourceResources": [
           {
             "path": "asset-source/v0.3.0/structural/floating/legs_shadow_tiptoe.png",

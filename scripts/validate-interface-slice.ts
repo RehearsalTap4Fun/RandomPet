@@ -382,6 +382,55 @@ export async function validateLimbReview(input: { repositoryRoot: string; review
   return { diagnostics, entryCountByRig }
 }
 
+export async function validateLimbApproval(input: { repositoryRoot: string; reviewRoot: string }): Promise<{
+  diagnostics: Diagnostic[]
+  entryCount: number
+}> {
+  const diagnostics: Diagnostic[] = []
+  const path = resolve(input.reviewRoot, 'limb-contact-sheets-acceptance.json')
+  let document: any
+  try { document = JSON.parse(await readFile(path, 'utf8')) } catch {
+    return { diagnostics: [error('LIMB_ACCEPTANCE_MISSING', ['limbAcceptance'], 'Canonical Task 8 limb acceptance is missing.')], entryCount: 0 }
+  }
+  if (document.schemaVersion !== 'limb-acceptance-v1' || document.decision !== 'approved' || document.reviewer !== 'user' || document.userApproved !== true || document.approvalResponse !== 'A' || document.entryCount !== 60 || document.entryCountByRig?.blob !== 24 || document.entryCountByRig?.biped !== 24 || document.entryCountByRig?.floating !== 12) {
+    diagnostics.push(error('LIMB_ACCEPTANCE_FIELDS_INVALID', ['limbAcceptance'], 'Task 8 acceptance must record the exact user A approval and 24/24/12 matrix.'))
+  }
+  const expectedArtifacts = new Set((['blob', 'biped', 'floating'] as const).flatMap(rigId => {
+    const stem = `packages/asset-catalog/review/v0.3.0/limb-contact-sheet-${rigId}`
+    return [`${stem}.png`, `${stem}-256.png`, `${stem}-manifest.json`]
+  }))
+  const artifacts = Array.isArray(document.artifacts) ? document.artifacts : []
+  const declared = artifacts.flatMap((item: any) => [
+    [item.originalPath, item.originalSha256], [item.review256Path, item.review256Sha256], [item.manifestPath, item.manifestSha256],
+  ] as Array<[string, string]>)
+  if (artifacts.length !== 3 || declared.length !== 9 || new Set(declared.map(([item]) => item)).size !== 9 || declared.some(([item]) => !expectedArtifacts.has(item))) {
+    diagnostics.push(error('LIMB_ACCEPTANCE_ARTIFACT_SET_INVALID', ['limbAcceptance', 'artifacts'], 'Task 8 acceptance must bind the exact six sheets and three manifests.'))
+  } else for (const [index, [portablePath, expectedHash]] of declared.entries()) {
+    try {
+      if (sha256Bytes(await readFile(resolve(input.repositoryRoot, portablePath))) !== expectedHash) diagnostics.push(error('LIMB_ACCEPTANCE_ARTIFACT_HASH_INVALID', ['limbAcceptance', 'artifacts', String(index)], 'Approved limb artifact hash differs from live bytes.'))
+    } catch { diagnostics.push(error('LIMB_ACCEPTANCE_ARTIFACT_MISSING', ['limbAcceptance', 'artifacts', String(index)], 'Approved limb artifact is missing.')) }
+  }
+  for (const [field, expectedPath] of [
+    ['reviewRecord', 'packages/asset-catalog/review/v0.3.0/limb-review-record.json'],
+    ['thresholdContract', 'packages/asset-catalog/review/v0.3.0/visible-limb-threshold-amendment.json'],
+    ['connectorAmendment', 'packages/asset-catalog/review/v0.3.0/body-head-connector-amendment.json'],
+    ['task7Reapproval', 'packages/asset-catalog/review/v0.3.0/body-head-contact-sheets-acceptance.json'],
+  ] as const) {
+    const binding = document[field]
+    try {
+      if (binding?.path !== expectedPath || sha256Bytes(await readFile(resolve(input.repositoryRoot, expectedPath))) !== binding.sha256) diagnostics.push(error('LIMB_ACCEPTANCE_BINDING_INVALID', ['limbAcceptance', field], `Task 8 acceptance ${field} binding differs from live bytes.`))
+    } catch { diagnostics.push(error('LIMB_ACCEPTANCE_BINDING_INVALID', ['limbAcceptance', field], `Task 8 acceptance ${field} binding is missing.`)) }
+  }
+  if (document.thresholdContract?.activeMinimum !== 0.614 || document.thresholdContract?.rejects !== 0.613999 || document.thresholdContract?.noOverrides !== true || document.connectorAmendment?.shoulderOrigins?.left !== 490 || document.connectorAmendment?.shoulderOrigins?.right !== 1558 || document.causalMetrics?.results?.childOutsideBodyRatioMin < 0.614) {
+    diagnostics.push(error('LIMB_ACCEPTANCE_CONTRACT_INVALID', ['limbAcceptance', 'contract'], 'Acceptance must bind the exact global 0.614 contract and x490/1558 connector amendment.'))
+  }
+  try {
+    const review = JSON.parse(await readFile(resolve(input.repositoryRoot, document.reviewRecord.path), 'utf8'))
+    if (review.status !== 'APPROVED' || review.userApproved !== true || review.approvalResponse !== 'A') diagnostics.push(error('LIMB_ACCEPTANCE_REVIEW_INVALID', ['limbAcceptance', 'reviewRecord'], 'Canonical limb review record is not approved by user A.'))
+  } catch { diagnostics.push(error('LIMB_ACCEPTANCE_REVIEW_INVALID', ['limbAcceptance', 'reviewRecord'], 'Cannot read the canonical limb review record.')) }
+  return { diagnostics, entryCount: diagnostics.length === 0 ? 60 : 0 }
+}
+
 export async function validateBodyHeadReview(input: { repositoryRoot: string; reviewRoot: string }): Promise<{
   diagnostics: Diagnostic[]
   entryCountByRig: Record<InterfaceRigId, number>
@@ -666,6 +715,20 @@ export async function validateBodyHeadAcceptanceDocument(input: {
     || document.entryCountByRig?.biped !== 8
     || document.entryCountByRig?.floating !== 4
   ) diagnostics.push(error('BODY_HEAD_ACCEPTANCE_FIELDS_INVALID', ['acceptance'], 'Approval fields, versions, decision, or canonical entry counts are invalid.'))
+  if (document.reapproval === undefined) {
+    diagnostics.push(error('BODY_HEAD_REAPPROVAL_BINDING_INVALID', ['acceptance', 'reapproval'], 'Current Task 7 acceptance must bind the approved connector amendment and unchanged review evidence.'))
+  } else {
+    try {
+      const amendmentBytes = await readFile(resolve(input.repositoryRoot, document.reapproval.amendmentPath))
+      const reviewBytes = await readFile(resolve(input.repositoryRoot, document.reapproval.reviewRecordPath))
+      if (
+        document.reapproval.reason !== 'body_blob_wide-shoulder-connector-amendment'
+        || sha256Bytes(amendmentBytes) !== document.reapproval.amendmentSha256
+        || sha256Bytes(reviewBytes) !== document.reapproval.reviewRecordSha256
+        || document.reapproval.visualArtifactsByteIdentical !== true
+      ) diagnostics.push(error('BODY_HEAD_REAPPROVAL_BINDING_INVALID', ['acceptance', 'reapproval'], 'Task 7 reapproval must bind the exact connector amendment, review record, and unchanged visual evidence.'))
+    } catch { diagnostics.push(error('BODY_HEAD_REAPPROVAL_BINDING_INVALID', ['acceptance', 'reapproval'], 'Task 7 reapproval binding is missing.')) }
+  }
   if (typeof document.reviewedAt !== 'string' || !Number.isFinite(Date.parse(document.reviewedAt))) {
     diagnostics.push(error('BODY_HEAD_ACCEPTANCE_TIME_INVALID', ['acceptance', 'reviewedAt'], 'reviewedAt must be a valid timestamp.'))
   }
@@ -895,6 +958,7 @@ async function main(): Promise<void> {
   let bodyHeadEntriesChecked: Record<InterfaceRigId, number> | undefined
   let bodyHeadApprovalEntriesChecked = 0
   let limbEntriesChecked: Record<InterfaceRigId, number> | undefined
+  let limbApprovalEntriesChecked = 0
   if (diagnostics.length === 0 && scope === 'body-head') {
     const review = await validateBodyHeadReview({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
     bodyHeadEntriesChecked = review.entryCountByRig
@@ -909,9 +973,14 @@ async function main(): Promise<void> {
     const review = await validateLimbReview({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
     limbEntriesChecked = review.entryCountByRig
     diagnostics.push(...review.diagnostics)
+    if (diagnostics.length === 0) {
+      const approval = await validateLimbApproval({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
+      limbApprovalEntriesChecked = approval.entryCount
+      diagnostics.push(...approval.diagnostics)
+    }
   }
   for (const diagnostic of diagnostics) console.error(`ERROR ${diagnostic.code} ${diagnostic.path.join('.')}: ${diagnostic.message}`)
-  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, bodyHeadApprovalEntriesChecked, limbEntriesChecked, diagnostics: diagnostics.length }))
+  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, bodyHeadApprovalEntriesChecked, limbEntriesChecked, limbApprovalEntriesChecked, diagnostics: diagnostics.length }))
   if (diagnostics.length > 0) process.exitCode = 1
 }
 
