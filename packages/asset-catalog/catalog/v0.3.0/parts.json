@@ -11124,7 +11124,7 @@
       "variantsByRig": {
         "blob": {
           "rigId": "blob",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "tail_soft_curl-blob-tailRoot",
@@ -11201,7 +11201,7 @@
         },
         "biped": {
           "rigId": "biped",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "tail_soft_curl-biped-tailRoot",
@@ -11278,7 +11278,7 @@
         },
         "floating": {
           "rigId": "floating",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "tail_soft_curl-floating-tailRoot",
@@ -12166,7 +12166,7 @@
       "variantsByRig": {
         "blob": {
           "rigId": "blob",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "extra_soft_tentacles-blob-extraLeft",
@@ -12312,7 +12312,7 @@
         },
         "biped": {
           "rigId": "biped",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "extra_soft_tentacles-biped-extraLeft",
@@ -12458,7 +12458,7 @@
         },
         "floating": {
           "rigId": "floating",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "extra_soft_tentacles-floating-extraLeft",
@@ -12649,7 +12649,7 @@
       "variantsByRig": {
         "blob": {
           "rigId": "blob",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "extra_side_fins-blob-extraLeft",
@@ -12795,7 +12795,7 @@
         },
         "biped": {
           "rigId": "biped",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "extra_side_fins-biped-extraLeft",
@@ -12941,7 +12941,7 @@
         },
         "floating": {
           "rigId": "floating",
-          "materialFamily": "short-fur",
+          "materialFamily": "soft-skin",
           "renderNodes": [
             {
               "id": "extra_side_fins-floating-extraLeft",

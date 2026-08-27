@@ -1,7 +1,8 @@
 import { createHash } from 'node:crypto'
-import { readFile, realpath } from 'node:fs/promises'
-import { isAbsolute, relative, resolve } from 'node:path'
+import { realpath } from 'node:fs/promises'
+import { isAbsolute, resolve } from 'node:path'
 import type { Diagnostic } from '@qmonster/generator-core'
+import { assertPortableRepositoryLeaf, readTrustedRepositoryFile } from './trusted-repository-file.js'
 
 function portableSourcePrefix(sourceIndex: unknown): string | null {
   const version = record(sourceIndex)?.catalogVersion
@@ -173,13 +174,13 @@ export async function validateProductionSourceFiles(
       continue
     }
     const suffix = portable.slice(sourcePrefix.length)
-    const unresolved = resolve(canonicalRoot, suffix)
-    const rootRelative = relative(canonicalRoot, unresolved)
-    if (suffix === '' || rootRelative.startsWith('..') || isAbsolute(rootRelative)) {
+    try {
+      assertPortableRepositoryLeaf(suffix)
+    } catch {
       diagnostics.push(error('PRODUCTION_SOURCE_FILE_PATH_INVALID', claim.diagnosticPath, 'Source path escapes the injected source root.'))
       continue
     }
-    const previous = unique.get(unresolved)
+    const previous = unique.get(suffix)
     if (previous !== undefined && (
       previous.sha256 !== claim.sha256
       || previous.prompt !== claim.prompt
@@ -188,19 +189,23 @@ export async function validateProductionSourceFiles(
       diagnostics.push(error('PRODUCTION_SOURCE_FILE_CLAIM_CONFLICT', claim.diagnosticPath, 'The same source file has conflicting provenance claims.'))
       continue
     }
-    unique.set(unresolved, claim)
+    unique.set(suffix, claim)
   }
 
-  for (const [unresolved, claim] of unique) {
-    let canonicalFile: string
+  for (const [suffix, claim] of unique) {
     let bytes: Buffer
     try {
-      canonicalFile = await realpath(unresolved)
-      const rootRelative = relative(canonicalRoot, canonicalFile)
-      if (rootRelative.startsWith('..') || isAbsolute(rootRelative)) throw new Error('resolved path escaped root')
-      bytes = await readFile(canonicalFile)
-    } catch {
-      diagnostics.push(error('PRODUCTION_SOURCE_FILE_MISSING', claim.diagnosticPath, `Cannot resolve/read source-rich file ${claim.path}.`))
+      bytes = (await readTrustedRepositoryFile(canonicalRoot, suffix)).bytes
+    } catch (caught) {
+      const message = caught instanceof Error ? caught.message : ''
+      const invalidFile = message.includes('symbolic link') || message.includes('single-link') || message.includes('regular file')
+      diagnostics.push(error(
+        invalidFile ? 'PRODUCTION_SOURCE_FILE_INVALID' : 'PRODUCTION_SOURCE_FILE_MISSING',
+        claim.diagnosticPath,
+        invalidFile
+          ? `Source-rich file must be a direct single-link regular file: ${claim.path}.`
+          : `Cannot resolve/read source-rich file ${claim.path}.`,
+      ))
       continue
     }
 

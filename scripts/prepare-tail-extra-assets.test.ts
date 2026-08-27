@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
-import { auditTask9BridgeSplits, auditTask9DistalFits, auditTask9EdgeResidual, auditTask9ReceiverSupports, deriveTask9ConnectorContracts, deriveTask9TangentWindows, extractTask9Candidate, normalizeTask9Extra, normalizeTask9Tail, prepareTask9StructuralAssets, resolveTask9ProcessedBodyKey, runTask9PreparationTransaction, synchronizeTask9SourceIndex, task9ReceiverSockets, task9StructuralSelections } from './prepare-tail-extra-assets.js'
+import { auditTask9BridgeSplits, auditTask9DistalFits, auditTask9EdgeResidual, auditTask9ReceiverSupports, deriveTask9ConnectorContracts, deriveTask9TangentWindows, extractTask9Candidate, normalizeTask9Extra, normalizeTask9Tail, prepareTask9StructuralAssets, rebuildTask9BridgeSplits, resolveTask9ProcessedBodyKey, runTask9PreparationTransaction, synchronizeTask9SourceIndex, task9ReceiverSockets, task9StructuralSelections } from './prepare-tail-extra-assets.js'
 import { TASK9_BODY_RIG_IDS, TASK9_EXTRA_IDS, TASK9_TAIL_IDS } from './task9-structural-identities.js'
 
 const temporaryRoots: string[] = []
@@ -80,6 +80,11 @@ describe('prepare tail and extra assets', () => {
     temporaryRoots.push(root)
     await expect(prepareTask9StructuralAssets({ repositoryRoot: root }))
       .rejects.toThrow('TASK9_PREPARE_REPOSITORY_ROOT_INVALID')
+  })
+
+  it('rejects a public preparation writer without an explicit transaction capability', async () => {
+    await expect(rebuildTask9BridgeSplits(undefined as never))
+      .rejects.toThrow('TASK9_PREPARE_TRANSACTION_REQUIRED')
   })
 
   it('freezes 18 exact-rig structural selections and three receiver sockets per body identity', () => {

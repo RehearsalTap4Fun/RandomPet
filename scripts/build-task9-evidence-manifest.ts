@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { lstat, mkdir, readFile, readdir, realpath, stat, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, realpath, writeFile } from 'node:fs/promises'
 import { isAbsolute, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { execFile as execFileCallback } from 'node:child_process'
@@ -10,11 +10,15 @@ import {
   type ProductionEvidenceManifest,
   type Task9EvidenceDependency,
 } from '../packages/asset-catalog/src/evidence-root.js'
+import {
+  collectCanonicalInterfaceGuideSeeds,
+  collectEvidenceDependencyClosure,
+  collectExpectedTask9EvidenceDependencies,
+} from '../packages/asset-catalog/src/task9-evidence-dependencies.js'
+import { readTrustedRepositoryFile } from '../packages/asset-catalog/src/trusted-repository-file.js'
 import { measureCompositionDistribution } from './composition-statistics.js'
-import { canonicalBipedGuideFiles, type InterfaceSourceManifest } from './interface-source-schema.js'
-import { resolveExistingContainedPath } from './safe-output.js'
 
-interface DependencySeed { path: string; group: string }
+export { collectCanonicalInterfaceGuideSeeds, collectEvidenceDependencyClosure }
 const execFile = promisify(execFileCallback)
 const TASK9_ASSET_ROOT = 'packages/asset-catalog/assets/v0.3.0'
 export const TASK9_STALE_BASELINE_COMMIT = '31a3f1d903412f9ad6dbf84982075aac54bc6297'
@@ -99,158 +103,9 @@ export async function writeTask9StaleRemovalAudit(repositoryRoot: string, baseli
   return audit
 }
 
-export async function collectCanonicalInterfaceGuideSeeds(
-  repositoryRoot: string,
-  manifest: InterfaceSourceManifest,
-): Promise<DependencySeed[]> {
-  const seeds = canonicalBipedGuideFiles(manifest).map(name => ({
-    path: `asset-source/v0.3.0/guides/${name}`,
-    group: 'interface-guides',
-  }))
-  for (const seed of seeds) {
-    try {
-      await resolveExistingContainedPath(repositoryRoot, seed.path)
-    } catch {
-      throw new Error(`Missing canonical interface guide dependency: ${seed.path}`)
-    }
-  }
-  return seeds
-}
-
 function portable(path: string): string {
   return path.replaceAll('\\', '/')
 }
-
-function containedRepositoryPath(repositoryRoot: string, path: string): string {
-  const target = resolve(repositoryRoot, path)
-  const remainder = relative(repositoryRoot, target)
-  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Task 9 dependency escapes repository root: ${path}`)
-  return target
-}
-
-function normalizeReference(path: string): string | undefined {
-  const normalized = portable(path)
-  if (normalized.startsWith('assets/v0.3.0/')) return `packages/asset-catalog/${normalized}`
-  if (/^(?:asset-source|packages|scripts|apps|tests|docs)\//u.test(normalized)) return normalized
-  return undefined
-}
-
-function referencedPaths(value: unknown, key = ''): string[] {
-  if (Array.isArray(value)) return value.flatMap(item => referencedPaths(item, key))
-  if (value === null || typeof value !== 'object') {
-    if (typeof value !== 'string' || !(key === 'path' || key.toLowerCase().endsWith('path'))) return []
-    const normalized = normalizeReference(value)
-    return normalized === undefined ? [] : [normalized]
-  }
-  return Object.entries(value).flatMap(([childKey, child]) => referencedPaths(child, childKey))
-}
-
-async function recursiveFiles(repositoryRoot: string, directory: string): Promise<string[]> {
-  const root = containedRepositoryPath(repositoryRoot, directory)
-  const files: string[] = []
-  const visit = async (current: string): Promise<void> => {
-    for (const entry of await readdir(current, { withFileTypes: true })) {
-      const target = resolve(current, entry.name)
-      if (entry.isDirectory()) await visit(target)
-      else if (entry.isFile()) files.push(portable(relative(repositoryRoot, target)))
-    }
-  }
-  await visit(root)
-  return files
-}
-
-export async function collectEvidenceDependencyClosure(input: {
-  repositoryRoot: string
-  seedFiles: DependencySeed[]
-  recursiveDirectories: DependencySeed[]
-}): Promise<Task9EvidenceDependency[]> {
-  const repositoryRoot = await realpath(resolve(input.repositoryRoot))
-  const groups = new Map<string, Set<string>>()
-  const documentQueue: string[] = []
-  const parsedDocuments = new Set<string>()
-  const add = (path: string, group: string): void => {
-    const normalized = portable(path)
-    if (normalized === 'packages/asset-catalog/audit/v0.3.0/evidence-manifest.json') {
-      throw new Error('Task 9 evidence dependency graph must not contain its own manifest.')
-    }
-    const existing = groups.get(normalized) ?? new Set<string>()
-    existing.add(group)
-    groups.set(normalized, existing)
-    if (normalized.endsWith('.json')) documentQueue.push(normalized)
-  }
-  for (const seed of input.seedFiles) add(seed.path, seed.group)
-  for (const directory of input.recursiveDirectories) {
-    for (const path of await recursiveFiles(repositoryRoot, directory.path)) add(path, directory.group)
-  }
-  while (documentQueue.length > 0) {
-    const documentPath = documentQueue.shift()!
-    if (parsedDocuments.has(documentPath)) continue
-    parsedDocuments.add(documentPath)
-    const canonicalDocument = await resolveExistingContainedPath(repositoryRoot, documentPath)
-      .catch(error => {
-        if (error instanceof Error && error.message.includes('escapes output root')) {
-          throw new Error(`Task 9 dependency escapes repository root: ${documentPath}`)
-        }
-        throw error
-      })
-    const document = JSON.parse(await readFile(canonicalDocument, 'utf8')) as unknown
-    const inheritedGroups = [...groups.get(documentPath)!]
-    for (const reference of referencedPaths(document)) {
-      for (const group of inheritedGroups) add(reference, group)
-    }
-  }
-  const dependencies: Task9EvidenceDependency[] = []
-  for (const [path, pathGroups] of [...groups].sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)) {
-    const lexical = containedRepositoryPath(repositoryRoot, path)
-    const canonical = await realpath(lexical)
-    const remainder = relative(repositoryRoot, canonical)
-    if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Task 9 dependency escaped repository root: ${path}`)
-    const [link, metadata] = await Promise.all([lstat(lexical), stat(canonical)])
-    if (link.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) throw new Error(`Task 9 dependency is not a direct single-link regular file: ${path}`)
-    dependencies.push({
-      path,
-      sha256: createHash('sha256').update(await readFile(canonical)).digest('hex'),
-      groups: [...pathGroups].sort(),
-    })
-  }
-  return dependencies
-}
-
-const SEED_FILES: DependencySeed[] = [
-  ...['catalog.json', 'parts.json', 'semantic-traits.json', 'themes.json', 'rigs.json', 'modifiers.json']
-    .map(name => ({ path: `packages/asset-catalog/catalog/v0.3.0/${name}`, group: 'catalog' })),
-  { path: 'packages/asset-catalog/source-index-v0.3.0.json', group: 'source-index' },
-  { path: 'asset-source/v0.3.0/interface-manifest.json', group: 'interface-manifest' },
-  { path: 'asset-source/v0.3.0/production/processed-index.json', group: 'processed-index' },
-  { path: 'asset-source/v0.3.0/provenance/retained-v0.2-nonstructural.json', group: 'retained-provenance' },
-  { path: 'asset-source/v0.3.0/provenance/v0.3-structural-union-color-masks.json', group: 'color-provenance' },
-  { path: 'asset-source/v0.3.0/retained-v0.2/coordinate-metadata.json', group: 'retained-coordinate-metadata' },
-  { path: 'asset-source/v0.3.0/retained-v0.2/structural-union-alpha-index.json', group: 'color-structural-union' },
-  { path: 'packages/asset-catalog/audit/v0.3.0/task9-composition-statistics.json', group: 'composition-statistics' },
-  { path: 'packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json', group: 'pipeline-fixed-point' },
-  { path: 'packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json', group: 'stale-removal' },
-  { path: 'scripts/render-tail-extra-structural-matrices.ts', group: 'task9-live-renderer' },
-  { path: 'scripts/task9-structural-identities.ts', group: 'task9-live-renderer' },
-  { path: 'scripts/render-limb-contact-sheets.ts', group: 'task9-live-renderer' },
-  { path: 'apps/creator-web/src/render-test.ts', group: 'task9-live-renderer' },
-  { path: 'packages/renderer-canvas/src/render.ts', group: 'task9-live-renderer' },
-  { path: 'packages/renderer-canvas/src/types.ts', group: 'task9-live-renderer' },
-  ...[
-    'review-record.json', 'biped-vertical-slice-acceptance.json', 'task6-approved-input-integrity.json',
-    'body-head-contact-sheets-acceptance.json', 'body-head-review-record.json', 'body-head-connector-amendment.json',
-    'limb-contact-sheets-acceptance.json', 'limb-review-record.json', 'visible-limb-threshold-amendment.json',
-    'tail-extra-review-record.json', 'rework-record.json', 'structural-matrix-index.json',
-  ].map(name => ({ path: `packages/asset-catalog/review/v0.3.0/${name}`, group: 'task6-9-review' })),
-]
-
-const RECURSIVE_DIRECTORIES: DependencySeed[] = [
-  { path: 'asset-source/v0.3.0/generation/task9-candidates', group: 'task9-generation' },
-  { path: 'asset-source/v0.3.0/generation/task9-extracted', group: 'task9-generation' },
-  { path: 'asset-source/v0.3.0/generation/task9-normalized', group: 'task9-generation' },
-  { path: 'asset-source/v0.3.0/generation/task9-review', group: 'task9-generation-review' },
-  { path: 'asset-source/v0.3.0/production', group: 'production-provenance' },
-  { path: 'asset-source/v0.3.0/provenance', group: 'production-provenance' },
-]
 
 const TASK9_PIPELINE_FIXED_FILES = [
   'asset-source/v0.3.0/interface-manifest.json',
@@ -282,7 +137,7 @@ export async function task9PipelineScopeSnapshot(repositoryRoot: string): Promis
   for (const directory of TASK9_PIPELINE_FIXED_DIRECTORIES) await collect(directory)
   const records = await Promise.all([...new Set(paths)].sort().map(async path => ({
     path,
-    sha256: createHash('sha256').update(await readFile(await resolveExistingContainedPath(canonicalRoot, path))).digest('hex'),
+    sha256: (await readTrustedRepositoryFile(canonicalRoot, path)).sha256,
   })))
   return {
     fileCount: records.length,
@@ -320,11 +175,9 @@ export async function buildTask9EvidenceManifest(repositoryRoot = process.cwd())
   manifest: ProductionEvidenceManifest
   dependencies: Task9EvidenceDependency[]
 }> {
-  const readJson = async (path: string) => JSON.parse(await readFile(
-    await resolveExistingContainedPath(repositoryRoot, path), 'utf8',
-  ))
-  const interfaceManifest = await readJson('asset-source/v0.3.0/interface-manifest.json') as InterfaceSourceManifest
-  const guideSeeds = await collectCanonicalInterfaceGuideSeeds(repositoryRoot, interfaceManifest)
+  const readJson = async (path: string) => JSON.parse(
+    (await readTrustedRepositoryFile(repositoryRoot, path)).bytes.toString('utf8'),
+  )
   const [sourceIndex, catalog, statistics, pipeline, structuralReview, staleAudit, dependencies] = await Promise.all([
     readJson('packages/asset-catalog/source-index-v0.3.0.json'),
     readJson('packages/asset-catalog/catalog/v0.3.0/catalog.json'),
@@ -332,7 +185,7 @@ export async function buildTask9EvidenceManifest(repositoryRoot = process.cwd())
     readJson('packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json'),
     readJson('packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json'),
     readJson('packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json'),
-    collectEvidenceDependencyClosure({ repositoryRoot, seedFiles: [...SEED_FILES, ...guideSeeds], recursiveDirectories: RECURSIVE_DIRECTORIES }),
+    collectExpectedTask9EvidenceDependencies(repositoryRoot),
   ])
   const staleDiagnostics = await validateTask9StaleRemovalAudit(repositoryRoot, staleAudit)
   if (staleDiagnostics.length > 0) throw new Error(staleDiagnostics.join(','))

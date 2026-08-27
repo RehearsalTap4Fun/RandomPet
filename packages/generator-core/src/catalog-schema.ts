@@ -18,6 +18,9 @@ const RenderLayerSchema = z.enum([
 const coordinate = z.number().finite().min(0).max(2048)
 const weight = z.number().finite().min(0)
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/i)
+const nonBlankString = z.string().refine(value => value.trim().length > 0, {
+  message: 'Expected a non-blank string.',
+})
 const LegacyApprovedTransformSchema = z.object({
   scale: z.number().finite().positive(),
   mirrorX: z.boolean(),
@@ -38,7 +41,7 @@ const RectSchema = z.object({
 const RenderNodeDefinitionSchema = z.object({
   id: z.string().min(1),
   connectorId: z.string().min(1).optional(),
-  assetPath: z.string().min(1),
+  assetPath: nonBlankString,
   pngPath: z.string().min(1).optional(),
   assetSha256: sha256.optional(),
   pngSha256: sha256.optional(),
@@ -219,7 +222,7 @@ const VisualPartDefinitionSchema = z.object({
   composition: PartCompositionSchema.optional(),
 }).superRefine((part, context) => {
   const resourceEmptyNone = part.composition?.isNone === true && part.assetPath === ''
-  if (!resourceEmptyNone && part.assetPath.length === 0) {
+  if (!resourceEmptyNone && part.assetPath.trim().length === 0) {
     context.addIssue({ code: 'custom', path: ['assetPath'], message: 'Visible parts require an asset path.' })
   }
   if (resourceEmptyNone && (

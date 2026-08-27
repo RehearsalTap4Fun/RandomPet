@@ -300,6 +300,7 @@ export async function reconstructTailExtraMatrixEvidence(input: {
       await writeFile(inputPath, `${JSON.stringify({
         catalog,
         spec,
+        applyPaletteMasks: false,
         ...(input.diagnosticScope === false ? {} : { diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE }),
       })}\n`)
       await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)

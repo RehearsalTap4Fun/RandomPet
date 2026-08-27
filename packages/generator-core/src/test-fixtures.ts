@@ -347,6 +347,17 @@ export function makeInterfaceCatalogFixture(): Catalog {
     'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
   ])
   catalog.parts = catalog.parts.map((part: any) => {
+    if (part.slotId === 'colorScheme') {
+      const rigMaskPaths = Object.fromEntries((['blob', 'biped', 'floating'] as const).map(rigId => [rigId, {
+        primary: `masks/${part.id}-${rigId}-primary.png`,
+        secondary: `masks/${part.id}-${rigId}-secondary.png`,
+        accent: `masks/${part.id}-${rigId}-accent.png`,
+      }]))
+      const rigMaskSha256 = Object.fromEntries((['blob', 'biped', 'floating'] as const).map(rigId => [rigId, {
+        primary: fixtureHash, secondary: fixtureHash, accent: fixtureHash,
+      }]))
+      return { ...part, rigMaskPaths, rigMaskSha256 }
+    }
     if (!structuralSlots.has(part.slotId) || part.composition.isNone) return part
     const attachment = part.composition
     return {

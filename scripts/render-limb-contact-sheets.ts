@@ -46,6 +46,39 @@ export function makeLimbMatrixPlan(mode: LimbMatrixMode): LimbMatrixPlanEntry[] 
   )))
 }
 
+// TASK8_STABLE_BEGIN:limb-worker-partition-helper
+export function makeLimbMatrixWorkerIndices(entryCount: number, maximumWorkers: 1 | 2 = 2): number[][] {
+  if (!Number.isSafeInteger(entryCount) || entryCount < 0) throw new Error('LIMB_MATRIX_WORKER_COUNT_INVALID')
+  if (maximumWorkers !== 1 && maximumWorkers !== 2) throw new Error('LIMB_MATRIX_WORKER_COUNT_INVALID')
+  const workerCount = Math.min(entryCount, maximumWorkers)
+  return Array.from({ length: workerCount }, (_, workerIndex) => (
+    Array.from({ length: Math.ceil((entryCount - workerIndex) / workerCount) }, (_, offset) => workerIndex + offset * workerCount)
+      .filter(index => index < entryCount)
+  ))
+}
+// TASK8_STABLE_END:limb-worker-partition-helper
+
+// TASK8_STABLE_BEGIN:limb-worker-cleanup-helper
+export async function cleanupLimbMatrixHarness(input: {
+  inputRoot?: string
+  pages?: Array<{ close(): Promise<unknown> }>
+  browser?: { close(): Promise<unknown> }
+  server?: { close(): Promise<unknown> }
+}): Promise<void> {
+  const operations: Array<() => Promise<unknown>> = []
+  for (const page of input.pages ?? []) operations.push(() => page.close())
+  if (input.browser !== undefined) operations.push(() => input.browser!.close())
+  if (input.server !== undefined) operations.push(() => input.server!.close())
+  if (input.inputRoot !== undefined && input.inputRoot !== '') operations.push(() => rm(input.inputRoot!, { recursive: true, force: true }))
+  const failures: unknown[] = []
+  for (const operation of operations) {
+    try { await operation() } catch (error) { failures.push(error) }
+  }
+  if (failures.length === 1) throw failures[0]
+  if (failures.length > 1) throw new AggregateError(failures, 'Limb matrix render harness cleanup failed')
+}
+// TASK8_STABLE_END:limb-worker-cleanup-helper
+
 export interface RenderEvidence {
   diagnostics: Array<{ severity: string, code: string, path: string[], message: string }>
   connectorMetrics: ConnectorMetric[]
@@ -87,15 +120,21 @@ export function resolvedFsPath(path: string): string {
   return resolve(path.slice('/@fs/'.length))
 }
 
+// TASK8_STABLE_BEGIN:limb-browser-catalog-signature
 export function browserCatalog(input: Catalog, options: {
   activeStructuralSlots?: readonly VisualSlotId[]
   applyPaletteMasks?: boolean
 } = {}): Catalog {
   const catalog = structuredClone(input)
+// TASK8_STABLE_END:limb-browser-catalog-signature
+  // TASK8_STABLE_BEGIN:limb-active-structural-slots
   const activeStructuralSlots = new Set(options.activeStructuralSlots ?? ['bodyFrame', 'headShape', 'arms', 'legs'])
+  // TASK8_STABLE_END:limb-active-structural-slots
   for (const part of catalog.parts) {
     part.themeIds = ['deep-sea', 'fungal', 'shadow']; part.themeWeights = { 'deep-sea': 1, fungal: 1, shadow: 1 }
+    // TASK8_STABLE_BEGIN:limb-active-slot-condition
     if (part.composition !== undefined && !activeStructuralSlots.has(part.slotId)) {
+    // TASK8_STABLE_END:limb-active-slot-condition
       part.composition.isNone = true
       if (part.composition.mode !== 'interface') part.composition.renderNodes = []
     }
@@ -108,13 +147,14 @@ export function browserCatalog(input: Catalog, options: {
         connector.backgroundMaskPath = fsUrl(runtimeFsPath(connector.backgroundMaskPath))
       }
     } else if (part.composition !== undefined) for (const node of part.composition.renderNodes) node.assetPath = fsUrl(runtimeFsPath(node.assetPath))
-    if (part.slotId === 'colorScheme' && options.applyPaletteMasks !== true) delete part.rigMaskPaths
-    else if (part.rigMaskPaths !== undefined) for (const masks of Object.values(part.rigMaskPaths)) {
+    // TASK8_STABLE_BEGIN:limb-palette-mask-paths
+    if (part.rigMaskPaths !== undefined) for (const masks of Object.values(part.rigMaskPaths)) {
         if (masks === undefined) continue
         masks.primary = fsUrl(runtimeFsPath(masks.primary))
         masks.secondary = fsUrl(runtimeFsPath(masks.secondary))
         masks.accent = fsUrl(runtimeFsPath(masks.accent))
       }
+    // TASK8_STABLE_END:limb-palette-mask-paths
   }
   for (const bridge of catalog.transitionBridges ?? []) {
     bridge.neutralAssetPath = fsUrl(runtimeFsPath(bridge.neutralAssetPath)); bridge.neutralPngPath = fsUrl(runtimeFsPath(bridge.neutralPngPath))
@@ -166,6 +206,9 @@ export async function reconstructLimbMatrixEvidence(input: {
   planOverride?: LimbMatrixPlanEntry[]
   failOnGateError?: boolean
   writeDebugOnFailure?: boolean
+  // TASK8_STABLE_BEGIN:limb-worker-count-input
+  workerCount?: 1 | 2
+  // TASK8_STABLE_END:limb-worker-count-input
 } = {}): Promise<{ mode: LimbMatrixMode; catalogInputSha256: string; entries: LimbMatrixEvidenceEntry[] }> {
   const mode = input.mode ?? 'full'
   const plan = input.planOverride ?? makeLimbMatrixPlan(mode)
@@ -173,20 +216,32 @@ export async function reconstructLimbMatrixEvidence(input: {
   const sourceCatalogBytes = await readFile(catalogPath)
   const sourceCatalog = JSON.parse(sourceCatalogBytes.toString('utf8')) as Catalog
   const catalogInputSha256 = sha256(sourceCatalogBytes)
-  const catalog = browserCatalog(sourceCatalog)
+  // TASK8_STABLE_BEGIN:limb-structural-only-catalog
+  const catalog = browserCatalog(sourceCatalog, { applyPaletteMasks: false })
+  // TASK8_STABLE_END:limb-structural-only-catalog
   const resolvedHashCache = new Map<string, string>()
   const inputRoot = await mkdtemp(join(ROOT, '.tmp-limb-matrix-'))
   const server = await createServer({ root: resolve('apps/creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
   await server.listen(); const baseUrl = server.resolvedUrls?.local[0]
   if (baseUrl === undefined) throw new Error('LIMB_MATRIX_RENDER_FAILED: Vite server has no local URL')
-  const browser = await chromium.launch({ headless: true }); const page = await browser.newPage()
-  const entries: LimbMatrixEvidenceEntry[] = []
+  // TASK8_STABLE_BEGIN:limb-worker-pages
+  const workerIndices = makeLimbMatrixWorkerIndices(plan.length, input.workerCount ?? 2)
+  const browser = await chromium.launch({ headless: true })
+  const pages = await Promise.all(workerIndices.map(() => browser.newPage()))
+  const entries = new Array<LimbMatrixEvidenceEntry>(plan.length)
+  // TASK8_STABLE_END:limb-worker-pages
   try {
-    for (let index = 0; index < plan.length; index += 1) {
+    // TASK8_STABLE_BEGIN:limb-worker-loop-open
+    await Promise.all(workerIndices.map(async (indices, workerIndex) => {
+      const page = pages[workerIndex]!
+      for (const index of indices) {
+    // TASK8_STABLE_END:limb-worker-loop-open
       const selection = plan[index]!
       const spec = makeSpec(catalog, selection, index)
       const inputPath = join(inputRoot, `${index.toString().padStart(2, '0')}.json`)
-      await writeFile(inputPath, `${JSON.stringify({ catalog, spec })}\n`)
+      // TASK8_STABLE_BEGIN:limb-structural-only-input
+      await writeFile(inputPath, `${JSON.stringify({ catalog, spec, applyPaletteMasks: false })}\n`)
+      // TASK8_STABLE_END:limb-structural-only-input
       await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
       await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
       const browserError = await page.evaluate(() => document.body.dataset.renderError)
@@ -211,10 +266,17 @@ export async function reconstructLimbMatrixEvidence(input: {
         if (digest === undefined) { digest = await hashFile(resolvedFsPath(path)); resolvedHashCache.set(path, digest) }
         return { path, sha256: digest }
       }))
-      entries.push({ ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes }, gateErrors, diagnostics: evidence.diagnostics })
-    }
+      // TASK8_STABLE_BEGIN:limb-worker-entry-assignment
+      entries[index] = { ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes }, gateErrors, diagnostics: evidence.diagnostics }
+      // TASK8_STABLE_END:limb-worker-entry-assignment
+    // TASK8_STABLE_BEGIN:limb-worker-loop-close
+      }
+    }))
+    // TASK8_STABLE_END:limb-worker-loop-close
   } finally {
-    await page.close(); await browser.close(); await server.close(); await rm(inputRoot, { recursive: true, force: true })
+    // TASK8_STABLE_BEGIN:limb-worker-cleanup
+    await cleanupLimbMatrixHarness({ inputRoot, pages, browser, server })
+    // TASK8_STABLE_END:limb-worker-cleanup
   }
   return { mode, catalogInputSha256, entries }
 }

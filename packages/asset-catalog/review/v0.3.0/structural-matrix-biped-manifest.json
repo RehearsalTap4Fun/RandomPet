@@ -4,11 +4,15 @@
   "mode": "full",
   "rigId": "biped",
   "entryCount": 15,
-  "catalogInputSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+  "catalogInputSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
+  "structuralProjectionSha256": "b6b14b5335525bf040c62e756d7f6bc66fc8d952dc3aa755ebebd28824c2c62b",
+  "renderScope": {
+    "paletteMasks": false
+  },
   "originalPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped.png",
-  "originalSha256": "d9641d34dd782ec6ca434ab301da081e9d11d3bd50e0eb20af4e748174ea7746",
+  "originalSha256": "cabfd512392d0594ae585dc9e6038f6c269fe862384c1a25adccf4bf4f451d25",
   "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped-256.png",
-  "review256Sha256": "0501ca7f54517e24b41e0f155241d2273a444a4bce90b9880861806aaf4e0b89",
+  "review256Sha256": "a7e07d003f574275a96c0ddd4f5cd60f44e3680dba18b11d5e87865788e375ea",
   "thresholds": {
     "receiverCoverageMin": 0.9,
     "plugCoverageMin": 0.9,
@@ -211,7 +215,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -435,7 +439,7 @@
           }
         ]
       },
-      "originalSha256": "0e7b849e9f1cd26771a992fb177d50dabaac52b92c6688fd7f14669a571e88bb"
+      "originalSha256": "057d8da6a0159fcd1e08bb9733461bf7ed48ade300d1e032a99e1ee77cd2ad4f"
     },
     {
       "rigId": "biped",
@@ -631,7 +635,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -855,7 +859,7 @@
           }
         ]
       },
-      "originalSha256": "c34d6945c6285235999962f7e5689b5d4440bc76356ab97445f683f208428e58"
+      "originalSha256": "ed8fb923678f00fc162cc9465613b3ba139b777ce88294618db3958d2f22447b"
     },
     {
       "rigId": "biped",
@@ -1051,7 +1055,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -1275,7 +1279,7 @@
           }
         ]
       },
-      "originalSha256": "6d443a3aa769d367d26af6beb1fb510bf4ad7421ed780089ce5ae0183b261b0c"
+      "originalSha256": "e9bc81df512763805825a3872888dd8ac7a3d2dacaa0cc5a783b6ea9fb2f17a0"
     },
     {
       "rigId": "biped",
@@ -1488,7 +1492,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -1740,7 +1744,7 @@
           }
         ]
       },
-      "originalSha256": "0b96a99b5b6f64773ddbf3c9435f5aed26ea7f008c329b9ac5d4423a784be4ad"
+      "originalSha256": "e27ba77c2dec158e391312db66afab959ef09097b3b999ce4f64e71ae0817dbc"
     },
     {
       "rigId": "biped",
@@ -1953,7 +1957,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -2205,7 +2209,7 @@
           }
         ]
       },
-      "originalSha256": "0ea9a2be330feee54bcce40c642d842a9db78a10e71558c5b128ce43494e02cb"
+      "originalSha256": "49d17250c77b7ca49b2e305c587012c2a3ff17e07caee0021a2aa1b20254be1d"
     },
     {
       "rigId": "biped",
@@ -2418,7 +2422,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -2670,7 +2674,7 @@
           }
         ]
       },
-      "originalSha256": "4f255e074adef1156e90b04170b6b6abbccff9da5fe74a45744c6da70c904a73"
+      "originalSha256": "3d470819fd15071f74f5103ca56a4f42d2583222cd3ed0a943a8442721e55908"
     },
     {
       "rigId": "biped",
@@ -2857,7 +2861,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -3081,7 +3085,7 @@
           }
         ]
       },
-      "originalSha256": "55e0507e09438e37a05d0b0b7bca9471edb1f948b0048de6fab55f65c85065e9"
+      "originalSha256": "291613f368afd3746e2ae5e654c654f993bfce51e6a7e8560cef78ba22a8f6b3"
     },
     {
       "rigId": "biped",
@@ -3268,7 +3272,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -3492,7 +3496,7 @@
           }
         ]
       },
-      "originalSha256": "25e02be76586de50e56d49189e5706d434299b1b01a915144957dac6da15968d"
+      "originalSha256": "27d1142aa05186cdb7c1812974b95d6fc5ee1c9a6fa71a9f01307402d70cb996"
     },
     {
       "rigId": "biped",
@@ -3679,7 +3683,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -3903,7 +3907,7 @@
           }
         ]
       },
-      "originalSha256": "b95550ae0b68be505fe110c5d00b4e6ed2f7d9a32c713e91d289c7d894ce03d6"
+      "originalSha256": "54721b8507e147f7656f39c23ee3368c18d4e8638fb52aa1aa5dc061b8efe32a"
     },
     {
       "rigId": "biped",
@@ -4107,7 +4111,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -4359,7 +4363,7 @@
           }
         ]
       },
-      "originalSha256": "972a9b0b2156074bbb80ef711c5db5d3269193b6a425c74fb879da912d61c2dd"
+      "originalSha256": "d7dcb7cf1ccd5638889313cba5d5875db060c225b0da1f11aba6e185abcfda88"
     },
     {
       "rigId": "biped",
@@ -4563,7 +4567,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -4815,7 +4819,7 @@
           }
         ]
       },
-      "originalSha256": "6ef6cfa5d4ac7812e9a267d2a90f6070cde2e13782b2c98d73f7ad6835631a52"
+      "originalSha256": "abf0a1ae94b2939103307cc9e80dcb97bf130c6017c59c23312a4966c85c47a1"
     },
     {
       "rigId": "biped",
@@ -5019,7 +5023,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -5271,7 +5275,7 @@
           }
         ]
       },
-      "originalSha256": "7cf4bf0d2f2d3e8ff96b2883f0851b75e45832c8c87e44fa067f8d04aad42849"
+      "originalSha256": "e9b5a0e6b4707f90952be72440d44516c951fe98e3361451e8e4af468092ea73"
     },
     {
       "rigId": "biped",
@@ -5502,7 +5506,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -5794,7 +5798,7 @@
           }
         ]
       },
-      "originalSha256": "d6ea11f8e4d9b60655d7f07b299fdb35877ec7f0b02c731226a9a110f36e6c46"
+      "originalSha256": "bf148a7aa4f87c67045169561ce024558934c5466f4bae5c4c16d4d19e8432bf"
     },
     {
       "rigId": "biped",
@@ -6016,7 +6020,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -6308,7 +6312,7 @@
           }
         ]
       },
-      "originalSha256": "af73012aa5eac17b97592888a5eaf9b8cbc209935b226a6159c2e9842a26260f"
+      "originalSha256": "291b416958c3097f45251af3ca0e454ac994438729109f77ce7376b308a1cfb6"
     },
     {
       "rigId": "biped",
@@ -6539,7 +6543,7 @@
       },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
+        "catalogSha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -6831,11 +6835,7 @@
           }
         ]
       },
-      "originalSha256": "1819dba323fe1989492ac4cd211f8f2e9b7f94828eca12055694890d3ab5c23d"
+      "originalSha256": "4fff052dea6e49a6687934cb36d14d2488d360588f56026a24b166446f1b2e09"
     }
-  ],
-  "structuralProjectionSha256": "afdb614880bf4980aaad94f8890c0c92236ef5344f46abaf125488d4caecbfe5",
-  "renderScope": {
-    "paletteMasks": false
-  }
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "task9-tail-extra-agent-review-v1",
   "status": "agent-reviewed-approved",
-  "reviewer": "Codex delegated visual review",
+  "reviewer": "Codex controller independent visual review",
   "scope": "18 exact-rig tail and extra-appendage variants plus six tail/extra transition bridges",
   "contactSheetPath": "asset-source/v0.3.0/generation/task9-review/tail-extra-catalog-contact-sheet.png",
   "contactSheetSha256": "20a339e1e1bbda79eacd82697d463fe80f14a98e0fafec8db84072b0c7d0f8a4",
@@ -23,7 +23,9 @@
       "floating": 9
     },
     "indexPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-index.json",
-    "indexSha256": "7444f2d4a95cb0cb918d5af53223595872b47ee66c83934603f090cdd4c4d920",
+    "indexSha256": "c339d7f94305956304bc8b907610cce79e73f3765324d3e516a19560ab21736b",
+    "bridgeRenderReviewProvenancePath": "packages/asset-catalog/review/v0.3.0/bridge-render-review-provenance.json",
+    "bridgeRenderReviewProvenanceSha256": "6637d338113e35bbddba0476cd5de09fc95ef66ddeb8fe600168d8a8988d862e",
     "diagnosticScope": {
       "id": "task9-tail-extra",
       "activeVisualSlots": [
@@ -73,7 +75,12 @@
       "identityLossAfterDistalFit": 0,
       "unnaturalDistalWarp": 0
     },
-    "decision": "approved"
+    "decision": "approved",
+    "approvedRound": "bridge-render-round3",
+    "rejectedRounds": [
+      "bridge-render-round1",
+      "bridge-render-round2"
+    ]
   },
   "decision": "approved for Task 9 catalog integration and structural-matrix agent part review"
 }

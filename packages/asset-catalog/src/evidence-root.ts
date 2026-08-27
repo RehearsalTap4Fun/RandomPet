@@ -1,7 +1,11 @@
 import { createHash } from 'node:crypto'
-import { readFile, realpath, stat } from 'node:fs/promises'
-import { isAbsolute, relative, resolve } from 'node:path'
 import type { Diagnostic } from '@qmonster/generator-core'
+import {
+  collectExpectedTask9EvidenceDependencies,
+  expectedTask9TrackedDependencyPaths,
+  TASK9_TRACKED_DEPENDENCIES_PATH,
+} from './task9-evidence-dependencies.js'
+import { readTrustedRepositoryFile } from './trusted-repository-file.js'
 
 export const PRODUCTION_EVIDENCE_MANIFEST_VERSION = 'qmonster-production-evidence-v1' as const
 export const PRODUCTION_EVIDENCE_CANONICALIZATION = 'json-object-keys-unicode-code-point-v1' as const
@@ -230,39 +234,60 @@ export async function validateProductionEvidenceDependencies(
   const task9 = (manifest as ProductionEvidenceManifest).task9Evidence
   if (!Array.isArray(task9?.dependencies)) return []
   const diagnostics: Diagnostic[] = []
-  const root = await realpath(resolve(repositoryRoot)).catch(() => resolve(repositoryRoot))
   const verified = new Map<string, { bytes: Buffer, sha256: string }>()
+  try {
+    const expected = await collectExpectedTask9EvidenceDependencies(repositoryRoot)
+    const expectedTracked = expectedTask9TrackedDependencyPaths(expected)
+    const trackedFile = await readTrustedRepositoryFile(repositoryRoot, TASK9_TRACKED_DEPENDENCIES_PATH)
+    const tracked = JSON.parse(trackedFile.bytes.toString('utf8')) as {
+      schemaVersion?: unknown
+      dependencyCount?: unknown
+      dependencies?: unknown
+    }
+    const exactManifestDependencies = JSON.stringify(task9.dependencies) === JSON.stringify(expected)
+    const exactTrackedClosure = tracked.schemaVersion === 'task9-tracked-dependencies-v1'
+      && tracked.dependencyCount === expectedTracked.length
+      && JSON.stringify(tracked.dependencies) === JSON.stringify(expectedTracked)
+    if (task9.dependencyCount !== expected.length || !exactManifestDependencies || !exactTrackedClosure) {
+      diagnostics.push({
+        severity: 'error',
+        code: 'PRODUCTION_EVIDENCE_DEPENDENCY_SET_MISMATCH',
+        path: ['task9Evidence', 'dependencies'],
+        message: 'Task 9 evidence dependencies must exactly match the independently collected seed, recursive-directory, reference, and tracked-file closure.',
+      })
+    }
+  } catch {
+    diagnostics.push({
+      severity: 'error',
+      code: 'PRODUCTION_EVIDENCE_DEPENDENCY_SET_MISMATCH',
+      path: ['task9Evidence', 'dependencies'],
+      message: 'Task 9 evidence dependencies could not be independently reconstructed from trusted repository inputs.',
+    })
+  }
   for (const dependency of task9.dependencies) {
     const path = ['task9Evidence', 'dependencies', dependency.path]
     try {
-      const target = await realpath(resolve(root, dependency.path))
-      const remainder = relative(root, target)
-      if (remainder.startsWith('..') || isAbsolute(remainder)) {
-        diagnostics.push({
-          severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_PATH_INVALID', path,
-          message: `Task 9 evidence dependency escapes the repository root: ${dependency.path}`,
-        })
-        continue
-      }
-      const metadata = await stat(target)
-      if (!metadata.isFile() || metadata.nlink !== 1) {
-        diagnostics.push({
-          severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_FILE_INVALID', path,
-          message: `Task 9 evidence dependency must resolve to a linked regular file: ${dependency.path}`,
-        })
-        continue
-      }
-      const bytes = await readFile(target)
-      const actualHash = createHash('sha256').update(bytes).digest('hex')
-      verified.set(dependency.path, { bytes, sha256: actualHash })
-      if (actualHash !== dependency.sha256) diagnostics.push({
+      const trusted = await readTrustedRepositoryFile(repositoryRoot, dependency.path)
+      verified.set(dependency.path, { bytes: trusted.bytes, sha256: trusted.sha256 })
+      if (trusted.sha256 !== dependency.sha256) diagnostics.push({
         severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH', path,
         message: `Task 9 evidence dependency differs from its final recorded SHA-256: ${dependency.path}`,
       })
-    } catch {
+    } catch (error) {
+      const message = error instanceof Error ? error.message : ''
+      const invalidPath = message.includes('portable lexical leaf') || message.includes('escapes')
+      const invalidFile = message.includes('symbolic link') || message.includes('single-link') || message.includes('regular file')
       diagnostics.push({
-        severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_MISSING', path,
-        message: `Task 9 evidence dependency cannot be read from its canonical repository path: ${dependency.path}`,
+        severity: 'error',
+        code: invalidPath
+          ? 'PRODUCTION_EVIDENCE_DEPENDENCY_PATH_INVALID'
+          : invalidFile ? 'PRODUCTION_EVIDENCE_DEPENDENCY_FILE_INVALID' : 'PRODUCTION_EVIDENCE_DEPENDENCY_MISSING',
+        path,
+        message: invalidPath
+          ? `Task 9 evidence dependency escapes the repository root: ${dependency.path}`
+          : invalidFile
+            ? `Task 9 evidence dependency must resolve to a direct single-link regular file: ${dependency.path}`
+            : `Task 9 evidence dependency cannot be read from its canonical repository path: ${dependency.path}`,
       })
     }
   }

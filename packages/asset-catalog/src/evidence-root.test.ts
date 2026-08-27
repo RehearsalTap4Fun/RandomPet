@@ -200,7 +200,13 @@ test('recomputes every Task 9 dependency hash from a contained regular file', as
     validateProductionEvidenceDependencies: (manifest: unknown, repositoryRoot: string) => Promise<unknown[]>
   }).validateProductionEvidenceDependencies
 
-  expect(await validateDependencies(manifest, root)).toEqual([])
+  const incompleteClosureDiagnostics = await validateDependencies(manifest, root)
+  expect(incompleteClosureDiagnostics).toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_EVIDENCE_DEPENDENCY_SET_MISMATCH',
+  }))
+  expect(incompleteClosureDiagnostics).not.toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH',
+  }))
   manifest.task9Evidence.dependencies[0]!.sha256 = 'f'.repeat(64)
   expect(await validateDependencies(manifest, root)).toContainEqual(expect.objectContaining({
     code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH',
@@ -213,6 +219,37 @@ test('recomputes every Task 9 dependency hash from a contained regular file', as
     path: ['task9Evidence', 'dependencies', 'input.json'],
     message: 'Task 9 evidence dependency cannot be read from its canonical repository path: input.json',
   })
+})
+
+test('rejects truncated or extra Task 9 dependencies even when count and hashes are synchronized', async () => {
+  const manifest = JSON.parse(await readFile(
+    'packages/asset-catalog/audit/v0.3.0/evidence-manifest.json', 'utf8',
+  ))
+  const validateDependencies = (evidenceRootModule as unknown as {
+    validateProductionEvidenceDependencies: (manifest: unknown, repositoryRoot: string) => Promise<unknown[]>
+  }).validateProductionEvidenceDependencies
+
+  const truncated = structuredClone(manifest)
+  truncated.task9Evidence.dependencies = [truncated.task9Evidence.dependencies[0]]
+  truncated.task9Evidence.dependencyCount = 1
+  expect(await validateDependencies(truncated, process.cwd())).toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_EVIDENCE_DEPENDENCY_SET_MISMATCH',
+  }))
+
+  const extra = structuredClone(manifest)
+  const bytes = await readFile('package.json')
+  extra.task9Evidence.dependencies.push({
+    path: 'package.json',
+    sha256: createHash('sha256').update(bytes).digest('hex'),
+    groups: ['forged-extra'],
+  })
+  extra.task9Evidence.dependencies.sort((left: { path: string }, right: { path: string }) => (
+    left.path < right.path ? -1 : left.path > right.path ? 1 : 0
+  ))
+  extra.task9Evidence.dependencyCount = extra.task9Evidence.dependencies.length
+  expect(await validateDependencies(extra, process.cwd())).toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_EVIDENCE_DEPENDENCY_SET_MISMATCH',
+  }))
 })
 
 test('rejects stale hashes embedded by the Task 9 rework review even when dependency hashes are current', async () => {

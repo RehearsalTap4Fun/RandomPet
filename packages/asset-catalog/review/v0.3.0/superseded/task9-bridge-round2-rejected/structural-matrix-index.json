@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "task9-tail-extra-structural-matrix-index-v1",
+  "status": "agent-part-review-machine-pass",
+  "entryCount": 39,
+  "entryCountByRig": {
+    "blob": 15,
+    "biped": 15,
+    "floating": 9
+  },
+  "artifacts": [
+    {
+      "rigId": "blob",
+      "entryCount": 15,
+      "originalPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-blob.png",
+      "originalSha256": "c05d8d4f5c4364622a1ac13b3f4c62fa1e30471275d8a26cd7b1b221e4470d3d",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-blob-256.png",
+      "review256Sha256": "75320f77c6e709b60b26747cf96f07ce92e84301f7e86d9d526be78382d7c941",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-blob-manifest.json",
+      "manifestSha256": "17996a9f40b7d8cf52a6df03b3bb0f07a8f3cea0d9646e9a028b303b79d83074"
+    },
+    {
+      "rigId": "biped",
+      "entryCount": 15,
+      "originalPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped.png",
+      "originalSha256": "06643d365c03ff70a2523682f271e02c176c6c5c9ca210087d355899c0b91a7b",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped-256.png",
+      "review256Sha256": "8fcfc6198412192ed0583f6ee680a8017301a683313b9161f5d264984f746374",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped-manifest.json",
+      "manifestSha256": "f945dff12d6986acd0ac670aa8f134c325a55ca8e948a9e7f19c094a42e01110"
+    },
+    {
+      "rigId": "floating",
+      "entryCount": 9,
+      "originalPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating.png",
+      "originalSha256": "a7e40d5159389a17f97eb94c81b27091c9744c9afc3e2c597c2a75ea8ea7b072",
+      "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating-256.png",
+      "review256Sha256": "8a3c041a1e242fb4cd01d7f0a4a8757631abc93b4032eea0f19cf9c5ce640868",
+      "manifestPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating-manifest.json",
+      "manifestSha256": "b49ce39260f7bf438cb02bfb71b35d04eefc409c2de7a80ea30ba333cfb673f8"
+    }
+  ],
+  "structuralProjectionSha256": "b6b14b5335525bf040c62e756d7f6bc66fc8d952dc3aa755ebebd28824c2c62b",
+  "renderScope": {
+    "paletteMasks": false
+  }
+}

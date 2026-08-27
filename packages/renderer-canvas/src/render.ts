@@ -349,6 +349,7 @@ function compositionAssetLoadDiagnostic(node: ResolvedRenderNode): Diagnostic {
   }
 }
 
+// TASK8_STABLE_BEGIN:renderer-palette-load-diagnostic
 function interfacePaletteAssetLoadDiagnostic(
   partId: string,
   rigId: string,
@@ -362,6 +363,18 @@ function interfacePaletteAssetLoadDiagnostic(
     message: `Failed to load ${assetPath} for ${partId}.`,
   }
 }
+// TASK8_STABLE_END:renderer-palette-load-diagnostic
+
+// TASK8_STABLE_BEGIN:renderer-palette-missing-diagnostic
+function interfacePaletteMaskMissingDiagnostic(partId: string, rigId: string): Diagnostic {
+  return {
+    severity: 'error',
+    code: 'INTERFACE_PALETTE_MASK_MISSING',
+    path: ['parts', partId, 'rigMaskPaths', rigId],
+    message: `Selected v0.3 color scheme ${partId} has no exact ${rigId} palette masks.`,
+  }
+}
+// TASK8_STABLE_END:renderer-palette-missing-diagnostic
 
 function clearSurface(surface: RenderSurface): void {
   surface.context.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE)
@@ -940,6 +953,16 @@ function drawPlacedSource(
   })
 }
 
+// TASK8_STABLE_BEGIN:renderer-bridge-end-center-helper
+function bridgeEndCenter(row: readonly { x: number; y: number }[]): { x: number; y: number } {
+  if (row.length === 0) throw new Error('Bridge mesh end row is empty.')
+  return row.reduce((center, point) => ({
+    x: center.x + point.x / row.length,
+    y: center.y + point.y / row.length,
+  }), { x: 0, y: 0 })
+}
+// TASK8_STABLE_END:renderer-bridge-end-center-helper
+
 function drawBridgePass(
   destination: CanvasRenderingContext2D,
   surfaces: InterfaceSurfaces,
@@ -947,6 +970,9 @@ function drawBridgePass(
   assets: ResolvedBridgeAssets,
   mesh: BridgeMesh,
   tree: InterfaceRenderResult,
+  // TASK8_STABLE_BEGIN:renderer-bridge-receiver-source-param
+  receiverSource: CanvasImageSource,
+  // TASK8_STABLE_END:renderer-bridge-receiver-source-param
   receiverColor: string,
   plugColor: string,
   pass: 'back' | 'front' | 'union',
@@ -954,6 +980,10 @@ function drawBridgePass(
   clearSurface(surfaces.bridgeWarp)
   drawBridgeMesh(surfaces.bridgeWarp.context, assets.neutral, mesh)
   const warp = surfaces.bridgeWarp.context
+  // TASK8_STABLE_BEGIN:renderer-bridge-mesh-endpoints
+  const receiverEnd = bridgeEndCenter(mesh.rows[0]!)
+  const plugEnd = bridgeEndCenter(mesh.rows[mesh.rows.length - 1]!)
+  // TASK8_STABLE_END:renderer-bridge-mesh-endpoints
   withSavedContext(warp, () => {
     warp.globalCompositeOperation = 'source-atop'
     // Preserve neutral bridge luminance/fur detail beneath the two-material
@@ -961,8 +991,10 @@ function drawBridgePass(
     warp.globalAlpha = 0.95
     if (warp.createLinearGradient !== undefined) {
       const gradient = warp.createLinearGradient(
-        bridge.solved.receiverOrigin.x, bridge.solved.receiverOrigin.y,
-        bridge.solved.plugOrigin.x, bridge.solved.plugOrigin.y,
+        // TASK8_STABLE_BEGIN:renderer-bridge-gradient-endpoints
+        receiverEnd.x, receiverEnd.y,
+        plugEnd.x, plugEnd.y,
+        // TASK8_STABLE_END:renderer-bridge-gradient-endpoints
       )
       gradient.addColorStop(0, receiverColor)
       gradient.addColorStop(1, plugColor)
@@ -978,6 +1010,26 @@ function drawBridgePass(
   if (parentNode === undefined || childNode === undefined) {
     throw new Error('Bridge connector mask nodes are unavailable.')
   }
+  // TASK8_STABLE_BEGIN:renderer-bridge-front-receiver-overlap
+  if (pass === 'front') {
+    // A plug is commonly tucked under receiver alpha (hips, shoulders and
+    // tail roots). Preserve receiver material throughout that overlap so the
+    // plug endpoint cannot paint a collar across the visible body edge. The
+    // connector-only and gap portions retain the receiver-to-plug gradient.
+    clearSurface(surfaces.materialSample)
+    drawPlacedSource(surfaces.materialSample.context, parentNode, receiverSource)
+    withSavedContext(surfaces.materialSample.context, () => {
+      surfaces.materialSample.context.globalCompositeOperation = 'source-in'
+      surfaces.materialSample.context.fillStyle = receiverColor
+      surfaces.materialSample.context.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
+    })
+    withSavedContext(warp, () => {
+      warp.globalCompositeOperation = 'source-atop'
+      warp.globalAlpha = 0.95
+      warp.drawImage(surfaces.materialSample.canvas, 0, 0)
+    })
+  }
+  // TASK8_STABLE_END:renderer-bridge-front-receiver-overlap
   const masks = pass === 'union'
     ? [
         [assets.backMask, assets.receiverBackground, assets.plugBackground],
@@ -996,6 +1048,11 @@ function drawBridgePass(
     surfaces.bridgePass.context.drawImage(surfaces.bridgeWarp.canvas, 0, 0)
     withSavedContext(surfaces.bridgePass.context, () => {
       surfaces.bridgePass.context.globalCompositeOperation = 'destination-in'
+      // TASK8_STABLE_BEGIN:renderer-bridge-seam-envelope-comment
+      // The warped transition mask is the seam envelope. Connector role
+      // masks only partition that envelope; they cannot expand it into either
+      // structural node's main alpha.
+      // TASK8_STABLE_END:renderer-bridge-seam-envelope-comment
       surfaces.bridgePass.context.drawImage(surfaces.bridgeMask.canvas, 0, 0)
       surfaces.bridgePass.context.drawImage(surfaces.connectorMask.canvas, 0, 0)
     })
@@ -1053,6 +1110,24 @@ async function renderInterfaceMonster(
       connectorMetrics: [],
     }
   }
+  // TASK8_STABLE_BEGIN:renderer-palette-preflight
+  const colorSelection = spec.visualSlots.colorScheme
+  const colorPart = catalog.parts.find(part => (
+    part.id === colorSelection.partId && part.slotId === 'colorScheme'
+  ))
+  if (
+    options.applyPaletteMasks !== false
+    && colorPart !== undefined
+    && colorPart.rigMaskPaths?.[colorSelection.rigId] === undefined
+  ) {
+    return {
+      drawnAssetIds: [],
+      diagnostics: [interfacePaletteMaskMissingDiagnostic(colorPart.id, colorSelection.rigId)],
+      compositionMetrics: null,
+      connectorMetrics: [],
+    }
+  }
+  // TASK8_STABLE_END:renderer-palette-preflight
   const surfaces = createInterfaceSurfaces(context, options.surfaceFactory ?? browserSurfaceFactory)
   if (surfaces === null) {
     return {
@@ -1061,6 +1136,7 @@ async function renderInterfaceMonster(
     }
   }
   const diagnostics: Diagnostic[] = []
+  // TASK8_STABLE_BEGIN:renderer-diagnostic-scope-helpers
   const suppressedDiagnostics: Diagnostic[] = []
   const diagnosticScope = options.diagnosticScope
   const pushConnectorMetricDiagnostic = (connectorId: string, diagnostic: Diagnostic) => {
@@ -1073,9 +1149,12 @@ async function renderInterfaceMonster(
       suppressedDiagnostics.push(diagnostic)
     } else diagnostics.push(diagnostic)
   }
+  // TASK8_STABLE_END:renderer-diagnostic-scope-helpers
   const sources = new Map<string, CanvasImageSource>()
   for (const node of tree.nodes) {
+    // TASK8_STABLE_BEGIN:renderer-skip-palette-source
     if (node.slotId === 'colorScheme') continue
+    // TASK8_STABLE_END:renderer-skip-palette-source
     try {
       sources.set(node.key, await resolver.resolve(node.node.assetPath))
     } catch {
@@ -1267,7 +1346,9 @@ async function renderInterfaceMonster(
     connectorMetrics.push(metric)
     const measuresExternalAlpha = child?.slotId === 'arms' || child?.slotId === 'legs'
     if (!connectorMetricMeetsThresholds(metric, false)) {
+      // TASK8_STABLE_BEGIN:renderer-connector-diagnostic-call-1
       pushConnectorMetricDiagnostic(item.connectorId, connectorCompositeDiagnostic(
+      // TASK8_STABLE_END:renderer-connector-diagnostic-call-1
         item.connectorId, `Bridge ${item.bridge.id} is below 0.9 contour coverage or above a 2px gap.`,
       ))
     }
@@ -1275,7 +1356,9 @@ async function renderInterfaceMonster(
       measuresExternalAlpha
       && (metric.childOutsideBodyRatio ?? 0) < EXTERNAL_LIMB_ALPHA_MIN
     ) {
+      // TASK8_STABLE_BEGIN:renderer-connector-diagnostic-call-2
       pushConnectorMetricDiagnostic(item.connectorId, connectorCompositeDiagnostic(
+      // TASK8_STABLE_END:renderer-connector-diagnostic-call-2
         item.connectorId, `Structural child alpha outside the body is below ${EXTERNAL_LIMB_ALPHA_MIN}.`,
       ))
     }
@@ -1327,9 +1410,31 @@ async function renderInterfaceMonster(
   const drawnAssetIds: string[] = []
   const finalContext = surfaces.finalOutput.context
   try {
-    // Bridge alpha remains part of structural validation, but normalized roots
-    // overlap fully and occlude the tissue in the final art. Drawing the warp
-    // before a transparent child still exposes its rectangular mesh bounds.
+    // TASK8_STABLE_BEGIN:renderer-bridge-draw-setup
+    const orderedBridges = [...tree.bridges].sort((left, right) => {
+      const leftSequence = structuralByKey.get(left.childNodeKey)?.sequence ?? Number.MAX_SAFE_INTEGER
+      const rightSequence = structuralByKey.get(right.childNodeKey)?.sequence ?? Number.MAX_SAFE_INTEGER
+      return leftSequence - rightSequence || left.connectorId.localeCompare(right.connectorId)
+    })
+    const drawBridges = (pass: 'back' | 'front') => {
+      for (const bridge of orderedBridges) {
+        const assets = bridgeAssets.get(bridge.key)
+        const mesh = meshes.get(bridge.key)
+        const sampledColors = colors.get(bridge.key)
+        const receiverSource = sources.get(bridge.parentNodeKey)
+        if (
+          assets === undefined || mesh === undefined || sampledColors === undefined
+          || receiverSource === undefined
+        ) {
+          throw new Error(`Bridge draw inputs for ${bridge.connectorId} are unavailable.`)
+        }
+        drawBridgePass(
+          finalContext, surfaces, bridge, assets, mesh, tree, receiverSource,
+          sampledColors[0], sampledColors[1], pass,
+        )
+      }
+    }
+    // TASK8_STABLE_END:renderer-bridge-draw-setup
     const drawNodes = (items: readonly ResolvedRenderNode[]) => {
       for (const node of items) {
         const source = sources.get(node.key)
@@ -1342,6 +1447,9 @@ async function renderInterfaceMonster(
         drawnAssetIds.push(node.key)
       }
     }
+    // TASK8_STABLE_BEGIN:renderer-bridge-back-call
+    drawBridges('back')
+    // TASK8_STABLE_END:renderer-bridge-back-call
     drawNodes(rear)
     for (const node of layeredHeads) {
       const source = sources.get(node.key)
@@ -1376,12 +1484,14 @@ async function renderInterfaceMonster(
       drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
       drawnAssetIds.push(node.key)
     }
-    const colorSelection = spec.visualSlots.colorScheme
-    const colorPart = catalog.parts.find(part => (
-      part.id === colorSelection.partId && part.slotId === 'colorScheme'
-    ))
+    // TASK8_STABLE_BEGIN:renderer-bridge-front-call
+    drawBridges('front')
+    // TASK8_STABLE_END:renderer-bridge-front-call
+    // TASK8_STABLE_BEGIN:renderer-pre-face-bridge-comment
+    // TASK8_STABLE_END:renderer-pre-face-bridge-comment
+    // TASK8_STABLE_BEGIN:renderer-palette-pass
     const colorMasks = colorPart?.rigMaskPaths?.[colorSelection.rigId]
-    if (colorPart !== undefined && colorMasks !== undefined) {
+    if (options.applyPaletteMasks !== false && colorPart !== undefined && colorMasks !== undefined) {
       const palette = expandRenderLayers(spec, catalog).palette
       for (const maskName of ['primary', 'secondary', 'accent'] as const) {
         const assetPath = colorMasks[maskName]
@@ -1408,12 +1518,13 @@ async function renderInterfaceMonster(
       }
       if (!diagnostics.some(item => item.path[1] === colorPart.id)) drawnAssetIds.push(colorPart.id)
     }
-    // Structural roots are normalized to overlap. Keep transition tissue
-    // behind them so no mask boundary or mesh frontier reads as hardware.
+    // TASK8_STABLE_END:renderer-palette-pass
     let eyesStarted = false
     let mouthStarted = false
     for (const node of nonStructural) {
+      // TASK8_STABLE_BEGIN:renderer-skip-palette-node
       if (node.slotId === 'colorScheme') continue
+      // TASK8_STABLE_END:renderer-skip-palette-node
       const source = sources.get(node.key)
       if (source === undefined) continue
       drawCompositionNodeToSurface(
@@ -1461,12 +1572,16 @@ async function renderInterfaceMonster(
     const policy = catalog.compositionPolicy!
     for (const [slotId, metric] of [['eyes', eyes], ['mouthShape', mouth]] as const) {
       if (metric.insideRatio < policy.faceInsideRatio) {
+        // TASK8_STABLE_BEGIN:renderer-face-diagnostic-call-1
         pushFaceMetricDiagnostic(slotId, metricDiagnostic(
+        // TASK8_STABLE_END:renderer-face-diagnostic-call-1
           'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, policy.faceInsideRatio,
         ))
       }
       if (metric.visibleRatio < policy.faceVisibleRatio) {
+        // TASK8_STABLE_BEGIN:renderer-face-diagnostic-call-2
         pushFaceMetricDiagnostic(slotId, metricDiagnostic(
+        // TASK8_STABLE_END:renderer-face-diagnostic-call-2
           'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, policy.faceVisibleRatio,
         ))
       }
@@ -1489,6 +1604,7 @@ async function renderInterfaceMonster(
     ))
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics }
   }
+  // TASK8_STABLE_BEGIN:renderer-diagnostic-return
   return {
     drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics,
     ...(diagnosticScope === undefined ? {} : {
@@ -1500,6 +1616,7 @@ async function renderInterfaceMonster(
       },
     }),
   }
+  // TASK8_STABLE_END:renderer-diagnostic-return
 }
 
 export async function renderMonster(
@@ -1509,6 +1626,7 @@ export async function renderMonster(
   resolver: ImageResolver,
   options: RenderOptions,
 ): Promise<RenderResult> {
+  // TASK8_STABLE_BEGIN:renderer-diagnostic-scope-validation
   if (
     options.diagnosticScope !== undefined
     && (
@@ -1531,6 +1649,7 @@ export async function renderMonster(
       connectorMetrics: catalog.version === '0.3.0' ? [] : null,
     }
   }
+  // TASK8_STABLE_END:renderer-diagnostic-scope-validation
   const validationDiagnostics = validateMonsterSpecAgainstCatalog(spec, catalog)
   if (validationDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return {

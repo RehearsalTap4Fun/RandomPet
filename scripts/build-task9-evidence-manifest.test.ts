@@ -112,7 +112,7 @@ it('rejects an escaping document seed before attempting to parse outside bytes',
     repositoryRoot: root,
     seedFiles: [{ path: `../${basename(outside)}`, group: 'malicious' }],
     recursiveDirectories: [],
-  })).rejects.toThrow('escapes repository root')
+  })).rejects.toThrow(/portable lexical leaf|escapes repository root/iu)
 })
 
 it('rejects an evidence JSON document reached through an escaping junction before parsing', async ({ skip }) => {
@@ -130,7 +130,7 @@ it('rejects an evidence JSON document reached through an escaping junction befor
       repositoryRoot: root,
       seedFiles: [{ path: 'linked/input.json', group: 'malicious' }],
       recursiveDirectories: [],
-    })).rejects.toThrow(/escapes? repository root/i)
+    })).rejects.toThrow(/escapes?.*(?:canonical )?repository root/i)
   } finally {
     await Promise.all([rm(root, { recursive: true, force: true }), rm(outside, { recursive: true, force: true })])
   }

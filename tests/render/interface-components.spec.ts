@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-type Variant = 'baseline' | 'foreground-hole' | 'background-hole' | 'shifted-contour' | 'curved-head-split' | 'misaligned-occlusion-masks'
+type Variant = 'baseline' | 'foreground-hole' | 'background-hole' | 'transition-hole' | 'shifted-contour' | 'curved-head-split' | 'misaligned-occlusion-masks'
 
 interface InterfaceSnapshot {
   specJson: string
@@ -107,6 +107,27 @@ test('changing only background connector pixels changes the rear seam', async ({
   } finally {
     await baselinePage.close()
     await backgroundPage.close()
+  }
+})
+
+test('transition bridge pixels enter the final RGBA above the structural seam', async ({ browser }) => {
+  const baselinePage = await browser.newPage()
+  const transitionHolePage = await browser.newPage()
+  try {
+    const baseline = await renderVariant(baselinePage, 'baseline')
+    const transitionHole = await renderVariant(transitionHolePage, 'transition-hole')
+
+    expect(baseline.diagnostics).toEqual([])
+    expect(transitionHole.diagnostics).toEqual([])
+    expect(transitionHole.specJson).toBe(baseline.specJson)
+    expect(transitionHole.catalogJson).toBe(baseline.catalogJson)
+    expect(baseline.frontSeam[3]).toBeGreaterThan(0)
+    expect(transitionHole.frontSeam[3]).toBeGreaterThan(0)
+    expect(transitionHole.frontSeam).not.toEqual(baseline.frontSeam)
+    expect(transitionHole.rearSeam).toEqual(baseline.rearSeam)
+  } finally {
+    await baselinePage.close()
+    await transitionHolePage.close()
   }
 })
 

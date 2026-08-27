@@ -1,8 +1,33 @@
 import { describe, expect, it } from 'vitest'
+import { mkdtemp, readFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import { EXTERNAL_LIMB_ALPHA_MIN } from '@qmonster/renderer-canvas'
-import { makeLimbMatrixPlan, sweepCandidatePath, validateLimbRenderEvidence } from './render-limb-contact-sheets.js'
+import { cleanupLimbMatrixHarness, makeLimbMatrixPlan, makeLimbMatrixWorkerIndices, sweepCandidatePath, validateLimbRenderEvidence } from './render-limb-contact-sheets.js'
 
 describe('Task 8 limb contact-sheet gate', () => {
+  it('partitions matrix cells across bounded workers without reordering or dropping entries', () => {
+    expect(makeLimbMatrixWorkerIndices(5, 2)).toEqual([[0, 2, 4], [1, 3]])
+    expect(makeLimbMatrixWorkerIndices(1, 2)).toEqual([[0]])
+    expect(() => makeLimbMatrixWorkerIndices(4, 3 as 1 | 2)).toThrow('LIMB_MATRIX_WORKER_COUNT_INVALID')
+  })
+
+  it('closes every worker page and remaining harness resources after one page cleanup fails', async () => {
+    const inputRoot = await mkdtemp(join(tmpdir(), 'qmonster-limb-worker-cleanup-'))
+    const closed: string[] = []
+    await expect(cleanupLimbMatrixHarness({
+      inputRoot,
+      pages: [
+        { async close() { closed.push('page-0'); throw new Error('page close failed') } },
+        { async close() { closed.push('page-1') } },
+      ],
+      browser: { async close() { closed.push('browser') } },
+      server: { async close() { closed.push('server') } },
+    })).rejects.toThrow('page close failed')
+    expect(closed).toEqual(['page-0', 'page-1', 'browser', 'server'])
+    await expect(readFile(inputRoot)).rejects.toMatchObject({ code: 'ENOENT' })
+  })
+
   it('plans every approved prototype body with its exact rig arm/leg prototype', () => {
     const plan = makeLimbMatrixPlan('prototype')
     expect(plan.map(entry => [entry.rigId, entry.bodyFrame, entry.arms, entry.legs])).toEqual([

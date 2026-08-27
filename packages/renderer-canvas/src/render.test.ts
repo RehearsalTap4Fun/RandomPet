@@ -1139,6 +1139,55 @@ describe('v0.3 interface rendering', () => {
     return { catalog, spec }
   }
 
+  it('fails closed when the selected v0.3 color scheme lacks masks for its exact rig', async () => {
+    const { catalog, spec } = fixture()
+    const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
+    delete color.rigMaskPaths?.blob
+    const calls: string[] = []
+    let resolverCalls = 0
+
+    const result = await renderMonster(
+      makeRecordingContext(calls, 'main:'), spec, catalog, {
+        async resolve(path) { resolverCalls += 1; return image(path) },
+      }, {
+        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+      },
+    )
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'INTERFACE_PALETTE_MASK_MISSING',
+      path: ['parts', color.id, 'rigMaskPaths', 'blob'],
+    }))
+    expect(result.drawnAssetIds).toEqual([])
+    expect(resolverCalls).toBe(0)
+    expect(calls).not.toContain('main:draw:interface-18')
+  })
+
+  it('allows an explicit structural-only render to disable palette masks without disabling bridges', async () => {
+    const { catalog, spec } = fixture()
+    const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
+    delete color.rigMaskPaths?.blob
+    const resolved: string[] = []
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext(calls, 'main:'), spec, catalog, {
+        async resolve(path) { resolved.push(path); return image(path) },
+      }, {
+        ...options1024,
+        applyPaletteMasks: false,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls),
+      },
+    )
+
+    expect(result.diagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'INTERFACE_PALETTE_MASK_MISSING',
+    }))
+    expect(resolved.some(path => path.includes('/bridges/'))).toBe(true)
+    expect(resolved.some(path => path.includes('/masks/interface-blob-'))).toBe(false)
+    expect(calls).toContain('main:draw:interface-18')
+  })
+
   it('colors interface structure from exact-rig masks without reading the transparent color placeholder', async () => {
     const { catalog, spec } = fixture()
     const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
@@ -1332,17 +1381,21 @@ describe('v0.3 interface rendering', () => {
     expect(result.connectorMetrics).toEqual([])
   })
 
-  it('does not use transition-mask pixels in final color or structural metrics', async () => {
+  it('fails closed when an active transition mask cannot enter the final color pass', async () => {
     const { catalog, spec } = fixture()
     catalog.compositionPolicy!.faceInsideRatio = 0
     catalog.compositionPolicy!.faceVisibleRatio = 0
     const calls: string[] = []
+    let attemptedBackMask = false
     const healthyFactory = makeHealthyInterfaceSurfaceFactory(calls)
     const surfaceFactory = (width: number, height: number, destination: CanvasRenderingContext2D) => {
       const surface = healthyFactory(width, height, destination)
       const drawImage = surface.context.drawImage.bind(surface.context)
       surface.context.drawImage = ((source: CanvasImageSource, ...args: number[]) => {
-        if ((source as unknown as FakeImage).id.endsWith('-back.png')) throw new Error('undrawable')
+        if ((source as unknown as FakeImage).id.endsWith('-back.png')) {
+          attemptedBackMask = true
+          throw new Error('undrawable')
+        }
         drawImage(source, ...args)
       }) as typeof surface.context.drawImage
       return surface
@@ -1352,11 +1405,11 @@ describe('v0.3 interface rendering', () => {
       ...options1024, surfaceFactory,
     })
 
-    expect(result.diagnostics).not.toContainEqual(expect.objectContaining({
-      code: 'CONNECTOR_COMPOSITE_FAILED',
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
     }))
     expect(result.connectorMetrics).toHaveLength(8)
-    expect(calls.some(call => call.endsWith('draw:bridges/blob/neck-back.png'))).toBe(false)
+    expect(attemptedBackMask).toBe(true)
   })
 
   it('draws declared connector foreground and background masks into seam partitions', async () => {
@@ -1373,6 +1426,36 @@ describe('v0.3 interface rendering', () => {
     expect(calls.some(call => call.includes(
       'draw:assets/v0.3.0/connectors/blob/neck-foreground.png',
     ))).toBe(true)
+  })
+
+  it('orders active bridge masks deterministically across neck, limbs, tail, and extras', async () => {
+    const { catalog, spec } = fixture()
+    catalog.compositionPolicy!.faceInsideRatio = 0
+    catalog.compositionPolicy!.faceVisibleRatio = 0
+    const calls: string[] = []
+
+    const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls),
+    })
+
+    expect(result.diagnostics).toEqual([])
+    const transitionMaskDraws = calls
+      .filter(call => /^interface-6:draw:assets\/v0\.3\.0\/bridges\/blob\/.+-(?:back|front)\.png$/u.test(call))
+      .map(call => call.replace('interface-6:draw:assets/v0.3.0/', ''))
+    expect(transitionMaskDraws).toHaveLength(16 * 18)
+    const transitionMasks = transitionMaskDraws.filter((_call, index) => index % 18 === 0)
+    expect(transitionMasks).toEqual([
+      'bridges/blob/neck-back.png',
+      'bridges/blob/shoulder-back.png', 'bridges/blob/shoulder-back.png',
+      'bridges/blob/hip-back.png', 'bridges/blob/hip-back.png',
+      'bridges/blob/tail-back.png',
+      'bridges/blob/extra-back.png', 'bridges/blob/extra-back.png',
+      'bridges/blob/neck-front.png',
+      'bridges/blob/shoulder-front.png', 'bridges/blob/shoulder-front.png',
+      'bridges/blob/hip-front.png', 'bridges/blob/hip-front.png',
+      'bridges/blob/tail-front.png',
+      'bridges/blob/extra-front.png', 'bridges/blob/extra-front.png',
+    ])
   })
 
   it('blocks instead of using a bounding-box bridge when affine canvas APIs are unavailable', async () => {
@@ -1427,7 +1510,7 @@ describe('v0.3 interface rendering', () => {
     expect(spec).toEqual(snapshot)
   })
 
-  it('uses affine neutral-bridge geometry for metrics and keeps it out of final color', async () => {
+  it('uses affine neutral-bridge geometry for metrics and composites two-material bridge passes', async () => {
     const { catalog, spec } = fixture()
     catalog.compositionPolicy!.faceInsideRatio = 0
     catalog.compositionPolicy!.faceVisibleRatio = 0
@@ -1451,13 +1534,29 @@ describe('v0.3 interface rendering', () => {
     ))
       .every(metric => (metric.childOutsideBodyRatio ?? 0) >= 0.614)).toBe(true)
     expect(result.diagnostics).toEqual([])
-    expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(0)
+    expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(8 * 18 * 2)
     expect(calls.filter(call => call.startsWith('interface-15:transform:'))).toHaveLength(8 * 18)
-    expect(calls.some(call => call.startsWith('interface-5:gradientStop:'))).toBe(false)
+    // The contour-derived receiver and plug rows are the real material ends.
+    // Solved connector origins can point in the opposite screen direction
+    // (notably at hips), so using those origins reverses the two sampled colors.
+    expect(calls.find(call => call.startsWith('interface-5:gradient:')))
+      .toBe('interface-5:gradient:1024.5,994,1024.5,1058')
+    // Receiver material is sampled once and then re-applied only where the
+    // front bridge overlaps the receiver node, so a tucked child root cannot
+    // paint a plug-colored ring across the body edge.
+    expect(calls.filter(call => call === 'interface-8:draw:nodes/body_blob_0.webp'))
+      .toHaveLength(16)
+    expect(calls).toContain('interface-5:gradientStop:0:rgba(240, 40, 20, 1)')
+    expect(calls).toContain('interface-5:gradientStop:1:rgba(20, 40, 240, 1)')
     const isolatedDraws = calls.filter(call => call.startsWith('interface-18:draw:'))
     expect(isolatedDraws.length).toBeGreaterThan(0)
-    expect(isolatedDraws.every(call => call === 'interface-18:draw:interface-1')).toBe(true)
-    expect(calls).not.toContain('interface-18:draw:interface-7')
+    expect(isolatedDraws.every(call => (
+      call === 'interface-18:draw:interface-1'
+      || call === 'interface-18:draw:interface-7'
+      || call === 'interface-18:draw:interface-14'
+    ))).toBe(true)
+    expect(isolatedDraws.filter(call => call === 'interface-18:draw:interface-7')).toHaveLength(16)
+    expect(isolatedDraws.filter(call => call === 'interface-18:draw:interface-14')).toHaveLength(3)
     expect(calls.filter(call => call.startsWith('main:draw:'))).toEqual([
       'main:draw:interface-18',
     ])

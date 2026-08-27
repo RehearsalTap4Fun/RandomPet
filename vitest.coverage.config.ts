@@ -17,6 +17,17 @@ export const COVERAGE_ONLY_INTEGRATION_EXCLUDES = [
   'scripts/validate-interface-slice.test.ts',
 ]
 
+// Task 9 locks these global floors to the measured stable baseline. Keep the
+// named projection so verification can reject removing or silently lowering a
+// threshold without coupling the default (non-coverage) test configuration to
+// V8 instrumentation.
+export const GLOBAL_COVERAGE_THRESHOLDS = {
+  statements: 44,
+  branches: 44,
+  functions: 49,
+  lines: 47,
+} as const
+
 export default defineConfig({
   resolve: { tsconfigPaths: true },
   test: {
@@ -35,6 +46,7 @@ export default defineConfig({
         '**/*.spec.ts',
         '**/test-fixtures.ts',
       ],
+      thresholds: GLOBAL_COVERAGE_THRESHOLDS,
     },
     projects: [
       {

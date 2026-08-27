@@ -102,6 +102,30 @@ describe('buildInterfaceCatalog', () => {
     })
   })
 
+  it('ships all three structural material families through exact variants and every bridge class', async () => {
+    const manifest = JSON.parse(await readFile(
+      'asset-source/v0.3.0/interface-manifest.json', 'utf8',
+    )) as InterfaceSourceManifest
+    const variants = structuralVariants(manifest)
+    const expectedSoftSkin = new Set([
+      ...['blob', 'biped', 'floating'].map(rigId => `tail_soft_curl:${rigId}`),
+      ...['blob', 'biped', 'floating'].map(rigId => `extra_soft_tentacles:${rigId}`),
+      ...['blob', 'biped', 'floating'].map(rigId => `extra_side_fins:${rigId}`),
+    ])
+
+    expect(new Set(variants.filter(variant => variant.materialFamily === 'soft-skin')
+      .map(variant => interfaceVariantKey(variant.partId, variant.rigId)))).toEqual(expectedSoftSkin)
+    expect(new Set(variants.map(variant => variant.materialFamily))).toEqual(new Set([
+      'short-fur', 'mushroom-velvet', 'soft-skin',
+    ]))
+    expect(manifest.bridges).toHaveLength(15)
+    expect(manifest.bridges.every(bridge => (
+      JSON.stringify(bridge.materialFamilies) === JSON.stringify([
+        'short-fur', 'mushroom-velvet', 'soft-skin',
+      ])
+    ))).toBe(true)
+  })
+
   it('installs every arm and leg identity as an exact-rig variant', async () => {
     const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as {
       assets: Array<{

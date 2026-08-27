@@ -41,6 +41,7 @@ it('keeps live reconstruction suites in full verification while coverage targets
   const root = JSON.parse(await readFile('package.json', 'utf8'))
   const assetCatalog = JSON.parse(await readFile('packages/asset-catalog/package.json', 'utf8'))
   const vitestConfig = (await import('../vitest.config.js')).default as any
+  const coverageVitestConfig = await import('../vitest.coverage.config.js')
   const defaultConfig = await readFile('vitest.config.ts', 'utf8')
   const coverageConfig = await readFile('vitest.coverage.config.ts', 'utf8')
   const productionValidation = await readFile('scripts/validate-interface-slice.ts', 'utf8')
@@ -68,7 +69,13 @@ it('keeps live reconstruction suites in full verification while coverage targets
   expect(coverageConfig).toContain("'apps/creator-web/src/**/*.{ts,tsx}'")
   expect(coverageConfig).toContain("'scripts/**/*.ts'")
   expect(defaultConfig).not.toContain('thresholds:')
-  expect(coverageConfig).not.toContain('thresholds:')
+  expect(coverageConfig).toContain('thresholds: GLOBAL_COVERAGE_THRESHOLDS')
+  expect(coverageVitestConfig.GLOBAL_COVERAGE_THRESHOLDS).toEqual({
+    statements: 44,
+    branches: 44,
+    functions: 49,
+    lines: 47,
+  })
 
   const projects = new Map(vitestConfig.test.projects.map((project: any) => [project.test.name, project.test]))
   expect(projects.get('packages-node')?.exclude).toEqual(COVERAGE_ONLY_EXCLUDES)
@@ -80,7 +87,7 @@ it('keeps live reconstruction suites in full verification while coverage targets
     .filter(path => /\.test\.tsx?$/.test(path))
     .map(path => path.replaceAll('\\', '/'))
   discovered.push('tests/render/production-composition.spec.ts')
-  expect(discovered).toHaveLength(84)
+  expect(discovered).toHaveLength(85)
 
   const configured = [
     ...discovered.filter(path => /^(packages|scripts)\//.test(path) && !COVERAGE_ONLY_EXCLUDES.includes(path)),

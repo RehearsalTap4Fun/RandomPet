@@ -11301,7 +11301,7 @@
         "variantsByRig": {
           "blob": {
             "rigId": "blob",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "tail_soft_curl-blob-tailRoot",
@@ -11378,7 +11378,7 @@
           },
           "biped": {
             "rigId": "biped",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "tail_soft_curl-biped-tailRoot",
@@ -11455,7 +11455,7 @@
           },
           "floating": {
             "rigId": "floating",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "tail_soft_curl-floating-tailRoot",
@@ -12343,7 +12343,7 @@
         "variantsByRig": {
           "blob": {
             "rigId": "blob",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "extra_soft_tentacles-blob-extraLeft",
@@ -12489,7 +12489,7 @@
           },
           "biped": {
             "rigId": "biped",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "extra_soft_tentacles-biped-extraLeft",
@@ -12635,7 +12635,7 @@
           },
           "floating": {
             "rigId": "floating",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "extra_soft_tentacles-floating-extraLeft",
@@ -12826,7 +12826,7 @@
         "variantsByRig": {
           "blob": {
             "rigId": "blob",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "extra_side_fins-blob-extraLeft",
@@ -12972,7 +12972,7 @@
           },
           "biped": {
             "rigId": "biped",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "extra_side_fins-biped-extraLeft",
@@ -13118,7 +13118,7 @@
           },
           "floating": {
             "rigId": "floating",
-            "materialFamily": "short-fur",
+            "materialFamily": "soft-skin",
             "renderNodes": [
               {
                 "id": "extra_side_fins-floating-extraLeft",
@@ -14768,7 +14768,8 @@
       "connectorClass": "neck",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/biped/neck.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/biped/neck.png",
@@ -14785,7 +14786,8 @@
       "connectorClass": "shoulder",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/biped/shoulder.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/biped/shoulder.png",
@@ -14802,7 +14804,8 @@
       "connectorClass": "hip",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/biped/hip.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/biped/hip.png",
@@ -14819,7 +14822,8 @@
       "connectorClass": "neck",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/blob/neck.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/blob/neck.png",
@@ -14836,7 +14840,8 @@
       "connectorClass": "shoulder",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/blob/shoulder.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/blob/shoulder.png",
@@ -14853,7 +14858,8 @@
       "connectorClass": "hip",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/blob/hip.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/blob/hip.png",
@@ -14870,7 +14876,8 @@
       "connectorClass": "neck",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/floating/neck.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/floating/neck.png",
@@ -14887,7 +14894,8 @@
       "connectorClass": "shoulder",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/floating/shoulder.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/floating/shoulder.png",
@@ -14904,7 +14912,8 @@
       "connectorClass": "hip",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/floating/hip.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/floating/hip.png",
@@ -14921,7 +14930,8 @@
       "connectorClass": "tail",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/blob/tail.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/blob/tail.png",
@@ -14938,7 +14948,8 @@
       "connectorClass": "extra",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/blob/extra.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/blob/extra.png",
@@ -14955,7 +14966,8 @@
       "connectorClass": "tail",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/biped/tail.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/biped/tail.png",
@@ -14972,7 +14984,8 @@
       "connectorClass": "extra",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/biped/extra.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/biped/extra.png",
@@ -14989,7 +15002,8 @@
       "connectorClass": "tail",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/floating/tail.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/floating/tail.png",
@@ -15006,7 +15020,8 @@
       "connectorClass": "extra",
       "materialFamilies": [
         "short-fur",
-        "mushroom-velvet"
+        "mushroom-velvet",
+        "soft-skin"
       ],
       "neutralAssetPath": "assets/v0.3.0/bridges/floating/extra.webp",
       "neutralPngPath": "assets/v0.3.0/bridges/floating/extra.png",

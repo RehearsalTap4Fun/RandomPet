@@ -1,10 +1,11 @@
 import { validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
-import { lstat, readFile, realpath, stat } from 'node:fs/promises'
-import { basename, dirname, isAbsolute, relative, resolve } from 'node:path'
+import { realpath } from 'node:fs/promises'
+import { basename, dirname, relative, resolve } from 'node:path'
 import { validateCatalogFiles } from './file-validation.js'
 import { loadCatalog } from './load-catalog.js'
 import { productionEvidenceSourceIndexPath, validateProductionEvidenceDependencies, validateProductionEvidenceManifest } from './evidence-root.js'
 import { validateProductionSourceFiles, type SourceRichValidationResult } from './source-rich-validation.js'
+import { readTrustedRepositoryFile } from './trusted-repository-file.js'
 import {
   validateNoStaleRuntimeAssets,
   validateProductionInterfaceResources,
@@ -22,21 +23,13 @@ function printDiagnostics(diagnostics: Diagnostic[]): void {
   }
 }
 
-export async function resolveCanonicalProductionInput(packageRoot: string, inputPath: string, expectedPath: string): Promise<string> {
-  const canonicalRoot = await realpath(resolve(packageRoot))
+export async function readCanonicalProductionInput(packageRoot: string, inputPath: string, expectedPath: string): Promise<Buffer> {
+  const lexicalRoot = resolve(packageRoot)
   const lexicalInput = resolve(inputPath)
   const lexicalExpected = resolve(expectedPath)
-  const [inputLink, expectedLink, canonicalInput, canonicalTarget] = await Promise.all([
-    lstat(lexicalInput), lstat(lexicalExpected), realpath(lexicalInput), realpath(lexicalExpected),
-  ])
-  if (canonicalInput !== canonicalTarget) throw new Error(`Production input is not canonical: ${inputPath}`)
-  const remainder = relative(canonicalRoot, canonicalTarget)
-  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Production input escapes package root: ${inputPath}`)
-  const metadata = await stat(canonicalTarget)
-  if (inputLink.isSymbolicLink() || expectedLink.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) {
-    throw new Error(`Production input is not a direct regular file: ${inputPath}`)
-  }
-  return canonicalTarget
+  if (lexicalInput !== lexicalExpected) throw new Error(`Production input is not canonical: ${inputPath}`)
+  const portablePath = relative(lexicalRoot, lexicalExpected).replaceAll('\\', '/')
+  return (await readTrustedRepositoryFile(lexicalRoot, portablePath)).bytes
 }
 
 async function main(): Promise<void> {
@@ -105,14 +98,12 @@ async function main(): Promise<void> {
     let sourceIndex: ProductionSourceIndex = {}
     let evidenceManifest: unknown = null
     try {
-      sourceIndexPath = await resolveCanonicalProductionInput(packageRoot, sourceIndexPath, expectedSourceIndex)
-      sourceIndex = JSON.parse(await readFile(sourceIndexPath, 'utf8')) as ProductionSourceIndex
+      sourceIndex = JSON.parse((await readCanonicalProductionInput(packageRoot, sourceIndexPath, expectedSourceIndex)).toString('utf8')) as ProductionSourceIndex
     } catch {
       diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [sourceIndexPath], message: `Source-index must be the direct canonical ${expectedSourceIndex} for catalog version ${version}.` })
     }
     try {
-      evidenceManifestPath = await resolveCanonicalProductionInput(packageRoot, evidenceManifestPath, expectedEvidenceManifest)
-      evidenceManifest = JSON.parse(await readFile(evidenceManifestPath, 'utf8')) as unknown
+      evidenceManifest = JSON.parse((await readCanonicalProductionInput(packageRoot, evidenceManifestPath, expectedEvidenceManifest)).toString('utf8')) as unknown
     } catch {
       diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [evidenceManifestPath], message: `Evidence manifest must be the direct canonical ${expectedEvidenceManifest} for catalog version ${version}.` })
     }
@@ -120,9 +111,9 @@ async function main(): Promise<void> {
     if (version === '0.3.0') {
       const task6IntegrityPath = resolve(packageRoot, 'review', `v${version}`, 'task6-approved-input-integrity.json')
       try {
-        task6Integrity = JSON.parse(await readFile(
-          await resolveCanonicalProductionInput(packageRoot, task6IntegrityPath, task6IntegrityPath), 'utf8',
-        )) as RuntimeIntegrityReview
+        task6Integrity = JSON.parse((await readCanonicalProductionInput(
+          packageRoot, task6IntegrityPath, task6IntegrityPath,
+        )).toString('utf8')) as RuntimeIntegrityReview
       } catch {
         diagnostics.push({ severity: 'error', code: 'PRODUCTION_RUNTIME_REVIEW_MISSING', path: [task6IntegrityPath], message: 'Cannot read the canonical Task 6 approved-input integrity review.' })
       }

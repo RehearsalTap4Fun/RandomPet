@@ -2,9 +2,11 @@ import { chromium, type Browser } from '@playwright/test'
 import { parseCatalog, type Catalog, type MonsterSpec } from '@qmonster/generator-core'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { createServer, type ViteDevServer } from 'vite'
+import sharp from 'sharp'
 import { buildProductionReviewBundle } from '../../apps/creator-web/src/production-render-review.js'
 import { resolveExistingContainedPath } from '../../scripts/safe-output.js'
 import {
@@ -172,6 +174,29 @@ describe('v0.3 browser production composition', () => {
     if (browser === undefined) throw new Error('V03_BROWSER_PRODUCTION_FAILED: browser was not started')
     expect(CASES).toHaveLength(18)
     const exactVariants = new Set<string>()
+    const noneRgbaByRig = new Map<string, Buffer>()
+    const captureNoneBaseline = async (rigId: 'blob' | 'biped' | 'floating'): Promise<Buffer> => {
+      const cached = noneRgbaByRig.get(rigId)
+      if (cached !== undefined) return cached
+      const spec = makeProductionSpec(sourceCatalog, rigId, 'tail_none', 'extra_appendage_none')
+      const inputPath = join(inputRoot, `none-${rigId}.json`)
+      await writeFile(inputPath, `${JSON.stringify({ catalog: browserCatalog, spec, diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE })}\n`)
+      const page = await browser!.newPage({ viewport: { width: 1200, height: 1200 } })
+      try {
+        await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
+        await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
+        expect(await page.evaluate(() => document.body.dataset.renderError), `${rigId}:none`).toBeUndefined()
+        const evidence = JSON.parse((await page.evaluate(() => document.body.dataset.interfaceResult))!) as { diagnostics: unknown[] }
+        expect(evidence.diagnostics, `${rigId}:none`).toEqual([])
+        const dataUrl = await page.locator('#render-target').evaluate(canvas => (canvas as HTMLCanvasElement).toDataURL('image/png'))
+        const rgba = (await sharp(Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64'))
+          .ensureAlpha().raw().toBuffer({ resolveWithObject: true })).data
+        noneRgbaByRig.set(rigId, rgba)
+        return rgba
+      } finally {
+        await page.close()
+      }
+    }
     for (const [index, productionCase] of CASES.entries()) {
       exactVariants.add(`${productionCase.rigId}:${productionCase.identityId}`)
       const spec = makeProductionSpec(sourceCatalog, productionCase.rigId, productionCase.tailId, productionCase.extraId)
@@ -230,6 +255,26 @@ describe('v0.3 browser production composition', () => {
           return count
         })
         expect(alphaPixels, productionCase.rigId).toBeGreaterThan(100_000)
+        const dataUrl = await page.locator('#render-target').evaluate(canvas => (canvas as HTMLCanvasElement).toDataURL('image/png'))
+        const actual = (await sharp(Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64'))
+          .ensureAlpha().raw().toBuffer({ resolveWithObject: true })).data
+        const none = await captureNoneBaseline(productionCase.rigId)
+        expect(createHash('sha256').update(actual).digest('hex'), `${productionCase.rigId}:${productionCase.identityId}:rgba`)
+          .not.toBe(createHash('sha256').update(none).digest('hex'))
+        let visibleRgbaDiffPixels = 0
+        for (let offset = 0; offset < actual.length; offset += 4) {
+          if (
+            (actual[offset + 3]! > 0 || none[offset + 3]! > 0)
+            && (
+              actual[offset] !== none[offset]
+              || actual[offset + 1] !== none[offset + 1]
+              || actual[offset + 2] !== none[offset + 2]
+              || actual[offset + 3] !== none[offset + 3]
+            )
+          ) visibleRgbaDiffPixels += 1
+        }
+        expect(visibleRgbaDiffPixels, `${productionCase.rigId}:${productionCase.identityId}:visible-pixel-diff`)
+          .toBeGreaterThan(1_000)
       } finally {
         await page.close()
       }

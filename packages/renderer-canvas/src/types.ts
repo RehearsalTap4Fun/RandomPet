@@ -29,6 +29,7 @@ export interface RenderOptions {
   width: 1024 | 2048
   height: 1024 | 2048
   includeGroundShadow: boolean
+  applyPaletteMasks?: boolean
   surfaceFactory?: RenderSurfaceFactory
   diagnosticScope?: {
     id: string

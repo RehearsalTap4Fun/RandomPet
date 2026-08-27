@@ -4,6 +4,21 @@ import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 
 describe('catalog validation', () => {
+  it('rejects whitespace-only asset paths for visible parts', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    const visible = catalog.parts.find((part: { composition?: { isNone?: boolean } }) => (
+      part.composition?.isNone !== true
+    ))
+    visible.assetPath = '   '
+
+    expect(parseCatalog(catalog)).toMatchObject({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ path: expect.arrayContaining(['assetPath']) }),
+      ]),
+    })
+  })
+
   it('requires a one-to-one connector ID association for v0.3 plug render nodes', () => {
     const missing = makeInterfaceCatalogFixture() as any
     const missingArms = missing.parts.find((part: { slotId: string }) => part.slotId === 'arms')

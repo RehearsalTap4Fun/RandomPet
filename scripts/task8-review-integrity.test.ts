@@ -18,15 +18,22 @@ describe('Task 8 clean-checkout review integrity', () => {
   })
 
   it('uses a stable Task 8 catalog projection that ignores Task 9-only extensions', async () => {
-    const { task8LimbCatalogProjectionSha256 } = await import('./task8-stable-projection.js')
+    const { TASK8_LIMB_CATALOG_PROJECTION_SHA256, task8LimbCatalogProjectionSha256 } = await import('./task8-stable-projection.js')
     const catalog = JSON.parse(await readFile(resolve(ROOT, 'packages/asset-catalog/catalog/v0.3.0/catalog.json'), 'utf8'))
     const baseline = task8LimbCatalogProjectionSha256(catalog)
+    expect(baseline).toBe(TASK8_LIMB_CATALOG_PROJECTION_SHA256)
     const task9Extension = structuredClone(catalog)
     task9Extension.parts.push({ id: 'task9_projection_probe', slotId: 'tail' })
+    for (const bridge of task9Extension.transitionBridges) {
+      bridge.materialFamilies = bridge.materialFamilies.filter((family: string) => family !== 'soft-skin')
+    }
     expect(task8LimbCatalogProjectionSha256(task9Extension)).toBe(baseline)
     const task8Drift = structuredClone(catalog)
     task8Drift.parts.find((item: any) => item.id === 'arms_short_plush').composition.variantsByRig.blob.renderNodes[0].transform.scale += 0.01
     expect(task8LimbCatalogProjectionSha256(task8Drift)).not.toBe(baseline)
+    const task8BridgeDrift = structuredClone(catalog)
+    task8BridgeDrift.transitionBridges.find((item: any) => item.connectorClass === 'shoulder').materialFamilies = ['mushroom-velvet', 'soft-skin']
+    expect(task8LimbCatalogProjectionSha256(task8BridgeDrift)).not.toBe(baseline)
   })
 
   it('projects the explicit Task 9 diagnostic scope out of frozen Task 8 renderer hashes without hiding Task 8 drift', async () => {
@@ -34,6 +41,13 @@ describe('Task 8 clean-checkout review integrity', () => {
     for (const path of ['apps/creator-web/src/render-test.ts', 'packages/renderer-canvas/src/render.ts'] as const) {
       const bytes = await readFile(resolve(ROOT, path))
       expect(task8RendererProjectionSha256(path, bytes)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+      if (path === 'packages/renderer-canvas/src/render.ts') {
+        const task9OnlyMutation = Buffer.from(bytes.toString('utf8').replace(
+          "if (row.length === 0) throw new Error('Bridge mesh end row is empty.')",
+          "if (row.length < 1) throw new Error('Bridge mesh end row is empty.')",
+        ))
+        expect(task8RendererProjectionSha256(path, task9OnlyMutation)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+      }
       const drifted = Buffer.from(bytes.toString('utf8').replace(
         path.includes('render-test') ? '2D context unavailable' : 'validateMonsterSpecAgainstCatalog(spec, catalog)',
         path.includes('render-test') ? 'Task 8 drift' : 'validateMonsterSpecAgainstCatalog(spec, { ...catalog })',

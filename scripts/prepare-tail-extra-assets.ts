@@ -18,6 +18,11 @@ export function task9StructuralSelections() {
   ])
 }
 
+function task9MaterialFamily(partId: string): 'short-fur' | 'mushroom-velvet' | 'soft-skin' {
+  if (['tail_soft_curl', 'extra_soft_tentacles', 'extra_side_fins'].includes(partId)) return 'soft-skin'
+  return partId.includes('mushroom') ? 'mushroom-velvet' : 'short-fur'
+}
+
 const TASK9_RECEIVERS = {
   body_blob_round: { tailRoot: { x: 1480, y: 1170 }, extraLeft: { x: 560, y: 900 }, extraRight: { x: 1488, y: 900 } },
   body_blob_wide: { tailRoot: { x: 1600, y: 1080 }, extraLeft: { x: 400, y: 900 }, extraRight: { x: 1648, y: 900 } },
@@ -351,7 +356,19 @@ interface Task9PreparationTransaction {
   snapshots: Map<string, Buffer | null>
 }
 
-let activeTask9PreparationTransaction: Task9PreparationTransaction | undefined
+const TASK9_PREPARATION_CAPABILITY = Symbol('task9-preparation-capability')
+
+export interface Task9PreparationCapability {
+  readonly [TASK9_PREPARATION_CAPABILITY]: true
+  readonly repositoryRoot: string
+  writeFile(path: string, data: string | Uint8Array): Promise<void>
+  copyFile(source: string, target: string): Promise<void>
+  snapshot(path: string): Promise<void>
+}
+
+function assertTask9PreparationCapability(value: Task9PreparationCapability): void {
+  if (value?.[TASK9_PREPARATION_CAPABILITY] !== true) throw new Error('TASK9_PREPARE_TRANSACTION_REQUIRED')
+}
 
 function assertTask9TransactionPath(repositoryRoot: string, path: string): string {
   const target = resolve(path)
@@ -383,9 +400,7 @@ async function validateTask9OutputTarget(transaction: Task9PreparationTransactio
   return target
 }
 
-async function snapshotTask9Output(path: string): Promise<void> {
-  const transaction = activeTask9PreparationTransaction
-  if (transaction === undefined) return
+async function snapshotTask9Output(transaction: Task9PreparationTransaction, path: string): Promise<void> {
   const target = await validateTask9OutputTarget(transaction, path)
   if (transaction.snapshots.has(target)) return
   try {
@@ -398,45 +413,34 @@ async function snapshotTask9Output(path: string): Promise<void> {
   }
 }
 
-async function writeFile(...args: Parameters<typeof writeFileDirect>): Promise<void> {
-  if (typeof args[0] !== 'string' && !(args[0] instanceof URL)) throw new Error('TASK9_PREPARE_OUTPUT_INVALID: expected path output')
-  await snapshotTask9Output(String(args[0]))
-  if (activeTask9PreparationTransaction !== undefined) {
-    await validateTask9OutputTarget(activeTask9PreparationTransaction, String(args[0]))
-  }
-  await writeFileDirect(...args)
-}
-
-async function copyFile(...args: Parameters<typeof copyFileDirect>): Promise<void> {
-  await snapshotTask9Output(String(args[1]))
-  if (activeTask9PreparationTransaction !== undefined) {
-    await validateTask9OutputTarget(activeTask9PreparationTransaction, String(args[1]))
-  }
-  await copyFileDirect(...args)
-}
-
 export async function runTask9PreparationTransaction<T>(input: {
   repositoryRoot: string
-  prepare(outputs: {
-    writeFile(path: string, data: string | Uint8Array): Promise<void>
-    copyFile(source: string, target: string): Promise<void>
-  }): Promise<T>
+  prepare(outputs: Task9PreparationCapability): Promise<T>
   beforeCommit?(): Promise<void> | void
 }): Promise<T> {
-  if (activeTask9PreparationTransaction !== undefined) throw new Error('TASK9_PREPARE_TRANSACTION_NESTED')
   const repositoryRoot = resolve(input.repositoryRoot)
   const canonicalRoot = await realpath(repositoryRoot)
   const transaction: Task9PreparationTransaction = { repositoryRoot, canonicalRoot, snapshots: new Map() }
-  activeTask9PreparationTransaction = transaction
+  const outputs: Task9PreparationCapability = {
+    [TASK9_PREPARATION_CAPABILITY]: true,
+    repositoryRoot,
+    async writeFile(path, data) {
+      await snapshotTask9Output(transaction, path)
+      await validateTask9OutputTarget(transaction, path)
+      await writeFileDirect(path, data)
+    },
+    async copyFile(source, target) {
+      await snapshotTask9Output(transaction, target)
+      await validateTask9OutputTarget(transaction, target)
+      await copyFileDirect(source, target)
+    },
+    async snapshot(path) { await snapshotTask9Output(transaction, path) },
+  }
   try {
-    const result = await input.prepare({
-      writeFile: async (path, data) => writeFile(path, data),
-      copyFile: async (source, target) => copyFile(source, target),
-    })
+    const result = await input.prepare(outputs)
     await input.beforeCommit?.()
     return result
   } catch (error) {
-    activeTask9PreparationTransaction = undefined
     for (const [path, bytes] of [...transaction.snapshots.entries()].reverse()) {
       await validateTask9OutputTarget(transaction, path)
       if (bytes === null) await rm(path, { force: true })
@@ -447,15 +451,13 @@ export async function runTask9PreparationTransaction<T>(input: {
       }
     }
     throw error
-  } finally {
-    activeTask9PreparationTransaction = undefined
   }
 }
 
 async function hashTask9File(path: string): Promise<string> { return sha256(await readFile(path)) }
-async function writeTask9Json(path: string, value: unknown): Promise<void> {
+async function writeTask9Json(outputs: Task9PreparationCapability, path: string, value: unknown): Promise<void> {
   await mkdir(dirname(path), { recursive: true })
-  await writeFile(path, `${JSON.stringify(value, null, 2)}\n`)
+  await outputs.writeFile(path, `${JSON.stringify(value, null, 2)}\n`)
 }
 
 async function readTask9Alpha(path: string): Promise<{ alpha: Uint8Array, width: number, height: number }> {
@@ -510,17 +512,18 @@ export async function auditTask9BridgeSplits() {
   return totals
 }
 
-async function writeTask9BridgeBackMask(neutralPath: string, frontPath: string, backPath: string): Promise<string> {
+async function writeTask9BridgeBackMask(outputs: Task9PreparationCapability, neutralPath: string, frontPath: string, backPath: string): Promise<string> {
   const [neutral, front] = await Promise.all([readTask9Alpha(neutralPath), readTask9Alpha(frontPath)])
   if (neutral.width !== front.width || neutral.height !== front.height) throw new Error('TASK9_BRIDGE_SPLIT_INVALID: dimensions')
   const rgba = Buffer.alloc(neutral.width * neutral.height * 4, 255)
   for (let index = 0; index < neutral.alpha.length; index += 1) rgba[index * 4 + 3] = neutral.alpha[index]! > 0 && front.alpha[index] !== 255 ? 255 : 0
   const backBytes = await sharp(rgba, { raw: { width: neutral.width, height: neutral.height, channels: 4 } }).png(PNG).toBuffer()
-  await writeFile(backPath, backBytes)
+  await outputs.writeFile(backPath, backBytes)
   return sha256(backBytes)
 }
 
-export async function rebuildTask9BridgeSplits() {
+export async function rebuildTask9BridgeSplits(outputs: Task9PreparationCapability) {
+  assertTask9PreparationCapability(outputs)
   const manifestPath = join(TASK9_SOURCE_ROOT, 'interface-manifest.json')
   const processedPath = join(TASK9_SOURCE_ROOT, 'production', 'processed-index.json')
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8'))
@@ -532,15 +535,15 @@ export async function rebuildTask9BridgeSplits() {
     const frontPath = resolve(TASK9_CATALOG_ROOT, bridge.frontMaskPath)
     const backPath = resolve(TASK9_CATALOG_ROOT, bridge.backMaskPath)
     const frontBefore = await hashTask9File(frontPath)
-    const backMaskSha256 = await writeTask9BridgeBackMask(neutralPath, frontPath, backPath)
+    const backMaskSha256 = await writeTask9BridgeBackMask(outputs, neutralPath, frontPath, backPath)
     if (frontBefore !== await hashTask9File(frontPath)) frontHashesUnchanged = false
     const processed = processedIndex.processedBridges[`${bridge.rigId}:${bridge.connectorClass}`]
     if (processed === undefined) throw new Error(`TASK9_BRIDGE_SPLIT_INVALID: missing processed ${bridge.id}`)
     processed.backMaskSha256 = backMaskSha256
   }
   const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex)
-  await writeTask9Json(processedPath, processedIndex)
-  await writeTask9Json(join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
+  await writeTask9Json(outputs, processedPath, processedIndex)
+  await writeTask9Json(outputs, join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
   return { ...(await auditTask9BridgeSplits()), frontHashesUnchanged }
 }
 
@@ -634,6 +637,7 @@ function splitTask9Contour(profile: Task9Profile, contour: Buffer): { foreground
 }
 
 async function writeTask9Masks(
+  outputs: Task9PreparationCapability,
   rigId: Task9RigId,
   ownerId: string,
   profiles: Task9Profile[],
@@ -654,7 +658,7 @@ async function writeTask9Masks(
       const runtimePath = resolve(TASK9_CATALOG_ROOT, profile[`${kind}MaskPath`])
       const sourcePath = join(TASK9_SOURCE_ROOT, 'masks', rigId, ownerId, `${profile.id}-${kind}.png`)
       await mkdir(dirname(runtimePath), { recursive: true }); await mkdir(dirname(sourcePath), { recursive: true })
-      await writeFile(runtimePath, bytes); await writeFile(sourcePath, bytes)
+      await outputs.writeFile(runtimePath, bytes); await outputs.writeFile(sourcePath, bytes)
     }
     inputs.push({
       id: profile.id,
@@ -666,13 +670,13 @@ async function writeTask9Masks(
   return inputs
 }
 
-async function writeTask9RuntimeNode(sourcePath: string, runtimeBase: string, rigId: Task9RigId, connectorId: Task9Profile['id']) {
+async function writeTask9RuntimeNode(outputs: Task9PreparationCapability, sourcePath: string, runtimeBase: string, rigId: Task9RigId, connectorId: Task9Profile['id']) {
   const pngPath = resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.png`)
   const webpPath = resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.webp`)
   await mkdir(dirname(pngPath), { recursive: true })
   const fitted = await fitTask9DistalNode({ sourcePath, rigId, connectorId })
-  await writeFile(pngPath, fitted.png)
-  await snapshotTask9Output(webpPath)
+  await outputs.writeFile(pngPath, fitted.png)
+  await outputs.snapshot(webpPath)
   await sharp(fitted.png).webp({ lossless: true, effort: 6 }).toFile(webpPath)
   return {
     pngPath: `${runtimeBase}.png`, pngSha256: await hashTask9File(pngPath),
@@ -978,7 +982,9 @@ async function rebuildTask9SourceIndex(manifest: any, processedIndex: any) {
   return processedIndex.sourceIndex
 }
 
-export async function synchronizeTask9SourceIndex(options: { dryRun?: boolean } = {}): Promise<any> {
+export async function synchronizeTask9SourceIndex(
+  options: { dryRun: true } | { dryRun?: false, transaction: Task9PreparationCapability },
+): Promise<any> {
   const manifestPath = join(TASK9_SOURCE_ROOT, 'interface-manifest.json')
   const processedPath = join(TASK9_SOURCE_ROOT, 'production', 'processed-index.json')
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8'))
@@ -994,14 +1000,15 @@ export async function synchronizeTask9SourceIndex(options: { dryRun?: boolean } 
   }
   const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex)
   if (!options.dryRun) {
-    await writeTask9Json(manifestPath, manifest)
-    await writeTask9Json(processedPath, processedIndex)
-    await writeTask9Json(join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
+    assertTask9PreparationCapability(options.transaction)
+    await writeTask9Json(options.transaction, manifestPath, manifest)
+    await writeTask9Json(options.transaction, processedPath, processedIndex)
+    await writeTask9Json(options.transaction, join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
   }
   return sourceIndex
 }
 
-async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number; nodes: number; plugMasks: number; receiverMasks: number; bridges: number }> {
+async function prepareTask9StructuralAssetsUnsafe(outputs: Task9PreparationCapability): Promise<{ variants: number; nodes: number; plugMasks: number; receiverMasks: number; bridges: number }> {
   const manifestPath = join(TASK9_SOURCE_ROOT, 'interface-manifest.json')
   const processedPath = join(TASK9_SOURCE_ROOT, 'production', 'processed-index.json')
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8'))
@@ -1019,13 +1026,14 @@ async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number;
     const sourcePath = resolve(TASK9_ROOT, sourcePngPath)
     const profiles = task9PlugProfiles(selection.rigId, selection.partId, selection.slotId)
     const maskInputs = await writeTask9Masks(
+      outputs,
       selection.rigId, selection.partId, profiles, sourcePath,
       contracts.tangentWindows[selection.rigId], contracts.ribbonDepths[selection.rigId],
     )
     const runtimeBase = `assets/v0.3.0/structural/${selection.rigId}/${selection.partId}`
     const outputPngPath = resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.png`)
     const outputWebpPath = resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.webp`)
-    await Promise.all([snapshotTask9Output(outputPngPath), snapshotTask9Output(outputWebpPath)])
+    await Promise.all([outputs.snapshot(outputPngPath), outputs.snapshot(outputWebpPath)])
     const processed = await processInterfaceAsset({
       sourcePath, outputPngPath, outputWebpPath,
       connectors: maskInputs, materialSampleRegion: profiles[0]!.materialSampleRegion,
@@ -1037,7 +1045,7 @@ async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number;
       const nodeSourcePath = `asset-source/v0.3.0/structural/${selection.rigId}/nodes/${selection.partId}/${profile.id}.png`
       renderNodes.push({ id: nodeId, connectorId: profile.id, sourcePngPath: nodeSourcePath })
       processedNodes[nodeId] = await writeTask9RuntimeNode(
-        resolve(TASK9_ROOT, nodeSourcePath), `${runtimeBase}/nodes/${nodeId}`, selection.rigId, profile.id,
+        outputs, resolve(TASK9_ROOT, nodeSourcePath), `${runtimeBase}/nodes/${nodeId}`, selection.rigId, profile.id,
       )
       nodeCount += 1
     }
@@ -1046,7 +1054,7 @@ async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number;
     group.slotId = selection.slotId
     group.variants = group.variants.filter((variant: any) => variant.rigId !== selection.rigId)
     group.variants.push({
-      rigId: selection.rigId, materialFamily: selection.partId.includes('mushroom') ? 'mushroom-velvet' : 'short-fur',
+      rigId: selection.rigId, materialFamily: task9MaterialFamily(selection.partId),
       sourcePngPath, promptEvidence, connectors: profiles, renderNodes,
     })
     processedIndex.processedAssets[`${selection.partId}:${selection.rigId}`] = {
@@ -1064,6 +1072,7 @@ async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number;
     const profiles = task9BodyReceiverProfiles(bodyId, TASK9_BODY_RIG_IDS[bodyId])
     variant.connectors = variant.connectors.filter((item: any) => !profiles.some(profile => profile.id === item.id)).concat(profiles)
     await writeTask9Masks(
+      outputs,
       TASK9_BODY_RIG_IDS[bodyId], bodyId, profiles, resolve(TASK9_ROOT, variant.sourcePngPath),
       contracts.tangentWindows[TASK9_BODY_RIG_IDS[bodyId]], contracts.ribbonDepths[TASK9_BODY_RIG_IDS[bodyId]],
     )
@@ -1075,7 +1084,7 @@ async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number;
     }))
     const outputPngPath = resolve(TASK9_CATALOG_ROOT, existing.pngPath)
     const outputWebpPath = resolve(TASK9_CATALOG_ROOT, existing.webpPath)
-    await Promise.all([snapshotTask9Output(outputPngPath), snapshotTask9Output(outputWebpPath)])
+    await Promise.all([outputs.snapshot(outputPngPath), outputs.snapshot(outputWebpPath)])
     const processed = await processInterfaceAsset({
       sourcePath: resolve(TASK9_ROOT, variant.sourcePngPath), outputPngPath,
       outputWebpPath, connectors: inputs,
@@ -1093,7 +1102,7 @@ async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number;
   for (const connectorClass of ['tail', 'extra'] as const) {
     const target = resolve(TASK9_ROOT, bridgeSource[connectorClass])
     await mkdir(dirname(target), { recursive: true })
-    await copyFile(resolve(TASK9_ROOT, 'asset-source/v0.3.0/production/bridges/shoulder.png'), target)
+    await outputs.copyFile(resolve(TASK9_ROOT, 'asset-source/v0.3.0/production/bridges/shoulder.png'), target)
   }
   let bridgeCount = 0
   for (const rigId of ['blob', 'biped', 'floating'] as const) for (const connectorClass of ['tail', 'extra'] as const) {
@@ -1112,9 +1121,10 @@ async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number;
     ] as const) {
       const source = resolve(TASK9_CATALOG_ROOT, `assets/v0.3.0/bridges/${rigId}/${sourceSuffix}`)
       const target = resolve(TASK9_CATALOG_ROOT, targetPath)
-      await mkdir(dirname(target), { recursive: true }); await copyFile(source, target)
+      await mkdir(dirname(target), { recursive: true }); await outputs.copyFile(source, target)
     }
     await writeTask9BridgeBackMask(
+      outputs,
       resolve(TASK9_CATALOG_ROOT, bridge.neutralPngPath),
       resolve(TASK9_CATALOG_ROOT, bridge.frontMaskPath),
       resolve(TASK9_CATALOG_ROOT, bridge.backMaskPath),
@@ -1128,9 +1138,9 @@ async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number;
     bridgeCount += 1
   }
   const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex)
-  await writeTask9Json(manifestPath, manifest)
-  await writeTask9Json(processedPath, processedIndex)
-  await writeTask9Json(join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
+  await writeTask9Json(outputs, manifestPath, manifest)
+  await writeTask9Json(outputs, processedPath, processedIndex)
+  await writeTask9Json(outputs, join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
   return { variants: 18, nodes: nodeCount, plugMasks: 27 * 3, receiverMasks: 15 * 3, bridges: bridgeCount }
 }
 
@@ -1143,11 +1153,12 @@ export async function prepareTask9StructuralAssets(input: {
   return runTask9PreparationTransaction({
     repositoryRoot,
     prepare: prepareTask9StructuralAssetsUnsafe,
-    beforeCommit: input.beforeCommit,
+    ...(input.beforeCommit === undefined ? {} : { beforeCommit: input.beforeCommit }),
   })
 }
 
-export async function renderTask9ReceiverGuides(): Promise<{ profiles: number; files: number; indexPath: string }> {
+export async function renderTask9ReceiverGuides(outputs: Task9PreparationCapability): Promise<{ profiles: number; files: number; indexPath: string }> {
+  assertTask9PreparationCapability(outputs)
   const manifest = JSON.parse(await readFile(join(TASK9_SOURCE_ROOT, 'interface-manifest.json'), 'utf8'))
   const profiles = []
   for (const bodyId of Object.keys(TASK9_RECEIVERS)) {
@@ -1159,9 +1170,13 @@ export async function renderTask9ReceiverGuides(): Promise<{ profiles: number; f
   }
   if (profiles.length !== 15) throw new Error(`TASK9_GUIDE_INVALID: expected 15 receiver profiles, got ${profiles.length}`)
   const outputRoot = join(TASK9_SOURCE_ROOT, 'generation', 'task9-review', 'receiver-guides')
+  await Promise.all(profiles.flatMap(profile => {
+    const stem = `${profile.assetId}-${profile.id}-${profile.role}`
+    return [outputs.snapshot(join(outputRoot, `${stem}-guide.png`)), outputs.snapshot(join(outputRoot, `${stem}-mask.png`))]
+  }))
   const rendered = await renderInterfaceGuides({ outputRoot, rigId: 'biped', profiles })
   const indexPath = join(outputRoot, 'task9-receiver-guide-index.json')
-  await writeTask9Json(indexPath, {
+  await writeTask9Json(outputs, indexPath, {
     schemaVersion: 'task9-receiver-guides-v1',
     files: rendered.files.map(file => ({
       assetId: file.assetId, connectorId: file.connectorId, role: file.role,

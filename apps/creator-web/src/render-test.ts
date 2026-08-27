@@ -148,7 +148,9 @@ async function renderFixture(): Promise<void> {
   document.body.dataset.renderComplete = 'true'
 }
 
-type InterfaceVariant = 'baseline' | 'foreground-hole' | 'background-hole' | 'shifted-contour' | 'curved-head-split' | 'misaligned-occlusion-masks'
+// TASK8_STABLE_BEGIN:render-test-interface-variant
+type InterfaceVariant = 'baseline' | 'foreground-hole' | 'background-hole' | 'transition-hole' | 'shifted-contour' | 'curved-head-split' | 'misaligned-occlusion-masks'
+// TASK8_STABLE_END:render-test-interface-variant
 
 function raster(
   width: number,
@@ -230,7 +232,11 @@ function interfaceResolver(variant: InterfaceVariant): ImageResolver {
       } else if (/bridges\/blob\/neck-(front|back)\.png$/.test(assetPath)) {
         source = raster(4, 4, context => {
           context.fillStyle = '#ffffff'
-          if (variant === 'misaligned-occlusion-masks') {
+          // TASK8_STABLE_BEGIN:render-test-transition-hole-bridge
+          if (variant === 'transition-hole') {
+            return
+          } else if (variant === 'misaligned-occlusion-masks') {
+          // TASK8_STABLE_END:render-test-transition-hole-bridge
             context.fillRect(assetPath.endsWith('-front.png') ? 0 : 2, 0, 2, 4)
           } else context.fillRect(0, 0, 4, 4)
         })
@@ -352,6 +358,7 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
   if (context === null) throw new Error('2D context unavailable')
   const response = await fetch(inputUrl)
   if (!response.ok) throw new Error(`Could not load biped slice input: ${response.status}`)
+  // TASK8_STABLE_BEGIN:render-test-diagnostic-input
   const input = await response.json() as {
     catalog: Catalog
     spec: MonsterSpec
@@ -360,7 +367,9 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
       activeVisualSlots: VisualSlotId[]
       activeConnectorIds: string[]
     }
+    applyPaletteMasks?: boolean
   }
+  // TASK8_STABLE_END:render-test-diagnostic-input
   const resolvedAssetPaths: string[] = []
   const trackedResolver: ImageResolver = {
     async resolve(assetPath) {
@@ -372,13 +381,18 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
     width: 2048,
     height: 2048,
     includeGroundShadow: false,
+    // TASK8_STABLE_BEGIN:render-test-diagnostic-option
     ...(input.diagnosticScope === undefined ? {} : { diagnosticScope: input.diagnosticScope }),
+    ...(input.applyPaletteMasks === undefined ? {} : { applyPaletteMasks: input.applyPaletteMasks }),
+    // TASK8_STABLE_END:render-test-diagnostic-option
   })
   document.body.dataset.interfaceResult = JSON.stringify({
     diagnostics: result.diagnostics,
     connectorMetrics: result.connectorMetrics,
     compositionMetrics: result.compositionMetrics,
+    // TASK8_STABLE_BEGIN:render-test-diagnostic-result
     diagnosticScope: result.diagnosticScope,
+    // TASK8_STABLE_END:render-test-diagnostic-result
     resolvedAssetPaths,
   })
   document.body.dataset.renderComplete = 'true'
@@ -392,6 +406,9 @@ const pendingRender = requestedBipedSlice !== null
   : requestedInterfaceVariant === 'baseline'
   || requestedInterfaceVariant === 'foreground-hole'
   || requestedInterfaceVariant === 'background-hole'
+  // TASK8_STABLE_BEGIN:render-test-transition-hole-route
+  || requestedInterfaceVariant === 'transition-hole'
+  // TASK8_STABLE_END:render-test-transition-hole-route
   || requestedInterfaceVariant === 'shifted-contour'
   || requestedInterfaceVariant === 'curved-head-split'
   || requestedInterfaceVariant === 'misaligned-occlusion-masks'

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { link, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { afterEach, expect, test } from 'vitest'
@@ -86,4 +86,21 @@ test('rejects a prompt file whose normalized content differs from the recorded p
 
   const result = await validateProductionSourceFiles(sourceIndex, root)
   expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_SOURCE_PROMPT_CONTENT_MISMATCH' }))
+})
+
+test('rejects an external source-rich file hard-linked into the trusted root', async () => {
+  const { root, sourceIndex } = await fixture()
+  const outside = join(await mkdtemp(join(tmpdir(), 'qmonster-source-rich-outside-')), 'outside.png')
+  temporaryDirectories.push(join(outside, '..'))
+  await writeFile(outside, 'external attacker bytes')
+  await rm(join(root, 'generation', 'sheet.png'))
+  await link(outside, join(root, 'generation', 'sheet.png'))
+  const source = (sourceIndex.sources as Array<Record<string, any>>)[0]!
+  source.sheetSha256 = sha256('external attacker bytes')
+
+  const result = await validateProductionSourceFiles(sourceIndex, root)
+  expect(result.diagnostics).toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_SOURCE_FILE_INVALID',
+    path: ['sources', 'sample', 'sheetPath'],
+  }))
 })

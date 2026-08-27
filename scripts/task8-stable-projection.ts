@@ -59,9 +59,13 @@ export function task8LimbCatalogProjection(catalog: Catalog): Pick<Catalog, 'par
       delete variant.featureSockets
     }
   }
+  const transitionBridges = structuredClone((catalog.transitionBridges ?? []).filter(bridge => TASK8_CONNECTOR_CLASSES.has(bridge.connectorClass)))
+  for (const bridge of transitionBridges) {
+    bridge.materialFamilies = bridge.materialFamilies.filter(family => family !== 'soft-skin')
+  }
   return {
     parts,
-    transitionBridges: structuredClone((catalog.transitionBridges ?? []).filter(bridge => TASK8_CONNECTOR_CLASSES.has(bridge.connectorClass))),
+    transitionBridges,
   }
 }
 
@@ -90,168 +94,79 @@ export function task8LimbSourceProjectionSha256(sourceIndex: unknown, production
   return sha256Json(task8LimbSourceProjection(sourceIndex, productionEvidence))
 }
 
-const TASK9_BROWSER_CATALOG_EXTENSION = `export function browserCatalog(input: Catalog, options: {
-  activeStructuralSlots?: readonly VisualSlotId[]
-  applyPaletteMasks?: boolean
-} = {}): Catalog {
-  const catalog = structuredClone(input)
-  const activeStructuralSlots = new Set(options.activeStructuralSlots ?? ['bodyFrame', 'headShape', 'arms', 'legs'])`
-
-const TASK8_BROWSER_CATALOG_BASELINE = `export function browserCatalog(input: Catalog): Catalog {
-  const catalog = structuredClone(input)`
-
-const TASK9_ACTIVE_SLOT_CONDITION = `if (part.composition !== undefined && !activeStructuralSlots.has(part.slotId)) {`
-const TASK8_ACTIVE_SLOT_CONDITION = `if (part.composition !== undefined && !['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)) {`
-
-function replaceExpected(text: string, extension: string, baseline: string, expectedCount = 1): string {
-  const count = text.split(extension).length - 1
-  if (count !== expectedCount) throw new Error(`TASK8_RENDERER_PROJECTION_CARDINALITY:${count}:${expectedCount}`)
-  return text.replaceAll(extension, baseline)
+const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
+  'apps/creator-web/src/render-test.ts': {
+    'render-test-interface-variant': "type InterfaceVariant = 'baseline' | 'foreground-hole' | 'background-hole' | 'shifted-contour' | 'curved-head-split' | 'misaligned-occlusion-masks'\n\n",
+    'render-test-transition-hole-bridge': "          if (variant === 'misaligned-occlusion-masks') {\n",
+    'render-test-diagnostic-input': '  const input = await response.json() as { catalog: Catalog, spec: MonsterSpec }\n',
+    'render-test-diagnostic-option': '',
+    'render-test-diagnostic-result': '',
+    'render-test-transition-hole-route': '',
+  },
+  'packages/renderer-canvas/src/render.ts': {
+    'renderer-palette-load-diagnostic': '',
+    'renderer-palette-missing-diagnostic': '',
+    'renderer-palette-preflight': '',
+    'renderer-diagnostic-scope-helpers': '',
+    'renderer-skip-palette-source': '',
+    'renderer-connector-diagnostic-call-1': '      diagnostics.push(connectorCompositeDiagnostic(\n',
+    'renderer-connector-diagnostic-call-2': '      diagnostics.push(connectorCompositeDiagnostic(\n',
+    'renderer-bridge-end-center-helper': '',
+    'renderer-bridge-receiver-source-param': '',
+    'renderer-bridge-mesh-endpoints': '',
+    'renderer-bridge-gradient-endpoints': '        bridge.solved.receiverOrigin.x, bridge.solved.receiverOrigin.y,\n        bridge.solved.plugOrigin.x, bridge.solved.plugOrigin.y,\n',
+    'renderer-bridge-front-receiver-overlap': '',
+    'renderer-bridge-seam-envelope-comment': '',
+    'renderer-bridge-draw-setup': '    // Bridge alpha remains part of structural validation, but normalized roots\n    // overlap fully and occlude the tissue in the final art. Drawing the warp\n    // before a transparent child still exposes its rectangular mesh bounds.\n',
+    'renderer-bridge-back-call': '',
+    'renderer-bridge-front-call': '',
+    'renderer-pre-face-bridge-comment': '    // Structural roots are normalized to overlap. Keep transition tissue\n    // behind them so no mask boundary or mesh frontier reads as hardware.\n',
+    'renderer-palette-pass': '',
+    'renderer-skip-palette-node': '',
+    'renderer-face-diagnostic-call-1': '        diagnostics.push(metricDiagnostic(\n',
+    'renderer-face-diagnostic-call-2': '        diagnostics.push(metricDiagnostic(\n',
+    'renderer-diagnostic-return': '  return { drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics }\n',
+    'renderer-diagnostic-scope-validation': '',
+  },
+  'scripts/render-limb-contact-sheets.ts': {
+    'limb-worker-partition-helper': '',
+    'limb-worker-cleanup-helper': '',
+    'limb-worker-count-input': '',
+    'limb-browser-catalog-signature': 'export function browserCatalog(input: Catalog): Catalog {\n  const catalog = structuredClone(input)\n',
+    'limb-active-structural-slots': '',
+    'limb-active-slot-condition': "    if (part.composition !== undefined && !['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)) {\n",
+    'limb-palette-mask-paths': '',
+    'limb-structural-only-catalog': '  const catalog = browserCatalog(sourceCatalog)\n',
+    'limb-structural-only-input': '      await writeFile(inputPath, `${JSON.stringify({ catalog, spec })}\\n`)\n',
+    'limb-worker-pages': '  const browser = await chromium.launch({ headless: true }); const page = await browser.newPage()\n  const entries: LimbMatrixEvidenceEntry[] = []\n',
+    'limb-worker-loop-open': '    for (let index = 0; index < plan.length; index += 1) {\n',
+    'limb-worker-entry-assignment': '      entries.push({ ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes }, gateErrors, diagnostics: evidence.diagnostics })\n',
+    'limb-worker-loop-close': '    }\n',
+    'limb-worker-cleanup': '    await page.close(); await browser.close(); await server.close(); await rm(inputRoot, { recursive: true, force: true })\n',
+  },
 }
 
-function projectTask9DiagnosticScope(path: string, text: string): string {
-  if (path === 'apps/creator-web/src/render-test.ts') {
-    return replaceExpected(replaceExpected(replaceExpected(
-      text,
-      `  const input = await response.json() as {
-    catalog: Catalog
-    spec: MonsterSpec
-    diagnosticScope?: {
-      id: string
-      activeVisualSlots: VisualSlotId[]
-      activeConnectorIds: string[]
+export function task8StableMarkerProjection(path: string, text: string): string {
+  const replacements = TASK8_MARKER_REPLACEMENTS[path]
+  if (replacements === undefined) return text
+  const observed = new Set<string>()
+  const pattern = /^(?<indent>[ \t]*)\/\/ TASK8_STABLE_BEGIN:(?<id>[a-z0-9-]+)\r?\n[\s\S]*?^\k<indent>\/\/ TASK8_STABLE_END:\k<id>\r?\n(?:\r?\n)?/gmu
+  const projected = text.replace(pattern, (...args: unknown[]) => {
+    const groups = args.at(-1) as { id?: string } | undefined
+    const id = groups?.id
+    if (id === undefined || !(id in replacements) || observed.has(id)) {
+      throw new Error(`TASK8_RENDERER_PROJECTION_MARKER_INVALID:${String(id)}`)
     }
-  }`,
-      '  const input = await response.json() as { catalog: Catalog, spec: MonsterSpec }',
-    ), `    ...(input.diagnosticScope === undefined ? {} : { diagnosticScope: input.diagnosticScope }),\n`, ''), `    diagnosticScope: result.diagnosticScope,\n`, '')
+    observed.add(id)
+    return replacements[id]!
+  })
+  const expected = Object.keys(replacements)
+  if (observed.size !== expected.length) {
+    throw new Error(`TASK8_RENDERER_PROJECTION_CARDINALITY:${observed.size}:${expected.length}`)
   }
-  if (path !== 'packages/renderer-canvas/src/render.ts') return text
-  let projected = replaceExpected(text, `function interfacePaletteAssetLoadDiagnostic(
-  partId: string,
-  rigId: string,
-  maskName: 'primary' | 'secondary' | 'accent',
-  assetPath: string,
-): Diagnostic {
-  return {
-    severity: 'error',
-    code: 'ASSET_LOAD_FAILED',
-    path: ['parts', partId, 'rigMaskPaths', rigId, maskName],
-    message: \`Failed to load \${assetPath} for \${partId}.\`,
-  }
-}
-
-`, '')
-  projected = replaceExpected(projected, `  for (const node of tree.nodes) {
-    if (node.slotId === 'colorScheme') continue
-`, `  for (const node of tree.nodes) {
-`)
-  projected = replaceExpected(projected, `    const colorSelection = spec.visualSlots.colorScheme
-    const colorPart = catalog.parts.find(part => (
-      part.id === colorSelection.partId && part.slotId === 'colorScheme'
-    ))
-    const colorMasks = colorPart?.rigMaskPaths?.[colorSelection.rigId]
-    if (colorPart !== undefined && colorMasks !== undefined) {
-      const palette = expandRenderLayers(spec, catalog).palette
-      for (const maskName of ['primary', 'secondary', 'accent'] as const) {
-        const assetPath = colorMasks[maskName]
-        try {
-          const mask = await resolver.resolve(assetPath)
-          clearSurface(surfaces.connectorMask)
-          surfaces.connectorMask.context.drawImage(mask, 0, 0)
-          withSavedContext(surfaces.connectorMask.context, () => {
-            surfaces.connectorMask.context.globalCompositeOperation = 'source-in'
-            surfaces.connectorMask.context.fillStyle = palette[maskName]
-            surfaces.connectorMask.context.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
-            surfaces.connectorMask.context.globalCompositeOperation = 'destination-in'
-            surfaces.connectorMask.context.drawImage(surfaces.structureAlpha.canvas, 0, 0)
-          })
-          withSavedContext(finalContext, () => {
-            finalContext.globalCompositeOperation = 'color'
-            finalContext.drawImage(surfaces.connectorMask.canvas, 0, 0)
-          })
-        } catch {
-          diagnostics.push(interfacePaletteAssetLoadDiagnostic(
-            colorPart.id, colorSelection.rigId, maskName, assetPath,
-          ))
-        }
-      }
-      if (!diagnostics.some(item => item.path[1] === colorPart.id)) drawnAssetIds.push(colorPart.id)
-    }
-`, '')
-  projected = replaceExpected(projected, `    for (const node of nonStructural) {
-      if (node.slotId === 'colorScheme') continue
-`, `    for (const node of nonStructural) {
-`)
-  projected = replaceExpected(projected, `  const suppressedDiagnostics: Diagnostic[] = []
-  const diagnosticScope = options.diagnosticScope
-  const pushConnectorMetricDiagnostic = (connectorId: string, diagnostic: Diagnostic) => {
-    if (diagnosticScope !== undefined && !diagnosticScope.activeConnectorIds.includes(connectorId)) {
-      suppressedDiagnostics.push(diagnostic)
-    } else diagnostics.push(diagnostic)
-  }
-  const pushFaceMetricDiagnostic = (slotId: 'eyes' | 'mouthShape', diagnostic: Diagnostic) => {
-    if (diagnosticScope !== undefined && !diagnosticScope.activeVisualSlots.includes(slotId)) {
-      suppressedDiagnostics.push(diagnostic)
-    } else diagnostics.push(diagnostic)
-  }
-`, '')
-  projected = replaceExpected(projected, 'pushConnectorMetricDiagnostic(item.connectorId, connectorCompositeDiagnostic(', 'diagnostics.push(connectorCompositeDiagnostic(', 2)
-  projected = replaceExpected(projected, 'pushFaceMetricDiagnostic(slotId, metricDiagnostic(', 'diagnostics.push(metricDiagnostic(', 2)
-  projected = replaceExpected(projected, `  return {
-    drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics,
-    ...(diagnosticScope === undefined ? {} : {
-      diagnosticScope: {
-        ...diagnosticScope,
-        activeVisualSlots: [...diagnosticScope.activeVisualSlots],
-        activeConnectorIds: [...diagnosticScope.activeConnectorIds],
-        suppressedDiagnostics,
-      },
-    }),
-  }`, '  return { drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics }')
-  projected = replaceExpected(projected, `  if (
-    options.diagnosticScope !== undefined
-    && (
-      options.diagnosticScope.id.trim() === ''
-      || options.diagnosticScope.activeVisualSlots.length === 0
-      || options.diagnosticScope.activeConnectorIds.length === 0
-      || new Set(options.diagnosticScope.activeVisualSlots).size !== options.diagnosticScope.activeVisualSlots.length
-      || new Set(options.diagnosticScope.activeConnectorIds).size !== options.diagnosticScope.activeConnectorIds.length
-    )
-  ) {
-    return {
-      drawnAssetIds: [],
-      diagnostics: [{
-        severity: 'error',
-        code: 'RENDER_DIAGNOSTIC_SCOPE_INVALID',
-        path: ['renderOptions', 'diagnosticScope'],
-        message: 'A diagnostic scope needs a non-empty id and unique active visual slots and connectors.',
-      }],
-      compositionMetrics: null,
-      connectorMetrics: catalog.version === '0.3.0' ? [] : null,
-    }
-  }
-`, '')
   return projected
 }
 
 export function task8RendererProjectionSha256(path: string, bytes: Uint8Array): string {
-  let projected = projectTask9DiagnosticScope(path, Buffer.from(bytes).toString('utf8'))
-  if (path === 'scripts/render-limb-contact-sheets.ts') {
-    projected = replaceExpected(projected, `    if (part.slotId === 'colorScheme' && options.applyPaletteMasks !== true) delete part.rigMaskPaths
-    else if (part.rigMaskPaths !== undefined) for (const masks of Object.values(part.rigMaskPaths)) {
-        if (masks === undefined) continue
-        masks.primary = fsUrl(runtimeFsPath(masks.primary))
-        masks.secondary = fsUrl(runtimeFsPath(masks.secondary))
-        masks.accent = fsUrl(runtimeFsPath(masks.accent))
-      }
-`, '')
-    const extensionCount = projected.split(TASK9_BROWSER_CATALOG_EXTENSION).length - 1
-    const conditionCount = projected.split(TASK9_ACTIVE_SLOT_CONDITION).length - 1
-    if (extensionCount === 1 && conditionCount === 1) {
-      projected = projected
-        .replace(TASK9_BROWSER_CATALOG_EXTENSION, TASK8_BROWSER_CATALOG_BASELINE)
-        .replace(TASK9_ACTIVE_SLOT_CONDITION, TASK8_ACTIVE_SLOT_CONDITION)
-    }
-  }
-  return createHash('sha256').update(projected).digest('hex')
+  return createHash('sha256').update(task8StableMarkerProjection(path, Buffer.from(bytes).toString('utf8'))).digest('hex')
 }
