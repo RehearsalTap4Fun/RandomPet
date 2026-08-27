@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "task8-imagegen-prompts-v1",
+  "generator": "built-in-image_gen",
+  "sharedContract": "One exact-rig paired limb asset in the approved soft plush 3D fantasy-creature style. Show exactly two separated left/right nodes, front orthographic, with visibly substantial rounded proximal plugs designed to disappear beneath the matching shoulder or hip receiver. No torso, pelvis, head, face, pedestal, hardware, flat cut, joined pair, labels, or extra appendages. Generous neutral checker-like margin supports deterministic alpha extraction.",
+  "variants": {
+    "arms_short_plush:blob": "Two compact fuzzy mitten arms for a squat blob, substantial inward-facing shoulder plugs and short outward/down silhouettes.",
+    "arms_long_noodle:blob": "Two long flexible fuzzy noodle arms for a squat blob, substantial inward-facing shoulder plugs and playful outward curves.",
+    "arms_paddle:blob": "Two compact fuzzy paddle arms for a squat blob, roots angled inward/up and hands hanging outward/down.",
+    "legs_stub_feet:blob": "Two short fuzzy weight-bearing stub feet for a squat blob, broad rounded upper roots and soft planted feet.",
+    "legs_webbed:blob": "Two short aquatic plush legs for a squat blob, broad hip plugs and rounded webbed feet.",
+    "legs_mushroom:blob": "Two short mushroom-velvet legs for a squat blob, broad hip plugs and soft cap-like feet.",
+    "legs_shadow_tiptoe:blob": "Two shadow-velvet tiptoe legs for a squat blob, broad hip plugs tapering to curved soft toes.",
+    "arms_paddle:biped": "Two fuzzy paddle arms for the approved upright biped shoulder grammar, substantial inward plugs and broad rounded hands.",
+    "legs_stub_feet:biped": "Two short fuzzy planted legs for the approved upright biped hip grammar, substantial upper plugs and rounded stub feet.",
+    "legs_shadow_tiptoe:biped": "Two shadow-velvet tiptoe legs for the approved upright biped hip grammar, substantial upper plugs and curved soft toes.",
+    "arms_short_plush:floating": "Two compact buoyant plush arms for a floating drop body, rounded inward shoulder plugs and small mitten ends.",
+    "arms_long_noodle:floating": "Two long buoyant S-curved noodle arms for a hovering drop body, rounded upper roots and small soft hands.",
+    "arms_paddle:floating": "Two buoyant fuzzy paddle arms for a floating drop body, rounded inward shoulder plugs and broad soft hands.",
+    "legs_stub_feet:floating": "Two short dangling fuzzy legs for a floating drop body, substantial hip plugs and rounded hovering feet.",
+    "legs_webbed:floating": "Two dangling aquatic plush legs for a floating drop body, substantial hip plugs and rounded webbed feet.",
+    "legs_mushroom:floating": "Two dangling mushroom-velvet legs for a floating drop body, substantial hip plugs and soft cap-like feet.",
+    "legs_shadow_tiptoe:floating": "Two deep-purple shadow-velvet tiptoe legs for a hovering body, substantial upper roots tapering into small curved toe tips."
+  },
+  "rejections": {
+    "arms_paddle:blob:candidate-1": "Rejected after live composition: vertical paddles left only 0.546–0.555 alpha outside body_blob_wide and exceeded frame bounds.",
+    "arms_paddle:blob:candidate-2": "Rejected after live composition: compact lateral sweep still left only 0.442–0.457 alpha outside body_blob_wide.",
+    "arms_paddle:blob:candidate-3": "Rejected after live composition: elongated upper-lateral normalization passed round but remained only 0.486–0.488 outside body_blob_wide.",
+    "arms_paddle:blob:candidate-4": "Selected after the final declared 520×900 normalization and hash-bound live sweep: identity transform passes both frozen blob bodies (worst external alpha 0.664954). Earlier 480×500 evidence was stale-normalization evidence and is retained only as a rejected processing round.",
+    "arms_paddle:blob:candidate-5": "Rejected after the generic staging-capacity correction proved the failure was not the local canvas: final identity render left only 0.565371–0.574344 external alpha on body_blob_round.",
+    "legs_mushroom:blob:candidate-1": "Rejected at original-source review: both proximal roots were hollow cup openings rather than substantial solid hip plugs.",
+    "legs_mushroom:blob:candidate-2": "Selected at original-source review: two separated mushroom legs with solid opaque rounded proximal bulbs and no hollow root."
+  }
+}

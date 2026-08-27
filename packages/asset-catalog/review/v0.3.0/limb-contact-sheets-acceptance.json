@@ -72,6 +72,40 @@
     "imageGenCalls": 35,
     "targetedRegenerationCalls": 18
   },
+  "evidenceRoot": {
+    "schemaVersion": "task8-evidence-root-v1",
+    "closurePrinciple": "acceptance-to-inputs; indexes-never-reference-acceptance",
+    "sourceIndex": {
+      "path": "packages/asset-catalog/source-index-v0.3.0.json",
+      "sha256": "ac53d826815886acfb97b6d3756b775fb4c3d1df739c96f3722ff336318e7a6b"
+    },
+    "processedIndex": {
+      "path": "asset-source/v0.3.0/production/processed-index.json",
+      "sha256": "cf4dc31e36a5f5fab595310643b1053767872f4f80209a0b8afd5d6f26d84484"
+    },
+    "productionEvidence": {
+      "path": "asset-source/v0.3.0/generation/task8-limb-production.json",
+      "sha256": "20ddbe969532e752d5d97d979fd3e02455b371bb975c269fa1ac668c83e15993"
+    },
+    "rendererInputs": [
+      {
+        "path": "scripts/render-limb-contact-sheets.ts",
+        "sha256": "03d364a4895ebdbb49561d138de115ae344c291cf3aaf7e4ea1f33a9bcf4b0c8"
+      },
+      {
+        "path": "apps/creator-web/src/render-test.ts",
+        "sha256": "12dd6962a7b089e98e9ff5ba966364d8a4c99073cc51d9e5e2777c410e4f7392"
+      },
+      {
+        "path": "packages/renderer-canvas/src/render.ts",
+        "sha256": "919e3ffdb33c0d45bc6c13c9f0969cb2e3b3391da69af02a7c17fb53fffb0f01"
+      },
+      {
+        "path": "packages/renderer-canvas/src/connector-metrics.ts",
+        "sha256": "45ea8dd58a5977588f563ff48beb8596839beb5eca8970995e5cd428a5f15c5b"
+      }
+    ]
+  },
   "causalMetrics": {
     "thresholds": {
       "receiverCoverageMin": 0.9,
@@ -91,6 +125,7 @@
   },
   "notes": [
     "User selected A and approved all 60 exact-rig limb matrix cells.",
-    "Approval is exact to the six sheets, three manifests, review record, global threshold, connector amendment, and Task 7 reapproval hashes recorded here."
+    "Approval is exact to the six sheets, three manifests, review record, global threshold, connector amendment, Task 7 reapproval, canonical source/processed indexes, production evidence, and renderer-input hashes recorded here.",
+    "The evidence root is acyclic: acceptance hashes canonical inputs; indexes hash review records and never hash acceptance."
   ]
 }

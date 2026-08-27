@@ -139,10 +139,27 @@ async function cell(image: Buffer, entry: LimbMatrixPlanEntry, size: 512 | 256):
   return sharp({ create: { width: size, height: size, channels: 4, background: '#f4f1e8' } }).composite([{ input: checker, left: 0, top: 0 }, { input: art, left: 0, top: 0 }, { input: label, left: 0, top: artHeight }]).png(PNG).toBuffer()
 }
 
-export async function renderLimbContactSheets(mode: LimbMatrixMode) {
-  const auditOnly = process.argv.includes('--audit')
-  const plan = makeLimbMatrixPlan(mode)
-  const sourceCatalogBytes = await readFile(join(ROOT, 'packages/asset-catalog/catalog/v0.3.0/catalog.json'))
+export interface LimbMatrixEvidenceEntry extends LimbMatrixPlanEntry {
+  original: Buffer
+  connectorMetrics: ConnectorMetric[]
+  compositionMetrics: RenderEvidence['compositionMetrics']
+  resolvedAssetPaths: string[]
+  inputBinding: { catalogSha256: string; resolvedAssetHashes: Array<{ path: string; sha256: string }> }
+  gateErrors: string[]
+  diagnostics: RenderEvidence['diagnostics']
+}
+
+export async function reconstructLimbMatrixEvidence(input: {
+  mode?: LimbMatrixMode
+  catalogPath?: string
+  planOverride?: LimbMatrixPlanEntry[]
+  failOnGateError?: boolean
+  writeDebugOnFailure?: boolean
+} = {}): Promise<{ mode: LimbMatrixMode; catalogInputSha256: string; entries: LimbMatrixEvidenceEntry[] }> {
+  const mode = input.mode ?? 'full'
+  const plan = input.planOverride ?? makeLimbMatrixPlan(mode)
+  const catalogPath = input.catalogPath ?? join(ROOT, 'packages/asset-catalog/catalog/v0.3.0/catalog.json')
+  const sourceCatalogBytes = await readFile(catalogPath)
   const sourceCatalog = JSON.parse(sourceCatalogBytes.toString('utf8')) as Catalog
   const catalogInputSha256 = sha256(sourceCatalogBytes)
   const catalog = browserCatalog(sourceCatalog)
@@ -152,7 +169,7 @@ export async function renderLimbContactSheets(mode: LimbMatrixMode) {
   await server.listen(); const baseUrl = server.resolvedUrls?.local[0]
   if (baseUrl === undefined) throw new Error('LIMB_MATRIX_RENDER_FAILED: Vite server has no local URL')
   const browser = await chromium.launch({ headless: true }); const page = await browser.newPage()
-  const entries: any[] = []
+  const entries: LimbMatrixEvidenceEntry[] = []
   try {
     for (let index = 0; index < plan.length; index += 1) {
       const selection = plan[index]!
@@ -163,7 +180,7 @@ export async function renderLimbContactSheets(mode: LimbMatrixMode) {
       await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
       const browserError = await page.evaluate(() => document.body.dataset.renderError)
       if (browserError !== undefined) throw new Error(`LIMB_MATRIX_RENDER_FAILED:${browserError}`)
-      const evidence = await page.evaluate(() => JSON.parse(document.body.dataset.interfaceResult!)) as RenderEvidence & { compositionMetrics: unknown }
+      const evidence = await page.evaluate(() => JSON.parse(document.body.dataset.interfaceResult!)) as RenderEvidence
       const expectedNodePaths = ['arms', 'legs'].flatMap(slotId => {
         const part = catalog.parts.find(item => item.id === selection[slotId as 'arms' | 'legs'])!
         return part.composition?.mode === 'interface' ? part.composition.variantsByRig[selection.rigId]!.renderNodes.map(node => node.assetPath) : []
@@ -172,9 +189,11 @@ export async function renderLimbContactSheets(mode: LimbMatrixMode) {
       const dataUrl = await page.locator('#render-target').evaluate(canvas => (canvas as HTMLCanvasElement).toDataURL('image/png'))
       const original = Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64')
       if (gateErrors.length > 0) {
-        const debugPath = join(ROOT, '.superpowers', 'sdd', '2026-08-24-qmonster-v0.3-interface-components-implementation', `task8-debug-${selection.bodyFrame}.png`)
-        await mkdir(dirname(debugPath), { recursive: true }); await writeFile(debugPath, original)
-        if (!auditOnly) throw new Error(`LIMB_MATRIX_GATE_FAILED:${selection.bodyFrame}:${selection.arms}:${selection.legs}:${gateErrors.join(',')}:metrics=${JSON.stringify(evidence.connectorMetrics)}:diagnostics=${JSON.stringify(evidence.diagnostics)}`)
+        if (input.writeDebugOnFailure === true) {
+          const debugPath = join(ROOT, '.superpowers', 'sdd', '2026-08-24-qmonster-v0.3-interface-components-implementation', `task8-debug-${selection.bodyFrame}.png`)
+          await mkdir(dirname(debugPath), { recursive: true }); await writeFile(debugPath, original)
+        }
+        if (input.failOnGateError === true) throw new Error(`LIMB_MATRIX_GATE_FAILED:${selection.bodyFrame}:${selection.arms}:${selection.legs}:${gateErrors.join(',')}:metrics=${JSON.stringify(evidence.connectorMetrics)}:diagnostics=${JSON.stringify(evidence.diagnostics)}`)
       }
       const resolvedAssetHashes = await Promise.all([...new Set(evidence.resolvedAssetPaths)].map(async path => {
         let digest = resolvedHashCache.get(path)
@@ -186,6 +205,16 @@ export async function renderLimbContactSheets(mode: LimbMatrixMode) {
   } finally {
     await page.close(); await browser.close(); await server.close(); await rm(inputRoot, { recursive: true, force: true })
   }
+  return { mode, catalogInputSha256, entries }
+}
+
+export async function renderLimbContactSheets(mode: LimbMatrixMode) {
+  const auditOnly = process.argv.includes('--audit')
+  const { entries } = await reconstructLimbMatrixEvidence({
+    mode,
+    failOnGateError: !auditOnly,
+    writeDebugOnFailure: true,
+  })
   const grouped = new Map<string, typeof entries>()
   for (const entry of entries) { const list = grouped.get(entry.rigId) ?? []; list.push(entry); grouped.set(entry.rigId, list) }
   const records = []

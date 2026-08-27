@@ -16,6 +16,7 @@ import { renderInterfaceGuides } from './render-interface-guides.js'
 import { tmpdir } from 'node:os'
 import { validateBipedSliceReview } from './validate-biped-slice-review.js'
 import { measureBodyHeadCausalMetrics } from './body-head-contact-metrics.js'
+import { reconstructLimbMatrixEvidence, type LimbMatrixEvidenceEntry } from './render-limb-contact-sheets.js'
 
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
@@ -300,7 +301,18 @@ const LIMB_ROSTER = {
 
 function reviewAssetPath(repositoryRoot: string, portablePath: string): string {
   const withoutFsPrefix = portablePath.startsWith('/@fs/') ? portablePath.slice('/@fs/'.length) : portablePath
+  const normalized = withoutFsPrefix.replaceAll('\\', '/')
+  const catalogMarker = '/packages/asset-catalog/'
+  const catalogIndex = normalized.toLowerCase().indexOf(catalogMarker)
+  if (catalogIndex >= 0) return resolve(repositoryRoot, normalized.slice(catalogIndex + 1))
   return isAbsolute(withoutFsPrefix) ? withoutFsPrefix : resolve(repositoryRoot, withoutFsPrefix)
+}
+
+function portableResolverPath(path: string): string {
+  const normalized = path.replaceAll('\\', '/')
+  const marker = '/packages/asset-catalog/'
+  const index = normalized.toLowerCase().indexOf(marker)
+  return index >= 0 ? normalized.slice(index + 1) : normalized
 }
 
 export async function validateLimbReview(input: { repositoryRoot: string; reviewRoot: string }): Promise<{
@@ -382,6 +394,164 @@ export async function validateLimbReview(input: { repositoryRoot: string; review
   return { diagnostics, entryCountByRig }
 }
 
+const LIMB_CAUSAL_METRIC_TOLERANCE = 1e-12
+const LIMB_METRIC_FIELDS = ['receiverCoverage', 'plugCoverage', 'largestComponentRatio', 'centerlineGapPixels', 'childOutsideBodyRatio'] as const
+const LIMB_EVIDENCE_ROOT_PATHS = {
+  sourceIndex: 'packages/asset-catalog/source-index-v0.3.0.json',
+  processedIndex: 'asset-source/v0.3.0/production/processed-index.json',
+  productionEvidence: 'asset-source/v0.3.0/generation/task8-limb-production.json',
+} as const
+export const LIMB_RENDERER_EVIDENCE_PATHS = [
+  'scripts/render-limb-contact-sheets.ts',
+  'apps/creator-web/src/render-test.ts',
+  'packages/renderer-canvas/src/render.ts',
+  'packages/renderer-canvas/src/connector-metrics.ts',
+] as const
+
+type LimbReviewManifest = { rigId: InterfaceRigId; entries: any[] }
+type LimbCausalAggregate = {
+  entryCount: number
+  receiverCoverageMin: number
+  plugCoverageMin: number
+  largestComponentRatioMin: number
+  centerlineGapPixelsMax: number
+  childOutsideBodyRatioMin: number
+}
+
+function limbEntryKey(entry: { rigId: string; bodyFrame: string; arms: string; legs: string }): string {
+  return `${entry.rigId}:${entry.bodyFrame}:${entry.arms}:${entry.legs}`
+}
+
+function comparableDiagnostics(value: unknown): unknown {
+  return Array.isArray(value) ? value.map((item: any) => ({ severity: item.severity, code: item.code, path: item.path, message: item.message })) : value
+}
+
+function comparableResolverPaths(paths: unknown): unknown {
+  return Array.isArray(paths) ? paths.map(path => typeof path === 'string' ? portableResolverPath(path) : path) : paths
+}
+
+function comparableResolvedHashes(value: unknown): unknown {
+  return Array.isArray(value) ? value.map((item: any) => ({ path: portableResolverPath(item.path), sha256: item.sha256 })) : value
+}
+
+function limbCausalAggregate(entries: Array<{ connectorMetrics: any[] }>): LimbCausalAggregate {
+  const metrics = entries.flatMap(entry => entry.connectorMetrics.filter(metric => /^(shoulder|hip)/u.test(metric.connectorId)))
+  return {
+    entryCount: entries.length,
+    receiverCoverageMin: Math.min(...metrics.map(metric => metric.receiverCoverage)),
+    plugCoverageMin: Math.min(...metrics.map(metric => metric.plugCoverage)),
+    largestComponentRatioMin: Math.min(...metrics.map(metric => metric.largestComponentRatio)),
+    centerlineGapPixelsMax: Math.max(...metrics.map(metric => metric.centerlineGapPixels)),
+    childOutsideBodyRatioMin: Math.min(...metrics.map(metric => metric.childOutsideBodyRatio)),
+  }
+}
+
+function sameNumber(left: unknown, right: unknown): boolean {
+  return typeof left === 'number' && typeof right === 'number' && Number.isFinite(left) && Number.isFinite(right)
+    && Math.abs(left - right) <= LIMB_CAUSAL_METRIC_TOLERANCE
+}
+
+export function compareLimbCausalMetricEvidence(input: {
+  liveEntries: LimbMatrixEvidenceEntry[]
+  manifests: LimbReviewManifest[]
+}): { diagnostics: Diagnostic[]; aggregate: LimbCausalAggregate } {
+  const diagnostics: Diagnostic[] = []
+  const storedEntries = input.manifests.flatMap(manifest => manifest.entries)
+  const storedByKey = new Map(storedEntries.map(entry => [limbEntryKey(entry), entry]))
+  if (input.liveEntries.length !== 60 || storedEntries.length !== 60 || storedByKey.size !== 60) {
+    diagnostics.push(error('LIMB_CAUSAL_ROSTER_DRIFT', ['causalMetrics', 'entries'], 'Live and stored exact-rig matrices must each contain the same 60 unique cells.'))
+  }
+  for (const [index, live] of input.liveEntries.entries()) {
+    const path = ['causalMetrics', live.rigId, String(index)]
+    const stored = storedByKey.get(limbEntryKey(live))
+    if (stored === undefined) {
+      diagnostics.push(error('LIMB_CAUSAL_ROSTER_DRIFT', path, 'A live exact-rig cell has no matching stored review entry.'))
+      continue
+    }
+    const liveMetrics = new Map(live.connectorMetrics.filter(metric => /^(shoulder|hip)/u.test(metric.connectorId)).map(metric => [metric.connectorId, metric]))
+    const storedMetrics = new Map((Array.isArray(stored.connectorMetrics) ? stored.connectorMetrics : []).filter((metric: any) => /^(shoulder|hip)/u.test(metric.connectorId)).map((metric: any) => [metric.connectorId, metric]))
+    if (liveMetrics.size !== 4 || storedMetrics.size !== 4) diagnostics.push(error('LIMB_CAUSAL_METRIC_DRIFT', [...path, 'connectorMetrics'], 'Every live/stored cell must contain four limb connector metrics.'))
+    for (const connectorId of ['shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight']) {
+      const liveMetric: any = liveMetrics.get(connectorId)
+      const storedMetric: any = storedMetrics.get(connectorId)
+      for (const field of LIMB_METRIC_FIELDS) if (!sameNumber(liveMetric?.[field], storedMetric?.[field])) {
+        diagnostics.push(error('LIMB_CAUSAL_METRIC_DRIFT', [...path, connectorId, field], `Stored ${field} differs from live renderer reconstruction.`))
+      }
+    }
+    if (JSON.stringify(live.compositionMetrics?.visibleBounds ?? null) !== JSON.stringify(stored.compositionMetrics?.visibleBounds ?? null)) {
+      diagnostics.push(error('LIMB_CAUSAL_BOUNDS_DRIFT', [...path, 'visibleBounds'], 'Stored visible bounds differ from live renderer reconstruction.'))
+    }
+    if (JSON.stringify(live.gateErrors) !== JSON.stringify(stored.gateErrors)) diagnostics.push(error('LIMB_CAUSAL_DIAGNOSTIC_DRIFT', [...path, 'gateErrors'], 'Stored gate diagnostics differ from live renderer reconstruction.'))
+    if (JSON.stringify(comparableDiagnostics(live.diagnostics)) !== JSON.stringify(comparableDiagnostics(stored.diagnostics))) diagnostics.push(error('LIMB_CAUSAL_DIAGNOSTIC_DRIFT', [...path, 'diagnostics'], 'Stored renderer diagnostics differ from live renderer reconstruction.'))
+    if (JSON.stringify(comparableResolverPaths(live.resolvedAssetPaths)) !== JSON.stringify(comparableResolverPaths(stored.resolvedAssetPaths))) diagnostics.push(error('LIMB_CAUSAL_INPUT_DRIFT', [...path, 'resolvedAssetPaths'], 'Stored resolver call inputs differ from live renderer reconstruction.'))
+    if (live.inputBinding.catalogSha256 !== stored.inputBinding?.catalogSha256 || JSON.stringify(comparableResolvedHashes(live.inputBinding.resolvedAssetHashes)) !== JSON.stringify(comparableResolvedHashes(stored.inputBinding?.resolvedAssetHashes))) {
+      diagnostics.push(error('LIMB_CAUSAL_INPUT_DRIFT', [...path, 'inputBinding'], 'Stored catalog or resolved-asset hashes differ from live renderer inputs.'))
+    }
+  }
+  return { diagnostics, aggregate: limbCausalAggregate(input.liveEntries) }
+}
+
+export async function validateLimbCausalMetricEvidence(input: {
+  repositoryRoot: string
+  reviewRoot: string
+  catalogPath?: string
+  manifestOverrides?: Partial<Record<InterfaceRigId, LimbReviewManifest>>
+  liveEvidence?: { entries: LimbMatrixEvidenceEntry[] }
+}): Promise<{ entryCount: number; diagnostics: Diagnostic[]; aggregate: LimbCausalAggregate; liveEvidence: { entries: LimbMatrixEvidenceEntry[] } }> {
+  const manifests = await Promise.all((['blob', 'biped', 'floating'] as const).map(async rigId => input.manifestOverrides?.[rigId] ?? JSON.parse(await readFile(resolve(input.reviewRoot, `limb-contact-sheet-${rigId}-manifest.json`), 'utf8'))))
+  const liveEvidence = input.liveEvidence ?? await reconstructLimbMatrixEvidence({ mode: 'full', catalogPath: input.catalogPath })
+  const compared = compareLimbCausalMetricEvidence({ liveEntries: liveEvidence.entries, manifests })
+  return { entryCount: liveEvidence.entries.length, diagnostics: compared.diagnostics, aggregate: compared.aggregate, liveEvidence: { entries: liveEvidence.entries } }
+}
+
+export async function validateLimbAcceptanceDocument(input: {
+  document: any
+  repositoryRoot: string
+  reviewRoot: string
+  liveAggregate?: LimbCausalAggregate
+}): Promise<Diagnostic[]> {
+  const diagnostics: Diagnostic[] = []
+  const evidenceRoot = input.document?.evidenceRoot
+  if (evidenceRoot?.schemaVersion !== 'task8-evidence-root-v1' || evidenceRoot?.closurePrinciple !== 'acceptance-to-inputs; indexes-never-reference-acceptance') {
+    diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot'], 'Acceptance must declare the stable, non-self-referential Task 8 evidence root.'))
+    return diagnostics
+  }
+  for (const [field, expectedPath] of Object.entries(LIMB_EVIDENCE_ROOT_PATHS)) {
+    const binding = evidenceRoot[field]
+    try {
+      if (binding?.path !== expectedPath || sha256Bytes(await readFile(resolve(input.repositoryRoot, expectedPath))) !== binding.sha256) diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', field], `Evidence-root ${field} differs from canonical live bytes.`))
+    } catch { diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', field], `Evidence-root ${field} is missing.`)) }
+  }
+  const renderers = Array.isArray(evidenceRoot.rendererInputs) ? evidenceRoot.rendererInputs : []
+  if (renderers.length !== LIMB_RENDERER_EVIDENCE_PATHS.length || new Set(renderers.map((item: any) => item.path)).size !== LIMB_RENDERER_EVIDENCE_PATHS.length) {
+    diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'rendererInputs'], 'Evidence root must bind every canonical renderer input exactly once.'))
+  }
+  for (const expectedPath of LIMB_RENDERER_EVIDENCE_PATHS) {
+    const binding = renderers.find((item: any) => item.path === expectedPath)
+    try {
+      if (binding === undefined || sha256Bytes(await readFile(resolve(input.repositoryRoot, expectedPath))) !== binding.sha256) diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'rendererInputs', expectedPath], 'Renderer input differs from the acceptance evidence root.'))
+    } catch { diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'rendererInputs', expectedPath], 'Renderer input is missing.')) }
+  }
+  try {
+    const sourceIndex = JSON.parse(await readFile(resolve(input.repositoryRoot, LIMB_EVIDENCE_ROOT_PATHS.sourceIndex), 'utf8'))
+    const processed = JSON.parse(await readFile(resolve(input.repositoryRoot, LIMB_EVIDENCE_ROOT_PATHS.processedIndex), 'utf8'))
+    if (JSON.stringify(sourceIndex) !== JSON.stringify(processed.sourceIndex)) diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'indexClosure'], 'Canonical source index must exactly equal processed-index.sourceIndex without referencing acceptance.'))
+  } catch { diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'indexClosure'], 'Cannot validate the canonical index closure.')) }
+  if (input.document.productionEvidence?.path !== evidenceRoot.productionEvidence?.path || input.document.productionEvidence?.sha256 !== evidenceRoot.productionEvidence?.sha256) {
+    diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'productionEvidence'], 'Top-level production evidence must equal its evidence-root binding.'))
+  }
+  let expectedAggregate = input.liveAggregate
+  if (expectedAggregate === undefined) {
+    const manifests = await Promise.all((['blob', 'biped', 'floating'] as const).map(async rigId => JSON.parse(await readFile(resolve(input.reviewRoot, `limb-contact-sheet-${rigId}-manifest.json`), 'utf8'))))
+    expectedAggregate = limbCausalAggregate(manifests.flatMap(manifest => manifest.entries))
+  }
+  const actualAggregate = input.document.causalMetrics?.results
+  for (const field of ['entryCount', 'receiverCoverageMin', 'plugCoverageMin', 'largestComponentRatioMin', 'centerlineGapPixelsMax', 'childOutsideBodyRatioMin'] as const) {
+    if (!sameNumber(actualAggregate?.[field], expectedAggregate[field])) diagnostics.push(error('LIMB_ACCEPTANCE_AGGREGATE_DRIFT', ['limbAcceptance', 'causalMetrics', 'results', field], `Acceptance aggregate ${field} differs from reconstructed matrix evidence.`))
+  }
+  return diagnostics
+}
+
 export async function validateLimbApproval(input: { repositoryRoot: string; reviewRoot: string }): Promise<{
   diagnostics: Diagnostic[]
   entryCount: number
@@ -392,6 +562,8 @@ export async function validateLimbApproval(input: { repositoryRoot: string; revi
   try { document = JSON.parse(await readFile(path, 'utf8')) } catch {
     return { diagnostics: [error('LIMB_ACCEPTANCE_MISSING', ['limbAcceptance'], 'Canonical Task 8 limb acceptance is missing.')], entryCount: 0 }
   }
+  const causal = await validateLimbCausalMetricEvidence(input)
+  diagnostics.push(...causal.diagnostics)
   if (document.schemaVersion !== 'limb-acceptance-v1' || document.decision !== 'approved' || document.reviewer !== 'user' || document.userApproved !== true || document.approvalResponse !== 'A' || document.entryCount !== 60 || document.entryCountByRig?.blob !== 24 || document.entryCountByRig?.biped !== 24 || document.entryCountByRig?.floating !== 12) {
     diagnostics.push(error('LIMB_ACCEPTANCE_FIELDS_INVALID', ['limbAcceptance'], 'Task 8 acceptance must record the exact user A approval and 24/24/12 matrix.'))
   }
@@ -428,6 +600,12 @@ export async function validateLimbApproval(input: { repositoryRoot: string; revi
     const review = JSON.parse(await readFile(resolve(input.repositoryRoot, document.reviewRecord.path), 'utf8'))
     if (review.status !== 'APPROVED' || review.userApproved !== true || review.approvalResponse !== 'A') diagnostics.push(error('LIMB_ACCEPTANCE_REVIEW_INVALID', ['limbAcceptance', 'reviewRecord'], 'Canonical limb review record is not approved by user A.'))
   } catch { diagnostics.push(error('LIMB_ACCEPTANCE_REVIEW_INVALID', ['limbAcceptance', 'reviewRecord'], 'Cannot read the canonical limb review record.')) }
+  diagnostics.push(...await validateLimbAcceptanceDocument({
+    document,
+    repositoryRoot: input.repositoryRoot,
+    reviewRoot: input.reviewRoot,
+    liveAggregate: causal.aggregate,
+  }))
   return { diagnostics, entryCount: diagnostics.length === 0 ? 60 : 0 }
 }
 

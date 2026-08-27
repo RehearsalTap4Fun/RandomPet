@@ -13,6 +13,13 @@ const LIMB_ACCEPTANCE = `${REVIEW_ROOT}/limb-contact-sheets-acceptance.json`
 const THRESHOLD_AMENDMENT = `${REVIEW_ROOT}/visible-limb-threshold-amendment.json`
 const PROCESSED_INDEX = 'asset-source/v0.3.0/production/processed-index.json'
 const SOURCE_INDEX = 'packages/asset-catalog/source-index-v0.3.0.json'
+const TASK8_PRODUCTION = 'asset-source/v0.3.0/generation/task8-limb-production.json'
+const RENDERER_INPUTS = [
+  'scripts/render-limb-contact-sheets.ts',
+  'apps/creator-web/src/render-test.ts',
+  'packages/renderer-canvas/src/render.ts',
+  'packages/renderer-canvas/src/connector-metrics.ts',
+] as const
 
 function sha256(bytes: Uint8Array): string { return createHash('sha256').update(bytes).digest('hex') }
 async function hash(path: string): Promise<string> { return sha256(await readFile(resolve(ROOT, path))) }
@@ -45,11 +52,14 @@ export async function finalizeTask8Approvals(reviewedAt = new Date().toISOString
   const [bodyReview, limbReview, bodyAmendment, threshold, oldAcceptance, production] = await Promise.all([
     readJson(BODY_REVIEW), readJson(LIMB_REVIEW), readJson(BODY_AMENDMENT), readJson(THRESHOLD_AMENDMENT),
     readJson(`${REVIEW_ROOT}/superseded/task7-pre-wide-shoulder-amendment/body-head-contact-sheets-acceptance.pre-amendment.json`),
-    readJson('asset-source/v0.3.0/generation/task8-limb-production.json'),
+    readJson(TASK8_PRODUCTION),
   ])
-  if (bodyReview.status !== 'WAITING_FOR_USER_REAPPROVAL' || limbReview.status !== 'WAITING_FOR_USER_APPROVAL' || bodyAmendment.status !== 'WAITING_FOR_USER_REAPPROVAL' || threshold.status !== 'WAITING_FOR_USER_REAPPROVAL') {
+  const pending = bodyReview.status === 'WAITING_FOR_USER_REAPPROVAL' && limbReview.status === 'WAITING_FOR_USER_APPROVAL' && bodyAmendment.status === 'WAITING_FOR_USER_REAPPROVAL' && threshold.status === 'WAITING_FOR_USER_REAPPROVAL'
+  const alreadyApproved = bodyReview.status === 'APPROVED' && limbReview.status === 'APPROVED' && bodyAmendment.status === 'APPROVED' && threshold.status === 'APPROVED'
+  if (!pending && !alreadyApproved) {
     throw new Error('APPROVAL_FINALIZE_INVALID: expected pending review boundaries')
   }
+  if (alreadyApproved) reviewedAt = limbReview.reviewedAt
   if (threshold.activeMinimum !== 0.614 || threshold.boundaryBehavior?.rejects !== 0.613999 || bodyAmendment.newOrigins?.left?.x !== 490 || bodyAmendment.newOrigins?.right?.x !== 1558) {
     throw new Error('APPROVAL_FINALIZE_INVALID: active amendment contract differs')
   }
@@ -92,6 +102,24 @@ export async function finalizeTask8Approvals(reviewedAt = new Date().toISOString
   }
   await writeJson(BODY_ACCEPTANCE, bodyAcceptance)
 
+  // Build the stable input closure before the acceptance. The two indexes bind
+  // review records but never the acceptance, avoiding a self-referential hash.
+  const processed = await readJson(PROCESSED_INDEX)
+  for (const source of processed.sourceIndex.sources) {
+    if (source.reviewRecordPath === BODY_REVIEW) source.reviewRecordSha256 = bodyReviewSha256
+    if (source.reviewRecordPath === LIMB_REVIEW) source.reviewRecordSha256 = limbReviewSha256
+  }
+  await writeJson(PROCESSED_INDEX, processed)
+  await writeJson(SOURCE_INDEX, processed.sourceIndex)
+  const evidenceRoot = {
+    schemaVersion: 'task8-evidence-root-v1',
+    closurePrinciple: 'acceptance-to-inputs; indexes-never-reference-acceptance',
+    sourceIndex: { path: SOURCE_INDEX, sha256: await hash(SOURCE_INDEX) },
+    processedIndex: { path: PROCESSED_INDEX, sha256: await hash(PROCESSED_INDEX) },
+    productionEvidence: { path: TASK8_PRODUCTION, sha256: await hash(TASK8_PRODUCTION) },
+    rendererInputs: await Promise.all(RENDERER_INPUTS.map(async path => ({ path, sha256: await hash(path) }))),
+  }
+
   const manifests = await Promise.all(['blob', 'biped', 'floating'].map(rigId => readJson(artifactPaths('limb', rigId).manifestPath)))
   const limbMetrics = manifests.flatMap(item => item.entries).flatMap((entry: any) => entry.connectorMetrics.filter((metric: any) => /^(shoulder|hip)/.test(metric.connectorId)))
   const limbAcceptance = {
@@ -102,7 +130,8 @@ export async function finalizeTask8Approvals(reviewedAt = new Date().toISOString
     thresholdContract: { path: THRESHOLD_AMENDMENT, sha256: thresholdSha256, activeMinimum: 0.614, rejects: 0.613999, noOverrides: true },
     connectorAmendment: { path: BODY_AMENDMENT, sha256: amendmentSha256, bodyId: 'body_blob_wide', shoulderOrigins: { left: 490, right: 1558 } },
     task7Reapproval: { path: BODY_ACCEPTANCE, sha256: await hash(BODY_ACCEPTANCE) },
-    productionEvidence: { path: 'asset-source/v0.3.0/generation/task8-limb-production.json', sha256: await hash('asset-source/v0.3.0/generation/task8-limb-production.json'), imageGenCalls: production.imageGenCalls, targetedRegenerationCalls: production.targetedRegenerationCalls },
+    productionEvidence: { path: TASK8_PRODUCTION, sha256: evidenceRoot.productionEvidence.sha256, imageGenCalls: production.imageGenCalls, targetedRegenerationCalls: production.targetedRegenerationCalls },
+    evidenceRoot,
     causalMetrics: {
       thresholds: { receiverCoverageMin: 0.9, plugCoverageMin: 0.9, largestComponentRatioMin: 0.99, centerlineGapPixelsMax: 2, childOutsideBodyRatioMin: 0.614 },
       results: {
@@ -114,17 +143,9 @@ export async function finalizeTask8Approvals(reviewedAt = new Date().toISOString
         childOutsideBodyRatioMin: Math.min(...limbMetrics.map((item: any) => item.childOutsideBodyRatio)),
       },
     },
-    notes: ['User selected A and approved all 60 exact-rig limb matrix cells.', 'Approval is exact to the six sheets, three manifests, review record, global threshold, connector amendment, and Task 7 reapproval hashes recorded here.'],
+    notes: ['User selected A and approved all 60 exact-rig limb matrix cells.', 'Approval is exact to the six sheets, three manifests, review record, global threshold, connector amendment, Task 7 reapproval, canonical source/processed indexes, production evidence, and renderer-input hashes recorded here.', 'The evidence root is acyclic: acceptance hashes canonical inputs; indexes hash review records and never hash acceptance.'],
   }
   await writeJson(LIMB_ACCEPTANCE, limbAcceptance)
-
-  const processed = await readJson(PROCESSED_INDEX)
-  for (const source of processed.sourceIndex.sources) {
-    if (source.reviewRecordPath === BODY_REVIEW) source.reviewRecordSha256 = bodyReviewSha256
-    if (source.reviewRecordPath === LIMB_REVIEW) source.reviewRecordSha256 = limbReviewSha256
-  }
-  await writeJson(PROCESSED_INDEX, processed)
-  await writeJson(SOURCE_INDEX, processed.sourceIndex)
   for (const [path, expected] of before) if (await hash(path) !== expected) throw new Error(`APPROVAL_FINALIZE_INVALID: review artifact changed: ${path}`)
   return { reviewedAt, bodyAcceptanceSha256: await hash(BODY_ACCEPTANCE), limbAcceptanceSha256: await hash(LIMB_ACCEPTANCE), bodyReviewSha256, limbReviewSha256, amendmentSha256, thresholdSha256 }
 }
