@@ -110,7 +110,7 @@ export function buildInterfaceCatalog(input: {
           assetPath: nodeAsset.webpPath, pngPath: nodeAsset.pngPath,
           assetSha256: nodeAsset.webpSha256, pngSha256: nodeAsset.pngSha256,
           parentSlot: source.slotId === 'bodyFrame' ? null : 'bodyFrame', socket: node.connectorId ?? null,
-          origin: { x: 1024, y: 1024 }, transform: { scale: 1, mirrorX: false },
+          origin: { x: 1024, y: 1024 }, transform: node.transform ?? { scale: 1, mirrorX: false },
           layer: source.slotId === 'bodyFrame' ? 'body' : source.slotId === 'headShape' ? 'head' : 'frontAppendage',
           compatibleRigs: [source.rigId], clipPolicy: 'none',
         }
@@ -210,8 +210,8 @@ function isDirectExecution(): boolean {
 
 if (isDirectExecution()) {
   const args = process.argv.slice(2).join(' ')
-  if (!['--slice biped', '--version 0.3.0 --slice biped', '--scope body-head', '--version 0.3.0 --scope body-head'].includes(args)) {
-    throw new Error('Usage: tsx scripts/build-interface-catalog.ts --version 0.3.0 --scope body-head')
+  if (!['--slice biped', '--version 0.3.0 --slice biped', '--scope body-head', '--version 0.3.0 --scope body-head', '--scope limbs', '--version 0.3.0 --scope limbs'].includes(args)) {
+    throw new Error('Usage: tsx scripts/build-interface-catalog.ts --version 0.3.0 --scope limbs')
   }
   const paths = productionPaths('0.3.0')
   const manifest = JSON.parse(await readFile(join(paths.sourceRoot, 'interface-manifest.json'), 'utf8')) as InterfaceSourceManifest

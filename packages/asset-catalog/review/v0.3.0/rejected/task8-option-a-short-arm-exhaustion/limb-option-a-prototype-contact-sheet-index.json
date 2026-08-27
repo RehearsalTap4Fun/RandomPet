@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "limb-contact-sheet-index-v1",
+  "mode": "option-a-prototype",
+  "entryCount": 2,
+  "records": [
+    {
+      "rigId": "blob",
+      "entryCount": 2,
+      "originalPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-option-a-prototype-contact-sheet-blob.png",
+      "originalSha256": "b66bafb374e93356a8be6b4ece5503e7443096ef945694d993691b6317b8b8a5",
+      "review256Path": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-option-a-prototype-contact-sheet-blob-256.png",
+      "review256Sha256": "f27ec3d23952b3d14d04dedbba710020604d96c79e328ad552882c563fb32876",
+      "manifestPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-option-a-prototype-contact-sheet-blob-manifest.json"
+    }
+  ]
+}

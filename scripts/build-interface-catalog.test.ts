@@ -12,6 +12,30 @@ import type { InterfaceSourceManifest } from './interface-source-schema.js'
 const hashFor = (value: string): string => createHash('sha256').update(value).digest('hex')
 
 describe('buildInterfaceCatalog', () => {
+  it('installs every arm and leg identity as an exact-rig variant', async () => {
+    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as {
+      assets: Array<{
+        id: string
+        slotId: string
+        variants: Array<{ rigId: 'blob' | 'biped' | 'floating' }>
+      }>
+    }
+    const expected = {
+      arms: ['arms_long_noodle', 'arms_paddle', 'arms_short_plush'],
+      legs: ['legs_mushroom', 'legs_shadow_tiptoe', 'legs_stub_feet', 'legs_webbed'],
+    } as const
+
+    for (const rigId of ['blob', 'biped', 'floating'] as const) {
+      for (const slotId of ['arms', 'legs'] as const) {
+        const actual = manifest.assets
+          .filter(asset => asset.slotId === slotId && asset.variants.some(variant => variant.rigId === rigId))
+          .map(asset => asset.id)
+          .sort()
+        expect(actual, `${slotId}:${rigId}`).toEqual([...expected[slotId]])
+      }
+    }
+  })
+
   it('contains five body variants and four head identities for every rig', async () => {
     const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as {
       assets: Array<{
@@ -82,6 +106,8 @@ describe('buildInterfaceCatalog', () => {
     }
     base.modifiers[0]!.boosts = { [retainedPartId]: 4, [removedPartId]: 5 }
     base.modifiers[0]!.excludes = [modifierExclude]
+    const transformedSource = variants.find(item => item.partId === 'legs_stub_feet' && item.rigId === 'biped')!
+    transformedSource.renderNodes[0]!.transform = { scale: 0.92, mirrorX: false }
 
     const catalog = buildInterfaceCatalog({ baseCatalog: base, manifest, processedAssets: processed, processedBridges: bridges })
 
@@ -101,6 +127,9 @@ describe('buildInterfaceCatalog', () => {
       'assets/v0.3.0/nodes/biped/arms_short_plush/arms_short_plush-shoulderLeft.webp',
       'assets/v0.3.0/nodes/biped/arms_short_plush/arms_short_plush-shoulderRight.webp',
     ])
+    const transformedPart = catalog.parts.find(part => part.id === 'legs_stub_feet')!
+    if (transformedPart.composition?.mode !== 'interface') throw new Error('expected interface composition')
+    expect(transformedPart.composition.variantsByRig.biped?.renderNodes[0]?.transform).toEqual({ scale: 0.92, mirrorX: false })
     expect(catalog.semanticTraits[0]?.boosts).toEqual({ [retainedPartId]: 2 })
     expect(catalog.semanticTraits[0]?.excludes).toEqual([semanticExclude])
     expect(catalog.semanticTraits[0]?.visualMapping).toEqual({

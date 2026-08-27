@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   connectorMetricMeetsThresholds,
+  EXTERNAL_LIMB_ALPHA_MIN,
   measureConnectorAlpha,
   structureMetricMeetsThreshold,
 } from './connector-metrics.js'
@@ -21,6 +22,16 @@ function raster(width: number, height: number) {
 }
 
 describe('measureConnectorAlpha', () => {
+  it('uses exactly the global 0.614 visible-limb threshold and rejects 0.613999', () => {
+    expect(EXTERNAL_LIMB_ALPHA_MIN).toBe(0.614)
+    const metric = {
+      connectorId: 'shoulderLeft', receiverCoverage: 0.9, plugCoverage: 0.9,
+      largestComponentRatio: 0.99, centerlineGapPixels: 2, childOutsideBodyRatio: 0.614,
+    }
+    expect(connectorMetricMeetsThresholds(metric, true)).toBe(true)
+    expect(connectorMetricMeetsThresholds({ ...metric, childOutsideBodyRatio: 0.613999 }, true)).toBe(false)
+  })
+
   it('measures bridge alpha overlap against full antialiased contour rasters', () => {
     const width = 10
     const receiverContour = raster(width, 2).line(0, 9, 0).pixels

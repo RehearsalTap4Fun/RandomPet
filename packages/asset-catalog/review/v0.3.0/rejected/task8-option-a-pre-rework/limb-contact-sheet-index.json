@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "limb-contact-sheet-index-v1",
+  "mode": "full",
+  "entryCount": 60,
+  "records": [
+    {
+      "rigId": "blob",
+      "entryCount": 24,
+      "originalPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-blob.png",
+      "originalSha256": "cfecf884eeccef9306fba13140c6b71484470ae55eafcefd88cc1ae64bfa166f",
+      "review256Path": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-blob-256.png",
+      "review256Sha256": "536d4c184e5a1948f860511935f0c07cd4a896d8fc6fd551fef7237c79d8a762",
+      "manifestPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-blob-manifest.json"
+    },
+    {
+      "rigId": "biped",
+      "entryCount": 24,
+      "originalPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped.png",
+      "originalSha256": "51ff9a758cd0099d5695a996f2c393cc6168a2eacee6c0a4e056599293f9e5df",
+      "review256Path": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped-256.png",
+      "review256Sha256": "823e528b1293722f3dd00e780f576fb17b52c354dc3ed4b8a06511e284b22e1d",
+      "manifestPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped-manifest.json"
+    },
+    {
+      "rigId": "floating",
+      "entryCount": 12,
+      "originalPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-floating.png",
+      "originalSha256": "62384d0d8b7aca079b6112efa01c6c8bbd4ee377579d621246553874cacef0bb",
+      "review256Path": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-floating-256.png",
+      "review256Sha256": "d80bf4a13468afc60ac712276ec8e713b8fa12223447744adb3b91d5aa62f103",
+      "manifestPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-contact-sheet-floating-manifest.json"
+    }
+  ]
+}

@@ -1,0 +1,367 @@
+{
+  "schemaVersion": "limb-contact-sheet-v1",
+  "status": "machine-pass-awaiting-user-approval",
+  "mode": "prototype",
+  "rigId": "floating",
+  "entryCount": 1,
+  "legend": "bodyFrame; arms × legs",
+  "originalPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-prototype-contact-sheet-floating.png",
+  "originalSha256": "c401459626881e6415047ac2f5f30b904a23e633eaba08224c838b628d13f012",
+  "review256Path": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-prototype-contact-sheet-floating-256.png",
+  "review256Sha256": "ab2e8d636af3b4d5359fbeb8c83f24561dc320e69b708aad450814fe12817cd8",
+  "thresholds": {
+    "receiverCoverageMin": 0.9,
+    "plugCoverageMin": 0.9,
+    "largestComponentRatioMin": 0.99,
+    "centerlineGapPixelsMax": 2,
+    "childOutsideBodyRatioMin": 0.614
+  },
+  "entries": [
+    {
+      "rigId": "floating",
+      "bodyFrame": "body_floating_drop",
+      "headShape": "head_round_dome",
+      "arms": "arms_long_noodle",
+      "legs": "legs_shadow_tiptoe",
+      "connectorMetrics": [
+        {
+          "connectorId": "neck",
+          "receiverCoverage": 0.6295515913162972,
+          "plugCoverage": 0.9916007884635336,
+          "largestComponentRatio": 0.9999966110938147,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": null
+        },
+        {
+          "connectorId": "shoulderLeft",
+          "receiverCoverage": 0.9128770591308624,
+          "plugCoverage": 0.9894686274509804,
+          "largestComponentRatio": 0.9999966110938147,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.8957495075136943
+        },
+        {
+          "connectorId": "shoulderRight",
+          "receiverCoverage": 0.9128816691253304,
+          "plugCoverage": 0.9894747899159664,
+          "largestComponentRatio": 0.9999966110938147,
+          "centerlineGapPixels": 0,
+          "childOutsideBodyRatio": 0.8365951816909936
+        },
+        {
+          "connectorId": "hipLeft",
+          "receiverCoverage": 0.981948414161903,
+          "plugCoverage": 0.981948414161903,
+          "largestComponentRatio": 0.9999966110938147,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.65060960324293
+        },
+        {
+          "connectorId": "hipRight",
+          "receiverCoverage": 0.981948414161903,
+          "plugCoverage": 0.981948414161903,
+          "largestComponentRatio": 0.9999966110938147,
+          "centerlineGapPixels": 0.009803921568627472,
+          "childOutsideBodyRatio": 0.6551640869419944
+        }
+      ],
+      "compositionMetrics": {
+        "eyesInsideRatio": 0,
+        "eyesVisibleRatio": 0,
+        "mouthInsideRatio": 0,
+        "mouthVisibleRatio": 0,
+        "visibleBounds": {
+          "x": 408,
+          "y": 292,
+          "width": 1240,
+          "height": 1644
+        }
+      },
+      "resolvedAssetPaths": [
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_round_dome/neck.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderLeft.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderRight.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipLeft.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipRight.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/neck.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/neck-front.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/neck-back.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/head_round_dome-neck-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/shoulder.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/shoulder-front.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/shoulder-back.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/shoulder-front.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/shoulder-back.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/hip.webp",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/hip-front.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/hip-back.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/hip-front.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/hip-back.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-background.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-contour.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-foreground.png",
+        "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-background.png"
+      ],
+      "inputBinding": {
+        "catalogSha256": "95e78e8aec0ef7d1f51412338a904488adb4e5a8372a949f68a5fcccbb2ba5bc",
+        "resolvedAssetHashes": [
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
+            "sha256": "94daa779b62f86bf1f21e76daaa4206aac2c9f2838acd959b0ea23d13786106c"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_round_dome/neck.webp",
+            "sha256": "6f831b1e03f470e2a24bcb96869a6d2434d477b0e1958cd314545be9ae09cf3c"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderLeft.webp",
+            "sha256": "cfdd88aeabda8a3702cbb7a7cfdcce27c7331c3318527d71dbe02f29c5160f4e"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderRight.webp",
+            "sha256": "9c9f127cc090e3485c554699a4ad6126989097e865f6a89afdb402ce19ae2718"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipLeft.webp",
+            "sha256": "94e5bb466d980feb3d1307c8442b0e98d1539eaf405ff858dcc25c12c34377fe"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipRight.webp",
+            "sha256": "74ece9b240f8fb27a7d99df40813b017dbf3e6e3a6f822bf379a3bd0c631d11f"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/neck.webp",
+            "sha256": "5edc6d335d07dd200194dcd50459a89d9f7356502356f7d6cfe353e6b7357d19"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/neck-front.png",
+            "sha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/neck-back.png",
+            "sha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-contour.png",
+            "sha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-foreground.png",
+            "sha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/body_floating_drop-neck-background.png",
+            "sha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/head_round_dome-neck-contour.png",
+            "sha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-foreground.png",
+            "sha256": "ae66adf793355af4ca95a7f6a63fbe680cf8abe49b75da80f30d4c9e9ae3d136"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/head_round_dome-neck-background.png",
+            "sha256": "9565779c13ee584d2153798b3de0cea05158bab62519c44152e36f9be1b44212"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/shoulder.webp",
+            "sha256": "55472d14b248008c67aed0ce62b77bd9bf4e774316ea2e7aebe2c997aaa45a4b"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/shoulder-front.png",
+            "sha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/shoulder-back.png",
+            "sha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-contour.png",
+            "sha256": "1fe72663541d1df9048871fd9d6b2051cc8c433d1bfbfa5fc5fdcfa43c706562"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-foreground.png",
+            "sha256": "00821e6b38df4dbba9e405340ce242d62e0a0ecd3f9d450aeca8da5d0632c268"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderLeft-background.png",
+            "sha256": "34db0703dfd1c37ded2da6bfc3437804da5df245c8fa40931456700241f421ee"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-contour.png",
+            "sha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-foreground.png",
+            "sha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-background.png",
+            "sha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-contour.png",
+            "sha256": "fa71919f0b0a7edfe59fc2592cfd4285e6642a3449da6d05bcf985f729ec1dba"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-foreground.png",
+            "sha256": "f52d6b334d3dcc2da8850ebd882446ba30f1fa523ccf50e9cdfd27c58318bc06"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-shoulderRight-background.png",
+            "sha256": "d0ffe1a865fce7b380f57025f880b3d003228e1d1eb8cd0344386241bc55aa8c"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-contour.png",
+            "sha256": "7b41a131fddbf1397a8cad3ab286f7dd827730da66a633e083e4c59a9d6b635a"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-foreground.png",
+            "sha256": "5d42d2a5306455199ca39383ebfa5ed0fc459227ba04ed6ddf0eb9058f01a89a"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-background.png",
+            "sha256": "17c8086ce6a5c9da6d98041c9579282859e0127dab145d51eabd3f7150ebce8b"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/hip.webp",
+            "sha256": "c2aa6b653d7facde450daf8e31499f40139d7cd6dbc4860c5d257cdd48efe824"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/hip-front.png",
+            "sha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/bridges/floating/hip-back.png",
+            "sha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-contour.png",
+            "sha256": "a961c11b18322d63fceb67af16f84844fd912abe20b4504f01f306702dbd4cbc"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-foreground.png",
+            "sha256": "eb18800ac2f560fc687d6601cfa40fb72733ee6c853ebceb4e449a80c274889a"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipLeft-background.png",
+            "sha256": "1f48b33212b00884eb952f30e01ef4c3587642062f2aa6b5c08c59f2ed6f6af3"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-contour.png",
+            "sha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-foreground.png",
+            "sha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-background.png",
+            "sha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-contour.png",
+            "sha256": "94330e3f813243ac141f99cb375575e0459ec6f1660db5ebe0aa84cca0832d7d"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-foreground.png",
+            "sha256": "4404794494ce3ab4eb99613a1d4ac34225ba7500b32042fb5b7fe5285923f397"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/body_floating_drop-hipRight-background.png",
+            "sha256": "1148634b7a791f732bc6d12897fe96d445ab61519bd421f56d59ff6657b41369"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-contour.png",
+            "sha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-foreground.png",
+            "sha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f"
+          },
+          {
+            "path": "/@fs/C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-background.png",
+            "sha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+          }
+        ]
+      },
+      "gateErrors": [],
+      "diagnostics": [
+        {
+          "severity": "error",
+          "code": "CONNECTOR_COMPOSITE_FAILED",
+          "path": [
+            "connectors",
+            "neck"
+          ],
+          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+        },
+        {
+          "severity": "error",
+          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+          "path": [
+            "visualSlots",
+            "eyes"
+          ],
+          "message": "eyes alpha ratio 0.000 is below 0.80."
+        },
+        {
+          "severity": "error",
+          "code": "COMPOSITION_FACE_OCCLUDED",
+          "path": [
+            "visualSlots",
+            "eyes"
+          ],
+          "message": "eyes alpha ratio 0.000 is below 0.85."
+        },
+        {
+          "severity": "error",
+          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+          "path": [
+            "visualSlots",
+            "mouthShape"
+          ],
+          "message": "mouthShape alpha ratio 0.000 is below 0.80."
+        },
+        {
+          "severity": "error",
+          "code": "COMPOSITION_FACE_OCCLUDED",
+          "path": [
+            "visualSlots",
+            "mouthShape"
+          ],
+          "message": "mouthShape alpha ratio 0.000 is below 0.85."
+        }
+      ],
+      "originalSha256": "4f93c563c023acbbb37406d1a3792a6937d341bab9b27da0aade38368219283e"
+    }
+  ]
+}

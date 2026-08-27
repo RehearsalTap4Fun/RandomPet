@@ -13,6 +13,7 @@ import {
   validateInterfaceProductionReadiness,
   validateInterfacePromptEvidence,
   validateInterfaceSlice,
+  validateLimbReview,
 } from './validate-interface-slice.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 import { BIPED_SLICE, structuralVariants } from '../packages/asset-catalog/src/interface-source-schema.js'
@@ -30,6 +31,26 @@ function canonicalGuideVariants(manifest: any): ReturnType<typeof structuralVari
 }
 
 describe('validateInterfaceSlice', () => {
+  it('validates the exact 60-cell limb roster at the global 0.614 boundary', async () => {
+    const repositoryRoot = process.cwd()
+    const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
+    const result = await validateLimbReview({ repositoryRoot, reviewRoot })
+    expect(result.entryCountByRig).toEqual({ blob: 24, biped: 24, floating: 12 })
+    expect(result.diagnostics).toEqual([])
+
+    const alteredRoot = await mkdtemp(join(tmpdir(), 'qmonster-limb-threshold-'))
+    roots.push(alteredRoot)
+    for (const rigId of ['blob', 'biped', 'floating']) {
+      const source = join(reviewRoot, `limb-contact-sheet-${rigId}-manifest.json`)
+      const review = JSON.parse(await readFile(source, 'utf8'))
+      if (rigId === 'blob') review.thresholds.childOutsideBodyRatioMin = 0.613999
+      await writeFile(join(alteredRoot, `limb-contact-sheet-${rigId}-manifest.json`), `${JSON.stringify(review)}\n`)
+    }
+    expect((await validateLimbReview({ repositoryRoot, reviewRoot: alteredRoot })).diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'LIMB_REVIEW_THRESHOLD_INVALID', path: ['blob', 'thresholds', 'childOutsideBodyRatioMin'] }),
+    )
+  }, 30_000)
+
   it('keeps retired guide evidence outside the canonical active guide inventory', async () => {
     const result = await validateInterfaceSlice({
       manifestPath: join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json'),
@@ -212,25 +233,20 @@ describe('validateInterfaceSlice', () => {
     )
   }, 120_000)
 
-  it('requires one canonical user approval bound to every live body-head review byte', async () => {
+  it('requires the pending connector amendment to replace, not coexist with, live Task 7 approval', async () => {
     const repositoryRoot = process.cwd()
     const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
     const result = await validateBodyHeadApproval({ repositoryRoot, reviewRoot })
     expect(result.entryCount).toBe(20)
     expect(result.diagnostics).toEqual([])
-
-    const approval = JSON.parse(await readFile(join(reviewRoot, 'body-head-contact-sheets-acceptance.json'), 'utf8'))
-    for (const invalid of [
-      { ...approval, userApproved: false },
-      { ...approval, approvalResponse: 'B' },
-      { ...approval, catalogVersion: '0.2.0' },
-      { ...approval, reviewedAt: 'not-a-time' },
-      { ...approval, artifacts: approval.artifacts.map((item: any, index: number) => index === 0 ? { ...item, originalSha256: 'f'.repeat(64) } : item) },
-      { ...approval, artifacts: [approval.artifacts[0], approval.artifacts[0], approval.artifacts[2]] },
-      { ...approval, task6Integrity: { ...approval.task6Integrity, manifestSha256: 'f'.repeat(64) } },
-    ]) {
-      expect(await validateBodyHeadAcceptanceDocument({ document: invalid, repositoryRoot, reviewRoot })).not.toEqual([])
-    }
+    await expect(readFile(join(reviewRoot, 'body-head-contact-sheets-acceptance.json'))).rejects.toMatchObject({ code: 'ENOENT' })
+    const superseded = JSON.parse(await readFile(join(
+      reviewRoot, 'superseded', 'task7-pre-wide-shoulder-amendment',
+      'body-head-contact-sheets-acceptance.pre-amendment.json',
+    ), 'utf8'))
+    expect(await validateBodyHeadAcceptanceDocument({ document: superseded, repositoryRoot, reviewRoot })).toContainEqual(
+      expect.objectContaining({ code: 'BODY_HEAD_ACCEPTANCE_REVIEW_RECORD_INVALID' }),
+    )
   }, 60_000)
 
   it('rejects missing, misplaced, and duplicate Task 7 acceptance locations', () => {

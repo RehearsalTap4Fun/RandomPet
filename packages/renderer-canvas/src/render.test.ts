@@ -1318,7 +1318,7 @@ describe('v0.3 interface rendering', () => {
     expect(result.connectorMetrics?.filter(metric => (
       metric.connectorId.startsWith('shoulder') || metric.connectorId.startsWith('hip')
     ))
-      .every(metric => (metric.childOutsideBodyRatio ?? 0) >= 0.65)).toBe(true)
+      .every(metric => (metric.childOutsideBodyRatio ?? 0) >= 0.614)).toBe(true)
     expect(result.diagnostics).toEqual([])
     expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(0)
     expect(calls.filter(call => call.startsWith('interface-15:transform:'))).toHaveLength(8 * 18)
@@ -1383,7 +1383,7 @@ describe('v0.3 interface rendering', () => {
     expect(result.connectorMetrics?.[0]?.centerlineGapPixels).toBeGreaterThan(0)
   })
 
-  it('blocks a limb whose external structural alpha is below 0.65', async () => {
+  it('blocks a limb whose external structural alpha is below 0.614', async () => {
     const { catalog, spec } = fixture()
     const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
       ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'internal-child'),
@@ -1393,7 +1393,7 @@ describe('v0.3 interface rendering', () => {
       ?.childOutsideBodyRatio).toBe(0)
     expect(result.diagnostics).toContainEqual(expect.objectContaining({
       severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
-      message: expect.stringContaining('below 0.65'),
+      message: expect.stringContaining('below 0.614'),
     }))
   })
 

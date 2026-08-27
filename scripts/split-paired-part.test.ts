@@ -26,6 +26,12 @@ async function allowedOutputRoot(prefix: string): Promise<string> {
   return root
 }
 
+async function allowedV03OutputRoot(prefix: string): Promise<string> {
+  const root = await mkdtemp(join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.3.0', prefix))
+  temporaryDirectories.push(root)
+  return root
+}
+
 function isLinkPrivilegeError(error: unknown): boolean {
   const code = (error as NodeJS.ErrnoException).code
   return code === 'EPERM' || code === 'EACCES'
@@ -132,6 +138,21 @@ describe('splitPairedPart', () => {
     temporaryDirectories.push(root)
     const inputPath = await makeFixture(root)
     const outputDirectory = await allowedOutputRoot('split-deterministic-')
+
+    const first = await splitPairedPart(inputPath, outputDirectory, CROPS)
+    const firstPixels = await Promise.all(first.map(node => sharp(node.pngPath).ensureAlpha().raw().toBuffer()))
+    const second = await splitPairedPart(inputPath, outputDirectory, CROPS)
+    const secondPixels = await Promise.all(second.map(node => sharp(node.pngPath).ensureAlpha().raw().toBuffer()))
+
+    expect(second).toEqual(first)
+    expect(secondPixels).toEqual(firstPixels)
+  })
+
+  it('writes deterministic paired nodes inside the canonical v0.3.0 output root', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-pair-v03-'))
+    temporaryDirectories.push(root)
+    const inputPath = await makeFixture(root)
+    const outputDirectory = await allowedV03OutputRoot('split-v03-')
 
     const first = await splitPairedPart(inputPath, outputDirectory, CROPS)
     const firstPixels = await Promise.all(first.map(node => sharp(node.pngPath).ensureAlpha().raw().toBuffer()))

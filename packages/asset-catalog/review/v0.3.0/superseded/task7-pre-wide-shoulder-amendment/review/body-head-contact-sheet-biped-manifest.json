@@ -1,0 +1,95 @@
+{
+  "rigId": "biped",
+  "entries": [
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_peanut",
+      "headId": "head_round_dome",
+      "largestComponentRatio": 0.9999995469020133,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.16666666666666666
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_peanut",
+      "headId": "head_mushroom_cap",
+      "largestComponentRatio": 0.9999946407808445,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.15625
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_peanut",
+      "headId": "head_angler_bulb",
+      "largestComponentRatio": 0.9999997878345747,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.18888888888888888
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_peanut",
+      "headId": "head_shadow_hood",
+      "largestComponentRatio": 0.9999925837516598,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.17222222222222222
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_tall",
+      "headId": "head_round_dome",
+      "largestComponentRatio": 0.99999930402814,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.16666666666666666
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_tall",
+      "headId": "head_mushroom_cap",
+      "largestComponentRatio": 0.9999848917041548,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.15625
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_tall",
+      "headId": "head_angler_bulb",
+      "largestComponentRatio": 0.9999996205677829,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.18888888888888888
+    },
+    {
+      "rigId": "biped",
+      "bodyId": "body_biped_tall",
+      "headId": "head_shadow_hood",
+      "largestComponentRatio": 0.9999835505550172,
+      "centerlineGapPx": 0,
+      "visibleTongueDepthRatio": 0,
+      "visibleTongueAreaRatio": 0,
+      "centralLobeDepthRatio": 0.17222222222222222
+    }
+  ],
+  "thresholds": {
+    "largestComponentRatio": 0.99,
+    "centerlineGapPx": 2,
+    "visibleTongueDepthRatio": 0.1,
+    "visibleTongueAreaRatio": 0.1,
+    "centralLobeDepthRatio": 0.2
+  },
+  "sheetSha256": "69615b11a7bb796eabbe287d5992e19211fa4775171131905f57895381ef79b1",
+  "sheet256Sha256": "e26d9f0b7dec2ddcfb206990fe9e61287968451ecc1ca8d96ead9cbfa08d9758",
+  "status": "machine-pass-awaiting-user-approval"
+}

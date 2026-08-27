@@ -597,7 +597,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "arms_paddle"
+      ],
       "sourceSlots": [
         "arms"
       ]
@@ -617,7 +619,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "legs_stub_feet"
+      ],
       "sourceSlots": [
         "legs"
       ]
@@ -675,7 +679,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "legs_shadow_tiptoe"
+      ],
       "sourceSlots": [
         "legs"
       ]
@@ -1086,7 +1092,8 @@
     "visualMapping": {
       "mood": "upright",
       "suggestedParts": [
-        "body_biped_tall"
+        "body_biped_tall",
+        "legs_stub_feet"
       ]
     }
   },
@@ -1220,7 +1227,9 @@
     "boosts": {},
     "visualMapping": {
       "effectPartIds": [],
-      "suggestedParts": []
+      "suggestedParts": [
+        "arms_paddle"
+      ]
     }
   },
   {
@@ -1254,10 +1263,13 @@
       "shadow": 1.4
     },
     "excludes": [],
-    "boosts": {},
+    "boosts": {
+      "legs_shadow_tiptoe": 1.25
+    },
     "visualMapping": {
       "effectPartIds": [],
       "suggestedParts": [
+        "legs_shadow_tiptoe",
         "color_shadow_violet"
       ]
     }

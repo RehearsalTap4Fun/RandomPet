@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "body-head-connector-amendment-v1",
+  "status": "WAITING_FOR_USER_REAPPROVAL",
+  "userApproved": false,
+  "userDecision": "A",
+  "scope": {
+    "rigId": "blob",
+    "bodyId": "body_blob_wide",
+    "connectors": [
+      "shoulderLeft",
+      "shoulderRight"
+    ]
+  },
+  "unchangedBody": {
+    "path": "asset-source/v0.3.0/structural/blob/nodes/body_blob_wide/body.png",
+    "beforeSha256": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a",
+    "afterSha256": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a",
+    "decodedRgbaSha256": "be29b5332db77a892c842fe3bb30b58321425daf46758b69b42c3bbadcc0e071"
+  },
+  "oldOrigins": {
+    "left": {
+      "x": 500,
+      "y": 870
+    },
+    "right": {
+      "x": 1548,
+      "y": 870
+    }
+  },
+  "priorAppliedOrigins": {
+    "left": {
+      "x": 424,
+      "y": 870
+    },
+    "right": {
+      "x": 1624,
+      "y": 870
+    }
+  },
+  "newOrigins": {
+    "left": {
+      "x": 424,
+      "y": 870
+    },
+    "right": {
+      "x": 1624,
+      "y": 870
+    }
+  },
+  "derivation": {
+    "origins": {
+      "left": {
+        "x": 424,
+        "y": 870
+      },
+      "right": {
+        "x": 1624,
+        "y": 870
+      }
+    },
+    "selectedLeftX": 424,
+    "outermostSupportedLeftX": 353,
+    "safeMinimumLeftX": 424,
+    "receiverCoverage": {
+      "left": 1,
+      "right": 1
+    },
+    "projectedBounds": {
+      "minX": 98,
+      "maxX": 1952
+    },
+    "alphaReach": {
+      "left": 326,
+      "right": 328
+    },
+    "grammar": {
+      "connectorClass": "shoulder",
+      "width": 220,
+      "depth": 120,
+      "tangent": {
+        "x": 0,
+        "y": 1
+      },
+      "leftNormal": {
+        "x": -1,
+        "y": 0
+      },
+      "rightNormal": {
+        "x": 1,
+        "y": 0
+      },
+      "warpLimits": {
+        "widthRatio": {
+          "min": 0.85,
+          "max": 1.15
+        },
+        "depthRatio": {
+          "min": 0.8,
+          "max": 1.2
+        },
+        "rotationDegrees": {
+          "min": -12,
+          "max": 12
+        }
+      }
+    },
+    "receiverCoverageMin": 0.9,
+    "safeFrame": {
+      "minX": 96,
+      "maxX": 1952
+    },
+    "sourceCandidate": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-7.png",
+    "sourceCandidateSha256": "2d2776b2b94d7cb993c7ac6fa3402c315967fab409790cdef0d5507cca7abbe7"
+  },
+  "rejectedJointFeasibility": {
+    "path": ".superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json",
+    "sha256": "fc538e40d78dd72c6b6ac4daf2883e753d0fe1a47aa3d3be76a1ca035431b295",
+    "status": "NO_COMMON_SOLUTION"
+  },
+  "preservedGrammar": {
+    "connectorClass": "shoulder",
+    "width": 220,
+    "depth": 120,
+    "tangent": {
+      "x": 0,
+      "y": 1
+    },
+    "leftNormal": {
+      "x": -1,
+      "y": 0
+    },
+    "rightNormal": {
+      "x": 1,
+      "y": 0
+    },
+    "warpLimits": {
+      "widthRatio": {
+        "min": 0.85,
+        "max": 1.15
+      },
+      "depthRatio": {
+        "min": 0.8,
+        "max": 1.2
+      },
+      "rotationDegrees": {
+        "min": -12,
+        "max": 12
+      }
+    }
+  },
+  "preAmendmentEvidence": {
+    "path": "packages/asset-catalog/review/v0.3.0/superseded/task7-pre-wide-shoulder-amendment/pre-amendment-evidence.json",
+    "sha256": "7e4de691a3c8acd93eb57f3033883610e289216d483e754c99f8a34459b35caa"
+  },
+  "reviewArtifacts": null,
+  "notes": [
+    "The historical Task 7 approval is preserved but no longer applies to amended shoulder metadata.",
+    "No amendment acceptance exists; user reapproval is required after Task 7 and Task 8 visual review."
+  ]
+}

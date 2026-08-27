@@ -1,0 +1,2156 @@
+{
+  "processedAssets": {
+    "body_biped_peanut": {
+      "pngPath": "assets/v0.3.0/structural/biped/body_biped_peanut.png",
+      "pngSha256": "bc4da9560db7a11fc0c36e22f455bbc4eeb2f7fbd97ad071889acc0eecea84d3",
+      "webpPath": "assets/v0.3.0/structural/biped/body_biped_peanut.webp",
+      "webpSha256": "2fdc1d96c358c7739158853ba42501a20506140a8861afca50b4314cb62da5c3",
+      "renderNodes": {
+        "body_biped_peanut-body": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.png",
+          "pngSha256": "0a50123966cf8b1f0a9cd0704e93514f161c460701982f9534da502ac4dd50b1",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
+          "webpSha256": "f0a98d41e2ec4ea136840f6fe9ba9aa412d02f1fc17d437f2699e9dc9bd3df26"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68",
+          "foregroundMaskSha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68",
+          "backgroundMaskSha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68"
+        },
+        "shoulderLeft": {
+          "contourMaskSha256": "1e952968337ad10940110ecb5d58389f639296a72eb7d7b778bd910b86b85c90",
+          "foregroundMaskSha256": "1e952968337ad10940110ecb5d58389f639296a72eb7d7b778bd910b86b85c90",
+          "backgroundMaskSha256": "1e952968337ad10940110ecb5d58389f639296a72eb7d7b778bd910b86b85c90"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "bfdb77edaaf943db268c9e9c5d97b41d5ed7361116a0b75b142cb36ffc59e243",
+          "foregroundMaskSha256": "bfdb77edaaf943db268c9e9c5d97b41d5ed7361116a0b75b142cb36ffc59e243",
+          "backgroundMaskSha256": "bfdb77edaaf943db268c9e9c5d97b41d5ed7361116a0b75b142cb36ffc59e243"
+        },
+        "hipLeft": {
+          "contourMaskSha256": "dec55ffcebd3b879919c696934ad012b5998bd7c8d777eac5d8420d687b0d91e",
+          "foregroundMaskSha256": "dec55ffcebd3b879919c696934ad012b5998bd7c8d777eac5d8420d687b0d91e",
+          "backgroundMaskSha256": "dec55ffcebd3b879919c696934ad012b5998bd7c8d777eac5d8420d687b0d91e"
+        },
+        "hipRight": {
+          "contourMaskSha256": "831543d702256e077bb45c4d59e4b20456dbde0d9c7a111b15edce7f5f5016b8",
+          "foregroundMaskSha256": "831543d702256e077bb45c4d59e4b20456dbde0d9c7a111b15edce7f5f5016b8",
+          "backgroundMaskSha256": "831543d702256e077bb45c4d59e4b20456dbde0d9c7a111b15edce7f5f5016b8"
+        }
+      }
+    },
+    "body_biped_tall": {
+      "pngPath": "assets/v0.3.0/structural/biped/body_biped_tall.png",
+      "pngSha256": "85f46011094904dba826c766d497b8aa8368fda17ef23542af4ce4a26ff8a23a",
+      "webpPath": "assets/v0.3.0/structural/biped/body_biped_tall.webp",
+      "webpSha256": "130961adef8657d46091591cd94ee1572b6a0ab6b0edc50a06842698ad83b91d",
+      "renderNodes": {
+        "body_biped_tall-body": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.png",
+          "pngSha256": "759a999a491e5ebe40431cb1a92c0ab0de1a93ba80c65187d65f8e23fc9f203d",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
+          "webpSha256": "76e72bae41c5fa35dae55bc9543390d8446477502c9b9db4f01a57b1a2d4fc12"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d",
+          "foregroundMaskSha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d",
+          "backgroundMaskSha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d"
+        },
+        "shoulderLeft": {
+          "contourMaskSha256": "f4f7be1694628267b4a6a8179fd168313631b9413174267ac588a69674af8f36",
+          "foregroundMaskSha256": "f4f7be1694628267b4a6a8179fd168313631b9413174267ac588a69674af8f36",
+          "backgroundMaskSha256": "f4f7be1694628267b4a6a8179fd168313631b9413174267ac588a69674af8f36"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "6670e3297871c221ae097257e83e1ff485c022dab5c9d2027004dedfa4e4a275",
+          "foregroundMaskSha256": "6670e3297871c221ae097257e83e1ff485c022dab5c9d2027004dedfa4e4a275",
+          "backgroundMaskSha256": "6670e3297871c221ae097257e83e1ff485c022dab5c9d2027004dedfa4e4a275"
+        },
+        "hipLeft": {
+          "contourMaskSha256": "ff019f98234f10a141f6cad413b5e39fa74c305bfe3788eb9407347eff60d7b0",
+          "foregroundMaskSha256": "ff019f98234f10a141f6cad413b5e39fa74c305bfe3788eb9407347eff60d7b0",
+          "backgroundMaskSha256": "ff019f98234f10a141f6cad413b5e39fa74c305bfe3788eb9407347eff60d7b0"
+        },
+        "hipRight": {
+          "contourMaskSha256": "00540aaf3d92b4311cb4f12c737ff113039e4507112b9d90d349dd244c57c18f",
+          "foregroundMaskSha256": "00540aaf3d92b4311cb4f12c737ff113039e4507112b9d90d349dd244c57c18f",
+          "backgroundMaskSha256": "00540aaf3d92b4311cb4f12c737ff113039e4507112b9d90d349dd244c57c18f"
+        }
+      }
+    },
+    "head_mushroom_cap": {
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
+      "pngSha256": "49cf663abc0db74599e2eedef8c88f6db6b808f73dacb90393bba19123cae024",
+      "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.webp",
+      "webpSha256": "554681da3b6e2ed240cee4d7b9ba3670e66f6aabdd805ec18b6f5cb1aeb91885",
+      "renderNodes": {
+        "head_mushroom_cap-biped-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+          "pngSha256": "49cf663abc0db74599e2eedef8c88f6db6b808f73dacb90393bba19123cae024",
+          "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_mushroom_cap/neck.webp",
+          "webpSha256": "554681da3b6e2ed240cee4d7b9ba3670e66f6aabdd805ec18b6f5cb1aeb91885"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "8c5d4ce06c6cc91e9603b96a3c0290d2e0109aa4742b78de22a332739de43ebb",
+          "foregroundMaskSha256": "e822b7c73e3c6aad4a5259b6bec636fc1b1c3985b1fc92e03c9373b3b5e748d1",
+          "backgroundMaskSha256": "b4a9d0f20a1aae56e8d01719748f4d3b311212c68b075e69e8309faac811b58c"
+        }
+      }
+    },
+    "arms_short_plush": {
+      "pngPath": "assets/v0.3.0/structural/biped/arms_short_plush.png",
+      "pngSha256": "f5db56619464eba4b64f3079955f492380095756e003ed79faf6f6fba298f6e0",
+      "webpPath": "assets/v0.3.0/structural/biped/arms_short_plush.webp",
+      "webpSha256": "ef3c1084c4179f6d36b8a676d7050cf24b47b0533c3ee006618c9fcf88853eb8",
+      "renderNodes": {
+        "arms_short_plush-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/arms_short_plush/arms_short_plush-shoulderLeft.png",
+          "pngSha256": "3d96d738dbf846316b03e6190d27f351d02a437b617cd1bbc8067dc677c602d5",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/arms_short_plush/arms_short_plush-shoulderLeft.webp",
+          "webpSha256": "667f42962083e6abe7e34337c28e3eadf2280ccf99abf3349fc725f5d1d5c404"
+        },
+        "arms_short_plush-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/arms_short_plush/arms_short_plush-shoulderRight.png",
+          "pngSha256": "894b1d0c07f726e134533c7558aac87d50f79a7b330626c2745d60df28ae4926",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/arms_short_plush/arms_short_plush-shoulderRight.webp",
+          "webpSha256": "58bc27ff781679077723721a53c9df546eeb69b65561ffbea3bd15d51b911783"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "84e1e64191350fe080632ece82c00cb129c78accbc1e7b995c10cdc4b94a8e27",
+          "foregroundMaskSha256": "84e1e64191350fe080632ece82c00cb129c78accbc1e7b995c10cdc4b94a8e27",
+          "backgroundMaskSha256": "84e1e64191350fe080632ece82c00cb129c78accbc1e7b995c10cdc4b94a8e27"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "24a4bb840eac429bffffa0c1ffe4291c16d41f007fb043a6b3b515a6747bdc77",
+          "foregroundMaskSha256": "24a4bb840eac429bffffa0c1ffe4291c16d41f007fb043a6b3b515a6747bdc77",
+          "backgroundMaskSha256": "24a4bb840eac429bffffa0c1ffe4291c16d41f007fb043a6b3b515a6747bdc77"
+        }
+      }
+    },
+    "arms_long_noodle": {
+      "pngPath": "assets/v0.3.0/structural/biped/arms_long_noodle.png",
+      "pngSha256": "9e6ac3387582063e1d5b6d0c17c84c2276de03e2cc4b2e38102bdd590a415ff9",
+      "webpPath": "assets/v0.3.0/structural/biped/arms_long_noodle.webp",
+      "webpSha256": "1136485629b07033c9788607caa245ffec665a53d4cbbb8139c9cca724e71512",
+      "renderNodes": {
+        "arms_long_noodle-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/arms_long_noodle/arms_long_noodle-shoulderLeft.png",
+          "pngSha256": "07ac49697e3d033fcecf5bba1831b5137ffebb0419a448aed1759709010a94a0",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/arms_long_noodle/arms_long_noodle-shoulderLeft.webp",
+          "webpSha256": "92d53a99dd8b1b0f57abaa4c1e0457e553e8bd2231e3898a36af67ace9c72cdf"
+        },
+        "arms_long_noodle-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/arms_long_noodle/arms_long_noodle-shoulderRight.png",
+          "pngSha256": "c454c5517a3288ab2c3f14b2ca373422c1bb112446979dbec2d99038e5955cc8",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/arms_long_noodle/arms_long_noodle-shoulderRight.webp",
+          "webpSha256": "24f1b7a60d5752f21b9a67673b14ebd8c168d2f23e0a2889bb940e3a4a739e19"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "f5b191116c357bf65997d3ab17417516cb6ce659a4b2b44531fb606bfe4ed8f8",
+          "foregroundMaskSha256": "f5b191116c357bf65997d3ab17417516cb6ce659a4b2b44531fb606bfe4ed8f8",
+          "backgroundMaskSha256": "f5b191116c357bf65997d3ab17417516cb6ce659a4b2b44531fb606bfe4ed8f8"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "806f4caf7d8ee1cb4d0716ead522f5acebff60ad1ee688761ca8fe560f26c36f",
+          "foregroundMaskSha256": "806f4caf7d8ee1cb4d0716ead522f5acebff60ad1ee688761ca8fe560f26c36f",
+          "backgroundMaskSha256": "806f4caf7d8ee1cb4d0716ead522f5acebff60ad1ee688761ca8fe560f26c36f"
+        }
+      }
+    },
+    "legs_webbed": {
+      "pngPath": "assets/v0.3.0/structural/biped/legs_webbed.png",
+      "pngSha256": "063403f3b7a490ea4edc9853fda086f0e5cc0f8a1041e0811264dc9675db0422",
+      "webpPath": "assets/v0.3.0/structural/biped/legs_webbed.webp",
+      "webpSha256": "b2686ba7b31dc651233358b7f2d8fcdcf3afc7d5dfd7a7bea55a24cf15b3cdb5",
+      "renderNodes": {
+        "legs_webbed-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/legs_webbed/legs_webbed-hipLeft.png",
+          "pngSha256": "e0887cba0833dc356fe609d3e367062df9633f483da87e3c38a09bf559e31b9e",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/legs_webbed/legs_webbed-hipLeft.webp",
+          "webpSha256": "39fa722c9cddcae734f808087a80f2e3693c738b4faf1c4f4f0c822a05275a52"
+        },
+        "legs_webbed-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/legs_webbed/legs_webbed-hipRight.png",
+          "pngSha256": "a814aa999c7440001af46df4eb4d53e34b2a5e850411cc889237c24cfca8f8c1",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/legs_webbed/legs_webbed-hipRight.webp",
+          "webpSha256": "bcc1b5e9a70d80a9b50e13fa041cf9722934278043737349d26e135b4d51f37e"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "8ecaadc928a9cb7dd787cfbe6ec2454a7237d367b3af16c03b8203da5c131e6b",
+          "foregroundMaskSha256": "8ecaadc928a9cb7dd787cfbe6ec2454a7237d367b3af16c03b8203da5c131e6b",
+          "backgroundMaskSha256": "8ecaadc928a9cb7dd787cfbe6ec2454a7237d367b3af16c03b8203da5c131e6b"
+        },
+        "hipRight": {
+          "contourMaskSha256": "7ac76faeae472de6ffd5db945fbfe14391f085e5d061940d76b96766342b2580",
+          "foregroundMaskSha256": "7ac76faeae472de6ffd5db945fbfe14391f085e5d061940d76b96766342b2580",
+          "backgroundMaskSha256": "7ac76faeae472de6ffd5db945fbfe14391f085e5d061940d76b96766342b2580"
+        }
+      }
+    },
+    "legs_mushroom": {
+      "pngPath": "assets/v0.3.0/structural/biped/legs_mushroom.png",
+      "pngSha256": "be44d7583359bf76cdec3c35675ebf499e65aafa7698bd37304b439e7d1a274f",
+      "webpPath": "assets/v0.3.0/structural/biped/legs_mushroom.webp",
+      "webpSha256": "fd09796eacd57819e0e9a7ef89cfeb422675906deaaabe06e03c5ff4814830ec",
+      "renderNodes": {
+        "legs_mushroom-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/legs_mushroom/legs_mushroom-hipLeft.png",
+          "pngSha256": "eb65e5de4afe1fa3507ffba15fe4f46bd4804c246628dd5589ae178c54055e09",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/legs_mushroom/legs_mushroom-hipLeft.webp",
+          "webpSha256": "7d07c633aeaaeb5bd962867b7a92399c3b10bb2062f9fed305f50cfb9233ef12"
+        },
+        "legs_mushroom-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/biped/nodes/legs_mushroom/legs_mushroom-hipRight.png",
+          "pngSha256": "466accf42e69f823f428f0ab543c86ad18153b3fc1bdfa4e9d9bcf3b094caea5",
+          "webpPath": "assets/v0.3.0/structural/biped/nodes/legs_mushroom/legs_mushroom-hipRight.webp",
+          "webpSha256": "cd603a6f27a2c0549de2a3d2d05b3262cfaa5ef77b0314b54558b83329bcd293"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "2b726a81e9bb90c746a1bbf6032aa1a1653a99a294c318b8d897c5903814c392",
+          "foregroundMaskSha256": "2b726a81e9bb90c746a1bbf6032aa1a1653a99a294c318b8d897c5903814c392",
+          "backgroundMaskSha256": "2b726a81e9bb90c746a1bbf6032aa1a1653a99a294c318b8d897c5903814c392"
+        },
+        "hipRight": {
+          "contourMaskSha256": "aeba3466215f3bc04941dcf0465f241199bda85ac1437c4d975f46afeae836e6",
+          "foregroundMaskSha256": "aeba3466215f3bc04941dcf0465f241199bda85ac1437c4d975f46afeae836e6",
+          "backgroundMaskSha256": "aeba3466215f3bc04941dcf0465f241199bda85ac1437c4d975f46afeae836e6"
+        }
+      }
+    },
+    "body_blob_round:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/body_blob_round.png",
+      "pngSha256": "e91e7c04949f1af155d4749b1cb9cc9e63b61731762463e472225a9a0249fffd",
+      "webpPath": "assets/v0.3.0/structural/blob/body_blob_round.webp",
+      "webpSha256": "7bdefdd444d36cacded2d5d12e773ea6acd739a995cd2bd3cfba7e3515f422d7",
+      "renderNodes": {
+        "body_blob_round-blob-body": {
+          "pngPath": "assets/v0.3.0/structural/blob/nodes/body_blob_round/body.png",
+          "pngSha256": "e91e7c04949f1af155d4749b1cb9cc9e63b61731762463e472225a9a0249fffd",
+          "webpPath": "assets/v0.3.0/structural/blob/nodes/body_blob_round/body.webp",
+          "webpSha256": "7bdefdd444d36cacded2d5d12e773ea6acd739a995cd2bd3cfba7e3515f422d7"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+          "foregroundMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+          "backgroundMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d"
+        },
+        "shoulderLeft": {
+          "contourMaskSha256": "b2f9903ca3929e4405a9a01f991d9dacb5e4fc54792ff4e10d6064dcb3f4d663",
+          "foregroundMaskSha256": "764926e97ed78b678e5625fa31e1736610c53765c4a913016fd4f23a455acf9d",
+          "backgroundMaskSha256": "68d1a2f48def76a3feeb586bc0e1333e0e34d4761b28e75b61b44012bfbf5ae4"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "9f11687e5dc080e2e2e8e553110b7a0ca36947a060dffc94822fa8b5b459a772",
+          "foregroundMaskSha256": "7c9555d7929b287965ca0d3d3a49cf305941e8019bf648de5aa82bfc9a19c248",
+          "backgroundMaskSha256": "ad61abe7ff13e48df51dd7d0ce79aa8aec8eaffa2c5c552e509da61e8cad4df3"
+        },
+        "hipLeft": {
+          "contourMaskSha256": "234151092bc167dc6db743713d6325f94ebecd36f42a253b23a50e52ecd9908c",
+          "foregroundMaskSha256": "e3a5f813bf48176268ef47dd2da9f7bf129e9ffedbbe533252069899e2757ac3",
+          "backgroundMaskSha256": "bf48f316b3c51c1b72577f92c45c36a42383530c6327652da62a55d10bd53315"
+        },
+        "hipRight": {
+          "contourMaskSha256": "9a41332b9e4f365e7e584cfcd8c5b285481842edfc47fa5ad829a4377351a89f",
+          "foregroundMaskSha256": "1a6a02ee1113b4c389f6bf146cab6d0585e6ff3db9eb8ea076651c9b46492616",
+          "backgroundMaskSha256": "082a5c61d498f3f67df64da7d43ebf638be8bc1dc851fe229f34c336c383291e"
+        }
+      }
+    },
+    "body_blob_wide:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/body_blob_wide.png",
+      "pngSha256": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a",
+      "webpPath": "assets/v0.3.0/structural/blob/body_blob_wide.webp",
+      "webpSha256": "466216d3c0b9c8a5af5da6b11cfc8fa8e25400d3c9a8dc7dd72e0996936b1ba7",
+      "renderNodes": {
+        "body_blob_wide-blob-body": {
+          "pngPath": "assets/v0.3.0/structural/blob/nodes/body_blob_wide/body.png",
+          "pngSha256": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a",
+          "webpPath": "assets/v0.3.0/structural/blob/nodes/body_blob_wide/body.webp",
+          "webpSha256": "466216d3c0b9c8a5af5da6b11cfc8fa8e25400d3c9a8dc7dd72e0996936b1ba7"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+          "foregroundMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d",
+          "backgroundMaskSha256": "4fcc3fe8f46253363f632166624391e16f2600a440dcf7b8ead33553d437c09d"
+        },
+        "shoulderLeft": {
+          "contourMaskSha256": "beeb56e40cf2c8de20442593fe57ee438b14b0f26940219b3bbd3fdbbc460919",
+          "foregroundMaskSha256": "00b54be9936cc50e525427ea8de9a95c43aefdec25a5d6d75f6df9a89af2b3b9",
+          "backgroundMaskSha256": "d4c8a0085dfc6e05e02c05a5047bc4b99fa3fabae98680a9ea52c702d891533d"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "3537dda467aa8c134498f8daa666305674f86ca62e89257ee059f5207e571888",
+          "foregroundMaskSha256": "12ec17a574517bfa48151f1e38788174df4f9a11661a32be6c1c1a0b786fa89e",
+          "backgroundMaskSha256": "fb571c4e4c1ab86fccadda93f1cf51edfd3e00d37c175a3023116db43bd3ca9b"
+        },
+        "hipLeft": {
+          "contourMaskSha256": "ea8fedd76bee82d42b639f049f401be3923c89f025b21864acd47ba60aed64cf",
+          "foregroundMaskSha256": "d35f246c65ca02e340c2fc75c2e5667ff543ff4f62e720f0eb6d294be715f3a7",
+          "backgroundMaskSha256": "f39868c1e2c669ddcbaaa51573998f78671801fe4c6cd736fe971b099fca82a9"
+        },
+        "hipRight": {
+          "contourMaskSha256": "66682f2fdc8fb756d38d6b7951390bd31b9e49a7b81ac4e6ad95b3fafab9c975",
+          "foregroundMaskSha256": "4f956073881fb115f203da22f461b157c44572a91718416ca345c86065e91252",
+          "backgroundMaskSha256": "cf305414d6a09ceba105e1864964f9c71f4e06d23e0d5b79c3eb237aab817db9"
+        }
+      }
+    },
+    "body_floating_drop:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/body_floating_drop.png",
+      "pngSha256": "831bbedae94957879817e8d9872f532ee2a65af7ff22383acc47c223e599b7e9",
+      "webpPath": "assets/v0.3.0/structural/floating/body_floating_drop.webp",
+      "webpSha256": "94daa779b62f86bf1f21e76daaa4206aac2c9f2838acd959b0ea23d13786106c",
+      "renderNodes": {
+        "body_floating_drop-floating-body": {
+          "pngPath": "assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.png",
+          "pngSha256": "831bbedae94957879817e8d9872f532ee2a65af7ff22383acc47c223e599b7e9",
+          "webpPath": "assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
+          "webpSha256": "94daa779b62f86bf1f21e76daaa4206aac2c9f2838acd959b0ea23d13786106c"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b",
+          "foregroundMaskSha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b",
+          "backgroundMaskSha256": "ebffab289aacd2611e9956befdc4a8b027a0463492ccd997b2884ac40f60ae5b"
+        },
+        "shoulderLeft": {
+          "contourMaskSha256": "1fe72663541d1df9048871fd9d6b2051cc8c433d1bfbfa5fc5fdcfa43c706562",
+          "foregroundMaskSha256": "00821e6b38df4dbba9e405340ce242d62e0a0ecd3f9d450aeca8da5d0632c268",
+          "backgroundMaskSha256": "34db0703dfd1c37ded2da6bfc3437804da5df245c8fa40931456700241f421ee"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "fa71919f0b0a7edfe59fc2592cfd4285e6642a3449da6d05bcf985f729ec1dba",
+          "foregroundMaskSha256": "f52d6b334d3dcc2da8850ebd882446ba30f1fa523ccf50e9cdfd27c58318bc06",
+          "backgroundMaskSha256": "d0ffe1a865fce7b380f57025f880b3d003228e1d1eb8cd0344386241bc55aa8c"
+        },
+        "hipLeft": {
+          "contourMaskSha256": "a961c11b18322d63fceb67af16f84844fd912abe20b4504f01f306702dbd4cbc",
+          "foregroundMaskSha256": "eb18800ac2f560fc687d6601cfa40fb72733ee6c853ebceb4e449a80c274889a",
+          "backgroundMaskSha256": "1f48b33212b00884eb952f30e01ef4c3587642062f2aa6b5c08c59f2ed6f6af3"
+        },
+        "hipRight": {
+          "contourMaskSha256": "94330e3f813243ac141f99cb375575e0459ec6f1660db5ebe0aa84cca0832d7d",
+          "foregroundMaskSha256": "4404794494ce3ab4eb99613a1d4ac34225ba7500b32042fb5b7fe5285923f397",
+          "backgroundMaskSha256": "1148634b7a791f732bc6d12897fe96d445ab61519bd421f56d59ff6657b41369"
+        }
+      }
+    },
+    "head_round_dome:biped": {
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.png",
+      "pngSha256": "eb9ff62be42c303e59b8208e3f22738695f2222b7cf7406bc38f2f8c58db0a08",
+      "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.webp",
+      "webpSha256": "de1eef77cb2d158de7fff5fe567a93c9af2b26b34922dda95c25bd31fc4e2afa",
+      "renderNodes": {
+        "head_round_dome-biped-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_round_dome/neck.png",
+          "pngSha256": "eb9ff62be42c303e59b8208e3f22738695f2222b7cf7406bc38f2f8c58db0a08",
+          "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_round_dome/neck.webp",
+          "webpSha256": "de1eef77cb2d158de7fff5fe567a93c9af2b26b34922dda95c25bd31fc4e2afa"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "5c92801eb3946a61ff5a20d77bb870daf2752c6f3d1eda0d7cee8e646701ecae",
+          "foregroundMaskSha256": "63d988d12a975057aabfbd08918dccac31ec70d6cd4dedbe428713641c04e1e3",
+          "backgroundMaskSha256": "3209e24be93b74679dc2ed2e1f0c287ee88833edf2c1debe3b1f0a1af57fe3c9"
+        }
+      }
+    },
+    "head_angler_bulb:biped": {
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.png",
+      "pngSha256": "c42b2b82e6e6eff11e1e9cc5bb915c15c28bcb56ab33032d0c20e4a536d482ae",
+      "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.webp",
+      "webpSha256": "d5b10fe5a69700e5b900613c49b12375a917a0e2b41e50d59af6e5b74563318b",
+      "renderNodes": {
+        "head_angler_bulb-biped-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+          "pngSha256": "c42b2b82e6e6eff11e1e9cc5bb915c15c28bcb56ab33032d0c20e4a536d482ae",
+          "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_angler_bulb/neck.webp",
+          "webpSha256": "d5b10fe5a69700e5b900613c49b12375a917a0e2b41e50d59af6e5b74563318b"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "5c92801eb3946a61ff5a20d77bb870daf2752c6f3d1eda0d7cee8e646701ecae",
+          "foregroundMaskSha256": "3b807da1f1dd5c58e94b2a214dd0d006742fc4439f668e6cc5f1a01fffba8918",
+          "backgroundMaskSha256": "63931bba5fd311b7cdd3114848db5052e60c425e7ccf8014f7a17d3504adf7fd"
+        }
+      }
+    },
+    "head_shadow_hood:biped": {
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.png",
+      "pngSha256": "b3702fa3e0ad7b43708bf5bb453c84bcb9782d2a757f88f8a774bf094accddb5",
+      "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.webp",
+      "webpSha256": "8e633e56527bfbb04620268598ac337e7e8f26407be2104ea8d73ea5e2436d8f",
+      "renderNodes": {
+        "head_shadow_hood-biped-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+          "pngSha256": "b3702fa3e0ad7b43708bf5bb453c84bcb9782d2a757f88f8a774bf094accddb5",
+          "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
+          "webpSha256": "8e633e56527bfbb04620268598ac337e7e8f26407be2104ea8d73ea5e2436d8f"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "5c92801eb3946a61ff5a20d77bb870daf2752c6f3d1eda0d7cee8e646701ecae",
+          "foregroundMaskSha256": "3c800001179c0f66a71e35c698bb7d8c006b3136a4513c04ccfec786ababbbe6",
+          "backgroundMaskSha256": "693dd4bc4ef1e67199bf3a3841bb7ffcf4759964c2cefd61d44e75e733c928e7"
+        }
+      }
+    },
+    "head_round_dome:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_round_dome.png",
+      "pngSha256": "8e2f9877f0352d76ccd3844a2bc527a87b54d29d6853486970e334d72278d04f",
+      "webpPath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_round_dome.webp",
+      "webpSha256": "0f0978ec2859e6225f25ee4c4923221be74253548d934f7c2cc5eb647e926d5e",
+      "renderNodes": {
+        "head_round_dome-blob-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_round_dome/neck.png",
+          "pngSha256": "8e2f9877f0352d76ccd3844a2bc527a87b54d29d6853486970e334d72278d04f",
+          "webpPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_round_dome/neck.webp",
+          "webpSha256": "0f0978ec2859e6225f25ee4c4923221be74253548d934f7c2cc5eb647e926d5e"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "3dee9e97f9d670b367eed78dc89a94e1060199cfe0f61365b72786c1fe6565a5",
+          "foregroundMaskSha256": "0fbe6efdb7ef5cebda99d0ed385ad7434250784c43ba9b20fd20033d454987e5",
+          "backgroundMaskSha256": "688b756c300435c61903df0391bd2256f88eb6b55be83e25d1ff0754e515f67c"
+        }
+      }
+    },
+    "head_mushroom_cap:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_mushroom_cap.png",
+      "pngSha256": "fcca733af44538adb0a63ef93f6e6a5f8d78ea7484bcf7a5f85343b6b8929afc",
+      "webpPath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_mushroom_cap.webp",
+      "webpSha256": "2bb89cede32c61682f7caaac8c41d418aa8995dffba153cd97f4494df7e190b3",
+      "renderNodes": {
+        "head_mushroom_cap-blob-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+          "pngSha256": "fcca733af44538adb0a63ef93f6e6a5f8d78ea7484bcf7a5f85343b6b8929afc",
+          "webpPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_mushroom_cap/neck.webp",
+          "webpSha256": "2bb89cede32c61682f7caaac8c41d418aa8995dffba153cd97f4494df7e190b3"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "3dee9e97f9d670b367eed78dc89a94e1060199cfe0f61365b72786c1fe6565a5",
+          "foregroundMaskSha256": "e27b0142e109fbcebdf9e7ef84fc6829580c897c345411ff4c46d81e5900ac12",
+          "backgroundMaskSha256": "a809ea7cd1ea32b2d4728250760ff9b6ad9a8540d4f3b2f20f3137bfb02787f5"
+        }
+      }
+    },
+    "head_angler_bulb:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_angler_bulb.png",
+      "pngSha256": "95ca8dcf515db49a7206181ecf966e84e3f1ed0ede497794742364c39ebba9d8",
+      "webpPath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_angler_bulb.webp",
+      "webpSha256": "dfdec3765dd759faa1b34b0be20b2be62aad1e81e97b53b259d42835efa1f5da",
+      "renderNodes": {
+        "head_angler_bulb-blob-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+          "pngSha256": "95ca8dcf515db49a7206181ecf966e84e3f1ed0ede497794742364c39ebba9d8",
+          "webpPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_angler_bulb/neck.webp",
+          "webpSha256": "dfdec3765dd759faa1b34b0be20b2be62aad1e81e97b53b259d42835efa1f5da"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "3dee9e97f9d670b367eed78dc89a94e1060199cfe0f61365b72786c1fe6565a5",
+          "foregroundMaskSha256": "58110a55e305d64651262ed6d8902374c65859cbd7011c970d60338878a51b0c",
+          "backgroundMaskSha256": "249d4d808ba626f07152fbf95317ebfdb55a8ad2025bbd44b4ebc92ec2dca811"
+        }
+      }
+    },
+    "head_shadow_hood:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_shadow_hood.png",
+      "pngSha256": "05bd244f778cd39fff93dfc063414f537b6858d018f29fbb13fbe5cdb49d974a",
+      "webpPath": "assets/v0.3.0/structural/blob/task7-natural-neck/head_shadow_hood.webp",
+      "webpSha256": "df6c97627bdfa15255bdea88016428f72623f7a1248f8a1954046bfc5e31b462",
+      "renderNodes": {
+        "head_shadow_hood-blob-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+          "pngSha256": "05bd244f778cd39fff93dfc063414f537b6858d018f29fbb13fbe5cdb49d974a",
+          "webpPath": "assets/v0.3.0/structural/blob/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
+          "webpSha256": "df6c97627bdfa15255bdea88016428f72623f7a1248f8a1954046bfc5e31b462"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "3dee9e97f9d670b367eed78dc89a94e1060199cfe0f61365b72786c1fe6565a5",
+          "foregroundMaskSha256": "21ded8ecbdefaf41e1c288a694cac3840c326d01f49c5de4c6a540bc23252822",
+          "backgroundMaskSha256": "56bd131b3eee743d6c4b1a3d4c74223ed2a33bd472d06cdea9da4701ffd94ac2"
+        }
+      }
+    },
+    "head_round_dome:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_round_dome.png",
+      "pngSha256": "acb0a798bc1425f0ae5473e5dd8da7b724762c2fe8e83782cfe5671308219332",
+      "webpPath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_round_dome.webp",
+      "webpSha256": "6f831b1e03f470e2a24bcb96869a6d2434d477b0e1958cd314545be9ae09cf3c",
+      "renderNodes": {
+        "head_round_dome-floating-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_round_dome/neck.png",
+          "pngSha256": "acb0a798bc1425f0ae5473e5dd8da7b724762c2fe8e83782cfe5671308219332",
+          "webpPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_round_dome/neck.webp",
+          "webpSha256": "6f831b1e03f470e2a24bcb96869a6d2434d477b0e1958cd314545be9ae09cf3c"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
+          "foregroundMaskSha256": "ae66adf793355af4ca95a7f6a63fbe680cf8abe49b75da80f30d4c9e9ae3d136",
+          "backgroundMaskSha256": "9565779c13ee584d2153798b3de0cea05158bab62519c44152e36f9be1b44212"
+        }
+      }
+    },
+    "head_mushroom_cap:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_mushroom_cap.png",
+      "pngSha256": "629b5463619b1eca62bdbd54041c0c240633f13dac9ac337523d45dd46c4527e",
+      "webpPath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_mushroom_cap.webp",
+      "webpSha256": "61de1b5d9df00a939c658f0081f370f3ea4aa9e6df627495566429a7100e5836",
+      "renderNodes": {
+        "head_mushroom_cap-floating-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+          "pngSha256": "629b5463619b1eca62bdbd54041c0c240633f13dac9ac337523d45dd46c4527e",
+          "webpPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_mushroom_cap/neck.webp",
+          "webpSha256": "61de1b5d9df00a939c658f0081f370f3ea4aa9e6df627495566429a7100e5836"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
+          "foregroundMaskSha256": "6d6cb09081f0a4e7cd3ee497a866d950fefda61624e7f229b254a4e8df2d96ba",
+          "backgroundMaskSha256": "e7c302151955e386d7538652c2f849221ead74247bca6d58897eec07f2f52538"
+        }
+      }
+    },
+    "head_angler_bulb:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_angler_bulb.png",
+      "pngSha256": "9772b5703112d13f21b308307f81f4ecb712b2eed71aad218bf918ebfb9f35c2",
+      "webpPath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_angler_bulb.webp",
+      "webpSha256": "d62f6fd5a477026ad4f1b3062a7bd2fe80942377e43eacfc3f7d36995adaf82d",
+      "renderNodes": {
+        "head_angler_bulb-floating-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+          "pngSha256": "9772b5703112d13f21b308307f81f4ecb712b2eed71aad218bf918ebfb9f35c2",
+          "webpPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_angler_bulb/neck.webp",
+          "webpSha256": "d62f6fd5a477026ad4f1b3062a7bd2fe80942377e43eacfc3f7d36995adaf82d"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
+          "foregroundMaskSha256": "398b8e04aa3fd5bd782b60292e23643fe23389297433ab7a600a1b4fa9e574da",
+          "backgroundMaskSha256": "7f9e33c7ac4fd8414d69e7e14ce794de9627d34015c44761eb6439759f8fe2e4"
+        }
+      }
+    },
+    "head_shadow_hood:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_shadow_hood.png",
+      "pngSha256": "33dd458c8039f1775499696807e7ceb37ad7684166e2d5a14639168f9198bcda",
+      "webpPath": "assets/v0.3.0/structural/floating/task7-natural-neck/head_shadow_hood.webp",
+      "webpSha256": "6851517b12019d82b9b9de8edf101f66644dd94bc590ac6c22030d97f4949160",
+      "renderNodes": {
+        "head_shadow_hood-floating-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+          "pngSha256": "33dd458c8039f1775499696807e7ceb37ad7684166e2d5a14639168f9198bcda",
+          "webpPath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
+          "webpSha256": "6851517b12019d82b9b9de8edf101f66644dd94bc590ac6c22030d97f4949160"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
+          "foregroundMaskSha256": "1aab57d718754a94b00b2d6c1b49014bcad76dda9e285a1ade2b11ef460a9914",
+          "backgroundMaskSha256": "a6f5b0c96020d44e9cb989dfc5a4858bbe699195983982781c6292d7e7579b25"
+        }
+      }
+    },
+    "head_mushroom_cap:biped": {
+      "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
+      "pngSha256": "49cf663abc0db74599e2eedef8c88f6db6b808f73dacb90393bba19123cae024",
+      "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.webp",
+      "webpSha256": "554681da3b6e2ed240cee4d7b9ba3670e66f6aabdd805ec18b6f5cb1aeb91885",
+      "renderNodes": {
+        "head_mushroom_cap-biped-neck-natural-v2": {
+          "pngPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+          "pngSha256": "49cf663abc0db74599e2eedef8c88f6db6b808f73dacb90393bba19123cae024",
+          "webpPath": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_mushroom_cap/neck.webp",
+          "webpSha256": "554681da3b6e2ed240cee4d7b9ba3670e66f6aabdd805ec18b6f5cb1aeb91885"
+        }
+      },
+      "connectorHashes": {
+        "neck": {
+          "contourMaskSha256": "8c5d4ce06c6cc91e9603b96a3c0290d2e0109aa4742b78de22a332739de43ebb",
+          "foregroundMaskSha256": "1de63a00037b74bb34cc304ab785265c9325b4c7bcc96879b90070c7d7579faf",
+          "backgroundMaskSha256": "681efe03e3a4072bc5b837eb8af3376b7447465500e4eb5c141fc509456c4524"
+        }
+      }
+    },
+    "arms_paddle:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/arms_paddle.png",
+      "pngSha256": "ae4a4f99bbe88241698c432fd0b743d753e8b76ad3d83d3e12555811606627f1",
+      "webpPath": "assets/v0.3.0/structural/blob/arms_paddle.webp",
+      "webpSha256": "d3c3818191c950581128f4cf983e505a8319a9034c894e4fe04ea9542664a538",
+      "renderNodes": {
+        "arms_paddle-blob-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/blob/arms_paddle/nodes/arms_paddle-blob-shoulderLeft.png",
+          "pngSha256": "6f6c00da61c2fe867ea819fe0c70e8bdf0eb86c4bf6f04718c1f1b33df9818ba",
+          "webpPath": "assets/v0.3.0/structural/blob/arms_paddle/nodes/arms_paddle-blob-shoulderLeft.webp",
+          "webpSha256": "4b083a93566474f4a256e42cc27146420b161e579332281affac21459bb1c3b7"
+        },
+        "arms_paddle-blob-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/blob/arms_paddle/nodes/arms_paddle-blob-shoulderRight.png",
+          "pngSha256": "4c027666d03b4d7433d3fa84cf0a0c7cb520abaef27cb4214772ecf394ccda7c",
+          "webpPath": "assets/v0.3.0/structural/blob/arms_paddle/nodes/arms_paddle-blob-shoulderRight.webp",
+          "webpSha256": "9e30a54f92aeb5aeb7c1018d7f71076a10b768b4828b90e39ed28db42b06e7e5"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+          "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+          "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+          "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+          "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+        }
+      }
+    },
+    "legs_stub_feet:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/legs_stub_feet.png",
+      "pngSha256": "b617dd96f6f70fe565bb0e0b080fb353c5cb09d5a3774f0b8501da9db471653f",
+      "webpPath": "assets/v0.3.0/structural/blob/legs_stub_feet.webp",
+      "webpSha256": "60eb89fbbce76f86cc3cdcce12ab6da74032ebab951bd6969be0ea5aac643a5f",
+      "renderNodes": {
+        "legs_stub_feet-blob-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/blob/legs_stub_feet/nodes/legs_stub_feet-blob-hipLeft.png",
+          "pngSha256": "2494f9a37ad16f2de4922f98fb2eaa32d5ce01a42132de355f3de5fa2e11fbe1",
+          "webpPath": "assets/v0.3.0/structural/blob/legs_stub_feet/nodes/legs_stub_feet-blob-hipLeft.webp",
+          "webpSha256": "86264a3a0571d05ae07482f6bd2b36e1a4310769e0395262c9e867dc68278e40"
+        },
+        "legs_stub_feet-blob-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/blob/legs_stub_feet/nodes/legs_stub_feet-blob-hipRight.png",
+          "pngSha256": "3d2d97df12d11d33ca34083f45a4d728e30f8ead0bbaa19a89c59a6b5591ae65",
+          "webpPath": "assets/v0.3.0/structural/blob/legs_stub_feet/nodes/legs_stub_feet-blob-hipRight.webp",
+          "webpSha256": "251610c7389f5c210d4642f858b008ed6723a4ae7f567621948615cb4a58335e"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+          "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+          "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+        },
+        "hipRight": {
+          "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+          "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+          "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+        }
+      }
+    },
+    "arms_long_noodle:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/arms_long_noodle.png",
+      "pngSha256": "765b35847f1c495ac621754827d25f4321871f02c662c1a994a80000698bee88",
+      "webpPath": "assets/v0.3.0/structural/floating/arms_long_noodle.webp",
+      "webpSha256": "b37fba3651f110a5ec092024e7d3a7614c9ca7977f9be615df389e97e2a1e82e",
+      "renderNodes": {
+        "arms_long_noodle-floating-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderLeft.png",
+          "pngSha256": "398fac34f02827ff09c05f86e0d60a2760540c8e111300e6284bb3316e052667",
+          "webpPath": "assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderLeft.webp",
+          "webpSha256": "cfdd88aeabda8a3702cbb7a7cfdcce27c7331c3318527d71dbe02f29c5160f4e"
+        },
+        "arms_long_noodle-floating-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderRight.png",
+          "pngSha256": "87fe2ed8ab25efde435f151e4a41b579c178d4b756eed8e7e3a0e61cb334c4ea",
+          "webpPath": "assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderRight.webp",
+          "webpSha256": "9c9f127cc090e3485c554699a4ad6126989097e865f6a89afdb402ce19ae2718"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+          "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+          "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "7b41a131fddbf1397a8cad3ab286f7dd827730da66a633e083e4c59a9d6b635a",
+          "foregroundMaskSha256": "5d42d2a5306455199ca39383ebfa5ed0fc459227ba04ed6ddf0eb9058f01a89a",
+          "backgroundMaskSha256": "17c8086ce6a5c9da6d98041c9579282859e0127dab145d51eabd3f7150ebce8b"
+        }
+      }
+    },
+    "legs_shadow_tiptoe:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe.png",
+      "pngSha256": "204a02a90f042aa2a9822b72c3b1952562a62d3134a22a0632cdbff9cbef37c3",
+      "webpPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe.webp",
+      "webpSha256": "019aeda9ad14c560178c3f2b4d19ec76baee5c62fc09d78020f330cc771f7670",
+      "renderNodes": {
+        "legs_shadow_tiptoe-floating-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipLeft.png",
+          "pngSha256": "2dd4c0807cc234de6cb30a01b986fae8dd34e2cc7b005c65f0b912df609bc7b1",
+          "webpPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipLeft.webp",
+          "webpSha256": "94e5bb466d980feb3d1307c8442b0e98d1539eaf405ff858dcc25c12c34377fe"
+        },
+        "legs_shadow_tiptoe-floating-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipRight.png",
+          "pngSha256": "d16ca20f00cf4fadcf9b19bf34636904dd9273dfc06151eec8c98ac12a267ffc",
+          "webpPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipRight.webp",
+          "webpSha256": "74ece9b240f8fb27a7d99df40813b017dbf3e6e3a6f822bf379a3bd0c631d11f"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+          "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+          "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+        },
+        "hipRight": {
+          "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+          "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+          "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+        }
+      }
+    },
+    "arms_short_plush:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/arms_short_plush.png",
+      "pngSha256": "15f17fe6fc48f69d88d68a285cbafe4fb9b976a92810d284a085ef789b7d54bb",
+      "webpPath": "assets/v0.3.0/structural/blob/arms_short_plush.webp",
+      "webpSha256": "fd3e3812e10378adc06da2476637fb578c9d9236db39ca0414798c1c08ae468f",
+      "renderNodes": {
+        "arms_short_plush-blob-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/blob/arms_short_plush/nodes/arms_short_plush-blob-shoulderLeft.png",
+          "pngSha256": "258f9b83eb4933502e714b9b6eb25214be894357fba775aed2d8cd4b1fef94db",
+          "webpPath": "assets/v0.3.0/structural/blob/arms_short_plush/nodes/arms_short_plush-blob-shoulderLeft.webp",
+          "webpSha256": "5b3c5978fff33ecc48587f617e8cd9b519fe2caeede5c2cf44186b57170e8787"
+        },
+        "arms_short_plush-blob-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/blob/arms_short_plush/nodes/arms_short_plush-blob-shoulderRight.png",
+          "pngSha256": "7838e297283021c48a7ed95c331483f046dcc7c8517e0b0f7fdae559f35ba5fe",
+          "webpPath": "assets/v0.3.0/structural/blob/arms_short_plush/nodes/arms_short_plush-blob-shoulderRight.webp",
+          "webpSha256": "48334f2e8dd4336714518fb525aee34a3e9a2c470bf867e1e0c6820911f3f3e6"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+          "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+          "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+          "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+          "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+        }
+      }
+    },
+    "arms_long_noodle:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/arms_long_noodle.png",
+      "pngSha256": "d096f8849d6d717fb7f9096aa07b602a39dd058a9196df88e6e5271b16e5c749",
+      "webpPath": "assets/v0.3.0/structural/blob/arms_long_noodle.webp",
+      "webpSha256": "8bee1bd0ad68b0751f184d5b5a62ae530082975a34eb55085262796448bfb8b4",
+      "renderNodes": {
+        "arms_long_noodle-blob-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/blob/arms_long_noodle/nodes/arms_long_noodle-blob-shoulderLeft.png",
+          "pngSha256": "200e7b9271060d94b3c4e66a14b0b5faadd9689638252a171f13f8c8e9dc5e85",
+          "webpPath": "assets/v0.3.0/structural/blob/arms_long_noodle/nodes/arms_long_noodle-blob-shoulderLeft.webp",
+          "webpSha256": "cba3a3e7055e478d6238006f621a294cf7e1441c3d8a4243b015a6eeda7fd586"
+        },
+        "arms_long_noodle-blob-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/blob/arms_long_noodle/nodes/arms_long_noodle-blob-shoulderRight.png",
+          "pngSha256": "3a0735c1b635fdde57c44c0ecf5a8001bb7f75ac91592e973dfad209105afd23",
+          "webpPath": "assets/v0.3.0/structural/blob/arms_long_noodle/nodes/arms_long_noodle-blob-shoulderRight.webp",
+          "webpSha256": "c8bf7d2b7a7f613410a6eafb0168028d4861d9200a7e805444e2e1da6e239642"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+          "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+          "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+          "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+          "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+        }
+      }
+    },
+    "legs_webbed:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/legs_webbed.png",
+      "pngSha256": "e82a0f07c43c5d1bdc87bea223df217a6429f81eb55c079df43034228a392020",
+      "webpPath": "assets/v0.3.0/structural/blob/legs_webbed.webp",
+      "webpSha256": "d0d235bf66209375d58e949074007971e7d4c96ce9ff3c9a5ebe2fe21f5828dd",
+      "renderNodes": {
+        "legs_webbed-blob-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/blob/legs_webbed/nodes/legs_webbed-blob-hipLeft.png",
+          "pngSha256": "31af05ef9dd8aa22e708c92feba5e947d416feefd7aa49efed8e2c1cf0a120fc",
+          "webpPath": "assets/v0.3.0/structural/blob/legs_webbed/nodes/legs_webbed-blob-hipLeft.webp",
+          "webpSha256": "fb6b1e83104b193252fd2abff194bb91863489cabdd62a61220798392d136e7e"
+        },
+        "legs_webbed-blob-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/blob/legs_webbed/nodes/legs_webbed-blob-hipRight.png",
+          "pngSha256": "a67478a3ff8149c24dd0d374d2c9abc7f600aa5f6dc1964b445627de97dd7c28",
+          "webpPath": "assets/v0.3.0/structural/blob/legs_webbed/nodes/legs_webbed-blob-hipRight.webp",
+          "webpSha256": "9ed1688b1daae361c4fa2deca34a32c82f633340f523e3dd54de925ad1681e0c"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+          "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+          "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+        },
+        "hipRight": {
+          "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+          "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+          "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+        }
+      }
+    },
+    "legs_mushroom:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/legs_mushroom.png",
+      "pngSha256": "6fb02e7c800780d7ba7043583b9fcd2bb0122c1714cefc08f72814ca7e3586e7",
+      "webpPath": "assets/v0.3.0/structural/blob/legs_mushroom.webp",
+      "webpSha256": "fd4cb713b6b39172e38c46001045c79dd75ffaaa95ea6f38119af8a2af52ae77",
+      "renderNodes": {
+        "legs_mushroom-blob-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/blob/legs_mushroom/nodes/legs_mushroom-blob-hipLeft.png",
+          "pngSha256": "2f1a0988ed6610cc94e60e4d914ca37925cc1a31955ae180c4af72f75c2488b5",
+          "webpPath": "assets/v0.3.0/structural/blob/legs_mushroom/nodes/legs_mushroom-blob-hipLeft.webp",
+          "webpSha256": "83d9782e17f3cb024148eb061183db43aabc57677ed1fb73b02e211e150d1748"
+        },
+        "legs_mushroom-blob-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/blob/legs_mushroom/nodes/legs_mushroom-blob-hipRight.png",
+          "pngSha256": "2ddc1ac8abebc3201c9a71694f77296d576e03b6a94f0f78164e405565bf59a7",
+          "webpPath": "assets/v0.3.0/structural/blob/legs_mushroom/nodes/legs_mushroom-blob-hipRight.webp",
+          "webpSha256": "a2dd6c83cc9304318023331dc3e2f9b5623c87ba1b101d3c4287550f2d4332a2"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+          "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+          "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+        },
+        "hipRight": {
+          "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+          "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+          "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+        }
+      }
+    },
+    "legs_shadow_tiptoe:blob": {
+      "pngPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe.png",
+      "pngSha256": "2384ad5f83b2f6df8bd16a2c90e51aba17a45de5858cc75240cbfb7f480f08c3",
+      "webpPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe.webp",
+      "webpSha256": "b863dc1593fca65aa3c46e5957a4f7b430928302a4a756a573614db7ec8da91b",
+      "renderNodes": {
+        "legs_shadow_tiptoe-blob-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-blob-hipLeft.png",
+          "pngSha256": "5bf20cb2901c0dac4e64ef973b891c6a765464e485487a05db769a1cad08bb25",
+          "webpPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-blob-hipLeft.webp",
+          "webpSha256": "18205a68bcdb5ed1d36f1adf57bafdb915c6ea3eed544f43cd92fa3ec5c87754"
+        },
+        "legs_shadow_tiptoe-blob-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-blob-hipRight.png",
+          "pngSha256": "345984280a49b36655394026545dfe23cb2c3e4c0da2b361cece1f54adf72516",
+          "webpPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-blob-hipRight.webp",
+          "webpSha256": "f691ded1eaae9c9d5f3c38496bb19b34e964bb50981c9b45a6b3368a8988d41b"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+          "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+          "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+        },
+        "hipRight": {
+          "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+          "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+          "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+        }
+      }
+    },
+    "arms_paddle:biped": {
+      "pngPath": "assets/v0.3.0/structural/biped/arms_paddle.png",
+      "pngSha256": "170047de08b39b424994e1f4ea9403e2f2df77e659741da3090bae110307c422",
+      "webpPath": "assets/v0.3.0/structural/biped/arms_paddle.webp",
+      "webpSha256": "72fb0f0fe552ce47a23221790e4073a66e27ae7fb16b029da0150e7468600976",
+      "renderNodes": {
+        "arms_paddle-biped-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/biped/arms_paddle/nodes/arms_paddle-biped-shoulderLeft.png",
+          "pngSha256": "50fc779448e8a462f934397cea7cdde0f2c5f45bf70dd6f4e50e27d50815c6ec",
+          "webpPath": "assets/v0.3.0/structural/biped/arms_paddle/nodes/arms_paddle-biped-shoulderLeft.webp",
+          "webpSha256": "f30378a611d01811cc1b881331aeebc754a0146c22f7a1e1e752a27a4d1ae4f5"
+        },
+        "arms_paddle-biped-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/biped/arms_paddle/nodes/arms_paddle-biped-shoulderRight.png",
+          "pngSha256": "fa76e9c7fc26d62144badb5bd69b5b03638945c17480903b5df74a8c36ad27cf",
+          "webpPath": "assets/v0.3.0/structural/biped/arms_paddle/nodes/arms_paddle-biped-shoulderRight.webp",
+          "webpSha256": "f65a4cbd936df53491cb50d0840e9bb632d04626ae49068e7b6fbd93611b5032"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "8b916c569b640f64010114a8c499d54bc96705206a478820cb49cbcef1239d0b",
+          "foregroundMaskSha256": "a15119fefae950ce6028d88443244559ab58b4e2968869b79c7c4c7d9041638c",
+          "backgroundMaskSha256": "ca70ac0a409bd6a7e482a0250a538f1bd7c9f79c7a60fa984047cc898187d515"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "de4684c56dba55847af470f92068d24119ce48b3f55f72643f79b46fbbe88250",
+          "foregroundMaskSha256": "8a9d0cacf43d3d33655d655e2734f106e8e007b85fc7a570b1dad6e5fee431b3",
+          "backgroundMaskSha256": "fd0771c040eac73db0ad3032ac3944104e1dd6190f178627b4034ea3037629ca"
+        }
+      }
+    },
+    "legs_stub_feet:biped": {
+      "pngPath": "assets/v0.3.0/structural/biped/legs_stub_feet.png",
+      "pngSha256": "23d4872e5389d8c3b0a799703897d43a77bd5882b81e5e01c172981b2294e93b",
+      "webpPath": "assets/v0.3.0/structural/biped/legs_stub_feet.webp",
+      "webpSha256": "a4819ec3fc04ed60d96754ec1a57b5a75e2217d9c9f3ca68922711a585d95352",
+      "renderNodes": {
+        "legs_stub_feet-biped-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/biped/legs_stub_feet/nodes/legs_stub_feet-biped-hipLeft.png",
+          "pngSha256": "68c38104c2600cbe92e387eb6f80d6b68dc83414ed1fd8e3eba2027daa10202c",
+          "webpPath": "assets/v0.3.0/structural/biped/legs_stub_feet/nodes/legs_stub_feet-biped-hipLeft.webp",
+          "webpSha256": "3d874096284ce7a73aa0fbfc31b0b8033b3006a923a9b3cf46094defb1968c90"
+        },
+        "legs_stub_feet-biped-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/biped/legs_stub_feet/nodes/legs_stub_feet-biped-hipRight.png",
+          "pngSha256": "136d07a78bc73bb90c41751f3466c24903b21db186e526ce264d1c968587d131",
+          "webpPath": "assets/v0.3.0/structural/biped/legs_stub_feet/nodes/legs_stub_feet-biped-hipRight.webp",
+          "webpSha256": "832ac04af1e7d22cedef786009b292a35374f54293d1ab31cb0dd749cc291976"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "2dc1fd85404d14cfac045b38c7dbe866432d3b1eca373de6cb429967797339e4",
+          "foregroundMaskSha256": "26c73d031609f60e0c154bb4d5dc097261ceaf93c63f6437fdd9e4f82207eafe",
+          "backgroundMaskSha256": "4b4c376f4e72b49d8d6d1d8b58cde71ec54f6a5b8c31cf77aea6494feea61798"
+        },
+        "hipRight": {
+          "contourMaskSha256": "972893bdfdd0ce3636cd2b595a5654729070dbebca1a4a9221083a720073858a",
+          "foregroundMaskSha256": "2af37d97fbee445d8b49ddcc9a6ac9b101e9b249b4c9c493cc6cb5a042c82167",
+          "backgroundMaskSha256": "68ffb0bf5e6af943300132c52c4f79e18186f4e1a34008dfdf6fa7384f60bc75"
+        }
+      }
+    },
+    "legs_shadow_tiptoe:biped": {
+      "pngPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe.png",
+      "pngSha256": "49496a2b7d501131c14401b7a178ab859e6798ba4ff419fdd34060eec6daf754",
+      "webpPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe.webp",
+      "webpSha256": "e422e781f2c3787fb698d8ab13e7ab792ce541673194ddfd30e198d278b80b1e",
+      "renderNodes": {
+        "legs_shadow_tiptoe-biped-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-biped-hipLeft.png",
+          "pngSha256": "36829a1cb08ed88aef576be9e03736fc143163b1eebe754ab632f4a52133931e",
+          "webpPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-biped-hipLeft.webp",
+          "webpSha256": "72e369f8050008264e44546ca24c857b6d79feab38d0465c0576ab34ec40b0aa"
+        },
+        "legs_shadow_tiptoe-biped-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-biped-hipRight.png",
+          "pngSha256": "d49aa052a49aa7a14b087becb826fb7045e6656b9f1cdda6bf99f84a14b61fc3",
+          "webpPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-biped-hipRight.webp",
+          "webpSha256": "67ba975721feb934c9de42a58dd5de350eca7eec9b9ed5e6b2f5bd0e7c81ee40"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "2dc1fd85404d14cfac045b38c7dbe866432d3b1eca373de6cb429967797339e4",
+          "foregroundMaskSha256": "26c73d031609f60e0c154bb4d5dc097261ceaf93c63f6437fdd9e4f82207eafe",
+          "backgroundMaskSha256": "4b4c376f4e72b49d8d6d1d8b58cde71ec54f6a5b8c31cf77aea6494feea61798"
+        },
+        "hipRight": {
+          "contourMaskSha256": "972893bdfdd0ce3636cd2b595a5654729070dbebca1a4a9221083a720073858a",
+          "foregroundMaskSha256": "2af37d97fbee445d8b49ddcc9a6ac9b101e9b249b4c9c493cc6cb5a042c82167",
+          "backgroundMaskSha256": "68ffb0bf5e6af943300132c52c4f79e18186f4e1a34008dfdf6fa7384f60bc75"
+        }
+      }
+    },
+    "arms_short_plush:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/arms_short_plush.png",
+      "pngSha256": "a51e994ee318128a75040ba49872c47eb61df5f78f218276d11befc207b62ec0",
+      "webpPath": "assets/v0.3.0/structural/floating/arms_short_plush.webp",
+      "webpSha256": "8902e7195cec2c8c9471b1527645d8ebf2617608249d63db3498f473ee45aee6",
+      "renderNodes": {
+        "arms_short_plush-floating-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/floating/arms_short_plush/nodes/arms_short_plush-floating-shoulderLeft.png",
+          "pngSha256": "fa4f70b5ea6454d5cff9c0478aabace5e79d7e17414a7f26e425fdb4d828424b",
+          "webpPath": "assets/v0.3.0/structural/floating/arms_short_plush/nodes/arms_short_plush-floating-shoulderLeft.webp",
+          "webpSha256": "55585950b05144f57bd95cbe52d0cb07009af72695b593d063877116ce180724"
+        },
+        "arms_short_plush-floating-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/floating/arms_short_plush/nodes/arms_short_plush-floating-shoulderRight.png",
+          "pngSha256": "1835a5761d9ff8f0e670809af4dd43335101c2cb444db6ffab8b2b7369e577f4",
+          "webpPath": "assets/v0.3.0/structural/floating/arms_short_plush/nodes/arms_short_plush-floating-shoulderRight.webp",
+          "webpSha256": "265e2df8dbe15d78acccd8e040ba57a15cb9317e2ac102e51e80930b2d2add39"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+          "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+          "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+          "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+          "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+        }
+      }
+    },
+    "arms_paddle:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/arms_paddle.png",
+      "pngSha256": "36732e033de1f6014bbe57b3d4b828427daa16ab39c02f96e63555e0f6993722",
+      "webpPath": "assets/v0.3.0/structural/floating/arms_paddle.webp",
+      "webpSha256": "6f343092a9db021ffe395e87d313b30a6df09a266058fe494b61805fe7d82667",
+      "renderNodes": {
+        "arms_paddle-floating-shoulderLeft": {
+          "pngPath": "assets/v0.3.0/structural/floating/arms_paddle/nodes/arms_paddle-floating-shoulderLeft.png",
+          "pngSha256": "80350eb0ba4c8629e0d07c825793c32a5ce1ef9bede87c4e7d159eb6da0d3511",
+          "webpPath": "assets/v0.3.0/structural/floating/arms_paddle/nodes/arms_paddle-floating-shoulderLeft.webp",
+          "webpSha256": "e862ae8db21fc2c9f9e353a95c96b514f8b64d1de3ceac92232fe99459e1435d"
+        },
+        "arms_paddle-floating-shoulderRight": {
+          "pngPath": "assets/v0.3.0/structural/floating/arms_paddle/nodes/arms_paddle-floating-shoulderRight.png",
+          "pngSha256": "17735d2a97f135b312ddf7a4566c22057cafffc844b33849c954e55c7485f10a",
+          "webpPath": "assets/v0.3.0/structural/floating/arms_paddle/nodes/arms_paddle-floating-shoulderRight.webp",
+          "webpSha256": "fd2996592b55ee3c49a2b4d0959cd4a98836772eb700dff156dd2984c117116c"
+        }
+      },
+      "connectorHashes": {
+        "shoulderLeft": {
+          "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+          "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+          "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+        },
+        "shoulderRight": {
+          "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+          "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+          "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+        }
+      }
+    },
+    "legs_stub_feet:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/legs_stub_feet.png",
+      "pngSha256": "5c5658b4079e8ec1008ab314da73f708c07ae7690e3db7c9f6c2895c41644acd",
+      "webpPath": "assets/v0.3.0/structural/floating/legs_stub_feet.webp",
+      "webpSha256": "dc618f743f2dd06a0d107de9cf7e05e6b3918f3e088ab58cc4a9c0a8f657ab13",
+      "renderNodes": {
+        "legs_stub_feet-floating-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/floating/legs_stub_feet/nodes/legs_stub_feet-floating-hipLeft.png",
+          "pngSha256": "1aa5eba8cd42ee69ab4d704b554229c36f6ef400271b233f59107a0e2fdddd87",
+          "webpPath": "assets/v0.3.0/structural/floating/legs_stub_feet/nodes/legs_stub_feet-floating-hipLeft.webp",
+          "webpSha256": "403ddac77007655678603967f769ff1542bb6123c8a5d1ede792d6d1cce2dd7b"
+        },
+        "legs_stub_feet-floating-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/floating/legs_stub_feet/nodes/legs_stub_feet-floating-hipRight.png",
+          "pngSha256": "f3c1ce8d246266184b3ce26a7b495e94fd2444787757af67d32245ede6204ab0",
+          "webpPath": "assets/v0.3.0/structural/floating/legs_stub_feet/nodes/legs_stub_feet-floating-hipRight.webp",
+          "webpSha256": "855e6558cf7d84af27f686a75efedb5a6c6050b8514d48ed87e48b49b8d6ca8f"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+          "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+          "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+        },
+        "hipRight": {
+          "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+          "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+          "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+        }
+      }
+    },
+    "legs_webbed:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/legs_webbed.png",
+      "pngSha256": "7d7fad641198b8c60a5568fc3cfb24a5c979d95f4f61e1a3911f0aae0070c9e2",
+      "webpPath": "assets/v0.3.0/structural/floating/legs_webbed.webp",
+      "webpSha256": "439ce1e2fb92e46d0e6dfedaf6be98665cdf0cbd7b8d3eedf07b2e618d0c2792",
+      "renderNodes": {
+        "legs_webbed-floating-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/floating/legs_webbed/nodes/legs_webbed-floating-hipLeft.png",
+          "pngSha256": "31f7789d008fc890d98caa70bae87dbe09c820f3dd16b840bfd02a33694293e4",
+          "webpPath": "assets/v0.3.0/structural/floating/legs_webbed/nodes/legs_webbed-floating-hipLeft.webp",
+          "webpSha256": "84c49792ec4e9a100717e7df02cec31fdec73fdc671cb1e3e1c03da74c7befec"
+        },
+        "legs_webbed-floating-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/floating/legs_webbed/nodes/legs_webbed-floating-hipRight.png",
+          "pngSha256": "3434394b41c20905b226a4241649609cb5dfd6d439ce954e82e615a9b8789f2f",
+          "webpPath": "assets/v0.3.0/structural/floating/legs_webbed/nodes/legs_webbed-floating-hipRight.webp",
+          "webpSha256": "658aeb2a69e59c763a5fce72abc02722db797096758c845caf0d004ea3f6e7f7"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+          "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+          "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+        },
+        "hipRight": {
+          "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+          "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+          "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+        }
+      }
+    },
+    "legs_mushroom:floating": {
+      "pngPath": "assets/v0.3.0/structural/floating/legs_mushroom.png",
+      "pngSha256": "c0a2bce3bd441ee1056a48cb7d3a0835298ec0bb0bbfff2a41610d3c53562ddb",
+      "webpPath": "assets/v0.3.0/structural/floating/legs_mushroom.webp",
+      "webpSha256": "211a8d41ad1319c3550ea902e5d4fa95ace708b2556fca2d4a9c59d507c6ebf6",
+      "renderNodes": {
+        "legs_mushroom-floating-hipLeft": {
+          "pngPath": "assets/v0.3.0/structural/floating/legs_mushroom/nodes/legs_mushroom-floating-hipLeft.png",
+          "pngSha256": "ea261e5718297e333924207aaf5ad1655c5fe9bc3bd876adb8ca786c0a457298",
+          "webpPath": "assets/v0.3.0/structural/floating/legs_mushroom/nodes/legs_mushroom-floating-hipLeft.webp",
+          "webpSha256": "01a25fcb2940a76898e4ad8c0f9a55f4d6cbbed54e0ad1852ab84218834f4f74"
+        },
+        "legs_mushroom-floating-hipRight": {
+          "pngPath": "assets/v0.3.0/structural/floating/legs_mushroom/nodes/legs_mushroom-floating-hipRight.png",
+          "pngSha256": "bb563685ba36ed714037ebd96fccd19c3283ff2cc505430a0906f1bec4cee171",
+          "webpPath": "assets/v0.3.0/structural/floating/legs_mushroom/nodes/legs_mushroom-floating-hipRight.webp",
+          "webpSha256": "90a119f7284544a6dfb8fff3f83be7daa12e9d9fbc17ed21333e4c278ab2716c"
+        }
+      },
+      "connectorHashes": {
+        "hipLeft": {
+          "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+          "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+          "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+        },
+        "hipRight": {
+          "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+          "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+          "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+        }
+      }
+    }
+  },
+  "processedBridges": {
+    "neck": {
+      "neutralPngSha256": "342d6e02fe94682c3e26cb8681558805ec1ce9ce957a011588970db22b5ffbc1",
+      "neutralWebpSha256": "5edc6d335d07dd200194dcd50459a89d9f7356502356f7d6cfe353e6b7357d19",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    },
+    "shoulder": {
+      "neutralPngSha256": "4b1185e82cad0498ab40f9ec91b3a6f869663bafc6330d9cfd3cf015b92a8e3d",
+      "neutralWebpSha256": "55472d14b248008c67aed0ce62b77bd9bf4e774316ea2e7aebe2c997aaa45a4b",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    },
+    "hip": {
+      "neutralPngSha256": "d310b2be8e47d16a8ac2def600e1b66f8ccc2a73ef48ff97e013b3ab7268214b",
+      "neutralWebpSha256": "c2aa6b653d7facde450daf8e31499f40139d7cd6dbc4860c5d257cdd48efe824",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    },
+    "blob:neck": {
+      "neutralPngSha256": "342d6e02fe94682c3e26cb8681558805ec1ce9ce957a011588970db22b5ffbc1",
+      "neutralWebpSha256": "5edc6d335d07dd200194dcd50459a89d9f7356502356f7d6cfe353e6b7357d19",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    },
+    "floating:neck": {
+      "neutralPngSha256": "342d6e02fe94682c3e26cb8681558805ec1ce9ce957a011588970db22b5ffbc1",
+      "neutralWebpSha256": "5edc6d335d07dd200194dcd50459a89d9f7356502356f7d6cfe353e6b7357d19",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    },
+    "blob:shoulder": {
+      "neutralPngSha256": "4b1185e82cad0498ab40f9ec91b3a6f869663bafc6330d9cfd3cf015b92a8e3d",
+      "neutralWebpSha256": "55472d14b248008c67aed0ce62b77bd9bf4e774316ea2e7aebe2c997aaa45a4b",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    },
+    "blob:hip": {
+      "neutralPngSha256": "d310b2be8e47d16a8ac2def600e1b66f8ccc2a73ef48ff97e013b3ab7268214b",
+      "neutralWebpSha256": "c2aa6b653d7facde450daf8e31499f40139d7cd6dbc4860c5d257cdd48efe824",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    },
+    "floating:shoulder": {
+      "neutralPngSha256": "4b1185e82cad0498ab40f9ec91b3a6f869663bafc6330d9cfd3cf015b92a8e3d",
+      "neutralWebpSha256": "55472d14b248008c67aed0ce62b77bd9bf4e774316ea2e7aebe2c997aaa45a4b",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    },
+    "floating:hip": {
+      "neutralPngSha256": "d310b2be8e47d16a8ac2def600e1b66f8ccc2a73ef48ff97e013b3ab7268214b",
+      "neutralWebpSha256": "c2aa6b653d7facde450daf8e31499f40139d7cd6dbc4860c5d257cdd48efe824",
+      "frontMaskSha256": "dde3b511421b57ae3a328df38ca399b41171312101fe1865968154a624e84b96",
+      "backMaskSha256": "a331613b8c96b1f3ba9448a802decec0cb62f1ba4ed2f8c0c4f951a214901f0d"
+    }
+  },
+  "sourceIndex": {
+    "catalogVersion": "0.3.0",
+    "sources": [
+      {
+        "sourceId": "body_biped_peanut:biped",
+        "kind": "interface-structural",
+        "promptId": "body_biped_peanut",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/body_biped_peanut.png",
+            "sha256": "bc4da9560db7a11fc0c36e22f455bbc4eeb2f7fbd97ad071889acc0eecea84d3"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/body_biped_peanut/body.png",
+            "sha256": "0a50123966cf8b1f0a9cd0704e93514f161c460701982f9534da502ac4dd50b1"
+          }
+        ]
+      },
+      {
+        "sourceId": "body_biped_tall:biped",
+        "kind": "interface-structural",
+        "promptId": "body_biped_tall",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/body_biped_tall.png",
+            "sha256": "85f46011094904dba826c766d497b8aa8368fda17ef23542af4ce4a26ff8a23a"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/body_biped_tall/body.png",
+            "sha256": "759a999a491e5ebe40431cb1a92c0ab0de1a93ba80c65187d65f8e23fc9f203d"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_mushroom_cap:biped",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_mushroom_cap.png",
+            "sha256": "49cf663abc0db74599e2eedef8c88f6db6b808f73dacb90393bba19123cae024"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+            "sha256": "49cf663abc0db74599e2eedef8c88f6db6b808f73dacb90393bba19123cae024"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_mushroom_cap:blob",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_mushroom_cap.png",
+            "sha256": "fcca733af44538adb0a63ef93f6e6a5f8d78ea7484bcf7a5f85343b6b8929afc"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+            "sha256": "fcca733af44538adb0a63ef93f6e6a5f8d78ea7484bcf7a5f85343b6b8929afc"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_mushroom_cap:floating",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_mushroom_cap.png",
+            "sha256": "629b5463619b1eca62bdbd54041c0c240633f13dac9ac337523d45dd46c4527e"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/nodes/head_mushroom_cap/neck.png",
+            "sha256": "629b5463619b1eca62bdbd54041c0c240633f13dac9ac337523d45dd46c4527e"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_short_plush:biped",
+        "kind": "interface-structural",
+        "promptId": "arms_short_plush",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/arms_short_plush.png",
+            "sha256": "f5db56619464eba4b64f3079955f492380095756e003ed79faf6f6fba298f6e0"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/arms_short_plush/shoulderLeft.png",
+            "sha256": "3d96d738dbf846316b03e6190d27f351d02a437b617cd1bbc8067dc677c602d5"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/arms_short_plush/shoulderRight.png",
+            "sha256": "894b1d0c07f726e134533c7558aac87d50f79a7b330626c2745d60df28ae4926"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_short_plush:floating",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/arms_short_plush.png",
+            "sha256": "a51e994ee318128a75040ba49872c47eb61df5f78f218276d11befc207b62ec0"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/arms_short_plush/shoulderLeft.png",
+            "sha256": "fa4f70b5ea6454d5cff9c0478aabace5e79d7e17414a7f26e425fdb4d828424b"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/arms_short_plush/shoulderRight.png",
+            "sha256": "1835a5761d9ff8f0e670809af4dd43335101c2cb444db6ffab8b2b7369e577f4"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_short_plush:blob",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/arms_short_plush.png",
+            "sha256": "15f17fe6fc48f69d88d68a285cbafe4fb9b976a92810d284a085ef789b7d54bb"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/arms_short_plush/shoulderLeft.png",
+            "sha256": "258f9b83eb4933502e714b9b6eb25214be894357fba775aed2d8cd4b1fef94db"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/arms_short_plush/shoulderRight.png",
+            "sha256": "7838e297283021c48a7ed95c331483f046dcc7c8517e0b0f7fdae559f35ba5fe"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_long_noodle:biped",
+        "kind": "interface-structural",
+        "promptId": "arms_long_noodle",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/arms_long_noodle.png",
+            "sha256": "9e6ac3387582063e1d5b6d0c17c84c2276de03e2cc4b2e38102bdd590a415ff9"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/arms_long_noodle/shoulderLeft.png",
+            "sha256": "07ac49697e3d033fcecf5bba1831b5137ffebb0419a448aed1759709010a94a0"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/arms_long_noodle/shoulderRight.png",
+            "sha256": "c454c5517a3288ab2c3f14b2ca373422c1bb112446979dbec2d99038e5955cc8"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_long_noodle:blob",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/arms_long_noodle.png",
+            "sha256": "d096f8849d6d717fb7f9096aa07b602a39dd058a9196df88e6e5271b16e5c749"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/arms_long_noodle/shoulderLeft.png",
+            "sha256": "200e7b9271060d94b3c4e66a14b0b5faadd9689638252a171f13f8c8e9dc5e85"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/arms_long_noodle/shoulderRight.png",
+            "sha256": "3a0735c1b635fdde57c44c0ecf5a8001bb7f75ac91592e973dfad209105afd23"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_long_noodle:floating",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/arms_long_noodle.png",
+            "sha256": "765b35847f1c495ac621754827d25f4321871f02c662c1a994a80000698bee88"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/arms_long_noodle/shoulderLeft.png",
+            "sha256": "398fac34f02827ff09c05f86e0d60a2760540c8e111300e6284bb3316e052667"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/arms_long_noodle/shoulderRight.png",
+            "sha256": "87fe2ed8ab25efde435f151e4a41b579c178d4b756eed8e7e3a0e61cb334c4ea"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_webbed:biped",
+        "kind": "interface-structural",
+        "promptId": "legs_webbed",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/legs_webbed.png",
+            "sha256": "063403f3b7a490ea4edc9853fda086f0e5cc0f8a1041e0811264dc9675db0422"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/legs_webbed/hipLeft.png",
+            "sha256": "e0887cba0833dc356fe609d3e367062df9633f483da87e3c38a09bf559e31b9e"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/legs_webbed/hipRight.png",
+            "sha256": "a814aa999c7440001af46df4eb4d53e34b2a5e850411cc889237c24cfca8f8c1"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_webbed:blob",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/legs_webbed.png",
+            "sha256": "e82a0f07c43c5d1bdc87bea223df217a6429f81eb55c079df43034228a392020"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/legs_webbed/hipLeft.png",
+            "sha256": "31af05ef9dd8aa22e708c92feba5e947d416feefd7aa49efed8e2c1cf0a120fc"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/legs_webbed/hipRight.png",
+            "sha256": "a67478a3ff8149c24dd0d374d2c9abc7f600aa5f6dc1964b445627de97dd7c28"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_webbed:floating",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/legs_webbed.png",
+            "sha256": "7d7fad641198b8c60a5568fc3cfb24a5c979d95f4f61e1a3911f0aae0070c9e2"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/legs_webbed/hipLeft.png",
+            "sha256": "31f7789d008fc890d98caa70bae87dbe09c820f3dd16b840bfd02a33694293e4"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/legs_webbed/hipRight.png",
+            "sha256": "3434394b41c20905b226a4241649609cb5dfd6d439ce954e82e615a9b8789f2f"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_mushroom:biped",
+        "kind": "interface-structural",
+        "promptId": "legs_mushroom",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/legs_mushroom.png",
+            "sha256": "be44d7583359bf76cdec3c35675ebf499e65aafa7698bd37304b439e7d1a274f"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/legs_mushroom/hipLeft.png",
+            "sha256": "eb65e5de4afe1fa3507ffba15fe4f46bd4804c246628dd5589ae178c54055e09"
+          },
+          {
+            "path": "asset-source/v0.3.0/production/nodes/legs_mushroom/hipRight.png",
+            "sha256": "466accf42e69f823f428f0ab543c86ad18153b3fc1bdfa4e9d9bcf3b094caea5"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_mushroom:blob",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/legs_mushroom.png",
+            "sha256": "6fb02e7c800780d7ba7043583b9fcd2bb0122c1714cefc08f72814ca7e3586e7"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/legs_mushroom/hipLeft.png",
+            "sha256": "2f1a0988ed6610cc94e60e4d914ca37925cc1a31955ae180c4af72f75c2488b5"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/legs_mushroom/hipRight.png",
+            "sha256": "2ddc1ac8abebc3201c9a71694f77296d576e03b6a94f0f78164e405565bf59a7"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_mushroom:floating",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/legs_mushroom.png",
+            "sha256": "c0a2bce3bd441ee1056a48cb7d3a0835298ec0bb0bbfff2a41610d3c53562ddb"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/legs_mushroom/hipLeft.png",
+            "sha256": "ea261e5718297e333924207aaf5ad1655c5fe9bc3bd876adb8ca786c0a457298"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/legs_mushroom/hipRight.png",
+            "sha256": "bb563685ba36ed714037ebd96fccd19c3283ff2cc505430a0906f1bec4cee171"
+          }
+        ]
+      },
+      {
+        "sourceId": "body_blob_round:blob",
+        "kind": "interface-structural",
+        "promptId": "task7-body-head-connection-aware",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+        "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/body_blob_round.png",
+            "sha256": "e91e7c04949f1af155d4749b1cb9cc9e63b61731762463e472225a9a0249fffd"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/body_blob_round/body.png",
+            "sha256": "e91e7c04949f1af155d4749b1cb9cc9e63b61731762463e472225a9a0249fffd"
+          }
+        ]
+      },
+      {
+        "sourceId": "body_blob_wide:blob",
+        "kind": "interface-structural",
+        "promptId": "task7-body-head-connection-aware",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+        "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/body_blob_wide.png",
+            "sha256": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/body_blob_wide/body.png",
+            "sha256": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a"
+          }
+        ]
+      },
+      {
+        "sourceId": "body_floating_drop:floating",
+        "kind": "interface-structural",
+        "promptId": "task7-body-head-connection-aware",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-body-head-prompts.json",
+        "promptSha256": "b4d9fda0a720f56cb966a3ac1578860dfc1eb27a84a31dc14d1267a2aa28ea97",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/body_floating_drop.png",
+            "sha256": "831bbedae94957879817e8d9872f532ee2a65af7ff22383acc47c223e599b7e9"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/body_floating_drop/body.png",
+            "sha256": "831bbedae94957879817e8d9872f532ee2a65af7ff22383acc47c223e599b7e9"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_round_dome:biped",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_round_dome.png",
+            "sha256": "eb9ff62be42c303e59b8208e3f22738695f2222b7cf7406bc38f2f8c58db0a08"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/nodes/head_round_dome/neck.png",
+            "sha256": "eb9ff62be42c303e59b8208e3f22738695f2222b7cf7406bc38f2f8c58db0a08"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_round_dome:blob",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_round_dome.png",
+            "sha256": "8e2f9877f0352d76ccd3844a2bc527a87b54d29d6853486970e334d72278d04f"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/nodes/head_round_dome/neck.png",
+            "sha256": "8e2f9877f0352d76ccd3844a2bc527a87b54d29d6853486970e334d72278d04f"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_round_dome:floating",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_round_dome.png",
+            "sha256": "acb0a798bc1425f0ae5473e5dd8da7b724762c2fe8e83782cfe5671308219332"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/nodes/head_round_dome/neck.png",
+            "sha256": "acb0a798bc1425f0ae5473e5dd8da7b724762c2fe8e83782cfe5671308219332"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_angler_bulb:biped",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_angler_bulb.png",
+            "sha256": "c42b2b82e6e6eff11e1e9cc5bb915c15c28bcb56ab33032d0c20e4a536d482ae"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+            "sha256": "c42b2b82e6e6eff11e1e9cc5bb915c15c28bcb56ab33032d0c20e4a536d482ae"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_angler_bulb:blob",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_angler_bulb.png",
+            "sha256": "95ca8dcf515db49a7206181ecf966e84e3f1ed0ede497794742364c39ebba9d8"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+            "sha256": "95ca8dcf515db49a7206181ecf966e84e3f1ed0ede497794742364c39ebba9d8"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_angler_bulb:floating",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_angler_bulb.png",
+            "sha256": "9772b5703112d13f21b308307f81f4ecb712b2eed71aad218bf918ebfb9f35c2"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/nodes/head_angler_bulb/neck.png",
+            "sha256": "9772b5703112d13f21b308307f81f4ecb712b2eed71aad218bf918ebfb9f35c2"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_shadow_hood:biped",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/head_shadow_hood.png",
+            "sha256": "b3702fa3e0ad7b43708bf5bb453c84bcb9782d2a757f88f8a774bf094accddb5"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+            "sha256": "b3702fa3e0ad7b43708bf5bb453c84bcb9782d2a757f88f8a774bf094accddb5"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_shadow_hood:blob",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/head_shadow_hood.png",
+            "sha256": "05bd244f778cd39fff93dfc063414f537b6858d018f29fbb13fbe5cdb49d974a"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+            "sha256": "05bd244f778cd39fff93dfc063414f537b6858d018f29fbb13fbe5cdb49d974a"
+          }
+        ]
+      },
+      {
+        "sourceId": "head_shadow_hood:floating",
+        "kind": "interface-structural",
+        "promptId": "task7-head-natural-neck-rework",
+        "promptPath": "asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+        "promptSha256": "f5938b20b51c36105500cebe428e763bde7b616233232680c8d6cf3f508f5ff7",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
+        "reviewRecordSha256": "c1fd5afef7d4cedc73f205b17a9978b64486f5b650df27a6ff7365308efbc2bc",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/head_shadow_hood.png",
+            "sha256": "33dd458c8039f1775499696807e7ceb37ad7684166e2d5a14639168f9198bcda"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+            "sha256": "33dd458c8039f1775499696807e7ceb37ad7684166e2d5a14639168f9198bcda"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_paddle:blob",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/arms_paddle.png",
+            "sha256": "ae4a4f99bbe88241698c432fd0b743d753e8b76ad3d83d3e12555811606627f1"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/arms_paddle/shoulderLeft.png",
+            "sha256": "6f6c00da61c2fe867ea819fe0c70e8bdf0eb86c4bf6f04718c1f1b33df9818ba"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/arms_paddle/shoulderRight.png",
+            "sha256": "4c027666d03b4d7433d3fa84cf0a0c7cb520abaef27cb4214772ecf394ccda7c"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_paddle:biped",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/biped/arms_paddle.png",
+            "sha256": "170047de08b39b424994e1f4ea9403e2f2df77e659741da3090bae110307c422"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/nodes/arms_paddle/shoulderLeft.png",
+            "sha256": "50fc779448e8a462f934397cea7cdde0f2c5f45bf70dd6f4e50e27d50815c6ec"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/nodes/arms_paddle/shoulderRight.png",
+            "sha256": "fa76e9c7fc26d62144badb5bd69b5b03638945c17480903b5df74a8c36ad27cf"
+          }
+        ]
+      },
+      {
+        "sourceId": "arms_paddle:floating",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/arms_paddle.png",
+            "sha256": "36732e033de1f6014bbe57b3d4b828427daa16ab39c02f96e63555e0f6993722"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/arms_paddle/shoulderLeft.png",
+            "sha256": "80350eb0ba4c8629e0d07c825793c32a5ce1ef9bede87c4e7d159eb6da0d3511"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/arms_paddle/shoulderRight.png",
+            "sha256": "17735d2a97f135b312ddf7a4566c22057cafffc844b33849c954e55c7485f10a"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_stub_feet:blob",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/legs_stub_feet.png",
+            "sha256": "b617dd96f6f70fe565bb0e0b080fb353c5cb09d5a3774f0b8501da9db471653f"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/legs_stub_feet/hipLeft.png",
+            "sha256": "2494f9a37ad16f2de4922f98fb2eaa32d5ce01a42132de355f3de5fa2e11fbe1"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/legs_stub_feet/hipRight.png",
+            "sha256": "3d2d97df12d11d33ca34083f45a4d728e30f8ead0bbaa19a89c59a6b5591ae65"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_stub_feet:biped",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/biped/legs_stub_feet.png",
+            "sha256": "23d4872e5389d8c3b0a799703897d43a77bd5882b81e5e01c172981b2294e93b"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/nodes/legs_stub_feet/hipLeft.png",
+            "sha256": "68c38104c2600cbe92e387eb6f80d6b68dc83414ed1fd8e3eba2027daa10202c"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/nodes/legs_stub_feet/hipRight.png",
+            "sha256": "136d07a78bc73bb90c41751f3466c24903b21db186e526ce264d1c968587d131"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_stub_feet:floating",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/legs_stub_feet.png",
+            "sha256": "5c5658b4079e8ec1008ab314da73f708c07ae7690e3db7c9f6c2895c41644acd"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/legs_stub_feet/hipLeft.png",
+            "sha256": "1aa5eba8cd42ee69ab4d704b554229c36f6ef400271b233f59107a0e2fdddd87"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/legs_stub_feet/hipRight.png",
+            "sha256": "f3c1ce8d246266184b3ce26a7b495e94fd2444787757af67d32245ede6204ab0"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_shadow_tiptoe:biped",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/biped/legs_shadow_tiptoe.png",
+            "sha256": "49496a2b7d501131c14401b7a178ab859e6798ba4ff419fdd34060eec6daf754"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/nodes/legs_shadow_tiptoe/hipLeft.png",
+            "sha256": "36829a1cb08ed88aef576be9e03736fc143163b1eebe754ab632f4a52133931e"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/biped/nodes/legs_shadow_tiptoe/hipRight.png",
+            "sha256": "d49aa052a49aa7a14b087becb826fb7045e6656b9f1cdda6bf99f84a14b61fc3"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_shadow_tiptoe:floating",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/floating/legs_shadow_tiptoe.png",
+            "sha256": "204a02a90f042aa2a9822b72c3b1952562a62d3134a22a0632cdbff9cbef37c3"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/legs_shadow_tiptoe/hipLeft.png",
+            "sha256": "2dd4c0807cc234de6cb30a01b986fae8dd34e2cc7b005c65f0b912df609bc7b1"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/floating/nodes/legs_shadow_tiptoe/hipRight.png",
+            "sha256": "d16ca20f00cf4fadcf9b19bf34636904dd9273dfc06151eec8c98ac12a267ffc"
+          }
+        ]
+      },
+      {
+        "sourceId": "legs_shadow_tiptoe:blob",
+        "kind": "interface-structural",
+        "promptId": "task8-exact-rig-limbs",
+        "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+        "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json",
+        "reviewRecordSha256": "482062cc8d2c20a1c5ee851b0cc7599f47e77323047c3fa4d449c2c3291a3b39",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/structural/blob/legs_shadow_tiptoe.png",
+            "sha256": "2384ad5f83b2f6df8bd16a2c90e51aba17a45de5858cc75240cbfb7f480f08c3"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/legs_shadow_tiptoe/hipLeft.png",
+            "sha256": "5bf20cb2901c0dac4e64ef973b891c6a765464e485487a05db769a1cad08bb25"
+          },
+          {
+            "path": "asset-source/v0.3.0/structural/blob/nodes/legs_shadow_tiptoe/hipRight.png",
+            "sha256": "345984280a49b36655394026545dfe23cb2c3e4c0da2b361cece1f54adf72516"
+          }
+        ]
+      },
+      {
+        "sourceId": "biped-neck-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-neck",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/neck.png",
+            "sha256": "5cf3d6468d3b49714a8b5102851ab853fd744a2bad913ccbe7a40012c86cf6d3"
+          }
+        ]
+      },
+      {
+        "sourceId": "biped-shoulder-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-shoulder",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/shoulder.png",
+            "sha256": "d21222a01d71361aea745c0e26d13214b3e3eee7c2eafef2e7a9d37d36f01d34"
+          }
+        ]
+      },
+      {
+        "sourceId": "biped-hip-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-hip",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/hip.png",
+            "sha256": "9e380f8d862473d71a78042ad457875610e9f0769150ca2e768c1fc9d9455c0f"
+          }
+        ]
+      },
+      {
+        "sourceId": "blob-neck-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-neck",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/neck.png",
+            "sha256": "5cf3d6468d3b49714a8b5102851ab853fd744a2bad913ccbe7a40012c86cf6d3"
+          }
+        ]
+      },
+      {
+        "sourceId": "blob-shoulder-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-shoulder",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/shoulder.png",
+            "sha256": "d21222a01d71361aea745c0e26d13214b3e3eee7c2eafef2e7a9d37d36f01d34"
+          }
+        ]
+      },
+      {
+        "sourceId": "blob-hip-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-hip",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/hip.png",
+            "sha256": "9e380f8d862473d71a78042ad457875610e9f0769150ca2e768c1fc9d9455c0f"
+          }
+        ]
+      },
+      {
+        "sourceId": "floating-neck-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-neck",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/neck.png",
+            "sha256": "5cf3d6468d3b49714a8b5102851ab853fd744a2bad913ccbe7a40012c86cf6d3"
+          }
+        ]
+      },
+      {
+        "sourceId": "floating-shoulder-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-shoulder",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/shoulder.png",
+            "sha256": "d21222a01d71361aea745c0e26d13214b3e3eee7c2eafef2e7a9d37d36f01d34"
+          }
+        ]
+      },
+      {
+        "sourceId": "floating-hip-bridge",
+        "kind": "interface-bridge",
+        "promptId": "bridge-hip",
+        "promptPath": "asset-source/v0.3.0/prompts/structural-prompts.json",
+        "promptSha256": "f558a203ecf147978a3a61a3124a38c618ceec7b01b8be234885c42a04ed831a",
+        "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/review-record.json",
+        "reviewRecordSha256": "70ff70f3f1dc6e01039fd3eb87f73f881c81b578a221be80f76eec0f6eb5cd5e",
+        "sourceResources": [
+          {
+            "path": "asset-source/v0.3.0/production/bridges/hip.png",
+            "sha256": "9e380f8d862473d71a78042ad457875610e9f0769150ca2e768c1fc9d9455c0f"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -12,7 +12,12 @@ export interface InterfaceConnectorSource {
   outwardNormal: Point2D, width: number, depth: number, contourMaskPath: string,
   foregroundMaskPath: string, backgroundMaskPath: string, materialSampleRegion: Rect, warpLimits: WarpLimits,
 }
-export interface InterfaceRenderNodeSource { id: string, connectorId?: string, sourcePngPath: string }
+export interface InterfaceRenderNodeSource {
+  id: string
+  connectorId?: string
+  sourcePngPath: string
+  transform?: { scale: number; mirrorX: boolean }
+}
 export interface InterfaceAssetVariantSource {
   rigId: InterfaceRigId, materialFamily: MaterialFamily, sourcePngPath: string,
   promptEvidence: InterfacePromptEvidence, connectors: InterfaceConnectorSource[], renderNodes: InterfaceRenderNodeSource[],
@@ -59,7 +64,10 @@ const connector = z.object({
   contourMaskPath: runtimePngPath, foregroundMaskPath: runtimePngPath, backgroundMaskPath: runtimePngPath,
   materialSampleRegion: rect, warpLimits: z.object({ widthRatio: range, depthRatio: range, rotationDegrees: range }).strict(),
 }).strict().refine(value => Math.abs(value.tangent.x * value.outwardNormal.x + value.tangent.y * value.outwardNormal.y) <= 0.001, { message: 'Connector tangent and outward normal must be orthogonal.', path: ['outwardNormal'] })
-const renderNode = z.object({ id: z.string().min(1), connectorId: z.string().min(1).optional(), sourcePngPath: z.string().min(1) }).strict()
+const renderNode = z.object({
+  id: z.string().min(1), connectorId: z.string().min(1).optional(), sourcePngPath: z.string().min(1),
+  transform: z.object({ scale: z.number().finite().positive(), mirrorX: z.boolean() }).strict().optional(),
+}).strict()
 const variant = z.object({
   rigId, materialFamily: z.enum(['short-fur', 'mushroom-velvet', 'soft-skin']), sourcePngPath: z.string().min(1), promptEvidence,
   connectors: z.array(connector).min(1), renderNodes: z.array(renderNode).min(1),

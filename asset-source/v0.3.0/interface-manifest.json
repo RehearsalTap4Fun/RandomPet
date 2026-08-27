@@ -843,6 +843,232 @@
               "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_short_plush/shoulderRight.png"
             }
           ]
+        },
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/arms_short_plush.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_short_plush-blob-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/arms_short_plush/shoulderLeft.png",
+              "transform": {
+                "scale": 1.15,
+                "mirrorX": false
+              }
+            },
+            {
+              "id": "arms_short_plush-blob-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/arms_short_plush/shoulderRight.png",
+              "transform": {
+                "scale": 1.15,
+                "mirrorX": false
+              }
+            }
+          ]
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/arms_short_plush.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_short_plush-floating-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/arms_short_plush/shoulderLeft.png"
+            },
+            {
+              "id": "arms_short_plush-floating-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/arms_short_plush/shoulderRight.png"
+            }
+          ]
         }
       ]
     },
@@ -956,6 +1182,224 @@
               "id": "arms_long_noodle-shoulderRight",
               "connectorId": "shoulderRight",
               "sourcePngPath": "asset-source/v0.3.0/production/nodes/arms_long_noodle/shoulderRight.png"
+            }
+          ]
+        },
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/arms_long_noodle.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_long_noodle-blob-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/arms_long_noodle/shoulderLeft.png"
+            },
+            {
+              "id": "arms_long_noodle-blob-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/arms_long_noodle/shoulderRight.png"
+            }
+          ]
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/arms_long_noodle.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 502
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 486,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_long_noodle-floating-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/arms_long_noodle/shoulderLeft.png"
+            },
+            {
+              "id": "arms_long_noodle-floating-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/arms_long_noodle/shoulderRight.png"
             }
           ]
         }
@@ -1073,6 +1517,224 @@
               "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_webbed/hipRight.png"
             }
           ]
+        },
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/legs_webbed.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_webbed-blob-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/legs_webbed/hipLeft.png"
+            },
+            {
+              "id": "legs_webbed-blob-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/legs_webbed/hipRight.png"
+            }
+          ]
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/legs_webbed.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_webbed-floating-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/legs_webbed/hipLeft.png"
+            },
+            {
+              "id": "legs_webbed-floating-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/legs_webbed/hipRight.png"
+            }
+          ]
         }
       ]
     },
@@ -1186,6 +1848,232 @@
               "id": "legs_mushroom-hipRight",
               "connectorId": "hipRight",
               "sourcePngPath": "asset-source/v0.3.0/production/nodes/legs_mushroom/hipRight.png"
+            }
+          ]
+        },
+        {
+          "rigId": "blob",
+          "materialFamily": "mushroom-velvet",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/legs_mushroom.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_mushroom-blob-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/legs_mushroom/hipLeft.png",
+              "transform": {
+                "scale": 1.15,
+                "mirrorX": false
+              }
+            },
+            {
+              "id": "legs_mushroom-blob-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/legs_mushroom/hipRight.png",
+              "transform": {
+                "scale": 1.15,
+                "mirrorX": false
+              }
+            }
+          ]
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "mushroom-velvet",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/legs_mushroom.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_mushroom-floating-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/legs_mushroom/hipLeft.png"
+            },
+            {
+              "id": "legs_mushroom-floating-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/legs_mushroom/hipRight.png"
             }
           ]
         }
@@ -1488,7 +2376,7 @@
               "role": "receiver",
               "connectorClass": "shoulder",
               "origin": {
-                "x": 500,
+                "x": 490,
                 "y": 870
               },
               "tangent": {
@@ -1530,7 +2418,7 @@
               "role": "receiver",
               "connectorClass": "shoulder",
               "origin": {
-                "x": 1548,
+                "x": 1558,
                 "y": 870
               },
               "tangent": {
@@ -2667,6 +3555,1021 @@
               "y": 940
             }
           }
+        }
+      ]
+    },
+    {
+      "id": "arms_paddle",
+      "slotId": "arms",
+      "variants": [
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/arms_paddle.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 674
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 658,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 682
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 666,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_paddle-blob-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/arms_paddle/shoulderLeft.png"
+            },
+            {
+              "id": "arms_paddle-blob-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/arms_paddle/shoulderRight.png"
+            }
+          ]
+        },
+        {
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/arms_paddle.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 230,
+              "depth": 130,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 230,
+              "depth": 130,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_paddle-biped-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/arms_paddle/shoulderLeft.png"
+            },
+            {
+              "id": "arms_paddle-biped-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/arms_paddle/shoulderRight.png"
+            }
+          ]
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/arms_paddle.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "arms_paddle-floating-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/arms_paddle/shoulderLeft.png"
+            },
+            {
+              "id": "arms_paddle-floating-shoulderRight",
+              "connectorId": "shoulderRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/arms_paddle/shoulderRight.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "legs_stub_feet",
+      "slotId": "legs",
+      "variants": [
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/legs_stub_feet.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_stub_feet-blob-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/legs_stub_feet/hipLeft.png"
+            },
+            {
+              "id": "legs_stub_feet-blob-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/legs_stub_feet/hipRight.png"
+            }
+          ]
+        },
+        {
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/legs_stub_feet.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_stub_feet-biped-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/legs_stub_feet/hipLeft.png",
+              "transform": {
+                "scale": 0.89,
+                "mirrorX": false
+              }
+            },
+            {
+              "id": "legs_stub_feet-biped-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/legs_stub_feet/hipRight.png",
+              "transform": {
+                "scale": 0.89,
+                "mirrorX": false
+              }
+            }
+          ]
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/legs_stub_feet.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_stub_feet-floating-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/legs_stub_feet/hipLeft.png"
+            },
+            {
+              "id": "legs_stub_feet-floating-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/legs_stub_feet/hipRight.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "legs_shadow_tiptoe",
+      "slotId": "legs",
+      "variants": [
+        {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/blob/legs_shadow_tiptoe.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_shadow_tiptoe-blob-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/legs_shadow_tiptoe/hipLeft.png"
+            },
+            {
+              "id": "legs_shadow_tiptoe-blob-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/blob/nodes/legs_shadow_tiptoe/hipRight.png"
+            }
+          ]
+        },
+        {
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/biped/legs_shadow_tiptoe.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_shadow_tiptoe-biped-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/legs_shadow_tiptoe/hipLeft.png",
+              "transform": {
+                "scale": 0.89,
+                "mirrorX": false
+              }
+            },
+            {
+              "id": "legs_shadow_tiptoe-biped-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/biped/nodes/legs_shadow_tiptoe/hipRight.png",
+              "transform": {
+                "scale": 0.89,
+                "mirrorX": false
+              }
+            }
+          ]
+        },
+        {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "sourcePngPath": "asset-source/v0.3.0/structural/floating/legs_shadow_tiptoe.png",
+          "promptEvidence": {
+            "promptId": "task8-exact-rig-limbs",
+            "promptPath": "asset-source/v0.3.0/prompts/task8-limb-prompts.json",
+            "promptSha256": "4f534681d9b28e418b9cf6748904b739eb1217a28ee03b827329c788c0477b4f",
+            "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/limb-review-record.json"
+          },
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              }
+            }
+          ],
+          "renderNodes": [
+            {
+              "id": "legs_shadow_tiptoe-floating-hipLeft",
+              "connectorId": "hipLeft",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/legs_shadow_tiptoe/hipLeft.png"
+            },
+            {
+              "id": "legs_shadow_tiptoe-floating-hipRight",
+              "connectorId": "hipRight",
+              "sourcePngPath": "asset-source/v0.3.0/structural/floating/nodes/legs_shadow_tiptoe/hipRight.png"
+            }
+          ]
         }
       ]
     }

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "limb-contact-sheet-index-v1",
+  "mode": "prototype",
+  "entryCount": 3,
+  "records": [
+    {
+      "rigId": "blob",
+      "entryCount": 2,
+      "originalPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-prototype-contact-sheet-blob.png",
+      "originalSha256": "8fc775ce7b5295210402bad570c9b2949fe9535825d4f9f7f48121b12d9ad320",
+      "review256Path": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-prototype-contact-sheet-blob-256.png",
+      "review256Sha256": "4fe5eaadf09d4bf426db5594580b22903d5acf2b9457a2f5440c7996219d5ad3",
+      "manifestPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-prototype-contact-sheet-blob-manifest.json"
+    },
+    {
+      "rigId": "floating",
+      "entryCount": 1,
+      "originalPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-prototype-contact-sheet-floating.png",
+      "originalSha256": "c401459626881e6415047ac2f5f30b904a23e633eaba08224c838b628d13f012",
+      "review256Path": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-prototype-contact-sheet-floating-256.png",
+      "review256Sha256": "ab2e8d636af3b4d5359fbeb8c83f24561dc320e69b708aad450814fe12817cd8",
+      "manifestPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-v0.1/packages/asset-catalog/review/v0.3.0/limb-prototype-contact-sheet-floating-manifest.json"
+    }
+  ]
+}

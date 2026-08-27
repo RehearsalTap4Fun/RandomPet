@@ -9,6 +9,7 @@ import { resolveAttachmentTree } from './attachment-tree.js'
 import { buildBridgeMesh, type BridgeMesh } from './bridge-mesh.js'
 import {
   connectorMetricMeetsThresholds,
+  EXTERNAL_LIMB_ALPHA_MIN,
   measureConnectorAlpha,
   structureMetricMeetsThreshold,
 } from './connector-metrics.js'
@@ -1245,10 +1246,10 @@ async function renderInterfaceMonster(
     }
     if (
       measuresExternalAlpha
-      && (metric.childOutsideBodyRatio ?? 0) < 0.65
+      && (metric.childOutsideBodyRatio ?? 0) < EXTERNAL_LIMB_ALPHA_MIN
     ) {
       diagnostics.push(connectorCompositeDiagnostic(
-        item.connectorId, `Structural child alpha outside the body is below 0.65.`,
+        item.connectorId, `Structural child alpha outside the body is below ${EXTERNAL_LIMB_ALPHA_MIN}.`,
       ))
     }
   }

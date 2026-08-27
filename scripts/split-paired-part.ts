@@ -39,7 +39,11 @@ const REPOSITORY_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const ALLOWED_OUTPUT_ROOTS = [
   join(REPOSITORY_ROOT, 'asset-source', 'v0.2.0'),
   join(REPOSITORY_ROOT, 'packages', 'asset-catalog', 'assets', 'v0.2.0'),
+  join(REPOSITORY_ROOT, 'asset-source', 'v0.3.0'),
+  join(REPOSITORY_ROOT, 'packages', 'asset-catalog', 'assets', 'v0.3.0'),
 ] as const
+
+const OUTPUT_ROOT_ERROR = 'Paired-part output must stay inside a canonical v0.2.0 output root or canonical v0.3.0 output root'
 
 function contained(root: string, target: string): boolean {
   const remainder = relative(root, target)
@@ -68,7 +72,7 @@ async function canonicalOutputDirectory(outputDirectory: string): Promise<{
   const requested = resolve(outputDirectory)
   const lexicalAllowedRoot = ALLOWED_OUTPUT_ROOTS.find(root => contained(root, requested))
   if (lexicalAllowedRoot === undefined) {
-    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+    throw new Error(`${OUTPUT_ROOT_ERROR}: ${outputDirectory}`)
   }
   const [allowedRoot, ancestor] = await Promise.all([
     realpath(lexicalAllowedRoot),
@@ -76,16 +80,16 @@ async function canonicalOutputDirectory(outputDirectory: string): Promise<{
   ])
   const canonicalAncestor = await realpath(ancestor)
   if (!contained(allowedRoot, canonicalAncestor)) {
-    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+    throw new Error(`${OUTPUT_ROOT_ERROR}: ${outputDirectory}`)
   }
   const canonicalRequested = resolve(canonicalAncestor, relative(ancestor, requested))
   if (!contained(allowedRoot, canonicalRequested)) {
-    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+    throw new Error(`${OUTPUT_ROOT_ERROR}: ${outputDirectory}`)
   }
   await mkdir(canonicalRequested, { recursive: true })
   const verifiedDirectory = await realpath(canonicalRequested)
   if (!contained(allowedRoot, verifiedDirectory)) {
-    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${outputDirectory}`)
+    throw new Error(`${OUTPUT_ROOT_ERROR}: ${outputDirectory}`)
   }
   return { directory: verifiedDirectory, allowedRoot }
 }
@@ -149,7 +153,7 @@ async function assertSafeOutputLeaves(paths: readonly string[]): Promise<void> {
 async function assertOutputDirectoryStable(directory: string, allowedRoot: string): Promise<void> {
   const verifiedDirectory = await realpath(directory)
   if (!contained(allowedRoot, verifiedDirectory) || !samePath(directory, verifiedDirectory)) {
-    throw new Error(`Paired-part output must stay inside a canonical v0.2.0 output root: ${directory}`)
+    throw new Error(`${OUTPUT_ROOT_ERROR}: ${directory}`)
   }
 }
 

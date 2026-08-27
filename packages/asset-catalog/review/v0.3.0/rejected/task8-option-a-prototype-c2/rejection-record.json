@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "task8-prototype-rejection-v1",
+  "status": "MACHINE_AND_VISUAL_REJECTED",
+  "round": "option-a-prototype-c2",
+  "reason": "The short arms curve downward and remain mostly behind body_blob_wide; the shadow legs retain a large upper bulge behind both blob bodies.",
+  "candidates": [
+    { "identity": "arms_short_plush:blob", "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-2.png", "sha256": "c117b961d904084b401630ae1600647aed84570e1f5a7b5a3184aae45799421f" },
+    { "identity": "legs_shadow_tiptoe:blob", "path": "asset-source/v0.3.0/generation/task8-candidates/blob/legs_shadow_tiptoe/candidate-2.png", "sha256": "a10795a6cbae5d698f5a501d3063b79a4f6379ad436960de0f0e13b9ca8d5076" }
+  ],
+  "artifacts": [
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c2/limb-option-a-prototype-contact-sheet-blob.png", "sha256": "553398febdba94ca5e0b0df3410740d364a9789db38a8343196a3f8ddb4f716b" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c2/limb-option-a-prototype-contact-sheet-blob-256.png", "sha256": "5c54880b940ee2fdaf6a9eb787debd5fb482a87af51969f40f61d084bbca8b3f" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c2/limb-option-a-prototype-contact-sheet-blob-manifest.json", "sha256": "b3a175ef90065c0d6ce307b81a7a10fa2f491bdc736e0a86b882ecb2a6b6e56a" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c2/limb-option-a-prototype-contact-sheet-index.json", "sha256": "e8286b7f35dcbad79fddad31908a4f2af48b541b68b3a5aaaad814626e2ffba5" }
+  ],
+  "metrics": {
+    "body_blob_round": {
+      "armOutside": [0.7095189691729532, 0.7181691729233234],
+      "legOutside": [0.5380937921776815, 0.5392624838801761],
+      "visibleBounds": { "x": 252, "y": 248, "width": 1548, "height": 1544 }
+    },
+    "body_blob_wide": {
+      "armOutside": [0.41870382402668, 0.430345905650948],
+      "legOutside": [0.527146866307505, 0.530043305140069],
+      "visibleBounds": { "x": 152, "y": 248, "width": 1748, "height": 1424 }
+    }
+  },
+  "fixedThreshold": { "childOutsideBodyRatioMin": 0.65 }
+}

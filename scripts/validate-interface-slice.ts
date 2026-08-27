@@ -22,6 +22,8 @@ function error(code: string, path: string[], message: string): Diagnostic {
 }
 
 const TASK7_BODY_HEAD_REVIEW_RECORD_PATH = 'packages/asset-catalog/review/v0.3.0/body-head-review-record.json'
+const TASK7_BODY_HEAD_AMENDMENT_PATH = 'packages/asset-catalog/review/v0.3.0/body-head-connector-amendment.json'
+const TASK7_BODY_HEAD_LIVE_ACCEPTANCE_PATH = 'packages/asset-catalog/review/v0.3.0/body-head-contact-sheets-acceptance.json'
 
 export async function validateInterfacePromptEvidence(input: {
   manifest: InterfaceSourceManifest
@@ -61,8 +63,19 @@ export async function validateInterfacePromptEvidence(input: {
       if (claim.hashes.size !== 1 || !claim.hashes.has(actualHash)) {
         diagnostics.push(error('INTERFACE_PROMPT_HASH_MISMATCH', [portablePath], 'Prompt evidence SHA-256 differs from the actual committed prompt catalog bytes.'))
       }
-      const promptCatalog = JSON.parse(bytes.toString('utf8')) as { prompts?: Array<{ id?: unknown }> }
+      const promptCatalog = JSON.parse(bytes.toString('utf8')) as {
+        schemaVersion?: unknown
+        prompts?: Array<{ id?: unknown }>
+        sharedContract?: unknown
+        variants?: Record<string, unknown>
+      }
       const catalogIds = new Set((promptCatalog.prompts ?? []).flatMap(prompt => typeof prompt.id === 'string' ? [prompt.id] : []))
+      if (
+        promptCatalog.schemaVersion === 'task8-imagegen-prompts-v1'
+        && typeof promptCatalog.sharedContract === 'string'
+        && promptCatalog.variants !== undefined
+        && Object.keys(promptCatalog.variants).length > 0
+      ) catalogIds.add('task8-exact-rig-limbs')
       for (const promptId of claim.ids) {
         if (!catalogIds.has(promptId)) diagnostics.push(error('INTERFACE_PROMPT_ID_MISSING', [portablePath, promptId], `Prompt catalog does not contain declared prompt ID ${promptId}.`))
       }
@@ -173,23 +186,38 @@ export async function validateInterfaceProductionReadiness(input: {
     && [asset.sourcePngPath, ...asset.renderNodes.map(node => node.sourcePngPath)]
       .some(path => path.replaceAll('\\', '/').includes('/task7-natural-neck/'))
   ))
-  let approvedTask7Review = false
+  let validTask7ReviewBoundary = false
   try {
     const review = JSON.parse(await readFile(resolve(root, TASK7_BODY_HEAD_REVIEW_RECORD_PATH), 'utf8')) as Record<string, unknown>
-    approvedTask7Review = review.status === 'APPROVED'
+    const approvedTask7Review = review.status === 'APPROVED'
       && review.decision === 'approved'
       && review.reviewer === 'user'
       && review.userApproved === true
       && review.approvalResponse === 'A'
+    const amendment = await readFile(resolve(root, TASK7_BODY_HEAD_AMENDMENT_PATH), 'utf8')
+      .then(bytes => JSON.parse(bytes) as Record<string, unknown>)
+      .catch(() => null)
+    const liveAcceptanceExists = await stat(resolve(root, TASK7_BODY_HEAD_LIVE_ACCEPTANCE_PATH))
+      .then(item => item.isFile())
+      .catch(() => false)
+    const pendingAmendedTask7Review = review.status === 'WAITING_FOR_USER_REAPPROVAL'
+      && review.decision === 'pending'
+      && review.reviewer === 'Codex visual self-review'
+      && review.userApproved === false
+      && amendment?.status === 'WAITING_FOR_USER_REAPPROVAL'
+      && amendment.userApproved === false
+      && amendment.scope !== undefined
+      && !liveAcceptanceExists
+    validTask7ReviewBoundary = approvedTask7Review || pendingAmendedTask7Review
   } catch {
-    approvedTask7Review = false
+    validTask7ReviewBoundary = false
   }
   for (const head of naturalNeckHeads) {
-    if (head.promptEvidence.reviewRecordPath !== TASK7_BODY_HEAD_REVIEW_RECORD_PATH || !approvedTask7Review) {
+    if (head.promptEvidence.reviewRecordPath !== TASK7_BODY_HEAD_REVIEW_RECORD_PATH || !validTask7ReviewBoundary) {
       diagnostics.push(error(
         'INTERFACE_NATURAL_NECK_REVIEW_INVALID',
         ['productionAssets', `${head.partId}:${head.rigId}`, 'reviewRecordPath'],
-        'Every Task 7 natural-neck head must bind to the canonical approved Task 7 body/head review record.',
+        'Every Task 7 natural-neck head must bind to the canonical approved or amendment-pending Task 7 body/head review boundary.',
       ))
     }
   }
@@ -251,6 +279,108 @@ const BODY_HEAD_ROSTER = {
 } as const
 
 function sha256Bytes(bytes: Uint8Array): string { return createHash('sha256').update(bytes).digest('hex') }
+
+const LIMB_ROSTER = {
+  blob: {
+    bodies: ['body_blob_round', 'body_blob_wide'],
+    arms: ['arms_short_plush', 'arms_long_noodle', 'arms_paddle'],
+    legs: ['legs_stub_feet', 'legs_webbed', 'legs_mushroom', 'legs_shadow_tiptoe'],
+  },
+  biped: {
+    bodies: ['body_biped_peanut', 'body_biped_tall'],
+    arms: ['arms_short_plush', 'arms_long_noodle', 'arms_paddle'],
+    legs: ['legs_stub_feet', 'legs_webbed', 'legs_mushroom', 'legs_shadow_tiptoe'],
+  },
+  floating: {
+    bodies: ['body_floating_drop'],
+    arms: ['arms_short_plush', 'arms_long_noodle', 'arms_paddle'],
+    legs: ['legs_stub_feet', 'legs_webbed', 'legs_mushroom', 'legs_shadow_tiptoe'],
+  },
+} as const
+
+function reviewAssetPath(repositoryRoot: string, portablePath: string): string {
+  const withoutFsPrefix = portablePath.startsWith('/@fs/') ? portablePath.slice('/@fs/'.length) : portablePath
+  return isAbsolute(withoutFsPrefix) ? withoutFsPrefix : resolve(repositoryRoot, withoutFsPrefix)
+}
+
+export async function validateLimbReview(input: { repositoryRoot: string; reviewRoot: string }): Promise<{
+  diagnostics: Diagnostic[]
+  entryCountByRig: Record<InterfaceRigId, number>
+}> {
+  const diagnostics: Diagnostic[] = []
+  const entryCountByRig: Record<InterfaceRigId, number> = { blob: 0, biped: 0, floating: 0 }
+  const fileHashes = new Map<string, Promise<string>>()
+  const liveHash = (path: string) => {
+    const absolute = reviewAssetPath(input.repositoryRoot, path)
+    const pending = fileHashes.get(absolute) ?? readFile(absolute).then(sha256Bytes)
+    fileHashes.set(absolute, pending)
+    return pending
+  }
+  for (const rigId of ['blob', 'biped', 'floating'] as const) {
+    let review: any
+    try {
+      review = JSON.parse(await readFile(join(input.reviewRoot, `limb-contact-sheet-${rigId}-manifest.json`), 'utf8'))
+    } catch {
+      diagnostics.push(error('LIMB_REVIEW_MISSING', [rigId], 'Cannot read the canonical limb contact-sheet manifest.'))
+      continue
+    }
+    const roster = LIMB_ROSTER[rigId]
+    const expected = new Set(roster.bodies.flatMap(body => roster.arms.flatMap(arms => roster.legs.map(legs => `${body}:${arms}:${legs}`))))
+    const entries = Array.isArray(review.entries) ? review.entries : []
+    const actual = entries.map((entry: any) => `${entry.bodyFrame}:${entry.arms}:${entry.legs}`)
+    entryCountByRig[rigId] = entries.length
+    if (review.rigId !== rigId || review.mode !== 'full' || review.entryCount !== expected.size || entries.length !== expected.size || new Set(actual).size !== expected.size || actual.some((key: string) => !expected.has(key))) {
+      diagnostics.push(error('LIMB_REVIEW_ROSTER_INVALID', [rigId, 'entries'], 'Review must contain every exact body × arms × legs cell once.'))
+    }
+    if (review.status !== 'machine-pass-awaiting-user-approval') {
+      diagnostics.push(error('LIMB_REVIEW_STATUS_INVALID', [rigId, 'status'], 'Canonical limb review must remain machine-pass awaiting user approval.'))
+    }
+    const thresholds = review.thresholds ?? {}
+    if (thresholds.receiverCoverageMin !== 0.9 || thresholds.plugCoverageMin !== 0.9 || thresholds.largestComponentRatioMin !== 0.99 || thresholds.centerlineGapPixelsMax !== 2 || thresholds.childOutsideBodyRatioMin !== 0.614) {
+      diagnostics.push(error('LIMB_REVIEW_THRESHOLD_INVALID', [rigId, 'thresholds', 'childOutsideBodyRatioMin'], 'The global visible-limb outside-alpha minimum must be exactly 0.614 with the canonical connector gates.'))
+    }
+    for (const [index, entry] of entries.entries()) {
+      if (!Array.isArray(entry.gateErrors) || entry.gateErrors.length !== 0) {
+        diagnostics.push(error('LIMB_REVIEW_GATE_FAILED', [rigId, 'entries', String(index)], 'Every canonical limb cell must have zero gate errors.'))
+      }
+      const metrics = Array.isArray(entry.connectorMetrics) ? entry.connectorMetrics.filter((metric: any) => /^(shoulder|hip)/.test(metric.connectorId)) : []
+      if (metrics.length !== 4 || metrics.some((metric: any) => (
+        !Number.isFinite(metric.receiverCoverage) || metric.receiverCoverage < 0.9
+        || !Number.isFinite(metric.plugCoverage) || metric.plugCoverage < 0.9
+        || !Number.isFinite(metric.largestComponentRatio) || metric.largestComponentRatio < 0.99
+        || !Number.isFinite(metric.centerlineGapPixels) || metric.centerlineGapPixels > 2
+        || !Number.isFinite(metric.childOutsideBodyRatio) || metric.childOutsideBodyRatio < 0.614
+      ))) diagnostics.push(error('LIMB_REVIEW_METRIC_FAILED', [rigId, 'entries', String(index)], 'Every visible arm and leg must satisfy the global causal gates.'))
+      const bounds = entry.compositionMetrics?.visibleBounds
+      if (bounds === undefined || bounds.x < 96 || bounds.y < 64 || bounds.x + bounds.width > 1952 || bounds.y + bounds.height > 1952) {
+        diagnostics.push(error('LIMB_REVIEW_BOUNDS_FAILED', [rigId, 'entries', String(index)], 'Visible alpha must remain inside the canonical safe frame.'))
+      }
+      const hashes = entry.inputBinding?.resolvedAssetHashes
+      if (!Array.isArray(hashes) || hashes.length === 0) {
+        diagnostics.push(error('LIMB_REVIEW_INPUT_BINDING_INVALID', [rigId, 'entries', String(index)], 'Every cell must bind its resolved input bytes.'))
+      } else {
+        for (const [assetIndex, asset] of hashes.entries()) {
+          try {
+            if (await liveHash(asset.path) !== asset.sha256) diagnostics.push(error('LIMB_REVIEW_INPUT_HASH_INVALID', [rigId, 'entries', String(index), 'resolvedAssetHashes', String(assetIndex)], 'Resolved input bytes differ from the hash-bound review evidence.'))
+          } catch {
+            diagnostics.push(error('LIMB_REVIEW_INPUT_MISSING', [rigId, 'entries', String(index), 'resolvedAssetHashes', String(assetIndex)], 'A hash-bound review input is missing.'))
+          }
+        }
+      }
+    }
+    for (const [pathKey, hashKey, code] of [
+      ['originalPath', 'originalSha256', 'original'],
+      ['review256Path', 'review256Sha256', '256'],
+    ] as const) {
+      try {
+        if (await liveHash(review[pathKey]) !== review[hashKey]) diagnostics.push(error('LIMB_REVIEW_SHEET_INVALID', [rigId, code], 'Contact-sheet bytes differ from the declared SHA-256.'))
+      } catch {
+        diagnostics.push(error('LIMB_REVIEW_SHEET_MISSING', [rigId, code], 'Cannot read the declared limb contact sheet.'))
+      }
+    }
+  }
+  return { diagnostics, entryCountByRig }
+}
 
 export async function validateBodyHeadReview(input: { repositoryRoot: string; reviewRoot: string }): Promise<{
   diagnostics: Diagnostic[]
@@ -666,6 +796,50 @@ export async function validateBodyHeadApproval(input: { repositoryRoot: string, 
 }> {
   const canonicalPath = resolve(input.repositoryRoot, BODY_HEAD_ACCEPTANCE_PATH)
   const records = await findBodyHeadAcceptanceRecords(input.repositoryRoot)
+  if (records.length === 0) {
+    const diagnostics: Diagnostic[] = []
+    try {
+      const [reviewBytes, amendmentBytes] = await Promise.all([
+        readFile(resolve(input.repositoryRoot, BODY_HEAD_REVIEW_RECORD_PATH)),
+        readFile(resolve(input.repositoryRoot, TASK7_BODY_HEAD_AMENDMENT_PATH)),
+      ])
+      const review = JSON.parse(reviewBytes.toString('utf8')) as Record<string, any>
+      const amendment = JSON.parse(amendmentBytes.toString('utf8')) as Record<string, any>
+      if (
+        review.status !== 'WAITING_FOR_USER_REAPPROVAL'
+        || review.decision !== 'pending'
+        || review.userApproved !== false
+        || review.entryCount !== 20
+        || amendment.status !== 'WAITING_FOR_USER_REAPPROVAL'
+        || amendment.userApproved !== false
+        || amendment.newOrigins?.left?.x !== 490
+        || amendment.newOrigins?.right?.x !== 1558
+        || amendment.unchangedBody?.beforeSha256 !== amendment.unchangedBody?.afterSha256
+      ) diagnostics.push(error('BODY_HEAD_AMENDMENT_PENDING_INVALID', ['amendment'], 'The live Task 7 boundary must be an explicit, unappproved x490/1558 connector amendment.'))
+      const artifacts = Array.isArray(amendment.reviewArtifacts) ? amendment.reviewArtifacts : []
+      const expectedPaths = new Set((['blob', 'biped', 'floating'] as const).flatMap(rigId => Object.values(bodyHeadArtifactPaths(rigId))))
+      if (artifacts.length !== 9 || new Set(artifacts.map((item: any) => item.path)).size !== 9 || artifacts.some((item: any) => !expectedPaths.has(item.path))) {
+        diagnostics.push(error('BODY_HEAD_AMENDMENT_REVIEW_INVALID', ['amendment', 'reviewArtifacts'], 'Pending amendment must bind the exact nine canonical Task 7 review artifacts.'))
+      } else {
+        for (const [index, artifact] of artifacts.entries()) {
+          try {
+            if (sha256Bytes(await readFile(resolve(input.repositoryRoot, artifact.path))) !== artifact.sha256) diagnostics.push(error('BODY_HEAD_AMENDMENT_REVIEW_INVALID', ['amendment', 'reviewArtifacts', String(index)], 'Pending amendment review artifact hash differs from live bytes.'))
+          } catch {
+            diagnostics.push(error('BODY_HEAD_AMENDMENT_REVIEW_INVALID', ['amendment', 'reviewArtifacts', String(index)], 'Pending amendment review artifact is missing.'))
+          }
+        }
+      }
+      try {
+        if (sha256Bytes(await readFile(resolve(input.repositoryRoot, amendment.preAmendmentEvidence.path))) !== amendment.preAmendmentEvidence.sha256) diagnostics.push(error('BODY_HEAD_AMENDMENT_HISTORY_INVALID', ['amendment', 'preAmendmentEvidence'], 'Pre-amendment evidence hash differs from the preserved history.'))
+      } catch {
+        diagnostics.push(error('BODY_HEAD_AMENDMENT_HISTORY_INVALID', ['amendment', 'preAmendmentEvidence'], 'Pre-amendment evidence is missing.'))
+      }
+      diagnostics.push(...await validateBodyHeadCausalMetricEvidence({ repositoryRoot: input.repositoryRoot, reviewRoot: input.reviewRoot }))
+      return { diagnostics, entryCount: diagnostics.length === 0 ? 20 : 0 }
+    } catch {
+      return { diagnostics: [error('BODY_HEAD_AMENDMENT_PENDING_INVALID', ['amendment'], 'Canonical acceptance is absent and the pending Task 7 amendment cannot be read.')], entryCount: 0 }
+    }
+  }
   const diagnostics = validateBodyHeadAcceptanceLocations(records, canonicalPath)
   if (!records.some(path => resolve(path) === canonicalPath)) return { diagnostics, entryCount: 0 }
   try {
@@ -688,7 +862,7 @@ async function main(): Promise<void> {
   const rig = rigIndex === -1 ? undefined : process.argv[rigIndex + 1]
   const catalogIndex = process.argv.indexOf('--catalog-if-present')
   const catalogPath = catalogIndex === -1 ? undefined : process.argv[catalogIndex + 1]
-  if (version !== '0.3.0' || (scope !== undefined && scope !== 'body-head')) throw new Error('Usage: tsx scripts/validate-interface-slice.ts --version 0.3.0 [--production] [--scope body-head]')
+  if (version !== '0.3.0' || (scope !== undefined && scope !== 'body-head' && scope !== 'limbs')) throw new Error('Usage: tsx scripts/validate-interface-slice.ts --version 0.3.0 [--production] [--scope body-head|limbs]')
   const paths = productionPaths(version)
   const repositoryRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
   const manifestPath = join(repositoryRoot, paths.sourceRoot, 'interface-manifest.json')
@@ -704,7 +878,7 @@ async function main(): Promise<void> {
     }
   }
   let productionAssetsChecked = 0
-  if (diagnostics.length === 0 && (production || scope === 'body-head')) {
+  if (diagnostics.length === 0 && (production || scope === 'body-head' || scope === 'limbs')) {
     const parsed = parseInterfaceSourceManifest(JSON.parse(await readFile(manifestPath, 'utf8')))
     if (parsed.ok) {
       const readiness = await validateInterfaceProductionReadiness({ repositoryRoot, manifest: parsed.value })
@@ -720,6 +894,7 @@ async function main(): Promise<void> {
   }
   let bodyHeadEntriesChecked: Record<InterfaceRigId, number> | undefined
   let bodyHeadApprovalEntriesChecked = 0
+  let limbEntriesChecked: Record<InterfaceRigId, number> | undefined
   if (diagnostics.length === 0 && scope === 'body-head') {
     const review = await validateBodyHeadReview({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
     bodyHeadEntriesChecked = review.entryCountByRig
@@ -730,8 +905,13 @@ async function main(): Promise<void> {
       diagnostics.push(...approval.diagnostics)
     }
   }
+  if (diagnostics.length === 0 && scope === 'limbs') {
+    const review = await validateLimbReview({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
+    limbEntriesChecked = review.entryCountByRig
+    diagnostics.push(...review.diagnostics)
+  }
   for (const diagnostic of diagnostics) console.error(`ERROR ${diagnostic.code} ${diagnostic.path.join('.')}: ${diagnostic.message}`)
-  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, bodyHeadApprovalEntriesChecked, diagnostics: diagnostics.length }))
+  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, bodyHeadApprovalEntriesChecked, limbEntriesChecked, diagnostics: diagnostics.length }))
   if (diagnostics.length > 0) process.exitCode = 1
 }
 

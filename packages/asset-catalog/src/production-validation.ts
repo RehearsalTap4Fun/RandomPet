@@ -519,6 +519,7 @@ export async function validateProductionInterfaceResources(
         || source.renderNodes.some(node => {
           const actual = variant.renderNodes.find(candidate => candidate.id === node.id)
           return actual === undefined || actual.connectorId !== node.connectorId
+            || !sameJson(actual.transform, node.transform ?? { scale: 1, mirrorX: false })
         })
         || variant.connectors.length !== source.connectors.length
         || source.connectors.some(connector => {

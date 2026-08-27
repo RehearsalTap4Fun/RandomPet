@@ -353,7 +353,14 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
   const response = await fetch(inputUrl)
   if (!response.ok) throw new Error(`Could not load biped slice input: ${response.status}`)
   const input = await response.json() as { catalog: Catalog, spec: MonsterSpec }
-  const result = await renderMonster(context, input.spec, input.catalog, imageResolver, {
+  const resolvedAssetPaths: string[] = []
+  const trackedResolver: ImageResolver = {
+    async resolve(assetPath) {
+      resolvedAssetPaths.push(assetPath)
+      return imageResolver.resolve(assetPath)
+    },
+  }
+  const result = await renderMonster(context, input.spec, input.catalog, trackedResolver, {
     width: 2048,
     height: 2048,
     includeGroundShadow: false,
@@ -362,6 +369,7 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
     diagnostics: result.diagnostics,
     connectorMetrics: result.connectorMetrics,
     compositionMetrics: result.compositionMetrics,
+    resolvedAssetPaths,
   })
   document.body.dataset.renderComplete = 'true'
 }

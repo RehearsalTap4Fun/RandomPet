@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "task8-rejection-record-v1",
+  "status": "REJECTED_MACHINE_GATE",
+  "identity": "legs_mushroom:blob",
+  "candidate": "candidate-5",
+  "candidateSha256": "4ae1182f28f4136aa23c546439febe806d0071dc62fdffa8d71d48ee887c1b7f",
+  "reason": "Targeted c5 preserved identity/root/split/connector gates but regressed visible outside-body alpha below the global 0.63 minimum on both blob bodies.",
+  "metrics": {
+    "round": { "left": 0.590256964, "right": 0.592433183 },
+    "wide": { "left": 0.589457457, "right": 0.592717592 },
+    "receiverCoverageMin": 0.991025877,
+    "plugCoverageMin": 0.922282088,
+    "connectedStructuralAlphaMin": 0.999994744,
+    "centerlineGapPixelsMax": 0
+  },
+  "artifacts": [
+    { "path": "candidate-5.png", "sha256": "4ae1182f28f4136aa23c546439febe806d0071dc62fdffa8d71d48ee887c1b7f" },
+    { "path": "limb-contact-sheet-blob.png", "sha256": "f900a6b9197ef35b88b6df723ca6c90db72a9afae77e644036a74c2f44718d86" },
+    { "path": "limb-contact-sheet-blob-256.png", "sha256": "2ad73acfe80c4a2e25977da9c76fc296f854c6e24642221c65b4ca8cfc33d0f2" },
+    { "path": "limb-contact-sheet-blob-manifest.json", "sha256": "771310d9ecc233921b32a36af2c9e7b313f862f519ae4dbedd1f023ed83365fe" },
+    { "path": "limb-contact-sheet-index.json", "sha256": "b13e8cd1a3151a18dff34c4676477ff937b0a614faa1bed6007215afca821b3a" }
+  ]
+}

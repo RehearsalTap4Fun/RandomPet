@@ -3486,7 +3486,9 @@
       "shadow": 1.15
     },
     "compatibleRigs": [
-      "biped"
+      "biped",
+      "blob",
+      "floating"
     ],
     "assetPath": "assets/v0.3.0/structural/biped/arms_short_plush.webp",
     "assetSha256": "ef3c1084c4179f6d36b8a676d7050cf24b47b0533c3ee006618c9fcf88853eb8",
@@ -3647,6 +3649,298 @@
               "backgroundMaskSha256": "24a4bb840eac429bffffa0c1ffe4291c16d41f007fb043a6b3b515a6747bdc77"
             }
           ]
+        },
+        "blob": {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "arms_short_plush-blob-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "assetPath": "assets/v0.3.0/structural/blob/arms_short_plush/nodes/arms_short_plush-blob-shoulderLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/arms_short_plush/nodes/arms_short_plush-blob-shoulderLeft.png",
+              "assetSha256": "e8d1327a0d0009c13f2f62544f5d70e8d1b6ce0d6b6a5097ae6c7670620f0a3f",
+              "pngSha256": "ac7d134b9d4cd3d306b086ccb2b598f196a1a6875d210924ee60f3f33141c090",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1.15,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "arms_short_plush-blob-shoulderRight",
+              "connectorId": "shoulderRight",
+              "assetPath": "assets/v0.3.0/structural/blob/arms_short_plush/nodes/arms_short_plush-blob-shoulderRight.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/arms_short_plush/nodes/arms_short_plush-blob-shoulderRight.png",
+              "assetSha256": "96d7534c3f6e3f769ab636b8fffb707a8bdabdfbf16d40f5e71e4469ce07e6ee",
+              "pngSha256": "9d1e2cc425060be9ea42be338b1c209c5ee046194db9699e92d38f4e137d2aa4",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1.15,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+              "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+              "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_short_plush-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+              "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+              "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+            }
+          ]
+        },
+        "floating": {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "arms_short_plush-floating-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "assetPath": "assets/v0.3.0/structural/floating/arms_short_plush/nodes/arms_short_plush-floating-shoulderLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/arms_short_plush/nodes/arms_short_plush-floating-shoulderLeft.png",
+              "assetSha256": "55585950b05144f57bd95cbe52d0cb07009af72695b593d063877116ce180724",
+              "pngSha256": "fa4f70b5ea6454d5cff9c0478aabace5e79d7e17414a7f26e425fdb4d828424b",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "arms_short_plush-floating-shoulderRight",
+              "connectorId": "shoulderRight",
+              "assetPath": "assets/v0.3.0/structural/floating/arms_short_plush/nodes/arms_short_plush-floating-shoulderRight.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/arms_short_plush/nodes/arms_short_plush-floating-shoulderRight.png",
+              "assetSha256": "265e2df8dbe15d78acccd8e040ba57a15cb9317e2ac102e51e80930b2d2add39",
+              "pngSha256": "1835a5761d9ff8f0e670809af4dd43335101c2cb444db6ffab8b2b7369e577f4",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+              "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+              "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_short_plush-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+              "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+              "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+            }
+          ]
         }
       }
     },
@@ -3681,7 +3975,9 @@
       "shadow": 1.15
     },
     "compatibleRigs": [
-      "biped"
+      "biped",
+      "blob",
+      "floating"
     ],
     "assetPath": "assets/v0.3.0/structural/biped/arms_long_noodle.webp",
     "assetSha256": "1136485629b07033c9788607caa245ffec665a53d4cbbb8139c9cca724e71512",
@@ -3842,6 +4138,298 @@
               "backgroundMaskSha256": "806f4caf7d8ee1cb4d0716ead522f5acebff60ad1ee688761ca8fe560f26c36f"
             }
           ]
+        },
+        "blob": {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "arms_long_noodle-blob-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "assetPath": "assets/v0.3.0/structural/blob/arms_long_noodle/nodes/arms_long_noodle-blob-shoulderLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/arms_long_noodle/nodes/arms_long_noodle-blob-shoulderLeft.png",
+              "assetSha256": "7ac70b2b9141f7ce694ee0dd3377a5b4ba290ef0a3704068863c40c3adc27eb0",
+              "pngSha256": "45d49c1e34bf5d77a4d4aca9a7208fd2f2285c282e6d5bc2681d35dde600ec87",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "arms_long_noodle-blob-shoulderRight",
+              "connectorId": "shoulderRight",
+              "assetPath": "assets/v0.3.0/structural/blob/arms_long_noodle/nodes/arms_long_noodle-blob-shoulderRight.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/arms_long_noodle/nodes/arms_long_noodle-blob-shoulderRight.png",
+              "assetSha256": "c3ab86351054204c08fc9e6cc6609dc89d1df5c2b4c11a21c88dc312b4a3c529",
+              "pngSha256": "804095760fed4319bde9d6e51aeacb4b68cbe9bdf68dbb264c48afe9514cf5d4",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+              "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+              "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_long_noodle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+              "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+              "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+            }
+          ]
+        },
+        "floating": {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "arms_long_noodle-floating-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "assetPath": "assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderLeft.png",
+              "assetSha256": "cfdd88aeabda8a3702cbb7a7cfdcce27c7331c3318527d71dbe02f29c5160f4e",
+              "pngSha256": "398fac34f02827ff09c05f86e0d60a2760540c8e111300e6284bb3316e052667",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "arms_long_noodle-floating-shoulderRight",
+              "connectorId": "shoulderRight",
+              "assetPath": "assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderRight.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/arms_long_noodle/nodes/arms_long_noodle-floating-shoulderRight.png",
+              "assetSha256": "9c9f127cc090e3485c554699a4ad6126989097e865f6a89afdb402ce19ae2718",
+              "pngSha256": "87fe2ed8ab25efde435f151e4a41b579c178d4b756eed8e7e3a0e61cb334c4ea",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+              "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+              "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 502
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_long_noodle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 486,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "7b41a131fddbf1397a8cad3ab286f7dd827730da66a633e083e4c59a9d6b635a",
+              "foregroundMaskSha256": "5d42d2a5306455199ca39383ebfa5ed0fc459227ba04ed6ddf0eb9058f01a89a",
+              "backgroundMaskSha256": "17c8086ce6a5c9da6d98041c9579282859e0127dab145d51eabd3f7150ebce8b"
+            }
+          ]
         }
       }
     },
@@ -3872,7 +4460,9 @@
       "deep-sea": 1.15
     },
     "compatibleRigs": [
-      "biped"
+      "biped",
+      "blob",
+      "floating"
     ],
     "assetPath": "assets/v0.3.0/structural/biped/legs_webbed.webp",
     "assetSha256": "b2686ba7b31dc651233358b7f2d8fcdcf3afc7d5dfd7a7bea55a24cf15b3cdb5",
@@ -4033,6 +4623,298 @@
               "backgroundMaskSha256": "7ac76faeae472de6ffd5db945fbfe14391f085e5d061940d76b96766342b2580"
             }
           ]
+        },
+        "blob": {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "legs_webbed-blob-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/blob/legs_webbed/nodes/legs_webbed-blob-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/legs_webbed/nodes/legs_webbed-blob-hipLeft.png",
+              "assetSha256": "e6cfc927419db18745f81614db2025454605231879ddb0cf1889672707b29df5",
+              "pngSha256": "da91a9dc7d67893fa3669169521fa833c6946e428fc2b05bb0a2a8f598522922",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_webbed-blob-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/blob/legs_webbed/nodes/legs_webbed-blob-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/legs_webbed/nodes/legs_webbed-blob-hipRight.png",
+              "assetSha256": "2462710f2fd09055ee7fbab1a20c9b9d03a919d5d33f9e52405dc467cbda65a7",
+              "pngSha256": "b3c36700564b6c0a8a38c17937e24e1ac05615e4a0256ac9cfcbbe90da1f1085",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+              "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+              "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_webbed-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+              "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+              "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+            }
+          ]
+        },
+        "floating": {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "legs_webbed-floating-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/floating/legs_webbed/nodes/legs_webbed-floating-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/legs_webbed/nodes/legs_webbed-floating-hipLeft.png",
+              "assetSha256": "84c49792ec4e9a100717e7df02cec31fdec73fdc671cb1e3e1c03da74c7befec",
+              "pngSha256": "31f7789d008fc890d98caa70bae87dbe09c820f3dd16b840bfd02a33694293e4",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_webbed-floating-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/floating/legs_webbed/nodes/legs_webbed-floating-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/legs_webbed/nodes/legs_webbed-floating-hipRight.png",
+              "assetSha256": "658aeb2a69e59c763a5fce72abc02722db797096758c845caf0d004ea3f6e7f7",
+              "pngSha256": "3434394b41c20905b226a4241649609cb5dfd6d439ce954e82e615a9b8789f2f",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+              "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+              "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_webbed-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+              "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+              "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+            }
+          ]
         }
       }
     },
@@ -4063,7 +4945,9 @@
       "fungal": 1.15
     },
     "compatibleRigs": [
-      "biped"
+      "biped",
+      "blob",
+      "floating"
     ],
     "assetPath": "assets/v0.3.0/structural/biped/legs_mushroom.webp",
     "assetSha256": "fd09796eacd57819e0e9a7ef89cfeb422675906deaaabe06e03c5ff4814830ec",
@@ -4222,6 +5106,298 @@
               "contourMaskSha256": "aeba3466215f3bc04941dcf0465f241199bda85ac1437c4d975f46afeae836e6",
               "foregroundMaskSha256": "aeba3466215f3bc04941dcf0465f241199bda85ac1437c4d975f46afeae836e6",
               "backgroundMaskSha256": "aeba3466215f3bc04941dcf0465f241199bda85ac1437c4d975f46afeae836e6"
+            }
+          ]
+        },
+        "blob": {
+          "rigId": "blob",
+          "materialFamily": "mushroom-velvet",
+          "renderNodes": [
+            {
+              "id": "legs_mushroom-blob-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/blob/legs_mushroom/nodes/legs_mushroom-blob-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/legs_mushroom/nodes/legs_mushroom-blob-hipLeft.png",
+              "assetSha256": "02cbbc94e050e7fa55eadd7b84382c15a0fae7a34399c1eedc1542ae164e97e3",
+              "pngSha256": "cb442ec5a3aa6217b0a8545ca0f14f772446b914942f3bd55d871038f3799a37",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1.15,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_mushroom-blob-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/blob/legs_mushroom/nodes/legs_mushroom-blob-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/legs_mushroom/nodes/legs_mushroom-blob-hipRight.png",
+              "assetSha256": "35515c478320c97fd1b2dc09feee60aef2e8e3fc79d2f75bfff9e7d142c5cec9",
+              "pngSha256": "9e9b7302902ddd0cad28f6dbaf71e75e99c7e4f60c75d3cff142a2b2a8cd9167",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1.15,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+              "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+              "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_mushroom-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+              "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+              "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+            }
+          ]
+        },
+        "floating": {
+          "rigId": "floating",
+          "materialFamily": "mushroom-velvet",
+          "renderNodes": [
+            {
+              "id": "legs_mushroom-floating-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/floating/legs_mushroom/nodes/legs_mushroom-floating-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/legs_mushroom/nodes/legs_mushroom-floating-hipLeft.png",
+              "assetSha256": "01a25fcb2940a76898e4ad8c0f9a55f4d6cbbed54e0ad1852ab84218834f4f74",
+              "pngSha256": "ea261e5718297e333924207aaf5ad1655c5fe9bc3bd876adb8ca786c0a457298",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_mushroom-floating-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/floating/legs_mushroom/nodes/legs_mushroom-floating-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/legs_mushroom/nodes/legs_mushroom-floating-hipRight.png",
+              "assetSha256": "90a119f7284544a6dfb8fff3f83be7daa12e9d9fbc17ed21333e4c278ab2716c",
+              "pngSha256": "bb563685ba36ed714037ebd96fccd19c3283ff2cc505430a0906f1bec4cee171",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+              "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+              "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_mushroom-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+              "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+              "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
             }
           ]
         }
@@ -4664,7 +5840,7 @@
               "role": "receiver",
               "connectorClass": "shoulder",
               "origin": {
-                "x": 500,
+                "x": 490,
                 "y": 870
               },
               "tangent": {
@@ -4701,16 +5877,16 @@
                 }
               },
               "rigId": "blob",
-              "contourMaskSha256": "beeb56e40cf2c8de20442593fe57ee438b14b0f26940219b3bbd3fdbbc460919",
-              "foregroundMaskSha256": "00b54be9936cc50e525427ea8de9a95c43aefdec25a5d6d75f6df9a89af2b3b9",
-              "backgroundMaskSha256": "d4c8a0085dfc6e05e02c05a5047bc4b99fa3fabae98680a9ea52c702d891533d"
+              "contourMaskSha256": "f10801197d607db5e5f1d2695648952cbe7364364debe40eb348d15ab2e27b1f",
+              "foregroundMaskSha256": "e1d43f17e991494203f2cd152a964fa379a5b6f5c59e7433a14ee2fdbc4d83d0",
+              "backgroundMaskSha256": "37fcaa90e97ff9c80ceedb3ee891e5bdae3d020990d308e5a509eecb6ec84c68"
             },
             {
               "id": "shoulderRight",
               "role": "receiver",
               "connectorClass": "shoulder",
               "origin": {
-                "x": 1548,
+                "x": 1558,
                 "y": 870
               },
               "tangent": {
@@ -4747,9 +5923,9 @@
                 }
               },
               "rigId": "blob",
-              "contourMaskSha256": "3537dda467aa8c134498f8daa666305674f86ca62e89257ee059f5207e571888",
-              "foregroundMaskSha256": "12ec17a574517bfa48151f1e38788174df4f9a11661a32be6c1c1a0b786fa89e",
-              "backgroundMaskSha256": "fb571c4e4c1ab86fccadda93f1cf51edfd3e00d37c175a3023116db43bd3ca9b"
+              "contourMaskSha256": "fe6e2c4abc3b0b7e428b01ef0bd67cabaf28fcb2527fe5660c4239352057460e",
+              "foregroundMaskSha256": "c22cf895d3e45f7e26ac49a93b34573f12abcbb039f0ddd8b8eb1d6d43c5f087",
+              "backgroundMaskSha256": "3e632a1789a75596584d64d06816f11cd42da443f0f3dbb2979eb0b3ec4951dc"
             },
             {
               "id": "hipLeft",
@@ -6200,6 +7376,1465 @@
     "socket": "head",
     "layer": "head",
     "semanticTraitId": "head_shadow_hood",
+    "semanticPriority": 5,
+    "excludes": [],
+    "boosts": {}
+  },
+  {
+    "id": "arms_paddle",
+    "displayName": "小桨手",
+    "flavorText": "不用船，它自己就是两把小桨。",
+    "description": "a separate bilateral pair of short rounded paddle-like fin arms with soft webbed edges",
+    "slotId": "arms",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea"
+    ],
+    "themeWeights": {
+      "deep-sea": 1.15
+    },
+    "compatibleRigs": [
+      "blob",
+      "biped",
+      "floating"
+    ],
+    "assetPath": "assets/v0.3.0/structural/blob/arms_paddle.webp",
+    "assetSha256": "104098bf7099d876c46930023361c8113717db536eef9cb3970279712a584ede",
+    "pngPath": "assets/v0.3.0/structural/blob/arms_paddle.png",
+    "pngSha256": "70f24e80577824643b732425657fe364f55d40e9af80f97294f4964f6716eb25",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "blob": {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "arms_paddle-blob-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "assetPath": "assets/v0.3.0/structural/blob/arms_paddle/nodes/arms_paddle-blob-shoulderLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/arms_paddle/nodes/arms_paddle-blob-shoulderLeft.png",
+              "assetSha256": "0bb73876a8fa6bca980e59174600eee0239b1cb3f7c0ad6a1800437344668781",
+              "pngSha256": "becb967d5ceba098370235d1ab8d9d5da95aaa8bde8f2703354ff736a7a20268",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "arms_paddle-blob-shoulderRight",
+              "connectorId": "shoulderRight",
+              "assetPath": "assets/v0.3.0/structural/blob/arms_paddle/nodes/arms_paddle-blob-shoulderRight.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/arms_paddle/nodes/arms_paddle-blob-shoulderRight.png",
+              "assetSha256": "ca1c053b38d8133ca9c286939a7f0ae0b806f0639eb0cd26cd7127c225ca04ba",
+              "pngSha256": "c7af6cf86beebfcb0c07faefae538f0089a478e786acd3cb0c8dab500782aaed",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 674
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 658,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "4d90ce4d77db14115428448d8dfb8cabe3d2079665a32b9be20e39343afcd749",
+              "foregroundMaskSha256": "ffbc16cf44bb631718a5350fc802b5877f1ca5eaee16670de36a4c72f952539a",
+              "backgroundMaskSha256": "7f5fc9f9ca1b71b6ab92346e1ea3e4dc509c32fc81c6f7e1be495346dad6a869"
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 682
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/arms_paddle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 666,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "8713139a8d1ab650b1a08fd78c12618ac7310513233748446f49c73166bc57bf",
+              "foregroundMaskSha256": "8561f2720933cc0a77e3696fa2cf74ffc19f9de484058c8005daa020d47f13b9",
+              "backgroundMaskSha256": "c20d44a2ddea305d7e0bf3d1e57d800a540cb33c17359437c798603736c63960"
+            }
+          ]
+        },
+        "biped": {
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "arms_paddle-biped-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "assetPath": "assets/v0.3.0/structural/biped/arms_paddle/nodes/arms_paddle-biped-shoulderLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/biped/arms_paddle/nodes/arms_paddle-biped-shoulderLeft.png",
+              "assetSha256": "f30378a611d01811cc1b881331aeebc754a0146c22f7a1e1e752a27a4d1ae4f5",
+              "pngSha256": "50fc779448e8a462f934397cea7cdde0f2c5f45bf70dd6f4e50e27d50815c6ec",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "biped"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "arms_paddle-biped-shoulderRight",
+              "connectorId": "shoulderRight",
+              "assetPath": "assets/v0.3.0/structural/biped/arms_paddle/nodes/arms_paddle-biped-shoulderRight.webp",
+              "pngPath": "assets/v0.3.0/structural/biped/arms_paddle/nodes/arms_paddle-biped-shoulderRight.png",
+              "assetSha256": "f65a4cbd936df53491cb50d0840e9bb632d04626ae49068e7b6fbd93611b5032",
+              "pngSha256": "fa76e9c7fc26d62144badb5bd69b5b03638945c17480903b5df74a8c36ad27cf",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "biped"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 230,
+              "depth": 130,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "biped",
+              "contourMaskSha256": "8b916c569b640f64010114a8c499d54bc96705206a478820cb49cbcef1239d0b",
+              "foregroundMaskSha256": "a15119fefae950ce6028d88443244559ab58b4e2968869b79c7c4c7d9041638c",
+              "backgroundMaskSha256": "ca70ac0a409bd6a7e482a0250a538f1bd7c9f79c7a60fa984047cc898187d515"
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 230,
+              "depth": 130,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/arms_paddle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "biped",
+              "contourMaskSha256": "de4684c56dba55847af470f92068d24119ce48b3f55f72643f79b46fbbe88250",
+              "foregroundMaskSha256": "8a9d0cacf43d3d33655d655e2734f106e8e007b85fc7a570b1dad6e5fee431b3",
+              "backgroundMaskSha256": "fd0771c040eac73db0ad3032ac3944104e1dd6190f178627b4034ea3037629ca"
+            }
+          ]
+        },
+        "floating": {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "arms_paddle-floating-shoulderLeft",
+              "connectorId": "shoulderLeft",
+              "assetPath": "assets/v0.3.0/structural/floating/arms_paddle/nodes/arms_paddle-floating-shoulderLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/arms_paddle/nodes/arms_paddle-floating-shoulderLeft.png",
+              "assetSha256": "e862ae8db21fc2c9f9e353a95c96b514f8b64d1de3ceac92232fe99459e1435d",
+              "pngSha256": "80350eb0ba4c8629e0d07c825793c32a5ce1ef9bede87c4e7d159eb6da0d3511",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "arms_paddle-floating-shoulderRight",
+              "connectorId": "shoulderRight",
+              "assetPath": "assets/v0.3.0/structural/floating/arms_paddle/nodes/arms_paddle-floating-shoulderRight.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/arms_paddle/nodes/arms_paddle-floating-shoulderRight.png",
+              "assetSha256": "fd2996592b55ee3c49a2b4d0959cd4a98836772eb700dff156dd2984c117116c",
+              "pngSha256": "17735d2a97f135b312ddf7a4566c22057cafffc844b33849c954e55c7485f10a",
+              "parentSlot": "bodyFrame",
+              "socket": "shoulderRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "shoulderLeft",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 680,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": 1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "d5b2a496ba3f7b0a27f12a8d3a362b58e7eceb1f94caf380c2a4950078520b21",
+              "foregroundMaskSha256": "9bba148a4d978992074ad432de253bbe86ce0a3d7d77d78d342ddbbbcccdbf73",
+              "backgroundMaskSha256": "c442b46db2e1f9aaba324661b36b0f93c02cc5d970bc3005cae51ff6010efae3"
+            },
+            {
+              "id": "shoulderRight",
+              "role": "plug",
+              "connectorClass": "shoulder",
+              "origin": {
+                "x": 1368,
+                "y": 480
+              },
+              "tangent": {
+                "x": 0,
+                "y": 1
+              },
+              "outwardNormal": {
+                "x": -1,
+                "y": 0
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/arms_paddle-shoulderRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 464,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "48077f3f1a095319214090f95c6dccdfc91ccdca33d5c4c368b04d6cff28b57a",
+              "foregroundMaskSha256": "aef00403f5a14e5118e99d0b4571b010f87660f972332a9854c205ec2c66808d",
+              "backgroundMaskSha256": "ff23861c5e69edc26ac5ede670f20363de76a2a304ac06b4daa3c785312d757a"
+            }
+          ]
+        }
+      }
+    },
+    "maskPaths": {},
+    "origin": {
+      "x": 512,
+      "y": 512
+    },
+    "socket": null,
+    "layer": "frontAppendage",
+    "semanticTraitId": "arms_paddle",
+    "semanticPriority": 5,
+    "excludes": [],
+    "boosts": {}
+  },
+  {
+    "id": "legs_stub_feet",
+    "displayName": "圆墩脚",
+    "flavorText": "每一步都像软垫落地。",
+    "description": "a separate bilateral pair of short sturdy plush legs ending in broad rounded pad feet",
+    "slotId": "legs",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1.15,
+      "fungal": 1.15,
+      "shadow": 1.15
+    },
+    "compatibleRigs": [
+      "blob",
+      "biped",
+      "floating"
+    ],
+    "assetPath": "assets/v0.3.0/structural/blob/legs_stub_feet.webp",
+    "assetSha256": "60eb89fbbce76f86cc3cdcce12ab6da74032ebab951bd6969be0ea5aac643a5f",
+    "pngPath": "assets/v0.3.0/structural/blob/legs_stub_feet.png",
+    "pngSha256": "b617dd96f6f70fe565bb0e0b080fb353c5cb09d5a3774f0b8501da9db471653f",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "blob": {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "legs_stub_feet-blob-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/blob/legs_stub_feet/nodes/legs_stub_feet-blob-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/legs_stub_feet/nodes/legs_stub_feet-blob-hipLeft.png",
+              "assetSha256": "86264a3a0571d05ae07482f6bd2b36e1a4310769e0395262c9e867dc68278e40",
+              "pngSha256": "2494f9a37ad16f2de4922f98fb2eaa32d5ce01a42132de355f3de5fa2e11fbe1",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_stub_feet-blob-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/blob/legs_stub_feet/nodes/legs_stub_feet-blob-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/legs_stub_feet/nodes/legs_stub_feet-blob-hipRight.png",
+              "assetSha256": "251610c7389f5c210d4642f858b008ed6723a4ae7f567621948615cb4a58335e",
+              "pngSha256": "3d2d97df12d11d33ca34083f45a4d728e30f8ead0bbaa19a89c59a6b5591ae65",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+              "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+              "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_stub_feet-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+              "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+              "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+            }
+          ]
+        },
+        "biped": {
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "legs_stub_feet-biped-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/biped/legs_stub_feet/nodes/legs_stub_feet-biped-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/biped/legs_stub_feet/nodes/legs_stub_feet-biped-hipLeft.png",
+              "assetSha256": "3d874096284ce7a73aa0fbfc31b0b8033b3006a923a9b3cf46094defb1968c90",
+              "pngSha256": "68c38104c2600cbe92e387eb6f80d6b68dc83414ed1fd8e3eba2027daa10202c",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 0.89,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "biped"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_stub_feet-biped-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/biped/legs_stub_feet/nodes/legs_stub_feet-biped-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/biped/legs_stub_feet/nodes/legs_stub_feet-biped-hipRight.png",
+              "assetSha256": "832ac04af1e7d22cedef786009b292a35374f54293d1ab31cb0dd749cc291976",
+              "pngSha256": "136d07a78bc73bb90c41751f3466c24903b21db186e526ce264d1c968587d131",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 0.89,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "biped"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "biped",
+              "contourMaskSha256": "2dc1fd85404d14cfac045b38c7dbe866432d3b1eca373de6cb429967797339e4",
+              "foregroundMaskSha256": "26c73d031609f60e0c154bb4d5dc097261ceaf93c63f6437fdd9e4f82207eafe",
+              "backgroundMaskSha256": "4b4c376f4e72b49d8d6d1d8b58cde71ec54f6a5b8c31cf77aea6494feea61798"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_stub_feet-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "biped",
+              "contourMaskSha256": "972893bdfdd0ce3636cd2b595a5654729070dbebca1a4a9221083a720073858a",
+              "foregroundMaskSha256": "2af37d97fbee445d8b49ddcc9a6ac9b101e9b249b4c9c493cc6cb5a042c82167",
+              "backgroundMaskSha256": "68ffb0bf5e6af943300132c52c4f79e18186f4e1a34008dfdf6fa7384f60bc75"
+            }
+          ]
+        },
+        "floating": {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "legs_stub_feet-floating-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/floating/legs_stub_feet/nodes/legs_stub_feet-floating-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/legs_stub_feet/nodes/legs_stub_feet-floating-hipLeft.png",
+              "assetSha256": "403ddac77007655678603967f769ff1542bb6123c8a5d1ede792d6d1cce2dd7b",
+              "pngSha256": "1aa5eba8cd42ee69ab4d704b554229c36f6ef400271b233f59107a0e2fdddd87",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_stub_feet-floating-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/floating/legs_stub_feet/nodes/legs_stub_feet-floating-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/legs_stub_feet/nodes/legs_stub_feet-floating-hipRight.png",
+              "assetSha256": "855e6558cf7d84af27f686a75efedb5a6c6050b8514d48ed87e48b49b8d6ca8f",
+              "pngSha256": "f3c1ce8d246266184b3ce26a7b495e94fd2444787757af67d32245ede6204ab0",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+              "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+              "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_stub_feet-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+              "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+              "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+            }
+          ]
+        }
+      }
+    },
+    "maskPaths": {},
+    "origin": {
+      "x": 512,
+      "y": 512
+    },
+    "socket": null,
+    "layer": "frontAppendage",
+    "semanticTraitId": "legs_stub",
+    "semanticPriority": 5,
+    "excludes": [],
+    "boosts": {}
+  },
+  {
+    "id": "legs_shadow_tiptoe",
+    "displayName": "影尖脚",
+    "flavorText": "脚尖其实很圆，只是影子把它拉长了。",
+    "description": "a separate bilateral pair of tapered shadow-plush legs ending in tiny rounded tiptoe pads, soft not sharp",
+    "slotId": "legs",
+    "rarity": "R",
+    "baseWeight": 1,
+    "themeIds": [
+      "shadow"
+    ],
+    "themeWeights": {
+      "shadow": 1.15
+    },
+    "compatibleRigs": [
+      "blob",
+      "biped",
+      "floating"
+    ],
+    "assetPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe.webp",
+    "assetSha256": "b863dc1593fca65aa3c46e5957a4f7b430928302a4a756a573614db7ec8da91b",
+    "pngPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe.png",
+    "pngSha256": "2384ad5f83b2f6df8bd16a2c90e51aba17a45de5858cc75240cbfb7f480f08c3",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "blob": {
+          "rigId": "blob",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "legs_shadow_tiptoe-blob-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-blob-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-blob-hipLeft.png",
+              "assetSha256": "18205a68bcdb5ed1d36f1adf57bafdb915c6ea3eed544f43cd92fa3ec5c87754",
+              "pngSha256": "5bf20cb2901c0dac4e64ef973b891c6a765464e485487a05db769a1cad08bb25",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_shadow_tiptoe-blob-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-blob-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/blob/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-blob-hipRight.png",
+              "assetSha256": "f691ded1eaae9c9d5f3c38496bb19b34e964bb50981c9b45a6b3368a8988d41b",
+              "pngSha256": "345984280a49b36655394026545dfe23cb2c3e4c0da2b361cece1f54adf72516",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "blob"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+              "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+              "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/blob/legs_shadow_tiptoe-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "blob",
+              "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+              "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+              "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+            }
+          ]
+        },
+        "biped": {
+          "rigId": "biped",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "legs_shadow_tiptoe-biped-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-biped-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-biped-hipLeft.png",
+              "assetSha256": "72e369f8050008264e44546ca24c857b6d79feab38d0465c0576ab34ec40b0aa",
+              "pngSha256": "36829a1cb08ed88aef576be9e03736fc143163b1eebe754ab632f4a52133931e",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 0.89,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "biped"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_shadow_tiptoe-biped-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-biped-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/biped/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-biped-hipRight.png",
+              "assetSha256": "67ba975721feb934c9de42a58dd5de350eca7eec9b9ed5e6b2f5bd0e7c81ee40",
+              "pngSha256": "d49aa052a49aa7a14b087becb826fb7045e6656b9f1cdda6bf99f84a14b61fc3",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 0.89,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "biped"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "biped",
+              "contourMaskSha256": "2dc1fd85404d14cfac045b38c7dbe866432d3b1eca373de6cb429967797339e4",
+              "foregroundMaskSha256": "26c73d031609f60e0c154bb4d5dc097261ceaf93c63f6437fdd9e4f82207eafe",
+              "backgroundMaskSha256": "4b4c376f4e72b49d8d6d1d8b58cde71ec54f6a5b8c31cf77aea6494feea61798"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 240,
+              "depth": 140,
+              "contourMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/biped/legs_shadow_tiptoe-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "biped",
+              "contourMaskSha256": "972893bdfdd0ce3636cd2b595a5654729070dbebca1a4a9221083a720073858a",
+              "foregroundMaskSha256": "2af37d97fbee445d8b49ddcc9a6ac9b101e9b249b4c9c493cc6cb5a042c82167",
+              "backgroundMaskSha256": "68ffb0bf5e6af943300132c52c4f79e18186f4e1a34008dfdf6fa7384f60bc75"
+            }
+          ]
+        },
+        "floating": {
+          "rigId": "floating",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "legs_shadow_tiptoe-floating-hipLeft",
+              "connectorId": "hipLeft",
+              "assetPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipLeft.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipLeft.png",
+              "assetSha256": "94e5bb466d980feb3d1307c8442b0e98d1539eaf405ff858dcc25c12c34377fe",
+              "pngSha256": "2dd4c0807cc234de6cb30a01b986fae8dd34e2cc7b005c65f0b912df609bc7b1",
+              "parentSlot": "bodyFrame",
+              "socket": "hipLeft",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            },
+            {
+              "id": "legs_shadow_tiptoe-floating-hipRight",
+              "connectorId": "hipRight",
+              "assetPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipRight.webp",
+              "pngPath": "assets/v0.3.0/structural/floating/legs_shadow_tiptoe/nodes/legs_shadow_tiptoe-floating-hipRight.png",
+              "assetSha256": "74ece9b240f8fb27a7d99df40813b017dbf3e6e3a6f822bf379a3bd0c631d11f",
+              "pngSha256": "d16ca20f00cf4fadcf9b19bf34636904dd9273dfc06151eec8c98ac12a267ffc",
+              "parentSlot": "bodyFrame",
+              "socket": "hipRight",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "frontAppendage",
+              "compatibleRigs": [
+                "floating"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "hipLeft",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 680,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipLeft-background.png",
+              "materialSampleRegion": {
+                "x": 664,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "318952fe18495a978158201d3193cee42f98ba055c122c5a76a65cce581409b6",
+              "foregroundMaskSha256": "6e0f02906ba488fdfb152a550f2e9c17406ea704815797b64ef7ad50f2aa5647",
+              "backgroundMaskSha256": "2865cee16dc8d5f0fccb6d948f9126d95d60a042707a811932899e98a8816df4"
+            },
+            {
+              "id": "hipRight",
+              "role": "plug",
+              "connectorClass": "hip",
+              "origin": {
+                "x": 1368,
+                "y": 420
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 220,
+              "depth": 120,
+              "contourMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-contour.png",
+              "foregroundMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-foreground.png",
+              "backgroundMaskPath": "assets/v0.3.0/connectors/floating/legs_shadow_tiptoe-hipRight-background.png",
+              "materialSampleRegion": {
+                "x": 1352,
+                "y": 404,
+                "width": 32,
+                "height": 32
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.85,
+                  "max": 1.15
+                },
+                "depthRatio": {
+                  "min": 0.8,
+                  "max": 1.2
+                },
+                "rotationDegrees": {
+                  "min": -12,
+                  "max": 12
+                }
+              },
+              "rigId": "floating",
+              "contourMaskSha256": "06d595cdc16bdb44d326d3f07a579437f65ea68d646d195f4b8cd9d766335ce3",
+              "foregroundMaskSha256": "81e09cc6db92a181a383fbb538d2e63285e8a13a15ccd58ffb49e4e640cee72f",
+              "backgroundMaskSha256": "140680d78aa49b6599583bfb01bda70beeff959fa0d32fde5c650e63725aa2ed"
+            }
+          ]
+        }
+      }
+    },
+    "maskPaths": {},
+    "origin": {
+      "x": 512,
+      "y": 512
+    },
+    "socket": null,
+    "layer": "frontAppendage",
+    "semanticTraitId": "legs_shadow",
     "semanticPriority": 5,
     "excludes": [],
     "boosts": {}

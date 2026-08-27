@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "task8-option-a-prototype-rejection-v1",
+  "status": "REJECTED_FINAL_AUTHORIZED_CANDIDATE",
+  "identity": "arms_short_plush:blob",
+  "reason": "The final authorized c7 used a minimal broad root pad, narrow continuous outward-up bridge, and compact outer-upper mitten mass. It passed source, split, root, continuity, gap, and bounds gates but failed the fixed outside-alpha gate on both bodies. The fixed 98-cell sweep had zero full-pass cells; no c8 was generated.",
+  "candidate": {
+    "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-7.png",
+    "sha256": "2d2776b2b94d7cb993c7ac6fa3402c315967fab409790cdef0d5507cca7abbe7"
+  },
+  "baseline": {
+    "roundOutside": [0.589547, 0.595503],
+    "wideOutside": [0.455269, 0.458656],
+    "receiverCoverageMin": 0.912877059130862,
+    "plugCoverageMin": 0.98946862745098,
+    "connectedStructuralAlphaMin": 0.999987,
+    "centerlineGapMax": 0
+  },
+  "bestEligibleTransform": {
+    "scale": 1.15,
+    "rotationDegrees": 0,
+    "roundOutside": [0.60775884870623, 0.615227317532647],
+    "wideOutside": [0.487976221915145, 0.491965975292055],
+    "receiverCoverageMin": 0.982087482328355,
+    "plugCoverageMin": 0.991125699209159,
+    "connectedStructuralAlphaMin": 0.999986422003786,
+    "centerlineGapMax": 0.00784313725490199,
+    "fullPassCellCount": 0
+  },
+  "artifacts": [
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c7/limb-option-a-prototype-contact-sheet-blob.png", "sha256": "fad986b1a595f95e0a8e8c70842ba3c3e1c61288340141aa1be6ed0fde8d097a" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c7/limb-option-a-prototype-contact-sheet-blob-256.png", "sha256": "52360512f110f1425f8656367b71a26dd7497b9d97fa939218f892d40896f7d2" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c7/limb-option-a-prototype-contact-sheet-blob-manifest.json", "sha256": "9f0ab1f79ca377f5c0d6549f55ac9d6092bb936d0e91e50111927c4cca6b38f8" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c7/limb-option-a-prototype-contact-sheet-index.json", "sha256": "f5eca1944d72ec1a7523234c2c9f10d7f82d494c2ea5294752899cff1d885681" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-prototype-c7/task8-arms_short_plush-blob-transform-sweep.json", "sha256": "e96e8fa58f7e9269bff51db497ffe0b98bd1982353377ccd2844ad9ee1837d81" }
+  ]
+}

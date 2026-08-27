@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "body-head-review-approval-v2",
+  "status": "APPROVED",
+  "catalogVersion": "0.3.0",
+  "rendererVersion": "0.3.0",
+  "decision": "approved",
+  "reviewer": "user",
+  "reviewedAt": "2026-08-26T13:43:27.6827914+08:00",
+  "userApproved": true,
+  "approvalResponse": "A",
+  "entryCount": 20,
+  "entryCountByRig": {
+    "blob": 8,
+    "biped": 8,
+    "floating": 4
+  },
+  "latestUserDecision": "A",
+  "latestUserFeedback": "Approved the current natural-neck Task 7 body/head matrices and authorized continuation to limbs.",
+  "acceptanceRecord": "body-head-contact-sheets-acceptance.json",
+  "rejectedEvidence": "rejected/task7-visible-tongue-round-1/rejection-record.json",
+  "reworkEvidence": {
+    "production": "../../../../asset-source/v0.3.0/generation/task7-head-natural-neck-production.json",
+    "occlusion": "../../../../asset-source/v0.3.0/generation/task7-body-head-occlusion-rework.json",
+    "promptCatalog": "../../../../asset-source/v0.3.0/prompts/task7-head-natural-neck-rework.json",
+    "visualInspection": "20/20 original and 20/20 downsampled combinations passed Codex self-review; user approval response A was received and recorded on 2026-08-26.",
+    "knownConcern": "At 256 px, body_biped_tall × head_round_dome retains a dark shallow curved crease; centerline gap is zero and no structural tongue is exposed.",
+    "metricEvidence": "Approval validation recomputes all 20 causal metric entries from live source/mask composition using the approval-frozen exact rig/head grammar; stored summaries alone are not trusted."
+  },
+  "selections": {
+    "body_blob_round:blob": 1,
+    "body_blob_wide:blob": 1,
+    "body_floating_drop:floating": 1,
+    "head_round_dome:biped": "natural-neck-1",
+    "head_mushroom_cap:biped": "natural-neck-1",
+    "head_angler_bulb:biped": "natural-neck-1",
+    "head_shadow_hood:biped": "natural-neck-1",
+    "head_round_dome:blob": "natural-neck-3",
+    "head_mushroom_cap:blob": "natural-neck-1",
+    "head_angler_bulb:blob": "natural-neck-1",
+    "head_shadow_hood:blob": "natural-neck-1",
+    "head_round_dome:floating": "natural-neck-1",
+    "head_mushroom_cap:floating": "natural-neck-1",
+    "head_angler_bulb:floating": "natural-neck-1",
+    "head_shadow_hood:floating": "natural-neck-1"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "task8-option-a-prototype-rejection-v1",
+  "status": "REJECTED_CAUSAL_EXHAUSTION",
+  "identity": "arms_short_plush:blob",
+  "reason": "Candidates 3 through 6 preserved exact paired short-plush identity but could not satisfy the fixed 0.65 outside-alpha gate on body_blob_wide without violating connector coverage. Candidate 6 correctly anchored its broad root and passed body_blob_round; its fixed 98-cell transform sweep had zero full-pass cells.",
+  "candidates": [
+    { "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-3.png", "sha256": "835abb3b608f5b0653fe9266c54f888839332f5f952dd96832f9fc2e9f187084" },
+    { "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-4.png", "sha256": "6bfe32858666dd68e1b9b0656bede9b8bcf473e00d8307e97940eb1f94be1462" },
+    { "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-5.png", "sha256": "78cfe7cc67c7cb08d29bf1c73133911c1c77cccdc2d47c53d9ee71e7eba46bd3" },
+    { "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-6.png", "sha256": "d2764d72ee40bab4bccb43d5656ac890404dfb8d7405d3d3da7b597c61a51c1b" },
+    { "path": "asset-source/v0.3.0/generation/task8-candidates/blob/legs_shadow_tiptoe/candidate-3.png", "sha256": "ce80fdd4013984739f4a3bc69432eff9e970f6dda4adb895852508b901bff7f5" }
+  ],
+  "candidate6Baseline": {
+    "roundOutside": [0.684970117188452, 0.693306366651388],
+    "wideOutside": [0.485401728867184, 0.488110420079117],
+    "receiverCoverageMin": 0.912877059130862,
+    "plugCoverageMin": 0.98946862745098,
+    "connectedStructuralAlphaMin": 0.999985,
+    "centerlineGapMax": 0
+  },
+  "candidate6BestEligibleTransform": {
+    "scale": 1.15,
+    "rotationDegrees": 0,
+    "roundOutside": [0.712762871835231, 0.721862325579146],
+    "wideOutside": [0.538475198650248, 0.543592070660769],
+    "receiverCoverageMin": 0.982087482328355,
+    "plugCoverageMin": 0.991125699209159,
+    "connectedStructuralAlphaMin": 0.999987293214574,
+    "centerlineGapMax": 0.00784313725490199,
+    "fullPassCellCount": 0
+  },
+  "artifacts": [
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-short-arm-exhaustion/limb-option-a-prototype-contact-sheet-blob.png", "sha256": "b66bafb374e93356a8be6b4ece5503e7443096ef945694d993691b6317b8b8a5" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-short-arm-exhaustion/limb-option-a-prototype-contact-sheet-blob-256.png", "sha256": "f27ec3d23952b3d14d04dedbba710020604d96c79e328ad552882c563fb32876" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-short-arm-exhaustion/limb-option-a-prototype-contact-sheet-blob-manifest.json", "sha256": "c377f7cbda9ec8d77cfe764106b79a288fc0ef89d2188c308326a3fefde15388" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-short-arm-exhaustion/limb-option-a-prototype-contact-sheet-index.json", "sha256": "6167676044ecb7feeab587aeeaa6eb559a0725869cc5072d4899b71e9d3cd985" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-short-arm-exhaustion/task8-arms_short_plush-blob-transform-sweep.json", "sha256": "d970e6d9adb4402d31aac9bb252ddfc4bd6ae362c7d3cfb83521a009eeb67d4e" }
+  ]
+}

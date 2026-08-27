@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "task8-architecture-rejection-v1",
+  "status": "REJECTED_BY_USER_OPTION_A",
+  "userDecision": "A",
+  "reason": "Re-author only the five blocked blob limb identities while preserving approved bodies and fixed product gates.",
+  "matrixResult": {
+    "entryCount": 60,
+    "passCount": 34,
+    "failCount": 26,
+    "rigCounts": {
+      "blob": { "pass": 4, "fail": 20 },
+      "biped": { "pass": 18, "fail": 6 },
+      "floating": { "pass": 12, "fail": 0 }
+    }
+  },
+  "artifacts": [
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-index.json", "sha256": "9bd7c3853b2a5a480b6bb40cb9f89ffea0ee779b19d15eeb9bc49d55e81a0039" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-blob.png", "sha256": "cfecf884eeccef9306fba13140c6b71484470ae55eafcefd88cc1ae64bfa166f" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-blob-256.png", "sha256": "536d4c184e5a1948f860511935f0c07cd4a896d8fc6fd551fef7237c79d8a762" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-blob-manifest.json", "sha256": "0711e44750e0612d24afcd5b16c9fd76406c9e0eb5ed0ba23331325253f17c64" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-biped.png", "sha256": "51ff9a758cd0099d5695a996f2c393cc6168a2eacee6c0a4e056599293f9e5df" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-biped-256.png", "sha256": "823e528b1293722f3dd00e780f576fb17b52c354dc3ed4b8a06511e284b22e1d" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-biped-manifest.json", "sha256": "ae6d16670d6c9bc76e1fb3ce83966d1bc20696ca291b872dc2710ce16fbc4a2d" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-floating.png", "sha256": "62384d0d8b7aca079b6112efa01c6c8bbd4ee377579d621246553874cacef0bb" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-floating-256.png", "sha256": "d80bf4a13468afc60ac712276ec8e713b8fa12223447744adb3b91d5aa62f103" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/limb-contact-sheet-floating-manifest.json", "sha256": "4bf8f9be62c0ab906931a4fec4e9c6c9f5a92306f7f8d69c10f3f4711b6356f3" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-option-a-pre-rework/task8-arms_short_plush-blob-transform-sweep.json", "sha256": "351ae3106ece53d4cd622ec7e66fb66019c0d32da72d1e091ceea23337ece5d4" }
+  ],
+  "rejectedCandidates": [
+    { "identity": "arms_short_plush:blob", "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-1.png", "sha256": "e996134613441a7478d7935776102c6161bdf12ff360644d5c318482f0d84851" },
+    { "identity": "arms_long_noodle:blob", "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_long_noodle/candidate-1.png", "sha256": "f9d87738a731cfc08de0c4b9b0c49d3b2661f91e17870a288d0327f25bd1f083" },
+    { "identity": "legs_webbed:blob", "path": "asset-source/v0.3.0/generation/task8-candidates/blob/legs_webbed/candidate-1.png", "sha256": "9b96122172952c8b739bcce1c86be279a4a2f55beb2c998e8b8a1150d6169d87" },
+    { "identity": "legs_mushroom:blob", "path": "asset-source/v0.3.0/generation/task8-candidates/blob/legs_mushroom/candidate-2.png", "sha256": "f275ab46bd31367b7475c96b644f14651e45df0584725980afd665fb9e35af0c" },
+    { "identity": "legs_shadow_tiptoe:blob", "path": "asset-source/v0.3.0/generation/task8-candidates/blob/legs_shadow_tiptoe/candidate-1.png", "sha256": "2f63d4ad2dfd6d43893363fbd709ea93721891d975660e27ba5987d76c308711" }
+  ]
+}

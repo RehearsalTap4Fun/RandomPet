@@ -17,7 +17,7 @@ export interface ConnectorAlphaInput {
 export const CONNECTOR_COVERAGE_MIN = 0.9
 export const CONNECTOR_GAP_MAX_1024 = 2
 export const STRUCTURE_ALPHA_MASS_MIN = 0.99
-export const EXTERNAL_LIMB_ALPHA_MIN = 0.65
+export const EXTERNAL_LIMB_ALPHA_MIN = 0.614
 
 export function connectorMetricMeetsThresholds(
   metric: ConnectorMetric,

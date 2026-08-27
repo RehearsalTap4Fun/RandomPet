@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "limb-self-review-v1",
+  "status": "WAITING_FOR_USER_APPROVAL",
+  "reviewer": "Codex visual self-review",
+  "userApproved": false,
+  "mode": "all",
+  "selections": {
+    "arms_short_plush:blob": 3,
+    "arms_long_noodle:blob": 2,
+    "arms_paddle:blob": 4,
+    "legs_stub_feet:blob": 1,
+    "legs_webbed:blob": 2,
+    "legs_mushroom:blob": 4,
+    "legs_shadow_tiptoe:blob": 3,
+    "arms_paddle:biped": 1,
+    "legs_stub_feet:biped": 1,
+    "legs_shadow_tiptoe:biped": 1,
+    "arms_short_plush:floating": 1,
+    "arms_long_noodle:floating": 1,
+    "arms_paddle:floating": 1,
+    "legs_stub_feet:floating": 1,
+    "legs_webbed:floating": 1,
+    "legs_mushroom:floating": 1,
+    "legs_shadow_tiptoe:floating": 1
+  }
+}

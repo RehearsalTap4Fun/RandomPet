@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "task8-post-shoulder-amendment-rejection-v1",
+  "status": "BLOCKED_C7_OUTSIDE_ALPHA",
+  "userDecision": "A",
+  "scope": "body_blob_wide shoulder receiver origins only",
+  "shoulderOrigins": {
+    "old": [{ "x": 500, "y": 870 }, { "x": 1548, "y": 870 }],
+    "new": [{ "x": 424, "y": 870 }, { "x": 1624, "y": 870 }]
+  },
+  "bodySha256Before": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a",
+  "bodySha256After": "95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a",
+  "candidate": {
+    "path": "asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-7.png",
+    "sha256": "2d2776b2b94d7cb993c7ac6fa3402c315967fab409790cdef0d5507cca7abbe7"
+  },
+  "metrics": {
+    "body_blob_round": { "outside": [0.589547, 0.595503], "bounds": { "x": 272, "y": 248, "width": 1504, "height": 1592 } },
+    "body_blob_wide": { "outside": [0.550456, 0.554176], "bounds": { "x": 96, "y": 248, "width": 1856, "height": 1472 } },
+    "receiverCoverageMin": 0.912877059130862,
+    "plugCoverageMin": 0.98946862745098,
+    "connectedStructuralAlphaMin": 0.999987,
+    "centerlineGapMax": 0
+  },
+  "reason": "The data-derived lateral amendment maximized c7 reach while preserving receiver alpha support and the x=96..1952 safe frame, but c7 remained below the fixed 0.65 outside-alpha gate on both blob bodies. The conditional fan-out gate was not met.",
+  "artifacts": [
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-wide-shoulder-amendment-c7-failure/limb-option-a-prototype-contact-sheet-blob.png", "sha256": "429a40f0abff6cdd88c485809232cf27e73d2f294e0cd18c68c4a0ad11385d90" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-wide-shoulder-amendment-c7-failure/limb-option-a-prototype-contact-sheet-blob-256.png", "sha256": "f34a95c025a58fde65915871b2eb6a9aac4fb431196813b2d3273aa4eda004ab" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-wide-shoulder-amendment-c7-failure/limb-option-a-prototype-contact-sheet-blob-manifest.json", "sha256": "797f4eecead77de97cf97c04863b4df8f293c51138f6bf557be6406fd108f916" },
+    { "path": "packages/asset-catalog/review/v0.3.0/rejected/task8-wide-shoulder-amendment-c7-failure/limb-option-a-prototype-contact-sheet-index.json", "sha256": "aa6177dc2de0131f18342c8fe41499b42029134260002d859d9870e6ae26bc9d" }
+  ]
+}
