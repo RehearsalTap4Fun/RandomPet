@@ -7,7 +7,7 @@
   "task9Evidence": {
     "schemaVersion": "task9-production-evidence-v1",
     "sourceEntryCount": 102,
-    "dependencyCount": 1627,
+    "dependencyCount": 1677,
     "dependencies": [
       {
         "path": "apps/creator-web/src/render-test.ts",
@@ -961,6 +961,356 @@
           "source-index",
           "task6-9-review",
           "task9-generation-review"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/arms_long_noodle-shoulderLeft-plug-guide.png",
+        "sha256": "33057ebf2c1db53f95d710ce95893170511fe0d77f3ed8b2973d8ea4cfa16dc1",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/arms_long_noodle-shoulderLeft-plug-mask.png",
+        "sha256": "2bedfff4678aaeda8fca4eec07b5ae7bdb49d9941c887b04e0f184a45543075a",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/arms_long_noodle-shoulderRight-plug-guide.png",
+        "sha256": "e3d2d34614d0e91521f56d6eb40ad03cab97836fd63c89829965ecdbe691fe65",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/arms_long_noodle-shoulderRight-plug-mask.png",
+        "sha256": "7b2ab9ad878214d7252551d49f561f905a7c91fa3f485b07bb8ee760768eaef7",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/arms_short_plush-shoulderLeft-plug-guide.png",
+        "sha256": "1615aa01d1b3398eb8748a66d79904c9a57665b84e4a9bda8781d609d80d3856",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/arms_short_plush-shoulderLeft-plug-mask.png",
+        "sha256": "679ffed60c0c63d0c839b150d783b4c968c65b80e3fab8147e0dd910b946514a",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/arms_short_plush-shoulderRight-plug-guide.png",
+        "sha256": "452a766a777dbe3dd6c53eba27cd3d162a47261f4ad65c48eabd917755c62cba",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/arms_short_plush-shoulderRight-plug-mask.png",
+        "sha256": "e0cd4124b307b1def72c87913f31fa834b77d4f7c1e67623cea1e79bff0bb569",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-extraLeft-receiver-guide.png",
+        "sha256": "beecc97f14e6af05d300304145ed0ea1cd2216001e8aae2f4d43392d8102f752",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-extraLeft-receiver-mask.png",
+        "sha256": "61842d1b7c7855e2cf6820ee132d3640fb3b1958e982ce867fe7098ce5d52a5b",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-extraRight-receiver-guide.png",
+        "sha256": "508837860f1378cff0231980da118852fd503dcb44c06db99c1e682507e35572",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-extraRight-receiver-mask.png",
+        "sha256": "a7e0fb1dfd3097901398bdc52799c05c500930204aeff50c579863ad1d9a4128",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-hipLeft-receiver-guide.png",
+        "sha256": "dd1cba17bcb33d7031cab011d6c3fcffea60e5bf383825521f1b1217acba7a00",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-hipLeft-receiver-mask.png",
+        "sha256": "4d1f70942ad770c1478d56a009c95818c20c3ebb5fcbd523537aa456b3624b8a",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-hipRight-receiver-guide.png",
+        "sha256": "d8db16cb6b878a6b44a8271bc1579d139dcd9af7d2a7766a6cddfe60bde47058",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-hipRight-receiver-mask.png",
+        "sha256": "b4faea9c76bb01d76fc011e577e62a429719f4b285858475e231ea664dd8c795",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-neck-receiver-guide.png",
+        "sha256": "b963168011c4b53c5c01c549cbb85d376bd44e6ae0b9e692ff3b90c2017dceba",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-neck-receiver-mask.png",
+        "sha256": "d033d17668fc2d896414166722b07d8b5f9649aab4dfd4869c55e6ce6bcf2f1e",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-shoulderLeft-receiver-guide.png",
+        "sha256": "67bf0cf34ebf6c64ba9cf4e6a0c323c3ceafa16694f3ea8f984969fddea057fb",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-shoulderLeft-receiver-mask.png",
+        "sha256": "d1c566e4df5075822597de0890454cbda1ca34dfeebfe0628c2c4bbbbe171fb2",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-shoulderRight-receiver-guide.png",
+        "sha256": "2bac49b73b458b079de62eb61d31d846d6843293efceb6d7e33270300448a58f",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-shoulderRight-receiver-mask.png",
+        "sha256": "f14c45593d9bee8fcd2bfe26dd58f505bf8e2682f6497227a6bde47423bcb8ea",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-tailRoot-receiver-guide.png",
+        "sha256": "e6eebe3510f3552c004a89929746647cd5d011ec32bd08e36d2e8400e3d0021d",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_peanut-tailRoot-receiver-mask.png",
+        "sha256": "8c0cd7e9b9a19b9a402f610967e7ba66c720156aaf47238d5aef1863fa339744",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-extraLeft-receiver-guide.png",
+        "sha256": "a19f7e1474a0c8ef213d0bf90c94ad11cd119b317406cec49417ec30b59b73db",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-extraLeft-receiver-mask.png",
+        "sha256": "6867a945ef7c08a5d45d70b8b12aa03a62a378e6c8105743fff9b14a5eeb02c9",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-extraRight-receiver-guide.png",
+        "sha256": "75929b1031ecbf540ff85fc6ff0cd5a5a8827a8bfac042d1130098b3dd4a1b64",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-extraRight-receiver-mask.png",
+        "sha256": "5089dd3086e5f1fc7ee070511e1f81efebdd20759386af2844ce43ac04b453d3",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-hipLeft-receiver-guide.png",
+        "sha256": "193f1a02eb8cbc26b562934c4c94abec8c7d953017c90d5d7cc9b621c4d12715",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-hipLeft-receiver-mask.png",
+        "sha256": "1c0fbd25e74168f32e191c71aa25a1c1640559190959fa795e887252a9efbe04",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-hipRight-receiver-guide.png",
+        "sha256": "28a2dcde1b9071a9e4e1dbc2d86f9e7f01a94e7db9f06c1fbf5480da35f0fdef",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-hipRight-receiver-mask.png",
+        "sha256": "8ae67de65b17fb35b209f2c0cee5c6bdf06c1c3001e10f3bdce2fd81fb7712cd",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-neck-receiver-guide.png",
+        "sha256": "00aead107dfecd8bb7c569549596b5b8b9a9f0b0fde2673d667d910e55f2a4a3",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-neck-receiver-mask.png",
+        "sha256": "d3dd56ebc854956ec24647e4d2c696d437c1477ec3e9e4464f361349a3e98972",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-shoulderLeft-receiver-guide.png",
+        "sha256": "c8b313bb7c661704f6b077a9f6c0d1b347aba2d61f6ecefff9e184fb248ae15e",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-shoulderLeft-receiver-mask.png",
+        "sha256": "d71301a2f33a519069d98e535a3f98789a19024923cb0ce2cf4c0bd908dc2cd4",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-shoulderRight-receiver-guide.png",
+        "sha256": "2c653f27e9c9a4a2ebac3bd9a08335196fac22567cf62d36640ecd09f97488f3",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-shoulderRight-receiver-mask.png",
+        "sha256": "37a5e875f17bb87cd3738d584b9e85d3e45eefe033a4f065b131719dd36e8eb3",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-tailRoot-receiver-guide.png",
+        "sha256": "a9a99faf2111a2b1be024a396e46b83035a86f4ff703f8066a912b4cdfaf1ff5",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/body_biped_tall-tailRoot-receiver-mask.png",
+        "sha256": "3f42e6040abf936a0471c267a5166b754b8a8347d094a6c0db78a60f763bd663",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/head_mushroom_cap-neck-plug-guide.png",
+        "sha256": "39477f3e65e8ccda14b2a37ae2274e7b24ee203968e1f9eca76b652fd84a987d",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/head_mushroom_cap-neck-plug-mask.png",
+        "sha256": "9a1dfacca9e4710f26b6d393b114326d826bb9516e50b7eea1983a0b86e0fdbf",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/legs_mushroom-hipLeft-plug-guide.png",
+        "sha256": "0b7559355f83718395dcbacbdf9a6b49c05b1bc4f59a747667673f9ae77e6b1c",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/legs_mushroom-hipLeft-plug-mask.png",
+        "sha256": "2b8967ab21d016f483a0ca2039b98fe99596f9162038255d0e8b4e7608357a01",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/legs_mushroom-hipRight-plug-guide.png",
+        "sha256": "e930148c5285f31944a69dd55e40ab501179b07856f0c044c7eb5a16dded1f7e",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/legs_mushroom-hipRight-plug-mask.png",
+        "sha256": "323087916f1de3f4940bb91ab3e421e35668739ad23d472d07f35343d99ba779",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/legs_webbed-hipLeft-plug-guide.png",
+        "sha256": "2fe3c859ceb32b6204e2cf37ed6da59c0a7e84f43d5362ed3ab9d3f78f24c030",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/legs_webbed-hipLeft-plug-mask.png",
+        "sha256": "3fef9eb392e0910746c16cce5b7ab1e9180cbd256a9983d995105b18ad4a25a1",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/legs_webbed-hipRight-plug-guide.png",
+        "sha256": "7de527de6e9714b3cbd65a402c2838acd5d2300ff516707aa471f6e9752b05e4",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/legs_webbed-hipRight-plug-mask.png",
+        "sha256": "0a230bc7b44b6c8cab6237a7988ba6c384dfd30731c94de5862aa347b4e7337a",
+        "groups": [
+          "interface-guides"
         ]
       },
       {

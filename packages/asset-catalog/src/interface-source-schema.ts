@@ -46,6 +46,17 @@ export function structuralVariants(manifest: InterfaceSourceManifest): Flattened
 }
 export function interfaceVariantKey(partId: string, rigId: InterfaceRigId): string { return `${partId}:${rigId}` }
 
+export function canonicalBipedGuideFiles(manifest: InterfaceSourceManifest): string[] {
+  const idsBySlot = new Map(Object.entries(BIPED_SLICE).map(([slotId, ids]) => [slotId, new Set<string>(ids)]))
+  return structuralVariants(manifest)
+    .filter(asset => asset.rigId === 'biped' && idsBySlot.get(asset.slotId)?.has(asset.partId))
+    .flatMap(asset => asset.connectors.flatMap(connector => {
+      const stem = `${asset.partId}-${connector.id}-${connector.role}`
+      return [`${stem}-guide.png`, `${stem}-mask.png`]
+    }))
+    .sort()
+}
+
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/u)
 const runtimePngPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
 const runtimeWebpPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.webp$/u)

@@ -6,6 +6,7 @@ import sharp from 'sharp'
 import { parseCatalog, validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
 import {
   BIPED_SLICE,
+  canonicalBipedGuideFiles,
   parseInterfaceSourceManifest,
   structuralVariants,
   type InterfaceRigId,
@@ -125,7 +126,7 @@ export async function validateInterfaceSlice(input: { manifestPath: string; guid
   const parsed = parseInterfaceSourceManifest(raw)
   if (!parsed.ok) return { ok: false, diagnostics: parsed.diagnostics, productionAssetsChecked: 0 }
   diagnostics.push(...await validateInterfacePromptEvidence({ manifest: parsed.value, repositoryRoot: input.repositoryRoot }))
-  const expected = new Set<string>()
+  const expected = new Set(canonicalBipedGuideFiles(parsed.value))
   const regeneratedRoot = await mkdtemp(join(tmpdir(), 'qmonster-interface-guides-'))
   const guideVariants = canonicalBipedGuideVariants(parsed.value)
   const regenerated = await renderInterfaceGuides({
@@ -139,7 +140,6 @@ export async function validateInterfaceSlice(input: { manifestPath: string; guid
       const stem = `${asset.partId}-${connector.id}-${connector.role}`
       for (const [suffix, mask] of [['guide', false], ['mask', true]] as const) {
         const file = `${stem}-${suffix}.png`
-        expected.add(file)
         const invalid = await inspectPng(join(input.guideRoot, file), mask)
         if (invalid !== null) diagnostics.push(error('INTERFACE_GUIDE_INVALID', [file], invalid))
         try {

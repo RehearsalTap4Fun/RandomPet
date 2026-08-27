@@ -3,7 +3,40 @@ import { mkdir, mkdtemp, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, it } from 'vitest'
-import { collectEvidenceDependencyClosure, task9StructuralMatrixEvidence } from './build-task9-evidence-manifest.js'
+import {
+  collectCanonicalInterfaceGuideSeeds,
+  collectEvidenceDependencyClosure,
+  task9StructuralMatrixEvidence,
+} from './build-task9-evidence-manifest.js'
+
+it('derives every canonical biped guide from the interface manifest and fails if one is missing', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-guides-'))
+  const guideRoot = join(root, 'asset-source', 'v0.3.0', 'guides')
+  await mkdir(guideRoot, { recursive: true })
+  const manifest = {
+    assets: [{
+      id: 'body_biped_peanut',
+      slotId: 'bodyFrame',
+      variants: [{
+        rigId: 'biped',
+        connectors: [{ id: 'tailRoot', role: 'receiver' }, { id: 'extraLeft', role: 'receiver' }],
+      }],
+    }],
+  }
+  const expected = [
+    'body_biped_peanut-extraLeft-receiver-guide.png',
+    'body_biped_peanut-extraLeft-receiver-mask.png',
+    'body_biped_peanut-tailRoot-receiver-guide.png',
+    'body_biped_peanut-tailRoot-receiver-mask.png',
+  ]
+  for (const name of expected) await writeFile(join(guideRoot, name), name)
+
+  await expect(collectCanonicalInterfaceGuideSeeds(root, manifest as any)).resolves.toEqual(
+    expected.map(name => ({ path: `asset-source/v0.3.0/guides/${name}`, group: 'interface-guides' })),
+  )
+  await import('node:fs/promises').then(({ rm }) => rm(join(guideRoot, expected[0]!)))
+  await expect(collectCanonicalInterfaceGuideSeeds(root, manifest as any)).rejects.toThrow(expected[0])
+})
 
 it('recursively collects sorted hash-bound paths from documents and directories', async () => {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-collector-'))

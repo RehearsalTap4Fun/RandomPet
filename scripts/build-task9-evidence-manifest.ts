@@ -9,8 +9,28 @@ import {
   type Task9EvidenceDependency,
 } from '../packages/asset-catalog/src/evidence-root.js'
 import { measureCompositionDistribution } from './composition-statistics.js'
+import { canonicalBipedGuideFiles, type InterfaceSourceManifest } from './interface-source-schema.js'
 
 interface DependencySeed { path: string; group: string }
+
+export async function collectCanonicalInterfaceGuideSeeds(
+  repositoryRoot: string,
+  manifest: InterfaceSourceManifest,
+): Promise<DependencySeed[]> {
+  const seeds = canonicalBipedGuideFiles(manifest).map(name => ({
+    path: `asset-source/v0.3.0/guides/${name}`,
+    group: 'interface-guides',
+  }))
+  for (const seed of seeds) {
+    try {
+      const metadata = await stat(resolve(repositoryRoot, seed.path))
+      if (!metadata.isFile()) throw new Error('not a file')
+    } catch {
+      throw new Error(`Missing canonical interface guide dependency: ${seed.path}`)
+    }
+  }
+  return seeds
+}
 
 function portable(path: string): string {
   return path.replaceAll('\\', '/')
@@ -147,13 +167,18 @@ export async function buildTask9EvidenceManifest(repositoryRoot = process.cwd())
   manifest: ProductionEvidenceManifest
   dependencies: Task9EvidenceDependency[]
 }> {
+  const interfaceManifest = JSON.parse(await readFile(
+    resolve(repositoryRoot, 'asset-source/v0.3.0/interface-manifest.json'),
+    'utf8',
+  )) as InterfaceSourceManifest
+  const guideSeeds = await collectCanonicalInterfaceGuideSeeds(repositoryRoot, interfaceManifest)
   const [sourceIndex, catalog, statistics, pipeline, structuralReview, dependencies] = await Promise.all([
     readFile(resolve(repositoryRoot, 'packages/asset-catalog/source-index-v0.3.0.json'), 'utf8').then(JSON.parse),
     readFile(resolve(repositoryRoot, 'packages/asset-catalog/catalog/v0.3.0/catalog.json'), 'utf8').then(JSON.parse),
     readFile(resolve(repositoryRoot, 'packages/asset-catalog/audit/v0.3.0/task9-composition-statistics.json'), 'utf8').then(JSON.parse),
     readFile(resolve(repositoryRoot, 'packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json'), 'utf8').then(JSON.parse),
     readFile(resolve(repositoryRoot, 'packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json'), 'utf8').then(JSON.parse),
-    collectEvidenceDependencyClosure({ repositoryRoot, seedFiles: SEED_FILES, recursiveDirectories: RECURSIVE_DIRECTORIES }),
+    collectEvidenceDependencyClosure({ repositoryRoot, seedFiles: [...SEED_FILES, ...guideSeeds], recursiveDirectories: RECURSIVE_DIRECTORIES }),
   ])
   const parsed = parseCatalog(catalog)
   if (!parsed.ok) throw new Error(`Cannot measure Task 9 final catalog: ${JSON.stringify(parsed.diagnostics)}`)
