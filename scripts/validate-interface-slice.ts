@@ -18,6 +18,16 @@ import { tmpdir } from 'node:os'
 import { validateBipedSliceReview } from './validate-biped-slice-review.js'
 import { measureBodyHeadCausalMetrics } from './body-head-contact-metrics.js'
 import { reconstructLimbMatrixEvidence, type LimbMatrixEvidenceEntry } from './render-limb-contact-sheets.js'
+import {
+  TASK8_APPROVED_EVIDENCE_BINDINGS,
+  TASK8_APPROVED_LEGACY_CATALOG_SHA256,
+  TASK8_APPROVED_RENDERER_BINDINGS,
+  TASK8_LIMB_CATALOG_PROJECTION_SHA256,
+  TASK8_LIMB_SOURCE_PROJECTION_SHA256,
+  task8LimbCatalogProjectionSha256,
+  task8LimbSourceProjectionSha256,
+  task8RendererProjectionSha256,
+} from './task8-stable-projection.js'
 
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
@@ -396,11 +406,6 @@ export async function validateLimbReview(input: { repositoryRoot: string; review
 
 const LIMB_CAUSAL_METRIC_TOLERANCE = 1e-12
 const LIMB_METRIC_FIELDS = ['receiverCoverage', 'plugCoverage', 'largestComponentRatio', 'centerlineGapPixels', 'childOutsideBodyRatio'] as const
-const LIMB_EVIDENCE_ROOT_PATHS = {
-  sourceIndex: 'packages/asset-catalog/source-index-v0.3.0.json',
-  processedIndex: 'asset-source/v0.3.0/production/processed-index.json',
-  productionEvidence: 'asset-source/v0.3.0/generation/task8-limb-production.json',
-} as const
 export const LIMB_RENDERER_EVIDENCE_PATHS = [
   'scripts/render-limb-contact-sheets.ts',
   'apps/creator-web/src/render-test.ts',
@@ -484,7 +489,9 @@ export function compareLimbCausalMetricEvidence(input: {
     if (JSON.stringify(live.gateErrors) !== JSON.stringify(stored.gateErrors)) diagnostics.push(error('LIMB_CAUSAL_DIAGNOSTIC_DRIFT', [...path, 'gateErrors'], 'Stored gate diagnostics differ from live renderer reconstruction.'))
     if (JSON.stringify(comparableDiagnostics(live.diagnostics)) !== JSON.stringify(comparableDiagnostics(stored.diagnostics))) diagnostics.push(error('LIMB_CAUSAL_DIAGNOSTIC_DRIFT', [...path, 'diagnostics'], 'Stored renderer diagnostics differ from live renderer reconstruction.'))
     if (JSON.stringify(comparableResolverPaths(live.resolvedAssetPaths)) !== JSON.stringify(comparableResolverPaths(stored.resolvedAssetPaths))) diagnostics.push(error('LIMB_CAUSAL_INPUT_DRIFT', [...path, 'resolvedAssetPaths'], 'Stored resolver call inputs differ from live renderer reconstruction.'))
-    if (live.inputBinding.catalogSha256 !== stored.inputBinding?.catalogSha256 || JSON.stringify(comparableResolvedHashes(live.inputBinding.resolvedAssetHashes)) !== JSON.stringify(comparableResolvedHashes(stored.inputBinding?.resolvedAssetHashes))) {
+    const catalogBindingMatches = stored.inputBinding?.catalogSha256 === TASK8_APPROVED_LEGACY_CATALOG_SHA256
+      && live.inputBinding.catalogSha256 === TASK8_LIMB_CATALOG_PROJECTION_SHA256
+    if (!catalogBindingMatches || JSON.stringify(comparableResolvedHashes(live.inputBinding.resolvedAssetHashes)) !== JSON.stringify(comparableResolvedHashes(stored.inputBinding?.resolvedAssetHashes))) {
       diagnostics.push(error('LIMB_CAUSAL_INPUT_DRIFT', [...path, 'inputBinding'], 'Stored catalog or resolved-asset hashes differ from live renderer inputs.'))
     }
   }
@@ -499,9 +506,17 @@ export async function validateLimbCausalMetricEvidence(input: {
   liveEvidence?: { entries: LimbMatrixEvidenceEntry[] }
 }): Promise<{ entryCount: number; diagnostics: Diagnostic[]; aggregate: LimbCausalAggregate; liveEvidence: { entries: LimbMatrixEvidenceEntry[] } }> {
   const manifests = await Promise.all((['blob', 'biped', 'floating'] as const).map(async rigId => input.manifestOverrides?.[rigId] ?? JSON.parse(await readFile(resolve(input.reviewRoot, `limb-contact-sheet-${rigId}-manifest.json`), 'utf8'))))
-  const liveEvidence = input.liveEvidence ?? await reconstructLimbMatrixEvidence({ mode: 'full', catalogPath: input.catalogPath })
+  const reconstructed = input.liveEvidence ?? await reconstructLimbMatrixEvidence({ mode: 'full', catalogPath: input.catalogPath })
+  const catalogPath = input.catalogPath ?? resolve(input.repositoryRoot, 'packages/asset-catalog/catalog/v0.3.0/catalog.json')
+  const catalogProjectionSha256 = task8LimbCatalogProjectionSha256(JSON.parse(await readFile(catalogPath, 'utf8')))
+  const liveEvidence = {
+    entries: reconstructed.entries.map(entry => ({
+      ...entry,
+      inputBinding: { ...entry.inputBinding, catalogSha256: catalogProjectionSha256 },
+    })),
+  }
   const compared = compareLimbCausalMetricEvidence({ liveEntries: liveEvidence.entries, manifests })
-  return { entryCount: liveEvidence.entries.length, diagnostics: compared.diagnostics, aggregate: compared.aggregate, liveEvidence: { entries: liveEvidence.entries } }
+  return { entryCount: liveEvidence.entries.length, diagnostics: compared.diagnostics, aggregate: compared.aggregate, liveEvidence }
 }
 
 export async function validateLimbAcceptanceDocument(input: {
@@ -516,11 +531,32 @@ export async function validateLimbAcceptanceDocument(input: {
     diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot'], 'Acceptance must declare the stable, non-self-referential Task 8 evidence root.'))
     return diagnostics
   }
-  for (const [field, expectedPath] of Object.entries(LIMB_EVIDENCE_ROOT_PATHS)) {
+  let sourceIndex: unknown
+  let processedIndex: unknown
+  let productionEvidence: unknown
+  for (const [field, expectedBinding] of Object.entries(TASK8_APPROVED_EVIDENCE_BINDINGS)) {
     const binding = evidenceRoot[field]
     try {
-      if (binding?.path !== expectedPath || sha256Bytes(await readFile(resolve(input.repositoryRoot, expectedPath))) !== binding.sha256) diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', field], `Evidence-root ${field} differs from canonical live bytes.`))
+      const bytes = await readFile(resolve(input.repositoryRoot, expectedBinding.path))
+      if (binding?.path !== expectedBinding.path || binding?.sha256 !== expectedBinding.sha256) {
+        diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', field], `Evidence-root ${field} no longer matches the frozen Task 8 binding.`))
+      }
+      if (field === 'sourceIndex') sourceIndex = JSON.parse(bytes.toString('utf8'))
+      if (field === 'processedIndex') processedIndex = JSON.parse(bytes.toString('utf8'))
+      if (field === 'productionEvidence') {
+        productionEvidence = JSON.parse(bytes.toString('utf8'))
+        if (sha256Bytes(bytes) !== expectedBinding.sha256) diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', field], 'Task 8 production evidence differs from its frozen bytes.'))
+      }
     } catch { diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', field], `Evidence-root ${field} is missing.`)) }
+  }
+  try {
+    const sourceProjection = task8LimbSourceProjectionSha256(sourceIndex, productionEvidence)
+    const processedProjection = task8LimbSourceProjectionSha256((processedIndex as { sourceIndex?: unknown })?.sourceIndex, productionEvidence)
+    if (sourceProjection !== TASK8_LIMB_SOURCE_PROJECTION_SHA256 || processedProjection !== TASK8_LIMB_SOURCE_PROJECTION_SHA256) {
+      diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'indexClosure'], 'Task 8 source records differ from the stable approved projection.'))
+    }
+  } catch {
+    diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'indexClosure'], 'Cannot validate the stable Task 8 source-index projection.'))
   }
   const renderers = Array.isArray(evidenceRoot.rendererInputs) ? evidenceRoot.rendererInputs : []
   if (renderers.length !== LIMB_RENDERER_EVIDENCE_PATHS.length || new Set(renderers.map((item: any) => item.path)).size !== LIMB_RENDERER_EVIDENCE_PATHS.length) {
@@ -529,14 +565,11 @@ export async function validateLimbAcceptanceDocument(input: {
   for (const expectedPath of LIMB_RENDERER_EVIDENCE_PATHS) {
     const binding = renderers.find((item: any) => item.path === expectedPath)
     try {
-      if (binding === undefined || sha256Bytes(await readFile(resolve(input.repositoryRoot, expectedPath))) !== binding.sha256) diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'rendererInputs', expectedPath], 'Renderer input differs from the acceptance evidence root.'))
+      const expectedHash = TASK8_APPROVED_RENDERER_BINDINGS[expectedPath]
+      const liveHash = task8RendererProjectionSha256(expectedPath, await readFile(resolve(input.repositoryRoot, expectedPath)))
+      if (binding?.sha256 !== expectedHash || liveHash !== expectedHash) diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'rendererInputs', expectedPath], 'Renderer input differs from the stable Task 8 source projection.'))
     } catch { diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'rendererInputs', expectedPath], 'Renderer input is missing.')) }
   }
-  try {
-    const sourceIndex = JSON.parse(await readFile(resolve(input.repositoryRoot, LIMB_EVIDENCE_ROOT_PATHS.sourceIndex), 'utf8'))
-    const processed = JSON.parse(await readFile(resolve(input.repositoryRoot, LIMB_EVIDENCE_ROOT_PATHS.processedIndex), 'utf8'))
-    if (JSON.stringify(sourceIndex) !== JSON.stringify(processed.sourceIndex)) diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'indexClosure'], 'Canonical source index must exactly equal processed-index.sourceIndex without referencing acceptance.'))
-  } catch { diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'evidenceRoot', 'indexClosure'], 'Cannot validate the canonical index closure.')) }
   if (input.document.productionEvidence?.path !== evidenceRoot.productionEvidence?.path || input.document.productionEvidence?.sha256 !== evidenceRoot.productionEvidence?.sha256) {
     diagnostics.push(error('LIMB_ACCEPTANCE_EVIDENCE_ROOT_INVALID', ['limbAcceptance', 'productionEvidence'], 'Top-level production evidence must equal its evidence-root binding.'))
   }

@@ -17,6 +17,35 @@ describe('Task 8 clean-checkout review integrity', () => {
     expect(paths.filter(path => !tracked.has(path))).toEqual([])
   })
 
+  it('uses a stable Task 8 catalog projection that ignores Task 9-only extensions', async () => {
+    const { task8LimbCatalogProjectionSha256 } = await import('./task8-stable-projection.js')
+    const catalog = JSON.parse(await readFile(resolve(ROOT, 'packages/asset-catalog/catalog/v0.3.0/catalog.json'), 'utf8'))
+    const baseline = task8LimbCatalogProjectionSha256(catalog)
+    const task9Extension = structuredClone(catalog)
+    task9Extension.parts.push({ id: 'task9_projection_probe', slotId: 'tail' })
+    expect(task8LimbCatalogProjectionSha256(task9Extension)).toBe(baseline)
+    const task8Drift = structuredClone(catalog)
+    task8Drift.parts.find((item: any) => item.id === 'arms_short_plush').composition.variantsByRig.blob.renderNodes[0].transform.scale += 0.01
+    expect(task8LimbCatalogProjectionSha256(task8Drift)).not.toBe(baseline)
+  })
+
+  it('accepts the frozen legacy catalog binding through the stable projection but rejects Task 8 resource drift', async () => {
+    const {
+      TASK8_APPROVED_LEGACY_CATALOG_SHA256,
+      TASK8_LIMB_CATALOG_PROJECTION_SHA256,
+    } = await import('./task8-stable-projection.js')
+    const { compareLimbCausalMetricEvidence } = await import('./validate-interface-slice.js')
+    const manifests = await Promise.all(['blob', 'biped', 'floating'].map(async rigId => JSON.parse(await readFile(resolve(REVIEW_ROOT, `limb-contact-sheet-${rigId}-manifest.json`), 'utf8'))))
+    const liveEntries = structuredClone(manifests.flatMap(manifest => manifest.entries))
+    expect(liveEntries.every(entry => entry.inputBinding.catalogSha256 === TASK8_APPROVED_LEGACY_CATALOG_SHA256)).toBe(true)
+    for (const live of liveEntries) live.inputBinding.catalogSha256 = TASK8_LIMB_CATALOG_PROJECTION_SHA256
+    expect(compareLimbCausalMetricEvidence({ liveEntries, manifests }).diagnostics).toEqual([])
+    liveEntries[0].inputBinding.resolvedAssetHashes[0].sha256 = '0'.repeat(64)
+    expect(compareLimbCausalMetricEvidence({ liveEntries, manifests }).diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'LIMB_CAUSAL_INPUT_DRIFT' }),
+    )
+  })
+
   it('reconstructs all 60 cells from live renderer inputs and detects a stored metric drift', async () => {
     const { validateLimbCausalMetricEvidence } = await import('./validate-interface-slice.js') as typeof import('./validate-interface-slice.js') & {
       validateLimbCausalMetricEvidence: (input: any) => Promise<any>
@@ -35,6 +64,7 @@ describe('Task 8 clean-checkout review integrity', () => {
       validateLimbAcceptanceDocument: (input: any) => Promise<any[]>
     }
     const acceptance = JSON.parse(await readFile(resolve(REVIEW_ROOT, 'limb-contact-sheets-acceptance.json'), 'utf8'))
+    expect(await validateLimbAcceptanceDocument({ document: acceptance, repositoryRoot: ROOT, reviewRoot: REVIEW_ROOT })).toEqual([])
     const missingEvidence = structuredClone(acceptance)
     delete missingEvidence.evidenceRoot
     expect(await validateLimbAcceptanceDocument({ document: missingEvidence, repositoryRoot: ROOT, reviewRoot: REVIEW_ROOT })).toContainEqual(

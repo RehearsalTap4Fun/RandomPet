@@ -5,14 +5,14 @@ import type { Catalog, Point2D, VisualSlotId } from '@qmonster/generator-core'
 import { resolveAttachmentTree } from '../packages/renderer-canvas/src/attachment-tree.js'
 import type { Placement, ResolvedRenderNode, WorldRect } from '../packages/renderer-canvas/src/types.js'
 import catalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
-import acceptanceDocument from '../artifacts/acceptance/v0.2/acceptance-set.json'
+import { loadCompositionAcceptanceInput } from './composition-acceptance-input.js'
 
 const MASTER_SIZE = 2048
 const ALPHA_THRESHOLD = 8
 const CONTOUR_LIMIT = 24
 const GAP_LIMIT = 8
 const catalog = catalogDocument as unknown as Catalog
-const acceptance = acceptanceDocument as unknown as {
+const acceptance = await loadCompositionAcceptanceInput(process.cwd()) as unknown as {
   entries: Array<{ index: number; seed: string; spec: Parameters<typeof resolveAttachmentTree>[0] }>
 }
 

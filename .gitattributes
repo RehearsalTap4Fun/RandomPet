@@ -98,3 +98,4 @@ packages/asset-catalog/review/v0.3.0/superseded/task8-global-threshold-0.65/body
 packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json -text
 packages/asset-catalog/review/v0.3.0/task6-approved-input-integrity.json -text
 packages/asset-catalog/review/v0.3.0/visible-limb-threshold-amendment.json -text
+artifacts/acceptance/v0.2/acceptance-set.json -text
