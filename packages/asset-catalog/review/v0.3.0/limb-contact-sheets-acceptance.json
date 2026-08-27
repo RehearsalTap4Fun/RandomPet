@@ -64,7 +64,7 @@
   },
   "task7Reapproval": {
     "path": "packages/asset-catalog/review/v0.3.0/body-head-contact-sheets-acceptance.json",
-    "sha256": "74714be881de769c03a609008b960f7c4cbc8e6ce808ee7c50b2dbf2f8ed7ba8"
+    "sha256": "86d7666a33964abf2d848d3b8f6f64e3231b94687634a9d9b8ee723677d3d8e3"
   },
   "productionEvidence": {
     "path": "asset-source/v0.3.0/generation/task8-limb-production.json",

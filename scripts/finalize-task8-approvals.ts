@@ -14,6 +14,7 @@ const THRESHOLD_AMENDMENT = `${REVIEW_ROOT}/visible-limb-threshold-amendment.jso
 const PROCESSED_INDEX = 'asset-source/v0.3.0/production/processed-index.json'
 const SOURCE_INDEX = 'packages/asset-catalog/source-index-v0.3.0.json'
 const TASK8_PRODUCTION = 'asset-source/v0.3.0/generation/task8-limb-production.json'
+const TASK6_INTEGRITY = `${REVIEW_ROOT}/task6-approved-input-integrity.json`
 const RENDERER_INPUTS = [
   'scripts/render-limb-contact-sheets.ts',
   'apps/creator-web/src/render-test.ts',
@@ -93,6 +94,12 @@ export async function finalizeTask8Approvals(reviewedAt = new Date().toISOString
       supersededApprovalSha256: await hash(`${REVIEW_ROOT}/superseded/task7-pre-wide-shoulder-amendment/body-head-contact-sheets-acceptance.pre-amendment.json`),
       preAmendmentEvidence: bodyAmendment.preAmendmentEvidence,
       visualArtifactsByteIdentical: true,
+    },
+    task6Integrity: {
+      ...oldAcceptance.task6Integrity,
+      manifestPath: TASK6_INTEGRITY,
+      manifestSha256: await hash(TASK6_INTEGRITY),
+      fileCount: 132,
     },
     notes: [
       'User selected A and reapproved the unchanged Task 7 body/head matrices under the x490/1558 shoulder connector amendment.',

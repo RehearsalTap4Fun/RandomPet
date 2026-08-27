@@ -65,7 +65,7 @@
   },
   "task6Integrity": {
     "manifestPath": "packages/asset-catalog/review/v0.3.0/task6-approved-input-integrity.json",
-    "manifestSha256": "e9b55e1f52d89bb022c2515dd6bb987ae76a61770422b38f84393bc4c824d650",
+    "manifestSha256": "1ff6879d1444d96661a064ad9f2c55219f3a1aca275a14fd4c446f4cde898a23",
     "fileCount": 132
   },
   "notes": [
