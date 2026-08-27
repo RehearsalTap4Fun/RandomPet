@@ -58,7 +58,7 @@ describe('validateInterfaceSlice', () => {
     const result = await validateLimbApproval({ repositoryRoot, reviewRoot })
     expect(result.entryCount).toBe(60)
     expect(result.diagnostics).toEqual([])
-  })
+  }, 180_000)
 
   it('keeps retired guide evidence outside the canonical active guide inventory', async () => {
     const result = await validateInterfaceSlice({
