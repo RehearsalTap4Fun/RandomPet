@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "qmonster-v0.3-structural-union-color-masks-v1",
+  "catalogVersion": "0.3.0",
+  "retainedRuntimeBytesPreserved": true,
+  "structuralUnionIndexPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha-index.json",
+  "audits": [
+    {
+      "version": "rig-aware-palette-masks-v1",
+      "sourceId": "color_deep_sea_coral",
+      "sourcePath": "asset-source/v0.3.0/retained-v0.2/masters/color_deep_sea_coral.png",
+      "sourceSha256": "fb9680328eddd0ac81d617b9d09749d114935d1f63bb1db84f69e1ca6ca045be",
+      "runtimePngPath": "packages/asset-catalog/assets/v0.3.0/parts/color_deep_sea_coral.png",
+      "runtimePngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "runtimeWebpPath": "packages/asset-catalog/assets/v0.3.0/parts/color_deep_sea_coral.webp",
+      "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "rigMasks": {
+        "blob": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/blob.png",
+          "rigAssetSha256": "77e84ed1bce335a845adad2aa7fb537622050ddba67eacfb74b1363b23d86b0c",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/blob-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/blob-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/blob-accent.png"
+          },
+          "sha256": {
+            "primary": "c13c0772706c57adf7916b79b10547ea40dfffc53c65e3d25d1ccb2829ae2fb6",
+            "secondary": "b024cc012da4c6a6c6592c95210234b83b33bb141f1d1777e58870df8f44af37",
+            "accent": "7132938011e7eb6f40107a7c93b6f635713fc2b2c9a967014c968e7539e2067a"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1825302,
+            "maskUnionPixels": 1825302,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 1498827,
+            "secondaryPixels": 314321,
+            "accentPixels": 12154
+          }
+        },
+        "biped": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/biped.png",
+          "rigAssetSha256": "9b0ea16f2e61de11845fe17737b49b879153499f475910ae4d700886292b23c4",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/biped-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/biped-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/biped-accent.png"
+          },
+          "sha256": {
+            "primary": "17ee074e2260655767950da0e54949b22ff900b8a236ab009dadec0bf9cebef9",
+            "secondary": "0c43246e17caff72318c95b9c7218920d2bd7ee48b7a2830e837176b20e896d6",
+            "accent": "56393765b4748b49ee5e8b4d5e3cc12a5bc94e7199a702359fdfa3fc04cc34f6"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1935521,
+            "maskUnionPixels": 1935521,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 1514805,
+            "secondaryPixels": 335133,
+            "accentPixels": 85583
+          }
+        },
+        "floating": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/floating.png",
+          "rigAssetSha256": "5b2110d108b30653fed7ee510774505326463b8e0f5e2e38b6e980094b4d4c6c",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/floating-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/floating-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_deep_sea_coral/floating-accent.png"
+          },
+          "sha256": {
+            "primary": "8adb8289cb15de68df947b366fe2c2df3acd39f15e32f379f72d8dabcdd30247",
+            "secondary": "b8be1335fa1bcf075c5302de20f9c7e0d09c2a2b588edc8883c44a0b084624fa",
+            "accent": "a470cc03f25d4ac2338dafb4a460783f2c528053bfea6719762169d59aeb4086"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1430348,
+            "maskUnionPixels": 1430348,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 1094364,
+            "secondaryPixels": 315597,
+            "accentPixels": 20387
+          }
+        }
+      },
+      "maskBasis": "v0.3-structural-union-alpha-v1"
+    },
+    {
+      "version": "rig-aware-palette-masks-v1",
+      "sourceId": "color_fungal_amber",
+      "sourcePath": "asset-source/v0.3.0/retained-v0.2/masters/color_fungal_amber.png",
+      "sourceSha256": "a4b1dd5895605daf85866e371ff4ca9d2676777ac59d65e739f5f9ee8fc8682a",
+      "runtimePngPath": "packages/asset-catalog/assets/v0.3.0/parts/color_fungal_amber.png",
+      "runtimePngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "runtimeWebpPath": "packages/asset-catalog/assets/v0.3.0/parts/color_fungal_amber.webp",
+      "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "rigMasks": {
+        "blob": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/blob.png",
+          "rigAssetSha256": "77e84ed1bce335a845adad2aa7fb537622050ddba67eacfb74b1363b23d86b0c",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/blob-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/blob-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/blob-accent.png"
+          },
+          "sha256": {
+            "primary": "69049e348fdc1e9637de9ceaeb616c4ebc7361e07a1a84875ef37b0a8221578d",
+            "secondary": "7ad39a09e6fa2271b66ab745098c2039a2794e710af8bc5e47dbf2acc1e9f322",
+            "accent": "b06482a4aacb0d7c9f762431850ba7d4b38002db32a3433a7f2cd81434fe0494"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1825302,
+            "maskUnionPixels": 1825302,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 1449689,
+            "secondaryPixels": 343554,
+            "accentPixels": 32059
+          }
+        },
+        "biped": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/biped.png",
+          "rigAssetSha256": "9b0ea16f2e61de11845fe17737b49b879153499f475910ae4d700886292b23c4",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/biped-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/biped-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/biped-accent.png"
+          },
+          "sha256": {
+            "primary": "ab8b3612ac0e74446a18ea175b1eec645ec252ff956052412ea245a13c4dd8b2",
+            "secondary": "17665d703a644872ee40a496eea0bd5c31a62e369f579eb2b089e01e51e32840",
+            "accent": "8dc01e041798147a2d043725cbaa32256709a201e80182df196290e53e853680"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1935521,
+            "maskUnionPixels": 1935521,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 1336506,
+            "secondaryPixels": 490274,
+            "accentPixels": 108741
+          }
+        },
+        "floating": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/floating.png",
+          "rigAssetSha256": "5b2110d108b30653fed7ee510774505326463b8e0f5e2e38b6e980094b4d4c6c",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/floating-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/floating-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_fungal_amber/floating-accent.png"
+          },
+          "sha256": {
+            "primary": "1f5e0c80dad252c9d9d0a009c7f558a59abc8224a1201c17e72f70b75646eef4",
+            "secondary": "1d2aef3d02a54e86c65a3dd3f6e18e1ca3ec578d66f8886715bfc86f0c1e68ed",
+            "accent": "9eac1ceac2e8e72b94af89c39ad71bd7bb0f9f0e5338218991ab9b9bddd9f741"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1430348,
+            "maskUnionPixels": 1430348,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 1041119,
+            "secondaryPixels": 353249,
+            "accentPixels": 35980
+          }
+        }
+      },
+      "maskBasis": "v0.3-structural-union-alpha-v1"
+    },
+    {
+      "version": "rig-aware-palette-masks-v1",
+      "sourceId": "color_shadow_violet",
+      "sourcePath": "asset-source/v0.3.0/retained-v0.2/masters/color_shadow_violet.png",
+      "sourceSha256": "03e2f887f39fceabe579cbcf9af71508e9976f9a3a9f9c273f43355117d150e2",
+      "runtimePngPath": "packages/asset-catalog/assets/v0.3.0/parts/color_shadow_violet.png",
+      "runtimePngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+      "runtimeWebpPath": "packages/asset-catalog/assets/v0.3.0/parts/color_shadow_violet.webp",
+      "runtimeWebpSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+      "rigMasks": {
+        "blob": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/blob.png",
+          "rigAssetSha256": "77e84ed1bce335a845adad2aa7fb537622050ddba67eacfb74b1363b23d86b0c",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/blob-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/blob-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/blob-accent.png"
+          },
+          "sha256": {
+            "primary": "2778a761e11c5a9d348ec830cf8bcdefbeaaeaa92ec82fac92b8031235d15bd5",
+            "secondary": "1b26ebfcc2cef1e2d84a15b1ded999a86f7c7b8a6b9b1a2d8548cd32e715670f",
+            "accent": "1d2228919d50aeb2b5e4bda909a056cb36e49866af177bbe5a4b02c4cc9a5697"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1825302,
+            "maskUnionPixels": 1825302,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 1305664,
+            "secondaryPixels": 348845,
+            "accentPixels": 170793
+          }
+        },
+        "biped": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/biped.png",
+          "rigAssetSha256": "9b0ea16f2e61de11845fe17737b49b879153499f475910ae4d700886292b23c4",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/biped-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/biped-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/biped-accent.png"
+          },
+          "sha256": {
+            "primary": "4459dcf9cff3c8669f7e6aba0cbe8b8651f49122abee60531192780d0a04fffd",
+            "secondary": "df01924a771b79de4397fad37b5953c7ee0319058970f66f2b091b3283057c2b",
+            "accent": "b84c58d8733a50783ab58ce04efdaa9099121c6e1e5308cf357eaed41fffbdaf"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1935521,
+            "maskUnionPixels": 1935521,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 1282480,
+            "secondaryPixels": 425557,
+            "accentPixels": 227484
+          }
+        },
+        "floating": {
+          "rigAssetPath": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/floating.png",
+          "rigAssetSha256": "5b2110d108b30653fed7ee510774505326463b8e0f5e2e38b6e980094b4d4c6c",
+          "paths": {
+            "primary": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/floating-primary.png",
+            "secondary": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/floating-secondary.png",
+            "accent": "packages/asset-catalog/assets/v0.3.0/masks/color_shadow_violet/floating-accent.png"
+          },
+          "sha256": {
+            "primary": "2b65937cb918e59370e3e1bbec98dd025f4ae4979837b270575f0b30c0762551",
+            "secondary": "60804af92932b9ce493fa2994bbd3996e62d779df4033b68b8273d96eab6ef6b",
+            "accent": "7da71460fe7ab336190486fb249adc205305792cddbff00e2eacce8cdbc564c8"
+          },
+          "metrics": {
+            "width": 2048,
+            "height": 2048,
+            "rigOpaqueCorePixels": 1430348,
+            "maskUnionPixels": 1430348,
+            "outsideRigCorePixels": 0,
+            "overlappingMaskPixels": 0,
+            "primaryPixels": 964491,
+            "secondaryPixels": 378150,
+            "accentPixels": 87707
+          }
+        }
+      },
+      "maskBasis": "v0.3-structural-union-alpha-v1"
+    }
+  ]
+}

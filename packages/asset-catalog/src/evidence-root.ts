@@ -1,4 +1,6 @@
 import { createHash } from 'node:crypto'
+import { readFile, realpath, stat } from 'node:fs/promises'
+import { isAbsolute, relative, resolve } from 'node:path'
 import type { Diagnostic } from '@qmonster/generator-core'
 
 export const PRODUCTION_EVIDENCE_MANIFEST_VERSION = 'qmonster-production-evidence-v1' as const
@@ -10,6 +12,38 @@ export interface ProductionEvidenceManifest {
   catalogVersion: string
   sourceIndexPath: string
   evidenceRootSha256: string
+  task9Evidence?: Task9ProductionEvidence
+}
+
+export interface Task9EvidenceDependency {
+  path: string
+  sha256: string
+  groups: string[]
+}
+
+export interface Task9ProductionEvidence {
+  schemaVersion: 'task9-production-evidence-v1'
+  sourceEntryCount: number
+  dependencyCount: number
+  dependencies: Task9EvidenceDependency[]
+  compositionStatistics: {
+    seedCount: number
+    optionalNoneRates: Record<string, number>
+    maximumStrongFeatures: number
+    maximumSurpriseSlots: number
+    surpriseLimit: number
+  }
+  structuralMatrix: {
+    entryCount: number
+    failureCount: number
+    entryCountByRig: { blob: number; biped: number; floating: number }
+    observedExtrema: Record<string, number>
+  }
+  pipelineFixedPoint: {
+    sequence: string[]
+    round1Sha256: string
+    round2Sha256: string
+  }
 }
 
 function unicodeScalarValues(value: string): number[] {
@@ -117,5 +151,91 @@ export function validateProductionEvidenceManifest(
       message: 'Committed source-index differs from the independently anchored production evidence root.',
     }]
   }
+  if (catalogVersion === '0.3.0') {
+    const task9 = (manifest as ProductionEvidenceManifest).task9Evidence
+    const dependencies = task9?.dependencies
+    const optionalRates = task9?.compositionStatistics?.optionalNoneRates ?? {}
+    const expectedOptionalSlots = ['effect', 'extraAppendage', 'headAppendage', 'tail']
+    const validDependencies = Array.isArray(dependencies)
+      && dependencies.length > 0
+      && dependencies.every((item, index) => (
+        /^[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*$/u.test(item.path)
+        && item.path !== 'packages/asset-catalog/audit/v0.3.0/evidence-manifest.json'
+        && /^[a-f0-9]{64}$/u.test(item.sha256)
+        && Array.isArray(item.groups) && item.groups.length > 0 && item.groups.every(nonempty => typeof nonempty === 'string' && nonempty !== '')
+        && (index === 0 || dependencies[index - 1]!.path < item.path)
+      ))
+    const validRates = Object.keys(optionalRates).sort().join(',') === expectedOptionalSlots.join(',')
+      && Object.values(optionalRates).every(rate => Number.isFinite(rate) && rate >= 0.35 && rate <= 0.5)
+    if (
+      task9?.schemaVersion !== 'task9-production-evidence-v1'
+      || task9.sourceEntryCount !== 102
+      || task9.sourceEntryCount !== (Array.isArray((sourceIndex as { sources?: unknown }).sources) ? (sourceIndex as { sources: unknown[] }).sources.length : -1)
+      || task9.dependencyCount !== dependencies?.length
+      || !validDependencies
+      || task9.compositionStatistics?.seedCount !== 10_000
+      || !validRates
+      || task9.compositionStatistics.maximumStrongFeatures > 2
+      || task9.compositionStatistics.maximumSurpriseSlots > task9.compositionStatistics.surpriseLimit
+      || task9.structuralMatrix?.entryCount !== 39
+      || task9.structuralMatrix?.failureCount !== 0
+      || task9.structuralMatrix?.entryCountByRig?.blob !== 15
+      || task9.structuralMatrix?.entryCountByRig?.biped !== 15
+      || task9.structuralMatrix?.entryCountByRig?.floating !== 9
+      || !Array.isArray(task9.pipelineFixedPoint?.sequence)
+      || task9.pipelineFixedPoint.sequence.join('>') !== 'build-runtime-assets>build-color-scheme-masks>build-interface-catalog'
+      || !/^[a-f0-9]{64}$/u.test(task9.pipelineFixedPoint.round1Sha256)
+      || task9.pipelineFixedPoint.round1Sha256 !== task9.pipelineFixedPoint.round2Sha256
+    ) return [{
+      severity: 'error',
+      code: 'PRODUCTION_TASK9_EVIDENCE_INVALID',
+      path: [...path, 'task9Evidence'],
+      message: 'v0.3 production evidence must bind the acyclic Task 9 dependency, distribution, structural-matrix, and pipeline fixed-point contracts.',
+    }]
+  }
   return []
+}
+
+export async function validateProductionEvidenceDependencies(
+  manifest: unknown,
+  repositoryRoot: string,
+): Promise<Diagnostic[]> {
+  if (manifest === null || typeof manifest !== 'object') return []
+  const task9 = (manifest as ProductionEvidenceManifest).task9Evidence
+  if (!Array.isArray(task9?.dependencies)) return []
+  const diagnostics: Diagnostic[] = []
+  const root = await realpath(resolve(repositoryRoot)).catch(() => resolve(repositoryRoot))
+  for (const dependency of task9.dependencies) {
+    const path = ['task9Evidence', 'dependencies', dependency.path]
+    try {
+      const target = await realpath(resolve(root, dependency.path))
+      const remainder = relative(root, target)
+      if (remainder.startsWith('..') || isAbsolute(remainder)) {
+        diagnostics.push({
+          severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_PATH_INVALID', path,
+          message: `Task 9 evidence dependency escapes the repository root: ${dependency.path}`,
+        })
+        continue
+      }
+      const metadata = await stat(target)
+      if (!metadata.isFile() || metadata.nlink < 1) {
+        diagnostics.push({
+          severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_FILE_INVALID', path,
+          message: `Task 9 evidence dependency must resolve to a linked regular file: ${dependency.path}`,
+        })
+        continue
+      }
+      const actualHash = createHash('sha256').update(await readFile(target)).digest('hex')
+      if (actualHash !== dependency.sha256) diagnostics.push({
+        severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH', path,
+        message: `Task 9 evidence dependency differs from its final recorded SHA-256: ${dependency.path}`,
+      })
+    } catch {
+      diagnostics.push({
+        severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_MISSING', path,
+        message: `Task 9 evidence dependency cannot be read from its canonical repository path: ${dependency.path}`,
+      })
+    }
+  }
+  return diagnostics
 }

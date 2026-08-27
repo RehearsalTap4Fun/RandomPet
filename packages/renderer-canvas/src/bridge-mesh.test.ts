@@ -62,6 +62,25 @@ describe('buildBridgeMesh', () => {
     expect(mesh.rows[3]![3]).toEqual({ x: 12.5, y: 13 })
   })
 
+  it('uses one absolute tangent end-cap span for tail and extra seam ribbons', () => {
+    const pixels = (points: readonly (readonly [number, number])[]) => {
+      const value = new Uint8ClampedArray(16 * 16 * 4)
+      for (const [x, y] of points) value[(y * 16 + x) * 4 + 3] = 255
+      return value
+    }
+    const input = solved()
+    input.connectorId = 'extraLeft'
+    const mesh = buildBridgeMesh(input, {
+      receiver: { pixels: pixels([[2, 3], [8, 3], [3, 4], [7, 4]]), width: 16, height: 16 },
+      plug: { pixels: pixels([[4, 12], [11, 12], [5, 13], [10, 13]]), width: 16, height: 16 },
+    })
+
+    expect(mesh.rows[0]![0]).toEqual({ x: 2.5, y: 4 })
+    expect(mesh.rows[0]![3]).toEqual({ x: 12.5, y: 4 })
+    expect(mesh.rows[3]![0]).toEqual({ x: 2.5, y: 13 })
+    expect(mesh.rows[3]![3]).toEqual({ x: 12.5, y: 13 })
+  })
+
   it('rejects non-finite solved connector geometry', () => {
     const invalid = solved()
     invalid.plugOrigin.x = Number.NaN

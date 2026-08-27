@@ -23,11 +23,11 @@ export interface InterfaceAssetVariantSource {
   promptEvidence: InterfacePromptEvidence, connectors: InterfaceConnectorSource[], renderNodes: InterfaceRenderNodeSource[],
   faceSafeZones?: Rect[], featureSockets?: Record<string, Point2D>,
 }
-type InterfaceSlotId = Extract<StructuralSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs'>
+type InterfaceSlotId = Extract<StructuralSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>
 export interface InterfaceAssetSource extends InterfaceAssetVariantSource { id: string, slotId: InterfaceSlotId }
 export interface InterfaceAssetGroupSource { id: string, slotId: InterfaceSlotId, variants: InterfaceAssetVariantSource[] }
 export interface InterfaceBridgeSource {
-  id: string, rigId: InterfaceRigId, connectorClass: Extract<ConnectorClass, 'neck' | 'shoulder' | 'hip'>,
+  id: string, rigId: InterfaceRigId, connectorClass: ConnectorClass,
   materialFamilies: MaterialFamily[], sourcePngPath: string, neutralPngPath: string, neutralWebpPath: string,
   frontMaskPath: string, backMaskPath: string, promptEvidence: InterfacePromptEvidence,
 }
@@ -50,7 +50,7 @@ const sha256 = z.string().regex(/^[a-f0-9]{64}$/u)
 const runtimePngPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
 const runtimeWebpPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.webp$/u)
 const rigId = z.enum(['blob', 'biped', 'floating'])
-const slotId = z.enum(['bodyFrame', 'headShape', 'arms', 'legs'])
+const slotId = z.enum(['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'])
 const point = z.object({ x: z.number().finite().min(0).max(2048), y: z.number().finite().min(0).max(2048) }).strict()
 const vector = z.object({ x: z.number().finite().min(-1).max(1), y: z.number().finite().min(-1).max(1) }).strict()
   .refine(value => Math.abs(Math.hypot(value.x, value.y) - 1) <= 0.001, { message: 'Connector direction vectors must be normalized.' })
@@ -59,7 +59,7 @@ const rect = z.object({ x: z.number().finite().min(0).max(2048), y: z.number().f
 const range = z.object({ min: z.number().finite(), max: z.number().finite() }).strict().refine(value => value.min <= value.max)
 const promptEvidence = z.object({ promptId: z.string().min(1), promptPath: z.string().min(1), promptSha256: sha256, reviewRecordPath: z.string().min(1) }).strict()
 const connector = z.object({
-  id: z.enum(['neck', 'shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight']), role: z.enum(['receiver', 'plug']), connectorClass: z.enum(['neck', 'shoulder', 'hip']),
+  id: z.enum(['neck', 'shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight', 'tailRoot', 'extraLeft', 'extraRight']), role: z.enum(['receiver', 'plug']), connectorClass: z.enum(['neck', 'shoulder', 'hip', 'tail', 'extra']),
   origin: point, tangent: vector, outwardNormal: vector, width: z.number().finite().positive(), depth: z.number().finite().positive(),
   contourMaskPath: runtimePngPath, foregroundMaskPath: runtimePngPath, backgroundMaskPath: runtimePngPath,
   materialSampleRegion: rect, warpLimits: z.object({ widthRatio: range, depthRatio: range, rotationDegrees: range }).strict(),
@@ -76,7 +76,7 @@ const variant = z.object({
 const flatAsset = z.object({ id: z.string().min(1), slotId, ...variant.shape }).strict()
 const groupedAsset = z.object({ id: z.string().min(1), slotId, variants: z.array(variant).min(1) }).strict()
 const bridge = z.object({
-  id: z.string().min(1), rigId, connectorClass: z.enum(['neck', 'shoulder', 'hip']),
+  id: z.string().min(1), rigId, connectorClass: z.enum(['neck', 'shoulder', 'hip', 'tail', 'extra']),
   materialFamilies: z.array(z.enum(['short-fur', 'mushroom-velvet', 'soft-skin'])).min(1), sourcePngPath: z.string().min(1),
   neutralPngPath: runtimePngPath, neutralWebpPath: runtimeWebpPath, frontMaskPath: runtimePngPath, backMaskPath: runtimePngPath, promptEvidence,
 }).strict()
@@ -101,8 +101,16 @@ const InterfaceSourceManifestSchema = z.object({
   const nodeIds = flattened.flatMap(item => item.renderNodes.map(node => node.id)); const nodeSources = flattened.flatMap(item => item.renderNodes.map(node => node.sourcePngPath))
   if (new Set(nodeIds).size !== nodeIds.length) context.addIssue({ code: 'custom', path: ['assets'], message: 'Render node IDs must be globally unique.' })
   if (new Set(nodeSources).size !== nodeSources.length) context.addIssue({ code: 'custom', path: ['assets'], message: 'Render node source paths must be globally distinct.' })
+  const hasTail = flattened.some(item => item.slotId === 'tail')
+  const hasExtra = flattened.some(item => item.slotId === 'extraAppendage')
   for (const [index, item] of flattened.entries()) {
-    const expectedIds = item.slotId === 'bodyFrame' ? ['neck', 'shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight'] : item.slotId === 'headShape' ? ['neck'] : item.slotId === 'arms' ? ['shoulderLeft', 'shoulderRight'] : ['hipLeft', 'hipRight']
+    const expectedIds = item.slotId === 'bodyFrame'
+      ? ['neck', 'shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight', ...(hasTail ? ['tailRoot'] : []), ...(hasExtra ? ['extraLeft', 'extraRight'] : [])]
+      : item.slotId === 'headShape' ? ['neck']
+        : item.slotId === 'arms' ? ['shoulderLeft', 'shoulderRight']
+          : item.slotId === 'legs' ? ['hipLeft', 'hipRight']
+            : item.slotId === 'tail' ? ['tailRoot']
+              : ['extraLeft', 'extraRight']
     const expectedRole = item.slotId === 'bodyFrame' ? 'receiver' : 'plug'; const connectorIds = item.connectors.map(profile => profile.id)
     if (connectorIds.length !== expectedIds.length || new Set(connectorIds).size !== connectorIds.length || expectedIds.some(id => !connectorIds.includes(id)) || item.connectors.some(profile => profile.role !== expectedRole)) context.addIssue({ code: 'custom', path: ['assets', index, 'connectors'], message: `${item.partId}:${item.rigId} has an invalid connector roster.` })
     const plugIds = item.connectors.filter(profile => profile.role === 'plug').map(profile => profile.id); const pluggedNodes = item.renderNodes.filter(node => node.connectorId !== undefined).map(node => node.connectorId!)
@@ -112,6 +120,10 @@ const InterfaceSourceManifestSchema = z.object({
   const bridgeIds = value.bridges.map(item => item.id); const bridgeKeys = value.bridges.map(item => `${item.rigId}:${item.connectorClass}`)
   if (new Set(bridgeIds).size !== bridgeIds.length || new Set(bridgeKeys).size !== bridgeKeys.length) context.addIssue({ code: 'custom', path: ['bridges'], message: 'Transition bridges must be unique per rig and class.' })
   for (const key of ['biped:neck', 'biped:shoulder', 'biped:hip']) if (!bridgeKeys.includes(key)) context.addIssue({ code: 'custom', path: ['bridges'], message: 'Manifest requires approved biped bridges.' })
+  for (const connectorClass of [...(hasTail ? ['tail'] : []), ...(hasExtra ? ['extra'] : [])]) {
+    const rigs = value.schemaVersion === 'interface-source-v2' ? ['blob', 'biped', 'floating'] : ['biped']
+    for (const exactRig of rigs) if (!bridgeKeys.includes(`${exactRig}:${connectorClass}`)) context.addIssue({ code: 'custom', path: ['bridges'], message: `Manifest requires ${exactRig}:${connectorClass}.` })
+  }
   if (value.schemaVersion === 'interface-source-v2') for (const key of ['blob:neck', 'floating:neck']) if (!bridgeKeys.includes(key)) context.addIssue({ code: 'custom', path: ['bridges'], message: `Manifest requires ${key}.` })
 })
 

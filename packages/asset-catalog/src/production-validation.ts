@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { isAbsolute, join, relative, resolve } from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
 import sharp from 'sharp'
-import { isAttachmentPartComposition, type Catalog, type Diagnostic } from '@qmonster/generator-core'
+import { isAttachmentPartComposition, type Catalog, type Diagnostic, type TransitionBridgeDefinition } from '@qmonster/generator-core'
 import {
   PRODUCTION_CHROMA_GATE_PROFILE,
   PRODUCTION_CHROMA_GATE_VERSION,
@@ -51,13 +51,14 @@ export function validateProductionMetadata(catalog: Catalog): Diagnostic[] {
     }
   }
   for (const [index, part] of catalog.parts.entries()) {
+    const resourceEmptyNone = part.composition?.isNone === true && part.assetPath === ''
     if (
       !nonemptyText(part.displayName)
       || !nonemptyText(part.flavorText)
       || !nonemptyText(part.description)
-      || !nonemptyText(part.assetSha256)
-      || !nonemptyText(part.pngPath)
-      || !nonemptyText(part.pngSha256)
+      || (!resourceEmptyNone && !nonemptyText(part.assetSha256))
+      || (!resourceEmptyNone && !nonemptyText(part.pngPath))
+      || (!resourceEmptyNone && !nonemptyText(part.pngSha256))
     ) {
       diagnostics.push(error('PRODUCTION_PART_METADATA_MISSING', ['parts', String(index)], `Part ${part.id} needs display/flavor/description and PNG/WebP paths with hashes.`))
     }
@@ -218,11 +219,17 @@ async function collectFiles(root: string, prefix = ''): Promise<string[]> {
   return files
 }
 
-export async function validateNoStaleRuntimeAssets(catalog: Catalog, assetRoot: string): Promise<Diagnostic[]> {
+export async function validateNoStaleRuntimeAssets(
+  catalog: Catalog,
+  assetRoot: string,
+  sourceIndex?: ProductionSourceIndex,
+  task6Integrity?: RuntimeIntegrityReview,
+): Promise<Diagnostic[]> {
   const expected = new Set<string>()
+  const diagnostics: Diagnostic[] = []
   const runtimePath = (path: string): string => assetPathBelowVersionRoot(path.replaceAll('\\', '/'), catalog.version)
   for (const part of catalog.parts) {
-    expected.add(runtimePath(part.assetPath))
+    if (part.assetPath !== '') expected.add(runtimePath(part.assetPath))
     if (part.pngPath !== undefined) expected.add(runtimePath(part.pngPath))
     for (const node of (isAttachmentPartComposition(part.composition)
       ? part.composition.renderNodes
@@ -241,6 +248,39 @@ export async function validateNoStaleRuntimeAssets(catalog: Catalog, assetRoot: 
     if (rig.sourceId === undefined) continue
     expected.add(`rigs/${rig.sourceId}.png`)
     expected.add(`rigs/${rig.sourceId}.webp`)
+  }
+  for (const source of sourceIndex?.sources ?? []) {
+    for (const resource of source.runtimeResources ?? []) {
+      if (typeof resource.path === 'string') expected.add(runtimePath(resource.path))
+    }
+  }
+  if (task6Integrity !== undefined) {
+    const versionPrefix = `packages/asset-catalog/assets/v${catalog.version}/`
+    if (
+      task6Integrity.schemaVersion !== 'task6-approved-input-integrity-v1'
+      || task6Integrity.allUnchanged !== true
+      || !Array.isArray(task6Integrity.files)
+    ) diagnostics.push(error('PRODUCTION_RUNTIME_REVIEW_INVALID', ['task6Integrity'], 'Task 6 runtime integrity review must use the canonical immutable schema and file inventory.'))
+    for (const item of task6Integrity.files ?? []) {
+      if (typeof item.path !== 'string' || !item.path.startsWith(versionPrefix)) continue
+      const relativePath = item.path.slice(versionPrefix.length)
+      expected.add(relativePath)
+      const diagnosticPath = ['task6Integrity', item.path]
+      if (typeof item.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(item.sha256) || !/^[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.(?:png|webp)$/u.test(relativePath)) {
+        diagnostics.push(error('PRODUCTION_RUNTIME_REVIEW_INVALID', diagnosticPath, 'Task 6 runtime integrity entry needs a canonical path and SHA-256 hash.'))
+        continue
+      }
+      try {
+        const canonicalRoot = await realpath(resolve(assetRoot)).catch(() => resolve(assetRoot))
+        const canonicalPath = await realpath(resolve(canonicalRoot, relativePath))
+        const remainder = relative(canonicalRoot, canonicalPath)
+        if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error('path escaped asset root')
+        const actualHash = createHash('sha256').update(await readFile(canonicalPath)).digest('hex')
+        if (actualHash !== item.sha256) diagnostics.push(error('ASSET_HASH_MISMATCH', diagnosticPath, `Task 6 approved runtime input differs from its hashed review: ${item.path}`))
+      } catch {
+        diagnostics.push(error('ASSET_FILE_MISSING', diagnosticPath, `Task 6 approved runtime input cannot be read from its canonical path: ${item.path}`))
+      }
+    }
   }
   if (catalog.version === '0.3.0') {
     for (const part of catalog.parts) {
@@ -267,9 +307,10 @@ export async function validateNoStaleRuntimeAssets(catalog: Catalog, assetRoot: 
   }
   const actual = (await collectFiles(assetRoot))
     .filter(path => path.endsWith('.png') || path.endsWith('.webp'))
-  return actual
+  diagnostics.push(...actual
     .filter(path => !expected.has(path))
-    .map(path => error('PRODUCTION_RUNTIME_STALE', path.split('/'), `Runtime asset is not referenced by the production catalog: ${path}`))
+    .map(path => error('PRODUCTION_RUNTIME_STALE', path.split('/'), `Runtime asset is not referenced by the production catalog: ${path}`)))
+  return diagnostics
 }
 
 interface SourceCandidateEvaluation {
@@ -353,6 +394,19 @@ export interface ProductionSourceIndex {
   review?: unknown
 }
 
+export interface RuntimeIntegrityReview {
+  schemaVersion?: unknown
+  allUnchanged?: unknown
+  files?: Array<{ path?: unknown; sha256?: unknown }>
+}
+
+const CANONICAL_INTERFACE_REVIEW_PATHS = new Set([
+  'packages/asset-catalog/review/v0.3.0/review-record.json',
+  'packages/asset-catalog/review/v0.3.0/body-head-review-record.json',
+  'packages/asset-catalog/review/v0.3.0/limb-review-record.json',
+  'packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json',
+])
+
 function interfaceSourceEnvelope(
   source: ProductionSourceRecord | undefined,
   expectedKind: 'interface-structural' | 'interface-bridge',
@@ -373,9 +427,9 @@ function interfaceSourceEnvelope(
     || !nonemptyText(source.promptId)
   ) diagnostics.push(error('PRODUCTION_INTERFACE_SOURCE_INVALID', path, 'Interface source needs source PNG and exact prompt provenance with SHA-256 hashes.'))
   if (
-    source.reviewRecordPath !== 'packages/asset-catalog/review/v0.3.0/review-record.json'
+    !CANONICAL_INTERFACE_REVIEW_PATHS.has(source.reviewRecordPath ?? '')
     || !isSha256(source.reviewRecordSha256)
-  ) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_MISSING', path.concat('reviewRecordPath'), 'Interface source needs the canonical hashed v0.3 review record.'))
+  ) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_MISSING', path.concat('reviewRecordPath'), 'Interface source needs an approved canonical hashed v0.3 review record.'))
 }
 
 function checkInterfaceRuntimeResources(
@@ -399,7 +453,7 @@ function checkInterfaceRuntimeResources(
   ))
 }
 
-async function validateBinaryInterfaceMask(assetRoot: string, assetPath: string, path: string[]): Promise<Diagnostic[]> {
+async function validateBinaryInterfaceMask(assetRoot: string, assetPath: string, path: string[], options: { allowUniform?: boolean } = {}): Promise<Diagnostic[]> {
   try {
     const decoded = await decodeCommittedRgba(assetRoot, assetPath)
     let transparent = false
@@ -411,10 +465,46 @@ async function validateBinaryInterfaceMask(assetRoot: string, assetPath: string,
       else if (alpha === 255) opaque = true
       else nonBinary += 1
     }
-    if (transparent && opaque && nonBinary === 0) return []
+    if (nonBinary === 0 && (options.allowUniform === true || (transparent && opaque))) return []
     return [error('PRODUCTION_INTERFACE_MASK_PIXELS_INVALID', path, `Interface mask must contain only transparent and opaque alpha pixels; non-binary pixels: ${nonBinary}.`)]
   } catch (caught) {
     return [error('PRODUCTION_INTERFACE_MASK_PIXELS_INVALID', path, `Interface mask bytes cannot be independently decoded: ${caught instanceof Error ? caught.message : String(caught)}`)]
+  }
+}
+
+export function validateBridgeSplitAlpha(neutral: Uint8Array, front: Uint8Array, back: Uint8Array): string[] {
+  if (neutral.length !== front.length || neutral.length !== back.length) return ['dimensions']
+  const errors = new Set<string>()
+  let splitOpaque = 0
+  for (let index = 0; index < neutral.length; index += 1) {
+    if ((front[index] !== 0 && front[index] !== 255) || (back[index] !== 0 && back[index] !== 255)) errors.add('non-binary')
+    const neutralSupported = neutral[index]! > 0
+    const frontOpaque = front[index] === 255
+    const backOpaque = back[index] === 255
+    if (frontOpaque || backOpaque) splitOpaque += 1
+    if ((frontOpaque || backOpaque) && !neutralSupported) errors.add('outside-neutral')
+    if (frontOpaque && backOpaque) errors.add('overlap')
+    if (neutralSupported !== (frontOpaque || backOpaque)) errors.add('union-mismatch')
+  }
+  if (splitOpaque === 0) errors.add('empty-pair')
+  return [...errors]
+}
+
+async function validateBridgeSplitMasks(assetRoot: string, bridge: TransitionBridgeDefinition, path: string[]): Promise<Diagnostic[]> {
+  try {
+    const [neutral, front, back] = await Promise.all([
+      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.neutralPngPath, '0.3.0')),
+      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.frontMaskPath, '0.3.0')),
+      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.backMaskPath, '0.3.0')),
+    ])
+    if (neutral.width !== front.width || neutral.height !== front.height || neutral.width !== back.width || neutral.height !== back.height) {
+      return [error('PRODUCTION_INTERFACE_MASK_PIXELS_INVALID', path, 'Task 9 bridge split masks must match neutral bridge dimensions.')]
+    }
+    const alpha = (data: Uint8Array) => Uint8Array.from({ length: data.length / 4 }, (_, index) => data[index * 4 + 3]!)
+    const failures = validateBridgeSplitAlpha(alpha(neutral.data), alpha(front.data), alpha(back.data))
+    return failures.length === 0 ? [] : [error('PRODUCTION_INTERFACE_MASK_PIXELS_INVALID', path, `Task 9 bridge front/back masks must exactly partition neutral alpha: ${failures.join(',')}.`)]
+  } catch (caught) {
+    return [error('PRODUCTION_INTERFACE_MASK_PIXELS_INVALID', path, `Task 9 bridge split bytes cannot be independently decoded: ${caught instanceof Error ? caught.message : String(caught)}`)]
   }
 }
 
@@ -558,12 +648,25 @@ export async function validateProductionInterfaceResources(
   const globalNodeHashes = new Set<string>()
   for (const [partIndex, part] of catalog.parts.entries()) {
     if (part.composition?.mode !== 'interface') continue
-    const source = indexed.get(part.id)
-    interfaceSourceEnvelope(source, 'interface-structural', ['sources', part.id], diagnostics)
-    const expectedRuntime = [
-      { path: part.assetPath, sha256: part.assetSha256 },
-      ...(part.pngPath === undefined ? [] : [{ path: part.pngPath, sha256: part.pngSha256 }]),
-      ...Object.values(part.composition.variantsByRig).flatMap(variant => variant === undefined ? [] : [
+    for (const [rigId, variant] of Object.entries(part.composition.variantsByRig)) {
+      if (variant === undefined) continue
+      const exactSourceId = `${part.id}:${rigId}`
+      const source = indexed.get(exactSourceId)
+      interfaceSourceEnvelope(source, 'interface-structural', ['sources', exactSourceId], diagnostics)
+      const structuralRootPrefix = `assets/v${catalog.version}/structural/${rigId}/`
+      const rootResources = (source?.runtimeResources ?? []).flatMap(resource => {
+        const path = resource.path
+        return typeof path === 'string'
+          && path.startsWith(structuralRootPrefix)
+          && (path.endsWith(`/${part.id}.webp`) || path.endsWith(`/${part.id}.png`))
+          ? [{ ...resource, path }]
+          : []
+      })
+      const rootWebp = rootResources.find(resource => resource.path.endsWith('.webp'))
+      const rootPng = rootResources.find(resource => resource.path.endsWith('.png'))
+      const expectedRuntime = [
+        ...(rootWebp === undefined ? [] : [{ path: rootWebp.path!, sha256: rootWebp.sha256 }]),
+        ...(rootPng === undefined ? [] : [{ path: rootPng.path!, sha256: rootPng.sha256 }]),
         ...variant.renderNodes.flatMap(node => [
           { path: node.assetPath, sha256: node.assetSha256 },
           ...(node.pngPath === undefined ? [] : [{ path: node.pngPath, sha256: node.pngSha256 }]),
@@ -573,17 +676,19 @@ export async function validateProductionInterfaceResources(
           { path: connector.foregroundMaskPath, sha256: connector.foregroundMaskSha256 },
           { path: connector.backgroundMaskPath, sha256: connector.backgroundMaskSha256 },
         ]),
-      ]),
-    ]
-    const uniqueRuntime = [...new Map(expectedRuntime.map(item => [item.path, item])).values()]
-    checkInterfaceRuntimeResources(source, uniqueRuntime, ['sources', part.id], diagnostics)
-    if (source?.reviewRecordPath !== undefined && source.reviewRecordSha256 !== undefined) {
-      const existingHash = reviewed.get(source.reviewRecordPath)
-      if (existingHash !== undefined && existingHash !== source.reviewRecordSha256) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_HASH_CONFLICT', ['sources', part.id, 'reviewRecordSha256'], 'Interface sources declare conflicting hashes for the same review record.'))
-      reviewed.set(source.reviewRecordPath, source.reviewRecordSha256)
-    }
-    for (const [rigId, variant] of Object.entries(part.composition.variantsByRig)) {
-      if (variant === undefined) continue
+      ]
+      const uniqueRuntime = [...new Map(expectedRuntime.map(item => [item.path, item])).values()]
+      checkInterfaceRuntimeResources(source, uniqueRuntime, ['sources', exactSourceId], diagnostics)
+      for (const rootResource of [rootWebp, rootPng]) {
+        if (rootResource?.path !== undefined && typeof rootResource.sha256 === 'string') {
+          checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(rootResource.path), rootResource.sha256, ['sources', exactSourceId, 'runtimeResources', rootResource.path]))
+        }
+      }
+      if (source?.reviewRecordPath !== undefined && source.reviewRecordSha256 !== undefined) {
+        const existingHash = reviewed.get(source.reviewRecordPath)
+        if (existingHash !== undefined && existingHash !== source.reviewRecordSha256) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_HASH_CONFLICT', ['sources', exactSourceId, 'reviewRecordSha256'], 'Interface sources declare conflicting hashes for the same review record.'))
+        reviewed.set(source.reviewRecordPath, source.reviewRecordSha256)
+      }
       for (const [nodeIndex, node] of variant.renderNodes.entries()) {
         const base = ['parts', String(partIndex), 'composition', 'variantsByRig', rigId, 'renderNodes', String(nodeIndex)]
         if (globalNodeIds.has(node.id)) diagnostics.push(error('PRODUCTION_INTERFACE_NODE_DUPLICATE', base.concat('id'), `Interface render node ID is duplicated: ${node.id}`))
@@ -638,18 +743,26 @@ export async function validateProductionInterfaceResources(
       reviewed.set(source.reviewRecordPath, source.reviewRecordSha256)
     }
     const base = ['transitionBridges', String(bridgeIndex)]
-    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.neutralAssetPath), bridge.neutralAssetSha256, base.concat('neutralAssetPath')))
-    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.neutralPngPath), bridge.neutralPngSha256, base.concat('neutralPngPath')))
-    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.frontMaskPath), bridge.frontMaskSha256, base.concat('frontMaskPath')))
-    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.backMaskPath), bridge.backMaskSha256, base.concat('backMaskPath')))
-    maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(bridge.frontMaskPath), base.concat('frontMaskPath')))
-    maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(bridge.backMaskPath), base.concat('backMaskPath')))
+    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.neutralAssetPath), bridge.neutralAssetSha256, base.concat('neutralAssetPath'), { dimensions: 'transition-bridge' }))
+    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.neutralPngPath), bridge.neutralPngSha256, base.concat('neutralPngPath'), { dimensions: 'transition-bridge' }))
+    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.frontMaskPath), bridge.frontMaskSha256, base.concat('frontMaskPath'), { dimensions: 'transition-bridge' }))
+    checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.backMaskPath), bridge.backMaskSha256, base.concat('backMaskPath'), { dimensions: 'transition-bridge' }))
+    if (bridge.connectorClass === 'tail' || bridge.connectorClass === 'extra') {
+      maskChecks.push(validateBridgeSplitMasks(canonicalAssetRoot, bridge, base.concat('frontMaskPath', 'backMaskPath')))
+    } else {
+      maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(bridge.frontMaskPath), base.concat('frontMaskPath'), { allowUniform: true }))
+      maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(bridge.backMaskPath), base.concat('backMaskPath'), { allowUniform: true }))
+    }
   }
   diagnostics.push(...(await Promise.all(checks)).flat())
   diagnostics.push(...(await Promise.all(maskChecks)).flat())
   for (const [portablePath, expectedHash] of reviewed) {
-    const reviewPath = resolve(assetRoot, '..', '..', 'review', 'v0.3.0', 'review-record.json')
+    const reviewPrefix = 'packages/asset-catalog/'
+    const reviewPath = CANONICAL_INTERFACE_REVIEW_PATHS.has(portablePath) && portablePath.startsWith(reviewPrefix)
+      ? resolve(assetRoot, '..', '..', portablePath.slice(reviewPrefix.length))
+      : ''
     try {
+      if (reviewPath === '') throw new Error('noncanonical review record')
       const bytes = await readFile(reviewPath)
       const actualHash = createHash('sha256').update(bytes).digest('hex')
       if (actualHash !== expectedHash) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_HASH_MISMATCH', [portablePath], 'Interface review record hash differs from committed bytes.'))
@@ -698,6 +811,29 @@ async function decodeCommittedRgba(assetRoot: string, assetPath: string): Promis
   const source = await readFile(path)
   const decoded = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
   if (decoded.info.channels !== 4) throw new Error(`Committed palette asset did not decode to RGBA: ${assetPath}`)
+  return {
+    data: decoded.data,
+    width: decoded.info.width,
+    height: decoded.info.height,
+    sha256: createHash('sha256').update(source).digest('hex'),
+  }
+}
+
+async function decodeRepositoryRgba(assetRoot: string, repositoryPath: string): Promise<{
+  data: Buffer
+  width: number
+  height: number
+  sha256: string
+}> {
+  const normalized = repositoryPath.replaceAll('\\', '/')
+  if (!normalized.startsWith('asset-source/v0.3.0/')) throw new Error(`Unexpected v0.3 palette evidence path: ${repositoryPath}`)
+  const repositoryRoot = resolve(assetRoot, '..', '..', '..', '..')
+  const path = resolve(repositoryRoot, normalized)
+  const remainder = relative(repositoryRoot, path)
+  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Committed palette evidence escaped repository root: ${repositoryPath}`)
+  const source = await readFile(path)
+  const decoded = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  if (decoded.info.channels !== 4) throw new Error(`Committed palette evidence did not decode to RGBA: ${repositoryPath}`)
   return {
     data: decoded.data,
     width: decoded.info.width,
@@ -988,6 +1124,10 @@ async function checkColorMaskAudit(
     diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', path.concat('paletteMaskAudit'), 'Color scheme needs its rig-aware palette-mask audit.'))
     return
   }
+  const usesStructuralUnionAlpha = version === '0.3.0'
+  if (usesStructuralUnionAlpha && audit.maskBasis !== 'v0.3-structural-union-alpha-v1') {
+    diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', path.concat('paletteMaskAudit', 'maskBasis'), 'v0.3 color masks must declare structural-union alpha as their coordinate basis.'))
+  }
   if (!nonemptyText(audit.sourcePath) || !isSha256(audit.sourceSha256) || audit.sourceSha256 !== source.masterSha256) {
     diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', path.concat('paletteMaskAudit', 'sourceSha256'), 'Palette layout source path/hash must match the approved master.'))
   }
@@ -1010,8 +1150,14 @@ async function checkColorMaskAudit(
     if (value === undefined) continue
     const rig = catalog.rigs.find(candidate => candidate.id === rigId)
     const rigSource = rig?.sourceId === undefined ? undefined : indexed.get(rig.sourceId)
-    if (!runtimePathMatches(value.rigAssetPath, `rigs/${rig?.sourceId}.png`, version) || value.rigAssetSha256 !== rigSource?.runtimePngSha256) {
-      diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', valuePath.concat('rigAssetSha256'), 'Palette mask must identify the compatible rig runtime hash.'))
+    const structuralUnionPath = `asset-source/v0.3.0/retained-v0.2/structural-union-alpha/${rigId}.png`
+    const validRigEvidence = usesStructuralUnionAlpha
+      ? value.rigAssetPath === structuralUnionPath && isSha256(value.rigAssetSha256)
+      : runtimePathMatches(value.rigAssetPath, `rigs/${rig?.sourceId}.png`, version) && value.rigAssetSha256 === rigSource?.runtimePngSha256
+    if (!validRigEvidence) {
+      diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', valuePath.concat('rigAssetSha256'), usesStructuralUnionAlpha
+        ? 'v0.3 palette mask must identify the committed rig structural-union alpha evidence.'
+        : 'Palette mask must identify the compatible rig runtime hash.'))
     }
     const paths = value.paths as Record<string, unknown> | null
     const hashes = value.sha256 as Record<string, unknown> | null
@@ -1033,7 +1179,7 @@ async function checkColorMaskAudit(
     const accent = Number(metrics?.accentPixels)
     if (
       metrics === null || typeof metrics !== 'object'
-      || metrics.width !== 1024 || metrics.height !== 1024
+      || metrics.width !== (usesStructuralUnionAlpha ? 2048 : 1024) || metrics.height !== (usesStructuralUnionAlpha ? 2048 : 1024)
       || !Number.isInteger(core) || core <= 0 || union !== core
       || metrics.outsideRigCorePixels !== 0 || metrics.overlappingMaskPixels !== 0
       || ![primary, secondary, accent].every(count => Number.isInteger(count) && count > 0)
@@ -1044,11 +1190,15 @@ async function checkColorMaskAudit(
     try {
       const roles = ['primary', 'secondary', 'accent'] as const
       const [decodedRig, ...decodedMasks] = await Promise.all([
-        decodeCommittedRgba(assetRoot, `rigs/${rig?.sourceId}.png`),
+        usesStructuralUnionAlpha
+          ? decodeRepositoryRgba(assetRoot, String(value.rigAssetPath ?? ''))
+          : decodeCommittedRgba(assetRoot, `rigs/${rig?.sourceId}.png`),
         ...roles.map(maskName => decodeCommittedRgba(assetRoot, part.rigMaskPaths?.[rigId]?.[maskName] ?? '')),
       ])
-      if (decodedRig.sha256 !== value.rigAssetSha256 || decodedRig.sha256 !== rigSource?.runtimePngSha256) {
-        diagnostics.push(error('PRODUCTION_COLOR_MASK_PIXELS_MISMATCH', valuePath.concat('rigAssetSha256'), 'Decoded rig hash differs from palette audit and rig source evidence.'))
+      if (decodedRig.sha256 !== value.rigAssetSha256 || (!usesStructuralUnionAlpha && decodedRig.sha256 !== rigSource?.runtimePngSha256)) {
+        diagnostics.push(error('PRODUCTION_COLOR_MASK_PIXELS_MISMATCH', valuePath.concat('rigAssetSha256'), usesStructuralUnionAlpha
+          ? 'Decoded structural-union alpha hash differs from palette audit evidence.'
+          : 'Decoded rig hash differs from palette audit and rig source evidence.'))
       }
       let rigOpaqueCorePixels = 0
       let maskUnionPixels = 0
@@ -1136,6 +1286,20 @@ export async function validateProductionSourceIndex(
   const assetChecks: Array<Promise<Diagnostic[]>> = []
 
   for (const part of catalog.parts) {
+    const resourceEmptyNone = part.composition?.isNone === true && part.assetPath === ''
+    if (catalog.version === '0.3.0' && resourceEmptyNone) continue
+    if (catalog.version === '0.3.0' && part.composition?.mode === 'interface') {
+      for (const rigId of Object.keys(part.composition.variantsByRig).sort()) {
+        const exactSourceId = `${part.id}:${rigId}`
+        const exactSource = indexed.get(exactSourceId)
+        if (exactSource === undefined) {
+          diagnostics.push(error('PRODUCTION_SOURCE_MISSING', ['sources', exactSourceId], `Missing exact-rig source-index entry for part ${part.id} on ${rigId}.`))
+          continue
+        }
+        interfaceSourceEnvelope(exactSource, 'interface-structural', ['sources', exactSourceId], diagnostics)
+      }
+      continue
+    }
     const source = indexed.get(part.id)
     if (source === undefined) {
       diagnostics.push(error('PRODUCTION_SOURCE_MISSING', ['sources', part.id], `Missing source-index entry for part ${part.id}.`))
@@ -1175,17 +1339,28 @@ export async function validateProductionSourceIndex(
       }
     }
     if (!interfaceStructural) await checkColorMaskAudit(source, part, catalog, indexed, assetRoot, catalog.version, ['sources', part.id], diagnostics)
-    if (!runtimePathMatches(source.runtimeWebpPath, part.assetPath, catalog.version) || source.runtimeWebpSha256 !== part.assetSha256) {
+    if (!resourceEmptyNone && (!runtimePathMatches(source.runtimeWebpPath, part.assetPath, catalog.version) || source.runtimeWebpSha256 !== part.assetSha256)) {
       diagnostics.push(error('PRODUCTION_SOURCE_RUNTIME_MISMATCH', ['sources', part.id, 'runtimeWebpPath'], `Source-index WebP metadata differs for ${part.id}.`))
     }
-    if (part.pngPath === undefined || !runtimePathMatches(source.runtimePngPath, part.pngPath, catalog.version) || source.runtimePngSha256 !== part.pngSha256) {
+    if (!resourceEmptyNone && (part.pngPath === undefined || !runtimePathMatches(source.runtimePngPath, part.pngPath, catalog.version) || source.runtimePngSha256 !== part.pngSha256)) {
       diagnostics.push(error('PRODUCTION_SOURCE_RUNTIME_MISMATCH', ['sources', part.id, 'runtimePngPath'], `Source-index PNG metadata differs for ${part.id}.`))
     }
-    if (typeof source.runtimeWebpSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, part.assetPath, source.runtimeWebpSha256, ['sources', part.id, 'runtimeWebpPath']))
-    if (part.pngPath !== undefined && typeof source.runtimePngSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, part.pngPath, source.runtimePngSha256, ['sources', part.id, 'runtimePngPath']))
+    if (!resourceEmptyNone && typeof source.runtimeWebpSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, part.assetPath, source.runtimeWebpSha256, ['sources', part.id, 'runtimeWebpPath']))
+    if (!resourceEmptyNone && part.pngPath !== undefined && typeof source.runtimePngSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, part.pngPath, source.runtimePngSha256, ['sources', part.id, 'runtimePngPath']))
   }
 
   for (const rig of catalog.rigs) {
+    if (catalog.version === '0.3.0') {
+      const exactBodyRoots = catalog.parts.filter(part => (
+        part.slotId === 'bodyFrame'
+        && part.composition?.mode === 'interface'
+        && part.composition.variantsByRig[rig.id] !== undefined
+      )).map(part => `${part.id}:${rig.id}`)
+      if (exactBodyRoots.length === 0 || exactBodyRoots.every(sourceId => !indexed.has(sourceId))) {
+        diagnostics.push(error('PRODUCTION_SOURCE_MISSING', ['sources', rig.sourceId ?? rig.id], `Rig ${rig.id} must resolve through a canonical exact body/root source.`))
+      }
+      continue
+    }
     if (rig.sourceId === undefined) {
       diagnostics.push(error('PRODUCTION_RIG_METADATA_MISSING', ['rigs', rig.id], `Rig ${rig.id} has no sourceId.`))
       continue

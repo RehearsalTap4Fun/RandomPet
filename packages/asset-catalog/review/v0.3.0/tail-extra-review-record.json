@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "task9-tail-extra-agent-review-v1",
+  "status": "agent-reviewed-approved",
+  "reviewer": "Codex delegated visual review",
+  "scope": "18 exact-rig tail and extra-appendage variants plus six tail/extra transition bridges",
+  "contactSheetPath": "asset-source/v0.3.0/generation/task9-review/tail-extra-catalog-contact-sheet.png",
+  "contactSheetSha256": "20a339e1e1bbda79eacd82697d463fe80f14a98e0fafec8db84072b0c7d0f8a4",
+  "checks": {
+    "variantsReviewed": 18,
+    "outlineHaloRejected": 0,
+    "wrongComponentCountRejected": 0,
+    "wrongRootDirectionRejected": 0,
+    "leftRightSemanticFailures": 0,
+    "styleConsistencyFailures": 0
+  },
+  "structuralMatrixReview": {
+    "status": "agent-part-review-approved",
+    "userApprovalRequired": false,
+    "entryCount": 39,
+    "entryCountByRig": {
+      "blob": 15,
+      "biped": 15,
+      "floating": 9
+    },
+    "indexPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-index.json",
+    "indexSha256": "931e460701cccc7526873f15a2aa9f6dae1efdca53e578fe21e4beee20ff5d58",
+    "machineGates": {
+      "failureCount": 0,
+      "receiverCoverageMin": 0.9,
+      "plugCoverageMin": 0.9,
+      "largestComponentRatioMin": 0.99,
+      "centerlineGapPixelsMax": 2,
+      "childOutsideBodyRatioMin": 0.614
+    },
+    "observedExtrema": {
+      "receiverCoverageMin": 0.9215992647058824,
+      "plugCoverageMin": 0.9215222183547975,
+      "largestComponentRatioMin": 0.9999837938154258,
+      "centerlineGapPixelsMax": 0.0352941176470587,
+      "childOutsideBodyRatioMin": 0.6398863319545027
+    },
+    "visualChecks": {
+      "sheetsReviewed": 6,
+      "entriesReviewed": 39,
+      "clippedOrOutOfFrame": 0,
+      "brokenOrDetachedSeams": 0,
+      "identityLossAfterDistalFit": 0,
+      "unnaturalDistalWarp": 0
+    },
+    "decision": "approved"
+  },
+  "decision": "approved for Task 9 catalog integration and structural-matrix agent part review"
+}

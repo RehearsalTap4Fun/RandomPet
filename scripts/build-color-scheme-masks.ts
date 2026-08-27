@@ -33,6 +33,7 @@ interface ColorSchemeRuntimeInput {
   runtimeWebpPath: string
   maskRoot: string
   rigs: Array<{ rigId: string; assetPath: string }>
+  preserveRuntimeBytes?: boolean
 }
 
 interface ColorSchemeRuntimeAudit {
@@ -51,6 +52,7 @@ interface ColorSchemeRuntimeAudit {
     sha256: Record<'primary' | 'secondary' | 'accent', string>
     metrics: ColorMaskMetrics
   }>
+  maskBasis?: 'v0.3-structural-union-alpha-v1'
 }
 
 interface RawRgba {
@@ -292,16 +294,18 @@ export async function buildColorSchemeRuntime(input: ColorSchemeRuntimeInput): P
     }
   }
 
-  const firstRig = await sharp(input.rigs[0]!.assetPath).metadata()
-  if (firstRig.width === undefined || firstRig.height === undefined) throw new Error('Cannot read rig dimensions.')
-  const transparent = sharp({
-    create: { width: firstRig.width, height: firstRig.height, channels: 4, background: '#00000000' },
-  })
-  await mkdir(dirname(input.runtimePngPath), { recursive: true })
-  await Promise.all([
-    transparent.clone().png(PNG_OPTIONS).toFile(input.runtimePngPath),
-    transparent.clone().webp({ lossless: true }).toFile(input.runtimeWebpPath),
-  ])
+  if (!input.preserveRuntimeBytes) {
+    const firstRig = await sharp(input.rigs[0]!.assetPath).metadata()
+    if (firstRig.width === undefined || firstRig.height === undefined) throw new Error('Cannot read rig dimensions.')
+    const transparent = sharp({
+      create: { width: firstRig.width, height: firstRig.height, channels: 4, background: '#00000000' },
+    })
+    await mkdir(dirname(input.runtimePngPath), { recursive: true })
+    await Promise.all([
+      transparent.clone().png(PNG_OPTIONS).toFile(input.runtimePngPath),
+      transparent.clone().webp({ lossless: true }).toFile(input.runtimeWebpPath),
+    ])
+  }
   const [runtimePng, runtimeWebp] = await Promise.all([
     readFile(input.runtimePngPath), readFile(input.runtimeWebpPath),
   ])
@@ -316,6 +320,65 @@ export async function buildColorSchemeRuntime(input: ColorSchemeRuntimeInput): P
     runtimeWebpSha256: sha256(runtimeWebp),
     rigMasks,
   }
+}
+
+export async function buildV03StructuralUnionColorMasks(root = process.cwd()): Promise<ColorSchemeRuntimeAudit[]> {
+  const sourceRoot = join(root, 'asset-source', 'v0.3.0')
+  const runtimeRoot = join(root, 'packages', 'asset-catalog', 'assets', 'v0.3.0')
+  const unionIndex = JSON.parse(await readFile(
+    join(sourceRoot, 'retained-v0.2', 'structural-union-alpha-index.json'), 'utf8',
+  )) as { rigs: Array<{ rigId: string, path: string, pngSha256: string }> }
+  if (unionIndex.rigs.length !== 3) throw new Error('v0.3 color masks require three structural-union alpha inputs.')
+  const catalogPath = join(root, 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json')
+  const catalog = JSON.parse(await readFile(catalogPath, 'utf8')) as any
+  const sourceIndexPath = join(root, 'packages', 'asset-catalog', 'source-index-v0.3.0.json')
+  const sourceIndex = JSON.parse(await readFile(sourceIndexPath, 'utf8')) as any
+  const processedPath = join(sourceRoot, 'production', 'processed-index.json')
+  const processed = JSON.parse(await readFile(processedPath, 'utf8')) as any
+  const schemes = ['color_deep_sea_coral', 'color_fungal_amber', 'color_shadow_violet']
+  const audits: ColorSchemeRuntimeAudit[] = []
+  for (const sourceId of schemes) {
+    const audit = await buildColorSchemeRuntime({
+      sourceId,
+      sourcePath: join(sourceRoot, 'retained-v0.2', 'masters', `${sourceId}.png`),
+      runtimePngPath: join(runtimeRoot, 'parts', `${sourceId}.png`),
+      runtimeWebpPath: join(runtimeRoot, 'parts', `${sourceId}.webp`),
+      maskRoot: join(runtimeRoot, 'masks'),
+      preserveRuntimeBytes: true,
+      rigs: unionIndex.rigs.map(rig => ({ rigId: rig.rigId, assetPath: join(root, rig.path) })),
+    })
+    audit.maskBasis = 'v0.3-structural-union-alpha-v1'
+    const part = catalog.parts.find((candidate: any) => candidate.id === sourceId)
+    if (part === undefined) throw new Error(`Missing v0.3 catalog color part ${sourceId}.`)
+    part.rigMaskPaths = Object.fromEntries(Object.entries(audit.rigMasks).map(([rigId, value]) => [rigId, Object.fromEntries(
+      Object.entries(value.paths).map(([role, path]) => [role, path.replaceAll('\\', '/').split('/assets/v0.3.0/')[1]]),
+    )]))
+    part.rigMaskSha256 = Object.fromEntries(Object.entries(audit.rigMasks).map(([rigId, value]) => [rigId, value.sha256]))
+    for (const index of [sourceIndex, processed.sourceIndex]) {
+      const source = index.sources.find((candidate: any) => candidate.sourceId === sourceId)
+      if (source === undefined) throw new Error(`Missing retained source-index record ${sourceId}.`)
+      source.paletteMaskAudit = audit
+      source.runtimePngPath = audit.runtimePngPath
+      source.runtimePngSha256 = audit.runtimePngSha256
+      source.runtimeWebpPath = audit.runtimeWebpPath
+      source.runtimeWebpSha256 = audit.runtimeWebpSha256
+    }
+    audits.push(audit)
+  }
+  await writeFile(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`)
+  await writeFile(join(dirname(catalogPath), 'parts.json'), `${JSON.stringify(catalog.parts, null, 2)}\n`)
+  await writeFile(sourceIndexPath, `${JSON.stringify(sourceIndex, null, 2)}\n`)
+  await writeFile(processedPath, `${JSON.stringify(processed, null, 2)}\n`)
+  const provenancePath = join(sourceRoot, 'provenance', 'v0.3-structural-union-color-masks.json')
+  await mkdir(dirname(provenancePath), { recursive: true })
+  await writeFile(provenancePath, `${JSON.stringify({
+    schemaVersion: 'qmonster-v0.3-structural-union-color-masks-v1',
+    catalogVersion: '0.3.0',
+    retainedRuntimeBytesPreserved: true,
+    structuralUnionIndexPath: 'asset-source/v0.3.0/retained-v0.2/structural-union-alpha-index.json',
+    audits,
+  }, null, 2)}\n`)
+  return audits
 }
 
 export async function buildProductionColorSchemeMasks(input: {
@@ -362,6 +425,11 @@ if (process.argv[1]?.endsWith('build-color-scheme-masks.ts')) {
     throw new Error('Usage: tsx scripts/build-color-scheme-masks.ts --version <release-version>')
   }
   const paths = productionPaths(version)
+  if (version === '0.3.0') {
+    const audits = await buildV03StructuralUnionColorMasks()
+    console.log(JSON.stringify({ schemes: audits.length, masks: audits.length * 9, basis: 'structural-union-alpha' }))
+    process.exit(0)
+  }
   const audits = await buildProductionColorSchemeMasks({
     sourceRoot: paths.sourceRoot,
     runtimeAssetRoot: paths.assetDirectory,

@@ -60,7 +60,11 @@ export function makeValidInterfaceSourceManifest(): any {
 }
 
 function profile(assetId: string, id: string, role: 'receiver' | 'plug'): any {
-  const connectorClass = id.startsWith('shoulder') ? 'shoulder' : id.startsWith('hip') ? 'hip' : 'neck'
+  const connectorClass = id.startsWith('shoulder') ? 'shoulder'
+    : id.startsWith('hip') ? 'hip'
+      : id.startsWith('tail') ? 'tail'
+        : id.startsWith('extra') ? 'extra'
+          : 'neck'
   return {
     id,
     role,
@@ -83,6 +87,45 @@ function profile(assetId: string, id: string, role: 'receiver' | 'plug'): any {
 }
 
 describe('parseInterfaceSourceManifest', () => {
+  it('accepts tail and extra plug rosters with matching receiver and bridge classes', () => {
+    const manifest = makeValidInterfaceSourceManifest()
+    const bodies = manifest.assets.filter((asset: any) => asset.slotId === 'bodyFrame')
+    for (const body of bodies) {
+      body.connectors.push(
+        profile(body.id, 'tailRoot', 'receiver'),
+        profile(body.id, 'extraLeft', 'receiver'),
+        profile(body.id, 'extraRight', 'receiver'),
+      )
+    }
+    manifest.assets.push(
+      {
+        ...structuredClone(manifest.assets.find((asset: any) => asset.id === 'head_mushroom_cap')),
+        id: 'tail_fish_fan',
+        slotId: 'tail',
+        connectors: [profile('tail_fish_fan', 'tailRoot', 'plug')],
+        renderNodes: [{ id: 'tail_fish_fan-tailRoot', connectorId: 'tailRoot', sourcePngPath: 'asset-source/v0.3.0/structural/biped/nodes/tail_fish_fan/tailRoot.png' }],
+      },
+      {
+        ...structuredClone(manifest.assets.find((asset: any) => asset.id === 'arms_short_plush')),
+        id: 'extra_moth_wings',
+        slotId: 'extraAppendage',
+        connectors: [profile('extra_moth_wings', 'extraLeft', 'plug'), profile('extra_moth_wings', 'extraRight', 'plug')],
+        renderNodes: [
+          { id: 'extra_moth_wings-extraLeft', connectorId: 'extraLeft', sourcePngPath: 'asset-source/v0.3.0/structural/biped/nodes/extra_moth_wings/extraLeft.png' },
+          { id: 'extra_moth_wings-extraRight', connectorId: 'extraRight', sourcePngPath: 'asset-source/v0.3.0/structural/biped/nodes/extra_moth_wings/extraRight.png' },
+        ],
+      },
+    )
+    manifest.bridges.push(
+      { ...structuredClone(manifest.bridges[0]), id: 'biped-tail-bridge', connectorClass: 'tail', sourcePngPath: 'asset-source/v0.3.0/production/bridges/tail.png', neutralPngPath: 'assets/v0.3.0/bridges/biped/tail.png', neutralWebpPath: 'assets/v0.3.0/bridges/biped/tail.webp', frontMaskPath: 'assets/v0.3.0/bridges/biped/tail-front.png', backMaskPath: 'assets/v0.3.0/bridges/biped/tail-back.png' },
+      { ...structuredClone(manifest.bridges[0]), id: 'biped-extra-bridge', connectorClass: 'extra', sourcePngPath: 'asset-source/v0.3.0/production/bridges/extra.png', neutralPngPath: 'assets/v0.3.0/bridges/biped/extra.png', neutralWebpPath: 'assets/v0.3.0/bridges/biped/extra.webp', frontMaskPath: 'assets/v0.3.0/bridges/biped/extra-front.png', backMaskPath: 'assets/v0.3.0/bridges/biped/extra-back.png' },
+    )
+
+    expect(parseInterfaceSourceManifest(manifest).ok).toBe(true)
+    manifest.assets.find((asset: any) => asset.id === 'extra_moth_wings').renderNodes.pop()
+    expect(parseInterfaceSourceManifest(manifest).ok).toBe(false)
+  })
+
   it('requires exact biped slice assets, connector masks, and three bridge classes', () => {
     expect(parseInterfaceSourceManifest(makeValidInterfaceSourceManifest()).ok).toBe(true)
     const invalid = makeValidInterfaceSourceManifest()

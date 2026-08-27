@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "task9-receiver-guides-v1",
+  "files": [
+    {
+      "assetId": "body_blob_round",
+      "connectorId": "tailRoot",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_round-tailRoot-receiver-guide.png",
+      "guideSha256": "94f04f0fb69f56f2ae20c54fd68dd2900409a8fb9739d3d038c35c5b1757cd33",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_round-tailRoot-receiver-mask.png",
+      "maskSha256": "da63f2cd5e977598ebf699d5ef47db20ff9995976ba1d35c8ee0fdd862013b08"
+    },
+    {
+      "assetId": "body_blob_round",
+      "connectorId": "extraLeft",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_round-extraLeft-receiver-guide.png",
+      "guideSha256": "7b45ffc5d7e57a4f88e4f9535e7f9a3e6796847f2c839bc422617401ea8b645b",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_round-extraLeft-receiver-mask.png",
+      "maskSha256": "39c902a9c16d6b57882de4fde6dc58effef3613a6fa7650f5178747e3a87a44a"
+    },
+    {
+      "assetId": "body_blob_round",
+      "connectorId": "extraRight",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_round-extraRight-receiver-guide.png",
+      "guideSha256": "436b180a9d0787a763c0fab9c7886e9348239deed8652d668adcc1d612be2e53",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_round-extraRight-receiver-mask.png",
+      "maskSha256": "bcfbd2c39b6257459aced455d45fe8470f8342f1f28a149feb03f7b3ce445c09"
+    },
+    {
+      "assetId": "body_blob_wide",
+      "connectorId": "tailRoot",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_wide-tailRoot-receiver-guide.png",
+      "guideSha256": "533cbe5f12eaaf1b92db4cb024d76e375ae697e6f4e0483136cea2099475dc90",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_wide-tailRoot-receiver-mask.png",
+      "maskSha256": "1bcaed94b9e77ac44c007b2d4790bbe727c245a7e1307d81df74ac408ea64ae0"
+    },
+    {
+      "assetId": "body_blob_wide",
+      "connectorId": "extraLeft",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_wide-extraLeft-receiver-guide.png",
+      "guideSha256": "7fd1ffbcf8971dece6634b4405a5bae3efcb7904e7193a1dd32c540b7ab9a80e",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_wide-extraLeft-receiver-mask.png",
+      "maskSha256": "7c77b7ad7dffb822856c7715664e9f421121758d70bd20a6e79aabb21da9c026"
+    },
+    {
+      "assetId": "body_blob_wide",
+      "connectorId": "extraRight",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_wide-extraRight-receiver-guide.png",
+      "guideSha256": "97a378b79a49d36ac15f14165700b50341e267ec8877e0b622c16b67ae2d5ef2",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_blob_wide-extraRight-receiver-mask.png",
+      "maskSha256": "2567df24fa84003ed0736fc2dc4a45ca40e14fa5a1386e82bda94460d00c53af"
+    },
+    {
+      "assetId": "body_biped_peanut",
+      "connectorId": "tailRoot",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_peanut-tailRoot-receiver-guide.png",
+      "guideSha256": "e6eebe3510f3552c004a89929746647cd5d011ec32bd08e36d2e8400e3d0021d",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_peanut-tailRoot-receiver-mask.png",
+      "maskSha256": "8c0cd7e9b9a19b9a402f610967e7ba66c720156aaf47238d5aef1863fa339744"
+    },
+    {
+      "assetId": "body_biped_peanut",
+      "connectorId": "extraLeft",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_peanut-extraLeft-receiver-guide.png",
+      "guideSha256": "beecc97f14e6af05d300304145ed0ea1cd2216001e8aae2f4d43392d8102f752",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_peanut-extraLeft-receiver-mask.png",
+      "maskSha256": "61842d1b7c7855e2cf6820ee132d3640fb3b1958e982ce867fe7098ce5d52a5b"
+    },
+    {
+      "assetId": "body_biped_peanut",
+      "connectorId": "extraRight",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_peanut-extraRight-receiver-guide.png",
+      "guideSha256": "508837860f1378cff0231980da118852fd503dcb44c06db99c1e682507e35572",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_peanut-extraRight-receiver-mask.png",
+      "maskSha256": "a7e0fb1dfd3097901398bdc52799c05c500930204aeff50c579863ad1d9a4128"
+    },
+    {
+      "assetId": "body_biped_tall",
+      "connectorId": "tailRoot",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_tall-tailRoot-receiver-guide.png",
+      "guideSha256": "a9a99faf2111a2b1be024a396e46b83035a86f4ff703f8066a912b4cdfaf1ff5",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_tall-tailRoot-receiver-mask.png",
+      "maskSha256": "3f42e6040abf936a0471c267a5166b754b8a8347d094a6c0db78a60f763bd663"
+    },
+    {
+      "assetId": "body_biped_tall",
+      "connectorId": "extraLeft",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_tall-extraLeft-receiver-guide.png",
+      "guideSha256": "a19f7e1474a0c8ef213d0bf90c94ad11cd119b317406cec49417ec30b59b73db",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_tall-extraLeft-receiver-mask.png",
+      "maskSha256": "6867a945ef7c08a5d45d70b8b12aa03a62a378e6c8105743fff9b14a5eeb02c9"
+    },
+    {
+      "assetId": "body_biped_tall",
+      "connectorId": "extraRight",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_tall-extraRight-receiver-guide.png",
+      "guideSha256": "75929b1031ecbf540ff85fc6ff0cd5a5a8827a8bfac042d1130098b3dd4a1b64",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_biped_tall-extraRight-receiver-mask.png",
+      "maskSha256": "5089dd3086e5f1fc7ee070511e1f81efebdd20759386af2844ce43ac04b453d3"
+    },
+    {
+      "assetId": "body_floating_drop",
+      "connectorId": "tailRoot",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_floating_drop-tailRoot-receiver-guide.png",
+      "guideSha256": "2cf8826f76a7804bbb70c9f689ca7222509b34f2d6313a334f72cbb2a12de5e1",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_floating_drop-tailRoot-receiver-mask.png",
+      "maskSha256": "e13ea44a4afcb357fe1bdcd7a6c4fa88eb64cdd54f08ee726dee294a43cbd4bf"
+    },
+    {
+      "assetId": "body_floating_drop",
+      "connectorId": "extraLeft",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_floating_drop-extraLeft-receiver-guide.png",
+      "guideSha256": "2affaf4534af4437f7a0926a7a4abe2dde8d645693702b32b81b3886fc2104e6",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_floating_drop-extraLeft-receiver-mask.png",
+      "maskSha256": "aff9272e4f6e8048742a7f0542cdac05c57eba0888d707bde41bf270eb0db736"
+    },
+    {
+      "assetId": "body_floating_drop",
+      "connectorId": "extraRight",
+      "role": "receiver",
+      "guidePath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_floating_drop-extraRight-receiver-guide.png",
+      "guideSha256": "70ec813b279be643e822111c56046fa73bdeeeeac0da657b248821d20871ca8a",
+      "maskPath": "asset-source/v0.3.0/generation/task9-review/receiver-guides/body_floating_drop-extraRight-receiver-mask.png",
+      "maskSha256": "49cb7de36060ff9195f2f67681690381ffdde48eec82c760b4cb16e2013bacf9"
+    }
+  ]
+}

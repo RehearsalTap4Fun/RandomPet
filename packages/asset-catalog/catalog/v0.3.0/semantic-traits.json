@@ -701,7 +701,9 @@
     ],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "tail_fish_fan"
+      ],
       "sourceSlots": [
         "tail"
       ]
@@ -721,7 +723,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "tail_soft_curl"
+      ],
       "sourceSlots": [
         "tail"
       ]
@@ -739,7 +743,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "tail_mushroom_cluster"
+      ],
       "sourceSlots": [
         "tail"
       ]
@@ -760,7 +766,9 @@
     ],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "extra_moth_wings"
+      ],
       "sourceSlots": [
         "extraAppendage"
       ]
@@ -778,7 +786,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "extra_soft_tentacles"
+      ],
       "sourceSlots": [
         "extraAppendage"
       ]
@@ -796,7 +806,9 @@
     "excludes": [],
     "boosts": {},
     "visualMapping": {
-      "sourcePartIds": [],
+      "sourcePartIds": [
+        "extra_side_fins"
+      ],
       "sourceSlots": [
         "extraAppendage"
       ]
@@ -1224,10 +1236,13 @@
     "excludes": [
       "quirk_spore_sneeze"
     ],
-    "boosts": {},
+    "boosts": {
+      "tail_fish_fan": 1.15
+    },
     "visualMapping": {
       "effectPartIds": [],
       "suggestedParts": [
+        "tail_fish_fan",
         "arms_paddle"
       ]
     }

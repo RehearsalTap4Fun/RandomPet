@@ -87,11 +87,14 @@ export function resolvedFsPath(path: string): string {
   return resolve(path.slice('/@fs/'.length))
 }
 
-export function browserCatalog(input: Catalog): Catalog {
+export function browserCatalog(input: Catalog, options: {
+  activeStructuralSlots?: readonly VisualSlotId[]
+} = {}): Catalog {
   const catalog = structuredClone(input)
+  const activeStructuralSlots = new Set(options.activeStructuralSlots ?? ['bodyFrame', 'headShape', 'arms', 'legs'])
   for (const part of catalog.parts) {
     part.themeIds = ['deep-sea', 'fungal', 'shadow']; part.themeWeights = { 'deep-sea': 1, fungal: 1, shadow: 1 }
-    if (part.composition !== undefined && !['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)) {
+    if (part.composition !== undefined && !activeStructuralSlots.has(part.slotId)) {
       part.composition.isNone = true
       if (part.composition.mode !== 'interface') part.composition.renderNodes = []
     }

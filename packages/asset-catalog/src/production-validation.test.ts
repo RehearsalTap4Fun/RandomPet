@@ -11,6 +11,7 @@ import { buildProductionEvidenceManifest } from './evidence-root.js'
 import { loadCatalog } from './load-catalog.js'
 import {
   validateNoStaleRuntimeAssets,
+  validateBridgeSplitAlpha,
   validateProductionInterfaceResources,
   validateProductionMetadata,
   validateProductionSourceIndex,
@@ -106,6 +107,26 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('accepts a possibly empty bridge split layer only when the pair exactly partitions neutral alpha', () => {
+    const transparent = 0
+    const opaque = 255
+    expect(validateBridgeSplitAlpha(
+      Uint8Array.from([opaque, opaque, transparent]),
+      Uint8Array.from([transparent, transparent, transparent]),
+      Uint8Array.from([opaque, opaque, transparent]),
+    )).toEqual([])
+    expect(validateBridgeSplitAlpha(
+      Uint8Array.from([opaque, opaque, transparent]),
+      Uint8Array.from([opaque, transparent, transparent]),
+      Uint8Array.from([opaque, opaque, transparent]),
+    )).toContain('overlap')
+    expect(validateBridgeSplitAlpha(
+      Uint8Array.from([opaque, opaque, transparent]),
+      Uint8Array.from([opaque, transparent, transparent]),
+      Uint8Array.from([transparent, transparent, transparent]),
+    )).toContain('union-mismatch')
+  })
+
   it('validates v0.3 connector and bridge hashes from real committed bytes plus review provenance', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-interface-production-'))
     temporaryDirectories.push(root)
@@ -157,7 +178,10 @@ describe('strict production catalog validation', () => {
       }
       const target = join(assetRoot, runtimePath)
       await mkdir(dirname(target), { recursive: true })
-      const image = sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="2048"><rect width="1024" height="2048" fill="white"/></svg>'))
+      const isBridgeResource = hashField.startsWith('neutral') || hashField === 'frontMaskSha256' || hashField === 'backMaskSha256'
+      const image = isBridgeResource
+        ? sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="512" height="256"><rect width="256" height="256" fill="white"/></svg>'))
+        : sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="2048"><rect width="1024" height="2048" fill="white"/></svg>'))
       if (runtimePath.endsWith('.webp')) await image.webp({ lossless: true }).toFile(target)
       else await image.png().toFile(target)
       ;((hashField.startsWith('neutral') || hashField === 'frontMaskSha256' || hashField === 'backMaskSha256') ? bridge : variant.connectors[0] as any)[hashField] = createHash('sha256').update(await readFile(target)).digest('hex')
@@ -169,7 +193,7 @@ describe('strict production catalog validation', () => {
     const sourceIndex = {
       catalogVersion: '0.3.0',
       sources: [{
-        sourceId: body.id,
+        sourceId: `${body.id}:biped`,
         kind: 'interface-structural',
         sourcePngPath: `asset-source/v0.3.0/production/${body.id}.png`,
         sourcePngSha256: '1'.repeat(64),
@@ -184,8 +208,6 @@ describe('strict production catalog validation', () => {
         reviewRecordPath: 'packages/asset-catalog/review/v0.3.0/review-record.json',
         reviewRecordSha256: createHash('sha256').update(reviewBytes).digest('hex'),
         runtimeResources: [
-          { path: body.assetPath, sha256: body.assetSha256 },
-          { path: body.pngPath, sha256: body.pngSha256 },
           { path: variant.renderNodes[0]!.assetPath, sha256: variant.renderNodes[0]!.assetSha256 },
           { path: variant.renderNodes[0]!.pngPath, sha256: variant.renderNodes[0]!.pngSha256 },
           { path: variant.connectors[0]!.contourMaskPath, sha256: variant.connectors[0]!.contourMaskSha256 },
@@ -282,22 +304,95 @@ describe('strict production catalog validation', () => {
     ])
   })
 
+  it('keeps exact-rig runtime roots referenced by the canonical v0.3 source index while rejecting unbound files', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-source-index-runtime-'))
+    temporaryDirectories.push(root)
+    const catalog = makeInterfaceCatalogFixture()
+    await mkdir(join(root, 'structural', 'blob'), { recursive: true })
+    await writeFile(join(root, 'structural', 'blob', 'accepted-root.png'), 'accepted')
+    await writeFile(join(root, 'structural', 'blob', 'obsolete-root.png'), 'obsolete')
+    const sourceIndex = {
+      catalogVersion: '0.3.0',
+      sources: [{
+        sourceId: 'accepted-root:blob',
+        runtimeResources: [{
+          path: 'assets/v0.3.0/structural/blob/accepted-root.png',
+          sha256: '1'.repeat(64),
+        }],
+      }],
+    }
+
+    const diagnostics = await validateNoStaleRuntimeAssets(catalog, root, sourceIndex)
+
+    expect(diagnostics.filter(item => item.code === 'PRODUCTION_RUNTIME_STALE').map(item => item.path.join('/'))).toEqual([
+      'structural/blob/obsolete-root.png',
+    ])
+  })
+
+  it('keeps a runtime input referenced by the canonical hashed Task 6 integrity review', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-reviewed-runtime-'))
+    temporaryDirectories.push(root)
+    const catalog = makeInterfaceCatalogFixture()
+    const bytes = Buffer.from('approved input')
+    await writeFile(join(root, 'reviewed.png'), bytes)
+    await writeFile(join(root, 'obsolete.png'), 'obsolete')
+    const integrity = {
+      schemaVersion: 'task6-approved-input-integrity-v1',
+      allUnchanged: true,
+      files: [{
+        path: 'packages/asset-catalog/assets/v0.3.0/reviewed.png',
+        sha256: createHash('sha256').update(bytes).digest('hex'),
+      }],
+    }
+
+    const diagnostics = await validateNoStaleRuntimeAssets(catalog, root, undefined, integrity)
+
+    expect(diagnostics.filter(item => item.code === 'PRODUCTION_RUNTIME_STALE').map(item => item.path.join('/'))).toEqual([
+      'obsolete.png',
+    ])
+    expect(diagnostics.filter(item => item.code === 'ASSET_HASH_MISMATCH')).toEqual([])
+  })
+
+  it('rejects a Task 6 runtime integrity reference whose hash differs from live bytes', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-reviewed-runtime-hash-'))
+    temporaryDirectories.push(root)
+    const catalog = makeInterfaceCatalogFixture()
+    await writeFile(join(root, 'reviewed.png'), 'approved input')
+    const integrity = {
+      schemaVersion: 'task6-approved-input-integrity-v1',
+      allUnchanged: true,
+      files: [{
+        path: 'packages/asset-catalog/assets/v0.3.0/reviewed.png',
+        sha256: 'f'.repeat(64),
+      }],
+    }
+
+    const diagnostics = await validateNoStaleRuntimeAssets(catalog, root, undefined, integrity)
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'ASSET_HASH_MISMATCH',
+      path: ['task6Integrity', 'packages/asset-catalog/assets/v0.3.0/reviewed.png'],
+    }))
+  })
+
   it('binds production validation to the canonical manifest, exact source inventory, and one review hash', async () => {
     const catalog = makeInterfaceCatalogFixture()
     const parts = catalog.parts.filter(part => part.composition?.mode === 'interface').slice(0, 2)
     catalog.parts = parts
     catalog.transitionBridges = []
-    const sources = parts.map((part, index) => ({
-      sourceId: part.id,
+    const sources = parts.flatMap((part, partIndex) => Object.keys(
+      part.composition?.mode === 'interface' ? part.composition.variantsByRig : {},
+    ).map((rigId, rigIndex) => ({
+      sourceId: `${part.id}:${rigId}`,
       kind: 'interface-structural',
       sourceResources: [{ path: `asset-source/v0.3.0/production/${part.id}.png`, sha256: '1'.repeat(64) }],
       promptPath: 'asset-source/v0.3.0/prompts/structural-prompts.json',
       promptSha256: '2'.repeat(64),
       promptId: part.id,
       reviewRecordPath: 'packages/asset-catalog/review/v0.3.0/review-record.json',
-      reviewRecordSha256: String(index + 3).repeat(64),
+      reviewRecordSha256: String(partIndex + rigIndex + 3).repeat(64),
       runtimeResources: [],
-    }))
+    })))
     const diagnostics = await validateProductionInterfaceResources(catalog, 'missing-assets', {
       catalogVersion: '0.3.0',
       sources: [...sources, structuredClone(sources[0]), { ...structuredClone(sources[0]), sourceId: 'extra-interface' }],
@@ -870,6 +965,84 @@ describe('strict production catalog validation', () => {
       code: 'PRODUCTION_COLOR_MASK_PIXELS_MISMATCH',
       path: ['sources', 'color_deep_sea_coral', 'paletteMaskAudit', 'rigMasks', 'blob', 'metrics'],
     }))
+  })
+
+  it('validates v0.3 palette masks against committed structural-union alpha evidence', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const sourceIndex = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.3.0.json'), 'utf8'))
+
+    const diagnostics = await validateProductionSourceIndex(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.3.0'),
+      sourceIndex,
+    )
+
+    expect(diagnostics.filter(diagnostic => diagnostic.code.startsWith('PRODUCTION_COLOR_MASK'))).toEqual([])
+  })
+
+  it('resolves v0.3 catalog identities and rig roots from canonical exact-rig sources', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const original = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.3.0.json'), 'utf8'))
+    expect(original.sources).toHaveLength(102)
+
+    const baseline = await validateProductionSourceIndex(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.3.0'),
+      original,
+    )
+    expect(baseline.filter(diagnostic => diagnostic.code === 'PRODUCTION_SOURCE_MISSING')).toEqual([])
+
+    const missingExact = structuredClone(original)
+    missingExact.sources = missingExact.sources.filter((source: any) => source.sourceId !== 'tail_soft_curl:blob')
+    const diagnostics = await validateProductionSourceIndex(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.3.0'),
+      missingExact,
+    )
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_SOURCE_MISSING',
+      path: ['sources', 'tail_soft_curl:blob'],
+    }))
+  })
+
+  it('resolves v0.3 interface resource closure through every canonical exact-rig source', async () => {
+    const parsed = await loadCatalog(join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json'))
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const original = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.3.0.json'), 'utf8'))
+    const assetRoot = join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.3.0')
+    const manifestPath = join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json')
+
+    const baseline = await validateProductionInterfaceResources(parsed.value, assetRoot, original, { manifestPath })
+    expect(baseline.filter(diagnostic => diagnostic.code === 'PRODUCTION_INTERFACE_SOURCE_MISSING')).toEqual([])
+    expect(baseline.filter(diagnostic => diagnostic.code === 'PRODUCTION_INTERFACE_RUNTIME_INDEX_MISMATCH')).toEqual([])
+
+    const missingExact = structuredClone(original)
+    missingExact.sources = missingExact.sources.filter((source: any) => source.sourceId !== 'extra_side_fins:floating')
+    const diagnostics = await validateProductionInterfaceResources(parsed.value, assetRoot, missingExact, { manifestPath })
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_INTERFACE_SOURCE_MISSING',
+      path: ['sources', 'extra_side_fins:floating'],
+    }))
+  })
+
+  it('validates six Task 9 bridges against exact runtime resources, dimensions, and agent review', async () => {
+    const parsed = await loadCatalog(join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json'))
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const sourceIndex = JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.3.0.json'), 'utf8'))
+    const diagnostics = await validateProductionInterfaceResources(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.3.0'),
+      sourceIndex,
+    )
+    const task9BridgeDiagnostics = diagnostics.filter(diagnostic => (
+      diagnostic.code === 'ASSET_DIMENSION_INVALID'
+      || diagnostic.path.some(segment => /-(?:tail|extra)-bridge$/u.test(segment))
+    ))
+    expect(task9BridgeDiagnostics).toEqual([])
   })
 
   it('returns a nonzero production CLI status when candidate fallback evidence is deleted', async () => {

@@ -111,6 +111,9 @@ export function buildBridgeMesh(solved: SolvedConnector, contours?: BridgeContou
       row[row.length - 1]!.x - row[0]!.x,
       row[row.length - 1]!.y - row[0]!.y,
     )
+    const task9EndCap = solved.connectorId === 'tailRoot'
+      || solved.connectorId === 'extraLeft'
+      || solved.connectorId === 'extraRight'
     const targetSpan = Math.max(rowSpan(receiver), rowSpan(plug)) + 2
     const expand = (row: Point2D[], tangent: Point2D): Point2D[] => {
       const center = {
@@ -122,8 +125,31 @@ export function buildBridgeMesh(solved: SolvedConnector, contours?: BridgeContou
         return { x: center.x + tangent.x * offset, y: center.y + tangent.y * offset }
       })
     }
-    receiver = expand(receiver, solved.receiverTangent)
-    plug = expand(plug, solved.plugTangent)
+    if (task9EndCap) {
+      const axis = solved.receiverTangent
+      const projection = (point: Point2D) => point.x * axis.x + point.y * axis.y
+      const targetMin = Math.min(...receiver.map(projection), ...plug.map(projection)) - 1
+      const targetMax = Math.max(...receiver.map(projection), ...plug.map(projection)) + 1
+      const absoluteEndCap = (row: Point2D[]): Point2D[] => {
+        const center = {
+          x: (row[0]!.x + row[row.length - 1]!.x) / 2,
+          y: (row[0]!.y + row[row.length - 1]!.y) / 2,
+        }
+        const normalBase = {
+          x: center.x - axis.x * projection(center),
+          y: center.y - axis.y * projection(center),
+        }
+        return Array.from({ length: SIZE }, (_, column) => {
+          const along = interpolate(targetMin, targetMax, column / (SIZE - 1))
+          return { x: normalBase.x + axis.x * along, y: normalBase.y + axis.y * along }
+        })
+      }
+      receiver = absoluteEndCap(receiver)
+      plug = absoluteEndCap(plug)
+    } else {
+      receiver = expand(receiver, solved.receiverTangent)
+      plug = expand(plug, solved.plugTangent)
+    }
   }
   if (![...receiver, ...plug].every(finitePoint)) {
     throw new Error('Bridge mesh requires finite connector geometry.')

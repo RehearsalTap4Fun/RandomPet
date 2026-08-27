@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "task9-composition-statistics-v1",
+  "catalogVersion": "0.3.0",
+  "seedCount": 10000,
+  "seedPattern": "v03-composition-{00000..09999}",
+  "themeCycle": [
+    "deep-sea",
+    "fungal",
+    "shadow"
+  ],
+  "optionalNoneRateRange": {
+    "min": 0.35,
+    "max": 0.5
+  },
+  "optionalNoneRates": {
+    "headAppendage": 0.3599,
+    "tail": 0.3928,
+    "extraAppendage": 0.4776,
+    "effect": 0.3938
+  },
+  "maximumStrongFeatures": 2,
+  "maximumStrongFeaturesLimit": 2,
+  "maximumSurpriseSlots": 3,
+  "maximumSurpriseSlotsLimit": 3,
+  "diagnostics": []
+}

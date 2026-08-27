@@ -1,0 +1,2798 @@
+{
+  "schemaVersion": "qmonster-retained-coordinate-v1",
+  "headFeatureSockets": [
+    {
+      "partId": "head_mushroom_cap",
+      "rigId": "biped",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1160
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1273
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 790,
+          "y": 1050,
+          "width": 468,
+          "height": 295
+        }
+      ]
+    },
+    {
+      "partId": "head_mushroom_cap",
+      "rigId": "blob",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1072
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1128
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 920
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 770,
+          "y": 1020,
+          "width": 508,
+          "height": 331
+        }
+      ]
+    },
+    {
+      "partId": "head_mushroom_cap",
+      "rigId": "floating",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1109
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1165
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 296
+        }
+      ]
+    },
+    {
+      "partId": "head_round_dome",
+      "rigId": "biped",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1096
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1152
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 790,
+          "y": 1050,
+          "width": 468,
+          "height": 241
+        }
+      ]
+    },
+    {
+      "partId": "head_round_dome",
+      "rigId": "blob",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1033
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1089
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 920
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 770,
+          "y": 1020,
+          "width": 508,
+          "height": 273
+        }
+      ]
+    },
+    {
+      "partId": "head_round_dome",
+      "rigId": "floating",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1098
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1154
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 266
+        }
+      ]
+    },
+    {
+      "partId": "head_angler_bulb",
+      "rigId": "biped",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1160
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1224
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 790,
+          "y": 1050,
+          "width": 468,
+          "height": 313
+        }
+      ]
+    },
+    {
+      "partId": "head_angler_bulb",
+      "rigId": "blob",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1144
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1200
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 920
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 770,
+          "y": 1020,
+          "width": 508,
+          "height": 305
+        }
+      ]
+    },
+    {
+      "partId": "head_angler_bulb",
+      "rigId": "floating",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1160
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1229
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 341
+        }
+      ]
+    },
+    {
+      "partId": "head_shadow_hood",
+      "rigId": "biped",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1106
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1162
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 790,
+          "y": 1050,
+          "width": 468,
+          "height": 326
+        }
+      ]
+    },
+    {
+      "partId": "head_shadow_hood",
+      "rigId": "blob",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1045
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1101
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 920
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 770,
+          "y": 1020,
+          "width": 508,
+          "height": 262
+        }
+      ]
+    },
+    {
+      "partId": "head_shadow_hood",
+      "rigId": "floating",
+      "featureSockets": {
+        "eyes": {
+          "x": 1024,
+          "y": 1078
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 1134
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 940
+        }
+      },
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 234
+        }
+      ]
+    }
+  ],
+  "bodyStructuralUnions": [
+    {
+      "bodyId": "body_biped_peanut",
+      "rigId": "biped",
+      "contributorIds": [
+        "body_biped_peanut-body",
+        "head_mushroom_cap-biped-neck-natural-v2",
+        "arms_short_plush-shoulderLeft",
+        "arms_short_plush-shoulderRight",
+        "legs_webbed-hipLeft",
+        "legs_webbed-hipRight",
+        "tail_fish_fan-biped-tailRoot",
+        "extra_moth_wings-biped-extraLeft",
+        "extra_moth_wings-biped-extraRight"
+      ],
+      "structuralUnionSha256": "8b58a13491247aa55e74b01407cd4bec1680b519aa3a52fb703f98b75d7cd320",
+      "alphaBounds": {
+        "x": 131,
+        "y": 315,
+        "width": 1788,
+        "height": 1590
+      },
+      "socket": {
+        "x": 1065,
+        "y": 1026
+      }
+    },
+    {
+      "bodyId": "body_biped_tall",
+      "rigId": "biped",
+      "contributorIds": [
+        "body_biped_tall-body",
+        "head_mushroom_cap-biped-neck-natural-v2",
+        "arms_short_plush-shoulderLeft",
+        "arms_short_plush-shoulderRight",
+        "legs_webbed-hipLeft",
+        "legs_webbed-hipRight",
+        "tail_fish_fan-biped-tailRoot",
+        "extra_moth_wings-biped-extraLeft",
+        "extra_moth_wings-biped-extraRight"
+      ],
+      "structuralUnionSha256": "ed18cc2757c7392cd3cd13729531ecfcedbc2a9a0942c32d241c89d463566c60",
+      "alphaBounds": {
+        "x": 191,
+        "y": 135,
+        "width": 1668,
+        "height": 1910
+      },
+      "socket": {
+        "x": 1063,
+        "y": 978
+      }
+    },
+    {
+      "bodyId": "body_blob_round",
+      "rigId": "blob",
+      "contributorIds": [
+        "body_blob_round-blob-body",
+        "head_mushroom_cap-blob-neck-natural-v2",
+        "arms_short_plush-blob-shoulderLeft",
+        "arms_short_plush-blob-shoulderRight",
+        "legs_webbed-blob-hipLeft",
+        "legs_webbed-blob-hipRight",
+        "tail_fish_fan-blob-tailRoot",
+        "extra_moth_wings-blob-extraLeft",
+        "extra_moth_wings-blob-extraRight"
+      ],
+      "structuralUnionSha256": "1285924ff0457b6e60e527ea73a42af877428f95e4d0f7b2b53b8054c289e175",
+      "alphaBounds": {
+        "x": 207,
+        "y": 370,
+        "width": 1841,
+        "height": 1353
+      },
+      "socket": {
+        "x": 1158,
+        "y": 978
+      }
+    },
+    {
+      "bodyId": "body_blob_wide",
+      "rigId": "blob",
+      "contributorIds": [
+        "body_blob_wide-blob-body",
+        "head_mushroom_cap-blob-neck-natural-v2",
+        "arms_short_plush-blob-shoulderLeft",
+        "arms_short_plush-blob-shoulderRight",
+        "legs_webbed-blob-hipLeft",
+        "legs_webbed-blob-hipRight",
+        "tail_fish_fan-blob-tailRoot",
+        "extra_moth_wings-blob-extraLeft",
+        "extra_moth_wings-blob-extraRight"
+      ],
+      "structuralUnionSha256": "6f744fae3e30aa2b8d84c1874b525c1bc0eda0c62fdda4c197f2d1db11680d67",
+      "alphaBounds": {
+        "x": 63,
+        "y": 370,
+        "width": 1985,
+        "height": 1233
+      },
+      "socket": {
+        "x": 1099,
+        "y": 907
+      }
+    },
+    {
+      "bodyId": "body_floating_drop",
+      "rigId": "floating",
+      "contributorIds": [
+        "body_floating_drop-floating-body",
+        "head_mushroom_cap-floating-neck-natural-v2",
+        "arms_short_plush-floating-shoulderLeft",
+        "arms_short_plush-floating-shoulderRight",
+        "legs_webbed-floating-hipLeft",
+        "legs_webbed-floating-hipRight",
+        "tail_fish_fan-floating-tailRoot",
+        "extra_moth_wings-floating-extraLeft",
+        "extra_moth_wings-floating-extraRight"
+      ],
+      "structuralUnionSha256": "ae59a238850b253b194e57318a8a14e7dd0106f6f87e0bb0f64b426cd2e61b32",
+      "alphaBounds": {
+        "x": 244,
+        "y": 322,
+        "width": 1656,
+        "height": 1612
+      },
+      "socket": {
+        "x": 1103,
+        "y": 1069
+      }
+    }
+  ],
+  "parts": [
+    {
+      "partId": "eyes_glossy_pair",
+      "slotId": "eyes",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "eyes_glossy_pair_blob",
+          "assetPath": "parts/eyes_glossy_pair.webp",
+          "pngPath": "parts/eyes_glossy_pair.png",
+          "assetSha256": "05e266c2fc19dee879fbf4dba1b9d3f14cacc30bc8cb2b1e3ca1a102c61180bf",
+          "pngSha256": "d3d8adf36d45b53e1c8bc54ca3cc81260754054a13ba99c3b2aab7d7908e9c22",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 520,
+            "y": 415
+          },
+          "transform": {
+            "scale": 0.3567901234567901,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_glossy_pair_biped",
+          "assetPath": "parts/eyes_glossy_pair.webp",
+          "pngPath": "parts/eyes_glossy_pair.png",
+          "assetSha256": "05e266c2fc19dee879fbf4dba1b9d3f14cacc30bc8cb2b1e3ca1a102c61180bf",
+          "pngSha256": "d3d8adf36d45b53e1c8bc54ca3cc81260754054a13ba99c3b2aab7d7908e9c22",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 520,
+            "y": 415
+          },
+          "transform": {
+            "scale": 0.37530864197530867,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_glossy_pair_floating",
+          "assetPath": "parts/eyes_glossy_pair.webp",
+          "pngPath": "parts/eyes_glossy_pair.png",
+          "assetSha256": "05e266c2fc19dee879fbf4dba1b9d3f14cacc30bc8cb2b1e3ca1a102c61180bf",
+          "pngSha256": "d3d8adf36d45b53e1c8bc54ca3cc81260754054a13ba99c3b2aab7d7908e9c22",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 520,
+            "y": 415
+          },
+          "transform": {
+            "scale": 0.3469135802469136,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "eyes_asymmetric",
+      "slotId": "eyes",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "eyes_asymmetric_blob",
+          "assetPath": "parts/eyes_asymmetric.webp",
+          "pngPath": "parts/eyes_asymmetric.png",
+          "assetSha256": "e873f3fe935a8e2cd776a96df0490b433a1efaa4cb4e1453835ff73bdccc9019",
+          "pngSha256": "ebf2dd684394ae1f691226c37687e1a8d526503c9d7430e7da38b4b5b7df9ae0",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 564,
+            "y": 524
+          },
+          "transform": {
+            "scale": 0.3812664907651715,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_asymmetric_biped",
+          "assetPath": "parts/eyes_asymmetric.webp",
+          "pngPath": "parts/eyes_asymmetric.png",
+          "assetSha256": "e873f3fe935a8e2cd776a96df0490b433a1efaa4cb4e1453835ff73bdccc9019",
+          "pngSha256": "ebf2dd684394ae1f691226c37687e1a8d526503c9d7430e7da38b4b5b7df9ae0",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 564,
+            "y": 524
+          },
+          "transform": {
+            "scale": 0.40105540897097625,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_asymmetric_floating",
+          "assetPath": "parts/eyes_asymmetric.webp",
+          "pngPath": "parts/eyes_asymmetric.png",
+          "assetSha256": "e873f3fe935a8e2cd776a96df0490b433a1efaa4cb4e1453835ff73bdccc9019",
+          "pngSha256": "ebf2dd684394ae1f691226c37687e1a8d526503c9d7430e7da38b4b5b7df9ae0",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 564,
+            "y": 524
+          },
+          "transform": {
+            "scale": 0.370712401055409,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "eyes_triple_pearl",
+      "slotId": "eyes",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "eyes_triple_pearl_blob",
+          "assetPath": "parts/eyes_triple_pearl.webp",
+          "pngPath": "parts/eyes_triple_pearl.png",
+          "assetSha256": "2e5810a5823fa92df8175361c799075fd5715feaa3bebd13c5fa03b97d4d38cb",
+          "pngSha256": "6f553f3486310d63a2938bf6d334453037b874882c704c5e323583774eab2af6",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 506,
+            "y": 518
+          },
+          "transform": {
+            "scale": 0.4848993288590604,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_triple_pearl_biped",
+          "assetPath": "parts/eyes_triple_pearl.webp",
+          "pngPath": "parts/eyes_triple_pearl.png",
+          "assetSha256": "2e5810a5823fa92df8175361c799075fd5715feaa3bebd13c5fa03b97d4d38cb",
+          "pngSha256": "6f553f3486310d63a2938bf6d334453037b874882c704c5e323583774eab2af6",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 506,
+            "y": 518
+          },
+          "transform": {
+            "scale": 0.5100671140939598,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_triple_pearl_floating",
+          "assetPath": "parts/eyes_triple_pearl.webp",
+          "pngPath": "parts/eyes_triple_pearl.png",
+          "assetSha256": "2e5810a5823fa92df8175361c799075fd5715feaa3bebd13c5fa03b97d4d38cb",
+          "pngSha256": "6f553f3486310d63a2938bf6d334453037b874882c704c5e323583774eab2af6",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 506,
+            "y": 518
+          },
+          "transform": {
+            "scale": 0.4714765100671141,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "eyes_sleepy_crescent",
+      "slotId": "eyes",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "eyes_sleepy_crescent_blob",
+          "assetPath": "parts/eyes_sleepy_crescent.webp",
+          "pngPath": "parts/eyes_sleepy_crescent.png",
+          "assetSha256": "60f66fe3a766889ff6eb2f66c82de9f3ede693d0a61a67c13751685422398972",
+          "pngSha256": "24e10502fabdb115a48369ca7aa0b57fa967faeb9362c4b8b3aec75adfe2cfa4",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 531,
+            "y": 631
+          },
+          "transform": {
+            "scale": 0.43005952380952384,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_sleepy_crescent_biped",
+          "assetPath": "parts/eyes_sleepy_crescent.webp",
+          "pngPath": "parts/eyes_sleepy_crescent.png",
+          "assetSha256": "60f66fe3a766889ff6eb2f66c82de9f3ede693d0a61a67c13751685422398972",
+          "pngSha256": "24e10502fabdb115a48369ca7aa0b57fa967faeb9362c4b8b3aec75adfe2cfa4",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 531,
+            "y": 631
+          },
+          "transform": {
+            "scale": 0.4523809523809524,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_sleepy_crescent_floating",
+          "assetPath": "parts/eyes_sleepy_crescent.webp",
+          "pngPath": "parts/eyes_sleepy_crescent.png",
+          "assetSha256": "60f66fe3a766889ff6eb2f66c82de9f3ede693d0a61a67c13751685422398972",
+          "pngSha256": "24e10502fabdb115a48369ca7aa0b57fa967faeb9362c4b8b3aec75adfe2cfa4",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 531,
+            "y": 631
+          },
+          "transform": {
+            "scale": 0.4181547619047619,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "eyes_stalk_pair",
+      "slotId": "eyes",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "eyes_stalk_pair_blob",
+          "assetPath": "parts/eyes_stalk_pair.webp",
+          "pngPath": "parts/eyes_stalk_pair.png",
+          "assetSha256": "9abd858962b64a4ea10c312cb4c2cdaf06a7f9d3df2b9f08c444c23d9c87edaa",
+          "pngSha256": "e8f3e0dce78376d2248dee38e0ee405911490d6187a5c759bb4f50474be91328",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 521,
+            "y": 505
+          },
+          "transform": {
+            "scale": 0.30104166666666665,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_stalk_pair_biped",
+          "assetPath": "parts/eyes_stalk_pair.webp",
+          "pngPath": "parts/eyes_stalk_pair.png",
+          "assetSha256": "9abd858962b64a4ea10c312cb4c2cdaf06a7f9d3df2b9f08c444c23d9c87edaa",
+          "pngSha256": "e8f3e0dce78376d2248dee38e0ee405911490d6187a5c759bb4f50474be91328",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 521,
+            "y": 505
+          },
+          "transform": {
+            "scale": 0.31666666666666665,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "eyes_stalk_pair_floating",
+          "assetPath": "parts/eyes_stalk_pair.webp",
+          "pngPath": "parts/eyes_stalk_pair.png",
+          "assetSha256": "9abd858962b64a4ea10c312cb4c2cdaf06a7f9d3df2b9f08c444c23d9c87edaa",
+          "pngSha256": "e8f3e0dce78376d2248dee38e0ee405911490d6187a5c759bb4f50474be91328",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 521,
+            "y": 505
+          },
+          "transform": {
+            "scale": 0.29270833333333335,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "mouth_wide_grin",
+      "slotId": "mouthShape",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "mouth_wide_grin_blob",
+          "assetPath": "parts/mouth_wide_grin.webp",
+          "pngPath": "parts/mouth_wide_grin.png",
+          "assetSha256": "4e45bc296e13e092511ede1ea3456be0b86a7f10f2a024be02dc4195ae0b8ff3",
+          "pngSha256": "ff5f6023c7bbddfeb02134b13fa65df0a3332bbbb6d5211612009f3c11ec5763",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 562,
+            "y": 603
+          },
+          "transform": {
+            "scale": 0.272,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "mouth_wide_grin_biped",
+          "assetPath": "parts/mouth_wide_grin.webp",
+          "pngPath": "parts/mouth_wide_grin.png",
+          "assetSha256": "4e45bc296e13e092511ede1ea3456be0b86a7f10f2a024be02dc4195ae0b8ff3",
+          "pngSha256": "ff5f6023c7bbddfeb02134b13fa65df0a3332bbbb6d5211612009f3c11ec5763",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 562,
+            "y": 603
+          },
+          "transform": {
+            "scale": 0.28611764705882353,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "mouth_wide_grin_floating",
+          "assetPath": "parts/mouth_wide_grin.webp",
+          "pngPath": "parts/mouth_wide_grin.png",
+          "assetSha256": "4e45bc296e13e092511ede1ea3456be0b86a7f10f2a024be02dc4195ae0b8ff3",
+          "pngSha256": "ff5f6023c7bbddfeb02134b13fa65df0a3332bbbb6d5211612009f3c11ec5763",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 562,
+            "y": 603
+          },
+          "transform": {
+            "scale": 0.2644705882352941,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {
+        "blob": {
+          "sockets": {
+            "oralDetail": {
+              "x": 562,
+              "y": 603
+            }
+          }
+        },
+        "biped": {
+          "sockets": {
+            "oralDetail": {
+              "x": 562,
+              "y": 603
+            }
+          }
+        },
+        "floating": {
+          "sockets": {
+            "oralDetail": {
+              "x": 562,
+              "y": 603
+            }
+          }
+        }
+      }
+    },
+    {
+      "partId": "mouth_soft_pout",
+      "slotId": "mouthShape",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "mouth_soft_pout_blob",
+          "assetPath": "parts/mouth_soft_pout.webp",
+          "pngPath": "parts/mouth_soft_pout.png",
+          "assetSha256": "d7f0513e98c5224ba1bdb3b62eb50a5306aeb5867aaf38384371f60dad86e4f8",
+          "pngSha256": "c3721e18ff56d1270ffee110783fafc2b1d3c7038ec6630645cf25bb922438e2",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 520,
+            "y": 517
+          },
+          "transform": {
+            "scale": 0.3042105263157895,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "mouth_soft_pout_biped",
+          "assetPath": "parts/mouth_soft_pout.webp",
+          "pngPath": "parts/mouth_soft_pout.png",
+          "assetSha256": "d7f0513e98c5224ba1bdb3b62eb50a5306aeb5867aaf38384371f60dad86e4f8",
+          "pngSha256": "c3721e18ff56d1270ffee110783fafc2b1d3c7038ec6630645cf25bb922438e2",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 520,
+            "y": 517
+          },
+          "transform": {
+            "scale": 0.31999999999999995,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "mouth_soft_pout_floating",
+          "assetPath": "parts/mouth_soft_pout.webp",
+          "pngPath": "parts/mouth_soft_pout.png",
+          "assetSha256": "d7f0513e98c5224ba1bdb3b62eb50a5306aeb5867aaf38384371f60dad86e4f8",
+          "pngSha256": "c3721e18ff56d1270ffee110783fafc2b1d3c7038ec6630645cf25bb922438e2",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 520,
+            "y": 517
+          },
+          "transform": {
+            "scale": 0.2957894736842105,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {
+        "blob": {
+          "sockets": {
+            "oralDetail": {
+              "x": 520,
+              "y": 517
+            }
+          }
+        },
+        "biped": {
+          "sockets": {
+            "oralDetail": {
+              "x": 520,
+              "y": 517
+            }
+          }
+        },
+        "floating": {
+          "sockets": {
+            "oralDetail": {
+              "x": 520,
+              "y": 517
+            }
+          }
+        }
+      }
+    },
+    {
+      "partId": "mouth_soft_beak",
+      "slotId": "mouthShape",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "mouth_soft_beak_blob",
+          "assetPath": "parts/mouth_soft_beak.webp",
+          "pngPath": "parts/mouth_soft_beak.png",
+          "assetSha256": "ef60af80676c994317a761314b26c01300998a979edb0e7b37404d112186a410",
+          "pngSha256": "00e1e277b04e972c483093b9f6d1e036d12fc2e957744737aa7b82d9ea48a03b",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 493,
+            "y": 594
+          },
+          "transform": {
+            "scale": 0.2607518796992481,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "mouth_soft_beak_biped",
+          "assetPath": "parts/mouth_soft_beak.webp",
+          "pngPath": "parts/mouth_soft_beak.png",
+          "assetSha256": "ef60af80676c994317a761314b26c01300998a979edb0e7b37404d112186a410",
+          "pngSha256": "00e1e277b04e972c483093b9f6d1e036d12fc2e957744737aa7b82d9ea48a03b",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 493,
+            "y": 594
+          },
+          "transform": {
+            "scale": 0.27428571428571424,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "mouth_soft_beak_floating",
+          "assetPath": "parts/mouth_soft_beak.webp",
+          "pngPath": "parts/mouth_soft_beak.png",
+          "assetSha256": "ef60af80676c994317a761314b26c01300998a979edb0e7b37404d112186a410",
+          "pngSha256": "00e1e277b04e972c483093b9f6d1e036d12fc2e957744737aa7b82d9ea48a03b",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 493,
+            "y": 594
+          },
+          "transform": {
+            "scale": 0.25353383458646617,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {
+        "blob": {
+          "sockets": {
+            "oralDetail": {
+              "x": 493,
+              "y": 594
+            }
+          }
+        },
+        "biped": {
+          "sockets": {
+            "oralDetail": {
+              "x": 493,
+              "y": 594
+            }
+          }
+        },
+        "floating": {
+          "sockets": {
+            "oralDetail": {
+              "x": 493,
+              "y": 594
+            }
+          }
+        }
+      }
+    },
+    {
+      "partId": "mouth_vertical_oval",
+      "slotId": "mouthShape",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "mouth_vertical_oval_blob",
+          "assetPath": "parts/mouth_vertical_oval.webp",
+          "pngPath": "parts/mouth_vertical_oval.png",
+          "assetSha256": "d1e88fb0e79f4afda634fd3c053d82b021642393034e84182b17b51c7971a366",
+          "pngSha256": "b86ab4f0976f7feedbc3e11792e259ae465e855ccda2eb281346524c64e16318",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 512,
+            "y": 517
+          },
+          "transform": {
+            "scale": 0.23835051546391753,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "mouth_vertical_oval_biped",
+          "assetPath": "parts/mouth_vertical_oval.webp",
+          "pngPath": "parts/mouth_vertical_oval.png",
+          "assetSha256": "d1e88fb0e79f4afda634fd3c053d82b021642393034e84182b17b51c7971a366",
+          "pngSha256": "b86ab4f0976f7feedbc3e11792e259ae465e855ccda2eb281346524c64e16318",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 512,
+            "y": 517
+          },
+          "transform": {
+            "scale": 0.25072164948453607,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "mouth_vertical_oval_floating",
+          "assetPath": "parts/mouth_vertical_oval.webp",
+          "pngPath": "parts/mouth_vertical_oval.png",
+          "assetSha256": "d1e88fb0e79f4afda634fd3c053d82b021642393034e84182b17b51c7971a366",
+          "pngSha256": "b86ab4f0976f7feedbc3e11792e259ae465e855ccda2eb281346524c64e16318",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 512,
+            "y": 517
+          },
+          "transform": {
+            "scale": 0.23175257731958762,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {
+        "blob": {
+          "sockets": {
+            "oralDetail": {
+              "x": 512,
+              "y": 517
+            }
+          }
+        },
+        "biped": {
+          "sockets": {
+            "oralDetail": {
+              "x": 512,
+              "y": 517
+            }
+          }
+        },
+        "floating": {
+          "sockets": {
+            "oralDetail": {
+              "x": 512,
+              "y": 517
+            }
+          }
+        }
+      }
+    },
+    {
+      "partId": "oral_round_teeth",
+      "slotId": "oralDetail",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "oral_round_teeth_blob",
+          "assetPath": "parts/oral_round_teeth.webp",
+          "pngPath": "parts/oral_round_teeth.png",
+          "assetSha256": "80a546ac20c504423a702b359198ba5ee33754015bdf192753d27751628f4afb",
+          "pngSha256": "92fc77be1355093ce811b996816af242a2126a2846a3b79dc40d78c0ef07d74d",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 521,
+            "y": 606
+          },
+          "transform": {
+            "scale": 0.24595744680851064,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "oral_round_teeth_biped",
+          "assetPath": "parts/oral_round_teeth.webp",
+          "pngPath": "parts/oral_round_teeth.png",
+          "assetSha256": "80a546ac20c504423a702b359198ba5ee33754015bdf192753d27751628f4afb",
+          "pngSha256": "92fc77be1355093ce811b996816af242a2126a2846a3b79dc40d78c0ef07d74d",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 521,
+            "y": 606
+          },
+          "transform": {
+            "scale": 0.23047879616963063,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "oral_round_teeth_floating",
+          "assetPath": "parts/oral_round_teeth.webp",
+          "pngPath": "parts/oral_round_teeth.png",
+          "assetSha256": "80a546ac20c504423a702b359198ba5ee33754015bdf192753d27751628f4afb",
+          "pngSha256": "92fc77be1355093ce811b996816af242a2126a2846a3b79dc40d78c0ef07d74d",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 521,
+            "y": 606
+          },
+          "transform": {
+            "scale": 0.2206292749658003,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "oral_single_fang",
+      "slotId": "oralDetail",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "oral_single_fang_blob",
+          "assetPath": "parts/oral_single_fang.webp",
+          "pngPath": "parts/oral_single_fang.png",
+          "assetSha256": "62c523115a1f6b8f02580302b05fefbd4d51ec3e3415409fd17f36b12c123390",
+          "pngSha256": "2a9fd7d65ba0a35d2c0cb6a8c5670d3b14657822d6f553ff27b67b965be78e98",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 570,
+            "y": 584
+          },
+          "transform": {
+            "scale": 0.1484770642201835,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "oral_single_fang_biped",
+          "assetPath": "parts/oral_single_fang.webp",
+          "pngPath": "parts/oral_single_fang.png",
+          "assetSha256": "62c523115a1f6b8f02580302b05fefbd4d51ec3e3415409fd17f36b12c123390",
+          "pngSha256": "2a9fd7d65ba0a35d2c0cb6a8c5670d3b14657822d6f553ff27b67b965be78e98",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 570,
+            "y": 584
+          },
+          "transform": {
+            "scale": 0.15618348623853212,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "oral_single_fang_floating",
+          "assetPath": "parts/oral_single_fang.webp",
+          "pngPath": "parts/oral_single_fang.png",
+          "assetSha256": "62c523115a1f6b8f02580302b05fefbd4d51ec3e3415409fd17f36b12c123390",
+          "pngSha256": "2a9fd7d65ba0a35d2c0cb6a8c5670d3b14657822d6f553ff27b67b965be78e98",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 570,
+            "y": 584
+          },
+          "transform": {
+            "scale": 0.14436697247706423,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "oral_lolling_tongue",
+      "slotId": "oralDetail",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "oral_lolling_tongue_blob",
+          "assetPath": "parts/oral_lolling_tongue.webp",
+          "pngPath": "parts/oral_lolling_tongue.png",
+          "assetSha256": "4bd14ac0d6cd265f6f5c2fa28ed13b4009c3d11a405b8f4d2b980dd662ee647e",
+          "pngSha256": "545b13787dc2cd5e5eaccb80e016800abb2a789bcafed5a29cac03089c175378",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 516,
+            "y": 490
+          },
+          "transform": {
+            "scale": 0.14373001776198935,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "oral_lolling_tongue_biped",
+          "assetPath": "parts/oral_lolling_tongue.webp",
+          "pngPath": "parts/oral_lolling_tongue.png",
+          "assetSha256": "4bd14ac0d6cd265f6f5c2fa28ed13b4009c3d11a405b8f4d2b980dd662ee647e",
+          "pngSha256": "545b13787dc2cd5e5eaccb80e016800abb2a789bcafed5a29cac03089c175378",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 516,
+            "y": 490
+          },
+          "transform": {
+            "scale": 0.15119005328596805,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "oral_lolling_tongue_floating",
+          "assetPath": "parts/oral_lolling_tongue.webp",
+          "pngPath": "parts/oral_lolling_tongue.png",
+          "assetSha256": "4bd14ac0d6cd265f6f5c2fa28ed13b4009c3d11a405b8f4d2b980dd662ee647e",
+          "pngSha256": "545b13787dc2cd5e5eaccb80e016800abb2a789bcafed5a29cac03089c175378",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 516,
+            "y": 490
+          },
+          "transform": {
+            "scale": 0.1397513321492007,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "oral_gummy_ridges",
+      "slotId": "oralDetail",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "oral_gummy_ridges_blob",
+          "assetPath": "parts/oral_gummy_ridges.webp",
+          "pngPath": "parts/oral_gummy_ridges.png",
+          "assetSha256": "705e748768ab86cd8a2aff1cb6a9a960fd9d3f1347c8da9a9e563dd6396498f6",
+          "pngSha256": "d60ccd5584be9cefd8d5829ee7b971c3d3d206b2c3b730230b7d89d2e0defd08",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 532,
+            "y": 690
+          },
+          "transform": {
+            "scale": 0.21521276595744682,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "oral_gummy_ridges_biped",
+          "assetPath": "parts/oral_gummy_ridges.webp",
+          "pngPath": "parts/oral_gummy_ridges.png",
+          "assetSha256": "705e748768ab86cd8a2aff1cb6a9a960fd9d3f1347c8da9a9e563dd6396498f6",
+          "pngSha256": "d60ccd5584be9cefd8d5829ee7b971c3d3d206b2c3b730230b7d89d2e0defd08",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 532,
+            "y": 690
+          },
+          "transform": {
+            "scale": 0.2261476510067114,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "oral_gummy_ridges_floating",
+          "assetPath": "parts/oral_gummy_ridges.webp",
+          "pngPath": "parts/oral_gummy_ridges.png",
+          "assetSha256": "705e748768ab86cd8a2aff1cb6a9a960fd9d3f1347c8da9a9e563dd6396498f6",
+          "pngSha256": "d60ccd5584be9cefd8d5829ee7b971c3d3d206b2c3b730230b7d89d2e0defd08",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 532,
+            "y": 690
+          },
+          "transform": {
+            "scale": 0.2092553191489362,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "head_appendage_none",
+      "slotId": "headAppendage",
+      "isNone": true,
+      "renderNodes": [],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "head_horns_soft_nubs",
+      "slotId": "headAppendage",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "head_horns_soft_nubs_blob",
+          "assetPath": "parts/head_horns_soft_nubs.webp",
+          "pngPath": "parts/head_horns_soft_nubs.png",
+          "assetSha256": "31a1581d7fc9c6ae14491214158be02aecb0682791034e9424d1420725d0e849",
+          "pngSha256": "eb77375261eaea1c087a217b4aeadd26364d631ea746afd472cb1216bcd58a7c",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 500,
+            "y": 634
+          },
+          "transform": {
+            "scale": 0.5855907780979828,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "head_horns_soft_nubs_biped",
+          "assetPath": "parts/head_horns_soft_nubs.webp",
+          "pngPath": "parts/head_horns_soft_nubs.png",
+          "assetSha256": "31a1581d7fc9c6ae14491214158be02aecb0682791034e9424d1420725d0e849",
+          "pngSha256": "eb77375261eaea1c087a217b4aeadd26364d631ea746afd472cb1216bcd58a7c",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 500,
+            "y": 634
+          },
+          "transform": {
+            "scale": 0.5394812680115274,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "head_horns_soft_nubs_floating",
+          "assetPath": "parts/head_horns_soft_nubs.webp",
+          "pngPath": "parts/head_horns_soft_nubs.png",
+          "assetSha256": "31a1581d7fc9c6ae14491214158be02aecb0682791034e9424d1420725d0e849",
+          "pngSha256": "eb77375261eaea1c087a217b4aeadd26364d631ea746afd472cb1216bcd58a7c",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 500,
+            "y": 634
+          },
+          "transform": {
+            "scale": 0.5164265129682998,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "head_antennae_glow",
+      "slotId": "headAppendage",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "head_antennae_glow_blob",
+          "assetPath": "parts/head_antennae_glow.webp",
+          "pngPath": "parts/head_antennae_glow.png",
+          "assetSha256": "c565506cdeddf6ba705a096eecc0a8c8b2c8249c5fc8cab126f72e42cdb43c9b",
+          "pngSha256": "1bfa3b94bf5500953f089d43d71782eb28f8c28369e11fbd592a6261404b7d30",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 537,
+            "y": 445
+          },
+          "transform": {
+            "scale": 0.420873786407767,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "head_antennae_glow_biped",
+          "assetPath": "parts/head_antennae_glow.webp",
+          "pngPath": "parts/head_antennae_glow.png",
+          "assetSha256": "c565506cdeddf6ba705a096eecc0a8c8b2c8249c5fc8cab126f72e42cdb43c9b",
+          "pngSha256": "1bfa3b94bf5500953f089d43d71782eb28f8c28369e11fbd592a6261404b7d30",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 537,
+            "y": 445
+          },
+          "transform": {
+            "scale": 0.44271844660194176,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "head_antennae_glow_floating",
+          "assetPath": "parts/head_antennae_glow.webp",
+          "pngPath": "parts/head_antennae_glow.png",
+          "assetSha256": "c565506cdeddf6ba705a096eecc0a8c8b2c8249c5fc8cab126f72e42cdb43c9b",
+          "pngSha256": "1bfa3b94bf5500953f089d43d71782eb28f8c28369e11fbd592a6261404b7d30",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 537,
+            "y": 445
+          },
+          "transform": {
+            "scale": 0.4092233009708738,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "head_ears_floppy_fins",
+      "slotId": "headAppendage",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "head_ears_floppy_fins_blob",
+          "assetPath": "parts/head_ears_floppy_fins.webp",
+          "pngPath": "parts/head_ears_floppy_fins.png",
+          "assetSha256": "bb7678d607e328afcfcce807b7875582f6538eff57ca5ffdeffd89da4c714060",
+          "pngSha256": "56b1e0982f688769baa5c1c26c56860ba79345cd4585f0ec5ea16ffaac09808d",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 514,
+            "y": 556
+          },
+          "transform": {
+            "scale": 0.49022919179734625,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "head_ears_floppy_fins_biped",
+          "assetPath": "parts/head_ears_floppy_fins.webp",
+          "pngPath": "parts/head_ears_floppy_fins.png",
+          "assetSha256": "bb7678d607e328afcfcce807b7875582f6538eff57ca5ffdeffd89da4c714060",
+          "pngSha256": "56b1e0982f688769baa5c1c26c56860ba79345cd4585f0ec5ea16ffaac09808d",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 514,
+            "y": 556
+          },
+          "transform": {
+            "scale": 0.45162846803377565,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        },
+        {
+          "id": "head_ears_floppy_fins_floating",
+          "assetPath": "parts/head_ears_floppy_fins.webp",
+          "pngPath": "parts/head_ears_floppy_fins.png",
+          "assetSha256": "bb7678d607e328afcfcce807b7875582f6538eff57ca5ffdeffd89da4c714060",
+          "pngSha256": "56b1e0982f688769baa5c1c26c56860ba79345cd4585f0ec5ea16ffaac09808d",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "layer": "faceAndHeadwear",
+          "clipPolicy": "none",
+          "origin": {
+            "x": 514,
+            "y": 556
+          },
+          "transform": {
+            "scale": 0.4323281061519904,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-feature-socket+retained-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "surface_short_fur",
+      "slotId": "surfaceMaterial",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "surface_short_fur_blob",
+          "assetPath": "parts/surface_short_fur.webp",
+          "pngPath": "parts/surface_short_fur.png",
+          "assetSha256": "96bd837b9f4a1b2c21ec11d17e8c8d14bc5d0c903bf7c619719d8741a4034c92",
+          "pngSha256": "71d5e16928014a44588e1f28a23b7f6f479b772b71e3f594013c5e16c6c2c889",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "surface_short_fur_biped",
+          "assetPath": "parts/surface_short_fur.webp",
+          "pngPath": "parts/surface_short_fur.png",
+          "assetSha256": "96bd837b9f4a1b2c21ec11d17e8c8d14bc5d0c903bf7c619719d8741a4034c92",
+          "pngSha256": "71d5e16928014a44588e1f28a23b7f6f479b772b71e3f594013c5e16c6c2c889",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "surface_short_fur_floating",
+          "assetPath": "parts/surface_short_fur.webp",
+          "pngPath": "parts/surface_short_fur.png",
+          "assetSha256": "96bd837b9f4a1b2c21ec11d17e8c8d14bc5d0c903bf7c619719d8741a4034c92",
+          "pngSha256": "71d5e16928014a44588e1f28a23b7f6f479b772b71e3f594013c5e16c6c2c889",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "surface_gel_bubbles",
+      "slotId": "surfaceMaterial",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "surface_gel_bubbles_blob",
+          "assetPath": "parts/surface_gel_bubbles.webp",
+          "pngPath": "parts/surface_gel_bubbles.png",
+          "assetSha256": "5bd9a96414b71fb192f8f6500d23c9d3b504a0f83100c5100f631afd82ddd4f6",
+          "pngSha256": "1524cc3557fe38a80f3d95ba69eab1b256cd599e69f79fcf4f1f5b109c749d37",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "surface_gel_bubbles_biped",
+          "assetPath": "parts/surface_gel_bubbles.webp",
+          "pngPath": "parts/surface_gel_bubbles.png",
+          "assetSha256": "5bd9a96414b71fb192f8f6500d23c9d3b504a0f83100c5100f631afd82ddd4f6",
+          "pngSha256": "1524cc3557fe38a80f3d95ba69eab1b256cd599e69f79fcf4f1f5b109c749d37",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "surface_gel_bubbles_floating",
+          "assetPath": "parts/surface_gel_bubbles.webp",
+          "pngPath": "parts/surface_gel_bubbles.png",
+          "assetSha256": "5bd9a96414b71fb192f8f6500d23c9d3b504a0f83100c5100f631afd82ddd4f6",
+          "pngSha256": "1524cc3557fe38a80f3d95ba69eab1b256cd599e69f79fcf4f1f5b109c749d37",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "surface_soft_scales",
+      "slotId": "surfaceMaterial",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "surface_soft_scales_blob",
+          "assetPath": "parts/surface_soft_scales.webp",
+          "pngPath": "parts/surface_soft_scales.png",
+          "assetSha256": "eb79399a8fb23e338ca42ec08ffc19a386028a479237ac18f3a377c2664108aa",
+          "pngSha256": "122f0cb016b5e4c62007df9dd50e9956736174696340a8adb38ff0b29b080e67",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "surface_soft_scales_biped",
+          "assetPath": "parts/surface_soft_scales.webp",
+          "pngPath": "parts/surface_soft_scales.png",
+          "assetSha256": "eb79399a8fb23e338ca42ec08ffc19a386028a479237ac18f3a377c2664108aa",
+          "pngSha256": "122f0cb016b5e4c62007df9dd50e9956736174696340a8adb38ff0b29b080e67",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "surface_soft_scales_floating",
+          "assetPath": "parts/surface_soft_scales.webp",
+          "pngPath": "parts/surface_soft_scales.png",
+          "assetSha256": "eb79399a8fb23e338ca42ec08ffc19a386028a479237ac18f3a377c2664108aa",
+          "pngSha256": "122f0cb016b5e4c62007df9dd50e9956736174696340a8adb38ff0b29b080e67",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "surface_mushroom_velvet",
+      "slotId": "surfaceMaterial",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "surface_mushroom_velvet_blob",
+          "assetPath": "parts/surface_mushroom_velvet.webp",
+          "pngPath": "parts/surface_mushroom_velvet.png",
+          "assetSha256": "10c9d19c895f7aaf92266371e7e4fe8e3d32f886fb3004cc994ff822b2eaed66",
+          "pngSha256": "1c8f12c07c263c73787e09139d09175710c8be31bd500fe81e1dea1f7f18aefc",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "surface_mushroom_velvet_biped",
+          "assetPath": "parts/surface_mushroom_velvet.webp",
+          "pngPath": "parts/surface_mushroom_velvet.png",
+          "assetSha256": "10c9d19c895f7aaf92266371e7e4fe8e3d32f886fb3004cc994ff822b2eaed66",
+          "pngSha256": "1c8f12c07c263c73787e09139d09175710c8be31bd500fe81e1dea1f7f18aefc",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "surface_mushroom_velvet_floating",
+          "assetPath": "parts/surface_mushroom_velvet.webp",
+          "pngPath": "parts/surface_mushroom_velvet.png",
+          "assetSha256": "10c9d19c895f7aaf92266371e7e4fe8e3d32f886fb3004cc994ff822b2eaed66",
+          "pngSha256": "1c8f12c07c263c73787e09139d09175710c8be31bd500fe81e1dea1f7f18aefc",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "surface",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "pattern_soft_spots",
+      "slotId": "pattern",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "pattern_soft_spots_blob",
+          "assetPath": "parts/pattern_soft_spots.webp",
+          "pngPath": "parts/pattern_soft_spots.png",
+          "assetSha256": "35bfbc02f281fc45551277d04313533c4451c69e2ddab8dc9db1cb2f0febb1e6",
+          "pngSha256": "9f13cbbfa34ad806fcda72c330fa7cddbf3c85e8293ba19a0fc027c669030dc7",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "pattern_soft_spots_biped",
+          "assetPath": "parts/pattern_soft_spots.webp",
+          "pngPath": "parts/pattern_soft_spots.png",
+          "assetSha256": "35bfbc02f281fc45551277d04313533c4451c69e2ddab8dc9db1cb2f0febb1e6",
+          "pngSha256": "9f13cbbfa34ad806fcda72c330fa7cddbf3c85e8293ba19a0fc027c669030dc7",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "pattern_soft_spots_floating",
+          "assetPath": "parts/pattern_soft_spots.webp",
+          "pngPath": "parts/pattern_soft_spots.png",
+          "assetSha256": "35bfbc02f281fc45551277d04313533c4451c69e2ddab8dc9db1cb2f0febb1e6",
+          "pngSha256": "9f13cbbfa34ad806fcda72c330fa7cddbf3c85e8293ba19a0fc027c669030dc7",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "pattern_gentle_stripes",
+      "slotId": "pattern",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "pattern_gentle_stripes_blob",
+          "assetPath": "parts/pattern_gentle_stripes.webp",
+          "pngPath": "parts/pattern_gentle_stripes.png",
+          "assetSha256": "fc2234dcca5bf634cc0e0a8d54966817c26d1f6be361694391e6c717c322f809",
+          "pngSha256": "d473dbfd9a29eb170972deced3f72e95c7644f105151603d48f941bef3014fa0",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "pattern_gentle_stripes_biped",
+          "assetPath": "parts/pattern_gentle_stripes.webp",
+          "pngPath": "parts/pattern_gentle_stripes.png",
+          "assetSha256": "fc2234dcca5bf634cc0e0a8d54966817c26d1f6be361694391e6c717c322f809",
+          "pngSha256": "d473dbfd9a29eb170972deced3f72e95c7644f105151603d48f941bef3014fa0",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "pattern_gentle_stripes_floating",
+          "assetPath": "parts/pattern_gentle_stripes.webp",
+          "pngPath": "parts/pattern_gentle_stripes.png",
+          "assetSha256": "fc2234dcca5bf634cc0e0a8d54966817c26d1f6be361694391e6c717c322f809",
+          "pngSha256": "d473dbfd9a29eb170972deced3f72e95c7644f105151603d48f941bef3014fa0",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "pattern_constellation",
+      "slotId": "pattern",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "pattern_constellation_blob",
+          "assetPath": "parts/pattern_constellation.webp",
+          "pngPath": "parts/pattern_constellation.png",
+          "assetSha256": "7fe75aa04b6d9d1b2f233700ffc891315d04bb3ea66cb52c0e2d6554126dc926",
+          "pngSha256": "fbed6738f0e3083218d008f1f8a01bff091a13c3abfb488e33857bb43235c02f",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "pattern_constellation_biped",
+          "assetPath": "parts/pattern_constellation.webp",
+          "pngPath": "parts/pattern_constellation.png",
+          "assetSha256": "7fe75aa04b6d9d1b2f233700ffc891315d04bb3ea66cb52c0e2d6554126dc926",
+          "pngSha256": "fbed6738f0e3083218d008f1f8a01bff091a13c3abfb488e33857bb43235c02f",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "pattern_constellation_floating",
+          "assetPath": "parts/pattern_constellation.webp",
+          "pngPath": "parts/pattern_constellation.png",
+          "assetSha256": "7fe75aa04b6d9d1b2f233700ffc891315d04bb3ea66cb52c0e2d6554126dc926",
+          "pngSha256": "fbed6738f0e3083218d008f1f8a01bff091a13c3abfb488e33857bb43235c02f",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "pattern_spore_rings",
+      "slotId": "pattern",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "pattern_spore_rings_blob",
+          "assetPath": "parts/pattern_spore_rings.webp",
+          "pngPath": "parts/pattern_spore_rings.png",
+          "assetSha256": "1e9dee01b3fb23cfe312d9313953a4f54522bd5a9be443bee2468334347390b2",
+          "pngSha256": "155a187332cf17399ecec6783d1e448130eb01ef83762c629141253740c2a447",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "pattern_spore_rings_biped",
+          "assetPath": "parts/pattern_spore_rings.webp",
+          "pngPath": "parts/pattern_spore_rings.png",
+          "assetSha256": "1e9dee01b3fb23cfe312d9313953a4f54522bd5a9be443bee2468334347390b2",
+          "pngSha256": "155a187332cf17399ecec6783d1e448130eb01ef83762c629141253740c2a447",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "pattern_spore_rings_floating",
+          "assetPath": "parts/pattern_spore_rings.webp",
+          "pngPath": "parts/pattern_spore_rings.png",
+          "assetSha256": "1e9dee01b3fb23cfe312d9313953a4f54522bd5a9be443bee2468334347390b2",
+          "pngSha256": "155a187332cf17399ecec6783d1e448130eb01ef83762c629141253740c2a447",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "color_deep_sea_coral",
+      "slotId": "colorScheme",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "color_deep_sea_coral_blob",
+          "assetPath": "parts/color_deep_sea_coral.webp",
+          "pngPath": "parts/color_deep_sea_coral.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "color_deep_sea_coral_biped",
+          "assetPath": "parts/color_deep_sea_coral.webp",
+          "pngPath": "parts/color_deep_sea_coral.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "color_deep_sea_coral_floating",
+          "assetPath": "parts/color_deep_sea_coral.webp",
+          "pngPath": "parts/color_deep_sea_coral.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "color_fungal_amber",
+      "slotId": "colorScheme",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "color_fungal_amber_blob",
+          "assetPath": "parts/color_fungal_amber.webp",
+          "pngPath": "parts/color_fungal_amber.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "color_fungal_amber_biped",
+          "assetPath": "parts/color_fungal_amber.webp",
+          "pngPath": "parts/color_fungal_amber.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "color_fungal_amber_floating",
+          "assetPath": "parts/color_fungal_amber.webp",
+          "pngPath": "parts/color_fungal_amber.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "color_shadow_violet",
+      "slotId": "colorScheme",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "color_shadow_violet_blob",
+          "assetPath": "parts/color_shadow_violet.webp",
+          "pngPath": "parts/color_shadow_violet.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "color_shadow_violet_biped",
+          "assetPath": "parts/color_shadow_violet.webp",
+          "pngPath": "parts/color_shadow_violet.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "color_shadow_violet_floating",
+          "assetPath": "parts/color_shadow_violet.webp",
+          "pngPath": "parts/color_shadow_violet.png",
+          "assetSha256": "1f9883c4642bcb8773c409d200ca3802026cdae505ccda58fada3892667b3232",
+          "pngSha256": "700a3c7c064afe56ecbbcf3e0c6f1c19a675c8e9088cf5561ab87c826542f57d",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "layer": "pattern",
+          "clipPolicy": "body",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "effect_none",
+      "slotId": "effect",
+      "isNone": true,
+      "renderNodes": [],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "effect_bioluminescent_orbs",
+      "slotId": "effect",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "effect_bioluminescent_orbs_blob",
+          "assetPath": "parts/effect_bioluminescent_orbs.webp",
+          "pngPath": "parts/effect_bioluminescent_orbs.png",
+          "assetSha256": "c13562f95c12f67fd47a2f3c3232c27c74971bbb4bf0960bf77fa81a6d40142d",
+          "pngSha256": "c2a7ad732ae8ee96d4ce5bff3e5d167919d345529dc8c68ae4d01b5217e42d2f",
+          "parentSlot": "bodyFrame",
+          "socket": "effect",
+          "layer": "foregroundEffect",
+          "clipPolicy": "protect-face",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "effect_bioluminescent_orbs_biped",
+          "assetPath": "parts/effect_bioluminescent_orbs.webp",
+          "pngPath": "parts/effect_bioluminescent_orbs.png",
+          "assetSha256": "c13562f95c12f67fd47a2f3c3232c27c74971bbb4bf0960bf77fa81a6d40142d",
+          "pngSha256": "c2a7ad732ae8ee96d4ce5bff3e5d167919d345529dc8c68ae4d01b5217e42d2f",
+          "parentSlot": "bodyFrame",
+          "socket": "effect",
+          "layer": "foregroundEffect",
+          "clipPolicy": "protect-face",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "effect_bioluminescent_orbs_floating",
+          "assetPath": "parts/effect_bioluminescent_orbs.webp",
+          "pngPath": "parts/effect_bioluminescent_orbs.png",
+          "assetSha256": "c13562f95c12f67fd47a2f3c3232c27c74971bbb4bf0960bf77fa81a6d40142d",
+          "pngSha256": "c2a7ad732ae8ee96d4ce5bff3e5d167919d345529dc8c68ae4d01b5217e42d2f",
+          "parentSlot": "bodyFrame",
+          "socket": "effect",
+          "layer": "foregroundEffect",
+          "clipPolicy": "protect-face",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    {
+      "partId": "effect_spore_glow",
+      "slotId": "effect",
+      "isNone": false,
+      "renderNodes": [
+        {
+          "id": "effect_spore_glow_blob",
+          "assetPath": "parts/effect_spore_glow.webp",
+          "pngPath": "parts/effect_spore_glow.png",
+          "assetSha256": "65c042bb80b3a9059d774ebd528b1f7f5b550993744c89c6c5a236cc31c0b978",
+          "pngSha256": "9ad95b9e25d5f2913b41636f9b68c50d314e8954ef6bf2a75b44e62055ef5978",
+          "parentSlot": "bodyFrame",
+          "socket": "effect",
+          "layer": "foregroundEffect",
+          "clipPolicy": "protect-face",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.2626953125,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "blob"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "effect_spore_glow_biped",
+          "assetPath": "parts/effect_spore_glow.webp",
+          "pngPath": "parts/effect_spore_glow.png",
+          "assetSha256": "65c042bb80b3a9059d774ebd528b1f7f5b550993744c89c6c5a236cc31c0b978",
+          "pngSha256": "9ad95b9e25d5f2913b41636f9b68c50d314e8954ef6bf2a75b44e62055ef5978",
+          "parentSlot": "bodyFrame",
+          "socket": "effect",
+          "layer": "foregroundEffect",
+          "clipPolicy": "protect-face",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.6875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "biped"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        },
+        {
+          "id": "effect_spore_glow_floating",
+          "assetPath": "parts/effect_spore_glow.webp",
+          "pngPath": "parts/effect_spore_glow.png",
+          "assetSha256": "65c042bb80b3a9059d774ebd528b1f7f5b550993744c89c6c5a236cc31c0b978",
+          "pngSha256": "9ad95b9e25d5f2913b41636f9b68c50d314e8954ef6bf2a75b44e62055ef5978",
+          "parentSlot": "bodyFrame",
+          "socket": "effect",
+          "layer": "foregroundEffect",
+          "clipPolicy": "protect-face",
+          "origin": {
+            "x": 512,
+            "y": 512
+          },
+          "transform": {
+            "scale": 1.57421875,
+            "mirrorX": false
+          },
+          "compatibleRigs": [
+            "floating"
+          ],
+          "coordinateSource": "v0.3-structural-union-alpha"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  ]
+}

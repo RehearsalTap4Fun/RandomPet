@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "task9-pipeline-fixed-point-v1",
+  "catalogVersion": "0.3.0",
+  "sequence": [
+    "build-runtime-assets",
+    "build-color-scheme-masks",
+    "build-interface-catalog"
+  ],
+  "rounds": 2,
+  "fileCount": 822,
+  "scope": [
+    "asset-source/v0.3.0/interface-manifest.json",
+    "asset-source/v0.3.0/production/processed-index.json",
+    "asset-source/v0.3.0/provenance/v0.3-structural-union-color-masks.json",
+    "asset-source/v0.3.0/retained-v0.2/structural-union-alpha-index.json",
+    "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/*",
+    "packages/asset-catalog/assets/v0.3.0/**/*",
+    "packages/asset-catalog/catalog/v0.3.0/**/*",
+    "packages/asset-catalog/source-index-v0.3.0.json"
+  ],
+  "round1Sha256": "4e8ed917080f05fc3f75b6bf74cfc1d6f791c6c602988d649dde44145aee2e83",
+  "round2Sha256": "4e8ed917080f05fc3f75b6bf74cfc1d6f791c6c602988d649dde44145aee2e83",
+  "stable": true,
+  "diagnostics": []
+}

@@ -3,7 +3,7 @@ import { readFile, realpath } from 'node:fs/promises'
 import { basename, dirname, resolve } from 'node:path'
 import { validateCatalogFiles } from './file-validation.js'
 import { loadCatalog } from './load-catalog.js'
-import { productionEvidenceSourceIndexPath, validateProductionEvidenceManifest } from './evidence-root.js'
+import { productionEvidenceSourceIndexPath, validateProductionEvidenceDependencies, validateProductionEvidenceManifest } from './evidence-root.js'
 import { validateProductionSourceFiles, type SourceRichValidationResult } from './source-rich-validation.js'
 import {
   validateNoStaleRuntimeAssets,
@@ -12,6 +12,7 @@ import {
   validateProductionSourceIndex,
   validateProductionSplitFiles,
   type ProductionSourceIndex,
+  type RuntimeIntegrityReview,
 } from './production-validation.js'
 
 function printDiagnostics(diagnostics: Diagnostic[]): void {
@@ -95,6 +96,15 @@ async function main(): Promise<void> {
     }
     const version = parsed.value.version
     const packageRoot = resolve(catalogDirectory, '..', '..')
+    let task6Integrity: RuntimeIntegrityReview | undefined
+    if (version === '0.3.0') {
+      const task6IntegrityPath = resolve(packageRoot, 'review', `v${version}`, 'task6-approved-input-integrity.json')
+      try {
+        task6Integrity = JSON.parse(await readFile(task6IntegrityPath, 'utf8')) as RuntimeIntegrityReview
+      } catch {
+        diagnostics.push({ severity: 'error', code: 'PRODUCTION_RUNTIME_REVIEW_MISSING', path: [task6IntegrityPath], message: 'Cannot read the canonical Task 6 approved-input integrity review.' })
+      }
+    }
     const expectedSourceIndex = resolve(packageRoot, basename(productionEvidenceSourceIndexPath(version)))
     const expectedEvidenceManifest = resolve(packageRoot, 'audit', `v${version}`, 'evidence-manifest.json')
     try {
@@ -122,7 +132,8 @@ async function main(): Promise<void> {
         manifestPath: resolve(packageRoot, '..', '..', 'asset-source', `v${version}`, 'interface-manifest.json'),
       })),
       ...validateProductionEvidenceManifest(sourceIndex, evidenceManifest),
-      ...(await validateNoStaleRuntimeAssets(parsed.value, assetRoot)),
+      ...(await validateProductionEvidenceDependencies(evidenceManifest, resolve(packageRoot, '..', '..'))),
+      ...(await validateNoStaleRuntimeAssets(parsed.value, assetRoot, sourceIndex, task6Integrity)),
     )
     if (sourceRoot !== undefined) {
       sourceRichResult = await validateProductionSourceFiles(sourceIndex, sourceRoot)

@@ -17,6 +17,31 @@ afterEach(async () => {
 })
 
 describe('validateCatalogFiles', () => {
+  it('accepts an explicit-none composition with no fake top-level resources', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-empty-none-'))
+    temporaryDirectories.push(tempRoot)
+    const catalog = makeValidCatalogFixture()
+    const none = catalog.parts[0]!
+    none.composition = {
+      isNone: true,
+      motifTags: [],
+      visualIntensity: 'quiet',
+      renderNodes: [],
+      geometryByRig: {},
+    }
+    none.assetPath = ''
+    delete none.assetSha256
+    delete none.pngPath
+    delete none.pngSha256
+    for (const part of catalog.parts.filter(part => part !== none)) {
+      const bytes = await sharp({ create: { width: 1024, height: 1024, channels: 4, background: '#00000000' } }).png().toBuffer()
+      await writeFile(join(tempRoot, `${part.id}.png`), bytes)
+      part.assetPath = `${part.id}.png`
+    }
+
+    expect(await validateCatalogFiles(catalog, tempRoot)).toEqual([])
+  })
+
   it('accepts compact non-square composition-node assets when explicitly requested', async () => {
     const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-node-assets-'))
     temporaryDirectories.push(tempRoot)
@@ -24,6 +49,21 @@ describe('validateCatalogFiles', () => {
     await writeFile(join(tempRoot, 'node.png'), png)
 
     expect(await validateAssetFile(await realpath(tempRoot), 'node.png', createHash('sha256').update(png).digest('hex'), ['node'], { dimensions: 'trimmed-node' })).toEqual([])
+  })
+
+  it('requires transition bridge resources to be exactly 512 by 256 pixels', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-bridge-assets-'))
+    temporaryDirectories.push(tempRoot)
+    const valid = await sharp({ create: { width: 512, height: 256, channels: 4, background: '#ffffffff' } }).png().toBuffer()
+    const invalid = await sharp({ create: { width: 511, height: 256, channels: 4, background: '#ffffffff' } }).png().toBuffer()
+    await writeFile(join(tempRoot, 'valid.png'), valid)
+    await writeFile(join(tempRoot, 'invalid.png'), invalid)
+    const root = await realpath(tempRoot)
+
+    expect(await validateAssetFile(root, 'valid.png', createHash('sha256').update(valid).digest('hex'), ['bridge'], { dimensions: 'transition-bridge' })).toEqual([])
+    expect(await validateAssetFile(root, 'invalid.png', undefined, ['bridge'], { dimensions: 'transition-bridge' })).toContainEqual(
+      expect.objectContaining({ code: 'ASSET_DIMENSION_INVALID' }),
+    )
   })
 
   it('validates both WebP and PNG runtime paths and hashes', async () => {

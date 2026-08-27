@@ -25,6 +25,19 @@ describe('MonsterSpecSchema', () => {
     expect(parseCatalog(makeCompositionCatalogFixture()).ok).toBe(true)
   })
 
+  it('accepts a resource-empty explicit none part and rejects empty visible resources', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    const none = catalog.parts.find((part: { id: string }) => part.id === 'tail_none')!
+    none.assetPath = ''
+    delete none.assetSha256
+    delete none.pngPath
+    delete none.pngSha256
+    expect(parseCatalog(catalog).ok).toBe(true)
+
+    none.composition.isNone = false
+    expect(parseCatalog(catalog)).toEqual(expect.objectContaining({ ok: false }))
+  })
+
   it('requires exact-rig structural variants and bridge resources in v0.3', () => {
     const catalog = makeInterfaceCatalogFixture() as any
     delete catalog.parts.find((part: { id: string }) => part.id === 'head_round')!

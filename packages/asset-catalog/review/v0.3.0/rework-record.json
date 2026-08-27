@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "task9-agent-part-review-v1",
+  "status": "AGENT_PART_REVIEW_APPROVED",
+  "reviewer": "Codex visual self-review",
+  "userApprovalRequired": false,
+  "catalogContactSheet": "asset-source/v0.3.0/generation/task9-review/tail-extra-catalog-contact-sheet.png",
+  "reviewedVariants": 18,
+  "approvedVariants": 18,
+  "returnedVariants": [],
+  "targetedRegeneration": {
+    "partKey": "tail_fish_fan:blob",
+    "rejectedCandidate": 1,
+    "selectedCandidate": 2,
+    "reason": "Checker-like pale halo remained attached to the translucent fan edge. Candidate 2 used a pure-white background and opaque colored fan edges."
+  },
+  "checks": [
+    "correct principal component count",
+    "left/right semantic order",
+    "proximal plug direction and density",
+    "transparent outline without checker halo",
+    "identity count and silhouette",
+    "approved plush material family"
+  ],
+  "structuralMatrixReview": {
+    "status": "AGENT_PART_REVIEW_APPROVED",
+    "entryCount": 39,
+    "indexPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-index.json",
+    "indexSha256": "931e460701cccc7526873f15a2aa9f6dae1efdca53e578fe21e4beee20ff5d58",
+    "tailExtraReviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
+    "tailExtraReviewRecordSha256": "69a04986a1439f6c5f6a5ac881fc750a281a43cf2343b1aed43e03009cc1053e",
+    "visualReview": "All 39 original and 256px cells preserve readable tail/extra identities, natural seams, and in-frame silhouettes after root-anchored distal fitting."
+  }
+}

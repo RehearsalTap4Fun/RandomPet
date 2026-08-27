@@ -85,6 +85,7 @@ describe('candidate pool boundaries', () => {
     const foreign = catalog.parts.find(part => part.slotId === 'headAppendage' && !part.composition!.isNone)!
     catalog.parts = [{
       ...structuredClone(none),
+      assetPath: '',
       composition: { ...structuredClone(none.composition!), motifTags: ['shadow'], visualIntensity: 'strong' },
     }, {
       ...structuredClone(foreign),

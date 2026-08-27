@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "task9-tail-extra-prompts-v1",
+  "generator": "built-in-image_gen",
+  "useCase": "stylized-concept",
+  "prompts": [
+    { "id": "task9-exact-rig-tail-extra", "family": "tail-extra-exact-rig" }
+  ],
+  "tailContract": "One isolated exact-rig tail, compact fully opaque rectangular plug on LEFT, identity extending RIGHT, continuous object, solid pure white background, no checkerboard, body, limbs, duplicates, text, shadow, holes, semitransparent membrane, or white fringe.",
+  "extraContract": "Exactly two separated bilateral exact-rig appendage nodes: left node extends left with inward plug on its right edge; right node extends right with inward plug on its left edge. Solid pure white background, wide central gap, no checkerboard, body, limbs, third node, duplicates, text, shadow, holes, semitransparent membrane, or white fringe.",
+  "styleContract": "Approved whimsical polished lavender plush-toy 3D material and lighting from the exact-rig v0.3 limb reference; v0.2 reference supplies identity only.",
+  "connectorContract": {
+    "tailRoot": { "tangentPx": 220, "normalPx": 140 },
+    "extraLeft": { "tangentPx": 200, "normalPx": 120 },
+    "extraRight": { "tangentPx": 200, "normalPx": 120 }
+  },
+  "calls": [
+    { "rigId": "blob", "partId": "tail_fish_fan", "candidate": 1, "output": "exec-837b9139-8382-4a85-a563-3fdb8e34f300.png", "status": "rejected-checker-halo" },
+    { "rigId": "blob", "partId": "tail_fish_fan", "candidate": 2, "output": "exec-5121798e-a270-4e74-aa42-129f568252ca.png", "status": "selected" },
+    { "rigId": "blob", "partId": "tail_soft_curl", "candidate": 1, "output": "exec-cd5a2c08-e8d2-49cc-94d8-c63f3ed53daf.png", "status": "selected" },
+    { "rigId": "blob", "partId": "tail_mushroom_cluster", "candidate": 1, "output": "exec-1beffd6b-76c8-43ba-8bc5-02ccc3a46c3d.png", "status": "selected" },
+    { "rigId": "blob", "partId": "extra_moth_wings", "candidate": 1, "output": "exec-29c90d08-b396-4d6c-a0fc-7ea44f65864e.png", "status": "selected" },
+    { "rigId": "blob", "partId": "extra_soft_tentacles", "candidate": 1, "output": "exec-aae6ef85-6209-4e2b-836d-569c97870ad3.png", "status": "selected" },
+    { "rigId": "blob", "partId": "extra_side_fins", "candidate": 1, "output": "exec-73a649db-b1a5-4d2a-94ed-4a62951198c1.png", "status": "selected" },
+    { "rigId": "biped", "partId": "tail_fish_fan", "candidate": 1, "output": "exec-68f84b03-ff56-4256-9d5c-437ad6e8d05a.png", "status": "selected" },
+    { "rigId": "biped", "partId": "tail_soft_curl", "candidate": 1, "output": "exec-560e39c3-4b12-43cb-ac3b-e80e12fdc306.png", "status": "selected" },
+    { "rigId": "biped", "partId": "tail_mushroom_cluster", "candidate": 1, "output": "exec-d309bc0f-835d-4a9d-b513-572057d1ccbc.png", "status": "selected" },
+    { "rigId": "biped", "partId": "extra_moth_wings", "candidate": 1, "output": "exec-5a3fb8f5-0527-46fe-8691-8047cf177843.png", "status": "selected" },
+    { "rigId": "biped", "partId": "extra_soft_tentacles", "candidate": 1, "output": "exec-18afa38f-c44c-4164-9494-4d97677fed5c.png", "status": "selected" },
+    { "rigId": "biped", "partId": "extra_side_fins", "candidate": 1, "output": "exec-7d51539c-462a-4e22-8ecc-a9b484119335.png", "status": "selected" },
+    { "rigId": "floating", "partId": "tail_fish_fan", "candidate": 1, "output": "exec-238ce9fc-d438-4a92-9c06-4d575bae15c7.png", "status": "selected" },
+    { "rigId": "floating", "partId": "tail_soft_curl", "candidate": 1, "output": "exec-786d72d9-a683-4183-be3c-376d6db2aa1e.png", "status": "selected" },
+    { "rigId": "floating", "partId": "tail_mushroom_cluster", "candidate": 1, "output": "exec-f736b664-b270-4a86-9e11-637e18cccccf.png", "status": "selected" },
+    { "rigId": "floating", "partId": "extra_moth_wings", "candidate": 1, "output": "exec-df6d8ff1-312f-4eaa-86b2-8d55b9e3ad9b.png", "status": "selected" },
+    { "rigId": "floating", "partId": "extra_soft_tentacles", "candidate": 1, "output": "exec-65cf2298-bfc2-4b59-8250-f167ce58482f.png", "status": "selected" },
+    { "rigId": "floating", "partId": "extra_side_fins", "candidate": 1, "output": "exec-4b489577-87c8-45b1-ac6a-f2ad58f8c0a2.png", "status": "selected" }
+  ]
+}

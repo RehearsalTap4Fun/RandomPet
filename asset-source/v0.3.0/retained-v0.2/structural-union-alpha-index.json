@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "qmonster-structural-union-alpha-v1",
+  "catalogVersion": "0.3.0",
+  "construction": "max-alpha union of five exact body reference compositions with head, limbs, tail, and extras",
+  "rigs": [
+    {
+      "rigId": "blob",
+      "bodyIds": [
+        "body_blob_round",
+        "body_blob_wide"
+      ],
+      "path": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/blob.png",
+      "pngSha256": "77e84ed1bce335a845adad2aa7fb537622050ddba67eacfb74b1363b23d86b0c",
+      "alphaBounds": {
+        "x": 63,
+        "y": 370,
+        "width": 1985,
+        "height": 1353
+      },
+      "alphaCentroid": {
+        "x": 1120,
+        "y": 972
+      }
+    },
+    {
+      "rigId": "biped",
+      "bodyIds": [
+        "body_biped_peanut",
+        "body_biped_tall"
+      ],
+      "path": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/biped.png",
+      "pngSha256": "9b0ea16f2e61de11845fe17737b49b879153499f475910ae4d700886292b23c4",
+      "alphaBounds": {
+        "x": 131,
+        "y": 135,
+        "width": 1788,
+        "height": 1910
+      },
+      "alphaCentroid": {
+        "x": 1059,
+        "y": 1013
+      }
+    },
+    {
+      "rigId": "floating",
+      "bodyIds": [
+        "body_floating_drop"
+      ],
+      "path": "asset-source/v0.3.0/retained-v0.2/structural-union-alpha/floating.png",
+      "pngSha256": "5b2110d108b30653fed7ee510774505326463b8e0f5e2e38b6e980094b4d4c6c",
+      "alphaBounds": {
+        "x": 244,
+        "y": 322,
+        "width": 1656,
+        "height": 1612
+      },
+      "alphaCentroid": {
+        "x": 1103,
+        "y": 1069
+      }
+    }
+  ]
+}

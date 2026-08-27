@@ -1,4 +1,9 @@
 import { expect, test } from 'vitest'
+import { createHash } from 'node:crypto'
+import { mkdtemp, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import * as evidenceRootModule from './evidence-root.js'
 import {
   PRODUCTION_EVIDENCE_MANIFEST_VERSION,
   buildProductionEvidenceManifest,
@@ -94,4 +99,57 @@ test('rejects malformed or unsupported evidence manifests', () => {
       code: 'PRODUCTION_EVIDENCE_MANIFEST_INVALID',
     }))
   }
+})
+
+test('requires the acyclic Task 9 production evidence block for v0.3', () => {
+  const sourceIndex = { catalogVersion: '0.3.0', sources: Array.from({ length: 102 }, (_, index) => ({ sourceId: `source-${index}` })) }
+  const minimal = buildProductionEvidenceManifest(sourceIndex)
+
+  expect(validateProductionEvidenceManifest(sourceIndex, minimal)).toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_TASK9_EVIDENCE_INVALID',
+  }))
+})
+
+test('recomputes every Task 9 dependency hash from a contained regular file', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-evidence-'))
+  const bytes = Buffer.from('final production input')
+  await writeFile(join(root, 'input.json'), bytes)
+  const sourceIndex = { catalogVersion: '0.3.0', sources: Array.from({ length: 102 }, (_, index) => ({ sourceId: `source-${index}` })) }
+  const manifest = {
+    ...buildProductionEvidenceManifest(sourceIndex),
+    task9Evidence: {
+      schemaVersion: 'task9-production-evidence-v1',
+      sourceEntryCount: 102,
+      dependencyCount: 1,
+      dependencies: [{ path: 'input.json', sha256: createHash('sha256').update(bytes).digest('hex'), groups: ['catalog'] }],
+      compositionStatistics: {
+        seedCount: 10_000,
+        optionalNoneRates: { effect: 0.4, extraAppendage: 0.4, headAppendage: 0.4, tail: 0.4 },
+        maximumStrongFeatures: 2,
+        maximumSurpriseSlots: 3,
+        surpriseLimit: 3,
+      },
+      structuralMatrix: {
+        entryCount: 39,
+        failureCount: 0,
+        entryCountByRig: { blob: 15, biped: 15, floating: 9 },
+        observedExtrema: { receiverCoverageMin: 0.92 },
+      },
+      pipelineFixedPoint: {
+        sequence: ['build-runtime-assets', 'build-color-scheme-masks', 'build-interface-catalog'],
+        round1Sha256: '1'.repeat(64),
+        round2Sha256: '1'.repeat(64),
+      },
+    },
+  }
+  const validateDependencies = (evidenceRootModule as unknown as {
+    validateProductionEvidenceDependencies: (manifest: unknown, repositoryRoot: string) => Promise<unknown[]>
+  }).validateProductionEvidenceDependencies
+
+  expect(await validateDependencies(manifest, root)).toEqual([])
+  manifest.task9Evidence.dependencies[0]!.sha256 = 'f'.repeat(64)
+  expect(await validateDependencies(manifest, root)).toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH',
+    path: ['task9Evidence', 'dependencies', 'input.json'],
+  }))
 })

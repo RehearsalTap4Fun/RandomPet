@@ -38,7 +38,7 @@ const RectSchema = z.object({
 const RenderNodeDefinitionSchema = z.object({
   id: z.string().min(1),
   connectorId: z.string().min(1).optional(),
-  assetPath: z.string().min(1),
+  assetPath: z.string(),
   pngPath: z.string().min(1).optional(),
   assetSha256: sha256.optional(),
   pngSha256: sha256.optional(),
@@ -190,7 +190,7 @@ const VisualPartDefinitionSchema = z.object({
   themeIds: z.array(ThemeIdSchema).min(1),
   themeWeights: z.partialRecord(ThemeIdSchema, weight),
   compatibleRigs: z.array(RigIdSchema).min(1),
-  assetPath: z.string().min(1),
+  assetPath: z.string(),
   assetSha256: sha256.optional(),
   pngPath: z.string().min(1).optional(),
   pngSha256: sha256.optional(),
@@ -217,6 +217,16 @@ const VisualPartDefinitionSchema = z.object({
   ...displayMetadata,
   description: z.string().min(1).optional(),
   composition: PartCompositionSchema.optional(),
+}).superRefine((part, context) => {
+  const resourceEmptyNone = part.composition?.isNone === true && part.assetPath === ''
+  if (!resourceEmptyNone && part.assetPath.length === 0) {
+    context.addIssue({ code: 'custom', path: ['assetPath'], message: 'Visible parts require an asset path.' })
+  }
+  if (resourceEmptyNone && (
+    part.assetSha256 !== undefined || part.pngPath !== undefined || part.pngSha256 !== undefined
+  )) {
+    context.addIssue({ code: 'custom', path: ['assetPath'], message: 'Resource-empty none parts must not declare runtime hashes or PNG paths.' })
+  }
 })
 
 export const CatalogSchema = z.object({

@@ -8,10 +8,89 @@ import { validateProductionMetadata } from '../packages/asset-catalog/src/produc
 import { buildInterfaceCatalog, validateInterfaceSourceIndex } from './build-interface-catalog.js'
 import { interfaceVariantKey, structuralVariants } from './interface-source-schema.js'
 import type { InterfaceSourceManifest } from './interface-source-schema.js'
+import type { RetainedCoordinateMetadata } from './retain-v02-nonstructural-assets.js'
 
 const hashFor = (value: string): string => createHash('sha256').update(value).digest('hex')
 
 describe('buildInterfaceCatalog', () => {
+  it('preserves all v0.3 structural-union palette masks when catalog is rebuilt after color', async () => {
+    const baseCatalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.2.0/catalog.json', 'utf8')) as Catalog
+    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest
+    const processed = JSON.parse(await readFile('asset-source/v0.3.0/production/processed-index.json', 'utf8')) as any
+    const retainedMetadata = JSON.parse(await readFile('asset-source/v0.3.0/retained-v0.2/coordinate-metadata.json', 'utf8')) as RetainedCoordinateMetadata
+    const catalog = buildInterfaceCatalog({
+      baseCatalog, manifest, processedAssets: processed.processedAssets, processedBridges: processed.processedBridges,
+      retainedMetadata, sourceIndex: processed.sourceIndex,
+    })
+    for (const sourceId of ['color_deep_sea_coral', 'color_fungal_amber', 'color_shadow_violet']) {
+      const part = catalog.parts.find(candidate => candidate.id === sourceId)!
+      const audit = processed.sourceIndex.sources.find((candidate: any) => candidate.sourceId === sourceId).paletteMaskAudit
+      expect(part.rigMaskPaths).toEqual(Object.fromEntries(Object.entries(audit.rigMasks).map(([rigId, value]: [string, any]) => [
+        rigId,
+        Object.fromEntries(Object.entries(value.paths).map(([role, path]) => [role, String(path).replaceAll('\\', '/').split('/assets/v0.3.0/')[1]])),
+      ])))
+      expect(part.rigMaskSha256).toEqual(Object.fromEntries(Object.entries(audit.rigMasks).map(([rigId, value]: [string, any]) => [rigId, value.sha256])))
+    }
+  })
+
+  it('builds every non-none tail and extra identity for all rigs and preserves explicit none', async () => {
+    const baseCatalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.2.0/catalog.json', 'utf8')) as Catalog
+    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest
+    const processed = JSON.parse(await readFile('asset-source/v0.3.0/production/processed-index.json', 'utf8')) as {
+      processedAssets: Parameters<typeof buildInterfaceCatalog>[0]['processedAssets']
+      processedBridges: Parameters<typeof buildInterfaceCatalog>[0]['processedBridges']
+    }
+    const retainedMetadata = JSON.parse(await readFile(
+      'asset-source/v0.3.0/retained-v0.2/coordinate-metadata.json', 'utf8',
+    )) as RetainedCoordinateMetadata
+    const catalog = buildInterfaceCatalog({
+      baseCatalog,
+      manifest,
+      processedAssets: processed.processedAssets,
+      processedBridges: processed.processedBridges,
+      retainedMetadata,
+    })
+    const nonNoneVariants = (slotId: 'tail' | 'extraAppendage', rigId: 'blob' | 'biped' | 'floating') => (
+      catalog.parts.filter(part => (
+        part.slotId === slotId
+        && part.composition?.mode === 'interface'
+        && part.composition.isNone === false
+        && part.composition.variantsByRig[rigId] !== undefined
+      ))
+    )
+
+    for (const rigId of ['blob', 'biped', 'floating'] as const) {
+      expect(nonNoneVariants('tail', rigId), `tail:${rigId}`).toHaveLength(3)
+      expect(nonNoneVariants('extraAppendage', rigId), `extraAppendage:${rigId}`).toHaveLength(3)
+    }
+    for (const noneId of ['tail_none', 'extra_appendage_none']) {
+      const none = catalog.parts.find(part => part.id === noneId)!
+      expect(none.composition?.isNone).toBe(true)
+      expect(none.composition?.mode).not.toBe('interface')
+      if (none.composition?.mode === 'interface' || none.composition === undefined) throw new Error('expected resource-empty none')
+      expect(none.composition.renderNodes).toEqual([])
+      expect(none.assetPath).toBe('')
+      expect(none.pngPath).toBeUndefined()
+      expect(none.assetSha256).toBeUndefined()
+      expect(none.pngSha256).toBeUndefined()
+    }
+    expect(Object.fromEntries(['tail_none', 'extra_appendage_none', 'effect_none'].map(id => [
+      id,
+      catalog.parts.find(part => part.id === id)?.baseWeight,
+    ]))).toEqual({ tail_none: 1.8, extra_appendage_none: 1, effect_none: 0.1 })
+    const eyes = catalog.parts.find(part => part.id === 'eyes_glossy_pair')!
+    expect(eyes.composition?.mode).not.toBe('interface')
+    if (eyes.composition?.mode === 'interface' || eyes.composition === undefined) throw new Error('expected attachment eyes')
+    expect(eyes.composition.renderNodes).toHaveLength(3)
+    expect(eyes.composition.renderNodes.map(node => node.compatibleRigs[0]).sort()).toEqual(['biped', 'blob', 'floating'])
+    const body = catalog.parts.find(part => part.id === 'body_blob_round')!
+    if (body.composition?.mode !== 'interface') throw new Error('expected interface body')
+    expect(body.composition.variantsByRig.blob?.featureSockets).toMatchObject({
+      overlay: retainedMetadata.bodyStructuralUnions.find(item => item.bodyId === 'body_blob_round')?.socket,
+      effect: retainedMetadata.bodyStructuralUnions.find(item => item.bodyId === 'body_blob_round')?.socket,
+    })
+  })
+
   it('installs every arm and leg identity as an exact-rig variant', async () => {
     const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as {
       assets: Array<{
@@ -61,7 +140,7 @@ describe('buildInterfaceCatalog', () => {
     }
   })
 
-  it('builds the exact biped structural slice and three bridge classes from processed hashes', async () => {
+  it('builds every exact-rig structural variant and five bridge classes from processed hashes', async () => {
     const base = makeCompositionCatalogFixture()
     const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest
     const variants = structuralVariants(manifest)
@@ -112,12 +191,15 @@ describe('buildInterfaceCatalog', () => {
     const catalog = buildInterfaceCatalog({ baseCatalog: base, manifest, processedAssets: processed, processedBridges: bridges })
 
     expect(catalog.version).toBe('0.3.0')
-    expect(catalog.parts.filter(part => ['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)).map(part => part.id)).toEqual(manifest.assets.map(asset => asset.id))
+    expect(catalog.parts.filter(part => ['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'].includes(part.slotId) && part.composition?.isNone === false).map(part => part.id)).toEqual(manifest.assets.map(asset => asset.id))
     expect(catalog.parts.find(part => part.id === 'head_round_dome')?.composition?.mode).toBe('interface')
     expect(catalog.transitionBridges?.map(bridge => `${bridge.rigId}:${bridge.connectorClass}`)).toEqual([
       'biped:neck', 'biped:shoulder', 'biped:hip',
       'blob:neck', 'blob:shoulder', 'blob:hip',
       'floating:neck', 'floating:shoulder', 'floating:hip',
+      'blob:tail', 'blob:extra',
+      'biped:tail', 'biped:extra',
+      'floating:tail', 'floating:extra',
     ])
     const arms = catalog.parts.find(part => part.id === 'arms_short_plush')!
     expect(arms.composition?.mode).toBe('interface')

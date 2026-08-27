@@ -655,6 +655,7 @@ export async function buildProductionCatalog(options: { write: boolean, version:
       manifest: manifest.value,
       processedAssets: processed.processedAssets,
       processedBridges: processed.processedBridges,
+      sourceIndex: processed.sourceIndex as Parameters<typeof buildInterfaceCatalog>[0]['sourceIndex'],
     })
     const bundle: ProductionCatalogBundle = {
       catalog,

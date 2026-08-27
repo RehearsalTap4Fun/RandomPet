@@ -50,7 +50,8 @@ function isHardCompatible(
   selectedParts: VisualPartDefinition[],
 ): boolean {
   const rig = catalog.rigs.find(item => item.id === rigId)
-  return part.assetPath.trim().length > 0
+  const resourceEmptyNone = part.composition?.isNone === true && part.assetPath === ''
+  return (part.assetPath.trim().length > 0 || resourceEmptyNone)
     && part.compatibleRigs.includes(rigId)
     && (part.socket === null || rig?.sockets[part.socket] !== undefined)
     && !part.excludes.some(id => selectedPartIds.has(id))

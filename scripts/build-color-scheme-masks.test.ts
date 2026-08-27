@@ -140,6 +140,14 @@ describe('rig-aware color-scheme mask derivation', () => {
       sourceId: 'color_test', sourcePath, runtimePngPath, runtimeWebpPath, maskRoot,
       rigs: [{ rigId: 'blob', assetPath: rigPath }],
     })
+    const retainedRuntimePng = await sharp({ create: { width: 12, height: 12, channels: 4, background: '#11000000' } }).png().toBuffer()
+    const retainedRuntimeWebp = await sharp(retainedRuntimePng).webp({ lossless: true }).toBuffer()
+    await writeFile(runtimePngPath, retainedRuntimePng)
+    await writeFile(runtimeWebpPath, retainedRuntimeWebp)
+    const preserved = await buildColorSchemeRuntime({
+      sourceId: 'color_test', sourcePath, runtimePngPath, runtimeWebpPath, maskRoot,
+      rigs: [{ rigId: 'blob', assetPath: rigPath }], preserveRuntimeBytes: true,
+    })
     const runtime = await sharp(await readFile(runtimePngPath)).ensureAlpha().raw().toBuffer()
 
     expect(runtime.every((value, index) => index % 4 !== 3 || value === 0)).toBe(true)
@@ -153,6 +161,9 @@ describe('rig-aware color-scheme mask derivation', () => {
       },
     })
     expect(second).toEqual(first)
+    expect(await readFile(runtimePngPath)).toEqual(retainedRuntimePng)
+    expect(await readFile(runtimeWebpPath)).toEqual(retainedRuntimeWebp)
+    expect(preserved.runtimePngSha256).toBe(createHash('sha256').update(retainedRuntimePng).digest('hex'))
   })
 
   it('updates only declared color entries in the production index with replayable mask audit', async () => {

@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url'
 import type { InterfaceSourceManifest } from './interface-source-schema.js'
 import { interfaceVariantKey, structuralVariants, validateInterfaceSourceIndex as assertInterfaceSourceIndex } from './interface-source-schema.js'
 import { productionPaths } from './production-paths.js'
+import type { RetainedCoordinateMetadata } from './retain-v02-nonstructural-assets.js'
 export { validateInterfaceSourceIndex } from './interface-source-schema.js'
 
 export interface ProcessedInterfaceAsset {
@@ -44,6 +45,11 @@ export interface ProcessedInterfaceBridge {
 // the v0.2 optional-none tail and extra-appendage entries so a complete spec can
 // still select an explicit absence for those slots.
 const structuralSlots = new Set(['bodyFrame', 'headShape', 'arms', 'legs'])
+const v03OptionalNoneWeights = new Map<string, number>([
+  ['tail_none', 1.8],
+  ['extra_appendage_none', 1],
+  ['effect_none', 0.1],
+])
 const sha256 = /^[a-f0-9]{64}$/u
 const canonicalRuntime = /^assets\/v0\.3\.0\/.+\.(?:png|webp)$/u
 
@@ -66,6 +72,8 @@ export function buildInterfaceCatalog(input: {
   manifest: InterfaceSourceManifest
   processedAssets: Record<string, ProcessedInterfaceAsset>
   processedBridges: Record<string, ProcessedInterfaceBridge>
+  retainedMetadata?: RetainedCoordinateMetadata
+  sourceIndex?: { sources?: Array<{ sourceId?: string, paletteMaskAudit?: { rigMasks?: Record<string, { paths?: Record<string, string>, sha256?: Record<string, string> }> } }> }
 }): Catalog {
   const existing = new Map(input.baseCatalog.parts.map(part => [part.id, part]))
   const processedNodePaths = new Set<string>()
@@ -117,9 +125,12 @@ export function buildInterfaceCatalog(input: {
       })
       variantsByRig[source.rigId] = {
         rigId: source.rigId, materialFamily: source.materialFamily, renderNodes, connectors,
+        ...(source.featureSockets === undefined ? {} : { featureSockets: source.featureSockets }),
         ...(source.slotId === 'headShape' ? {
           faceSafeZones: source.faceSafeZones ?? [{ x: 760, y: 1136, width: 528, height: 310 }],
-          featureSockets: source.featureSockets ?? { eyes: { x: 1024, y: 1236 }, mouth: { x: 1024, y: 1376 }, headAppendage: { x: 1024, y: 1116 } },
+          ...(source.featureSockets === undefined ? {
+            featureSockets: { eyes: { x: 1024, y: 1236 }, mouth: { x: 1024, y: 1376 }, headAppendage: { x: 1024, y: 1116 } },
+          } : {}),
         } : {}),
       }
     }
@@ -153,13 +164,82 @@ export function buildInterfaceCatalog(input: {
       backMaskSha256: processed.backMaskSha256,
     }
   })
+  const retainedMetadataById = new Map(input.retainedMetadata?.parts.map(part => [part.partId, part]) ?? [])
+  const paletteAuditById = new Map((input.sourceIndex?.sources ?? []).flatMap(source => (
+    typeof source.sourceId === 'string' && source.paletteMaskAudit?.rigMasks !== undefined
+      ? [[source.sourceId, source.paletteMaskAudit] as const]
+      : []
+  )))
+  const retainedParts = input.baseCatalog.parts.filter(part => (
+    !structuralSlots.has(part.slotId)
+    && (!['tail', 'extraAppendage'].includes(part.slotId) || part.composition?.isNone === true)
+  )).map(part => {
+    if (['tail', 'extraAppendage'].includes(part.slotId) && part.composition?.isNone === true) {
+      const { assetSha256: _assetSha256, pngPath: _pngPath, pngSha256: _pngSha256, ...resourceEmpty } = part
+      return {
+        ...resourceEmpty,
+        assetPath: '',
+        compatibleRigs: ['blob', 'biped', 'floating'] as const,
+        composition: part.composition.mode === 'interface' ? {
+          isNone: true, motifTags: [], visualIntensity: 'quiet', renderNodes: [], geometryByRig: {},
+        } : { ...part.composition, renderNodes: [], geometryByRig: {} },
+      }
+    }
+    const retained = retainedMetadataById.get(part.id)
+    if (retained === undefined) {
+      const paletteAudit = paletteAuditById.get(part.id)
+      if (paletteAudit === undefined) return { ...part, compatibleRigs: ['blob', 'biped', 'floating'] as const }
+      return {
+        ...part,
+        compatibleRigs: ['blob', 'biped', 'floating'] as const,
+        rigMaskPaths: Object.fromEntries(Object.entries(paletteAudit.rigMasks!).map(([rigId, audit]) => [
+          rigId,
+          Object.fromEntries(Object.entries(audit.paths ?? {}).map(([role, path]) => [
+            role,
+            path.replaceAll('\\', '/').split(`/assets/v0.3.0/`)[1] ?? path.replaceAll('\\', '/'),
+          ])),
+        ])),
+        rigMaskSha256: Object.fromEntries(Object.entries(paletteAudit.rigMasks!).map(([rigId, audit]) => [rigId, audit.sha256 ?? {}])),
+      }
+    }
+    const baseComposition = part.composition?.mode === 'interface' ? undefined : part.composition
+    const renderNodes = retained.renderNodes.map(({ coordinateSource: _coordinateSource, ...node }) => node)
+    const rebuiltOrigin = renderNodes[0]?.origin ?? { x: 512, y: 512 }
+    const { approvedTransforms: _approvedTransforms, ...partWithoutTransforms } = part
+    return {
+      ...partWithoutTransforms,
+      compatibleRigs: ['blob', 'biped', 'floating'] as const,
+      origin: rebuiltOrigin,
+      composition: {
+        isNone: retained.isNone,
+        motifTags: baseComposition?.motifTags ?? [],
+        visualIntensity: baseComposition?.visualIntensity ?? 'quiet',
+        renderNodes,
+        geometryByRig: retained.geometryByRig,
+      },
+    }
+  }).map(part => {
+    const paletteAudit = paletteAuditById.get(part.id)
+    if (paletteAudit === undefined) return part
+    return {
+      ...part,
+      rigMaskPaths: Object.fromEntries(Object.entries(paletteAudit.rigMasks!).map(([rigId, audit]) => [
+        rigId,
+        Object.fromEntries(Object.entries(audit.paths ?? {}).map(([role, path]) => [
+          role,
+          path.replaceAll('\\', '/').split(`/assets/v0.3.0/`)[1] ?? path.replaceAll('\\', '/'),
+        ])),
+      ])),
+      rigMaskSha256: Object.fromEntries(Object.entries(paletteAudit.rigMasks!).map(([rigId, audit]) => [rigId, audit.sha256 ?? {}])),
+    }
+  })
   const parts = [
-    ...input.baseCatalog.parts.filter(part => (
-      !structuralSlots.has(part.slotId)
-      && (!['tail', 'extraAppendage'].includes(part.slotId) || part.composition?.isNone === true)
-    )).map(part => ({ ...part, compatibleRigs: ['blob', 'biped', 'floating'] as const })),
+    ...retainedParts,
     ...structuralParts,
-  ] as VisualPartDefinition[]
+  ].map(part => {
+    const calibratedWeight = v03OptionalNoneWeights.get(part.id)
+    return calibratedWeight === undefined ? part : { ...part, baseWeight: calibratedWeight }
+  }) as VisualPartDefinition[]
   const partIds = new Set(parts.map(part => part.id))
   const retainExistingPartBoosts = <T extends { boosts?: Record<string, number> }>(definition: T): T => (
     definition.boosts === undefined
@@ -222,10 +302,15 @@ if (isDirectExecution()) {
   }
   assertInterfaceSourceIndex(manifest, processed.sourceIndex)
   const base = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.2.0/catalog.json', 'utf8')) as Catalog
+  const retainedMetadata = JSON.parse(await readFile(
+    join(paths.sourceRoot, 'retained-v0.2', 'coordinate-metadata.json'), 'utf8',
+  )) as RetainedCoordinateMetadata
   const catalog = buildInterfaceCatalog({
     baseCatalog: base, manifest,
     processedAssets: processed.processedAssets,
     processedBridges: processed.processedBridges,
+    retainedMetadata,
+    sourceIndex: processed.sourceIndex,
   })
   const documents: Record<string, unknown> = {
     'catalog.json': catalog,

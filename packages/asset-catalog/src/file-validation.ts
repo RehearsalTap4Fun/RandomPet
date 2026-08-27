@@ -18,7 +18,7 @@ export async function validateAssetFile(
   assetPath: string,
   expectedHash: string | undefined,
   path: string[],
-  options: { dimensions?: 'canonical' | 'trimmed-node' } = {},
+  options: { dimensions?: 'canonical' | 'trimmed-node' | 'transition-bridge' } = {},
 ): Promise<Diagnostic[]> {
   const diagnostics: Diagnostic[] = []
   const resolvedPath = resolve(assetRoot, assetPath)
@@ -63,10 +63,14 @@ export async function validateAssetFile(
   }
   const dimensionsValid = options.dimensions === 'trimmed-node'
     ? metadata.width !== undefined && metadata.height !== undefined && metadata.width > 0 && metadata.height > 0 && metadata.width <= 2048 && metadata.height <= 2048
-    : metadata.width === metadata.height && (metadata.width === 1024 || metadata.width === 2048)
+    : options.dimensions === 'transition-bridge'
+      ? metadata.width === 512 && metadata.height === 256
+      : metadata.width === metadata.height && (metadata.width === 1024 || metadata.width === 2048)
   if (!dimensionsValid) {
     const requirement = options.dimensions === 'trimmed-node'
       ? 'Composition node asset must have positive dimensions no larger than 2048 pixels per side'
+      : options.dimensions === 'transition-bridge'
+        ? 'Transition bridge asset must be exactly 512 by 256 pixels'
       : 'Asset must be square 1024 or 2048 pixels'
     diagnostics.push(error('ASSET_DIMENSION_INVALID', path, `${requirement}: ${assetPath}`))
   }
@@ -91,7 +95,9 @@ export async function validateCatalogFiles(catalog: Catalog, assetRoot: string):
   const lexicalRoot = resolve(assetRoot)
   const root = await realpath(lexicalRoot).catch(() => lexicalRoot)
   const checks = catalog.parts.flatMap((part, index) => [
-    { assetPath: part.assetPath, expectedHash: part.assetSha256, path: ['parts', String(index), 'assetPath'] },
+    ...(part.composition?.isNone === true && part.assetPath === '' ? [] : [
+      { assetPath: part.assetPath, expectedHash: part.assetSha256, path: ['parts', String(index), 'assetPath'] },
+    ]),
     ...(part.pngPath === undefined ? [] : [{ assetPath: part.pngPath, expectedHash: part.pngSha256, path: ['parts', String(index), 'pngPath'] }]),
     ...(part.maskPaths.primary === undefined ? [] : [{ assetPath: part.maskPaths.primary, expectedHash: part.maskSha256?.primary, path: ['parts', String(index), 'maskPaths', 'primary'] }]),
     ...(part.maskPaths.secondary === undefined ? [] : [{ assetPath: part.maskPaths.secondary, expectedHash: part.maskSha256?.secondary, path: ['parts', String(index), 'maskPaths', 'secondary'] }]),
