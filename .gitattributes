@@ -6,3 +6,8 @@ asset-source/v0.3.0/production/processed-index.json -text
 asset-source/v0.3.0/generation/task8-limb-production.json -text
 asset-source/v0.3.0/prompts/task8-limb-prompts.json -text
 .superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json -text
+packages/asset-catalog/catalog/v0.3.0/catalog.json -text
+scripts/render-limb-contact-sheets.ts -text
+apps/creator-web/src/render-test.ts -text
+packages/renderer-canvas/src/render.ts -text
+packages/renderer-canvas/src/connector-metrics.ts -text
