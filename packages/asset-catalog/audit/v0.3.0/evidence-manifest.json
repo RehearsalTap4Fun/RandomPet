@@ -19103,7 +19103,7 @@
       },
       {
         "path": "packages/asset-catalog/src/bridge-render-review-provenance.ts",
-        "sha256": "9343d0301996aea7f21d653d88571437c64da2a22d7148cbba604f330d468c85",
+        "sha256": "6f01954c371d19be5c471f986ea98ed98bff2fdf61a020cd2f7cc06422413dbc",
         "groups": [
           "task9-validation"
         ]

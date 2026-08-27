@@ -195,6 +195,61 @@ describe('PreviewCanvas', () => {
     expect(onRenderComplete).not.toHaveBeenCalled()
   })
 
+  it('commits and completes a preview whose diagnostics are warning-only', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'warning-only', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const warning: Diagnostic = {
+      severity: 'warning', code: 'FUTURE_RENDER_WARNING', path: ['preview'], message: 'warning only',
+    }
+    const result: RenderResult = {
+      drawnAssetIds: [], diagnostics: [warning], compositionMetrics: null, connectorMetrics: [],
+    }
+    const renderer: PreviewRenderer = vi.fn(async () => result)
+    const onDiagnosticsChange = vi.fn()
+    const onRenderComplete = vi.fn()
+
+    render(<PreviewCanvas
+      spec={spec}
+      catalog={catalog}
+      renderer={renderer}
+      onDiagnosticsChange={onDiagnosticsChange}
+      onRenderComplete={onRenderComplete}
+    />)
+
+    await waitFor(() => expect(onRenderComplete).toHaveBeenCalledWith(result))
+    expect(onDiagnosticsChange).toHaveBeenLastCalledWith([warning])
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    expect(contexts.get(display)?.drawImage).toHaveBeenCalledTimes(1)
+  })
+
+  it('blocks an arbitrary future diagnostic whose severity is error', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'future-error', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const futureError: Diagnostic = {
+      severity: 'error', code: 'FUTURE_UNKNOWN_RENDER_ERROR', path: ['preview'], message: 'future error',
+    }
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [futureError], compositionMetrics: null, connectorMetrics: [],
+    }))
+    const onDiagnosticsChange = vi.fn()
+    const onRenderComplete = vi.fn()
+
+    render(<PreviewCanvas
+      spec={spec}
+      catalog={catalog}
+      renderer={renderer}
+      onDiagnosticsChange={onDiagnosticsChange}
+      onRenderComplete={onRenderComplete}
+    />)
+
+    await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([futureError]))
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
+    expect(onRenderComplete).not.toHaveBeenCalled()
+  })
+
   it('forwards the displayed canvas used for committed renders', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()

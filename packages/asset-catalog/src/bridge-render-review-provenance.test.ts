@@ -16,6 +16,7 @@ const CURRENT_REWORK_PATH = `${REVIEW_ROOT}/rework-record.json`
 const ARCHIVED_REVIEW_ROOT = `${REVIEW_ROOT}/superseded/task9-pre-bridge-render`
 const ARCHIVED_INDEX_PATH = `${ARCHIVED_REVIEW_ROOT}/structural-matrix-index.json`
 const ARCHIVED_TAIL_REVIEW_PATH = `${ARCHIVED_REVIEW_ROOT}/tail-extra-review-record.json`
+const EVIDENCE_MANIFEST_PATH = 'packages/asset-catalog/audit/v0.3.0/evidence-manifest.json'
 const JSON_PATHS = [
   BRIDGE_RENDER_REVIEW_PROVENANCE_PATH,
   CURRENT_INDEX_PATH,
@@ -81,6 +82,21 @@ async function synchronizeTailBacklink(): Promise<void> {
   await writeJson(CURRENT_REWORK_PATH, rework)
 }
 
+async function rebuildSynchronizedEvidenceManifest(): Promise<any> {
+  const manifest = JSON.parse(await readFile(join(process.cwd(), EVIDENCE_MANIFEST_PATH), 'utf8'))
+  for (const path of [
+    BRIDGE_RENDER_REVIEW_PROVENANCE_PATH,
+    CURRENT_TAIL_REVIEW_PATH,
+    CURRENT_REWORK_PATH,
+  ]) {
+    const dependency = manifest.task9Evidence.dependencies.find((item: any) => item.path === path)
+    if (dependency === undefined) throw new Error(`Missing formal evidence dependency: ${path}`)
+    dependency.sha256 = sha256(await readFile(join(root, path)))
+  }
+  manifest.task9Evidence.dependencyCount = manifest.task9Evidence.dependencies.length
+  return manifest
+}
+
 async function provenanceDiagnostics() {
   return validateBridgeRenderReviewProvenance(root)
 }
@@ -117,7 +133,9 @@ describe('bridge-render review provenance', () => {
     ['generation order', 'PRODUCTION_TASK9_BRIDGE_REVIEW_PROVENANCE_INVALID', (value: any) => { [value.rounds[1], value.rounds[2]] = [value.rounds[2], value.rounds[1]] }],
     ['generation decision', 'PRODUCTION_TASK9_BRIDGE_REVIEW_PROVENANCE_INVALID', (value: any) => { value.rounds[1].decision = 'approved' }],
     ['generation directory', 'PRODUCTION_TASK9_BRIDGE_REVIEW_PROVENANCE_INVALID', (value: any) => { value.rounds[1].directory = value.rounds[2].directory }],
-    ['generation reason', 'PRODUCTION_TASK9_BRIDGE_REVIEW_PROVENANCE_INVALID', (value: any) => { value.rounds[2].reason = '' }],
+    ['generation reason', 'PRODUCTION_TASK9_BRIDGE_REVIEW_PROVENANCE_INVALID', (value: any) => {
+      value.rounds[2].reason = 'Independent review approved round 2 with no visible defects or material-boundary regressions.'
+    }],
     ['rig artifact inventory', 'PRODUCTION_TASK9_BRIDGE_REVIEW_PROVENANCE_INVALID', (value: any) => { delete value.rounds[3].artifacts.floating }],
     ['artifact hash shape', 'PRODUCTION_TASK9_BRIDGE_REVIEW_ARTIFACT_MISMATCH', (value: any) => { value.rounds[3].artifacts.blob.originalSha256 = 'not-a-sha' }],
   ])('rejects synchronized semantic mutation of %s', async (_label, expectedCode, mutate) => {
@@ -226,15 +244,14 @@ describe('bridge-render review provenance', () => {
     }))
   })
 
-  it('surfaces semantic provenance tampering through formal evidence validation after hashes are synchronized', async () => {
+  it('rejects a contradictory nonempty round-2 reason after every backlink and formal evidence hash is synchronized', async () => {
     const provenance = await readJson(BRIDGE_RENDER_REVIEW_PROVENANCE_PATH)
-    provenance.rounds[0].decision = 'rejected'
+    provenance.rounds[2].reason = 'Independent review approved round 2 with no visible defects or material-boundary regressions.'
     await writeJson(BRIDGE_RENDER_REVIEW_PROVENANCE_PATH, provenance)
     await synchronizeProvenanceBacklinks()
+    const rebuiltManifest = await rebuildSynchronizedEvidenceManifest()
 
-    const diagnostics = await validateProductionEvidenceDependencies({
-      task9Evidence: { dependencies: [] },
-    }, root)
+    const diagnostics = await validateProductionEvidenceDependencies(rebuiltManifest, root)
     expect(diagnostics).toContainEqual(expect.objectContaining({
       code: 'PRODUCTION_TASK9_BRIDGE_REVIEW_PROVENANCE_INVALID',
     }))

@@ -18,6 +18,7 @@ const EXPECTED_ROUNDS = [
     id: 'pre-bridge-render',
     decision: 'superseded',
     directory: ARCHIVED_REVIEW_ROOT,
+    reason: 'Historical matrix evidence was rendered before transition bridges entered final RGBA and is retained only as a causal baseline.',
     artifacts: {
       biped: { originalSha256: 'd9641d34dd782ec6ca434ab301da081e9d11d3bd50e0eb20af4e748174ea7746', review256Sha256: '0501ca7f54517e24b41e0f155241d2273a444a4bce90b9880861806aaf4e0b89' },
       blob: { originalSha256: '759053880da9dc0c7da7c138a81e2337ca0b846b801c13913da8cb2513161434', review256Sha256: '32390ed773b7f9d0118b441cbf7878818088f1c332b8e17defbafa25baab3fc2' },
@@ -28,6 +29,7 @@ const EXPECTED_ROUNDS = [
     id: 'bridge-render-round1',
     decision: 'rejected',
     directory: `${REVIEW_ROOT}/superseded/task9-bridge-round1-rejected`,
+    reason: 'Solved-origin material gradients were reversed or degenerate relative to contour-derived bridge mesh endpoints, producing orange and pink crescent seams.',
     artifacts: {
       biped: { originalSha256: 'ae17c1cfc729c09115aac3cbe7021f9e42e23f913566a58bc7bebed6bf1e82f9', review256Sha256: 'b5fefbbc4325af09125d9588a03f7014dc9272ea71e9d210571150256da1273a' },
       blob: { originalSha256: '9ca78000c2d09b830a1b979af1b794f4457e6aec0b433771db9f7df52c05b01b', review256Sha256: 'ba9bfebfe3d602387903170c06b4fa48e626848140d93102a427b5f59555ad4b' },
@@ -38,6 +40,7 @@ const EXPECTED_ROUNDS = [
     id: 'bridge-render-round2',
     decision: 'rejected',
     directory: `${REVIEW_ROOT}/superseded/task9-bridge-round2-rejected`,
+    reason: 'Mesh endpoint colors were correct, but a tucked plug frontier could still paint plug material across receiver body alpha.',
     artifacts: {
       biped: { originalSha256: '06643d365c03ff70a2523682f271e02c176c6c5c9ca210087d355899c0b91a7b', review256Sha256: '8fcfc6198412192ed0583f6ee680a8017301a683313b9161f5d264984f746374' },
       blob: { originalSha256: 'c05d8d4f5c4364622a1ac13b3f4c62fa1e30471275d8a26cd7b1b221e4470d3d', review256Sha256: '75320f77c6e709b60b26747cf96f07ce92e84301f7e86d9d526be78382d7c941' },
@@ -48,6 +51,7 @@ const EXPECTED_ROUNDS = [
     id: APPROVED_ROUND,
     decision: 'approved',
     directory: REVIEW_ROOT,
+    reason: 'Independent visual review found the colored crescent artifacts removed while tail and extra identities remained visible, naturally connected, and symmetric.',
     artifacts: {
       biped: { originalSha256: 'cabfd512392d0594ae585dc9e6038f6c269fe862384c1a25adccf4bf4f451d25', review256Sha256: 'a7e07d003f574275a96c0ddd4f5cd60f44e3680dba18b11d5e87865788e375ea' },
       blob: { originalSha256: '68da876bfb71e515e44a65fff266e4da74e1f731e370e7e2a0a333bdd8c74ea3', review256Sha256: '017ed510a156a02c103a64aeea1a80abe10feff8355edcb94c2a083cf00ff42b' },
@@ -128,8 +132,7 @@ export async function validateBridgeRenderReviewProvenance(repositoryRoot: strin
       || candidate.id !== expected.id
       || candidate.decision !== expected.decision
       || candidate.directory !== expected.directory
-      || typeof candidate.reason !== 'string'
-      || candidate.reason.trim() === ''
+      || candidate.reason !== expected.reason
       || !isRecord(candidate.artifacts)
       || !exactKeys(candidate.artifacts, RIGS)
     ) diagnostics.push(diagnostic(
