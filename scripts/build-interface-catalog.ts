@@ -288,11 +288,27 @@ function isDirectExecution(): boolean {
   }
 }
 
+export function parseBuildInterfaceCatalogArgs(args: string[]): {
+  version: '0.3.0'
+  scope?: 'biped' | 'body-head' | 'limbs'
+} {
+  const joined = args.join(' ')
+  if (joined === '--version 0.3.0') return { version: '0.3.0' }
+  const legacyScopes = new Map<string, 'biped' | 'body-head' | 'limbs'>([
+    ['--slice biped', 'biped'],
+    ['--version 0.3.0 --slice biped', 'biped'],
+    ['--scope body-head', 'body-head'],
+    ['--version 0.3.0 --scope body-head', 'body-head'],
+    ['--scope limbs', 'limbs'],
+    ['--version 0.3.0 --scope limbs', 'limbs'],
+  ])
+  const scope = legacyScopes.get(joined)
+  if (scope !== undefined) return { version: '0.3.0', scope }
+  throw new Error('BUILD_INTERFACE_CATALOG_ARGS_INVALID: expected --version 0.3.0')
+}
+
 if (isDirectExecution()) {
-  const args = process.argv.slice(2).join(' ')
-  if (!['--slice biped', '--version 0.3.0 --slice biped', '--scope body-head', '--version 0.3.0 --scope body-head', '--scope limbs', '--version 0.3.0 --scope limbs'].includes(args)) {
-    throw new Error('Usage: tsx scripts/build-interface-catalog.ts --version 0.3.0 --scope limbs')
-  }
+  parseBuildInterfaceCatalogArgs(process.argv.slice(2))
   const paths = productionPaths('0.3.0')
   const manifest = JSON.parse(await readFile(join(paths.sourceRoot, 'interface-manifest.json'), 'utf8')) as InterfaceSourceManifest
   const processed = JSON.parse(await readFile(join(paths.sourceRoot, 'production', 'processed-index.json'), 'utf8')) as {

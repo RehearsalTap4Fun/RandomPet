@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os'
 import { describe, expect, it } from 'vitest'
 import sharp from 'sharp'
 import { afterEach } from 'vitest'
-import { buildColorSchemeRuntime, buildProductionColorSchemeMasks, deriveRigColorMasks } from './build-color-scheme-masks.js'
+import { buildColorSchemeRuntime, buildProductionColorSchemeMasks, deriveRigColorMasks, resolveStructuralUnionInputPath } from './build-color-scheme-masks.js'
 
 const temporaryDirectories: string[] = []
 
@@ -57,6 +57,11 @@ function opaqueComponents(mask: Buffer, width: number, height: number): number {
 }
 
 describe('rig-aware color-scheme mask derivation', () => {
+  it('rejects a structural-union index path that escapes the repository trust root', () => {
+    expect(() => resolveStructuralUnionInputPath('C:/repo', '../../outside.png')).toThrow('escapes output root')
+    expect(resolveStructuralUnionInputPath('C:/repo', 'asset-source/v0.3.0/union.png')).toBe('C:\\repo\\asset-source\\v0.3.0\\union.png')
+  })
+
   it('partitions the approved three-zone layout inside only the opaque rig body core', async () => {
     const width = 12
     const height = 12

@@ -5,7 +5,7 @@ import { makeCompositionCatalogFixture } from '@qmonster/generator-core/test-fix
 import { validateCatalogStructure } from '@qmonster/generator-core'
 import type { Catalog } from '@qmonster/generator-core'
 import { validateProductionMetadata } from '../packages/asset-catalog/src/production-validation.js'
-import { buildInterfaceCatalog, validateInterfaceSourceIndex } from './build-interface-catalog.js'
+import { buildInterfaceCatalog, parseBuildInterfaceCatalogArgs, validateInterfaceSourceIndex } from './build-interface-catalog.js'
 import { interfaceVariantKey, structuralVariants } from './interface-source-schema.js'
 import type { InterfaceSourceManifest } from './interface-source-schema.js'
 import type { RetainedCoordinateMetadata } from './retain-v02-nonstructural-assets.js'
@@ -13,6 +13,12 @@ import type { RetainedCoordinateMetadata } from './retain-v02-nonstructural-asse
 const hashFor = (value: string): string => createHash('sha256').update(value).digest('hex')
 
 describe('buildInterfaceCatalog', () => {
+  it('accepts the canonical full v0.3 build command without a legacy slice scope', () => {
+    expect(parseBuildInterfaceCatalogArgs(['--version', '0.3.0'])).toEqual({ version: '0.3.0' })
+    expect(() => parseBuildInterfaceCatalogArgs(['--version', '0.2.0'])).toThrow('BUILD_INTERFACE_CATALOG_ARGS_INVALID')
+    expect(() => parseBuildInterfaceCatalogArgs(['--version', '0.3.0', '--scope', 'unknown'])).toThrow('BUILD_INTERFACE_CATALOG_ARGS_INVALID')
+  })
+
   it('preserves all v0.3 structural-union palette masks when catalog is rebuilt after color', async () => {
     const baseCatalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.2.0/catalog.json', 'utf8')) as Catalog
     const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest

@@ -18,6 +18,7 @@ import { tmpdir } from 'node:os'
 import { validateBipedSliceReview } from './validate-biped-slice-review.js'
 import { measureBodyHeadCausalMetrics } from './body-head-contact-metrics.js'
 import { reconstructLimbMatrixEvidence, type LimbMatrixEvidenceEntry } from './render-limb-contact-sheets.js'
+import { validateStoredTailExtraMatrixEvidence } from './render-tail-extra-structural-matrices.js'
 import {
   TASK8_APPROVED_EVIDENCE_BINDINGS,
   TASK8_APPROVED_LEGACY_CATALOG_SHA256,
@@ -1126,6 +1127,49 @@ export async function validateBodyHeadApproval(input: { repositoryRoot: string, 
   }
 }
 
+export async function validatePublishedInterfaceApprovals(input: {
+  repositoryRoot: string
+  production: boolean
+  scope?: 'body-head' | 'limbs'
+}): Promise<{
+  diagnostics: Diagnostic[]
+  bodyHeadEntriesChecked: Record<InterfaceRigId, number> | undefined
+  bodyHeadApprovalEntriesChecked: number
+  limbEntriesChecked: Record<InterfaceRigId, number> | undefined
+  limbApprovalEntriesChecked: number
+}> {
+  const diagnostics: Diagnostic[] = []
+  const reviewRoot = join(input.repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
+  let bodyHeadEntriesChecked: Record<InterfaceRigId, number> | undefined
+  let bodyHeadApprovalEntriesChecked = 0
+  let limbEntriesChecked: Record<InterfaceRigId, number> | undefined
+  let limbApprovalEntriesChecked = 0
+
+  if (input.production || input.scope === 'body-head') {
+    const review = await validateBodyHeadReview({ repositoryRoot: input.repositoryRoot, reviewRoot })
+    bodyHeadEntriesChecked = review.entryCountByRig
+    diagnostics.push(...review.diagnostics)
+    if (diagnostics.length === 0) {
+      const approval = await validateBodyHeadApproval({ repositoryRoot: input.repositoryRoot, reviewRoot })
+      bodyHeadApprovalEntriesChecked = approval.entryCount
+      diagnostics.push(...approval.diagnostics)
+    }
+  }
+
+  if (diagnostics.length === 0 && (input.production || input.scope === 'limbs')) {
+    const review = await validateLimbReview({ repositoryRoot: input.repositoryRoot, reviewRoot })
+    limbEntriesChecked = review.entryCountByRig
+    diagnostics.push(...review.diagnostics)
+    if (diagnostics.length === 0) {
+      const approval = await validateLimbApproval({ repositoryRoot: input.repositoryRoot, reviewRoot })
+      limbApprovalEntriesChecked = approval.entryCount
+      diagnostics.push(...approval.diagnostics)
+    }
+  }
+
+  return { diagnostics, bodyHeadEntriesChecked, bodyHeadApprovalEntriesChecked, limbEntriesChecked, limbApprovalEntriesChecked }
+}
+
 async function main(): Promise<void> {
   const versionIndex = process.argv.indexOf('--version')
   const version = versionIndex === -1 ? undefined : process.argv[versionIndex + 1]
@@ -1170,28 +1214,22 @@ async function main(): Promise<void> {
   let bodyHeadApprovalEntriesChecked = 0
   let limbEntriesChecked: Record<InterfaceRigId, number> | undefined
   let limbApprovalEntriesChecked = 0
-  if (diagnostics.length === 0 && scope === 'body-head') {
-    const review = await validateBodyHeadReview({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
-    bodyHeadEntriesChecked = review.entryCountByRig
-    diagnostics.push(...review.diagnostics)
-    if (diagnostics.length === 0) {
-      const approval = await validateBodyHeadApproval({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
-      bodyHeadApprovalEntriesChecked = approval.entryCount
-      diagnostics.push(...approval.diagnostics)
-    }
+  let tailExtraEntriesChecked = 0
+  if (diagnostics.length === 0) {
+    const approvals = await validatePublishedInterfaceApprovals({ repositoryRoot, production, scope: scope as 'body-head' | 'limbs' | undefined })
+    bodyHeadEntriesChecked = approvals.bodyHeadEntriesChecked
+    bodyHeadApprovalEntriesChecked = approvals.bodyHeadApprovalEntriesChecked
+    limbEntriesChecked = approvals.limbEntriesChecked
+    limbApprovalEntriesChecked = approvals.limbApprovalEntriesChecked
+    diagnostics.push(...approvals.diagnostics)
   }
-  if (diagnostics.length === 0 && scope === 'limbs') {
-    const review = await validateLimbReview({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
-    limbEntriesChecked = review.entryCountByRig
-    diagnostics.push(...review.diagnostics)
-    if (diagnostics.length === 0) {
-      const approval = await validateLimbApproval({ repositoryRoot, reviewRoot: join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0') })
-      limbApprovalEntriesChecked = approval.entryCount
-      diagnostics.push(...approval.diagnostics)
-    }
+  if (diagnostics.length === 0 && production) {
+    const tailExtra = await validateStoredTailExtraMatrixEvidence({ repositoryRoot })
+    tailExtraEntriesChecked = tailExtra.entryCount
+    for (const message of tailExtra.diagnostics) diagnostics.push(error('TAIL_EXTRA_MATRIX_LIVE_MISMATCH', ['review', 'tail-extra'], message))
   }
   for (const diagnostic of diagnostics) console.error(`ERROR ${diagnostic.code} ${diagnostic.path.join('.')}: ${diagnostic.message}`)
-  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, bodyHeadApprovalEntriesChecked, limbEntriesChecked, limbApprovalEntriesChecked, diagnostics: diagnostics.length }))
+  console.log(JSON.stringify({ version, rig, scope, sliceGuides: slice.ok, productionAssetsChecked, bipedEntriesChecked, bodyHeadEntriesChecked, bodyHeadApprovalEntriesChecked, limbEntriesChecked, limbApprovalEntriesChecked, tailExtraEntriesChecked, diagnostics: diagnostics.length }))
   if (diagnostics.length > 0) process.exitCode = 1
 }
 

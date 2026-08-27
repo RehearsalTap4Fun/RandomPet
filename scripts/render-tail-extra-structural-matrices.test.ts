@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { buildTailExtraMatrixIndex, makeTailExtraMatrixPlan, reconstructTailExtraMatrixEvidence, validateTailExtraRenderEvidence } from './render-tail-extra-structural-matrices.js'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { buildTailExtraMatrixIndex, makeTailExtraMatrixPlan, reconstructTailExtraMatrixEvidence, validateStoredTailExtraMatrixEvidence, validateTailExtraRenderEvidence } from './render-tail-extra-structural-matrices.js'
 
 describe('Task 9 tail/extra structural matrices', () => {
   it('binds the three full matrix artifacts and manifests into one exact-hash index', () => {
@@ -85,5 +88,33 @@ describe('Task 9 tail/extra structural matrices', () => {
     expect(extraMetrics.every(metric => metric.receiverCoverage >= 0.9)).toBe(true)
     expect(extraMetrics.every(metric => metric.plugCoverage >= 0.9)).toBe(true)
     expect(extraMetrics.every(metric => metric.centerlineGapPixels <= 2)).toBe(true)
+  }, 60_000)
+
+  it('reconstructs all 39 reviewed compositions and matches every stored manifest entry', async () => {
+    const result = await validateStoredTailExtraMatrixEvidence({ repositoryRoot: process.cwd() })
+    expect(result.entryCount).toBe(39)
+    expect(result.entryCountByRig).toEqual({ blob: 15, biped: 15, floating: 9 })
+    expect(result.diagnostics).toEqual([])
+  }, 300_000)
+
+  it('rejects a live transform tamper on a non-prototype full-matrix entry', async () => {
+    const tempRoot = await mkdtemp(join(tmpdir(), 'qmonster-tail-extra-tamper-'))
+    try {
+      const catalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.3.0/catalog.json', 'utf8'))
+      const tail = catalog.parts.find((part: any) => part.id === 'tail_soft_curl')
+      tail.composition.variantsByRig.blob.renderNodes[0].transform.scale *= 0.82
+      const catalogPath = join(tempRoot, 'catalog.json')
+      await writeFile(catalogPath, JSON.stringify(catalog))
+      const entry = makeTailExtraMatrixPlan('full').find(item => (
+        item.rigId === 'blob'
+        && item.bodyFrame === 'body_blob_wide'
+        && item.tail === 'tail_soft_curl'
+        && item.extraAppendage === 'extra_appendage_none'
+      ))!
+      const result = await validateStoredTailExtraMatrixEvidence({ repositoryRoot: process.cwd(), catalogPath, plan: [entry] })
+      expect(result.diagnostics).toContain('TAIL_EXTRA_MATRIX_ENTRY_MISMATCH:blob:body_blob_wide:tail_soft_curl:extra_appendage_none')
+    } finally {
+      await rm(tempRoot, { recursive: true, force: true })
+    }
   }, 60_000)
 })

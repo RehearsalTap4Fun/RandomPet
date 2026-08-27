@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { createHash } from 'node:crypto'
-import { mkdtemp, writeFile } from 'node:fs/promises'
+import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import * as evidenceRootModule from './evidence-root.js'
@@ -152,4 +152,11 @@ test('recomputes every Task 9 dependency hash from a contained regular file', as
     code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH',
     path: ['task9Evidence', 'dependencies', 'input.json'],
   }))
+  await rm(join(root, 'input.json'))
+  expect(await validateDependencies(manifest, root)).toContainEqual({
+    severity: 'error',
+    code: 'PRODUCTION_EVIDENCE_DEPENDENCY_MISSING',
+    path: ['task9Evidence', 'dependencies', 'input.json'],
+    message: 'Task 9 evidence dependency cannot be read from its canonical repository path: input.json',
+  })
 })

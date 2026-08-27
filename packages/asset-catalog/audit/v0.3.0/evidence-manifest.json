@@ -7,7 +7,7 @@
   "task9Evidence": {
     "schemaVersion": "task9-production-evidence-v1",
     "sourceEntryCount": 102,
-    "dependencyCount": 1677,
+    "dependencyCount": 1679,
     "dependencies": [
       {
         "path": "apps/creator-web/src/render-test.ts",
@@ -16475,7 +16475,7 @@
       },
       {
         "path": "packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json",
-        "sha256": "ff390c5cb993bee0c84fef7ba533d17590a72bb1850c0d936c6f1831ea9b0152",
+        "sha256": "a0869c48c61bf2b694712f22b468a898f290f7af5705a464fcccba06d8853147",
         "groups": [
           "stale-removal"
         ]
@@ -17338,6 +17338,20 @@
         "sha256": "7c25d550af00c8af9705e1c9594bf187becc1326beeb276beee76675990034d5",
         "groups": [
           "task6-9-review"
+        ]
+      },
+      {
+        "path": "scripts/render-tail-extra-structural-matrices.ts",
+        "sha256": "8b626700a587d41d990211059842522e2d99016914335ad865feed73f70cc3fe",
+        "groups": [
+          "task9-live-renderer"
+        ]
+      },
+      {
+        "path": "scripts/task9-structural-identities.ts",
+        "sha256": "c1bc977bf3191dc01d624de812d5d89dcdbef34c1241828b95dbc5f4cf1f4e3f",
+        "groups": [
+          "task9-live-renderer"
         ]
       }
     ],

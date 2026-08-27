@@ -35,6 +35,15 @@ export default defineConfig({
           setupFiles: ['apps/creator-web/src/test/setup.ts'],
         },
       },
+      {
+        test: {
+          name: 'production-browser-v03',
+          environment: 'node',
+          include: ['tests/render/production-composition.spec.ts'],
+          testTimeout: 120_000,
+          hookTimeout: 120_000,
+        },
+      },
     ],
   },
 })

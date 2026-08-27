@@ -15,12 +15,11 @@ import {
   resolvedFsPath,
   type RenderEvidence,
 } from './render-limb-contact-sheets.js'
+import { TASK9_EXTRA_IDS, TASK9_TAIL_IDS } from './task9-structural-identities.js'
 
 const ROOT = process.cwd()
 const REVIEW_ROOT = join(ROOT, 'packages', 'asset-catalog', 'review', 'v0.3.0')
 const PNG = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
-const TAILS = ['tail_fish_fan', 'tail_soft_curl', 'tail_mushroom_cluster'] as const
-const EXTRAS = ['extra_moth_wings', 'extra_soft_tentacles', 'extra_side_fins'] as const
 const MIXED = [
   ['tail_fish_fan', 'extra_soft_tentacles'],
   ['tail_soft_curl', 'extra_side_fins'],
@@ -60,8 +59,8 @@ export function makeTailExtraMatrixPlan(mode: MatrixMode): TailExtraMatrixPlanEn
   ))
   return (['blob', 'biped', 'floating'] as const).flatMap(rigId => [
     ...BODIES[rigId].flatMap(bodyFrame => [
-      ...TAILS.map(tail => fixedEntry(rigId, bodyFrame, tail, 'extra_appendage_none', 'tail-only')),
-      ...EXTRAS.map(extra => fixedEntry(rigId, bodyFrame, 'tail_none', extra, 'extra-only')),
+      ...TASK9_TAIL_IDS.map(tail => fixedEntry(rigId, bodyFrame, tail, 'extra_appendage_none', 'tail-only')),
+      ...TASK9_EXTRA_IDS.map(extra => fixedEntry(rigId, bodyFrame, 'tail_none', extra, 'extra-only')),
     ]),
     ...MIXED.map(([tail, extra], index) => fixedEntry(
       rigId,
@@ -142,10 +141,10 @@ export function buildTailExtraMatrixIndex(artifacts: TailExtraMatrixArtifactBind
   }
 }
 
-function portableMatrixPath(path: string): string {
+function portableMatrixPath(path: string, repositoryRoot = ROOT): string {
   const fsPath = path.startsWith('/@fs/') ? resolvedFsPath(path) : path
   if (!isAbsolute(fsPath)) return fsPath.replaceAll('\\', '/')
-  const portable = relative(ROOT, resolve(fsPath))
+  const portable = relative(repositoryRoot, resolve(fsPath))
   if (portable === '..' || portable.startsWith(`..${process.platform === 'win32' ? '\\' : '/'}`) || isAbsolute(portable)) {
     throw new Error(`TAIL_EXTRA_MATRIX_EVIDENCE_INVALID: path escapes repository: ${path}`)
   }
@@ -194,16 +193,20 @@ export async function writeTailExtraMatrixIndexFromExistingManifests() {
 export async function reconstructTailExtraMatrixEvidence(input: {
   mode?: MatrixMode
   failOnGateError?: boolean
+  repositoryRoot?: string
+  catalogPath?: string
+  plan?: TailExtraMatrixPlanEntry[]
 } = {}): Promise<{ mode: MatrixMode, catalogInputSha256: string, entries: MatrixEvidenceEntry[] }> {
   const mode = input.mode ?? 'full'
-  const plan = makeTailExtraMatrixPlan(mode)
-  const catalogPath = join(ROOT, 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json')
+  const repositoryRoot = resolve(input.repositoryRoot ?? ROOT)
+  const plan = input.plan ?? makeTailExtraMatrixPlan(mode)
+  const catalogPath = resolve(input.catalogPath ?? join(repositoryRoot, 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json'))
   const catalogBytes = await readFile(catalogPath)
   const sourceCatalog = JSON.parse(catalogBytes.toString('utf8')) as Catalog
   const catalogInputSha256 = sha256(catalogBytes)
   const catalog = browserCatalog(sourceCatalog, { activeStructuralSlots: ['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'] })
-  const tempRoot = await mkdtemp(join(ROOT, '.tmp-tail-extra-matrix-'))
-  const server = await createServer({ root: resolve('apps/creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
+  const tempRoot = await mkdtemp(join(repositoryRoot, '.tmp-tail-extra-matrix-'))
+  const server = await createServer({ root: join(repositoryRoot, 'apps', 'creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
   await server.listen()
   const baseUrl = server.resolvedUrls?.local[0]
   if (baseUrl === undefined) throw new Error('TAIL_EXTRA_MATRIX_RENDER_FAILED: Vite server has no local URL')
@@ -246,14 +249,75 @@ export async function reconstructTailExtraMatrixEvidence(input: {
       const resolvedAssetHashes = await Promise.all([...new Set(evidence.resolvedAssetPaths)].map(async path => {
         let digest = hashCache.get(path)
         if (digest === undefined) { digest = await hashFile(resolvedFsPath(path)); hashCache.set(path, digest) }
-        return { path: portableMatrixPath(path), sha256: digest }
+        return { path: portableMatrixPath(path, repositoryRoot), sha256: digest }
       }))
-      entries.push({ ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths.map(portableMatrixPath), diagnostics: evidence.diagnostics, gateErrors, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes } })
+      entries.push({ ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths.map(path => portableMatrixPath(path, repositoryRoot)), diagnostics: evidence.diagnostics, gateErrors, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes } })
     }
   } finally {
     await page.close(); await browser.close(); await server.close(); await rm(tempRoot, { recursive: true, force: true })
   }
   return { mode, catalogInputSha256, entries }
+}
+
+export async function validateStoredTailExtraMatrixEvidence(input: {
+  repositoryRoot: string
+  catalogPath?: string
+  plan?: TailExtraMatrixPlanEntry[]
+}): Promise<{
+  diagnostics: string[]
+  entryCount: number
+  entryCountByRig: Record<MatrixRigId, number>
+}> {
+  const repositoryRoot = resolve(input.repositoryRoot)
+  const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
+  const live = await reconstructTailExtraMatrixEvidence({ mode: 'full', failOnGateError: false, repositoryRoot, catalogPath: input.catalogPath, plan: input.plan })
+  const fullRoster = input.plan === undefined
+  const diagnostics: string[] = []
+  const entryCountByRig = { blob: 0, biped: 0, floating: 0 }
+
+  for (const rigId of ['blob', 'biped', 'floating'] as const) {
+    const manifestPath = join(reviewRoot, `structural-matrix-${rigId}-manifest.json`)
+    let manifest: any
+    try {
+      manifest = JSON.parse(await readFile(manifestPath, 'utf8'))
+    } catch {
+      diagnostics.push(`TAIL_EXTRA_MATRIX_MANIFEST_INVALID:${rigId}`)
+      continue
+    }
+    const liveEntries = live.entries.filter(entry => entry.rigId === rigId)
+    entryCountByRig[rigId] = liveEntries.length
+    if (manifest.schemaVersion !== 'task9-tail-extra-structural-matrix-v1' || manifest.mode !== 'full' || manifest.rigId !== rigId) {
+      diagnostics.push(`TAIL_EXTRA_MATRIX_MANIFEST_HEADER_MISMATCH:${rigId}`)
+    }
+    if (!Array.isArray(manifest.entries) || (fullRoster && (manifest.entryCount !== liveEntries.length || manifest.entries.length !== liveEntries.length))) {
+      diagnostics.push(`TAIL_EXTRA_MATRIX_ENTRY_COUNT_MISMATCH:${rigId}`)
+      continue
+    }
+    if (manifest.entries.some((entry: any) => entry.inputBinding?.catalogSha256 !== manifest.catalogInputSha256)) {
+      diagnostics.push(`TAIL_EXTRA_MATRIX_HISTORIC_CATALOG_BINDING_MISMATCH:${rigId}`)
+    }
+    for (const liveEntryWithFrame of liveEntries) {
+      const { original, ...liveEntry } = liveEntryWithFrame
+      const identityKeys: Array<keyof TailExtraMatrixPlanEntry> = ['rigId', 'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage', 'mode']
+      const stored = manifest.entries.find((entry: any) => identityKeys.every(key => entry[key] === liveEntry[key]))
+      const identity = `${liveEntry.bodyFrame}:${liveEntry.tail}:${liveEntry.extraAppendage}`
+      if (stored === undefined) {
+        diagnostics.push(`TAIL_EXTRA_MATRIX_IDENTITY_MISSING:${rigId}:${identity}`)
+        continue
+      }
+      const { inputBinding: liveBinding, ...liveComparable } = liveEntry
+      const { inputBinding: storedBinding, originalSha256: storedOriginalSha256, ...storedComparable } = stored
+      if (
+        JSON.stringify(storedComparable) !== JSON.stringify(liveComparable)
+        || JSON.stringify(storedBinding?.resolvedAssetHashes) !== JSON.stringify(liveBinding.resolvedAssetHashes)
+        || storedOriginalSha256 !== sha256(original)
+      ) {
+        diagnostics.push(`TAIL_EXTRA_MATRIX_ENTRY_MISMATCH:${rigId}:${identity}`)
+      }
+    }
+  }
+
+  return { diagnostics, entryCount: live.entries.length, entryCountByRig }
 }
 
 function escapeXml(value: string): string { return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;') }

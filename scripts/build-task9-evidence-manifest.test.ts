@@ -1,13 +1,19 @@
 import { createHash } from 'node:crypto'
-import { mkdir, mkdtemp, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { basename, dirname, join } from 'node:path'
 import { expect, it } from 'vitest'
 import {
   collectCanonicalInterfaceGuideSeeds,
   collectEvidenceDependencyClosure,
   task9StructuralMatrixEvidence,
+  validateTask9StaleRemovalAudit,
 } from './build-task9-evidence-manifest.js'
+
+it('matches the audited baseline deletion and similarity-rename sets to Git exactly', async () => {
+  const audit = JSON.parse(await readFile('packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json', 'utf8'))
+  await expect(validateTask9StaleRemovalAudit(process.cwd(), audit)).resolves.toEqual([])
+})
 
 it('derives every canonical biped guide from the interface manifest and fails if one is missing', async () => {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-guides-'))
@@ -69,6 +75,17 @@ it('recursively collects sorted hash-bound paths from documents and directories'
     sha256: createHash('sha256').update(candidate).digest('hex'),
     groups: ['source-index', 'task9-generation'],
   })
+})
+
+it('rejects an escaping document seed before attempting to parse outside bytes', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-boundary-'))
+  const outside = join(dirname(root), `${basename(root)}-outside.json`)
+  await writeFile(outside, 'this is intentionally not JSON')
+  await expect(collectEvidenceDependencyClosure({
+    repositoryRoot: root,
+    seedFiles: [{ path: `../${basename(outside)}`, group: 'malicious' }],
+    recursiveDirectories: [],
+  })).rejects.toThrow('escapes repository root')
 })
 
 it('reads structural metrics from the approved structuralMatrixReview field', () => {

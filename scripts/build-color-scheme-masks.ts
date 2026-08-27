@@ -7,6 +7,10 @@ import { resolveOutputPath } from './safe-output.js'
 
 const PNG_OPTIONS = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
 
+export function resolveStructuralUnionInputPath(repositoryRoot: string, indexPath: string): string {
+  return resolveOutputPath(repositoryRoot, indexPath)
+}
+
 export interface ColorMaskMetrics {
   width: number
   height: number
@@ -345,7 +349,7 @@ export async function buildV03StructuralUnionColorMasks(root = process.cwd()): P
       runtimeWebpPath: join(runtimeRoot, 'parts', `${sourceId}.webp`),
       maskRoot: join(runtimeRoot, 'masks'),
       preserveRuntimeBytes: true,
-      rigs: unionIndex.rigs.map(rig => ({ rigId: rig.rigId, assetPath: join(root, rig.path) })),
+      rigs: unionIndex.rigs.map(rig => ({ rigId: rig.rigId, assetPath: resolveStructuralUnionInputPath(root, rig.path) })),
     })
     audit.maskBasis = 'v0.3-structural-union-alpha-v1'
     const part = catalog.parts.find((candidate: any) => candidate.id === sourceId)

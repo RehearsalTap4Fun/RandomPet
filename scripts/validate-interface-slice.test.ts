@@ -15,6 +15,7 @@ import {
   validateInterfaceSlice,
   validateLimbApproval,
   validateLimbReview,
+  validatePublishedInterfaceApprovals,
 } from './validate-interface-slice.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 import { BIPED_SLICE, structuralVariants } from '../packages/asset-catalog/src/interface-source-schema.js'
@@ -32,6 +33,19 @@ function canonicalGuideVariants(manifest: any): ReturnType<typeof structuralVari
 }
 
 describe('validateInterfaceSlice', () => {
+  it('runs both approved Task 7 and Task 8 matrices from the unscoped production entrypoint', async () => {
+    const result = await validatePublishedInterfaceApprovals({
+      repositoryRoot: process.cwd(),
+      production: true,
+    })
+
+    expect(result.bodyHeadEntriesChecked).toEqual({ blob: 8, biped: 8, floating: 4 })
+    expect(result.bodyHeadApprovalEntriesChecked).toBe(20)
+    expect(result.limbEntriesChecked).toEqual({ blob: 24, biped: 24, floating: 12 })
+    expect(result.limbApprovalEntriesChecked).toBe(60)
+    expect(result.diagnostics).toEqual([])
+  }, 300_000)
+
   it('validates the exact 60-cell limb roster at the global 0.614 boundary', async () => {
     const repositoryRoot = process.cwd()
     const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')

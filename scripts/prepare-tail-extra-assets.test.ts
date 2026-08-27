@@ -5,6 +5,7 @@ import { join } from 'node:path'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
 import { auditTask9BridgeSplits, auditTask9DistalFits, auditTask9EdgeResidual, auditTask9ReceiverSupports, deriveTask9ConnectorContracts, deriveTask9TangentWindows, extractTask9Candidate, normalizeTask9Extra, normalizeTask9Tail, resolveTask9ProcessedBodyKey, synchronizeTask9SourceIndex, task9ReceiverSockets, task9StructuralSelections } from './prepare-tail-extra-assets.js'
+import { TASK9_BODY_RIG_IDS, TASK9_EXTRA_IDS, TASK9_TAIL_IDS } from './task9-structural-identities.js'
 
 const temporaryRoots: string[] = []
 const sha256 = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex')
@@ -21,6 +22,17 @@ describe('prepare tail and extra assets', () => {
       extraLeft: { x: 560, y: 900 },
       extraRight: { x: 1488, y: 900 },
     })
+  })
+
+  it('shares one complete body-rig mapping and one production/matrix tail-extra identity set', () => {
+    expect(TASK9_BODY_RIG_IDS).toEqual({
+      body_blob_round: 'blob', body_blob_wide: 'blob',
+      body_biped_peanut: 'biped', body_biped_tall: 'biped',
+      body_floating_drop: 'floating',
+    })
+    const selections = task9StructuralSelections()
+    expect(new Set(selections.filter(item => item.slotId === 'tail').map(item => item.partId))).toEqual(new Set(TASK9_TAIL_IDS))
+    expect(new Set(selections.filter(item => item.slotId === 'extraAppendage').map(item => item.partId))).toEqual(new Set(TASK9_EXTRA_IDS))
   })
 
   it('derives 15 nonempty in-bounds receiver masks from body-local alpha without mutating body sources', async () => {

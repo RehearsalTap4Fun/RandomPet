@@ -4,18 +4,15 @@ import { dirname, join, resolve } from 'node:path'
 import sharp from 'sharp'
 import { processInterfaceAsset } from './process-interface-asset.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
+import { TASK9_BODY_RIG_IDS, TASK9_EXTRA_IDS, TASK9_RIG_IDS, TASK9_TAIL_IDS, type Task9RigId } from './task9-structural-identities.js'
+export type { Task9RigId } from './task9-structural-identities.js'
 
 const SIZE = 2048
 const PNG = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
-export type Task9RigId = 'blob' | 'biped' | 'floating'
-
-const TASK9_TAILS = ['tail_fish_fan', 'tail_soft_curl', 'tail_mushroom_cluster'] as const
-const TASK9_EXTRAS = ['extra_moth_wings', 'extra_soft_tentacles', 'extra_side_fins'] as const
-
 export function task9StructuralSelections() {
-  return (['blob', 'biped', 'floating'] as const).flatMap(rigId => [
-    ...TASK9_TAILS.map(partId => ({ rigId, partId, slotId: 'tail' as const })),
-    ...TASK9_EXTRAS.map(partId => ({ rigId, partId, slotId: 'extraAppendage' as const })),
+  return TASK9_RIG_IDS.flatMap(rigId => [
+    ...TASK9_TAIL_IDS.map(partId => ({ rigId, partId, slotId: 'tail' as const })),
+    ...TASK9_EXTRA_IDS.map(partId => ({ rigId, partId, slotId: 'extraAppendage' as const })),
   ])
 }
 
@@ -719,12 +716,9 @@ function task9AlphaSupportRange(profile: Task9Profile, alpha: Uint8Array): Task9
 
 export async function deriveTask9TangentWindows(manifestInput?: any): Promise<Task9TangentWindows> {
   const manifest = manifestInput ?? JSON.parse(await readFile(join(TASK9_SOURCE_ROOT, 'interface-manifest.json'), 'utf8'))
-  const bodyRig: Record<keyof typeof TASK9_RECEIVERS, Task9RigId> = {
-    body_blob_round: 'blob', body_blob_wide: 'blob', body_biped_peanut: 'biped', body_biped_tall: 'biped', body_floating_drop: 'floating',
-  }
   const ranges = { blob: { tailRoot: [], extraLeft: [], extraRight: [] }, biped: { tailRoot: [], extraLeft: [], extraRight: [] }, floating: { tailRoot: [], extraLeft: [], extraRight: [] } } as Record<Task9RigId, Record<Task9Profile['id'], Task9TangentWindow[]>>
   for (const bodyId of Object.keys(TASK9_RECEIVERS) as Array<keyof typeof TASK9_RECEIVERS>) {
-    const rigId = bodyRig[bodyId]
+    const rigId = TASK9_BODY_RIG_IDS[bodyId]
     const variant = manifest.assets.find((asset: any) => asset.id === bodyId)?.variants.find((item: any) => item.rigId === rigId)
     if (variant === undefined) throw new Error(`TASK9_BODY_INVALID: missing ${bodyId}`)
     const decoded = await sharp(resolve(TASK9_ROOT, variant.sourcePngPath)).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
@@ -769,24 +763,21 @@ export async function auditTask9ReceiverSupports(): Promise<{
   minimumPixels: number
   emptyHalves: string[]
 }> {
-  const bodyRig: Record<keyof typeof TASK9_RECEIVERS, Task9RigId> = {
-    body_blob_round: 'blob', body_blob_wide: 'blob', body_biped_peanut: 'biped', body_biped_tall: 'biped', body_floating_drop: 'floating',
-  }
   const manifest = JSON.parse(await readFile(join(TASK9_SOURCE_ROOT, 'interface-manifest.json'), 'utf8'))
   const contracts = await deriveTask9ConnectorContracts(manifest)
   let receiverCount = 0; let minimumCoverage = 1; let minimumPixels = Number.POSITIVE_INFINITY; let allHalvesNonempty = true; let allWithinCanvas = true; let sourceHashesUnchanged = true
   const emptyHalves: string[] = []
   for (const bodyId of Object.keys(TASK9_RECEIVERS) as Array<keyof typeof TASK9_RECEIVERS>) {
-    const variant = manifest.assets.find((asset: any) => asset.id === bodyId)?.variants.find((item: any) => item.rigId === bodyRig[bodyId])
+    const variant = manifest.assets.find((asset: any) => asset.id === bodyId)?.variants.find((item: any) => item.rigId === TASK9_BODY_RIG_IDS[bodyId])
     if (variant === undefined) throw new Error(`TASK9_BODY_INVALID: missing ${bodyId}`)
     const sourcePath = resolve(TASK9_ROOT, variant.sourcePngPath)
     const before = await hashTask9File(sourcePath)
     const decoded = await sharp(sourcePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
     const alpha = new Uint8Array(SIZE * SIZE)
     for (let pixel = 0; pixel < alpha.length; pixel += 1) alpha[pixel] = decoded.data[pixel * 4 + 3]!
-    for (const profile of task9BodyReceiverProfiles(bodyId, bodyRig[bodyId])) {
+    for (const profile of task9BodyReceiverProfiles(bodyId, TASK9_BODY_RIG_IDS[bodyId])) {
       receiverCount += 1
-      const contour = task9MaskBand(profile, alpha, contracts.tangentWindows[bodyRig[bodyId]][profile.id], contracts.ribbonDepths[bodyRig[bodyId]][profile.id])
+      const contour = task9MaskBand(profile, alpha, contracts.tangentWindows[TASK9_BODY_RIG_IDS[bodyId]][profile.id], contracts.ribbonDepths[TASK9_BODY_RIG_IDS[bodyId]][profile.id])
       const split = splitTask9Contour(profile, contour)
       let pixels = 0; let covered = 0; let foreground = 0; let background = 0
       for (let y = 0; y < SIZE; y += 1) for (let x = 0; x < SIZE; x += 1) {
@@ -948,21 +939,18 @@ export async function prepareTask9StructuralAssets(): Promise<{ variants: number
     }
   }
 
-  const bodyRig: Record<keyof typeof TASK9_RECEIVERS, Task9RigId> = {
-    body_blob_round: 'blob', body_blob_wide: 'blob', body_biped_peanut: 'biped', body_biped_tall: 'biped', body_floating_drop: 'floating',
-  }
   for (const bodyId of Object.keys(TASK9_RECEIVERS) as Array<keyof typeof TASK9_RECEIVERS>) {
     const group = manifest.assets.find((asset: any) => asset.id === bodyId)
-    const variant = group?.variants.find((item: any) => item.rigId === bodyRig[bodyId])
+    const variant = group?.variants.find((item: any) => item.rigId === TASK9_BODY_RIG_IDS[bodyId])
     if (variant === undefined) throw new Error(`TASK9_BODY_INVALID: missing ${bodyId}`)
     const before = await hashTask9File(resolve(TASK9_ROOT, variant.sourcePngPath))
-    const profiles = task9BodyReceiverProfiles(bodyId, bodyRig[bodyId])
+    const profiles = task9BodyReceiverProfiles(bodyId, TASK9_BODY_RIG_IDS[bodyId])
     variant.connectors = variant.connectors.filter((item: any) => !profiles.some(profile => profile.id === item.id)).concat(profiles)
     await writeTask9Masks(
-      bodyRig[bodyId], bodyId, profiles, resolve(TASK9_ROOT, variant.sourcePngPath),
-      contracts.tangentWindows[bodyRig[bodyId]], contracts.ribbonDepths[bodyRig[bodyId]],
+      TASK9_BODY_RIG_IDS[bodyId], bodyId, profiles, resolve(TASK9_ROOT, variant.sourcePngPath),
+      contracts.tangentWindows[TASK9_BODY_RIG_IDS[bodyId]], contracts.ribbonDepths[TASK9_BODY_RIG_IDS[bodyId]],
     )
-    const processedKey = resolveTask9ProcessedBodyKey(processedIndex.processedAssets, bodyId, bodyRig[bodyId])
+    const processedKey = resolveTask9ProcessedBodyKey(processedIndex.processedAssets, bodyId, TASK9_BODY_RIG_IDS[bodyId])
     const existing = processedIndex.processedAssets[processedKey]
     const inputs = variant.connectors.map((profile: any) => ({
       id: profile.id, contourMaskPath: resolve(TASK9_CATALOG_ROOT, profile.contourMaskPath),
