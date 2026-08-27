@@ -1,0 +1,8 @@
+# Hash-bound approval/rejection JSON must retain committed LF bytes on Windows.
+packages/asset-catalog/review/v0.3.0/*.json -text
+packages/asset-catalog/review/v0.3.0/**/*.json -text
+packages/asset-catalog/source-index-v0.3.0.json -text
+asset-source/v0.3.0/production/processed-index.json -text
+asset-source/v0.3.0/generation/task8-limb-production.json -text
+asset-source/v0.3.0/prompts/task8-limb-prompts.json -text
+.superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json -text
