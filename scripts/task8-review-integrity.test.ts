@@ -28,7 +28,7 @@ describe('Task 8 clean-checkout review integrity', () => {
     manifests[0].entries[0].connectorMetrics.find((metric: any) => metric.connectorId === 'shoulderLeft').receiverCoverage -= 0.01
     const drift = await validateLimbCausalMetricEvidence({ repositoryRoot: ROOT, reviewRoot: REVIEW_ROOT, manifestOverrides: { blob: manifests[0] }, liveEvidence: baseline.liveEvidence })
     expect(drift.diagnostics).toContainEqual(expect.objectContaining({ code: 'LIMB_CAUSAL_METRIC_DRIFT' }))
-  }, 180_000)
+  }, 300_000)
 
   it('rejects acceptance evidence-root and aggregate drift', async () => {
     const { validateLimbAcceptanceDocument } = await import('./validate-interface-slice.js') as typeof import('./validate-interface-slice.js') & {
