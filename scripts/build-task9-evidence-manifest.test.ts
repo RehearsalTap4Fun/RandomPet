@@ -11,6 +11,7 @@ import {
   validateTask9StaleRemovalAudit,
   TASK9_STALE_BASELINE_COMMIT,
 } from './build-task9-evidence-manifest.js'
+import { collectExpectedTask9EvidenceDependencies } from '../packages/asset-catalog/src/task9-evidence-dependencies.js'
 
 it('matches the audited baseline deletion and similarity-rename sets to Git exactly', async () => {
   const audit = JSON.parse(await readFile('packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json', 'utf8'))
@@ -174,4 +175,12 @@ it('binds pipeline fixed-point evidence to the current exact production scope by
   expect(snapshot.fileCount).toBe(audit.fileCount)
   expect(snapshot.sha256).toBe(audit.round1Sha256)
   expect(snapshot.sha256).toBe(audit.round2Sha256)
+})
+
+it('includes the independent bridge-review provenance validator in the formal evidence closure', async () => {
+  const dependencies = await collectExpectedTask9EvidenceDependencies(process.cwd())
+  expect(dependencies).toContainEqual(expect.objectContaining({
+    path: 'packages/asset-catalog/src/bridge-render-review-provenance.ts',
+    groups: ['task9-validation'],
+  }))
 })

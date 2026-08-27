@@ -285,6 +285,106 @@ describe('v0.3 browser production composition', () => {
     ])))
   }, 300_000)
 
+  it('proves a real biped hip bridge changes final RGBA from distinct production endpoint samples', async () => {
+    if (browser === undefined) throw new Error('V03_BROWSER_PRODUCTION_FAILED: browser was not started')
+    const rigId = 'biped' as const
+    const body = sourceCatalog.parts.find(part => part.id === 'body_biped_peanut')!
+    const legs = sourceCatalog.parts.find(part => part.id === 'legs_webbed')!
+    if (body.composition?.mode !== 'interface' || legs.composition?.mode !== 'interface') {
+      throw new Error('Expected production interface body and legs.')
+    }
+    const bodyVariant = body.composition.variantsByRig[rigId]!
+    const legsVariant = legs.composition.variantsByRig[rigId]!
+    const receiver = bodyVariant.connectors.find(item => item.id === 'hipLeft')!
+    const plug = legsVariant.connectors.find(item => item.id === 'hipLeft')!
+    const averageRegion = async (path: string, region: { x: number; y: number; width: number; height: number }) => {
+      const { data, info } = await sharp(resolve(PACKAGE_ROOT, path)).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+      const sum = [0, 0, 0]
+      let count = 0
+      for (let y = region.y; y < region.y + region.height; y += 1) {
+        for (let x = region.x; x < region.x + region.width; x += 1) {
+          const offset = (y * info.width + x) * 4
+          sum[0] += data[offset]!
+          sum[1] += data[offset + 1]!
+          sum[2] += data[offset + 2]!
+          count += 1
+        }
+      }
+      return sum.map(value => value / count)
+    }
+    const receiverColor = await averageRegion(bodyVariant.renderNodes[0]!.assetPath, receiver.materialSampleRegion)
+    const plugColor = await averageRegion(legsVariant.renderNodes[0]!.assetPath, plug.materialSampleRegion)
+    expect(Math.hypot(...receiverColor.map((value, index) => value - plugColor[index]!))).toBeGreaterThan(30)
+
+    const withoutBridge = structuredClone(browserCatalog)
+    const bridge = withoutBridge.transitionBridges!.find(item => item.rigId === rigId && item.connectorClass === 'hip')!
+    const transparentMaskPath = join(inputRoot, 'transparent-production-hip-bridge.png')
+    await sharp({ create: { width: 512, height: 256, channels: 4, background: '#00000000' } }).png().toFile(transparentMaskPath)
+    bridge.frontMaskPath = fsUrl(transparentMaskPath)
+    bridge.backMaskPath = fsUrl(transparentMaskPath)
+    const spec = makeProductionSpec(sourceCatalog, rigId, 'tail_none', 'extra_appendage_none')
+    const render = async (label: string, catalog: Catalog) => {
+      const inputPath = join(inputRoot, `bridge-causal-${label}.json`)
+      await writeFile(inputPath, `${JSON.stringify({
+        catalog, spec, applyPaletteMasks: false, diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE,
+      })}\n`)
+      const page = await browser!.newPage({ viewport: { width: 1200, height: 1200 } })
+      try {
+        await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
+        await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
+        expect(await page.evaluate(() => document.body.dataset.renderError), label).toBeUndefined()
+        const evidence = JSON.parse((await page.evaluate(() => document.body.dataset.interfaceResult))!) as {
+          diagnostics: unknown[]
+          resolvedAssetPaths: string[]
+        }
+        expect(evidence.diagnostics, label).toEqual([])
+        const dataUrl = await page.locator('#render-target').evaluate(canvas => (
+          (canvas as HTMLCanvasElement).toDataURL('image/png')
+        ))
+        const rgba = (await sharp(Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64'))
+          .ensureAlpha().raw().toBuffer({ resolveWithObject: true })).data
+        return { evidence, rgba }
+      } finally {
+        await page.close()
+      }
+    }
+    const baseline = await render('baseline', browserCatalog)
+    const transparent = await render('transparent', withoutBridge)
+    expect(baseline.evidence.resolvedAssetPaths).toContain(
+      browserCatalog.transitionBridges!.find(item => item.rigId === rigId && item.connectorClass === 'hip')!.frontMaskPath,
+    )
+    const productionBridge = browserCatalog.transitionBridges!
+      .find(item => item.rigId === rigId && item.connectorClass === 'hip')!
+    expect(baseline.evidence.resolvedAssetPaths).toEqual(expect.arrayContaining([
+      productionBridge.neutralAssetPath,
+      productionBridge.frontMaskPath,
+      productionBridge.backMaskPath,
+    ]))
+    expect(transparent.evidence.resolvedAssetPaths).toContain(fsUrl(transparentMaskPath))
+
+    let changedVisiblePixels = 0
+    let receiverSidePixels = 0
+    const distance = (rgba: ArrayLike<number>, color: number[]) => Math.hypot(
+      rgba[0]! - color[0]!, rgba[1]! - color[1]!, rgba[2]! - color[2]!,
+    )
+    for (let offset = 0; offset < baseline.rgba.length; offset += 4) {
+      if (
+        baseline.rgba[offset] === transparent.rgba[offset]
+        && baseline.rgba[offset + 1] === transparent.rgba[offset + 1]
+        && baseline.rgba[offset + 2] === transparent.rgba[offset + 2]
+        && baseline.rgba[offset + 3] === transparent.rgba[offset + 3]
+      ) continue
+      if (baseline.rgba[offset + 3]! === 0 && transparent.rgba[offset + 3]! === 0) continue
+      changedVisiblePixels += 1
+      const pixel = baseline.rgba.slice(offset, offset + 3)
+      const receiverDistance = distance(pixel, receiverColor)
+      const plugDistance = distance(pixel, plugColor)
+      if (receiverDistance + 3 < plugDistance) receiverSidePixels += 1
+    }
+    expect(changedVisiblePixels).toBeGreaterThan(100)
+    expect(receiverSidePixels).toBeGreaterThan(20)
+  }, 120_000)
+
   it('colors all exact rigs from scheme masks while preserving alpha and transparent boundaries', async () => {
     if (browser === undefined) throw new Error('V03_BROWSER_PRODUCTION_FAILED: browser was not started')
     const schemes = [

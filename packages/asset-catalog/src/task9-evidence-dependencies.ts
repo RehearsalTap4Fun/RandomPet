@@ -35,6 +35,7 @@ export const TASK9_EVIDENCE_SEED_FILES: readonly Task9DependencySeed[] = [
   { path: 'packages/renderer-canvas/src/render.ts', group: 'task9-live-renderer' },
   { path: 'packages/renderer-canvas/src/types.ts', group: 'task9-live-renderer' },
   ...[
+    'packages/asset-catalog/src/bridge-render-review-provenance.ts',
     'packages/asset-catalog/src/cli.ts',
     'packages/asset-catalog/src/evidence-root.ts',
     'packages/asset-catalog/src/production-validation.ts',

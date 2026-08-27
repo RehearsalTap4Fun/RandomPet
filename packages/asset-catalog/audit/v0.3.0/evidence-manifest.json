@@ -7,7 +7,7 @@
   "task9Evidence": {
     "schemaVersion": "task9-production-evidence-v1",
     "sourceEntryCount": 102,
-    "dependencyCount": 1805,
+    "dependencyCount": 1806,
     "dependencies": [
       {
         "path": "apps/creator-web/src/render-test.ts",
@@ -18435,8 +18435,7 @@
           "processed-index",
           "production-provenance",
           "source-index",
-          "task6-9-review",
-          "task9-superseded-review"
+          "task6-9-review"
         ]
       },
       {
@@ -19059,7 +19058,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/superseded/task9-pre-bridge-render/tail-extra-review-record.json",
-        "sha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
+        "sha256": "101ffbe797cc3c1c554c13f5e2829cfeb8a99302ff278cd9dfcb997d50facb6d",
         "groups": [
           "task9-superseded-review"
         ]
@@ -19103,6 +19102,13 @@
         ]
       },
       {
+        "path": "packages/asset-catalog/src/bridge-render-review-provenance.ts",
+        "sha256": "9343d0301996aea7f21d653d88571437c64da2a22d7148cbba604f330d468c85",
+        "groups": [
+          "task9-validation"
+        ]
+      },
+      {
         "path": "packages/asset-catalog/src/cli.ts",
         "sha256": "e3c18b43c6d964fac3630429a273bfd5c4f0e22057be234e3529b22bb6e54435",
         "groups": [
@@ -19111,7 +19117,7 @@
       },
       {
         "path": "packages/asset-catalog/src/evidence-root.ts",
-        "sha256": "1a954a2907e805b64b73f18f1948508dbaf382c11e36a8dbcd7c78be6a7b0edc",
+        "sha256": "044c64756cb275d8a355e57f042158d191767be4457307c35676b2c5690ca220",
         "groups": [
           "task9-validation"
         ]
@@ -19132,7 +19138,7 @@
       },
       {
         "path": "packages/asset-catalog/src/task9-evidence-dependencies.ts",
-        "sha256": "59d922d1f06702128d2e49188b12f048f12906bbb1aae8fb37163dff73138eaf",
+        "sha256": "b3f41cd8b84b848c23b221287261f96b370a53da8e510d466f93e36d0001183d",
         "groups": [
           "task9-validation"
         ]
@@ -19189,7 +19195,7 @@
       },
       {
         "path": "scripts/render-limb-contact-sheets.ts",
-        "sha256": "9e938e5ae3188d7a9714940438514461bc3d813885352144975fbf90ec4d6b24",
+        "sha256": "bc61af794bbac8b8fc04b26af2e4f786867da554ac5ffd36dc2fd3220c9052e1",
         "groups": [
           "task6-9-review",
           "task9-live-renderer"
@@ -19204,7 +19210,7 @@
       },
       {
         "path": "scripts/task8-stable-projection.ts",
-        "sha256": "6c0c81924053382d85fea84544dcc22a9a8de1ce01bbc2d56337f7c3df983dc0",
+        "sha256": "eda73ae08eaa41b7d8a7271c86b069a79281cd18edd42b1d825d019737689e36",
         "groups": [
           "task9-validation"
         ]
@@ -19218,7 +19224,7 @@
       },
       {
         "path": "tests/render/production-composition.spec.ts",
-        "sha256": "f51e2b5b689b96c89818f9f057e91908780a2b8fefa124a4efa035acabdd5a42",
+        "sha256": "63cf4aad753751c1085e8adb96b559c174df43ddc216a51b9713c658c3b1b04c",
         "groups": [
           "task9-validation"
         ]

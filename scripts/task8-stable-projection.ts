@@ -138,7 +138,7 @@ const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
     'limb-palette-mask-paths': '',
     'limb-structural-only-catalog': '  const catalog = browserCatalog(sourceCatalog)\n',
     'limb-structural-only-input': '      await writeFile(inputPath, `${JSON.stringify({ catalog, spec })}\\n`)\n',
-    'limb-worker-pages': '  const browser = await chromium.launch({ headless: true }); const page = await browser.newPage()\n  const entries: LimbMatrixEvidenceEntry[] = []\n',
+    'limb-worker-pages': "  const server = await createServer({ root: resolve('apps/creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })\n  await server.listen(); const baseUrl = server.resolvedUrls?.local[0]\n  if (baseUrl === undefined) throw new Error('LIMB_MATRIX_RENDER_FAILED: Vite server has no local URL')\n  const browser = await chromium.launch({ headless: true }); const page = await browser.newPage()\n  const entries: LimbMatrixEvidenceEntry[] = []\n  try {\n",
     'limb-worker-loop-open': '    for (let index = 0; index < plan.length; index += 1) {\n',
     'limb-worker-entry-assignment': '      entries.push({ ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes }, gateErrors, diagnostics: evidence.diagnostics })\n',
     'limb-worker-loop-close': '    }\n',

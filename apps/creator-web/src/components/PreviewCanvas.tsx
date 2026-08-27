@@ -3,7 +3,6 @@ import type { Catalog, Diagnostic, MonsterSpec } from '@qmonster/generator-core'
 import {
   primeCanvasExport,
   renderMonster,
-  isStructuralBlockingDiagnostic,
   type ImageResolver,
   type RenderResult,
 } from '@qmonster/renderer-canvas'
@@ -105,7 +104,7 @@ interface CachedPreviewFrame {
 
 const PREVIEW_FRAME_CACHE_LIMIT = 16
 function hasBlockingRenderDiagnostic(result: RenderResult): boolean {
-  return result.diagnostics.some(isStructuralBlockingDiagnostic)
+  return result.diagnostics.some(diagnostic => diagnostic.severity === 'error')
 }
 
 function previewFrameKey(spec: MonsterSpec): string {

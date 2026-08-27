@@ -221,16 +221,19 @@ export async function reconstructLimbMatrixEvidence(input: {
   // TASK8_STABLE_END:limb-structural-only-catalog
   const resolvedHashCache = new Map<string, string>()
   const inputRoot = await mkdtemp(join(ROOT, '.tmp-limb-matrix-'))
-  const server = await createServer({ root: resolve('apps/creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
-  await server.listen(); const baseUrl = server.resolvedUrls?.local[0]
-  if (baseUrl === undefined) throw new Error('LIMB_MATRIX_RENDER_FAILED: Vite server has no local URL')
   // TASK8_STABLE_BEGIN:limb-worker-pages
   const workerIndices = makeLimbMatrixWorkerIndices(plan.length, input.workerCount ?? 2)
-  const browser = await chromium.launch({ headless: true })
-  const pages = await Promise.all(workerIndices.map(() => browser.newPage()))
+  let server: Awaited<ReturnType<typeof createServer>> | undefined
+  let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
+  const pages: Array<Awaited<ReturnType<Awaited<ReturnType<typeof chromium.launch>>['newPage']>>> = []
   const entries = new Array<LimbMatrixEvidenceEntry>(plan.length)
-  // TASK8_STABLE_END:limb-worker-pages
   try {
+    server = await createServer({ root: resolve('apps/creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
+    await server.listen(); const baseUrl = server.resolvedUrls?.local[0]
+    if (baseUrl === undefined) throw new Error('LIMB_MATRIX_RENDER_FAILED: Vite server has no local URL')
+    browser = await chromium.launch({ headless: true })
+    for (const _indices of workerIndices) pages.push(await browser.newPage())
+  // TASK8_STABLE_END:limb-worker-pages
     // TASK8_STABLE_BEGIN:limb-worker-loop-open
     await Promise.all(workerIndices.map(async (indices, workerIndex) => {
       const page = pages[workerIndex]!

@@ -22,7 +22,7 @@
       "biped": 15,
       "floating": 9
     },
-    "indexPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-index.json",
+    "indexPath": "packages/asset-catalog/review/v0.3.0/superseded/task9-pre-bridge-render/structural-matrix-index.json",
     "indexSha256": "7444f2d4a95cb0cb918d5af53223595872b47ee66c83934603f090cdd4c4d920",
     "diagnosticScope": {
       "id": "task9-tail-extra",

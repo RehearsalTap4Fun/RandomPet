@@ -145,6 +145,56 @@ describe('PreviewCanvas', () => {
     expect(onRenderComplete).not.toHaveBeenCalled()
   })
 
+  it('does not cache, commit, export, or complete a preview with a missing palette mask', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'missing-palette-mask', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const rerolledSpec = {
+      ...spec,
+      slotRolls: { ...spec.slotRolls, tail: spec.slotRolls.tail + 1 },
+    }
+    const missingPaletteMask: Diagnostic = {
+      severity: 'error',
+      code: 'INTERFACE_PALETTE_MASK_MISSING',
+      path: ['colorSchemeId'],
+      message: 'missing palette mask',
+    }
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [],
+      diagnostics: [missingPaletteMask],
+      compositionMetrics: null,
+      connectorMetrics: [],
+    }))
+    const onDiagnosticsChange = vi.fn()
+    const onRenderComplete = vi.fn()
+    const toBlob = vi.spyOn(HTMLCanvasElement.prototype, 'toBlob')
+    const mark = vi.spyOn(performance, 'mark')
+    const view = render(<PreviewCanvas
+      spec={spec}
+      catalog={catalog}
+      renderer={renderer}
+      onDiagnosticsChange={onDiagnosticsChange}
+      onRenderComplete={onRenderComplete}
+    />)
+
+    await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([missingPaletteMask]))
+    view.rerender(<PreviewCanvas
+      spec={rerolledSpec}
+      catalog={catalog}
+      renderer={renderer}
+      onDiagnosticsChange={onDiagnosticsChange}
+      onRenderComplete={onRenderComplete}
+    />)
+    await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([missingPaletteMask]))
+
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    expect(renderer).toHaveBeenCalledTimes(2)
+    expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
+    expect(toBlob).not.toHaveBeenCalled()
+    expect(mark.mock.calls.filter(([name]) => name === 'qmonster-preview-commit')).toHaveLength(0)
+    expect(onRenderComplete).not.toHaveBeenCalled()
+  })
+
   it('forwards the displayed canvas used for committed renders', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()

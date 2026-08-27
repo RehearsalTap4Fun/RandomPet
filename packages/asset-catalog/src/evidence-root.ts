@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
 import type { Diagnostic } from '@qmonster/generator-core'
+import { validateBridgeRenderReviewProvenance } from './bridge-render-review-provenance.js'
 import {
   collectExpectedTask9EvidenceDependencies,
   expectedTask9TrackedDependencyPaths,
@@ -335,5 +336,6 @@ export async function validateProductionEvidenceDependencies(
       closureDiagnostic('reworkRecord', 'Task 9 review closure records must be valid JSON with verified internal hashes.')
     }
   }
+  diagnostics.push(...await validateBridgeRenderReviewProvenance(repositoryRoot))
   return diagnostics
 }

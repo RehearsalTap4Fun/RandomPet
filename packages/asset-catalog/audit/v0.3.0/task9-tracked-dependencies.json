@@ -1,6 +1,6 @@
 {
   "schemaVersion": "task9-tracked-dependencies-v1",
-  "dependencyCount": 1806,
+  "dependencyCount": 1807,
   "dependencies": [
     "apps/creator-web/src/render-test.ts",
     "asset-source/v0.2.0/generation/part-candidates/legs_mushroom/regeneration-2/legs_mushroom-candidate-3-rgba.png",
@@ -1790,6 +1790,7 @@
     "packages/asset-catalog/review/v0.3.0/task6-approved-input-integrity.json",
     "packages/asset-catalog/review/v0.3.0/visible-limb-threshold-amendment.json",
     "packages/asset-catalog/source-index-v0.3.0.json",
+    "packages/asset-catalog/src/bridge-render-review-provenance.ts",
     "packages/asset-catalog/src/cli.ts",
     "packages/asset-catalog/src/evidence-root.ts",
     "packages/asset-catalog/src/production-validation.ts",
