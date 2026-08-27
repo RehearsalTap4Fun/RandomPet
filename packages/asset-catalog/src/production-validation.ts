@@ -1,4 +1,4 @@
-import { readFile, readdir, realpath } from 'node:fs/promises'
+import { lstat, readFile, readdir, realpath, stat } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { isAbsolute, join, relative, resolve } from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
@@ -33,6 +33,27 @@ function nonemptyText(value: unknown): boolean {
 
 function sameJson(left: unknown, right: unknown): boolean {
   return isDeepStrictEqual(left, right)
+}
+
+export async function resolveProductionValidationInput(trustRoot: string, inputPath: string): Promise<string> {
+  const lexicalRoot = resolve(trustRoot)
+  const lexicalTarget = resolve(inputPath)
+  const lexicalRemainder = relative(lexicalRoot, lexicalTarget)
+  if (lexicalRemainder.startsWith('..') || isAbsolute(lexicalRemainder)) {
+    throw new Error(`Production read escapes trust root: ${inputPath}`)
+  }
+  const [rootLink, canonicalRoot, targetLink, canonicalTarget] = await Promise.all([
+    lstat(lexicalRoot), realpath(lexicalRoot), lstat(lexicalTarget), realpath(lexicalTarget),
+  ])
+  const canonicalRemainder = relative(canonicalRoot, canonicalTarget)
+  if (rootLink.isSymbolicLink() || canonicalRemainder.startsWith('..') || isAbsolute(canonicalRemainder)) {
+    throw new Error(`Production read escapes canonical trust root: ${inputPath}`)
+  }
+  const metadata = await stat(canonicalTarget)
+  if (targetLink.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) {
+    throw new Error(`Production read requires a direct single-link regular file: ${inputPath}`)
+  }
+  return canonicalTarget
 }
 
 export function validateProductionMetadata(catalog: Catalog): Diagnostic[] {
@@ -193,7 +214,7 @@ export async function validateProductionSplitFiles(catalog: Catalog, catalogDire
   for (const [file, expected] of splits) {
     let actual: unknown
     try {
-      actual = JSON.parse(await readFile(join(catalogDirectory, file), 'utf8'))
+      actual = JSON.parse(await readFile(await resolveProductionValidationInput(catalogDirectory, join(catalogDirectory, file)), 'utf8'))
     } catch {
       diagnostics.push(error('PRODUCTION_SPLIT_MISSING', [file], `Cannot read production split ${file}.`))
       continue
@@ -271,10 +292,7 @@ export async function validateNoStaleRuntimeAssets(
         continue
       }
       try {
-        const canonicalRoot = await realpath(resolve(assetRoot)).catch(() => resolve(assetRoot))
-        const canonicalPath = await realpath(resolve(canonicalRoot, relativePath))
-        const remainder = relative(canonicalRoot, canonicalPath)
-        if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error('path escaped asset root')
+        const canonicalPath = await resolveProductionValidationInput(assetRoot, resolve(assetRoot, relativePath))
         const actualHash = createHash('sha256').update(await readFile(canonicalPath)).digest('hex')
         if (actualHash !== item.sha256) diagnostics.push(error('ASSET_HASH_MISMATCH', diagnosticPath, `Task 6 approved runtime input differs from its hashed review: ${item.path}`))
       } catch {
@@ -518,7 +536,9 @@ async function validateHeadOcclusionSplit(
   path: string[],
 ): Promise<Diagnostic[]> {
   try {
-    const decode = async (relativePath: string) => sharp(await readFile(join(assetRoot, relativePath)))
+    const decode = async (relativePath: string) => sharp(await readFile(
+      await resolveProductionValidationInput(assetRoot, resolve(assetRoot, relativePath)),
+    ))
       .ensureAlpha().raw().toBuffer({ resolveWithObject: true })
     const [node, foreground, background] = await Promise.all([
       decode(nodePath), decode(foregroundPath), decode(backgroundPath),
@@ -585,7 +605,10 @@ export async function validateProductionInterfaceResources(
   const manifestPath = options.manifestPath ?? resolve(canonicalAssetRoot, '..', '..', '..', '..', 'asset-source', 'v0.3.0', 'interface-manifest.json')
   let manifest: InterfaceSourceManifest | undefined
   try {
-    const parsed = parseInterfaceSourceManifest(JSON.parse(await readFile(manifestPath, 'utf8')))
+    const repositoryRoot = resolve(canonicalAssetRoot, '..', '..', '..', '..')
+    const parsed = parseInterfaceSourceManifest(JSON.parse(await readFile(
+      await resolveProductionValidationInput(repositoryRoot, manifestPath), 'utf8',
+    )))
     if (!parsed.ok) diagnostics.push(...parsed.diagnostics.map(item => ({ ...item, code: 'PRODUCTION_INTERFACE_MANIFEST_INVALID' })))
     else manifest = parsed.value
   } catch {
@@ -763,7 +786,9 @@ export async function validateProductionInterfaceResources(
       : ''
     try {
       if (reviewPath === '') throw new Error('noncanonical review record')
-      const bytes = await readFile(reviewPath)
+      const bytes = await readFile(await resolveProductionValidationInput(
+        resolve(assetRoot, '..', '..'), reviewPath,
+      ))
       const actualHash = createHash('sha256').update(bytes).digest('hex')
       if (actualHash !== expectedHash) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_HASH_MISMATCH', [portablePath], 'Interface review record hash differs from committed bytes.'))
     } catch {
@@ -805,9 +830,7 @@ async function decodeCommittedRgba(assetRoot: string, assetPath: string): Promis
   sha256: string
 }> {
   const root = resolve(assetRoot)
-  const path = resolve(root, assetPath)
-  const remainder = relative(root, path)
-  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Committed palette asset escaped root: ${assetPath}`)
+  const path = await resolveProductionValidationInput(root, resolve(root, assetPath))
   const source = await readFile(path)
   const decoded = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
   if (decoded.info.channels !== 4) throw new Error(`Committed palette asset did not decode to RGBA: ${assetPath}`)
@@ -828,9 +851,7 @@ async function decodeRepositoryRgba(assetRoot: string, repositoryPath: string): 
   const normalized = repositoryPath.replaceAll('\\', '/')
   if (!normalized.startsWith('asset-source/v0.3.0/')) throw new Error(`Unexpected v0.3 palette evidence path: ${repositoryPath}`)
   const repositoryRoot = resolve(assetRoot, '..', '..', '..', '..')
-  const path = resolve(repositoryRoot, normalized)
-  const remainder = relative(repositoryRoot, path)
-  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Committed palette evidence escaped repository root: ${repositoryPath}`)
+  const path = await resolveProductionValidationInput(repositoryRoot, resolve(repositoryRoot, normalized))
   const source = await readFile(path)
   const decoded = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
   if (decoded.info.channels !== 4) throw new Error(`Committed palette evidence did not decode to RGBA: ${repositoryPath}`)
@@ -1322,7 +1343,9 @@ export async function validateProductionSourceIndex(
       } else {
         const reworkRecordPath = resolve(assetRoot, '..', '..', 'review', 'v0.2.0', 'rework-record.json')
         try {
-          const reworkRecord = await readFile(reworkRecordPath)
+          const reworkRecord = await readFile(await resolveProductionValidationInput(
+            resolve(assetRoot, '..', '..'), reworkRecordPath,
+          ))
           const actualHash = createHash('sha256').update(reworkRecord).digest('hex')
           if (actualHash !== source.reworkRecordSha256) {
             diagnostics.push(error('PRODUCTION_REWORK_RECORD_HASH_MISMATCH', ['sources', part.id, 'reworkRecordSha256'], `Part ${part.id} rework-record SHA-256 differs from the committed file.`))

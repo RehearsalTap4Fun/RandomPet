@@ -89,6 +89,7 @@ export function resolvedFsPath(path: string): string {
 
 export function browserCatalog(input: Catalog, options: {
   activeStructuralSlots?: readonly VisualSlotId[]
+  applyPaletteMasks?: boolean
 } = {}): Catalog {
   const catalog = structuredClone(input)
   const activeStructuralSlots = new Set(options.activeStructuralSlots ?? ['bodyFrame', 'headShape', 'arms', 'legs'])
@@ -107,6 +108,13 @@ export function browserCatalog(input: Catalog, options: {
         connector.backgroundMaskPath = fsUrl(runtimeFsPath(connector.backgroundMaskPath))
       }
     } else if (part.composition !== undefined) for (const node of part.composition.renderNodes) node.assetPath = fsUrl(runtimeFsPath(node.assetPath))
+    if (part.slotId === 'colorScheme' && options.applyPaletteMasks !== true) delete part.rigMaskPaths
+    else if (part.rigMaskPaths !== undefined) for (const masks of Object.values(part.rigMaskPaths)) {
+        if (masks === undefined) continue
+        masks.primary = fsUrl(runtimeFsPath(masks.primary))
+        masks.secondary = fsUrl(runtimeFsPath(masks.secondary))
+        masks.accent = fsUrl(runtimeFsPath(masks.accent))
+      }
   }
   for (const bridge of catalog.transitionBridges ?? []) {
     bridge.neutralAssetPath = fsUrl(runtimeFsPath(bridge.neutralAssetPath)); bridge.neutralPngPath = fsUrl(runtimeFsPath(bridge.neutralPngPath))

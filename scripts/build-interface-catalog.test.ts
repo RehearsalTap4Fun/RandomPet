@@ -6,7 +6,7 @@ import { validateCatalogStructure } from '@qmonster/generator-core'
 import type { Catalog } from '@qmonster/generator-core'
 import { validateProductionMetadata } from '../packages/asset-catalog/src/production-validation.js'
 import { buildInterfaceCatalog, parseBuildInterfaceCatalogArgs, validateInterfaceSourceIndex } from './build-interface-catalog.js'
-import { interfaceVariantKey, structuralVariants } from './interface-source-schema.js'
+import { interfaceVariantKey, structuralVariants, task9VariantSourceMaskPaths } from './interface-source-schema.js'
 import type { InterfaceSourceManifest } from './interface-source-schema.js'
 import type { RetainedCoordinateMetadata } from './retain-v02-nonstructural-assets.js'
 
@@ -280,7 +280,7 @@ describe('buildInterfaceCatalog', () => {
         promptSha256: asset.promptEvidence.promptSha256,
         reviewRecordPath: asset.promptEvidence.reviewRecordPath,
         reviewRecordSha256: hashFor('review'),
-        sourceResources: [...new Set([asset.sourcePngPath, ...asset.renderNodes.map((node: any) => node.sourcePngPath)])]
+        sourceResources: [...new Set([asset.sourcePngPath, ...asset.renderNodes.map((node: any) => node.sourcePngPath), ...task9VariantSourceMaskPaths(asset)])]
           .map(path => ({ path, sha256: hashFor(path) })),
       })),
       ...manifest.bridges.map((bridge: any) => ({

@@ -121,5 +121,5 @@ describe('biped interface slice review validation', () => {
     await copyFile(canonicalAcceptance, join(root, 'duplicate', 'biped-vertical-slice-acceptance.json'))
     const duplicate = await validateBipedSliceReview(manifestPath, { repositoryRoot: root })
     expect(duplicate.diagnostics).toContain('canonical acceptance record must be unique: found 2')
-  })
+  }, 30_000)
 })

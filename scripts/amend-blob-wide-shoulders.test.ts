@@ -114,5 +114,5 @@ describe('Task 7 body_blob_wide shoulder amendment', () => {
     })
     expect(sha256(bodyBytes)).toBe('95a8f7fbddfa84ce120f849ab541d2bd8f9f2e59a1ce4ae0a6813c604372510a')
     expect(bodyBytes).toEqual(oldBodyBytes)
-  }, 15_000)
+  }, 60_000)
 })

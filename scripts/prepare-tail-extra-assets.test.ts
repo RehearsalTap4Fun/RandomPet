@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { link, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
@@ -31,6 +31,48 @@ describe('prepare tail and extra assets', () => {
     })).rejects.toThrow('injected preparation failure')
     expect(await readFile(existing, 'utf8')).toBe('approved')
     await expect(readFile(created)).rejects.toMatchObject({ code: 'ENOENT' })
+  })
+
+  it('rejects a transactional write through an escaping parent junction without touching outside bytes', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-write-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-task9-write-outside-'))
+    temporaryRoots.push(root, outside)
+    const outsideFile = join(outside, 'protected.json')
+    await writeFile(outsideFile, 'approved')
+    try {
+      await symlink(outside, join(root, 'linked'), process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('directory links unavailable')
+      throw error
+    }
+
+    await expect(runTask9PreparationTransaction({
+      repositoryRoot: root,
+      async prepare(outputs) { await outputs.writeFile(join(root, 'linked', 'protected.json'), 'mutated') },
+    })).rejects.toThrow(/escape|junction|canonical/iu)
+    expect(await readFile(outsideFile, 'utf8')).toBe('approved')
+  })
+
+  it('rejects overwriting an existing hardlink without touching its external alias', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-hardlink-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-task9-hardlink-outside-'))
+    temporaryRoots.push(root, outside)
+    await mkdir(join(root, 'formal'))
+    const outsideFile = join(outside, 'approved.json')
+    const linkedFile = join(root, 'formal', 'approved.json')
+    await writeFile(outsideFile, 'approved')
+    try {
+      await link(outsideFile, linkedFile)
+    } catch (error) {
+      if (['EPERM', 'EACCES', 'EXDEV'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('hardlinks unavailable')
+      throw error
+    }
+
+    await expect(runTask9PreparationTransaction({
+      repositoryRoot: root,
+      async prepare(outputs) { await outputs.writeFile(linkedFile, 'mutated') },
+    })).rejects.toThrow(/hardlink|linked regular file/iu)
+    expect(await readFile(outsideFile, 'utf8')).toBe('approved')
   })
 
   it('requires the repository root explicitly instead of inheriting cwd', async () => {
@@ -121,6 +163,13 @@ describe('prepare tail and extra assets', () => {
     const task9Variants = sourceIndex.sources.filter((source: any) => /^(?:tail_|extra_).+:(?:blob|biped|floating)$/u.test(source.sourceId))
     expect(task9Variants).toHaveLength(18)
     expect(task9Variants.every((source: any) => source.runtimeResources.length >= 7)).toBe(true)
+    expect(task9Variants.filter((source: any) => source.sourceId.startsWith('tail_')).every((source: any) => source.sourceResources.length === 5)).toBe(true)
+    expect(task9Variants.filter((source: any) => source.sourceId.startsWith('extra_')).every((source: any) => source.sourceResources.length === 9)).toBe(true)
+    const task9SourceMasks = task9Variants.flatMap((source: any) => source.sourceResources)
+      .filter((resource: any) => /^asset-source\/v0\.3\.0\/masks\/(?:blob|biped|floating)\/(?:tail_|extra_)/u.test(resource.path))
+    expect(task9SourceMasks).toHaveLength(81)
+    expect(new Set(task9SourceMasks.map((resource: any) => resource.path)).size).toBe(81)
+    expect(task9SourceMasks.every((resource: any) => /^[a-f0-9]{64}$/u.test(resource.sha256))).toBe(true)
   })
 
   it('partitions all six Task 9 bridge masks without overlap or neutral-alpha loss', async () => {

@@ -11521,7 +11521,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/blob/tail_fish_fan.png",
@@ -11530,6 +11530,18 @@
         {
           "path": "asset-source/v0.3.0/structural/blob/nodes/tail_fish_fan/tailRoot.png",
           "sha256": "24804c5a3c767c7408828dc9409a324a21ffda74367ac831d0c1fc5608fa8365"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_fish_fan/tailRoot-contour.png",
+          "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_fish_fan/tailRoot-foreground.png",
+          "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_fish_fan/tailRoot-background.png",
+          "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409"
         }
       ],
       "runtimeResources": [
@@ -11570,7 +11582,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/biped/tail_fish_fan.png",
@@ -11579,6 +11591,18 @@
         {
           "path": "asset-source/v0.3.0/structural/biped/nodes/tail_fish_fan/tailRoot.png",
           "sha256": "2c5612245dd6af422cde83dd0e14c7bb9b2fdae93a016be7a7694dc8354e94aa"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_fish_fan/tailRoot-contour.png",
+          "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_fish_fan/tailRoot-foreground.png",
+          "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_fish_fan/tailRoot-background.png",
+          "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409"
         }
       ],
       "runtimeResources": [
@@ -11619,7 +11643,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/floating/tail_fish_fan.png",
@@ -11628,6 +11652,18 @@
         {
           "path": "asset-source/v0.3.0/structural/floating/nodes/tail_fish_fan/tailRoot.png",
           "sha256": "3c69c1d9eeb20ae5cf6bfea7698b8b7906f8c0e590fc13674fd9870258d88fca"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_fish_fan/tailRoot-contour.png",
+          "sha256": "76e5930424b73a743ef1eff9b32d4c5549ac4556bd9906ffd3d719773aa89d14"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_fish_fan/tailRoot-foreground.png",
+          "sha256": "1b6de0aeb56bf291e8fdd160c363f5e78dd8a1a67024928ecb2f413c59db70ce"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_fish_fan/tailRoot-background.png",
+          "sha256": "d5113c1fd8e8a585da0e00b1e9d9886156d6913083a6a5c21a794670a3d5aac8"
         }
       ],
       "runtimeResources": [
@@ -11668,7 +11704,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/blob/tail_soft_curl.png",
@@ -11677,6 +11713,18 @@
         {
           "path": "asset-source/v0.3.0/structural/blob/nodes/tail_soft_curl/tailRoot.png",
           "sha256": "482b102ebba85dc74cd4cfdc868b8e3adec33fc3dcc7cde47bb1d071b0972709"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_soft_curl/tailRoot-contour.png",
+          "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_soft_curl/tailRoot-foreground.png",
+          "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_soft_curl/tailRoot-background.png",
+          "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409"
         }
       ],
       "runtimeResources": [
@@ -11717,7 +11765,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/biped/tail_soft_curl.png",
@@ -11726,6 +11774,18 @@
         {
           "path": "asset-source/v0.3.0/structural/biped/nodes/tail_soft_curl/tailRoot.png",
           "sha256": "50492d51f2eb98608f624ec42eddee3423dab5210ad576eae7eb27b3dcf003a1"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_soft_curl/tailRoot-contour.png",
+          "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_soft_curl/tailRoot-foreground.png",
+          "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_soft_curl/tailRoot-background.png",
+          "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409"
         }
       ],
       "runtimeResources": [
@@ -11766,7 +11826,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/floating/tail_soft_curl.png",
@@ -11775,6 +11835,18 @@
         {
           "path": "asset-source/v0.3.0/structural/floating/nodes/tail_soft_curl/tailRoot.png",
           "sha256": "4b25dbfc271a33ebd3375a41e290b15dd6a8d8f9ff100edfeb8219e31291255d"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_soft_curl/tailRoot-contour.png",
+          "sha256": "76e5930424b73a743ef1eff9b32d4c5549ac4556bd9906ffd3d719773aa89d14"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_soft_curl/tailRoot-foreground.png",
+          "sha256": "1b6de0aeb56bf291e8fdd160c363f5e78dd8a1a67024928ecb2f413c59db70ce"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_soft_curl/tailRoot-background.png",
+          "sha256": "d5113c1fd8e8a585da0e00b1e9d9886156d6913083a6a5c21a794670a3d5aac8"
         }
       ],
       "runtimeResources": [
@@ -11815,7 +11887,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/blob/tail_mushroom_cluster.png",
@@ -11824,6 +11896,18 @@
         {
           "path": "asset-source/v0.3.0/structural/blob/nodes/tail_mushroom_cluster/tailRoot.png",
           "sha256": "d6a367bc7bec39e2ab3eb588534dadcc38917039ceb1a2d06161e2dde31a5c0d"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_mushroom_cluster/tailRoot-contour.png",
+          "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_mushroom_cluster/tailRoot-foreground.png",
+          "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/tail_mushroom_cluster/tailRoot-background.png",
+          "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409"
         }
       ],
       "runtimeResources": [
@@ -11864,7 +11948,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/biped/tail_mushroom_cluster.png",
@@ -11873,6 +11957,18 @@
         {
           "path": "asset-source/v0.3.0/structural/biped/nodes/tail_mushroom_cluster/tailRoot.png",
           "sha256": "a63b43ed49b56fa8956cfad07081f1dc679ddb8bb65fe493c9d46f55e3b6e089"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_mushroom_cluster/tailRoot-contour.png",
+          "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_mushroom_cluster/tailRoot-foreground.png",
+          "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/tail_mushroom_cluster/tailRoot-background.png",
+          "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409"
         }
       ],
       "runtimeResources": [
@@ -11913,7 +12009,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/floating/tail_mushroom_cluster.png",
@@ -11922,6 +12018,18 @@
         {
           "path": "asset-source/v0.3.0/structural/floating/nodes/tail_mushroom_cluster/tailRoot.png",
           "sha256": "d7651bc340c30509b2bc9c184075c54a74287188ae56a737c2eac34c91c2409a"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_mushroom_cluster/tailRoot-contour.png",
+          "sha256": "76e5930424b73a743ef1eff9b32d4c5549ac4556bd9906ffd3d719773aa89d14"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_mushroom_cluster/tailRoot-foreground.png",
+          "sha256": "1b6de0aeb56bf291e8fdd160c363f5e78dd8a1a67024928ecb2f413c59db70ce"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/tail_mushroom_cluster/tailRoot-background.png",
+          "sha256": "d5113c1fd8e8a585da0e00b1e9d9886156d6913083a6a5c21a794670a3d5aac8"
         }
       ],
       "runtimeResources": [
@@ -11962,7 +12070,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/blob/extra_moth_wings.png",
@@ -11975,6 +12083,30 @@
         {
           "path": "asset-source/v0.3.0/structural/blob/nodes/extra_moth_wings/extraRight.png",
           "sha256": "df05a16f5420c55253e3987d22d16e2658202a1f943174e2e2c8e9b07300caba"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraLeft-contour.png",
+          "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraLeft-foreground.png",
+          "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraLeft-background.png",
+          "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraRight-contour.png",
+          "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraRight-foreground.png",
+          "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraRight-background.png",
+          "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f"
         }
       ],
       "runtimeResources": [
@@ -12035,7 +12167,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/biped/extra_moth_wings.png",
@@ -12048,6 +12180,30 @@
         {
           "path": "asset-source/v0.3.0/structural/biped/nodes/extra_moth_wings/extraRight.png",
           "sha256": "be2e1ae3ec31175b26eb9625613b9d6d046a110dcfb9e2036c9eec380a5db433"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraLeft-contour.png",
+          "sha256": "b2bbae9af28f046365960bb84f5be69804ae3b9d0906ee6728c2e656cae02ece"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraLeft-foreground.png",
+          "sha256": "63e885cbaba78937eef5ee10b4dab29766e5700c2c5ef586b893aa83c0c1adf6"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraLeft-background.png",
+          "sha256": "3be0b64bd9766c5ff2233bd0e2863e086059e894499b22daf8dbb4d120ad85c4"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraRight-contour.png",
+          "sha256": "1b48064faf1d30f68da7cfe6fedd0d65e0f902b3b91a42d2ff2567675317678d"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraRight-foreground.png",
+          "sha256": "e6b9080fe68036debf8cc1a4ecf2f95dd8897d714857b0644bcd497b16a6815e"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraRight-background.png",
+          "sha256": "0ff174d7395e90f7eaa871651e8b52e1751ea90004232841db4e83e4707f7979"
         }
       ],
       "runtimeResources": [
@@ -12108,7 +12264,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/floating/extra_moth_wings.png",
@@ -12121,6 +12277,30 @@
         {
           "path": "asset-source/v0.3.0/structural/floating/nodes/extra_moth_wings/extraRight.png",
           "sha256": "f160ef973dd48e3907575e8277930cd7a47bddac316d91bc50c0dfad8054beea"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraLeft-contour.png",
+          "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraLeft-foreground.png",
+          "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraLeft-background.png",
+          "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraRight-contour.png",
+          "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraRight-foreground.png",
+          "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraRight-background.png",
+          "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f"
         }
       ],
       "runtimeResources": [
@@ -12181,7 +12361,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/blob/extra_soft_tentacles.png",
@@ -12194,6 +12374,30 @@
         {
           "path": "asset-source/v0.3.0/structural/blob/nodes/extra_soft_tentacles/extraRight.png",
           "sha256": "2e0fdbacd6a703e40e6d0d083ccc7b608631c05d94318c78f41ec9fe81728155"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraLeft-contour.png",
+          "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraLeft-foreground.png",
+          "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraLeft-background.png",
+          "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraRight-contour.png",
+          "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraRight-foreground.png",
+          "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraRight-background.png",
+          "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f"
         }
       ],
       "runtimeResources": [
@@ -12254,7 +12458,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/biped/extra_soft_tentacles.png",
@@ -12267,6 +12471,30 @@
         {
           "path": "asset-source/v0.3.0/structural/biped/nodes/extra_soft_tentacles/extraRight.png",
           "sha256": "4ebce07503a21ff5d00380509c55d73960d5d221aa8051332c36df9ae0bfe773"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraLeft-contour.png",
+          "sha256": "b2bbae9af28f046365960bb84f5be69804ae3b9d0906ee6728c2e656cae02ece"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraLeft-foreground.png",
+          "sha256": "63e885cbaba78937eef5ee10b4dab29766e5700c2c5ef586b893aa83c0c1adf6"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraLeft-background.png",
+          "sha256": "3be0b64bd9766c5ff2233bd0e2863e086059e894499b22daf8dbb4d120ad85c4"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraRight-contour.png",
+          "sha256": "1b48064faf1d30f68da7cfe6fedd0d65e0f902b3b91a42d2ff2567675317678d"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraRight-foreground.png",
+          "sha256": "e6b9080fe68036debf8cc1a4ecf2f95dd8897d714857b0644bcd497b16a6815e"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraRight-background.png",
+          "sha256": "0ff174d7395e90f7eaa871651e8b52e1751ea90004232841db4e83e4707f7979"
         }
       ],
       "runtimeResources": [
@@ -12327,7 +12555,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/floating/extra_soft_tentacles.png",
@@ -12340,6 +12568,30 @@
         {
           "path": "asset-source/v0.3.0/structural/floating/nodes/extra_soft_tentacles/extraRight.png",
           "sha256": "37b339305746bd60fefc124317c7463d0381f9e1ff4987acdda2218c53861faa"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraLeft-contour.png",
+          "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraLeft-foreground.png",
+          "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraLeft-background.png",
+          "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraRight-contour.png",
+          "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraRight-foreground.png",
+          "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraRight-background.png",
+          "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f"
         }
       ],
       "runtimeResources": [
@@ -12400,7 +12652,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/blob/extra_side_fins.png",
@@ -12413,6 +12665,30 @@
         {
           "path": "asset-source/v0.3.0/structural/blob/nodes/extra_side_fins/extraRight.png",
           "sha256": "b891eb2af60c2077bac717ef59c7034daa34e0abceba25406ec6b811a303e87d"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraLeft-contour.png",
+          "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraLeft-foreground.png",
+          "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraLeft-background.png",
+          "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraRight-contour.png",
+          "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraRight-foreground.png",
+          "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraRight-background.png",
+          "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f"
         }
       ],
       "runtimeResources": [
@@ -12473,7 +12749,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/biped/extra_side_fins.png",
@@ -12486,6 +12762,30 @@
         {
           "path": "asset-source/v0.3.0/structural/biped/nodes/extra_side_fins/extraRight.png",
           "sha256": "b449309ec7e9adcc7639341e953929a3aec26b0e2827cff659eeea33c74c5ce5"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraLeft-contour.png",
+          "sha256": "b2bbae9af28f046365960bb84f5be69804ae3b9d0906ee6728c2e656cae02ece"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraLeft-foreground.png",
+          "sha256": "63e885cbaba78937eef5ee10b4dab29766e5700c2c5ef586b893aa83c0c1adf6"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraLeft-background.png",
+          "sha256": "3be0b64bd9766c5ff2233bd0e2863e086059e894499b22daf8dbb4d120ad85c4"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraRight-contour.png",
+          "sha256": "1b48064faf1d30f68da7cfe6fedd0d65e0f902b3b91a42d2ff2567675317678d"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraRight-foreground.png",
+          "sha256": "e6b9080fe68036debf8cc1a4ecf2f95dd8897d714857b0644bcd497b16a6815e"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraRight-background.png",
+          "sha256": "0ff174d7395e90f7eaa871651e8b52e1751ea90004232841db4e83e4707f7979"
         }
       ],
       "runtimeResources": [
@@ -12546,7 +12846,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/structural/floating/extra_side_fins.png",
@@ -12559,6 +12859,30 @@
         {
           "path": "asset-source/v0.3.0/structural/floating/nodes/extra_side_fins/extraRight.png",
           "sha256": "d7711f234e1f57c58cf781bc942d3abf07874f1ead6fd944d9864ed325e97d9a"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraLeft-contour.png",
+          "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraLeft-foreground.png",
+          "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraLeft-background.png",
+          "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraRight-contour.png",
+          "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraRight-foreground.png",
+          "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f"
+        },
+        {
+          "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraRight-background.png",
+          "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f"
         }
       ],
       "runtimeResources": [
@@ -12916,7 +13240,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/production/bridges/tail.png",
@@ -12949,7 +13273,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/production/bridges/extra.png",
@@ -12982,7 +13306,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/production/bridges/tail.png",
@@ -13015,7 +13339,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/production/bridges/extra.png",
@@ -13048,7 +13372,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/production/bridges/tail.png",
@@ -13081,7 +13405,7 @@
       "promptPath": "asset-source/v0.3.0/prompts/task9-tail-extra-prompts.json",
       "promptSha256": "db97a02d56cbe1dcd141f5cb0ccc25b795386e0ab03f8fbd40153bfd649f1edb",
       "reviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-      "reviewRecordSha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+      "reviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
       "sourceResources": [
         {
           "path": "asset-source/v0.3.0/production/bridges/extra.png",

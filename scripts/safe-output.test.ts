@@ -1,4 +1,4 @@
-import { lstat, mkdtemp, mkdir, readFile, realpath, rm, symlink, writeFile } from 'node:fs/promises'
+import { link, lstat, mkdtemp, mkdir, readFile, realpath, rm, symlink, writeFile } from 'node:fs/promises'
 import { isAbsolute, join, relative } from 'node:path'
 import { tmpdir } from 'node:os'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -47,6 +47,19 @@ describe('safe production outputs', () => {
     }
     await expect(resolveExistingContainedPath(root, 'linked', 'input.json'))
       .rejects.toThrow(/escapes output root/i)
+  })
+
+  it('rejects an existing hardlinked read target', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-read-hardlink-'))
+    temporaryDirectories.push(root)
+    const primary = join(root, 'input.json')
+    await writeFile(primary, '{}')
+    try { await link(primary, join(root, 'alias.json')) } catch (error) {
+      if (['EPERM', 'EACCES', 'EXDEV'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('hardlinks unavailable')
+      throw error
+    }
+    await expect(resolveExistingContainedPath(root, 'input.json'))
+      .rejects.toThrow(/single-link|linked regular file/iu)
   })
 
   it('prunes only stale allowed files and is idempotent', async () => {

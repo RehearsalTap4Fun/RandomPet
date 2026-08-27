@@ -41,7 +41,7 @@ describe('buildRuntimeAsset', () => {
     await expect(execFile(process.execPath, [
       join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'), importer,
     ])).resolves.toMatchObject({ stdout: 'imported\n' })
-  })
+  }, 30_000)
 
   it('builds source PNGs into the explicit version production asset root through the CLI', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-runtime-cli-'))

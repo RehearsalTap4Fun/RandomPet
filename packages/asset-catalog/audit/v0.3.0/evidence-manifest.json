@@ -3,11 +3,11 @@
   "canonicalization": "json-object-keys-unicode-code-point-v1",
   "catalogVersion": "0.3.0",
   "sourceIndexPath": "packages/asset-catalog/source-index-v0.3.0.json",
-  "evidenceRootSha256": "1a90a748cbce82a6121caad1d6340fb8cd174b7b5a2918b699b3ac30e2937328",
+  "evidenceRootSha256": "7677be375ba99334d3371e22047efce5595ea90386a1976f765a0a40377020e7",
   "task9Evidence": {
     "schemaVersion": "task9-production-evidence-v1",
     "sourceEntryCount": 102,
-    "dependencyCount": 1680,
+    "dependencyCount": 1761,
     "dependencies": [
       {
         "path": "apps/creator-web/src/render-test.ts",
@@ -1322,6 +1322,735 @@
         ]
       },
       {
+        "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraLeft-background.png",
+        "sha256": "3be0b64bd9766c5ff2233bd0e2863e086059e894499b22daf8dbb4d120ad85c4",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraLeft-contour.png",
+        "sha256": "b2bbae9af28f046365960bb84f5be69804ae3b9d0906ee6728c2e656cae02ece",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraLeft-foreground.png",
+        "sha256": "63e885cbaba78937eef5ee10b4dab29766e5700c2c5ef586b893aa83c0c1adf6",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraRight-background.png",
+        "sha256": "0ff174d7395e90f7eaa871651e8b52e1751ea90004232841db4e83e4707f7979",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraRight-contour.png",
+        "sha256": "1b48064faf1d30f68da7cfe6fedd0d65e0f902b3b91a42d2ff2567675317678d",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_moth_wings/extraRight-foreground.png",
+        "sha256": "e6b9080fe68036debf8cc1a4ecf2f95dd8897d714857b0644bcd497b16a6815e",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraLeft-background.png",
+        "sha256": "3be0b64bd9766c5ff2233bd0e2863e086059e894499b22daf8dbb4d120ad85c4",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraLeft-contour.png",
+        "sha256": "b2bbae9af28f046365960bb84f5be69804ae3b9d0906ee6728c2e656cae02ece",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraLeft-foreground.png",
+        "sha256": "63e885cbaba78937eef5ee10b4dab29766e5700c2c5ef586b893aa83c0c1adf6",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraRight-background.png",
+        "sha256": "0ff174d7395e90f7eaa871651e8b52e1751ea90004232841db4e83e4707f7979",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraRight-contour.png",
+        "sha256": "1b48064faf1d30f68da7cfe6fedd0d65e0f902b3b91a42d2ff2567675317678d",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_side_fins/extraRight-foreground.png",
+        "sha256": "e6b9080fe68036debf8cc1a4ecf2f95dd8897d714857b0644bcd497b16a6815e",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraLeft-background.png",
+        "sha256": "3be0b64bd9766c5ff2233bd0e2863e086059e894499b22daf8dbb4d120ad85c4",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraLeft-contour.png",
+        "sha256": "b2bbae9af28f046365960bb84f5be69804ae3b9d0906ee6728c2e656cae02ece",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraLeft-foreground.png",
+        "sha256": "63e885cbaba78937eef5ee10b4dab29766e5700c2c5ef586b893aa83c0c1adf6",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraRight-background.png",
+        "sha256": "0ff174d7395e90f7eaa871651e8b52e1751ea90004232841db4e83e4707f7979",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraRight-contour.png",
+        "sha256": "1b48064faf1d30f68da7cfe6fedd0d65e0f902b3b91a42d2ff2567675317678d",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/extra_soft_tentacles/extraRight-foreground.png",
+        "sha256": "e6b9080fe68036debf8cc1a4ecf2f95dd8897d714857b0644bcd497b16a6815e",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_fish_fan/tailRoot-background.png",
+        "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_fish_fan/tailRoot-contour.png",
+        "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_fish_fan/tailRoot-foreground.png",
+        "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_mushroom_cluster/tailRoot-background.png",
+        "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_mushroom_cluster/tailRoot-contour.png",
+        "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_mushroom_cluster/tailRoot-foreground.png",
+        "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_soft_curl/tailRoot-background.png",
+        "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_soft_curl/tailRoot-contour.png",
+        "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/biped/tail_soft_curl/tailRoot-foreground.png",
+        "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraLeft-background.png",
+        "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraLeft-contour.png",
+        "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraLeft-foreground.png",
+        "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraRight-background.png",
+        "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraRight-contour.png",
+        "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_moth_wings/extraRight-foreground.png",
+        "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraLeft-background.png",
+        "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraLeft-contour.png",
+        "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraLeft-foreground.png",
+        "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraRight-background.png",
+        "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraRight-contour.png",
+        "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_side_fins/extraRight-foreground.png",
+        "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraLeft-background.png",
+        "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraLeft-contour.png",
+        "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraLeft-foreground.png",
+        "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraRight-background.png",
+        "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraRight-contour.png",
+        "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/extra_soft_tentacles/extraRight-foreground.png",
+        "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_fish_fan/tailRoot-background.png",
+        "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_fish_fan/tailRoot-contour.png",
+        "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_fish_fan/tailRoot-foreground.png",
+        "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_mushroom_cluster/tailRoot-background.png",
+        "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_mushroom_cluster/tailRoot-contour.png",
+        "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_mushroom_cluster/tailRoot-foreground.png",
+        "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_soft_curl/tailRoot-background.png",
+        "sha256": "ce418415b239106625b3b89130803509cfdf9ab1a544c8acc01eea77eaa45409",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_soft_curl/tailRoot-contour.png",
+        "sha256": "9fdf1565e0fff26b3562d3d7b49a556cf03dae783054b0cb2b2d582c321d7b41",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/blob/tail_soft_curl/tailRoot-foreground.png",
+        "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraLeft-background.png",
+        "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraLeft-contour.png",
+        "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraLeft-foreground.png",
+        "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraRight-background.png",
+        "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraRight-contour.png",
+        "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_moth_wings/extraRight-foreground.png",
+        "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraLeft-background.png",
+        "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraLeft-contour.png",
+        "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraLeft-foreground.png",
+        "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraRight-background.png",
+        "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraRight-contour.png",
+        "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_side_fins/extraRight-foreground.png",
+        "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraLeft-background.png",
+        "sha256": "2c3d429568d01b7570bc1a7dd997f3164d39fd7454fca348ff472448f7e75590",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraLeft-contour.png",
+        "sha256": "5297299b1be72341a7554672a2cb25937c3a9f5568da2b5368bf350c49326815",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraLeft-foreground.png",
+        "sha256": "a0798a38dd11e9f299ec860da3411380da96f72b81c659cde2c2f9865433fc80",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraRight-background.png",
+        "sha256": "07f1155c06413f24fd4c89752dfc711853fa0243c20b17861bc01d7ba310198f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraRight-contour.png",
+        "sha256": "37d6f545e4415788879ec663dd8992fcae6b29fa0b5d39f0b98e6066dc8fe26c",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/extra_soft_tentacles/extraRight-foreground.png",
+        "sha256": "70f6052b6e025ee1cd5b250226e60ee70ae0c7e9ae9b67e351822b1eb508612f",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_fish_fan/tailRoot-background.png",
+        "sha256": "d5113c1fd8e8a585da0e00b1e9d9886156d6913083a6a5c21a794670a3d5aac8",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_fish_fan/tailRoot-contour.png",
+        "sha256": "76e5930424b73a743ef1eff9b32d4c5549ac4556bd9906ffd3d719773aa89d14",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_fish_fan/tailRoot-foreground.png",
+        "sha256": "1b6de0aeb56bf291e8fdd160c363f5e78dd8a1a67024928ecb2f413c59db70ce",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_mushroom_cluster/tailRoot-background.png",
+        "sha256": "d5113c1fd8e8a585da0e00b1e9d9886156d6913083a6a5c21a794670a3d5aac8",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_mushroom_cluster/tailRoot-contour.png",
+        "sha256": "76e5930424b73a743ef1eff9b32d4c5549ac4556bd9906ffd3d719773aa89d14",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_mushroom_cluster/tailRoot-foreground.png",
+        "sha256": "1b6de0aeb56bf291e8fdd160c363f5e78dd8a1a67024928ecb2f413c59db70ce",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_soft_curl/tailRoot-background.png",
+        "sha256": "d5113c1fd8e8a585da0e00b1e9d9886156d6913083a6a5c21a794670a3d5aac8",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_soft_curl/tailRoot-contour.png",
+        "sha256": "76e5930424b73a743ef1eff9b32d4c5549ac4556bd9906ffd3d719773aa89d14",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/masks/floating/tail_soft_curl/tailRoot-foreground.png",
+        "sha256": "1b6de0aeb56bf291e8fdd160c363f5e78dd8a1a67024928ecb2f413c59db70ce",
+        "groups": [
+          "processed-index",
+          "production-provenance",
+          "source-index"
+        ]
+      },
+      {
         "path": "asset-source/v0.3.0/production/arms_long_noodle.png",
         "sha256": "9e6ac3387582063e1d5b6d0c17c84c2276de03e2cc4b2e38102bdd590a415ff9",
         "groups": [
@@ -1585,7 +2314,7 @@
       },
       {
         "path": "asset-source/v0.3.0/production/processed-index.json",
-        "sha256": "8dd9ab3649f7f53860edf73c7d910be518d9209d86cfd914df2fc81a97080906",
+        "sha256": "243710cf90a02bcbeecc048f5b71cfa5ae1c84b6919dc1586b43c1e3e24b70a7",
         "groups": [
           "processed-index",
           "production-provenance",
@@ -16469,7 +17198,7 @@
       },
       {
         "path": "packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json",
-        "sha256": "ee4207b9ceb9dd2a23ededd521f69edc5a3d8cf3d5f1de624d3705e58a4cf3d1",
+        "sha256": "e1f029c89e48876acdaf61d88b96a5b46fdb4261f05495bdecbca8362ab2edc0",
         "groups": [
           "pipeline-fixed-point"
         ]
@@ -16795,7 +17524,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/rework-record.json",
-        "sha256": "6993a5efb36c7cd1718af71bc9085d5e728b0b1e144821f2f9651dd740e28985",
+        "sha256": "29aae7df4c016a5ef048a9f54f89b6e00070203d681f4bf7f7eaec16e925e3f5",
         "groups": [
           "task6-9-review"
         ]
@@ -16813,7 +17542,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped-manifest.json",
-        "sha256": "145c89a4be6a409a4b7cbc9afdba15d5f26b0edd3651514a2cc10d789d5e7a4c",
+        "sha256": "649bbbc6531cb5a6ca8750f0bae7f2a07937bd186920e025972b58c0ff75e6d7",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -16846,7 +17575,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/structural-matrix-blob-manifest.json",
-        "sha256": "89d2141519abf2adb105d04b839728ea18f52398d3421af23e06be2df117f348",
+        "sha256": "13d83084583cb93b337ec107993c92e0cf08d6cf2b7f1812d61bdace33dca68e",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -16879,7 +17608,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating-manifest.json",
-        "sha256": "89c8066c7cc6e69d4228e01e945d249bf520ad34c0d037e6a461c444b4fa20fc",
+        "sha256": "54753a77a9754e6e4137d8566fd43cbc8dfc69ed39fee9e8ac8bb9b87b69875a",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -16901,7 +17630,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/structural-matrix-index.json",
-        "sha256": "8a2eaa447d796cc55463465ad2f319c96fcd767dbe122fef35e4db160f926597",
+        "sha256": "7444f2d4a95cb0cb918d5af53223595872b47ee66c83934603f090cdd4c4d920",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -17285,7 +18014,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-        "sha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
+        "sha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -17314,7 +18043,7 @@
       },
       {
         "path": "packages/asset-catalog/source-index-v0.3.0.json",
-        "sha256": "3fb6b5f8ef67e12e2a317f84d989b2f461b9f5c25d1ea02c285ec2a207645dbe",
+        "sha256": "b0dd6d768dd8c18ba1b503ed2f982cb73a216908131a09ea467a62f4dc299046",
         "groups": [
           "source-index",
           "task6-9-review"
@@ -17329,7 +18058,7 @@
       },
       {
         "path": "packages/renderer-canvas/src/render.ts",
-        "sha256": "7f3dc4e1d197abae4e111752157e2eae0c0a4584cd8aabc7b2ecaee4d660013b",
+        "sha256": "1adc2b07506bcec139c1e611749cec560cc6f605148a385fe8c145486cafc0a1",
         "groups": [
           "task6-9-review",
           "task9-live-renderer"
@@ -17344,7 +18073,7 @@
       },
       {
         "path": "scripts/render-limb-contact-sheets.ts",
-        "sha256": "7c25d550af00c8af9705e1c9594bf187becc1326beeb276beee76675990034d5",
+        "sha256": "be2c3c336c4e1d5e007bdabf40d7f6ce28cbd4f6c890a43fb8be2505241b544b",
         "groups": [
           "task6-9-review",
           "task9-live-renderer"
@@ -17352,7 +18081,7 @@
       },
       {
         "path": "scripts/render-tail-extra-structural-matrices.ts",
-        "sha256": "16227e655355f6a97ad28c5a69eeed3ff81113bfc97aacb7e0b12f79f36d671c",
+        "sha256": "f884588ed1d0c29492a523ece2e0f9d79fac07aa36938c3357890f388024e43d",
         "groups": [
           "task9-live-renderer"
         ]
@@ -17425,8 +18154,8 @@
         "build-color-scheme-masks",
         "build-interface-catalog"
       ],
-      "round1Sha256": "4a12e5a375206c32e9d74283f285d9c6eaed8b4f609a89db819e666ec277f6be",
-      "round2Sha256": "4a12e5a375206c32e9d74283f285d9c6eaed8b4f609a89db819e666ec277f6be"
+      "round1Sha256": "ce573364d00e7e8f74565b7dca359d1c0fc46f8243cad9dcac3cebb47d91345b",
+      "round2Sha256": "ce573364d00e7e8f74565b7dca359d1c0fc46f8243cad9dcac3cebb47d91345b"
     }
   }
 }

@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
+import { link, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { tmpdir } from 'node:os'
@@ -107,6 +107,48 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('rejects production split reads through an escaping parent junction before accepting outside JSON', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-production-read-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-production-read-outside-'))
+    temporaryDirectories.push(root, outside)
+    const catalog = makeValidCatalogFixture()
+    for (const [name, value] of [
+      ['themes.json', catalog.themes], ['rigs.json', catalog.rigs], ['parts.json', catalog.parts],
+      ['semantic-traits.json', catalog.semanticTraits], ['modifiers.json', catalog.modifiers],
+    ] as const) await writeFile(join(outside, name), `${JSON.stringify(value)}\n`)
+    try {
+      await symlink(outside, join(root, 'catalog'), process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('directory links unavailable')
+      throw error
+    }
+
+    const diagnostics = await validateProductionSplitFiles(catalog, join(root, 'catalog'))
+    expect(diagnostics.filter(item => item.code === 'PRODUCTION_SPLIT_MISSING')).toHaveLength(5)
+  })
+
+  it('rejects production split hardlinks so an external alias cannot change validated bytes', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-production-hardlink-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-production-hardlink-outside-'))
+    temporaryDirectories.push(root, outside)
+    await mkdir(join(root, 'catalog'))
+    const catalog = makeValidCatalogFixture()
+    for (const [name, value] of [
+      ['themes.json', catalog.themes], ['rigs.json', catalog.rigs], ['parts.json', catalog.parts],
+      ['semantic-traits.json', catalog.semanticTraits], ['modifiers.json', catalog.modifiers],
+    ] as const) {
+      const outsidePath = join(outside, name)
+      await writeFile(outsidePath, `${JSON.stringify(value)}\n`)
+      try { await link(outsidePath, join(root, 'catalog', name)) } catch (error) {
+        if (['EPERM', 'EACCES', 'EXDEV'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('hardlinks unavailable')
+        throw error
+      }
+    }
+
+    const diagnostics = await validateProductionSplitFiles(catalog, join(root, 'catalog'))
+    expect(diagnostics.filter(item => item.code === 'PRODUCTION_SPLIT_MISSING')).toHaveLength(5)
+  })
+
   it('accepts a possibly empty bridge split layer only when the pair exactly partitions neutral alpha', () => {
     const transparent = 0
     const opaque = 255
@@ -1139,6 +1181,20 @@ describe('strict production catalog validation', () => {
       code: 1,
       stderr: expect.stringContaining('PRODUCTION_SOURCE_FILE_HASH_MISMATCH'),
     })
+  })
+
+  it('returns a nonzero CLI status when --source-root has no value', async () => {
+    const { root, catalogDirectory } = await makeProductionCliFixture()
+    await expect(execFile(process.execPath, [
+      join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'src', 'cli.ts'),
+      join(catalogDirectory, 'catalog.json'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'),
+      '--production',
+      '--source-index', join(root, 'source-index.json'),
+      '--evidence-manifest', join(root, 'audit', 'v0.1.0', 'evidence-manifest.json'),
+      '--source-root',
+    ])).rejects.toMatchObject({ code: 1, stderr: expect.stringContaining('CATALOG_CLI_ARGUMENTS_INVALID') })
   })
 
   it('recomputes a synchronized forged extraction decision in the production CLI process', async () => {

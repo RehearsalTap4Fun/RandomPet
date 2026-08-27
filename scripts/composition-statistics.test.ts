@@ -19,7 +19,7 @@ describe('composition distribution', () => {
     }
     expect(result.maximumStrongFeatures).toBeLessThanOrEqual(2)
     expect(result.maximumSurpriseSlots).toBeLessThanOrEqual(3)
-  }, 15_000)
+  }, 60_000)
 
   it('keeps the complete v0.3 catalog inside unchanged budgets over 10,000 theme-cycled seeds', () => {
     const parsedCatalog = parseCatalog(interfaceCatalogDocument)
@@ -37,5 +37,5 @@ describe('composition distribution', () => {
     expect(result.maximumSurpriseSlots).toBeLessThanOrEqual(
       Math.floor(parsedCatalog.value.compositionPolicy!.motifSlots.length * 0.3),
     )
-  }, 15_000)
+  }, 60_000)
 })

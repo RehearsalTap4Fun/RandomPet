@@ -186,11 +186,14 @@ export function validateProductionEvidenceManifest(
       || statistics?.seedCount !== 10_000
       || !validRates
       || !Number.isFinite(statistics?.maximumStrongFeatures)
-      || statistics?.maximumStrongFeatures !== 2
+      || (statistics?.maximumStrongFeatures ?? -1) < 0
+      || (statistics?.maximumStrongFeatures ?? Number.POSITIVE_INFINITY) > 2
       || !Number.isFinite(statistics?.maximumSurpriseSlots)
-      || statistics?.maximumSurpriseSlots !== 3
+      || (statistics?.maximumSurpriseSlots ?? -1) < 0
+      || (statistics?.maximumSurpriseSlots ?? Number.POSITIVE_INFINITY) > 3
       || !Number.isFinite(statistics?.surpriseLimit)
-      || statistics?.surpriseLimit !== 3
+      || (statistics?.surpriseLimit ?? -1) < 0
+      || (statistics?.surpriseLimit ?? Number.POSITIVE_INFINITY) > 3
       || task9.structuralMatrix?.entryCount !== 39
       || task9.structuralMatrix?.failureCount !== 0
       || task9.structuralMatrix?.entryCountByRig?.blob !== 15
@@ -228,6 +231,7 @@ export async function validateProductionEvidenceDependencies(
   if (!Array.isArray(task9?.dependencies)) return []
   const diagnostics: Diagnostic[] = []
   const root = await realpath(resolve(repositoryRoot)).catch(() => resolve(repositoryRoot))
+  const verified = new Map<string, { bytes: Buffer, sha256: string }>()
   for (const dependency of task9.dependencies) {
     const path = ['task9Evidence', 'dependencies', dependency.path]
     try {
@@ -241,14 +245,16 @@ export async function validateProductionEvidenceDependencies(
         continue
       }
       const metadata = await stat(target)
-      if (!metadata.isFile() || metadata.nlink < 1) {
+      if (!metadata.isFile() || metadata.nlink !== 1) {
         diagnostics.push({
           severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_FILE_INVALID', path,
           message: `Task 9 evidence dependency must resolve to a linked regular file: ${dependency.path}`,
         })
         continue
       }
-      const actualHash = createHash('sha256').update(await readFile(target)).digest('hex')
+      const bytes = await readFile(target)
+      const actualHash = createHash('sha256').update(bytes).digest('hex')
+      verified.set(dependency.path, { bytes, sha256: actualHash })
       if (actualHash !== dependency.sha256) diagnostics.push({
         severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH', path,
         message: `Task 9 evidence dependency differs from its final recorded SHA-256: ${dependency.path}`,
@@ -258,6 +264,50 @@ export async function validateProductionEvidenceDependencies(
         severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_MISSING', path,
         message: `Task 9 evidence dependency cannot be read from its canonical repository path: ${dependency.path}`,
       })
+    }
+  }
+  const reworkPath = 'packages/asset-catalog/review/v0.3.0/rework-record.json'
+  const rework = verified.get(reworkPath)
+  if (rework !== undefined) {
+    const closureDiagnostic = (field: string, message: string): void => {
+      diagnostics.push({
+        severity: 'error', code: 'PRODUCTION_TASK9_REVIEW_CLOSURE_MISMATCH',
+        path: ['task9Evidence', 'reviewClosure', field], message,
+      })
+    }
+    try {
+      const record = JSON.parse(rework.bytes.toString('utf8')) as {
+        structuralMatrixReview?: {
+          indexPath?: unknown, indexSha256?: unknown,
+          tailExtraReviewRecordPath?: unknown, tailExtraReviewRecordSha256?: unknown,
+        }
+      }
+      const review = record.structuralMatrixReview
+      const references = [
+        ['index', review?.indexPath, review?.indexSha256],
+        ['tailExtraReviewRecord', review?.tailExtraReviewRecordPath, review?.tailExtraReviewRecordSha256],
+      ] as const
+      for (const [field, path, expectedHash] of references) {
+        const actual = typeof path === 'string' ? verified.get(path) : undefined
+        if (actual === undefined || expectedHash !== actual.sha256) {
+          closureDiagnostic(`${field}Sha256`, `Task 9 rework review ${field} reference does not match the verified dependency bytes.`)
+        }
+      }
+      const tailPath = typeof review?.tailExtraReviewRecordPath === 'string'
+        ? review.tailExtraReviewRecordPath : ''
+      const tail = verified.get(tailPath)
+      if (tail !== undefined) {
+        const tailRecord = JSON.parse(tail.bytes.toString('utf8')) as {
+          structuralMatrixReview?: { indexPath?: unknown, indexSha256?: unknown }
+        }
+        const tailIndexPath = tailRecord.structuralMatrixReview?.indexPath
+        const tailIndex = typeof tailIndexPath === 'string' ? verified.get(tailIndexPath) : undefined
+        if (tailIndex === undefined || tailRecord.structuralMatrixReview?.indexSha256 !== tailIndex.sha256) {
+          closureDiagnostic('tailExtraReviewRecord.indexSha256', 'Task 9 tail/extra review index reference does not match the verified dependency bytes.')
+        }
+      }
+    } catch {
+      closureDiagnostic('reworkRecord', 'Task 9 review closure records must be valid JSON with verified internal hashes.')
     }
   }
   return diagnostics

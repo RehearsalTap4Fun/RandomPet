@@ -38,6 +38,21 @@ describe('MonsterSpecSchema', () => {
     expect(parseCatalog(catalog)).toEqual(expect.objectContaining({ ok: false }))
   })
 
+  it('requires every non-none render node to name a runtime asset', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    const visible = catalog.parts.find((part: any) => part.composition?.mode === 'interface')!
+    visible.composition.variantsByRig.blob.renderNodes[0].assetPath = ''
+    expect(parseCatalog(catalog)).toMatchObject({ ok: false })
+
+    const noneCatalog = makeInterfaceCatalogFixture() as any
+    const none = noneCatalog.parts.find((part: any) => part.composition?.isNone === true)!
+    none.assetPath = ''
+    delete none.assetSha256
+    delete none.pngPath
+    delete none.pngSha256
+    expect(parseCatalog(noneCatalog).ok).toBe(true)
+  })
+
   it('requires exact-rig structural variants and bridge resources in v0.3', () => {
     const catalog = makeInterfaceCatalogFixture() as any
     delete catalog.parts.find((part: { id: string }) => part.id === 'head_round')!

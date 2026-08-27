@@ -33,7 +33,7 @@ export async function resolveCanonicalProductionInput(packageRoot: string, input
   const remainder = relative(canonicalRoot, canonicalTarget)
   if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Production input escapes package root: ${inputPath}`)
   const metadata = await stat(canonicalTarget)
-  if (inputLink.isSymbolicLink() || expectedLink.isSymbolicLink() || !metadata.isFile() || metadata.nlink < 1) {
+  if (inputLink.isSymbolicLink() || expectedLink.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) {
     throw new Error(`Production input is not a direct regular file: ${inputPath}`)
   }
   return canonicalTarget
@@ -69,10 +69,11 @@ async function main(): Promise<void> {
     return
   }
   const missingProductionEvidence = production && (sourceIndexInput === undefined || evidenceManifestInput === undefined)
+  const missingSourceRootValue = sourceRootOption !== -1 && sourceRoot === undefined
   const malformedProductionPath = [sourceRoot, sourceIndexInput, evidenceManifestInput]
     .some(value => value !== undefined && value.startsWith('--'))
   const evidenceWithoutProduction = !production && (sourceIndexInput !== undefined || evidenceManifestInput !== undefined)
-  if (invalidOptions.length > 0 || malformedProductionPath || (sourceRoot !== undefined && !production) || evidenceWithoutProduction || missingProductionEvidence) {
+  if (invalidOptions.length > 0 || missingSourceRootValue || malformedProductionPath || (sourceRoot !== undefined && !production) || evidenceWithoutProduction || missingProductionEvidence) {
     printDiagnostics([{ severity: 'error', code: 'CATALOG_CLI_ARGUMENTS_INVALID', path: [], message: '--source-index and --evidence-manifest require paths and must be supplied together with --production; --source-root also requires --production.' }])
     process.exitCode = 1
     return

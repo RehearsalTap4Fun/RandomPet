@@ -1139,6 +1139,42 @@ describe('v0.3 interface rendering', () => {
     return { catalog, spec }
   }
 
+  it('colors interface structure from exact-rig masks without reading the transparent color placeholder', async () => {
+    const { catalog, spec } = fixture()
+    const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
+    color.rigMaskPaths = {
+      blob: {
+        primary: 'masks/interface-blob-primary.png',
+        secondary: 'masks/interface-blob-secondary.png',
+        accent: 'masks/interface-blob-accent.png',
+      },
+    }
+    const mutation = catalog.modifiers.find(item => item.overrides.palette !== undefined)!
+    spec.mutation = { id: mutation.id, overrides: structuredClone(mutation.overrides) }
+    const expectedPalette = mutation.overrides.palette!
+    const calls: string[] = []
+    const resolved: string[] = []
+    const result = await renderMonster(
+      makeRecordingContext(calls), spec, catalog, {
+        async resolve(path) { resolved.push(path); return image(path) },
+      }, {
+        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls),
+      },
+    )
+
+    expect(result.diagnostics).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'ASSET_LOAD_FAILED' }),
+    ]))
+    expect(resolved).toEqual(expect.arrayContaining(Object.values(color.rigMaskPaths.blob!)))
+    expect(resolved).not.toContain(color.assetPath)
+    expect(calls).toEqual(expect.arrayContaining([
+      `interface-14:fillStyle:${expectedPalette.primary}`,
+      `interface-14:fillStyle:${expectedPalette.secondary}`,
+      `interface-14:fillStyle:${expectedPalette.accent}`,
+      'interface-18:composite:color',
+    ]))
+  })
+
   it('draws limb roots behind the body, then the head, then facial features', async () => {
     const { catalog, spec } = fixture()
 

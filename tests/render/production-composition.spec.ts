@@ -239,4 +239,101 @@ describe('v0.3 browser production composition', () => {
       ...TASK9_EXTRA_IDS.map(identityId => `${rigId}:${identityId}`),
     ])))
   }, 300_000)
+
+  it('colors all exact rigs from scheme masks while preserving alpha and transparent boundaries', async () => {
+    if (browser === undefined) throw new Error('V03_BROWSER_PRODUCTION_FAILED: browser was not started')
+    const schemes = [
+      ['color_deep_sea_coral', 'deep-sea'],
+      ['color_fungal_amber', 'fungal'],
+      ['color_shadow_violet', 'shadow'],
+    ] as const
+    const albino = sourceCatalog.modifiers.find(modifier => modifier.id === 'mutation_albino')!
+    const signatures = new Map<string, { alphaHash: number; rgbHash: number; alphaPixels: number; transparentRgbPixels: number }>()
+
+    for (const [rigId, [schemeId, themeId]] of TASK9_RIG_IDS.flatMap(rig => schemes.map(scheme => [rig, scheme] as const))) {
+      const spec = makeProductionSpec(sourceCatalog, rigId, 'tail_soft_curl', 'extra_side_fins')
+      const theme = sourceCatalog.themes.find(candidate => candidate.id === themeId)!
+      const scheme = browserCatalog.parts.find(part => part.id === schemeId)!
+      spec.themeId = themeId
+      spec.palette = structuredClone(theme.palette)
+      spec.visualSlots.colorScheme = { partId: schemeId, rigId }
+      const inputPath = join(inputRoot, `color-${rigId}-${schemeId}.json`)
+      await writeFile(inputPath, `${JSON.stringify({ catalog: browserCatalog, spec, diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE })}\n`)
+      const page = await browser.newPage({ viewport: { width: 1200, height: 1200 } })
+      try {
+        await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
+        await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
+        expect(await page.evaluate(() => document.body.dataset.renderError), `${rigId}:${schemeId}`).toBeUndefined()
+        const evidence = JSON.parse((await page.evaluate(() => document.body.dataset.interfaceResult))!) as {
+          diagnostics: unknown[]; resolvedAssetPaths: string[]
+        }
+        expect(evidence.diagnostics, `${rigId}:${schemeId}`).toEqual([])
+        const maskPaths = Object.values(scheme.rigMaskPaths?.[rigId] ?? {})
+        expect(maskPaths).toHaveLength(3)
+        expect(evidence.resolvedAssetPaths, `${rigId}:${schemeId}`).toEqual(expect.arrayContaining(maskPaths))
+        expect(evidence.resolvedAssetPaths, `${rigId}:${schemeId}`).not.toContain(scheme.assetPath)
+        signatures.set(`${rigId}:${schemeId}`, await page.locator('#render-target').evaluate(canvas => {
+          const target = canvas as HTMLCanvasElement
+          const rgba = target.getContext('2d')!.getImageData(0, 0, target.width, target.height).data
+          let alphaHash = 2_166_136_261
+          let rgbHash = 2_166_136_261
+          let alphaPixels = 0
+          let transparentRgbPixels = 0
+          for (let offset = 0; offset < rgba.length; offset += 4) {
+            const alpha = rgba[offset + 3]!
+            alphaHash = Math.imul(alphaHash ^ alpha, 16_777_619) >>> 0
+            if (alpha > 0) {
+              alphaPixels += 1
+              rgbHash = Math.imul(rgbHash ^ rgba[offset]!, 16_777_619) >>> 0
+              rgbHash = Math.imul(rgbHash ^ rgba[offset + 1]!, 16_777_619) >>> 0
+              rgbHash = Math.imul(rgbHash ^ rgba[offset + 2]!, 16_777_619) >>> 0
+            } else if (rgba[offset] !== 0 || rgba[offset + 1] !== 0 || rgba[offset + 2] !== 0) transparentRgbPixels += 1
+          }
+          return { alphaHash, rgbHash, alphaPixels, transparentRgbPixels }
+        }))
+      } finally {
+        await page.close()
+      }
+    }
+
+    for (const rigId of TASK9_RIG_IDS) {
+      const values = schemes.map(([schemeId]) => signatures.get(`${rigId}:${schemeId}`)!)
+      expect(new Set(values.map(value => value.alphaHash)), `${rigId}:alpha`).toEqual(new Set([values[0]!.alphaHash]))
+      expect(new Set(values.map(value => value.rgbHash)).size, `${rigId}:scheme rgb`).toBe(3)
+      expect(values.every(value => value.alphaPixels > 100_000 && value.transparentRgbPixels === 0)).toBe(true)
+
+      const baseSpec = makeProductionSpec(sourceCatalog, rigId, 'tail_soft_curl', 'extra_side_fins')
+      baseSpec.themeId = 'deep-sea'
+      baseSpec.palette = structuredClone(sourceCatalog.themes.find(theme => theme.id === 'deep-sea')!.palette)
+      baseSpec.visualSlots.colorScheme = { partId: 'color_deep_sea_coral', rigId }
+      baseSpec.mutation = { id: albino.id, overrides: structuredClone(albino.overrides) }
+      const inputPath = join(inputRoot, `color-${rigId}-mutation.json`)
+      await writeFile(inputPath, `${JSON.stringify({ catalog: browserCatalog, spec: baseSpec, diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE })}\n`)
+      const page = await browser.newPage({ viewport: { width: 1200, height: 1200 } })
+      try {
+        await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
+        await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
+        expect(await page.evaluate(() => document.body.dataset.renderError), `${rigId}:mutation`).toBeUndefined()
+        const mutation = await page.locator('#render-target').evaluate(canvas => {
+          const target = canvas as HTMLCanvasElement
+          const rgba = target.getContext('2d')!.getImageData(0, 0, target.width, target.height).data
+          let alphaHash = 2_166_136_261; let rgbHash = 2_166_136_261
+          for (let offset = 0; offset < rgba.length; offset += 4) {
+            alphaHash = Math.imul(alphaHash ^ rgba[offset + 3]!, 16_777_619) >>> 0
+            if (rgba[offset + 3]! > 0) {
+              rgbHash = Math.imul(rgbHash ^ rgba[offset]!, 16_777_619) >>> 0
+              rgbHash = Math.imul(rgbHash ^ rgba[offset + 1]!, 16_777_619) >>> 0
+              rgbHash = Math.imul(rgbHash ^ rgba[offset + 2]!, 16_777_619) >>> 0
+            }
+          }
+          return { alphaHash, rgbHash }
+        })
+        const baseline = signatures.get(`${rigId}:color_deep_sea_coral`)!
+        expect(mutation.alphaHash, `${rigId}:mutation alpha`).toBe(baseline.alphaHash)
+        expect(mutation.rgbHash, `${rigId}:mutation rgb`).not.toBe(baseline.rgbHash)
+      } finally {
+        await page.close()
+      }
+    }
+  }, 300_000)
 })

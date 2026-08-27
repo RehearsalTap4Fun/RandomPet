@@ -92,6 +92,7 @@ export function task8LimbSourceProjectionSha256(sourceIndex: unknown, production
 
 const TASK9_BROWSER_CATALOG_EXTENSION = `export function browserCatalog(input: Catalog, options: {
   activeStructuralSlots?: readonly VisualSlotId[]
+  applyPaletteMasks?: boolean
 } = {}): Catalog {
   const catalog = structuredClone(input)
   const activeStructuralSlots = new Set(options.activeStructuralSlots ?? ['bodyFrame', 'headShape', 'arms', 'legs'])`
@@ -125,7 +126,63 @@ function projectTask9DiagnosticScope(path: string, text: string): string {
     ), `    ...(input.diagnosticScope === undefined ? {} : { diagnosticScope: input.diagnosticScope }),\n`, ''), `    diagnosticScope: result.diagnosticScope,\n`, '')
   }
   if (path !== 'packages/renderer-canvas/src/render.ts') return text
-  let projected = replaceExpected(text, `  const suppressedDiagnostics: Diagnostic[] = []
+  let projected = replaceExpected(text, `function interfacePaletteAssetLoadDiagnostic(
+  partId: string,
+  rigId: string,
+  maskName: 'primary' | 'secondary' | 'accent',
+  assetPath: string,
+): Diagnostic {
+  return {
+    severity: 'error',
+    code: 'ASSET_LOAD_FAILED',
+    path: ['parts', partId, 'rigMaskPaths', rigId, maskName],
+    message: \`Failed to load \${assetPath} for \${partId}.\`,
+  }
+}
+
+`, '')
+  projected = replaceExpected(projected, `  for (const node of tree.nodes) {
+    if (node.slotId === 'colorScheme') continue
+`, `  for (const node of tree.nodes) {
+`)
+  projected = replaceExpected(projected, `    const colorSelection = spec.visualSlots.colorScheme
+    const colorPart = catalog.parts.find(part => (
+      part.id === colorSelection.partId && part.slotId === 'colorScheme'
+    ))
+    const colorMasks = colorPart?.rigMaskPaths?.[colorSelection.rigId]
+    if (colorPart !== undefined && colorMasks !== undefined) {
+      const palette = expandRenderLayers(spec, catalog).palette
+      for (const maskName of ['primary', 'secondary', 'accent'] as const) {
+        const assetPath = colorMasks[maskName]
+        try {
+          const mask = await resolver.resolve(assetPath)
+          clearSurface(surfaces.connectorMask)
+          surfaces.connectorMask.context.drawImage(mask, 0, 0)
+          withSavedContext(surfaces.connectorMask.context, () => {
+            surfaces.connectorMask.context.globalCompositeOperation = 'source-in'
+            surfaces.connectorMask.context.fillStyle = palette[maskName]
+            surfaces.connectorMask.context.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
+            surfaces.connectorMask.context.globalCompositeOperation = 'destination-in'
+            surfaces.connectorMask.context.drawImage(surfaces.structureAlpha.canvas, 0, 0)
+          })
+          withSavedContext(finalContext, () => {
+            finalContext.globalCompositeOperation = 'color'
+            finalContext.drawImage(surfaces.connectorMask.canvas, 0, 0)
+          })
+        } catch {
+          diagnostics.push(interfacePaletteAssetLoadDiagnostic(
+            colorPart.id, colorSelection.rigId, maskName, assetPath,
+          ))
+        }
+      }
+      if (!diagnostics.some(item => item.path[1] === colorPart.id)) drawnAssetIds.push(colorPart.id)
+    }
+`, '')
+  projected = replaceExpected(projected, `    for (const node of nonStructural) {
+      if (node.slotId === 'colorScheme') continue
+`, `    for (const node of nonStructural) {
+`)
+  projected = replaceExpected(projected, `  const suppressedDiagnostics: Diagnostic[] = []
   const diagnosticScope = options.diagnosticScope
   const pushConnectorMetricDiagnostic = (connectorId: string, diagnostic: Diagnostic) => {
     if (diagnosticScope !== undefined && !diagnosticScope.activeConnectorIds.includes(connectorId)) {
@@ -180,6 +237,14 @@ function projectTask9DiagnosticScope(path: string, text: string): string {
 export function task8RendererProjectionSha256(path: string, bytes: Uint8Array): string {
   let projected = projectTask9DiagnosticScope(path, Buffer.from(bytes).toString('utf8'))
   if (path === 'scripts/render-limb-contact-sheets.ts') {
+    projected = replaceExpected(projected, `    if (part.slotId === 'colorScheme' && options.applyPaletteMasks !== true) delete part.rigMaskPaths
+    else if (part.rigMaskPaths !== undefined) for (const masks of Object.values(part.rigMaskPaths)) {
+        if (masks === undefined) continue
+        masks.primary = fsUrl(runtimeFsPath(masks.primary))
+        masks.secondary = fsUrl(runtimeFsPath(masks.secondary))
+        masks.accent = fsUrl(runtimeFsPath(masks.accent))
+      }
+`, '')
     const extensionCount = projected.split(TASK9_BROWSER_CATALOG_EXTENSION).length - 1
     const conditionCount = projected.split(TASK9_ACTIVE_SLOT_CONDITION).length - 1
     if (extensionCount === 1 && conditionCount === 1) {

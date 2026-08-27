@@ -349,6 +349,20 @@ function compositionAssetLoadDiagnostic(node: ResolvedRenderNode): Diagnostic {
   }
 }
 
+function interfacePaletteAssetLoadDiagnostic(
+  partId: string,
+  rigId: string,
+  maskName: 'primary' | 'secondary' | 'accent',
+  assetPath: string,
+): Diagnostic {
+  return {
+    severity: 'error',
+    code: 'ASSET_LOAD_FAILED',
+    path: ['parts', partId, 'rigMaskPaths', rigId, maskName],
+    message: `Failed to load ${assetPath} for ${partId}.`,
+  }
+}
+
 function clearSurface(surface: RenderSurface): void {
   surface.context.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE)
 }
@@ -1061,6 +1075,7 @@ async function renderInterfaceMonster(
   }
   const sources = new Map<string, CanvasImageSource>()
   for (const node of tree.nodes) {
+    if (node.slotId === 'colorScheme') continue
     try {
       sources.set(node.key, await resolver.resolve(node.node.assetPath))
     } catch {
@@ -1361,11 +1376,44 @@ async function renderInterfaceMonster(
       drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
       drawnAssetIds.push(node.key)
     }
+    const colorSelection = spec.visualSlots.colorScheme
+    const colorPart = catalog.parts.find(part => (
+      part.id === colorSelection.partId && part.slotId === 'colorScheme'
+    ))
+    const colorMasks = colorPart?.rigMaskPaths?.[colorSelection.rigId]
+    if (colorPart !== undefined && colorMasks !== undefined) {
+      const palette = expandRenderLayers(spec, catalog).palette
+      for (const maskName of ['primary', 'secondary', 'accent'] as const) {
+        const assetPath = colorMasks[maskName]
+        try {
+          const mask = await resolver.resolve(assetPath)
+          clearSurface(surfaces.connectorMask)
+          surfaces.connectorMask.context.drawImage(mask, 0, 0)
+          withSavedContext(surfaces.connectorMask.context, () => {
+            surfaces.connectorMask.context.globalCompositeOperation = 'source-in'
+            surfaces.connectorMask.context.fillStyle = palette[maskName]
+            surfaces.connectorMask.context.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE)
+            surfaces.connectorMask.context.globalCompositeOperation = 'destination-in'
+            surfaces.connectorMask.context.drawImage(surfaces.structureAlpha.canvas, 0, 0)
+          })
+          withSavedContext(finalContext, () => {
+            finalContext.globalCompositeOperation = 'color'
+            finalContext.drawImage(surfaces.connectorMask.canvas, 0, 0)
+          })
+        } catch {
+          diagnostics.push(interfacePaletteAssetLoadDiagnostic(
+            colorPart.id, colorSelection.rigId, maskName, assetPath,
+          ))
+        }
+      }
+      if (!diagnostics.some(item => item.path[1] === colorPart.id)) drawnAssetIds.push(colorPart.id)
+    }
     // Structural roots are normalized to overlap. Keep transition tissue
     // behind them so no mask boundary or mesh frontier reads as hardware.
     let eyesStarted = false
     let mouthStarted = false
     for (const node of nonStructural) {
+      if (node.slotId === 'colorScheme') continue
       const source = sources.get(node.key)
       if (source === undefined) continue
       drawCompositionNodeToSurface(

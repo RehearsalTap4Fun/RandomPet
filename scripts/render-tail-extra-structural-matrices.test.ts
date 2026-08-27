@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { copyFile, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { buildTailExtraMatrixIndex, cleanupTailExtraRenderHarness, makeTailExtraMatrixPlan, reconstructTailExtraMatrixEvidence, resolveMatrixResourcePath, validateStoredTailExtraMatrixEvidence, validateTailExtraRenderEvidence } from './render-tail-extra-structural-matrices.js'
+import { buildTailExtraMatrixIndex, cleanupTailExtraRenderHarness, makeTailExtraMatrixPlan, reconstructTailExtraMatrixEvidence, resolveMatrixResourcePath, task9StructuralCatalogProjectionSha256, validateStoredTailExtraMatrixEvidence, validateTailExtraRenderEvidence } from './render-tail-extra-structural-matrices.js'
 import { BODIES as TASK8_BODIES } from './render-limb-contact-sheets.js'
 import { assertTask9Task8BodyRoster, TASK9_BODIES_BY_RIG } from './task9-structural-identities.js'
 
@@ -49,6 +49,20 @@ describe('Task 9 tail/extra structural matrices', () => {
     expect(index.entryCountByRig).toEqual({ blob: 15, biped: 15, floating: 9 })
     expect(index.artifacts).toHaveLength(3)
     expect(index.artifacts.every(artifact => /^[a-f0-9]{64}$/.test(artifact.manifestSha256))).toBe(true)
+  })
+
+  it('binds live Task 9 structural inputs while allowing legal nonstructural catalog extensions', async () => {
+    const catalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.3.0/catalog.json', 'utf8'))
+    const baseline = task9StructuralCatalogProjectionSha256(catalog)
+    const nonstructural = structuredClone(catalog)
+    nonstructural.parts.push({ ...structuredClone(nonstructural.parts.find((part: any) => part.slotId === 'eyes')), id: 'eyes_legal_extension' })
+    nonstructural.parts.find((part: any) => part.slotId === 'colorScheme').rigMaskPaths.blob.primary = 'assets/v0.3.0/legal-color-extension.png'
+    expect(task9StructuralCatalogProjectionSha256(nonstructural)).toBe(baseline)
+
+    const structural = structuredClone(catalog)
+    structural.parts.find((part: any) => part.id === 'tail_soft_curl')
+      .composition.variantsByRig.blob.connectors.find((connector: any) => connector.id === 'tailRoot').width += 1
+    expect(task9StructuralCatalogProjectionSha256(structural)).not.toBe(baseline)
   })
 
   it('freezes every body by one-slot identity plus three deterministic mixed entries per rig', () => {

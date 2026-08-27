@@ -123,6 +123,18 @@ export function validateTailExtraRenderEvidence(
 function sha256(bytes: Uint8Array): string { return createHash('sha256').update(bytes).digest('hex') }
 async function hashFile(path: string): Promise<string> { return sha256(await readFile(path)) }
 
+export function task9StructuralCatalogProjectionSha256(catalog: Catalog): string {
+  const task9Slots = new Set(['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'])
+  const projection = {
+    version: catalog.version,
+    rigs: catalog.rigs,
+    parts: catalog.parts.filter(part => task9Slots.has(part.slotId)),
+    compositionPolicy: catalog.compositionPolicy,
+    transitionBridges: catalog.transitionBridges,
+  }
+  return sha256(Buffer.from(JSON.stringify(projection)))
+}
+
 export async function cleanupTailExtraRenderHarness(input: {
   tempRoot?: string
   page?: { close(): Promise<unknown> }
@@ -215,10 +227,14 @@ function normalizeMatrixManifestPaths(manifest: any): any {
 
 export async function writeTailExtraMatrixIndexFromExistingManifests() {
   const artifacts: TailExtraMatrixArtifactBinding[] = []
+  const catalogPath = await resolveExistingContainedPath(ROOT, join(ROOT, 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json'))
+  const structuralProjectionSha256 = task9StructuralCatalogProjectionSha256(JSON.parse(await readFile(catalogPath, 'utf8')) as Catalog)
   for (const rigId of ['blob', 'biped', 'floating'] as const) {
     const manifestPath = join(REVIEW_ROOT, `structural-matrix-${rigId}-manifest.json`)
     const manifestInput = await resolveExistingContainedPath(ROOT, manifestPath)
     const manifest = normalizeMatrixManifestPaths(JSON.parse((await readFile(manifestInput)).toString('utf8')))
+    manifest.structuralProjectionSha256 = structuralProjectionSha256
+    manifest.renderScope = { paletteMasks: false }
     const manifestBytes = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`)
     await writeFile(manifestPath, manifestBytes)
     artifacts.push({
@@ -232,7 +248,7 @@ export async function writeTailExtraMatrixIndexFromExistingManifests() {
       manifestSha256: sha256(manifestBytes),
     })
   }
-  const index = buildTailExtraMatrixIndex(artifacts)
+  const index = { ...buildTailExtraMatrixIndex(artifacts), structuralProjectionSha256, renderScope: { paletteMasks: false } }
   const indexPath = join(REVIEW_ROOT, 'structural-matrix-index.json')
   const indexBytes = Buffer.from(`${JSON.stringify(index, null, 2)}\n`)
   await writeFile(indexPath, indexBytes)
@@ -246,7 +262,7 @@ export async function reconstructTailExtraMatrixEvidence(input: {
   catalogPath?: string
   plan?: TailExtraMatrixPlanEntry[]
   diagnosticScope?: false
-} = {}): Promise<{ mode: MatrixMode, catalogInputSha256: string, entries: MatrixEvidenceEntry[] }> {
+} = {}): Promise<{ mode: MatrixMode, catalogInputSha256: string, structuralProjectionSha256: string, entries: MatrixEvidenceEntry[] }> {
   const mode = input.mode ?? 'full'
   const repositoryRoot = resolve(input.repositoryRoot ?? ROOT)
   const plan = input.plan ?? makeTailExtraMatrixPlan(mode)
@@ -257,7 +273,11 @@ export async function reconstructTailExtraMatrixEvidence(input: {
   const catalogBytes = await readFile(catalogPath)
   const sourceCatalog = JSON.parse(catalogBytes.toString('utf8')) as Catalog
   const catalogInputSha256 = sha256(catalogBytes)
-  const catalog = browserCatalog(sourceCatalog, { activeStructuralSlots: ['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'] })
+  const structuralProjectionSha256 = task9StructuralCatalogProjectionSha256(sourceCatalog)
+  const catalog = browserCatalog(sourceCatalog, {
+    activeStructuralSlots: ['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'],
+    applyPaletteMasks: false,
+  })
   const tempRoot = await mkdtemp(join(repositoryRoot, '.tmp-tail-extra-matrix-'))
   let server: Awaited<ReturnType<typeof createServer>> | undefined
   let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
@@ -318,7 +338,7 @@ export async function reconstructTailExtraMatrixEvidence(input: {
   } finally {
     await cleanupTailExtraRenderHarness({ tempRoot, page, browser, server })
   }
-  return { mode, catalogInputSha256, entries }
+  return { mode, catalogInputSha256, structuralProjectionSha256, entries }
 }
 
 export async function validateStoredTailExtraMatrixEvidence(input: {
@@ -351,6 +371,12 @@ export async function validateStoredTailExtraMatrixEvidence(input: {
     entryCountByRig[rigId] = liveEntries.length
     if (manifest.schemaVersion !== 'task9-tail-extra-structural-matrix-v1' || manifest.mode !== 'full' || manifest.rigId !== rigId) {
       diagnostics.push(`TAIL_EXTRA_MATRIX_MANIFEST_HEADER_MISMATCH:${rigId}`)
+    }
+    if (manifest.structuralProjectionSha256 !== live.structuralProjectionSha256) {
+      diagnostics.push(`TAIL_EXTRA_MATRIX_STRUCTURAL_PROJECTION_MISMATCH:${rigId}`)
+    }
+    if (manifest.renderScope?.paletteMasks !== false) {
+      diagnostics.push(`TAIL_EXTRA_MATRIX_RENDER_SCOPE_MISMATCH:${rigId}`)
     }
     if (!Array.isArray(manifest.entries) || (fullRoster && (manifest.entryCount !== liveEntries.length || manifest.entries.length !== liveEntries.length))) {
       diagnostics.push(`TAIL_EXTRA_MATRIX_ENTRY_COUNT_MISMATCH:${rigId}`)
@@ -394,7 +420,7 @@ async function cell(image: Buffer, entry: TailExtraMatrixPlanEntry, size: 512 | 
 }
 
 export async function renderTailExtraStructuralMatrices(mode: MatrixMode): Promise<{ mode: MatrixMode, entryCount: number, failureCount: number, records: any[] }> {
-  const { entries, catalogInputSha256 } = await reconstructTailExtraMatrixEvidence({ mode, failOnGateError: true })
+  const { entries, catalogInputSha256, structuralProjectionSha256 } = await reconstructTailExtraMatrixEvidence({ mode, failOnGateError: true })
   const records = []
   for (const rigId of ['blob', 'biped', 'floating'] as const) {
     const rigEntries = entries.filter(entry => entry.rigId === rigId)
@@ -412,7 +438,7 @@ export async function renderTailExtraStructuralMatrices(mode: MatrixMode): Promi
     await writeFile(originalPath, original); await writeFile(review256Path, review256)
     const manifest = {
       schemaVersion: 'task9-tail-extra-structural-matrix-v1', status: 'agent-part-review-machine-pass', mode, rigId,
-      entryCount: rigEntries.length, catalogInputSha256,
+      entryCount: rigEntries.length, catalogInputSha256, structuralProjectionSha256, renderScope: { paletteMasks: false },
       originalPath: portableMatrixPath(originalPath), originalSha256: sha256(original),
       review256Path: portableMatrixPath(review256Path), review256Sha256: sha256(review256),
       thresholds: { receiverCoverageMin: 0.9, plugCoverageMin: 0.9, largestComponentRatioMin: 0.99, centerlineGapPixelsMax: 2, childOutsideBodyRatioMin: EXTERNAL_LIMB_ALPHA_MIN },

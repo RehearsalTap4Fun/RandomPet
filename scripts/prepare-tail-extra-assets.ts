@@ -1,8 +1,9 @@
 import { createHash } from 'node:crypto'
-import { copyFile as copyFileDirect, lstat, mkdir, readFile, rm, writeFile as writeFileDirect } from 'node:fs/promises'
+import { copyFile as copyFileDirect, lstat, mkdir, readFile, realpath, rm, stat, writeFile as writeFileDirect } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { task9VariantSourceMaskPaths } from './interface-source-schema.js'
 import { processInterfaceAsset } from './process-interface-asset.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 import { TASK9_BODY_RIG_IDS, TASK9_EXTRA_IDS, TASK9_RIG_IDS, TASK9_TAIL_IDS, type Task9RigId } from './task9-structural-identities.js'
@@ -346,6 +347,7 @@ const TASK9_CATALOG_ROOT = join(TASK9_ROOT, 'packages', 'asset-catalog')
 
 interface Task9PreparationTransaction {
   repositoryRoot: string
+  canonicalRoot: string
   snapshots: Map<string, Buffer | null>
 }
 
@@ -358,10 +360,33 @@ function assertTask9TransactionPath(repositoryRoot: string, path: string): strin
   return target
 }
 
+async function validateTask9OutputTarget(transaction: Task9PreparationTransaction, path: string): Promise<string> {
+  const target = assertTask9TransactionPath(transaction.repositoryRoot, path)
+  const canonicalParent = await realpath(dirname(target))
+  const parentRemainder = relative(transaction.canonicalRoot, canonicalParent)
+  if (parentRemainder.startsWith('..') || isAbsolute(parentRemainder)) {
+    throw new Error(`TASK9_PREPARE_PARENT_ESCAPE:${target}`)
+  }
+  try {
+    const [link, canonicalTarget] = await Promise.all([lstat(target), realpath(target)])
+    const targetRemainder = relative(transaction.canonicalRoot, canonicalTarget)
+    if (targetRemainder.startsWith('..') || isAbsolute(targetRemainder)) {
+      throw new Error(`TASK9_PREPARE_PATH_ESCAPE:${target}`)
+    }
+    const metadata = await stat(canonicalTarget)
+    if (link.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) {
+      throw new Error(`TASK9_PREPARE_OUTPUT_HARDLINK_OR_LINK_INVALID:${target}`)
+    }
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+  }
+  return target
+}
+
 async function snapshotTask9Output(path: string): Promise<void> {
   const transaction = activeTask9PreparationTransaction
   if (transaction === undefined) return
-  const target = assertTask9TransactionPath(transaction.repositoryRoot, path)
+  const target = await validateTask9OutputTarget(transaction, path)
   if (transaction.snapshots.has(target)) return
   try {
     const metadata = await lstat(target)
@@ -376,11 +401,17 @@ async function snapshotTask9Output(path: string): Promise<void> {
 async function writeFile(...args: Parameters<typeof writeFileDirect>): Promise<void> {
   if (typeof args[0] !== 'string' && !(args[0] instanceof URL)) throw new Error('TASK9_PREPARE_OUTPUT_INVALID: expected path output')
   await snapshotTask9Output(String(args[0]))
+  if (activeTask9PreparationTransaction !== undefined) {
+    await validateTask9OutputTarget(activeTask9PreparationTransaction, String(args[0]))
+  }
   await writeFileDirect(...args)
 }
 
 async function copyFile(...args: Parameters<typeof copyFileDirect>): Promise<void> {
   await snapshotTask9Output(String(args[1]))
+  if (activeTask9PreparationTransaction !== undefined) {
+    await validateTask9OutputTarget(activeTask9PreparationTransaction, String(args[1]))
+  }
   await copyFileDirect(...args)
 }
 
@@ -394,7 +425,8 @@ export async function runTask9PreparationTransaction<T>(input: {
 }): Promise<T> {
   if (activeTask9PreparationTransaction !== undefined) throw new Error('TASK9_PREPARE_TRANSACTION_NESTED')
   const repositoryRoot = resolve(input.repositoryRoot)
-  const transaction: Task9PreparationTransaction = { repositoryRoot, snapshots: new Map() }
+  const canonicalRoot = await realpath(repositoryRoot)
+  const transaction: Task9PreparationTransaction = { repositoryRoot, canonicalRoot, snapshots: new Map() }
   activeTask9PreparationTransaction = transaction
   try {
     const result = await input.prepare({
@@ -406,9 +438,11 @@ export async function runTask9PreparationTransaction<T>(input: {
   } catch (error) {
     activeTask9PreparationTransaction = undefined
     for (const [path, bytes] of [...transaction.snapshots.entries()].reverse()) {
+      await validateTask9OutputTarget(transaction, path)
       if (bytes === null) await rm(path, { force: true })
       else {
         await mkdir(dirname(path), { recursive: true })
+        await validateTask9OutputTarget(transaction, path)
         await writeFileDirect(path, bytes)
       }
     }
@@ -910,7 +944,11 @@ async function rebuildTask9SourceIndex(manifest: any, processedIndex: any) {
       promptId: variant.promptEvidence.promptId, promptPath: variant.promptEvidence.promptPath,
       promptSha256: variant.promptEvidence.promptSha256, reviewRecordPath,
       reviewRecordSha256: await hashTask9File(resolve(TASK9_ROOT, reviewRecordPath)),
-      sourceResources: await Promise.all([...new Set([variant.sourcePngPath, ...variant.renderNodes.map((node: any) => node.sourcePngPath)])]
+      sourceResources: await Promise.all([...new Set([
+        variant.sourcePngPath,
+        ...variant.renderNodes.map((node: any) => node.sourcePngPath),
+        ...task9VariantSourceMaskPaths({ ...variant, partId: asset.id, slotId: asset.slotId }),
+      ])]
         .map(async path => ({ path, sha256: await hashTask9File(resolve(TASK9_ROOT, path)) }))),
       runtimeResources,
     })

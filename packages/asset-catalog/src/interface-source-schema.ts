@@ -46,6 +46,13 @@ export function structuralVariants(manifest: InterfaceSourceManifest): Flattened
 }
 export function interfaceVariantKey(partId: string, rigId: InterfaceRigId): string { return `${partId}:${rigId}` }
 
+export function task9VariantSourceMaskPaths(variant: Pick<FlattenedInterfaceVariant, 'partId' | 'slotId' | 'rigId' | 'connectors'>): string[] {
+  if (variant.slotId !== 'tail' && variant.slotId !== 'extraAppendage') return []
+  return variant.connectors.flatMap(profile => ['contour', 'foreground', 'background'].map(kind => (
+    `asset-source/v0.3.0/masks/${variant.rigId}/${variant.partId}/${profile.id}-${kind}.png`
+  )))
+}
+
 export function canonicalBipedGuideFiles(manifest: InterfaceSourceManifest): string[] {
   const idsBySlot = new Map(Object.entries(BIPED_SLICE).map(([slotId, ids]) => [slotId, new Set<string>(ids)]))
   return structuralVariants(manifest)
@@ -74,7 +81,10 @@ const connector = z.object({
   origin: point, tangent: vector, outwardNormal: vector, width: z.number().finite().positive(), depth: z.number().finite().positive(),
   contourMaskPath: runtimePngPath, foregroundMaskPath: runtimePngPath, backgroundMaskPath: runtimePngPath,
   materialSampleRegion: rect, warpLimits: z.object({ widthRatio: range, depthRatio: range, rotationDegrees: range }).strict(),
-}).strict().refine(value => Math.abs(value.tangent.x * value.outwardNormal.x + value.tangent.y * value.outwardNormal.y) <= 0.001, { message: 'Connector tangent and outward normal must be orthogonal.', path: ['outwardNormal'] })
+}).strict()
+  .refine(value => Math.abs(value.tangent.x * value.outwardNormal.x + value.tangent.y * value.outwardNormal.y) <= 0.001, { message: 'Connector tangent and outward normal must be orthogonal.', path: ['outwardNormal'] })
+  .refine(value => value.id !== 'tailRoot' || value.connectorClass === 'tail', { message: 'tailRoot requires the tail connector class.', path: ['connectorClass'] })
+  .refine(value => !['extraLeft', 'extraRight'].includes(value.id) || value.connectorClass === 'extra', { message: 'extraLeft and extraRight require the extra connector class.', path: ['connectorClass'] })
 const renderNode = z.object({
   id: z.string().min(1), connectorId: z.string().min(1).optional(), sourcePngPath: z.string().min(1),
   transform: z.object({ scale: z.number().finite().positive(), mirrorX: z.boolean() }).strict().optional(),
@@ -151,7 +161,7 @@ export function validateInterfaceSourceIndex(manifest: InterfaceSourceManifest, 
   const indexed = new Map<string, Record<string, any>>(); const duplicates = new Set<string>()
   for (const source of sources) { if (source === null || typeof source !== 'object' || typeof source.sourceId !== 'string') continue; if (indexed.has(source.sourceId)) duplicates.add(source.sourceId); else indexed.set(source.sourceId, source) }
   const expected = [
-    ...structuralVariants(manifest).map(item => ({ sourceId: manifest.schemaVersion === 'interface-source-v2' ? interfaceVariantKey(item.partId, item.rigId) : item.partId, kind: 'interface-structural', evidence: item.promptEvidence, paths: [...new Set([item.sourcePngPath, ...item.renderNodes.map(node => node.sourcePngPath)])] })),
+    ...structuralVariants(manifest).map(item => ({ sourceId: manifest.schemaVersion === 'interface-source-v2' ? interfaceVariantKey(item.partId, item.rigId) : item.partId, kind: 'interface-structural', evidence: item.promptEvidence, paths: [...new Set([item.sourcePngPath, ...item.renderNodes.map(node => node.sourcePngPath), ...task9VariantSourceMaskPaths(item)])] })),
     ...manifest.bridges.map(item => ({ sourceId: item.id, kind: 'interface-bridge', evidence: item.promptEvidence, paths: [item.sourcePngPath] })),
   ]
   const expectedIds = new Set(expected.map(item => item.sourceId)); const invalid: string[] = index.catalogVersion === manifest.catalogVersion ? [] : ['catalogVersion']

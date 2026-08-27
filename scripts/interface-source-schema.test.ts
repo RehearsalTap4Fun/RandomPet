@@ -151,6 +151,17 @@ describe('parseInterfaceSourceManifest', () => {
     expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
   })
 
+  it('fixes tail and extra connector IDs to their connector classes', () => {
+    for (const [id, connectorClass] of [
+      ['tailRoot', 'extra'], ['extraLeft', 'tail'], ['extraRight', 'shoulder'],
+    ] as const) {
+      const invalid = makeValidInterfaceSourceManifest()
+      invalid.assets[0].connectors[0] = profile(invalid.assets[0].id, id, 'receiver')
+      invalid.assets[0].connectors[0].connectorClass = connectorClass
+      expect(parseInterfaceSourceManifest(invalid).ok, `${id}:${connectorClass}`).toBe(false)
+    }
+  })
+
   it('rejects duplicate render node IDs and paired source paths', () => {
     const invalid = makeValidInterfaceSourceManifest()
     const arms = invalid.assets.find((item: any) => item.id === 'arms_short_plush')

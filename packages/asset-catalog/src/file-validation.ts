@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { readFile, realpath } from 'node:fs/promises'
+import { lstat, readFile, realpath, stat } from 'node:fs/promises'
 import { isAbsolute, relative, resolve, extname } from 'node:path'
 import sharp, { type Metadata } from 'sharp'
 import type { Catalog, Diagnostic } from '@qmonster/generator-core'
@@ -41,6 +41,14 @@ export async function validateAssetFile(
   }
   if (!pathWithinRoot(assetRoot, canonicalPath)) {
     return [error('ASSET_PATH_OUTSIDE_ROOT', path, `Asset path escapes the asset root: ${assetPath}`)]
+  }
+  try {
+    const [link, metadata] = await Promise.all([lstat(resolvedPath), stat(canonicalPath)])
+    if (link.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) {
+      return [error('ASSET_FILE_LINK_INVALID', path, `Asset must be a direct single-link regular file: ${assetPath}`)]
+    }
+  } catch {
+    return [error('ASSET_FILE_MISSING', path, `Asset file does not exist: ${assetPath}`)]
   }
 
   let source: Buffer

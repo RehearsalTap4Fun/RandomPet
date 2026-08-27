@@ -206,7 +206,7 @@ export async function collectEvidenceDependencyClosure(input: {
     const remainder = relative(repositoryRoot, canonical)
     if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Task 9 dependency escaped repository root: ${path}`)
     const [link, metadata] = await Promise.all([lstat(lexical), stat(canonical)])
-    if (link.isSymbolicLink() || !metadata.isFile() || metadata.nlink < 1) throw new Error(`Task 9 dependency is not a direct linked regular file: ${path}`)
+    if (link.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) throw new Error(`Task 9 dependency is not a direct single-link regular file: ${path}`)
     dependencies.push({
       path,
       sha256: createHash('sha256').update(await readFile(canonical)).digest('hex'),

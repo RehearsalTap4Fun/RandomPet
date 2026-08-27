@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { createHash } from 'node:crypto'
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import * as evidenceRootModule from './evidence-root.js'
@@ -110,24 +110,48 @@ test('requires the acyclic Task 9 production evidence block for v0.3', () => {
   }))
 })
 
-test('requires exact finite Task 9 strong and surprise distribution maxima', async () => {
+test('requires complete finite Task 9 distribution evidence and accepts maxima below their limits', async () => {
   const sourceIndex = JSON.parse(await readFile('packages/asset-catalog/source-index-v0.3.0.json', 'utf8'))
   const manifest = JSON.parse(await readFile('packages/asset-catalog/audit/v0.3.0/evidence-manifest.json', 'utf8'))
   expect(validateProductionEvidenceManifest(sourceIndex, manifest)).toEqual([])
 
-  const exact = {
+  const bounded = {
     maximumStrongFeatures: 2,
     maximumSurpriseSlots: 3,
     surpriseLimit: 3,
   } as const
-  for (const [field, expected] of Object.entries(exact)) {
-    for (const invalid of [undefined, Number.NaN, Number.POSITIVE_INFINITY, String(expected), expected - 1]) {
+  for (const [field, limit] of Object.entries(bounded)) {
+    for (const accepted of [0, limit - 1, limit]) {
+      const mutated = structuredClone(manifest)
+      mutated.task9Evidence.compositionStatistics[field] = accepted
+      expect(validateProductionEvidenceManifest(sourceIndex, mutated), `${field}=${accepted}`).toEqual([])
+    }
+    for (const invalid of [undefined, Number.NaN, Number.POSITIVE_INFINITY, String(limit), -1, limit + 1]) {
       const mutated = structuredClone(manifest)
       if (invalid === undefined) delete mutated.task9Evidence.compositionStatistics[field]
       else mutated.task9Evidence.compositionStatistics[field] = invalid
       expect(validateProductionEvidenceManifest(sourceIndex, mutated), `${field}=${String(invalid)}`)
         .toContainEqual(expect.objectContaining({ code: 'PRODUCTION_TASK9_EVIDENCE_INVALID' }))
     }
+  }
+
+  for (const invalid of [undefined, 9_999, Number.NaN, Number.POSITIVE_INFINITY, '10000']) {
+    const mutated = structuredClone(manifest)
+    if (invalid === undefined) delete mutated.task9Evidence.compositionStatistics.seedCount
+    else mutated.task9Evidence.compositionStatistics.seedCount = invalid
+    expect(validateProductionEvidenceManifest(sourceIndex, mutated), `seedCount=${String(invalid)}`)
+      .toContainEqual(expect.objectContaining({ code: 'PRODUCTION_TASK9_EVIDENCE_INVALID' }))
+  }
+
+  for (const [slot, invalid] of [
+    ['effect', undefined], ['tail', Number.NaN], ['headAppendage', Number.POSITIVE_INFINITY],
+    ['extraAppendage', 0.34], ['extraAppendage', 0.51], ['effect', '0.4'],
+  ] as const) {
+    const mutated = structuredClone(manifest)
+    if (invalid === undefined) delete mutated.task9Evidence.compositionStatistics.optionalNoneRates[slot]
+    else mutated.task9Evidence.compositionStatistics.optionalNoneRates[slot] = invalid
+    expect(validateProductionEvidenceManifest(sourceIndex, mutated), `${slot}=${String(invalid)}`)
+      .toContainEqual(expect.objectContaining({ code: 'PRODUCTION_TASK9_EVIDENCE_INVALID' }))
   }
 })
 
@@ -189,4 +213,44 @@ test('recomputes every Task 9 dependency hash from a contained regular file', as
     path: ['task9Evidence', 'dependencies', 'input.json'],
     message: 'Task 9 evidence dependency cannot be read from its canonical repository path: input.json',
   })
+})
+
+test('rejects stale hashes embedded by the Task 9 rework review even when dependency hashes are current', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-review-closure-'))
+  const reworkPath = 'packages/asset-catalog/review/v0.3.0/rework-record.json'
+  const indexPath = 'packages/asset-catalog/review/v0.3.0/structural-matrix-index.json'
+  const tailPath = 'packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json'
+  const indexBytes = Buffer.from('{"entries":[]}\n')
+  const tailBytes = Buffer.from('{"decision":"approved"}\n')
+  const reworkBytes = Buffer.from(`${JSON.stringify({
+    structuralMatrixReview: {
+      indexPath,
+      indexSha256: '1'.repeat(64),
+      tailExtraReviewRecordPath: tailPath,
+      tailExtraReviewRecordSha256: createHash('sha256').update(tailBytes).digest('hex'),
+    },
+  })}\n`)
+  try {
+    for (const [path, bytes] of [[reworkPath, reworkBytes], [indexPath, indexBytes], [tailPath, tailBytes]] as const) {
+      await mkdir(join(root, path, '..'), { recursive: true })
+      await writeFile(join(root, path), bytes)
+    }
+    const manifest = {
+      task9Evidence: {
+        dependencies: [[reworkPath, reworkBytes], [indexPath, indexBytes], [tailPath, tailBytes]].map(([path, bytes]) => ({
+          path, sha256: createHash('sha256').update(bytes).digest('hex'), groups: ['task6-9-review'],
+        })),
+      },
+    }
+    const validateDependencies = (evidenceRootModule as unknown as {
+      validateProductionEvidenceDependencies: (manifest: unknown, repositoryRoot: string) => Promise<unknown[]>
+    }).validateProductionEvidenceDependencies
+
+    expect(await validateDependencies(manifest, root)).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_TASK9_REVIEW_CLOSURE_MISMATCH',
+      path: ['task9Evidence', 'reviewClosure', 'indexSha256'],
+    }))
+  } finally {
+    await rm(root, { recursive: true, force: true })
+  }
 })

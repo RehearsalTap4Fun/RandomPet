@@ -28,8 +28,8 @@ export async function resolveExistingContainedPath(root: string, ...segments: st
   ])
   assertContained(canonicalRoot, canonicalTarget)
   const metadata = await stat(canonicalTarget)
-  if (link.isSymbolicLink() || !metadata.isFile() || metadata.nlink < 1) {
-    throw new Error(`Existing input must be a direct linked regular file inside output root: ${lexicalTarget}`)
+  if (link.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) {
+    throw new Error(`Existing input must be a direct single-link regular file inside output root: ${lexicalTarget}`)
   }
   return canonicalTarget
 }

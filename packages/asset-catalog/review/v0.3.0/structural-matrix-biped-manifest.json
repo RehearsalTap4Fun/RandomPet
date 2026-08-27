@@ -6833,5 +6833,9 @@
       },
       "originalSha256": "1819dba323fe1989492ac4cd211f8f2e9b7f94828eca12055694890d3ab5c23d"
     }
-  ]
+  ],
+  "structuralProjectionSha256": "afdb614880bf4980aaad94f8890c0c92236ef5344f46abaf125488d4caecbfe5",
+  "renderScope": {
+    "paletteMasks": false
+  }
 }

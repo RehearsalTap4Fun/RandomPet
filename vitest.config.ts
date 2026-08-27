@@ -1,5 +1,14 @@
 import { defineConfig } from 'vitest/config'
 
+const INTERFACE_REVIEW_HEAVY_TESTS = [
+  'scripts/body-head-contact-metrics.test.ts',
+  'scripts/prepare-tail-extra-assets.test.ts',
+  'scripts/render-tail-extra-structural-matrices.test.ts',
+  'scripts/retain-v02-nonstructural-assets.test.ts',
+  'scripts/task8-review-integrity.test.ts',
+  'scripts/validate-interface-slice.test.ts',
+]
+
 export default defineConfig({
   resolve: { tsconfigPaths: true },
   test: {
@@ -9,7 +18,10 @@ export default defineConfig({
           name: 'packages-node',
           environment: 'node',
           include: ['packages/**/*.test.ts', 'scripts/**/*.test.ts'],
-          exclude: ['packages/asset-catalog/src/production-validation.test.ts'],
+          exclude: [
+            'packages/asset-catalog/src/production-validation.test.ts',
+            ...INTERFACE_REVIEW_HEAVY_TESTS,
+          ],
         },
       },
       {
@@ -18,6 +30,13 @@ export default defineConfig({
           environment: 'node',
           include: ['packages/asset-catalog/src/production-validation.test.ts'],
           testTimeout: 20_000,
+        },
+      },
+      {
+        test: {
+          name: 'interface-review-heavy',
+          environment: 'node',
+          include: INTERFACE_REVIEW_HEAVY_TESTS,
         },
       },
       {

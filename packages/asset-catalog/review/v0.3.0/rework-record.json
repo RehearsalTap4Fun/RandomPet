@@ -25,9 +25,9 @@
     "status": "AGENT_PART_REVIEW_APPROVED",
     "entryCount": 39,
     "indexPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-index.json",
-    "indexSha256": "931e460701cccc7526873f15a2aa9f6dae1efdca53e578fe21e4beee20ff5d58",
+    "indexSha256": "7444f2d4a95cb0cb918d5af53223595872b47ee66c83934603f090cdd4c4d920",
     "tailExtraReviewRecordPath": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-    "tailExtraReviewRecordSha256": "69a04986a1439f6c5f6a5ac881fc750a281a43cf2343b1aed43e03009cc1053e",
+    "tailExtraReviewRecordSha256": "dc24bc7b2b035c2ee53809382993d9e94662bd58261126af3026bef69e38d432",
     "visualReview": "All 39 original and 256px cells preserve readable tail/extra identities, natural seams, and in-frame silhouettes after root-anchored distal fitting."
   }
 }

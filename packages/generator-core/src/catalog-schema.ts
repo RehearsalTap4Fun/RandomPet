@@ -38,7 +38,7 @@ const RectSchema = z.object({
 const RenderNodeDefinitionSchema = z.object({
   id: z.string().min(1),
   connectorId: z.string().min(1).optional(),
-  assetPath: z.string(),
+  assetPath: z.string().min(1),
   pngPath: z.string().min(1).optional(),
   assetSha256: sha256.optional(),
   pngSha256: sha256.optional(),

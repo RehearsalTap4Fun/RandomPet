@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, realpath, rm, symlink, writeFile } from 'node:fs/promises'
+import { link, mkdir, mkdtemp, realpath, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { execFile as execFileCallback } from 'node:child_process'
@@ -159,6 +159,22 @@ describe('validateCatalogFiles', () => {
     expect(await validateCatalogFiles(catalog, tempRoot)).toContainEqual(
       expect.objectContaining({ code: 'ASSET_PATH_OUTSIDE_ROOT' }),
     )
+  })
+
+  it('rejects a valid image hardlink before decoding externally aliased bytes', async ({ skip }) => {
+    const tempBase = await mkdtemp(join(tmpdir(), 'qmonster-hardlink-assets-'))
+    temporaryDirectories.push(tempBase)
+    const assetRoot = join(tempBase, 'assets')
+    await mkdir(assetRoot)
+    const inside = join(assetRoot, 'shared.png')
+    await sharp({ create: { width: 1024, height: 1024, channels: 4, background: '#ffffffff' } }).png().toFile(inside)
+    try { await link(inside, join(assetRoot, 'alias.png')) } catch (error) {
+      if (['EPERM', 'EACCES', 'EXDEV'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('hardlinks unavailable')
+      throw error
+    }
+
+    expect(await validateAssetFile(await realpath(assetRoot), 'shared.png', undefined, ['assetPath']))
+      .toContainEqual(expect.objectContaining({ code: 'ASSET_FILE_LINK_INVALID' }))
   })
 
   it('rejects an AVIF payload disguised with a PNG filename', async () => {

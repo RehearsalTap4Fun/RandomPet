@@ -16,7 +16,7 @@
       "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-blob-256.png",
       "review256Sha256": "32390ed773b7f9d0118b441cbf7878818088f1c332b8e17defbafa25baab3fc2",
       "manifestPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-blob-manifest.json",
-      "manifestSha256": "89d2141519abf2adb105d04b839728ea18f52398d3421af23e06be2df117f348"
+      "manifestSha256": "13d83084583cb93b337ec107993c92e0cf08d6cf2b7f1812d61bdace33dca68e"
     },
     {
       "rigId": "biped",
@@ -26,7 +26,7 @@
       "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped-256.png",
       "review256Sha256": "0501ca7f54517e24b41e0f155241d2273a444a4bce90b9880861806aaf4e0b89",
       "manifestPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped-manifest.json",
-      "manifestSha256": "145c89a4be6a409a4b7cbc9afdba15d5f26b0edd3651514a2cc10d789d5e7a4c"
+      "manifestSha256": "649bbbc6531cb5a6ca8750f0bae7f2a07937bd186920e025972b58c0ff75e6d7"
     },
     {
       "rigId": "floating",
@@ -36,7 +36,11 @@
       "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating-256.png",
       "review256Sha256": "a5d8534f92202b6b5b5215986bf0e689a21c1498f1d8d4eaf4efa986caf0ea89",
       "manifestPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating-manifest.json",
-      "manifestSha256": "89c8066c7cc6e69d4228e01e945d249bf520ad34c0d037e6a461c444b4fa20fc"
+      "manifestSha256": "54753a77a9754e6e4137d8566fd43cbc8dfc69ed39fee9e8ac8bb9b87b69875a"
     }
-  ]
+  ],
+  "structuralProjectionSha256": "afdb614880bf4980aaad94f8890c0c92236ef5344f46abaf125488d4caecbfe5",
+  "renderScope": {
+    "paletteMasks": false
+  }
 }

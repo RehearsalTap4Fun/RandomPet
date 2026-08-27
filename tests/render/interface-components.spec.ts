@@ -135,7 +135,17 @@ test('real rasterized contours and warped masks feed bridge metrics and geometry
     expect(shiftedMetric.plugCoverage).toBeGreaterThanOrEqual(0.9)
     expect(shiftedMetric.centerlineGapPixels).toBeLessThanOrEqual(2)
     expect(metric.centerlineGapPixels).toBeLessThan(0.1)
-    expect(shiftedMetric.centerlineGapPixels).toBe(0)
+    expect(shiftedMetric.centerlineGapPixels).toBeLessThan(0.1)
+    // Bundled browsers rasterize the shifted 1px contour to a zero gap while
+    // system Chrome/Edge retain a subpixel gap. The structural contract is the
+    // same: the shifted contour must measurably change the metric vector while
+    // both shapes remain far inside the 2px production gate.
+    const metricVectorDelta = (
+      Math.abs(shiftedMetric.receiverCoverage - metric.receiverCoverage)
+      + Math.abs(shiftedMetric.plugCoverage - metric.plugCoverage)
+      + Math.abs(shiftedMetric.centerlineGapPixels - metric.centerlineGapPixels)
+    )
+    expect(metricVectorDelta).toBeGreaterThan(0.01)
   } finally {
     await baselinePage.close()
     await shiftedPage.close()
