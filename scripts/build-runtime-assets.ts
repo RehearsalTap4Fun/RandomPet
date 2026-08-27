@@ -63,7 +63,7 @@ export async function buildVersionedRuntimeAssets(
     if (resolve(repositoryRoot) !== resolve(process.cwd())) {
       throw new Error('The v0.3.0 biped slice builder must run from its repository root.')
     }
-    const prepared = await prepareTask9StructuralAssets()
+    const prepared = await prepareTask9StructuralAssets({ repositoryRoot })
     return { paths, built: prepared.variants + prepared.bridges }
   }
   const sourceRoot = resolve(repositoryRoot, paths.sourceRoot)

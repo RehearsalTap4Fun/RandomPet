@@ -38,6 +38,15 @@ export interface Task9ProductionEvidence {
     failureCount: number
     entryCountByRig: { blob: number; biped: number; floating: number }
     observedExtrema: Record<string, number>
+    diagnosticScope: {
+      id: 'task9-tail-extra'
+      activeVisualSlots: ['tail', 'extraAppendage']
+      activeConnectorIds: ['tailRoot', 'extraLeft', 'extraRight']
+      defaultRendererErrorCount: 188
+      activeErrorCount: 0
+      suppressedInactiveErrorCount: 188
+      suppressedInactiveErrorCountByRig: { blob: 75; biped: 68; floating: 45 }
+    }
   }
   pipelineFixedPoint: {
     sequence: string[]
@@ -154,7 +163,8 @@ export function validateProductionEvidenceManifest(
   if (catalogVersion === '0.3.0') {
     const task9 = (manifest as ProductionEvidenceManifest).task9Evidence
     const dependencies = task9?.dependencies
-    const optionalRates = task9?.compositionStatistics?.optionalNoneRates ?? {}
+    const statistics = task9?.compositionStatistics
+    const optionalRates = statistics?.optionalNoneRates ?? {}
     const expectedOptionalSlots = ['effect', 'extraAppendage', 'headAppendage', 'tail']
     const validDependencies = Array.isArray(dependencies)
       && dependencies.length > 0
@@ -173,15 +183,28 @@ export function validateProductionEvidenceManifest(
       || task9.sourceEntryCount !== (Array.isArray((sourceIndex as { sources?: unknown }).sources) ? (sourceIndex as { sources: unknown[] }).sources.length : -1)
       || task9.dependencyCount !== dependencies?.length
       || !validDependencies
-      || task9.compositionStatistics?.seedCount !== 10_000
+      || statistics?.seedCount !== 10_000
       || !validRates
-      || task9.compositionStatistics.maximumStrongFeatures > 2
-      || task9.compositionStatistics.maximumSurpriseSlots > task9.compositionStatistics.surpriseLimit
+      || !Number.isFinite(statistics?.maximumStrongFeatures)
+      || statistics?.maximumStrongFeatures !== 2
+      || !Number.isFinite(statistics?.maximumSurpriseSlots)
+      || statistics?.maximumSurpriseSlots !== 3
+      || !Number.isFinite(statistics?.surpriseLimit)
+      || statistics?.surpriseLimit !== 3
       || task9.structuralMatrix?.entryCount !== 39
       || task9.structuralMatrix?.failureCount !== 0
       || task9.structuralMatrix?.entryCountByRig?.blob !== 15
       || task9.structuralMatrix?.entryCountByRig?.biped !== 15
       || task9.structuralMatrix?.entryCountByRig?.floating !== 9
+      || task9.structuralMatrix?.diagnosticScope?.id !== 'task9-tail-extra'
+      || task9.structuralMatrix.diagnosticScope.activeVisualSlots?.join(',') !== 'tail,extraAppendage'
+      || task9.structuralMatrix.diagnosticScope.activeConnectorIds?.join(',') !== 'tailRoot,extraLeft,extraRight'
+      || task9.structuralMatrix.diagnosticScope.defaultRendererErrorCount !== 188
+      || task9.structuralMatrix.diagnosticScope.activeErrorCount !== 0
+      || task9.structuralMatrix.diagnosticScope.suppressedInactiveErrorCount !== 188
+      || task9.structuralMatrix.diagnosticScope.suppressedInactiveErrorCountByRig?.blob !== 75
+      || task9.structuralMatrix.diagnosticScope.suppressedInactiveErrorCountByRig?.biped !== 68
+      || task9.structuralMatrix.diagnosticScope.suppressedInactiveErrorCountByRig?.floating !== 45
       || !Array.isArray(task9.pipelineFixedPoint?.sequence)
       || task9.pipelineFixedPoint.sequence.join('>') !== 'build-runtime-assets>build-color-scheme-masks>build-interface-catalog'
       || !/^[a-f0-9]{64}$/u.test(task9.pipelineFixedPoint.round1Sha256)

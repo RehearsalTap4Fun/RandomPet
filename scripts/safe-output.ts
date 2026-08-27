@@ -1,4 +1,4 @@
-import { lstat, readdir, realpath, unlink } from 'node:fs/promises'
+import { lstat, readdir, realpath, stat, unlink } from 'node:fs/promises'
 import { dirname, extname, isAbsolute, relative, resolve } from 'node:path'
 
 function assertContained(root: string, target: string): void {
@@ -17,6 +17,21 @@ export function resolveOutputPath(root: string, ...segments: string[]): string {
   const target = resolve(resolvedRoot, ...segments)
   assertContained(resolvedRoot, target)
   return target
+}
+
+export async function resolveExistingContainedPath(root: string, ...segments: string[]): Promise<string> {
+  const canonicalRoot = await realpath(resolve(root))
+  const lexicalTarget = resolveOutputPath(canonicalRoot, ...segments)
+  const [link, canonicalTarget] = await Promise.all([
+    lstat(lexicalTarget),
+    realpath(lexicalTarget),
+  ])
+  assertContained(canonicalRoot, canonicalTarget)
+  const metadata = await stat(canonicalTarget)
+  if (link.isSymbolicLink() || !metadata.isFile() || metadata.nlink < 1) {
+    throw new Error(`Existing input must be a direct linked regular file inside output root: ${lexicalTarget}`)
+  }
+  return canonicalTarget
 }
 
 export async function pruneStaleFiles(input: {

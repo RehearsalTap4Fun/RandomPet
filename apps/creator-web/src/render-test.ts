@@ -352,7 +352,15 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
   if (context === null) throw new Error('2D context unavailable')
   const response = await fetch(inputUrl)
   if (!response.ok) throw new Error(`Could not load biped slice input: ${response.status}`)
-  const input = await response.json() as { catalog: Catalog, spec: MonsterSpec }
+  const input = await response.json() as {
+    catalog: Catalog
+    spec: MonsterSpec
+    diagnosticScope?: {
+      id: string
+      activeVisualSlots: VisualSlotId[]
+      activeConnectorIds: string[]
+    }
+  }
   const resolvedAssetPaths: string[] = []
   const trackedResolver: ImageResolver = {
     async resolve(assetPath) {
@@ -364,11 +372,13 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
     width: 2048,
     height: 2048,
     includeGroundShadow: false,
+    ...(input.diagnosticScope === undefined ? {} : { diagnosticScope: input.diagnosticScope }),
   })
   document.body.dataset.interfaceResult = JSON.stringify({
     diagnostics: result.diagnostics,
     connectorMetrics: result.connectorMetrics,
     compositionMetrics: result.compositionMetrics,
+    diagnosticScope: result.diagnosticScope,
     resolvedAssetPaths,
   })
   document.body.dataset.renderComplete = 'true'

@@ -1,65 +1,122 @@
 import { chromium, type Browser } from '@playwright/test'
 import { parseCatalog, type Catalog, type MonsterSpec } from '@qmonster/generator-core'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { createServer, type ViteDevServer } from 'vite'
 import { buildProductionReviewBundle } from '../../apps/creator-web/src/production-render-review.js'
+import { resolveExistingContainedPath } from '../../scripts/safe-output.js'
+import {
+  TASK9_EXTRA_IDS,
+  TASK9_RIG_IDS,
+  TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE,
+  TASK9_TAIL_IDS,
+} from '../../scripts/task9-structural-identities.js'
 
 const ROOT = process.cwd()
 const CATALOG_PATH = resolve(ROOT, 'packages/asset-catalog/catalog/v0.3.0/catalog.json')
 const RUNTIME_ROOT = resolve(ROOT, 'packages/asset-catalog/assets/v0.3.0')
 const PACKAGE_ROOT = resolve(ROOT, 'packages/asset-catalog')
-const CASES = [
-  { rigId: 'blob', tailId: 'tail_fish_fan', extraId: 'extra_soft_tentacles' },
-  { rigId: 'biped', tailId: 'tail_soft_curl', extraId: 'extra_moth_wings' },
-  { rigId: 'floating', tailId: 'tail_mushroom_cluster', extraId: 'extra_side_fins' },
-] as const
+const CASES = TASK9_RIG_IDS.flatMap(rigId => [
+  ...TASK9_TAIL_IDS.map(identityId => ({ rigId, identityId, tailId: identityId, extraId: 'extra_appendage_none' as const })),
+  ...TASK9_EXTRA_IDS.map(identityId => ({ rigId, identityId, tailId: 'tail_none' as const, extraId: identityId })),
+])
+
+export async function cleanupBrowserProductionHarness(input: {
+  inputRoot?: string
+  browser?: { close(): Promise<unknown> }
+  server?: { close(): Promise<unknown> }
+}): Promise<void> {
+  const operations: Array<Promise<unknown>> = []
+  if (input.browser !== undefined) operations.push(input.browser.close())
+  if (input.server !== undefined) operations.push(input.server.close())
+  if (input.inputRoot !== undefined && input.inputRoot !== '') operations.push(rm(input.inputRoot, { recursive: true, force: true }))
+  const results = await Promise.allSettled(operations)
+  const failures = results.flatMap(result => result.status === 'rejected' ? [result.reason] : [])
+  if (failures.length === 1) throw failures[0]
+  if (failures.length > 1) throw new AggregateError(failures, 'Browser production harness cleanup failed')
+}
+
+it('rejects a browser /@fs production asset reached through an escaping junction', async ({ skip }) => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-browser-root-'))
+  const outside = await mkdtemp(join(tmpdir(), 'qmonster-browser-outside-'))
+  await mkdir(join(root, 'assets', 'v0.3.0'), { recursive: true })
+  await writeFile(join(outside, 'mask.png'), 'outside')
+  try {
+    try {
+      await symlink(outside, join(root, 'assets', 'v0.3.0', 'linked'), process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('directory links unavailable')
+      throw error
+    }
+    await expect(resolveBrowserProductionAssetPath(root, root, root, 'assets/v0.3.0/linked/mask.png'))
+      .rejects.toThrow(/escapes output root/i)
+  } finally {
+    await Promise.all([rm(root, { recursive: true, force: true }), rm(outside, { recursive: true, force: true })])
+  }
+})
+
+it('cleans every browser harness resource even when one close operation fails', async () => {
+  const inputRoot = await mkdtemp(join(tmpdir(), 'qmonster-browser-cleanup-'))
+  const closed: string[] = []
+  await expect(cleanupBrowserProductionHarness({
+    inputRoot,
+    browser: { async close() { closed.push('browser'); throw new Error('browser close failed') } },
+    server: { async close() { closed.push('server') } },
+  })).rejects.toThrow('browser close failed')
+  expect(closed).toEqual(['browser', 'server'])
+  await expect(readFile(inputRoot)).rejects.toMatchObject({ code: 'ENOENT' })
+})
 
 function fsUrl(path: string): string {
   return `/@fs/${resolve(path).replaceAll('\\', '/')}`
 }
 
-function runtimeFsPath(path: string): string {
-  return path.startsWith('assets/v0.3.0/')
-    ? resolve(PACKAGE_ROOT, path)
-    : resolve(RUNTIME_ROOT, path)
+export async function resolveBrowserProductionAssetPath(
+  repositoryRoot: string,
+  packageRoot: string,
+  runtimeRoot: string,
+  path: string,
+): Promise<string> {
+  if (path === '') return path
+  const lexical = path.startsWith('assets/v0.3.0/')
+    ? resolve(packageRoot, path)
+    : resolve(runtimeRoot, path)
+  return fsUrl(await resolveExistingContainedPath(repositoryRoot, lexical))
 }
 
-function browserAssetPath(path: string): string {
-  return path === '' ? path : fsUrl(runtimeFsPath(path))
-}
-
-function browserProductionCatalog(input: Catalog): Catalog {
+async function browserProductionCatalog(input: Catalog): Promise<Catalog> {
   const catalog = structuredClone(input)
+  const browserAssetPath = (path: string) => resolveBrowserProductionAssetPath(ROOT, PACKAGE_ROOT, RUNTIME_ROOT, path)
   for (const part of catalog.parts) {
-    part.assetPath = browserAssetPath(part.assetPath)
-    part.maskPaths = Object.fromEntries(Object.entries(part.maskPaths).map(([role, path]) => [role, browserAssetPath(path)]))
+    part.assetPath = await browserAssetPath(part.assetPath)
+    part.maskPaths = Object.fromEntries(await Promise.all(Object.entries(part.maskPaths).map(async ([role, path]) => [role, await browserAssetPath(path)])))
     if (part.rigMaskPaths !== undefined) {
-      part.rigMaskPaths = Object.fromEntries(Object.entries(part.rigMaskPaths).map(([rigId, paths]) => [
+      part.rigMaskPaths = Object.fromEntries(await Promise.all(Object.entries(part.rigMaskPaths).map(async ([rigId, paths]) => [
         rigId,
-        Object.fromEntries(Object.entries(paths).map(([role, path]) => [role, browserAssetPath(path)])),
-      ]))
+        Object.fromEntries(await Promise.all(Object.entries(paths).map(async ([role, path]) => [role, await browserAssetPath(path)]))),
+      ])))
     }
     if (part.composition?.mode === 'interface') {
       for (const variant of Object.values(part.composition.variantsByRig)) {
         if (variant === undefined) continue
-        for (const node of variant.renderNodes) node.assetPath = browserAssetPath(node.assetPath)
+        for (const node of variant.renderNodes) node.assetPath = await browserAssetPath(node.assetPath)
         for (const connector of variant.connectors) {
-          connector.contourMaskPath = browserAssetPath(connector.contourMaskPath)
-          connector.foregroundMaskPath = browserAssetPath(connector.foregroundMaskPath)
-          connector.backgroundMaskPath = browserAssetPath(connector.backgroundMaskPath)
+          connector.contourMaskPath = await browserAssetPath(connector.contourMaskPath)
+          connector.foregroundMaskPath = await browserAssetPath(connector.foregroundMaskPath)
+          connector.backgroundMaskPath = await browserAssetPath(connector.backgroundMaskPath)
         }
       }
     } else if (part.composition !== undefined) {
-      for (const node of part.composition.renderNodes) node.assetPath = browserAssetPath(node.assetPath)
+      for (const node of part.composition.renderNodes) node.assetPath = await browserAssetPath(node.assetPath)
     }
   }
   for (const bridge of catalog.transitionBridges ?? []) {
-    bridge.neutralAssetPath = browserAssetPath(bridge.neutralAssetPath)
-    bridge.neutralPngPath = browserAssetPath(bridge.neutralPngPath)
-    bridge.frontMaskPath = browserAssetPath(bridge.frontMaskPath)
-    bridge.backMaskPath = browserAssetPath(bridge.backMaskPath)
+    bridge.neutralAssetPath = await browserAssetPath(bridge.neutralAssetPath)
+    bridge.neutralPngPath = await browserAssetPath(bridge.neutralPngPath)
+    bridge.frontMaskPath = await browserAssetPath(bridge.frontMaskPath)
+    bridge.backMaskPath = await browserAssetPath(bridge.backMaskPath)
   }
   return catalog
 }
@@ -84,32 +141,44 @@ describe('v0.3 browser production composition', () => {
   let browserCatalog: Catalog
 
   beforeAll(async () => {
-    const parsed = parseCatalog(JSON.parse(await readFile(CATALOG_PATH, 'utf8')))
-    if (!parsed.ok) throw new Error(`Invalid v0.3 production catalog: ${JSON.stringify(parsed.diagnostics)}`)
-    sourceCatalog = parsed.value
-    browserCatalog = browserProductionCatalog(sourceCatalog)
-    inputRoot = await mkdtemp(resolve(ROOT, '.tmp-v03-production-composition-'))
-    server = await createServer({ root: resolve(ROOT, 'apps/creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
-    await server.listen()
-    baseUrl = server.resolvedUrls?.local[0] ?? ''
-    if (baseUrl === '') throw new Error('V03_BROWSER_PRODUCTION_FAILED: Vite server has no local URL')
-    browser = await chromium.launch({ headless: true })
+    try {
+      const parsed = parseCatalog(JSON.parse(await readFile(
+        await resolveExistingContainedPath(ROOT, CATALOG_PATH), 'utf8',
+      )))
+      if (!parsed.ok) throw new Error(`Invalid v0.3 production catalog: ${JSON.stringify(parsed.diagnostics)}`)
+      sourceCatalog = parsed.value
+      browserCatalog = await browserProductionCatalog(sourceCatalog)
+      inputRoot = await mkdtemp(resolve(ROOT, '.tmp-v03-production-composition-'))
+      server = await createServer({ root: resolve(ROOT, 'apps/creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
+      await server.listen()
+      baseUrl = server.resolvedUrls?.local[0] ?? ''
+      if (baseUrl === '') throw new Error('V03_BROWSER_PRODUCTION_FAILED: Vite server has no local URL')
+      browser = await chromium.launch({ headless: true })
+    } catch (error) {
+      try {
+        await cleanupBrowserProductionHarness({ inputRoot, browser, server })
+      } catch (cleanupError) {
+        throw new AggregateError([error, cleanupError], 'Browser production harness startup and cleanup failed')
+      }
+      throw error
+    }
   }, 120_000)
 
   afterAll(async () => {
-    await browser?.close()
-    await server?.close()
-    if (inputRoot !== '') await rm(inputRoot, { recursive: true, force: true })
+    await cleanupBrowserProductionHarness({ inputRoot, browser, server })
   })
 
   it('renders exact-rig tail and extra identities from the real v0.3 catalog and runtime bytes', async () => {
     if (browser === undefined) throw new Error('V03_BROWSER_PRODUCTION_FAILED: browser was not started')
+    expect(CASES).toHaveLength(18)
+    const exactVariants = new Set<string>()
     for (const [index, productionCase] of CASES.entries()) {
+      exactVariants.add(`${productionCase.rigId}:${productionCase.identityId}`)
       const spec = makeProductionSpec(sourceCatalog, productionCase.rigId, productionCase.tailId, productionCase.extraId)
       expect(spec.catalogVersion).toBe('0.3.0')
       expect(spec.rendererVersion).toBe('0.3.0')
       const inputPath = join(inputRoot, `${index}-${productionCase.rigId}.json`)
-      await writeFile(inputPath, `${JSON.stringify({ catalog: browserCatalog, spec })}\n`)
+      await writeFile(inputPath, `${JSON.stringify({ catalog: browserCatalog, spec, diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE })}\n`)
 
       const page = await browser.newPage({ viewport: { width: 1200, height: 1200 } })
       try {
@@ -117,24 +186,35 @@ describe('v0.3 browser production composition', () => {
         await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
         expect(await page.evaluate(() => document.body.dataset.renderError), productionCase.rigId).toBeUndefined()
         const evidence = JSON.parse((await page.evaluate(() => document.body.dataset.interfaceResult))!) as {
-          diagnostics: Array<{ severity: string; code: string }>
+          diagnostics: Array<{ severity: string; code: string; path?: string[] }>
+          diagnosticScope?: {
+            id: string
+            activeVisualSlots: string[]
+            activeConnectorIds: string[]
+            suppressedDiagnostics: Array<{ severity: string; code: string; path?: string[] }>
+          }
           connectorMetrics: Array<{ connectorId: string; receiverCoverage: number; plugCoverage: number; centerlineGapPixels: number }>
           compositionMetrics: { visibleBounds: { x: number; y: number; width: number; height: number } | null }
           resolvedAssetPaths: string[]
         }
-        const blockingDiagnostics = evidence.diagnostics.filter(item => (
-          item.severity === 'error'
-          && !(item.code === 'CONNECTOR_COMPOSITE_FAILED' && (item as { path?: string[] }).path?.join('/') === 'connectors/neck')
-          && !['COMPOSITION_FACE_OUT_OF_ZONE', 'COMPOSITION_FACE_OCCLUDED'].includes(item.code)
-        ))
-        expect(blockingDiagnostics, productionCase.rigId).toEqual([])
-        const selectedParts = [productionCase.tailId, productionCase.extraId].map(partId => browserCatalog.parts.find(part => part.id === partId)!)
+        expect(evidence.diagnostics, productionCase.rigId).toEqual([])
+        expect(evidence.diagnosticScope).toMatchObject(TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE)
+        expect(evidence.diagnosticScope?.suppressedDiagnostics.every(item => (
+          ['COMPOSITION_FACE_OUT_OF_ZONE', 'COMPOSITION_FACE_OCCLUDED'].includes(item.code)
+          || (item.code === 'CONNECTOR_COMPOSITE_FAILED' && item.path?.join('/') === 'connectors/neck')
+        ))).toBe(true)
+        const selectedParts = [productionCase.tailId, productionCase.extraId]
+          .filter(partId => !partId.endsWith('_none'))
+          .map(partId => browserCatalog.parts.find(part => part.id === partId)!)
         const expectedNodePaths = selectedParts.flatMap(part => {
           if (part.composition?.mode !== 'interface') throw new Error(`Expected interface production part ${part.id}`)
           return part.composition.variantsByRig[productionCase.rigId]!.renderNodes.map(node => node.assetPath)
         })
         expect(evidence.resolvedAssetPaths, productionCase.rigId).toEqual(expect.arrayContaining(expectedNodePaths))
-        for (const connectorId of ['tailRoot', 'extraLeft', 'extraRight']) {
+        const expectedConnectors = productionCase.tailId === 'tail_none'
+          ? ['extraLeft', 'extraRight']
+          : ['tailRoot']
+        for (const connectorId of expectedConnectors) {
           const metric = evidence.connectorMetrics.find(item => item.connectorId === connectorId)
           expect(metric, `${productionCase.rigId}:${connectorId}`).toBeDefined()
           expect(metric!.receiverCoverage, `${productionCase.rigId}:${connectorId}:receiver`).toBeGreaterThanOrEqual(0.9)
@@ -154,5 +234,9 @@ describe('v0.3 browser production composition', () => {
         await page.close()
       }
     }
-  }, 120_000)
+    expect(exactVariants).toEqual(new Set(TASK9_RIG_IDS.flatMap(rigId => [
+      ...TASK9_TAIL_IDS.map(identityId => `${rigId}:${identityId}`),
+      ...TASK9_EXTRA_IDS.map(identityId => `${rigId}:${identityId}`),
+    ])))
+  }, 300_000)
 })

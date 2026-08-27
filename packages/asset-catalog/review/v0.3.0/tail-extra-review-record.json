@@ -23,7 +23,33 @@
       "floating": 9
     },
     "indexPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-index.json",
-    "indexSha256": "931e460701cccc7526873f15a2aa9f6dae1efdca53e578fe21e4beee20ff5d58",
+    "indexSha256": "8a2eaa447d796cc55463465ad2f319c96fcd767dbe122fef35e4db160f926597",
+    "diagnosticScope": {
+      "id": "task9-tail-extra",
+      "activeVisualSlots": [
+        "tail",
+        "extraAppendage"
+      ],
+      "activeConnectorIds": [
+        "tailRoot",
+        "extraLeft",
+        "extraRight"
+      ],
+      "meaning": "The Task 9 structural review gates only active tail/extra slots and connectors; inactive face and neck diagnostics remain recorded, not discarded.",
+      "defaultRendererErrorCount": 188,
+      "activeErrorCount": 0,
+      "suppressedInactiveErrorCount": 188,
+      "suppressedInactiveErrorCountByRig": {
+        "blob": 75,
+        "biped": 68,
+        "floating": 45
+      },
+      "suppressedInactiveErrorCountByCode": {
+        "CONNECTOR_COMPOSITE_FAILED": 32,
+        "COMPOSITION_FACE_OUT_OF_ZONE": 78,
+        "COMPOSITION_FACE_OCCLUDED": 78
+      }
+    },
     "machineGates": {
       "failureCount": 0,
       "receiverCoverageMin": 0.9,

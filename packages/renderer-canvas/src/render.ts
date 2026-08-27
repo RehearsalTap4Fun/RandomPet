@@ -1047,6 +1047,18 @@ async function renderInterfaceMonster(
     }
   }
   const diagnostics: Diagnostic[] = []
+  const suppressedDiagnostics: Diagnostic[] = []
+  const diagnosticScope = options.diagnosticScope
+  const pushConnectorMetricDiagnostic = (connectorId: string, diagnostic: Diagnostic) => {
+    if (diagnosticScope !== undefined && !diagnosticScope.activeConnectorIds.includes(connectorId)) {
+      suppressedDiagnostics.push(diagnostic)
+    } else diagnostics.push(diagnostic)
+  }
+  const pushFaceMetricDiagnostic = (slotId: 'eyes' | 'mouthShape', diagnostic: Diagnostic) => {
+    if (diagnosticScope !== undefined && !diagnosticScope.activeVisualSlots.includes(slotId)) {
+      suppressedDiagnostics.push(diagnostic)
+    } else diagnostics.push(diagnostic)
+  }
   const sources = new Map<string, CanvasImageSource>()
   for (const node of tree.nodes) {
     try {
@@ -1240,7 +1252,7 @@ async function renderInterfaceMonster(
     connectorMetrics.push(metric)
     const measuresExternalAlpha = child?.slotId === 'arms' || child?.slotId === 'legs'
     if (!connectorMetricMeetsThresholds(metric, false)) {
-      diagnostics.push(connectorCompositeDiagnostic(
+      pushConnectorMetricDiagnostic(item.connectorId, connectorCompositeDiagnostic(
         item.connectorId, `Bridge ${item.bridge.id} is below 0.9 contour coverage or above a 2px gap.`,
       ))
     }
@@ -1248,7 +1260,7 @@ async function renderInterfaceMonster(
       measuresExternalAlpha
       && (metric.childOutsideBodyRatio ?? 0) < EXTERNAL_LIMB_ALPHA_MIN
     ) {
-      diagnostics.push(connectorCompositeDiagnostic(
+      pushConnectorMetricDiagnostic(item.connectorId, connectorCompositeDiagnostic(
         item.connectorId, `Structural child alpha outside the body is below ${EXTERNAL_LIMB_ALPHA_MIN}.`,
       ))
     }
@@ -1401,12 +1413,12 @@ async function renderInterfaceMonster(
     const policy = catalog.compositionPolicy!
     for (const [slotId, metric] of [['eyes', eyes], ['mouthShape', mouth]] as const) {
       if (metric.insideRatio < policy.faceInsideRatio) {
-        diagnostics.push(metricDiagnostic(
+        pushFaceMetricDiagnostic(slotId, metricDiagnostic(
           'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, policy.faceInsideRatio,
         ))
       }
       if (metric.visibleRatio < policy.faceVisibleRatio) {
-        diagnostics.push(metricDiagnostic(
+        pushFaceMetricDiagnostic(slotId, metricDiagnostic(
           'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, policy.faceVisibleRatio,
         ))
       }
@@ -1429,7 +1441,17 @@ async function renderInterfaceMonster(
     ))
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics }
   }
-  return { drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics }
+  return {
+    drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics,
+    ...(diagnosticScope === undefined ? {} : {
+      diagnosticScope: {
+        ...diagnosticScope,
+        activeVisualSlots: [...diagnosticScope.activeVisualSlots],
+        activeConnectorIds: [...diagnosticScope.activeConnectorIds],
+        suppressedDiagnostics,
+      },
+    }),
+  }
 }
 
 export async function renderMonster(
@@ -1439,6 +1461,28 @@ export async function renderMonster(
   resolver: ImageResolver,
   options: RenderOptions,
 ): Promise<RenderResult> {
+  if (
+    options.diagnosticScope !== undefined
+    && (
+      options.diagnosticScope.id.trim() === ''
+      || options.diagnosticScope.activeVisualSlots.length === 0
+      || options.diagnosticScope.activeConnectorIds.length === 0
+      || new Set(options.diagnosticScope.activeVisualSlots).size !== options.diagnosticScope.activeVisualSlots.length
+      || new Set(options.diagnosticScope.activeConnectorIds).size !== options.diagnosticScope.activeConnectorIds.length
+    )
+  ) {
+    return {
+      drawnAssetIds: [],
+      diagnostics: [{
+        severity: 'error',
+        code: 'RENDER_DIAGNOSTIC_SCOPE_INVALID',
+        path: ['renderOptions', 'diagnosticScope'],
+        message: 'A diagnostic scope needs a non-empty id and unique active visual slots and connectors.',
+      }],
+      compositionMetrics: null,
+      connectorMetrics: catalog.version === '0.3.0' ? [] : null,
+    }
+  }
   const validationDiagnostics = validateMonsterSpecAgainstCatalog(spec, catalog)
   if (validationDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return {

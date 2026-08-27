@@ -509,6 +509,33 @@ describe('strict production catalog validation', () => {
     })
   })
 
+  it('rejects a canonical evidence path whose parent junction resolves outside the package root before reading it', async ({ skip }) => {
+    const { root, catalogDirectory } = await makeProductionCliFixture()
+    const canonicalAudit = join(root, 'audit', 'v0.1.0')
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-evidence-outside-'))
+    temporaryDirectories.push(outside)
+    await writeFile(join(outside, 'evidence-manifest.json'), await readFile(join(canonicalAudit, 'evidence-manifest.json')))
+    await rm(canonicalAudit, { recursive: true, force: true })
+    try {
+      await symlink(outside, canonicalAudit, process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('directory links unavailable')
+      throw error
+    }
+
+    await expect(execFile(process.execPath, [
+      join(process.cwd(), 'node_modules', 'tsx', 'dist', 'cli.mjs'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'src', 'cli.ts'),
+      join(catalogDirectory, 'catalog.json'),
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.1.0'), '--production',
+      '--source-index', join(root, 'source-index.json'),
+      '--evidence-manifest', join(canonicalAudit, 'evidence-manifest.json'),
+    ])).rejects.toMatchObject({
+      code: 1,
+      stderr: expect.stringContaining('PRODUCTION_EVIDENCE_PATH_INVALID'),
+    })
+  })
+
   it('requires exact PNG and WebP hashes for every 0.2.0 composition render node', () => {
     const catalog = makeCompositionCatalogFixture()
     const node = catalog.parts.find(part => !part.composition!.isNone)!.composition!.renderNodes[0]!

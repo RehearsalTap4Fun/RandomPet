@@ -102,8 +102,83 @@ const TASK8_BROWSER_CATALOG_BASELINE = `export function browserCatalog(input: Ca
 const TASK9_ACTIVE_SLOT_CONDITION = `if (part.composition !== undefined && !activeStructuralSlots.has(part.slotId)) {`
 const TASK8_ACTIVE_SLOT_CONDITION = `if (part.composition !== undefined && !['bodyFrame', 'headShape', 'arms', 'legs'].includes(part.slotId)) {`
 
+function replaceExpected(text: string, extension: string, baseline: string, expectedCount = 1): string {
+  const count = text.split(extension).length - 1
+  if (count !== expectedCount) throw new Error(`TASK8_RENDERER_PROJECTION_CARDINALITY:${count}:${expectedCount}`)
+  return text.replaceAll(extension, baseline)
+}
+
+function projectTask9DiagnosticScope(path: string, text: string): string {
+  if (path === 'apps/creator-web/src/render-test.ts') {
+    return replaceExpected(replaceExpected(replaceExpected(
+      text,
+      `  const input = await response.json() as {
+    catalog: Catalog
+    spec: MonsterSpec
+    diagnosticScope?: {
+      id: string
+      activeVisualSlots: VisualSlotId[]
+      activeConnectorIds: string[]
+    }
+  }`,
+      '  const input = await response.json() as { catalog: Catalog, spec: MonsterSpec }',
+    ), `    ...(input.diagnosticScope === undefined ? {} : { diagnosticScope: input.diagnosticScope }),\n`, ''), `    diagnosticScope: result.diagnosticScope,\n`, '')
+  }
+  if (path !== 'packages/renderer-canvas/src/render.ts') return text
+  let projected = replaceExpected(text, `  const suppressedDiagnostics: Diagnostic[] = []
+  const diagnosticScope = options.diagnosticScope
+  const pushConnectorMetricDiagnostic = (connectorId: string, diagnostic: Diagnostic) => {
+    if (diagnosticScope !== undefined && !diagnosticScope.activeConnectorIds.includes(connectorId)) {
+      suppressedDiagnostics.push(diagnostic)
+    } else diagnostics.push(diagnostic)
+  }
+  const pushFaceMetricDiagnostic = (slotId: 'eyes' | 'mouthShape', diagnostic: Diagnostic) => {
+    if (diagnosticScope !== undefined && !diagnosticScope.activeVisualSlots.includes(slotId)) {
+      suppressedDiagnostics.push(diagnostic)
+    } else diagnostics.push(diagnostic)
+  }
+`, '')
+  projected = replaceExpected(projected, 'pushConnectorMetricDiagnostic(item.connectorId, connectorCompositeDiagnostic(', 'diagnostics.push(connectorCompositeDiagnostic(', 2)
+  projected = replaceExpected(projected, 'pushFaceMetricDiagnostic(slotId, metricDiagnostic(', 'diagnostics.push(metricDiagnostic(', 2)
+  projected = replaceExpected(projected, `  return {
+    drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics,
+    ...(diagnosticScope === undefined ? {} : {
+      diagnosticScope: {
+        ...diagnosticScope,
+        activeVisualSlots: [...diagnosticScope.activeVisualSlots],
+        activeConnectorIds: [...diagnosticScope.activeConnectorIds],
+        suppressedDiagnostics,
+      },
+    }),
+  }`, '  return { drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics }')
+  projected = replaceExpected(projected, `  if (
+    options.diagnosticScope !== undefined
+    && (
+      options.diagnosticScope.id.trim() === ''
+      || options.diagnosticScope.activeVisualSlots.length === 0
+      || options.diagnosticScope.activeConnectorIds.length === 0
+      || new Set(options.diagnosticScope.activeVisualSlots).size !== options.diagnosticScope.activeVisualSlots.length
+      || new Set(options.diagnosticScope.activeConnectorIds).size !== options.diagnosticScope.activeConnectorIds.length
+    )
+  ) {
+    return {
+      drawnAssetIds: [],
+      diagnostics: [{
+        severity: 'error',
+        code: 'RENDER_DIAGNOSTIC_SCOPE_INVALID',
+        path: ['renderOptions', 'diagnosticScope'],
+        message: 'A diagnostic scope needs a non-empty id and unique active visual slots and connectors.',
+      }],
+      compositionMetrics: null,
+      connectorMetrics: catalog.version === '0.3.0' ? [] : null,
+    }
+  }
+`, '')
+  return projected
+}
+
 export function task8RendererProjectionSha256(path: string, bytes: Uint8Array): string {
-  let projected = Buffer.from(bytes).toString('utf8')
+  let projected = projectTask9DiagnosticScope(path, Buffer.from(bytes).toString('utf8'))
   if (path === 'scripts/render-limb-contact-sheets.ts') {
     const extensionCount = projected.split(TASK9_BROWSER_CATALOG_EXTENSION).length - 1
     const conditionCount = projected.split(TASK9_ACTIVE_SLOT_CONDITION).length - 1

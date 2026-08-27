@@ -3,17 +3,18 @@
   "canonicalization": "json-object-keys-unicode-code-point-v1",
   "catalogVersion": "0.3.0",
   "sourceIndexPath": "packages/asset-catalog/source-index-v0.3.0.json",
-  "evidenceRootSha256": "1b7ff8dca1ed578bfff8c8a805369fec067a95cd7620eeb6d86bdacb467ff0db",
+  "evidenceRootSha256": "1a90a748cbce82a6121caad1d6340fb8cd174b7b5a2918b699b3ac30e2937328",
   "task9Evidence": {
     "schemaVersion": "task9-production-evidence-v1",
     "sourceEntryCount": 102,
-    "dependencyCount": 1679,
+    "dependencyCount": 1680,
     "dependencies": [
       {
         "path": "apps/creator-web/src/render-test.ts",
-        "sha256": "12dd6962a7b089e98e9ff5ba966364d8a4c99073cc51d9e5e2777c410e4f7392",
+        "sha256": "f7638249ae790337e48c73a1efbbf324dd99284a7ef132caa9060b9c09c19d83",
         "groups": [
-          "task6-9-review"
+          "task6-9-review",
+          "task9-live-renderer"
         ]
       },
       {
@@ -1584,7 +1585,7 @@
       },
       {
         "path": "asset-source/v0.3.0/production/processed-index.json",
-        "sha256": "46e01627ea288e89f4501953f9995a2070611f4351f9b21ea6488ab78a91c7d1",
+        "sha256": "8dd9ab3649f7f53860edf73c7d910be518d9209d86cfd914df2fc81a97080906",
         "groups": [
           "processed-index",
           "production-provenance",
@@ -16468,14 +16469,14 @@
       },
       {
         "path": "packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json",
-        "sha256": "801e805863525f1a90a33b8db14edab67e43a52b6dff46b11bfcdcd756ef5dfd",
+        "sha256": "ee4207b9ceb9dd2a23ededd521f69edc5a3d8cf3d5f1de624d3705e58a4cf3d1",
         "groups": [
           "pipeline-fixed-point"
         ]
       },
       {
         "path": "packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json",
-        "sha256": "a0869c48c61bf2b694712f22b468a898f290f7af5705a464fcccba06d8853147",
+        "sha256": "e2b95f73760c8a7d4fa599d53c4c4e6a105f48036935b7dcf78da931832bbe24",
         "groups": [
           "stale-removal"
         ]
@@ -16812,7 +16813,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped-manifest.json",
-        "sha256": "f148120ac05061bbb809402c5e43aaced44015f31a6712c8901404c24bf0a42d",
+        "sha256": "145c89a4be6a409a4b7cbc9afdba15d5f26b0edd3651514a2cc10d789d5e7a4c",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -16845,7 +16846,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/structural-matrix-blob-manifest.json",
-        "sha256": "669240405606378956dd42e3b81cb25c3cf53c74c2acd9e3d3099df2b4852c82",
+        "sha256": "89d2141519abf2adb105d04b839728ea18f52398d3421af23e06be2df117f348",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -16878,7 +16879,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating-manifest.json",
-        "sha256": "9a90d79cdb62e655ae98861cb08fbee92124c6054ed244cf6173c74ce328cfbc",
+        "sha256": "89c8066c7cc6e69d4228e01e945d249bf520ad34c0d037e6a461c444b4fa20fc",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -16900,7 +16901,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/structural-matrix-index.json",
-        "sha256": "931e460701cccc7526873f15a2aa9f6dae1efdca53e578fe21e4beee20ff5d58",
+        "sha256": "8a2eaa447d796cc55463465ad2f319c96fcd767dbe122fef35e4db160f926597",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -17284,7 +17285,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json",
-        "sha256": "69a04986a1439f6c5f6a5ac881fc750a281a43cf2343b1aed43e03009cc1053e",
+        "sha256": "f15fcd8756cfe5b0dc5ccea3cfcc34ef86bd8aad2d0e0b5d3a1b79f197a8907b",
         "groups": [
           "interface-manifest",
           "processed-index",
@@ -17313,7 +17314,7 @@
       },
       {
         "path": "packages/asset-catalog/source-index-v0.3.0.json",
-        "sha256": "30e6cffaceed1db002128e4a0d4a49f51726a950ee37f667c22051b0c74a5551",
+        "sha256": "3fb6b5f8ef67e12e2a317f84d989b2f461b9f5c25d1ea02c285ec2a207645dbe",
         "groups": [
           "source-index",
           "task6-9-review"
@@ -17328,28 +17329,37 @@
       },
       {
         "path": "packages/renderer-canvas/src/render.ts",
-        "sha256": "919e3ffdb33c0d45bc6c13c9f0969cb2e3b3391da69af02a7c17fb53fffb0f01",
+        "sha256": "7f3dc4e1d197abae4e111752157e2eae0c0a4584cd8aabc7b2ecaee4d660013b",
         "groups": [
-          "task6-9-review"
+          "task6-9-review",
+          "task9-live-renderer"
+        ]
+      },
+      {
+        "path": "packages/renderer-canvas/src/types.ts",
+        "sha256": "a9e26d38f1bfca148ee4f8201206e5f1a836f1480f22dcbed3d74862ad12604e",
+        "groups": [
+          "task9-live-renderer"
         ]
       },
       {
         "path": "scripts/render-limb-contact-sheets.ts",
         "sha256": "7c25d550af00c8af9705e1c9594bf187becc1326beeb276beee76675990034d5",
         "groups": [
-          "task6-9-review"
+          "task6-9-review",
+          "task9-live-renderer"
         ]
       },
       {
         "path": "scripts/render-tail-extra-structural-matrices.ts",
-        "sha256": "8b626700a587d41d990211059842522e2d99016914335ad865feed73f70cc3fe",
+        "sha256": "16227e655355f6a97ad28c5a69eeed3ff81113bfc97aacb7e0b12f79f36d671c",
         "groups": [
           "task9-live-renderer"
         ]
       },
       {
         "path": "scripts/task9-structural-identities.ts",
-        "sha256": "c1bc977bf3191dc01d624de812d5d89dcdbef34c1241828b95dbc5f4cf1f4e3f",
+        "sha256": "35dccf6eadeeddcc495114335184b9515763f4ff615c2e4a738caf5eda1c8a72",
         "groups": [
           "task9-live-renderer"
         ]
@@ -17381,6 +17391,32 @@
         "largestComponentRatioMin": 0.9999837938154258,
         "centerlineGapPixelsMax": 0.0352941176470587,
         "childOutsideBodyRatioMin": 0.6398863319545027
+      },
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "meaning": "The Task 9 structural review gates only active tail/extra slots and connectors; inactive face and neck diagnostics remain recorded, not discarded.",
+        "defaultRendererErrorCount": 188,
+        "activeErrorCount": 0,
+        "suppressedInactiveErrorCount": 188,
+        "suppressedInactiveErrorCountByRig": {
+          "blob": 75,
+          "biped": 68,
+          "floating": 45
+        },
+        "suppressedInactiveErrorCountByCode": {
+          "CONNECTOR_COMPOSITE_FAILED": 32,
+          "COMPOSITION_FACE_OUT_OF_ZONE": 78,
+          "COMPOSITION_FACE_OCCLUDED": 78
+        }
       }
     },
     "pipelineFixedPoint": {
@@ -17389,8 +17425,8 @@
         "build-color-scheme-masks",
         "build-interface-catalog"
       ],
-      "round1Sha256": "4e8ed917080f05fc3f75b6bf74cfc1d6f791c6c602988d649dde44145aee2e83",
-      "round2Sha256": "4e8ed917080f05fc3f75b6bf74cfc1d6f791c6c602988d649dde44145aee2e83"
+      "round1Sha256": "4a12e5a375206c32e9d74283f285d9c6eaed8b4f609a89db819e666ec277f6be",
+      "round2Sha256": "4a12e5a375206c32e9d74283f285d9c6eaed8b4f609a89db819e666ec277f6be"
     }
   }
 }

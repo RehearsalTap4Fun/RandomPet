@@ -187,20 +187,7 @@ export function buildInterfaceCatalog(input: {
     }
     const retained = retainedMetadataById.get(part.id)
     if (retained === undefined) {
-      const paletteAudit = paletteAuditById.get(part.id)
-      if (paletteAudit === undefined) return { ...part, compatibleRigs: ['blob', 'biped', 'floating'] as const }
-      return {
-        ...part,
-        compatibleRigs: ['blob', 'biped', 'floating'] as const,
-        rigMaskPaths: Object.fromEntries(Object.entries(paletteAudit.rigMasks!).map(([rigId, audit]) => [
-          rigId,
-          Object.fromEntries(Object.entries(audit.paths ?? {}).map(([role, path]) => [
-            role,
-            path.replaceAll('\\', '/').split(`/assets/v0.3.0/`)[1] ?? path.replaceAll('\\', '/'),
-          ])),
-        ])),
-        rigMaskSha256: Object.fromEntries(Object.entries(paletteAudit.rigMasks!).map(([rigId, audit]) => [rigId, audit.sha256 ?? {}])),
-      }
+      return { ...part, compatibleRigs: ['blob', 'biped', 'floating'] as const }
     }
     const baseComposition = part.composition?.mode === 'interface' ? undefined : part.composition
     const renderNodes = retained.renderNodes.map(({ coordinateSource: _coordinateSource, ...node }) => node)
@@ -290,20 +277,12 @@ function isDirectExecution(): boolean {
 
 export function parseBuildInterfaceCatalogArgs(args: string[]): {
   version: '0.3.0'
-  scope?: 'biped' | 'body-head' | 'limbs'
 } {
   const joined = args.join(' ')
   if (joined === '--version 0.3.0') return { version: '0.3.0' }
-  const legacyScopes = new Map<string, 'biped' | 'body-head' | 'limbs'>([
-    ['--slice biped', 'biped'],
-    ['--version 0.3.0 --slice biped', 'biped'],
-    ['--scope body-head', 'body-head'],
-    ['--version 0.3.0 --scope body-head', 'body-head'],
-    ['--scope limbs', 'limbs'],
-    ['--version 0.3.0 --scope limbs', 'limbs'],
-  ])
-  const scope = legacyScopes.get(joined)
-  if (scope !== undefined) return { version: '0.3.0', scope }
+  if (args.includes('--scope') || args.includes('--slice')) {
+    throw new Error('BUILD_INTERFACE_CATALOG_LEGACY_SCOPE_UNSUPPORTED: use the complete --version 0.3.0 build')
+  }
   throw new Error('BUILD_INTERFACE_CATALOG_ARGS_INVALID: expected --version 0.3.0')
 }
 

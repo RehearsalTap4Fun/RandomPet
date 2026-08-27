@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
-import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
-import { dirname, join, resolve } from 'node:path'
+import { copyFile as copyFileDirect, lstat, mkdir, readFile, rm, writeFile as writeFileDirect } from 'node:fs/promises'
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { processInterfaceAsset } from './process-interface-asset.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
@@ -339,9 +340,83 @@ type Task9Profile = {
   warpLimits: { widthRatio: { min: number; max: number }; depthRatio: { min: number; max: number }; rotationDegrees: { min: number; max: number } }
 }
 
-const TASK9_ROOT = process.cwd()
+const TASK9_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const TASK9_SOURCE_ROOT = join(TASK9_ROOT, 'asset-source', 'v0.3.0')
 const TASK9_CATALOG_ROOT = join(TASK9_ROOT, 'packages', 'asset-catalog')
+
+interface Task9PreparationTransaction {
+  repositoryRoot: string
+  snapshots: Map<string, Buffer | null>
+}
+
+let activeTask9PreparationTransaction: Task9PreparationTransaction | undefined
+
+function assertTask9TransactionPath(repositoryRoot: string, path: string): string {
+  const target = resolve(path)
+  const remainder = relative(repositoryRoot, target)
+  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`TASK9_PREPARE_PATH_ESCAPE:${target}`)
+  return target
+}
+
+async function snapshotTask9Output(path: string): Promise<void> {
+  const transaction = activeTask9PreparationTransaction
+  if (transaction === undefined) return
+  const target = assertTask9TransactionPath(transaction.repositoryRoot, path)
+  if (transaction.snapshots.has(target)) return
+  try {
+    const metadata = await lstat(target)
+    if (metadata.isSymbolicLink() || !metadata.isFile()) throw new Error(`TASK9_PREPARE_OUTPUT_INVALID:${target}`)
+    transaction.snapshots.set(target, await readFile(target))
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+    transaction.snapshots.set(target, null)
+  }
+}
+
+async function writeFile(...args: Parameters<typeof writeFileDirect>): Promise<void> {
+  if (typeof args[0] !== 'string' && !(args[0] instanceof URL)) throw new Error('TASK9_PREPARE_OUTPUT_INVALID: expected path output')
+  await snapshotTask9Output(String(args[0]))
+  await writeFileDirect(...args)
+}
+
+async function copyFile(...args: Parameters<typeof copyFileDirect>): Promise<void> {
+  await snapshotTask9Output(String(args[1]))
+  await copyFileDirect(...args)
+}
+
+export async function runTask9PreparationTransaction<T>(input: {
+  repositoryRoot: string
+  prepare(outputs: {
+    writeFile(path: string, data: string | Uint8Array): Promise<void>
+    copyFile(source: string, target: string): Promise<void>
+  }): Promise<T>
+  beforeCommit?(): Promise<void> | void
+}): Promise<T> {
+  if (activeTask9PreparationTransaction !== undefined) throw new Error('TASK9_PREPARE_TRANSACTION_NESTED')
+  const repositoryRoot = resolve(input.repositoryRoot)
+  const transaction: Task9PreparationTransaction = { repositoryRoot, snapshots: new Map() }
+  activeTask9PreparationTransaction = transaction
+  try {
+    const result = await input.prepare({
+      writeFile: async (path, data) => writeFile(path, data),
+      copyFile: async (source, target) => copyFile(source, target),
+    })
+    await input.beforeCommit?.()
+    return result
+  } catch (error) {
+    activeTask9PreparationTransaction = undefined
+    for (const [path, bytes] of [...transaction.snapshots.entries()].reverse()) {
+      if (bytes === null) await rm(path, { force: true })
+      else {
+        await mkdir(dirname(path), { recursive: true })
+        await writeFileDirect(path, bytes)
+      }
+    }
+    throw error
+  } finally {
+    activeTask9PreparationTransaction = undefined
+  }
+}
 
 async function hashTask9File(path: string): Promise<string> { return sha256(await readFile(path)) }
 async function writeTask9Json(path: string, value: unknown): Promise<void> {
@@ -563,6 +638,7 @@ async function writeTask9RuntimeNode(sourcePath: string, runtimeBase: string, ri
   await mkdir(dirname(pngPath), { recursive: true })
   const fitted = await fitTask9DistalNode({ sourcePath, rigId, connectorId })
   await writeFile(pngPath, fitted.png)
+  await snapshotTask9Output(webpPath)
   await sharp(fitted.png).webp({ lossless: true, effort: 6 }).toFile(webpPath)
   return {
     pngPath: `${runtimeBase}.png`, pngSha256: await hashTask9File(pngPath),
@@ -887,7 +963,7 @@ export async function synchronizeTask9SourceIndex(options: { dryRun?: boolean } 
   return sourceIndex
 }
 
-export async function prepareTask9StructuralAssets(): Promise<{ variants: number; nodes: number; plugMasks: number; receiverMasks: number; bridges: number }> {
+async function prepareTask9StructuralAssetsUnsafe(): Promise<{ variants: number; nodes: number; plugMasks: number; receiverMasks: number; bridges: number }> {
   const manifestPath = join(TASK9_SOURCE_ROOT, 'interface-manifest.json')
   const processedPath = join(TASK9_SOURCE_ROOT, 'production', 'processed-index.json')
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8'))
@@ -909,8 +985,11 @@ export async function prepareTask9StructuralAssets(): Promise<{ variants: number
       contracts.tangentWindows[selection.rigId], contracts.ribbonDepths[selection.rigId],
     )
     const runtimeBase = `assets/v0.3.0/structural/${selection.rigId}/${selection.partId}`
+    const outputPngPath = resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.png`)
+    const outputWebpPath = resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.webp`)
+    await Promise.all([snapshotTask9Output(outputPngPath), snapshotTask9Output(outputWebpPath)])
     const processed = await processInterfaceAsset({
-      sourcePath, outputPngPath: resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.png`), outputWebpPath: resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.webp`),
+      sourcePath, outputPngPath, outputWebpPath,
       connectors: maskInputs, materialSampleRegion: profiles[0]!.materialSampleRegion,
     })
     const renderNodes = []
@@ -956,9 +1035,12 @@ export async function prepareTask9StructuralAssets(): Promise<{ variants: number
       id: profile.id, contourMaskPath: resolve(TASK9_CATALOG_ROOT, profile.contourMaskPath),
       foregroundMaskPath: resolve(TASK9_CATALOG_ROOT, profile.foregroundMaskPath), backgroundMaskPath: resolve(TASK9_CATALOG_ROOT, profile.backgroundMaskPath),
     }))
+    const outputPngPath = resolve(TASK9_CATALOG_ROOT, existing.pngPath)
+    const outputWebpPath = resolve(TASK9_CATALOG_ROOT, existing.webpPath)
+    await Promise.all([snapshotTask9Output(outputPngPath), snapshotTask9Output(outputWebpPath)])
     const processed = await processInterfaceAsset({
-      sourcePath: resolve(TASK9_ROOT, variant.sourcePngPath), outputPngPath: resolve(TASK9_CATALOG_ROOT, existing.pngPath),
-      outputWebpPath: resolve(TASK9_CATALOG_ROOT, existing.webpPath), connectors: inputs,
+      sourcePath: resolve(TASK9_ROOT, variant.sourcePngPath), outputPngPath,
+      outputWebpPath, connectors: inputs,
       materialSampleRegion: variant.connectors[0].materialSampleRegion,
     })
     if (before !== await hashTask9File(resolve(TASK9_ROOT, variant.sourcePngPath))) throw new Error(`TASK9_BODY_MUTATED: ${bodyId}`)
@@ -1012,6 +1094,19 @@ export async function prepareTask9StructuralAssets(): Promise<{ variants: number
   await writeTask9Json(processedPath, processedIndex)
   await writeTask9Json(join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
   return { variants: 18, nodes: nodeCount, plugMasks: 27 * 3, receiverMasks: 15 * 3, bridges: bridgeCount }
+}
+
+export async function prepareTask9StructuralAssets(input: {
+  repositoryRoot: string
+  beforeCommit?(): Promise<void> | void
+}): Promise<{ variants: number; nodes: number; plugMasks: number; receiverMasks: number; bridges: number }> {
+  const repositoryRoot = resolve(input.repositoryRoot)
+  if (repositoryRoot !== TASK9_ROOT) throw new Error(`TASK9_PREPARE_REPOSITORY_ROOT_INVALID:${repositoryRoot}`)
+  return runTask9PreparationTransaction({
+    repositoryRoot,
+    prepare: prepareTask9StructuralAssetsUnsafe,
+    beforeCommit: input.beforeCommit,
+  })
 }
 
 export async function renderTask9ReceiverGuides(): Promise<{ profiles: number; files: number; indexPath: string }> {

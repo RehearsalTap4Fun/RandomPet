@@ -8,14 +8,16 @@ import { EXTERNAL_LIMB_ALPHA_MIN, type ConnectorMetric } from '@qmonster/rendere
 import sharp from 'sharp'
 import { createServer } from 'vite'
 import {
-  BODIES,
   browserCatalog,
   fsUrl,
   makeSpec,
   resolvedFsPath,
   type RenderEvidence,
 } from './render-limb-contact-sheets.js'
-import { TASK9_EXTRA_IDS, TASK9_TAIL_IDS } from './task9-structural-identities.js'
+import { TASK9_BODIES_BY_RIG, TASK9_EXTRA_IDS, TASK9_RIG_IDS, TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE, TASK9_TAIL_IDS, type Task9RigId } from './task9-structural-identities.js'
+import { resolveExistingContainedPath } from './safe-output.js'
+
+export { TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE } from './task9-structural-identities.js'
 
 const ROOT = process.cwd()
 const REVIEW_ROOT = join(ROOT, 'packages', 'asset-catalog', 'review', 'v0.3.0')
@@ -26,7 +28,7 @@ const MIXED = [
   ['tail_mushroom_cluster', 'extra_moth_wings'],
 ] as const
 
-type MatrixRigId = keyof typeof BODIES
+type MatrixRigId = Task9RigId
 type MatrixMode = 'prototype' | 'full'
 export interface TailExtraMatrixPlanEntry {
   rigId: MatrixRigId
@@ -54,17 +56,17 @@ function fixedEntry(
 }
 
 export function makeTailExtraMatrixPlan(mode: MatrixMode): TailExtraMatrixPlanEntry[] {
-  if (mode === 'prototype') return (['blob', 'biped', 'floating'] as const).map((rigId, index) => (
-    fixedEntry(rigId, BODIES[rigId][0], MIXED[index]![0], MIXED[index]![1], 'mixed')
+  if (mode === 'prototype') return TASK9_RIG_IDS.map((rigId, index) => (
+    fixedEntry(rigId, TASK9_BODIES_BY_RIG[rigId][0]!, MIXED[index]![0], MIXED[index]![1], 'mixed')
   ))
-  return (['blob', 'biped', 'floating'] as const).flatMap(rigId => [
-    ...BODIES[rigId].flatMap(bodyFrame => [
+  return TASK9_RIG_IDS.flatMap(rigId => [
+    ...TASK9_BODIES_BY_RIG[rigId].flatMap(bodyFrame => [
       ...TASK9_TAIL_IDS.map(tail => fixedEntry(rigId, bodyFrame, tail, 'extra_appendage_none', 'tail-only')),
       ...TASK9_EXTRA_IDS.map(extra => fixedEntry(rigId, bodyFrame, 'tail_none', extra, 'extra-only')),
     ]),
     ...MIXED.map(([tail, extra], index) => fixedEntry(
       rigId,
-      BODIES[rigId][index % BODIES[rigId].length],
+      TASK9_BODIES_BY_RIG[rigId][index % TASK9_BODIES_BY_RIG[rigId].length]!,
       tail,
       extra,
       'mixed',
@@ -73,15 +75,31 @@ export function makeTailExtraMatrixPlan(mode: MatrixMode): TailExtraMatrixPlanEn
 }
 
 export function validateTailExtraRenderEvidence(
-  evidence: Pick<RenderEvidence, 'diagnostics' | 'connectorMetrics' | 'resolvedAssetPaths'>,
+  evidence: Pick<RenderEvidence, 'diagnostics' | 'connectorMetrics' | 'resolvedAssetPaths'> & {
+    diagnosticScope?: {
+      id: string
+      activeVisualSlots: string[]
+      activeConnectorIds: string[]
+      suppressedDiagnostics: RenderEvidence['diagnostics']
+    }
+  },
   expectedNodePaths: readonly string[],
   targetConnectors: readonly string[],
 ): string[] {
-  const errors = evidence.diagnostics.filter(item => (
-    item.severity === 'error'
-    && !(item.code === 'CONNECTOR_COMPOSITE_FAILED' && item.path.join('/') === 'connectors/neck')
-    && !['COMPOSITION_FACE_OUT_OF_ZONE', 'COMPOSITION_FACE_OCCLUDED'].includes(item.code)
-  )).map(item => item.code)
+  const errors = evidence.diagnostics.filter(item => item.severity === 'error').map(item => item.code)
+  const scope = evidence.diagnosticScope
+  if (
+    scope?.id !== TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE.id
+    || JSON.stringify(scope.activeVisualSlots) !== JSON.stringify(TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE.activeVisualSlots)
+    || JSON.stringify(scope.activeConnectorIds) !== JSON.stringify(TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE.activeConnectorIds)
+  ) errors.push('TASK9_DIAGNOSTIC_SCOPE_INVALID')
+  for (const diagnostic of scope?.suppressedDiagnostics ?? []) {
+    const isInactiveFace = ['COMPOSITION_FACE_OUT_OF_ZONE', 'COMPOSITION_FACE_OCCLUDED'].includes(diagnostic.code)
+      && ['eyes', 'mouthShape'].includes(diagnostic.path[1] ?? '')
+    const isInactiveNeck = diagnostic.code === 'CONNECTOR_COMPOSITE_FAILED'
+      && diagnostic.path.join('/') === 'connectors/neck'
+    if (!isInactiveFace && !isInactiveNeck) errors.push(`TASK9_DIAGNOSTIC_SCOPE_OVERREACH:${diagnostic.code}`)
+  }
   for (const path of expectedNodePaths) {
     const calls = evidence.resolvedAssetPaths.filter(value => value === path).length
     if (calls !== 1) errors.push(`RESOLVER_CALL_COUNT:${path}:${calls}`)
@@ -105,12 +123,42 @@ export function validateTailExtraRenderEvidence(
 function sha256(bytes: Uint8Array): string { return createHash('sha256').update(bytes).digest('hex') }
 async function hashFile(path: string): Promise<string> { return sha256(await readFile(path)) }
 
+export async function cleanupTailExtraRenderHarness(input: {
+  tempRoot?: string
+  page?: { close(): Promise<unknown> }
+  browser?: { close(): Promise<unknown> }
+  server?: { close(): Promise<unknown> }
+}): Promise<void> {
+  const operations: Array<() => Promise<unknown>> = []
+  if (input.page !== undefined) operations.push(() => input.page!.close())
+  if (input.browser !== undefined) operations.push(() => input.browser!.close())
+  if (input.server !== undefined) operations.push(() => input.server!.close())
+  if (input.tempRoot !== undefined && input.tempRoot !== '') operations.push(() => rm(input.tempRoot!, { recursive: true, force: true }))
+  const failures: unknown[] = []
+  for (const operation of operations) {
+    try { await operation() } catch (error) { failures.push(error) }
+  }
+  if (failures.length === 1) throw failures[0]
+  if (failures.length > 1) throw new AggregateError(failures, 'Tail/extra render harness cleanup failed')
+}
+
+export async function resolveMatrixResourcePath(repositoryRoot: string, browserPath: string): Promise<string> {
+  if (!browserPath.startsWith('/@fs/')) throw new Error(`TAIL_EXTRA_MATRIX_EVIDENCE_INVALID: unresolved asset path ${browserPath}`)
+  return resolveExistingContainedPath(repositoryRoot, resolvedFsPath(browserPath))
+}
+
 interface MatrixEvidenceEntry extends TailExtraMatrixPlanEntry {
   original: Buffer
   connectorMetrics: ConnectorMetric[]
   compositionMetrics?: RenderEvidence['compositionMetrics']
   resolvedAssetPaths: string[]
   diagnostics: RenderEvidence['diagnostics']
+  diagnosticScope?: {
+    id: string
+    activeVisualSlots: string[]
+    activeConnectorIds: string[]
+    suppressedDiagnostics: RenderEvidence['diagnostics']
+  }
   gateErrors: string[]
   inputBinding: { catalogSha256: string, resolvedAssetHashes: Array<{ path: string, sha256: string }> }
 }
@@ -169,7 +217,8 @@ export async function writeTailExtraMatrixIndexFromExistingManifests() {
   const artifacts: TailExtraMatrixArtifactBinding[] = []
   for (const rigId of ['blob', 'biped', 'floating'] as const) {
     const manifestPath = join(REVIEW_ROOT, `structural-matrix-${rigId}-manifest.json`)
-    const manifest = normalizeMatrixManifestPaths(JSON.parse((await readFile(manifestPath)).toString('utf8')))
+    const manifestInput = await resolveExistingContainedPath(ROOT, manifestPath)
+    const manifest = normalizeMatrixManifestPaths(JSON.parse((await readFile(manifestInput)).toString('utf8')))
     const manifestBytes = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`)
     await writeFile(manifestPath, manifestBytes)
     artifacts.push({
@@ -196,37 +245,50 @@ export async function reconstructTailExtraMatrixEvidence(input: {
   repositoryRoot?: string
   catalogPath?: string
   plan?: TailExtraMatrixPlanEntry[]
+  diagnosticScope?: false
 } = {}): Promise<{ mode: MatrixMode, catalogInputSha256: string, entries: MatrixEvidenceEntry[] }> {
   const mode = input.mode ?? 'full'
   const repositoryRoot = resolve(input.repositoryRoot ?? ROOT)
   const plan = input.plan ?? makeTailExtraMatrixPlan(mode)
-  const catalogPath = resolve(input.catalogPath ?? join(repositoryRoot, 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json'))
+  const catalogPath = await resolveExistingContainedPath(
+    repositoryRoot,
+    resolve(input.catalogPath ?? join(repositoryRoot, 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json')),
+  )
   const catalogBytes = await readFile(catalogPath)
   const sourceCatalog = JSON.parse(catalogBytes.toString('utf8')) as Catalog
   const catalogInputSha256 = sha256(catalogBytes)
   const catalog = browserCatalog(sourceCatalog, { activeStructuralSlots: ['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'] })
   const tempRoot = await mkdtemp(join(repositoryRoot, '.tmp-tail-extra-matrix-'))
-  const server = await createServer({ root: join(repositoryRoot, 'apps', 'creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
-  await server.listen()
-  const baseUrl = server.resolvedUrls?.local[0]
-  if (baseUrl === undefined) throw new Error('TAIL_EXTRA_MATRIX_RENDER_FAILED: Vite server has no local URL')
-  const browser = await chromium.launch({ headless: true })
-  const page = await browser.newPage()
+  let server: Awaited<ReturnType<typeof createServer>> | undefined
+  let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
+  let page: Awaited<ReturnType<Awaited<ReturnType<typeof chromium.launch>>['newPage']>> | undefined
   const hashCache = new Map<string, string>()
   const entries: MatrixEvidenceEntry[] = []
   try {
+    server = await createServer({ root: join(repositoryRoot, 'apps', 'creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
+    await server.listen()
+    const baseUrl = server.resolvedUrls?.local[0]
+    if (baseUrl === undefined) throw new Error('TAIL_EXTRA_MATRIX_RENDER_FAILED: Vite server has no local URL')
+    browser = await chromium.launch({ headless: true })
+    page = await browser.newPage()
     for (let index = 0; index < plan.length; index += 1) {
       const selection = plan[index]!
       const spec = makeSpec(catalog, selection, index)
       spec.visualSlots.tail = { partId: selection.tail, rigId: selection.rigId }
       spec.visualSlots.extraAppendage = { partId: selection.extraAppendage, rigId: selection.rigId }
       const inputPath = join(tempRoot, `${index.toString().padStart(3, '0')}.json`)
-      await writeFile(inputPath, `${JSON.stringify({ catalog, spec })}\n`)
+      await writeFile(inputPath, `${JSON.stringify({
+        catalog,
+        spec,
+        ...(input.diagnosticScope === false ? {} : { diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE }),
+      })}\n`)
       await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
       await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
       const browserError = await page.evaluate(() => document.body.dataset.renderError)
       if (browserError !== undefined) throw new Error(`TAIL_EXTRA_MATRIX_RENDER_FAILED:${browserError}`)
-      const evidence = await page.evaluate(() => JSON.parse(document.body.dataset.interfaceResult!)) as RenderEvidence
+      const evidence = await page.evaluate(() => JSON.parse(document.body.dataset.interfaceResult!)) as RenderEvidence & {
+        diagnosticScope?: MatrixEvidenceEntry['diagnosticScope']
+      }
       const targetParts = [selection.tail, selection.extraAppendage]
         .map(id => catalog.parts.find(part => part.id === id)!)
         .filter(part => part.composition?.mode === 'interface')
@@ -248,13 +310,13 @@ export async function reconstructTailExtraMatrixEvidence(input: {
       const original = Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64')
       const resolvedAssetHashes = await Promise.all([...new Set(evidence.resolvedAssetPaths)].map(async path => {
         let digest = hashCache.get(path)
-        if (digest === undefined) { digest = await hashFile(resolvedFsPath(path)); hashCache.set(path, digest) }
+        if (digest === undefined) { digest = await hashFile(await resolveMatrixResourcePath(repositoryRoot, path)); hashCache.set(path, digest) }
         return { path: portableMatrixPath(path, repositoryRoot), sha256: digest }
       }))
-      entries.push({ ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths.map(path => portableMatrixPath(path, repositoryRoot)), diagnostics: evidence.diagnostics, gateErrors, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes } })
+      entries.push({ ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths.map(path => portableMatrixPath(path, repositoryRoot)), diagnostics: evidence.diagnostics, diagnosticScope: evidence.diagnosticScope, gateErrors, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes } })
     }
   } finally {
-    await page.close(); await browser.close(); await server.close(); await rm(tempRoot, { recursive: true, force: true })
+    await cleanupTailExtraRenderHarness({ tempRoot, page, browser, server })
   }
   return { mode, catalogInputSha256, entries }
 }
@@ -262,6 +324,7 @@ export async function reconstructTailExtraMatrixEvidence(input: {
 export async function validateStoredTailExtraMatrixEvidence(input: {
   repositoryRoot: string
   catalogPath?: string
+  reviewRoot?: string
   plan?: TailExtraMatrixPlanEntry[]
 }): Promise<{
   diagnostics: string[]
@@ -269,14 +332,14 @@ export async function validateStoredTailExtraMatrixEvidence(input: {
   entryCountByRig: Record<MatrixRigId, number>
 }> {
   const repositoryRoot = resolve(input.repositoryRoot)
-  const reviewRoot = join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0')
+  const reviewRoot = resolve(input.reviewRoot ?? join(repositoryRoot, 'packages', 'asset-catalog', 'review', 'v0.3.0'))
   const live = await reconstructTailExtraMatrixEvidence({ mode: 'full', failOnGateError: false, repositoryRoot, catalogPath: input.catalogPath, plan: input.plan })
   const fullRoster = input.plan === undefined
   const diagnostics: string[] = []
   const entryCountByRig = { blob: 0, biped: 0, floating: 0 }
 
   for (const rigId of ['blob', 'biped', 'floating'] as const) {
-    const manifestPath = join(reviewRoot, `structural-matrix-${rigId}-manifest.json`)
+    const manifestPath = await resolveExistingContainedPath(repositoryRoot, join(reviewRoot, `structural-matrix-${rigId}-manifest.json`))
     let manifest: any
     try {
       manifest = JSON.parse(await readFile(manifestPath, 'utf8'))

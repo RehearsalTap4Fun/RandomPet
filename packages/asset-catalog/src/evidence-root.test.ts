@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { createHash } from 'node:crypto'
-import { mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import * as evidenceRootModule from './evidence-root.js'
@@ -110,6 +110,27 @@ test('requires the acyclic Task 9 production evidence block for v0.3', () => {
   }))
 })
 
+test('requires exact finite Task 9 strong and surprise distribution maxima', async () => {
+  const sourceIndex = JSON.parse(await readFile('packages/asset-catalog/source-index-v0.3.0.json', 'utf8'))
+  const manifest = JSON.parse(await readFile('packages/asset-catalog/audit/v0.3.0/evidence-manifest.json', 'utf8'))
+  expect(validateProductionEvidenceManifest(sourceIndex, manifest)).toEqual([])
+
+  const exact = {
+    maximumStrongFeatures: 2,
+    maximumSurpriseSlots: 3,
+    surpriseLimit: 3,
+  } as const
+  for (const [field, expected] of Object.entries(exact)) {
+    for (const invalid of [undefined, Number.NaN, Number.POSITIVE_INFINITY, String(expected), expected - 1]) {
+      const mutated = structuredClone(manifest)
+      if (invalid === undefined) delete mutated.task9Evidence.compositionStatistics[field]
+      else mutated.task9Evidence.compositionStatistics[field] = invalid
+      expect(validateProductionEvidenceManifest(sourceIndex, mutated), `${field}=${String(invalid)}`)
+        .toContainEqual(expect.objectContaining({ code: 'PRODUCTION_TASK9_EVIDENCE_INVALID' }))
+    }
+  }
+})
+
 test('recomputes every Task 9 dependency hash from a contained regular file', async () => {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-evidence-'))
   const bytes = Buffer.from('final production input')
@@ -134,6 +155,15 @@ test('recomputes every Task 9 dependency hash from a contained regular file', as
         failureCount: 0,
         entryCountByRig: { blob: 15, biped: 15, floating: 9 },
         observedExtrema: { receiverCoverageMin: 0.92 },
+        diagnosticScope: {
+          id: 'task9-tail-extra',
+          activeVisualSlots: ['tail', 'extraAppendage'],
+          activeConnectorIds: ['tailRoot', 'extraLeft', 'extraRight'],
+          defaultRendererErrorCount: 188,
+          activeErrorCount: 0,
+          suppressedInactiveErrorCount: 188,
+          suppressedInactiveErrorCountByRig: { blob: 75, biped: 68, floating: 45 },
+        },
       },
       pipelineFixedPoint: {
         sequence: ['build-runtime-assets', 'build-color-scheme-masks', 'build-interface-catalog'],

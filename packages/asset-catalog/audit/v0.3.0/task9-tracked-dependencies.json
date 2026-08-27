@@ -1,6 +1,6 @@
 {
   "schemaVersion": "task9-tracked-dependencies-v1",
-  "dependencyCount": 1680,
+  "dependencyCount": 1681,
   "dependencies": [
     "apps/creator-web/src/render-test.ts",
     "asset-source/v0.2.0/generation/part-candidates/legs_mushroom/regeneration-2/legs_mushroom-candidate-3-rgba.png",
@@ -1679,6 +1679,7 @@
     "packages/asset-catalog/source-index-v0.3.0.json",
     "packages/renderer-canvas/src/connector-metrics.ts",
     "packages/renderer-canvas/src/render.ts",
+    "packages/renderer-canvas/src/types.ts",
     "scripts/render-limb-contact-sheets.ts",
     "scripts/render-tail-extra-structural-matrices.ts",
     "scripts/task9-structural-identities.ts"

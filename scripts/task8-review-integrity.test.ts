@@ -29,6 +29,19 @@ describe('Task 8 clean-checkout review integrity', () => {
     expect(task8LimbCatalogProjectionSha256(task8Drift)).not.toBe(baseline)
   })
 
+  it('projects the explicit Task 9 diagnostic scope out of frozen Task 8 renderer hashes without hiding Task 8 drift', async () => {
+    const { TASK8_APPROVED_RENDERER_BINDINGS, task8RendererProjectionSha256 } = await import('./task8-stable-projection.js')
+    for (const path of ['apps/creator-web/src/render-test.ts', 'packages/renderer-canvas/src/render.ts'] as const) {
+      const bytes = await readFile(resolve(ROOT, path))
+      expect(task8RendererProjectionSha256(path, bytes)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+      const drifted = Buffer.from(bytes.toString('utf8').replace(
+        path.includes('render-test') ? '2D context unavailable' : 'validateMonsterSpecAgainstCatalog(spec, catalog)',
+        path.includes('render-test') ? 'Task 8 drift' : 'validateMonsterSpecAgainstCatalog(spec, { ...catalog })',
+      ))
+      expect(task8RendererProjectionSha256(path, drifted)).not.toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+    }
+  })
+
   it('accepts the frozen legacy catalog binding through the stable projection but rejects Task 8 resource drift', async () => {
     const {
       TASK8_APPROVED_LEGACY_CATALOG_SHA256,

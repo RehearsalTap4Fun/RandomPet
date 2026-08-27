@@ -4,7 +4,7 @@
   "mode": "full",
   "rigId": "biped",
   "entryCount": 15,
-  "catalogInputSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+  "catalogInputSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
   "originalPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped.png",
   "originalSha256": "d9641d34dd782ec6ca434ab301da081e9d11d3bd50e0eb20af4e748174ea7746",
   "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-biped-256.png",
@@ -149,56 +149,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_fish_fan-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_fish_fan-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -556,56 +569,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_soft_curl-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_soft_curl-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -963,56 +989,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_mushroom_cluster-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_mushroom_cluster-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -1387,56 +1426,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_moth_wings-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_moth_wings-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -1839,56 +1891,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_soft_tentacles-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_soft_tentacles-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -2291,56 +2356,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_side_fins-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_side_fins-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -2726,47 +2804,60 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_fish_fan-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_fish_fan-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -3124,47 +3215,60 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_soft_curl-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_soft_curl-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -3522,47 +3626,60 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_mushroom_cluster-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/tail_mushroom_cluster-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -3937,47 +4054,60 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_moth_wings-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_moth_wings-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -4380,47 +4510,60 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_soft_tentacles-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_soft_tentacles-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -4823,47 +4966,60 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_side_fins-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_side_fins-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -5284,56 +5440,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_soft_tentacles-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_soft_tentacles-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
@@ -5794,47 +5963,60 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_side_fins-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_side_fins-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
@@ -6295,56 +6477,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_moth_wings-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/biped/extra_moth_wings-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge biped-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",

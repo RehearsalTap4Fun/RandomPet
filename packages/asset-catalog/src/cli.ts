@@ -1,6 +1,6 @@
 import { validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
-import { readFile, realpath } from 'node:fs/promises'
-import { basename, dirname, resolve } from 'node:path'
+import { lstat, readFile, realpath, stat } from 'node:fs/promises'
+import { basename, dirname, isAbsolute, relative, resolve } from 'node:path'
 import { validateCatalogFiles } from './file-validation.js'
 import { loadCatalog } from './load-catalog.js'
 import { productionEvidenceSourceIndexPath, validateProductionEvidenceDependencies, validateProductionEvidenceManifest } from './evidence-root.js'
@@ -20,6 +20,23 @@ function printDiagnostics(diagnostics: Diagnostic[]): void {
     const location = diagnostic.path.length === 0 ? '<catalog>' : diagnostic.path.join('.')
     console.error(`${diagnostic.severity.toUpperCase()} ${diagnostic.code} ${location}: ${diagnostic.message}`)
   }
+}
+
+export async function resolveCanonicalProductionInput(packageRoot: string, inputPath: string, expectedPath: string): Promise<string> {
+  const canonicalRoot = await realpath(resolve(packageRoot))
+  const lexicalInput = resolve(inputPath)
+  const lexicalExpected = resolve(expectedPath)
+  const [inputLink, expectedLink, canonicalInput, canonicalTarget] = await Promise.all([
+    lstat(lexicalInput), lstat(lexicalExpected), realpath(lexicalInput), realpath(lexicalExpected),
+  ])
+  if (canonicalInput !== canonicalTarget) throw new Error(`Production input is not canonical: ${inputPath}`)
+  const remainder = relative(canonicalRoot, canonicalTarget)
+  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`Production input escapes package root: ${inputPath}`)
+  const metadata = await stat(canonicalTarget)
+  if (inputLink.isSymbolicLink() || expectedLink.isSymbolicLink() || !metadata.isFile() || metadata.nlink < 1) {
+    throw new Error(`Production input is not a direct regular file: ${inputPath}`)
+  }
+  return canonicalTarget
 }
 
 async function main(): Promise<void> {
@@ -78,48 +95,36 @@ async function main(): Promise<void> {
     } catch {
       diagnostics.push({ severity: 'error', code: 'CATALOG_CLI_ARGUMENTS_INVALID', path: [catalogFile], message: 'Production catalog file cannot be canonicalized.' })
     }
+    const version = parsed.value.version
+    const packageRoot = resolve(catalogDirectory, '..', '..')
+    const expectedSourceIndex = resolve(packageRoot, basename(productionEvidenceSourceIndexPath(version)))
+    const expectedEvidenceManifest = resolve(packageRoot, 'audit', `v${version}`, 'evidence-manifest.json')
     let sourceIndexPath = resolve(sourceIndexInput!)
     let evidenceManifestPath = resolve(evidenceManifestInput!)
     let sourceIndex: ProductionSourceIndex = {}
     let evidenceManifest: unknown = null
     try {
-      sourceIndexPath = await realpath(sourceIndexPath)
+      sourceIndexPath = await resolveCanonicalProductionInput(packageRoot, sourceIndexPath, expectedSourceIndex)
       sourceIndex = JSON.parse(await readFile(sourceIndexPath, 'utf8')) as ProductionSourceIndex
     } catch {
-      diagnostics.push({ severity: 'error', code: 'PRODUCTION_SOURCE_INDEX_MISSING', path: [sourceIndexPath], message: 'Cannot resolve/read the explicit production source-index.' })
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [sourceIndexPath], message: `Source-index must be the direct canonical ${expectedSourceIndex} for catalog version ${version}.` })
     }
     try {
-      evidenceManifestPath = await realpath(evidenceManifestPath)
+      evidenceManifestPath = await resolveCanonicalProductionInput(packageRoot, evidenceManifestPath, expectedEvidenceManifest)
       evidenceManifest = JSON.parse(await readFile(evidenceManifestPath, 'utf8')) as unknown
     } catch {
-      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_MANIFEST_MISSING', path: [evidenceManifestPath], message: 'Cannot resolve/read the explicit independent production evidence manifest.' })
+      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [evidenceManifestPath], message: `Evidence manifest must be the direct canonical ${expectedEvidenceManifest} for catalog version ${version}.` })
     }
-    const version = parsed.value.version
-    const packageRoot = resolve(catalogDirectory, '..', '..')
     let task6Integrity: RuntimeIntegrityReview | undefined
     if (version === '0.3.0') {
       const task6IntegrityPath = resolve(packageRoot, 'review', `v${version}`, 'task6-approved-input-integrity.json')
       try {
-        task6Integrity = JSON.parse(await readFile(task6IntegrityPath, 'utf8')) as RuntimeIntegrityReview
+        task6Integrity = JSON.parse(await readFile(
+          await resolveCanonicalProductionInput(packageRoot, task6IntegrityPath, task6IntegrityPath), 'utf8',
+        )) as RuntimeIntegrityReview
       } catch {
         diagnostics.push({ severity: 'error', code: 'PRODUCTION_RUNTIME_REVIEW_MISSING', path: [task6IntegrityPath], message: 'Cannot read the canonical Task 6 approved-input integrity review.' })
       }
-    }
-    const expectedSourceIndex = resolve(packageRoot, basename(productionEvidenceSourceIndexPath(version)))
-    const expectedEvidenceManifest = resolve(packageRoot, 'audit', `v${version}`, 'evidence-manifest.json')
-    try {
-      if (sourceIndexPath !== await realpath(expectedSourceIndex)) {
-        diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [sourceIndexPath], message: `Source-index must be the canonical ${expectedSourceIndex} for catalog version ${version}.` })
-      }
-    } catch {
-      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [expectedSourceIndex], message: `Expected source-index cannot be resolved for catalog version ${version}.` })
-    }
-    try {
-      if (evidenceManifestPath !== await realpath(expectedEvidenceManifest)) {
-        diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [evidenceManifestPath], message: `Evidence manifest must be the canonical ${expectedEvidenceManifest} for catalog version ${version}.` })
-      }
-    } catch {
-      diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [expectedEvidenceManifest], message: `Expected evidence manifest cannot be resolved for catalog version ${version}.` })
     }
     if (sourceIndex.catalogVersion !== version) {
       diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_VERSION_MISMATCH', path: ['catalogVersion'], message: `Source-index version must equal catalog version ${version}.` })

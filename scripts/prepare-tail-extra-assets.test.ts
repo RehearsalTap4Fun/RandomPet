@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto'
-import { mkdtemp, readFile, rm } from 'node:fs/promises'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
-import { auditTask9BridgeSplits, auditTask9DistalFits, auditTask9EdgeResidual, auditTask9ReceiverSupports, deriveTask9ConnectorContracts, deriveTask9TangentWindows, extractTask9Candidate, normalizeTask9Extra, normalizeTask9Tail, resolveTask9ProcessedBodyKey, synchronizeTask9SourceIndex, task9ReceiverSockets, task9StructuralSelections } from './prepare-tail-extra-assets.js'
+import { auditTask9BridgeSplits, auditTask9DistalFits, auditTask9EdgeResidual, auditTask9ReceiverSupports, deriveTask9ConnectorContracts, deriveTask9TangentWindows, extractTask9Candidate, normalizeTask9Extra, normalizeTask9Tail, prepareTask9StructuralAssets, resolveTask9ProcessedBodyKey, runTask9PreparationTransaction, synchronizeTask9SourceIndex, task9ReceiverSockets, task9StructuralSelections } from './prepare-tail-extra-assets.js'
 import { TASK9_BODY_RIG_IDS, TASK9_EXTRA_IDS, TASK9_TAIL_IDS } from './task9-structural-identities.js'
 
 const temporaryRoots: string[] = []
@@ -15,6 +15,31 @@ afterEach(async () => {
 })
 
 describe('prepare tail and extra assets', () => {
+  it('rolls back every transactional output when preparation fails before commit', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-transaction-'))
+    temporaryRoots.push(root)
+    const existing = join(root, 'formal-existing.json')
+    const created = join(root, 'formal-created.json')
+    await writeFile(existing, 'approved')
+    await expect(runTask9PreparationTransaction({
+      repositoryRoot: root,
+      async prepare(outputs) {
+        await outputs.writeFile(existing, 'partial overwrite')
+        await outputs.writeFile(created, 'partial creation')
+        throw new Error('injected preparation failure')
+      },
+    })).rejects.toThrow('injected preparation failure')
+    expect(await readFile(existing, 'utf8')).toBe('approved')
+    await expect(readFile(created)).rejects.toMatchObject({ code: 'ENOENT' })
+  })
+
+  it('requires the repository root explicitly instead of inheriting cwd', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-wrong-root-'))
+    temporaryRoots.push(root)
+    await expect(prepareTask9StructuralAssets({ repositoryRoot: root }))
+      .rejects.toThrow('TASK9_PREPARE_REPOSITORY_ROOT_INVALID')
+  })
+
   it('freezes 18 exact-rig structural selections and three receiver sockets per body identity', () => {
     expect(task9StructuralSelections()).toHaveLength(18)
     expect(task9ReceiverSockets('body_blob_round')).toMatchObject({

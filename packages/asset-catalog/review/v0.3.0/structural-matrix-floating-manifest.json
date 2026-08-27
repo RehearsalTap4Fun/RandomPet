@@ -4,7 +4,7 @@
   "mode": "full",
   "rigId": "floating",
   "entryCount": 9,
-  "catalogInputSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+  "catalogInputSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
   "originalPath": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating.png",
   "originalSha256": "dfa84ab8a4d2fd6252c7b172148b095729ba074af89c95b4839954cd2fccb414",
   "review256Path": "packages/asset-catalog/review/v0.3.0/structural-matrix-floating-256.png",
@@ -149,56 +149,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/tail_fish_fan-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/tail_fish_fan-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
@@ -556,56 +569,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/tail_soft_curl-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/tail_soft_curl-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
@@ -963,56 +989,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/tail_mushroom_cluster-tailRoot-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/tail_mushroom_cluster-tailRoot-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
@@ -1387,56 +1426,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_moth_wings-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_moth_wings-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
@@ -1839,56 +1891,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_soft_tentacles-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_soft_tentacles-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
@@ -2291,56 +2356,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_side_fins-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_side_fins-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
@@ -2761,56 +2839,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_soft_tentacles-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_soft_tentacles-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
@@ -3271,56 +3362,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_side_fins-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_side_fins-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",
@@ -3781,56 +3885,69 @@
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_moth_wings-extraRight-foreground.png",
         "packages/asset-catalog/assets/v0.3.0/connectors/floating/extra_moth_wings-extraRight-background.png"
       ],
-      "diagnostics": [
-        {
-          "severity": "error",
-          "code": "CONNECTOR_COMPOSITE_FAILED",
-          "path": [
-            "connectors",
-            "neck"
-          ],
-          "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "eyes"
-          ],
-          "message": "eyes alpha ratio 0.000 is below 0.85."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OUT_OF_ZONE",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.80."
-        },
-        {
-          "severity": "error",
-          "code": "COMPOSITION_FACE_OCCLUDED",
-          "path": [
-            "visualSlots",
-            "mouthShape"
-          ],
-          "message": "mouthShape alpha ratio 0.000 is below 0.85."
-        }
-      ],
+      "diagnostics": [],
+      "diagnosticScope": {
+        "id": "task9-tail-extra",
+        "activeVisualSlots": [
+          "tail",
+          "extraAppendage"
+        ],
+        "activeConnectorIds": [
+          "tailRoot",
+          "extraLeft",
+          "extraRight"
+        ],
+        "suppressedDiagnostics": [
+          {
+            "severity": "error",
+            "code": "CONNECTOR_COMPOSITE_FAILED",
+            "path": [
+              "connectors",
+              "neck"
+            ],
+            "message": "Bridge floating-neck-bridge is below 0.9 contour coverage or above a 2px gap."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "eyes"
+            ],
+            "message": "eyes alpha ratio 0.000 is below 0.85."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OUT_OF_ZONE",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.80."
+          },
+          {
+            "severity": "error",
+            "code": "COMPOSITION_FACE_OCCLUDED",
+            "path": [
+              "visualSlots",
+              "mouthShape"
+            ],
+            "message": "mouthShape alpha ratio 0.000 is below 0.85."
+          }
+        ]
+      },
       "gateErrors": [],
       "inputBinding": {
-        "catalogSha256": "4c3274a6b6126e4498fd3197aa7f6ee4829cf0bddcc99436635195e3c0329466",
+        "catalogSha256": "9f698d4374c3f436696772b9445a8c4ab82cc0685b319e22a35b42ab80189c8d",
         "resolvedAssetHashes": [
           {
             "path": "packages/asset-catalog/assets/v0.3.0/structural/floating/nodes/body_floating_drop/body.webp",

@@ -3,12 +3,16 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative } from 'node:path'
 import sharp from 'sharp'
 import { productionPaths } from './production-paths.js'
-import { resolveOutputPath } from './safe-output.js'
+import { resolveExistingContainedPath, resolveOutputPath } from './safe-output.js'
 
 const PNG_OPTIONS = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
 
 export function resolveStructuralUnionInputPath(repositoryRoot: string, indexPath: string): string {
   return resolveOutputPath(repositoryRoot, indexPath)
+}
+
+export async function resolveExistingStructuralUnionInputPath(repositoryRoot: string, indexPath: string): Promise<string> {
+  return resolveExistingContainedPath(repositoryRoot, indexPath)
 }
 
 export interface ColorMaskMetrics {
@@ -329,27 +333,30 @@ export async function buildColorSchemeRuntime(input: ColorSchemeRuntimeInput): P
 export async function buildV03StructuralUnionColorMasks(root = process.cwd()): Promise<ColorSchemeRuntimeAudit[]> {
   const sourceRoot = join(root, 'asset-source', 'v0.3.0')
   const runtimeRoot = join(root, 'packages', 'asset-catalog', 'assets', 'v0.3.0')
-  const unionIndex = JSON.parse(await readFile(
-    join(sourceRoot, 'retained-v0.2', 'structural-union-alpha-index.json'), 'utf8',
-  )) as { rigs: Array<{ rigId: string, path: string, pngSha256: string }> }
+  const unionIndexPath = await resolveExistingContainedPath(root, 'asset-source/v0.3.0/retained-v0.2/structural-union-alpha-index.json')
+  const unionIndex = JSON.parse(await readFile(unionIndexPath, 'utf8')) as { rigs: Array<{ rigId: string, path: string, pngSha256: string }> }
   if (unionIndex.rigs.length !== 3) throw new Error('v0.3 color masks require three structural-union alpha inputs.')
-  const catalogPath = join(root, 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json')
+  const catalogPath = await resolveExistingContainedPath(root, 'packages/asset-catalog/catalog/v0.3.0/catalog.json')
   const catalog = JSON.parse(await readFile(catalogPath, 'utf8')) as any
-  const sourceIndexPath = join(root, 'packages', 'asset-catalog', 'source-index-v0.3.0.json')
+  const sourceIndexPath = await resolveExistingContainedPath(root, 'packages/asset-catalog/source-index-v0.3.0.json')
   const sourceIndex = JSON.parse(await readFile(sourceIndexPath, 'utf8')) as any
-  const processedPath = join(sourceRoot, 'production', 'processed-index.json')
+  const processedPath = await resolveExistingContainedPath(root, 'asset-source/v0.3.0/production/processed-index.json')
   const processed = JSON.parse(await readFile(processedPath, 'utf8')) as any
+  const rigInputs = await Promise.all(unionIndex.rigs.map(async rig => ({
+    rigId: rig.rigId,
+    assetPath: await resolveExistingStructuralUnionInputPath(root, rig.path),
+  })))
   const schemes = ['color_deep_sea_coral', 'color_fungal_amber', 'color_shadow_violet']
   const audits: ColorSchemeRuntimeAudit[] = []
   for (const sourceId of schemes) {
     const audit = await buildColorSchemeRuntime({
       sourceId,
-      sourcePath: join(sourceRoot, 'retained-v0.2', 'masters', `${sourceId}.png`),
-      runtimePngPath: join(runtimeRoot, 'parts', `${sourceId}.png`),
-      runtimeWebpPath: join(runtimeRoot, 'parts', `${sourceId}.webp`),
+      sourcePath: await resolveExistingContainedPath(root, 'asset-source', 'v0.3.0', 'retained-v0.2', 'masters', `${sourceId}.png`),
+      runtimePngPath: await resolveExistingContainedPath(root, 'packages', 'asset-catalog', 'assets', 'v0.3.0', 'parts', `${sourceId}.png`),
+      runtimeWebpPath: await resolveExistingContainedPath(root, 'packages', 'asset-catalog', 'assets', 'v0.3.0', 'parts', `${sourceId}.webp`),
       maskRoot: join(runtimeRoot, 'masks'),
       preserveRuntimeBytes: true,
-      rigs: unionIndex.rigs.map(rig => ({ rigId: rig.rigId, assetPath: resolveStructuralUnionInputPath(root, rig.path) })),
+      rigs: rigInputs,
     })
     audit.maskBasis = 'v0.3-structural-union-alpha-v1'
     const part = catalog.parts.find((candidate: any) => candidate.id === sourceId)

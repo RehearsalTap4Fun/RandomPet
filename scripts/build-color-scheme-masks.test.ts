@@ -1,11 +1,11 @@
 import { createHash } from 'node:crypto'
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { describe, expect, it } from 'vitest'
 import sharp from 'sharp'
 import { afterEach } from 'vitest'
-import { buildColorSchemeRuntime, buildProductionColorSchemeMasks, deriveRigColorMasks, resolveStructuralUnionInputPath } from './build-color-scheme-masks.js'
+import { buildColorSchemeRuntime, buildProductionColorSchemeMasks, deriveRigColorMasks, resolveExistingStructuralUnionInputPath, resolveStructuralUnionInputPath } from './build-color-scheme-masks.js'
 
 const temporaryDirectories: string[] = []
 
@@ -60,6 +60,21 @@ describe('rig-aware color-scheme mask derivation', () => {
   it('rejects a structural-union index path that escapes the repository trust root', () => {
     expect(() => resolveStructuralUnionInputPath('C:/repo', '../../outside.png')).toThrow('escapes output root')
     expect(resolveStructuralUnionInputPath('C:/repo', 'asset-source/v0.3.0/union.png')).toBe('C:\\repo\\asset-source\\v0.3.0\\union.png')
+  })
+
+  it('rejects a structural-union input reached through an escaping junction before reading bytes', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-union-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-union-outside-'))
+    temporaryDirectories.push(root, outside)
+    await writeFile(join(outside, 'union.png'), 'not a png')
+    try {
+      await symlink(outside, join(root, 'linked'), process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('directory links unavailable')
+      throw error
+    }
+    await expect(resolveExistingStructuralUnionInputPath(root, 'linked/union.png'))
+      .rejects.toThrow(/escapes output root/i)
   })
 
   it('partitions the approved three-zone layout inside only the opaque rig body core', async () => {

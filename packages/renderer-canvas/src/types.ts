@@ -30,6 +30,11 @@ export interface RenderOptions {
   height: 1024 | 2048
   includeGroundShadow: boolean
   surfaceFactory?: RenderSurfaceFactory
+  diagnosticScope?: {
+    id: string
+    activeVisualSlots: VisualSlotId[]
+    activeConnectorIds: string[]
+  }
 }
 
 export interface RenderResult {
@@ -37,6 +42,12 @@ export interface RenderResult {
   diagnostics: Diagnostic[]
   compositionMetrics: CompositionMetrics | null
   connectorMetrics: ConnectorMetric[] | null
+  diagnosticScope?: {
+    id: string
+    activeVisualSlots: VisualSlotId[]
+    activeConnectorIds: string[]
+    suppressedDiagnostics: Diagnostic[]
+  }
 }
 
 export interface Placement {

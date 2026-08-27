@@ -76,6 +76,22 @@
   "similarityRenames": {
     "count": 11,
     "classification": "git-similarity-rename",
+    "recovery": {
+      "command": "git restore --source=31a3f1d903412f9ad6dbf84982075aac54bc6297 -- <source-path>",
+      "sourcePaths": [
+        "packages/asset-catalog/assets/v0.3.0/connectors/biped/head_angler_bulb-neck-background.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/biped/head_round_dome-neck-background.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/biped/head_round_dome-neck-foreground.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/biped/head_shadow_hood-neck-background.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/biped/head_shadow_hood-neck-foreground.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/blob/head_mushroom_cap-neck-background.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/blob/head_shadow_hood-neck-background.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/floating/head_angler_bulb-neck-background.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/floating/head_mushroom_cap-neck-background.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/floating/head_round_dome-neck-background.png",
+        "packages/asset-catalog/assets/v0.3.0/connectors/floating/head_shadow_hood-neck-background.png"
+      ]
+    },
     "entries": [
       {
         "status": "R055",

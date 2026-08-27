@@ -2,7 +2,7 @@ import { lstat, mkdtemp, mkdir, readFile, realpath, rm, symlink, writeFile } fro
 import { isAbsolute, join, relative } from 'node:path'
 import { tmpdir } from 'node:os'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { pruneStaleFiles, resolveOutputPath } from './safe-output.js'
+import { pruneStaleFiles, resolveExistingContainedPath, resolveOutputPath } from './safe-output.js'
 
 vi.mock('node:fs/promises', async importOriginal => {
   const actual = await importOriginal<typeof import('node:fs/promises')>()
@@ -32,6 +32,21 @@ describe('safe production outputs', () => {
   it('rejects any output path that escapes its resolved known root', () => {
     expect(() => resolveOutputPath('C:/repo/runtime', '..', 'outside.png')).toThrow(/escapes output root/)
     expect(resolveOutputPath('C:/repo/runtime', 'parts', 'inside.png').replaceAll('\\', '/')).toBe('C:/repo/runtime/parts/inside.png')
+  })
+
+  it('rejects an existing read target reached through a junction outside the trust root', async ({ skip }) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-read-root-'))
+    const outside = await mkdtemp(join(tmpdir(), 'qmonster-read-outside-'))
+    temporaryDirectories.push(root, outside)
+    await writeFile(join(outside, 'input.json'), '{}')
+    try {
+      await symlink(outside, join(root, 'linked'), process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (isLinkPrivilegeError(error)) skip(`directory links unavailable: ${(error as NodeJS.ErrnoException).code}`)
+      throw error
+    }
+    await expect(resolveExistingContainedPath(root, 'linked', 'input.json'))
+      .rejects.toThrow(/escapes output root/i)
   })
 
   it('prunes only stale allowed files and is idempotent', async () => {

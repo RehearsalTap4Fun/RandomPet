@@ -1,18 +1,45 @@
 import { createHash } from 'node:crypto'
-import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, join } from 'node:path'
 import { expect, it } from 'vitest'
 import {
   collectCanonicalInterfaceGuideSeeds,
   collectEvidenceDependencyClosure,
+  task9PipelineScopeSnapshot,
   task9StructuralMatrixEvidence,
   validateTask9StaleRemovalAudit,
+  TASK9_STALE_BASELINE_COMMIT,
 } from './build-task9-evidence-manifest.js'
 
 it('matches the audited baseline deletion and similarity-rename sets to Git exactly', async () => {
   const audit = JSON.parse(await readFile('packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json', 'utf8'))
+  expect(audit.baselineCommit).toBe(TASK9_STALE_BASELINE_COMMIT)
+  expect(audit.similarityRenames.recovery.sourcePaths).toEqual(
+    audit.similarityRenames.entries.map((entry: { source: string }) => entry.source),
+  )
   await expect(validateTask9StaleRemovalAudit(process.cwd(), audit)).resolves.toEqual([])
+})
+
+it('rejects a HEAD-derived empty stale audit and malformed or untrusted revision input', async () => {
+  const forged = {
+    schemaVersion: 'task9-stale-runtime-removal-v2',
+    catalogVersion: '0.3.0',
+    baselineCommit: 'HEAD',
+    sourcePathRemovalCount: 0,
+    baselineDeletions: { count: 0, recovery: 'none', files: [] },
+    similarityRenames: {
+      count: 0, classification: 'git-similarity-rename', entries: [],
+      recovery: { command: 'none', sourcePaths: [] },
+    },
+  }
+  await expect(validateTask9StaleRemovalAudit(process.cwd(), forged)).resolves.toEqual([
+    'TASK9_STALE_REMOVAL_BASELINE_INVALID',
+  ])
+  forged.baselineCommit = '0'.repeat(40)
+  await expect(validateTask9StaleRemovalAudit(process.cwd(), forged)).resolves.toEqual([
+    'TASK9_STALE_REMOVAL_BASELINE_INVALID',
+  ])
 })
 
 it('derives every canonical biped guide from the interface manifest and fails if one is missing', async () => {
@@ -88,16 +115,63 @@ it('rejects an escaping document seed before attempting to parse outside bytes',
   })).rejects.toThrow('escapes repository root')
 })
 
+it('rejects an evidence JSON document reached through an escaping junction before parsing', async ({ skip }) => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-json-root-'))
+  const outside = await mkdtemp(join(tmpdir(), 'qmonster-task9-json-outside-'))
+  await writeFile(join(outside, 'input.json'), 'this is intentionally not JSON')
+  try {
+    try {
+      await symlink(outside, join(root, 'linked'), process.platform === 'win32' ? 'junction' : 'dir')
+    } catch (error) {
+      if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) skip('directory links unavailable')
+      throw error
+    }
+    await expect(collectEvidenceDependencyClosure({
+      repositoryRoot: root,
+      seedFiles: [{ path: 'linked/input.json', group: 'malicious' }],
+      recursiveDirectories: [],
+    })).rejects.toThrow(/escapes? repository root/i)
+  } finally {
+    await Promise.all([rm(root, { recursive: true, force: true }), rm(outside, { recursive: true, force: true })])
+  }
+})
+
 it('reads structural metrics from the approved structuralMatrixReview field', () => {
   expect(task9StructuralMatrixEvidence({ structuralMatrixReview: {
     entryCount: 39,
     entryCountByRig: { blob: 15, biped: 15, floating: 9 },
     machineGates: { failureCount: 0 },
     observedExtrema: { receiverCoverageMin: 0.92 },
+    diagnosticScope: {
+      id: 'task9-tail-extra',
+      activeVisualSlots: ['tail', 'extraAppendage'],
+      activeConnectorIds: ['tailRoot', 'extraLeft', 'extraRight'],
+      defaultRendererErrorCount: 188,
+      activeErrorCount: 0,
+      suppressedInactiveErrorCount: 188,
+      suppressedInactiveErrorCountByRig: { blob: 75, biped: 68, floating: 45 },
+    },
   } })).toEqual({
     entryCount: 39,
     failureCount: 0,
     entryCountByRig: { blob: 15, biped: 15, floating: 9 },
     observedExtrema: { receiverCoverageMin: 0.92 },
+    diagnosticScope: {
+      id: 'task9-tail-extra',
+      activeVisualSlots: ['tail', 'extraAppendage'],
+      activeConnectorIds: ['tailRoot', 'extraLeft', 'extraRight'],
+      defaultRendererErrorCount: 188,
+      activeErrorCount: 0,
+      suppressedInactiveErrorCount: 188,
+      suppressedInactiveErrorCountByRig: { blob: 75, biped: 68, floating: 45 },
+    },
   })
+})
+
+it('binds pipeline fixed-point evidence to the current exact production scope bytes', async () => {
+  const audit = JSON.parse(await readFile('packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json', 'utf8'))
+  const snapshot = await task9PipelineScopeSnapshot(process.cwd())
+  expect(snapshot.fileCount).toBe(audit.fileCount)
+  expect(snapshot.sha256).toBe(audit.round1Sha256)
+  expect(snapshot.sha256).toBe(audit.round2Sha256)
 })

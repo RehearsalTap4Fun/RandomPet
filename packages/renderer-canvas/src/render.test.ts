@@ -1162,6 +1162,101 @@ describe('v0.3 interface rendering', () => {
     expect(faceIndices.every(faceIndex => headIndex < faceIndex)).toBe(true)
   })
 
+  it('reports inactive face diagnostics separately only for an explicit Task 9 scope', async () => {
+    const { catalog, spec } = fixture()
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+        diagnosticScope: {
+          id: 'task9-tail-extra',
+          activeVisualSlots: ['tail', 'extraAppendage'],
+          activeConnectorIds: ['tailRoot', 'extraLeft', 'extraRight'],
+        },
+      },
+    )
+
+    expect(result.diagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'COMPOSITION_FACE_OUT_OF_ZONE',
+    }))
+    expect(result.diagnosticScope).toEqual(expect.objectContaining({
+      id: 'task9-tail-extra',
+      activeVisualSlots: ['tail', 'extraAppendage'],
+      activeConnectorIds: ['tailRoot', 'extraLeft', 'extraRight'],
+      suppressedDiagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'COMPOSITION_FACE_OUT_OF_ZONE', path: ['visualSlots', 'eyes'] }),
+        expect.objectContaining({ code: 'COMPOSITION_FACE_OCCLUDED', path: ['visualSlots', 'mouthShape'] }),
+      ]),
+    }))
+  })
+
+  it('keeps active face diagnostics fail-closed and preserves default diagnostics', async () => {
+    const { catalog, spec } = fixture()
+    const render = (diagnosticScope?: {
+      id: string
+      activeVisualSlots: Array<'eyes' | 'mouthShape'>
+      activeConnectorIds: string[]
+    }) => renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+        ...(diagnosticScope === undefined ? {} : { diagnosticScope }),
+      },
+    )
+
+    const baseline = await render()
+    const scoped = await render({
+      id: 'active-face-test',
+      activeVisualSlots: ['eyes', 'mouthShape'],
+      activeConnectorIds: ['neck'],
+    })
+    expect(baseline.diagnostics.filter(item => item.code.startsWith('COMPOSITION_FACE_'))).toHaveLength(4)
+    expect(scoped.diagnostics.filter(item => item.code.startsWith('COMPOSITION_FACE_'))).toEqual(
+      baseline.diagnostics.filter(item => item.code.startsWith('COMPOSITION_FACE_')),
+    )
+    expect(scoped.diagnosticScope?.suppressedDiagnostics).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'COMPOSITION_FACE_OUT_OF_ZONE' }),
+    ]))
+  })
+
+  it('rejects an empty diagnostic scope before resolving assets', async () => {
+    const { catalog, spec } = fixture()
+    let resolverCalls = 0
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, {
+        async resolve(path) { resolverCalls += 1; return image(path) },
+      }, {
+        ...options1024,
+        diagnosticScope: { id: 'invalid-empty', activeVisualSlots: [], activeConnectorIds: [] },
+      },
+    )
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'RENDER_DIAGNOSTIC_SCOPE_INVALID',
+    }))
+    expect(resolverCalls).toBe(0)
+  })
+
+  it('keeps an active connector metric failure blocking while separating inactive connectors', async () => {
+    const { catalog, spec } = fixture()
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'disconnected'),
+        diagnosticScope: {
+          id: 'active-neck-test', activeVisualSlots: ['tail'], activeConnectorIds: ['neck'],
+        },
+      },
+    )
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_COMPOSITE_FAILED', path: ['connectors', 'neck'],
+    }))
+    expect(result.diagnosticScope?.suppressedDiagnostics).toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'CONNECTOR_COMPOSITE_FAILED', path: ['connectors', 'tailRoot'] }),
+    ]))
+  })
+
   it('short-circuits the resolver when a selected connector exceeds declared warp', async () => {
     const { catalog, spec } = fixture()
     const arms = catalog.parts.find(item => item.slotId === 'arms')!

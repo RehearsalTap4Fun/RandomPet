@@ -10,6 +10,7 @@ packages/asset-catalog/catalog/v0.3.0/catalog.json -text
 scripts/render-limb-contact-sheets.ts -text
 apps/creator-web/src/render-test.ts -text
 packages/renderer-canvas/src/render.ts -text
+packages/renderer-canvas/src/types.ts -text
 packages/renderer-canvas/src/connector-metrics.ts -text
 asset-source/v0.3.0/generation/task9-review/receiver-guides/task9-receiver-guide-index.json -text
 asset-source/v0.3.0/interface-manifest.json -text

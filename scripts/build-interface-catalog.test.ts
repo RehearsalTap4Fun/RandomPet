@@ -16,7 +16,12 @@ describe('buildInterfaceCatalog', () => {
   it('accepts the canonical full v0.3 build command without a legacy slice scope', () => {
     expect(parseBuildInterfaceCatalogArgs(['--version', '0.3.0'])).toEqual({ version: '0.3.0' })
     expect(() => parseBuildInterfaceCatalogArgs(['--version', '0.2.0'])).toThrow('BUILD_INTERFACE_CATALOG_ARGS_INVALID')
-    expect(() => parseBuildInterfaceCatalogArgs(['--version', '0.3.0', '--scope', 'unknown'])).toThrow('BUILD_INTERFACE_CATALOG_ARGS_INVALID')
+    expect(() => parseBuildInterfaceCatalogArgs(['--version', '0.3.0', '--scope', 'unknown'])).toThrow('BUILD_INTERFACE_CATALOG_LEGACY_SCOPE_UNSUPPORTED')
+    for (const legacy of [
+      ['--slice', 'biped'],
+      ['--version', '0.3.0', '--scope', 'body-head'],
+      ['--version', '0.3.0', '--scope', 'limbs'],
+    ]) expect(() => parseBuildInterfaceCatalogArgs(legacy)).toThrow('BUILD_INTERFACE_CATALOG_LEGACY_SCOPE_UNSUPPORTED')
   })
 
   it('preserves all v0.3 structural-union palette masks when catalog is rebuilt after color', async () => {
