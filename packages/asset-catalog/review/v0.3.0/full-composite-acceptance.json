@@ -1,0 +1,14 @@
+{
+  "catalogVersion": "0.3.0",
+  "rendererVersion": "0.3.0",
+  "decision": "approved",
+  "reviewedAt": "2026-08-28T17:21:56.405+08:00",
+  "reviewer": "user",
+  "entryCount": 21,
+  "contactSheetSha256": "d9f0bea4f32b5dfd7a41e95c83ef746545b1f1fd6e5afdfc8aaa6aa6eb175af9",
+  "manifestSha256": "d4cdff73b39f27b3cbdd29b6f358a885c453201346d9a55a202fba5d667e41dd",
+  "notes": [
+    "User approved all 21 entries in the fixed v0.3 composite review sheet.",
+    "User explicitly accepted high-density entries 001, 002, 003, 007, 009, 016, 019, 020, and 021."
+  ]
+}
