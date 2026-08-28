@@ -73,7 +73,7 @@ export function LegacySpecViewer({
       <main className="legacy-spec-viewer__main">
         <section className="legacy-spec-viewer__preview" aria-labelledby="legacy-preview-title">
           <p className="eyebrow">READ ONLY · EXACT CATALOG</p>
-          <h2 id="legacy-preview-title">目录 v{catalog.version}</h2>
+          <h2 id="legacy-preview-title">目录 v{catalog.version} · 渲染器 v{spec.rendererVersion}</h2>
           <p>此标本使用原目录精确渲染；返回后不会改动新版生成器。</p>
           <div className="preview-stage" data-observation-background="studio">
             <PreviewCanvas

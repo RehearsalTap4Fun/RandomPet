@@ -69,4 +69,24 @@ describe('DiagnosticsPanel', () => {
     expect(screen.getAllByText(/面部/).length).toBeGreaterThan(0)
     expect(screen.getByText(/画面边界/)).toBeTruthy()
   })
+
+  it('links connector and disconnected-structure errors to the responsible structural controls', () => {
+    render(<DiagnosticsPanel diagnostics={[
+      {
+        severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+        path: ['connectors', 'neck'], message: 'obsolete neck message',
+      },
+      {
+        severity: 'error', code: 'STRUCTURE_DISCONNECTED',
+        path: ['visualSlots', 'bodyFrame'], message: 'obsolete structure message',
+      },
+    ]} />)
+
+    expect(screen.getByRole('link', { name: '定位到头部轮廓' }).getAttribute('href'))
+      .toBe('#slot-control-headShape')
+    expect(screen.getByRole('link', { name: '定位到体型骨架' }).getAttribute('href'))
+      .toBe('#slot-control-bodyFrame')
+    expect(screen.getByText(/颈部接口/)).toBeTruthy()
+    expect(screen.getByText(/主体结构未连成一体/)).toBeTruthy()
+  })
 })

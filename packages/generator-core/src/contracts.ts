@@ -132,8 +132,8 @@ export interface CompositionPolicy {
   maxStrongFeatures: 2
   optionalNoneRate: { min: 0.35; max: 0.5 }
   frameBounds: Rect
-  faceInsideRatio: 0.8
-  faceVisibleRatio: 0.85
+  faceInsideRatio: 0.8 | 0.84
+  faceVisibleRatio: 0.84 | 0.85
 }
 
 export interface Diagnostic {

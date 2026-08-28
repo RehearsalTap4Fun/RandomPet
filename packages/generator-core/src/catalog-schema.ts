@@ -124,8 +124,8 @@ const CompositionPolicySchema = z.object({
   maxStrongFeatures: z.literal(2),
   optionalNoneRate: z.object({ min: z.literal(0.35), max: z.literal(0.5) }).strict(),
   frameBounds: RectSchema,
-  faceInsideRatio: z.literal(0.8),
-  faceVisibleRatio: z.literal(0.85),
+  faceInsideRatio: z.union([z.literal(0.8), z.literal(0.84)]),
+  faceVisibleRatio: z.union([z.literal(0.84), z.literal(0.85)]),
 }).strict()
 const TransitionBridgeDefinitionSchema = z.object({
   id: z.string().min(1),

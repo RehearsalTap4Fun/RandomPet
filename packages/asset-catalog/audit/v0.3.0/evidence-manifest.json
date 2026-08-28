@@ -7,7 +7,7 @@
   "task9Evidence": {
     "schemaVersion": "task9-production-evidence-v1",
     "sourceEntryCount": 102,
-    "dependencyCount": 1806,
+    "dependencyCount": 1808,
     "dependencies": [
       {
         "path": "apps/creator-web/src/render-test.ts",
@@ -1339,7 +1339,7 @@
       },
       {
         "path": "asset-source/v0.3.0/interface-manifest.json",
-        "sha256": "bb2f7921b01f96aab00de97a26860f7fd7d67e5c5a2545119eca2bd1a97bf23f",
+        "sha256": "980f96bc604fbbef449aee9a730e48acc637c2433011bb5cdfb6c837119864ef",
         "groups": [
           "interface-manifest"
         ]
@@ -2442,7 +2442,7 @@
       },
       {
         "path": "asset-source/v0.3.0/retained-v0.2/coordinate-metadata.json",
-        "sha256": "2d2590cd7ff70f4267eaf2bddac4d53cc787c249aecf52b954fd0655394232eb",
+        "sha256": "51426d12b3e82f8ffac814d500a2da1a49ee7bd019622883a721e5f79ccd2595",
         "groups": [
           "retained-coordinate-metadata"
         ]
@@ -17957,14 +17957,14 @@
       },
       {
         "path": "packages/asset-catalog/audit/v0.3.0/task9-composition-statistics.json",
-        "sha256": "f5590cdaa61cb5b3cbcdfbba7642205519b6bb1613d95044862e65febc988a9c",
+        "sha256": "3a0e4a2a7f60163051b4a01fc9815a1102fac7f9574d104de9cac430983b46fd",
         "groups": [
           "composition-statistics"
         ]
       },
       {
         "path": "packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json",
-        "sha256": "4636d85742201f4ffd21372d70e9e4cb6e76b63a778f458ee9390d45267ef039",
+        "sha256": "5c0f6bc3dfce9e220d59a72f3988cd1e8cc0e0f6f82c41fe87514c47b430b879",
         "groups": [
           "pipeline-fixed-point"
         ]
@@ -17978,7 +17978,7 @@
       },
       {
         "path": "packages/asset-catalog/catalog/v0.3.0/catalog.json",
-        "sha256": "41cf04dcd864b419b98339b27df16a9278279c099b5bffa3744eec5e2b504127",
+        "sha256": "320c8dc436c23febd7d57d1e5f18c7ccd87ce9fc203f6f9c1cfa9a5b99358c4e",
         "groups": [
           "catalog"
         ]
@@ -17992,7 +17992,7 @@
       },
       {
         "path": "packages/asset-catalog/catalog/v0.3.0/parts.json",
-        "sha256": "26e04a4eac80a16c8002c515744aadf2313fbf8fcac460f163354bdc7f10baff",
+        "sha256": "5b3eb9adaa7e84e54944a20cf523d309f2ca0d330465ebc4e03aefa0f50ddd3e",
         "groups": [
           "catalog"
         ]
@@ -18203,6 +18203,13 @@
           "processed-index",
           "production-provenance",
           "source-index",
+          "task6-9-review"
+        ]
+      },
+      {
+        "path": "packages/asset-catalog/review/v0.3.0/head-face-socket-amendment.json",
+        "sha256": "2d9001340f4cb971b8884f1291b763d9dd1a24bcc384a9e011818ac631c168c0",
+        "groups": [
           "task6-9-review"
         ]
       },
@@ -19138,7 +19145,7 @@
       },
       {
         "path": "packages/asset-catalog/src/task9-evidence-dependencies.ts",
-        "sha256": "b3f41cd8b84b848c23b221287261f96b370a53da8e510d466f93e36d0001183d",
+        "sha256": "3a07dcd914c3364f62b5634cdd0c23ca92fdf1f08f93f3c6df5afb743ed7f78d",
         "groups": [
           "task9-validation"
         ]
@@ -19152,21 +19159,22 @@
       },
       {
         "path": "packages/generator-core/src/catalog-schema.ts",
-        "sha256": "eabacb0278776a9f150f8a07189bff5d1cb140ef16e6b264bd73c57f5bf85dd5",
+        "sha256": "9e213f813c7dee3f67262eccf1aa9ef8b202fdb7cb4c6778af30c61a3872bf3a",
         "groups": [
           "task9-validation"
         ]
       },
       {
         "path": "packages/renderer-canvas/src/connector-metrics.ts",
-        "sha256": "45ea8dd58a5977588f563ff48beb8596839beb5eca8970995e5cd428a5f15c5b",
+        "sha256": "7b908d0a4855807543a3ec50b0c4214aaee98008dce22cf6bb8f2c513ac83901",
         "groups": [
-          "task6-9-review"
+          "task6-9-review",
+          "task9-live-renderer"
         ]
       },
       {
         "path": "packages/renderer-canvas/src/render.ts",
-        "sha256": "16d1d1122a7560be4e6cfcf4c29c647518ecb4c0429827b3ba4f6350767966c1",
+        "sha256": "d671a46c145f7291a6d8cf50b321ef1029cc71ff96867294d9ab1df0bd318004",
         "groups": [
           "task6-9-review",
           "task9-live-renderer"
@@ -19177,6 +19185,13 @@
         "sha256": "b9c99fcd1706c61237a3ae9afd868189060667a4c27a761102d3630a1055e288",
         "groups": [
           "task9-live-renderer"
+        ]
+      },
+      {
+        "path": "scripts/amend-head-face-sockets.ts",
+        "sha256": "503e7d17dff449fccaba2f7a5c249ceee025890b49445fc7fc861d7bb08b4d25",
+        "groups": [
+          "task9-validation"
         ]
       },
       {
@@ -19195,7 +19210,7 @@
       },
       {
         "path": "scripts/render-limb-contact-sheets.ts",
-        "sha256": "bc61af794bbac8b8fc04b26af2e4f786867da554ac5ffd36dc2fd3220c9052e1",
+        "sha256": "17b10e9af43f3869075c473285e5f274f1124b1688b3640a2301a4fbc5206d2e",
         "groups": [
           "task6-9-review",
           "task9-live-renderer"
@@ -19210,7 +19225,7 @@
       },
       {
         "path": "scripts/task8-stable-projection.ts",
-        "sha256": "eda73ae08eaa41b7d8a7271c86b069a79281cd18edd42b1d825d019737689e36",
+        "sha256": "160de2d29d1adaf512dae29a1fecb2f78f19387a36ac8478f42e02b5fc60a1ea",
         "groups": [
           "task9-validation"
         ]
@@ -19242,8 +19257,8 @@
       "optionalNoneRates": {
         "headAppendage": 0.3599,
         "tail": 0.3928,
-        "extraAppendage": 0.4776,
-        "effect": 0.3938
+        "extraAppendage": 0.4722,
+        "effect": 0.3766
       },
       "maximumStrongFeatures": 2,
       "maximumSurpriseSlots": 3,
@@ -19297,8 +19312,8 @@
         "build-color-scheme-masks",
         "build-interface-catalog"
       ],
-      "round1Sha256": "aeff536d20f3b4bb09e72908b8a8092835df7146b320319fcb01d208467ba9b6",
-      "round2Sha256": "aeff536d20f3b4bb09e72908b8a8092835df7146b320319fcb01d208467ba9b6"
+      "round1Sha256": "2f5d375840993308296dc240c654814f3878975045fbdc53d957aa2ad1dcc518",
+      "round2Sha256": "2f5d375840993308296dc240c654814f3878975045fbdc53d957aa2ad1dcc518"
     }
   }
 }

@@ -38,6 +38,56 @@ function makeStrongCompositionEyesCatalog() {
 }
 
 describe('candidate pool boundaries', () => {
+  it('forward-filters only bodies that empty a required dominant structural theme pool', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    const compatibleBody = catalog.parts.find(part => part.id === 'body_blob')!
+    const compatibleHead = catalog.parts.find(part => part.id === 'head_round')!
+    const incompatibleBody = structuredClone(compatibleBody)
+    incompatibleBody.id = 'body_without_fungal_head'
+    if (incompatibleBody.composition?.mode !== 'interface') throw new Error('Expected interface body')
+    incompatibleBody.composition.variantsByRig.blob!.connectors
+      .find(connector => connector.id === 'neck')!.depth = 20
+    const incompatibleAlternativeHead = structuredClone(compatibleHead)
+    incompatibleAlternativeHead.id = 'head_fungal_warp_risk'
+    if (incompatibleAlternativeHead.composition?.mode !== 'interface') throw new Error('Expected interface head')
+    incompatibleAlternativeHead.composition.variantsByRig.blob!.connectors
+      .find(connector => connector.id === 'neck')!.depth = 300
+    catalog.parts.push(incompatibleBody, incompatibleAlternativeHead)
+
+    const required = buildCandidates({
+      catalog,
+      slotId: 'bodyFrame', themeId: 'fungal', rigId: 'blob', selections: {},
+      rng: scriptedRng(0, 0),
+      composition: {
+        motifMode: 'dominant', remainingStrong: 2,
+        requiredDominantStructuralSlots: ['headShape'],
+      },
+    })
+    const withoutForwardRequirement = buildCandidates({
+      catalog,
+      slotId: 'bodyFrame', themeId: 'fungal', rigId: 'blob', selections: {},
+      rng: scriptedRng(0, 0),
+      composition: { motifMode: 'dominant', remainingStrong: 2 },
+    })
+    const legacyCatalog = structuredClone(catalog)
+    legacyCatalog.version = '0.2.0'
+    const legacy = buildCandidates({
+      catalog: legacyCatalog,
+      slotId: 'bodyFrame', themeId: 'fungal', rigId: 'blob', selections: {},
+      rng: scriptedRng(0, 0),
+      composition: {
+        motifMode: 'dominant', remainingStrong: 2,
+        requiredDominantStructuralSlots: ['headShape'],
+      },
+    })
+
+    expect(required.trace.candidateIds).toEqual(['body_blob'])
+    expect(withoutForwardRequirement.trace.candidateIds).toEqual([
+      'body_blob', 'body_without_fungal_head',
+    ])
+    expect(legacy.trace.candidateIds).toEqual(['body_blob', 'body_without_fungal_head'])
+  })
+
   it('records connector exclusions before theme and rarity selection in interface catalogs', () => {
     const catalog = makeInterfaceCatalogFixture()
     const head = catalog.parts.find(part => part.slotId === 'headShape')!

@@ -19,6 +19,7 @@ export interface CompositionPlan {
 export interface CompositionAllowance {
   motifMode: MotifMode
   remainingStrong: number
+  requiredDominantStructuralSlots?: VisualSlotId[]
 }
 
 function neutralMotifModes(): Record<VisualSlotId, MotifMode> {
@@ -84,6 +85,10 @@ export function compositionAllowanceForSlot(
   return {
     motifMode: plan.motifModes[slotId],
     remainingStrong: Math.max(0, plan.maxStrongFeatures - strongFeaturesUsed),
+    ...(slotId === 'bodyFrame' ? {
+      requiredDominantStructuralSlots: (['headShape', 'arms', 'legs', 'tail', 'extraAppendage'] as VisualSlotId[])
+        .filter(candidate => plan.motifModes[candidate] === 'dominant'),
+    } : {}),
   }
 }
 

@@ -4938,7 +4938,7 @@
               },
               "mouth": {
                 "x": 1024,
-                "y": 1273
+                "y": 1280
               },
               "headAppendage": {
                 "x": 1024,
@@ -5033,11 +5033,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1072
+                "y": 1100
               },
               "mouth": {
                 "x": 1024,
-                "y": 1128
+                "y": 1220
               },
               "headAppendage": {
                 "x": 1024,
@@ -5132,11 +5132,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1109
+                "y": 1130
               },
               "mouth": {
                 "x": 1024,
-                "y": 1165
+                "y": 1250
               },
               "headAppendage": {
                 "x": 1024,
@@ -8603,11 +8603,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1096
+                "y": 1130
               },
               "mouth": {
                 "x": 1024,
-                "y": 1152
+                "y": 1250
               },
               "headAppendage": {
                 "x": 1024,
@@ -8702,11 +8702,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1033
+                "y": 1100
               },
               "mouth": {
                 "x": 1024,
-                "y": 1089
+                "y": 1220
               },
               "headAppendage": {
                 "x": 1024,
@@ -8801,11 +8801,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1098
+                "y": 1130
               },
               "mouth": {
                 "x": 1024,
-                "y": 1154
+                "y": 1250
               },
               "headAppendage": {
                 "x": 1024,
@@ -8951,7 +8951,7 @@
               },
               "mouth": {
                 "x": 1024,
-                "y": 1224
+                "y": 1280
               },
               "headAppendage": {
                 "x": 1024,
@@ -9050,7 +9050,7 @@
               },
               "mouth": {
                 "x": 1024,
-                "y": 1200
+                "y": 1264
               },
               "headAppendage": {
                 "x": 1024,
@@ -9149,7 +9149,7 @@
               },
               "mouth": {
                 "x": 1024,
-                "y": 1229
+                "y": 1280
               },
               "headAppendage": {
                 "x": 1024,
@@ -9291,11 +9291,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1106
+                "y": 1130
               },
               "mouth": {
                 "x": 1024,
-                "y": 1162
+                "y": 1250
               },
               "headAppendage": {
                 "x": 1024,
@@ -9390,11 +9390,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1045
+                "y": 1100
               },
               "mouth": {
                 "x": 1024,
-                "y": 1101
+                "y": 1220
               },
               "headAppendage": {
                 "x": 1024,
@@ -9489,11 +9489,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 1078
+                "y": 1130
               },
               "mouth": {
                 "x": 1024,
-                "y": 1134
+                "y": 1250
               },
               "headAppendage": {
                 "x": 1024,
@@ -14754,12 +14754,12 @@
     },
     "frameBounds": {
       "x": 96,
-      "y": 64,
+      "y": 60,
       "width": 1856,
-      "height": 1888
+      "height": 1892
     },
-    "faceInsideRatio": 0.8,
-    "faceVisibleRatio": 0.85
+    "faceInsideRatio": 0.84,
+    "faceVisibleRatio": 0.84
   },
   "transitionBridges": [
     {

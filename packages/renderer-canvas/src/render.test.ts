@@ -15,7 +15,7 @@ import {
 } from '@qmonster/generator-core/test-fixtures'
 import { resolvePartPlacement, resolvePlacement } from './layout.js'
 import { expandRenderLayers, RENDER_LAYER_ORDER } from './layers.js'
-import { interfaceRenderCacheSize, renderMonster } from './render.js'
+import { faceMetricOcclusionTargets, faceMetricThresholds, interfaceRenderCacheSize, renderMonster } from './render.js'
 import type { ImageResolver, RenderOptions } from './types.js'
 
 interface FakeImage {
@@ -136,6 +136,7 @@ function makeRecordingSurfaceFactory(calls: string[]) {
 function makeHealthyInterfaceSurfaceFactory(
   calls: string[],
   mode: 'healthy' | 'disconnected' | 'internal-child' | 'invalid-body' = 'healthy',
+  faceMode: 'fixture-default' | 'valid' = 'fixture-default',
 ) {
   const size = RASTER_WIDTH * RASTER_WIDTH * 4
   const opaque = new Uint8ClampedArray(size)
@@ -143,6 +144,7 @@ function makeHealthyInterfaceSurfaceFactory(
   const child = new Uint8ClampedArray(size)
   const receiverContour = new Uint8ClampedArray(size)
   const plugContour = new Uint8ClampedArray(size)
+  const validFace = sparseAlpha([[256, 200]], 512)
   for (let y = 990; y <= 1058; y += 1) {
     for (let x = 960; x <= 1088; x += 1) {
       if (mode !== 'disconnected' || y <= 994 || y >= 1054) {
@@ -176,7 +178,9 @@ function makeHealthyInterfaceSurfaceFactory(
           return { data: pixels }
         }
         return {
-          data: index === 11 || index === 12
+          data: faceMode === 'valid' && (index === 8 || index === 9)
+            ? validFace
+            : index === 11 || index === 12
             ? new Uint8ClampedArray(size)
             : index === 1
             ? mode === 'invalid-body' ? new Uint8ClampedArray(4) : body
@@ -411,6 +415,27 @@ const options1024: RenderOptions = {
   height: 1024,
   includeGroundShadow: true,
 }
+
+describe('interface face metric occlusion policy', () => {
+  it('treats direct oral detail as part of the eye-occluding mouth cluster, not as mouth occlusion', () => {
+    expect(faceMetricOcclusionTargets('oralDetail', { eyes: true, mouth: true }))
+      .toEqual({ eyes: true, mouth: false })
+    expect(faceMetricOcclusionTargets('headAppendage', { eyes: true, mouth: true }))
+      .toEqual({ eyes: true, mouth: true })
+    expect(faceMetricOcclusionTargets('oralDetail', { eyes: false, mouth: false }))
+      .toEqual({ eyes: false, mouth: false })
+  })
+
+  it('routes the shared 0.84 visible threshold without changing the 0.80 eyes-inside threshold', () => {
+    const policy = {
+      faceInsideRatio: 0.84,
+      faceVisibleRatio: 0.84,
+    } as unknown as NonNullable<Catalog['compositionPolicy']>
+    expect(faceMetricThresholds(policy, 'eyes')).toEqual({ inside: 0.8, visible: 0.84 })
+    expect(faceMetricThresholds(policy, 'mouthShape')).toEqual({ inside: 0.84, visible: 0.84 })
+    expect(faceMetricThresholds(policy, 'unknown')).toBeNull()
+  })
+})
 
 function part(catalog: Catalog, id: string) {
   const found = catalog.parts.find(candidate => candidate.id === id)
@@ -1430,15 +1455,17 @@ describe('v0.3 interface rendering', () => {
 
   it('orders active bridge masks deterministically across neck, limbs, tail, and extras', async () => {
     const { catalog, spec } = fixture()
-    catalog.compositionPolicy!.faceInsideRatio = 0
-    catalog.compositionPolicy!.faceVisibleRatio = 0
     const calls: string[] = []
 
     const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
-      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls),
+      ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls, 'healthy', 'valid'),
     })
 
     expect(result.diagnostics).toEqual([])
+    expect(result.compositionMetrics).toEqual(expect.objectContaining({
+      eyesInsideRatio: 1, eyesVisibleRatio: 1,
+      mouthInsideRatio: 1, mouthVisibleRatio: 1,
+    }))
     const transitionMaskDraws = calls
       .filter(call => /^interface-6:draw:assets\/v0\.3\.0\/bridges\/blob\/.+-(?:back|front)\.png$/u.test(call))
       .map(call => call.replace('interface-6:draw:assets/v0.3.0/', ''))
@@ -1512,13 +1539,11 @@ describe('v0.3 interface rendering', () => {
 
   it('uses affine neutral-bridge geometry for metrics and composites two-material bridge passes', async () => {
     const { catalog, spec } = fixture()
-    catalog.compositionPolicy!.faceInsideRatio = 0
-    catalog.compositionPolicy!.faceVisibleRatio = 0
     const calls: string[] = []
 
     const result = await renderMonster(
       makeRecordingContext(calls, 'main:'), spec, catalog, makeResolver(), {
-        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls),
+        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls, 'healthy', 'valid'),
       },
     )
 

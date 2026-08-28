@@ -49,6 +49,10 @@ describe('CatalogImageResolverCache', () => {
       .toContain('/assets/v0.2.0/parts/eyes_glossy_pair.png')
     await expect(resolveProductionAssetUrl('0.1.0', 'parts/eyes_glossy_pair.png')).resolves.toMatch(/v0\.1\.0/)
     await expect(resolveProductionAssetUrl('0.2.0', 'parts/eyes_glossy_pair.png')).resolves.toMatch(/v0\.2\.0/)
+    await expect(resolveProductionAssetUrl(
+      '0.3.0',
+      'assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp',
+    )).resolves.toMatch(/v0\.3\.0.*body_biped_tall-body/)
     await expect(resolveProductionAssetUrl('9.9.9', 'parts/eyes_glossy_pair.png')).rejects.toThrow('not bundled')
   })
 

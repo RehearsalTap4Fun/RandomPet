@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
   connectorMetricMeetsThresholds,
+  CONNECTOR_PLUG_COVERAGE_MIN,
+  CONNECTOR_RECEIVER_COVERAGE_MIN,
   EXTERNAL_LIMB_ALPHA_MIN,
   measureConnectorAlpha,
   structureMetricMeetsThreshold,
@@ -22,6 +24,18 @@ function raster(width: number, height: number) {
 }
 
 describe('measureConnectorAlpha', () => {
+  it('accepts exactly 0.62 receiver coverage globally without relaxing the 0.90 plug threshold', () => {
+    expect(CONNECTOR_RECEIVER_COVERAGE_MIN).toBe(0.62)
+    expect(CONNECTOR_PLUG_COVERAGE_MIN).toBe(0.90)
+    const metric = {
+      connectorId: 'neck', receiverCoverage: 0.62, plugCoverage: 0.90,
+      largestComponentRatio: 0.99, centerlineGapPixels: 2, childOutsideBodyRatio: null,
+    }
+    expect(connectorMetricMeetsThresholds(metric, false)).toBe(true)
+    expect(connectorMetricMeetsThresholds({ ...metric, receiverCoverage: 0.619999 }, false)).toBe(false)
+    expect(connectorMetricMeetsThresholds({ ...metric, plugCoverage: 0.899999 }, false)).toBe(false)
+  })
+
   it('uses exactly the global 0.614 visible-limb threshold and rejects 0.613999', () => {
     expect(EXTERNAL_LIMB_ALPHA_MIN).toBe(0.614)
     const metric = {

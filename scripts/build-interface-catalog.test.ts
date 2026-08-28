@@ -13,6 +13,30 @@ import type { RetainedCoordinateMetadata } from './retain-v02-nonstructural-asse
 const hashFor = (value: string): string => createHash('sha256').update(value).digest('hex')
 
 describe('buildInterfaceCatalog', () => {
+  it('expands only the v0.3 composition frame top to y60 while preserving every other edge', async () => {
+    const baseCatalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.2.0/catalog.json', 'utf8')) as Catalog
+    const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest
+    const processed = JSON.parse(await readFile('asset-source/v0.3.0/production/processed-index.json', 'utf8')) as any
+    const retainedMetadata = JSON.parse(await readFile(
+      'asset-source/v0.3.0/retained-v0.2/coordinate-metadata.json', 'utf8',
+    )) as RetainedCoordinateMetadata
+
+    const catalog = buildInterfaceCatalog({
+      baseCatalog, manifest,
+      processedAssets: processed.processedAssets,
+      processedBridges: processed.processedBridges,
+      retainedMetadata,
+      sourceIndex: processed.sourceIndex,
+    })
+
+    expect(baseCatalog.compositionPolicy?.frameBounds).toEqual({ x: 96, y: 64, width: 1856, height: 1888 })
+    expect(catalog.compositionPolicy?.frameBounds).toEqual({ x: 96, y: 60, width: 1856, height: 1892 })
+    expect(catalog.compositionPolicy).toEqual(expect.objectContaining({
+      faceInsideRatio: 0.84,
+      faceVisibleRatio: 0.84,
+    }))
+  })
+
   it('accepts the canonical full v0.3 build command without a legacy slice scope', () => {
     expect(parseBuildInterfaceCatalogArgs(['--version', '0.3.0'])).toEqual({ version: '0.3.0' })
     expect(() => parseBuildInterfaceCatalogArgs(['--version', '0.2.0'])).toThrow('BUILD_INTERFACE_CATALOG_ARGS_INVALID')

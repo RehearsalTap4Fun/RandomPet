@@ -60,6 +60,32 @@ const compositionLayerRank = new Map(
   RENDER_LAYER_ORDER.map((layer, index) => [layer, index]),
 )
 
+// TASK8_STABLE_BEGIN:renderer-task10-face-occlusion-policy
+export function faceMetricOcclusionTargets(
+  slotId: ResolvedRenderNode['slotId'],
+  started: Readonly<{ eyes: boolean; mouth: boolean }>,
+): { eyes: boolean; mouth: boolean } {
+  return {
+    eyes: started.eyes && slotId !== 'eyes',
+    mouth: started.mouth && slotId !== 'mouthShape' && slotId !== 'oralDetail',
+  }
+}
+// TASK8_STABLE_END:renderer-task10-face-occlusion-policy
+
+// TASK8_STABLE_BEGIN:renderer-task10-face-metric-thresholds
+export function faceMetricThresholds(
+  policy: NonNullable<Catalog['compositionPolicy']>,
+  slotId: string,
+): { inside: number; visible: number } | null {
+  if (slotId === 'eyes') return { inside: 0.8, visible: policy.faceVisibleRatio }
+  if (slotId === 'mouthShape') return {
+    inside: policy.faceInsideRatio,
+    visible: policy.faceVisibleRatio,
+  }
+  return null
+}
+// TASK8_STABLE_END:renderer-task10-face-metric-thresholds
+
 function assetLoadDiagnostic(
   layer: RenderLayerInstance,
   assetPath: string,
@@ -641,20 +667,23 @@ async function renderCompositionMonster(
     mouthVisibleRatio: mouth.visibleRatio,
     visibleBounds,
   }
+  // TASK8_STABLE_BEGIN:renderer-task10-composition-face-thresholds
   for (const [slotId, metric] of [
     ['eyes', eyes], ['mouthShape', mouth],
   ] as const) {
-    if (metric.insideRatio < policy.faceInsideRatio) {
+    const thresholds = faceMetricThresholds(policy, slotId)!
+    if (metric.insideRatio < thresholds.inside) {
       diagnostics.push(metricDiagnostic(
-        'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, policy.faceInsideRatio,
+        'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, thresholds.inside,
       ))
     }
-    if (metric.visibleRatio < policy.faceVisibleRatio) {
+    if (metric.visibleRatio < thresholds.visible) {
       diagnostics.push(metricDiagnostic(
-        'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, policy.faceVisibleRatio,
+        'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, thresholds.visible,
       ))
     }
   }
+  // TASK8_STABLE_END:renderer-task10-composition-face-thresholds
   if (visibleBounds !== null && !boundsInside(visibleBounds, policy.frameBounds)) {
     diagnostics.push(boundsExceededDiagnostic())
   }
@@ -1349,7 +1378,9 @@ async function renderInterfaceMonster(
       // TASK8_STABLE_BEGIN:renderer-connector-diagnostic-call-1
       pushConnectorMetricDiagnostic(item.connectorId, connectorCompositeDiagnostic(
       // TASK8_STABLE_END:renderer-connector-diagnostic-call-1
-        item.connectorId, `Bridge ${item.bridge.id} is below 0.9 contour coverage or above a 2px gap.`,
+        // TASK8_STABLE_BEGIN:renderer-task10-connector-threshold-message
+        item.connectorId, `Bridge ${item.bridge.id} is below 0.62 receiver coverage, below 0.90 plug coverage, or above a 2px gap.`,
+        // TASK8_STABLE_END:renderer-task10-connector-threshold-message
       ))
     }
     if (
@@ -1532,16 +1563,21 @@ async function renderInterfaceMonster(
       )
       finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)
       drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
+      // TASK8_STABLE_BEGIN:renderer-task10-face-occluder-routing
+      const occlusionTargets = faceMetricOcclusionTargets(node.slotId, {
+        eyes: eyesStarted, mouth: mouthStarted,
+      })
       if (node.slotId === 'eyes') {
         drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer, 'destination-out')
         drawMetricAlpha(surfaces.eyesAlpha, surfaces.nodeLayer)
         eyesStarted = true
-      } else if (eyesStarted) drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer)
+      } else if (occlusionTargets.eyes) drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer)
       if (node.slotId === 'mouthShape') {
         drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer, 'destination-out')
         drawMetricAlpha(surfaces.mouthAlpha, surfaces.nodeLayer)
         mouthStarted = true
-      } else if (mouthStarted) drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
+      } else if (occlusionTargets.mouth) drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
+      // TASK8_STABLE_END:renderer-task10-face-occluder-routing
       drawnAssetIds.push(node.key)
     }
   } catch {
@@ -1571,18 +1607,27 @@ async function renderInterfaceMonster(
     }
     const policy = catalog.compositionPolicy!
     for (const [slotId, metric] of [['eyes', eyes], ['mouthShape', mouth]] as const) {
-      if (metric.insideRatio < policy.faceInsideRatio) {
+      // TASK8_STABLE_BEGIN:renderer-task10-interface-face-inside-check
+      const thresholds = faceMetricThresholds(policy, slotId)!
+      if (metric.insideRatio < thresholds.inside) {
+      // TASK8_STABLE_END:renderer-task10-interface-face-inside-check
         // TASK8_STABLE_BEGIN:renderer-face-diagnostic-call-1
         pushFaceMetricDiagnostic(slotId, metricDiagnostic(
         // TASK8_STABLE_END:renderer-face-diagnostic-call-1
-          'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, policy.faceInsideRatio,
+          // TASK8_STABLE_BEGIN:renderer-task10-interface-face-inside-argument
+          'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, thresholds.inside,
+          // TASK8_STABLE_END:renderer-task10-interface-face-inside-argument
         ))
       }
-      if (metric.visibleRatio < policy.faceVisibleRatio) {
+      // TASK8_STABLE_BEGIN:renderer-task10-interface-face-visible-check
+      if (metric.visibleRatio < thresholds.visible) {
+      // TASK8_STABLE_END:renderer-task10-interface-face-visible-check
         // TASK8_STABLE_BEGIN:renderer-face-diagnostic-call-2
         pushFaceMetricDiagnostic(slotId, metricDiagnostic(
         // TASK8_STABLE_END:renderer-face-diagnostic-call-2
-          'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, policy.faceVisibleRatio,
+          // TASK8_STABLE_BEGIN:renderer-task10-interface-face-visible-argument
+          'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, thresholds.visible,
+          // TASK8_STABLE_END:renderer-task10-interface-face-visible-argument
         ))
       }
     }

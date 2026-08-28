@@ -1,6 +1,7 @@
 import type {
   Catalog,
   RigId,
+  StructuralSlotId,
   ThemeId,
   VisualPartDefinition,
   VisualSelection,
@@ -32,6 +33,7 @@ export interface BuildCandidatesInput {
   composition?: {
     motifMode: MotifMode
     remainingStrong: number
+    requiredDominantStructuralSlots?: VisualSlotId[]
   }
 }
 
@@ -71,6 +73,32 @@ function structuralSelections(
   return structural
 }
 
+const STRUCTURAL_CHILD_SLOTS = new Set<VisualSlotId>([
+  'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
+])
+
+function supportsRequiredDominantStructuralSlots(
+  input: BuildCandidatesInput,
+  body: VisualPartDefinition,
+): boolean {
+  if (input.slotId !== 'bodyFrame') return true
+  if (input.catalog.version !== '0.3.0') return true
+  const requiredSlots = input.composition?.requiredDominantStructuralSlots ?? []
+  if (requiredSlots.length === 0) return true
+  const bodySelection = new Map<StructuralSlotId, StructuralPartSelection>([[
+    'bodyFrame', { part: body, rigId: input.rigId },
+  ]])
+  const selectedIds = new Set([body.id])
+  return requiredSlots.filter(slotId => STRUCTURAL_CHILD_SLOTS.has(slotId)).every(slotId => (
+    input.catalog.parts.some(candidate => (
+      candidate.slotId === slotId
+      && isHardCompatible(candidate, input.rigId, input.catalog, selectedIds, [body])
+      && (candidate.composition?.isNone === true || candidate.composition?.motifTags.includes(input.themeId))
+      && connectorExclusionCodes(input.catalog, candidate, input.rigId, bodySelection).length === 0
+    ))
+  ))
+}
+
 export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
   const selectedPartIds = new Set(Object.entries(input.selections)
     .filter(([slotId]) => slotId !== input.slotId)
@@ -80,6 +108,7 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
   const connectorExclusions: Record<string, string[]> = {}
   const compatible = input.catalog.parts.filter(part => {
     if (part.slotId !== input.slotId || !isHardCompatible(part, input.rigId, input.catalog, selectedPartIds, selectedParts)) return false
+    if (!supportsRequiredDominantStructuralSlots(input, part)) return false
     const exclusions = connectorExclusionCodes(input.catalog, part, input.rigId, selectedStructuralParts)
     if (exclusions.length > 0) {
       connectorExclusions[part.id] = exclusions

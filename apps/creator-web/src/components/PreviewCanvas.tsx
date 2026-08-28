@@ -60,7 +60,11 @@ const productionAssetUrls = import.meta.glob<string>(
 )
 
 export function catalogAssetKey(catalogVersion: string, assetPath: string): string {
-  return `${PRODUCTION_ASSET_ROOT}v${catalogVersion}/${assetPath}`
+  const exactVersionPrefix = `assets/v${catalogVersion}/`
+  const relativeAssetPath = assetPath.startsWith(exactVersionPrefix)
+    ? assetPath.slice(exactVersionPrefix.length)
+    : assetPath
+  return `${PRODUCTION_ASSET_ROOT}v${catalogVersion}/${relativeAssetPath}`
 }
 
 export async function resolveProductionAssetUrl(

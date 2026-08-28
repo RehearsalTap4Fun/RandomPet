@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
-import { basename, join, resolve } from 'node:path'
+import { basename, isAbsolute, join, relative, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { chromium } from '@playwright/test'
 import sharp from 'sharp'
@@ -16,16 +16,17 @@ import {
   type RigId,
   type ThemeId,
 } from '@qmonster/generator-core'
-import type { CompositionMetrics } from '@qmonster/renderer-canvas'
+import { EXTERNAL_LIMB_ALPHA_MIN, type CompositionMetrics, type ConnectorMetric } from '@qmonster/renderer-canvas'
 import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
+import v03ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import { pruneStaleFiles } from './safe-output.js'
 
 const ACCEPTANCE_THEMES = ['deep-sea', 'fungal', 'shadow'] as const
 const ACCEPTANCE_RIGS = ['blob', 'biped', 'floating'] as const
 const DEFAULT_SEED_START = 2026082101
 const DEFAULT_COUNT = 20
-const OUTPUT_DIRECTORY = 'artifacts/acceptance/v0.2'
 const RENDER_SIZE = 1024
+type AcceptanceCatalogVersion = '0.2.0' | '0.3.0'
 
 export interface AcceptanceManifestEntry {
   index: number
@@ -39,6 +40,7 @@ export interface AcceptanceManifestEntry {
   strongFeatureCount: number
   surpriseSlots: number
   motifOpportunityCount: number
+  catalogVersion: AcceptanceCatalogVersion
 }
 
 export interface RenderedAcceptanceEntry extends AcceptanceManifestEntry {
@@ -47,6 +49,9 @@ export interface RenderedAcceptanceEntry extends AcceptanceManifestEntry {
   specSha256: string
   renderDiagnostics: Diagnostic[]
   compositionMetrics: CompositionMetrics | null
+  connectorMetrics: ConnectorMetric[] | null
+  resolvedAssetPaths: string[]
+  resolvedAssets: Array<{ path: string; sha256: string }>
 }
 
 function sha256(bytes: Buffer | string): string {
@@ -98,6 +103,7 @@ export async function buildAcceptanceManifest(
       strongFeatureCount: strongFeatureCount(generated.spec, catalog),
       surpriseSlots,
       motifOpportunityCount,
+      catalogVersion: catalog.version as AcceptanceCatalogVersion,
     }
   })
   const coveredRigs = new Set(entries.map(entry => entry.rigId))
@@ -114,30 +120,75 @@ export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
   | 'motifOpportunityCount'
   | 'compositionMetrics'
   | 'renderDiagnostics'
+  | 'catalogVersion'
+  | 'connectorMetrics'
+  | 'resolvedAssetPaths'
 >): void {
   const metrics = entry.compositionMetrics
+  const bounds = metrics?.visibleBounds
+  const compositionPolicy = (catalogDocument(entry.catalogVersion) as {
+    compositionPolicy: {
+      frameBounds: { x: number; y: number; width: number; height: number }
+      faceInsideRatio: number
+      faceVisibleRatio: number
+    }
+  }).compositionPolicy
+  const connectorMetricsAccepted = entry.catalogVersion !== '0.3.0' || (
+    entry.connectorMetrics !== null
+    && entry.connectorMetrics.length > 0
+    && entry.connectorMetrics.every(metric => (
+      metric.receiverCoverage >= 0.62
+      && metric.plugCoverage >= 0.9
+      && metric.largestComponentRatio >= 0.99
+      && metric.centerlineGapPixels <= 2
+      && (!/^(shoulder|hip)/u.test(metric.connectorId)
+        || (metric.childOutsideBodyRatio ?? 0) >= EXTERNAL_LIMB_ALPHA_MIN)
+    ))
+  )
   const accepted = entry.generationDiagnostics.length === 0
     && entry.strongFeatureCount <= 2
     && entry.surpriseSlots <= Math.floor(entry.motifOpportunityCount * 0.3)
     && metrics !== null
     && metrics.eyesInsideRatio >= 0.8
-    && metrics.eyesVisibleRatio >= 0.85
-    && metrics.mouthInsideRatio >= 0.8
-    && metrics.mouthVisibleRatio >= 0.85
+    && metrics.eyesVisibleRatio >= compositionPolicy.faceVisibleRatio
+    && metrics.mouthInsideRatio >= compositionPolicy.faceInsideRatio
+    && metrics.mouthVisibleRatio >= compositionPolicy.faceVisibleRatio
+    && bounds !== null
+    && bounds.x >= compositionPolicy.frameBounds.x
+    && bounds.y >= compositionPolicy.frameBounds.y
+    && bounds.width > 0
+    && bounds.height > 0
+    && bounds.x + bounds.width <= compositionPolicy.frameBounds.x + compositionPolicy.frameBounds.width
+    && bounds.y + bounds.height <= compositionPolicy.frameBounds.y + compositionPolicy.frameBounds.height
+    && connectorMetricsAccepted
+    && (entry.catalogVersion !== '0.3.0' || entry.resolvedAssetPaths.length > 0)
     && entry.renderDiagnostics.length === 0
   if (!accepted) {
     throw new Error(`composition acceptance failed: ${JSON.stringify(entry)}`)
   }
 }
 
-function parseArguments(args: readonly string[]): { seedStart: number; count: number } {
+function parseArguments(args: readonly string[]): {
+  seedStart: number
+  count: number
+  catalogVersion: AcceptanceCatalogVersion
+} {
   let seedStart = DEFAULT_SEED_START
   let count = DEFAULT_COUNT
+  let catalogVersion: AcceptanceCatalogVersion = '0.2.0'
   for (let index = 0; index < args.length; index += 1) {
     const flag = args[index]
     const rawValue = args[index + 1]
-    if ((flag !== '--seed-start' && flag !== '--count') || rawValue === undefined) {
+    if ((flag !== '--seed-start' && flag !== '--count' && flag !== '--catalog-version') || rawValue === undefined) {
       throw new Error(`Unknown or incomplete acceptance argument: ${flag ?? ''}`)
+    }
+    if (flag === '--catalog-version') {
+      if (rawValue !== '0.2.0' && rawValue !== '0.3.0') {
+        throw new Error('--catalog-version must be exactly 0.2.0 or 0.3.0.')
+      }
+      catalogVersion = rawValue
+      index += 1
+      continue
     }
     const value = Number(rawValue)
     if (!Number.isSafeInteger(value) || value <= 0) throw new Error(`${flag} must be a positive safe integer.`)
@@ -145,7 +196,33 @@ function parseArguments(args: readonly string[]): { seedStart: number; count: nu
     if (flag === '--count') count = value
     index += 1
   }
-  return { seedStart, count }
+  return { seedStart, count, catalogVersion }
+}
+
+function catalogDocument(version: AcceptanceCatalogVersion): unknown {
+  return version === '0.3.0' ? v03ProductionCatalogDocument : productionCatalogDocument
+}
+
+function outputDirectoryFor(version: AcceptanceCatalogVersion): string {
+  return `artifacts/acceptance/v${version.split('.').slice(0, 2).join('.')}`
+}
+
+function runtimeAssetPath(
+  repositoryRoot: string,
+  catalogVersion: AcceptanceCatalogVersion,
+  assetPath: string,
+): string {
+  const versionPrefix = `assets/v${catalogVersion}/`
+  const relativeAssetPath = assetPath.startsWith(versionPrefix)
+    ? assetPath.slice(versionPrefix.length)
+    : assetPath
+  const assetRoot = resolve(repositoryRoot, 'packages', 'asset-catalog', 'assets', `v${catalogVersion}`)
+  const candidate = resolve(assetRoot, relativeAssetPath)
+  const relation = relative(assetRoot, candidate)
+  if (relation === '' || relation.startsWith('..') || isAbsolute(relation)) {
+    throw new Error(`Acceptance asset path escapes v${catalogVersion}: ${assetPath}`)
+  }
+  return candidate
 }
 
 function decodePng(dataUrl: string): Buffer {
@@ -202,22 +279,23 @@ async function assembleContactSheet(
 
 export async function generateAcceptanceSet(args = process.argv.slice(2)): Promise<void> {
   const repositoryRoot = process.cwd()
-  const { seedStart, count } = parseArguments(args)
-  const parsedCatalog = parseCatalog(productionCatalogDocument)
+  const { seedStart, count, catalogVersion } = parseArguments(args)
+  const parsedCatalog = parseCatalog(catalogDocument(catalogVersion))
   if (!parsedCatalog.ok) {
     throw new Error(`Production catalog is invalid: ${JSON.stringify(parsedCatalog.diagnostics)}`)
   }
   const entries = await buildAcceptanceManifest(parsedCatalog.value, seedStart, count)
-  const outputDirectory = resolve(repositoryRoot, OUTPUT_DIRECTORY)
+  const outputDirectoryName = outputDirectoryFor(catalogVersion)
+  const outputDirectory = resolve(repositoryRoot, outputDirectoryName)
   await mkdir(outputDirectory, { recursive: true })
   const expectedFiles = new Set([
-    ...entries.map(entry => `${OUTPUT_DIRECTORY}/${entry.filename}`),
-    `${OUTPUT_DIRECTORY}/acceptance-set.json`,
-    `${OUTPUT_DIRECTORY}/contact-sheet.png`,
+    ...entries.map(entry => `${outputDirectoryName}/${entry.filename}`),
+    `${outputDirectoryName}/acceptance-set.json`,
+    `${outputDirectoryName}/contact-sheet.png`,
   ])
   await pruneStaleFiles({
     root: repositoryRoot,
-    directory: OUTPUT_DIRECTORY,
+    directory: outputDirectoryName,
     expected: expectedFiles,
     extensions: new Set(['.json', '.png']),
   })
@@ -245,7 +323,9 @@ export async function generateAcceptanceSet(args = process.argv.slice(2)): Promi
     for (const entry of entries) {
       let rendered: Awaited<ReturnType<Window['renderAcceptanceMonster']>>
       try {
-        rendered = await page.evaluate(async spec => window.renderAcceptanceMonster(spec), entry.spec)
+        rendered = await page.evaluate(async ({ spec, catalogVersion: exactVersion }) => (
+          window.renderAcceptanceMonster(spec, exactVersion)
+        ), { spec: entry.spec, catalogVersion })
       } catch (error) {
         throw new Error(`Acceptance render failed for ${entry.seed}.`, { cause: error })
       }
@@ -253,6 +333,11 @@ export async function generateAcceptanceSet(args = process.argv.slice(2)): Promi
       const outputPath = join(outputDirectory, entry.filename)
       await writeFile(outputPath, bytes)
       const serializedSpec = JSON.stringify(entry.spec)
+      const resolvedAssetPaths = [...new Set(rendered.resolvedAssetPaths)].sort()
+      const resolvedAssets = await Promise.all(resolvedAssetPaths.map(async assetPath => ({
+        path: assetPath,
+        sha256: sha256(await readFile(runtimeAssetPath(repositoryRoot, catalogVersion, assetPath))),
+      })))
       const renderedEntry: RenderedAcceptanceEntry = {
         ...entry,
         pngSha256: sha256(bytes),
@@ -260,13 +345,16 @@ export async function generateAcceptanceSet(args = process.argv.slice(2)): Promi
         specSha256: sha256(serializedSpec),
         renderDiagnostics: rendered.diagnostics,
         compositionMetrics: rendered.compositionMetrics,
+        connectorMetrics: rendered.connectorMetrics,
+        resolvedAssetPaths,
+        resolvedAssets,
       }
       assertCompositionAcceptance(renderedEntry)
       renderedEntries.push(renderedEntry)
     }
     const contactSheet = await assembleContactSheet(renderedEntries, outputDirectory)
     const manifest = {
-      manifestVersion: 'qmonster-v0.2-acceptance-v1',
+      manifestVersion: `qmonster-v${catalogVersion.split('.').slice(0, 2).join('.')}-acceptance-v1`,
       catalogVersion: parsedCatalog.value.version,
       schemaVersion: renderedEntries[0]?.spec.schemaVersion,
       rendererVersion: renderedEntries[0]?.spec.rendererVersion,

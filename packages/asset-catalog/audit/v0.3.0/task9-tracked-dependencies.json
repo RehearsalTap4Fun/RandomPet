@@ -1,6 +1,6 @@
 {
   "schemaVersion": "task9-tracked-dependencies-v1",
-  "dependencyCount": 1807,
+  "dependencyCount": 1809,
   "dependencies": [
     "apps/creator-web/src/render-test.ts",
     "asset-source/v0.2.0/generation/part-candidates/legs_mushroom/regeneration-2/legs_mushroom-candidate-3-rgba.png",
@@ -1696,6 +1696,7 @@
     "packages/asset-catalog/review/v0.3.0/body-head-contact-sheets-acceptance.json",
     "packages/asset-catalog/review/v0.3.0/body-head-review-record.json",
     "packages/asset-catalog/review/v0.3.0/bridge-render-review-provenance.json",
+    "packages/asset-catalog/review/v0.3.0/head-face-socket-amendment.json",
     "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped-256.png",
     "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped-manifest.json",
     "packages/asset-catalog/review/v0.3.0/limb-contact-sheet-biped.png",
@@ -1801,6 +1802,7 @@
     "packages/renderer-canvas/src/connector-metrics.ts",
     "packages/renderer-canvas/src/render.ts",
     "packages/renderer-canvas/src/types.ts",
+    "scripts/amend-head-face-sockets.ts",
     "scripts/build-task9-evidence-manifest.ts",
     "scripts/prepare-tail-extra-assets.ts",
     "scripts/render-limb-contact-sheets.ts",

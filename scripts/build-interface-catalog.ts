@@ -257,6 +257,12 @@ export function buildInterfaceCatalog(input: {
   return {
     ...input.baseCatalog,
     version: '0.3.0',
+    compositionPolicy: {
+      ...input.baseCatalog.compositionPolicy!,
+      frameBounds: { x: 96, y: 60, width: 1856, height: 1892 },
+      faceInsideRatio: 0.84,
+      faceVisibleRatio: 0.84,
+    },
     rigs: input.baseCatalog.rigs,
     parts,
     semanticTraits: input.baseCatalog.semanticTraits.map(retainExistingSemanticPartReferences),

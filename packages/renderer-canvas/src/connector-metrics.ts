@@ -14,7 +14,12 @@ export interface ConnectorAlphaInput {
   child?: Uint8ClampedArray
 }
 
-export const CONNECTOR_COVERAGE_MIN = 0.9
+// TASK8_STABLE_BEGIN:connector-task10-coverage-thresholds
+export const CONNECTOR_RECEIVER_COVERAGE_MIN = 0.62
+export const CONNECTOR_PLUG_COVERAGE_MIN = 0.90
+/** @deprecated Use the role-specific receiver and plug thresholds. */
+export const CONNECTOR_COVERAGE_MIN = CONNECTOR_PLUG_COVERAGE_MIN
+// TASK8_STABLE_END:connector-task10-coverage-thresholds
 export const CONNECTOR_GAP_MAX_1024 = 2
 export const STRUCTURE_ALPHA_MASS_MIN = 0.99
 export const EXTERNAL_LIMB_ALPHA_MIN = 0.614
@@ -23,8 +28,10 @@ export function connectorMetricMeetsThresholds(
   metric: ConnectorMetric,
   requireExternalLimbAlpha: boolean,
 ): boolean {
-  return metric.receiverCoverage >= CONNECTOR_COVERAGE_MIN
-    && metric.plugCoverage >= CONNECTOR_COVERAGE_MIN
+  // TASK8_STABLE_BEGIN:connector-task10-role-threshold-gate
+  return metric.receiverCoverage >= CONNECTOR_RECEIVER_COVERAGE_MIN
+    && metric.plugCoverage >= CONNECTOR_PLUG_COVERAGE_MIN
+  // TASK8_STABLE_END:connector-task10-role-threshold-gate
     && metric.centerlineGapPixels <= CONNECTOR_GAP_MAX_1024
     && (!requireExternalLimbAlpha
       || (metric.childOutsideBodyRatio ?? 0) >= EXTERNAL_LIMB_ALPHA_MIN)

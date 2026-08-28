@@ -40,7 +40,7 @@ async function publicSlotState(page: Page): Promise<Record<string, string>> {
   ))
 }
 
-test('downloads exact JSON and PNG names, then re-imports the public seed and slots transactionally', async ({ page }) => {
+test('downloads exact JSON and PNG names, then re-imports the public v0.2 specimen read-only', async ({ page }) => {
   await openWorkbench(page)
   const seed = page.getByRole('textbox', { name: '种子' })
   const seedBefore = await seed.inputValue()
@@ -68,9 +68,15 @@ test('downloads exact JSON and PNG names, then re-imports the public seed and sl
   await expect(page.locator('.preview-heading code')).toHaveAttribute('title', 'temporary-e2e-seed')
 
   await page.getByLabel('选择要导入的 JSON 文件').setInputFiles(jsonPath)
-  await expect(seed).toHaveValue(seedBefore)
-  await expect(page.locator('.preview-heading code')).toHaveAttribute('title', seedBefore)
-  await expect.poll(() => publicSlotState(page)).toEqual(slotsBefore)
+  await expect(page.getByRole('heading', { name: '旧版标本 · 只读查看' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '目录 v0.2.0 · 渲染器 v0.2.0' })).toBeVisible()
+  await expect(page.getByRole('textbox', { name: '种子' })).toHaveCount(0)
+  await expect(page.locator('select[id^="slot-control-"]')).toHaveCount(0)
+  await expect(page.getByRole('img', { name: '生物预览' })).toBeVisible()
+
+  await page.getByRole('button', { name: '返回新版生成器' }).click()
+  await expect(seed).toHaveValue('temporary-e2e-seed')
+  await expect(page.locator('.preview-heading code')).toHaveAttribute('title', 'temporary-e2e-seed')
 
   const seedBeforeInvalidImport = await seed.inputValue()
   await page.getByLabel('选择要导入的 JSON 文件').setInputFiles(invalidConflictPath)

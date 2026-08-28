@@ -7,7 +7,14 @@ import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { createCreatorSession, type CreatorSession } from './state/contracts.js'
 import { refreshSessionValidity } from './state/session-diagnostics.js'
 import type { SessionStorage } from './state/persistence.js'
-import { App, CreatorWorkbench, legacyProductionCatalog, productionCatalog, productionCatalogRegistry } from './App.js'
+import {
+  App,
+  CreatorWorkbench,
+  legacyProductionCatalog,
+  productionCatalog,
+  productionCatalogRegistry,
+  v03ProductionCatalog,
+} from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
 
 function installCanvasContexts() {
@@ -42,9 +49,11 @@ describe('CreatorWorkbench', () => {
     expect(productionCatalog.version).toBe('0.2.0')
   })
 
-  it('installs both exact catalog versions without fallback', async () => {
+  it('installs exact 0.1.0, 0.2.0, and 0.3.0 catalogs without changing the default', async () => {
     expect((await productionCatalogRegistry.load('0.1.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.2.0')).ok).toBe(true)
+    expect((await productionCatalogRegistry.load('0.3.0')).ok).toBe(true)
+    expect(productionCatalog.version).toBe('0.2.0')
     expect(await productionCatalogRegistry.load('0.1')).toEqual({
       ok: false,
       diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
@@ -53,6 +62,47 @@ describe('CreatorWorkbench', () => {
       ok: false,
       diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
     })
+    expect(await productionCatalogRegistry.load('0.3.1')).toEqual({
+      ok: false,
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
+    })
+  })
+
+  it('edits an exact v0.3 import transactionally while keeping v0.1 and rejected v0.2 imports read-only', async () => {
+    installCanvasContexts()
+    const user = userEvent.setup()
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: [],
+    }))
+    const currentV03 = generateMonster({ seed: 'import-v03', themeId: 'fungal', mode: 'normal' }, v03ProductionCatalog)
+    const rejectedV02 = generateMonster({ seed: 'inspect-v02', themeId: 'fungal', mode: 'normal' }, productionCatalog)
+    const legacyV01 = generateMonster({ seed: 'inspect-v01', themeId: 'fungal', mode: 'normal' }, legacyProductionCatalog)
+    const parseSpecFile = vi.fn((file: File) => Promise.resolve(file.name === 'current-v03.json'
+      ? { ok: true as const, value: { spec: currentV03.spec, catalog: v03ProductionCatalog }, diagnostics: [] }
+      : file.name === 'rejected-v02.json'
+        ? { ok: true as const, value: { spec: rejectedV02.spec, catalog: productionCatalog }, diagnostics: [] }
+        : { ok: true as const, value: { spec: legacyV01.spec, catalog: legacyProductionCatalog }, diagnostics: [] }))
+
+    render(<App
+      catalog={v03ProductionCatalog}
+      initialExportCapabilities={{ png: true, webp: true }}
+      parseSpecFile={parseSpecFile}
+      previewRenderer={renderer}
+    />)
+
+    expect(await screen.findByText('目录 v0.3.0')).toBeTruthy()
+    const input = screen.getByLabelText('选择要导入的 JSON 文件')
+    await user.upload(input, new File(['v03'], 'current-v03.json'))
+    expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe('import-v03')
+    expect(screen.queryByText('旧版标本 · 只读查看')).toBeNull()
+
+    await user.upload(input, new File(['v02'], 'rejected-v02.json'))
+    expect(await screen.findByText('旧版标本 · 只读查看')).toBeTruthy()
+    expect(screen.getByRole('heading', { name: '目录 v0.2.0 · 渲染器 v0.2.0' })).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: '返回新版生成器' }))
+
+    await user.upload(screen.getByLabelText('选择要导入的 JSON 文件'), new File(['v01'], 'legacy-v01.json'))
+    expect(await screen.findByRole('heading', { name: '目录 v0.1.0 · 渲染器 v0.1.0' })).toBeTruthy()
   })
 
   it('routes completed preview diagnostics into the creator action stream', async () => {

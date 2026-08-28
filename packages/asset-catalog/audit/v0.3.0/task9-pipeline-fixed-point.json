@@ -19,8 +19,8 @@
     "packages/asset-catalog/source-index-v0.3.0.json"
   ],
   "aggregateAlgorithm": "sha256-json-sorted-path-and-file-sha256-v1",
-  "round1Sha256": "aeff536d20f3b4bb09e72908b8a8092835df7146b320319fcb01d208467ba9b6",
-  "round2Sha256": "aeff536d20f3b4bb09e72908b8a8092835df7146b320319fcb01d208467ba9b6",
+  "round1Sha256": "2f5d375840993308296dc240c654814f3878975045fbdc53d957aa2ad1dcc518",
+  "round2Sha256": "2f5d375840993308296dc240c654814f3878975045fbdc53d957aa2ad1dcc518",
   "stable": true,
   "diagnostics": []
 }

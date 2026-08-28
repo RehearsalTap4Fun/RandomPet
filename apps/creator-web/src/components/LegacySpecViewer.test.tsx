@@ -46,7 +46,7 @@ describe('LegacySpecViewer', () => {
     />)
 
     expect(screen.getByText('旧版标本 · 只读查看')).toBeTruthy()
-    expect(screen.getByText('目录 v0.1.0')).toBeTruthy()
+    expect(screen.getByText('目录 v0.1.0 · 渲染器 v0.1.0')).toBeTruthy()
     expect(screen.getByRole('button', { name: '导出 JSON' })).toBeEnabled()
     expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled()
     expect(screen.getByRole('button', { name: '导出透明 WebP' })).toBeEnabled()

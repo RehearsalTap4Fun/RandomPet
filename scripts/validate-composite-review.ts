@@ -4,8 +4,8 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 export interface CompositeReviewRecord {
-  catalogVersion: '0.2.0'
-  rendererVersion: '0.2.0'
+  catalogVersion: '0.2.0' | '0.3.0'
+  rendererVersion: '0.2.0' | '0.3.0'
   decision: 'approved'
   reviewedAt: string
   reviewer: 'user'
@@ -39,7 +39,9 @@ export async function validateCompositeReview(
   version: string,
   repositoryRoot = process.cwd(),
 ): Promise<CompositeReviewRecord> {
-  if (version !== '0.2.0') throw invalid(`Unsupported composite review version ${version}.`)
+  if (version !== '0.2.0' && version !== '0.3.0') {
+    throw invalid(`Unsupported composite review version ${version}.`)
+  }
   const reviewDirectory = join(repositoryRoot, 'packages', 'asset-catalog', 'review', `v${version}`)
   let contactSheetBytes: Buffer
   let manifestBytes: Buffer
@@ -56,17 +58,17 @@ export async function validateCompositeReview(
 
   const manifest = parseJson(manifestBytes, 'Composite manifest')
   if (!isObject(manifest)
-    || manifest.catalogVersion !== '0.2.0'
-    || manifest.rendererVersion !== '0.2.0'
+    || manifest.catalogVersion !== version
+    || manifest.rendererVersion !== version
     || !Array.isArray(manifest.entries)
     || manifest.entries.length !== 21) {
-    throw invalid('Composite manifest must describe exactly 21 v0.2.0 entries.')
+    throw invalid(`Composite manifest must describe exactly 21 v${version} entries.`)
   }
 
   const record = parseJson(recordBytes, 'Composite review record')
   if (!isObject(record)
-    || record.catalogVersion !== '0.2.0'
-    || record.rendererVersion !== '0.2.0'
+    || record.catalogVersion !== version
+    || record.rendererVersion !== version
     || record.decision !== 'approved'
     || record.reviewer !== 'user'
     || record.entryCount !== 21
@@ -87,7 +89,7 @@ export async function validateCompositeReview(
 
 function parseVersion(args: readonly string[]): string {
   if (args.length !== 2 || args[0] !== '--version' || args[1] === undefined) {
-    throw invalid('Usage: validate-composite-review.ts --version 0.2.0')
+    throw invalid('Usage: validate-composite-review.ts --version 0.2.0|0.3.0')
   }
   return args[1]
 }

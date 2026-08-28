@@ -33,6 +33,7 @@ export const TASK9_EVIDENCE_SEED_FILES: readonly Task9DependencySeed[] = [
   { path: 'scripts/render-limb-contact-sheets.ts', group: 'task9-live-renderer' },
   { path: 'apps/creator-web/src/render-test.ts', group: 'task9-live-renderer' },
   { path: 'packages/renderer-canvas/src/render.ts', group: 'task9-live-renderer' },
+  { path: 'packages/renderer-canvas/src/connector-metrics.ts', group: 'task9-live-renderer' },
   { path: 'packages/renderer-canvas/src/types.ts', group: 'task9-live-renderer' },
   ...[
     'packages/asset-catalog/src/bridge-render-review-provenance.ts',
@@ -44,6 +45,7 @@ export const TASK9_EVIDENCE_SEED_FILES: readonly Task9DependencySeed[] = [
     'packages/asset-catalog/src/trusted-repository-file.ts',
     'packages/generator-core/src/catalog-schema.ts',
     'scripts/build-task9-evidence-manifest.ts',
+    'scripts/amend-head-face-sockets.ts',
     'scripts/prepare-tail-extra-assets.ts',
     'scripts/task8-stable-projection.ts',
     'tests/render/production-composition.spec.ts',
@@ -54,6 +56,7 @@ export const TASK9_EVIDENCE_SEED_FILES: readonly Task9DependencySeed[] = [
     'body-head-contact-sheets-acceptance.json', 'body-head-review-record.json', 'body-head-connector-amendment.json',
     'limb-contact-sheets-acceptance.json', 'limb-review-record.json', 'visible-limb-threshold-amendment.json',
     'tail-extra-review-record.json', 'rework-record.json', 'structural-matrix-index.json',
+    'head-face-socket-amendment.json',
   ].map(name => ({ path: `packages/asset-catalog/review/v0.3.0/${name}`, group: 'task6-9-review' })),
 ]
 

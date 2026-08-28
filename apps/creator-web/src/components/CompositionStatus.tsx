@@ -16,6 +16,14 @@ const FACE_DIAGNOSTIC_CODES = new Set([
   'COMPOSITION_FACE_OUT_OF_ZONE',
   'COMPOSITION_FACE_OCCLUDED',
 ])
+const STRUCTURE_DIAGNOSTIC_CODES = new Set([
+  'CONNECTOR_VARIANT_MISSING',
+  'CONNECTOR_PROFILE_INVALID',
+  'CONNECTOR_WARP_EXCEEDED',
+  'CONNECTOR_BRIDGE_MISSING',
+  'CONNECTOR_COMPOSITE_FAILED',
+  'STRUCTURE_DISCONNECTED',
+])
 
 export function CompositionStatus({ spec, catalog, diagnostics }: CompositionStatusProps) {
   const policy = catalog.compositionPolicy
@@ -36,12 +44,16 @@ export function CompositionStatus({ spec, catalog, diagnostics }: CompositionSta
   const faceReady = !diagnostics.some(diagnostic => (
     diagnostic.severity === 'error' && FACE_DIAGNOSTIC_CODES.has(diagnostic.code)
   ))
+  const structureReady = !diagnostics.some(diagnostic => (
+    diagnostic.severity === 'error' && STRUCTURE_DIAGNOSTIC_CODES.has(diagnostic.code)
+  ))
 
   return (
     <ul aria-label="组合约束" className="composition-status">
       <li>强特征 {strongFeatureCount(spec, catalog)}/{policy.maxStrongFeatures}</li>
       <li>惊喜位 {usedSurprise}/{allowedSurprise}</li>
       <li>{faceReady ? '面部清晰' : '面部需调整'}</li>
+      {catalog.version === '0.3.0' && <li>{structureReady ? '结构连续' : '结构需调整'}</li>}
     </ul>
   )
 }

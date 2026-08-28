@@ -7,6 +7,15 @@ interface DiagnosticsPanelProps {
 }
 
 function targetSlot(diagnostic: Diagnostic): VisualSlotId | null {
+  if (diagnostic.code === 'CONNECTOR_COMPOSITE_FAILED' && diagnostic.path[0] === 'connectors') {
+    const connectorId = diagnostic.path[1] ?? ''
+    if (connectorId === 'neck') return 'headShape'
+    if (connectorId.startsWith('shoulder')) return 'arms'
+    if (connectorId.startsWith('hip')) return 'legs'
+    if (connectorId === 'tailRoot') return 'tail'
+    if (connectorId.startsWith('extra')) return 'extraAppendage'
+    return 'bodyFrame'
+  }
   if (diagnostic.code === 'COMPOSITION_BOUNDS_EXCEEDED') return 'bodyFrame'
   if (diagnostic.code === 'COMPOSITION_FACE_OUT_OF_ZONE' || diagnostic.code === 'COMPOSITION_FACE_OCCLUDED') {
     if (diagnostic.code === 'COMPOSITION_FACE_OCCLUDED' && diagnostic.path.some(segment => (
@@ -28,6 +37,22 @@ function diagnosticMessage(diagnostic: Diagnostic): string {
       return '面部被遮挡，请调整眼睛、嘴型或氛围效果。'
     case 'COMPOSITION_BOUNDS_EXCEEDED':
       return '生物轮廓超出画面边界，请调整体型骨架。'
+    case 'CONNECTOR_COMPOSITE_FAILED': {
+      const connectorId = diagnostic.path[1] ?? ''
+      const label = connectorId === 'neck' ? '颈部接口'
+        : connectorId.startsWith('shoulder') ? '肩部接口'
+          : connectorId.startsWith('hip') ? '髋部接口'
+            : connectorId === 'tailRoot' ? '尾根接口'
+              : connectorId.startsWith('extra') ? '附肢接口' : '结构接口'
+      return `${label}合成失败，请调整对应结构部件。`
+    }
+    case 'CONNECTOR_VARIANT_MISSING':
+    case 'CONNECTOR_PROFILE_INVALID':
+    case 'CONNECTOR_WARP_EXCEEDED':
+    case 'CONNECTOR_BRIDGE_MISSING':
+      return '结构接口不兼容，请调整对应结构部件。'
+    case 'STRUCTURE_DISCONNECTED':
+      return '主体结构未连成一体，请调整体型或结构部件。'
     default:
       return diagnostic.message
   }

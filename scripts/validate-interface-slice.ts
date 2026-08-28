@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { join, relative, resolve, isAbsolute } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { parseCatalog, validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
+import { parseCatalog, validateCatalogStructure, type Catalog, type Diagnostic } from '@qmonster/generator-core'
 import {
   BIPED_SLICE,
   canonicalBipedGuideFiles,
@@ -499,6 +499,48 @@ export function compareLimbCausalMetricEvidence(input: {
   return { diagnostics, aggregate: limbCausalAggregate(input.liveEntries) }
 }
 
+export function task8HistoricalCausalCatalog(input: Catalog): Catalog {
+  const catalog = structuredClone(input)
+  if (catalog.compositionPolicy !== undefined) {
+    catalog.compositionPolicy.faceInsideRatio = 0.8
+    catalog.compositionPolicy.faceVisibleRatio = 0.85
+  }
+  return catalog
+}
+
+const TASK8_HISTORICAL_CONNECTOR_THRESHOLDS = {
+  receiverCoverage: 0.9,
+  plugCoverage: 0.9,
+  largestComponentRatio: 0.99,
+  centerlineGapPixels: 2,
+} as const
+
+export function task8HistoricalCausalEntry<
+  T extends Pick<LimbMatrixEvidenceEntry, 'rigId' | 'connectorMetrics' | 'diagnostics'>,
+>(entry: T): T {
+  const diagnostics = [...entry.diagnostics]
+  const neck = entry.connectorMetrics.find(metric => metric.connectorId === 'neck')
+  const hasLiveNeckFailure = diagnostics.some(diagnostic => (
+    diagnostic.code === 'CONNECTOR_COMPOSITE_FAILED'
+    && diagnostic.path[0] === 'connectors'
+    && diagnostic.path[1] === 'neck'
+  ))
+  const failedHistoricalGate = neck !== undefined && (
+    neck.receiverCoverage < TASK8_HISTORICAL_CONNECTOR_THRESHOLDS.receiverCoverage
+    || neck.plugCoverage < TASK8_HISTORICAL_CONNECTOR_THRESHOLDS.plugCoverage
+    || neck.largestComponentRatio < TASK8_HISTORICAL_CONNECTOR_THRESHOLDS.largestComponentRatio
+    || neck.centerlineGapPixels > TASK8_HISTORICAL_CONNECTOR_THRESHOLDS.centerlineGapPixels
+  )
+  if (failedHistoricalGate && !hasLiveNeckFailure) {
+    diagnostics.unshift(error(
+      'CONNECTOR_COMPOSITE_FAILED',
+      ['connectors', 'neck'],
+      `Bridge ${entry.rigId}-neck-bridge is below 0.9 contour coverage or above a 2px gap.`,
+    ))
+  }
+  return { ...entry, diagnostics }
+}
+
 export async function validateLimbCausalMetricEvidence(input: {
   repositoryRoot: string
   reviewRoot: string
@@ -507,14 +549,21 @@ export async function validateLimbCausalMetricEvidence(input: {
   liveEvidence?: { entries: LimbMatrixEvidenceEntry[] }
 }): Promise<{ entryCount: number; diagnostics: Diagnostic[]; aggregate: LimbCausalAggregate; liveEvidence: { entries: LimbMatrixEvidenceEntry[] } }> {
   const manifests = await Promise.all((['blob', 'biped', 'floating'] as const).map(async rigId => input.manifestOverrides?.[rigId] ?? JSON.parse(await readFile(resolve(input.reviewRoot, `limb-contact-sheet-${rigId}-manifest.json`), 'utf8'))))
-  const reconstructed = input.liveEvidence ?? await reconstructLimbMatrixEvidence({ mode: 'full', catalogPath: input.catalogPath })
+  const reconstructed = input.liveEvidence ?? await reconstructLimbMatrixEvidence({
+    mode: 'full',
+    catalogPath: input.catalogPath,
+    catalogProjection: task8HistoricalCausalCatalog,
+  })
   const catalogPath = input.catalogPath ?? resolve(input.repositoryRoot, 'packages/asset-catalog/catalog/v0.3.0/catalog.json')
   const catalogProjectionSha256 = task8LimbCatalogProjectionSha256(JSON.parse(await readFile(catalogPath, 'utf8')))
   const liveEvidence = {
-    entries: reconstructed.entries.map(entry => ({
-      ...entry,
-      inputBinding: { ...entry.inputBinding, catalogSha256: catalogProjectionSha256 },
-    })),
+    entries: reconstructed.entries.map(entry => {
+      const historical = task8HistoricalCausalEntry(entry)
+      return {
+        ...historical,
+        inputBinding: { ...historical.inputBinding, catalogSha256: catalogProjectionSha256 },
+      }
+    }),
   }
   const compared = compareLimbCausalMetricEvidence({ liveEntries: liveEvidence.entries, manifests })
   return { entryCount: liveEvidence.entries.length, diagnostics: compared.diagnostics, aggregate: compared.aggregate, liveEvidence }

@@ -206,6 +206,9 @@ export async function reconstructLimbMatrixEvidence(input: {
   planOverride?: LimbMatrixPlanEntry[]
   failOnGateError?: boolean
   writeDebugOnFailure?: boolean
+  // TASK8_STABLE_BEGIN:limb-task10-catalog-projection-input
+  catalogProjection?: (catalog: Catalog) => Catalog
+  // TASK8_STABLE_END:limb-task10-catalog-projection-input
   // TASK8_STABLE_BEGIN:limb-worker-count-input
   workerCount?: 1 | 2
   // TASK8_STABLE_END:limb-worker-count-input
@@ -216,8 +219,11 @@ export async function reconstructLimbMatrixEvidence(input: {
   const sourceCatalogBytes = await readFile(catalogPath)
   const sourceCatalog = JSON.parse(sourceCatalogBytes.toString('utf8')) as Catalog
   const catalogInputSha256 = sha256(sourceCatalogBytes)
+  // TASK8_STABLE_BEGIN:limb-task10-catalog-projection-apply
+  const renderSourceCatalog = input.catalogProjection?.(sourceCatalog) ?? sourceCatalog
+  // TASK8_STABLE_END:limb-task10-catalog-projection-apply
   // TASK8_STABLE_BEGIN:limb-structural-only-catalog
-  const catalog = browserCatalog(sourceCatalog, { applyPaletteMasks: false })
+  const catalog = browserCatalog(renderSourceCatalog, { applyPaletteMasks: false })
   // TASK8_STABLE_END:limb-structural-only-catalog
   const resolvedHashCache = new Map<string, string>()
   const inputRoot = await mkdtemp(join(ROOT, '.tmp-limb-matrix-'))

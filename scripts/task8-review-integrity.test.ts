@@ -36,9 +36,90 @@ describe('Task 8 clean-checkout review integrity', () => {
     expect(task8LimbCatalogProjectionSha256(task8BridgeDrift)).not.toBe(baseline)
   })
 
-  it('projects the explicit Task 9 diagnostic scope out of frozen Task 8 renderer hashes without hiding Task 8 drift', async () => {
+  it('restores only historical Task 8 face policy while preserving structural drift', async () => {
+    const { task8HistoricalCausalCatalog } = await import('./validate-interface-slice.js')
+    const catalog = JSON.parse(await readFile(resolve(ROOT, 'packages/asset-catalog/catalog/v0.3.0/catalog.json'), 'utf8'))
+    const projected = task8HistoricalCausalCatalog(catalog)
+    const expected = structuredClone(catalog)
+    expected.compositionPolicy.faceInsideRatio = 0.8
+    expected.compositionPolicy.faceVisibleRatio = 0.85
+    expect(projected).toEqual(expected)
+    expect(catalog.compositionPolicy).toEqual(expect.objectContaining({
+      faceInsideRatio: 0.84, faceVisibleRatio: 0.84,
+    }))
+
+    const drifted = structuredClone(catalog)
+    drifted.parts.find((part: any) => part.id === 'arms_short_plush')
+      .composition.variantsByRig.blob.connectors[0].origin.x += 1
+    const projectedDrift = task8HistoricalCausalCatalog(drifted)
+    expect(projectedDrift.parts).not.toEqual(projected.parts)
+    expect(projectedDrift.compositionPolicy).toEqual(projected.compositionPolicy)
+  })
+
+  it('recreates only the legacy Task 8 neck diagnostic at its exact historical thresholds', async () => {
+    const { task8HistoricalCausalEntry } = await import('./validate-interface-slice.js') as typeof import('./validate-interface-slice.js') & {
+      task8HistoricalCausalEntry: (entry: any) => any
+    }
+    const shoulderDrift = {
+      severity: 'error',
+      code: 'CONNECTOR_COMPOSITE_FAILED',
+      path: ['connectors', 'shoulderLeft'],
+      message: 'shoulder structural drift',
+    }
+    const blob = {
+      rigId: 'blob',
+      connectorMetrics: [{
+        connectorId: 'neck', receiverCoverage: 0.629356580399587,
+        plugCoverage: 0.9922589635854342, largestComponentRatio: 0.9999880938604703,
+        centerlineGapPixels: 0, childOutsideBodyRatio: null,
+      }],
+      diagnostics: [shoulderDrift],
+    }
+    const projectedBlob = task8HistoricalCausalEntry(blob)
+    expect(projectedBlob).not.toBe(blob)
+    expect(blob.diagnostics).toEqual([shoulderDrift])
+    expect(projectedBlob.diagnostics).toEqual([{
+      severity: 'error',
+      code: 'CONNECTOR_COMPOSITE_FAILED',
+      path: ['connectors', 'neck'],
+      message: 'Bridge blob-neck-bridge is below 0.9 contour coverage or above a 2px gap.',
+    }, shoulderDrift])
+    expect(projectedBlob.connectorMetrics).toEqual(blob.connectorMetrics)
+
+    const exactCompatibleBiped = {
+      ...blob,
+      rigId: 'biped',
+      connectorMetrics: [{
+        ...blob.connectorMetrics[0],
+        receiverCoverage: 0.9, plugCoverage: 0.9,
+        largestComponentRatio: 0.99, centerlineGapPixels: 2,
+      }],
+      diagnostics: [],
+    }
+    expect(task8HistoricalCausalEntry(exactCompatibleBiped).diagnostics).toEqual([])
+
+    for (const connectorPatch of [
+      { receiverCoverage: 0.899999 },
+      { plugCoverage: 0.899999 },
+      { largestComponentRatio: 0.989999 },
+      { centerlineGapPixels: 2.000001 },
+    ]) {
+      expect(task8HistoricalCausalEntry({
+        ...exactCompatibleBiped,
+        connectorMetrics: [{ ...exactCompatibleBiped.connectorMetrics[0], ...connectorPatch }],
+      }).diagnostics).toEqual([expect.objectContaining({
+        code: 'CONNECTOR_COMPOSITE_FAILED', path: ['connectors', 'neck'],
+      })])
+    }
+  })
+
+  it('projects explicit Task 9/10 extensions out of frozen Task 8 renderer hashes without hiding Task 8 drift', async () => {
     const { TASK8_APPROVED_RENDERER_BINDINGS, task8RendererProjectionSha256 } = await import('./task8-stable-projection.js')
-    for (const path of ['apps/creator-web/src/render-test.ts', 'packages/renderer-canvas/src/render.ts'] as const) {
+    for (const path of [
+      'apps/creator-web/src/render-test.ts',
+      'packages/renderer-canvas/src/render.ts',
+      'packages/renderer-canvas/src/connector-metrics.ts',
+    ] as const) {
       const bytes = await readFile(resolve(ROOT, path))
       expect(task8RendererProjectionSha256(path, bytes)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
       if (path === 'packages/renderer-canvas/src/render.ts') {
@@ -48,9 +129,24 @@ describe('Task 8 clean-checkout review integrity', () => {
         ))
         expect(task8RendererProjectionSha256(path, task9OnlyMutation)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
       }
+      if (path === 'packages/renderer-canvas/src/connector-metrics.ts') {
+        const task10OnlyMutation = Buffer.from(bytes.toString('utf8').replace(
+          'export const CONNECTOR_RECEIVER_COVERAGE_MIN = 0.62',
+          'export const CONNECTOR_RECEIVER_COVERAGE_MIN = 0.63',
+        ))
+        expect(task8RendererProjectionSha256(path, task10OnlyMutation)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+      }
       const drifted = Buffer.from(bytes.toString('utf8').replace(
-        path.includes('render-test') ? '2D context unavailable' : 'validateMonsterSpecAgainstCatalog(spec, catalog)',
-        path.includes('render-test') ? 'Task 8 drift' : 'validateMonsterSpecAgainstCatalog(spec, { ...catalog })',
+        path.includes('render-test')
+          ? '2D context unavailable'
+          : path.endsWith('connector-metrics.ts')
+            ? 'overlapMass += Math.min(contourAlpha, bridge[offset] ?? 0)'
+            : 'validateMonsterSpecAgainstCatalog(spec, catalog)',
+        path.includes('render-test')
+          ? 'Task 8 drift'
+          : path.endsWith('connector-metrics.ts')
+            ? 'overlapMass += contourAlpha * (bridge[offset] ?? 0) / 255'
+            : 'validateMonsterSpecAgainstCatalog(spec, { ...catalog })',
       ))
       expect(task8RendererProjectionSha256(path, drifted)).not.toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
     }

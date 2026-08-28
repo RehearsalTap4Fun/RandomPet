@@ -11,22 +11,22 @@ function sha256(bytes: Buffer | string): string {
   return createHash('sha256').update(bytes).digest('hex')
 }
 
-async function makeEvidence(overrides: Record<string, unknown> = {}) {
+async function makeEvidence(overrides: Record<string, unknown> = {}, version: '0.2.0' | '0.3.0' = '0.2.0') {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-composite-review-'))
   temporaryRoots.push(root)
-  const reviewDirectory = join(root, 'packages', 'asset-catalog', 'review', 'v0.2.0')
+  const reviewDirectory = join(root, 'packages', 'asset-catalog', 'review', `v${version}`)
   await mkdir(reviewDirectory, { recursive: true })
   const contactSheet = Buffer.from('reviewed composite sheet fixture')
   const manifest = `${JSON.stringify({
-    catalogVersion: '0.2.0',
-    rendererVersion: '0.2.0',
+    catalogVersion: version,
+    rendererVersion: version,
     entries: Array.from({ length: 21 }, (_, index) => ({ index: index + 1 })),
   })}\n`
   await writeFile(join(reviewDirectory, 'full-composite-contact-sheet.png'), contactSheet)
   await writeFile(join(reviewDirectory, 'full-composite-manifest.json'), manifest)
   const record = {
-    catalogVersion: '0.2.0',
-    rendererVersion: '0.2.0',
+    catalogVersion: version,
+    rendererVersion: version,
     decision: 'approved',
     reviewedAt: '2026-08-24T08:00:00.000Z',
     reviewer: 'user',
@@ -52,6 +52,16 @@ describe('composite review validation', () => {
     )
 
     await expect(validateCompositeReview('0.2.0', fixture.root)).resolves.toEqual(fixture.record)
+  })
+
+  it('supports an explicit v0.3 approval contract without treating v0.2 evidence as approval', async () => {
+    const fixture = await makeEvidence({}, '0.3.0')
+    await writeFile(
+      join(fixture.reviewDirectory, 'full-composite-acceptance.json'),
+      `${JSON.stringify(fixture.record)}\n`,
+    )
+
+    await expect(validateCompositeReview('0.3.0', fixture.root)).resolves.toEqual(fixture.record)
   })
 
   it('rejects a missing user decision', async () => {

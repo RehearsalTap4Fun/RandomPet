@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "task7-head-face-socket-amendment-v2",
+  "status": "MACHINE_PASS_AWAITING_USER_REVIEW",
+  "decision": "All v0.3 head variants place eyes at least 80px inside the face safe-zone top, then keep the mouth at least 120px below the eyes.",
+  "thresholds": {
+    "eyesSafeZoneTopInsetMinPx": 80,
+    "eyesToMouthVerticalGapMinPx": 120
+  },
+  "rasterMutationCount": 0,
+  "baseline": "Task 7 approved feature sockets before the Task 10 amendment",
+  "changes": [
+    {
+      "partId": "head_mushroom_cap",
+      "rigId": "biped",
+      "faceSafeZoneTopY": 1050,
+      "eyesYBefore": 1160,
+      "eyesYAfter": 1160,
+      "safeZoneTopInsetPx": 110,
+      "mouthYBefore": 1273,
+      "mouthYAfter": 1280,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_mushroom_cap",
+      "rigId": "blob",
+      "faceSafeZoneTopY": 1020,
+      "eyesYBefore": 1072,
+      "eyesYAfter": 1100,
+      "safeZoneTopInsetPx": 80,
+      "mouthYBefore": 1128,
+      "mouthYAfter": 1220,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_mushroom_cap",
+      "rigId": "floating",
+      "faceSafeZoneTopY": 1050,
+      "eyesYBefore": 1109,
+      "eyesYAfter": 1130,
+      "safeZoneTopInsetPx": 80,
+      "mouthYBefore": 1165,
+      "mouthYAfter": 1250,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_round_dome",
+      "rigId": "biped",
+      "faceSafeZoneTopY": 1050,
+      "eyesYBefore": 1096,
+      "eyesYAfter": 1130,
+      "safeZoneTopInsetPx": 80,
+      "mouthYBefore": 1152,
+      "mouthYAfter": 1250,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_round_dome",
+      "rigId": "blob",
+      "faceSafeZoneTopY": 1020,
+      "eyesYBefore": 1033,
+      "eyesYAfter": 1100,
+      "safeZoneTopInsetPx": 80,
+      "mouthYBefore": 1089,
+      "mouthYAfter": 1220,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_round_dome",
+      "rigId": "floating",
+      "faceSafeZoneTopY": 1050,
+      "eyesYBefore": 1098,
+      "eyesYAfter": 1130,
+      "safeZoneTopInsetPx": 80,
+      "mouthYBefore": 1154,
+      "mouthYAfter": 1250,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_angler_bulb",
+      "rigId": "biped",
+      "faceSafeZoneTopY": 1050,
+      "eyesYBefore": 1160,
+      "eyesYAfter": 1160,
+      "safeZoneTopInsetPx": 110,
+      "mouthYBefore": 1224,
+      "mouthYAfter": 1280,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_angler_bulb",
+      "rigId": "blob",
+      "faceSafeZoneTopY": 1020,
+      "eyesYBefore": 1144,
+      "eyesYAfter": 1144,
+      "safeZoneTopInsetPx": 124,
+      "mouthYBefore": 1200,
+      "mouthYAfter": 1264,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_angler_bulb",
+      "rigId": "floating",
+      "faceSafeZoneTopY": 1050,
+      "eyesYBefore": 1160,
+      "eyesYAfter": 1160,
+      "safeZoneTopInsetPx": 110,
+      "mouthYBefore": 1229,
+      "mouthYAfter": 1280,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_shadow_hood",
+      "rigId": "biped",
+      "faceSafeZoneTopY": 1050,
+      "eyesYBefore": 1106,
+      "eyesYAfter": 1130,
+      "safeZoneTopInsetPx": 80,
+      "mouthYBefore": 1162,
+      "mouthYAfter": 1250,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_shadow_hood",
+      "rigId": "blob",
+      "faceSafeZoneTopY": 1020,
+      "eyesYBefore": 1045,
+      "eyesYAfter": 1100,
+      "safeZoneTopInsetPx": 80,
+      "mouthYBefore": 1101,
+      "mouthYAfter": 1220,
+      "verticalGapPx": 120
+    },
+    {
+      "partId": "head_shadow_hood",
+      "rigId": "floating",
+      "faceSafeZoneTopY": 1050,
+      "eyesYBefore": 1078,
+      "eyesYAfter": 1130,
+      "safeZoneTopInsetPx": 80,
+      "mouthYBefore": 1134,
+      "mouthYAfter": 1250,
+      "verticalGapPx": 120
+    }
+  ]
+}

@@ -46,6 +46,23 @@ describe('CompositionStatus', () => {
     expect(screen.getByRole('list', { name: '组合约束' }).textContent).toContain('面部需调整')
   })
 
+  it('marks v0.3 structure unready when a connector error is present', () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.version = '0.3.0'
+    const spec = makeValidCompositionSpecFixture(makeCompositionCatalogFixture())
+    spec.catalogVersion = '0.3.0'
+    spec.rendererVersion = '0.3.0'
+
+    render(<CompositionStatus spec={spec} catalog={catalog} diagnostics={[{
+      severity: 'error',
+      code: 'CONNECTOR_COMPOSITE_FAILED',
+      path: ['connectors', 'neck'],
+      message: 'neck failed',
+    }]} />)
+
+    expect(screen.getByRole('list', { name: '组合约束' }).textContent).toContain('结构需调整')
+  })
+
   it('does not render for legacy catalogs without composition policy', () => {
     const catalog = makeValidCatalogFixture()
     const spec = makeValidCompositionSpecFixture(makeCompositionCatalogFixture())

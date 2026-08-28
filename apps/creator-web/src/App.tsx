@@ -9,6 +9,7 @@ import {
 } from '@qmonster/generator-core'
 import legacyProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.1.0/catalog.json'
 import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
+import v03ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
 import type { CreatorAction, CreatorSession } from './state/contracts.js'
 import type { SessionStorage } from './state/persistence.js'
@@ -34,9 +35,15 @@ if (!parsedLegacyProductionCatalog.ok) {
   throw new Error(`Legacy production catalog is invalid: ${parsedLegacyProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
 }
 export const legacyProductionCatalog = parsedLegacyProductionCatalog.value
+const parsedV03ProductionCatalog = parseCatalog(v03ProductionCatalogDocument)
+if (!parsedV03ProductionCatalog.ok) {
+  throw new Error(`Candidate v0.3 catalog is invalid: ${parsedV03ProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
+}
+export const v03ProductionCatalog = parsedV03ProductionCatalog.value
 export const productionCatalogRegistry = new CatalogRegistry(new Map([
   ['0.1.0', async () => legacyProductionCatalog],
   ['0.2.0', async () => productionCatalog],
+  ['0.3.0', async () => v03ProductionCatalog],
 ]))
 
 interface CreatorWorkbenchProps {
@@ -47,6 +54,8 @@ interface CreatorWorkbenchProps {
   onInspectLegacy?: (payload: { spec: import('@qmonster/generator-core').MonsterSpec; catalog: Catalog }) => void
   parseSpecFile?: ExportControlsProps['parseSpecFile']
   previewRenderer?: PreviewRenderer
+  editableCatalogVersion?: string
+  onActivateCatalog?: (catalog: Catalog) => void
 }
 
 type ObservationBackground = 'studio' | 'grid' | 'dark'
@@ -95,6 +104,8 @@ export function CreatorWorkbench({
   onInspectLegacy,
   parseSpecFile,
   previewRenderer,
+  editableCatalogVersion = catalog.version,
+  onActivateCatalog,
 }: CreatorWorkbenchProps) {
   const [observationBackground, setObservationBackground] = useState<ObservationBackground>('studio')
   const [operationDiagnostics, setOperationDiagnostics] = useState<Diagnostic[]>([])
@@ -119,7 +130,8 @@ export function CreatorWorkbench({
           registry={catalogRegistry}
           canvasRef={previewCanvasRef}
           onImportComplete={payload => {
-            if (payload.catalog.version === productionCatalog.version) {
+            if (payload.catalog.version === editableCatalogVersion) {
+              onActivateCatalog?.(payload.catalog)
               onAction({ type: 'importSpec', spec: payload.spec })
               return
             }
@@ -184,6 +196,7 @@ export function CreatorWorkbench({
 }
 
 interface AppProps {
+  catalog?: Catalog
   initialExportCapabilities?: CreatorSession['exportCapabilities']
   parseSpecFile?: ExportControlsProps['parseSpecFile']
   storage?: SessionStorage
@@ -192,6 +205,7 @@ interface AppProps {
 }
 
 export function App({
+  catalog = productionCatalog,
   initialExportCapabilities,
   parseSpecFile,
   storage,
@@ -220,6 +234,7 @@ export function App({
   }
 
   return <InitializedCreatorApp
+    initialCatalog={catalog}
     exportCapabilities={exportCapabilities}
     {...(parseSpecFile === undefined ? {} : { parseSpecFile })}
     {...(storage === undefined ? {} : { storage })}
@@ -229,20 +244,23 @@ export function App({
 }
 
 function InitializedCreatorApp({
+  initialCatalog,
   exportCapabilities,
   parseSpecFile,
   storage,
   previewRenderer,
   onSessionChange,
 }: {
+  initialCatalog: Catalog
   exportCapabilities: CreatorSession['exportCapabilities']
   parseSpecFile?: ExportControlsProps['parseSpecFile']
   storage?: SessionStorage
   previewRenderer?: PreviewRenderer
   onSessionChange?: (session: CreatorSession) => void
 }) {
+  const [editorCatalog, setEditorCatalog] = useState(initialCatalog)
   const { session, dispatch } = useCreator({
-    catalog: productionCatalog,
+    catalog: editorCatalog,
     initialRequest: {
       seed: 'qmonster-v0.1-first-hatch',
       themeId: 'fungal',
@@ -273,8 +291,10 @@ function InitializedCreatorApp({
   return (
     <CreatorWorkbench
       session={session}
-      catalog={productionCatalog}
+      catalog={editorCatalog}
       catalogRegistry={productionCatalogRegistry}
+      editableCatalogVersion={v03ProductionCatalog.version}
+      onActivateCatalog={setEditorCatalog}
       onAction={dispatch}
       onInspectLegacy={setLegacyInspection}
       {...(parseSpecFile === undefined ? {} : { parseSpecFile })}

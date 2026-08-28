@@ -184,3 +184,14 @@ it('includes the independent bridge-review provenance validator in the formal ev
     groups: ['task9-validation'],
   }))
 })
+
+it('binds the Task 10 face-socket amendment and role-specific connector threshold into Task 9 evidence', async () => {
+  const dependencies = await collectExpectedTask9EvidenceDependencies(process.cwd())
+  for (const [path, group] of [
+    ['packages/asset-catalog/review/v0.3.0/head-face-socket-amendment.json', 'task6-9-review'],
+    ['scripts/amend-head-face-sockets.ts', 'task9-validation'],
+    ['packages/renderer-canvas/src/connector-metrics.ts', 'task9-live-renderer'],
+  ] as const) {
+    expect(dependencies).toContainEqual(expect.objectContaining({ path, groups: expect.arrayContaining([group]) }))
+  }
+})
