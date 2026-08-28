@@ -31,6 +31,11 @@ export interface LoadSessionResult {
   diagnostics: Diagnostic[]
 }
 
+export interface SessionTarget {
+  catalogVersion: string
+  rendererVersion: string
+}
+
 interface PendingSave {
   timer: ReturnType<typeof setTimeout>
   serialized: string
@@ -191,34 +196,50 @@ function loadFailure(createFreshSession: () => CreatorSession, message: string):
 export function loadSession(
   createFreshSession: () => CreatorSession,
   storage: SessionStorage | undefined = defaultStorage(),
+  target?: SessionTarget,
 ): LoadSessionResult {
+  let preparedFreshSession: CreatorSession | undefined
+  const freshSession = (): CreatorSession => {
+    preparedFreshSession ??= createFreshSession()
+    return preparedFreshSession
+  }
   if (storage === undefined) {
-    return loadFailure(createFreshSession, 'Local session storage is unavailable.')
+    return loadFailure(freshSession, 'Local session storage is unavailable.')
   }
   let serialized: string | null
   try {
     serialized = storage.getItem(CREATOR_SESSION_STORAGE_KEY)
   } catch {
-    return loadFailure(createFreshSession, 'The saved creator session could not be read.')
+    return loadFailure(freshSession, 'The saved creator session could not be read.')
   }
-  if (serialized === null) return { session: createFreshSession(), diagnostics: [] }
+  if (serialized === null) return { session: freshSession(), diagnostics: [] }
   if (!isWithinSessionSizeLimit(serialized)) {
-    return loadFailure(createFreshSession, 'The saved creator session exceeds the storage size limit.')
+    return loadFailure(freshSession, 'The saved creator session exceeds the storage size limit.')
   }
   try {
     const envelope = JSON.parse(serialized) as unknown
     if (!isRecord(envelope) || (envelope.schemaVersion !== 1 && envelope.schemaVersion !== 2)) {
-      return loadFailure(createFreshSession, 'The saved creator session uses an unsupported version.')
+      return loadFailure(freshSession, 'The saved creator session uses an unsupported version.')
     }
     const session = envelope.schemaVersion === 1
       ? parseStoredSessionV1(envelope.session)
       : parseStoredSessionV2(envelope.session)
     if (session === null) {
-      return loadFailure(createFreshSession, 'The saved creator session is incomplete or invalid.')
+      return loadFailure(freshSession, 'The saved creator session is incomplete or invalid.')
+    }
+    const expectedTarget = target ?? {
+      catalogVersion: freshSession().spec.catalogVersion,
+      rendererVersion: freshSession().spec.rendererVersion,
+    }
+    if (
+      session.spec.catalogVersion !== expectedTarget.catalogVersion
+      || session.spec.rendererVersion !== expectedTarget.rendererVersion
+    ) {
+      return loadFailure(freshSession, 'The saved creator session targets a different catalog or renderer.')
     }
     return { session, diagnostics: [] }
   } catch {
-    return loadFailure(createFreshSession, 'The saved creator session is not valid JSON.')
+    return loadFailure(freshSession, 'The saved creator session is not valid JSON.')
   }
 }
 

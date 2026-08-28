@@ -89,6 +89,24 @@ afterEach(() => {
 })
 
 describe('creator session persistence', () => {
+  it.each([
+    ['catalog', '0.2.0', '0.1.0'],
+    ['renderer', '0.1.0', '0.2.0'],
+  ])('rejects a structurally valid session targeting a different %s', (_target, catalogVersion, rendererVersion) => {
+    const storage = new MemoryStorage()
+    const stored = makeFreshSession('legacy-target')
+    stored.spec.catalogVersion = catalogVersion
+    stored.spec.rendererVersion = rendererVersion
+    storeV2Session(storage, stored)
+
+    const loaded = loadSession(() => makeFreshSession(), storage)
+
+    expect(loaded.session.spec.seed).toBe('fresh-seed')
+    expect(loaded.diagnostics).toEqual([
+      expect.objectContaining({ severity: 'warning', code: 'SESSION_LOAD_FAILED' }),
+    ])
+  })
+
   it('rejects a stored payload larger than 1 MiB before hydrating it', () => {
     const storage = new MemoryStorage()
     storeV2Session(storage, makeFreshSession('large-payload'), 'x'.repeat(1024 * 1024))

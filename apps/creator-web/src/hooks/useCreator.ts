@@ -8,6 +8,7 @@ import {
 } from 'react'
 import {
   generateMonster,
+  rendererVersionForCatalog,
   type Catalog,
   type Diagnostic,
   type GenerationRequest,
@@ -44,6 +45,10 @@ function initializeCreator(options: UseCreatorOptions): LoadSessionResult {
       options.exportCapabilities,
     ),
     options.storage,
+    {
+      catalogVersion: options.catalog.version,
+      rendererVersion: rendererVersionForCatalog(options.catalog),
+    },
   )
 }
 

@@ -10,6 +10,7 @@ export interface ExportControlsProps {
   session: CreatorSession
   registry: CatalogRegistry
   canvasRef: RefObject<HTMLCanvasElement | null>
+  imageExportReady?: boolean
   onImportComplete: (payload: { spec: MonsterSpec; catalog: Catalog }) => void
   onOperationDiagnostics: (diagnostics: Diagnostic[]) => void
   parseSpecFile?: typeof parseSpecFile
@@ -39,6 +40,7 @@ export function ExportControls({
   session,
   registry,
   canvasRef,
+  imageExportReady = true,
   onImportComplete,
   onOperationDiagnostics,
   parseSpecFile: parseImportedSpec = parseSpecFile,
@@ -47,6 +49,7 @@ export function ExportControls({
   const importRequestId = useRef(0)
   const mounted = useRef(true)
   const exportsBlocked = session.blocked
+  const imageExportsBlocked = exportsBlocked || !imageExportReady
 
   useEffect(() => {
     mounted.current = true
@@ -128,14 +131,14 @@ export function ExportControls({
       <button type="button" disabled={exportsBlocked} onClick={exportJson}>导出 JSON</button>
       <button
         type="button"
-        disabled={exportsBlocked || !session.exportCapabilities.png}
+        disabled={imageExportsBlocked || !session.exportCapabilities.png}
         onClick={() => void exportImage('image/png')}
       >
         导出透明 PNG
       </button>
       <button
         type="button"
-        disabled={exportsBlocked || !session.exportCapabilities.webp}
+        disabled={imageExportsBlocked || !session.exportCapabilities.webp}
         aria-describedby={session.exportCapabilities.webp ? undefined : 'webp-export-unavailable'}
         onClick={() => void exportImage('image/webp')}
       >

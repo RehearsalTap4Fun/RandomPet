@@ -8,7 +8,11 @@ import {
   type MonsterSpec,
   type VisualSlotId,
 } from '@qmonster/generator-core'
-import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
+import {
+  makeInterfaceCatalogFixture,
+  makeValidCatalogFixture,
+  makeValidCompositionSpecFixture,
+} from '@qmonster/generator-core/test-fixtures'
 import { createCreatorReducer } from './creator-reducer.js'
 import {
   createCreatorSession,
@@ -126,6 +130,43 @@ function catalogThatReplacesEveryUnlockedSlot(): Catalog {
 }
 
 describe('createCreatorReducer', () => {
+  it.each([
+    'CONNECTOR_VARIANT_MISSING',
+    'CONNECTOR_PROFILE_INVALID',
+    'CONNECTOR_WARP_EXCEEDED',
+    'CONNECTOR_BRIDGE_MISSING',
+  ])('clears a repaired %s diagnostic after selecting a valid structural part', code => {
+    const catalog = makeInterfaceCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    spec.catalogVersion = '0.3.0'
+    spec.rendererVersion = '0.3.0'
+    const session = createCreatorSession({
+      spec,
+      diagnostics: [],
+      blocked: false,
+      affectedSlots: [...VISUAL_SLOT_IDS],
+    })
+    const stale = refreshSessionValidity({
+      ...session,
+      generationDiagnostics: [{
+        severity: 'error',
+        code,
+        path: ['visualSlots', 'headShape'],
+        message: 'The previous head connector was invalid.',
+      }],
+    })
+    const reducer = createCreatorReducer(catalog)
+
+    const recovered = reducer(stale, {
+      type: 'manualSelect',
+      slotId: 'headShape',
+      partId: spec.visualSlots.headShape.partId,
+    })
+
+    expect(recovered.blocked).toBe(false)
+    expect(recovered.diagnostics).toEqual([])
+  })
+
   it('blocks on current render errors and unblocks when they clear', () => {
     const catalog = makeValidCatalogFixture()
     const reducer = createCreatorReducer(catalog)

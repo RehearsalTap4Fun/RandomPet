@@ -135,6 +135,49 @@ describe('CreatorWorkbench', () => {
     }))
   })
 
+  it('disables image export while the canvas still contains pixels from the previous spec', async () => {
+    installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const oldSession = createCreatorSession(generateMonster({
+      seed: 'committed-preview', themeId: 'fungal', mode: 'normal',
+    }, catalog), { png: true, webp: true })
+    const newSession = createCreatorSession(generateMonster({
+      seed: 'pending-preview', themeId: 'fungal', mode: 'normal',
+    }, catalog), { png: true, webp: true })
+    const pending = deferred<Awaited<ReturnType<PreviewRenderer>>>()
+    const completedRender = {
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
+    }
+    const renderer: PreviewRenderer = vi.fn((_context, spec) => (
+      spec.seed === oldSession.spec.seed ? Promise.resolve(completedRender) : pending.promise
+    ))
+    const view = render(
+      <CreatorWorkbench
+        session={oldSession}
+        catalog={catalog}
+        onAction={() => undefined}
+        previewRenderer={renderer}
+      />,
+    )
+
+    await waitFor(() => expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled())
+    view.rerender(
+      <CreatorWorkbench
+        session={newSession}
+        catalog={catalog}
+        onAction={() => undefined}
+        previewRenderer={renderer}
+      />,
+    )
+
+    expect(screen.getByRole('button', { name: '导出 JSON' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '导出透明 WebP' })).toBeDisabled()
+
+    pending.resolve(completedRender)
+    await waitFor(() => expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled())
+  })
+
   it('presents the complete shell, guarded export controls and live status summary', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()

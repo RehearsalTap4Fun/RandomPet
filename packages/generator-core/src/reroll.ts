@@ -217,7 +217,9 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
   ))
   diagnostics.push(...validateStructuralSelections(spec, request.catalog))
   if (isInterfaceCatalog(request.catalog) && diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
-    return result(cloneSpec(request.spec), diagnostics, affectedSlots)
+    const rolledBackSpec = cloneSpec(request.spec)
+    rolledBackSpec.slotRolls[request.slotId] = spec.slotRolls[request.slotId]
+    return result(rolledBackSpec, diagnostics, affectedSlots)
   }
   return result(spec, diagnostics, affectedSlots)
 }

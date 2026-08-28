@@ -92,6 +92,7 @@ interface PreviewCanvasProps {
   catalog: Catalog
   onDiagnosticsChange: (diagnostics: Diagnostic[]) => void
   onRenderComplete?: (result: RenderResult) => void
+  onRenderCommit?: (frameKey: string) => void
   renderer?: PreviewRenderer
   resolver?: ImageResolver
 }
@@ -111,7 +112,7 @@ function hasBlockingRenderDiagnostic(result: RenderResult): boolean {
   return result.diagnostics.some(diagnostic => diagnostic.severity === 'error')
 }
 
-function previewFrameKey(spec: MonsterSpec): string {
+export function previewFrameKey(spec: MonsterSpec): string {
   const { slotRolls: _slotRolls, ...renderedSpec } = spec
   return JSON.stringify(renderedSpec)
 }
@@ -139,6 +140,7 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
   catalog,
   onDiagnosticsChange,
   onRenderComplete,
+  onRenderCommit,
   renderer = renderMonster,
   resolver,
 }: PreviewCanvasProps, forwardedRef) {
@@ -198,6 +200,7 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
       target.dataset.resolverCacheSize = String(browserImageCache.size())
       performance.mark('qmonster-preview-commit')
       onDiagnosticsChange(result.diagnostics)
+      onRenderCommit?.(cacheKey)
       onRenderComplete?.(result)
     }
     const cacheKey = previewFrameKey(spec)
@@ -250,7 +253,7 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
     return () => {
       if (requestId.current === currentRequest) requestId.current += 1
     }
-  }, [catalog, onDiagnosticsChange, onRenderComplete, renderer, resolver, spec])
+  }, [catalog, onDiagnosticsChange, onRenderCommit, onRenderComplete, renderer, resolver, spec])
 
   return (
     <canvas

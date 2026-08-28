@@ -17,6 +17,7 @@ import { DiagnosticsPanel } from './components/DiagnosticsPanel.js'
 import { GeneratorControls } from './components/GeneratorControls.js'
 import {
   PreviewCanvas,
+  previewFrameKey,
   type PreviewRenderer,
 } from './components/PreviewCanvas.js'
 import { SlotPanel } from './components/SlotPanel.js'
@@ -110,7 +111,9 @@ export function CreatorWorkbench({
 }: CreatorWorkbenchProps) {
   const [observationBackground, setObservationBackground] = useState<ObservationBackground>('studio')
   const [operationDiagnostics, setOperationDiagnostics] = useState<Diagnostic[]>([])
+  const [committedPreviewKey, setCommittedPreviewKey] = useState<string | null>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
+  const requestedPreviewKey = previewFrameKey(session.spec)
   const onRenderDiagnostics = useCallback((diagnostics: CreatorSession['renderDiagnostics']) => {
     onAction({ type: 'setRenderDiagnostics', diagnostics })
   }, [onAction])
@@ -130,6 +133,7 @@ export function CreatorWorkbench({
           session={session}
           registry={catalogRegistry}
           canvasRef={previewCanvasRef}
+          imageExportReady={committedPreviewKey === requestedPreviewKey}
           onImportComplete={payload => {
             if (payload.catalog.version === editableCatalogVersion) {
               onActivateCatalog?.(payload.catalog)
@@ -177,6 +181,7 @@ export function CreatorWorkbench({
               spec={session.spec}
               catalog={catalog}
               onDiagnosticsChange={onRenderDiagnostics}
+              onRenderCommit={setCommittedPreviewKey}
               {...(previewRenderer === undefined ? {} : { renderer: previewRenderer })}
             />
             <span className="preview-stage__label">1024 × 1024 · 实时合成</span>

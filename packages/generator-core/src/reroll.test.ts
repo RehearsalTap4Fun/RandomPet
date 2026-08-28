@@ -36,7 +36,7 @@ describe('rerollSlot', () => {
     expect(result.spec.visualSlots.arms).toEqual(spec.visualSlots.arms)
   })
 
-  it('keeps the previous spec when no rerolled body is connector-compatible with retained children', () => {
+  it('keeps previous selections while advancing the retry stream when no body candidate is compatible', () => {
     const catalog = makeInterfaceCatalogFixture()
     const head = catalog.parts.find(part => part.slotId === 'headShape')!
     if (head.composition?.mode !== 'interface') throw new Error('Expected interface head')
@@ -48,10 +48,30 @@ describe('rerollSlot', () => {
     const result = rerollSlot({ spec, slotId: 'bodyFrame', locks: {}, catalog })
 
     expect(result.blocked).toBe(true)
-    expect(result.spec).toEqual(spec)
+    expect(result.spec).toEqual({
+      ...spec,
+      slotRolls: { ...spec.slotRolls, bodyFrame: 1 },
+    })
     expect(result.diagnostics).toContainEqual(expect.objectContaining({
       code: 'NO_COMPATIBLE_CANDIDATE', path: ['visualSlots', 'bodyFrame'],
     }))
+  })
+
+  it('advances the body reroll stream after a cross-rig candidate fails against retained children', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    spec.catalogVersion = '0.3.0'
+    spec.rendererVersion = '0.3.0'
+    spec.seed = 'cross-rig-1'
+
+    const failed = rerollSlot({ spec, slotId: 'bodyFrame', locks: {}, catalog })
+    const recovered = rerollSlot({ spec: failed.spec, slotId: 'bodyFrame', locks: {}, catalog })
+
+    expect(failed.blocked).toBe(true)
+    expect(failed.spec.visualSlots).toEqual(spec.visualSlots)
+    expect(failed.spec.slotRolls.bodyFrame).toBe(1)
+    expect(recovered.blocked).toBe(false)
+    expect(recovered.spec.slotRolls.bodyFrame).toBe(2)
   })
 
   it('preserves structural children while excluding an incompatible body reroll candidate', () => {
