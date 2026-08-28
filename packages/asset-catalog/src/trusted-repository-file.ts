@@ -41,7 +41,12 @@ export async function readTrustedRepositoryFile(
   io: TrustedRepositoryFileIo = defaultIo,
 ): Promise<{ lexicalPath: string, canonicalPath: string, bytes: Buffer, sha256: string }> {
   assertPortableRepositoryLeaf(path)
-  const canonicalRoot = await io.realpath(resolve(repositoryRoot))
+  const resolvedRoot = resolve(repositoryRoot)
+  const rootMetadata = await io.lstat(resolvedRoot)
+  if (rootMetadata.isSymbolicLink() || !rootMetadata.isDirectory()) {
+    throw new Error(`Trusted repository trust root must be a direct directory: ${repositoryRoot}`)
+  }
+  const canonicalRoot = await io.realpath(resolvedRoot)
   const lexicalPath = resolve(canonicalRoot, path)
   if (!contained(canonicalRoot, lexicalPath)) {
     throw new Error(`Trusted repository file escapes its repository root: ${path}`)

@@ -15,6 +15,11 @@ export interface CompositeReviewRecord {
   notes: string[]
 }
 
+export interface CompositeReviewValidationOptions {
+  expectedApprovalSha256?: string
+  generatedEvidenceDirectory?: string
+}
+
 function invalid(reason: string, cause?: unknown): Error {
   return new Error(`COMPOSITE_REVIEW_INVALID: ${reason}`, cause === undefined ? {} : { cause })
 }
@@ -38,6 +43,7 @@ function parseJson(bytes: Buffer, label: string): unknown {
 export async function validateCompositeReview(
   version: string,
   repositoryRoot = process.cwd(),
+  options: CompositeReviewValidationOptions = {},
 ): Promise<CompositeReviewRecord> {
   if (version !== '0.2.0' && version !== '0.3.0') {
     throw invalid(`Unsupported composite review version ${version}.`)
@@ -80,25 +86,70 @@ export async function validateCompositeReview(
     || typeof record.manifestSha256 !== 'string') {
     throw invalid('Composite review record is not an explicit valid user approval.')
   }
+  if (options.expectedApprovalSha256 !== undefined
+    && sha256(recordBytes) !== options.expectedApprovalSha256) {
+    throw invalid('Composite review approval bytes do not match the user-approved release record.')
+  }
   if (record.contactSheetSha256 !== sha256(contactSheetBytes)
     || record.manifestSha256 !== sha256(manifestBytes)) {
     throw invalid('Composite review evidence changed after approval.')
   }
+  if (options.generatedEvidenceDirectory !== undefined) {
+    let generatedContactSheetBytes: Buffer
+    let generatedManifestBytes: Buffer
+    try {
+      [generatedContactSheetBytes, generatedManifestBytes] = await Promise.all([
+        readFile(join(options.generatedEvidenceDirectory, 'contact-sheet.png')),
+        readFile(join(options.generatedEvidenceDirectory, 'acceptance-set.json')),
+      ])
+    } catch (error) {
+      throw invalid('Freshly generated composite evidence is missing.', error)
+    }
+    if (sha256(generatedContactSheetBytes) !== record.contactSheetSha256
+      || sha256(generatedManifestBytes) !== record.manifestSha256) {
+      throw invalid('Freshly generated composite evidence does not reproduce the approved bytes.')
+    }
+  }
   return record as unknown as CompositeReviewRecord
 }
 
-function parseVersion(args: readonly string[]): string {
-  if (args.length !== 2 || args[0] !== '--version' || args[1] === undefined) {
+function parseArguments(args: readonly string[]): {
+  version: string
+  options: CompositeReviewValidationOptions
+} {
+  let version: string | undefined
+  let expectedApprovalSha256: string | undefined
+  let generatedEvidenceDirectory: string | undefined
+  for (let index = 0; index < args.length; index += 2) {
+    const flag = args[index]
+    const value = args[index + 1]
+    if (value === undefined) throw invalid('Composite review validation arguments must be flag-value pairs.')
+    if (flag === '--version') version = value
+    else if (flag === '--approval-sha256') expectedApprovalSha256 = value
+    else if (flag === '--generated-evidence-dir') generatedEvidenceDirectory = resolve(value)
+    else throw invalid(`Unknown composite review validation argument ${flag}.`)
+  }
+  if (version === undefined) {
     throw invalid('Usage: validate-composite-review.ts --version 0.2.0|0.3.0')
   }
-  return args[1]
+  if (expectedApprovalSha256 !== undefined && !/^[a-f0-9]{64}$/u.test(expectedApprovalSha256)) {
+    throw invalid('--approval-sha256 must be a lowercase SHA-256 digest.')
+  }
+  return {
+    version,
+    options: {
+      ...(expectedApprovalSha256 === undefined ? {} : { expectedApprovalSha256 }),
+      ...(generatedEvidenceDirectory === undefined ? {} : { generatedEvidenceDirectory }),
+    },
+  }
 }
 
 const invokedModule = process.argv[1] === undefined
   ? undefined
   : pathToFileURL(resolve(process.argv[1])).href
 if (invokedModule === import.meta.url) {
-  void validateCompositeReview(parseVersion(process.argv.slice(2))).catch(error => {
+  const parsed = parseArguments(process.argv.slice(2))
+  void validateCompositeReview(parsed.version, process.cwd(), parsed.options).catch(error => {
     console.error(error instanceof Error ? error.message : `COMPOSITE_REVIEW_INVALID: ${String(error)}`)
     process.exitCode = 1
   })

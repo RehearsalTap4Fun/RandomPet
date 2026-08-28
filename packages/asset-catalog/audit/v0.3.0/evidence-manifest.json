@@ -19152,7 +19152,7 @@
       },
       {
         "path": "packages/asset-catalog/src/trusted-repository-file.ts",
-        "sha256": "d48b498875a4d455a0985795b14a596b279de0413bbfed9e07278be365137403",
+        "sha256": "6b2428405ebfb43e7edd5d41d8be571d005a44c9ad428c3f7feaeea35b793df3",
         "groups": [
           "task9-validation"
         ]
@@ -19218,7 +19218,7 @@
       },
       {
         "path": "scripts/render-tail-extra-structural-matrices.ts",
-        "sha256": "0da0691acc790859d57064dd9359e1407f20e6fd9d5683793f93d3343ad9468c",
+        "sha256": "4fedfcfafcefa77782a4601624b275005aee6ed6632c167a67faad260505502f",
         "groups": [
           "task9-live-renderer"
         ]

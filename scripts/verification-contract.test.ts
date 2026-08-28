@@ -21,7 +21,7 @@ it('routes root verification through all three production catalog validators', a
   expect(root.scripts.verify).toContain('npm run catalog:validate')
 })
 
-it('keeps the Task 9 technical gate separate from the pending whole-creature approval', async () => {
+it('keeps the Task 9 technical gate separate from the exact v0.3 release approval', async () => {
   const root = JSON.parse(await readFile('package.json', 'utf8'))
   const technicalSteps = [
     'npm run typecheck',
@@ -34,7 +34,9 @@ it('keeps the Task 9 technical gate separate from the pending whole-creature app
   ]
   expect(root.scripts['verify:task9']).toBe(technicalSteps.join(' && '))
   expect(root.scripts.verify).toBe(`${technicalSteps.join(' && ')} && npm run acceptance:generate && npm run acceptance:verify`)
-  expect(root.scripts['acceptance:verify']).toBe('tsx scripts/validate-composite-review.ts --version 0.2.0')
+  expect(root.scripts['acceptance:verify']).toBe(
+    'tsx scripts/validate-composite-review.ts --version 0.3.0 --approval-sha256 4f2c8c359e53297077914a3c1fc72d943164d57632fbd9d41809a7445b3f1025 --generated-evidence-dir artifacts/acceptance/v0.3',
+  )
 })
 
 it('keeps live reconstruction suites in full verification while coverage targets production code with fast tests', async () => {
@@ -56,6 +58,7 @@ it('keeps live reconstruction suites in full verification while coverage targets
   expect(root.scripts.verify.indexOf('npm test')).toBeLessThan(root.scripts.verify.indexOf('npm run test:coverage'))
   expect(root.scripts.verify.indexOf('npm run test:coverage')).toBeLessThan(root.scripts.verify.indexOf('npm run catalog:validate'))
   expect(assetCatalog.scripts['validate:v0.3.0']).toContain('validate-interface-slice.ts --version 0.3.0 --production')
+  expect(assetCatalog.scripts.validate).toBe('npm run validate:v0.3.0')
   expect(productionValidation).toContain('bodyHeadApprovalEntriesChecked')
   expect(productionValidation).toContain('limbApprovalEntriesChecked')
   expect(productionValidation).toContain('tailExtraEntriesChecked')
@@ -87,7 +90,7 @@ it('keeps live reconstruction suites in full verification while coverage targets
     .filter(path => /\.test\.tsx?$/.test(path))
     .map(path => path.replaceAll('\\', '/'))
   discovered.push('tests/render/production-composition.spec.ts')
-  expect(discovered).toHaveLength(87)
+  expect(discovered).toHaveLength(88)
 
   const configured = [
     ...discovered.filter(path => /^(packages|scripts)\//.test(path) && !COVERAGE_ONLY_EXCLUDES.includes(path)),

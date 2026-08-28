@@ -168,23 +168,23 @@ export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
   }
 }
 
-function parseArguments(args: readonly string[]): {
+export function parseAcceptanceArguments(args: readonly string[]): {
   seedStart: number
   count: number
   catalogVersion: AcceptanceCatalogVersion
 } {
   let seedStart = DEFAULT_SEED_START
   let count = DEFAULT_COUNT
-  let catalogVersion: AcceptanceCatalogVersion = '0.2.0'
+  let catalogVersion: AcceptanceCatalogVersion = '0.3.0'
   for (let index = 0; index < args.length; index += 1) {
     const flag = args[index]
     const rawValue = args[index + 1]
-    if ((flag !== '--seed-start' && flag !== '--count' && flag !== '--catalog-version') || rawValue === undefined) {
+    if ((flag !== '--seed-start' && flag !== '--count' && flag !== '--catalog-version' && flag !== '--version') || rawValue === undefined) {
       throw new Error(`Unknown or incomplete acceptance argument: ${flag ?? ''}`)
     }
-    if (flag === '--catalog-version') {
+    if (flag === '--catalog-version' || flag === '--version') {
       if (rawValue !== '0.2.0' && rawValue !== '0.3.0') {
-        throw new Error('--catalog-version must be exactly 0.2.0 or 0.3.0.')
+        throw new Error(`${flag} must be exactly 0.2.0 or 0.3.0.`)
       }
       catalogVersion = rawValue
       index += 1
@@ -279,7 +279,7 @@ async function assembleContactSheet(
 
 export async function generateAcceptanceSet(args = process.argv.slice(2)): Promise<void> {
   const repositoryRoot = process.cwd()
-  const { seedStart, count, catalogVersion } = parseArguments(args)
+  const { seedStart, count, catalogVersion } = parseAcceptanceArguments(args)
   const parsedCatalog = parseCatalog(catalogDocument(catalogVersion))
   if (!parsedCatalog.ok) {
     throw new Error(`Production catalog is invalid: ${JSON.stringify(parsedCatalog.diagnostics)}`)

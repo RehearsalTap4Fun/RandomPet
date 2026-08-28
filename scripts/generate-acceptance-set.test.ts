@@ -32,6 +32,25 @@ function makeValidRenderedAcceptanceEntry() {
 }
 
 describe('acceptance manifest', () => {
+  it('uses exact v0.3 by default and accepts the release --version spelling', async () => {
+    const module = await import('./generate-acceptance-set.js')
+    expect(module.parseAcceptanceArguments([])).toEqual({
+      seedStart: 2026082101,
+      count: 20,
+      catalogVersion: '0.3.0',
+    })
+    expect(module.parseAcceptanceArguments(['--version', '0.3.0'])).toEqual({
+      seedStart: 2026082101,
+      count: 20,
+      catalogVersion: '0.3.0',
+    })
+    expect(module.parseAcceptanceArguments(['--catalog-version', '0.2.0'])).toEqual({
+      seedStart: 2026082101,
+      count: 20,
+      catalogVersion: '0.2.0',
+    })
+  })
+
   it('contains the fixed 20 creatures plus the first-hatch regression', async () => {
     const { buildAcceptanceManifest } = await import('./generate-acceptance-set.js')
     const parsedCatalog = parseCatalog(productionCatalogDocument)

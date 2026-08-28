@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { copyFile, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { buildTailExtraMatrixIndex, cleanupTailExtraRenderHarness, makeTailExtraMatrixPlan, reconstructTailExtraMatrixEvidence, resolveMatrixResourcePath, task9StructuralCatalogProjectionSha256, validateStoredTailExtraMatrixEvidence, validateTailExtraRenderEvidence } from './render-tail-extra-structural-matrices.js'
+import { buildTailExtraMatrixIndex, cleanupTailExtraRenderHarness, makeTailExtraMatrixPlan, reconstructTailExtraMatrixEvidence, resolveMatrixResourcePath, task9HistoricalCausalCatalog, task9HistoricalDiagnosticProjection, task9StructuralCatalogProjectionSha256, validateStoredTailExtraMatrixEvidence, validateTailExtraRenderEvidence } from './render-tail-extra-structural-matrices.js'
 import { BODIES as TASK8_BODIES } from './render-limb-contact-sheets.js'
 import { assertTask9Task8BodyRoster, TASK9_BODIES_BY_RIG } from './task9-structural-identities.js'
 
@@ -54,6 +54,17 @@ describe('Task 9 tail/extra structural matrices', () => {
   it('binds live Task 9 structural inputs while allowing legal nonstructural catalog extensions', async () => {
     const catalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.3.0/catalog.json', 'utf8'))
     const baseline = task9StructuralCatalogProjectionSha256(catalog)
+    const historical = task9HistoricalCausalCatalog(catalog)
+    expect(baseline).toBe('b6b14b5335525bf040c62e756d7f6bc66fc8d952dc3aa755ebebd28824c2c62b')
+    expect(historical.parts.find((part: any) => part.id === 'head_round_dome')
+      .composition.variantsByRig.blob.featureSockets.eyes.y).toBe(1033)
+    expect(catalog.parts.find((part: any) => part.id === 'head_round_dome')
+      .composition.variantsByRig.blob.featureSockets.eyes.y).toBe(1100)
+    expect(historical.compositionPolicy).toMatchObject({
+      frameBounds: { x: 96, y: 64, width: 1856, height: 1888 },
+      faceInsideRatio: 0.8,
+      faceVisibleRatio: 0.85,
+    })
     const nonstructural = structuredClone(catalog)
     nonstructural.parts.push({ ...structuredClone(nonstructural.parts.find((part: any) => part.slotId === 'eyes')), id: 'eyes_legal_extension' })
     nonstructural.parts.find((part: any) => part.slotId === 'colorScheme').rigMaskPaths.blob.primary = 'assets/v0.3.0/legal-color-extension.png'
@@ -144,6 +155,50 @@ describe('Task 9 tail/extra structural matrices', () => {
       .toContain('tailRoot:centerlineGapPixels')
   })
 
+  it('reconstructs the approved Task 9 neck diagnostic without changing the live receiver threshold', () => {
+    const current = {
+      diagnostics: [{
+        severity: 'error',
+        code: 'CONNECTOR_COMPOSITE_FAILED',
+        path: ['connectors', 'tailRoot'],
+        message: 'active tail failure',
+      }],
+      connectorMetrics: [{
+        connectorId: 'neck',
+        receiverCoverage: 0.82,
+        plugCoverage: 0.95,
+        largestComponentRatio: 1,
+        centerlineGapPixels: 0,
+        childOutsideBodyRatio: null,
+      }],
+      diagnosticScope: {
+        id: 'task9-tail-extra',
+        activeVisualSlots: ['tail', 'extraAppendage'],
+        activeConnectorIds: ['tailRoot', 'extraLeft', 'extraRight'],
+        suppressedDiagnostics: [{
+          severity: 'error',
+          code: 'COMPOSITION_FACE_OUT_OF_ZONE',
+          path: ['visualSlots', 'eyes'],
+          message: 'inactive face',
+        }],
+      },
+    }
+    const historical = task9HistoricalDiagnosticProjection(current as any, 'blob')
+    expect(historical.diagnostics).toEqual(current.diagnostics)
+    expect(historical.diagnosticScope?.suppressedDiagnostics[0]).toEqual({
+      severity: 'error',
+      code: 'CONNECTOR_COMPOSITE_FAILED',
+      path: ['connectors', 'neck'],
+      message: 'Bridge blob-neck-bridge is below 0.9 contour coverage or above a 2px gap.',
+    })
+    expect(historical.diagnosticScope?.suppressedDiagnostics).toHaveLength(2)
+    expect(current.diagnosticScope.suppressedDiagnostics).toHaveLength(1)
+
+    current.connectorMetrics[0]!.receiverCoverage = 0.91
+    expect(task9HistoricalDiagnosticProjection(current as any, 'blob').diagnosticScope?.suppressedDiagnostics)
+      .toEqual(current.diagnosticScope.suppressedDiagnostics)
+  })
+
   it('keeps the biped extra pair causally covered after the live placement transform', async () => {
     const result = await reconstructTailExtraMatrixEvidence({ mode: 'prototype', failOnGateError: false })
     const biped = result.entries.find(entry => entry.rigId === 'biped')!
@@ -164,8 +219,8 @@ describe('Task 9 tail/extra structural matrices', () => {
   it('keeps all 39 frame bytes identical while the explicit Task 9 scope classifies only inactive diagnostics', async () => {
     const plan = makeTailExtraMatrixPlan('full')
     const [unscoped, scoped] = await Promise.all([
-      reconstructTailExtraMatrixEvidence({ plan, diagnosticScope: false }),
-      reconstructTailExtraMatrixEvidence({ plan }),
+      reconstructTailExtraMatrixEvidence({ plan, diagnosticScope: false, catalogProjection: task9HistoricalCausalCatalog, historicalDiagnostics: true }),
+      reconstructTailExtraMatrixEvidence({ plan, catalogProjection: task9HistoricalCausalCatalog, historicalDiagnostics: true }),
     ])
     expect(unscoped.entries).toHaveLength(39)
     expect(scoped.entries).toHaveLength(39)

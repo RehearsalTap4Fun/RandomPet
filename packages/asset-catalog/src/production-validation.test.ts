@@ -1,4 +1,4 @@
-import { link, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
+import { link, mkdir, mkdtemp, readFile, realpath, rm, symlink, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { tmpdir } from 'node:os'
@@ -30,7 +30,7 @@ async function makeProductionCliFixture(): Promise<{
   catalogDirectory: string
   sourceIndex: Record<string, any>
 }> {
-  const root = await mkdtemp(join(tmpdir(), 'qmonster-production-cli-'))
+  const root = await realpath(await mkdtemp(join(tmpdir(), 'qmonster-production-cli-')))
   temporaryDirectories.push(root)
   const catalogDirectory = join(root, 'catalog', 'v0.1.0')
   await mkdir(catalogDirectory, { recursive: true })

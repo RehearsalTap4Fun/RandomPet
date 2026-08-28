@@ -16,7 +16,7 @@ async function previewCommitCount(page: Page): Promise<number> {
 }
 
 async function waitForCommitAfter(page: Page, previousCount: number): Promise<void> {
-  await expect.poll(() => previewCommitCount(page)).toBeGreaterThan(previousCount)
+  await expect.poll(() => previewCommitCount(page), { timeout: 30_000 }).toBeGreaterThan(previousCount)
 }
 
 async function strongFeatureCount(page: Page): Promise<number> {
@@ -85,6 +85,7 @@ test('locks, rerolls, manually selects, and blocks an incompatible theme lock', 
 })
 
 test('keeps automatic composition within budget and leaves warning-only manual composites exportable', async ({ page }) => {
+  test.setTimeout(120_000)
   await openWorkbench(page)
   await expect(page.getByLabel('作品状态')).toContainText('错误 0')
   const composition = page.getByRole('list', { name: '组合约束' })

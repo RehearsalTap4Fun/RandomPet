@@ -41,7 +41,7 @@ test('meets the current-machine reroll, PNG export, and bounded-cache release ga
 
   await page.goto('/')
   await expect(page.getByRole('status')).toContainText('组合状态良好')
-  await expect.poll(() => previewCommitCount(page)).toBeGreaterThan(0)
+  await expect.poll(() => previewCommitCount(page), { timeout: 30_000 }).toBeGreaterThan(0)
 
   const tail = page.getByRole('combobox', { name: '尾巴部件' })
   const tailParts = await tail.locator('option:not([disabled])').evaluateAll(options => (

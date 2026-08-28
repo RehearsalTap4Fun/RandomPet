@@ -1,15 +1,19 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
+import { generateMonster, parseCatalog, type Catalog, type MonsterSpec } from '@qmonster/generator-core'
 import {
   makeCompositionCatalogFixture,
   makeValidCatalogFixture,
   makeValidCompositionSpecFixture,
   makeValidMonsterSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
-import type { Catalog, MonsterSpec } from '@qmonster/generator-core'
+import productionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import { downloadSpec, parseSpecFile } from './spec-file.js'
 
 const ONE_MIB = 1024 * 1024
+const parsedProductionCatalog = parseCatalog(productionCatalogDocument)
+if (!parsedProductionCatalog.ok) throw new Error('Expected the v0.3 production catalog fixture to parse.')
+const productionCatalog = parsedProductionCatalog.value
 
 function createRegistry(...catalogs: Catalog[]): CatalogRegistry {
   return new CatalogRegistry(new Map(
@@ -165,6 +169,29 @@ describe('parseSpecFile', () => {
     }
   })
 
+  it('rejects a current v0.3 fungal specimen with a deep-sea color scheme', async () => {
+    const spec = generateMonster({
+      seed: 'current-v03-theme-conflict',
+      themeId: 'fungal',
+      mode: 'normal',
+    }, productionCatalog).spec
+    spec.visualSlots.colorScheme = {
+      ...spec.visualSlots.colorScheme,
+      partId: 'color_deep_sea_coral',
+    }
+
+    const result = await parseSpecFile(createSpecFile(spec), createRegistry(productionCatalog))
+
+    expect(result.ok).toBe(false)
+    if (!result.ok) {
+      expect(result.diagnostics).toContainEqual(expect.objectContaining({
+        severity: 'error',
+        code: 'SPEC_THEME_INCOMPATIBLE',
+        path: ['visualSlots', 'colorScheme', 'partId'],
+      }))
+    }
+  })
+
   it('loads an installed old catalog and warns only after complete validation succeeds', async () => {
     const oldCatalog = makeValidCatalogFixture()
     const spec = makeValidMonsterSpecFixture()
@@ -258,9 +285,12 @@ describe('parseSpecFile', () => {
     })
   })
 
-  it('uses 0.2.0 as the default current catalog for legacy import warnings', async () => {
+  it('uses 0.3.0 as the default current catalog for legacy import warnings', async () => {
     const oldCatalog = makeValidCatalogFixture()
+    oldCatalog.version = '0.2.0'
     const spec = makeValidMonsterSpecFixture()
+    spec.catalogVersion = '0.2.0'
+    spec.rendererVersion = '0.2.0'
 
     const result = await parseSpecFile(createSpecFile(spec), createRegistry(oldCatalog))
 

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { link, lstat, mkdtemp, readFile, realpath, rm, stat, symlink, writeFile } from 'node:fs/promises'
+import { link, lstat, mkdir, mkdtemp, readFile, realpath, rm, stat, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, join } from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
@@ -80,6 +80,31 @@ describe('readTrustedRepositoryFile', () => {
         rm(root, { recursive: true, force: true }),
         rm(outside, { force: true }),
       ])
+    }
+  })
+
+  it('rejects a linked trust root before reading through it', async ({ skip }) => {
+    const parent = await mkdtemp(join(tmpdir(), 'qmonster-trusted-linked-root-'))
+    const outside = join(parent, 'outside')
+    const linkedRoot = join(parent, 'linked')
+    try {
+      await mkdir(outside)
+      await writeFile(join(outside, 'input.json'), 'outside')
+      try {
+        await symlink(outside, linkedRoot, process.platform === 'win32' ? 'junction' : 'dir')
+      } catch (error) {
+        if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) {
+          skip('directory links unavailable')
+        }
+        throw error
+      }
+      const read = vi.fn(readFile)
+      await expect(readTrustedRepositoryFile(linkedRoot, 'input.json', {
+        lstat, stat, realpath, readFile: read,
+      })).rejects.toThrow('trust root must be a direct directory')
+      expect(read).not.toHaveBeenCalled()
+    } finally {
+      await rm(parent, { recursive: true, force: true })
     }
   })
 })

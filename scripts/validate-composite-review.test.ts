@@ -36,7 +36,7 @@ async function makeEvidence(overrides: Record<string, unknown> = {}, version: '0
     notes: [],
     ...overrides,
   }
-  return { root, reviewDirectory, record }
+  return { root, reviewDirectory, record, contactSheet, manifest }
 }
 
 afterEach(async () => {
@@ -62,6 +62,43 @@ describe('composite review validation', () => {
     )
 
     await expect(validateCompositeReview('0.3.0', fixture.root)).resolves.toEqual(fixture.record)
+  })
+
+  it('binds release verification to the exact user-approved record bytes', async () => {
+    const fixture = await makeEvidence({}, '0.3.0')
+    const recordBytes = `${JSON.stringify(fixture.record)}\n`
+    await writeFile(
+      join(fixture.reviewDirectory, 'full-composite-acceptance.json'),
+      recordBytes,
+    )
+
+    await expect(validateCompositeReview('0.3.0', fixture.root, {
+      expectedApprovalSha256: sha256(recordBytes),
+    })).resolves.toEqual(fixture.record)
+    await expect(validateCompositeReview('0.3.0', fixture.root, {
+      expectedApprovalSha256: sha256(`${recordBytes} `),
+    })).rejects.toThrow('COMPOSITE_REVIEW_INVALID')
+  })
+
+  it('requires freshly generated evidence to reproduce the approved bytes', async () => {
+    const fixture = await makeEvidence({}, '0.3.0')
+    await writeFile(
+      join(fixture.reviewDirectory, 'full-composite-acceptance.json'),
+      `${JSON.stringify(fixture.record)}\n`,
+    )
+    const generatedDirectory = join(fixture.root, 'artifacts', 'acceptance', 'v0.3')
+    await mkdir(generatedDirectory, { recursive: true })
+    await writeFile(join(generatedDirectory, 'contact-sheet.png'), fixture.contactSheet)
+    await writeFile(join(generatedDirectory, 'acceptance-set.json'), fixture.manifest)
+
+    await expect(validateCompositeReview('0.3.0', fixture.root, {
+      generatedEvidenceDirectory: generatedDirectory,
+    })).resolves.toEqual(fixture.record)
+
+    await writeFile(join(generatedDirectory, 'acceptance-set.json'), `${fixture.manifest} `)
+    await expect(validateCompositeReview('0.3.0', fixture.root, {
+      generatedEvidenceDirectory: generatedDirectory,
+    })).rejects.toThrow('COMPOSITE_REVIEW_INVALID')
   })
 
   it('rejects a missing user decision', async () => {

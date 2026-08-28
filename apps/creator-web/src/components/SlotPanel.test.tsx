@@ -7,7 +7,7 @@ import {
 } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { createCreatorSession } from '../state/contracts.js'
-import { productionCatalog } from '../App.js'
+import { v02ProductionCatalog } from '../App.js'
 import { SlotPanel } from './SlotPanel.js'
 
 function fixture(catalog: Catalog = makeValidCatalogFixture()) {
@@ -75,13 +75,13 @@ describe('SlotPanel', () => {
     expect(screen.getByText(/双足专用眼与当前骨架或部件组合不兼容/)).toBeTruthy()
   })
 
-  it('allows every production body rig while hard-binding only colors to the current theme', () => {
+  it('preserves v0.2 body selection while hard-binding only colors to the current theme', () => {
     const session = createCreatorSession(generateMonster({
       seed: 'production-selection',
       themeId: 'fungal',
       mode: 'normal',
-    }, productionCatalog))
-    render(<SlotPanel session={session} catalog={productionCatalog} onAction={() => undefined} />)
+    }, v02ProductionCatalog))
+    render(<SlotPanel session={session} catalog={v02ProductionCatalog} onAction={() => undefined} />)
 
     const body = screen.getByRole('combobox', { name: '体型骨架部件' }) as HTMLSelectElement
     const colors = screen.getByRole('combobox', { name: '色彩方案部件' }) as HTMLSelectElement

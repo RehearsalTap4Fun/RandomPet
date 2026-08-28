@@ -13,6 +13,7 @@ import {
   legacyProductionCatalog,
   productionCatalog,
   productionCatalogRegistry,
+  v02ProductionCatalog,
   v03ProductionCatalog,
 } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
@@ -38,22 +39,22 @@ function deferred<T>() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CreatorWorkbench', () => {
-  it('starts first-hatch with catalog and renderer 0.2.0', async () => {
+  it('starts first-hatch with exact catalog and renderer 0.3.0 after approval', async () => {
     installCanvasContexts()
     vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation(callback => {
       callback(new Blob([], { type: 'image/webp' }))
     })
     render(<App />)
 
-    expect(await screen.findByText('目录 v0.2.0')).toBeTruthy()
-    expect(productionCatalog.version).toBe('0.2.0')
+    expect(await screen.findByText('目录 v0.3.0')).toBeTruthy()
+    expect(productionCatalog.version).toBe('0.3.0')
   })
 
-  it('installs exact 0.1.0, 0.2.0, and 0.3.0 catalogs without changing the default', async () => {
+  it('installs exact 0.1.0, 0.2.0, and 0.3.0 catalogs while keeping v0.3 as the default', async () => {
     expect((await productionCatalogRegistry.load('0.1.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.2.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.3.0')).ok).toBe(true)
-    expect(productionCatalog.version).toBe('0.2.0')
+    expect(productionCatalog.version).toBe('0.3.0')
     expect(await productionCatalogRegistry.load('0.1')).toEqual({
       ok: false,
       diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
@@ -75,12 +76,12 @@ describe('CreatorWorkbench', () => {
       drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: [],
     }))
     const currentV03 = generateMonster({ seed: 'import-v03', themeId: 'fungal', mode: 'normal' }, v03ProductionCatalog)
-    const rejectedV02 = generateMonster({ seed: 'inspect-v02', themeId: 'fungal', mode: 'normal' }, productionCatalog)
+    const rejectedV02 = generateMonster({ seed: 'inspect-v02', themeId: 'fungal', mode: 'normal' }, v02ProductionCatalog)
     const legacyV01 = generateMonster({ seed: 'inspect-v01', themeId: 'fungal', mode: 'normal' }, legacyProductionCatalog)
     const parseSpecFile = vi.fn((file: File) => Promise.resolve(file.name === 'current-v03.json'
       ? { ok: true as const, value: { spec: currentV03.spec, catalog: v03ProductionCatalog }, diagnostics: [] }
       : file.name === 'rejected-v02.json'
-        ? { ok: true as const, value: { spec: rejectedV02.spec, catalog: productionCatalog }, diagnostics: [] }
+        ? { ok: true as const, value: { spec: rejectedV02.spec, catalog: v02ProductionCatalog }, diagnostics: [] }
         : { ok: true as const, value: { spec: legacyV01.spec, catalog: legacyProductionCatalog }, diagnostics: [] }))
 
     render(<App
