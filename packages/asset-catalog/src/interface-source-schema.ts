@@ -88,6 +88,9 @@ export function canonicalBipedGuideFiles(manifest: InterfaceSourceManifest): str
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/u)
 const runtimePngPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
 const runtimeWebpPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.webp$/u)
+const sourcePngPath = z.string().regex(/^asset-source\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
+const promptPath = z.string().regex(/^asset-source\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.json$/u)
+const reviewRecordPath = z.string().regex(/^packages\/asset-catalog\/review\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.json$/u)
 const rigId = z.enum(['blob', 'biped', 'floating'])
 const slotId = z.enum(STRUCTURAL_SLOT_IDS)
 const point = z.object({ x: z.number().finite().min(0).max(2048), y: z.number().finite().min(0).max(2048) }).strict()
@@ -96,7 +99,7 @@ const vector = z.object({ x: z.number().finite().min(-1).max(1), y: z.number().f
 const rect = z.object({ x: z.number().finite().min(0).max(2048), y: z.number().finite().min(0).max(2048), width: z.number().finite().positive().max(2048), height: z.number().finite().positive().max(2048) }).strict()
   .refine(value => value.x + value.width <= 2048 && value.y + value.height <= 2048)
 const range = z.object({ min: z.number().finite(), max: z.number().finite() }).strict().refine(value => value.min <= value.max)
-const promptEvidence = z.object({ promptId: z.string().min(1), promptPath: z.string().min(1), promptSha256: sha256, reviewRecordPath: z.string().min(1) }).strict()
+const promptEvidence = z.object({ promptId: z.string().min(1), promptPath, promptSha256: sha256, reviewRecordPath }).strict()
 const connector = z.object({
   id: z.enum(['neck', 'shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight', 'tailRoot', 'extraLeft', 'extraRight']), role: z.enum(['receiver', 'plug']), connectorClass: z.enum(['neck', 'shoulder', 'hip', 'tail', 'extra']),
   origin: point, tangent: vector, outwardNormal: vector, width: z.number().finite().positive(), depth: z.number().finite().positive(),
@@ -107,11 +110,11 @@ const connector = z.object({
   .refine(value => value.id !== 'tailRoot' || value.connectorClass === 'tail', { message: 'tailRoot requires the tail connector class.', path: ['connectorClass'] })
   .refine(value => !['extraLeft', 'extraRight'].includes(value.id) || value.connectorClass === 'extra', { message: 'extraLeft and extraRight require the extra connector class.', path: ['connectorClass'] })
 const renderNode = z.object({
-  id: z.string().min(1), connectorId: z.string().min(1).optional(), sourcePngPath: z.string().min(1),
+  id: z.string().min(1), connectorId: z.string().min(1).optional(), sourcePngPath,
   transform: z.object({ scale: z.number().finite().positive(), mirrorX: z.boolean() }).strict().optional(),
 }).strict()
 const variant = z.object({
-  rigId, materialFamily: z.enum(['short-fur', 'mushroom-velvet', 'soft-skin']), sourcePngPath: z.string().min(1), promptEvidence,
+  rigId, materialFamily: z.enum(['short-fur', 'mushroom-velvet', 'soft-skin']), sourcePngPath, promptEvidence,
   connectors: z.array(connector).min(1), renderNodes: z.array(renderNode).min(1),
   faceSafeZones: z.array(rect).min(1).optional(), featureSockets: z.record(z.string().min(1), point).optional(),
 }).strict()
@@ -119,7 +122,7 @@ const flatAsset = z.object({ id: z.string().min(1), slotId, ...variant.shape }).
 const groupedAsset = z.object({ id: z.string().min(1), slotId, variants: z.array(variant).min(1) }).strict()
 const bridge = z.object({
   id: z.string().min(1), rigId, connectorClass: z.enum(['neck', 'shoulder', 'hip', 'tail', 'extra']),
-  materialFamilies: z.array(z.enum(['short-fur', 'mushroom-velvet', 'soft-skin'])).min(1), sourcePngPath: z.string().min(1),
+  materialFamilies: z.array(z.enum(['short-fur', 'mushroom-velvet', 'soft-skin'])).min(1), sourcePngPath,
   neutralPngPath: runtimePngPath, neutralWebpPath: runtimeWebpPath, frontMaskPath: runtimePngPath, backMaskPath: runtimePngPath, promptEvidence,
 }).strict()
 

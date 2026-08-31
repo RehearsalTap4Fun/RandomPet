@@ -3,11 +3,23 @@ import { createHash } from 'node:crypto'
 import { copyFile, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { buildTailExtraMatrixIndex, cleanupTailExtraRenderHarness, makeTailExtraMatrixPlan, reconstructTailExtraMatrixEvidence, resolveMatrixResourcePath, task9HistoricalCausalCatalog, task9HistoricalDiagnosticProjection, task9StructuralCatalogProjectionSha256, validateStoredTailExtraMatrixEvidence, validateTailExtraRenderEvidence } from './render-tail-extra-structural-matrices.js'
+import { buildTailExtraMatrixIndex, cleanupTailExtraRenderHarness, makeTailExtraMatrixPlan, reconstructTailExtraMatrixEvidence, reconstructTailExtraMatrixEvidencePair, resolveMatrixResourcePath, shardTailExtraMatrixPlan, TAIL_EXTRA_ENTRY_REPLAY_TIMEOUT_MS, task9HistoricalCausalCatalog, task9HistoricalDiagnosticProjection, task9StructuralCatalogProjectionSha256, validateStoredTailExtraMatrixEvidence, validateTailExtraRenderEvidence } from './render-tail-extra-structural-matrices.js'
 import { BODIES as TASK8_BODIES } from './render-limb-contact-sheets.js'
 import { assertTask9Task8BodyRoster, TASK9_BODIES_BY_RIG } from './task9-structural-identities.js'
 
 describe('Task 9 tail/extra structural matrices', () => {
+  it('allows sixty seconds for one heavy replay entry without changing the 300-second test gate', () => {
+    expect(TAIL_EXTRA_ENTRY_REPLAY_TIMEOUT_MS).toBe(60_000)
+  })
+
+  it('splits the full 39-entry pair plan into ordered 20/19 shards without dropping frames', () => {
+    const plan = makeTailExtraMatrixPlan('full')
+    const shards = shardTailExtraMatrixPlan(plan)
+
+    expect(shards.map(shard => shard.length)).toEqual([20, 19])
+    expect(shards.flat()).toEqual(plan)
+  })
+
   it('cleans every matrix render resource when browser close fails', async () => {
     const inputRoot = await mkdtemp(join(tmpdir(), 'qmonster-matrix-cleanup-'))
     const closed: string[] = []
@@ -221,10 +233,10 @@ describe('Task 9 tail/extra structural matrices', () => {
 
   it('keeps all 39 frame bytes identical while the explicit Task 9 scope classifies only inactive diagnostics', async () => {
     const plan = makeTailExtraMatrixPlan('full')
-    const [unscoped, scoped] = await Promise.all([
-      reconstructTailExtraMatrixEvidence({ plan, diagnosticScope: false, catalogProjection: task9HistoricalCausalCatalog, historicalDiagnostics: true }),
-      reconstructTailExtraMatrixEvidence({ plan, catalogProjection: task9HistoricalCausalCatalog, historicalDiagnostics: true }),
-    ])
+    const [unscoped, scoped] = await reconstructTailExtraMatrixEvidencePair(
+      { plan, diagnosticScope: false, catalogProjection: task9HistoricalCausalCatalog, historicalDiagnostics: true },
+      { plan, catalogProjection: task9HistoricalCausalCatalog, historicalDiagnostics: true },
+    )
     expect(unscoped.entries).toHaveLength(39)
     expect(scoped.entries).toHaveLength(39)
     expect(unscoped.entries.reduce((sum, entry) => sum + entry.diagnostics.filter(item => item.severity === 'error').length, 0)).toBe(188)

@@ -1,4 +1,5 @@
-import { mkdtemp, rm } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import sharp from 'sharp'
@@ -11,8 +12,8 @@ afterEach(async () => Promise.all(roots.splice(0).map(root => rm(root, { recursi
 async function fixture(coverage: number) {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-interface-asset-'))
   roots.push(root)
-  const width = 32
-  const height = 32
+  const width = 2048
+  const height = 2048
   const source = Buffer.alloc(width * height * 4)
   const mask = Buffer.alloc(width * height * 4)
   for (let pixel = 0; pixel < width * height; pixel += 1) {
@@ -58,11 +59,27 @@ describe('processInterfaceAsset', () => {
     })
   })
 
+  it('routes encoded outputs through the supplied writer without touching formal paths', async () => {
+    const input = await fixture(0.95)
+    const captured = new Map<string, Buffer>()
+    Object.assign(input, {
+      writeOutput: async (path: string, bytes: Uint8Array) => { captured.set(path, Buffer.from(bytes)) },
+    })
+
+    const result = await processInterfaceAsset(input)
+
+    expect(captured.get(input.outputPngPath)?.subarray(1, 4).toString('ascii')).toBe('PNG')
+    expect(captured.get(input.outputWebpPath)?.subarray(0, 4).toString('ascii')).toBe('RIFF')
+    expect(result.pngSha256).toBe(createHash('sha256').update(captured.get(input.outputPngPath)!).digest('hex'))
+    await expect(readFile(input.outputPngPath)).rejects.toMatchObject({ code: 'ENOENT' })
+    await expect(readFile(input.outputWebpPath)).rejects.toMatchObject({ code: 'ENOENT' })
+  })
+
   it('rejects non-binary foreground and background masks', async () => {
     const input = await fixture(0.95)
     const antialias = Buffer.from([255, 255, 255, 128])
     await sharp(antialias, { raw: { width: 1, height: 1, channels: 4 } })
-      .resize(32, 32, { kernel: 'nearest' }).png().toFile(input.connectors[0]!.foregroundMaskPath)
+      .resize(2048, 2048, { kernel: 'nearest' }).png().toFile(input.connectors[0]!.foregroundMaskPath)
     await expect(processInterfaceAsset(input)).rejects.toThrow('CONNECTOR_PROFILE_INVALID')
   })
 
@@ -86,5 +103,25 @@ describe('processInterfaceAsset', () => {
     const input = await fixture(0.95)
     input.materialSampleRegion = { x: 24, y: 24, width: 8, height: 8 }
     await expect(processInterfaceAsset(input)).rejects.toThrow('CONNECTOR_PROFILE_INVALID')
+  })
+
+  it('rejects compressed interface inputs above the explicit byte cap before decoding', async () => {
+    const input = await fixture(0.95)
+    await writeFile(input.sourcePath, Buffer.alloc(8 * 1024 * 1024 + 1))
+
+    await expect(processInterfaceAsset(input)).rejects.toThrow(
+      'CONNECTOR_PROFILE_INVALID: compressed image exceeds 8388608 bytes',
+    )
+  })
+
+  it('rejects source and connector images that are not exactly 2048 by 2048', async () => {
+    const input = await fixture(0.95)
+    await sharp({
+      create: { width: 32, height: 32, channels: 4, background: { r: 120, g: 90, b: 70, alpha: 1 } },
+    }).png().toFile(input.sourcePath)
+
+    await expect(processInterfaceAsset(input)).rejects.toThrow(
+      'CONNECTOR_PROFILE_INVALID: interface images must be exactly 2048 by 2048',
+    )
   })
 })

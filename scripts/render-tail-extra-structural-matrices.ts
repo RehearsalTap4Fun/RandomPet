@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { chromium } from '@playwright/test'
+import { chromium, type Browser, type BrowserContext } from '@playwright/test'
 import { STRUCTURAL_SLOT_IDS, type Catalog } from '@qmonster/generator-core'
 import { EXTERNAL_LIMB_ALPHA_MIN, type ConnectorMetric } from '@qmonster/renderer-canvas'
 import sharp from 'sharp'
@@ -23,6 +23,9 @@ export { TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE } from './task9-structural-identities
 const ROOT = process.cwd()
 const REVIEW_ROOT = join(ROOT, 'packages', 'asset-catalog', 'review', 'v0.3.0')
 const PNG = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
+// Test-harness allowance for a 2048px historical replay entry; this is not a product render SLA.
+// The enclosing full-matrix tests retain their independent 300-second hard gate.
+export const TAIL_EXTRA_ENTRY_REPLAY_TIMEOUT_MS = 60_000
 const MIXED = [
   ['tail_fish_fan', 'extra_soft_tentacles'],
   ['tail_soft_curl', 'extra_side_fins'],
@@ -73,6 +76,14 @@ export function makeTailExtraMatrixPlan(mode: MatrixMode): TailExtraMatrixPlanEn
       'mixed',
     )),
   ])
+}
+
+export function shardTailExtraMatrixPlan(plan: readonly TailExtraMatrixPlanEntry[]): readonly [
+  TailExtraMatrixPlanEntry[],
+  TailExtraMatrixPlanEntry[],
+] {
+  const split = Math.ceil(plan.length / 2)
+  return [plan.slice(0, split), plan.slice(split)]
 }
 
 export function validateTailExtraRenderEvidence(
@@ -184,11 +195,13 @@ export function task9StructuralCatalogProjectionSha256(catalog: Catalog): string
 export async function cleanupTailExtraRenderHarness(input: {
   tempRoot?: string
   page?: { close(): Promise<unknown> }
+  context?: { close(): Promise<unknown> }
   browser?: { close(): Promise<unknown> }
   server?: { close(): Promise<unknown> }
 }): Promise<void> {
   const operations: Array<() => Promise<unknown>> = []
   if (input.page !== undefined) operations.push(() => input.page!.close())
+  if (input.context !== undefined) operations.push(() => input.context!.close())
   if (input.browser !== undefined) operations.push(() => input.browser!.close())
   if (input.server !== undefined) operations.push(() => input.server!.close())
   if (input.tempRoot !== undefined && input.tempRoot !== '') operations.push(() => rm(input.tempRoot!, { recursive: true, force: true }))
@@ -198,6 +211,34 @@ export async function cleanupTailExtraRenderHarness(input: {
   }
   if (failures.length === 1) throw failures[0]
   if (failures.length > 1) throw new AggregateError(failures, 'Tail/extra render harness cleanup failed')
+}
+
+interface TailExtraSharedRenderHarness {
+  server: Awaited<ReturnType<typeof createServer>>
+  browser: Browser
+  context: BrowserContext
+  baseUrl: string
+  hashCache: Map<string, Promise<string>>
+}
+
+async function openTailExtraSharedRenderHarness(repositoryRoot: string): Promise<TailExtraSharedRenderHarness> {
+  const server = await createServer({ root: join(repositoryRoot, 'apps', 'creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
+  try {
+    await server.listen()
+    const baseUrl = server.resolvedUrls?.local[0]
+    if (baseUrl === undefined) throw new Error('TAIL_EXTRA_MATRIX_RENDER_FAILED: Vite server has no local URL')
+    const browser = await chromium.launch({ headless: true })
+    try {
+      const context = await browser.newContext()
+      return { server, browser, context, baseUrl, hashCache: new Map() }
+    } catch (error) {
+      await browser.close()
+      throw error
+    }
+  } catch (error) {
+    await server.close()
+    throw error
+  }
 }
 
 export async function resolveMatrixResourcePath(repositoryRoot: string, browserPath: string): Promise<string> {
@@ -338,7 +379,7 @@ export async function writeTailExtraMatrixIndexFromExistingManifests() {
   return { index, indexPath: portableMatrixPath(indexPath), indexSha256: sha256(indexBytes) }
 }
 
-export async function reconstructTailExtraMatrixEvidence(input: {
+interface ReconstructTailExtraMatrixEvidenceInput {
   mode?: MatrixMode
   failOnGateError?: boolean
   repositoryRoot?: string
@@ -347,7 +388,10 @@ export async function reconstructTailExtraMatrixEvidence(input: {
   diagnosticScope?: false
   catalogProjection?: (catalog: Catalog) => Catalog
   historicalDiagnostics?: boolean
-} = {}): Promise<{ mode: MatrixMode, catalogInputSha256: string, structuralProjectionSha256: string, entries: MatrixEvidenceEntry[] }> {
+  sharedHarness?: TailExtraSharedRenderHarness
+}
+
+export async function reconstructTailExtraMatrixEvidence(input: ReconstructTailExtraMatrixEvidenceInput = {}): Promise<{ mode: MatrixMode, catalogInputSha256: string, structuralProjectionSha256: string, entries: MatrixEvidenceEntry[] }> {
   const mode = input.mode ?? 'full'
   const repositoryRoot = resolve(input.repositoryRoot ?? ROOT)
   const plan = input.plan ?? makeTailExtraMatrixPlan(mode)
@@ -365,18 +409,14 @@ export async function reconstructTailExtraMatrixEvidence(input: {
     applyPaletteMasks: false,
   })
   const tempRoot = await mkdtemp(join(repositoryRoot, '.tmp-tail-extra-matrix-'))
-  let server: Awaited<ReturnType<typeof createServer>> | undefined
-  let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
-  let page: Awaited<ReturnType<Awaited<ReturnType<typeof chromium.launch>>['newPage']>> | undefined
-  const hashCache = new Map<string, string>()
+  let ownedHarness: TailExtraSharedRenderHarness | undefined
+  let page: Awaited<ReturnType<BrowserContext['newPage']>> | undefined
+  const hashCache = input.sharedHarness?.hashCache ?? new Map<string, Promise<string>>()
   const entries: MatrixEvidenceEntry[] = []
   try {
-    server = await createServer({ root: join(repositoryRoot, 'apps', 'creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
-    await server.listen()
-    const baseUrl = server.resolvedUrls?.local[0]
-    if (baseUrl === undefined) throw new Error('TAIL_EXTRA_MATRIX_RENDER_FAILED: Vite server has no local URL')
-    browser = await chromium.launch({ headless: true })
-    page = await browser.newPage()
+    ownedHarness = input.sharedHarness === undefined ? await openTailExtraSharedRenderHarness(repositoryRoot) : undefined
+    const harness = input.sharedHarness ?? ownedHarness!
+    page = await harness.context.newPage()
     for (let index = 0; index < plan.length; index += 1) {
       const selection = plan[index]!
       const spec = makeSpec(catalog, selection, index)
@@ -395,8 +435,12 @@ export async function reconstructTailExtraMatrixEvidence(input: {
           : {}),
         ...(input.diagnosticScope === false ? {} : { diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE }),
       })}\n`)
-      await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
-      await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)
+      await page.goto(`${harness.baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
+      await page.waitForFunction(
+        () => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined,
+        undefined,
+        { timeout: TAIL_EXTRA_ENTRY_REPLAY_TIMEOUT_MS },
+      )
       const browserError = await page.evaluate(() => document.body.dataset.renderError)
       if (browserError !== undefined) throw new Error(`TAIL_EXTRA_MATRIX_RENDER_FAILED:${browserError}`)
       const browserEvidence = await page.evaluate(() => JSON.parse(document.body.dataset.interfaceResult!)) as RenderEvidence & {
@@ -425,16 +469,58 @@ export async function reconstructTailExtraMatrixEvidence(input: {
       const dataUrl = await page.locator('#render-target').evaluate(canvas => (canvas as HTMLCanvasElement).toDataURL('image/png'))
       const original = Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64')
       const resolvedAssetHashes = await Promise.all([...new Set(evidence.resolvedAssetPaths)].map(async path => {
-        let digest = hashCache.get(path)
-        if (digest === undefined) { digest = await hashFile(await resolveMatrixResourcePath(repositoryRoot, path)); hashCache.set(path, digest) }
-        return { path: portableMatrixPath(path, repositoryRoot), sha256: digest }
+        let pendingDigest = hashCache.get(path)
+        if (pendingDigest === undefined) {
+          pendingDigest = resolveMatrixResourcePath(repositoryRoot, path).then(hashFile)
+          hashCache.set(path, pendingDigest)
+        }
+        return { path: portableMatrixPath(path, repositoryRoot), sha256: await pendingDigest }
       }))
       entries.push({ ...selection, original, connectorMetrics: evidence.connectorMetrics, compositionMetrics: evidence.compositionMetrics, resolvedAssetPaths: evidence.resolvedAssetPaths.map(path => portableMatrixPath(path, repositoryRoot)), diagnostics: evidence.diagnostics, diagnosticScope: evidence.diagnosticScope, gateErrors, inputBinding: { catalogSha256: catalogInputSha256, resolvedAssetHashes } })
     }
   } finally {
-    await cleanupTailExtraRenderHarness({ tempRoot, page, browser, server })
+    await cleanupTailExtraRenderHarness({
+      tempRoot,
+      page,
+      ...(ownedHarness === undefined ? {} : {
+        context: ownedHarness.context,
+        browser: ownedHarness.browser,
+        server: ownedHarness.server,
+      }),
+    })
   }
   return { mode, catalogInputSha256, structuralProjectionSha256, entries }
+}
+
+export async function reconstructTailExtraMatrixEvidencePair(
+  first: ReconstructTailExtraMatrixEvidenceInput,
+  second: ReconstructTailExtraMatrixEvidenceInput,
+): Promise<readonly [
+  Awaited<ReturnType<typeof reconstructTailExtraMatrixEvidence>>,
+  Awaited<ReturnType<typeof reconstructTailExtraMatrixEvidence>>,
+]> {
+  const repositoryRoot = resolve(first.repositoryRoot ?? second.repositoryRoot ?? ROOT)
+  if (resolve(first.repositoryRoot ?? repositoryRoot) !== repositoryRoot || resolve(second.repositoryRoot ?? repositoryRoot) !== repositoryRoot) {
+    throw new Error('TAIL_EXTRA_MATRIX_RENDER_FAILED: paired evidence must share one repository root')
+  }
+  const harness = await openTailExtraSharedRenderHarness(repositoryRoot)
+  try {
+    const reconstructSharded = async (input: ReconstructTailExtraMatrixEvidenceInput) => {
+      const plan = input.plan ?? makeTailExtraMatrixPlan(input.mode ?? 'full')
+      const [firstPlan, secondPlan] = shardTailExtraMatrixPlan(plan)
+      const [firstShard, secondShard] = await Promise.all([
+        reconstructTailExtraMatrixEvidence({ ...input, repositoryRoot, plan: firstPlan, sharedHarness: harness }),
+        reconstructTailExtraMatrixEvidence({ ...input, repositoryRoot, plan: secondPlan, sharedHarness: harness }),
+      ])
+      return { ...firstShard, entries: [...firstShard.entries, ...secondShard.entries] }
+    }
+    return await Promise.all([
+      reconstructSharded(first),
+      reconstructSharded(second),
+    ])
+  } finally {
+    await cleanupTailExtraRenderHarness({ context: harness.context, browser: harness.browser, server: harness.server })
+  }
 }
 
 export async function validateStoredTailExtraMatrixEvidence(input: {

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { mkdir, readFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
@@ -24,6 +24,7 @@ export interface RenderInterfaceGuidesInput {
   outputRoot: string
   rigId: 'biped'
   profiles: GuideProfile[]
+  writeOutput?(path: string, bytes: Uint8Array): Promise<void>
 }
 
 export interface InterfaceGuideFile {
@@ -83,10 +84,6 @@ function machineMask(profile: GuideProfile): Buffer {
   return pixels
 }
 
-async function hash(path: string): Promise<string> {
-  return createHash('sha256').update(await readFile(path)).digest('hex')
-}
-
 export async function renderInterfaceGuides(input: RenderInterfaceGuidesInput): Promise<{
   connectorIds: string[]
   guidePaths: Record<string, string>
@@ -94,22 +91,26 @@ export async function renderInterfaceGuides(input: RenderInterfaceGuidesInput): 
   files: InterfaceGuideFile[]
 }> {
   await mkdir(input.outputRoot, { recursive: true })
+  const writeOutput = input.writeOutput ?? writeFile
   const files: InterfaceGuideFile[] = []
   for (const profile of input.profiles) {
     const stem = `${profile.assetId}-${profile.id}-${profile.role}`
     const guidePath = join(input.outputRoot, `${stem}-guide.png`)
     const maskPath = join(input.outputRoot, `${stem}-mask.png`)
-    await sharp(guideSvg(profile)).png({ compressionLevel: 9, adaptiveFiltering: false }).toFile(guidePath)
-    await sharp(machineMask(profile), { raw: { width: CANVAS_SIZE, height: CANVAS_SIZE, channels: 4 } })
-      .png({ compressionLevel: 9, adaptiveFiltering: false }).toFile(maskPath)
+    const [guideBytes, maskBytes] = await Promise.all([
+      sharp(guideSvg(profile)).png({ compressionLevel: 9, adaptiveFiltering: false }).toBuffer(),
+      sharp(machineMask(profile), { raw: { width: CANVAS_SIZE, height: CANVAS_SIZE, channels: 4 } })
+        .png({ compressionLevel: 9, adaptiveFiltering: false }).toBuffer(),
+    ])
+    await Promise.all([writeOutput(guidePath, guideBytes), writeOutput(maskPath, maskBytes)])
     files.push({
       assetId: profile.assetId,
       connectorId: profile.id,
       role: profile.role,
       guidePath,
-      guideSha256: await hash(guidePath),
+      guideSha256: createHash('sha256').update(guideBytes).digest('hex'),
       maskPath,
-      maskSha256: await hash(maskPath),
+      maskSha256: createHash('sha256').update(maskBytes).digest('hex'),
     })
   }
   const connectorIds = [...new Set(input.profiles.map(profile => profile.id))]

@@ -1,6 +1,6 @@
-import { createHash } from 'node:crypto'
-import { copyFile as copyFileDirect, lstat, mkdir, readFile, realpath, rm, stat, writeFile as writeFileDirect } from 'node:fs/promises'
-import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
+import { createHash, randomUUID } from 'node:crypto'
+import { lstat, mkdir, open, readFile, realpath, rename, rm, stat, writeFile as writeFileDirect } from 'node:fs/promises'
+import { basename, dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { task9VariantSourceMaskPaths } from './interface-source-schema.js'
@@ -166,7 +166,7 @@ export async function extractTask9Candidate(input: {
   }
   await mkdir(dirname(input.outputPath), { recursive: true })
   const processed = await sharp(rgba, { raw: { width, height, channels: 4 } }).png(PNG).toBuffer()
-  await sharp(processed).toFile(input.outputPath)
+  await writeFileDirect(input.outputPath, processed)
   return {
     sourceSha256: sha256(source), processedSha256: sha256(processed),
     detectedComponents: components.length, retainedComponents: retained.length,
@@ -353,7 +353,22 @@ const TASK9_CATALOG_ROOT = join(TASK9_ROOT, 'packages', 'asset-catalog')
 interface Task9PreparationTransaction {
   repositoryRoot: string
   canonicalRoot: string
-  snapshots: Map<string, Buffer | null>
+  snapshots: Map<string, Task9OutputSnapshot>
+  pending: Map<string, Buffer>
+}
+
+interface Task9OutputIdentity {
+  dev: number
+  ino: number
+  size: number
+  mtimeMs: number
+  ctimeMs: number
+  nlink: number
+}
+
+interface Task9OutputSnapshot {
+  bytes: Buffer | null
+  identity: Task9OutputIdentity | null
 }
 
 const TASK9_PREPARATION_CAPABILITY = Symbol('task9-preparation-capability')
@@ -361,9 +376,9 @@ const TASK9_PREPARATION_CAPABILITY = Symbol('task9-preparation-capability')
 export interface Task9PreparationCapability {
   readonly [TASK9_PREPARATION_CAPABILITY]: true
   readonly repositoryRoot: string
+  readFile(path: string): Promise<Buffer>
   writeFile(path: string, data: string | Uint8Array): Promise<void>
   copyFile(source: string, target: string): Promise<void>
-  snapshot(path: string): Promise<void>
 }
 
 function assertTask9PreparationCapability(value: Task9PreparationCapability): void {
@@ -403,14 +418,92 @@ async function validateTask9OutputTarget(transaction: Task9PreparationTransactio
 async function snapshotTask9Output(transaction: Task9PreparationTransaction, path: string): Promise<void> {
   const target = await validateTask9OutputTarget(transaction, path)
   if (transaction.snapshots.has(target)) return
+  let handle: Awaited<ReturnType<typeof open>> | undefined
   try {
-    const metadata = await lstat(target)
-    if (metadata.isSymbolicLink() || !metadata.isFile()) throw new Error(`TASK9_PREPARE_OUTPUT_INVALID:${target}`)
-    transaction.snapshots.set(target, await readFile(target))
+    handle = await open(target, 'r')
+    const before = await handle.stat()
+    if (!before.isFile() || before.nlink !== 1) throw new Error(`TASK9_PREPARE_OUTPUT_INVALID:${target}`)
+    const bytes = await handle.readFile()
+    const after = await handle.stat()
+    await validateTask9OutputTarget(transaction, target)
+    const pathAfter = await lstat(target)
+    if (
+      pathAfter.isSymbolicLink() || !pathAfter.isFile() || pathAfter.nlink !== 1
+      || !sameTask9OutputIdentity(before, after) || !sameTask9OutputIdentity(after, pathAfter)
+    ) {
+      throw new Error(`TASK9_PREPARE_OUTPUT_CHANGED:${target}`)
+    }
+    transaction.snapshots.set(target, { bytes, identity: task9OutputIdentity(after) })
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
-    transaction.snapshots.set(target, null)
+    transaction.snapshots.set(target, { bytes: null, identity: null })
+  } finally {
+    await handle?.close()
   }
+}
+
+function task9OutputIdentity(metadata: Awaited<ReturnType<typeof stat>>): Task9OutputIdentity {
+  return {
+    dev: metadata.dev, ino: metadata.ino, size: metadata.size,
+    mtimeMs: metadata.mtimeMs, ctimeMs: metadata.ctimeMs, nlink: metadata.nlink,
+  }
+}
+
+function sameTask9OutputIdentity(left: Task9OutputIdentity, right: Task9OutputIdentity): boolean {
+  return left.dev === right.dev && left.ino === right.ino && left.size === right.size
+    && left.mtimeMs === right.mtimeMs && left.ctimeMs === right.ctimeMs && left.nlink === right.nlink
+}
+
+async function assertTask9OutputUnchanged(
+  transaction: Task9PreparationTransaction,
+  target: string,
+  snapshot: Task9OutputSnapshot,
+): Promise<void> {
+  await validateTask9OutputTarget(transaction, target)
+  try {
+    const current = await lstat(target)
+    if (snapshot.identity === null || !sameTask9OutputIdentity(snapshot.identity, task9OutputIdentity(current))) {
+      throw new Error(`TASK9_PREPARE_OUTPUT_IDENTITY_CHANGED:${target}`)
+    }
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+    if (snapshot.identity !== null) throw new Error(`TASK9_PREPARE_OUTPUT_IDENTITY_CHANGED:${target}`)
+  }
+}
+
+interface Task9StagedReplacement {
+  target: string
+  tempPath: string
+}
+
+async function stageTask9AtomicReplacement(
+  transaction: Task9PreparationTransaction,
+  target: string,
+  bytes: Buffer,
+): Promise<Task9StagedReplacement> {
+  const canonicalParent = await realpath(dirname(target))
+  const parentRemainder = relative(transaction.canonicalRoot, canonicalParent)
+  if (parentRemainder.startsWith('..') || isAbsolute(parentRemainder)) {
+    throw new Error(`TASK9_PREPARE_PARENT_ESCAPE:${target}`)
+  }
+  const tempPath = join(canonicalParent, `.qmonster-task9-transaction-${randomUUID()}.tmp`)
+  try {
+    const handle = await open(tempPath, 'wx')
+    try {
+      await handle.writeFile(bytes)
+      await handle.sync()
+    } finally {
+      await handle.close()
+    }
+    return { target: join(canonicalParent, basename(target)), tempPath }
+  } catch (error) {
+    await rm(tempPath, { force: true })
+    throw error
+  }
+}
+
+async function commitTask9Replacement(replacement: Task9StagedReplacement): Promise<void> {
+  await rename(replacement.tempPath, replacement.target)
 }
 
 export async function runTask9PreparationTransaction<T>(input: {
@@ -420,48 +513,72 @@ export async function runTask9PreparationTransaction<T>(input: {
 }): Promise<T> {
   const repositoryRoot = resolve(input.repositoryRoot)
   const canonicalRoot = await realpath(repositoryRoot)
-  const transaction: Task9PreparationTransaction = { repositoryRoot, canonicalRoot, snapshots: new Map() }
+  const transaction: Task9PreparationTransaction = {
+    repositoryRoot, canonicalRoot, snapshots: new Map(), pending: new Map(),
+  }
   const outputs: Task9PreparationCapability = {
     [TASK9_PREPARATION_CAPABILITY]: true,
     repositoryRoot,
+    async readFile(path) {
+      const target = assertTask9TransactionPath(repositoryRoot, path)
+      return Buffer.from(transaction.pending.get(target) ?? await readFile(target))
+    },
     async writeFile(path, data) {
       await snapshotTask9Output(transaction, path)
-      await validateTask9OutputTarget(transaction, path)
-      await writeFileDirect(path, data)
+      const target = await validateTask9OutputTarget(transaction, path)
+      transaction.pending.set(target, Buffer.from(data))
     },
     async copyFile(source, target) {
-      await snapshotTask9Output(transaction, target)
-      await validateTask9OutputTarget(transaction, target)
-      await copyFileDirect(source, target)
+      await outputs.writeFile(target, await outputs.readFile(source))
     },
-    async snapshot(path) { await snapshotTask9Output(transaction, path) },
   }
+  const staged: Task9StagedReplacement[] = []
+  const committed: string[] = []
   try {
     const result = await input.prepare(outputs)
     await input.beforeCommit?.()
+    for (const [target, snapshot] of transaction.snapshots) {
+      await assertTask9OutputUnchanged(transaction, target, snapshot)
+    }
+    for (const [target, bytes] of transaction.pending) {
+      staged.push(await stageTask9AtomicReplacement(transaction, target, bytes))
+    }
+    for (const [target, snapshot] of transaction.snapshots) {
+      await assertTask9OutputUnchanged(transaction, target, snapshot)
+    }
+    for (const replacement of staged) {
+      await commitTask9Replacement(replacement)
+      committed.push(replacement.target)
+    }
     return result
   } catch (error) {
-    for (const [path, bytes] of [...transaction.snapshots.entries()].reverse()) {
+    for (const path of [...committed].reverse()) {
+      const snapshot = transaction.snapshots.get(path)!
       await validateTask9OutputTarget(transaction, path)
-      if (bytes === null) await rm(path, { force: true })
+      if (snapshot.bytes === null) await rm(path, { force: true })
       else {
-        await mkdir(dirname(path), { recursive: true })
-        await validateTask9OutputTarget(transaction, path)
-        await writeFileDirect(path, bytes)
+        const replacement = await stageTask9AtomicReplacement(transaction, path, snapshot.bytes)
+        try { await commitTask9Replacement(replacement) } finally {
+          await rm(replacement.tempPath, { force: true })
+        }
       }
     }
     throw error
+  } finally {
+    await Promise.all(staged.map(item => rm(item.tempPath, { force: true })))
   }
 }
 
-async function hashTask9File(path: string): Promise<string> { return sha256(await readFile(path)) }
+async function hashTask9File(path: string, outputs?: Task9PreparationCapability): Promise<string> {
+  return sha256(await (outputs?.readFile(path) ?? readFile(path)))
+}
 async function writeTask9Json(outputs: Task9PreparationCapability, path: string, value: unknown): Promise<void> {
   await mkdir(dirname(path), { recursive: true })
   await outputs.writeFile(path, `${JSON.stringify(value, null, 2)}\n`)
 }
 
-async function readTask9Alpha(path: string): Promise<{ alpha: Uint8Array, width: number, height: number }> {
-  const decoded = await sharp(path).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+async function readTask9Alpha(path: string, outputs?: Task9PreparationCapability): Promise<{ alpha: Uint8Array, width: number, height: number }> {
+  const decoded = await sharp(outputs === undefined ? path : await outputs.readFile(path)).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
   return {
     alpha: Uint8Array.from({ length: decoded.data.length / 4 }, (_, index) => decoded.data[index * 4 + 3]!),
     width: decoded.info.width,
@@ -488,15 +605,15 @@ function task9BridgeSplitStats(neutral: Uint8Array, front: Uint8Array, back: Uin
   return { nonBinaryPixels, outsideNeutralPixels, overlapPixels, unionMismatchPixels, splitPixels }
 }
 
-export async function auditTask9BridgeSplits() {
+export async function auditTask9BridgeSplits(outputs?: Task9PreparationCapability) {
   const manifest = JSON.parse(await readFile(join(TASK9_SOURCE_ROOT, 'interface-manifest.json'), 'utf8'))
   const bridges = manifest.bridges.filter((bridge: any) => bridge.connectorClass === 'tail' || bridge.connectorClass === 'extra')
   const totals = { bridges: bridges.length, nonBinaryPixels: 0, outsideNeutralPixels: 0, overlapPixels: 0, unionMismatchPixels: 0, nonemptyPairs: 0 }
   for (const bridge of bridges) {
     const [neutral, front, back] = await Promise.all([
-      readTask9Alpha(resolve(TASK9_CATALOG_ROOT, bridge.neutralPngPath)),
-      readTask9Alpha(resolve(TASK9_CATALOG_ROOT, bridge.frontMaskPath)),
-      readTask9Alpha(resolve(TASK9_CATALOG_ROOT, bridge.backMaskPath)),
+      readTask9Alpha(resolve(TASK9_CATALOG_ROOT, bridge.neutralPngPath), outputs),
+      readTask9Alpha(resolve(TASK9_CATALOG_ROOT, bridge.frontMaskPath), outputs),
+      readTask9Alpha(resolve(TASK9_CATALOG_ROOT, bridge.backMaskPath), outputs),
     ])
     if (neutral.width !== front.width || neutral.height !== front.height || neutral.width !== back.width || neutral.height !== back.height) {
       totals.unionMismatchPixels += neutral.width * neutral.height
@@ -513,7 +630,7 @@ export async function auditTask9BridgeSplits() {
 }
 
 async function writeTask9BridgeBackMask(outputs: Task9PreparationCapability, neutralPath: string, frontPath: string, backPath: string): Promise<string> {
-  const [neutral, front] = await Promise.all([readTask9Alpha(neutralPath), readTask9Alpha(frontPath)])
+  const [neutral, front] = await Promise.all([readTask9Alpha(neutralPath, outputs), readTask9Alpha(frontPath, outputs)])
   if (neutral.width !== front.width || neutral.height !== front.height) throw new Error('TASK9_BRIDGE_SPLIT_INVALID: dimensions')
   const rgba = Buffer.alloc(neutral.width * neutral.height * 4, 255)
   for (let index = 0; index < neutral.alpha.length; index += 1) rgba[index * 4 + 3] = neutral.alpha[index]! > 0 && front.alpha[index] !== 255 ? 255 : 0
@@ -534,17 +651,17 @@ export async function rebuildTask9BridgeSplits(outputs: Task9PreparationCapabili
     const neutralPath = resolve(TASK9_CATALOG_ROOT, bridge.neutralPngPath)
     const frontPath = resolve(TASK9_CATALOG_ROOT, bridge.frontMaskPath)
     const backPath = resolve(TASK9_CATALOG_ROOT, bridge.backMaskPath)
-    const frontBefore = await hashTask9File(frontPath)
+    const frontBefore = await hashTask9File(frontPath, outputs)
     const backMaskSha256 = await writeTask9BridgeBackMask(outputs, neutralPath, frontPath, backPath)
-    if (frontBefore !== await hashTask9File(frontPath)) frontHashesUnchanged = false
+    if (frontBefore !== await hashTask9File(frontPath, outputs)) frontHashesUnchanged = false
     const processed = processedIndex.processedBridges[`${bridge.rigId}:${bridge.connectorClass}`]
     if (processed === undefined) throw new Error(`TASK9_BRIDGE_SPLIT_INVALID: missing processed ${bridge.id}`)
     processed.backMaskSha256 = backMaskSha256
   }
-  const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex)
+  const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex, outputs)
   await writeTask9Json(outputs, processedPath, processedIndex)
   await writeTask9Json(outputs, join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
-  return { ...(await auditTask9BridgeSplits()), frontHashesUnchanged }
+  return { ...(await auditTask9BridgeSplits(outputs)), frontHashesUnchanged }
 }
 
 function task9Profile(input: {
@@ -676,11 +793,11 @@ async function writeTask9RuntimeNode(outputs: Task9PreparationCapability, source
   await mkdir(dirname(pngPath), { recursive: true })
   const fitted = await fitTask9DistalNode({ sourcePath, rigId, connectorId })
   await outputs.writeFile(pngPath, fitted.png)
-  await outputs.snapshot(webpPath)
-  await sharp(fitted.png).webp({ lossless: true, effort: 6 }).toFile(webpPath)
+  const webp = await sharp(fitted.png).webp({ lossless: true, effort: 6 }).toBuffer()
+  await outputs.writeFile(webpPath, webp)
   return {
-    pngPath: `${runtimeBase}.png`, pngSha256: await hashTask9File(pngPath),
-    webpPath: `${runtimeBase}.webp`, webpSha256: await hashTask9File(webpPath),
+    pngPath: `${runtimeBase}.png`, pngSha256: sha256(fitted.png),
+    webpPath: `${runtimeBase}.webp`, webpSha256: sha256(webp),
   }
 }
 
@@ -914,7 +1031,7 @@ export async function auditTask9ReceiverSupports(): Promise<{
   return { receiverCount, minimumCoverage, minimumPixels, allHalvesNonempty, allWithinCanvas, sourceHashesUnchanged, emptyHalves }
 }
 
-async function rebuildTask9SourceIndex(manifest: any, processedIndex: any) {
+async function rebuildTask9SourceIndex(manifest: any, processedIndex: any, outputs?: Task9PreparationCapability) {
   const sources = (processedIndex.sourceIndex?.sources ?? []).filter((source: any) => (
     source.kind !== 'interface-structural' && source.kind !== 'interface-bridge'
   ))
@@ -947,13 +1064,13 @@ async function rebuildTask9SourceIndex(manifest: any, processedIndex: any) {
       sourceId: `${asset.id}:${variant.rigId}`, kind: 'interface-structural',
       promptId: variant.promptEvidence.promptId, promptPath: variant.promptEvidence.promptPath,
       promptSha256: variant.promptEvidence.promptSha256, reviewRecordPath,
-      reviewRecordSha256: await hashTask9File(resolve(TASK9_ROOT, reviewRecordPath)),
+      reviewRecordSha256: await hashTask9File(resolve(TASK9_ROOT, reviewRecordPath), outputs),
       sourceResources: await Promise.all([...new Set([
         variant.sourcePngPath,
         ...variant.renderNodes.map((node: any) => node.sourcePngPath),
         ...task9VariantSourceMaskPaths({ ...variant, partId: asset.id, slotId: asset.slotId }),
       ])]
-        .map(async path => ({ path, sha256: await hashTask9File(resolve(TASK9_ROOT, path)) }))),
+        .map(async path => ({ path, sha256: await hashTask9File(resolve(TASK9_ROOT, path), outputs) }))),
       runtimeResources,
     })
   }
@@ -968,8 +1085,8 @@ async function rebuildTask9SourceIndex(manifest: any, processedIndex: any) {
     sources.push({
       sourceId: bridge.id, kind: 'interface-bridge', promptId: bridge.promptEvidence.promptId,
       promptPath: bridge.promptEvidence.promptPath, promptSha256: bridge.promptEvidence.promptSha256,
-      reviewRecordPath, reviewRecordSha256: await hashTask9File(resolve(TASK9_ROOT, reviewRecordPath)),
-      sourceResources: [{ path: bridge.sourcePngPath, sha256: await hashTask9File(resolve(TASK9_ROOT, bridge.sourcePngPath)) }],
+      reviewRecordPath, reviewRecordSha256: await hashTask9File(resolve(TASK9_ROOT, reviewRecordPath), outputs),
+      sourceResources: [{ path: bridge.sourcePngPath, sha256: await hashTask9File(resolve(TASK9_ROOT, bridge.sourcePngPath), outputs) }],
       runtimeResources: [
         { path: bridge.neutralWebpPath, sha256: processed.neutralWebpSha256 },
         { path: bridge.neutralPngPath, sha256: processed.neutralPngSha256 },
@@ -998,7 +1115,7 @@ export async function synchronizeTask9SourceIndex(
   for (const bridge of manifest.bridges) {
     if (bridge.connectorClass === 'tail' || bridge.connectorClass === 'extra') bridge.promptEvidence.reviewRecordPath = task9ReviewRecordPath
   }
-  const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex)
+  const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex, options.dryRun ? undefined : options.transaction)
   if (!options.dryRun) {
     assertTask9PreparationCapability(options.transaction)
     await writeTask9Json(options.transaction, manifestPath, manifest)
@@ -1033,10 +1150,11 @@ async function prepareTask9StructuralAssetsUnsafe(outputs: Task9PreparationCapab
     const runtimeBase = `assets/v0.3.0/structural/${selection.rigId}/${selection.partId}`
     const outputPngPath = resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.png`)
     const outputWebpPath = resolve(TASK9_CATALOG_ROOT, `${runtimeBase}.webp`)
-    await Promise.all([outputs.snapshot(outputPngPath), outputs.snapshot(outputWebpPath)])
     const processed = await processInterfaceAsset({
       sourcePath, outputPngPath, outputWebpPath,
       connectors: maskInputs, materialSampleRegion: profiles[0]!.materialSampleRegion,
+      readInput: path => outputs.readFile(path),
+      writeOutput: (path, bytes) => outputs.writeFile(path, bytes),
     })
     const renderNodes = []
     const processedNodes: Record<string, any> = {}
@@ -1084,11 +1202,12 @@ async function prepareTask9StructuralAssetsUnsafe(outputs: Task9PreparationCapab
     }))
     const outputPngPath = resolve(TASK9_CATALOG_ROOT, existing.pngPath)
     const outputWebpPath = resolve(TASK9_CATALOG_ROOT, existing.webpPath)
-    await Promise.all([outputs.snapshot(outputPngPath), outputs.snapshot(outputWebpPath)])
     const processed = await processInterfaceAsset({
       sourcePath: resolve(TASK9_ROOT, variant.sourcePngPath), outputPngPath,
       outputWebpPath, connectors: inputs,
       materialSampleRegion: variant.connectors[0].materialSampleRegion,
+      readInput: path => outputs.readFile(path),
+      writeOutput: (path, bytes) => outputs.writeFile(path, bytes),
     })
     if (before !== await hashTask9File(resolve(TASK9_ROOT, variant.sourcePngPath))) throw new Error(`TASK9_BODY_MUTATED: ${bodyId}`)
     processedIndex.processedAssets[processedKey] = {
@@ -1130,14 +1249,14 @@ async function prepareTask9StructuralAssetsUnsafe(outputs: Task9PreparationCapab
       resolve(TASK9_CATALOG_ROOT, bridge.backMaskPath),
     )
     processedIndex.processedBridges[`${rigId}:${connectorClass}`] = {
-      neutralPngSha256: await hashTask9File(resolve(TASK9_CATALOG_ROOT, bridge.neutralPngPath)),
-      neutralWebpSha256: await hashTask9File(resolve(TASK9_CATALOG_ROOT, bridge.neutralWebpPath)),
-      frontMaskSha256: await hashTask9File(resolve(TASK9_CATALOG_ROOT, bridge.frontMaskPath)),
-      backMaskSha256: await hashTask9File(resolve(TASK9_CATALOG_ROOT, bridge.backMaskPath)),
+      neutralPngSha256: await hashTask9File(resolve(TASK9_CATALOG_ROOT, bridge.neutralPngPath), outputs),
+      neutralWebpSha256: await hashTask9File(resolve(TASK9_CATALOG_ROOT, bridge.neutralWebpPath), outputs),
+      frontMaskSha256: await hashTask9File(resolve(TASK9_CATALOG_ROOT, bridge.frontMaskPath), outputs),
+      backMaskSha256: await hashTask9File(resolve(TASK9_CATALOG_ROOT, bridge.backMaskPath), outputs),
     }
     bridgeCount += 1
   }
-  const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex)
+  const sourceIndex = await rebuildTask9SourceIndex(manifest, processedIndex, outputs)
   await writeTask9Json(outputs, manifestPath, manifest)
   await writeTask9Json(outputs, processedPath, processedIndex)
   await writeTask9Json(outputs, join(TASK9_CATALOG_ROOT, 'source-index-v0.3.0.json'), sourceIndex)
@@ -1170,11 +1289,10 @@ export async function renderTask9ReceiverGuides(outputs: Task9PreparationCapabil
   }
   if (profiles.length !== 15) throw new Error(`TASK9_GUIDE_INVALID: expected 15 receiver profiles, got ${profiles.length}`)
   const outputRoot = join(TASK9_SOURCE_ROOT, 'generation', 'task9-review', 'receiver-guides')
-  await Promise.all(profiles.flatMap(profile => {
-    const stem = `${profile.assetId}-${profile.id}-${profile.role}`
-    return [outputs.snapshot(join(outputRoot, `${stem}-guide.png`)), outputs.snapshot(join(outputRoot, `${stem}-mask.png`))]
-  }))
-  const rendered = await renderInterfaceGuides({ outputRoot, rigId: 'biped', profiles })
+  const rendered = await renderInterfaceGuides({
+    outputRoot, rigId: 'biped', profiles,
+    writeOutput: (path, bytes) => outputs.writeFile(path, bytes),
+  })
   const indexPath = join(outputRoot, 'task9-receiver-guide-index.json')
   await writeTask9Json(outputs, indexPath, {
     schemaVersion: 'task9-receiver-guides-v1',

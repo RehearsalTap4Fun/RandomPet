@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import {
   lstat as nodeLstat,
-  readFile as nodeReadFile,
+  open as nodeOpen,
   realpath as nodeRealpath,
   stat as nodeStat,
 } from 'node:fs/promises'
@@ -12,14 +12,18 @@ export interface TrustedRepositoryFileIo {
   lstat(path: string): Promise<Stats>
   stat(path: string): Promise<Stats>
   realpath(path: string): Promise<string>
-  readFile(path: string): Promise<Buffer>
+  open(path: string, flags: 'r'): Promise<{
+    stat(): Promise<Stats>
+    readFile(): Promise<Buffer>
+    close(): Promise<void>
+  }>
 }
 
 const defaultIo: TrustedRepositoryFileIo = {
   lstat: nodeLstat,
   stat: nodeStat,
   realpath: nodeRealpath,
-  readFile: nodeReadFile,
+  open: nodeOpen,
 }
 
 const portableLexicalLeaf = /^[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*$/u
@@ -27,6 +31,18 @@ const portableLexicalLeaf = /^[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*$/u
 function contained(root: string, target: string): boolean {
   const remainder = relative(root, target)
   return remainder !== '' && !remainder.startsWith('..') && !isAbsolute(remainder)
+}
+
+function sameIdentity(left: Stats, right: Stats): boolean {
+  return left.dev === right.dev && left.ino === right.ino
+}
+
+function sameStableFile(left: Stats, right: Stats): boolean {
+  return sameIdentity(left, right)
+    && left.size === right.size
+    && left.mtimeMs === right.mtimeMs
+    && left.ctimeMs === right.ctimeMs
+    && left.nlink === right.nlink
 }
 
 export function assertPortableRepositoryLeaf(path: string): void {
@@ -69,7 +85,37 @@ export async function readTrustedRepositoryFile(
     throw new Error(`Trusted repository file must resolve to a single-link regular file: ${path}`)
   }
 
-  const bytes = await io.readFile(canonicalPath)
+  const handle = await io.open(canonicalPath, 'r')
+  let bytes: Buffer
+  try {
+    const beforeRead = await handle.stat()
+    if (!beforeRead.isFile() || beforeRead.nlink !== 1 || !sameIdentity(canonicalMetadata, beforeRead)) {
+      throw new Error(`Trusted repository file identity changed before read: ${path}`)
+    }
+    bytes = await handle.readFile()
+    const afterRead = await handle.stat()
+    if (!afterRead.isFile() || afterRead.nlink !== 1 || !sameStableFile(beforeRead, afterRead)) {
+      throw new Error(`Trusted repository file was not stable during read: ${path}`)
+    }
+    const [lexicalAfterRead, canonicalAfterRead] = await Promise.all([
+      io.lstat(lexicalPath),
+      io.realpath(lexicalPath),
+    ])
+    if (
+      lexicalAfterRead.isSymbolicLink()
+      || !lexicalAfterRead.isFile()
+      || lexicalAfterRead.nlink !== 1
+      || !contained(canonicalRoot, canonicalAfterRead)
+    ) {
+      throw new Error(`Trusted repository file identity changed after read: ${path}`)
+    }
+    const pathAfterRead = await io.stat(canonicalAfterRead)
+    if (!sameStableFile(afterRead, pathAfterRead)) {
+      throw new Error(`Trusted repository file identity changed after read: ${path}`)
+    }
+  } finally {
+    await handle.close()
+  }
   return {
     lexicalPath,
     canonicalPath,

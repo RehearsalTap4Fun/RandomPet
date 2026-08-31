@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { link, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
+import { link, mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
@@ -15,6 +15,45 @@ afterEach(async () => {
 })
 
 describe('prepare tail and extra assets', () => {
+  it('keeps transactional outputs unchanged until the commit boundary', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-staged-'))
+    temporaryRoots.push(root)
+    const existing = join(root, 'formal.json')
+    await writeFile(existing, 'approved')
+
+    await runTask9PreparationTransaction({
+      repositoryRoot: root,
+      async prepare(outputs) {
+        await outputs.writeFile(existing, 'replacement')
+        expect(await readFile(existing, 'utf8')).toBe('approved')
+      },
+    })
+
+    expect(await readFile(existing, 'utf8')).toBe('replacement')
+  })
+
+  it('rejects a regular-file replacement between staging and commit without overwriting it', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-swap-'))
+    temporaryRoots.push(root)
+    const target = join(root, 'formal.json')
+    const approved = join(root, 'approved-held.json')
+    const attacker = join(root, 'attacker.json')
+    await writeFile(target, 'approved')
+    await writeFile(attacker, 'attacker')
+
+    await expect(runTask9PreparationTransaction({
+      repositoryRoot: root,
+      async prepare(outputs) { await outputs.writeFile(target, 'replacement') },
+      async beforeCommit() {
+        await rename(target, approved)
+        await rename(attacker, target)
+      },
+    })).rejects.toThrow(/changed|identity|stable/iu)
+
+    expect(await readFile(target, 'utf8')).toBe('attacker')
+    expect(await readFile(approved, 'utf8')).toBe('approved')
+  })
+
   it('rolls back every transactional output when preparation fails before commit', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-transaction-'))
     temporaryRoots.push(root)

@@ -19173,7 +19173,7 @@
       },
       {
         "path": "packages/asset-catalog/src/trusted-repository-file.ts",
-        "sha256": "6b2428405ebfb43e7edd5d41d8be571d005a44c9ad428c3f7feaeea35b793df3",
+        "sha256": "d6e713d0d835e86536caddb42612aa1e2eb4449d3c19b2ee766c6a86c27651d3",
         "groups": [
           "task9-validation"
         ]
@@ -19224,7 +19224,7 @@
       },
       {
         "path": "scripts/prepare-tail-extra-assets.ts",
-        "sha256": "af8c91ff97210aa906ca53503aa788b0ce38ad4af7bfd89a911833756ad57465",
+        "sha256": "d557f8dc94c2ec397ee3484844fb1e08fed1e70d6a6d4e0a241b57fb560d3510",
         "groups": [
           "task9-validation"
         ]
@@ -19239,7 +19239,7 @@
       },
       {
         "path": "scripts/render-tail-extra-structural-matrices.ts",
-        "sha256": "ce67cc2f82d14cb44fc0221478e2cac95f15114d7ea2b19099f3855d95846109",
+        "sha256": "048d7a47216fe091485fecff3873d449f2319bb979e4385b16478a8c0e001e2f",
         "groups": [
           "task9-live-renderer"
         ]

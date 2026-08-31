@@ -1,8 +1,12 @@
 import { createHash } from 'node:crypto'
-import { mkdir, readFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import sharp from 'sharp'
 import type { Rect } from '@qmonster/generator-core'
+
+const INTERFACE_IMAGE_SIZE = 2048
+const INTERFACE_IMAGE_PIXELS = INTERFACE_IMAGE_SIZE * INTERFACE_IMAGE_SIZE
+const INTERFACE_IMAGE_COMPRESSED_BYTES_MAX = 8 * 1024 * 1024
 
 interface ConnectorAssetInput {
   id: string
@@ -24,6 +28,8 @@ export interface ProcessInterfaceAssetInput {
   outputWebpPath: string
   connectors: ConnectorAssetInput[]
   materialSampleRegion: Rect
+  readInput?(path: string): Promise<Buffer>
+  writeOutput?(path: string, data: Uint8Array): Promise<void>
 }
 
 interface Decoded {
@@ -34,9 +40,17 @@ interface Decoded {
   sha256: string
 }
 
-async function decode(path: string): Promise<Decoded> {
-  const bytes = await readFile(path)
-  const decoded = await sharp(bytes).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+async function decode(path: string, readInput: (path: string) => Promise<Buffer>): Promise<Decoded> {
+  const bytes = await readInput(path)
+  if (bytes.byteLength > INTERFACE_IMAGE_COMPRESSED_BYTES_MAX) {
+    throw new Error(`CONNECTOR_PROFILE_INVALID: compressed image exceeds ${INTERFACE_IMAGE_COMPRESSED_BYTES_MAX} bytes`)
+  }
+  const image = sharp(bytes, { limitInputPixels: INTERFACE_IMAGE_PIXELS })
+  const metadata = await image.metadata()
+  if (metadata.width !== INTERFACE_IMAGE_SIZE || metadata.height !== INTERFACE_IMAGE_SIZE) {
+    throw new Error(`CONNECTOR_PROFILE_INVALID: interface images must be exactly ${INTERFACE_IMAGE_SIZE} by ${INTERFACE_IMAGE_SIZE}`)
+  }
+  const decoded = await image.ensureAlpha().raw().toBuffer({ resolveWithObject: true })
   if (decoded.info.channels !== 4) throw new Error(`CONNECTOR_PROFILE_INVALID: ${path} did not decode as RGBA`)
   return { bytes, pixels: decoded.data, width: decoded.info.width, height: decoded.info.height, sha256: createHash('sha256').update(bytes).digest('hex') }
 }
@@ -55,7 +69,12 @@ export async function processInterfaceAsset(input: ProcessInterfaceAssetInput): 
     backgroundMaskSha256: string
   }>
 }> {
-  const source = await decode(input.sourcePath)
+  const readInput = input.readInput ?? readFile
+  const writeOutput = input.writeOutput ?? (async (path: string, data: Uint8Array) => {
+    await mkdir(dirname(path), { recursive: true })
+    await writeFile(path, data)
+  })
+  const source = await decode(input.sourcePath, readInput)
   const region = input.materialSampleRegion
   if (
     ![region.x, region.y, region.width, region.height].every(Number.isInteger)
@@ -75,7 +94,7 @@ export async function processInterfaceAsset(input: ProcessInterfaceAssetInput): 
   const connectorHashes: Record<string, { contourMaskSha256: string; foregroundMaskSha256: string; backgroundMaskSha256: string }> = {}
   for (const connector of input.connectors) {
     const [contour, foreground, background] = await Promise.all([
-      decode(connector.contourMaskPath), decode(connector.foregroundMaskPath), decode(connector.backgroundMaskPath),
+      decode(connector.contourMaskPath, readInput), decode(connector.foregroundMaskPath, readInput), decode(connector.backgroundMaskPath, readInput),
     ])
     if ([contour, foreground, background].some(mask => mask.width !== source.width || mask.height !== source.height)) {
       throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} masks do not match source dimensions`)
@@ -90,7 +109,7 @@ export async function processInterfaceAsset(input: ProcessInterfaceAssetInput): 
       if (!visible) throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} ${maskName} mask is empty`)
     }
     if (connector.role === 'plug' && connector.nodeLayer === 'head') {
-      const node = await decode(connector.occlusionNodePath ?? input.sourcePath)
+      const node = await decode(connector.occlusionNodePath ?? input.sourcePath, readInput)
       if (node.width !== source.width || node.height !== source.height) {
         throw new Error(`CONNECTOR_PROFILE_INVALID: ${connector.id} occlusion node does not match source dimensions`)
       }
@@ -144,12 +163,14 @@ export async function processInterfaceAsset(input: ProcessInterfaceAssetInput): 
       backgroundMaskSha256: background.sha256,
     }
   }
-  for (const path of [input.outputPngPath, input.outputWebpPath]) {
-    await mkdir(dirname(path), { recursive: true })
-  }
-  await sharp(source.bytes).ensureAlpha().png({ compressionLevel: 9, adaptiveFiltering: false }).toFile(input.outputPngPath)
-  await sharp(source.bytes).ensureAlpha().webp({ lossless: true, effort: 6 }).toFile(input.outputWebpPath)
-  const [pngBytes, webpBytes] = await Promise.all([readFile(input.outputPngPath), readFile(input.outputWebpPath)])
+  const [pngBytes, webpBytes] = await Promise.all([
+    sharp(source.bytes).ensureAlpha().png({ compressionLevel: 9, adaptiveFiltering: false }).toBuffer(),
+    sharp(source.bytes).ensureAlpha().webp({ lossless: true, effort: 6 }).toBuffer(),
+  ])
+  await Promise.all([
+    writeOutput(input.outputPngPath, pngBytes),
+    writeOutput(input.outputWebpPath, webpBytes),
+  ])
   return {
     sourcePath: input.sourcePath,
     sourceSha256: source.sha256,

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { link, lstat, mkdir, mkdtemp, readFile, realpath, rm, stat, symlink, writeFile } from 'node:fs/promises'
+import { link, lstat, mkdir, mkdtemp, open, readFile, realpath, rename, rm, stat, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, join } from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
@@ -35,11 +35,11 @@ describe('readTrustedRepositoryFile', () => {
         }
         throw error
       }
-      const read = vi.fn(readFile)
+      const opened = vi.fn(open)
       await expect(readTrustedRepositoryFile(root, 'linked.json', {
-        lstat, stat, realpath, readFile: read,
+        lstat, stat, realpath, open: opened,
       })).rejects.toThrow('single-link regular file')
-      expect(read).not.toHaveBeenCalled()
+      expect(opened).not.toHaveBeenCalled()
     } finally {
       await Promise.all([
         rm(root, { recursive: true, force: true }),
@@ -70,11 +70,11 @@ describe('readTrustedRepositoryFile', () => {
         }
         throw error
       }
-      const read = vi.fn(readFile)
+      const opened = vi.fn(open)
       await expect(readTrustedRepositoryFile(root, 'linked.json', {
-        lstat, stat, realpath, readFile: read,
+        lstat, stat, realpath, open: opened,
       })).rejects.toThrow('symbolic link')
-      expect(read).not.toHaveBeenCalled()
+      expect(opened).not.toHaveBeenCalled()
     } finally {
       await Promise.all([
         rm(root, { recursive: true, force: true }),
@@ -98,13 +98,35 @@ describe('readTrustedRepositoryFile', () => {
         }
         throw error
       }
-      const read = vi.fn(readFile)
+      const opened = vi.fn(open)
       await expect(readTrustedRepositoryFile(linkedRoot, 'input.json', {
-        lstat, stat, realpath, readFile: read,
+        lstat, stat, realpath, open: opened,
       })).rejects.toThrow('trust root must be a direct directory')
-      expect(read).not.toHaveBeenCalled()
+      expect(opened).not.toHaveBeenCalled()
     } finally {
       await rm(parent, { recursive: true, force: true })
+    }
+  })
+
+  it('rejects a repository leaf replaced after its trusted handle is opened', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-trusted-race-root-'))
+    const input = join(root, 'input.json')
+    const held = join(root, 'held.json')
+    const replacement = join(root, 'replacement.json')
+    await writeFile(input, 'approved')
+    await writeFile(replacement, 'attacker')
+    try {
+      await expect(readTrustedRepositoryFile(root, 'input.json', {
+        lstat, stat, realpath,
+        async open(path: string) {
+          const handle = await open(path, 'r')
+          await rename(path, held)
+          await rename(replacement, path)
+          return handle
+        },
+      } as never)).rejects.toThrow(/changed|identity|stable/iu)
+    } finally {
+      await rm(root, { recursive: true, force: true })
     }
   })
 })

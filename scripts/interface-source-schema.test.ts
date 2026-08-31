@@ -206,4 +206,17 @@ describe('parseInterfaceSourceManifest', () => {
       expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
     }
   })
+
+  it.each([
+    ['asset source', (manifest: any) => { manifest.assets[0].sourcePngPath = '../outside.png' }],
+    ['render-node source', (manifest: any) => { manifest.assets[0].renderNodes[0].sourcePngPath = 'C:/outside.png' }],
+    ['prompt evidence', (manifest: any) => { manifest.assets[0].promptEvidence.promptPath = 'asset-source/v0.3.0/prompts/../outside.json' }],
+    ['review evidence', (manifest: any) => { manifest.assets[0].promptEvidence.reviewRecordPath = 'packages\\asset-catalog\\review\\v0.3.0\\review.json' }],
+    ['bridge source', (manifest: any) => { manifest.bridges[0].sourcePngPath = '/absolute/bridge.png' }],
+  ] as const)('rejects a noncontained %s path during manifest parsing', (_label, mutate) => {
+    const invalid = makeValidInterfaceSourceManifest()
+    mutate(invalid)
+
+    expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
+  })
 })
