@@ -28,7 +28,7 @@
   ],
   "contactSheet": {
     "filename": "contact-sheet.png",
-    "sha256": "d9f0bea4f32b5dfd7a41e95c83ef746545b1f1fd6e5afdfc8aaa6aa6eb175af9",
+    "sha256": "39776f8abc4fc05ff9011082f0e6e79ac3952fac3bfe61790c65d7946e255545",
     "width": 1300,
     "height": 1580
   },
@@ -176,8 +176,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "da9923a987c2d48879da4699b6a7dc1c8354c5f60406d61a48ba574d51d5357b",
-      "pngBytes": 803930,
+      "pngSha256": "b53a466531f38973249914c44230b6d18066e4505acb2291a9b4e49f9a84bf3c",
+      "pngBytes": 790887,
       "specSha256": "326e7ffc472d34e57f0049dbfbf2397c54f3a46839b61a74d981fa30b391b606",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -195,40 +195,40 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.629356580399587,
-          "plugCoverage": 0.9922589635854342,
+          "receiverCoverage": 0.6297691856406256,
+          "plugCoverage": 0.9927934173669468,
           "largestComponentRatio": 0.9999875892606627,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
           "largestComponentRatio": 0.9999875892606627,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8214362646152422
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
           "largestComponentRatio": 0.9999875892606627,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.827225263802674
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999875892606627,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7056186119774811
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999875892606627,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7083642564696644
@@ -658,8 +658,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "73999a033032b5ef710d774f51a4d8675763ce8b43e74675d1156dc60e2dd21f",
-      "pngBytes": 822158,
+      "pngSha256": "c82a053d5702fd9debad5c4d544bbd1dec93b688c84edac138f7d9b0b8182cd3",
+      "pngBytes": 817014,
       "specSha256": "5ed8c0e3c2d9a119451b6f30370cca567c5ecc884b4466b38406713d6121a67d",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -677,41 +677,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
-          "largestComponentRatio": 0.9999934130102679,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
+          "largestComponentRatio": 0.9999934130218541,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
-          "largestComponentRatio": 0.9999934130102679,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
+          "largestComponentRatio": 0.9999934130218541,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7786740155674733
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
-          "largestComponentRatio": 0.9999934130102679,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
+          "largestComponentRatio": 0.9999934130218541,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7878336552115015
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999934130102679,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999934130218541,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7456121905366467
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999934130102679,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999934130218541,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7483856276179113
         },
@@ -719,8 +719,8 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
-          "largestComponentRatio": 0.9999934130102679,
-          "centerlineGapPixels": 0.015686274509803866,
+          "largestComponentRatio": 0.9999934130218541,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         }
       ],
@@ -1198,8 +1198,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "a655579349d965bc6adab10d06d9f97212fe92819a265ad80987705581427206",
-      "pngBytes": 867576,
+      "pngSha256": "dfffefba44a3fa309a3e1316d219a26c08793ae90a33e1c2ec538f824b42d34f",
+      "pngBytes": 863076,
       "specSha256": "506ee67825ab4b0dc5f5907e350ddf6201aa91c9da03287ffcbc5a7eb7bcd5a1",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -1217,41 +1217,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
-          "largestComponentRatio": 0.9999881536521512,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
+          "largestComponentRatio": 0.9999881536688012,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
-          "largestComponentRatio": 0.9999881536521512,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
+          "largestComponentRatio": 0.9999881536688012,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7786740155674733
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
-          "largestComponentRatio": 0.9999881536521512,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
+          "largestComponentRatio": 0.9999881536688012,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7878336552115015
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999881536521512,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999881536688012,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7456121905366467
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999881536521512,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999881536688012,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7483856276179113
         },
@@ -1259,24 +1259,24 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
-          "largestComponentRatio": 0.9999881536521512,
-          "centerlineGapPixels": 0.015686274509803866,
+          "largestComponentRatio": 0.9999881536688012,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "extraLeft",
           "receiverCoverage": 0.9801152099257783,
           "plugCoverage": 0.9217901583710407,
-          "largestComponentRatio": 0.9999881536521512,
-          "centerlineGapPixels": 0.009803921568627416,
+          "largestComponentRatio": 0.9999881536688012,
+          "centerlineGapPixels": 0.15490196078431362,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "extraRight",
           "receiverCoverage": 0.9891513246519982,
           "plugCoverage": 0.9217595211161388,
-          "largestComponentRatio": 0.9999881536521512,
-          "centerlineGapPixels": 0.009803921568627416,
+          "largestComponentRatio": 0.9999881536688012,
+          "centerlineGapPixels": 0.1470588235294117,
           "childOutsideBodyRatio": null
         }
       ],
@@ -1833,8 +1833,8 @@
       "surpriseSlots": 2,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "cc809938504e577c6115090f8301be0b9dbf423efb15f643aacf95ccc97d4886",
-      "pngBytes": 704584,
+      "pngSha256": "d831cb7f29014ff63f78a5687898b8d34d8e70d0abaa3f20fba22ceb52b8e4e4",
+      "pngBytes": 701946,
       "specSha256": "e797f1c70296fe10b78e6259ca11551bc3b0e72108a03e66ca0020ea97a04ea3",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -1852,41 +1852,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.7066097007223943,
-          "plugCoverage": 0.9913721899016017,
-          "largestComponentRatio": 0.9999910260910271,
+          "receiverCoverage": 0.707028689370485,
+          "plugCoverage": 0.9918681717701325,
+          "largestComponentRatio": 0.9999910261452153,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9171419251780314,
-          "plugCoverage": 0.9910156878843491,
-          "largestComponentRatio": 0.9999910260910271,
+          "receiverCoverage": 0.9178177738757194,
+          "plugCoverage": 0.9913793103448276,
+          "largestComponentRatio": 0.9999910261452153,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.6792692377099788
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.917136285484343,
-          "plugCoverage": 0.9910086448372453,
-          "largestComponentRatio": 0.9999910260910271,
+          "receiverCoverage": 0.9178179262998731,
+          "plugCoverage": 0.9913793103448276,
+          "largestComponentRatio": 0.9999910261452153,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.6639970832192579
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999910260910271,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999910261452153,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.727996029980882
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999910260910271,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999910261452153,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.728940020819174
         }
@@ -2310,8 +2310,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "aabeb0691edeb1c7f8dbcf9646c2a21d7b165d5583a863a2ffde5d470521bd10",
-      "pngBytes": 736510,
+      "pngSha256": "f14cf88a99e641d5ec8281b34a29b355caa973c5eb160ba0f5ec1a9c8792a8ad",
+      "pngBytes": 734941,
       "specSha256": "dafa81fc3938d9ab4dd206812ffde2b26bbd008d07f99fa347d4923ee1b33ace",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -2329,41 +2329,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
-          "largestComponentRatio": 0.9999922065059644,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
+          "largestComponentRatio": 0.9999922065079698,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
-          "largestComponentRatio": 0.9999922065059644,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
+          "largestComponentRatio": 0.9999922065079698,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7786740155674733
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
-          "largestComponentRatio": 0.9999922065059644,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
+          "largestComponentRatio": 0.9999922065079698,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7878336552115015
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999922065059644,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999922065079698,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.65060960324293
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999922065059644,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999922065079698,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.6551640869419944
         },
@@ -2371,8 +2371,8 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
-          "largestComponentRatio": 0.9999922065059644,
-          "centerlineGapPixels": 0.015686274509803866,
+          "largestComponentRatio": 0.9999922065079698,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         }
       ],
@@ -2844,8 +2844,8 @@
       "surpriseSlots": 2,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "5224ab2cb7ddece385b76541d8e12dbcdbac88ddee8f6fbf0d97b0e5c4f767ea",
-      "pngBytes": 837101,
+      "pngSha256": "54e41a28ea4065e74656d5f5e5355907ace46f113479a62fd7666d2bc5412856",
+      "pngBytes": 818271,
       "specSha256": "2ae75f6b9ffe0cd7ca2cb7103e40d3df836614c32d0dd6c8ccf4035297d6b3fa",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -2863,41 +2863,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.7066097007223943,
-          "plugCoverage": 0.9913721899016017,
-          "largestComponentRatio": 0.9999985824621186,
+          "receiverCoverage": 0.707028689370485,
+          "plugCoverage": 0.9918681717701325,
+          "largestComponentRatio": 0.9999985824680447,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9469717893376256,
-          "plugCoverage": 0.9915870871490251,
-          "largestComponentRatio": 0.9999985824621186,
+          "receiverCoverage": 0.9476642522680714,
+          "plugCoverage": 0.9919354838709677,
+          "largestComponentRatio": 0.9999985824680447,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8050803093244547
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9469757523656228,
-          "plugCoverage": 0.9915913840992218,
-          "largestComponentRatio": 0.9999985824621186,
+          "receiverCoverage": 0.9476642522680714,
+          "plugCoverage": 0.9919354838709677,
+          "largestComponentRatio": 0.9999985824680447,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8043383064812142
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999985824621186,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999985824680447,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.727996029980882
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999985824621186,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999985824680447,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.728940020819174
         },
@@ -2905,16 +2905,16 @@
           "connectorId": "extraLeft",
           "receiverCoverage": 0.9901150542861773,
           "plugCoverage": 0.9220617240979232,
-          "largestComponentRatio": 0.9999985824621186,
-          "centerlineGapPixels": 0.013725490196078383,
+          "largestComponentRatio": 0.9999985824680447,
+          "centerlineGapPixels": 0.1098039215686275,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "extraRight",
           "receiverCoverage": 0.9889908256880734,
           "plugCoverage": 0.9220675252349461,
-          "largestComponentRatio": 0.9999985824621186,
-          "centerlineGapPixels": 0.025490196078431282,
+          "largestComponentRatio": 0.9999985824680447,
+          "centerlineGapPixels": 0.11372549019607847,
           "childOutsideBodyRatio": null
         }
       ],
@@ -3418,8 +3418,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "bd4516f24e5821a86e280609ff791881ae36245527bfd31ee329b8c9888f90ed",
-      "pngBytes": 963704,
+      "pngSha256": "52dfc84c4ddb926bb9860443190148ee159f3927b70d7807bce0acf866539175",
+      "pngBytes": 962527,
       "specSha256": "d6722934e821d32f76b0242697b14d267437d8ba9eca8c937e45b450643c793f",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -3437,40 +3437,40 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
           "largestComponentRatio": 0.9999872674969955,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
           "largestComponentRatio": 0.9999872674969955,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8957495075136943
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
           "largestComponentRatio": 0.9999872674969955,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8365951816909936
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999872674969955,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.697507190638167
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999872674969955,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7042610247360083
@@ -3480,7 +3480,7 @@
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
           "largestComponentRatio": 0.9999872674969955,
-          "centerlineGapPixels": 0.015686274509803866,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         },
         {
@@ -3488,7 +3488,7 @@
           "receiverCoverage": 0.9801152099257783,
           "plugCoverage": 0.9217901583710407,
           "largestComponentRatio": 0.9999872674969955,
-          "centerlineGapPixels": 0.009803921568627416,
+          "centerlineGapPixels": 0.15490196078431362,
           "childOutsideBodyRatio": null
         },
         {
@@ -3496,7 +3496,7 @@
           "receiverCoverage": 0.9891513246519982,
           "plugCoverage": 0.9217595211161388,
           "largestComponentRatio": 0.9999872674969955,
-          "centerlineGapPixels": 0.009803921568627416,
+          "centerlineGapPixels": 0.1470588235294117,
           "childOutsideBodyRatio": null
         }
       ],
@@ -4059,8 +4059,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "49711a7e879a04350c52649962dd54a07af6050c3fcd2fad06ded3e7c17ec20c",
-      "pngBytes": 677650,
+      "pngSha256": "132cedfe29a8ca8d04000ae57449267df3e1d584d808eca3f638ce848963ce49",
+      "pngBytes": 667396,
       "specSha256": "6166f4e7816099adc00e4679fd702daab72d32a96f2c0ceac80fefe5b7c1fd44",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -4078,41 +4078,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
-          "largestComponentRatio": 0.999989165546573,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
+          "largestComponentRatio": 0.9999891655628911,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
-          "largestComponentRatio": 0.999989165546573,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
+          "largestComponentRatio": 0.9999891655628911,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7786740155674733
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
-          "largestComponentRatio": 0.999989165546573,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
+          "largestComponentRatio": 0.9999891655628911,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7878336552115015
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.999989165546573,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999891655628911,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7017494335787826
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.999989165546573,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999891655628911,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7058788637726038
         },
@@ -4120,24 +4120,24 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
-          "largestComponentRatio": 0.999989165546573,
-          "centerlineGapPixels": 0.015686274509803866,
+          "largestComponentRatio": 0.9999891655628911,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "extraLeft",
           "receiverCoverage": 0.9801152099257783,
           "plugCoverage": 0.9217901583710407,
-          "largestComponentRatio": 0.999989165546573,
-          "centerlineGapPixels": 0.009803921568627416,
+          "largestComponentRatio": 0.9999891655628911,
+          "centerlineGapPixels": 0.15490196078431362,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "extraRight",
           "receiverCoverage": 0.9891513246519982,
           "plugCoverage": 0.9217595211161388,
-          "largestComponentRatio": 0.999989165546573,
-          "centerlineGapPixels": 0.009803921568627416,
+          "largestComponentRatio": 0.9999891655628911,
+          "centerlineGapPixels": 0.1470588235294117,
           "childOutsideBodyRatio": null
         }
       ],
@@ -4690,8 +4690,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "179c9220ed3c27ad883fbcc1aa7e5136ef5d10b5d0e97ecc914a4c0cce7d3864",
-      "pngBytes": 815828,
+      "pngSha256": "6cf1eb63cbf15f31234d8c55bad50525ccda07154c53627cdbad80451d52082b",
+      "pngBytes": 812420,
       "specSha256": "db3e8141f9938544dcbfd4a04892e3204f9d784a63ab83711e30b7bdcbe00f77",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -4709,41 +4709,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.7066097007223943,
-          "plugCoverage": 0.9913721899016017,
-          "largestComponentRatio": 0.9999934854301314,
+          "receiverCoverage": 0.707028689370485,
+          "plugCoverage": 0.9918681717701325,
+          "largestComponentRatio": 0.9999934854626072,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9469717893376256,
-          "plugCoverage": 0.9915870871490251,
-          "largestComponentRatio": 0.9999934854301314,
+          "receiverCoverage": 0.9476642522680714,
+          "plugCoverage": 0.9919354838709677,
+          "largestComponentRatio": 0.9999934854626072,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8050803093244547
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9469757523656228,
-          "plugCoverage": 0.9915913840992218,
-          "largestComponentRatio": 0.9999934854301314,
+          "receiverCoverage": 0.9476642522680714,
+          "plugCoverage": 0.9919354838709677,
+          "largestComponentRatio": 0.9999934854626072,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8043383064812142
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999934854301314,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999934854626072,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.727996029980882
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999934854301314,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999934854626072,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.728940020819174
         },
@@ -4751,8 +4751,8 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9557989547425776,
           "plugCoverage": 0.9316806722689076,
-          "largestComponentRatio": 0.9999934854301314,
-          "centerlineGapPixels": 0.0039215686274509665,
+          "largestComponentRatio": 0.9999934854626072,
+          "centerlineGapPixels": 0.084313725490196,
           "childOutsideBodyRatio": null
         }
       ],
@@ -5230,8 +5230,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "02c890d91f90678b24a7b110e51bcef4ad4413e801c94407f4da6dcfdc469b90",
-      "pngBytes": 853648,
+      "pngSha256": "b0ec46f7f13ac6870b5ccece86a0584be2b33812904cf4ca4cfc8213e67da180",
+      "pngBytes": 841446,
       "specSha256": "50587a53120ee1dde39026771b25f18a7281dd4cc2fe6a9204ca3f55b90041d2",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -5249,40 +5249,40 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.629356580399587,
-          "plugCoverage": 0.9922589635854342,
+          "receiverCoverage": 0.6297691856406256,
+          "plugCoverage": 0.9927934173669468,
           "largestComponentRatio": 0.9999920093730522,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
           "largestComponentRatio": 0.9999920093730522,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8214362646152422
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
           "largestComponentRatio": 0.9999920093730522,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.827225263802674
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999920093730522,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7051481432517328
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999920093730522,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.705357394809748
@@ -5292,7 +5292,7 @@
           "receiverCoverage": 0.9458057455540355,
           "plugCoverage": 0.9216181184012067,
           "largestComponentRatio": 0.9999920093730522,
-          "centerlineGapPixels": 0.00588235294117645,
+          "centerlineGapPixels": 0.23725490196078436,
           "childOutsideBodyRatio": null
         },
         {
@@ -5300,7 +5300,7 @@
           "receiverCoverage": 0.9374989259507484,
           "plugCoverage": 0.9216181184012067,
           "largestComponentRatio": 0.9999920093730522,
-          "centerlineGapPixels": 0.0117647058823529,
+          "centerlineGapPixels": 0.2313725490196079,
           "childOutsideBodyRatio": null
         }
       ],
@@ -5811,8 +5811,8 @@
       "surpriseSlots": 2,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "78f5b01ee86208ebb4a989a6d604a19756bbd4168d3208ea9ee7878db469ed72",
-      "pngBytes": 795721,
+      "pngSha256": "03ad18a7b472710e66b6260a765c17872cf8b4165e3fd2454fe93d6e7cd0090b",
+      "pngBytes": 793023,
       "specSha256": "cdbeaba8302c0c9d5999e5573f1b909b99b37eeb9fd539adabdf8fe9ee245eba",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -5830,40 +5830,40 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
           "largestComponentRatio": 0.999997003049044,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
           "largestComponentRatio": 0.999997003049044,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8957495075136943
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
           "largestComponentRatio": 0.999997003049044,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8365951816909936
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.999997003049044,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.697507190638167
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.999997003049044,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7042610247360083
@@ -6288,8 +6288,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "3c789bf2c8c39930345a44da10ec32665a76490f0769aae6a1915d58de8e4047",
-      "pngBytes": 768850,
+      "pngSha256": "243f2079f6959541f4b7a655c06c8ac00e71b5b53ac1a3f80288cf355f44a7c4",
+      "pngBytes": 741778,
       "specSha256": "13f37dc4ca94bbac467e633f5691f5e9dce4ce84f786ead290f6a49dc9541ac2",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -6307,50 +6307,50 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.7066097007223943,
-          "plugCoverage": 0.9913721899016017,
-          "largestComponentRatio": 0.9999893226080291,
+          "receiverCoverage": 0.707028689370485,
+          "plugCoverage": 0.9918681717701325,
+          "largestComponentRatio": 0.9999893226715084,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9469717893376256,
-          "plugCoverage": 0.9915870871490251,
-          "largestComponentRatio": 0.9999893226080291,
+          "receiverCoverage": 0.9476642522680714,
+          "plugCoverage": 0.9919354838709677,
+          "largestComponentRatio": 0.9999893226715084,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8050803093244547
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9469757523656228,
-          "plugCoverage": 0.9915913840992218,
-          "largestComponentRatio": 0.9999893226080291,
+          "receiverCoverage": 0.9476642522680714,
+          "plugCoverage": 0.9919354838709677,
+          "largestComponentRatio": 0.9999893226715084,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8043383064812142
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.9853570261437908,
-          "plugCoverage": 0.9853570261437908,
-          "largestComponentRatio": 0.9999893226080291,
-          "centerlineGapPixels": 0.009803921568627472,
+          "receiverCoverage": 0.986005174291939,
+          "plugCoverage": 0.986005174291939,
+          "largestComponentRatio": 0.9999893226715084,
+          "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.861345420318055
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.9853570261437908,
-          "plugCoverage": 0.9853570261437908,
-          "largestComponentRatio": 0.9999893226080291,
-          "centerlineGapPixels": 0.009803921568627472,
+          "receiverCoverage": 0.986005174291939,
+          "plugCoverage": 0.986005174291939,
+          "largestComponentRatio": 0.9999893226715084,
+          "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8621472912082551
         },
         {
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9557989547425776,
           "plugCoverage": 0.9316806722689076,
-          "largestComponentRatio": 0.9999893226080291,
-          "centerlineGapPixels": 0.0039215686274509665,
+          "largestComponentRatio": 0.9999893226715084,
+          "centerlineGapPixels": 0.084313725490196,
           "childOutsideBodyRatio": null
         }
       ],
@@ -6824,8 +6824,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "3eed80dca53569d6d87199b8cc8d90482760fa762f68ce428c9d56a01198fc43",
-      "pngBytes": 883654,
+      "pngSha256": "5548e9568ebc04f81486088610276c44d65fe03f7400b21a50518b6d12b029b7",
+      "pngBytes": 879667,
       "specSha256": "a1c00105cb2b4ac38f17945effbd02bed7d0f898271bb4924feaffb20ba445ce",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -6843,40 +6843,40 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
           "largestComponentRatio": 0.9999848899987636,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
           "largestComponentRatio": 0.9999848899987636,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7786740155674733
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
           "largestComponentRatio": 0.9999848899987636,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7878336552115015
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999848899987636,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.697507190638167
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999848899987636,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7042610247360083
@@ -6886,7 +6886,7 @@
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
           "largestComponentRatio": 0.9999848899987636,
-          "centerlineGapPixels": 0.015686274509803866,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         },
         {
@@ -6894,7 +6894,7 @@
           "receiverCoverage": 0.9801152099257783,
           "plugCoverage": 0.9217901583710407,
           "largestComponentRatio": 0.9999848899987636,
-          "centerlineGapPixels": 0.009803921568627416,
+          "centerlineGapPixels": 0.15490196078431362,
           "childOutsideBodyRatio": null
         },
         {
@@ -6902,7 +6902,7 @@
           "receiverCoverage": 0.9891513246519982,
           "plugCoverage": 0.9217595211161388,
           "largestComponentRatio": 0.9999848899987636,
-          "centerlineGapPixels": 0.009803921568627416,
+          "centerlineGapPixels": 0.1470588235294117,
           "childOutsideBodyRatio": null
         }
       ],
@@ -7460,8 +7460,8 @@
       "surpriseSlots": 2,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "8989290220e4d78319b502b16e47e903606a75c497ae72390c4ef4d41a911847",
-      "pngBytes": 682062,
+      "pngSha256": "0b3cd107f36c122aaa8f3c70e1622c1a2bdf991c0ccdbc78a1d6df72bf433e0f",
+      "pngBytes": 671347,
       "specSha256": "d68f3a74d16cee9c5ab3116725664fd0903529978114df9e002a0ad24a7efa43",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -7479,41 +7479,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
-          "largestComponentRatio": 0.9999856821597901,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
+          "largestComponentRatio": 0.9999856821823964,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
-          "largestComponentRatio": 0.9999856821597901,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
+          "largestComponentRatio": 0.9999856821823964,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8488041687950467
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
-          "largestComponentRatio": 0.9999856821597901,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
+          "largestComponentRatio": 0.9999856821823964,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8537518037066127
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999856821597901,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999856821823964,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7017494335787826
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999856821597901,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999856821823964,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7058788637726038
         },
@@ -7521,16 +7521,16 @@
           "connectorId": "extraLeft",
           "receiverCoverage": 0.9801152099257783,
           "plugCoverage": 0.9217901583710407,
-          "largestComponentRatio": 0.9999856821597901,
-          "centerlineGapPixels": 0.009803921568627416,
+          "largestComponentRatio": 0.9999856821823964,
+          "centerlineGapPixels": 0.15490196078431362,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "extraRight",
           "receiverCoverage": 0.9891513246519982,
           "plugCoverage": 0.9217595211161388,
-          "largestComponentRatio": 0.9999856821597901,
-          "centerlineGapPixels": 0.009803921568627416,
+          "largestComponentRatio": 0.9999856821823964,
+          "centerlineGapPixels": 0.1470588235294117,
           "childOutsideBodyRatio": null
         }
       ],
@@ -8038,8 +8038,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "e92ccf18928e119783ffca332ec864b8c7150d73f31c83c7700bff7f49935811",
-      "pngBytes": 796690,
+      "pngSha256": "e1f190fa4ede2461f5975d07b8a6e55dd7eaaef502a6b5cd497f74a30aba56bd",
+      "pngBytes": 783396,
       "specSha256": "19745adae0c8e5b23d048a1d136db05c35fb98683e0d6bfabf47a75f5d556448",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -8057,40 +8057,40 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.629356580399587,
-          "plugCoverage": 0.9922589635854342,
+          "receiverCoverage": 0.6297691856406256,
+          "plugCoverage": 0.9927934173669468,
           "largestComponentRatio": 0.9999849282097246,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9820874823283545,
-          "plugCoverage": 0.9911256992091586,
+          "receiverCoverage": 0.982183908045977,
+          "plugCoverage": 0.9912320315319819,
           "largestComponentRatio": 0.9999849282097246,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.8018958075752719
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9820917081566168,
-          "plugCoverage": 0.9911286646524247,
+          "receiverCoverage": 0.9821858288770053,
+          "plugCoverage": 0.9912324551667342,
           "largestComponentRatio": 0.9999849282097246,
           "centerlineGapPixels": 0.007843137254901988,
           "childOutsideBodyRatio": 0.8071796088695692
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999849282097246,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7056186119774811
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
           "largestComponentRatio": 0.9999849282097246,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7083642564696644
@@ -8100,7 +8100,7 @@
           "receiverCoverage": 0.9913927335640138,
           "plugCoverage": 0.9319159663865546,
           "largestComponentRatio": 0.9999849282097246,
-          "centerlineGapPixels": 0.0019607843137254832,
+          "centerlineGapPixels": 0.2313725490196079,
           "childOutsideBodyRatio": null
         }
       ],
@@ -8577,8 +8577,8 @@
       "surpriseSlots": 2,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "34eeb1a673c0531903fc9aeae95c239a0477b5c7fa7d02061c4d986d9e323cfd",
-      "pngBytes": 764174,
+      "pngSha256": "c5b4a67dd079a241610e8e3ffcd0df741ad3c93423a5841c10c035d056f93247",
+      "pngBytes": 759872,
       "specSha256": "95a2693355960de16c3f8dbb59315df9383a27713c9a90f34518de0b05ec762c",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -8596,41 +8596,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
-          "largestComponentRatio": 0.9999915304201811,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
+          "largestComponentRatio": 0.9999915304222183,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
-          "largestComponentRatio": 0.9999915304201811,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
+          "largestComponentRatio": 0.9999915304222183,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7786740155674733
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
-          "largestComponentRatio": 0.9999915304201811,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
+          "largestComponentRatio": 0.9999915304222183,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7878336552115015
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999915304201811,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999915304222183,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.697507190638167
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999915304201811,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999915304222183,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.7042610247360083
         },
@@ -8638,8 +8638,8 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
-          "largestComponentRatio": 0.9999915304201811,
-          "centerlineGapPixels": 0.015686274509803866,
+          "largestComponentRatio": 0.9999915304222183,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         }
       ],
@@ -9110,8 +9110,8 @@
       "surpriseSlots": 2,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "706fe11ec5a799da08b3815049f7202f49fa2304ce6d257ee62e8c1a11828b48",
-      "pngBytes": 687345,
+      "pngSha256": "b7e8fa4c48379405929497c03e3aebb1c4f881bf14a19d179e1e054b2d387499",
+      "pngBytes": 668261,
       "specSha256": "795fdf2c2119467a1f1c14d5015b40a07e668499d0cd16559902f4b2b1639643",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -9129,41 +9129,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.7066097007223943,
-          "plugCoverage": 0.9913721899016017,
-          "largestComponentRatio": 0.9999959838576787,
+          "receiverCoverage": 0.707028689370485,
+          "plugCoverage": 0.9918681717701325,
+          "largestComponentRatio": 0.9999959838802421,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9022244780996976,
-          "plugCoverage": 0.9907155797101449,
-          "largestComponentRatio": 0.9999959838576787,
+          "receiverCoverage": 0.9028940774070823,
+          "plugCoverage": 0.9910714285714286,
+          "largestComponentRatio": 0.9999959838802421,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.706037020984866
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9022182287093942,
-          "plugCoverage": 0.9907075873827792,
-          "largestComponentRatio": 0.9999959838576787,
+          "receiverCoverage": 0.9028939249829285,
+          "plugCoverage": 0.9910714285714286,
+          "largestComponentRatio": 0.9999959838802421,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7257528593543601
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999959838576787,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999959838802421,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.727996029980882
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999959838576787,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999959838802421,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.728940020819174
         }
@@ -9478,11 +9478,11 @@
         },
         "visualSlots": {
           "bodyFrame": {
-            "partId": "body_biped_peanut",
+            "partId": "body_biped_tall",
             "rigId": "biped"
           },
           "headShape": {
-            "partId": "head_shadow_hood",
+            "partId": "head_round_dome",
             "rigId": "biped"
           },
           "eyes": {
@@ -9536,7 +9536,7 @@
         },
         "semanticTraits": {
           "frame": {
-            "primaryTraitId": "frame_biped_peanut",
+            "primaryTraitId": "frame_biped_tall",
             "detailTraitIds": []
           },
           "appendage": {
@@ -9549,7 +9549,7 @@
           "headAndEyes": {
             "primaryTraitId": "eyes_triple",
             "detailTraitIds": [
-              "head_shadow_hood"
+              "head_round"
             ]
           },
           "mouth": {
@@ -9586,69 +9586,69 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "8739896dca65360a0b221436089fe4dc70b699a8a5bcb2746a842228b21b0caa",
-      "pngBytes": 712652,
-      "specSha256": "6fe51656c0032e12c41ea3627af9d85c50fe355a8d853e2c31e61da97fdd3b32",
+      "pngSha256": "0940748158954b20eb988bdfc94bd68e19c02d95f21601951b91f441868542be",
+      "pngBytes": 736598,
+      "specSha256": "e2e5e99abc74bc532d643394116d651b514c08482b9b53e85c8b46b774a570ef",
       "renderDiagnostics": [],
       "compositionMetrics": {
         "eyesInsideRatio": 0.9975303724357698,
         "eyesVisibleRatio": 0.9788680551063198,
-        "mouthInsideRatio": 1,
+        "mouthInsideRatio": 0.8682492498190431,
         "mouthVisibleRatio": 1,
         "visibleBounds": {
-          "x": 404,
-          "y": 260,
-          "width": 1548,
-          "height": 1520
+          "x": 384,
+          "y": 84,
+          "width": 1520,
+          "height": 1836
         }
       },
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.7066097007223943,
-          "plugCoverage": 0.9913721899016017,
-          "largestComponentRatio": 0.9999803845662092,
+          "receiverCoverage": 0.7673945383565798,
+          "plugCoverage": 0.9916650705866392,
+          "largestComponentRatio": 0.9999856418366087,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9171419251780314,
-          "plugCoverage": 0.9910156878843491,
-          "largestComponentRatio": 0.9999803845662092,
+          "receiverCoverage": 0.9515291673854293,
+          "plugCoverage": 0.9913793103448276,
+          "largestComponentRatio": 0.9999856418366087,
           "centerlineGapPixels": 0,
-          "childOutsideBodyRatio": 0.6792692377099788
+          "childOutsideBodyRatio": 0.9308243663177165
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.917136285484343,
-          "plugCoverage": 0.9910086448372453,
-          "largestComponentRatio": 0.9999803845662092,
+          "receiverCoverage": 0.9515291673854293,
+          "plugCoverage": 0.9913793103448276,
+          "largestComponentRatio": 0.9999856418366087,
           "centerlineGapPixels": 0,
-          "childOutsideBodyRatio": 0.6639970832192579
+          "childOutsideBodyRatio": 0.9271961737148582
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.9506356209150327,
-          "plugCoverage": 0.9922464881474978,
-          "largestComponentRatio": 0.9999803845662092,
+          "receiverCoverage": 0.9850746268656716,
+          "plugCoverage": 0.9849718929860501,
+          "largestComponentRatio": 0.9999856418366087,
           "centerlineGapPixels": 0,
-          "childOutsideBodyRatio": 0.8283569439443336
+          "childOutsideBodyRatio": 0.9249186188840961
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.9506356209150327,
-          "plugCoverage": 0.9922464881474978,
-          "largestComponentRatio": 0.9999803845662092,
+          "receiverCoverage": 0.9850746268656716,
+          "plugCoverage": 0.9849718929860501,
+          "largestComponentRatio": 0.9999856418366087,
           "centerlineGapPixels": 0,
-          "childOutsideBodyRatio": 0.829813674044313
+          "childOutsideBodyRatio": 0.9246363923772806
         },
         {
           "connectorId": "tailRoot",
-          "receiverCoverage": 0.9557989547425776,
-          "plugCoverage": 0.9316806722689076,
-          "largestComponentRatio": 0.9999803845662092,
-          "centerlineGapPixels": 0.0039215686274509665,
+          "receiverCoverage": 0.993666892044174,
+          "plugCoverage": 0.9317198879551821,
+          "largestComponentRatio": 0.9999856418366087,
+          "centerlineGapPixels": 0.17058823529411749,
           "childOutsideBodyRatio": null
         }
       ],
@@ -9671,22 +9671,22 @@
         "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-background.png",
         "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-contour.png",
         "assets/v0.3.0/connectors/biped/arms_long_noodle-shoulderRight-foreground.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-background.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-contour.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-foreground.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-background.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-contour.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-foreground.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-background.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-contour.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-foreground.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-background.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-contour.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-foreground.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-tailRoot-background.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-tailRoot-contour.png",
-        "assets/v0.3.0/connectors/biped/body_biped_peanut-tailRoot-foreground.png",
-        "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-contour.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-background.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-contour.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-foreground.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-background.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-contour.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-foreground.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-background.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-contour.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-foreground.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-background.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-contour.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-foreground.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-tailRoot-background.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-tailRoot-contour.png",
+        "assets/v0.3.0/connectors/biped/body_biped_tall-tailRoot-foreground.png",
+        "assets/v0.3.0/connectors/biped/head_round_dome-neck-contour.png",
         "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-background.png",
         "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-contour.png",
         "assets/v0.3.0/connectors/biped/legs_webbed-hipLeft-foreground.png",
@@ -9696,18 +9696,18 @@
         "assets/v0.3.0/connectors/biped/tail_soft_curl-tailRoot-background.png",
         "assets/v0.3.0/connectors/biped/tail_soft_curl-tailRoot-contour.png",
         "assets/v0.3.0/connectors/biped/tail_soft_curl-tailRoot-foreground.png",
-        "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-background.png",
-        "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-contour.png",
-        "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-foreground.png",
-        "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-background.png",
-        "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+        "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-background.png",
+        "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-contour.png",
+        "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-foreground.png",
+        "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-background.png",
+        "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-foreground.png",
         "assets/v0.3.0/structural/biped/nodes/arms_long_noodle/arms_long_noodle-shoulderLeft.webp",
         "assets/v0.3.0/structural/biped/nodes/arms_long_noodle/arms_long_noodle-shoulderRight.webp",
-        "assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
+        "assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
         "assets/v0.3.0/structural/biped/nodes/legs_webbed/legs_webbed-hipLeft.webp",
         "assets/v0.3.0/structural/biped/nodes/legs_webbed/legs_webbed-hipRight.webp",
         "assets/v0.3.0/structural/biped/tail_soft_curl/nodes/tail_soft_curl-biped-tailRoot.webp",
-        "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
+        "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_round_dome/neck.webp",
         "masks/color_shadow_violet/biped-accent.png",
         "masks/color_shadow_violet/biped-primary.png",
         "masks/color_shadow_violet/biped-secondary.png",
@@ -9791,67 +9791,67 @@
           "sha256": "806f4caf7d8ee1cb4d0716ead522f5acebff60ad1ee688761ca8fe560f26c36f"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-background.png",
-          "sha256": "dec55ffcebd3b879919c696934ad012b5998bd7c8d777eac5d8420d687b0d91e"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-background.png",
+          "sha256": "ff019f98234f10a141f6cad413b5e39fa74c305bfe3788eb9407347eff60d7b0"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-contour.png",
-          "sha256": "dec55ffcebd3b879919c696934ad012b5998bd7c8d777eac5d8420d687b0d91e"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-contour.png",
+          "sha256": "ff019f98234f10a141f6cad413b5e39fa74c305bfe3788eb9407347eff60d7b0"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipLeft-foreground.png",
-          "sha256": "dec55ffcebd3b879919c696934ad012b5998bd7c8d777eac5d8420d687b0d91e"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-hipLeft-foreground.png",
+          "sha256": "ff019f98234f10a141f6cad413b5e39fa74c305bfe3788eb9407347eff60d7b0"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-background.png",
-          "sha256": "831543d702256e077bb45c4d59e4b20456dbde0d9c7a111b15edce7f5f5016b8"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-background.png",
+          "sha256": "00540aaf3d92b4311cb4f12c737ff113039e4507112b9d90d349dd244c57c18f"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-contour.png",
-          "sha256": "831543d702256e077bb45c4d59e4b20456dbde0d9c7a111b15edce7f5f5016b8"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-contour.png",
+          "sha256": "00540aaf3d92b4311cb4f12c737ff113039e4507112b9d90d349dd244c57c18f"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-hipRight-foreground.png",
-          "sha256": "831543d702256e077bb45c4d59e4b20456dbde0d9c7a111b15edce7f5f5016b8"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-hipRight-foreground.png",
+          "sha256": "00540aaf3d92b4311cb4f12c737ff113039e4507112b9d90d349dd244c57c18f"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-background.png",
-          "sha256": "1e952968337ad10940110ecb5d58389f639296a72eb7d7b778bd910b86b85c90"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-background.png",
+          "sha256": "f4f7be1694628267b4a6a8179fd168313631b9413174267ac588a69674af8f36"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-contour.png",
-          "sha256": "1e952968337ad10940110ecb5d58389f639296a72eb7d7b778bd910b86b85c90"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-contour.png",
+          "sha256": "f4f7be1694628267b4a6a8179fd168313631b9413174267ac588a69674af8f36"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderLeft-foreground.png",
-          "sha256": "1e952968337ad10940110ecb5d58389f639296a72eb7d7b778bd910b86b85c90"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderLeft-foreground.png",
+          "sha256": "f4f7be1694628267b4a6a8179fd168313631b9413174267ac588a69674af8f36"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-background.png",
-          "sha256": "bfdb77edaaf943db268c9e9c5d97b41d5ed7361116a0b75b142cb36ffc59e243"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-background.png",
+          "sha256": "6670e3297871c221ae097257e83e1ff485c022dab5c9d2027004dedfa4e4a275"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-contour.png",
-          "sha256": "bfdb77edaaf943db268c9e9c5d97b41d5ed7361116a0b75b142cb36ffc59e243"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-contour.png",
+          "sha256": "6670e3297871c221ae097257e83e1ff485c022dab5c9d2027004dedfa4e4a275"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-shoulderRight-foreground.png",
-          "sha256": "bfdb77edaaf943db268c9e9c5d97b41d5ed7361116a0b75b142cb36ffc59e243"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-shoulderRight-foreground.png",
+          "sha256": "6670e3297871c221ae097257e83e1ff485c022dab5c9d2027004dedfa4e4a275"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-tailRoot-background.png",
-          "sha256": "c115c59a784e8c65e50f4b004ebd4e7cceef7a54dfd2237a1e3907d18e5886dc"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-tailRoot-background.png",
+          "sha256": "7a2fb1792f97a66ac66136bf36682879f5c9b33fb5d89440108a7942794d0e2c"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-tailRoot-contour.png",
-          "sha256": "09fa7e7b7cf9e2d9b0c8f28af6f38439022de6a9432f0fb9ee88717a022156eb"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-tailRoot-contour.png",
+          "sha256": "322577d414271c252cd9f2183d4bc71e667fb418f48742cf6e88231b0d52948b"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/body_biped_peanut-tailRoot-foreground.png",
-          "sha256": "5d420aa78bb8ce1fe5aae565ec890ad6f5982c2044f0a41b2abca720a97ecc20"
+          "path": "assets/v0.3.0/connectors/biped/body_biped_tall-tailRoot-foreground.png",
+          "sha256": "e20ddb9cebc40f284e90cfb5ed1b858b08e26d136c2f0bb433b0512a90b02891"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/head_shadow_hood-neck-contour.png",
+          "path": "assets/v0.3.0/connectors/biped/head_round_dome-neck-contour.png",
           "sha256": "5c92801eb3946a61ff5a20d77bb870daf2752c6f3d1eda0d7cee8e646701ecae"
         },
         {
@@ -9891,24 +9891,24 @@
           "sha256": "450036dc40784f21de01095e1ddbd416bc8f5817e4859dc41c7800b1cbf18330"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-background.png",
-          "sha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68"
+          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-background.png",
+          "sha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-contour.png",
-          "sha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68"
+          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-contour.png",
+          "sha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_peanut-neck-foreground.png",
-          "sha256": "3daf542238b7e930313884fba78f67f12cfe0b367537630e3d849b0cff472f68"
+          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/body_biped_tall-neck-foreground.png",
+          "sha256": "165363e747ee8a409503f23065d50238b434881a63b9e039b91cae8b793d037d"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-background.png",
-          "sha256": "693dd4bc4ef1e67199bf3a3841bb7ffcf4759964c2cefd61d44e75e733c928e7"
+          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-background.png",
+          "sha256": "3209e24be93b74679dc2ed2e1f0c287ee88833edf2c1debe3b1f0a1af57fe3c9"
         },
         {
-          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_shadow_hood-neck-foreground.png",
-          "sha256": "3c800001179c0f66a71e35c698bb7d8c006b3136a4513c04ccfec786ababbbe6"
+          "path": "assets/v0.3.0/connectors/biped/task7-natural-neck/head_round_dome-neck-foreground.png",
+          "sha256": "63d988d12a975057aabfbd08918dccac31ec70d6cd4dedbe428713641c04e1e3"
         },
         {
           "path": "assets/v0.3.0/structural/biped/nodes/arms_long_noodle/arms_long_noodle-shoulderLeft.webp",
@@ -9919,8 +9919,8 @@
           "sha256": "24f1b7a60d5752f21b9a67673b14ebd8c168d2f23e0a2889bb940e3a4a739e19"
         },
         {
-          "path": "assets/v0.3.0/structural/biped/nodes/body_biped_peanut/body_biped_peanut-body.webp",
-          "sha256": "f0a98d41e2ec4ea136840f6fe9ba9aa412d02f1fc17d437f2699e9dc9bd3df26"
+          "path": "assets/v0.3.0/structural/biped/nodes/body_biped_tall/body_biped_tall-body.webp",
+          "sha256": "76e72bae41c5fa35dae55bc9543390d8446477502c9b9db4f01a57b1a2d4fc12"
         },
         {
           "path": "assets/v0.3.0/structural/biped/nodes/legs_webbed/legs_webbed-hipLeft.webp",
@@ -9935,8 +9935,8 @@
           "sha256": "4e94127198ce58fe004eda417919185e4f4157810b174b6b820d807765ba7f63"
         },
         {
-          "path": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
-          "sha256": "8e633e56527bfbb04620268598ac337e7e8f26407be2104ea8d73ea5e2436d8f"
+          "path": "assets/v0.3.0/structural/biped/task7-natural-neck/nodes/head_round_dome/neck.webp",
+          "sha256": "de1eef77cb2d158de7fff5fe567a93c9af2b26b34922dda95c25bd31fc4e2afa"
         },
         {
           "path": "masks/color_shadow_violet/biped-accent.png",
@@ -10115,8 +10115,8 @@
       "surpriseSlots": 2,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "a701b0ade4d2e4a7b4d12c44a90e0570072003b371b8dc2d31449472ea86eb55",
-      "pngBytes": 734766,
+      "pngSha256": "e276e5f11f9e007eccfd2a11ec7258036d910bd5f1fd4393425297c29af85fbb",
+      "pngBytes": 727166,
       "specSha256": "86aa0c9ded2d081a4da999a0e6487ced4488953d9602ef8f938bf2d62e840e3f",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -10134,41 +10134,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
-          "largestComponentRatio": 0.9999928086014322,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
+          "largestComponentRatio": 0.9999928086032374,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
-          "largestComponentRatio": 0.9999928086014322,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
+          "largestComponentRatio": 0.9999928086032374,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7786740155674733
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
-          "largestComponentRatio": 0.9999928086014322,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
+          "largestComponentRatio": 0.9999928086032374,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7878336552115015
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999928086014322,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999928086032374,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.65060960324293
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999928086014322,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999928086032374,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.6551640869419944
         },
@@ -10176,8 +10176,8 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
-          "largestComponentRatio": 0.9999928086014322,
-          "centerlineGapPixels": 0.015686274509803866,
+          "largestComponentRatio": 0.9999928086032374,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         }
       ],
@@ -10650,8 +10650,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "d0cec51747989ba4cee86532e0ce4aeda87bea40e07bf02379e522a25c39dbfe",
-      "pngBytes": 763621,
+      "pngSha256": "1cd9e21c3a586b133e7b9b29bcda2d69112197c3a088b996c3780005e97d3bd7",
+      "pngBytes": 756274,
       "specSha256": "972fbb605b16e7cdb0408d9ea85c8f2352337a7b50b87eb79eb06f9eb21208c5",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -10669,41 +10669,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.6295515913162972,
-          "plugCoverage": 0.9916007884635336,
-          "largestComponentRatio": 0.9999926529436337,
+          "receiverCoverage": 0.6299139475610064,
+          "plugCoverage": 0.9920280112044818,
+          "largestComponentRatio": 0.9999926529454519,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9128770591308624,
-          "plugCoverage": 0.9894686274509804,
-          "largestComponentRatio": 0.9999926529436337,
+          "receiverCoverage": 0.9130583855799373,
+          "plugCoverage": 0.9897330532212885,
+          "largestComponentRatio": 0.9999926529454519,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7786740155674733
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.9128816691253304,
-          "plugCoverage": 0.9894747899159664,
-          "largestComponentRatio": 0.9999926529436337,
+          "receiverCoverage": 0.9130647243223308,
+          "plugCoverage": 0.9897417366946779,
+          "largestComponentRatio": 0.9999926529454519,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.7878336552115015
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999926529436337,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999926529454519,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.65060960324293
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.981948414161903,
-          "plugCoverage": 0.981948414161903,
-          "largestComponentRatio": 0.9999926529436337,
+          "receiverCoverage": 0.9823114512262585,
+          "plugCoverage": 0.9823114512262585,
+          "largestComponentRatio": 0.9999926529454519,
           "centerlineGapPixels": 0.009803921568627472,
           "childOutsideBodyRatio": 0.6551640869419944
         },
@@ -10711,8 +10711,8 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9907760287213477,
           "plugCoverage": 0.9319472974374935,
-          "largestComponentRatio": 0.9999926529436337,
-          "centerlineGapPixels": 0.015686274509803866,
+          "largestComponentRatio": 0.9999926529454519,
+          "centerlineGapPixels": 0.22745098039215694,
           "childOutsideBodyRatio": null
         }
       ],
@@ -11190,8 +11190,8 @@
       "surpriseSlots": 3,
       "motifOpportunityCount": 12,
       "catalogVersion": "0.3.0",
-      "pngSha256": "bd1e951d7a61bd698c5109a0769f1ca73c8deff06dce68472c451f0e9743e7b7",
-      "pngBytes": 961017,
+      "pngSha256": "34b32269a8c61f17bf72549d07708705e4f16aef7ce38aa43f9136639583d86a",
+      "pngBytes": 956934,
       "specSha256": "e972433fc7107b81abd7611e6fea8b8133a67616e970ac2cbde3f67bdc94f939",
       "renderDiagnostics": [],
       "compositionMetrics": {
@@ -11209,41 +11209,41 @@
       "connectorMetrics": [
         {
           "connectorId": "neck",
-          "receiverCoverage": 0.7066097007223943,
-          "plugCoverage": 0.9913721899016017,
-          "largestComponentRatio": 0.9999891977314639,
+          "receiverCoverage": 0.707028689370485,
+          "plugCoverage": 0.9918681717701325,
+          "largestComponentRatio": 0.9999891977765979,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "shoulderLeft",
-          "receiverCoverage": 0.9171419251780314,
-          "plugCoverage": 0.9910156878843491,
-          "largestComponentRatio": 0.9999891977314639,
+          "receiverCoverage": 0.9178177738757194,
+          "plugCoverage": 0.9913793103448276,
+          "largestComponentRatio": 0.9999891977765979,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.6792692377099788
         },
         {
           "connectorId": "shoulderRight",
-          "receiverCoverage": 0.917136285484343,
-          "plugCoverage": 0.9910086448372453,
-          "largestComponentRatio": 0.9999891977314639,
+          "receiverCoverage": 0.9178179262998731,
+          "plugCoverage": 0.9913793103448276,
+          "largestComponentRatio": 0.9999891977765979,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.6639970832192579
         },
         {
           "connectorId": "hipLeft",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999891977314639,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999891977765979,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.727996029980882
         },
         {
           "connectorId": "hipRight",
-          "receiverCoverage": 0.9018838507625272,
-          "plugCoverage": 0.9942601357602673,
-          "largestComponentRatio": 0.9999891977314639,
+          "receiverCoverage": 0.9026781045751634,
+          "plugCoverage": 0.9947722395899273,
+          "largestComponentRatio": 0.9999891977765979,
           "centerlineGapPixels": 0,
           "childOutsideBodyRatio": 0.728940020819174
         },
@@ -11251,24 +11251,24 @@
           "connectorId": "tailRoot",
           "receiverCoverage": 0.9557989547425776,
           "plugCoverage": 0.9316806722689076,
-          "largestComponentRatio": 0.9999891977314639,
-          "centerlineGapPixels": 0.0039215686274509665,
+          "largestComponentRatio": 0.9999891977765979,
+          "centerlineGapPixels": 0.084313725490196,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "extraLeft",
           "receiverCoverage": 0.9901150542861773,
           "plugCoverage": 0.9220617240979232,
-          "largestComponentRatio": 0.9999891977314639,
-          "centerlineGapPixels": 0.013725490196078383,
+          "largestComponentRatio": 0.9999891977765979,
+          "centerlineGapPixels": 0.1098039215686275,
           "childOutsideBodyRatio": null
         },
         {
           "connectorId": "extraRight",
           "receiverCoverage": 0.9889908256880734,
           "plugCoverage": 0.9220675252349461,
-          "largestComponentRatio": 0.9999891977314639,
-          "centerlineGapPixels": 0.025490196078431282,
+          "largestComponentRatio": 0.9999891977765979,
+          "centerlineGapPixels": 0.11372549019607847,
           "childOutsideBodyRatio": null
         }
       ],

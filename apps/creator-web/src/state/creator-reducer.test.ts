@@ -69,6 +69,24 @@ function catalogWithTwoDanglingExcludes(): Catalog {
   }
 }
 
+function catalogWithIncompatibleBodyReplacement(): Catalog {
+  const catalog = makeInterfaceCatalogFixture()
+  const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!
+  if (body.composition?.mode !== 'interface') throw new Error('Expected interface body fixture.')
+  const replacement = structuredClone(body)
+  replacement.id = `${body.id}_incompatible`
+  if (replacement.composition?.mode !== 'interface') throw new Error('Expected cloned interface body fixture.')
+  for (const variant of Object.values(replacement.composition.variantsByRig)) {
+    if (variant === undefined) continue
+    variant.connectors = variant.connectors.map(connector => ({
+      ...connector,
+      width: connector.width * 10,
+    }))
+  }
+  catalog.parts.push(replacement)
+  return catalog
+}
+
 function catalogWithIncompatibleShadowEyes(): Catalog {
   const catalog = makeValidCatalogFixture()
   const commonColor = catalog.parts.find(part => part.slotId === 'colorScheme')!
@@ -130,6 +148,34 @@ function catalogThatReplacesEveryUnlockedSlot(): Catalog {
 }
 
 describe('createCreatorReducer', () => {
+  it('clears child connector errors after an invalid body replacement is repaired', () => {
+    const catalog = catalogWithIncompatibleBodyReplacement()
+    const session = makeSession(catalog)
+    const reducer = createCreatorReducer(catalog)
+    const originalBodyId = session.spec.visualSlots.bodyFrame.partId
+
+    const blocked = reducer(session, {
+      type: 'manualSelect',
+      slotId: 'bodyFrame',
+      partId: `${originalBodyId}_incompatible`,
+    })
+    expect(blocked.blocked).toBe(true)
+    expect(blocked.generationDiagnostics).toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_WARP_EXCEEDED',
+      path: expect.arrayContaining(['visualSlots']),
+    }))
+    expect(blocked.generationDiagnostics.some(diagnostic => (
+      diagnostic.path[0] === 'visualSlots' && diagnostic.path[1] !== 'bodyFrame'
+    ))).toBe(true)
+
+    const repaired = reducer(blocked, {
+      type: 'manualSelect', slotId: 'bodyFrame', partId: originalBodyId,
+    })
+
+    expect(repaired.blocked).toBe(false)
+    expect(repaired.generationDiagnostics).toEqual([])
+  })
+
   it.each([
     'CONNECTOR_VARIANT_MISSING',
     'CONNECTOR_PROFILE_INVALID',

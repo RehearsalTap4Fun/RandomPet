@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { resolve } from 'node:path'
 import { parseCatalog } from '@qmonster/generator-core'
 import type { CompositionMetrics } from '@qmonster/renderer-canvas'
 import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
@@ -51,6 +52,40 @@ describe('acceptance manifest', () => {
     })
   })
 
+  it('accepts an explicit staging directory below artifacts/acceptance without changing the default', async () => {
+    const module = await import('./generate-acceptance-set.js')
+    const requested = 'artifacts/acceptance/v0.3-phaseb-candidate'
+
+    expect(module.parseAcceptanceArguments(['--output-directory', requested])).toEqual({
+      seedStart: 2026082101,
+      count: 20,
+      catalogVersion: '0.3.0',
+      outputDirectory: requested,
+    })
+    expect(module.resolveAcceptanceOutputDirectory(process.cwd(), '0.3.0', requested)).toEqual({
+      relativePath: requested,
+      absolutePath: resolve(process.cwd(), requested),
+    })
+    expect(module.resolveAcceptanceOutputDirectory(process.cwd(), '0.3.0')).toEqual({
+      relativePath: 'artifacts/acceptance/v0.3',
+      absolutePath: resolve(process.cwd(), 'artifacts/acceptance/v0.3'),
+    })
+  })
+
+  it.each([
+    resolve(process.cwd(), 'outside-acceptance'),
+    '../outside-acceptance',
+    'artifacts/acceptance/../outside-acceptance',
+    'artifacts/review/v0.3-phaseb-candidate',
+    'artifacts/acceptance',
+  ])('rejects an unsafe acceptance output directory: %s', async requested => {
+    const module = await import('./generate-acceptance-set.js')
+
+    expect(() => module.resolveAcceptanceOutputDirectory(
+      process.cwd(), '0.3.0', requested,
+    )).toThrow('artifacts/acceptance')
+  })
+
   it('contains the fixed 20 creatures plus the first-hatch regression', async () => {
     const { buildAcceptanceManifest } = await import('./generate-acceptance-set.js')
     const parsedCatalog = parseCatalog(productionCatalogDocument)
@@ -86,10 +121,11 @@ describe('acceptance manifest', () => {
     expect(entries.every(item => item.catalogVersion === '0.3.0')).toBe(true)
     expect(entries.every(item => item.spec.catalogVersion === '0.3.0')).toBe(true)
     expect(entries.every(item => item.spec.rendererVersion === '0.3.0')).toBe(true)
-    const formerlyFallingBack = entries.find(item => item.seed === '2026082118')!
-    expect(formerlyFallingBack.spec.visualSlots.bodyFrame.partId).toBe('body_biped_peanut')
+    const expandedCompatibility = entries.find(item => item.seed === '2026082118')!
+    expect(expandedCompatibility.spec.visualSlots.bodyFrame.partId).toBe('body_biped_tall')
+    expect(expandedCompatibility.spec.visualSlots.headShape.partId).toBe('head_round_dome')
     const selectedHead = parsedCatalog.value.parts.find(part => (
-      part.id === formerlyFallingBack.spec.visualSlots.headShape.partId
+      part.id === expandedCompatibility.spec.visualSlots.headShape.partId
     ))!
     expect(selectedHead.composition?.motifTags).toContain('shadow')
   })

@@ -4,6 +4,10 @@ export const VISUAL_SLOT_IDS = [
   'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
 ] as const
 
+export const STRUCTURAL_SLOT_IDS = [
+  'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
+] as const satisfies readonly (typeof VISUAL_SLOT_IDS[number])[]
+
 export const SEMANTIC_SLOT_IDS = [
   'frame', 'appendage', 'headAndEyes', 'mouth',
   'surface', 'pattern', 'personality', 'quirk',
@@ -45,8 +49,13 @@ export interface CompositionGeometry {
   faceSafeZone?: Rect
 }
 
-export type StructuralSlotId = Extract<VisualSlotId,
-  'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>
+export type StructuralSlotId = typeof STRUCTURAL_SLOT_IDS[number]
+
+const STRUCTURAL_SLOT_ID_SET = new Set<VisualSlotId>(STRUCTURAL_SLOT_IDS)
+
+export function isStructuralSlot(slotId: VisualSlotId): slotId is StructuralSlotId {
+  return STRUCTURAL_SLOT_ID_SET.has(slotId)
+}
 export type ConnectorRole = 'receiver' | 'plug'
 export type ConnectorClass = 'neck' | 'shoulder' | 'hip' | 'tail' | 'extra'
 export type MaterialFamily = 'short-fur' | 'mushroom-velvet' | 'soft-skin'

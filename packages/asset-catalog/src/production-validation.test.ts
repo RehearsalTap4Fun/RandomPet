@@ -6,6 +6,8 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { execFile as execFileCallback } from 'node:child_process'
 import { promisify } from 'node:util'
 import { makeCompositionCatalogFixture, makeInterfaceCatalogFixture, makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
+import type { Catalog } from '@qmonster/generator-core'
+import type { InterfaceSourceManifest } from './interface-source-schema.js'
 import sharp from 'sharp'
 import { buildProductionEvidenceManifest } from './evidence-root.js'
 import { loadCatalog } from './load-catalog.js'
@@ -13,6 +15,7 @@ import {
   validateNoStaleRuntimeAssets,
   validateBridgeSplitAlpha,
   validateProductionInterfaceResources,
+  validateProductionHeadFaceSocketContract,
   validateProductionMetadata,
   validateProductionSourceIndex,
   validateProductionSplitFiles,
@@ -107,6 +110,40 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  async function faceSocketContractFixture(): Promise<{
+    catalog: Catalog
+    manifest: InterfaceSourceManifest
+  }> {
+    return {
+      catalog: JSON.parse(await readFile(join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.3.0', 'catalog.json'), 'utf8')) as Catalog,
+      manifest: JSON.parse(await readFile(join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json'), 'utf8')) as InterfaceSourceManifest,
+    }
+  }
+
+  it.each(['runtime-only', 'manifest-only', 'both'] as const)(
+    'rejects %s corruption of the head face-socket contract',
+    async corruption => {
+      const { catalog, manifest } = await faceSocketContractFixture()
+      const runtimeHead = catalog.parts.find(part => part.slotId === 'headShape')!
+      if (runtimeHead.composition?.mode !== 'interface') throw new Error('Expected runtime interface head.')
+      const runtimeVariant = Object.values(runtimeHead.composition.variantsByRig)[0]!
+      const manifestHead = manifest.assets.find(asset => asset.slotId === 'headShape')!
+      const manifestVariant = 'variants' in manifestHead ? manifestHead.variants[0]! : manifestHead
+      if (corruption !== 'manifest-only') runtimeVariant.featureSockets!.eyes!.y = 0
+      if (corruption !== 'runtime-only') manifestVariant.featureSockets!.eyes!.y = 0
+
+      const diagnostics = validateProductionHeadFaceSocketContract(catalog, manifest)
+
+      if (corruption !== 'manifest-only') {
+        expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_FACE_SOCKET_INVALID' }))
+      }
+      if (corruption !== 'runtime-only') {
+        expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'PRODUCTION_INTERFACE_MANIFEST_FACE_SOCKET_INVALID' }))
+      }
+      expect(diagnostics.some(item => item.severity === 'error')).toBe(true)
+    },
+  )
+
   it('rejects production split reads through an escaping parent junction before accepting outside JSON', async ({ skip }) => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-production-read-root-'))
     const outside = await mkdtemp(join(tmpdir(), 'qmonster-production-read-outside-'))

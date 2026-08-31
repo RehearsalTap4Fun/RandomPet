@@ -49,8 +49,57 @@ function sha256Json(value: unknown): string {
   return createHash('sha256').update(JSON.stringify(value)).digest('hex')
 }
 
+export function task8Task9HistoricalNeckWarpProjection(catalog: Catalog): Catalog {
+  const projected = structuredClone(catalog)
+  for (const partId of ['body_biped_tall', 'head_round_dome']) {
+    const part = projected.parts.find(candidate => candidate.id === partId)
+    const variant = part?.composition?.mode === 'interface'
+      ? part.composition.variantsByRig.biped
+      : undefined
+    const neck = variant?.connectors.find(connector => connector.id === 'neck')
+    if (neck?.warpLimits.depthRatio.max !== 1.3) {
+      throw new Error(`TASK8_TASK9_HISTORICAL_NECK_WARP_INVALID:${partId}`)
+    }
+    neck.warpLimits.depthRatio.max = 1.2
+  }
+  return projected
+}
+
+const TASK8_FULL_TRACE_BINDING = {
+  path: '.superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json',
+  sha256: 'fc538e40d78dd72c6b6ac4daf2883e753d0fe1a47aa3d3be76a1ca035431b295',
+} as const
+const TASK8_COMPACT_PROOF_BINDING = {
+  path: 'packages/asset-catalog/audit/v0.3.0/task8-blob-joint-shoulder-selection-proof.json',
+  sha256: '52310279085ebff1fe94821d5581b5119881d435b859799baf4bdbc554fbc459',
+} as const
+const TASK8_PROVENANCE_MIGRATED_AMENDMENTS = new Set([
+  'packages/asset-catalog/review/v0.3.0/body-head-connector-amendment.json',
+  'packages/asset-catalog/review/v0.3.0/visible-limb-threshold-amendment.json',
+])
+
+function exactOccurrenceCount(text: string, value: string): number {
+  return text.split(value).length - 1
+}
+
+export function task8HistoricalAmendmentSha256(path: string, bytes: Uint8Array): string {
+  if (!TASK8_PROVENANCE_MIGRATED_AMENDMENTS.has(path)) {
+    throw new Error(`TASK8_AMENDMENT_PROJECTION_PATH_INVALID:${path}`)
+  }
+  const text = Buffer.from(bytes).toString('utf8')
+  if (
+    exactOccurrenceCount(text, TASK8_COMPACT_PROOF_BINDING.path) !== 1
+    || exactOccurrenceCount(text, TASK8_COMPACT_PROOF_BINDING.sha256) !== 1
+  ) throw new Error(`TASK8_AMENDMENT_PROJECTION_BINDING_INVALID:${path}`)
+  const historical = text
+    .replace(TASK8_COMPACT_PROOF_BINDING.path, TASK8_FULL_TRACE_BINDING.path)
+    .replace(TASK8_COMPACT_PROOF_BINDING.sha256, TASK8_FULL_TRACE_BINDING.sha256)
+  return createHash('sha256').update(historical).digest('hex')
+}
+
 export function task8LimbCatalogProjection(catalog: Catalog): Pick<Catalog, 'parts' | 'transitionBridges'> {
-  const parts = structuredClone(catalog.parts.filter(part => TASK8_PART_IDS.has(part.id)))
+  const historical = task8Task9HistoricalNeckWarpProjection(catalog)
+  const parts = historical.parts.filter(part => TASK8_PART_IDS.has(part.id))
   for (const part of parts) {
     if (part.composition?.mode !== 'interface') continue
     for (const variant of Object.values(part.composition.variantsByRig)) {
@@ -59,7 +108,7 @@ export function task8LimbCatalogProjection(catalog: Catalog): Pick<Catalog, 'par
       delete variant.featureSockets
     }
   }
-  const transitionBridges = structuredClone((catalog.transitionBridges ?? []).filter(bridge => TASK8_CONNECTOR_CLASSES.has(bridge.connectorClass)))
+  const transitionBridges = structuredClone((historical.transitionBridges ?? []).filter(bridge => TASK8_CONNECTOR_CLASSES.has(bridge.connectorClass)))
   for (const bridge of transitionBridges) {
     bridge.materialFamilies = bridge.materialFamilies.filter(family => family !== 'soft-skin')
   }
@@ -104,6 +153,8 @@ const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
     'render-test-transition-hole-route': '',
   },
   'packages/renderer-canvas/src/render.ts': {
+    'renderer-structural-slot-helper-import': '',
+    'renderer-composition-policy-import': '',
     'renderer-task10-face-occlusion-policy': '',
     'renderer-task10-face-metric-thresholds': '',
     'renderer-task10-composition-face-thresholds': "  for (const [slotId, metric] of [\n    ['eyes', eyes], ['mouthShape', mouth],\n  ] as const) {\n    if (metric.insideRatio < policy.faceInsideRatio) {\n      diagnostics.push(metricDiagnostic(\n        'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, policy.faceInsideRatio,\n      ))\n    }\n    if (metric.visibleRatio < policy.faceVisibleRatio) {\n      diagnostics.push(metricDiagnostic(\n        'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, policy.faceVisibleRatio,\n      ))\n    }\n  }\n",
@@ -112,6 +163,16 @@ const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
     'renderer-task10-interface-face-visible-check': '      if (metric.visibleRatio < policy.faceVisibleRatio) {\n',
     'renderer-task10-interface-face-visible-argument': "          'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, policy.faceVisibleRatio,\n",
     'renderer-task10-connector-threshold-message': '        item.connectorId, `Bridge ${item.bridge.id} is below 0.9 contour coverage or above a 2px gap.`,\n',
+    'renderer-role-masked-bridge-metrics': '      // Structural continuity is measured from the solved bridge geometry.\n      // Foreground/background masks are visual occlusion data and may use\n      // intentionally different organic splits on the two connected parts.\n      drawBridgeMesh(surfaces.bridgeAlpha.context, assets.neutral, mesh)\n',
+    'renderer-role-mask-gap-preservation': "      surfaces.bridgePass.context.globalCompositeOperation = 'destination-in'\n      surfaces.bridgePass.context.drawImage(surfaces.bridgeMask.canvas, 0, 0)\n      surfaces.bridgePass.context.drawImage(surfaces.connectorMask.canvas, 0, 0)\n",
+    'renderer-shared-bounds-helper': "function boundsInside(\n  bounds: NonNullable<CompositionMetrics['visibleBounds']>,\n  frame: NonNullable<Catalog['compositionPolicy']>['frameBounds'],\n): boolean {\n  return bounds.x >= frame.x\n    && bounds.y >= frame.y\n    && bounds.x + bounds.width <= frame.x + frame.width\n    && bounds.y + bounds.height <= frame.y + frame.height\n}\n\n",
+    'renderer-shared-composition-bounds-call': '  if (visibleBounds !== null && !boundsInside(visibleBounds, policy.frameBounds)) {\n',
+    'renderer-structural-slot-set': "const STRUCTURAL_SLOTS = new Set([\n  'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',\n])\n\n",
+    'renderer-structural-load-check': '      diagnostics.push(STRUCTURAL_SLOTS.has(node.slotId)\n',
+    'renderer-structural-metric-filter': '    for (const node of tree.nodes.filter(item => STRUCTURAL_SLOTS.has(item.slotId))) {\n',
+    'renderer-structural-final-filter': '  const structural = nodes.filter(node => STRUCTURAL_SLOTS.has(node.slotId))\n',
+    'renderer-nonstructural-final-filter': '  const nonStructural = nodes.filter(node => !STRUCTURAL_SLOTS.has(node.slotId)).sort((left, right) => (\n',
+    'renderer-shared-interface-bounds-call': '      && !boundsInside(compositionMetrics.visibleBounds, policy.frameBounds)\n',
     'renderer-task10-face-occluder-routing': "      if (node.slotId === 'eyes') {\n        drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer, 'destination-out')\n        drawMetricAlpha(surfaces.eyesAlpha, surfaces.nodeLayer)\n        eyesStarted = true\n      } else if (eyesStarted) drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer)\n      if (node.slotId === 'mouthShape') {\n        drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer, 'destination-out')\n        drawMetricAlpha(surfaces.mouthAlpha, surfaces.nodeLayer)\n        mouthStarted = true\n      } else if (mouthStarted) drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)\n",
     'renderer-palette-load-diagnostic': '',
     'renderer-palette-missing-diagnostic': '',
@@ -142,6 +203,8 @@ const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
     'connector-task10-role-threshold-gate': '  return metric.receiverCoverage >= CONNECTOR_COVERAGE_MIN\n    && metric.plugCoverage >= CONNECTOR_COVERAGE_MIN\n',
   },
   'scripts/render-limb-contact-sheets.ts': {
+    'limb-canonical-structural-import': "import type { Catalog, MonsterSpec, SemanticSlotId, VisualSlotId } from '@qmonster/generator-core'\n",
+    'limb-canonical-structural-subset': '\n',
     'limb-worker-partition-helper': '',
     'limb-worker-cleanup-helper': '',
     'limb-worker-count-input': '',

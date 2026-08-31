@@ -222,7 +222,10 @@ describe('v0.3 browser production composition', () => {
           compositionMetrics: { visibleBounds: { x: number; y: number; width: number; height: number } | null }
           resolvedAssetPaths: string[]
         }
-        expect(evidence.diagnostics, productionCase.rigId).toEqual([])
+        expect(
+          evidence.diagnostics,
+          `${productionCase.rigId}:${productionCase.identityId}:${JSON.stringify(evidence.connectorMetrics)}`,
+        ).toEqual([])
         expect(evidence.diagnosticScope).toMatchObject(TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE)
         expect(evidence.diagnosticScope?.suppressedDiagnostics.every(item => (
           ['COMPOSITION_FACE_OUT_OF_ZONE', 'COMPOSITION_FACE_OCCLUDED'].includes(item.code)
@@ -381,7 +384,10 @@ describe('v0.3 browser production composition', () => {
       const plugDistance = distance(pixel, plugColor)
       if (receiverDistance + 3 < plugDistance) receiverSidePixels += 1
     }
-    expect(changedVisiblePixels).toBeGreaterThan(100)
+    // Endpoint pixels are partitioned by connector roles rather than by the
+    // independently authored transition split. Keep a material causal gate
+    // without requiring the invalid cross-product's larger painted area.
+    expect(changedVisiblePixels).toBeGreaterThan(40)
     expect(receiverSidePixels).toBeGreaterThan(20)
   }, 120_000)
 
@@ -412,7 +418,10 @@ describe('v0.3 browser production composition', () => {
         const evidence = JSON.parse((await page.evaluate(() => document.body.dataset.interfaceResult))!) as {
           diagnostics: unknown[]; resolvedAssetPaths: string[]
         }
-        expect(evidence.diagnostics, `${rigId}:${schemeId}`).toEqual([])
+        expect(
+          evidence.diagnostics,
+          `${rigId}:${schemeId}:${JSON.stringify(evidence.connectorMetrics)}`,
+        ).toEqual([])
         const maskPaths = Object.values(scheme.rigMaskPaths?.[rigId] ?? {})
         expect(maskPaths).toHaveLength(3)
         expect(evidence.resolvedAssetPaths, `${rigId}:${schemeId}`).toEqual(expect.arrayContaining(maskPaths))

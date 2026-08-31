@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "task8-blob-joint-shoulder-selection-proof-v1",
+  "sourceTrace": {
+    "path": ".superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json",
+    "sha256": "fc538e40d78dd72c6b6ac4daf2883e753d0fe1a47aa3d3be76a1ca035431b295",
+    "size": 29089983
+  },
+  "selectionPolicy": {
+    "outsideMinimum": 0.614,
+    "receiverCoverageMinimum": 0.9,
+    "plugCoverageMinimum": 0.9,
+    "connectedMinimum": 0.99,
+    "gapMaximum": 2,
+    "safeFrame": { "minX": 96, "minY": 64, "maxX": 1952, "maxY": 1952 }
+  },
+  "supportingRecords": {
+    "exactRound": [
+      {
+        "armId": "arms_paddle:c4",
+        "bodyId": "body_blob_round",
+        "originX": null,
+        "scale": 1,
+        "rotationDegrees": 0,
+        "pass": true,
+        "gateErrors": [],
+        "metrics": [
+          { "connectorId": "shoulderLeft", "receiverCoverage": 0.9128770591308624, "plugCoverage": 0.9894686274509804, "connected": 0.9999928837473069, "gap": 0, "outside": 0.8436811448449361 },
+          { "connectorId": "shoulderRight", "receiverCoverage": 0.9128816691253304, "plugCoverage": 0.9894747899159664, "connected": 0.9999928837473069, "gap": 0, "outside": 0.838440228387388 }
+        ],
+        "visibleBounds": { "x": 208, "y": 248, "width": 1628, "height": 1412 },
+        "blockingDiagnostics": []
+      },
+      {
+        "armId": "arms_short_plush:c3",
+        "bodyId": "body_blob_round",
+        "originX": null,
+        "scale": 1.15,
+        "rotationDegrees": 0,
+        "pass": true,
+        "gateErrors": [],
+        "metrics": [
+          { "connectorId": "shoulderLeft", "receiverCoverage": 0.9820874823283545, "plugCoverage": 0.9911256992091586, "connected": 0.9999880938604703, "gap": 0, "outside": 0.8018958075752719 },
+          { "connectorId": "shoulderRight", "receiverCoverage": 0.9820917081566168, "plugCoverage": 0.9911286646524247, "connected": 0.9999880938604703, "gap": 0.007843137254901988, "outside": 0.8071796088695692 }
+        ],
+        "visibleBounds": { "x": 204, "y": 248, "width": 1640, "height": 1412 },
+        "blockingDiagnostics": []
+      }
+    ],
+    "safeBoundaryVerification": [
+      {
+        "armId": "arms_paddle:c4",
+        "bodyId": "body_blob_wide",
+        "originX": 490,
+        "scale": 1,
+        "rotationDegrees": 0,
+        "pass": true,
+        "gateErrors": [],
+        "metrics": [
+          { "connectorId": "shoulderLeft", "receiverCoverage": 0.9128770591308624, "plugCoverage": 0.9894686274509804, "connected": 0.9999904183344063, "gap": 0, "outside": 0.6910043503767694 },
+          { "connectorId": "shoulderRight", "receiverCoverage": 0.9128816691253304, "plugCoverage": 0.9894747899159664, "connected": 0.9999904183344063, "gap": 0, "outside": 0.6843986189238985 }
+        ],
+        "visibleBounds": { "x": 100, "y": 248, "width": 1844, "height": 1292 },
+        "blockingDiagnostics": []
+      },
+      {
+        "armId": "arms_short_plush:c3",
+        "bodyId": "body_blob_wide",
+        "originX": 490,
+        "scale": 1.15,
+        "rotationDegrees": 0,
+        "pass": false,
+        "gateErrors": [
+          "CONNECTOR_COMPOSITE_FAILED",
+          "CONNECTOR_COMPOSITE_FAILED",
+          "shoulderLeft:childOutsideBodyRatio",
+          "shoulderRight:childOutsideBodyRatio"
+        ],
+        "metrics": [
+          { "connectorId": "shoulderLeft", "receiverCoverage": 0.9820874823283545, "plugCoverage": 0.9911256992091586, "connected": 0.999991001957843, "gap": 0, "outside": 0.6398863319545027 },
+          { "connectorId": "shoulderRight", "receiverCoverage": 0.9820917081566168, "plugCoverage": 0.9911286646524247, "connected": 0.999991001957843, "gap": 0.007843137254901988, "outside": 0.6443505816004901 }
+        ],
+        "visibleBounds": { "x": 96, "y": 248, "width": 1856, "height": 1292 },
+        "blockingDiagnostics": [
+          { "code": "CONNECTOR_COMPOSITE_FAILED", "path": ["connectors", "shoulderLeft"] },
+          { "code": "CONNECTOR_COMPOSITE_FAILED", "path": ["connectors", "shoulderRight"] }
+        ]
+      }
+    ]
+  },
+  "selected": {
+    "selectedLeftX": 490,
+    "selectedRightX": 1558,
+    "outsideMinimum": 0.614,
+    "paddle": { "armId": "arms_paddle:c4", "scale": 1, "rotationDegrees": 0 },
+    "short": { "armId": "arms_short_plush:c3", "scale": 1.15, "rotationDegrees": 0 },
+    "outsideMinima": { "left": 0.6398863319545027, "right": 0.6443505816004901 }
+  }
+}

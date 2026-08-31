@@ -1,6 +1,6 @@
 {
   "schemaVersion": "task9-tracked-dependencies-v1",
-  "dependencyCount": 1809,
+  "dependencyCount": 1812,
   "dependencies": [
     "apps/creator-web/src/render-test.ts",
     "asset-source/v0.2.0/generation/part-candidates/legs_mushroom/regeneration-2/legs_mushroom-candidate-3-rgba.png",
@@ -161,6 +161,8 @@
     "asset-source/v0.3.0/guides/body_biped_tall-tailRoot-receiver-mask.png",
     "asset-source/v0.3.0/guides/head_mushroom_cap-neck-plug-guide.png",
     "asset-source/v0.3.0/guides/head_mushroom_cap-neck-plug-mask.png",
+    "asset-source/v0.3.0/guides/head_round_dome-neck-plug-guide.png",
+    "asset-source/v0.3.0/guides/head_round_dome-neck-plug-mask.png",
     "asset-source/v0.3.0/guides/legs_mushroom-hipLeft-plug-guide.png",
     "asset-source/v0.3.0/guides/legs_mushroom-hipLeft-plug-mask.png",
     "asset-source/v0.3.0/guides/legs_mushroom-hipRight-plug-guide.png",
@@ -1669,6 +1671,7 @@
     "packages/asset-catalog/assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.png",
     "packages/asset-catalog/assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.webp",
     "packages/asset-catalog/audit/v0.3.0/evidence-manifest.json",
+    "packages/asset-catalog/audit/v0.3.0/task8-blob-joint-shoulder-selection-proof.json",
     "packages/asset-catalog/audit/v0.3.0/task9-composition-statistics.json",
     "packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json",
     "packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json",

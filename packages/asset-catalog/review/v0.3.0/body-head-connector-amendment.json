@@ -713,8 +713,8 @@
     "sourceCandidateSha256": "835abb3b608f5b0653fe9266c54f888839332f5f952dd96832f9fc2e9f187084"
   },
   "jointFeasibility": {
-    "path": ".superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json",
-    "sha256": "fc538e40d78dd72c6b6ac4daf2883e753d0fe1a47aa3d3be76a1ca035431b295",
+    "path": "packages/asset-catalog/audit/v0.3.0/task8-blob-joint-shoulder-selection-proof.json",
+    "sha256": "52310279085ebff1fe94821d5581b5119881d435b859799baf4bdbc554fbc459",
     "evaluatedAtGlobalOutsideMinimum": 0.614
   },
   "preservedGrammar": {

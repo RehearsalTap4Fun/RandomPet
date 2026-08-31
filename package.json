@@ -15,12 +15,13 @@
     "test:coverage": "vitest run --coverage --config vitest.coverage.config.ts",
     "test:e2e": "playwright test --grep-invert current-machine --workers=4 && npm run test:performance",
     "test:performance": "playwright test tests/e2e/performance.spec.ts --project=chromium --workers=1",
-    "test:production-smoke": "playwright test --config=playwright.production.config.ts --workers=1",
+    "test:production-smoke": "npm run build && npm run test:production-smoke:prebuilt",
+    "test:production-smoke:prebuilt": "playwright test --config=playwright.production.config.ts --workers=1",
     "acceptance:generate": "tsx scripts/generate-acceptance-set.ts --seed-start 2026082101 --count 20",
-    "acceptance:verify": "tsx scripts/validate-composite-review.ts --version 0.3.0 --approval-sha256 4f2c8c359e53297077914a3c1fc72d943164d57632fbd9d41809a7445b3f1025 --generated-evidence-dir artifacts/acceptance/v0.3",
+    "acceptance:verify": "tsx scripts/validate-composite-review.ts --version 0.3.0 --approval-sha256 2cca1f60478b79b730e598ec83c4a7ae1297a8a75a94e1738c9e7aaaed043881 --generated-evidence-dir artifacts/acceptance/v0.3",
     "catalog:validate": "npm run validate:v0.1.0 -w @qmonster/asset-catalog && npm run validate:v0.2.0 -w @qmonster/asset-catalog && npm run validate:v0.3.0 -w @qmonster/asset-catalog",
     "verify:task9": "npm run typecheck && npm test && npm run test:coverage && npm run catalog:validate && npm run build && npm run test:render-golden && npm run test:e2e",
-    "verify": "npm run typecheck && npm test && npm run test:coverage && npm run catalog:validate && npm run build && npm run test:render-golden && npm run test:e2e && npm run acceptance:generate && npm run acceptance:verify"
+    "verify": "npm run typecheck && npm test && npm run test:coverage && npm run catalog:validate && npm run build && npm run test:production-smoke:prebuilt && npm run test:render-golden && npm run test:e2e && npm run acceptance:generate && npm run acceptance:verify"
   },
   "dependencies": {
     "react": "~19.2.8",

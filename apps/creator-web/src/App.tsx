@@ -113,7 +113,7 @@ export function CreatorWorkbench({
   const [operationDiagnostics, setOperationDiagnostics] = useState<Diagnostic[]>([])
   const [committedPreviewKey, setCommittedPreviewKey] = useState<string | null>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
-  const requestedPreviewKey = previewFrameKey(session.spec)
+  const requestedPreviewKey = previewFrameKey(session.spec, catalog, previewRenderer)
   const onRenderDiagnostics = useCallback((diagnostics: CreatorSession['renderDiagnostics']) => {
     onAction({ type: 'setRenderDiagnostics', diagnostics })
   }, [onAction])

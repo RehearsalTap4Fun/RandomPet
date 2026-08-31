@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { isAbsolute, join, relative, resolve } from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
 import sharp from 'sharp'
-import { isAttachmentPartComposition, type Catalog, type Diagnostic, type TransitionBridgeDefinition } from '@qmonster/generator-core'
+import { isAttachmentPartComposition, type Catalog, type Diagnostic, type StructuralVariantDefinition, type TransitionBridgeDefinition } from '@qmonster/generator-core'
 import {
   PRODUCTION_CHROMA_GATE_PROFILE,
   PRODUCTION_CHROMA_GATE_VERSION,
@@ -12,6 +12,7 @@ import {
 } from './chroma-quality-gate.js'
 import { assetPathBelowVersionRoot, validateAssetFile } from './file-validation.js'
 import {
+  headFaceSocketPolicyIssue,
   interfaceVariantKey,
   parseInterfaceSourceManifest,
   structuralVariants,
@@ -34,6 +35,51 @@ function nonemptyText(value: unknown): boolean {
 
 function sameJson(left: unknown, right: unknown): boolean {
   return isDeepStrictEqual(left, right)
+}
+
+export function validateProductionHeadFaceSocketContract(
+  catalog: Catalog,
+  manifest?: InterfaceSourceManifest,
+): Diagnostic[] {
+  if (catalog.version !== '0.3.0') return []
+  const diagnostics: Diagnostic[] = []
+  const runtimeHeads = new Map<string, StructuralVariantDefinition>()
+  for (const part of catalog.parts) {
+    if (part.slotId !== 'headShape' || part.composition?.mode !== 'interface') continue
+    for (const [rigId, variant] of Object.entries(part.composition.variantsByRig)) {
+      if (variant === undefined) continue
+      runtimeHeads.set(`${part.id}:${rigId}`, variant)
+      const issue = headFaceSocketPolicyIssue(variant)
+      if (issue !== null) diagnostics.push(error(
+        'PRODUCTION_INTERFACE_FACE_SOCKET_INVALID',
+        ['parts', part.id, rigId, 'featureSockets'],
+        issue,
+      ))
+    }
+  }
+  if (manifest === undefined) return diagnostics
+  for (const source of structuralVariants(manifest).filter(item => item.slotId === 'headShape')) {
+    const issue = headFaceSocketPolicyIssue(source)
+    if (issue !== null) diagnostics.push(error(
+      'PRODUCTION_INTERFACE_MANIFEST_FACE_SOCKET_INVALID',
+      ['manifest', source.partId, source.rigId, 'featureSockets'],
+      issue,
+    ))
+    const runtime = runtimeHeads.get(interfaceVariantKey(source.partId, source.rigId)) as {
+      faceSafeZones?: unknown
+      featureSockets?: unknown
+    } | undefined
+    if (
+      runtime === undefined
+      || !sameJson(runtime.faceSafeZones, source.faceSafeZones)
+      || !sameJson(runtime.featureSockets, source.featureSockets)
+    ) diagnostics.push(error(
+      'PRODUCTION_INTERFACE_MANIFEST_MISMATCH',
+      ['parts', source.partId, source.rigId, 'faceSockets'],
+      'Catalog face safe zones and feature sockets differ from the canonical interface manifest.',
+    ))
+  }
+  return diagnostics
 }
 
 export async function readProductionValidationInput(trustRoot: string, inputPath: string): Promise<Buffer> {
@@ -605,6 +651,7 @@ export async function validateProductionInterfaceResources(
   } catch {
     diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISSING', [manifestPath], 'Cannot read the canonical v0.3 interface manifest.'))
   }
+  diagnostics.push(...validateProductionHeadFaceSocketContract(catalog, manifest))
   if (manifest !== undefined) {
     try {
       validateInterfaceSourceIndex(manifest, sourceIndex)
@@ -619,6 +666,8 @@ export async function validateProductionInterfaceResources(
       if (
         part === undefined || composition?.mode !== 'interface' || variant === undefined
         || variant.rigId !== source.rigId || variant.materialFamily !== source.materialFamily
+        || !sameJson(variant.faceSafeZones, source.faceSafeZones)
+        || !sameJson(variant.featureSockets, source.featureSockets)
         || variant.renderNodes.length !== source.renderNodes.length
         || source.renderNodes.some(node => {
           const actual = variant.renderNodes.find(candidate => candidate.id === node.id)

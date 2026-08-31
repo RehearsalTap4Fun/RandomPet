@@ -28,6 +28,7 @@ function makeExportControlsProps(): ExportControlsProps {
       [catalog.version, async () => catalog],
     ])),
     canvasRef: createRef<HTMLCanvasElement>(),
+    imageExportReady: true,
     onImportComplete: vi.fn(),
     onOperationDiagnostics: vi.fn(),
   }
@@ -56,6 +57,25 @@ describe('ExportControls', () => {
     const warning = screen.getByRole('status')
     expect(warning.textContent).toBe('当前浏览器不支持 WebP 编码，请改用 PNG。')
     expect(webpButton.getAttribute('aria-describedby')).toBe(warning.id)
+  })
+
+  it('rechecks preview readiness inside the image export handler', () => {
+    const props = makeExportControlsProps()
+    render(<ExportControls {...props} imageExportReady={false} />)
+    const png = screen.getByRole('button', { name: '导出透明 PNG' })
+    expect(png).toBeDisabled()
+
+    // Invoke the currently bound React handler directly to bypass the native
+    // disabled control. The handler itself must still reject the export.
+    const reactPropsKey = Object.keys(png).find(key => key.startsWith('__reactProps$'))
+    expect(reactPropsKey).toBeDefined()
+    const onClick = (png as HTMLButtonElement & Record<string, { onClick?: () => void }>)[reactPropsKey!]?.onClick
+    expect(onClick).toBeTypeOf('function')
+    onClick?.()
+
+    expect(props.onOperationDiagnostics).toHaveBeenLastCalledWith([
+      expect.objectContaining({ severity: 'error', code: 'PREVIEW_EXPORT_NOT_READY' }),
+    ])
   })
 
   it('routes a valid imported spec only after registry-backed validation succeeds', async () => {

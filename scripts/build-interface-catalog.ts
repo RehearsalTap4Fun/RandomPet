@@ -1,10 +1,12 @@
-import type {
-  Catalog,
-  ConnectorProfile,
-  InterfacePartComposition,
-  RenderNodeDefinition,
-  TransitionBridgeDefinition,
-  VisualPartDefinition,
+import {
+  STRUCTURAL_SLOT_IDS,
+  type Catalog,
+  type ConnectorProfile,
+  type InterfacePartComposition,
+  type RenderNodeDefinition,
+  type TransitionBridgeDefinition,
+  type VisualPartDefinition,
+  type StructuralSlotId,
 } from '@qmonster/generator-core'
 import { realpathSync } from 'node:fs'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
@@ -44,7 +46,13 @@ export interface ProcessedInterfaceBridge {
 // The Task 6 slice replaces only the four supplied structural slots. Preserve
 // the v0.2 optional-none tail and extra-appendage entries so a complete spec can
 // still select an explicit absence for those slots.
-const structuralSlots = new Set(['bodyFrame', 'headShape', 'arms', 'legs'])
+export const TASK6_INTERFACE_STRUCTURAL_SLOT_IDS = [
+  'bodyFrame', 'headShape', 'arms', 'legs',
+] as const satisfies readonly StructuralSlotId[]
+const structuralSlots = new Set<StructuralSlotId>(TASK6_INTERFACE_STRUCTURAL_SLOT_IDS)
+if (!TASK6_INTERFACE_STRUCTURAL_SLOT_IDS.every(slotId => STRUCTURAL_SLOT_IDS.includes(slotId))) {
+  throw new Error('INTERFACE_CATALOG_INVALID: Task 6 structural slots must be canonical structural slots')
+}
 const v03OptionalNoneWeights = new Map<string, number>([
   ['tail_none', 1.8],
   ['extra_appendage_none', 1],

@@ -1,3 +1,6 @@
+// TASK8_STABLE_BEGIN:renderer-structural-slot-helper-import
+import { isStructuralSlot } from '@qmonster/generator-core'
+// TASK8_STABLE_END:renderer-structural-slot-helper-import
 import {
   validateMonsterSpecAgainstCatalog,
   type Catalog,
@@ -14,6 +17,9 @@ import {
   structureMetricMeetsThreshold,
 } from './connector-metrics.js'
 import { measureFeatureAlpha, measureVisibleBounds } from './composition-metrics.js'
+// TASK8_STABLE_BEGIN:renderer-composition-policy-import
+import { boundsInsideFrame, faceMetricThresholds } from './composition-policy.js'
+// TASK8_STABLE_END:renderer-composition-policy-import
 import { resolveInterfaceTree } from './interface-tree.js'
 import { rgbaInsideTransformedRegion } from './material-sampling.js'
 import { resolvePartPlacement } from './layout.js'
@@ -73,17 +79,7 @@ export function faceMetricOcclusionTargets(
 // TASK8_STABLE_END:renderer-task10-face-occlusion-policy
 
 // TASK8_STABLE_BEGIN:renderer-task10-face-metric-thresholds
-export function faceMetricThresholds(
-  policy: NonNullable<Catalog['compositionPolicy']>,
-  slotId: string,
-): { inside: number; visible: number } | null {
-  if (slotId === 'eyes') return { inside: 0.8, visible: policy.faceVisibleRatio }
-  if (slotId === 'mouthShape') return {
-    inside: policy.faceInsideRatio,
-    visible: policy.faceVisibleRatio,
-  }
-  return null
-}
+export { faceMetricThresholds } from './composition-policy.js'
 // TASK8_STABLE_END:renderer-task10-face-metric-thresholds
 
 function assetLoadDiagnostic(
@@ -538,15 +534,9 @@ function boundsExceededDiagnostic(): Diagnostic {
   }
 }
 
-function boundsInside(
-  bounds: NonNullable<CompositionMetrics['visibleBounds']>,
-  frame: NonNullable<Catalog['compositionPolicy']>['frameBounds'],
-): boolean {
-  return bounds.x >= frame.x
-    && bounds.y >= frame.y
-    && bounds.x + bounds.width <= frame.x + frame.width
-    && bounds.y + bounds.height <= frame.y + frame.height
-}
+// TASK8_STABLE_BEGIN:renderer-shared-bounds-helper
+// v0.3 live rendering and acceptance reuse boundsInsideFrame.
+// TASK8_STABLE_END:renderer-shared-bounds-helper
 
 async function renderCompositionMonster(
   context: CanvasRenderingContext2D,
@@ -684,7 +674,9 @@ async function renderCompositionMonster(
     }
   }
   // TASK8_STABLE_END:renderer-task10-composition-face-thresholds
-  if (visibleBounds !== null && !boundsInside(visibleBounds, policy.frameBounds)) {
+  // TASK8_STABLE_BEGIN:renderer-shared-composition-bounds-call
+  if (visibleBounds !== null && !boundsInsideFrame(visibleBounds, policy.frameBounds)) {
+  // TASK8_STABLE_END:renderer-shared-composition-bounds-call
     diagnostics.push(boundsExceededDiagnostic())
   }
   return { drawnAssetIds, diagnostics, compositionMetrics, connectorMetrics: null }
@@ -728,9 +720,9 @@ const derivedInterfaceFrames = new Map<string, Map<string, BridgeMesh>>()
 const interfaceResolverIds = new WeakMap<ImageResolver, number>()
 let nextInterfaceResolverId = 1
 const INTERFACE_FRAME_CACHE_LIMIT = 16
-const STRUCTURAL_SLOTS = new Set([
-  'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
-])
+// TASK8_STABLE_BEGIN:renderer-structural-slot-set
+// Structural slot membership is sourced from generator-core.
+// TASK8_STABLE_END:renderer-structural-slot-set
 
 export function interfaceRenderCacheSize(): number {
   return derivedInterfaceFrames.size
@@ -1001,6 +993,7 @@ function drawBridgePass(
   tree: InterfaceRenderResult,
   // TASK8_STABLE_BEGIN:renderer-bridge-receiver-source-param
   receiverSource: CanvasImageSource,
+  bridgeRoleProjection: RenderOptions['bridgeRoleProjection'],
   // TASK8_STABLE_END:renderer-bridge-receiver-source-param
   receiverColor: string,
   plugColor: string,
@@ -1076,14 +1069,40 @@ function drawBridgePass(
     clearSurface(surfaces.bridgePass)
     surfaces.bridgePass.context.drawImage(surfaces.bridgeWarp.canvas, 0, 0)
     withSavedContext(surfaces.bridgePass.context, () => {
-      surfaces.bridgePass.context.globalCompositeOperation = 'destination-in'
       // TASK8_STABLE_BEGIN:renderer-bridge-seam-envelope-comment
-      // The warped transition mask is the seam envelope. Connector role
-      // masks only partition that envelope; they cannot expand it into either
-      // structural node's main alpha.
+      // Transition roles partition the open bridge span. Connector roles
+      // partition only the receiver/plug endpoint contours. These two masks
+      // are independently authored, so multiplying them at the endpoints
+      // would erase valid seam alpha whenever their split lines differ.
       // TASK8_STABLE_END:renderer-bridge-seam-envelope-comment
-      surfaces.bridgePass.context.drawImage(surfaces.bridgeMask.canvas, 0, 0)
-      surfaces.bridgePass.context.drawImage(surfaces.connectorMask.canvas, 0, 0)
+      // TASK8_STABLE_BEGIN:renderer-role-mask-gap-preservation
+      surfaces.bridgePass.context.globalCompositeOperation = 'destination-in'
+      if (bridgeRoleProjection === 'task8-task9-cross-product-v1') {
+        // Task 8/9 frame approvals bind the original cross-product compositor.
+        // This explicit audit-only path never participates in live preview.
+        surfaces.bridgePass.context.drawImage(surfaces.bridgeMask.canvas, 0, 0)
+        surfaces.bridgePass.context.drawImage(surfaces.connectorMask.canvas, 0, 0)
+      } else {
+        // effectiveRole = (transitionRole - endpointContours)
+        //               + (connectorRole intersect endpointContours)
+        clearSurface(surfaces.receiverContour)
+        drawPlacedSource(surfaces.receiverContour.context, parentNode, assets.receiverContour)
+        drawPlacedSource(surfaces.receiverContour.context, childNode, assets.plugContour)
+        clearSurface(surfaces.plugContour)
+        surfaces.plugContour.context.drawImage(surfaces.connectorMask.canvas, 0, 0)
+        withSavedContext(surfaces.plugContour.context, () => {
+          surfaces.plugContour.context.globalCompositeOperation = 'destination-in'
+          surfaces.plugContour.context.drawImage(surfaces.receiverContour.canvas, 0, 0)
+        })
+        withSavedContext(surfaces.bridgeMask.context, () => {
+          surfaces.bridgeMask.context.globalCompositeOperation = 'destination-out'
+          surfaces.bridgeMask.context.drawImage(surfaces.receiverContour.canvas, 0, 0)
+          surfaces.bridgeMask.context.globalCompositeOperation = 'source-over'
+          surfaces.bridgeMask.context.drawImage(surfaces.plugContour.canvas, 0, 0)
+        })
+        surfaces.bridgePass.context.drawImage(surfaces.bridgeMask.canvas, 0, 0)
+      }
+      // TASK8_STABLE_END:renderer-role-mask-gap-preservation
     })
     destination.drawImage(surfaces.bridgePass.canvas, 0, 0)
   }
@@ -1187,7 +1206,9 @@ async function renderInterfaceMonster(
     try {
       sources.set(node.key, await resolver.resolve(node.node.assetPath))
     } catch {
-      diagnostics.push(STRUCTURAL_SLOTS.has(node.slotId)
+      // TASK8_STABLE_BEGIN:renderer-structural-load-check
+      diagnostics.push(isStructuralSlot(node.slotId)
+      // TASK8_STABLE_END:renderer-structural-load-check
         ? connectorCompositeDiagnostic(node.key, `Structural asset ${node.node.assetPath} is unavailable.`)
         : compositionAssetLoadDiagnostic(node))
     }
@@ -1291,16 +1312,43 @@ async function renderInterfaceMonster(
       const mesh = meshes.get(item.key)!
       const assets = bridgeAssets.get(item.key)!
       clearSurface(surfaces.bridgeAlpha)
-      // Structural continuity is measured from the solved bridge geometry.
-      // Foreground/background masks are visual occlusion data and may use
-      // intentionally different organic splits on the two connected parts.
-      drawBridgeMesh(surfaces.bridgeAlpha.context, assets.neutral, mesh)
+      // TASK8_STABLE_BEGIN:renderer-role-masked-bridge-metrics
+      if (options.connectorMetricProjection === 'task8-task9-neutral-bridge-v1') {
+        // Task 8/9 approvals bind the pre-F005 neutral-bridge metric. This
+        // explicit audit-only projection never participates in live preview.
+        drawBridgeMesh(surfaces.bridgeAlpha.context, assets.neutral, mesh)
+      } else {
+        const receiverSource = sources.get(item.parentNodeKey)
+        const sampledColors = colors.get(item.key)
+        if (receiverSource === undefined || sampledColors === undefined) {
+          throw new Error('invalid bridge metric inputs')
+        }
+        // Measure the same foreground/background role-masked union that is
+        // composited into the final image. A neutral bridge can span both
+        // contours even when mismatched role masks leave the visible seam open.
+        drawBridgePass(
+          surfaces.bridgeAlpha.context,
+          surfaces,
+          item,
+          assets,
+          mesh,
+          tree,
+          receiverSource,
+          options.bridgeRoleProjection,
+          sampledColors[0],
+          sampledColors[1],
+          'union',
+        )
+      }
+      // TASK8_STABLE_END:renderer-role-masked-bridge-metrics
       const pixels = imageData(surfaces.bridgeAlpha)
       if (pixels.length !== MASTER_SIZE * MASTER_SIZE * 4) throw new Error('invalid bridge alpha')
       bridgePixels.set(item.key, pixels)
       surfaces.structureAlpha.context.drawImage(surfaces.bridgeAlpha.canvas, 0, 0)
     }
-    for (const node of tree.nodes.filter(item => STRUCTURAL_SLOTS.has(item.slotId))) {
+    // TASK8_STABLE_BEGIN:renderer-structural-metric-filter
+    for (const node of tree.nodes.filter(item => isStructuralSlot(item.slotId))) {
+    // TASK8_STABLE_END:renderer-structural-metric-filter
       const source = sources.get(node.key)
       if (source === undefined) continue
       drawCompositionNodeToSurface(
@@ -1401,7 +1449,9 @@ async function renderInterfaceMonster(
   }
 
   const nodes = tree.nodes.filter(node => options.includeGroundShadow || node.node.layer !== 'groundShadow')
-  const structural = nodes.filter(node => STRUCTURAL_SLOTS.has(node.slotId))
+  // TASK8_STABLE_BEGIN:renderer-structural-final-filter
+  const structural = nodes.filter(node => isStructuralSlot(node.slotId))
+  // TASK8_STABLE_END:renderer-structural-final-filter
   const structuralByKey = new Map(structural.map(node => [node.key, node]))
   const headOcclusionMasks = new Map<string, { foreground: CanvasImageSource, background: CanvasImageSource }>()
   for (const bridge of tree.bridges) {
@@ -1428,7 +1478,9 @@ async function renderInterfaceMonster(
       - (right.slotId === 'headShape' ? 2 : right.slotId === 'bodyFrame' ? 1 : 0)
       || left.sequence - right.sequence
   ))
-  const nonStructural = nodes.filter(node => !STRUCTURAL_SLOTS.has(node.slotId)).sort((left, right) => (
+  // TASK8_STABLE_BEGIN:renderer-nonstructural-final-filter
+  const nonStructural = nodes.filter(node => !isStructuralSlot(node.slotId)).sort((left, right) => (
+  // TASK8_STABLE_END:renderer-nonstructural-final-filter
     compositionLayerRank.get(left.node.layer)! - compositionLayerRank.get(right.node.layer)!
       || left.sequence - right.sequence
   ))
@@ -1461,7 +1513,7 @@ async function renderInterfaceMonster(
         }
         drawBridgePass(
           finalContext, surfaces, bridge, assets, mesh, tree, receiverSource,
-          sampledColors[0], sampledColors[1], pass,
+          options.bridgeRoleProjection, sampledColors[0], sampledColors[1], pass,
         )
       }
     }
@@ -1633,7 +1685,9 @@ async function renderInterfaceMonster(
     }
     if (
       compositionMetrics.visibleBounds !== null
-      && !boundsInside(compositionMetrics.visibleBounds, policy.frameBounds)
+      // TASK8_STABLE_BEGIN:renderer-shared-interface-bounds-call
+      && !boundsInsideFrame(compositionMetrics.visibleBounds, policy.frameBounds)
+      // TASK8_STABLE_END:renderer-shared-interface-bounds-call
     ) diagnostics.push(boundsExceededDiagnostic())
   } catch {
     diagnostics.push(connectorCompositeDiagnostic('structure', 'Interface alpha metrics are unreadable.'))

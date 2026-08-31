@@ -1,11 +1,12 @@
-import type {
-  Catalog,
-  RigId,
-  StructuralSlotId,
-  ThemeId,
-  VisualPartDefinition,
-  VisualSelection,
-  VisualSlotId,
+import {
+  isStructuralSlot,
+  type StructuralSlotId,
+  type Catalog,
+  type RigId,
+  type ThemeId,
+  type VisualPartDefinition,
+  type VisualSelection,
+  type VisualSlotId,
 } from './contracts.js'
 import { connectorExclusionCodes, type StructuralPartSelection } from './connector-compatibility.js'
 import type { MotifMode } from './composition.js'
@@ -63,12 +64,12 @@ function isHardCompatible(
 function structuralSelections(
   catalog: Catalog,
   selections: Partial<Record<VisualSlotId, VisualSelection>>,
-): Map<Extract<VisualSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>, StructuralPartSelection> {
-  const structural = new Map<Extract<VisualSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>, StructuralPartSelection>()
+): Map<StructuralSlotId, StructuralPartSelection> {
+  const structural = new Map<StructuralSlotId, StructuralPartSelection>()
   for (const [slotId, selection] of Object.entries(selections) as [VisualSlotId, VisualSelection][]) {
-    if (!['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'].includes(slotId)) continue
+    if (!isStructuralSlot(slotId)) continue
     const part = catalog.parts.find(candidate => candidate.id === selection.partId && candidate.slotId === slotId)
-    if (part !== undefined) structural.set(slotId as Extract<VisualSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>, { part, rigId: selection.rigId })
+    if (part !== undefined) structural.set(slotId, { part, rigId: selection.rigId })
   }
   return structural
 }

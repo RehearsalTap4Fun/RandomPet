@@ -27,6 +27,8 @@ import {
   TASK8_LIMB_SOURCE_PROJECTION_SHA256,
   task8LimbCatalogProjectionSha256,
   task8LimbSourceProjectionSha256,
+  task8HistoricalAmendmentSha256,
+  task8Task9HistoricalNeckWarpProjection,
   task8RendererProjectionSha256,
 } from './task8-stable-projection.js'
 
@@ -500,7 +502,7 @@ export function compareLimbCausalMetricEvidence(input: {
 }
 
 export function task8HistoricalCausalCatalog(input: Catalog): Catalog {
-  const catalog = structuredClone(input)
+  const catalog = task8Task9HistoricalNeckWarpProjection(input)
   if (catalog.compositionPolicy !== undefined) {
     catalog.compositionPolicy.faceInsideRatio = 0.8
     catalog.compositionPolicy.faceVisibleRatio = 0.85
@@ -553,6 +555,7 @@ export async function validateLimbCausalMetricEvidence(input: {
     mode: 'full',
     catalogPath: input.catalogPath,
     catalogProjection: task8HistoricalCausalCatalog,
+    historicalConnectorMetrics: true,
   })
   const catalogPath = input.catalogPath ?? resolve(input.repositoryRoot, 'packages/asset-catalog/catalog/v0.3.0/catalog.json')
   const catalogProjectionSha256 = task8LimbCatalogProjectionSha256(JSON.parse(await readFile(catalogPath, 'utf8')))
@@ -673,7 +676,11 @@ export async function validateLimbApproval(input: { repositoryRoot: string; revi
   ] as const) {
     const binding = document[field]
     try {
-      if (binding?.path !== expectedPath || sha256Bytes(await readFile(resolve(input.repositoryRoot, expectedPath))) !== binding.sha256) diagnostics.push(error('LIMB_ACCEPTANCE_BINDING_INVALID', ['limbAcceptance', field], `Task 8 acceptance ${field} binding differs from live bytes.`))
+      const bytes = await readFile(resolve(input.repositoryRoot, expectedPath))
+      const digest = field === 'thresholdContract' || field === 'connectorAmendment'
+        ? task8HistoricalAmendmentSha256(expectedPath, bytes)
+        : sha256Bytes(bytes)
+      if (binding?.path !== expectedPath || digest !== binding.sha256) diagnostics.push(error('LIMB_ACCEPTANCE_BINDING_INVALID', ['limbAcceptance', field], `Task 8 acceptance ${field} binding differs from live bytes.`))
     } catch { diagnostics.push(error('LIMB_ACCEPTANCE_BINDING_INVALID', ['limbAcceptance', field], `Task 8 acceptance ${field} binding is missing.`)) }
   }
   if (document.thresholdContract?.activeMinimum !== 0.614 || document.thresholdContract?.rejects !== 0.613999 || document.thresholdContract?.noOverrides !== true || document.connectorAmendment?.shoulderOrigins?.left !== 490 || document.connectorAmendment?.shoulderOrigins?.right !== 1558 || document.causalMetrics?.results?.childOutsideBodyRatioMin < 0.614) {
@@ -984,7 +991,7 @@ export async function validateBodyHeadAcceptanceDocument(input: {
       const reviewBytes = await readFile(resolve(input.repositoryRoot, document.reapproval.reviewRecordPath))
       if (
         document.reapproval.reason !== 'body_blob_wide-shoulder-connector-amendment'
-        || sha256Bytes(amendmentBytes) !== document.reapproval.amendmentSha256
+        || task8HistoricalAmendmentSha256(document.reapproval.amendmentPath, amendmentBytes) !== document.reapproval.amendmentSha256
         || sha256Bytes(reviewBytes) !== document.reapproval.reviewRecordSha256
         || document.reapproval.visualArtifactsByteIdentical !== true
       ) diagnostics.push(error('BODY_HEAD_REAPPROVAL_BINDING_INVALID', ['acceptance', 'reapproval'], 'Task 7 reapproval must bind the exact connector amendment, review record, and unchanged visual evidence.'))

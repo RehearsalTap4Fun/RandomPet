@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
-import { basename, isAbsolute, join, relative, resolve } from 'node:path'
+import { basename, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { chromium } from '@playwright/test'
 import sharp from 'sharp'
@@ -16,7 +16,13 @@ import {
   type RigId,
   type ThemeId,
 } from '@qmonster/generator-core'
-import { EXTERNAL_LIMB_ALPHA_MIN, type CompositionMetrics, type ConnectorMetric } from '@qmonster/renderer-canvas'
+import {
+  compositionMetricsMeetThresholds,
+  connectorMetricMeetsThresholds,
+  structureMetricMeetsThreshold,
+  type CompositionMetrics,
+  type ConnectorMetric,
+} from '@qmonster/renderer-canvas'
 import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import { pruneStaleFiles } from './safe-output.js'
@@ -125,7 +131,6 @@ export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
   | 'resolvedAssetPaths'
 >): void {
   const metrics = entry.compositionMetrics
-  const bounds = metrics?.visibleBounds
   const compositionPolicy = (catalogDocument(entry.catalogVersion) as {
     compositionPolicy: {
       frameBounds: { x: number; y: number; width: number; height: number }
@@ -137,29 +142,15 @@ export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
     entry.connectorMetrics !== null
     && entry.connectorMetrics.length > 0
     && entry.connectorMetrics.every(metric => (
-      metric.receiverCoverage >= 0.62
-      && metric.plugCoverage >= 0.9
-      && metric.largestComponentRatio >= 0.99
-      && metric.centerlineGapPixels <= 2
-      && (!/^(shoulder|hip)/u.test(metric.connectorId)
-        || (metric.childOutsideBodyRatio ?? 0) >= EXTERNAL_LIMB_ALPHA_MIN)
+      connectorMetricMeetsThresholds(metric, /^(shoulder|hip)/u.test(metric.connectorId))
+      && structureMetricMeetsThreshold(metric)
     ))
   )
   const accepted = entry.generationDiagnostics.length === 0
     && entry.strongFeatureCount <= 2
     && entry.surpriseSlots <= Math.floor(entry.motifOpportunityCount * 0.3)
     && metrics !== null
-    && metrics.eyesInsideRatio >= 0.8
-    && metrics.eyesVisibleRatio >= compositionPolicy.faceVisibleRatio
-    && metrics.mouthInsideRatio >= compositionPolicy.faceInsideRatio
-    && metrics.mouthVisibleRatio >= compositionPolicy.faceVisibleRatio
-    && bounds !== null
-    && bounds.x >= compositionPolicy.frameBounds.x
-    && bounds.y >= compositionPolicy.frameBounds.y
-    && bounds.width > 0
-    && bounds.height > 0
-    && bounds.x + bounds.width <= compositionPolicy.frameBounds.x + compositionPolicy.frameBounds.width
-    && bounds.y + bounds.height <= compositionPolicy.frameBounds.y + compositionPolicy.frameBounds.height
+    && compositionMetricsMeetThresholds(metrics, compositionPolicy)
     && connectorMetricsAccepted
     && (entry.catalogVersion !== '0.3.0' || entry.resolvedAssetPaths.length > 0)
     && entry.renderDiagnostics.length === 0
@@ -172,15 +163,22 @@ export function parseAcceptanceArguments(args: readonly string[]): {
   seedStart: number
   count: number
   catalogVersion: AcceptanceCatalogVersion
+  outputDirectory?: string
 } {
   let seedStart = DEFAULT_SEED_START
   let count = DEFAULT_COUNT
   let catalogVersion: AcceptanceCatalogVersion = '0.3.0'
+  let outputDirectory: string | undefined
   for (let index = 0; index < args.length; index += 1) {
     const flag = args[index]
     const rawValue = args[index + 1]
-    if ((flag !== '--seed-start' && flag !== '--count' && flag !== '--catalog-version' && flag !== '--version') || rawValue === undefined) {
+    if ((flag !== '--seed-start' && flag !== '--count' && flag !== '--catalog-version' && flag !== '--version' && flag !== '--output-directory') || rawValue === undefined) {
       throw new Error(`Unknown or incomplete acceptance argument: ${flag ?? ''}`)
+    }
+    if (flag === '--output-directory') {
+      outputDirectory = rawValue
+      index += 1
+      continue
     }
     if (flag === '--catalog-version' || flag === '--version') {
       if (rawValue !== '0.2.0' && rawValue !== '0.3.0') {
@@ -196,7 +194,12 @@ export function parseAcceptanceArguments(args: readonly string[]): {
     if (flag === '--count') count = value
     index += 1
   }
-  return { seedStart, count, catalogVersion }
+  return {
+    seedStart,
+    count,
+    catalogVersion,
+    ...(outputDirectory === undefined ? {} : { outputDirectory }),
+  }
 }
 
 function catalogDocument(version: AcceptanceCatalogVersion): unknown {
@@ -205,6 +208,31 @@ function catalogDocument(version: AcceptanceCatalogVersion): unknown {
 
 function outputDirectoryFor(version: AcceptanceCatalogVersion): string {
   return `artifacts/acceptance/v${version.split('.').slice(0, 2).join('.')}`
+}
+
+export function resolveAcceptanceOutputDirectory(
+  repositoryRoot: string,
+  catalogVersion: AcceptanceCatalogVersion,
+  requested?: string,
+): { relativePath: string, absolutePath: string } {
+  const relativePath = requested ?? outputDirectoryFor(catalogVersion)
+  const acceptanceRoot = resolve(repositoryRoot, 'artifacts', 'acceptance')
+  const absolutePath = resolve(repositoryRoot, relativePath)
+  const relation = relative(acceptanceRoot, absolutePath)
+  const escapesRoot = relation === '..'
+    || relation.startsWith(`..${sep}`)
+    || isAbsolute(relation)
+  if (
+    requested !== undefined && isAbsolute(requested)
+    || relation === ''
+    || escapesRoot
+  ) {
+    throw new Error('Acceptance output directory must be a relative child of artifacts/acceptance/.')
+  }
+  return {
+    relativePath: relative(repositoryRoot, absolutePath).replaceAll('\\', '/'),
+    absolutePath,
+  }
 }
 
 function runtimeAssetPath(
@@ -279,14 +307,17 @@ async function assembleContactSheet(
 
 export async function generateAcceptanceSet(args = process.argv.slice(2)): Promise<void> {
   const repositoryRoot = process.cwd()
-  const { seedStart, count, catalogVersion } = parseAcceptanceArguments(args)
+  const { seedStart, count, catalogVersion, outputDirectory: requestedOutputDirectory } = parseAcceptanceArguments(args)
   const parsedCatalog = parseCatalog(catalogDocument(catalogVersion))
   if (!parsedCatalog.ok) {
     throw new Error(`Production catalog is invalid: ${JSON.stringify(parsedCatalog.diagnostics)}`)
   }
   const entries = await buildAcceptanceManifest(parsedCatalog.value, seedStart, count)
-  const outputDirectoryName = outputDirectoryFor(catalogVersion)
-  const outputDirectory = resolve(repositoryRoot, outputDirectoryName)
+  const { relativePath: outputDirectoryName, absolutePath: outputDirectory } = resolveAcceptanceOutputDirectory(
+    repositoryRoot,
+    catalogVersion,
+    requestedOutputDirectory,
+  )
   await mkdir(outputDirectory, { recursive: true })
   const expectedFiles = new Set([
     ...entries.map(entry => `${outputDirectoryName}/${entry.filename}`),

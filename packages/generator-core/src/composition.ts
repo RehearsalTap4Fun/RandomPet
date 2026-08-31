@@ -1,4 +1,5 @@
 import {
+  STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
   type Catalog,
   type Diagnostic,
@@ -86,7 +87,7 @@ export function compositionAllowanceForSlot(
     motifMode: plan.motifModes[slotId],
     remainingStrong: Math.max(0, plan.maxStrongFeatures - strongFeaturesUsed),
     ...(slotId === 'bodyFrame' ? {
-      requiredDominantStructuralSlots: (['headShape', 'arms', 'legs', 'tail', 'extraAppendage'] as VisualSlotId[])
+      requiredDominantStructuralSlots: STRUCTURAL_SLOT_IDS.filter(candidate => candidate !== 'bodyFrame')
         .filter(candidate => plan.motifModes[candidate] === 'dominant'),
     } : {}),
   }

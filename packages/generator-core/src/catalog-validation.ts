@@ -2,6 +2,7 @@ import {
   COMPOSITION_PARENT_BY_SLOT,
   SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  isStructuralSlot,
   isAttachmentPartComposition,
   type Catalog,
   type ConnectorClass,
@@ -20,9 +21,6 @@ const REQUIRED_PROVIDER_SOCKETS: Partial<Record<VisualSlotId, readonly string[]>
   headShape: ['eyes', 'mouth', 'headAppendage'],
   mouthShape: ['oralDetail'],
 }
-const STRUCTURAL_SLOTS = new Set<VisualSlotId>([
-  'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
-])
 const REQUIRED_CONNECTORS: Partial<Record<VisualSlotId, ReadonlyArray<{
   id: string
   role: 'receiver' | 'plug'
@@ -123,7 +121,7 @@ function requiredConnectorProfiles(catalog: Catalog, part: Catalog['parts'][numb
   if (part.slotId !== 'bodyFrame') return REQUIRED_CONNECTORS[part.slotId] ?? []
   const required = new Map<string, { id: string; role: 'receiver'; connectorClass: ConnectorClass }>()
   for (const child of catalog.parts) {
-    if (child.slotId === 'bodyFrame' || !STRUCTURAL_SLOTS.has(child.slotId) || child.composition?.isNone || !child.compatibleRigs.includes(rigId)) continue
+    if (child.slotId === 'bodyFrame' || !isStructuralSlot(child.slotId) || child.composition?.isNone || !child.compatibleRigs.includes(rigId)) continue
     const composition = child.composition
     if (composition?.mode !== 'interface') continue
     const variant = composition.variantsByRig[rigId]
@@ -141,7 +139,7 @@ function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[])
   const bridges = catalog.transitionBridges ?? []
   reportDuplicateIds(bridges, 'transitionBridges', diagnostics)
   for (const [partIndex, part] of catalog.parts.entries()) {
-    if (!STRUCTURAL_SLOTS.has(part.slotId) || part.composition?.isNone) continue
+    if (!isStructuralSlot(part.slotId) || part.composition?.isNone) continue
     const composition = part.composition
     const path = ['parts', String(partIndex), 'composition']
     if (composition?.mode !== 'interface') {

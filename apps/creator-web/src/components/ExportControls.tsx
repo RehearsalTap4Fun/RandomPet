@@ -10,7 +10,7 @@ export interface ExportControlsProps {
   session: CreatorSession
   registry: CatalogRegistry
   canvasRef: RefObject<HTMLCanvasElement | null>
-  imageExportReady?: boolean
+  imageExportReady: boolean
   onImportComplete: (payload: { spec: MonsterSpec; catalog: Catalog }) => void
   onOperationDiagnostics: (diagnostics: Diagnostic[]) => void
   parseSpecFile?: typeof parseSpecFile
@@ -40,7 +40,7 @@ export function ExportControls({
   session,
   registry,
   canvasRef,
-  imageExportReady = true,
+  imageExportReady,
   onImportComplete,
   onOperationDiagnostics,
   parseSpecFile: parseImportedSpec = parseSpecFile,
@@ -101,6 +101,14 @@ export function ExportControls({
 
   const exportImage = async (mime: ExportMimeType) => {
     onOperationDiagnostics([])
+    if (session.blocked || !imageExportReady) {
+      onOperationDiagnostics([operationDiagnostic(
+        'error',
+        'PREVIEW_EXPORT_NOT_READY',
+        '当前预览尚未完成，不能导出图像。',
+      )])
+      return
+    }
     const canvas = canvasRef.current
     if (canvas === null) {
       onOperationDiagnostics([operationDiagnostic(

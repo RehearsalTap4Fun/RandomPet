@@ -3,6 +3,7 @@ import {
   generateMonster,
   rerollSlot,
   selectVisualPart,
+  STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
   type Catalog,
   type Diagnostic,
@@ -87,6 +88,9 @@ function reconcileLocalGenerationResult(
   replaceAffectedDiagnostics: boolean,
 ): CreatorSession {
   const affected = new Set(generated.affectedSlots)
+  if (affected.has('bodyFrame')) {
+    for (const slotId of STRUCTURAL_SLOT_IDS) affected.add(slotId)
+  }
   const retained = replaceAffectedDiagnostics
     ? session.generationDiagnostics.filter(diagnostic => !isReplaceableAffectedDiagnostic(diagnostic, affected))
     : session.generationDiagnostics

@@ -2,17 +2,26 @@
   "catalogVersion": "0.3.0",
   "rendererVersion": "0.3.0",
   "decision": "approved",
-  "reviewedAt": "2026-08-25T19:18:10.2315125+08:00",
+  "generatedAt": "2026-08-31T09:35:37.7826504+08:00",
+  "reviewedAt": "2026-08-31T09:44:55.6576328+08:00",
   "reviewer": "user",
-  "entryCount": 8,
-  "contactSheetSha256": "58766df74141fae1abcb66f447529b8d32ede934b11394877c12d2c478feaef4",
-  "review256ContactSheetSha256": "0fa54d8968155465f84eec0de75303520bea637d1debae1f58e1f12301bd9974",
-  "manifestSha256": "058dec48847ed6caa93dd58359c887c32c440de01f7522e14ee151d00ab7aa15",
+  "entryCount": 16,
+  "contactSheetSha256": "648d3703b8da8f13a420135f739ed5152b94bcd4f3d5a411ac1c23679343dda2",
+  "review256ContactSheetSha256": "d1904d1fa257cb2a72f1580400ce0d520352ac31f2b75bd94cc9e616a19e2724",
+  "manifestSha256": "1ca1017e8131b30f98e7ef551acf00f6104c9e35a6d4f2a8200fc9610baeb1a5",
   "userApproved": true,
-  "approvalResponse": "ok",
+  "approvalResponse": "A",
+  "supersededApproval": {
+    "reviewedAt": "2026-08-31T09:13:36.1657045+08:00",
+    "approvalResponse": "A",
+    "contactSheetSha256": "521b59aaf2b2fc4f8ab3154d9e3aa5ba21a08f33f0eec213450d03345f1e1701",
+    "review256ContactSheetSha256": "b082d503f74d25025b02feecf298457cc165a475edf3ee68ba258b525f35f863",
+    "manifestSha256": "14a1e79427135dc0ca657f664d2ed7361243c1b99974606a88197d15b258028a",
+    "reason": "Superseded because the final effectiveRole renderer changed bridge endpoint compositing after that visual review."
+  },
   "notes": [
-    "User approved the current canonical 8-entry contact sheet after an explicit visual-approval question.",
-    "Approval is valid only for the exact contact-sheet, 256-sheet, and manifest hashes recorded here.",
-    "head_round_dome remains retired from v0.3 production selection while its source and candidate evidence are retained for future rework."
+    "User approved the displayed refreshed 16-entry two-head slice with response A.",
+    "The current hashes bind the final effectiveRole renderer bytes with zero diagnostics.",
+    "The earlier response A and its pre-effectiveRole hashes remain historical evidence only in supersededApproval."
   ]
 }

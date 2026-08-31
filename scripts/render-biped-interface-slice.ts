@@ -1,18 +1,17 @@
 import { createHash } from 'node:crypto'
 import { realpathSync } from 'node:fs'
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
-import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from '@playwright/test'
 import type { Catalog, MonsterSpec, SemanticSlotId, VisualSlotId } from '@qmonster/generator-core'
 import type { ConnectorMetric } from '@qmonster/renderer-canvas'
 import sharp from 'sharp'
-import { createServer } from 'vite'
+import { createServer, type InlineConfig } from 'vite'
 
 export const BIPED_SLICE_OPTIONS = {
   bodyFrame: ['body_biped_peanut', 'body_biped_tall'],
-  headShape: ['head_mushroom_cap'],
+  headShape: ['head_mushroom_cap', 'head_round_dome'],
   arms: ['arms_short_plush', 'arms_long_noodle'],
   legs: ['legs_webbed', 'legs_mushroom'],
 } as const
@@ -126,7 +125,7 @@ function runtimeFsPath(path: string): string {
     : join('packages', 'asset-catalog', 'assets', 'v0.2.0', path)
 }
 
-function browserCatalog(input: Catalog): Catalog {
+export function browserCatalog(input: Catalog): Catalog {
   const catalog = structuredClone(input)
   for (const part of catalog.parts) {
     // The fixed Cartesian slice intentionally exercises combinations beyond
@@ -149,6 +148,13 @@ function browserCatalog(input: Catalog): Catalog {
       }
     } else if (part.composition !== undefined) {
       for (const node of part.composition.renderNodes) node.assetPath = fsUrl(runtimeFsPath(node.assetPath))
+    }
+    for (const rigMasks of Object.values(part.rigMaskPaths ?? {})) {
+      if (rigMasks === undefined) continue
+      for (const maskName of ['primary', 'secondary', 'accent'] as const) {
+        const maskPath = rigMasks[maskName]
+        if (maskPath !== undefined) rigMasks[maskName] = fsUrl(runtimeFsPath(maskPath))
+      }
     }
   }
   for (const bridge of catalog.transitionBridges ?? []) {
@@ -188,11 +194,23 @@ function makeSliceSpec(catalog: Catalog, selections: BipedSliceEntry['selections
 }
 
 export async function withTemporaryBipedSliceInputRoot<T>(run: (inputRoot: string) => Promise<T>): Promise<T> {
-  const inputRoot = await mkdtemp(join(tmpdir(), 'qmonster-biped-slice-inputs-'))
+  const inputRoot = await mkdtemp(join(resolve('.'), '.qmonster-biped-slice-inputs-'))
   try {
     return await run(inputRoot)
   } finally {
     await rm(inputRoot, { recursive: true, force: true })
+  }
+}
+
+export function bipedSliceViteServerOptions(inputRoot: string): InlineConfig {
+  return {
+    root: resolve('apps/creator-web'),
+    server: {
+      host: '127.0.0.1',
+      port: 0,
+      fs: { allow: [resolve('.'), resolve(inputRoot)] },
+    },
+    logLevel: 'error',
   }
 }
 
@@ -205,7 +223,7 @@ export async function renderBipedSlice(): Promise<BipedSliceManifest> {
   const sourceCatalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.3.0/catalog.json', 'utf8')) as Catalog
   const catalog = browserCatalog(sourceCatalog)
   const manifest = await buildBipedSliceManifest(makeBipedSliceCatalog())
-  const server = await createServer({ root: resolve('apps/creator-web'), server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' })
+  const server = await createServer(bipedSliceViteServerOptions(inputRoot))
   await server.listen()
   const baseUrl = server.resolvedUrls?.local[0]
   if (baseUrl === undefined) throw new Error('BIPED_SLICE_RENDER_FAILED: Vite server has no local URL')

@@ -8,6 +8,7 @@ export function makeValidInterfaceSourceManifest(): any {
     ['body_biped_peanut', 'bodyFrame'],
     ['body_biped_tall', 'bodyFrame'],
     ['head_mushroom_cap', 'headShape'],
+    ['head_round_dome', 'headShape'],
     ['arms_short_plush', 'arms'],
     ['arms_long_noodle', 'arms'],
     ['legs_webbed', 'legs'],
@@ -32,6 +33,14 @@ export function makeValidInterfaceSourceManifest(): any {
       ? [{ id: `${id}-body`, sourcePngPath: `asset-source/v0.3.0/production/${id}.png` }]
       : (slotId === 'headShape' ? ['neck'] : slotId === 'arms' ? ['shoulderLeft', 'shoulderRight'] : ['hipLeft', 'hipRight'])
         .map(connectorId => ({ id: `${id}-${connectorId}`, connectorId, sourcePngPath: `asset-source/v0.3.0/production/nodes/${id}/${connectorId}.png` })),
+    ...(slotId === 'headShape' ? {
+      faceSafeZones: [{ x: 800, y: 1050, width: 448, height: 296 }],
+      featureSockets: {
+        eyes: { x: 1024, y: 1130 },
+        mouth: { x: 1024, y: 1250 },
+        headAppendage: { x: 1024, y: 940 },
+      },
+    } : {}),
   }))
   return {
     schemaVersion: 'interface-source-v1',
@@ -148,6 +157,17 @@ describe('parseInterfaceSourceManifest', () => {
     const invalid = makeValidInterfaceSourceManifest()
     invalid.assets[0].connectors[0].tangent = { x: 0, y: 0 }
     invalid.assets[0].connectors[0].outwardNormal = { x: 0, y: 0 }
+    expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
+  })
+
+  it.each([
+    ['eyes less than 80px below the face-safe-zone top', 'eyes', 1129],
+    ['mouth less than 120px below the eyes socket', 'mouth', 1249],
+  ] as const)('rejects a head whose %s contract is violated', (_label, socket, y) => {
+    const invalid = makeValidInterfaceSourceManifest()
+    const head = invalid.assets.find((asset: any) => asset.slotId === 'headShape')
+    head.featureSockets[socket].y = y
+
     expect(parseInterfaceSourceManifest(invalid).ok).toBe(false)
   })
 

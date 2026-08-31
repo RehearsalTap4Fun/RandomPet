@@ -368,6 +368,8 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
       activeConnectorIds: string[]
     }
     applyPaletteMasks?: boolean
+    connectorMetricProjection?: 'task8-task9-neutral-bridge-v1'
+    bridgeRoleProjection?: 'task8-task9-cross-product-v1'
   }
   // TASK8_STABLE_END:render-test-diagnostic-input
   const resolvedAssetPaths: string[] = []
@@ -384,6 +386,12 @@ async function renderBipedSliceFixture(inputUrl: string): Promise<void> {
     // TASK8_STABLE_BEGIN:render-test-diagnostic-option
     ...(input.diagnosticScope === undefined ? {} : { diagnosticScope: input.diagnosticScope }),
     ...(input.applyPaletteMasks === undefined ? {} : { applyPaletteMasks: input.applyPaletteMasks }),
+    ...(input.connectorMetricProjection === undefined ? {} : {
+      connectorMetricProjection: input.connectorMetricProjection,
+    }),
+    ...(input.bridgeRoleProjection === undefined ? {} : {
+      bridgeRoleProjection: input.bridgeRoleProjection,
+    }),
     // TASK8_STABLE_END:render-test-diagnostic-option
   })
   document.body.dataset.interfaceResult = JSON.stringify({

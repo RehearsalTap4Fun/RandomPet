@@ -16,6 +16,8 @@ const THRESHOLD_063_HISTORY_ROOT = 'packages/asset-catalog/review/v0.3.0/superse
 const THRESHOLD_AMENDMENT_PATH = 'packages/asset-catalog/review/v0.3.0/visible-limb-threshold-amendment.json'
 const JOINT_EVIDENCE_PATH = '.superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json'
 const JOINT_EVIDENCE_SHA256 = 'fc538e40d78dd72c6b6ac4daf2883e753d0fe1a47aa3d3be76a1ca035431b295'
+const JOINT_SELECTION_PROOF_PATH = 'packages/asset-catalog/audit/v0.3.0/task8-blob-joint-shoulder-selection-proof.json'
+const JOINT_SELECTION_PROOF_SHA256 = '52310279085ebff1fe94821d5581b5119881d435b859799baf4bdbc554fbc459'
 const BODY_HEAD_REVIEW_ARTIFACTS = [
   'body-head-contact-sheet-blob.png',
   'body-head-contact-sheet-blob-256.png',
@@ -249,6 +251,38 @@ export function selectJointShoulderSolution(evidence: any, outsideMinimum: numbe
   }
 }
 
+export function selectJointShoulderSolutionFromProof(proof: any, outsideMinimum: number) {
+  const invalid = proof?.schemaVersion !== 'task8-blob-joint-shoulder-selection-proof-v1'
+    || proof.sourceTrace?.path !== JOINT_EVIDENCE_PATH
+    || proof.sourceTrace?.sha256 !== JOINT_EVIDENCE_SHA256
+    || proof.sourceTrace?.size !== 29_089_983
+    || proof.selectionPolicy?.outsideMinimum !== outsideMinimum
+    || proof.selectionPolicy?.receiverCoverageMinimum !== 0.9
+    || proof.selectionPolicy?.plugCoverageMinimum !== 0.9
+    || proof.selectionPolicy?.connectedMinimum !== 0.99
+    || proof.selectionPolicy?.gapMaximum !== 2
+    || !Array.isArray(proof.supportingRecords?.exactRound)
+    || !Array.isArray(proof.supportingRecords?.safeBoundaryVerification)
+  if (invalid) throw new Error('SHOULDER_AMENDMENT_INVALID: joint selection proof is missing or malformed')
+  const selected = selectJointShoulderSolution({
+    schemaVersion: 'task8-blob-joint-shoulder-search-v1',
+    exactRound: proof.supportingRecords.exactRound,
+    safeBoundaryVerification: { records: proof.supportingRecords.safeBoundaryVerification },
+  }, outsideMinimum)
+  const summary = {
+    selectedLeftX: selected.selectedLeftX,
+    selectedRightX: selected.selectedRightX,
+    outsideMinimum: selected.outsideMinimum,
+    paddle: selected.paddle,
+    short: selected.short,
+    outsideMinima: selected.outsideMinima,
+  }
+  if (JSON.stringify(summary) !== JSON.stringify(proof.selected)) {
+    throw new Error('SHOULDER_AMENDMENT_INVALID: joint selection proof does not reproduce its selected solution')
+  }
+  return selected
+}
+
 async function decodedRgba(bytes: Buffer) {
   return sharp(bytes).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
 }
@@ -377,12 +411,12 @@ export async function applyBlobWideShoulderAmendment(root = process.cwd()) {
   const manifestPath = resolve(root, 'asset-source/v0.3.0/interface-manifest.json')
   const processedPath = resolve(root, 'asset-source/v0.3.0/production/processed-index.json')
   const reviewPath = resolve(root, REVIEW_RECORD_PATH)
-  const [manifestBytes, processedBytes, archivedReviewBytes, bodyBytes, previousAmendmentBytes, previousThresholdAmendmentBytes, jointEvidenceBytes] = await Promise.all([
+  const [manifestBytes, processedBytes, archivedReviewBytes, bodyBytes, previousAmendmentBytes, previousThresholdAmendmentBytes, jointProofBytes] = await Promise.all([
     readFile(manifestPath), readFile(processedPath), readFile(join(snapshotRoot, 'body-head-review-record.pre-amendment.json')),
     readFile(resolve(root, 'asset-source/v0.3.0/structural/blob/nodes/body_blob_wide/body.png')),
     readFile(resolve(root, AMENDMENT_PATH)).catch(() => null),
     readFile(resolve(root, THRESHOLD_AMENDMENT_PATH)).catch(() => null),
-    readFile(resolve(root, JOINT_EVIDENCE_PATH)),
+    readFile(resolve(root, JOINT_SELECTION_PROOF_PATH)),
   ])
   const archivedBodyHash = await hashFile(join(snapshotRoot, 'body/asset-source-body_blob_wide-node.png'))
   if (sha256(bodyBytes) !== archivedBodyHash) throw new Error('SHOULDER_AMENDMENT_INVALID: body bytes changed before metadata amendment')
@@ -396,9 +430,9 @@ export async function applyBlobWideShoulderAmendment(root = process.cwd()) {
   const leftReceiver = bodyVariant.connectors.find((item: any) => item.id === 'shoulderLeft')
   const rightReceiver = bodyVariant.connectors.find((item: any) => item.id === 'shoulderRight')
   const before = { left: structuredClone(leftReceiver), right: structuredClone(rightReceiver) }
-  if (sha256(jointEvidenceBytes) !== JOINT_EVIDENCE_SHA256) throw new Error('SHOULDER_AMENDMENT_INVALID: joint feasibility evidence hash changed')
+  if (sha256(jointProofBytes) !== JOINT_SELECTION_PROOF_SHA256) throw new Error('SHOULDER_AMENDMENT_INVALID: joint selection proof hash changed')
   if (EXTERNAL_LIMB_ALPHA_MIN !== 0.614) throw new Error('SHOULDER_AMENDMENT_INVALID: global visible-limb threshold is not exactly 0.614')
-  const joint = selectJointShoulderSolution(JSON.parse(jointEvidenceBytes.toString('utf8')), EXTERNAL_LIMB_ALPHA_MIN)
+  const joint = selectJointShoulderSolutionFromProof(JSON.parse(jointProofBytes.toString('utf8')), EXTERNAL_LIMB_ALPHA_MIN)
   const origins = { left: { x: joint.selectedLeftX, y: leftReceiver.origin.y }, right: { x: joint.selectedRightX, y: rightReceiver.origin.y } }
   const coverageInput = {
     bodyRgba: body.data, bodyWidth: body.info.width, bodyHeight: body.info.height,
@@ -462,7 +496,7 @@ export async function applyBlobWideShoulderAmendment(root = process.cwd()) {
     oldOrigins: previousAmendment?.oldOrigins ?? { left: before.left.origin, right: before.right.origin },
     priorAppliedOrigins: previousAmendment?.priorAppliedOrigins ?? { left: before.left.origin, right: before.right.origin }, newOrigins: derived.origins,
     derivation: { ...derived, receiverCoverageMin: 0.9, safeFrame: { minX: 96, maxX: 1952 }, sourceCandidate: 'asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-3.png', sourceCandidateSha256: await hashFile(resolve(root, 'asset-source/v0.3.0/generation/task8-candidates/blob/arms_short_plush/candidate-3.png')) },
-    jointFeasibility: { path: JOINT_EVIDENCE_PATH, sha256: JOINT_EVIDENCE_SHA256, evaluatedAtGlobalOutsideMinimum: EXTERNAL_LIMB_ALPHA_MIN },
+    jointFeasibility: { path: JOINT_SELECTION_PROOF_PATH, sha256: JOINT_SELECTION_PROOF_SHA256, evaluatedAtGlobalOutsideMinimum: EXTERNAL_LIMB_ALPHA_MIN },
     preservedGrammar: derived.grammar,
     preAmendmentEvidence: review.preAmendmentEvidence,
     reviewArtifacts,
@@ -500,7 +534,7 @@ export async function applyBlobWideShoulderAmendment(root = process.cwd()) {
       { minimum: EXTERNAL_LIMB_ALPHA_MIN, status: 'active', userDecision: 'C' },
     ],
     noOverrides: true, boundaryBehavior: { accepts: 0.614, rejects: 0.613999 },
-    jointFeasibility: { path: JOINT_EVIDENCE_PATH, sha256: JOINT_EVIDENCE_SHA256, selected: joint },
+    jointFeasibility: { path: JOINT_SELECTION_PROOF_PATH, sha256: JOINT_SELECTION_PROOF_SHA256, selected: joint },
     supersededEvidence: {
       archivedConnectorAmendmentPath: relative(root, archivedAmendmentPath).replaceAll('\\', '/'),
       archivedConnectorAmendmentSha256: archivedAmendmentBytes === null ? null : sha256(archivedAmendmentBytes),

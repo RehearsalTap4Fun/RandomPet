@@ -4,7 +4,10 @@ import { downloadRenderedImage } from './image-file.js'
 
 function makeCanvas(encodedMime: string | null) {
   const canvas = document.createElement('canvas')
-  const toBlob = vi.spyOn(canvas, 'toBlob').mockImplementation((callback, requestedMime) => {
+  vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(() => ({
+    drawImage: vi.fn(),
+  }) as unknown as CanvasRenderingContext2D)
+  const toBlob = vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation((callback, requestedMime) => {
     callback(encodedMime === null ? null : new Blob(['pixels'], { type: encodedMime }))
   })
   return { canvas, toBlob }
@@ -36,6 +39,42 @@ afterEach(() => {
 })
 
 describe('downloadRenderedImage', () => {
+  it('encodes an atomic canvas snapshot when the live preview changes during delayed toBlob', async () => {
+    const spec = makeValidMonsterSpecFixture()
+    const canvas = document.createElement('canvas') as HTMLCanvasElement & { pixel: string | undefined }
+    canvas.width = 1024
+    canvas.height = 1024
+    canvas.pixel = 'old-frame'
+    let finishEncoding: (() => void) | undefined
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function (
+      this: HTMLCanvasElement & { pixel: string | undefined },
+    ) {
+      return {
+        drawImage: (source: HTMLCanvasElement & { pixel: string | undefined }) => {
+          this.pixel = source.pixel
+        },
+      } as unknown as CanvasRenderingContext2D
+    } as unknown as typeof HTMLCanvasElement.prototype.getContext)
+    vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation(function (
+      this: HTMLCanvasElement & { pixel: string | undefined }, callback, mime,
+    ) {
+      finishEncoding = () => {
+        const blob = new Blob(['pixels'], { type: mime ?? '' }) as Blob & { pixel: string | undefined }
+        blob.pixel = this.pixel
+        callback(blob)
+      }
+    })
+    const download = installDownloadSpies()
+
+    const pending = downloadRenderedImage(canvas, spec, 'image/png')
+    canvas.pixel = 'new-frame'
+    finishEncoding?.()
+    await pending
+
+    expect((download.createObjectURL.mock.calls[0]?.[0] as Blob & { pixel: string | undefined }).pixel)
+      .toBe('old-frame')
+  })
+
   it.each([
     ['image/png', 'png'],
     ['image/webp', 'webp'],

@@ -4,6 +4,10 @@ import { dirname, join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { makeCompositionCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import {
+  CONNECTOR_RECEIVER_COVERAGE_MIN,
+  EYES_INSIDE_RATIO_MIN,
+} from '@qmonster/renderer-canvas'
+import {
   assertBipedSliceEntry,
   makeValidSliceEntry,
   validateBipedSliceReview,
@@ -19,7 +23,7 @@ afterEach(async () => {
 describe('biped interface slice review validation', () => {
   it('rejects any seam metric below the interface contract', () => {
     const entry = makeValidSliceEntry()
-    entry.connectorMetrics[0]!.receiverCoverage = 0.89
+    entry.connectorMetrics[0]!.receiverCoverage = CONNECTOR_RECEIVER_COVERAGE_MIN - 0.01
 
     expect(() => assertBipedSliceEntry(entry, compositionPolicy)).toThrow('BIPED_SLICE_INVALID')
   })
@@ -32,7 +36,14 @@ describe('biped interface slice review validation', () => {
   })
 
   it('accepts an entry exactly on every interface threshold', () => {
-    expect(() => assertBipedSliceEntry(makeValidSliceEntry(), compositionPolicy)).not.toThrow()
+    const entry = makeValidSliceEntry()
+    for (const metric of entry.connectorMetrics) metric.receiverCoverage = CONNECTOR_RECEIVER_COVERAGE_MIN
+    entry.compositionMetrics.eyesInsideRatio = EYES_INSIDE_RATIO_MIN
+    entry.compositionMetrics.eyesVisibleRatio = compositionPolicy.faceVisibleRatio
+    entry.compositionMetrics.mouthInsideRatio = compositionPolicy.faceInsideRatio
+    entry.compositionMetrics.mouthVisibleRatio = compositionPolicy.faceVisibleRatio
+
+    expect(() => assertBipedSliceEntry(entry, compositionPolicy)).not.toThrow()
   })
 
   it('requires each canonical connector metric exactly once', () => {
@@ -61,7 +72,7 @@ describe('biped interface slice review validation', () => {
     expect(() => assertBipedSliceEntry(bounds, compositionPolicy)).toThrow('BIPED_SLICE_INVALID')
   })
 
-  it('requires the canonical eight-entry mushroom-head roster', async () => {
+  it('requires the canonical sixteen-entry two-head roster', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-biped-review-roster-'))
     temporaryDirectories.push(root)
     const path = join(root, 'manifest.json')
@@ -78,7 +89,7 @@ describe('biped interface slice review validation', () => {
 
     const result = await validateBipedSliceReview(path, { repositoryRoot: root })
 
-    expect(result.diagnostics).toContain('slice roster is not canonical 8 unique mushroom-head entries')
+    expect(result.diagnostics).toContain('slice roster is not canonical 16 unique two-head entries')
   })
 
   it('requires one exact user-approved acceptance record bound to live review bytes', async () => {

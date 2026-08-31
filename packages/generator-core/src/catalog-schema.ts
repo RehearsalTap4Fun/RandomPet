@@ -2,6 +2,7 @@ import { z } from 'zod'
 import {
   SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  isStructuralSlot,
   type Catalog,
   type Diagnostic,
   type ParseResult,
@@ -297,9 +298,8 @@ export const CatalogSchema = z.object({
   if (new Set(bridgeIds).size !== bridgeIds.length) {
     context.addIssue({ code: 'custom', path: ['transitionBridges'], message: 'Catalog 0.3.0 transition bridge IDs must be unique.' })
   }
-  const structuralSlots = new Set(['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'])
   for (const [index, part] of catalog.parts.entries()) {
-    if (!structuralSlots.has(part.slotId) || part.composition?.isNone) continue
+    if (!isStructuralSlot(part.slotId) || part.composition?.isNone) continue
     const composition = part.composition
     if (composition?.mode !== 'interface') {
       context.addIssue({

@@ -3,9 +3,15 @@ import { mkdtemp, readFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { EXTERNAL_LIMB_ALPHA_MIN } from '@qmonster/renderer-canvas'
-import { cleanupLimbMatrixHarness, makeLimbMatrixPlan, makeLimbMatrixWorkerIndices, sweepCandidatePath, validateLimbRenderEvidence } from './render-limb-contact-sheets.js'
+import { STRUCTURAL_SLOT_IDS } from '@qmonster/generator-core'
+import { cleanupLimbMatrixHarness, LIMB_REVIEW_STRUCTURAL_SLOT_IDS, makeLimbMatrixPlan, makeLimbMatrixWorkerIndices, sweepCandidatePath, validateLimbRenderEvidence } from './render-limb-contact-sheets.js'
 
 describe('Task 8 limb contact-sheet gate', () => {
+  it('declares its four-slot review phase as a subset of canonical structural slots', () => {
+    expect(LIMB_REVIEW_STRUCTURAL_SLOT_IDS).toEqual(['bodyFrame', 'headShape', 'arms', 'legs'])
+    expect(LIMB_REVIEW_STRUCTURAL_SLOT_IDS.every(slotId => STRUCTURAL_SLOT_IDS.includes(slotId))).toBe(true)
+  })
+
   it('partitions matrix cells across bounded workers without reordering or dropping entries', () => {
     expect(makeLimbMatrixWorkerIndices(5, 2)).toEqual([[0, 2, 4], [1, 3]])
     expect(makeLimbMatrixWorkerIndices(1, 2)).toEqual([[0]])

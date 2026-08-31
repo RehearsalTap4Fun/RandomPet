@@ -1,4 +1,5 @@
 import {
+  STRUCTURAL_SLOT_IDS,
   type Catalog,
   type ConnectorProfile,
   type Diagnostic,
@@ -26,7 +27,9 @@ const CONNECTOR_IDS_BY_CHILD_SLOT: Partial<Record<StructuralSlotId, readonly str
   extraAppendage: ['extraLeft', 'extraRight'],
 }
 
-const STRUCTURAL_CHILD_SLOTS = Object.keys(CONNECTOR_IDS_BY_CHILD_SLOT) as StructuralSlotId[]
+const STRUCTURAL_CHILD_SLOTS: readonly StructuralSlotId[] = STRUCTURAL_SLOT_IDS.filter(
+  slotId => slotId !== 'bodyFrame',
+)
 
 export interface StructuralPartSelection {
   part: VisualPartDefinition

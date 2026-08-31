@@ -1,19 +1,21 @@
 import { checkPartCompatibility } from './candidates.js'
 import { connectorExclusionCodes, type StructuralPartSelection } from './connector-compatibility.js'
-import type {
-  Catalog,
-  MonsterSpec,
-  RigId,
-  VisualPartDefinition,
-  VisualSelection,
-  VisualSlotId,
+import {
+  STRUCTURAL_SLOT_IDS,
+  type StructuralSlotId,
+  type Catalog,
+  type MonsterSpec,
+  type RigId,
+  type VisualPartDefinition,
+  type VisualSelection,
+  type VisualSlotId,
 } from './contracts.js'
 
 export type PartSelectionBlockReason = 'theme' | 'rig' | 'selection' | 'connector'
 
 function selectedStructuralParts(spec: MonsterSpec, catalog: Catalog) {
-  const selected = new Map<Extract<VisualSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>, StructuralPartSelection>()
-  for (const slotId of ['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'] as const) {
+  const selected = new Map<StructuralSlotId, StructuralPartSelection>()
+  for (const slotId of STRUCTURAL_SLOT_IDS) {
     const part = catalog.parts.find(candidate => candidate.id === spec.visualSlots[slotId].partId && candidate.slotId === slotId)
     if (part !== undefined) selected.set(slotId, { part, rigId: spec.visualSlots[slotId].rigId })
   }

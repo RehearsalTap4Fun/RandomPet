@@ -36,13 +36,34 @@ describe('Task 8 clean-checkout review integrity', () => {
     expect(task8LimbCatalogProjectionSha256(task8BridgeDrift)).not.toBe(baseline)
   })
 
-  it('restores only historical Task 8 face policy while preserving structural drift', async () => {
+  it('preserves approved amendment hashes across only the compact-proof provenance migration', async () => {
+    const { task8HistoricalAmendmentSha256 } = await import('./task8-stable-projection.js')
+    for (const [name, approvedSha256] of [
+      ['body-head-connector-amendment.json', '2b3c958f50533ae61e49f04ca2d51b3bcee944ebb809f315cafb6b72d8a20806'],
+      ['visible-limb-threshold-amendment.json', '2971fd0cd8b076944f3204ea8cb55643dd554510a296d25f01b0fb57c5ab27d6'],
+    ] as const) {
+      const path = `packages/asset-catalog/review/v0.3.0/${name}`
+      const bytes = await readFile(resolve(ROOT, path))
+      expect(task8HistoricalAmendmentSha256(path, bytes)).toBe(approvedSha256)
+      expect(task8HistoricalAmendmentSha256(
+        path,
+        Buffer.from(bytes.toString('utf8').replace('"schemaVersion":', '"schemaVersionTampered":')),
+      )).not.toBe(approvedSha256)
+    }
+  })
+
+  it('restores only historical Task 8 face and F006 neck policy while preserving other structural drift', async () => {
     const { task8HistoricalCausalCatalog } = await import('./validate-interface-slice.js')
     const catalog = JSON.parse(await readFile(resolve(ROOT, 'packages/asset-catalog/catalog/v0.3.0/catalog.json'), 'utf8'))
     const projected = task8HistoricalCausalCatalog(catalog)
     const expected = structuredClone(catalog)
     expected.compositionPolicy.faceInsideRatio = 0.8
     expected.compositionPolicy.faceVisibleRatio = 0.85
+    for (const partId of ['body_biped_tall', 'head_round_dome']) {
+      expected.parts.find((part: any) => part.id === partId)
+        .composition.variantsByRig.biped.connectors.find((connector: any) => connector.id === 'neck')
+        .warpLimits.depthRatio.max = 1.2
+    }
     expect(projected).toEqual(expected)
     expect(catalog.compositionPolicy).toEqual(expect.objectContaining({
       faceInsideRatio: 0.84, faceVisibleRatio: 0.84,

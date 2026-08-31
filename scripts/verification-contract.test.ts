@@ -29,13 +29,14 @@ it('keeps the Task 9 technical gate separate from the exact v0.3 release approva
     'npm run test:coverage',
     'npm run catalog:validate',
     'npm run build',
+    'npm run test:production-smoke:prebuilt',
     'npm run test:render-golden',
     'npm run test:e2e',
   ]
-  expect(root.scripts['verify:task9']).toBe(technicalSteps.join(' && '))
+  expect(root.scripts['verify:task9']).toBe(technicalSteps.filter(step => step !== 'npm run test:production-smoke:prebuilt').join(' && '))
   expect(root.scripts.verify).toBe(`${technicalSteps.join(' && ')} && npm run acceptance:generate && npm run acceptance:verify`)
   expect(root.scripts['acceptance:verify']).toBe(
-    'tsx scripts/validate-composite-review.ts --version 0.3.0 --approval-sha256 4f2c8c359e53297077914a3c1fc72d943164d57632fbd9d41809a7445b3f1025 --generated-evidence-dir artifacts/acceptance/v0.3',
+    'tsx scripts/validate-composite-review.ts --version 0.3.0 --approval-sha256 2cca1f60478b79b730e598ec83c4a7ae1297a8a75a94e1738c9e7aaaed043881 --generated-evidence-dir artifacts/acceptance/v0.3',
   )
 })
 
@@ -90,7 +91,7 @@ it('keeps live reconstruction suites in full verification while coverage targets
     .filter(path => /\.test\.tsx?$/.test(path))
     .map(path => path.replaceAll('\\', '/'))
   discovered.push('tests/render/production-composition.spec.ts')
-  expect(discovered).toHaveLength(88)
+  expect(discovered).toHaveLength(90)
 
   const configured = [
     ...discovered.filter(path => /^(packages|scripts)\//.test(path) && !COVERAGE_ONLY_EXCLUDES.includes(path)),

@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from '@playwright/test'
-import type { Catalog } from '@qmonster/generator-core'
+import { STRUCTURAL_SLOT_IDS, type Catalog } from '@qmonster/generator-core'
 import { EXTERNAL_LIMB_ALPHA_MIN, type ConnectorMetric } from '@qmonster/renderer-canvas'
 import sharp from 'sharp'
 import { createServer } from 'vite'
@@ -16,6 +16,7 @@ import {
 } from './render-limb-contact-sheets.js'
 import { TASK9_BODIES_BY_RIG, TASK9_EXTRA_IDS, TASK9_RIG_IDS, TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE, TASK9_TAIL_IDS, type Task9RigId } from './task9-structural-identities.js'
 import { resolveExistingContainedPath } from './safe-output.js'
+import { task8Task9HistoricalNeckWarpProjection } from './task8-stable-projection.js'
 
 export { TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE } from './task9-structural-identities.js'
 
@@ -147,7 +148,7 @@ const TASK9_APPROVED_FACE_SOCKET_Y = {
 } as const
 
 export function task9HistoricalCausalCatalog(catalog: Catalog): Catalog {
-  const projected = structuredClone(catalog)
+  const projected = task8Task9HistoricalNeckWarpProjection(catalog)
   for (const [partId, rigs] of Object.entries(TASK9_APPROVED_FACE_SOCKET_Y)) {
     const part = projected.parts.find(candidate => candidate.id === partId)
     if (part?.composition?.mode !== 'interface') throw new Error(`TASK9_HISTORICAL_PROJECTION_INVALID:${partId}`)
@@ -169,7 +170,7 @@ export function task9HistoricalCausalCatalog(catalog: Catalog): Catalog {
 
 export function task9StructuralCatalogProjectionSha256(catalog: Catalog): string {
   const historical = task9HistoricalCausalCatalog(catalog)
-  const task9Slots = new Set(['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'])
+  const task9Slots = new Set(STRUCTURAL_SLOT_IDS)
   const projection = {
     version: historical.version,
     rigs: historical.rigs,
@@ -360,7 +361,7 @@ export async function reconstructTailExtraMatrixEvidence(input: {
   const structuralProjectionSha256 = task9StructuralCatalogProjectionSha256(sourceCatalog)
   const renderSourceCatalog = input.catalogProjection?.(sourceCatalog) ?? sourceCatalog
   const catalog = browserCatalog(renderSourceCatalog, {
-    activeStructuralSlots: ['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'],
+    activeStructuralSlots: STRUCTURAL_SLOT_IDS,
     applyPaletteMasks: false,
   })
   const tempRoot = await mkdtemp(join(repositoryRoot, '.tmp-tail-extra-matrix-'))
@@ -386,6 +387,12 @@ export async function reconstructTailExtraMatrixEvidence(input: {
         catalog,
         spec,
         applyPaletteMasks: false,
+        ...(input.historicalDiagnostics === true
+          ? {
+              connectorMetricProjection: 'task8-task9-neutral-bridge-v1',
+              bridgeRoleProjection: 'task8-task9-cross-product-v1',
+            }
+          : {}),
         ...(input.diagnosticScope === false ? {} : { diagnosticScope: TASK9_TAIL_EXTRA_DIAGNOSTIC_SCOPE }),
       })}\n`)
       await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)

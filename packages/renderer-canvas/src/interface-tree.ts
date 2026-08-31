@@ -1,6 +1,7 @@
 import {
   generationOrderForCatalog,
   isAttachmentPartComposition,
+  STRUCTURAL_SLOT_IDS,
   validateStructuralSelections,
   type Catalog,
   type ConnectorProfile,
@@ -23,7 +24,7 @@ import type {
 
 const ROOT: Point2D = { x: 1024, y: 1024 }
 const STRUCTURAL_CHILDREN: readonly StructuralSlotId[] = [
-  'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
+  ...STRUCTURAL_SLOT_IDS.filter(slotId => slotId !== 'bodyFrame'),
 ]
 
 function selectedPart(spec: MonsterSpec, catalog: Catalog, slotId: VisualSlotId) {

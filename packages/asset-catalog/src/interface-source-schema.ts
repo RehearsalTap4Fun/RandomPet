@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import type { ConnectorClass, ConnectorRole, Diagnostic, MaterialFamily, ParseResult, Point2D, Rect, StructuralSlotId, WarpLimits } from '@qmonster/generator-core'
+import { STRUCTURAL_SLOT_IDS, type ConnectorClass, type ConnectorRole, type Diagnostic, type MaterialFamily, type ParseResult, type Point2D, type Rect, type StructuralSlotId, type WarpLimits } from '@qmonster/generator-core'
 
 export const BIPED_SLICE = {
-  bodyFrame: ['body_biped_peanut', 'body_biped_tall'], headShape: ['head_mushroom_cap'],
+  bodyFrame: ['body_biped_peanut', 'body_biped_tall'], headShape: ['head_mushroom_cap', 'head_round_dome'],
   arms: ['arms_short_plush', 'arms_long_noodle'], legs: ['legs_webbed', 'legs_mushroom'],
 } as const
 export type InterfaceRigId = 'blob' | 'biped' | 'floating'
@@ -23,7 +23,7 @@ export interface InterfaceAssetVariantSource {
   promptEvidence: InterfacePromptEvidence, connectors: InterfaceConnectorSource[], renderNodes: InterfaceRenderNodeSource[],
   faceSafeZones?: Rect[], featureSockets?: Record<string, Point2D>,
 }
-type InterfaceSlotId = Extract<StructuralSlotId, 'bodyFrame' | 'headShape' | 'arms' | 'legs' | 'tail' | 'extraAppendage'>
+type InterfaceSlotId = StructuralSlotId
 export interface InterfaceAssetSource extends InterfaceAssetVariantSource { id: string, slotId: InterfaceSlotId }
 export interface InterfaceAssetGroupSource { id: string, slotId: InterfaceSlotId, variants: InterfaceAssetVariantSource[] }
 export interface InterfaceBridgeSource {
@@ -38,6 +38,27 @@ export interface InterfaceSourceManifest {
 }
 export interface FlattenedInterfaceVariant extends InterfaceAssetVariantSource {
   partId: string, slotId: InterfaceSlotId,
+}
+
+export const HEAD_EYES_SAFE_ZONE_Y_OFFSET_MIN = 80
+export const HEAD_MOUTH_EYES_Y_GAP_MIN = 120
+
+export function headFaceSocketPolicyIssue(
+  variant: Pick<InterfaceAssetVariantSource, 'faceSafeZones' | 'featureSockets'>,
+): string | null {
+  const zone = variant.faceSafeZones?.[0]
+  const eyes = variant.featureSockets?.eyes
+  const mouth = variant.featureSockets?.mouth
+  if (zone === undefined || eyes === undefined || mouth === undefined) {
+    return 'Head variants require a face safe zone plus eyes and mouth feature sockets.'
+  }
+  if (eyes.y < zone.y + HEAD_EYES_SAFE_ZONE_Y_OFFSET_MIN) {
+    return `Head eyes socket must be at least ${HEAD_EYES_SAFE_ZONE_Y_OFFSET_MIN}px below the face safe-zone top.`
+  }
+  if (mouth.y < eyes.y + HEAD_MOUTH_EYES_Y_GAP_MIN) {
+    return `Head mouth socket must be at least ${HEAD_MOUTH_EYES_Y_GAP_MIN}px below the eyes socket.`
+  }
+  return null
 }
 export function structuralVariants(manifest: InterfaceSourceManifest): FlattenedInterfaceVariant[] {
   return manifest.assets.flatMap(asset => 'variants' in asset
@@ -68,7 +89,7 @@ const sha256 = z.string().regex(/^[a-f0-9]{64}$/u)
 const runtimePngPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
 const runtimeWebpPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.webp$/u)
 const rigId = z.enum(['blob', 'biped', 'floating'])
-const slotId = z.enum(['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'])
+const slotId = z.enum(STRUCTURAL_SLOT_IDS)
 const point = z.object({ x: z.number().finite().min(0).max(2048), y: z.number().finite().min(0).max(2048) }).strict()
 const vector = z.object({ x: z.number().finite().min(-1).max(1), y: z.number().finite().min(-1).max(1) }).strict()
   .refine(value => Math.abs(Math.hypot(value.x, value.y) - 1) <= 0.001, { message: 'Connector direction vectors must be normalized.' })
@@ -125,6 +146,12 @@ const InterfaceSourceManifestSchema = z.object({
   const hasTail = flattened.some(item => item.slotId === 'tail')
   const hasExtra = flattened.some(item => item.slotId === 'extraAppendage')
   for (const [index, item] of flattened.entries()) {
+    if (item.slotId === 'headShape') {
+      const faceSocketIssue = headFaceSocketPolicyIssue(item)
+      if (faceSocketIssue !== null) context.addIssue({
+        code: 'custom', path: ['assets', index, 'featureSockets'], message: faceSocketIssue,
+      })
+    }
     const expectedIds = item.slotId === 'bodyFrame'
       ? ['neck', 'shoulderLeft', 'shoulderRight', 'hipLeft', 'hipRight', ...(hasTail ? ['tailRoot'] : []), ...(hasExtra ? ['extraLeft', 'extraRight'] : [])]
       : item.slotId === 'headShape' ? ['neck']

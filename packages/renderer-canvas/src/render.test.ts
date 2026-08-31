@@ -135,7 +135,7 @@ function makeRecordingSurfaceFactory(calls: string[]) {
 
 function makeHealthyInterfaceSurfaceFactory(
   calls: string[],
-  mode: 'healthy' | 'disconnected' | 'internal-child' | 'invalid-body' = 'healthy',
+  mode: 'healthy' | 'disconnected' | 'internal-child' | 'invalid-body' | 'misaligned-role-masks' = 'healthy',
   faceMode: 'fixture-default' | 'valid' = 'fixture-default',
 ) {
   const size = RASTER_WIDTH * RASTER_WIDTH * 4
@@ -145,6 +145,8 @@ function makeHealthyInterfaceSurfaceFactory(
   const receiverContour = new Uint8ClampedArray(size)
   const plugContour = new Uint8ClampedArray(size)
   const validFace = sparseAlpha([[256, 200]], 512)
+  const misalignedRoleBridge = new Uint8ClampedArray(size)
+  misalignedRoleBridge[(100 * RASTER_WIDTH + 100) * 4 + 3] = 255
   for (let y = 990; y <= 1058; y += 1) {
     for (let x = 960; x <= 1088; x += 1) {
       if (mode !== 'disconnected' || y <= 994 || y >= 1054) {
@@ -185,6 +187,8 @@ function makeHealthyInterfaceSurfaceFactory(
             : index === 1
             ? mode === 'invalid-body' ? new Uint8ClampedArray(4) : body
             : index === 2 ? child
+            : index === 14 && mode === 'misaligned-role-masks'
+              && calls.includes('interface-15:draw:interface-7') ? misalignedRoleBridge
             : index === 15 ? receiverContour
             : index === 16 ? plugContour
             : opaque,
@@ -1406,7 +1410,7 @@ describe('v0.3 interface rendering', () => {
     expect(result.connectorMetrics).toEqual([])
   })
 
-  it('fails closed when an active transition mask cannot enter the final color pass', async () => {
+  it('fails closed when an active transition mask cannot enter the role-masked bridge pipeline', async () => {
     const { catalog, spec } = fixture()
     catalog.compositionPolicy!.faceInsideRatio = 0
     catalog.compositionPolicy!.faceVisibleRatio = 0
@@ -1433,7 +1437,7 @@ describe('v0.3 interface rendering', () => {
     expect(result.diagnostics).toContainEqual(expect.objectContaining({
       severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
     }))
-    expect(result.connectorMetrics).toHaveLength(8)
+    expect(result.connectorMetrics).toEqual([])
     expect(attemptedBackMask).toBe(true)
   })
 
@@ -1469,9 +1473,19 @@ describe('v0.3 interface rendering', () => {
     const transitionMaskDraws = calls
       .filter(call => /^interface-6:draw:assets\/v0\.3\.0\/bridges\/blob\/.+-(?:back|front)\.png$/u.test(call))
       .map(call => call.replace('interface-6:draw:assets/v0.3.0/', ''))
-    expect(transitionMaskDraws).toHaveLength(16 * 18)
+    expect(transitionMaskDraws).toHaveLength(32 * 18)
     const transitionMasks = transitionMaskDraws.filter((_call, index) => index % 18 === 0)
-    expect(transitionMasks).toEqual([
+    expect(transitionMasks.slice(0, 16)).toEqual([
+      'bridges/blob/neck-back.png', 'bridges/blob/neck-front.png',
+      'bridges/blob/shoulder-back.png', 'bridges/blob/shoulder-front.png',
+      'bridges/blob/shoulder-back.png', 'bridges/blob/shoulder-front.png',
+      'bridges/blob/hip-back.png', 'bridges/blob/hip-front.png',
+      'bridges/blob/hip-back.png', 'bridges/blob/hip-front.png',
+      'bridges/blob/tail-back.png', 'bridges/blob/tail-front.png',
+      'bridges/blob/extra-back.png', 'bridges/blob/extra-front.png',
+      'bridges/blob/extra-back.png', 'bridges/blob/extra-front.png',
+    ])
+    expect(transitionMasks.slice(16)).toEqual([
       'bridges/blob/neck-back.png',
       'bridges/blob/shoulder-back.png', 'bridges/blob/shoulder-back.png',
       'bridges/blob/hip-back.png', 'bridges/blob/hip-back.png',
@@ -1559,8 +1573,8 @@ describe('v0.3 interface rendering', () => {
     ))
       .every(metric => (metric.childOutsideBodyRatio ?? 0) >= 0.614)).toBe(true)
     expect(result.diagnostics).toEqual([])
-    expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(8 * 18 * 2)
-    expect(calls.filter(call => call.startsWith('interface-15:transform:'))).toHaveLength(8 * 18)
+    expect(calls.filter(call => call.startsWith('interface-5:transform:'))).toHaveLength(8 * 18 * 3)
+    expect(calls.filter(call => call.startsWith('interface-15:transform:'))).toHaveLength(0)
     // The contour-derived receiver and plug rows are the real material ends.
     // Solved connector origins can point in the opposite screen direction
     // (notably at hips), so using those origins reverses the two sampled colors.
@@ -1636,6 +1650,56 @@ describe('v0.3 interface rendering', () => {
     }))
     expect(result.connectorMetrics?.[0]?.largestComponentRatio).toBeLessThan(0.99)
     expect(result.connectorMetrics?.[0]?.centerlineGapPixels).toBeGreaterThan(0)
+  })
+
+  it('measures the final role-masked bridge union instead of the neutral bridge alpha', async () => {
+    const { catalog, spec } = fixture()
+    const calls: string[] = []
+    const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024,
+      surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls, 'misaligned-role-masks'),
+    })
+
+    expect(result.connectorMetrics?.[0]?.receiverCoverage).toBeLessThan(0.62)
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+    }))
+  })
+
+  it('retains the frozen neutral-bridge metric only for explicit Task 8/9 audit reconstruction', async () => {
+    const { catalog, spec } = fixture()
+    const calls: string[] = []
+    const result = await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024,
+      connectorMetricProjection: 'task8-task9-neutral-bridge-v1',
+      surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls, 'misaligned-role-masks'),
+    })
+
+    expect(result.connectorMetrics?.[0]?.receiverCoverage).toBeGreaterThanOrEqual(0.9)
+    expect(result.diagnostics).not.toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED',
+    }))
+  })
+
+  it('uses the frozen cross-product role compositor only for explicit Task 8/9 audit reconstruction', async () => {
+    const { catalog, spec } = fixture()
+    const liveCalls: string[] = []
+    const historicalCalls: string[] = []
+
+    await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024,
+      surfaceFactory: makeHealthyInterfaceSurfaceFactory(liveCalls),
+    })
+    await renderMonster(makeRecordingContext([]), spec, catalog, makeResolver(), {
+      ...options1024,
+      connectorMetricProjection: 'task8-task9-neutral-bridge-v1',
+      bridgeRoleProjection: 'task8-task9-cross-product-v1',
+      surfaceFactory: makeHealthyInterfaceSurfaceFactory(historicalCalls),
+    } as RenderOptions)
+
+    expect(liveCalls).not.toContain('interface-7:draw:interface-14')
+    expect(historicalCalls.filter(call => call === 'interface-7:draw:interface-14')).toHaveLength(16)
+    expect(historicalCalls.filter(call => call === 'interface-7:draw:interface-6')).toHaveLength(16)
   })
 
   it('blocks a limb whose external structural alpha is below 0.614', async () => {

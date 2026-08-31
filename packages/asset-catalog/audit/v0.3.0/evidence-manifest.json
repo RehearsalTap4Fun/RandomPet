@@ -7,11 +7,11 @@
   "task9Evidence": {
     "schemaVersion": "task9-production-evidence-v1",
     "sourceEntryCount": 102,
-    "dependencyCount": 1808,
+    "dependencyCount": 1811,
     "dependencies": [
       {
         "path": "apps/creator-web/src/render-test.ts",
-        "sha256": "84534e098f6087b5cc191a73bf517f7b1ab82a1efc7f1ade0ca3335441d92634",
+        "sha256": "2951ed7c40081e7f7f1da24436a9a95e1418feb5ac8c0ff2fb669e93a030b4ab",
         "groups": [
           "task6-9-review",
           "task9-live-renderer"
@@ -1282,6 +1282,20 @@
         ]
       },
       {
+        "path": "asset-source/v0.3.0/guides/head_round_dome-neck-plug-guide.png",
+        "sha256": "2e2ccdc305ed2cd3b254f6d85a9f1ef2ef606107bf93b88d3b29b1f659a65f91",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/head_round_dome-neck-plug-mask.png",
+        "sha256": "b3b9ee4acd39c4fbb9d2b1719e5fd9e94c9f8d2b8aa5ae26ae64e6c0d0060984",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
         "path": "asset-source/v0.3.0/guides/legs_mushroom-hipLeft-plug-guide.png",
         "sha256": "0b7559355f83718395dcbacbdf9a6b49c05b1bc4f59a747667673f9ae77e6b1c",
         "groups": [
@@ -1339,7 +1353,7 @@
       },
       {
         "path": "asset-source/v0.3.0/interface-manifest.json",
-        "sha256": "980f96bc604fbbef449aee9a730e48acc637c2433011bb5cdfb6c837119864ef",
+        "sha256": "d57f29d5b94c80d241569230ee1f8e10d8cbd2eaf5eae91a2b6eb61c69e3f2f8",
         "groups": [
           "interface-manifest"
         ]
@@ -17956,15 +17970,22 @@
         ]
       },
       {
+        "path": "packages/asset-catalog/audit/v0.3.0/task8-blob-joint-shoulder-selection-proof.json",
+        "sha256": "52310279085ebff1fe94821d5581b5119881d435b859799baf4bdbc554fbc459",
+        "groups": [
+          "task6-9-review"
+        ]
+      },
+      {
         "path": "packages/asset-catalog/audit/v0.3.0/task9-composition-statistics.json",
-        "sha256": "3a0e4a2a7f60163051b4a01fc9815a1102fac7f9574d104de9cac430983b46fd",
+        "sha256": "ecd8ad02e309c53d0fe64de562ebfb799097311203fb6513e777f043084091c4",
         "groups": [
           "composition-statistics"
         ]
       },
       {
         "path": "packages/asset-catalog/audit/v0.3.0/task9-pipeline-fixed-point.json",
-        "sha256": "5c0f6bc3dfce9e220d59a72f3988cd1e8cc0e0f6f82c41fe87514c47b430b879",
+        "sha256": "16fbd7d8a405fdc4b9c4489f3f90e089c520c73944b140ef5bb6ad69fcdeb40a",
         "groups": [
           "pipeline-fixed-point"
         ]
@@ -17978,7 +17999,7 @@
       },
       {
         "path": "packages/asset-catalog/catalog/v0.3.0/catalog.json",
-        "sha256": "320c8dc436c23febd7d57d1e5f18c7ccd87ce9fc203f6f9c1cfa9a5b99358c4e",
+        "sha256": "58ca2ff0d91ee72fb6da788cdea7346daa77c2e400bc8dbe7ad156e87d4eb465",
         "groups": [
           "catalog"
         ]
@@ -17992,7 +18013,7 @@
       },
       {
         "path": "packages/asset-catalog/catalog/v0.3.0/parts.json",
-        "sha256": "5b3eb9adaa7e84e54944a20cf523d309f2ca0d330465ebc4e03aefa0f50ddd3e",
+        "sha256": "f62b9b084cfea102ab46879ef9c0b9774c9789bf5bbb0b878cfd977038543f56",
         "groups": [
           "catalog"
         ]
@@ -18056,14 +18077,14 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/biped-vertical-slice-acceptance.json",
-        "sha256": "f1c14462fb4f14ad359cbe3cc029d13c1e85592bf5d25cb5630bd8b938be3520",
+        "sha256": "d832d48c81da169407c64e54e4bfb0c926ae389890fe7d4382434dc80bfdeb6b",
         "groups": [
           "task6-9-review"
         ]
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/body-head-connector-amendment.json",
-        "sha256": "2b3c958f50533ae61e49f04ca2d51b3bcee944ebb809f315cafb6b72d8a20806",
+        "sha256": "290dba49185ec51852bb7de5e10327f1af9b274272066ba16d32b10b97e33cc2",
         "groups": [
           "task6-9-review"
         ]
@@ -18208,7 +18229,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/head-face-socket-amendment.json",
-        "sha256": "2d9001340f4cb971b8884f1291b763d9dd1a24bcc384a9e011818ac631c168c0",
+        "sha256": "9a06381dbd5a2864d3f09176f290747ecb8f8f0efdd2c7a0b8282fbf31d1ca3f",
         "groups": [
           "task6-9-review"
         ]
@@ -19095,7 +19116,7 @@
       },
       {
         "path": "packages/asset-catalog/review/v0.3.0/visible-limb-threshold-amendment.json",
-        "sha256": "2971fd0cd8b076944f3204ea8cb55643dd554510a296d25f01b0fb57c5ab27d6",
+        "sha256": "2bc0423cb9b534b122deb1c1fea5755c6485403051e60507dd058e0f994f248a",
         "groups": [
           "task6-9-review"
         ]
@@ -19131,7 +19152,7 @@
       },
       {
         "path": "packages/asset-catalog/src/production-validation.ts",
-        "sha256": "4c8931dd6bb8b2c6ca78bcd919d8039883350ee386f392832208bdc7c4b26032",
+        "sha256": "b0b24f58af33b21e926c769dbb197861cba2cbd4c39e39402fb3bf7f39009ac9",
         "groups": [
           "task9-validation"
         ]
@@ -19159,7 +19180,7 @@
       },
       {
         "path": "packages/generator-core/src/catalog-schema.ts",
-        "sha256": "9e213f813c7dee3f67262eccf1aa9ef8b202fdb7cb4c6778af30c61a3872bf3a",
+        "sha256": "d378c39a04441aff935e26fd272ca01075aa195b1e5bf7da5df051fe09e07504",
         "groups": [
           "task9-validation"
         ]
@@ -19174,7 +19195,7 @@
       },
       {
         "path": "packages/renderer-canvas/src/render.ts",
-        "sha256": "d671a46c145f7291a6d8cf50b321ef1029cc71ff96867294d9ab1df0bd318004",
+        "sha256": "75a1d4b1b997315a1098b8c115e155192f26e47fa7cd33bcf242a81c860d726a",
         "groups": [
           "task6-9-review",
           "task9-live-renderer"
@@ -19182,7 +19203,7 @@
       },
       {
         "path": "packages/renderer-canvas/src/types.ts",
-        "sha256": "b9c99fcd1706c61237a3ae9afd868189060667a4c27a761102d3630a1055e288",
+        "sha256": "58091bf450d815b981e63bd6219eccbac773d6530d9218d9428983a552e2443b",
         "groups": [
           "task9-live-renderer"
         ]
@@ -19210,7 +19231,7 @@
       },
       {
         "path": "scripts/render-limb-contact-sheets.ts",
-        "sha256": "17b10e9af43f3869075c473285e5f274f1124b1688b3640a2301a4fbc5206d2e",
+        "sha256": "f41fdb4204c03f20b296ed79a2a27b361e2678a285d88f70a615cff0f60eefae",
         "groups": [
           "task6-9-review",
           "task9-live-renderer"
@@ -19218,14 +19239,14 @@
       },
       {
         "path": "scripts/render-tail-extra-structural-matrices.ts",
-        "sha256": "4fedfcfafcefa77782a4601624b275005aee6ed6632c167a67faad260505502f",
+        "sha256": "ce67cc2f82d14cb44fc0221478e2cac95f15114d7ea2b19099f3855d95846109",
         "groups": [
           "task9-live-renderer"
         ]
       },
       {
         "path": "scripts/task8-stable-projection.ts",
-        "sha256": "160de2d29d1adaf512dae29a1fecb2f78f19387a36ac8478f42e02b5fc60a1ea",
+        "sha256": "a5381f6d2fd30adb274e27043724dcc322cd23bbf10bb2aca68302f006f13c3e",
         "groups": [
           "task9-validation"
         ]
@@ -19239,7 +19260,7 @@
       },
       {
         "path": "tests/render/production-composition.spec.ts",
-        "sha256": "63cf4aad753751c1085e8adb96b559c174df43ddc216a51b9713c658c3b1b04c",
+        "sha256": "0c45dcb6c76c55dc90033b307f98e7ac8853e338f9fad6be5f3a94e5e8052f71",
         "groups": [
           "task9-validation"
         ]
@@ -19257,8 +19278,8 @@
       "optionalNoneRates": {
         "headAppendage": 0.3599,
         "tail": 0.3928,
-        "extraAppendage": 0.4722,
-        "effect": 0.3766
+        "extraAppendage": 0.4665,
+        "effect": 0.3619
       },
       "maximumStrongFeatures": 2,
       "maximumSurpriseSlots": 3,
@@ -19312,8 +19333,8 @@
         "build-color-scheme-masks",
         "build-interface-catalog"
       ],
-      "round1Sha256": "2f5d375840993308296dc240c654814f3878975045fbdc53d957aa2ad1dcc518",
-      "round2Sha256": "2f5d375840993308296dc240c654814f3878975045fbdc53d957aa2ad1dcc518"
+      "round1Sha256": "2fbb1bd2d7ba4cb93d6930968a218bd4dc22e4e4fb57697e126f36af48943200",
+      "round2Sha256": "2fbb1bd2d7ba4cb93d6930968a218bd4dc22e4e4fb57697e126f36af48943200"
     }
   }
 }

@@ -1,6 +1,7 @@
 {
   "schemaVersion": "task7-head-face-socket-amendment-v2",
-  "status": "MACHINE_PASS_AWAITING_USER_REVIEW",
+  "status": "USER_APPROVED",
+  "userResponse": "A",
   "decision": "All v0.3 head variants place eyes at least 80px inside the face safe-zone top, then keep the mouth at least 120px below the eyes.",
   "thresholds": {
     "eyesSafeZoneTopInsetMinPx": 80,

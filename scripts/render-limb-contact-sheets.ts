@@ -3,7 +3,9 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from '@playwright/test'
-import type { Catalog, MonsterSpec, SemanticSlotId, VisualSlotId } from '@qmonster/generator-core'
+// TASK8_STABLE_BEGIN:limb-canonical-structural-import
+import { STRUCTURAL_SLOT_IDS, type Catalog, type MonsterSpec, type SemanticSlotId, type StructuralSlotId, type VisualSlotId } from '@qmonster/generator-core'
+// TASK8_STABLE_END:limb-canonical-structural-import
 import { EXTERNAL_LIMB_ALPHA_MIN, type ConnectorMetric } from '@qmonster/renderer-canvas'
 import sharp from 'sharp'
 import { createServer } from 'vite'
@@ -18,6 +20,14 @@ export const BODIES = {
   biped: ['body_biped_peanut', 'body_biped_tall'],
   floating: ['body_floating_drop'],
 } as const
+// TASK8_STABLE_BEGIN:limb-canonical-structural-subset
+export const LIMB_REVIEW_STRUCTURAL_SLOT_IDS = [
+  'bodyFrame', 'headShape', 'arms', 'legs',
+] as const satisfies readonly StructuralSlotId[]
+if (!LIMB_REVIEW_STRUCTURAL_SLOT_IDS.every(slotId => STRUCTURAL_SLOT_IDS.includes(slotId))) {
+  throw new Error('LIMB_EVIDENCE_INVALID: limb review slots must be canonical structural slots')
+}
+// TASK8_STABLE_END:limb-canonical-structural-subset
 
 export interface LimbMatrixPlanEntry {
   rigId: 'blob' | 'biped' | 'floating'
@@ -128,7 +138,7 @@ export function browserCatalog(input: Catalog, options: {
   const catalog = structuredClone(input)
 // TASK8_STABLE_END:limb-browser-catalog-signature
   // TASK8_STABLE_BEGIN:limb-active-structural-slots
-  const activeStructuralSlots = new Set(options.activeStructuralSlots ?? ['bodyFrame', 'headShape', 'arms', 'legs'])
+  const activeStructuralSlots = new Set(options.activeStructuralSlots ?? LIMB_REVIEW_STRUCTURAL_SLOT_IDS)
   // TASK8_STABLE_END:limb-active-structural-slots
   for (const part of catalog.parts) {
     part.themeIds = ['deep-sea', 'fungal', 'shadow']; part.themeWeights = { 'deep-sea': 1, fungal: 1, shadow: 1 }
@@ -208,6 +218,7 @@ export async function reconstructLimbMatrixEvidence(input: {
   writeDebugOnFailure?: boolean
   // TASK8_STABLE_BEGIN:limb-task10-catalog-projection-input
   catalogProjection?: (catalog: Catalog) => Catalog
+  historicalConnectorMetrics?: boolean
   // TASK8_STABLE_END:limb-task10-catalog-projection-input
   // TASK8_STABLE_BEGIN:limb-worker-count-input
   workerCount?: 1 | 2
@@ -249,7 +260,17 @@ export async function reconstructLimbMatrixEvidence(input: {
       const spec = makeSpec(catalog, selection, index)
       const inputPath = join(inputRoot, `${index.toString().padStart(2, '0')}.json`)
       // TASK8_STABLE_BEGIN:limb-structural-only-input
-      await writeFile(inputPath, `${JSON.stringify({ catalog, spec, applyPaletteMasks: false })}\n`)
+      await writeFile(inputPath, `${JSON.stringify({
+        catalog,
+        spec,
+        applyPaletteMasks: false,
+        ...(input.historicalConnectorMetrics === true
+          ? {
+              connectorMetricProjection: 'task8-task9-neutral-bridge-v1',
+              bridgeRoleProjection: 'task8-task9-cross-product-v1',
+            }
+          : {}),
+      })}\n`)
       // TASK8_STABLE_END:limb-structural-only-input
       await page.goto(`${baseUrl}render-test.html?bipedSlice=${encodeURIComponent(fsUrl(inputPath))}`)
       await page.waitForFunction(() => document.body.dataset.renderComplete === 'true' || document.body.dataset.renderError !== undefined)

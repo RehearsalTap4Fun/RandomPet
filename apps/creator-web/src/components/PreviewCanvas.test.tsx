@@ -1,13 +1,14 @@
 import { createRef } from 'react'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { generateMonster, type Diagnostic } from '@qmonster/generator-core'
+import { generateMonster, type Catalog, type Diagnostic, type MonsterSpec } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import type { RenderResult } from '@qmonster/renderer-canvas'
 import {
   CatalogImageResolverCache,
   PreviewCanvas,
   catalogAssetKey,
+  previewFrameKey,
   resolveProductionAssetUrl,
   type PreviewRenderer,
 } from './PreviewCanvas.js'
@@ -81,6 +82,30 @@ describe('CatalogImageResolverCache', () => {
 })
 
 describe('PreviewCanvas', () => {
+  it('changes the render request key for catalog content and renderer identity', () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'identity', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const changedCatalog = structuredClone(catalog)
+    changedCatalog.parts[0]!.assetPath = 'parts/changed.webp'
+    const firstRenderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
+    }))
+    const secondRenderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
+    }))
+    const firstResolver = { resolve: vi.fn(async () => ({} as CanvasImageSource)) }
+    const secondResolver = { resolve: vi.fn(async () => ({} as CanvasImageSource)) }
+    const key = previewFrameKey as unknown as (
+      spec: MonsterSpec, catalog: Catalog, renderer: PreviewRenderer,
+      resolver?: typeof firstResolver,
+    ) => string
+
+    expect(key(spec, changedCatalog, firstRenderer)).not.toBe(key(spec, catalog, firstRenderer))
+    expect(key(spec, catalog, secondRenderer)).not.toBe(key(spec, catalog, firstRenderer))
+    expect(key(spec, catalog, firstRenderer, secondResolver))
+      .not.toBe(key(spec, catalog, firstRenderer, firstResolver))
+  })
+
   it.each([
     'CONNECTOR_VARIANT_MISSING',
     'CONNECTOR_PROFILE_INVALID',
@@ -249,6 +274,35 @@ describe('PreviewCanvas', () => {
     />)
 
     await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([futureError]))
+    const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
+    expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
+    expect(onRenderComplete).not.toHaveBeenCalled()
+  })
+
+  it('blocks a suppressed scoped error in the generic live preview', async () => {
+    const { contexts } = installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'suppressed-error', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const suppressedError: Diagnostic = {
+      severity: 'error', code: 'CONNECTOR_COMPOSITE_FAILED', path: ['connectors', 'tailRoot'], message: 'suppressed seam',
+    }
+    const scopedResult: RenderResult = {
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: [],
+      diagnosticScope: {
+        id: 'historical-slice', activeVisualSlots: ['bodyFrame'], activeConnectorIds: ['neck'],
+        suppressedDiagnostics: [suppressedError],
+      },
+    }
+    const renderer: PreviewRenderer = vi.fn(async () => scopedResult)
+    const onDiagnosticsChange = vi.fn()
+    const onRenderComplete = vi.fn()
+
+    render(<PreviewCanvas
+      spec={spec} catalog={catalog} renderer={renderer}
+      onDiagnosticsChange={onDiagnosticsChange} onRenderComplete={onRenderComplete}
+    />)
+
+    await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([suppressedError]))
     const display = screen.getByRole('img', { name: '生物预览' }) as HTMLCanvasElement
     expect(contexts.get(display)?.drawImage).not.toHaveBeenCalled()
     expect(onRenderComplete).not.toHaveBeenCalled()

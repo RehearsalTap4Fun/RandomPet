@@ -65,6 +65,9 @@ describe('Task 9 tail/extra structural matrices', () => {
       faceInsideRatio: 0.8,
       faceVisibleRatio: 0.85,
     })
+    expect(historical.parts.find((part: any) => part.id === 'head_round_dome')
+      .composition.variantsByRig.biped.connectors.find((connector: any) => connector.id === 'neck')
+      .warpLimits.depthRatio.max).toBe(1.2)
     const nonstructural = structuredClone(catalog)
     nonstructural.parts.push({ ...structuredClone(nonstructural.parts.find((part: any) => part.slotId === 'eyes')), id: 'eyes_legal_extension' })
     nonstructural.parts.find((part: any) => part.slotId === 'colorScheme').rigMaskPaths.blob.primary = 'assets/v0.3.0/legal-color-extension.png'

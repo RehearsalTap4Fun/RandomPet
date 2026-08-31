@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { makeCompositionCatalogFixture } from '@qmonster/generator-core/test-fixtures'
-import { validateCatalogStructure } from '@qmonster/generator-core'
+import { STRUCTURAL_SLOT_IDS, validateCatalogStructure } from '@qmonster/generator-core'
 import type { Catalog } from '@qmonster/generator-core'
 import { validateProductionMetadata } from '../packages/asset-catalog/src/production-validation.js'
-import { buildInterfaceCatalog, parseBuildInterfaceCatalogArgs, validateInterfaceSourceIndex } from './build-interface-catalog.js'
+import { buildInterfaceCatalog, parseBuildInterfaceCatalogArgs, TASK6_INTERFACE_STRUCTURAL_SLOT_IDS, validateInterfaceSourceIndex } from './build-interface-catalog.js'
 import { interfaceVariantKey, structuralVariants, task9VariantSourceMaskPaths } from './interface-source-schema.js'
 import type { InterfaceSourceManifest } from './interface-source-schema.js'
 import type { RetainedCoordinateMetadata } from './retain-v02-nonstructural-assets.js'
@@ -13,6 +13,11 @@ import type { RetainedCoordinateMetadata } from './retain-v02-nonstructural-asse
 const hashFor = (value: string): string => createHash('sha256').update(value).digest('hex')
 
 describe('buildInterfaceCatalog', () => {
+  it('declares the Task 6 four-slot phase as a subset of canonical structural slots', () => {
+    expect(TASK6_INTERFACE_STRUCTURAL_SLOT_IDS).toEqual(['bodyFrame', 'headShape', 'arms', 'legs'])
+    expect(TASK6_INTERFACE_STRUCTURAL_SLOT_IDS.every(slotId => STRUCTURAL_SLOT_IDS.includes(slotId))).toBe(true)
+  })
+
   it('expands only the v0.3 composition frame top to y60 while preserving every other edge', async () => {
     const baseCatalog = JSON.parse(await readFile('packages/asset-catalog/catalog/v0.2.0/catalog.json', 'utf8')) as Catalog
     const manifest = JSON.parse(await readFile('asset-source/v0.3.0/interface-manifest.json', 'utf8')) as InterfaceSourceManifest

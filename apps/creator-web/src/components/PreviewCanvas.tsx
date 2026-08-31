@@ -108,13 +108,43 @@ interface CachedPreviewFrame {
 }
 
 const PREVIEW_FRAME_CACHE_LIMIT = 16
+const previewCatalogIds = new WeakMap<Catalog, number>()
+const previewRendererIds = new WeakMap<PreviewRenderer, number>()
+const previewResolverIds = new WeakMap<ImageResolver, number>()
+let nextPreviewIdentity = 1
 function hasBlockingRenderDiagnostic(result: RenderResult): boolean {
-  return result.diagnostics.some(diagnostic => diagnostic.severity === 'error')
+  return previewDiagnostics(result).some(diagnostic => diagnostic.severity === 'error')
 }
 
-export function previewFrameKey(spec: MonsterSpec): string {
+function previewDiagnostics(result: RenderResult): Diagnostic[] {
+  const suppressedErrors = result.diagnosticScope?.suppressedDiagnostics
+    .filter(diagnostic => diagnostic.severity === 'error') ?? []
+  return [...result.diagnostics, ...suppressedErrors]
+}
+
+function objectIdentity<T extends object>(identities: WeakMap<T, number>, value: T): number {
+  let identity = identities.get(value)
+  if (identity === undefined) {
+    identity = nextPreviewIdentity
+    nextPreviewIdentity += 1
+    identities.set(value, identity)
+  }
+  return identity
+}
+
+export function previewFrameKey(
+  spec: MonsterSpec,
+  catalog: Catalog,
+  renderer: PreviewRenderer = renderMonster,
+  resolver?: ImageResolver,
+): string {
   const { slotRolls: _slotRolls, ...renderedSpec } = spec
-  return JSON.stringify(renderedSpec)
+  return JSON.stringify({
+    spec: renderedSpec,
+    catalog: `${catalog.version}:${objectIdentity(previewCatalogIds, catalog)}`,
+    renderer: objectIdentity(previewRendererIds, renderer),
+    resolver: resolver === undefined ? 0 : objectIdentity(previewResolverIds, resolver),
+  })
 }
 
 function canvasUnavailable(): Diagnostic[] {
@@ -203,7 +233,7 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
       onRenderCommit?.(cacheKey)
       onRenderComplete?.(result)
     }
-    const cacheKey = previewFrameKey(spec)
+    const cacheKey = previewFrameKey(spec, catalog, renderer, resolver)
     const cached = frameCache.current.get(cacheKey)
     if (cached !== undefined) {
       frameCache.current.delete(cacheKey)
@@ -225,7 +255,7 @@ export const PreviewCanvas = forwardRef<HTMLCanvasElement, PreviewCanvasProps>(f
       if (requestId.current !== currentRequest) return
       if (hasBlockingRenderDiagnostic(result)) {
         targetContext.clearRect(0, 0, 1024, 1024)
-        onDiagnosticsChange(result.diagnostics)
+        onDiagnosticsChange(previewDiagnostics(result))
         return
       }
       const snapshot = target.ownerDocument.createElement('canvas')

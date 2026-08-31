@@ -178,6 +178,35 @@ describe('CreatorWorkbench', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled())
   })
 
+  it('disables image export while a same-version catalog and renderer replacement is pending', async () => {
+    installCanvasContexts()
+    const catalog = makeValidCatalogFixture()
+    const replacementCatalog = structuredClone(catalog)
+    const session = createCreatorSession(generateMonster({
+      seed: 'render-identity', themeId: 'fungal', mode: 'normal',
+    }, catalog), { png: true, webp: true })
+    const completedRender = {
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
+    }
+    const firstRenderer: PreviewRenderer = vi.fn(async () => completedRender)
+    const pending = deferred<Awaited<ReturnType<PreviewRenderer>>>()
+    const replacementRenderer: PreviewRenderer = vi.fn(() => pending.promise)
+    const view = render(<CreatorWorkbench
+      session={session} catalog={catalog} onAction={() => undefined}
+      previewRenderer={firstRenderer}
+    />)
+
+    await waitFor(() => expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled())
+    view.rerender(<CreatorWorkbench
+      session={session} catalog={replacementCatalog} onAction={() => undefined}
+      previewRenderer={replacementRenderer}
+    />)
+
+    expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeDisabled()
+    pending.resolve(completedRender)
+    await waitFor(() => expect(screen.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled())
+  })
+
   it('presents the complete shell, guarded export controls and live status summary', async () => {
     installCanvasContexts()
     const catalog = makeValidCatalogFixture()

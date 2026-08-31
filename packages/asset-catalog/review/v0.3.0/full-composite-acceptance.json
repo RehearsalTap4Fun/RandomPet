@@ -2,13 +2,22 @@
   "catalogVersion": "0.3.0",
   "rendererVersion": "0.3.0",
   "decision": "approved",
-  "reviewedAt": "2026-08-28T17:21:56.405+08:00",
+  "reviewedAt": "2026-08-31T09:44:55.6576328+08:00",
   "reviewer": "user",
   "entryCount": 21,
-  "contactSheetSha256": "d9f0bea4f32b5dfd7a41e95c83ef746545b1f1fd6e5afdfc8aaa6aa6eb175af9",
-  "manifestSha256": "d4cdff73b39f27b3cbdd29b6f358a885c453201346d9a55a202fba5d667e41dd",
+  "contactSheetSha256": "39776f8abc4fc05ff9011082f0e6e79ac3952fac3bfe61790c65d7946e255545",
+  "manifestSha256": "bbf76a6efc4fc520abbd46a488241b15b2807b6d397c77b001e51fd3dc374952",
+  "userApproved": true,
+  "approvalResponse": "A",
+  "supersededApproval": {
+    "reviewedAt": "2026-08-28T17:21:56.405+08:00",
+    "contactSheetSha256": "d9f0bea4f32b5dfd7a41e95c83ef746545b1f1fd6e5afdfc8aaa6aa6eb175af9",
+    "manifestSha256": "d4cdff73b39f27b3cbdd29b6f358a885c453201346d9a55a202fba5d667e41dd",
+    "reason": "Superseded by the user-approved Phase B effectiveRole renderer review."
+  },
   "notes": [
-    "User approved all 21 entries in the fixed v0.3 composite review sheet.",
-    "User explicitly accepted high-density entries 001, 002, 003, 007, 009, 016, 019, 020, and 021."
+    "User approved the displayed Phase B 21-entry staging sheet with response A.",
+    "The exact approved staging contact-sheet and manifest bytes were copied into the canonical review paths without regeneration.",
+    "All 21 PNGs use the final effectiveRole endpoint compositor; seed 2026082118 uses the expanded compatible body_biped_tall and head_round_dome selection."
   ]
 }

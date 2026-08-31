@@ -3,7 +3,12 @@ import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import sharp from 'sharp'
 import { describe, expect, it } from 'vitest'
-import { deriveCommonSymmetricShoulderOrigins, deriveSymmetricShoulderOrigins, selectJointShoulderSolution } from './amend-blob-wide-shoulders.js'
+import {
+  deriveCommonSymmetricShoulderOrigins,
+  deriveSymmetricShoulderOrigins,
+  selectJointShoulderSolution,
+  selectJointShoulderSolutionFromProof,
+} from './amend-blob-wide-shoulders.js'
 
 const ROOT = process.cwd()
 
@@ -26,10 +31,29 @@ describe('Task 7 body_blob_wide shoulder amendment', () => {
     }
   })
 
-  it('retains the approved x490 c3/paddle solution from frozen joint evidence at global 0.614', async () => {
-    const evidence = JSON.parse(await readFile(resolve(ROOT, '.superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json'), 'utf8'))
+  it('retains the approved x490 c3/paddle solution from a compact proof bound to the frozen trace', async () => {
+    const tracePath = resolve(ROOT, '.superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json')
+    const proofPath = resolve(ROOT, 'packages/asset-catalog/audit/v0.3.0/task8-blob-joint-shoulder-selection-proof.json')
+    const [traceBytes, proofBytes] = await Promise.all([readFile(tracePath), readFile(proofPath)])
+    const evidence = JSON.parse(traceBytes.toString('utf8'))
+    const proof = JSON.parse(proofBytes.toString('utf8'))
+    expect(proofBytes.byteLength).toBeLessThan(10_000)
+    expect(proof.sourceTrace).toEqual({
+      path: '.superpowers/sdd/2026-08-24-qmonster-v0.3-interface-components-implementation/task8-blob-joint-shoulder-search.json',
+      sha256: sha256(traceBytes),
+      size: traceBytes.byteLength,
+    })
     expect(() => selectJointShoulderSolution(evidence, 0.65)).toThrow('no common')
-    const selected = selectJointShoulderSolution(evidence, 0.614)
+    const selected = selectJointShoulderSolutionFromProof(proof, 0.614)
+    const selectedFromTrace = selectJointShoulderSolution(evidence, 0.614)
+    expect(selected).toMatchObject({
+      selectedLeftX: selectedFromTrace.selectedLeftX,
+      selectedRightX: selectedFromTrace.selectedRightX,
+      outsideMinimum: selectedFromTrace.outsideMinimum,
+      paddle: selectedFromTrace.paddle,
+      short: selectedFromTrace.short,
+      outsideMinima: selectedFromTrace.outsideMinima,
+    })
     expect(selected).toMatchObject({
       selectedLeftX: 490,
       paddle: { armId: 'arms_paddle:c4', scale: 1, rotationDegrees: 0 },
@@ -41,6 +65,9 @@ describe('Task 7 body_blob_wide shoulder amendment', () => {
       gateErrors: [],
       sourceEvaluation: { pass: false },
     })
+    expect(() => selectJointShoulderSolutionFromProof({
+      ...proof, sourceTrace: { ...proof.sourceTrace, sha256: '0'.repeat(64) },
+    }, 0.614)).toThrow('selection proof')
   })
 
   it('intersects body support and every retained limb safe-frame interval', () => {

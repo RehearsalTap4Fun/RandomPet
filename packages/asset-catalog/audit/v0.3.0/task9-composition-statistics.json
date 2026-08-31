@@ -15,8 +15,8 @@
   "optionalNoneRates": {
     "headAppendage": 0.3599,
     "tail": 0.3928,
-    "extraAppendage": 0.4722,
-    "effect": 0.3766
+    "extraAppendage": 0.4665,
+    "effect": 0.3619
   },
   "maximumStrongFeatures": 2,
   "maximumStrongFeaturesLimit": 2,

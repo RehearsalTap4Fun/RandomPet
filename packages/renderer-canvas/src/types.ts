@@ -30,6 +30,10 @@ export interface RenderOptions {
   height: 1024 | 2048
   includeGroundShadow: boolean
   applyPaletteMasks?: boolean
+  /** Historical audit reconstruction only. Live rendering always omits this. */
+  connectorMetricProjection?: 'task8-task9-neutral-bridge-v1'
+  /** Historical audit reconstruction only. Live rendering uses effective role masks. */
+  bridgeRoleProjection?: 'task8-task9-cross-product-v1'
   surfaceFactory?: RenderSurfaceFactory
   diagnosticScope?: {
     id: string

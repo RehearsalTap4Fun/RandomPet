@@ -1,8 +1,12 @@
 import {
-  CONNECTOR_COVERAGE_MIN,
+  compositionMetricsMeetThresholds,
+  CONNECTOR_PLUG_COVERAGE_MIN,
+  CONNECTOR_RECEIVER_COVERAGE_MIN,
   CONNECTOR_GAP_MAX_1024,
+  connectorMetricMeetsThresholds,
   EXTERNAL_LIMB_ALPHA_MIN,
   STRUCTURE_ALPHA_MASS_MIN,
+  structureMetricMeetsThreshold,
   type ConnectorMetric,
 } from '@qmonster/renderer-canvas'
 import type { Catalog } from '@qmonster/generator-core'
@@ -22,8 +26,8 @@ import sharp from 'sharp'
 export function makeValidSliceEntry(): BipedSliceEntry {
   const metric: ConnectorMetric = {
     connectorId: 'neck',
-    receiverCoverage: CONNECTOR_COVERAGE_MIN,
-    plugCoverage: CONNECTOR_COVERAGE_MIN,
+    receiverCoverage: CONNECTOR_RECEIVER_COVERAGE_MIN,
+    plugCoverage: CONNECTOR_PLUG_COVERAGE_MIN,
     largestComponentRatio: STRUCTURE_ALPHA_MASS_MIN,
     centerlineGapPixels: CONNECTOR_GAP_MAX_1024,
     childOutsideBodyRatio: EXTERNAL_LIMB_ALPHA_MIN,
@@ -62,42 +66,15 @@ export function assertBipedSliceEntry(
 ): void {
   const connectorIds = entry.connectorMetrics.map(metric => metric.connectorId)
   const connectorIdSet = new Set(connectorIds)
-  const bounds = entry.compositionMetrics.visibleBounds
-  const finiteFaceMetrics = [
-    entry.compositionMetrics.eyesInsideRatio,
-    entry.compositionMetrics.eyesVisibleRatio,
-    entry.compositionMetrics.mouthInsideRatio,
-    entry.compositionMetrics.mouthVisibleRatio,
-  ].every(Number.isFinite)
   const invalid = entry.diagnostics.length > 0
     || connectorIds.length !== REQUIRED_CONNECTOR_IDS.length
     || connectorIdSet.size !== REQUIRED_CONNECTOR_IDS.length
     || REQUIRED_CONNECTOR_IDS.some(connectorId => !connectorIdSet.has(connectorId))
     || entry.connectorMetrics.some(metric => (
-      ![
-        metric.receiverCoverage,
-        metric.plugCoverage,
-        metric.largestComponentRatio,
-        metric.centerlineGapPixels,
-        metric.childOutsideBodyRatio ?? 0,
-      ].every(Number.isFinite)
-      || metric.receiverCoverage < CONNECTOR_COVERAGE_MIN
-      || metric.plugCoverage < CONNECTOR_COVERAGE_MIN
-      || metric.largestComponentRatio < STRUCTURE_ALPHA_MASS_MIN
-      || metric.centerlineGapPixels > CONNECTOR_GAP_MAX_1024
-      || (metric.childOutsideBodyRatio !== null && metric.childOutsideBodyRatio < EXTERNAL_LIMB_ALPHA_MIN)
+      !connectorMetricMeetsThresholds(metric, /^(shoulder|hip)/u.test(metric.connectorId))
+      || !structureMetricMeetsThreshold(metric)
     ))
-    || !finiteFaceMetrics
-    || entry.compositionMetrics.eyesInsideRatio < compositionPolicy.faceInsideRatio
-    || entry.compositionMetrics.eyesVisibleRatio < compositionPolicy.faceVisibleRatio
-    || entry.compositionMetrics.mouthInsideRatio < compositionPolicy.faceInsideRatio
-    || entry.compositionMetrics.mouthVisibleRatio < compositionPolicy.faceVisibleRatio
-    || bounds === null
-    || ![bounds?.x, bounds?.y, bounds?.width, bounds?.height].every(value => Number.isFinite(value))
-    || bounds.x < compositionPolicy.frameBounds.x
-    || bounds.y < compositionPolicy.frameBounds.y
-    || bounds.x + bounds.width > compositionPolicy.frameBounds.x + compositionPolicy.frameBounds.width
-    || bounds.y + bounds.height > compositionPolicy.frameBounds.y + compositionPolicy.frameBounds.height
+    || !compositionMetricsMeetThresholds(entry.compositionMetrics, compositionPolicy)
   if (invalid) throw new Error(`BIPED_SLICE_INVALID: ${entry.structuralKey}`)
 }
 
@@ -149,8 +126,7 @@ export async function validateBipedSliceReview(
     || manifest.entries.length !== BIPED_SLICE_ENTRY_COUNT
     || actualKeys.size !== BIPED_SLICE_ENTRY_COUNT
     || [...canonicalKeys].some(key => !actualKeys.has(key))
-    || manifest.entries.some(entry => entry.selections.headShape !== BIPED_SLICE_OPTIONS.headShape[0])
-  ) diagnostics.push(`slice roster is not canonical ${BIPED_SLICE_ENTRY_COUNT} unique mushroom-head entries`)
+  ) diagnostics.push(`slice roster is not canonical ${BIPED_SLICE_ENTRY_COUNT} unique two-head entries`)
   for (const entry of manifest.entries) {
     if (compositionPolicy !== undefined) {
       try { assertBipedSliceEntry(entry, compositionPolicy) } catch (caught) { diagnostics.push(caught instanceof Error ? caught.message : String(caught)) }
@@ -201,7 +177,7 @@ export async function validateBipedSliceReview(
           acceptance.decision !== 'approved'
           || acceptance.reviewer !== 'user'
           || acceptance.userApproved !== true
-          || acceptance.approvalResponse !== 'ok'
+          || acceptance.approvalResponse !== 'A'
           || acceptance.entryCount !== BIPED_SLICE_ENTRY_COUNT
           || sheetBytes === null
           || review256Bytes === null

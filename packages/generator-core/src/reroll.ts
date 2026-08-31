@@ -4,7 +4,7 @@ import {
   type StructuralPartSelection,
   validateStructuralSelections,
 } from './connector-compatibility.js'
-import { VISUAL_SLOT_IDS } from './contracts.js'
+import { STRUCTURAL_SLOT_IDS, VISUAL_SLOT_IDS, isStructuralSlot } from './contracts.js'
 import { generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
   Catalog,
@@ -39,21 +39,13 @@ export interface SelectVisualPartRequest extends RerollSlotRequest {
   partId: string
 }
 
-const STRUCTURAL_SLOTS = new Set<StructuralSlotId>([
-  'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
-])
-
 function isInterfaceCatalog(catalog: Catalog): boolean {
   return catalog.version === '0.3.0'
 }
 
-function isStructuralSlot(slotId: VisualSlotId): slotId is StructuralSlotId {
-  return STRUCTURAL_SLOTS.has(slotId as StructuralSlotId)
-}
-
 function selectedStructuralParts(spec: MonsterSpec, catalog: Catalog) {
   const selected = new Map<StructuralSlotId, StructuralPartSelection>()
-  for (const slotId of STRUCTURAL_SLOTS) {
+  for (const slotId of STRUCTURAL_SLOT_IDS) {
     const selection = spec.visualSlots[slotId]
     const part = catalog.parts.find(candidate => candidate.id === selection.partId && candidate.slotId === slotId)
     if (part !== undefined) selected.set(slotId, { part, rigId: selection.rigId })
