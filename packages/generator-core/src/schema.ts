@@ -43,6 +43,18 @@ const VisualSelectionSchema = z.object({
   }).optional(),
 })
 
+const SlotGenesSchema = z.strictObject({
+  P: z.string().min(1),
+  H1: z.string().min(1),
+  H2: z.string().min(1),
+  H3: z.string().min(1),
+})
+
+const MonsterGenomeSchema = z.strictObject({
+  genomeVersion: z.literal('0.1.0'),
+  genes: z.record(z.enum(VISUAL_SLOT_IDS), SlotGenesSchema),
+})
+
 const SemanticTraitSelectionSchema = z.object({
   primaryTraitId: z.string().min(1),
   detailTraitIds: z.array(z.string().min(1)),
@@ -62,6 +74,7 @@ export const MonsterSpecSchema = z.object({
   palette: PaletteSchema,
   slotRolls: z.record(z.enum(VISUAL_SLOT_IDS), z.number().int().min(0)),
   visualSlots: z.record(z.enum(VISUAL_SLOT_IDS), VisualSelectionSchema),
+  genome: MonsterGenomeSchema.optional(),
   semanticTraits: z.record(z.enum(SEMANTIC_SLOT_IDS), SemanticTraitSelectionSchema),
   mutation: ModifierApplicationSchema.nullable(),
   aberrations: z.array(ModifierApplicationSchema),

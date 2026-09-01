@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { VISUAL_SLOT_IDS } from './contracts.js'
+import { VISUAL_SLOT_IDS, type MonsterSpec, type SlotGenes } from './contracts.js'
 import { parseCatalog } from './catalog-schema.js'
 import { parseMonsterSpec } from './schema.js'
 import {
@@ -7,6 +7,7 @@ import {
   makeInterfaceCatalogFixture,
   makeValidCatalogFixture,
   makeValidMonsterSpecFixture,
+  makeGenomeForSpecFixture,
 } from './test-fixtures.js'
 
 describe('MonsterSpecSchema', () => {
@@ -112,6 +113,42 @@ describe('MonsterSpecSchema', () => {
     expect(Object.keys(input.visualSlots)).toHaveLength(14)
     expect(VISUAL_SLOT_IDS).toHaveLength(14)
     expect(parseMonsterSpec(input)).toEqual({ ok: true, value: input })
+  })
+
+  it('round-trips a strict four-layer genome without changing schemaVersion', () => {
+    const input = makeValidMonsterSpecFixture()
+    input.genome = makeGenomeForSpecFixture(input)
+
+    expect(parseMonsterSpec(input)).toEqual({ ok: true, value: input })
+    expect(input.schemaVersion).toBe('0.1.0')
+    expect(Object.keys(input.genome.genes)).toEqual([...VISUAL_SLOT_IDS])
+  })
+
+  it('keeps a legacy genome-free spec parseable', () => {
+    const input = makeValidMonsterSpecFixture()
+    expect(input.genome).toBeUndefined()
+    expect(parseMonsterSpec(input)).toEqual({ ok: true, value: input })
+  })
+
+  it('rejects a missing hidden gene at its exact path', () => {
+    const input = makeValidMonsterSpecFixture()
+    input.genome = makeGenomeForSpecFixture(input)
+    delete (input.genome.genes.eyes as Partial<SlotGenes>).H2
+
+    const parsed = parseMonsterSpec(input)
+    expect(parsed.ok).toBe(false)
+    if (!parsed.ok) expect(parsed.diagnostics).toContainEqual(expect.objectContaining({
+      path: ['genome', 'genes', 'eyes', 'H2'],
+    }))
+  })
+
+  it('rejects unknown genome slots and layers', () => {
+    const input = makeValidMonsterSpecFixture() as MonsterSpec & Record<string, unknown>
+    input.genome = makeGenomeForSpecFixture(input)
+    Object.assign(input.genome.genes.eyes, { H4: 'eyes_asymmetric' })
+    Object.assign(input.genome.genes, { unknownSlot: input.genome.genes.eyes })
+
+    expect(parseMonsterSpec(input)).toMatchObject({ ok: false })
   })
 
   it('rejects a missing mandatory slot without mutating input', () => {

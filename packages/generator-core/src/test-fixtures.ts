@@ -1,7 +1,9 @@
 import {
   SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  GENOME_VERSION,
   type Catalog,
+  type MonsterGenome,
   type MonsterSpec,
   type Palette,
   type RenderLayer,
@@ -10,6 +12,7 @@ import {
   type VisualPartDefinition,
   type VisualSelection,
   type VisualSlotId,
+  type SlotGenes,
 } from './contracts.js'
 
 const fixturePalette: Palette = {
@@ -73,6 +76,16 @@ export function makeValidMonsterSpecFixture(): MonsterSpec {
     ) as MonsterSpec['semanticTraits'],
     mutation: null,
     aberrations: [],
+  }
+}
+
+export function makeGenomeForSpecFixture(spec: MonsterSpec): MonsterGenome {
+  return {
+    genomeVersion: GENOME_VERSION,
+    genes: Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => {
+      const partId = spec.visualSlots[slotId].partId
+      return [slotId, { P: partId, H1: partId, H2: partId, H3: partId }]
+    })) as Record<VisualSlotId, SlotGenes>,
   }
 }
 

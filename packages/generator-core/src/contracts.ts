@@ -4,6 +4,22 @@ export const VISUAL_SLOT_IDS = [
   'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
 ] as const
 
+export const GENOME_VERSION = '0.1.0' as const
+export const GENOME_LAYERS = ['P', 'H1', 'H2', 'H3'] as const
+export type GenomeLayer = typeof GENOME_LAYERS[number]
+
+export interface SlotGenes {
+  P: string
+  H1: string
+  H2: string
+  H3: string
+}
+
+export interface MonsterGenome {
+  genomeVersion: typeof GENOME_VERSION
+  genes: Record<VisualSlotId, SlotGenes>
+}
+
 export const STRUCTURAL_SLOT_IDS = [
   'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
 ] as const satisfies readonly (typeof VISUAL_SLOT_IDS[number])[]
@@ -194,6 +210,7 @@ export interface MonsterSpec {
   palette: Palette
   slotRolls: Record<VisualSlotId, number>
   visualSlots: Record<VisualSlotId, VisualSelection>
+  genome?: MonsterGenome
   semanticTraits: Record<SemanticSlotId, SemanticTraitSelection>
   mutation: ModifierApplication | null
   aberrations: ModifierApplication[]
