@@ -1,7 +1,7 @@
 # QMonster 生成器 × 怪奇生物孵化器对接指南
 
 > 文档版本：1.1
-> 生成器基线：`feature/qmonster-v0.1` / `c9a0d6b`
+> 生成器基线：`feature/qmonster-v0.1` / `0b73abea607ece9d01c7f34fd61eb47c808a4a2d`
 > 目录版本：`0.3.0`
 > 渲染器版本：`0.3.0`
 > 更新日期：2026-09-01
