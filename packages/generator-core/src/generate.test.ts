@@ -3,8 +3,12 @@ import {
   buildCandidates,
   createRng,
   descendantsOf,
+  GENOME_LAYERS,
   GENERATION_ORDER,
   generateMonster,
+  generateVisualLayer,
+  genomeLayerSeed,
+  parseCatalog,
   rerollSlot,
   evaluatePartSelection,
   planComposition,
@@ -19,6 +23,7 @@ import {
   makeValidCatalogFixture,
   makeValidCatalogFixtureWithThreeRigs,
 } from './test-fixtures.js'
+import productionCatalogDocument from '../../asset-catalog/catalog/v0.3.0/catalog.json'
 
 const baseRequest = {
   seed: '84721937',
@@ -55,6 +60,72 @@ describe('generateMonster', () => {
       'headAppendage', 'arms', 'legs', 'tail', 'extraAppendage',
       'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
     ])
+  })
+
+  it('preserves the fixed production first-hatch phenotype', () => {
+    const parsedCatalog = parseCatalog(productionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    const generated = generateMonster({
+      seed: 'qmonster-v0.1-first-hatch',
+      themeId: 'fungal',
+      mode: 'normal',
+    }, parsedCatalog.value)
+
+    expect(Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
+      slotId,
+      generated.spec.visualSlots[slotId],
+    ]))).toEqual({
+      bodyFrame: { partId: 'body_biped_peanut', rigId: 'biped' },
+      headShape: { partId: 'head_round_dome', rigId: 'biped' },
+      eyes: { partId: 'eyes_sleepy_crescent', rigId: 'biped' },
+      mouthShape: { partId: 'mouth_soft_pout', rigId: 'biped' },
+      oralDetail: { partId: 'oral_lolling_tongue', rigId: 'biped' },
+      headAppendage: { partId: 'head_appendage_none', rigId: 'biped' },
+      arms: { partId: 'arms_long_noodle', rigId: 'biped' },
+      legs: { partId: 'legs_stub_feet', rigId: 'biped' },
+      tail: { partId: 'tail_soft_curl', rigId: 'biped' },
+      extraAppendage: { partId: 'extra_soft_tentacles', rigId: 'biped' },
+      surfaceMaterial: { partId: 'surface_short_fur', rigId: 'biped' },
+      pattern: { partId: 'pattern_soft_spots', rigId: 'biped' },
+      colorScheme: { partId: 'color_fungal_amber', rigId: 'biped' },
+      effect: { partId: 'effect_none', rigId: 'biped' },
+    })
+  })
+
+  it('generates a deterministic complete genome whose P matches the phenotype', () => {
+    const catalog = makeValidCatalogFixtureWithThreeRigs()
+    const left = generateMonster(baseRequest, catalog)
+    const right = generateMonster(baseRequest, catalog)
+
+    expect(left.spec.genome).toEqual(right.spec.genome)
+    expect(left.spec.genome?.genomeVersion).toBe('0.1.0')
+    for (const slotId of VISUAL_SLOT_IDS) {
+      expect(left.spec.genome?.genes[slotId].P).toBe(left.spec.visualSlots[slotId].partId)
+      expect(Object.keys(left.spec.genome!.genes[slotId])).toEqual(['P', 'H1', 'H2', 'H3'])
+    }
+  })
+
+  it('derives every hidden layer independently and ignores P locks', () => {
+    const catalog = makeValidCatalogFixture()
+    const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
+    catalog.parts.push({ ...eyes, id: 'eyes_locked_only' })
+    const request = { seed: 'independent-layers', themeId: 'fungal', mode: 'normal' } as const
+    const unlocked = generateMonster(request, catalog).spec
+    const locked = generateMonster({ ...request, lockedSelections: { eyes: 'eyes_locked_only' } }, catalog).spec
+
+    expect(locked.genome!.genes.eyes.P).toBe('eyes_locked_only')
+    for (const layer of ['H1', 'H2', 'H3'] as const) {
+      const standalone = generateVisualLayer({
+        seed: genomeLayerSeed(request.seed, layer),
+        themeId: request.themeId,
+      }, catalog)
+      for (const slotId of VISUAL_SLOT_IDS) {
+        expect(locked.genome!.genes[slotId][layer]).toBe(standalone.visualSlots[slotId].partId)
+        expect(locked.genome!.genes[slotId][layer]).toBe(unlocked.genome!.genes[slotId][layer])
+      }
+    }
   })
 
   it('never auto-generates more than two strong parts over 500 seeds', () => {

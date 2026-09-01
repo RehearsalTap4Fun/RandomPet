@@ -1,6 +1,6 @@
 import fc from 'fast-check'
 import { describe, expect, it } from 'vitest'
-import { buildCandidates, generateMonster } from './index.js'
+import { buildCandidates, GENOME_LAYERS, generateMonster, VISUAL_SLOT_IDS } from './index.js'
 import { createRng, slotSeedParts } from './prng.js'
 import { makeValidCatalogFixture } from './test-fixtures.js'
 
@@ -15,6 +15,13 @@ describe('generation properties', () => {
       } else {
         expect(Object.keys(result.spec.visualSlots)).toHaveLength(14)
         expect(Object.keys(result.spec.semanticTraits)).toHaveLength(8)
+        expect(result.spec.genome).toBeDefined()
+        for (const slotId of VISUAL_SLOT_IDS) {
+          expect(result.spec.genome!.genes[slotId].P).toBe(result.spec.visualSlots[slotId].partId)
+          for (const layer of GENOME_LAYERS) {
+            expect(result.spec.genome!.genes[slotId][layer].length).toBeGreaterThan(0)
+          }
+        }
       }
     }), { numRuns: 1000 })
   })

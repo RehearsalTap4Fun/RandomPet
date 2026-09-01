@@ -2,9 +2,11 @@ import { buildCandidates, checkPartCompatibility } from './candidates.js'
 import { validateStructuralSelections } from './connector-compatibility.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 import {
+  GENOME_LAYERS,
   VISUAL_SLOT_IDS,
   type Catalog,
   type Diagnostic,
+  type GenomeLayer,
   type GenerationRequest,
   type GenerationResult,
   type RigId,
@@ -12,6 +14,11 @@ import {
   type VisualSelection,
   type VisualSlotId,
 } from './contracts.js'
+import {
+  genomeFromVisualLayers,
+  genomeLayerSeed,
+  type VisualGenomeLayers,
+} from './genome.js'
 import { createRng, slotSeedParts } from './prng.js'
 import { applyModifiers } from './modifiers.js'
 import { projectSemanticTraits } from './projection.js'
@@ -49,7 +56,9 @@ function defaultRig(catalog: Catalog): RigId {
   return catalog.rigs[0]?.id ?? 'blob'
 }
 
-function lockedBodyRig(request: GenerationRequest, catalog: Catalog): RigId | undefined {
+type VisualLayerRequest = Pick<GenerationRequest, 'seed' | 'themeId' | 'slotRolls' | 'lockedSelections'>
+
+function lockedBodyRig(request: VisualLayerRequest, catalog: Catalog): RigId | undefined {
   const lockedBodyId = request.lockedSelections?.bodyFrame
   if (lockedBodyId === undefined) return undefined
   const lockedBody = catalog.parts.find(part => part.slotId === 'bodyFrame' && part.id === lockedBodyId)
@@ -61,7 +70,7 @@ function selectionFor(part: VisualPartDefinition, rigId: RigId): VisualSelection
 }
 
 export function resolveSlot(
-  request: GenerationRequest,
+  request: VisualLayerRequest,
   catalog: Catalog,
   slotId: VisualSlotId,
   rigId: RigId,
@@ -108,7 +117,7 @@ export function resolveSlot(
 }
 
 function reservedLockedStrongFeatures(
-  request: GenerationRequest,
+  request: VisualLayerRequest,
   visualSlots: Partial<Record<VisualSlotId, VisualSelection>>,
   catalog: Catalog,
 ): number {
@@ -119,14 +128,18 @@ function reservedLockedStrongFeatures(
   return strongFeatureCountForSelections(unresolvedLockedSelections, catalog)
 }
 
-export function generateMonster(request: GenerationRequest, catalog: Catalog): GenerationResult {
-  const diagnostics: Diagnostic[] = [...validateCatalogStructure(catalog)]
-  const theme = catalog.themes.find(item => item.id === request.themeId)
-  if (theme === undefined) {
-    diagnostics.push(error('THEME_NOT_FOUND', ['themeId'], `Theme ${request.themeId} is not present in the catalog.`))
-  }
+export interface GeneratedVisualLayer {
+  visualSlots: Record<VisualSlotId, VisualSelection>
+  diagnostics: Diagnostic[]
+  rigId: RigId
+}
 
-  const selectedRig = lockedBodyRig(request, catalog) ?? selectRigId(request, catalog)
+export function generateVisualLayer(
+  request: Pick<GenerationRequest, 'seed' | 'themeId' | 'slotRolls' | 'lockedSelections'>,
+  catalog: Catalog,
+): GeneratedVisualLayer {
+  const diagnostics: Diagnostic[] = []
+  const selectedRig = lockedBodyRig(request, catalog) ?? selectRigId({ ...request, mode: 'normal' }, catalog)
   const rigId = selectedRig ?? defaultRig(catalog)
   if (selectedRig === null) {
     diagnostics.push(error('NO_COMPATIBLE_RIG', ['visualSlots', 'bodyFrame'], 'No legal bodyFrame rig is available in the catalog.'))
@@ -146,7 +159,45 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
       compositionAllowanceForSlot(slotId, compositionPlan, strongFeaturesUsed),
     )
   }
-  const completeVisualSlots = visualSlots as Record<VisualSlotId, VisualSelection>
+  return {
+    visualSlots: visualSlots as Record<VisualSlotId, VisualSelection>,
+    diagnostics,
+    rigId,
+  }
+}
+
+function mapLayerDiagnostics(diagnostics: readonly Diagnostic[], layer: GenomeLayer): Diagnostic[] {
+  if (layer === 'P') return [...diagnostics]
+  return diagnostics.map(diagnostic => (
+    diagnostic.path[0] === 'visualSlots' && typeof diagnostic.path[1] === 'string'
+      ? { ...diagnostic, path: ['genome', 'genes', diagnostic.path[1], layer, ...diagnostic.path.slice(2)] }
+      : diagnostic
+  ))
+}
+
+export function generateMonster(request: GenerationRequest, catalog: Catalog): GenerationResult {
+  const diagnostics: Diagnostic[] = [...validateCatalogStructure(catalog)]
+  const theme = catalog.themes.find(item => item.id === request.themeId)
+  if (theme === undefined) {
+    diagnostics.push(error('THEME_NOT_FOUND', ['themeId'], `Theme ${request.themeId} is not present in the catalog.`))
+  }
+
+  const layers = {} as VisualGenomeLayers
+  for (const layer of GENOME_LAYERS) {
+    const hidden = layer !== 'P'
+    const generatedLayer = generateVisualLayer({
+      seed: genomeLayerSeed(request.seed, layer),
+      themeId: request.themeId,
+      ...(request.slotRolls === undefined ? {} : { slotRolls: request.slotRolls }),
+      ...(hidden || request.lockedSelections === undefined ? {} : { lockedSelections: request.lockedSelections }),
+    }, catalog)
+    layers[layer] = generatedLayer.visualSlots
+    diagnostics.push(...mapLayerDiagnostics(generatedLayer.diagnostics, layer))
+  }
+  const completeVisualSlots = layers.P
+  const genome = genomeFromVisualLayers(layers)
+  const rigId = completeVisualSlots.bodyFrame.rigId
+  const compositionPlan = planComposition(request.seed, request.themeId, rigId, catalog)
   const slotRolls = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
     slotId,
     request.slotRolls?.[slotId] ?? 0,
@@ -176,6 +227,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     palette: theme?.palette ?? { primary: '#000000', secondary: '#000000', accent: '#000000' },
     slotRolls,
     visualSlots: completeVisualSlots,
+    genome,
     semanticTraits: projectSemanticTraits(completeVisualSlots, request.seed, catalog),
     mutation: modifiers.mutation,
     aberrations: modifiers.aberrations,
