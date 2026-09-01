@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  generateMonster,
   validateMonsterSpecAgainstCatalog,
   type Catalog,
 } from './index.js'
@@ -18,6 +19,37 @@ const versions = {
 } as const
 
 describe('validateMonsterSpecAgainstCatalog', () => {
+  it('appends genome diagnostics after the existing spec diagnostics', () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = generateMonster({ seed: 'full-genome-validation', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    spec.genome!.genes.eyes.H1 = 'missing_hidden_eyes'
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).toContainEqual(expect.objectContaining({
+      code: 'SPEC_GENE_PART_MISSING',
+      path: ['genome', 'genes', 'eyes', 'H1'],
+    }))
+  })
+
+  it('keeps the exact legacy diagnostic sequence when genome is absent', () => {
+    const catalog = makeValidCatalogFixture()
+    const spec = makeValidMonsterSpecFixture()
+    spec.visualSlots.effect.partId = 'missing_effect'
+    spec.semanticTraits.frame.primaryTraitId = 'missing_frame_trait'
+    spec.mutation = { id: 'missing_mutation', overrides: {} }
+    const snapshot = structuredClone(spec)
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog, versions).map(item => ({
+      code: item.code,
+      path: item.path,
+    }))).toEqual([
+      { code: 'SPEC_PART_MISSING', path: ['visualSlots', 'effect', 'partId'] },
+      { code: 'SPEC_SEMANTIC_TRAIT_MISSING', path: ['semanticTraits', 'frame', 'primaryTraitId'] },
+      { code: 'SPEC_MODIFIER_INVALID', path: ['mutation'] },
+    ])
+    expect(spec).toEqual(snapshot)
+    expect(spec.genome).toBeUndefined()
+  })
+
   it('reports a blocking connector diagnostic with literal pair measurements', () => {
     const catalog = makeInterfaceCatalogFixture()
     const spec = makeValidCompositionSpecFixture(catalog)

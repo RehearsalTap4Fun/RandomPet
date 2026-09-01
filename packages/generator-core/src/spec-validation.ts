@@ -21,6 +21,7 @@ import {
   validateCompositionSelections,
 } from './composition.js'
 import { validateStructuralSelections } from './connector-compatibility.js'
+import { validateMonsterGenome } from './genome-validation.js'
 
 export const CURRENT_SPEC_VERSIONS: SupportedSpecVersions = {
   schemaVersion: '0.1.0',
@@ -319,5 +320,6 @@ export function validateMonsterSpecAgainstCatalog(
     planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, catalog),
   ))
   diagnostics.push(...validateStructuralSelections(spec, catalog))
+  diagnostics.push(...validateMonsterGenome(spec, catalog))
   return diagnostics
 }

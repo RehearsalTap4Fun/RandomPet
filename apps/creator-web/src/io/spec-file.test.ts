@@ -169,6 +169,23 @@ describe('parseSpecFile', () => {
     }
   })
 
+  it('rejects a catalog-invalid genome without changing the imported bytes', async () => {
+    const spec = generateMonster({
+      seed: 'invalid-import-genome', themeId: 'fungal', mode: 'normal',
+    }, currentCatalog).spec
+    spec.genome!.genes.eyes.H1 = 'missing_hidden_eyes'
+    const snapshot = structuredClone(spec)
+
+    const result = await parseSpecFile(createSpecFile(spec), registry)
+
+    expect(result.ok).toBe(false)
+    if (!result.ok) expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SPEC_GENE_PART_MISSING',
+      path: ['genome', 'genes', 'eyes', 'H1'],
+    }))
+    expect(spec).toEqual(snapshot)
+  })
+
   it('rejects a current v0.3 fungal specimen with a deep-sea color scheme', async () => {
     const spec = generateMonster({
       seed: 'current-v03-theme-conflict',

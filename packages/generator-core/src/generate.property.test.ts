@@ -1,6 +1,12 @@
 import fc from 'fast-check'
 import { describe, expect, it } from 'vitest'
-import { buildCandidates, GENOME_LAYERS, generateMonster, VISUAL_SLOT_IDS } from './index.js'
+import {
+  buildCandidates,
+  GENOME_LAYERS,
+  generateMonster,
+  validateMonsterSpecAgainstCatalog,
+  VISUAL_SLOT_IDS,
+} from './index.js'
 import { createRng, slotSeedParts } from './prng.js'
 import { makeValidCatalogFixture } from './test-fixtures.js'
 
@@ -22,6 +28,8 @@ describe('generation properties', () => {
             expect(result.spec.genome!.genes[slotId][layer].length).toBeGreaterThan(0)
           }
         }
+        expect(validateMonsterSpecAgainstCatalog(result.spec, catalog)
+          .filter(item => item.severity === 'error')).toEqual([])
       }
     }), { numRuns: 1000 })
   })

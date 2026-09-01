@@ -1,5 +1,6 @@
 export * from './contracts.js'
 export * from './genome.js'
+export * from './genome-validation.js'
 export * from './schema.js'
 export * from './spec-validation.js'
 export * from './catalog-schema.js'
