@@ -7,6 +7,7 @@ import {
   GENERATION_ORDER,
   generateMonster,
   generateVisualLayer,
+  generationOrderForCatalog,
   genomeLayerSeed,
   parseCatalog,
   rerollSlot,
@@ -14,6 +15,7 @@ import {
   planComposition,
   selectVisualPart,
   strongFeatureCount,
+  validateMonsterGenome,
   VISUAL_SLOT_IDS,
   type Catalog,
   type GenerationRequest,
@@ -165,7 +167,7 @@ describe('generateMonster', () => {
       'headShape', 'headAppendage', 'arms', 'legs', 'tail', 'extraAppendage',
       'eyes', 'mouthShape', 'oralDetail', 'effect',
     ])
-    expect(rerolled.affectedSlots).toEqual(['bodyFrame', 'colorScheme', 'eyes'])
+    expect(rerolled.affectedSlots).toEqual([...generationOrderForCatalog(catalog)])
     expect(selected.affectedSlots).toEqual(['bodyFrame', 'colorScheme', 'eyes'])
   })
 
@@ -183,7 +185,7 @@ describe('generateMonster', () => {
     })
 
     expect(initial.affectedSlots).toEqual(GENERATION_ORDER)
-    expect(rerolled.affectedSlots).toEqual(['bodyFrame', 'eyes', 'colorScheme'])
+    expect(rerolled.affectedSlots).toEqual([...generationOrderForCatalog(catalog)])
     expect(selected.affectedSlots).toEqual(['bodyFrame', 'eyes', 'colorScheme'])
   })
 
@@ -570,6 +572,17 @@ describe('local changes', () => {
     })
   })
 
+  it('rebuilds all four complete layers for a body-frame reroll', () => {
+    const catalog = makeValidCatalogFixtureWithThreeRigs()
+    const before = generateMonster({ seed: 'body-genome', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const after = rerollSlot({ spec: before, slotId: 'bodyFrame', locks: { tail: true }, catalog })
+
+    expect(after.affectedSlots).toEqual([...generationOrderForCatalog(catalog)])
+    expect(after.spec.slotRolls.bodyFrame).toBe(before.slotRolls.bodyFrame + 1)
+    expect(after.spec.genome!.genes.tail.P).toBe(before.genome!.genes.tail.P)
+    expect(validateMonsterGenome(after.spec, catalog)).toEqual([])
+  })
+
   it('reports the target and every regenerated or revalidated descendant', () => {
     const catalog = makeValidCatalogFixture()
     catalog.dependencies = { bodyFrame: ['legs', 'tail'], legs: ['effect'] }
@@ -577,9 +590,7 @@ describe('local changes', () => {
 
     const result = rerollSlot({ spec, slotId: 'bodyFrame', locks: { tail: true }, catalog })
 
-    expect(result.affectedSlots).toEqual(
-      GENERATION_ORDER.filter(slotId => slotId === 'bodyFrame' || descendantsOf('bodyFrame', catalog).has(slotId)),
-    )
+    expect(result.affectedSlots).toEqual([...generationOrderForCatalog(catalog)])
   })
 
   it('reports only the target slot when a reroll is blocked by its lock', () => {
@@ -642,10 +653,8 @@ describe('local changes', () => {
       slotId => after.spec.visualSlots[slotId].partId !== before.visualSlots[slotId].partId,
     )
 
-    expect(changedSlots).toEqual(['eyes', 'mouthShape', 'arms'])
-    expect(after.spec.visualSlots.arms.partId).toBe('arms_changed')
-    expect(after.spec.visualSlots.eyes.partId).toBe('eyes_changed')
-    expect(after.spec.visualSlots.mouthShape.partId).toBe('mouth_changed')
+    expect(changedSlots).toEqual([])
+    expect(after.spec.visualSlots).toEqual(before.visualSlots)
     expect(after.spec.visualSlots.effect).toEqual(before.visualSlots.effect)
     expect(after.spec.slotRolls).toEqual({ ...before.slotRolls, arms: 1 })
     expect(after.blocked).toBe(true)
@@ -720,6 +729,32 @@ describe('local changes', () => {
     expect(selected.blocked).toBe(false)
     expect(selected.spec.visualSlots.arms.partId).toBe('arms_manual')
     expect(selected.spec.visualSlots.eyes.partId).toBe('eyes_compatible')
+  })
+
+  it('synchronizes every affected P gene after manual parent selection', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.dependencies = { arms: ['eyes'] }
+    const arms = catalog.parts.find(part => part.slotId === 'arms')!
+    catalog.parts.push({ ...arms, id: 'arms_manual_gene', baseWeight: 0 })
+    const before = generateMonster({ seed: 'manual-genome', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const after = selectVisualPart({ spec: before, slotId: 'arms', partId: 'arms_manual_gene', locks: {}, catalog })
+
+    for (const slotId of after.affectedSlots) {
+      expect(after.spec.genome!.genes[slotId].P).toBe(after.spec.visualSlots[slotId].partId)
+    }
+    expect(after.spec.genome!.genes.arms.H1).toBe(before.genome!.genes.arms.H1)
+  })
+
+  it('rolls back phenotype and genome together when one hidden layer cannot materialize', () => {
+    const catalog = makeValidCatalogFixture()
+    const before = generateMonster({ seed: 'atomic-genome', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    before.genome!.genes.eyes.H2 = 'missing_hidden_eyes'
+    const result = rerollSlot({ spec: before, slotId: 'tail', locks: {}, catalog })
+
+    expect(result.blocked).toBe(true)
+    expect(result.spec.visualSlots).toEqual(before.visualSlots)
+    expect(result.spec.genome).toEqual(before.genome)
+    expect(result.spec.slotRolls.tail).toBe(before.slotRolls.tail + 1)
   })
 
   it('keeps manual parent selection transactional when a locked descendant is incompatible', () => {

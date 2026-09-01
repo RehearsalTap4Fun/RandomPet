@@ -4,8 +4,14 @@ import {
   type StructuralPartSelection,
   validateStructuralSelections,
 } from './connector-compatibility.js'
-import { STRUCTURAL_SLOT_IDS, VISUAL_SLOT_IDS, isStructuralSlot } from './contracts.js'
-import { generationOrderForCatalog, resolveSlot } from './generate.js'
+import {
+  GENOME_LAYERS,
+  STRUCTURAL_SLOT_IDS,
+  VISUAL_SLOT_IDS,
+  isStructuralSlot,
+  type GenomeLayer,
+} from './contracts.js'
+import { generateVisualLayer, generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
   Catalog,
   Diagnostic,
@@ -16,6 +22,13 @@ import type {
   VisualSelection,
   VisualSlotId,
 } from './contracts.js'
+import {
+  genomeFromVisualLayers,
+  genomeLayerSeed,
+  syncDominantGenes,
+  type VisualGenomeLayers,
+} from './genome.js'
+import { materializeGenomeLayer, validateMonsterGenome } from './genome-validation.js'
 import { projectSemanticTraits } from './projection.js'
 import { descendantsOf, evaluatePartSelection } from './selection.js'
 import { selectRigId } from './rig-selection.js'
@@ -162,7 +175,7 @@ function regenerateDescendants(
   }
 }
 
-export function rerollSlot(request: RerollSlotRequest): GenerationResult {
+function rerollPhenotypeSlot(request: RerollSlotRequest): GenerationResult {
   const spec = cloneSpec(request.spec)
   const diagnostics: Diagnostic[] = []
   if (request.locks[request.slotId]) {
@@ -216,7 +229,7 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
   return result(spec, diagnostics, affectedSlots)
 }
 
-export function selectVisualPart(request: SelectVisualPartRequest): GenerationResult {
+function selectPhenotypePart(request: SelectVisualPartRequest): GenerationResult {
   const spec = cloneSpec(request.spec)
   const diagnostics: Diagnostic[] = []
   const part = request.catalog.parts.find(item => item.slotId === request.slotId && item.id === request.partId)
@@ -256,4 +269,207 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
     return result(cloneSpec(request.spec), diagnostics, orderedAffectedSlots(request.slotId, request.catalog))
   }
   return result(spec, diagnostics, orderedAffectedSlots(request.slotId, request.catalog))
+}
+
+function mapHiddenDiagnostics(
+  diagnostics: readonly Diagnostic[],
+  layer: Exclude<GenomeLayer, 'P'>,
+): Diagnostic[] {
+  return diagnostics.map(diagnostic => (
+    diagnostic.path[0] === 'visualSlots' && typeof diagnostic.path[1] === 'string'
+      ? {
+          ...diagnostic,
+          path: ['genome', 'genes', diagnostic.path[1], layer, ...diagnostic.path.slice(2)],
+        }
+      : diagnostic
+  ))
+}
+
+function rollbackReroll(
+  request: RerollSlotRequest,
+  slotRoll: number,
+  diagnostics: Diagnostic[],
+  affectedSlots: VisualSlotId[],
+): GenerationResult {
+  const rolledBackSpec = cloneSpec(request.spec)
+  rolledBackSpec.slotRolls[request.slotId] = slotRoll
+  return result(rolledBackSpec, diagnostics, affectedSlots)
+}
+
+function lockedSelectionsForFullRebuild(
+  request: RerollSlotRequest,
+): Partial<Record<VisualSlotId, string>> {
+  return Object.fromEntries(VISUAL_SLOT_IDS.flatMap(slotId => (
+    slotId !== request.slotId && request.locks[slotId]
+      ? [[slotId, request.spec.visualSlots[slotId].partId]]
+      : []
+  ))) as Partial<Record<VisualSlotId, string>>
+}
+
+function rerollGenomeBodyFrame(request: RerollSlotRequest): GenerationResult {
+  if (request.locks.bodyFrame) return rerollPhenotypeSlot(request)
+
+  const slotRolls = { ...request.spec.slotRolls }
+  slotRolls.bodyFrame += 1
+  const layers = {} as VisualGenomeLayers
+  const diagnostics: Diagnostic[] = []
+  for (const layer of GENOME_LAYERS) {
+    const hidden = layer !== 'P'
+    const generated = generateVisualLayer({
+      seed: genomeLayerSeed(request.spec.seed, layer),
+      themeId: request.spec.themeId,
+      slotRolls,
+      ...(hidden ? {} : { lockedSelections: lockedSelectionsForFullRebuild(request) }),
+    }, request.catalog)
+    layers[layer] = generated.visualSlots
+    diagnostics.push(...(hidden
+      ? mapHiddenDiagnostics(generated.diagnostics, layer)
+      : generated.diagnostics))
+  }
+
+  const affectedSlots = [...generationOrderForCatalog(request.catalog)]
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return rollbackReroll(request, slotRolls.bodyFrame, diagnostics, affectedSlots)
+  }
+
+  const spec = cloneSpec(request.spec)
+  spec.slotRolls = slotRolls
+  spec.visualSlots = layers.P
+  spec.genome = genomeFromVisualLayers(layers)
+  spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
+  diagnostics.push(...validateCompositionSelections(
+    spec,
+    request.catalog,
+    planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, request.catalog),
+  ))
+  diagnostics.push(...validateStructuralSelections(spec, request.catalog))
+  diagnostics.push(...validateMonsterGenome(spec, request.catalog))
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return rollbackReroll(request, slotRolls.bodyFrame, diagnostics, affectedSlots)
+  }
+  return result(spec, diagnostics, affectedSlots)
+}
+
+function hiddenLayerSpec(
+  spec: MonsterSpec,
+  layer: Exclude<GenomeLayer, 'P'>,
+  visualSlots: Record<VisualSlotId, VisualSelection>,
+  catalog: Catalog,
+): MonsterSpec {
+  const temporary = cloneSpec(spec)
+  delete temporary.genome
+  temporary.seed = genomeLayerSeed(spec.seed, layer)
+  temporary.visualSlots = visualSlots
+  temporary.semanticTraits = projectSemanticTraits(visualSlots, temporary.seed, catalog)
+  return temporary
+}
+
+function rerollGenomeSlot(request: RerollSlotRequest): GenerationResult {
+  if (request.slotId === 'bodyFrame') return rerollGenomeBodyFrame(request)
+
+  const phenotype = rerollPhenotypeSlot(request)
+  if (phenotype.blocked) {
+    if (phenotype.spec.slotRolls[request.slotId] === request.spec.slotRolls[request.slotId]) return phenotype
+    return rollbackReroll(
+      request,
+      phenotype.spec.slotRolls[request.slotId],
+      phenotype.diagnostics,
+      phenotype.affectedSlots,
+    )
+  }
+
+  const affectedSlots = orderedAffectedSlots(request.slotId, request.catalog)
+  const diagnostics = [...phenotype.diagnostics]
+  const genome = structuredClone(request.spec.genome!)
+  for (const layer of GENOME_LAYERS.slice(1)) {
+    const hiddenLayer = layer as Exclude<GenomeLayer, 'P'>
+    const materialized = materializeGenomeLayer(request.spec, hiddenLayer, request.catalog)
+    if (materialized === null) throw new Error('Expected a genome layer for a genome-aware reroll.')
+    if (!materialized.ok) {
+      diagnostics.push(...materialized.diagnostics)
+      return rollbackReroll(
+        request,
+        phenotype.spec.slotRolls[request.slotId],
+        diagnostics,
+        affectedSlots,
+      )
+    }
+    const hiddenResult = rerollPhenotypeSlot({
+      ...request,
+      spec: hiddenLayerSpec(request.spec, hiddenLayer, materialized.value, request.catalog),
+      locks: {},
+    })
+    diagnostics.push(...mapHiddenDiagnostics(hiddenResult.diagnostics, hiddenLayer))
+    if (hiddenResult.blocked) {
+      return rollbackReroll(
+        request,
+        phenotype.spec.slotRolls[request.slotId],
+        diagnostics,
+        affectedSlots,
+      )
+    }
+    for (const slotId of affectedSlots) {
+      genome.genes[slotId][hiddenLayer] = hiddenResult.spec.visualSlots[slotId].partId
+    }
+  }
+
+  const spec = phenotype.spec
+  spec.genome = syncDominantGenes(genome, spec.visualSlots, affectedSlots)
+  const genomeDiagnostics = validateMonsterGenome(spec, request.catalog)
+  diagnostics.push(...genomeDiagnostics)
+  if (genomeDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return rollbackReroll(
+      request,
+      phenotype.spec.slotRolls[request.slotId],
+      diagnostics,
+      affectedSlots,
+    )
+  }
+  return result(spec, diagnostics, affectedSlots)
+}
+
+function selectGenomeBodyFrame(request: SelectVisualPartRequest): GenerationResult {
+  const phenotype = selectPhenotypePart(request)
+  if (phenotype.blocked) return phenotype
+
+  const layers = { P: phenotype.spec.visualSlots } as VisualGenomeLayers
+  const diagnostics = [...phenotype.diagnostics]
+  for (const layer of GENOME_LAYERS.slice(1)) {
+    const hiddenLayer = layer as Exclude<GenomeLayer, 'P'>
+    const generated = generateVisualLayer({
+      seed: genomeLayerSeed(request.spec.seed, hiddenLayer),
+      themeId: request.spec.themeId,
+      slotRolls: request.spec.slotRolls,
+    }, request.catalog)
+    layers[hiddenLayer] = generated.visualSlots
+    diagnostics.push(...mapHiddenDiagnostics(generated.diagnostics, hiddenLayer))
+  }
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return result(cloneSpec(request.spec), diagnostics, phenotype.affectedSlots)
+  }
+
+  const spec = phenotype.spec
+  spec.genome = genomeFromVisualLayers(layers)
+  const genomeDiagnostics = validateMonsterGenome(spec, request.catalog)
+  diagnostics.push(...genomeDiagnostics)
+  if (genomeDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return result(cloneSpec(request.spec), diagnostics, phenotype.affectedSlots)
+  }
+  return result(spec, diagnostics, phenotype.affectedSlots)
+}
+
+export function rerollSlot(request: RerollSlotRequest): GenerationResult {
+  if (request.spec.genome === undefined) return rerollPhenotypeSlot(request)
+  return rerollGenomeSlot(request)
+}
+
+export function selectVisualPart(request: SelectVisualPartRequest): GenerationResult {
+  if (request.spec.genome === undefined) return selectPhenotypePart(request)
+  if (request.slotId === 'bodyFrame') return selectGenomeBodyFrame(request)
+
+  const phenotype = selectPhenotypePart(request)
+  if (phenotype.blocked) return phenotype
+  const spec = phenotype.spec
+  spec.genome = syncDominantGenes(request.spec.genome, spec.visualSlots, phenotype.affectedSlots)
+  return result(spec, phenotype.diagnostics, phenotype.affectedSlots)
 }

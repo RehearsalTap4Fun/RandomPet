@@ -1,8 +1,58 @@
 import { describe, expect, it } from 'vitest'
-import { rerollSlot } from './index.js'
-import { makeInterfaceCatalogFixture, makeValidCompositionSpecFixture } from './test-fixtures.js'
+import { generateMonster, rerollSlot, selectVisualPart, VISUAL_SLOT_IDS } from './index.js'
+import {
+  makeInterfaceCatalogFixture,
+  makeValidCatalogFixture,
+  makeValidCompositionSpecFixture,
+  makeValidMonsterSpecFixture,
+} from './test-fixtures.js'
 
 describe('rerollSlot', () => {
+  it('rerolls the same dependency closure in all four genome layers', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.dependencies = { arms: ['eyes'], eyes: ['mouthShape'] }
+    const before = generateMonster({ seed: 'genome-closure', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const result = rerollSlot({ spec: before, slotId: 'arms', locks: {}, catalog })
+
+    expect(result.affectedSlots).toEqual(['arms', 'eyes', 'mouthShape'])
+    for (const slotId of VISUAL_SLOT_IDS) {
+      expect(result.spec.genome!.genes[slotId].P).toBe(result.spec.visualSlots[slotId].partId)
+      if (!result.affectedSlots.includes(slotId)) {
+        expect(result.spec.genome!.genes[slotId]).toEqual(before.genome!.genes[slotId])
+      }
+    }
+  })
+
+  it('applies locks to P but not hidden dependency descendants', () => {
+    const catalog = makeValidCatalogFixture()
+    catalog.dependencies = { arms: ['eyes'] }
+    const before = generateMonster({ seed: 'genome-locks', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
+    eyes.baseWeight = 0
+    catalog.parts.push({ ...eyes, id: 'eyes_hidden_rerolled', baseWeight: 999 })
+    const result = rerollSlot({ spec: before, slotId: 'arms', locks: { eyes: true }, catalog })
+
+    expect(result.spec.genome!.genes.eyes.P).toBe(before.genome!.genes.eyes.P)
+    expect(result.spec.visualSlots.eyes).toEqual(before.visualSlots.eyes)
+    for (const layer of ['H1', 'H2', 'H3'] as const) {
+      expect(result.spec.genome!.genes.eyes[layer]).toBe('eyes_hidden_rerolled')
+    }
+  })
+
+  it('does not synthesize a genome while editing a legacy spec', () => {
+    const catalog = makeValidCatalogFixture()
+    const legacy = makeValidMonsterSpecFixture()
+
+    expect(rerollSlot({ spec: legacy, slotId: 'eyes', locks: {}, catalog }).spec.genome).toBeUndefined()
+    expect(selectVisualPart({
+      spec: legacy,
+      slotId: 'eyes',
+      partId: legacy.visualSlots.eyes.partId,
+      locks: {},
+      catalog,
+    }).spec.genome).toBeUndefined()
+  })
+
   it('preserves non-origin structural descendants for a v0.3 body reroll', () => {
     const catalog = makeInterfaceCatalogFixture()
     catalog.dependencies = { bodyFrame: ['headShape', 'arms'] }

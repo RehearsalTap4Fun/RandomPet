@@ -75,6 +75,7 @@ function catalogWithIncompatibleBodyReplacement(): Catalog {
   if (body.composition?.mode !== 'interface') throw new Error('Expected interface body fixture.')
   const replacement = structuredClone(body)
   replacement.id = `${body.id}_incompatible`
+  replacement.baseWeight = 0
   if (replacement.composition?.mode !== 'interface') throw new Error('Expected cloned interface body fixture.')
   for (const variant of Object.values(replacement.composition.variantsByRig)) {
     if (variant === undefined) continue
@@ -774,6 +775,31 @@ describe('createCreatorReducer', () => {
     expect(rerolled.spec.slotRolls.eyes).toBe(before.spec.slotRolls.eyes + 1)
     expect(selected.spec.visualSlots.tail.partId).toBe('tail_manual')
     expect(before).toEqual(snapshot)
+  })
+
+  it('keeps dominant genes synchronized through reducer edit commands', () => {
+    const catalog = makeValidCatalogFixture()
+    const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
+    const tail = catalog.parts.find(part => part.slotId === 'tail' && !part.id.endsWith('_none'))!
+    catalog.parts.push(
+      { ...eyes, id: 'eyes_second_genome' },
+      { ...tail, id: 'tail_manual_genome', baseWeight: 0 },
+    )
+    const reducer = createCreatorReducer(catalog)
+    const before = makeSession(catalog)
+    const snapshot = structuredClone(before.spec)
+
+    const rerolled = reducer(before, { type: 'rerollSlot', slotId: 'eyes' })
+    const selected = reducer(rerolled, {
+      type: 'manualSelect',
+      slotId: 'tail',
+      partId: 'tail_manual_genome',
+    })
+
+    for (const slotId of VISUAL_SLOT_IDS) {
+      expect(selected.spec.genome!.genes[slotId].P).toBe(selected.spec.visualSlots[slotId].partId)
+    }
+    expect(before.spec).toEqual(snapshot)
   })
 
   it('toggles a lock without mutating the previous lock record', () => {
