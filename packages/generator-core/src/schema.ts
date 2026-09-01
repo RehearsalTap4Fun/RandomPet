@@ -81,10 +81,25 @@ export const MonsterSpecSchema = z.object({
 })
 
 function toDiagnostic(issue: z.core.$ZodIssue): Diagnostic {
+  const path = issue.path.map(String)
+  if (
+    issue.code === 'invalid_value'
+    && path.length === 2
+    && path[0] === 'genome'
+    && path[1] === 'genomeVersion'
+  ) {
+    return {
+      severity: 'error',
+      code: 'SPEC_GENOME_VERSION_UNSUPPORTED',
+      path,
+      message: 'Monster genome version is unsupported; expected 0.1.0.',
+    }
+  }
+
   return {
     severity: 'error',
     code: issue.code,
-    path: issue.path.map(String),
+    path,
     message: issue.message,
   }
 }

@@ -125,6 +125,23 @@ describe('parseSpecFile', () => {
     if (!result.ok) expect(result.diagnostics).toContainEqual(expect.objectContaining({ code }))
   })
 
+  it('reports the exact domain diagnostic for an unsupported genome version', async () => {
+    const spec = generateMonster({
+      seed: 'unsupported-import-genome-version', themeId: 'fungal', mode: 'normal',
+    }, currentCatalog).spec
+    ;(spec.genome as { genomeVersion: string }).genomeVersion = '9.9.9'
+
+    const result = await parseSpecFile(createSpecFile(spec), registry)
+
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: [expect.objectContaining({
+        code: 'SPEC_GENOME_VERSION_UNSUPPORTED',
+        path: ['genome', 'genomeVersion'],
+      })],
+    })
+  })
+
   it('returns the exact missing-catalog diagnostic without a partial value', async () => {
     const spec = makeValidMonsterSpecFixture()
     spec.catalogVersion = '0.0.8'
