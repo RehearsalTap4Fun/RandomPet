@@ -5,6 +5,7 @@ import {
   type VisualSlotId,
 } from '@qmonster/generator-core'
 import type { CreatorAction, CreatorSession } from '../state/contracts.js'
+import { GenomePanel } from './GenomePanel.js'
 import { SLOT_GROUPS, SLOT_LABELS } from './slot-config.js'
 
 interface SlotPanelProps {
@@ -117,6 +118,8 @@ export function SlotPanel(props: SlotPanelProps) {
         </div>
         <span className="slot-total">14 / 14</span>
       </div>
+
+      <GenomePanel genome={props.session.spec.genome} />
 
       {SLOT_GROUPS.map(group => (
         <section

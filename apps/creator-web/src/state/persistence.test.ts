@@ -1,6 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { generateMonster } from '@qmonster/generator-core'
-import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
+import {
+  makeValidCatalogFixture,
+  makeValidMonsterSpecFixture,
+} from '@qmonster/generator-core/test-fixtures'
 import { createCreatorSession, type CreatorSession } from './contracts.js'
 import { refreshSessionValidity } from './session-diagnostics.js'
 import {
@@ -296,6 +299,7 @@ describe('creator session persistence', () => {
       generationDiagnostics: [{ severity: 'warning', code: 'EXAMPLE', path: ['tail'], message: 'kept' }],
       exportCapabilities: { png: true, webp: false },
     })
+    expect(session.spec.genome).toBeDefined()
 
     const save = saveSession(session, storage)
     expect(storage.writes).toBe(0)
@@ -308,6 +312,22 @@ describe('creator session persistence', () => {
     expect([...storage.values.keys()]).toEqual(['qmonster.creator.session.v1'])
     expect(JSON.parse(storage.values.get(CREATOR_SESSION_STORAGE_KEY)!).schemaVersion).toBe(2)
     expect(loadSession(() => makeFreshSession(), storage).session).toEqual(session)
+    expect(loadSession(() => makeFreshSession(), storage).session.spec.genome).toEqual(session.spec.genome)
+  })
+
+  it('preserves a missing genome when saving and loading a legacy session', async () => {
+    vi.useFakeTimers()
+    const storage = new MemoryStorage()
+    const session: CreatorSession = {
+      ...makeFreshSession('legacy-genome'),
+      spec: makeValidMonsterSpecFixture(),
+    }
+
+    const save = saveSession(session, storage)
+    await vi.advanceTimersByTimeAsync(250)
+
+    expect(await save).toEqual([])
+    expect(loadSession(() => makeFreshSession(), storage).session.spec.genome).toBeUndefined()
   })
 
   it('migrates a v1 diagnostic list into the generation bucket for the next v2 save', async () => {

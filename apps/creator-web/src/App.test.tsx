@@ -253,6 +253,8 @@ describe('CreatorWorkbench', () => {
     expect(screen.getByText('错误 1')).toBeTruthy()
     expect(screen.getByText('主题 fungal')).toBeTruthy()
     expect(screen.getByText(`目录 v${catalog.version}`)).toBeTruthy()
+    expect(screen.getByRole('region', { name: '基因记录' })).toBeTruthy()
+    expect(screen.getByRole('tab', { name: 'P · 显性' })).toBeTruthy()
     const diagnostics = screen.getByRole('region', { name: '诊断信息' })
     await waitFor(() => expect(within(diagnostics).getAllByRole('heading', { level: 3 })
       .map(item => item.textContent)).toEqual(['错误 · 1', '提醒 · 1']))
@@ -326,7 +328,7 @@ describe('CreatorWorkbench', () => {
     await user.tab()
     expect(document.activeElement).toBe(studio)
     await user.tab()
-    expect(document.activeElement).toBe(screen.getByRole('checkbox', { name: '锁定 体型骨架' }))
+    expect(document.activeElement).toBe(screen.getByRole('tab', { name: 'P · 显性' }))
 
     studio.focus()
     const actionCountBeforeBackgroundChange = onAction.mock.calls.length

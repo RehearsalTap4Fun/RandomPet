@@ -540,6 +540,54 @@ a:focus-visible {
 .diagnostic__code { font-family: var(--font-mono); font-size: 8px; font-weight: 800; }
 .diagnostic a { color: var(--purple-deep); font-weight: 800; }
 
+.genome-panel {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #d8c9e8;
+  border-radius: 12px;
+  background: rgba(244, 239, 251, 0.72);
+}
+
+.genome-panel__heading,
+.gene-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.genome-panel__heading h3 { margin: 0; font-size: 13px; }
+.genome-panel__heading code,
+.gene-row code { font-family: var(--font-mono); font-size: 8px; }
+.genome-panel__legacy { margin: 8px 0 0; color: var(--ink-soft); font-size: 10px; }
+
+.genome-tabs {
+  margin-top: 9px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.genome-tab {
+  min-width: 0;
+  padding: 5px 2px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.65);
+  font-size: 8px;
+}
+
+.genome-tab[aria-selected="true"] {
+  color: white;
+  border-color: var(--purple-deep);
+  background: var(--purple-deep);
+}
+
+.genome-grid { margin: 8px 0 0; }
+.gene-row { padding: 3px 0; border-top: 1px dashed rgba(120, 95, 150, 0.18); }
+.gene-row dt { color: var(--ink-soft); font-size: 8px; }
+.gene-row dd { min-width: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; }
+
 .slot-panel {
   grid-area: slots;
   min-height: 0;
