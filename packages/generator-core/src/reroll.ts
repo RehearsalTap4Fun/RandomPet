@@ -471,5 +471,9 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
   if (phenotype.blocked) return phenotype
   const spec = phenotype.spec
   spec.genome = syncDominantGenes(request.spec.genome, spec.visualSlots, phenotype.affectedSlots)
-  return result(spec, phenotype.diagnostics, phenotype.affectedSlots)
+  const diagnostics = [...phenotype.diagnostics, ...validateMonsterGenome(spec, request.catalog)]
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return result(cloneSpec(request.spec), diagnostics, phenotype.affectedSlots)
+  }
+  return result(spec, diagnostics, phenotype.affectedSlots)
 }

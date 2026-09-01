@@ -443,7 +443,7 @@ describe('createCreatorReducer', () => {
     expect(blocked).toEqual(snapshot)
   })
 
-  it('keeps an incompatible locked slot blocked after an unrelated manual selection', () => {
+  it('rolls back an unrelated manual selection while a locked genome layer is incompatible', () => {
     const catalog = withManualTail(catalogWithIncompatibleShadowEyes())
     const reducer = createCreatorReducer(catalog)
     const before = withLocked(makeSession(catalog), 'eyes')
@@ -451,12 +451,16 @@ describe('createCreatorReducer', () => {
 
     const next = reducer(blocked, { type: 'manualSelect', slotId: 'tail', partId: 'tail_manual' })
 
-    expect(next.spec.visualSlots.tail.partId).toBe('tail_manual')
+    expect(next.spec.visualSlots.tail).toEqual(blocked.spec.visualSlots.tail)
     expect(next.spec.visualSlots.eyes).toEqual(blocked.spec.visualSlots.eyes)
     expect(next.blocked).toBe(true)
     expect(next.diagnostics).toContainEqual(expect.objectContaining({
       code: 'LOCK_INCOMPATIBLE',
       path: ['visualSlots', 'eyes'],
+    }))
+    expect(next.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SPEC_GENOME_LAYER_INCOMPATIBLE',
+      path: ['genome', 'genes', 'eyes', 'P'],
     }))
   })
 

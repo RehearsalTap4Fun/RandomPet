@@ -389,6 +389,38 @@ describe('local changes', () => {
     expect(before).toEqual(snapshot)
   })
 
+  it('rebuilds every hidden layer after a manual body-frame selection', () => {
+    const catalog = makeRigSwitchCatalog()
+    const before = generateMonster(baseRequest, catalog).spec
+    const originalBody = catalog.parts.find(part => part.id === before.visualSlots.bodyFrame.partId)!
+    originalBody.baseWeight = 0
+    catalog.parts.push({ ...originalBody, id: 'body_hidden_rebuilt', baseWeight: 999 })
+
+    const selected = selectVisualPart({
+      spec: before,
+      slotId: 'bodyFrame',
+      partId: 'body_biped_manual',
+      locks: {},
+      catalog,
+    })
+
+    expect(selected.blocked).toBe(false)
+    for (const layer of ['H1', 'H2', 'H3'] as const) {
+      const expected = generateVisualLayer({
+        seed: genomeLayerSeed(before.seed, layer),
+        themeId: before.themeId,
+        slotRolls: before.slotRolls,
+      }, catalog).visualSlots
+      for (const slotId of VISUAL_SLOT_IDS) {
+        expect(selected.spec.genome!.genes[slotId][layer], `${slotId}.${layer}`).toBe(
+          expected[slotId].partId,
+        )
+      }
+      expect(selected.spec.genome!.genes.bodyFrame[layer]).toBe('body_hidden_rebuilt')
+      expect(selected.spec.genome!.genes.bodyFrame[layer]).not.toBe(before.genome!.genes.bodyFrame[layer])
+    }
+  })
+
   it('keeps the current rig when a manual body part supports it', () => {
     const catalog = makeRigSwitchCatalog()
     const body = catalog.parts.find(part => part.id === 'body_biped_manual')!
@@ -575,11 +607,37 @@ describe('local changes', () => {
   it('rebuilds all four complete layers for a body-frame reroll', () => {
     const catalog = makeValidCatalogFixtureWithThreeRigs()
     const before = generateMonster({ seed: 'body-genome', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const bodies = catalog.parts.filter(part => part.slotId === 'bodyFrame')
+    for (const body of bodies) body.baseWeight = 0
+    catalog.parts.push({
+      ...bodies[0]!,
+      id: 'body_genome_rebuilt',
+      baseWeight: 999,
+      compatibleRigs: catalog.rigs.map(rig => rig.id),
+    })
     const after = rerollSlot({ spec: before, slotId: 'bodyFrame', locks: { tail: true }, catalog })
+    const slotRolls = { ...before.slotRolls, bodyFrame: before.slotRolls.bodyFrame + 1 }
 
     expect(after.affectedSlots).toEqual([...generationOrderForCatalog(catalog)])
     expect(after.spec.slotRolls.bodyFrame).toBe(before.slotRolls.bodyFrame + 1)
     expect(after.spec.genome!.genes.tail.P).toBe(before.genome!.genes.tail.P)
+    for (const layer of GENOME_LAYERS) {
+      const expected = generateVisualLayer({
+        seed: genomeLayerSeed(before.seed, layer),
+        themeId: before.themeId,
+        slotRolls,
+        ...(layer === 'P' ? { lockedSelections: { tail: before.visualSlots.tail.partId } } : {}),
+      }, catalog).visualSlots
+      for (const slotId of VISUAL_SLOT_IDS) {
+        expect(after.spec.genome!.genes[slotId][layer], `${slotId}.${layer}`).toBe(expected[slotId].partId)
+      }
+    }
+    for (const layer of ['H1', 'H2', 'H3'] as const) {
+      expect(after.spec.genome!.genes.bodyFrame[layer]).toBe('body_genome_rebuilt')
+      expect(VISUAL_SLOT_IDS.some(slotId => (
+        after.spec.genome!.genes[slotId][layer] !== before.genome!.genes[slotId][layer]
+      )), layer).toBe(true)
+    }
     expect(validateMonsterGenome(after.spec, catalog)).toEqual([])
   })
 
@@ -745,6 +803,32 @@ describe('local changes', () => {
     expect(after.spec.genome!.genes.arms.H1).toBe(before.genome!.genes.arms.H1)
   })
 
+  it('rolls back an ordinary manual selection when the stored genome is invalid', () => {
+    const catalog = makeValidCatalogFixture()
+    const tail = catalog.parts.find(part => part.slotId === 'tail' && !part.id.endsWith('_none'))!
+    catalog.parts.push({ ...tail, id: 'tail_manual_invalid_genome', baseWeight: 0 })
+    const before = generateMonster({ seed: 'manual-invalid-genome', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    before.genome!.genes.eyes.H2 = 'missing_hidden_eyes'
+    const snapshot = structuredClone(before)
+
+    const selected = selectVisualPart({
+      spec: before,
+      slotId: 'tail',
+      partId: 'tail_manual_invalid_genome',
+      locks: {},
+      catalog,
+    })
+
+    expect(selected.blocked).toBe(true)
+    expect(selected.spec).toEqual(snapshot)
+    expect(selected.spec).not.toBe(before)
+    expect(selected.spec.genome).not.toBe(before.genome)
+    expect(selected.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SPEC_GENE_PART_MISSING',
+      path: ['genome', 'genes', 'eyes', 'H2'],
+    }))
+  })
+
   it('rolls back phenotype and genome together when one hidden layer cannot materialize', () => {
     const catalog = makeValidCatalogFixture()
     const before = generateMonster({ seed: 'atomic-genome', themeId: 'fungal', mode: 'normal' }, catalog).spec
@@ -791,9 +875,10 @@ describe('local changes', () => {
     expect(strongFeatureCount(rerolled, catalog)).toBeLessThanOrEqual(2)
   })
 
-  it('preserves a third manual strong selection and returns an intensity warning', () => {
+  it('preserves a third manual strong selection and returns an intensity warning for a legacy phenotype', () => {
     const catalog = makeStrongBudgetCatalog()
     const initial = generateMonster(baseRequest, catalog).spec
+    delete initial.genome
     const third = selectVisualPart({
       spec: initial,
       slotId: 'effect',

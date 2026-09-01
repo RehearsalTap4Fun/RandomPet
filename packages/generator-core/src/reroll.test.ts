@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { generateMonster, rerollSlot, selectVisualPart, VISUAL_SLOT_IDS } from './index.js'
+import {
+  GENOME_LAYERS,
+  generateMonster,
+  generateVisualLayer,
+  genomeLayerSeed,
+  rerollSlot,
+  selectVisualPart,
+  VISUAL_SLOT_IDS,
+} from './index.js'
 import {
   makeInterfaceCatalogFixture,
   makeValidCatalogFixture,
@@ -11,15 +19,47 @@ describe('rerollSlot', () => {
   it('rerolls the same dependency closure in all four genome layers', () => {
     const catalog = makeValidCatalogFixture()
     catalog.dependencies = { arms: ['eyes'], eyes: ['mouthShape'] }
-    const before = generateMonster({ seed: 'genome-closure', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    for (const slotId of ['arms', 'eyes', 'mouthShape'] as const) {
+      const source = catalog.parts.find(part => part.slotId === slotId)!
+      catalog.parts.push(...Array.from({ length: 4 }, (_, index) => ({
+        ...source,
+        id: `${slotId}_genome_variant_${index}`,
+      })))
+    }
+    const before = generateMonster({ seed: 'genome-closure-5', themeId: 'fungal', mode: 'normal' }, catalog).spec
     const result = rerollSlot({ spec: before, slotId: 'arms', locks: {}, catalog })
+    const slotRolls = { ...before.slotRolls, arms: before.slotRolls.arms + 1 }
+    const expectedLayers = Object.fromEntries(GENOME_LAYERS.map(layer => [
+      layer,
+      generateVisualLayer({
+        seed: genomeLayerSeed(before.seed, layer),
+        themeId: before.themeId,
+        slotRolls,
+      }, catalog).visualSlots,
+    ])) as Record<typeof GENOME_LAYERS[number], ReturnType<typeof generateVisualLayer>['visualSlots']>
 
     expect(result.affectedSlots).toEqual(['arms', 'eyes', 'mouthShape'])
+    const affected = new Set(result.affectedSlots)
     for (const slotId of VISUAL_SLOT_IDS) {
-      expect(result.spec.genome!.genes[slotId].P).toBe(result.spec.visualSlots[slotId].partId)
-      if (!result.affectedSlots.includes(slotId)) {
+      for (const layer of GENOME_LAYERS) {
+        if (affected.has(slotId)) {
+          expect(result.spec.genome!.genes[slotId][layer], `${slotId}.${layer}`).toBe(
+            expectedLayers[layer][slotId].partId,
+          )
+        }
+      }
+      if (!affected.has(slotId)) {
         expect(result.spec.genome!.genes[slotId]).toEqual(before.genome!.genes[slotId])
       }
+    }
+    const layerSignatures = GENOME_LAYERS.map(layer => result.affectedSlots
+      .map(slotId => expectedLayers[layer][slotId].partId)
+      .join('|'))
+    expect(new Set(layerSignatures).size).toBe(GENOME_LAYERS.length)
+    for (const layer of GENOME_LAYERS) {
+      expect(result.affectedSlots.some(slotId => (
+        result.spec.genome!.genes[slotId][layer] !== before.genome!.genes[slotId][layer]
+      )), layer).toBe(true)
     }
   })
 
