@@ -54,6 +54,8 @@ test('matches the reviewed first-hatch decoded RGBA golden', async ({ page }, te
     eyesVisibleRatio: expect.any(Number),
     mouthInsideRatio: expect.any(Number),
     mouthVisibleRatio: expect.any(Number),
+    oralDetailInsideRatio: expect.any(Number),
+    oralDetailVisibleRatio: expect.any(Number),
   }))
 
   const canvas = page.getByRole('img', { name: '生物预览' })
@@ -105,6 +107,8 @@ test('matches the reviewed v0.3 first-hatch decoded RGBA golden with connector e
     eyesVisibleRatio: expect.any(Number),
     mouthInsideRatio: expect.any(Number),
     mouthVisibleRatio: expect.any(Number),
+    oralDetailInsideRatio: expect.any(Number),
+    oralDetailVisibleRatio: expect.any(Number),
     visibleBounds: expect.any(Object),
   }))
   console.log(`QM_FIRST_HATCH_V03_METRICS=${JSON.stringify({

@@ -11,7 +11,7 @@ export function faceMetricThresholds(
     inside: EYES_INSIDE_RATIO_MIN,
     visible: policy.faceVisibleRatio,
   }
-  if (slotId === 'mouthShape') return {
+  if (slotId === 'mouthShape' || slotId === 'oralDetail') return {
     inside: policy.faceInsideRatio,
     visible: policy.faceVisibleRatio,
   }
@@ -34,10 +34,18 @@ export function compositionMetricsMeetThresholds(
 ): boolean {
   const eyes = faceMetricThresholds(policy, 'eyes')!
   const mouth = faceMetricThresholds(policy, 'mouthShape')!
+  const oralDetail = faceMetricThresholds(policy, 'oralDetail')!
+  const oralDetailMeetsThresholds = metrics.oralDetailInsideRatio === null
+    && metrics.oralDetailVisibleRatio === null
+    || metrics.oralDetailInsideRatio !== null
+      && metrics.oralDetailVisibleRatio !== null
+      && metrics.oralDetailInsideRatio >= oralDetail.inside
+      && metrics.oralDetailVisibleRatio >= oralDetail.visible
   return metrics.eyesInsideRatio >= eyes.inside
     && metrics.eyesVisibleRatio >= eyes.visible
     && metrics.mouthInsideRatio >= mouth.inside
     && metrics.mouthVisibleRatio >= mouth.visible
+    && oralDetailMeetsThresholds
     && metrics.visibleBounds !== null
     && metrics.visibleBounds.width > 0
     && metrics.visibleBounds.height > 0

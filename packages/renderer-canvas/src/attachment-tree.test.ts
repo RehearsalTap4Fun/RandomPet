@@ -91,6 +91,21 @@ describe('resolveAttachmentTree', () => {
       { x: -24, y: 76, width: 1048, height: 900 },
       { x: 56, y: 136, width: 1048, height: 900 },
     ])
+    const oralDetails = result.nodes.filter(node => node.slotId === 'oralDetail')
+    expect(oralDetails.map(node => node.placement)).toEqual([
+      { x: -1492, y: -912, scaleX: 1, scaleY: 1 },
+      { x: -1412, y: -852, scaleX: 1, scaleY: 1 },
+    ])
+    expect({
+      oralDelta: {
+        x: oralDetails[1]!.placement.x - oralDetails[0]!.placement.x,
+        y: oralDetails[1]!.placement.y - oralDetails[0]!.placement.y,
+      },
+      faceZoneDelta: {
+        x: result.faceSafeZones[1]!.x - result.faceSafeZones[0]!.x,
+        y: result.faceSafeZones[1]!.y - result.faceSafeZones[0]!.y,
+      },
+    }).toEqual({ oralDelta: { x: 80, y: 60 }, faceZoneDelta: { x: 80, y: 60 } })
   })
 
   it('moves misplaced eyes by the alternate-head delta and declares the translated safe zone', () => {

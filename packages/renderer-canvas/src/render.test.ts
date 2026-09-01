@@ -136,7 +136,7 @@ function makeRecordingSurfaceFactory(calls: string[]) {
 function makeHealthyInterfaceSurfaceFactory(
   calls: string[],
   mode: 'healthy' | 'disconnected' | 'internal-child' | 'invalid-body' | 'misaligned-role-masks' = 'healthy',
-  faceMode: 'fixture-default' | 'valid' = 'fixture-default',
+  faceMode: 'fixture-default' | 'valid' | 'oral-placement' = 'fixture-default',
 ) {
   const size = RASTER_WIDTH * RASTER_WIDTH * 4
   const opaque = new Uint8ClampedArray(size)
@@ -145,6 +145,10 @@ function makeHealthyInterfaceSurfaceFactory(
   const receiverContour = new Uint8ClampedArray(size)
   const plugContour = new Uint8ClampedArray(size)
   const validFace = sparseAlpha([[256, 200]], 512)
+  const oralInside = Array.from({ length: 83 }, (_, x) => [125 + x, 100] as const)
+  const oralOutside = Array.from({ length: 17 }, (_, x) => [x, 0] as const)
+  const oralPlacement = sparseAlpha([...oralInside, ...oralOutside], 512)
+  const oralOccluder = sparseAlpha(oralInside.slice(0, 17), 512)
   const misalignedRoleBridge = new Uint8ClampedArray(size)
   misalignedRoleBridge[(100 * RASTER_WIDTH + 100) * 4 + 3] = 255
   for (let y = 990; y <= 1058; y += 1) {
@@ -180,9 +184,13 @@ function makeHealthyInterfaceSurfaceFactory(
           return { data: pixels }
         }
         return {
-          data: faceMode === 'valid' && (index === 8 || index === 9)
+          data: faceMode === 'valid' && (index === 8 || index === 9 || index === 18)
             ? validFace
-            : index === 11 || index === 12
+            : faceMode === 'oral-placement' && index === 18
+              ? oralPlacement
+            : faceMode === 'oral-placement' && index === 19
+              ? oralOccluder
+            : index === 11 || index === 12 || index === 19
             ? new Uint8ClampedArray(size)
             : index === 1
             ? mode === 'invalid-body' ? new Uint8ClampedArray(4) : body
@@ -215,6 +223,7 @@ interface CompositionAlphaFixture {
   body: Uint8ClampedArray
   eyes: Uint8ClampedArray
   mouth: Uint8ClampedArray
+  oralDetail: Uint8ClampedArray
   output: Uint8ClampedArray
   occluders: Uint8ClampedArray[]
 }
@@ -224,8 +233,9 @@ function healthyCompositionAlpha(): CompositionAlphaFixture {
     body: sparseAlpha([[500, 500]]),
     eyes: sparseAlpha([[25, 25]], 512),
     mouth: sparseAlpha([[25, 25]], 512),
+    oralDetail: sparseAlpha([[25, 25]], 512),
     output: sparseAlpha([[125, 125]], 512),
-    occluders: [sparseAlpha([], 512), sparseAlpha([], 512)],
+    occluders: [sparseAlpha([], 512), sparseAlpha([], 512), sparseAlpha([], 512)],
   }
 }
 
@@ -241,6 +251,8 @@ function makeCompositionSurfaceFactory(
     [alpha.output],
     [alpha.occluders[0] ?? sparseAlpha([], 512)],
     [alpha.occluders[1] ?? sparseAlpha([], 512)],
+    [alpha.oralDetail],
+    [alpha.occluders[2] ?? sparseAlpha([], 512)],
   ]
   let nextCanvas = 0
   return (width: number, height: number) => {
@@ -406,6 +418,9 @@ function makeDoubleHeadRasterResolver(occludeOriginalEyes: boolean): ImageResolv
       if (assetPath === 'nodes/mouth_wide_0.webp') {
         return sparseRasterImage(assetPath, [[1400, 1400]])
       }
+      if (assetPath === 'nodes/oral_teeth_0.webp') {
+        return sparseRasterImage(assetPath, [[1500, 1500]])
+      }
       if (assetPath === 'nodes/effect_glow_0.webp' && occludeOriginalEyes) {
         return sparseRasterImage(assetPath, [[0, 0]])
       }
@@ -437,6 +452,7 @@ describe('interface face metric occlusion policy', () => {
     } as unknown as NonNullable<Catalog['compositionPolicy']>
     expect(faceMetricThresholds(policy, 'eyes')).toEqual({ inside: 0.8, visible: 0.84 })
     expect(faceMetricThresholds(policy, 'mouthShape')).toEqual({ inside: 0.84, visible: 0.84 })
+    expect(faceMetricThresholds(policy, 'oralDetail')).toEqual({ inside: 0.84, visible: 0.84 })
     expect(faceMetricThresholds(policy, 'unknown')).toBeNull()
   })
 })
@@ -711,6 +727,8 @@ describe('composition canvas rendering', () => {
       'composition-surface:4:512x512',
       'composition-surface:5:512x512',
       'composition-surface:6:512x512',
+      'composition-surface:7:512x512',
+      'composition-surface:8:512x512',
     ])
     expect(calls.filter(call => call.startsWith('composition-1:draw:nodes/'))).toEqual([
       'composition-1:draw:nodes/tail_anchor_0.webp',
@@ -754,6 +772,8 @@ describe('composition canvas rendering', () => {
       eyesVisibleRatio: 1,
       mouthInsideRatio: 1,
       mouthVisibleRatio: 1,
+      oralDetailInsideRatio: 1,
+      oralDetailVisibleRatio: 1,
     })
     expect(result.diagnostics).not.toContainEqual(expect.objectContaining({
       code: 'COMPOSITION_FACE_OCCLUDED',
@@ -816,6 +836,60 @@ describe('composition canvas rendering', () => {
       expect.objectContaining({
         severity: 'error', code: 'COMPOSITION_FACE_OCCLUDED',
         path: ['visualSlots', 'eyes'],
+      }),
+    ]))
+  })
+
+  it('measures oral-detail placement and later occlusion on real alpha surfaces', async () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.compositionPolicy!.faceInsideRatio = 0.84
+    catalog.compositionPolicy!.faceVisibleRatio = 0.84
+    const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!
+    body.composition!.geometryByRig.blob!.sockets.effect = { x: 108, y: 188 }
+    const effect = catalog.parts.find(part => part.slotId === 'effect' && !part.composition!.isNone)!
+    effect.composition!.renderNodes[0]!.origin = { x: 0, y: 0 }
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const inside = Array.from({ length: 83 }, (_, x) => [1600 + 4 * x, 1100] as const)
+    const outside = Array.from({ length: 17 }, (_, x) => [1600 + 4 * x, 1900] as const)
+    const resolver: ImageResolver = {
+      async resolve(assetPath) {
+        if (assetPath === 'nodes/oral_teeth_0.webp') {
+          return sparseRasterImage(assetPath, [...inside, ...outside])
+        }
+        if (assetPath === 'nodes/mouth_wide_0.webp') {
+          return sparseRasterImage(
+            assetPath,
+            inside.map(([x]) => [x - 524, 776] as const),
+          )
+        }
+        if (assetPath === 'nodes/effect_glow_0.webp') {
+          return sparseRasterImage(
+            assetPath,
+            Array.from({ length: 17 }, (_, x) => [4 * x, 0] as const),
+          )
+        }
+        return sparseRasterImage(assetPath, [])
+      },
+    }
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, resolver, {
+        ...options1024, surfaceFactory: makeSparseRasterSurfaceFactory(),
+      },
+    )
+
+    expect(result.compositionMetrics).toMatchObject({
+      oralDetailInsideRatio: 0.83,
+      oralDetailVisibleRatio: 0.83,
+    })
+    expect(result.diagnostics).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        severity: 'error', code: 'COMPOSITION_FACE_OUT_OF_ZONE',
+        path: ['visualSlots', 'oralDetail'],
+      }),
+      expect.objectContaining({
+        severity: 'error', code: 'COMPOSITION_FACE_OCCLUDED',
+        path: ['visualSlots', 'oralDetail'],
       }),
     ]))
   })
@@ -1168,6 +1242,86 @@ describe('v0.3 interface rendering', () => {
     return { catalog, spec }
   }
 
+  function v04Fixture() {
+    const { catalog, spec } = fixture()
+    catalog.version = '0.4.0'
+    catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+    catalog.compositionPolicy!.faceInsideRatio = 0.84
+    catalog.compositionPolicy!.faceVisibleRatio = 0.84
+    spec.catalogVersion = '0.4.0'
+    spec.rendererVersion = '0.4.0'
+    return { catalog, spec }
+  }
+
+  it('routes the exact 0.4 pair through interface oral-detail placement and occlusion metrics', async () => {
+    const { catalog, spec } = v04Fixture()
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'healthy', 'oral-placement'),
+      },
+    )
+
+    expect(result.connectorMetrics).not.toBeNull()
+    expect(result.compositionMetrics).toMatchObject({
+      oralDetailInsideRatio: 0.83,
+      oralDetailVisibleRatio: 0.83,
+    })
+    expect(result.diagnostics).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        code: 'COMPOSITION_FACE_OUT_OF_ZONE', path: ['visualSlots', 'oralDetail'],
+      }),
+      expect.objectContaining({
+        code: 'COMPOSITION_FACE_OCCLUDED', path: ['visualSlots', 'oralDetail'],
+      }),
+    ]))
+  })
+
+  it('represents an explicit-none oral detail with null metrics and no oral diagnostic', async () => {
+    const { catalog, spec } = v04Fixture()
+    const visibleOral = catalog.parts.find(part => part.slotId === 'oralDetail')!
+    const noneOral = structuredClone(visibleOral)
+    noneOral.id = 'oral_detail_none'
+    noneOral.composition = { ...noneOral.composition!, isNone: true, renderNodes: [], geometryByRig: {} }
+    catalog.parts.push(noneOral)
+    spec.visualSlots.oralDetail = { partId: noneOral.id, rigId: 'blob' }
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'healthy', 'valid'),
+      },
+    )
+
+    expect(result.drawnAssetIds).not.toContain('oral_teeth_0')
+    expect(result.compositionMetrics).toMatchObject({
+      oralDetailInsideRatio: null,
+      oralDetailVisibleRatio: null,
+    })
+    expect(result.diagnostics).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ path: ['visualSlots', 'oralDetail'] }),
+    ]))
+  })
+
+  it('returns connector metrics only for an exact interface catalog-renderer pair', async () => {
+    const { catalog, spec } = v04Fixture()
+    const invalidScope = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024,
+        diagnosticScope: { id: 'invalid-empty', activeVisualSlots: [], activeConnectorIds: [] },
+      },
+    )
+    const crossedSpec = structuredClone(spec)
+    crossedSpec.rendererVersion = '0.3.0'
+    const crossed = await renderMonster(
+      makeRecordingContext([]), crossedSpec, catalog, makeResolver(), options1024,
+    )
+
+    expect(invalidScope.connectorMetrics).toEqual([])
+    expect(crossed.connectorMetrics).toBeNull()
+  })
+
   it('fails closed when the selected v0.3 color scheme lacks masks for its exact rig', async () => {
     const { catalog, spec } = fixture()
     const color = catalog.parts.find(part => part.slotId === 'colorScheme')!
@@ -1308,7 +1462,7 @@ describe('v0.3 interface rendering', () => {
     const { catalog, spec } = fixture()
     const render = (diagnosticScope?: {
       id: string
-      activeVisualSlots: Array<'eyes' | 'mouthShape'>
+      activeVisualSlots: Array<'eyes' | 'mouthShape' | 'oralDetail'>
       activeConnectorIds: string[]
     }) => renderMonster(
       makeRecordingContext([]), spec, catalog, makeResolver(), {
@@ -1321,10 +1475,10 @@ describe('v0.3 interface rendering', () => {
     const baseline = await render()
     const scoped = await render({
       id: 'active-face-test',
-      activeVisualSlots: ['eyes', 'mouthShape'],
+      activeVisualSlots: ['eyes', 'mouthShape', 'oralDetail'],
       activeConnectorIds: ['neck'],
     })
-    expect(baseline.diagnostics.filter(item => item.code.startsWith('COMPOSITION_FACE_'))).toHaveLength(4)
+    expect(baseline.diagnostics.filter(item => item.code.startsWith('COMPOSITION_FACE_'))).toHaveLength(6)
     expect(scoped.diagnostics.filter(item => item.code.startsWith('COMPOSITION_FACE_'))).toEqual(
       baseline.diagnostics.filter(item => item.code.startsWith('COMPOSITION_FACE_')),
     )

@@ -58,6 +58,8 @@ interface CompositionSurfaces {
   outputAlpha: RenderSurface
   eyesOccluderAlpha: RenderSurface
   mouthOccluderAlpha: RenderSurface
+  oralDetailAlpha: RenderSurface
+  oralDetailOccluderAlpha: RenderSurface
 }
 
 const browserCompositeCache = new WeakMap<object, CompositeSurfaces>()
@@ -175,6 +177,8 @@ function createCompositionSurfaces(
     factory(METRIC_SIZE, METRIC_SIZE, context),
     factory(METRIC_SIZE, METRIC_SIZE, context),
     factory(METRIC_SIZE, METRIC_SIZE, context),
+    factory(METRIC_SIZE, METRIC_SIZE, context),
+    factory(METRIC_SIZE, METRIC_SIZE, context),
   ]
   if (surfaces.some(surface => surface === null)) return null
   const result: CompositionSurfaces = {
@@ -185,6 +189,8 @@ function createCompositionSurfaces(
     outputAlpha: surfaces[4]!,
     eyesOccluderAlpha: surfaces[5]!,
     mouthOccluderAlpha: surfaces[6]!,
+    oralDetailAlpha: surfaces[7]!,
+    oralDetailOccluderAlpha: surfaces[8]!,
   }
   if (factory === browserSurfaceFactory) browserCompositionCache.set(cacheKey, result)
   return result
@@ -513,7 +519,7 @@ function scaleMetricBounds(
 
 function metricDiagnostic(
   code: 'COMPOSITION_FACE_OUT_OF_ZONE' | 'COMPOSITION_FACE_OCCLUDED',
-  slotId: 'eyes' | 'mouthShape',
+  slotId: 'eyes' | 'mouthShape' | 'oralDetail',
   ratio: number,
   threshold: number,
 ): Diagnostic {
@@ -590,6 +596,8 @@ async function renderCompositionMonster(
   surfaces.outputAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
   surfaces.eyesOccluderAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
   surfaces.mouthOccluderAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
+  surfaces.oralDetailAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
+  surfaces.oralDetailOccluderAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
   const bodyNode = nodes.find(node => node.slotId === 'bodyFrame')
   const bodySource = bodyNode === undefined ? undefined : sources.get(bodyNode.key)
   if (bodyNode !== undefined && bodySource !== undefined) {
@@ -605,6 +613,7 @@ async function renderCompositionMonster(
     context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
     let eyesStarted = false
     let mouthStarted = false
+    let oralDetailStarted = false
     for (const node of nodes) {
       const source = sources.get(node.key)
       if (source === undefined) continue
@@ -627,6 +636,13 @@ async function renderCompositionMonster(
       } else if (mouthStarted) {
         drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
       }
+      if (node.slotId === 'oralDetail') {
+        drawMetricAlpha(surfaces.oralDetailOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+        drawMetricAlpha(surfaces.oralDetailAlpha, surfaces.nodeLayer)
+        oralDetailStarted = true
+      } else if (oralDetailStarted) {
+        drawMetricAlpha(surfaces.oralDetailOccluderAlpha, surfaces.nodeLayer)
+      }
       drawnAssetIds.push(node.key)
     }
   })
@@ -647,6 +663,18 @@ async function renderCompositionMonster(
     METRIC_SIZE,
     metricFaceSafeZones,
   )
+  const selectedOralDetail = catalog.parts.find(part => (
+    part.slotId === 'oralDetail' && part.id === spec.visualSlots.oralDetail.partId
+  ))
+  const oralDetail = selectedOralDetail?.composition?.isNone === true
+    ? null
+    : measureFeatureAlpha(
+      imageData(surfaces.oralDetailAlpha, METRIC_SIZE),
+      imageData(surfaces.oralDetailOccluderAlpha, METRIC_SIZE),
+      METRIC_SIZE,
+      METRIC_SIZE,
+      metricFaceSafeZones,
+    )
   const visibleBounds = scaleMetricBounds(measureVisibleBounds(
     imageData(surfaces.outputAlpha, METRIC_SIZE), METRIC_SIZE, METRIC_SIZE,
   ))
@@ -655,12 +683,17 @@ async function renderCompositionMonster(
     eyesVisibleRatio: eyes.visibleRatio,
     mouthInsideRatio: mouth.insideRatio,
     mouthVisibleRatio: mouth.visibleRatio,
+    oralDetailInsideRatio: oralDetail?.insideRatio ?? null,
+    oralDetailVisibleRatio: oralDetail?.visibleRatio ?? null,
     visibleBounds,
   }
   // TASK8_STABLE_BEGIN:renderer-task10-composition-face-thresholds
-  for (const [slotId, metric] of [
-    ['eyes', eyes], ['mouthShape', mouth],
-  ] as const) {
+  const faceMetrics: Array<readonly [
+    'eyes' | 'mouthShape' | 'oralDetail',
+    typeof eyes,
+  ]> = [['eyes', eyes], ['mouthShape', mouth]]
+  if (oralDetail !== null) faceMetrics.push(['oralDetail', oralDetail])
+  for (const [slotId, metric] of faceMetrics) {
     const thresholds = faceMetricThresholds(policy, slotId)!
     if (metric.insideRatio < thresholds.inside) {
       diagnostics.push(metricDiagnostic(
@@ -701,6 +734,8 @@ interface InterfaceSurfaces {
   outputAlpha: RenderSurface
   eyesOccluderAlpha: RenderSurface
   mouthOccluderAlpha: RenderSurface
+  oralDetailAlpha: RenderSurface
+  oralDetailOccluderAlpha: RenderSurface
 }
 
 interface ResolvedBridgeAssets {
@@ -800,7 +835,7 @@ function createInterfaceSurfaces(
   context: CanvasRenderingContext2D,
   factory: RenderSurfaceFactory,
 ): InterfaceSurfaces | null {
-  const list = Array.from({ length: 18 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))
+  const list = Array.from({ length: 20 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))
   if (list.some(item => item === null)) return null
   return {
     nodeLayer: list[0]!, bodyAlpha: list[1]!, childAlpha: list[2]!,
@@ -809,6 +844,7 @@ function createInterfaceSurfaces(
     mouthAlpha: list[9]!, outputAlpha: list[10]!, eyesOccluderAlpha: list[11]!,
     mouthOccluderAlpha: list[12]!, connectorMask: list[13]!, bridgeAlpha: list[14]!,
     receiverContour: list[15]!, plugContour: list[16]!, finalOutput: list[17]!,
+    oralDetailAlpha: list[18]!, oralDetailOccluderAlpha: list[19]!,
   }
 }
 
@@ -1192,7 +1228,7 @@ async function renderInterfaceMonster(
       suppressedDiagnostics.push(diagnostic)
     } else diagnostics.push(diagnostic)
   }
-  const pushFaceMetricDiagnostic = (slotId: 'eyes' | 'mouthShape', diagnostic: Diagnostic) => {
+  const pushFaceMetricDiagnostic = (slotId: 'eyes' | 'mouthShape' | 'oralDetail', diagnostic: Diagnostic) => {
     if (diagnosticScope !== undefined && !diagnosticScope.activeVisualSlots.includes(slotId)) {
       suppressedDiagnostics.push(diagnostic)
     } else diagnostics.push(diagnostic)
@@ -1489,6 +1525,8 @@ async function renderInterfaceMonster(
   clearSurface(surfaces.outputAlpha)
   clearSurface(surfaces.eyesOccluderAlpha)
   clearSurface(surfaces.mouthOccluderAlpha)
+  clearSurface(surfaces.oralDetailAlpha)
+  clearSurface(surfaces.oralDetailOccluderAlpha)
   clearSurface(surfaces.finalOutput)
   const drawnAssetIds: string[] = []
   const finalContext = surfaces.finalOutput.context
@@ -1604,6 +1642,7 @@ async function renderInterfaceMonster(
     // TASK8_STABLE_END:renderer-palette-pass
     let eyesStarted = false
     let mouthStarted = false
+    let oralDetailStarted = false
     for (const node of nonStructural) {
       // TASK8_STABLE_BEGIN:renderer-skip-palette-node
       if (node.slotId === 'colorScheme') continue
@@ -1629,6 +1668,13 @@ async function renderInterfaceMonster(
         drawMetricAlpha(surfaces.mouthAlpha, surfaces.nodeLayer)
         mouthStarted = true
       } else if (occlusionTargets.mouth) drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
+      if (node.slotId === 'oralDetail') {
+        drawMetricAlpha(surfaces.oralDetailOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+        drawMetricAlpha(surfaces.oralDetailAlpha, surfaces.nodeLayer)
+        oralDetailStarted = true
+      } else if (oralDetailStarted) {
+        drawMetricAlpha(surfaces.oralDetailOccluderAlpha, surfaces.nodeLayer)
+      }
       // TASK8_STABLE_END:renderer-task10-face-occluder-routing
       drawnAssetIds.push(node.key)
     }
@@ -1650,15 +1696,32 @@ async function renderInterfaceMonster(
       imageData(surfaces.mouthAlpha, METRIC_SIZE), imageData(surfaces.mouthOccluderAlpha, METRIC_SIZE),
       METRIC_SIZE, METRIC_SIZE, metricFaceSafeZones,
     )
+    const selectedOralDetail = catalog.parts.find(part => (
+      part.slotId === 'oralDetail' && part.id === spec.visualSlots.oralDetail.partId
+    ))
+    const oralDetail = selectedOralDetail?.composition?.isNone === true
+      ? null
+      : measureFeatureAlpha(
+        imageData(surfaces.oralDetailAlpha, METRIC_SIZE),
+        imageData(surfaces.oralDetailOccluderAlpha, METRIC_SIZE),
+        METRIC_SIZE, METRIC_SIZE, metricFaceSafeZones,
+      )
     compositionMetrics = {
       eyesInsideRatio: eyes.insideRatio, eyesVisibleRatio: eyes.visibleRatio,
       mouthInsideRatio: mouth.insideRatio, mouthVisibleRatio: mouth.visibleRatio,
+      oralDetailInsideRatio: oralDetail?.insideRatio ?? null,
+      oralDetailVisibleRatio: oralDetail?.visibleRatio ?? null,
       visibleBounds: scaleMetricBounds(measureVisibleBounds(
         imageData(surfaces.outputAlpha, METRIC_SIZE), METRIC_SIZE, METRIC_SIZE,
       )),
     }
     const policy = catalog.compositionPolicy!
-    for (const [slotId, metric] of [['eyes', eyes], ['mouthShape', mouth]] as const) {
+    const faceMetrics: Array<readonly [
+      'eyes' | 'mouthShape' | 'oralDetail',
+      typeof eyes,
+    ]> = [['eyes', eyes], ['mouthShape', mouth]]
+    if (oralDetail !== null) faceMetrics.push(['oralDetail', oralDetail])
+    for (const [slotId, metric] of faceMetrics) {
       // TASK8_STABLE_BEGIN:renderer-task10-interface-face-inside-check
       const thresholds = faceMetricThresholds(policy, slotId)!
       if (metric.insideRatio < thresholds.inside) {
@@ -1718,6 +1781,11 @@ async function renderInterfaceMonster(
   // TASK8_STABLE_END:renderer-diagnostic-return
 }
 
+function isInterfaceRenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
+  return (catalog.version === '0.3.0' && spec.rendererVersion === '0.3.0')
+    || (catalog.version === '0.4.0' && spec.rendererVersion === '0.4.0')
+}
+
 export async function renderMonster(
   context: CanvasRenderingContext2D,
   spec: MonsterSpec,
@@ -1745,7 +1813,7 @@ export async function renderMonster(
         message: 'A diagnostic scope needs a non-empty id and unique active visual slots and connectors.',
       }],
       compositionMetrics: null,
-      connectorMetrics: catalog.version === '0.3.0' ? [] : null,
+      connectorMetrics: isInterfaceRenderPair(spec, catalog) ? [] : null,
     }
   }
   // TASK8_STABLE_END:renderer-diagnostic-scope-validation
@@ -1753,10 +1821,10 @@ export async function renderMonster(
   if (validationDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return {
       drawnAssetIds: [], diagnostics: validationDiagnostics, compositionMetrics: null,
-      connectorMetrics: spec.rendererVersion === '0.3.0' ? [] : null,
+      connectorMetrics: isInterfaceRenderPair(spec, catalog) ? [] : null,
     }
   }
-  if (catalog.version === '0.3.0' && spec.rendererVersion === '0.3.0') {
+  if (isInterfaceRenderPair(spec, catalog)) {
     return renderInterfaceMonster(context, spec, catalog, resolver, options)
   }
   if (catalog.compositionPolicy !== undefined && spec.rendererVersion === '0.2.0') {

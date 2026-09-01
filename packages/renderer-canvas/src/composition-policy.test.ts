@@ -16,6 +16,8 @@ function metrics(overrides: Partial<CompositionMetrics> = {}): CompositionMetric
     eyesVisibleRatio: 0.84,
     mouthInsideRatio: 0.84,
     mouthVisibleRatio: 0.84,
+    oralDetailInsideRatio: 0.84,
+    oralDetailVisibleRatio: 0.84,
     visibleBounds: { x: 96, y: 60, width: 1856, height: 1892 },
     ...overrides,
   }
@@ -31,8 +33,17 @@ describe('composition metric policy', () => {
     ['eyes visible', { eyesVisibleRatio: 0.839999 }],
     ['mouth inside', { mouthInsideRatio: 0.839999 }],
     ['mouth visible', { mouthVisibleRatio: 0.839999 }],
+    ['oral detail inside', { oralDetailInsideRatio: 0.839999 }],
+    ['oral detail visible', { oralDetailVisibleRatio: 0.839999 }],
     ['frame top', { visibleBounds: { x: 96, y: 59, width: 1856, height: 1892 } }],
   ] as const)('rejects a value below the %s boundary', (_label, overrides) => {
     expect(compositionMetricsMeetThresholds(metrics(overrides), policy)).toBe(false)
+  })
+
+  it('accepts null oral-detail metrics only as the explicit-none representation', () => {
+    expect(compositionMetricsMeetThresholds(metrics({
+      oralDetailInsideRatio: null,
+      oralDetailVisibleRatio: null,
+    }), policy)).toBe(true)
   })
 })

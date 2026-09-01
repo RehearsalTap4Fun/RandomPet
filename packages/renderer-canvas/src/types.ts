@@ -79,6 +79,8 @@ export interface CompositionMetrics {
   eyesVisibleRatio: number
   mouthInsideRatio: number
   mouthVisibleRatio: number
+  oralDetailInsideRatio: number | null
+  oralDetailVisibleRatio: number | null
   visibleBounds: WorldRect | null
 }
 
