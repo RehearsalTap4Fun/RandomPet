@@ -11,7 +11,13 @@ import {
   makeLegacyCatalogFixture,
   makeValidCompositionSpecFixture,
 } from './test-fixtures.js'
-import { planComposition, rendererVersionForCatalog, strongFeatureCount, validateCompositionSelections } from './composition.js'
+import {
+  planComposition,
+  rendererVersionForCatalog,
+  strongFeatureCount,
+  strongNonFacialFeatureCount,
+  validateCompositionSelections,
+} from './composition.js'
 
 export function makeCompositionCatalogFixtureWithStrongParts(): Catalog {
   const catalog = makeCompositionCatalogFixture()
@@ -104,6 +110,34 @@ describe('composition planning', () => {
     expect(spec.visualSlots.headShape.partId).toBe('headShape_triple_foreign')
     expect(spec.visualSlots.eyes.partId).toBe('eyes_strong')
     expect(spec.visualSlots.effect.partId).toBe('effect_triple_foreign')
+  })
+
+  it('reports exactly one warning for a manual spec over the non-facial strong-feature budget', () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+    const spec = makeValidCompositionSpecFixture(catalog)
+    for (const slotId of ['surfaceMaterial', 'pattern'] as const) {
+      const source = catalog.parts.find(part => part.slotId === slotId)!
+      const strong: VisualPartDefinition = {
+        ...structuredClone(source),
+        id: `${slotId}_manual_strong`,
+        composition: { ...structuredClone(source.composition!), visualIntensity: 'strong' },
+      }
+      catalog.parts.push(strong)
+      spec.visualSlots[slotId] = { partId: strong.id, rigId: 'blob' }
+    }
+    const plan = planComposition(spec.seed, spec.themeId, 'blob', catalog)
+    const diagnostics = validateCompositionSelections(spec, catalog, plan)
+
+    expect(strongNonFacialFeatureCount(spec, catalog)).toBe(2)
+    expect(diagnostics).toHaveLength(1)
+    expect(diagnostics).toContainEqual(
+      expect.objectContaining({
+        severity: 'warning',
+        code: 'COMPOSITION_NONFACIAL_INTENSITY_EXCEEDED',
+        path: ['visualSlots'],
+      }),
+    )
   })
 
   it('does not spend strong-feature budget on an explicit none', () => {

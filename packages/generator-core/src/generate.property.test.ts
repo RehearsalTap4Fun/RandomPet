@@ -4,13 +4,40 @@ import {
   buildCandidates,
   GENOME_LAYERS,
   generateMonster,
+  strongNonFacialFeatureCount,
   validateMonsterSpecAgainstCatalog,
   VISUAL_SLOT_IDS,
 } from './index.js'
 import { createRng, slotSeedParts } from './prng.js'
-import { makeValidCatalogFixture } from './test-fixtures.js'
+import { makeCompositionCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
 
 describe('generation properties', () => {
+  it('keeps arbitrary generated phenotypes within the non-facial strong-feature budget', () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+    for (const slotId of ['surfaceMaterial', 'pattern', 'effect'] as const) {
+      const source = catalog.parts.find(part => part.slotId === slotId && !part.composition!.isNone)!
+      catalog.parts.push({
+        ...structuredClone(source),
+        id: `${slotId}_property_strong_nonfacial`,
+        baseWeight: 1_000_000_000,
+        composition: {
+          ...structuredClone(source.composition!),
+          visualIntensity: 'strong',
+          renderNodes: source.composition!.renderNodes.map(node => ({
+            ...node,
+            id: `${slotId}_property_strong_nonfacial_${node.id}`,
+          })),
+        },
+      })
+    }
+
+    fc.assert(fc.property(fc.string({ minLength: 1, maxLength: 64 }), seed => {
+      const result = generateMonster({ seed, themeId: 'fungal', mode: 'normal' }, catalog)
+      expect(strongNonFacialFeatureCount(result.spec, catalog)).toBeLessThanOrEqual(1)
+    }), { numRuns: 200 })
+  })
+
   it('terminates with a legal result or structured errors for arbitrary seeds', () => {
     const catalog = makeValidCatalogFixture()
     fc.assert(fc.property(fc.string({ minLength: 1, maxLength: 64 }), seed => {

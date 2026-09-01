@@ -59,7 +59,7 @@ describe('candidate pool boundaries', () => {
       slotId: 'bodyFrame', themeId: 'fungal', rigId: 'blob', selections: {},
       rng: scriptedRng(0, 0),
       composition: {
-        motifMode: 'dominant', remainingStrong: 2,
+        motifMode: 'dominant', remainingStrong: 2, remainingStrongNonFacial: 1,
         requiredDominantStructuralSlots: ['headShape'],
       },
     })
@@ -67,7 +67,7 @@ describe('candidate pool boundaries', () => {
       catalog,
       slotId: 'bodyFrame', themeId: 'fungal', rigId: 'blob', selections: {},
       rng: scriptedRng(0, 0),
-      composition: { motifMode: 'dominant', remainingStrong: 2 },
+      composition: { motifMode: 'dominant', remainingStrong: 2, remainingStrongNonFacial: 1 },
     })
     const legacyCatalog = structuredClone(catalog)
     legacyCatalog.version = '0.2.0'
@@ -76,7 +76,7 @@ describe('candidate pool boundaries', () => {
       slotId: 'bodyFrame', themeId: 'fungal', rigId: 'blob', selections: {},
       rng: scriptedRng(0, 0),
       composition: {
-        motifMode: 'dominant', remainingStrong: 2,
+        motifMode: 'dominant', remainingStrong: 2, remainingStrongNonFacial: 1,
         requiredDominantStructuralSlots: ['headShape'],
       },
     })
@@ -110,11 +110,56 @@ describe('candidate pool boundaries', () => {
       catalog: makeStrongCompositionEyesCatalog(),
       slotId: 'eyes', themeId: 'fungal', rigId: 'blob', selections: {},
       rng: createRng(['budget-filter']),
-      composition: { motifMode: 'dominant', remainingStrong: 0 },
+      composition: { motifMode: 'dominant', remainingStrong: 0, remainingStrongNonFacial: 1 },
     })
 
     expect(result.trace.candidateIds).not.toContain('eyes_triple_foreign')
     expect(result.trace.candidateIds).toContain('eyes_quiet_fungal')
+  })
+
+  it('filters a strong non-facial candidate after that dedicated budget is exhausted', () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+    const surface = catalog.parts.find(part => part.slotId === 'surfaceMaterial')!
+    const pattern = catalog.parts.find(part => part.slotId === 'pattern')!
+    const surfaceStrong: VisualPartDefinition = {
+      ...structuredClone(surface),
+      id: 'surface_strong',
+      composition: { ...structuredClone(surface.composition!), visualIntensity: 'strong' },
+    }
+    const surfaceQuiet: VisualPartDefinition = {
+      ...structuredClone(surface),
+      id: 'surface_quiet',
+      composition: { ...structuredClone(surface.composition!), visualIntensity: 'quiet' },
+    }
+    const patternStrong: VisualPartDefinition = {
+      ...structuredClone(pattern),
+      id: 'pattern_strong',
+      composition: { ...structuredClone(pattern.composition!), visualIntensity: 'strong' },
+    }
+    const patternQuiet: VisualPartDefinition = {
+      ...structuredClone(pattern),
+      id: 'pattern_quiet',
+      composition: { ...structuredClone(pattern.composition!), visualIntensity: 'quiet' },
+    }
+    catalog.parts = [surfaceStrong, surfaceQuiet, patternStrong, patternQuiet]
+
+    const result = buildCandidates({
+      catalog,
+      slotId: 'pattern',
+      themeId: 'fungal',
+      rigId: 'blob',
+      selections: { surfaceMaterial: { partId: 'surface_strong', rigId: 'blob' } },
+      rng: createRng(['non-facial-budget']),
+      composition: {
+        motifMode: 'neutral',
+        remainingStrong: 1,
+        remainingStrongNonFacial: 0,
+      },
+    })
+
+    expect(result.trace.candidateIds).not.toContain('pattern_strong')
+    expect(result.part?.composition?.visualIntensity).not.toBe('strong')
   })
 
   it('lets a surprise slot draw both dominant and foreign motif candidates', () => {
@@ -122,7 +167,7 @@ describe('candidate pool boundaries', () => {
       catalog: makeStrongCompositionEyesCatalog(),
       slotId: 'eyes', themeId: 'fungal', rigId: 'blob', selections: {},
       rng: createRng(['surprise-pool']),
-      composition: { motifMode: 'surprise', remainingStrong: 1 },
+      composition: { motifMode: 'surprise', remainingStrong: 1, remainingStrongNonFacial: 1 },
     })
 
     expect(result.trace.candidateIds).toContain('eyes_quiet_fungal')
@@ -149,7 +194,7 @@ describe('candidate pool boundaries', () => {
     const result = buildCandidates({
       catalog, slotId: 'headAppendage', themeId: 'fungal', rigId: 'blob', selections: {},
       rng: createRng(['none-is-neutral']),
-      composition: { motifMode: 'dominant', remainingStrong: 0 },
+      composition: { motifMode: 'dominant', remainingStrong: 0, remainingStrongNonFacial: 1 },
     })
 
     expect(result.trace.candidateIds).toEqual(['head_appendage_none'])
@@ -163,7 +208,7 @@ describe('candidate pool boundaries', () => {
     const result = buildCandidates({
       catalog, slotId: 'eyes', themeId: 'fungal', rigId: 'blob', selections: {},
       rng: createRng(['dominant-fallback']),
-      composition: { motifMode: 'dominant', remainingStrong: 1 },
+      composition: { motifMode: 'dominant', remainingStrong: 1, remainingStrongNonFacial: 1 },
     })
 
     expect(result.trace.themeFallback).toBe(true)
@@ -220,7 +265,7 @@ describe('candidate pool boundaries', () => {
         rigId: 'blob',
         selections: {},
         rng: createRng(['composition-hard-theme-color', seed]),
-        composition: { motifMode: 'neutral', remainingStrong: 2 },
+        composition: { motifMode: 'neutral', remainingStrong: 2, remainingStrongNonFacial: 1 },
       })
       expect(result.trace.rangeMode).toBe('theme')
       expect(result.trace.candidateIds).toEqual(['color_fungal'])

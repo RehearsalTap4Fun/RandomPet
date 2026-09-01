@@ -28,6 +28,7 @@ import {
   planComposition,
   rendererVersionForCatalog,
   strongFeatureCountForSelections,
+  strongNonFacialFeatureCountForSelections,
   validateCompositionSelections,
   type CompositionAllowance,
 } from './composition.js'
@@ -116,16 +117,14 @@ export function resolveSlot(
   return selectionFor(result.part, rigId)
 }
 
-function reservedLockedStrongFeatures(
+function unresolvedLockedSelections(
   request: VisualLayerRequest,
   visualSlots: Partial<Record<VisualSlotId, VisualSelection>>,
-  catalog: Catalog,
-): number {
-  const unresolvedLockedSelections = Object.fromEntries(VISUAL_SLOT_IDS.flatMap(slotId => {
+): Partial<Record<VisualSlotId, { partId: string }>> {
+  return Object.fromEntries(VISUAL_SLOT_IDS.flatMap(slotId => {
     const partId = request.lockedSelections?.[slotId]
     return partId !== undefined && visualSlots[slotId] === undefined ? [[slotId, { partId }]] : []
   })) as Partial<Record<VisualSlotId, { partId: string }>>
-  return strongFeatureCountForSelections(unresolvedLockedSelections, catalog)
 }
 
 export interface GeneratedVisualLayer {
@@ -147,8 +146,11 @@ export function generateVisualLayer(
   const compositionPlan = planComposition(request.seed, request.themeId, rigId, catalog)
   const visualSlots: Partial<Record<VisualSlotId, VisualSelection>> = {}
   for (const slotId of generationOrderForCatalog(catalog)) {
+    const unresolvedLocks = unresolvedLockedSelections(request, visualSlots)
     const strongFeaturesUsed = strongFeatureCountForSelections(visualSlots, catalog)
-      + reservedLockedStrongFeatures(request, visualSlots, catalog)
+      + strongFeatureCountForSelections(unresolvedLocks, catalog)
+    const strongNonFacialFeaturesUsed = strongNonFacialFeatureCountForSelections(visualSlots, catalog)
+      + strongNonFacialFeatureCountForSelections(unresolvedLocks, catalog)
     visualSlots[slotId] = resolveSlot(
       request,
       catalog,
@@ -156,7 +158,12 @@ export function generateVisualLayer(
       rigId,
       visualSlots,
       diagnostics,
-      compositionAllowanceForSlot(slotId, compositionPlan, strongFeaturesUsed),
+      compositionAllowanceForSlot(
+        slotId,
+        compositionPlan,
+        strongFeaturesUsed,
+        strongNonFacialFeaturesUsed,
+      ),
     )
   }
   return {

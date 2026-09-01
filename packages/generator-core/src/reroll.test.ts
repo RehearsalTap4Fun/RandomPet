@@ -6,6 +6,7 @@ import {
   genomeLayerSeed,
   rerollSlot,
   selectVisualPart,
+  strongNonFacialFeatureCount,
   VISUAL_SLOT_IDS,
 } from './index.js'
 import {
@@ -16,6 +17,34 @@ import {
 } from './test-fixtures.js'
 
 describe('rerollSlot', () => {
+  it('keeps a non-facial reroll within the remaining strong-feature budget', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+    const surface = catalog.parts.find(part => part.slotId === 'surfaceMaterial')!
+    const pattern = catalog.parts.find(part => part.slotId === 'pattern')!
+    const surfaceStrong = {
+      ...structuredClone(surface),
+      id: 'surface_reroll_strong',
+      composition: { ...structuredClone(surface.composition!), visualIntensity: 'strong' as const },
+    }
+    const patternStrong = {
+      ...structuredClone(pattern),
+      id: 'pattern_reroll_strong',
+      baseWeight: 1_000_000_000,
+      composition: { ...structuredClone(pattern.composition!), visualIntensity: 'strong' as const },
+    }
+    catalog.parts.push(surfaceStrong, patternStrong)
+    const spec = makeValidCompositionSpecFixture(catalog)
+    spec.catalogVersion = catalog.version
+    spec.rendererVersion = '0.3.0'
+    spec.visualSlots.surfaceMaterial = { partId: surfaceStrong.id, rigId: 'blob' }
+
+    const result = rerollSlot({ spec, slotId: 'pattern', locks: {}, catalog })
+
+    expect(result.spec.visualSlots.pattern.partId).not.toBe(patternStrong.id)
+    expect(strongNonFacialFeatureCount(result.spec, catalog)).toBeLessThanOrEqual(1)
+  })
+
   it('rerolls the same dependency closure in all four genome layers', () => {
     const catalog = makeValidCatalogFixture()
     catalog.dependencies = { arms: ['eyes'], eyes: ['mouthShape'] }

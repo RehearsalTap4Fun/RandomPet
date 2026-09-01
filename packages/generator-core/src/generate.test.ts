@@ -15,6 +15,7 @@ import {
   planComposition,
   selectVisualPart,
   strongFeatureCount,
+  strongNonFacialFeatureCount,
   validateMonsterGenome,
   VISUAL_SLOT_IDS,
   type Catalog,
@@ -51,6 +52,28 @@ function makeStrongBudgetCatalog(): Catalog {
     }
     catalog.parts = catalog.parts.filter(part => part.slotId !== slotId)
     catalog.parts.push(strong)
+  }
+  return catalog
+}
+
+function makeNonFacialStrongBudgetCatalog(): Catalog {
+  const catalog = makeCompositionCatalogFixture()
+  catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+  for (const slotId of ['surfaceMaterial', 'pattern', 'effect'] as const) {
+    const source = catalog.parts.find(part => part.slotId === slotId && !part.composition!.isNone)!
+    catalog.parts.push({
+      ...structuredClone(source),
+      id: `${slotId}_forced_strong_nonfacial`,
+      baseWeight: 1_000_000_000,
+      composition: {
+        ...structuredClone(source.composition!),
+        visualIntensity: 'strong',
+        renderNodes: source.composition!.renderNodes.map(node => ({
+          ...node,
+          id: `${slotId}_forced_strong_nonfacial_${node.id}`,
+        })),
+      },
+    })
   }
   return catalog
 }
@@ -137,6 +160,30 @@ describe('generateMonster', () => {
       const result = generateMonster({ seed: `strong-${index}`, themeId: 'fungal', mode: 'normal' }, catalog)
       expect(strongFeatureCount(result.spec, catalog)).toBeLessThanOrEqual(2)
     }
+  })
+
+  it('never auto-generates more than one strong non-facial selection', () => {
+    const catalog = makeNonFacialStrongBudgetCatalog()
+
+    for (let index = 0; index < 500; index += 1) {
+      const result = generateMonster({ seed: `nonfacial-${index}`, themeId: 'fungal', mode: 'normal' }, catalog)
+      expect(strongNonFacialFeatureCount(result.spec, catalog)).toBeLessThanOrEqual(1)
+    }
+  })
+
+  it('reserves a locked strong non-facial selection before its slot is reached', () => {
+    const catalog = makeNonFacialStrongBudgetCatalog()
+
+    const result = generateMonster({
+      seed: 'locked-nonfacial-budget',
+      themeId: 'fungal',
+      mode: 'normal',
+      lockedSelections: { pattern: 'pattern_forced_strong_nonfacial' },
+    }, catalog)
+
+    expect(result.spec.visualSlots.pattern.partId).toBe('pattern_forced_strong_nonfacial')
+    expect(result.spec.visualSlots.surfaceMaterial.partId).not.toBe('surfaceMaterial_forced_strong_nonfacial')
+    expect(strongNonFacialFeatureCount(result.spec, catalog)).toBeLessThanOrEqual(1)
   })
 
   it('reports every visual slot as affected during initial generation', () => {

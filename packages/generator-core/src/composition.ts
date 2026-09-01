@@ -1,4 +1,5 @@
 import {
+  NON_FACIAL_VISUAL_SLOT_IDS,
   STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
   type Catalog,
@@ -15,11 +16,13 @@ export type MotifMode = 'neutral' | 'dominant' | 'surprise'
 export interface CompositionPlan {
   motifModes: Record<VisualSlotId, MotifMode>
   maxStrongFeatures: number
+  maxStrongNonFacialFeatures: number
 }
 
 export interface CompositionAllowance {
   motifMode: MotifMode
   remainingStrong: number
+  remainingStrongNonFacial: number
   requiredDominantStructuralSlots?: VisualSlotId[]
 }
 
@@ -36,7 +39,11 @@ export function planComposition(
   const motifModes = neutralMotifModes()
   const policy = catalog.compositionPolicy
   if (policy === undefined) {
-    return { motifModes, maxStrongFeatures: Number.MAX_SAFE_INTEGER }
+    return {
+      motifModes,
+      maxStrongFeatures: Number.MAX_SAFE_INTEGER,
+      maxStrongNonFacialFeatures: Number.MAX_SAFE_INTEGER,
+    }
   }
 
   const ranked = policy.motifSlots
@@ -50,7 +57,11 @@ export function planComposition(
   for (const slotId of policy.motifSlots) {
     motifModes[slotId] = surprise.has(slotId) ? 'surprise' : 'dominant'
   }
-  return { motifModes, maxStrongFeatures: policy.maxStrongFeatures }
+  return {
+    motifModes,
+    maxStrongFeatures: policy.maxStrongFeatures,
+    maxStrongNonFacialFeatures: policy.maxStrongNonFacialFeatures ?? Number.MAX_SAFE_INTEGER,
+  }
 }
 
 export function strongFeatureCount(spec: MonsterSpec, catalog: Catalog): number {
@@ -69,6 +80,21 @@ export function strongFeatureCountForSelections(
   }, 0)
 }
 
+export function strongNonFacialFeatureCount(spec: MonsterSpec, catalog: Catalog): number {
+  return strongNonFacialFeatureCountForSelections(spec.visualSlots, catalog)
+}
+
+export function strongNonFacialFeatureCountForSelections(
+  selections: Partial<Record<VisualSlotId, { partId: string }>>,
+  catalog: Catalog,
+): number {
+  return NON_FACIAL_VISUAL_SLOT_IDS.reduce((count, slotId) => {
+    const partId = selections[slotId]?.partId
+    const part = catalog.parts.find(item => item.slotId === slotId && item.id === partId)
+    return count + (part?.composition?.visualIntensity === 'strong' && !part.composition.isNone ? 1 : 0)
+  }, 0)
+}
+
 export function rendererVersionForCatalog(catalog: Catalog): '0.1.0' | '0.2.0' | '0.3.0' | '0.4.0' {
   switch (catalog.version) {
     case '0.1.0': return '0.1.0'
@@ -83,10 +109,15 @@ export function compositionAllowanceForSlot(
   slotId: VisualSlotId,
   plan: CompositionPlan,
   strongFeaturesUsed: number,
+  strongNonFacialFeaturesUsed: number,
 ): CompositionAllowance {
   return {
     motifMode: plan.motifModes[slotId],
     remainingStrong: Math.max(0, plan.maxStrongFeatures - strongFeaturesUsed),
+    remainingStrongNonFacial: Math.max(
+      0,
+      plan.maxStrongNonFacialFeatures - strongNonFacialFeaturesUsed,
+    ),
     ...(slotId === 'bodyFrame' ? {
       requiredDominantStructuralSlots: STRUCTURAL_SLOT_IDS.filter(candidate => candidate !== 'bodyFrame')
         .filter(candidate => plan.motifModes[candidate] === 'dominant'),
@@ -100,11 +131,23 @@ export function validateCompositionSelections(
   plan: CompositionPlan,
 ): Diagnostic[] {
   const strongFeatures = strongFeatureCount(spec, catalog)
-  if (strongFeatures <= plan.maxStrongFeatures) return []
-  return [{
-    severity: 'warning',
-    code: 'COMPOSITION_INTENSITY_EXCEEDED',
-    path: ['visualSlots'],
-    message: `Composition has ${strongFeatures} strong features; the recommended maximum is ${plan.maxStrongFeatures}.`,
-  }]
+  const strongNonFacialFeatures = strongNonFacialFeatureCount(spec, catalog)
+  const diagnostics: Diagnostic[] = []
+  if (strongFeatures > plan.maxStrongFeatures) {
+    diagnostics.push({
+      severity: 'warning',
+      code: 'COMPOSITION_INTENSITY_EXCEEDED',
+      path: ['visualSlots'],
+      message: `Composition has ${strongFeatures} strong features; the recommended maximum is ${plan.maxStrongFeatures}.`,
+    })
+  }
+  if (strongNonFacialFeatures > plan.maxStrongNonFacialFeatures) {
+    diagnostics.push({
+      severity: 'warning',
+      code: 'COMPOSITION_NONFACIAL_INTENSITY_EXCEEDED',
+      path: ['visualSlots'],
+      message: `Composition has ${strongNonFacialFeatures} strong non-facial features; the recommended maximum is ${plan.maxStrongNonFacialFeatures}.`,
+    })
+  }
+  return diagnostics
 }

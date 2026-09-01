@@ -1,4 +1,5 @@
 import {
+  NON_FACIAL_VISUAL_SLOT_IDS,
   isStructuralSlot,
   type StructuralSlotId,
   type Catalog,
@@ -34,6 +35,7 @@ export interface BuildCandidatesInput {
   composition?: {
     motifMode: MotifMode
     remainingStrong: number
+    remainingStrongNonFacial: number
     requiredDominantStructuralSlots?: VisualSlotId[]
   }
 }
@@ -44,6 +46,7 @@ export interface CandidateResult {
 }
 
 const RARITY_WEIGHTS: Record<Rarity, number> = { N: 70, R: 25, L: 5 }
+const NON_FACIAL_SLOT_SET = new Set<VisualSlotId>(NON_FACIAL_VISUAL_SLOT_IDS)
 
 function isHardCompatible(
   part: VisualPartDefinition,
@@ -123,9 +126,17 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
   let range: VisualPartDefinition[]
   if (input.composition !== undefined && input.catalog.compositionPolicy !== undefined) {
     const withinIntensityBudget = compatible.filter(part => (
-      input.composition!.remainingStrong > 0
-      || part.composition?.isNone === true
-      || part.composition?.visualIntensity !== 'strong'
+      (
+        input.composition!.remainingStrong > 0
+        || part.composition?.isNone === true
+        || part.composition?.visualIntensity !== 'strong'
+      )
+      && (
+        !NON_FACIAL_SLOT_SET.has(input.slotId)
+        || input.composition!.remainingStrongNonFacial > 0
+        || part.composition?.isNone === true
+        || part.composition?.visualIntensity !== 'strong'
+      )
     ))
     if (input.slotId === 'colorScheme') {
       rangeMode = 'theme'

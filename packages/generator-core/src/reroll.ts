@@ -36,6 +36,7 @@ import {
   compositionAllowanceForSlot,
   planComposition,
   strongFeatureCountForSelections,
+  strongNonFacialFeatureCountForSelections,
   validateCompositionSelections,
 } from './composition.js'
 
@@ -113,7 +114,12 @@ function compositionAllowanceForReplacement(
     spec.visualSlots[candidate],
   ])) as Partial<Record<VisualSlotId, VisualSelection>>
   const plan = planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, catalog)
-  return compositionAllowanceForSlot(slotId, plan, strongFeatureCountForSelections(otherSelections, catalog))
+  return compositionAllowanceForSlot(
+    slotId,
+    plan,
+    strongFeatureCountForSelections(otherSelections, catalog),
+    strongNonFacialFeatureCountForSelections(otherSelections, catalog),
+  )
 }
 
 function regenerateDescendants(
