@@ -378,6 +378,10 @@ describe('local changes', () => {
     })
 
     expect(selected.blocked).toBe(false)
+    expect(selected.revalidatedDiagnosticScopes).toEqual({
+      visualSlots: [...generationOrderForCatalog(catalog)],
+      fullGenome: true,
+    })
     expect(selected.spec.visualSlots.bodyFrame).toEqual({ partId, rigId: targetRig })
     for (const slotId of VISUAL_SLOT_IDS) {
       expect(selected.spec.visualSlots[slotId].rigId, slotId).toBe(targetRig)
@@ -619,6 +623,10 @@ describe('local changes', () => {
     const slotRolls = { ...before.slotRolls, bodyFrame: before.slotRolls.bodyFrame + 1 }
 
     expect(after.affectedSlots).toEqual([...generationOrderForCatalog(catalog)])
+    expect(after.revalidatedDiagnosticScopes).toEqual({
+      visualSlots: [...generationOrderForCatalog(catalog)],
+      fullGenome: true,
+    })
     expect(after.spec.slotRolls.bodyFrame).toBe(before.slotRolls.bodyFrame + 1)
     expect(after.spec.genome!.genes.tail.P).toBe(before.genome!.genes.tail.P)
     for (const layer of GENOME_LAYERS) {
@@ -800,6 +808,10 @@ describe('local changes', () => {
     for (const slotId of after.affectedSlots) {
       expect(after.spec.genome!.genes[slotId].P).toBe(after.spec.visualSlots[slotId].partId)
     }
+    expect(after.revalidatedDiagnosticScopes).toEqual({
+      visualSlots: after.affectedSlots,
+      genomeGenes: { P: after.affectedSlots },
+    })
     expect(after.spec.genome!.genes.arms.H1).toBe(before.genome!.genes.arms.H1)
   })
 
@@ -821,6 +833,7 @@ describe('local changes', () => {
 
     expect(selected.blocked).toBe(true)
     expect(selected.affectedSlots).toEqual([])
+    expect(selected.revalidatedDiagnosticScopes).toEqual({})
     expect(selected.spec).toEqual(snapshot)
     expect(selected.spec).not.toBe(before)
     expect(selected.spec.genome).not.toBe(before.genome)
@@ -837,6 +850,7 @@ describe('local changes', () => {
     const result = rerollSlot({ spec: before, slotId: 'tail', locks: {}, catalog })
 
     expect(result.blocked).toBe(true)
+    expect(result.revalidatedDiagnosticScopes).toEqual({})
     expect(result.spec.visualSlots).toEqual(before.visualSlots)
     expect(result.spec.genome).toEqual(before.genome)
     expect(result.spec.slotRolls.tail).toBe(before.slotRolls.tail + 1)

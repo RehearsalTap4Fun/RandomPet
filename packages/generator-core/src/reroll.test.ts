@@ -45,6 +45,10 @@ describe('rerollSlot', () => {
     ])) as Record<typeof GENOME_LAYERS[number], ReturnType<typeof generateVisualLayer>['visualSlots']>
 
     expect(result.affectedSlots).toEqual(['arms', 'eyes', 'mouthShape'])
+    expect(result.revalidatedDiagnosticScopes).toEqual({
+      visualSlots: result.affectedSlots,
+      genomeGenes: Object.fromEntries(GENOME_LAYERS.map(layer => [layer, result.affectedSlots])),
+    })
     const affected = new Set(result.affectedSlots)
     for (const slotId of VISUAL_SLOT_IDS) {
       for (const layer of GENOME_LAYERS) {

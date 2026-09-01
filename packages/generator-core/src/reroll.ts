@@ -458,22 +458,69 @@ function selectGenomeBodyFrame(request: SelectVisualPartRequest): GenerationResu
   return result(spec, diagnostics, phenotype.affectedSlots)
 }
 
+function withRevalidatedDiagnosticScopes(
+  generated: GenerationResult,
+  revalidatedDiagnosticScopes: NonNullable<GenerationResult['revalidatedDiagnosticScopes']>,
+): GenerationResult {
+  return { ...generated, revalidatedDiagnosticScopes }
+}
+
+function ordinaryRerollScopes(
+  affectedSlots: VisualSlotId[],
+): NonNullable<GenerationResult['revalidatedDiagnosticScopes']> {
+  return {
+    visualSlots: affectedSlots,
+    genomeGenes: Object.fromEntries(GENOME_LAYERS.map(layer => [layer, affectedSlots])) as Record<
+      GenomeLayer,
+      VisualSlotId[]
+    >,
+  }
+}
+
+function fullGenomeScopes(
+  catalog: Catalog,
+): NonNullable<GenerationResult['revalidatedDiagnosticScopes']> {
+  return {
+    visualSlots: [...generationOrderForCatalog(catalog)],
+    fullGenome: true,
+  }
+}
+
 export function rerollSlot(request: RerollSlotRequest): GenerationResult {
   if (request.spec.genome === undefined) return rerollPhenotypeSlot(request)
-  return rerollGenomeSlot(request)
+  const generated = rerollGenomeSlot(request)
+  if (generated.blocked) return withRevalidatedDiagnosticScopes(generated, {})
+  return withRevalidatedDiagnosticScopes(
+    generated,
+    request.slotId === 'bodyFrame'
+      ? fullGenomeScopes(request.catalog)
+      : ordinaryRerollScopes(generated.affectedSlots),
+  )
 }
 
 export function selectVisualPart(request: SelectVisualPartRequest): GenerationResult {
   if (request.spec.genome === undefined) return selectPhenotypePart(request)
-  if (request.slotId === 'bodyFrame') return selectGenomeBodyFrame(request)
+  if (request.slotId === 'bodyFrame') {
+    const generated = selectGenomeBodyFrame(request)
+    return withRevalidatedDiagnosticScopes(
+      generated,
+      generated.blocked ? {} : fullGenomeScopes(request.catalog),
+    )
+  }
 
   const phenotype = selectPhenotypePart(request)
-  if (phenotype.blocked) return phenotype
+  if (phenotype.blocked) return withRevalidatedDiagnosticScopes(phenotype, {})
   const spec = phenotype.spec
   spec.genome = syncDominantGenes(request.spec.genome, spec.visualSlots, phenotype.affectedSlots)
   const diagnostics = [...phenotype.diagnostics, ...validateMonsterGenome(spec, request.catalog)]
   if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
-    return result(cloneSpec(request.spec), diagnostics, [])
+    return withRevalidatedDiagnosticScopes(result(cloneSpec(request.spec), diagnostics, []), {})
   }
-  return result(spec, diagnostics, phenotype.affectedSlots)
+  return withRevalidatedDiagnosticScopes(
+    result(spec, diagnostics, phenotype.affectedSlots),
+    {
+      visualSlots: phenotype.affectedSlots,
+      genomeGenes: { P: phenotype.affectedSlots },
+    },
+  )
 }

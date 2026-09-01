@@ -1,14 +1,17 @@
 import type { Reducer } from 'react'
 import {
   generateMonster,
+  GENOME_LAYERS,
   rerollSlot,
   selectVisualPart,
   STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
   type Catalog,
   type Diagnostic,
+  type DiagnosticRevalidationScopes,
   type GenerationMode,
   type GenerationResult,
+  type GenomeLayer,
   type VisualSlotId,
 } from '@qmonster/generator-core'
 import {
@@ -65,6 +68,16 @@ const REPLACEABLE_SLOT_DIAGNOSTIC_CODES = new Set([
   'COMPOSITION_INTENSITY_EXCEEDED',
 ])
 
+const REPLACEABLE_GENOME_DIAGNOSTIC_CODES = new Set([
+  ...REPLACEABLE_SLOT_DIAGNOSTIC_CODES,
+  'NO_COMPATIBLE_RIG',
+  'SPEC_GENE_PART_MISSING',
+  'SPEC_GENE_PART_SLOT_MISMATCH',
+  'SPEC_GENOME_LAYER_INCOMPATIBLE',
+  'SPEC_GENOME_P_MISMATCH',
+  'SPEC_GENOME_VERSION_UNSUPPORTED',
+])
+
 function isReplaceableAffectedDiagnostic(
   diagnostic: Diagnostic,
   affected: ReadonlySet<VisualSlotId>,
@@ -82,6 +95,33 @@ function diagnosticKey(diagnostic: Diagnostic): string {
   return JSON.stringify([diagnostic.severity, diagnostic.code, diagnostic.path, diagnostic.message])
 }
 
+function isReplaceableRevalidatedDiagnostic(
+  diagnostic: Diagnostic,
+  scopes: DiagnosticRevalidationScopes,
+): boolean {
+  const visualSlots = new Set(scopes.visualSlots ?? [])
+  if (diagnostic.path[0] === 'visualSlots') {
+    return isReplaceableAffectedDiagnostic(diagnostic, visualSlots)
+  }
+  if (
+    diagnostic.path[0] !== 'genome'
+    || !REPLACEABLE_GENOME_DIAGNOSTIC_CODES.has(diagnostic.code)
+  ) return false
+  if (
+    diagnostic.code === 'SPEC_GENOME_VERSION_UNSUPPORTED'
+    && diagnostic.path.length === 2
+    && diagnostic.path[1] === 'genomeVersion'
+  ) return scopes.fullGenome === true
+  if (diagnostic.path[1] !== 'genes') return false
+  if (scopes.fullGenome === true) return true
+  const slotId = diagnostic.path[2] as VisualSlotId | undefined
+  const layer = diagnostic.path[3] as GenomeLayer | undefined
+  return slotId !== undefined
+    && layer !== undefined
+    && GENOME_LAYERS.includes(layer)
+    && (scopes.genomeGenes?.[layer]?.includes(slotId) ?? false)
+}
+
 function reconcileLocalGenerationResult(
   session: CreatorSession,
   generated: GenerationResult,
@@ -91,9 +131,14 @@ function reconcileLocalGenerationResult(
   if (affected.has('bodyFrame')) {
     for (const slotId of STRUCTURAL_SLOT_IDS) affected.add(slotId)
   }
-  const retained = replaceAffectedDiagnostics
-    ? session.generationDiagnostics.filter(diagnostic => !isReplaceableAffectedDiagnostic(diagnostic, affected))
-    : session.generationDiagnostics
+  const revalidatedScopes = generated.revalidatedDiagnosticScopes
+  const retained = revalidatedScopes === undefined
+    ? replaceAffectedDiagnostics
+      ? session.generationDiagnostics.filter(diagnostic => !isReplaceableAffectedDiagnostic(diagnostic, affected))
+      : session.generationDiagnostics
+    : session.generationDiagnostics.filter(diagnostic => (
+        !isReplaceableRevalidatedDiagnostic(diagnostic, revalidatedScopes)
+      ))
   const diagnostics: Diagnostic[] = []
   const seen = new Set<string>()
   for (const diagnostic of [...retained, ...generated.diagnostics]) {

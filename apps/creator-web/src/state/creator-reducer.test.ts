@@ -476,10 +476,16 @@ describe('createCreatorReducer', () => {
       path: ['visualSlots', 'tail'],
       message: 'The existing tail selection is unresolved.',
     }
+    const hiddenDiagnostic: Diagnostic = {
+      severity: 'error',
+      code: 'SPEC_GENOME_LAYER_INCOMPATIBLE',
+      path: ['genome', 'genes', 'tail', 'H1'],
+      message: 'The existing hidden tail layer is unresolved.',
+    }
     const blocked = refreshSessionValidity({
       ...before,
       spec: invalidSpec,
-      generationDiagnostics: [tailDiagnostic],
+      generationDiagnostics: [tailDiagnostic, hiddenDiagnostic],
     })
     const snapshot = structuredClone(blocked.spec)
 
@@ -491,10 +497,113 @@ describe('createCreatorReducer', () => {
 
     expect(next.spec).toEqual(snapshot)
     expect(next.generationDiagnostics).toContainEqual(tailDiagnostic)
+    expect(next.generationDiagnostics).toContainEqual(hiddenDiagnostic)
     expect(next.generationDiagnostics).toContainEqual(expect.objectContaining({
       code: 'SPEC_GENE_PART_MISSING',
       path: ['genome', 'genes', 'eyes', 'H2'],
     }))
+  })
+
+  it('clears a repaired hidden-layer failure after an ordinary reroll retry', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const before = makeSession(catalog)
+    const invalidSpec = structuredClone(before.spec)
+    invalidSpec.genome!.genes.eyes.H2 = 'eyes_hidden_retry_restored'
+    const invalid = refreshSessionValidity({ ...before, spec: invalidSpec })
+
+    const failed = reducer(invalid, { type: 'rerollSlot', slotId: 'eyes' })
+    expect(failed.generationDiagnostics).toContainEqual(expect.objectContaining({
+      code: 'SPEC_GENE_PART_MISSING',
+      path: ['genome', 'genes', 'eyes', 'H2'],
+    }))
+
+    const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
+    catalog.parts.push({ ...eyes, id: 'eyes_hidden_retry_restored' })
+    const recovered = reducer(failed, { type: 'rerollSlot', slotId: 'eyes' })
+
+    expect(recovered.blocked).toBe(false)
+    expect(recovered.generationDiagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'SPEC_GENE_PART_MISSING',
+      path: ['genome', 'genes', 'eyes', 'H2'],
+    }))
+  })
+
+  it.each(['reroll', 'manual'] as const)(
+    'clears stale full-genome diagnostics after a successful body-frame %s rebuild',
+    command => {
+      const catalog = makeValidCatalogFixture()
+      const reducer = createCreatorReducer(catalog)
+      const before = makeSession(catalog)
+      const stale = refreshSessionValidity({
+        ...before,
+        generationDiagnostics: [
+          {
+            severity: 'error',
+            code: 'SPEC_GENOME_VERSION_UNSUPPORTED',
+            path: ['genome', 'genomeVersion'],
+            message: 'The previous genome version was unsupported.',
+          },
+          {
+            severity: 'error',
+            code: 'SPEC_GENE_PART_MISSING',
+            path: ['genome', 'genes', 'eyes', 'H2'],
+            message: 'The previous hidden eyes gene was missing.',
+          },
+        ],
+      })
+
+      const next = command === 'reroll'
+        ? reducer(stale, { type: 'rerollSlot', slotId: 'bodyFrame' })
+        : reducer(stale, {
+            type: 'manualSelect',
+            slotId: 'bodyFrame',
+            partId: stale.spec.visualSlots.bodyFrame.partId,
+          })
+
+      expect(next.blocked).toBe(false)
+      expect(next.generationDiagnostics).toEqual([])
+    },
+  )
+
+  it('retires only visual and P diagnostics after an ordinary manual selection', () => {
+    const catalog = withManualTail(makeValidCatalogFixture())
+    const reducer = createCreatorReducer(catalog)
+    const before = makeSession(catalog)
+    const staleVisual: Diagnostic = {
+      severity: 'error',
+      code: 'NO_COMPATIBLE_CANDIDATE',
+      path: ['visualSlots', 'tail'],
+      message: 'The previous tail phenotype was unresolved.',
+    }
+    const staleP: Diagnostic = {
+      severity: 'error',
+      code: 'SPEC_GENOME_P_MISMATCH',
+      path: ['genome', 'genes', 'tail', 'P'],
+      message: 'The previous tail P gene was stale.',
+    }
+    const staleHidden: Diagnostic = {
+      severity: 'error',
+      code: 'SPEC_GENE_PART_MISSING',
+      path: ['genome', 'genes', 'eyes', 'H2'],
+      message: 'An unrelated hidden eyes diagnostic remains.',
+    }
+    const blocked = refreshSessionValidity({
+      ...before,
+      generationDiagnostics: [staleVisual, staleP, staleHidden],
+    })
+
+    const next = reducer(blocked, {
+      type: 'manualSelect',
+      slotId: 'tail',
+      partId: 'tail_manual',
+    })
+
+    expect(next.spec.visualSlots.tail.partId).toBe('tail_manual')
+    expect(next.generationDiagnostics).not.toContainEqual(staleVisual)
+    expect(next.generationDiagnostics).not.toContainEqual(staleP)
+    expect(next.generationDiagnostics).toContainEqual(staleHidden)
+    expect(next.blocked).toBe(true)
   })
 
   it('clears an incompatible lock diagnostic when that slot receives a compatible manual selection', () => {

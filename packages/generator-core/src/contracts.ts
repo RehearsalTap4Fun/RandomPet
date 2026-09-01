@@ -342,9 +342,16 @@ export interface GenerationRequest {
   lockedSelections?: Partial<Record<VisualSlotId, string>>
 }
 
+export interface DiagnosticRevalidationScopes {
+  visualSlots?: VisualSlotId[]
+  genomeGenes?: Partial<Record<GenomeLayer, VisualSlotId[]>>
+  fullGenome?: boolean
+}
+
 export interface GenerationResult {
   spec: MonsterSpec
   diagnostics: Diagnostic[]
   blocked: boolean
   affectedSlots: VisualSlotId[]
+  revalidatedDiagnosticScopes?: DiagnosticRevalidationScopes
 }
