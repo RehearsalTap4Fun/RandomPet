@@ -5,6 +5,9 @@ import {
   VISUAL_SLOT_IDS,
   isStructuralSlot,
 } from './contracts.js'
+import type { NonFacialVisualSlotId } from './contracts.js'
+
+const nonFacialVisualSlot: NonFacialVisualSlotId = 'surfaceMaterial'
 
 describe('structural slot contract', () => {
   it('classifies exactly the six structural visual slots', () => {
@@ -17,6 +20,10 @@ describe('structural slot contract', () => {
 })
 
 describe('non-facial visual slot contract', () => {
+  it('exports the non-facial visual slot union for consumers', () => {
+    expect(nonFacialVisualSlot).toBe('surfaceMaterial')
+  })
+
   it('declares the exact non-facial visual slots', () => {
     expect(NON_FACIAL_VISUAL_SLOT_IDS).toEqual(['surfaceMaterial', 'pattern', 'effect'])
   })

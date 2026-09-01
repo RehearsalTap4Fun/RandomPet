@@ -27,6 +27,7 @@ export const STRUCTURAL_SLOT_IDS = [
 export const NON_FACIAL_VISUAL_SLOT_IDS = [
   'surfaceMaterial', 'pattern', 'effect',
 ] as const satisfies readonly (typeof VISUAL_SLOT_IDS[number])[]
+export type NonFacialVisualSlotId = typeof NON_FACIAL_VISUAL_SLOT_IDS[number]
 
 export const SEMANTIC_SLOT_IDS = [
   'frame', 'appendage', 'headAndEyes', 'mouth',
