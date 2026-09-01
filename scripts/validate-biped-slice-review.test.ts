@@ -5,7 +5,6 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { makeCompositionCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import {
   CONNECTOR_RECEIVER_COVERAGE_MIN,
-  EYES_INSIDE_RATIO_MIN,
 } from '@qmonster/renderer-canvas'
 import {
   assertBipedSliceEntry,
@@ -38,10 +37,12 @@ describe('biped interface slice review validation', () => {
   it('accepts an entry exactly on every interface threshold', () => {
     const entry = makeValidSliceEntry()
     for (const metric of entry.connectorMetrics) metric.receiverCoverage = CONNECTOR_RECEIVER_COVERAGE_MIN
-    entry.compositionMetrics.eyesInsideRatio = EYES_INSIDE_RATIO_MIN
+    entry.compositionMetrics.eyesInsideRatio = compositionPolicy.faceInsideRatio
     entry.compositionMetrics.eyesVisibleRatio = compositionPolicy.faceVisibleRatio
     entry.compositionMetrics.mouthInsideRatio = compositionPolicy.faceInsideRatio
     entry.compositionMetrics.mouthVisibleRatio = compositionPolicy.faceVisibleRatio
+    entry.compositionMetrics.oralDetailInsideRatio = compositionPolicy.faceInsideRatio
+    entry.compositionMetrics.oralDetailVisibleRatio = compositionPolicy.faceVisibleRatio
 
     expect(() => assertBipedSliceEntry(entry, compositionPolicy)).not.toThrow()
   })

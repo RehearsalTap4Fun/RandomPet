@@ -1278,7 +1278,7 @@ async function renderInterfaceMonster(
       ))
     }
   }
-  if (diagnostics.some(item => item.severity === 'error')) {
+  if (diagnostics.some(item => item.severity === 'error' && item.code !== 'ASSET_LOAD_FAILED')) {
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
 
@@ -1328,7 +1328,7 @@ async function renderInterfaceMonster(
       ))
     }
   }
-  if (diagnostics.some(item => item.severity === 'error')) {
+  if (diagnostics.some(item => item.severity === 'error' && item.code !== 'ASSET_LOAD_FAILED')) {
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
 

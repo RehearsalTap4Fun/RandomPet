@@ -45,6 +45,10 @@ describe('biped interface slice manifest', () => {
     expect(catalog.options.headShape).toEqual(['head_mushroom_cap', 'head_round_dome'])
     expect(manifest.entryCount).toBe(16)
     expect(manifest.entries).toHaveLength(16)
+    expect(manifest.entries.every(entry => (
+      entry.compositionMetrics.oralDetailInsideRatio === 1
+      && entry.compositionMetrics.oralDetailVisibleRatio === 1
+    ))).toBe(true)
     expect(new Set(manifest.entries.map(item => item.structuralKey)).size).toBe(16)
     expect(new Set(manifest.entries.map(item => item.selections.headShape))).toEqual(
       new Set(['head_mushroom_cap', 'head_round_dome']),

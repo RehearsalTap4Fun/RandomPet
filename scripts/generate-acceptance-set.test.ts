@@ -11,6 +11,8 @@ function makeValidRenderedAcceptanceEntry() {
     eyesVisibleRatio: 1,
     mouthInsideRatio: 1,
     mouthVisibleRatio: 1,
+    oralDetailInsideRatio: 1,
+    oralDetailVisibleRatio: 1,
     visibleBounds: { x: 100, y: 100, width: 800, height: 800 },
   }
   return {
@@ -139,6 +141,8 @@ describe('acceptance manifest', () => {
     ['eyes hidden', { compositionMetrics: { ...makeValidRenderedAcceptanceEntry().compositionMetrics, eyesVisibleRatio: 0.839999 } }],
     ['mouth outside the safe zone', { compositionMetrics: { ...makeValidRenderedAcceptanceEntry().compositionMetrics, mouthInsideRatio: 0.839999 } }],
     ['mouth hidden', { compositionMetrics: { ...makeValidRenderedAcceptanceEntry().compositionMetrics, mouthVisibleRatio: 0.839999 } }],
+    ['oral detail outside the safe zone', { compositionMetrics: { ...makeValidRenderedAcceptanceEntry().compositionMetrics, oralDetailInsideRatio: 0.839999 } }],
+    ['oral detail hidden', { compositionMetrics: { ...makeValidRenderedAcceptanceEntry().compositionMetrics, oralDetailVisibleRatio: 0.839999 } }],
     ['render diagnostics', { renderDiagnostics: [{ severity: 'warning', code: 'TEST', path: [], message: 'warning' }] }],
     ['missing connector metrics', { connectorMetrics: null }],
     ['empty connector metrics', { connectorMetrics: [] }],
@@ -163,10 +167,12 @@ describe('acceptance manifest', () => {
       generationDiagnostics: [],
       compositionMetrics: {
         ...makeValidRenderedAcceptanceEntry().compositionMetrics,
-        eyesInsideRatio: 0.8,
+        eyesInsideRatio: 0.84,
         eyesVisibleRatio: 0.84,
         mouthInsideRatio: 0.84,
         mouthVisibleRatio: 0.84,
+        oralDetailInsideRatio: 0.84,
+        oralDetailVisibleRatio: 0.84,
       },
       connectorMetrics: [{
         ...makeValidRenderedAcceptanceEntry().connectorMetrics[0],

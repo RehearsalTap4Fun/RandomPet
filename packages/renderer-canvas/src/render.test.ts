@@ -445,12 +445,12 @@ describe('interface face metric occlusion policy', () => {
       .toEqual({ eyes: false, mouth: false })
   })
 
-  it('routes the shared 0.84 visible threshold without changing the 0.80 eyes-inside threshold', () => {
+  it('routes the shared catalog thresholds to every face slot', () => {
     const policy = {
       faceInsideRatio: 0.84,
       faceVisibleRatio: 0.84,
     } as unknown as NonNullable<Catalog['compositionPolicy']>
-    expect(faceMetricThresholds(policy, 'eyes')).toEqual({ inside: 0.8, visible: 0.84 })
+    expect(faceMetricThresholds(policy, 'eyes')).toEqual({ inside: 0.84, visible: 0.84 })
     expect(faceMetricThresholds(policy, 'mouthShape')).toEqual({ inside: 0.84, visible: 0.84 })
     expect(faceMetricThresholds(policy, 'oralDetail')).toEqual({ inside: 0.84, visible: 0.84 })
     expect(faceMetricThresholds(policy, 'unknown')).toBeNull()
@@ -1301,6 +1301,37 @@ describe('v0.3 interface rendering', () => {
     })
     expect(result.diagnostics).not.toEqual(expect.arrayContaining([
       expect.objectContaining({ path: ['visualSlots', 'oralDetail'] }),
+    ]))
+  })
+
+  it('keeps failed non-none oral assets numeric and failing instead of treating them as none', async () => {
+    const { catalog, spec } = v04Fixture()
+    const oral = catalog.parts.find(part => part.slotId === 'oralDetail')!
+    if (oral.composition?.mode === 'interface') throw new Error('expected attachment oral detail')
+    const oralAssetPath = oral.composition!.renderNodes[0]!.assetPath
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(new Set([oralAssetPath])), {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+      },
+    )
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'ASSET_LOAD_FAILED',
+      path: ['parts', oral.id, 'composition', 'renderNodes', oral.composition!.renderNodes[0]!.id],
+    }))
+    expect(result.compositionMetrics).toMatchObject({
+      oralDetailInsideRatio: 0,
+      oralDetailVisibleRatio: 0,
+    })
+    expect(result.diagnostics).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        code: 'COMPOSITION_FACE_OUT_OF_ZONE', path: ['visualSlots', 'oralDetail'],
+      }),
+      expect.objectContaining({
+        code: 'COMPOSITION_FACE_OCCLUDED', path: ['visualSlots', 'oralDetail'],
+      }),
     ]))
   })
 

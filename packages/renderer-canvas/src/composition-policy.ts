@@ -1,17 +1,11 @@
 import type { Catalog } from '@qmonster/generator-core'
 import type { CompositionMetrics } from './types.js'
 
-export const EYES_INSIDE_RATIO_MIN = 0.80
-
 export function faceMetricThresholds(
   policy: NonNullable<Catalog['compositionPolicy']>,
   slotId: string,
 ): { inside: number; visible: number } | null {
-  if (slotId === 'eyes') return {
-    inside: EYES_INSIDE_RATIO_MIN,
-    visible: policy.faceVisibleRatio,
-  }
-  if (slotId === 'mouthShape' || slotId === 'oralDetail') return {
+  if (slotId === 'eyes' || slotId === 'mouthShape' || slotId === 'oralDetail') return {
     inside: policy.faceInsideRatio,
     visible: policy.faceVisibleRatio,
   }

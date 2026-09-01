@@ -51,6 +51,8 @@ export function makeValidSliceEntry(): BipedSliceEntry {
       eyesVisibleRatio: 1,
       mouthInsideRatio: 1,
       mouthVisibleRatio: 1,
+      oralDetailInsideRatio: 1,
+      oralDetailVisibleRatio: 1,
       visibleBounds: { x: 128, y: 128, width: 1792, height: 1792 },
     },
     originalSha256: 'a'.repeat(64),

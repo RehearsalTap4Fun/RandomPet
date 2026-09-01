@@ -12,7 +12,7 @@ const policy = {
 
 function metrics(overrides: Partial<CompositionMetrics> = {}): CompositionMetrics {
   return {
-    eyesInsideRatio: 0.8,
+    eyesInsideRatio: 0.84,
     eyesVisibleRatio: 0.84,
     mouthInsideRatio: 0.84,
     mouthVisibleRatio: 0.84,
@@ -24,12 +24,12 @@ function metrics(overrides: Partial<CompositionMetrics> = {}): CompositionMetric
 }
 
 describe('composition metric policy', () => {
-  it('accepts the exact v0.3 face and frame boundaries', () => {
+  it('accepts the exact catalog face and frame boundaries', () => {
     expect(compositionMetricsMeetThresholds(metrics(), policy)).toBe(true)
   })
 
   it.each([
-    ['eyes inside', { eyesInsideRatio: 0.799999 }],
+    ['eyes inside', { eyesInsideRatio: 0.839999 }],
     ['eyes visible', { eyesVisibleRatio: 0.839999 }],
     ['mouth inside', { mouthInsideRatio: 0.839999 }],
     ['mouth visible', { mouthVisibleRatio: 0.839999 }],

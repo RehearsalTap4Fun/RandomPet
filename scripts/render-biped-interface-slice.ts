@@ -5,7 +5,7 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from '@playwright/test'
 import type { Catalog, MonsterSpec, SemanticSlotId, VisualSlotId } from '@qmonster/generator-core'
-import type { ConnectorMetric } from '@qmonster/renderer-canvas'
+import type { CompositionMetrics, ConnectorMetric } from '@qmonster/renderer-canvas'
 import sharp from 'sharp'
 import { createServer, type InlineConfig } from 'vite'
 
@@ -40,13 +40,7 @@ export interface BipedSliceEntry {
   review256PngPath: string
   diagnostics: Array<{ severity: string, code: string, path: string[], message: string }>
   connectorMetrics: ConnectorMetric[]
-  compositionMetrics: {
-    eyesInsideRatio: number
-    eyesVisibleRatio: number
-    mouthInsideRatio: number
-    mouthVisibleRatio: number
-    visibleBounds: { x: number, y: number, width: number, height: number } | null
-  }
+  compositionMetrics: CompositionMetrics
   originalSha256: string
   review256Sha256: string
 }
@@ -93,6 +87,8 @@ export async function buildBipedSliceManifest(
               eyesVisibleRatio: 1,
               mouthInsideRatio: 1,
               mouthVisibleRatio: 1,
+              oralDetailInsideRatio: 1,
+              oralDetailVisibleRatio: 1,
               visibleBounds: null,
             },
             originalSha256: '',
