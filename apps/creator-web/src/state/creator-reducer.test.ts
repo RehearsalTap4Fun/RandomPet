@@ -566,6 +566,52 @@ describe('createCreatorReducer', () => {
     },
   )
 
+  it('clears a repaired visual no-compatible-rig failure after a body-frame reroll retry', () => {
+    const catalog = makeValidCatalogFixture()
+    const before = makeSession(catalog)
+    const reducer = createCreatorReducer(catalog)
+    const bodyParts = catalog.parts.filter(part => part.slotId === 'bodyFrame')
+    const originalWeights = bodyParts.map(part => part.baseWeight)
+    for (const part of bodyParts) part.baseWeight = 0
+
+    const failed = reducer(before, { type: 'rerollSlot', slotId: 'bodyFrame' })
+
+    expect(failed.blocked).toBe(true)
+    expect(failed.generationDiagnostics).toContainEqual(expect.objectContaining({
+      code: 'NO_COMPATIBLE_RIG',
+      path: ['visualSlots', 'bodyFrame'],
+    }))
+
+    bodyParts.forEach((part, index) => { part.baseWeight = originalWeights[index]! })
+    const recovered = reducer(failed, { type: 'rerollSlot', slotId: 'bodyFrame' })
+
+    expect(recovered.blocked).toBe(false)
+    expect(recovered.generationDiagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'NO_COMPATIBLE_RIG',
+      path: ['visualSlots', 'bodyFrame'],
+    }))
+  })
+
+  it('preserves an unknown future genome gene path after a successful full rebuild', () => {
+    const catalog = makeValidCatalogFixture()
+    const reducer = createCreatorReducer(catalog)
+    const unknownFutureDiagnostic: Diagnostic = {
+      severity: 'error',
+      code: 'SPEC_GENE_PART_MISSING',
+      path: ['genome', 'genes', 'futureSlot', 'futureLayer'],
+      message: 'A future genome path is not yet understood by this reducer.',
+    }
+    const blocked = refreshSessionValidity({
+      ...makeSession(catalog),
+      generationDiagnostics: [unknownFutureDiagnostic],
+    })
+
+    const rebuilt = reducer(blocked, { type: 'rerollSlot', slotId: 'bodyFrame' })
+
+    expect(rebuilt.generationDiagnostics).toContainEqual(unknownFutureDiagnostic)
+    expect(rebuilt.blocked).toBe(true)
+  })
+
   it('retires only visual and P diagnostics after an ordinary manual selection', () => {
     const catalog = withManualTail(makeValidCatalogFixture())
     const reducer = createCreatorReducer(catalog)

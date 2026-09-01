@@ -58,6 +58,7 @@ const REPLACEABLE_SLOT_DIAGNOSTIC_CODES = new Set([
   'LOCK_INCOMPATIBLE',
   'SLOT_LOCKED',
   'NO_COMPATIBLE_CANDIDATE',
+  'NO_COMPATIBLE_RIG',
   'PART_NOT_FOUND',
   'PART_INCOMPATIBLE',
   'CONNECTOR_VARIANT_MISSING',
@@ -70,7 +71,6 @@ const REPLACEABLE_SLOT_DIAGNOSTIC_CODES = new Set([
 
 const REPLACEABLE_GENOME_DIAGNOSTIC_CODES = new Set([
   ...REPLACEABLE_SLOT_DIAGNOSTIC_CODES,
-  'NO_COMPATIBLE_RIG',
   'SPEC_GENE_PART_MISSING',
   'SPEC_GENE_PART_SLOT_MISMATCH',
   'SPEC_GENOME_LAYER_INCOMPATIBLE',
@@ -113,13 +113,16 @@ function isReplaceableRevalidatedDiagnostic(
     && diagnostic.path[1] === 'genomeVersion'
   ) return scopes.fullGenome === true
   if (diagnostic.path[1] !== 'genes') return false
-  if (scopes.fullGenome === true) return true
   const slotId = diagnostic.path[2] as VisualSlotId | undefined
   const layer = diagnostic.path[3] as GenomeLayer | undefined
-  return slotId !== undefined
-    && layer !== undefined
-    && GENOME_LAYERS.includes(layer)
-    && (scopes.genomeGenes?.[layer]?.includes(slotId) ?? false)
+  if (
+    slotId === undefined
+    || layer === undefined
+    || !VISUAL_SLOT_IDS.includes(slotId)
+    || !GENOME_LAYERS.includes(layer)
+  ) return false
+  if (scopes.fullGenome === true) return true
+  return scopes.genomeGenes?.[layer]?.includes(slotId) ?? false
 }
 
 function reconcileLocalGenerationResult(
