@@ -150,6 +150,29 @@ describe('incubator adapter', () => {
     })
   })
 
+  it('exports an isolated genome alongside the resolved phenotype', () => {
+    const catalog = productionCatalog()
+    const spec = generatedSpec(catalog)
+    const result = toIncubatorRecord(spec, catalog)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.value.visualExtension.genome).toEqual(spec.genome)
+    expect(result.value.visualExtension.genome).not.toBe(spec.genome)
+    result.value.visualExtension.genome!.genes.eyes.H1 = 'mutated_adapter_copy'
+    expect(spec.genome!.genes.eyes.H1).not.toBe('mutated_adapter_copy')
+  })
+
+  it('omits genome for a valid legacy phenotype', () => {
+    const catalog = productionCatalog()
+    const spec = generatedSpec(catalog)
+    delete spec.genome
+    const result = toIncubatorRecord(spec, catalog)
+
+    expect(result.ok).toBe(true)
+    if (result.ok) expect('genome' in result.value.visualExtension).toBe(false)
+  })
+
   it('exports eight valid traits across themes, rigs, and modes', () => {
     const parsedCatalog = parseCatalog(productionCatalogDocument)
     expect(parsedCatalog.ok).toBe(true)

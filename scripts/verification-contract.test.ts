@@ -91,7 +91,7 @@ it('keeps live reconstruction suites in full verification while coverage targets
     .filter(path => /\.test\.tsx?$/.test(path))
     .map(path => path.replaceAll('\\', '/'))
   discovered.push('tests/render/production-composition.spec.ts')
-  expect(discovered).toHaveLength(90)
+  expect(discovered).toHaveLength(93)
 
   const configured = [
     ...discovered.filter(path => /^(packages|scripts)\//.test(path) && !COVERAGE_ONLY_EXCLUDES.includes(path)),

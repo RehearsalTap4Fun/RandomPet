@@ -146,5 +146,9 @@ export function buildProductionReviewBundle(
   if (errors.length > 0) {
     throw new Error(`Invalid production review composition for ${target?.id ?? 'base'}/${rig.id}: ${JSON.stringify(errors)}`)
   }
+  // Review bundles deliberately author phenotype-only combinations after this
+  // boundary, so expose them as supported legacy specs rather than inventing
+  // hereditary data for those later visual overrides.
+  delete result.spec.genome
   return { catalog: production, spec: result.spec }
 }

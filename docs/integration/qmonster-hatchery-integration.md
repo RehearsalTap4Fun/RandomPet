@@ -1,10 +1,10 @@
 # QMonster 生成器 × 怪奇生物孵化器对接指南
 
-> 文档版本：1.0
+> 文档版本：1.1
 > 生成器基线：`feature/qmonster-v0.1` / `c9a0d6b`
 > 目录版本：`0.3.0`
 > 渲染器版本：`0.3.0`
-> 更新日期：2026-08-31
+> 更新日期：2026-09-01
 
 ## 1. 目标与结论
 
@@ -24,6 +24,7 @@
 2. WebP/PNG 是由 `MonsterSpec` 派生的缓存，可以随时重新生成。
 3. 恢复存档时必须使用 `MonsterSpec.catalogVersion` 指定的目录，不得自动换成最新目录。
 4. 只有生成和渲染均无错误时，孵化结果才能进入 `READY` 状态。
+5. 新生成的 `MonsterSpec` 必须把 `genome` 与 `visualSlots` 作为同一份身份数据一起持久化。
 
 本文面向浏览器端孵化器。当前提供的“怪奇生物孵化器 (Copy).html”是保存后的页面外壳，其引用的 `_files/saved_resource.html` 没有随文件保存，因此本文按“孵化动作”定义稳定接入边界，不引用该页面中不可恢复的函数名或 DOM ID。
 
@@ -133,7 +134,50 @@ interface HatchMonsterError {
 }
 ```
 
-### 3.3 缓存键
+### 3.3 基因与孵化器适配契约
+
+新生成的生物包含一个确定性的四层基因组。公共 TypeScript 契约为：
+
+```ts
+export const GENOME_VERSION = '0.1.0' as const
+export const GENOME_LAYERS = ['P', 'H1', 'H2', 'H3'] as const
+export type GenomeLayer = typeof GENOME_LAYERS[number]
+
+export interface SlotGenes {
+  P: string
+  H1: string
+  H2: string
+  H3: string
+}
+
+export interface MonsterGenome {
+  genomeVersion: typeof GENOME_VERSION
+  genes: Record<VisualSlotId, SlotGenes>
+}
+```
+
+其中 `P` 是当前表现出来的显性层，`H1`、`H2`、`H3` 是持久化但不参与本版本渲染的隐藏层。每一层都覆盖全部 14 个视觉槽位，基因值是目录中稳定的 `partId`。相同请求与相同目录必须得到字节等价的 genome；隐藏层使用彼此隔离的确定性随机域，不得消耗或改变 `P` 的随机流。
+
+适配器输出的扩展字段为：
+
+```ts
+visualExtension: Pick<
+  MonsterSpec,
+  'schemaVersion' | 'catalogVersion' | 'visualSlots' | 'genome'
+>
+```
+
+适配器必须深拷贝 `visualSlots` 和可选的 `genome`，使孵化器记录与输入规格之间没有可变对象别名。新生成记录携带 `genome`；合法旧版（legacy）规格没有基因记录时，`visualExtension` 必须完全省略 `genome` 键，不能写入 `undefined` 占位或补造隐藏基因。
+
+必须始终满足以下显性一致性约束：
+
+```ts
+genome.genes[slotId].P === visualSlots[slotId].partId
+```
+
+存在但无效的 genome（包括版本不支持、槽位或层缺失、部件不存在、部件槽位错误、层不兼容或 `P` 不一致）会阻断 `READY`，导入和适配过程均不得静默修复、替换或删除它。
+
+### 3.4 缓存键
 
 图片缓存键必须绑定完整规格和渲染参数：
 
@@ -141,7 +185,7 @@ interface HatchMonsterError {
 qmonster:{catalogVersion}:{rendererVersion}:{width}:{groundShadow}:{specSha256}
 ```
 
-`specSha256` 应对递归按键名排序后的 canonical JSON 计算 SHA-256。不能只用 `seed` 作为缓存键，因为相同 seed 在不同主题、模式、锁定特征或目录版本下可能产生不同结果。
+`specSha256` 应对完整 `MonsterSpec` 的 canonical JSON 计算 SHA-256：对象键递归按键名排序，数组保持原顺序，字符串按 UTF-8 编码；可选字段缺失时保持缺失，不要自行写入 `undefined` 或 `null`。canonical 输入必须包含存在的 `genome` 及其 `genomeVersion`、全部槽位和 `P/H1/H2/H3`，因此两个表型相同但遗传身份不同的生物不能命中同一陈旧图片缓存。不能只用 `seed` 作为缓存键，因为相同 seed 在不同主题、模式、锁定特征或目录版本下可能产生不同结果。
 
 ## 4. 推荐适配层
 
@@ -353,6 +397,7 @@ export async function hatchMonster(
 
 - `seed`、`themeId`、`palette`；
 - 14 个 `visualSlots` 的 `partId` 和 `rigId`；
+- 新生成记录中 14 个槽位的 `genome.genes`，每个槽位包含 `P/H1/H2/H3`；
 - 8 个 `semanticTraits`；
 - `mutation` 与 `aberrations`；
 - `schemaVersion`、`catalogVersion`、`rendererVersion`。
@@ -387,9 +432,11 @@ interface HatchedMonsterRecord {
 - 图片 Blob：对象存储、Cache Storage 或 IndexedDB；
 - 不推荐：把 Base64 图片放进 `localStorage`，容易超过容量限制并阻塞主线程。
 
+新生成记录必须原子持久化完整 `MonsterSpec`，也就是把 `genome` 与解析后的表现型 `visualSlots` 一起保存；不能只保存其中之一。缺少 `genome` 仅对历史遗留（legacy）规格有效，这类记录应继续保持无基因状态，普通读取、编辑或重新渲染都不得推测并补齐 `H1/H2/H3`。
+
 ### 6.2 两阶段保存
 
-1. 生成 `MonsterSpec` 并计算 `specSha256`；
+1. 生成包含 `visualSlots` 与 `genome` 的完整 `MonsterSpec`，校验显性一致性后按 canonical JSON 计算 `specSha256`；
 2. 渲染并编码图片；
 3. 先写入图片 Blob，再原子更新记录为 `READY`；
 4. 如果图片写入失败，保留 `MonsterSpec` 并标记 `RENDER_PENDING`，下次可重试渲染；
@@ -410,6 +457,8 @@ interface HatchedMonsterRecord {
 
 - 缺少对应 `catalogVersion`：标记 `UNSUPPORTED_VERSION`，保留原始记录，不得用新目录猜测替换；
 - 规格校验含错误：隔离该记录并上报，不进入正常展示；
+- genome 存在时必须验证 `genomeVersion`、完整的 `P/H1/H2/H3`、目录部件和层兼容性，以及 `genome.genes[slotId].P === visualSlots[slotId].partId`；任一错误都阻断 `READY`，不得静默修复；
+- genome 缺失只作为旧版记录处理；恢复和导入不得为其合成隐藏层。若业务明确把旧版生物“重新生成”为一只新生物，新结果才按正常生成流程获得 genome；
 - 只有警告：可以展示，但应记录遥测；
 - 图片缓存损坏：删除缓存后按原规格重绘；
 - 升级目录时保留旧目录，直到所有旧存档都完成显式迁移。
@@ -441,6 +490,8 @@ interface HatchedMonsterRecord {
 - `schemaVersion`：数据结构版本；
 - `catalogVersion`：部件、兼容性和资源版本；
 - `rendererVersion`：合成与渲染算法版本。
+
+存在 genome 时还记录独立的 `genomeVersion`。本次新增字段是可选的增量契约，因此 `MonsterSpec.schemaVersion` 仍为 `0.1.0`，`MonsterGenome.genomeVersion` 也固定为 `0.1.0`；两者版本职责不同，不得相互替代或在读档时覆写。
 
 三者必须作为一个兼容性组合处理。孵化器不得在读档时直接覆写任何版本字段。
 
@@ -495,6 +546,10 @@ interface HatchedMonsterRecord {
 ### 11.1 功能验收
 
 - [ ] 同一 seed、主题、模式和目录版本重复孵化，得到相同 `MonsterSpec`；
+- [ ] 新生成记录同时保存 `genome` 与 `visualSlots`，且相同请求和目录得到字节等价的四层 genome；
+- [ ] 每个槽位都满足 `genome.genes[slotId].P === visualSlots[slotId].partId`，并包含完整 `P/H1/H2/H3`；
+- [ ] 合法旧版记录省略 genome，读档、导入和普通编辑均不会合成隐藏基因；
+- [ ] 存在但无效的 genome 会阻断 `READY`，且原始导入数据不被静默修复；
 - [ ] 固定规格重复渲染，输出像素与正式接受集一致；
 - [ ] 14 个视觉槽位均来自当前目录中的合法 part ID；
 - [ ] 双足生物的头、躯干、四肢连接无明显断裂或错误遮挡；
@@ -513,6 +568,7 @@ interface HatchedMonsterRecord {
 - [ ] 不把 Base64 图片写入 `localStorage`；
 - [ ] 错误日志包含诊断 code，但不包含不必要的用户数据；
 - [ ] 孵化器 CI 包含固定 seed、版本恢复、WebP 回退和资源缺失测试。
+- [ ] canonical `specSha256` 覆盖完整 genome，遗传身份不同的规格不会共享陈旧图片缓存。
 
 ### 11.3 建议的首批联调样本
 

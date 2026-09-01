@@ -25,6 +25,10 @@ function copyVisualSlots(spec: MonsterSpec): Record<VisualSlotId, VisualSelectio
   ])) as Record<VisualSlotId, VisualSelection>
 }
 
+function copyGenome(spec: MonsterSpec): MonsterSpec['genome'] {
+  return spec.genome === undefined ? undefined : structuredClone(spec.genome)
+}
+
 function invalidSpecDiagnostic(diagnostic: Diagnostic): Diagnostic {
   return {
     ...diagnostic,
@@ -50,6 +54,8 @@ export function toIncubatorRecord(
     return { ok: false, diagnostics }
   }
 
+  const genome = copyGenome(spec)
+
   return {
     ok: true,
     value: {
@@ -63,6 +69,7 @@ export function toIncubatorRecord(
         schemaVersion: spec.schemaVersion,
         catalogVersion: spec.catalogVersion,
         visualSlots: copyVisualSlots(spec),
+        ...(genome === undefined ? {} : { genome }),
       },
     },
   }

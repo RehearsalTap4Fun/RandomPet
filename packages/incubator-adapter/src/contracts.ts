@@ -19,5 +19,8 @@ export interface IncubatorCreatureRecord {
   mutation: string | null
   aberrations: string[]
   palette: [string, string, string]
-  visualExtension: Pick<MonsterSpec, 'schemaVersion' | 'catalogVersion' | 'visualSlots'>
+  visualExtension: Pick<
+    MonsterSpec,
+    'schemaVersion' | 'catalogVersion' | 'visualSlots' | 'genome'
+  >
 }
