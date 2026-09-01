@@ -24,6 +24,10 @@ export const STRUCTURAL_SLOT_IDS = [
   'bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage',
 ] as const satisfies readonly (typeof VISUAL_SLOT_IDS[number])[]
 
+export const NON_FACIAL_VISUAL_SLOT_IDS = [
+  'surfaceMaterial', 'pattern', 'effect',
+] as const satisfies readonly (typeof VISUAL_SLOT_IDS[number])[]
+
 export const SEMANTIC_SLOT_IDS = [
   'frame', 'appendage', 'headAndEyes', 'mouth',
   'surface', 'pattern', 'personality', 'quirk',
@@ -155,6 +159,7 @@ export interface CompositionPolicy {
   motifSlots: VisualSlotId[]
   surpriseRatio: 0.3
   maxStrongFeatures: 2
+  maxStrongNonFacialFeatures?: 1
   optionalNoneRate: { min: 0.35; max: 0.5 }
   frameBounds: Rect
   faceInsideRatio: 0.8 | 0.84

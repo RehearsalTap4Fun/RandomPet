@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { STRUCTURAL_SLOT_IDS, VISUAL_SLOT_IDS, isStructuralSlot } from './contracts.js'
+import {
+  NON_FACIAL_VISUAL_SLOT_IDS,
+  STRUCTURAL_SLOT_IDS,
+  VISUAL_SLOT_IDS,
+  isStructuralSlot,
+} from './contracts.js'
 
 describe('structural slot contract', () => {
   it('classifies exactly the six structural visual slots', () => {
@@ -8,5 +13,11 @@ describe('structural slot contract', () => {
     ])
     expect(VISUAL_SLOT_IDS.filter(isStructuralSlot)).toEqual(STRUCTURAL_SLOT_IDS)
     expect(VISUAL_SLOT_IDS.filter(slotId => !isStructuralSlot(slotId))).not.toContain('bodyFrame')
+  })
+})
+
+describe('non-facial visual slot contract', () => {
+  it('declares the exact non-facial visual slots', () => {
+    expect(NON_FACIAL_VISUAL_SLOT_IDS).toEqual(['surfaceMaterial', 'pattern', 'effect'])
   })
 })

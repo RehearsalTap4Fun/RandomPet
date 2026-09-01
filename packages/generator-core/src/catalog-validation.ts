@@ -135,7 +135,7 @@ function requiredConnectorProfiles(catalog: Catalog, part: Catalog['parts'][numb
 }
 
 function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
-  if (catalog.version !== '0.3.0') return
+  if (catalog.version !== '0.3.0' && catalog.version !== '0.4.0') return
   const bridges = catalog.transitionBridges ?? []
   reportDuplicateIds(bridges, 'transitionBridges', diagnostics)
   for (const [partIndex, part] of catalog.parts.entries()) {
@@ -146,7 +146,7 @@ function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[])
       diagnostics.push(error(
         'CONNECTOR_INTERFACE_MODE_REQUIRED',
         path,
-        `Structural part ${part.id} must use interface composition mode in catalog 0.3.0.`,
+        `Structural part ${part.id} must use interface composition mode in catalog ${catalog.version}.`,
       ))
       continue
     }

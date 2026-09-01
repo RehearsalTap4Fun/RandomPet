@@ -4,6 +4,18 @@ import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 
 describe('catalog validation', () => {
+  it('requires the non-facial budget in catalog 0.4.0', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    catalog.version = '0.4.0'
+    expect(parseCatalog(catalog).ok).toBe(false)
+
+    catalog.compositionPolicy = {
+      ...catalog.compositionPolicy!,
+      maxStrongNonFacialFeatures: 1,
+    }
+    expect(parseCatalog(catalog).ok).toBe(true)
+  })
+
   it('rejects whitespace-only asset paths for visible parts', () => {
     const catalog = makeInterfaceCatalogFixture() as any
     const visible = catalog.parts.find((part: { composition?: { isNone?: boolean } }) => (

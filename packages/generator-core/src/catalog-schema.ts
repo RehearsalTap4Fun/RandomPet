@@ -123,6 +123,7 @@ const CompositionPolicySchema = z.object({
   motifSlots: z.array(VisualSlotIdSchema),
   surpriseRatio: z.literal(0.3),
   maxStrongFeatures: z.literal(2),
+  maxStrongNonFacialFeatures: z.literal(1).optional(),
   optionalNoneRate: z.object({ min: z.literal(0.35), max: z.literal(0.5) }).strict(),
   frameBounds: RectSchema,
   faceInsideRatio: z.union([z.literal(0.8), z.literal(0.84)]),
@@ -255,6 +256,7 @@ export const CatalogSchema = z.object({
   compositionPolicy: CompositionPolicySchema.optional(),
   transitionBridges: z.array(TransitionBridgeDefinitionSchema).optional(),
 }).superRefine((catalog, context) => {
+  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0'
   if (catalog.version === '0.2.0') {
     if (catalog.compositionPolicy === undefined) {
       context.addIssue({
@@ -286,17 +288,24 @@ export const CatalogSchema = z.object({
       message: 'Catalog 0.1.0 does not support composition policy metadata.',
     })
   }
-  if (catalog.version !== '0.3.0') return
+  if (catalog.version === '0.4.0' && catalog.compositionPolicy?.maxStrongNonFacialFeatures === undefined) {
+    context.addIssue({
+      code: 'custom',
+      path: ['compositionPolicy', 'maxStrongNonFacialFeatures'],
+      message: 'Catalog 0.4.0 requires a maximum of one strong non-facial feature.',
+    })
+  }
+  if (!isInterfaceCatalog) return
   if (catalog.transitionBridges === undefined) {
     context.addIssue({
       code: 'custom',
       path: ['transitionBridges'],
-      message: 'Catalog 0.3.0 requires transition bridge definitions.',
+      message: `Catalog ${catalog.version} requires transition bridge definitions.`,
     })
   }
   const bridgeIds = (catalog.transitionBridges ?? []).map(bridge => bridge.id)
   if (new Set(bridgeIds).size !== bridgeIds.length) {
-    context.addIssue({ code: 'custom', path: ['transitionBridges'], message: 'Catalog 0.3.0 transition bridge IDs must be unique.' })
+    context.addIssue({ code: 'custom', path: ['transitionBridges'], message: `Catalog ${catalog.version} transition bridge IDs must be unique.` })
   }
   for (const [index, part] of catalog.parts.entries()) {
     if (!isStructuralSlot(part.slotId) || part.composition?.isNone) continue
@@ -305,7 +314,7 @@ export const CatalogSchema = z.object({
       context.addIssue({
         code: 'custom',
         path: ['parts', index, 'composition'],
-        message: 'Catalog 0.3.0 structural parts require interface composition metadata.',
+        message: `Catalog ${catalog.version} structural parts require interface composition metadata.`,
       })
       continue
     }
@@ -315,7 +324,7 @@ export const CatalogSchema = z.object({
         context.addIssue({
           code: 'custom',
           path: ['parts', index, 'composition', 'variantsByRig', rigId],
-          message: `Catalog 0.3.0 structural part ${part.id} requires an exact ${rigId} variant.`,
+          message: `Catalog ${catalog.version} structural part ${part.id} requires an exact ${rigId} variant.`,
         })
         continue
       }

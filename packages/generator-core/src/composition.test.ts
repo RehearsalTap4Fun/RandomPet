@@ -58,6 +58,14 @@ export function selectStrongParts(
 }
 
 describe('composition planning', () => {
+  it('routes catalog 0.4.0 to renderer 0.4.0', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    catalog.version = '0.4.0'
+    catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+
+    expect(rendererVersionForCatalog(catalog)).toBe('0.4.0')
+  })
+
   it('maps catalog versions to exact renderers without fallback', () => {
     expect(rendererVersionForCatalog(makeLegacyCatalogFixture())).toBe('0.1.0')
     expect(rendererVersionForCatalog(makeCompositionCatalogFixture())).toBe('0.2.0')
@@ -66,9 +74,9 @@ describe('composition planning', () => {
 
   it('rejects an unsupported catalog version instead of falling back to a renderer', () => {
     const catalog = makeLegacyCatalogFixture() as Catalog
-    catalog.version = '0.4.0'
+    catalog.version = '0.5.0'
 
-    expect(() => rendererVersionForCatalog(catalog)).toThrow('Unsupported catalog version: 0.4.0')
+    expect(() => rendererVersionForCatalog(catalog)).toThrow('Unsupported catalog version: 0.5.0')
   })
 
   it('assigns at most floor(M * 0.3) stable surprise opportunities', () => {
