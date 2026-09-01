@@ -19,14 +19,20 @@ describe('rerollSlot', () => {
   it('rerolls the same dependency closure in all four genome layers', () => {
     const catalog = makeValidCatalogFixture()
     catalog.dependencies = { arms: ['eyes'], eyes: ['mouthShape'] }
+    const before = generateMonster({ seed: 'genome-closure', themeId: 'fungal', mode: 'normal' }, catalog).spec
+    const oldEyes = [...new Set(GENOME_LAYERS.map(layer => before.genome!.genes.eyes[layer]))]
+    const oldMouths = [...new Set(GENOME_LAYERS.map(layer => before.genome!.genes.mouthShape[layer]))]
     for (const slotId of ['arms', 'eyes', 'mouthShape'] as const) {
       const source = catalog.parts.find(part => part.slotId === slotId)!
-      catalog.parts.push(...Array.from({ length: 4 }, (_, index) => ({
+      for (const part of catalog.parts.filter(candidate => candidate.slotId === slotId)) part.baseWeight = 0
+      const excluded = slotId === 'arms' ? oldEyes : slotId === 'eyes' ? oldMouths : []
+      catalog.parts.push(...Array.from({ length: 8 }, (_, index) => ({
         ...source,
         id: `${slotId}_genome_variant_${index}`,
+        baseWeight: 1,
+        excludes: [...new Set([...source.excludes, ...excluded])],
       })))
     }
-    const before = generateMonster({ seed: 'genome-closure-5', themeId: 'fungal', mode: 'normal' }, catalog).spec
     const result = rerollSlot({ spec: before, slotId: 'arms', locks: {}, catalog })
     const slotRolls = { ...before.slotRolls, arms: before.slotRolls.arms + 1 }
     const expectedLayers = Object.fromEntries(GENOME_LAYERS.map(layer => [
@@ -43,6 +49,9 @@ describe('rerollSlot', () => {
     for (const slotId of VISUAL_SLOT_IDS) {
       for (const layer of GENOME_LAYERS) {
         if (affected.has(slotId)) {
+          expect(expectedLayers[layer][slotId].partId, `precondition ${slotId}.${layer}`).not.toBe(
+            before.genome!.genes[slotId][layer],
+          )
           expect(result.spec.genome!.genes[slotId][layer], `${slotId}.${layer}`).toBe(
             expectedLayers[layer][slotId].partId,
           )
@@ -56,11 +65,6 @@ describe('rerollSlot', () => {
       .map(slotId => expectedLayers[layer][slotId].partId)
       .join('|'))
     expect(new Set(layerSignatures).size).toBe(GENOME_LAYERS.length)
-    for (const layer of GENOME_LAYERS) {
-      expect(result.affectedSlots.some(slotId => (
-        result.spec.genome!.genes[slotId][layer] !== before.genome!.genes[slotId][layer]
-      )), layer).toBe(true)
-    }
   })
 
   it('applies locks to P but not hidden dependency descendants', () => {

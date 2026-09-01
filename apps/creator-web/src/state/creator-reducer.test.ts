@@ -464,6 +464,39 @@ describe('createCreatorReducer', () => {
     }))
   })
 
+  it('retains a target-slot diagnostic when an unrelated genome error rolls back manual selection', () => {
+    const catalog = withManualTail(makeValidCatalogFixture())
+    const reducer = createCreatorReducer(catalog)
+    const before = makeSession(catalog)
+    const invalidSpec = structuredClone(before.spec)
+    invalidSpec.genome!.genes.eyes.H2 = 'missing_hidden_eyes'
+    const tailDiagnostic: Diagnostic = {
+      severity: 'error',
+      code: 'NO_COMPATIBLE_CANDIDATE',
+      path: ['visualSlots', 'tail'],
+      message: 'The existing tail selection is unresolved.',
+    }
+    const blocked = refreshSessionValidity({
+      ...before,
+      spec: invalidSpec,
+      generationDiagnostics: [tailDiagnostic],
+    })
+    const snapshot = structuredClone(blocked.spec)
+
+    const next = reducer(blocked, {
+      type: 'manualSelect',
+      slotId: 'tail',
+      partId: 'tail_manual',
+    })
+
+    expect(next.spec).toEqual(snapshot)
+    expect(next.generationDiagnostics).toContainEqual(tailDiagnostic)
+    expect(next.generationDiagnostics).toContainEqual(expect.objectContaining({
+      code: 'SPEC_GENE_PART_MISSING',
+      path: ['genome', 'genes', 'eyes', 'H2'],
+    }))
+  })
+
   it('clears an incompatible lock diagnostic when that slot receives a compatible manual selection', () => {
     const catalog = catalogWithIncompatibleShadowEyes()
     const reducer = createCreatorReducer(catalog)

@@ -820,6 +820,7 @@ describe('local changes', () => {
     })
 
     expect(selected.blocked).toBe(true)
+    expect(selected.affectedSlots).toEqual([])
     expect(selected.spec).toEqual(snapshot)
     expect(selected.spec).not.toBe(before)
     expect(selected.spec.genome).not.toBe(before.genome)
