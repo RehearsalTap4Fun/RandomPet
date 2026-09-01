@@ -1335,6 +1335,28 @@ describe('v0.3 interface rendering', () => {
     ]))
   })
 
+  it('keeps non-oral non-structural asset failures fail-closed', async () => {
+    const { catalog, spec } = v04Fixture()
+    const eyes = catalog.parts.find(part => part.slotId === 'eyes')!
+    if (eyes.composition?.mode === 'interface') throw new Error('expected attachment eyes')
+    const eyesNode = eyes.composition!.renderNodes[0]!
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(new Set([eyesNode.assetPath])), {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([]),
+      },
+    )
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'ASSET_LOAD_FAILED',
+      path: ['parts', eyes.id, 'composition', 'renderNodes', eyesNode.id],
+    }))
+    expect(result.compositionMetrics).toBeNull()
+    expect(result.connectorMetrics).toEqual([])
+    expect(result.drawnAssetIds).toEqual([])
+  })
+
   it('returns connector metrics only for an exact interface catalog-renderer pair', async () => {
     const { catalog, spec } = v04Fixture()
     const invalidScope = await renderMonster(

@@ -1234,6 +1234,10 @@ async function renderInterfaceMonster(
     } else diagnostics.push(diagnostic)
   }
   // TASK8_STABLE_END:renderer-diagnostic-scope-helpers
+  const toleratedOralAssetLoadDiagnostics = new Set<Diagnostic>()
+  const hasBlockingPreflightDiagnostic = () => diagnostics.some(item => (
+    item.severity === 'error' && !toleratedOralAssetLoadDiagnostics.has(item)
+  ))
   const sources = new Map<string, CanvasImageSource>()
   for (const node of tree.nodes) {
     // TASK8_STABLE_BEGIN:renderer-skip-palette-source
@@ -1243,10 +1247,16 @@ async function renderInterfaceMonster(
       sources.set(node.key, await resolver.resolve(node.node.assetPath))
     } catch {
       // TASK8_STABLE_BEGIN:renderer-structural-load-check
-      diagnostics.push(isStructuralSlot(node.slotId)
+      const diagnostic = isStructuralSlot(node.slotId)
       // TASK8_STABLE_END:renderer-structural-load-check
         ? connectorCompositeDiagnostic(node.key, `Structural asset ${node.node.assetPath} is unavailable.`)
-        : compositionAssetLoadDiagnostic(node))
+        : compositionAssetLoadDiagnostic(node)
+      diagnostics.push(diagnostic)
+      if (
+        node.slotId === 'oralDetail'
+        && node.part.id === spec.visualSlots.oralDetail.partId
+        && node.part.composition?.isNone !== true
+      ) toleratedOralAssetLoadDiagnostics.add(diagnostic)
     }
   }
   const bridgeAssets = new Map<string, ResolvedBridgeAssets>()
@@ -1278,7 +1288,7 @@ async function renderInterfaceMonster(
       ))
     }
   }
-  if (diagnostics.some(item => item.severity === 'error' && item.code !== 'ASSET_LOAD_FAILED')) {
+  if (hasBlockingPreflightDiagnostic()) {
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
 
@@ -1328,7 +1338,7 @@ async function renderInterfaceMonster(
       ))
     }
   }
-  if (diagnostics.some(item => item.severity === 'error' && item.code !== 'ASSET_LOAD_FAILED')) {
+  if (hasBlockingPreflightDiagnostic()) {
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
 
