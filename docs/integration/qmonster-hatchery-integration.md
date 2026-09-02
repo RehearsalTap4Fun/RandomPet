@@ -1,10 +1,10 @@
 # QMonster 生成器 × 怪奇生物孵化器对接指南
 
-> 文档版本：1.1
+> 文档版本：1.2
 > 生成器基线：`feature/qmonster-v0.1` / `0b73abea607ece9d01c7f34fd61eb47c808a4a2d`
-> 目录版本：`0.3.0`
-> 渲染器版本：`0.3.0`
-> 更新日期：2026-09-01
+> 新孵化默认目录版本：`0.4.0`
+> 新孵化默认渲染器版本：`0.4.0`
+> 更新日期：2026-09-02
 
 ## 1. 目标与结论
 
@@ -25,6 +25,7 @@
 3. 恢复存档时必须使用 `MonsterSpec.catalogVersion` 指定的目录，不得自动换成最新目录。
 4. 只有生成和渲染均无错误时，孵化结果才能进入 `READY` 状态。
 5. 新生成的 `MonsterSpec` 必须把 `genome` 与 `visualSlots` 作为同一份身份数据一起持久化。
+6. 新孵化默认加载 `0.4.0`；旧记录继续按其存储的 `catalogVersion` 与 `rendererVersion` 精确分派。
 
 本文面向浏览器端孵化器。当前提供的“怪奇生物孵化器 (Copy).html”是保存后的页面外壳，其引用的 `_files/saved_resource.html` 没有随文件保存，因此本文按“孵化动作”定义稳定接入边界，不引用该页面中不可恢复的函数名或 DOM ID。
 
@@ -52,6 +53,10 @@
 孵化器构建产物至少需要包含：
 
 ```text
+packages/asset-catalog/catalog/v0.4.0/catalog.json
+packages/asset-catalog/assets/v0.4.0/**
+
+# 只要仍有 0.3.0 存档，就同时保留：
 packages/asset-catalog/catalog/v0.3.0/catalog.json
 packages/asset-catalog/assets/v0.3.0/**
 ```
@@ -59,11 +64,15 @@ packages/asset-catalog/assets/v0.3.0/**
 推荐发布到同源、不可变的版本目录，例如：
 
 ```text
+/qmonster/catalog/v0.4.0/catalog.json
+/qmonster/assets/v0.4.0/**
+
+# 旧记录恢复路径，不得被 0.4.0 覆盖：
 /qmonster/catalog/v0.3.0/catalog.json
 /qmonster/assets/v0.3.0/**
 ```
 
-目录 JSON 和资源目录必须成套升级，不得只替换其中一部分。
+每个版本的目录 JSON 和资源目录必须成套、不可变地部署，不得只替换其中一部分，也不得让新版本覆盖旧版本路径。
 
 ## 3. 对接契约
 
@@ -123,6 +132,8 @@ interface HatchMonsterResult {
   }
 }
 ```
+
+`0.4.0` 新增的非脸部强视觉预算只影响 `surfaceMaterial`、`pattern`、`effect` 的自动选择：三者最多选择一个强特征。它不会给 `HatchMonsterResult` 增加字段，也不会改变 14 个 `visualSlots`、可选 `genome` 或 `P/H1/H2/H3` 的公共结构。
 
 适配层遇到错误时应抛出结构化错误，不返回伪造的 `READY` 结果：
 
@@ -201,13 +212,17 @@ src/qmonster/
 
 ### 4.1 目录加载
 
-目录必须先通过 `parseCatalog`，解析失败时禁止继续孵化：
+目录必须先通过 `parseCatalog`，解析失败时禁止继续孵化。新孵化明确调用 `loadCatalogV040`；`loadCatalogV030` 只用于恢复版本字段仍为 `0.3.0` 的旧记录：
 
 ```ts
-import { parseCatalog, type Catalog } from '@qmonster/generator-core'
+import {
+  parseCatalog,
+  type Catalog,
+  type MonsterSpec,
+} from '@qmonster/generator-core'
 
-export async function loadCatalogV030(): Promise<Catalog> {
-  const response = await fetch('/qmonster/catalog/v0.3.0/catalog.json')
+async function loadCatalogAt(url: string): Promise<Catalog> {
+  const response = await fetch(url)
   if (!response.ok) throw new Error(`CATALOG_HTTP_${response.status}`)
 
   const parsed = parseCatalog(await response.json())
@@ -216,9 +231,34 @@ export async function loadCatalogV030(): Promise<Catalog> {
   }
   return parsed.value
 }
+
+export function loadCatalogV040(): Promise<Catalog> {
+  return loadCatalogAt('/qmonster/catalog/v0.4.0/catalog.json')
+}
+
+export function loadCatalogV030(): Promise<Catalog> {
+  return loadCatalogAt('/qmonster/catalog/v0.3.0/catalog.json')
+}
+
+const catalogLoaders: Readonly<Record<string, () => Promise<Catalog>>> = {
+  '0.3.0': loadCatalogV030,
+  '0.4.0': loadCatalogV040,
+}
+
+export function loadCatalogForNewHatch(): Promise<Catalog> {
+  return loadCatalogV040()
+}
+
+export function loadCatalogForStoredSpec(
+  spec: Pick<MonsterSpec, 'catalogVersion'>,
+): Promise<Catalog> {
+  const loader = catalogLoaders[spec.catalogVersion]
+  if (loader === undefined) throw new Error(`CATALOG_UNSUPPORTED_${spec.catalogVersion}`)
+  return loader()
+}
 ```
 
-生产环境应缓存成功加载的 `Catalog`；目录 URL 应带版本且使用不可变缓存策略。
+生产环境应按精确版本缓存成功加载的 `Catalog`；目录 URL 应带版本且使用不可变缓存策略。若仍需恢复 `0.1.0` 或 `0.2.0` 记录，应以同样方式注册并保留其精确目录与渲染器组合，不能回退到 `0.3.0` 或 `0.4.0`。
 
 ### 4.2 浏览器图片解析器
 
@@ -495,7 +535,18 @@ interface HatchedMonsterRecord {
 
 三者必须作为一个兼容性组合处理。孵化器不得在读档时直接覆写任何版本字段。
 
-### 8.2 推荐升级流程
+### 8.2 兼容性表
+
+| `catalogVersion` | `rendererVersion` | 用途 | 加载行为 |
+| --- | --- | --- | --- |
+| `0.1.0` | `0.1.0` | 更早的旧记录恢复 | 仅在存在该版本记录时注册并保留精确目录与渲染器 |
+| `0.2.0` | `0.2.0` | 更早的旧记录恢复 | 仅在存在该版本记录时注册并保留精确目录与渲染器 |
+| `0.3.0` | `0.3.0` | 旧记录恢复 | 调用 `loadCatalogV030`，按存储版本重绘 |
+| `0.4.0` | `0.4.0` | 新孵化默认；新记录恢复 | 新孵化调用 `loadCatalogV040`；恢复时按存储版本分派 |
+
+只支持同版本的精确组合。`0.3.0` 目录不得交给 `0.4.0` 渲染器，`0.4.0` 目录也不得交给 `0.3.0` 渲染器；未注册的版本应进入 `UNSUPPORTED_VERSION`，不能静默回退。
+
+### 8.3 推荐升级流程
 
 1. 新旧目录同时部署；
 2. 新孵化默认使用新目录，旧记录仍按旧目录渲染；
@@ -530,15 +581,15 @@ interface HatchedMonsterRecord {
 
 1. 恢复孵化器源码并建立可重复构建环境；
 2. 以 workspace 依赖接入三个 QMonster 包；
-3. 发布 v0.3.0 目录 JSON 和资产目录；
-4. 实现 `loadCatalogV030` 和 `BrowserImageResolver`；
+3. 发布 v0.4.0 目录 JSON 和资产目录，并为现有 v0.3.0 记录保留原目录与资产；
+4. 实现新孵化默认使用的 `loadCatalogV040`、旧记录使用的 `loadCatalogV030` 和 `BrowserImageResolver`；
 5. 实现单一入口 `hatchMonster`；
 6. 接入孵化按钮，但暂不写持久化；
 7. 用固定 seed 对照 QMonster 工作台的输出；
 8. 接入 `MonsterSpec` 与 Blob 的两阶段保存；
 9. 验证刷新页面后的缓存命中与缺失缓存重绘；
 10. 验证 WebP 不支持时回退 PNG；
-11. 验证旧版本目录缺失、资源 404、非法锁定特征和重复点击；
+11. 验证 v0.3.0 旧记录精确恢复、旧版本目录缺失、资源 404、非法锁定特征和重复点击；
 12. 完成视觉验收后再开放随机孵化。
 
 ## 11. 验收清单
@@ -559,6 +610,7 @@ interface HatchedMonsterRecord {
 - [ ] 删除图片缓存后可以按原规格重绘；
 - [ ] 重复点击不会让旧请求覆盖新结果；
 - [ ] 缺少旧目录时保留记录并显示版本不支持状态。
+- [ ] 新孵化固定使用 `0.4.0`，v0.3.0 旧记录仍按存储的 `0.3.0` 目录和渲染器恢复。
 
 ### 11.2 工程验收
 
