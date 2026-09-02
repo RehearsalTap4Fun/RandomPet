@@ -149,6 +149,11 @@ describe('Task 8 clean-checkout review integrity', () => {
           "if (row.length < 1) throw new Error('Bridge mesh end row is empty.')",
         ))
         expect(task8RendererProjectionSha256(path, task9OnlyMutation)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+        const v04OnlyMutation = Buffer.from(bytes.toString('utf8').replace(
+          'const list = Array.from({ length: 20 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))',
+          'const list = Array.from({ length: 21 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))',
+        ))
+        expect(task8RendererProjectionSha256(path, v04OnlyMutation)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
       }
       if (path === 'packages/renderer-canvas/src/connector-metrics.ts') {
         const task10OnlyMutation = Buffer.from(bytes.toString('utf8').replace(

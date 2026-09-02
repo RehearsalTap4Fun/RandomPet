@@ -214,6 +214,33 @@ describe('Task 9 tail/extra structural matrices', () => {
       .toEqual(current.diagnosticScope.suppressedDiagnostics)
   })
 
+  it('projects v0.4 oral metrics out of frozen Task 9 matrix records', () => {
+    const current = {
+      diagnostics: [],
+      connectorMetrics: [],
+      compositionMetrics: {
+        eyesInsideRatio: 0.9,
+        eyesVisibleRatio: 0.91,
+        mouthInsideRatio: 0.92,
+        mouthVisibleRatio: 0.93,
+        oralDetailInsideRatio: null,
+        oralDetailVisibleRatio: null,
+        visibleBounds: { x: 96, y: 64, width: 1856, height: 1888 },
+      },
+    }
+
+    const historical = task9HistoricalDiagnosticProjection(current as any, 'blob')
+
+    expect(historical.compositionMetrics).toEqual({
+      eyesInsideRatio: 0.9,
+      eyesVisibleRatio: 0.91,
+      mouthInsideRatio: 0.92,
+      mouthVisibleRatio: 0.93,
+      visibleBounds: { x: 96, y: 64, width: 1856, height: 1888 },
+    })
+    expect(current.compositionMetrics.oralDetailInsideRatio).toBeNull()
+  })
+
   it('keeps the biped extra pair causally covered after the live placement transform', async () => {
     const result = await reconstructTailExtraMatrixEvidence({ mode: 'prototype', failOnGateError: false })
     const biped = result.entries.find(entry => entry.rigId === 'biped')!

@@ -58,8 +58,10 @@ interface CompositionSurfaces {
   outputAlpha: RenderSurface
   eyesOccluderAlpha: RenderSurface
   mouthOccluderAlpha: RenderSurface
+  // TASK8_STABLE_BEGIN:renderer-v04-composition-surface-fields
   oralDetailAlpha: RenderSurface
   oralDetailOccluderAlpha: RenderSurface
+  // TASK8_STABLE_END:renderer-v04-composition-surface-fields
 }
 
 const browserCompositeCache = new WeakMap<object, CompositeSurfaces>()
@@ -169,6 +171,7 @@ function createCompositionSurfaces(
     const cached = browserCompositionCache.get(cacheKey)
     if (cached !== undefined) return cached
   }
+  // TASK8_STABLE_BEGIN:renderer-v04-composition-surface-factory
   const surfaces = [
     factory(MASTER_SIZE, MASTER_SIZE, context),
     factory(MASTER_SIZE, MASTER_SIZE, context),
@@ -192,6 +195,7 @@ function createCompositionSurfaces(
     oralDetailAlpha: surfaces[7]!,
     oralDetailOccluderAlpha: surfaces[8]!,
   }
+  // TASK8_STABLE_END:renderer-v04-composition-surface-factory
   if (factory === browserSurfaceFactory) browserCompositionCache.set(cacheKey, result)
   return result
 }
@@ -519,7 +523,9 @@ function scaleMetricBounds(
 
 function metricDiagnostic(
   code: 'COMPOSITION_FACE_OUT_OF_ZONE' | 'COMPOSITION_FACE_OCCLUDED',
+  // TASK8_STABLE_BEGIN:renderer-v04-metric-diagnostic-slot
   slotId: 'eyes' | 'mouthShape' | 'oralDetail',
+  // TASK8_STABLE_END:renderer-v04-metric-diagnostic-slot
   ratio: number,
   threshold: number,
 ): Diagnostic {
@@ -596,8 +602,10 @@ async function renderCompositionMonster(
   surfaces.outputAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
   surfaces.eyesOccluderAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
   surfaces.mouthOccluderAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
+  // TASK8_STABLE_BEGIN:renderer-v04-composition-oral-surface-clear
   surfaces.oralDetailAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
   surfaces.oralDetailOccluderAlpha.context.clearRect(0, 0, METRIC_SIZE, METRIC_SIZE)
+  // TASK8_STABLE_END:renderer-v04-composition-oral-surface-clear
   const bodyNode = nodes.find(node => node.slotId === 'bodyFrame')
   const bodySource = bodyNode === undefined ? undefined : sources.get(bodyNode.key)
   if (bodyNode !== undefined && bodySource !== undefined) {
@@ -613,7 +621,9 @@ async function renderCompositionMonster(
     context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
     let eyesStarted = false
     let mouthStarted = false
+    // TASK8_STABLE_BEGIN:renderer-v04-composition-oral-start
     let oralDetailStarted = false
+    // TASK8_STABLE_END:renderer-v04-composition-oral-start
     for (const node of nodes) {
       const source = sources.get(node.key)
       if (source === undefined) continue
@@ -636,6 +646,7 @@ async function renderCompositionMonster(
       } else if (mouthStarted) {
         drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
       }
+      // TASK8_STABLE_BEGIN:renderer-v04-composition-oral-occlusion
       if (node.slotId === 'oralDetail') {
         drawMetricAlpha(surfaces.oralDetailOccluderAlpha, surfaces.nodeLayer, 'destination-out')
         drawMetricAlpha(surfaces.oralDetailAlpha, surfaces.nodeLayer)
@@ -643,6 +654,7 @@ async function renderCompositionMonster(
       } else if (oralDetailStarted) {
         drawMetricAlpha(surfaces.oralDetailOccluderAlpha, surfaces.nodeLayer)
       }
+      // TASK8_STABLE_END:renderer-v04-composition-oral-occlusion
       drawnAssetIds.push(node.key)
     }
   })
@@ -663,6 +675,7 @@ async function renderCompositionMonster(
     METRIC_SIZE,
     metricFaceSafeZones,
   )
+  // TASK8_STABLE_BEGIN:renderer-v04-composition-oral-metrics
   const selectedOralDetail = catalog.parts.find(part => (
     part.slotId === 'oralDetail' && part.id === spec.visualSlots.oralDetail.partId
   ))
@@ -675,6 +688,7 @@ async function renderCompositionMonster(
       METRIC_SIZE,
       metricFaceSafeZones,
     )
+  // TASK8_STABLE_END:renderer-v04-composition-oral-metrics
   const visibleBounds = scaleMetricBounds(measureVisibleBounds(
     imageData(surfaces.outputAlpha, METRIC_SIZE), METRIC_SIZE, METRIC_SIZE,
   ))
@@ -683,8 +697,10 @@ async function renderCompositionMonster(
     eyesVisibleRatio: eyes.visibleRatio,
     mouthInsideRatio: mouth.insideRatio,
     mouthVisibleRatio: mouth.visibleRatio,
+    // TASK8_STABLE_BEGIN:renderer-v04-composition-oral-metric-fields
     oralDetailInsideRatio: oralDetail?.insideRatio ?? null,
     oralDetailVisibleRatio: oralDetail?.visibleRatio ?? null,
+    // TASK8_STABLE_END:renderer-v04-composition-oral-metric-fields
     visibleBounds,
   }
   // TASK8_STABLE_BEGIN:renderer-task10-composition-face-thresholds
@@ -734,8 +750,10 @@ interface InterfaceSurfaces {
   outputAlpha: RenderSurface
   eyesOccluderAlpha: RenderSurface
   mouthOccluderAlpha: RenderSurface
+  // TASK8_STABLE_BEGIN:renderer-v04-interface-surface-fields
   oralDetailAlpha: RenderSurface
   oralDetailOccluderAlpha: RenderSurface
+  // TASK8_STABLE_END:renderer-v04-interface-surface-fields
 }
 
 interface ResolvedBridgeAssets {
@@ -835,6 +853,7 @@ function createInterfaceSurfaces(
   context: CanvasRenderingContext2D,
   factory: RenderSurfaceFactory,
 ): InterfaceSurfaces | null {
+  // TASK8_STABLE_BEGIN:renderer-v04-interface-surface-factory
   const list = Array.from({ length: 20 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))
   if (list.some(item => item === null)) return null
   return {
@@ -846,6 +865,7 @@ function createInterfaceSurfaces(
     receiverContour: list[15]!, plugContour: list[16]!, finalOutput: list[17]!,
     oralDetailAlpha: list[18]!, oralDetailOccluderAlpha: list[19]!,
   }
+  // TASK8_STABLE_END:renderer-v04-interface-surface-factory
 }
 
 function connectorCompositeDiagnostic(connectorId: string, message: string): Diagnostic {
@@ -1234,10 +1254,12 @@ async function renderInterfaceMonster(
     } else diagnostics.push(diagnostic)
   }
   // TASK8_STABLE_END:renderer-diagnostic-scope-helpers
+  // TASK8_STABLE_BEGIN:renderer-v04-oral-asset-tolerance-helper
   const toleratedOralAssetLoadDiagnostics = new Set<Diagnostic>()
   const hasBlockingPreflightDiagnostic = () => diagnostics.some(item => (
     item.severity === 'error' && !toleratedOralAssetLoadDiagnostics.has(item)
   ))
+  // TASK8_STABLE_END:renderer-v04-oral-asset-tolerance-helper
   const sources = new Map<string, CanvasImageSource>()
   for (const node of tree.nodes) {
     // TASK8_STABLE_BEGIN:renderer-skip-palette-source
@@ -1247,16 +1269,19 @@ async function renderInterfaceMonster(
       sources.set(node.key, await resolver.resolve(node.node.assetPath))
     } catch {
       // TASK8_STABLE_BEGIN:renderer-structural-load-check
-      const diagnostic = isStructuralSlot(node.slotId)
+      diagnostics.push(isStructuralSlot(node.slotId)
       // TASK8_STABLE_END:renderer-structural-load-check
         ? connectorCompositeDiagnostic(node.key, `Structural asset ${node.node.assetPath} is unavailable.`)
-        : compositionAssetLoadDiagnostic(node)
-      diagnostics.push(diagnostic)
+        : compositionAssetLoadDiagnostic(node))
+      // TASK8_STABLE_BEGIN:renderer-v04-oral-asset-tolerance-registration
+      const diagnostic = diagnostics.at(-1)
       if (
-        node.slotId === 'oralDetail'
+        diagnostic !== undefined
+        && node.slotId === 'oralDetail'
         && node.part.id === spec.visualSlots.oralDetail.partId
         && node.part.composition?.isNone !== true
       ) toleratedOralAssetLoadDiagnostics.add(diagnostic)
+      // TASK8_STABLE_END:renderer-v04-oral-asset-tolerance-registration
     }
   }
   const bridgeAssets = new Map<string, ResolvedBridgeAssets>()
@@ -1288,7 +1313,9 @@ async function renderInterfaceMonster(
       ))
     }
   }
+  // TASK8_STABLE_BEGIN:renderer-v04-preflight-gate-1
   if (hasBlockingPreflightDiagnostic()) {
+  // TASK8_STABLE_END:renderer-v04-preflight-gate-1
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
 
@@ -1338,7 +1365,9 @@ async function renderInterfaceMonster(
       ))
     }
   }
+  // TASK8_STABLE_BEGIN:renderer-v04-preflight-gate-2
   if (hasBlockingPreflightDiagnostic()) {
+  // TASK8_STABLE_END:renderer-v04-preflight-gate-2
     return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
   }
 
@@ -1535,8 +1564,10 @@ async function renderInterfaceMonster(
   clearSurface(surfaces.outputAlpha)
   clearSurface(surfaces.eyesOccluderAlpha)
   clearSurface(surfaces.mouthOccluderAlpha)
+  // TASK8_STABLE_BEGIN:renderer-v04-interface-oral-surface-clear
   clearSurface(surfaces.oralDetailAlpha)
   clearSurface(surfaces.oralDetailOccluderAlpha)
+  // TASK8_STABLE_END:renderer-v04-interface-oral-surface-clear
   clearSurface(surfaces.finalOutput)
   const drawnAssetIds: string[] = []
   const finalContext = surfaces.finalOutput.context
@@ -1652,7 +1683,9 @@ async function renderInterfaceMonster(
     // TASK8_STABLE_END:renderer-palette-pass
     let eyesStarted = false
     let mouthStarted = false
+    // TASK8_STABLE_BEGIN:renderer-v04-interface-oral-start
     let oralDetailStarted = false
+    // TASK8_STABLE_END:renderer-v04-interface-oral-start
     for (const node of nonStructural) {
       // TASK8_STABLE_BEGIN:renderer-skip-palette-node
       if (node.slotId === 'colorScheme') continue
@@ -1706,6 +1739,7 @@ async function renderInterfaceMonster(
       imageData(surfaces.mouthAlpha, METRIC_SIZE), imageData(surfaces.mouthOccluderAlpha, METRIC_SIZE),
       METRIC_SIZE, METRIC_SIZE, metricFaceSafeZones,
     )
+    // TASK8_STABLE_BEGIN:renderer-v04-interface-face-metrics
     const selectedOralDetail = catalog.parts.find(part => (
       part.slotId === 'oralDetail' && part.id === spec.visualSlots.oralDetail.partId
     ))
@@ -1732,30 +1766,19 @@ async function renderInterfaceMonster(
     ]> = [['eyes', eyes], ['mouthShape', mouth]]
     if (oralDetail !== null) faceMetrics.push(['oralDetail', oralDetail])
     for (const [slotId, metric] of faceMetrics) {
-      // TASK8_STABLE_BEGIN:renderer-task10-interface-face-inside-check
       const thresholds = faceMetricThresholds(policy, slotId)!
       if (metric.insideRatio < thresholds.inside) {
-      // TASK8_STABLE_END:renderer-task10-interface-face-inside-check
-        // TASK8_STABLE_BEGIN:renderer-face-diagnostic-call-1
         pushFaceMetricDiagnostic(slotId, metricDiagnostic(
-        // TASK8_STABLE_END:renderer-face-diagnostic-call-1
-          // TASK8_STABLE_BEGIN:renderer-task10-interface-face-inside-argument
           'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, thresholds.inside,
-          // TASK8_STABLE_END:renderer-task10-interface-face-inside-argument
         ))
       }
-      // TASK8_STABLE_BEGIN:renderer-task10-interface-face-visible-check
       if (metric.visibleRatio < thresholds.visible) {
-      // TASK8_STABLE_END:renderer-task10-interface-face-visible-check
-        // TASK8_STABLE_BEGIN:renderer-face-diagnostic-call-2
         pushFaceMetricDiagnostic(slotId, metricDiagnostic(
-        // TASK8_STABLE_END:renderer-face-diagnostic-call-2
-          // TASK8_STABLE_BEGIN:renderer-task10-interface-face-visible-argument
           'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, thresholds.visible,
-          // TASK8_STABLE_END:renderer-task10-interface-face-visible-argument
         ))
       }
     }
+    // TASK8_STABLE_END:renderer-v04-interface-face-metrics
     if (
       compositionMetrics.visibleBounds !== null
       // TASK8_STABLE_BEGIN:renderer-shared-interface-bounds-call
@@ -1791,10 +1814,12 @@ async function renderInterfaceMonster(
   // TASK8_STABLE_END:renderer-diagnostic-return
 }
 
+// TASK8_STABLE_BEGIN:renderer-v04-interface-pair-helper
 function isInterfaceRenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
   return (catalog.version === '0.3.0' && spec.rendererVersion === '0.3.0')
     || (catalog.version === '0.4.0' && spec.rendererVersion === '0.4.0')
 }
+// TASK8_STABLE_END:renderer-v04-interface-pair-helper
 
 export async function renderMonster(
   context: CanvasRenderingContext2D,
@@ -1831,10 +1856,14 @@ export async function renderMonster(
   if (validationDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return {
       drawnAssetIds: [], diagnostics: validationDiagnostics, compositionMetrics: null,
+      // TASK8_STABLE_BEGIN:renderer-v04-invalid-interface-pair
       connectorMetrics: isInterfaceRenderPair(spec, catalog) ? [] : null,
+      // TASK8_STABLE_END:renderer-v04-invalid-interface-pair
     }
   }
+  // TASK8_STABLE_BEGIN:renderer-v04-interface-route
   if (isInterfaceRenderPair(spec, catalog)) {
+  // TASK8_STABLE_END:renderer-v04-interface-route
     return renderInterfaceMonster(context, spec, catalog, resolver, options)
   }
   if (catalog.compositionPolicy !== undefined && spec.rendererVersion === '0.2.0') {

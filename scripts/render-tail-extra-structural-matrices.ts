@@ -269,6 +269,10 @@ export function task9HistoricalDiagnosticProjection(
   rigId: MatrixRigId,
 ): Task9RenderEvidence {
   const projected = structuredClone(evidence)
+  if (projected.compositionMetrics !== null && projected.compositionMetrics !== undefined) {
+    delete projected.compositionMetrics.oralDetailInsideRatio
+    delete projected.compositionMetrics.oralDetailVisibleRatio
+  }
   const neckMetric = projected.connectorMetrics?.find(metric => metric.connectorId === 'neck')
   const needsApprovedNeckDiagnostic = neckMetric !== undefined && (
     neckMetric.receiverCoverage < 0.9
