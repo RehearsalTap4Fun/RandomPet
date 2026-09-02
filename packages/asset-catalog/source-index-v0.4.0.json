@@ -10972,13 +10972,20 @@
         },
         {
           "path": "assets/v0.4.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png",
-          "sha256": "1aab57d718754a94b00b2d6c1b49014bcad76dda9e285a1ade2b11ef460a9914"
+          "sha256": "479b5129f8233e9272d6128273829a7adf7ad8a08c0bf7ad68c18e590fce03b1"
         },
         {
           "path": "assets/v0.4.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png",
-          "sha256": "a6f5b0c96020d44e9cb989dfc5a4858bbe699195983982781c6292d7e7579b25"
+          "sha256": "89b5df85ade5aef92fb0776a30ea315368b1db5b5f5fc2fda33d92af1b73ea20"
         }
-      ]
+      ],
+      "interfaceMetadataOverlay": {
+        "schemaVersion": "qmonster-v0.4-interface-face-zone-overlay-v1",
+        "sourcePath": "asset-source/v0.4.0/interface-face-zone-overrides.json",
+        "sourceSha256": "19ce730f856dd84b6418820fb98d7e23141194deb89e312432647eccb446b880",
+        "manifestPath": "asset-source/v0.3.0/interface-manifest.json",
+        "manifestSha256": "d57f29d5b94c80d241569230ee1f8e10d8cbd2eaf5eae91a2b6eb61c69e3f2f8"
+      }
     },
     {
       "sourceId": "arms_paddle:blob",

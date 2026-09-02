@@ -19,6 +19,13 @@ import {
   validateInterfaceSourceIndex,
   type InterfaceSourceManifest,
 } from './interface-source-schema.js'
+import {
+  applyV04InterfaceFaceZoneOverlayToManifest,
+  deriveV04HeadOcclusionMaskOverride,
+  parseV04InterfaceFaceZoneOverlay,
+  v04InterfaceFaceZoneOverlayProvenance,
+  V04_INTERFACE_FACE_ZONE_OVERLAY_PATH,
+} from './v04-interface-face-zone-overlay.js'
 import { readTrustedRepositoryFile } from './trusted-repository-file.js'
 
 function error(code: string, path: string[], message: string): Diagnostic {
@@ -455,6 +462,7 @@ interface ProductionSourceRecord {
   reviewRecordSha256?: string
   runtimeResources?: Array<{ path?: string; sha256?: string }>
   sourceResources?: Array<{ path?: string; sha256?: string }>
+  interfaceMetadataOverlay?: unknown
 }
 
 export interface ProductionSourceIndex {
@@ -521,6 +529,58 @@ function checkInterfaceRuntimeResources(
     'PRODUCTION_INTERFACE_RUNTIME_INDEX_MISMATCH',
     path.concat('runtimeResources'),
     `Interface source runtime resource paths and hashes must exactly match catalog metadata; expected ${JSON.stringify(expected)}, received ${JSON.stringify(actual)}.`,
+  ))
+}
+
+function validateV04InterfaceFaceZoneOverlayProvenance(
+  sourceIndex: ProductionSourceIndex,
+  overlay: ReturnType<typeof parseV04InterfaceFaceZoneOverlay>,
+  overlaySha256: string,
+  diagnostics: Diagnostic[],
+): void {
+  const expected = v04InterfaceFaceZoneOverlayProvenance(overlay, overlaySha256)
+  const targetSourceId = `${overlay.overrides[0]!.partId}:${overlay.overrides[0]!.rigId}`
+  const sources = Array.isArray(sourceIndex.sources) ? sourceIndex.sources : []
+  const target = sources.find(source => source.sourceId === targetSourceId)
+  if (!sameJson(target?.interfaceMetadataOverlay, expected)) {
+    diagnostics.push(error(
+      'PRODUCTION_V04_INTERFACE_OVERLAY_INVALID',
+      ['sources', targetSourceId, 'interfaceMetadataOverlay'],
+      'The v0.4 face-zone override must be explicitly attested by the exact overlay document and canonical v0.3 manifest hashes.',
+    ))
+  }
+  for (const source of sources) {
+    if (source.sourceId !== targetSourceId && source.interfaceMetadataOverlay !== undefined) {
+      diagnostics.push(error(
+        'PRODUCTION_V04_INTERFACE_OVERLAY_INVALID',
+        ['sources', source.sourceId ?? 'unknown', 'interfaceMetadataOverlay'],
+        'Only head_shadow_hood:floating may carry the explicit v0.4 face-zone override provenance.',
+      ))
+    }
+  }
+}
+
+function validateV04InterfaceFaceZoneMaskHashes(
+  catalog: Catalog,
+  overlay: ReturnType<typeof parseV04InterfaceFaceZoneOverlay>,
+  maskHashes: { foregroundMaskSha256: string, backgroundMaskSha256: string },
+  diagnostics: Diagnostic[],
+): void {
+  const target = overlay.overrides[0]!
+  const part = catalog.parts.find(candidate => candidate.id === target.partId)
+  const variant = part?.composition?.mode === 'interface'
+    ? part.composition.variantsByRig[target.rigId]
+    : undefined
+  const connector = variant?.connectors.find(candidate => candidate.id === 'neck' && candidate.role === 'plug')
+  if (
+    connector?.foregroundMaskPath !== overlay.headOcclusionMaskOverride.foreground.targetPath
+    || connector.foregroundMaskSha256 !== maskHashes.foregroundMaskSha256
+    || connector.backgroundMaskPath !== overlay.headOcclusionMaskOverride.background.targetPath
+    || connector.backgroundMaskSha256 !== maskHashes.backgroundMaskSha256
+  ) diagnostics.push(error(
+    'PRODUCTION_V04_INTERFACE_OVERLAY_INVALID',
+    ['parts', target.partId, target.rigId, 'connectors', 'neck'],
+    'The explicit v0.4 face-zone override must carry the deterministic foreground/background head-mask hashes derived from its attested v0.3 inputs.',
   ))
 }
 
@@ -658,17 +718,52 @@ export async function validateProductionInterfaceResources(
   const manifestPath = options.manifestPath ?? resolve(canonicalAssetRoot, '..', '..', '..', '..', 'asset-source', 'v0.3.0', 'interface-manifest.json')
   let manifest: InterfaceSourceManifest | undefined
   let sourceManifest: InterfaceSourceManifest | undefined
+  let repositoryRoot: string | undefined
   try {
-    const repositoryRoot = resolve(canonicalAssetRoot, '..', '..', '..', '..')
-    const parsed = parseInterfaceSourceManifest(JSON.parse(
-      (await readProductionValidationInput(repositoryRoot, manifestPath)).toString('utf8'),
-    ))
+    repositoryRoot = resolve(canonicalAssetRoot, '..', '..', '..', '..')
+    const manifestBytes = await readProductionValidationInput(repositoryRoot, manifestPath)
+    const parsed = parseInterfaceSourceManifest(JSON.parse(manifestBytes.toString('utf8')))
     if (!parsed.ok) diagnostics.push(...parsed.diagnostics.map(item => ({ ...item, code: 'PRODUCTION_INTERFACE_MANIFEST_INVALID' })))
     else {
       sourceManifest = parsed.value
-      manifest = catalog.version === '0.4.0'
-        ? JSON.parse(JSON.stringify(parsed.value).replaceAll('assets/v0.3.0/', 'assets/v0.4.0/')) as InterfaceSourceManifest
-        : parsed.value
+      manifest = parsed.value
+      if (catalog.version === '0.4.0') {
+        try {
+          const overlayBytes = await readProductionValidationInput(
+            repositoryRoot,
+            resolve(repositoryRoot, V04_INTERFACE_FACE_ZONE_OVERLAY_PATH),
+          )
+          const overlay = parseV04InterfaceFaceZoneOverlay(
+            JSON.parse(overlayBytes.toString('utf8')),
+            sourceManifest,
+            createHash('sha256').update(manifestBytes).digest('hex'),
+          )
+          const maskHashes = await deriveV04HeadOcclusionMaskOverride(
+            overlay,
+            path => readProductionValidationInput(
+              repositoryRoot!,
+              resolve(repositoryRoot!, 'packages', 'asset-catalog', path),
+            ),
+          )
+          validateV04InterfaceFaceZoneOverlayProvenance(
+            sourceIndex,
+            overlay,
+            createHash('sha256').update(overlayBytes).digest('hex'),
+            diagnostics,
+          )
+          validateV04InterfaceFaceZoneMaskHashes(catalog, overlay, maskHashes, diagnostics)
+          manifest = applyV04InterfaceFaceZoneOverlayToManifest(sourceManifest, overlay)
+        } catch (caught) {
+          diagnostics.push(error(
+            'PRODUCTION_V04_INTERFACE_OVERLAY_INVALID',
+            [V04_INTERFACE_FACE_ZONE_OVERLAY_PATH],
+            `Cannot validate the explicit v0.4 face-zone override: ${caught instanceof Error ? caught.message : String(caught)}`,
+          ))
+        }
+      }
+      if (catalog.version === '0.4.0') {
+        manifest = JSON.parse(JSON.stringify(manifest).replaceAll('assets/v0.3.0/', 'assets/v0.4.0/')) as InterfaceSourceManifest
+      }
     }
   } catch {
     diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISSING', [manifestPath], 'Cannot read the canonical v0.3 interface manifest.'))

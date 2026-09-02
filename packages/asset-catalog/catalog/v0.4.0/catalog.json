@@ -9472,9 +9472,9 @@
                 "contourMaskPath": "assets/v0.4.0/connectors/floating/head_shadow_hood-neck-contour.png",
                 "contourMaskSha256": "02812cfb233f0143e7e0b87a5235b0f8ff283553f74a347dc4d03decf0b0d933",
                 "foregroundMaskPath": "assets/v0.4.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png",
-                "foregroundMaskSha256": "1aab57d718754a94b00b2d6c1b49014bcad76dda9e285a1ade2b11ef460a9914",
+                "foregroundMaskSha256": "479b5129f8233e9272d6128273829a7adf7ad8a08c0bf7ad68c18e590fce03b1",
                 "backgroundMaskPath": "assets/v0.4.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png",
-                "backgroundMaskSha256": "a6f5b0c96020d44e9cb989dfc5a4858bbe699195983982781c6292d7e7579b25",
+                "backgroundMaskSha256": "89b5df85ade5aef92fb0776a30ea315368b1db5b5f5fc2fda33d92af1b73ea20",
                 "materialSampleRegion": {
                   "x": 896,
                   "y": 896,
@@ -9502,7 +9502,7 @@
                 "x": 800,
                 "y": 1050,
                 "width": 448,
-                "height": 234
+                "height": 326
               }
             ],
             "featureSockets": {

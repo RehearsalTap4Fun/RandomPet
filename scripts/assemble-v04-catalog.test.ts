@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { cp, mkdir, mkdtemp, readFile, readdir, rename, rm } from 'node:fs/promises'
+import { cp, mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -39,6 +39,8 @@ const V04_RUNTIME_SHA256 = {
 } as const
 
 const V03_CATALOG_SHA256 = '58ca2ff0d91ee72fb6da788cdea7346daa77c2e400bc8dbe7ad156e87d4eb465'
+const V03_INTERFACE_MANIFEST = 'asset-source/v0.3.0/interface-manifest.json'
+const V04_FACE_ZONE_OVERLAY = 'asset-source/v0.4.0/interface-face-zone-overrides.json'
 
 async function sha256File(path: string): Promise<string> {
   return createHash('sha256').update(await readFile(path)).digest('hex')
@@ -70,6 +72,46 @@ async function seedRepository(): Promise<string> {
   await copyFileFromRepository(root, 'packages/asset-catalog/assets/v0.3.0/bridges/blob/neck.webp')
   await copyFileFromRepository(root, 'packages/asset-catalog/audit/v0.3.0/task9-composition-statistics.json')
   await copyFileFromRepository(root, 'packages/asset-catalog/review/v0.3.0/review-record.json')
+  await copyFileFromRepository(root, V03_INTERFACE_MANIFEST)
+  for (const path of [
+    'packages/asset-catalog/assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.png',
+    'packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png',
+    'packages/asset-catalog/assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png',
+  ]) await copyFileFromRepository(root, path)
+  const manifestSha256 = await sha256File(join(root, V03_INTERFACE_MANIFEST))
+  const overlayPath = join(root, V04_FACE_ZONE_OVERLAY)
+  await mkdir(dirname(overlayPath), { recursive: true })
+  await writeFile(overlayPath, `${JSON.stringify({
+    schemaVersion: 'qmonster-v0.4-interface-face-zone-overlay-v1',
+    catalogVersion: '0.4.0',
+    basedOn: {
+      manifestPath: V03_INTERFACE_MANIFEST,
+      manifestSha256,
+    },
+    overrides: [{
+      partId: 'head_shadow_hood',
+      rigId: 'floating',
+      baseFaceSafeZones: [{ x: 800, y: 1050, width: 448, height: 234 }],
+      faceSafeZones: [{ x: 800, y: 1050, width: 448, height: 326 }],
+    }],
+    headOcclusionMaskOverride: {
+      derivation: 'head-alpha-face-zone-promote-v1',
+      node: {
+        sourcePath: 'assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.png',
+        sourceSha256: '33dd458c8039f1775499696807e7ceb37ad7684166e2d5a14639168f9198bcda',
+      },
+      foreground: {
+        sourcePath: 'assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png',
+        sourceSha256: '1aab57d718754a94b00b2d6c1b49014bcad76dda9e285a1ade2b11ef460a9914',
+        targetPath: 'assets/v0.4.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png',
+      },
+      background: {
+        sourcePath: 'assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png',
+        sourceSha256: 'a6f5b0c96020d44e9cb989dfc5a4858bbe699195983982781c6292d7e7579b25',
+        targetPath: 'assets/v0.4.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png',
+      },
+    },
+  }, null, 2)}\n`)
   return root
 }
 
@@ -151,6 +193,41 @@ describe('immutable v0.4.0 catalog assembly', () => {
       evidenceRootSha256: expect.stringMatching(/^[a-f0-9]{64}$/u),
     })
     expect(sourceIndex.catalogVersion).toBe('0.4.0')
+    const overlaySha256 = await sha256File(join(root, V04_FACE_ZONE_OVERLAY))
+    const manifestSha256 = await sha256File(join(root, V03_INTERFACE_MANIFEST))
+    expect(v04.parts.find(part => part.id === 'head_shadow_hood')?.composition).toMatchObject({
+      mode: 'interface',
+      variantsByRig: {
+        floating: {
+          faceSafeZones: [{ x: 800, y: 1050, width: 448, height: 326 }],
+        },
+      },
+    })
+    const floatingHood = v04.parts.find(part => part.id === 'head_shadow_hood')?.composition
+    if (floatingHood?.mode !== 'interface') throw new Error('Expected the floating hood interface composition.')
+    const maskConnector = floatingHood.variantsByRig.floating!.connectors.find(item => item.id === 'neck')!
+    expect(maskConnector.foregroundMaskSha256).not.toBe('1aab57d718754a94b00b2d6c1b49014bcad76dda9e285a1ade2b11ef460a9914')
+    expect(maskConnector.backgroundMaskSha256).not.toBe('a6f5b0c96020d44e9cb989dfc5a4858bbe699195983982781c6292d7e7579b25')
+    expect(await sha256File(join(root, 'packages/asset-catalog', maskConnector.foregroundMaskPath))).toBe(maskConnector.foregroundMaskSha256)
+    expect(await sha256File(join(root, 'packages/asset-catalog', maskConnector.backgroundMaskPath))).toBe(maskConnector.backgroundMaskSha256)
+    expect(sourceIndex.sources.find(source => source.sourceId === 'head_shadow_hood:floating')).toMatchObject({
+      interfaceMetadataOverlay: {
+        schemaVersion: 'qmonster-v0.4-interface-face-zone-overlay-v1',
+        sourcePath: V04_FACE_ZONE_OVERLAY,
+        sourceSha256: overlaySha256,
+        manifestPath: V03_INTERFACE_MANIFEST,
+        manifestSha256,
+      },
+    })
+    expect(review).toMatchObject({
+      interfaceMetadataOverlay: {
+        schemaVersion: 'qmonster-v0.4-interface-face-zone-overlay-v1',
+        sourcePath: V04_FACE_ZONE_OVERLAY,
+        sourceSha256: overlaySha256,
+        manifestPath: V03_INTERFACE_MANIFEST,
+        manifestSha256,
+      },
+    })
 
     expect(await fileHashes(root, 'packages/asset-catalog/assets/v0.4.0')).toEqual(expect.objectContaining(
       Object.fromEntries(Object.keys(v03Before['packages/asset-catalog/assets/v0.3.0']!).map(path => [path, expect.any(String)])),

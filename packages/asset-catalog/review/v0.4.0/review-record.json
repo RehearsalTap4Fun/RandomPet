@@ -23,5 +23,12 @@
       "webpSha256": "0f5fbb06c9279f0e9bc6d0f0dc0be96047aa11300c2ba3d1c07b7f219a72f793"
     }
   },
+  "interfaceMetadataOverlay": {
+    "schemaVersion": "qmonster-v0.4-interface-face-zone-overlay-v1",
+    "sourcePath": "asset-source/v0.4.0/interface-face-zone-overrides.json",
+    "sourceSha256": "19ce730f856dd84b6418820fb98d7e23141194deb89e312432647eccb446b880",
+    "manifestPath": "asset-source/v0.3.0/interface-manifest.json",
+    "manifestSha256": "d57f29d5b94c80d241569230ee1f8e10d8cbd2eaf5eae91a2b6eb61c69e3f2f8"
+  },
   "evidenceManifestPath": "packages/asset-catalog/audit/v0.4.0/evidence-manifest.json"
 }

@@ -15,7 +15,17 @@ import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { isAttachmentPartComposition, parseCatalog, type Catalog } from '@qmonster/generator-core'
 import { buildProductionEvidenceManifest } from '../packages/asset-catalog/src/evidence-root.js'
+import { parseInterfaceSourceManifest } from '../packages/asset-catalog/src/interface-source-schema.js'
 import { resolveExistingContainedPath } from './safe-output.js'
+import {
+  applyV04InterfaceFaceZoneOverlayToCatalog,
+  deriveV04HeadOcclusionMaskOverride,
+  parseV04InterfaceFaceZoneOverlay,
+  v04InterfaceFaceZoneOverlayProvenance,
+  V04_INTERFACE_FACE_ZONE_OVERLAY_PATH,
+  type V04HeadOcclusionMaskDerivation,
+  type V04InterfaceFaceZoneOverlay,
+} from '../packages/asset-catalog/src/v04-interface-face-zone-overlay.js'
 
 const REQUIRED_IDS = [
   'surface_soft_scales',
@@ -41,6 +51,7 @@ const V04_SOURCE_INDEX = `${PACKAGE_ROOT}/source-index-v0.4.0.json`
 const V04_AUDIT_ROOT = `${PACKAGE_ROOT}/audit/v0.4.0`
 const V04_REVIEW_ROOT = `${PACKAGE_ROOT}/review/v0.4.0`
 const TASK4_PROVENANCE = 'asset-source/v0.4.0/runtime-staging/parts/provenance.json'
+const V03_INTERFACE_MANIFEST = 'asset-source/v0.3.0/interface-manifest.json'
 
 type ReplacementId = typeof REQUIRED_IDS[number]
 
@@ -319,7 +330,36 @@ async function validateTask4Replacements(root: string): Promise<{
   return { provenance, provenanceSha256: sha256(provenanceBytes), replacements }
 }
 
-function makeV04Catalog(v03: Catalog, replacements: Map<ReplacementId, ValidatedReplacement>): Catalog {
+async function validateV04InterfaceFaceZoneOverlay(root: string): Promise<{
+  overlay: V04InterfaceFaceZoneOverlay
+  overlaySha256: string
+}> {
+  const [overlayBytes, manifestBytes] = await Promise.all([
+    readRepositoryFile(root, V04_INTERFACE_FACE_ZONE_OVERLAY_PATH),
+    readRepositoryFile(root, V03_INTERFACE_MANIFEST),
+  ])
+  const manifest = parseInterfaceSourceManifest(JSON.parse(manifestBytes.toString('utf8')))
+  if (!manifest.ok) throw new Error(`V04_INTERFACE_FACE_ZONE_OVERLAY_MANIFEST_INVALID:${JSON.stringify(manifest.diagnostics)}`)
+  try {
+    return {
+      overlay: parseV04InterfaceFaceZoneOverlay(
+        JSON.parse(overlayBytes.toString('utf8')),
+        manifest.value,
+        sha256(manifestBytes),
+      ),
+      overlaySha256: sha256(overlayBytes),
+    }
+  } catch (error) {
+    throw new Error(`V04_INTERFACE_FACE_ZONE_OVERLAY_INVALID:${error instanceof Error ? error.message : String(error)}`)
+  }
+}
+
+function makeV04Catalog(
+  v03: Catalog,
+  replacements: Map<ReplacementId, ValidatedReplacement>,
+  faceZoneOverlay: V04InterfaceFaceZoneOverlay,
+  headOcclusionMasks: V04HeadOcclusionMaskDerivation,
+): Catalog {
   const catalog = rewriteAssetPrefixes(structuredClone(v03))
   catalog.version = '0.4.0'
   if (catalog.compositionPolicy === undefined) throw new Error('V04_CATALOG_COMPOSITION_POLICY_MISSING')
@@ -352,7 +392,7 @@ function makeV04Catalog(v03: Catalog, replacements: Map<ReplacementId, Validated
     if (matchingNodeCount.get(partId) === 0) throw new Error(`V04_CATALOG_REPLACEMENT_RENDER_NODE_MISSING:${partId}`)
   }
   if (JSON.stringify(catalog).includes('assets/v0.3.0/')) throw new Error('V04_CATALOG_V03_ASSET_PREFIX_REMAINS')
-  const parsed = parseCatalog(catalog)
+  const parsed = parseCatalog(applyV04InterfaceFaceZoneOverlayToCatalog(catalog, faceZoneOverlay, headOcclusionMasks))
   if (!parsed.ok) throw new Error(`V04_CATALOG_SCHEMA_INVALID:${JSON.stringify(parsed.diagnostics)}`)
   return parsed.value
 }
@@ -361,6 +401,9 @@ function makeV04SourceIndex(
   v03SourceIndex: Record<string, unknown>,
   replacements: Map<ReplacementId, ValidatedReplacement>,
   provenanceSha256: string,
+  faceZoneOverlay: V04InterfaceFaceZoneOverlay,
+  faceZoneOverlaySha256: string,
+  headOcclusionMasks: V04HeadOcclusionMaskDerivation,
 ): Record<string, unknown> {
   const sourceIndex = rewriteAssetPrefixes(structuredClone(v03SourceIndex))
   sourceIndex.catalogVersion = '0.4.0'
@@ -396,10 +439,34 @@ function makeV04SourceIndex(
       releaseWebpSha256: replacement.runtimeWebpSha256,
     }
   }
+  const overlay = faceZoneOverlay.overrides[0]!
+  const overlaySource = sourceIndex.sources.find(candidate => (
+    candidate !== null && typeof candidate === 'object'
+    && (candidate as Record<string, unknown>).sourceId === `${overlay.partId}:${overlay.rigId}`
+  )) as Record<string, unknown> | undefined
+  if (overlaySource === undefined) {
+    throw new Error(`V04_SOURCE_INDEX_FACE_ZONE_OVERLAY_TARGET_MISSING:${overlay.partId}:${overlay.rigId}`)
+  }
+  overlaySource.interfaceMetadataOverlay = v04InterfaceFaceZoneOverlayProvenance(
+    faceZoneOverlay,
+    faceZoneOverlaySha256,
+  )
+  for (const [path, sha256] of [
+    [faceZoneOverlay.headOcclusionMaskOverride.foreground.targetPath, headOcclusionMasks.foregroundMaskSha256],
+    [faceZoneOverlay.headOcclusionMaskOverride.background.targetPath, headOcclusionMasks.backgroundMaskSha256],
+  ] as const) {
+    const resource = (overlaySource.runtimeResources as Array<Record<string, unknown>> | undefined)?.find(candidate => candidate.path === path)
+    if (resource === undefined) throw new Error(`V04_SOURCE_INDEX_FACE_ZONE_MASK_MISSING:${path}`)
+    resource.sha256 = sha256
+  }
   return sourceIndex
 }
 
-function makeReviewRecord(replacements: Map<ReplacementId, ValidatedReplacement>): Record<string, unknown> {
+function makeReviewRecord(
+  replacements: Map<ReplacementId, ValidatedReplacement>,
+  faceZoneOverlay: V04InterfaceFaceZoneOverlay,
+  faceZoneOverlaySha256: string,
+): Record<string, unknown> {
   return {
     schemaVersion: 'qmonster-catalog-release-review-v1',
     catalogVersion: '0.4.0',
@@ -411,6 +478,7 @@ function makeReviewRecord(replacements: Map<ReplacementId, ValidatedReplacement>
       pngSha256: replacement.runtimePngSha256,
       webpSha256: replacement.runtimeWebpSha256,
     }])),
+    interfaceMetadataOverlay: v04InterfaceFaceZoneOverlayProvenance(faceZoneOverlay, faceZoneOverlaySha256),
     evidenceManifestPath: `${V04_AUDIT_ROOT}/evidence-manifest.json`,
   }
 }
@@ -420,7 +488,12 @@ async function writeJson(path: string, value: unknown): Promise<void> {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx' })
 }
 
-async function validateV04Model(catalog: Catalog, replacements: Map<ReplacementId, ValidatedReplacement>): Promise<void> {
+async function validateV04Model(
+  catalog: Catalog,
+  replacements: Map<ReplacementId, ValidatedReplacement>,
+  faceZoneOverlay: V04InterfaceFaceZoneOverlay,
+  headOcclusionMasks: V04HeadOcclusionMaskDerivation,
+): Promise<void> {
   if (catalog.version !== '0.4.0' || catalog.compositionPolicy?.maxStrongNonFacialFeatures !== 1) {
     throw new Error('V04_RELEASE_CATALOG_POLICY_INVALID')
   }
@@ -442,11 +515,30 @@ async function validateV04Model(catalog: Catalog, replacements: Map<ReplacementI
     const actual = catalog.parts.find(part => part.id === partId)?.composition?.visualIntensity
     if (actual !== expected) throw new Error(`V04_RELEASE_INTENSITY_INVALID:${partId}`)
   }
+  for (const overlay of faceZoneOverlay.overrides) {
+    const part = catalog.parts.find(candidate => candidate.id === overlay.partId)
+    const variant = part?.composition?.mode === 'interface'
+      ? part.composition.variantsByRig[overlay.rigId]
+      : undefined
+    if (variant === undefined || !isDeepStrictEqual(variant.faceSafeZones, overlay.faceSafeZones)) {
+      throw new Error(`V04_RELEASE_FACE_ZONE_OVERLAY_INVALID:${overlay.partId}:${overlay.rigId}`)
+    }
+    const connector = variant.connectors.find(candidate => candidate.id === 'neck' && candidate.role === 'plug')
+    if (
+      connector?.foregroundMaskSha256 !== headOcclusionMasks.foregroundMaskSha256
+      || connector.backgroundMaskSha256 !== headOcclusionMasks.backgroundMaskSha256
+    ) throw new Error(`V04_RELEASE_FACE_ZONE_MASK_HASH_INVALID:${overlay.partId}:${overlay.rigId}`)
+  }
   const parsed = parseCatalog(catalog)
   if (!parsed.ok) throw new Error(`V04_RELEASE_CATALOG_SCHEMA_INVALID:${JSON.stringify(parsed.diagnostics)}`)
 }
 
-async function verifyAssetTree(root: string, replacements: Map<ReplacementId, ValidatedReplacement>): Promise<void> {
+async function verifyAssetTree(
+  root: string,
+  replacements: Map<ReplacementId, ValidatedReplacement>,
+  faceZoneOverlay: V04InterfaceFaceZoneOverlay,
+  headOcclusionMasks: V04HeadOcclusionMaskDerivation,
+): Promise<void> {
   const [v03Files, v04Files] = await Promise.all([
     collectTreeFiles(root, V03_ASSET_ROOT),
     collectTreeFiles(root, V04_ASSET_ROOT),
@@ -461,6 +553,10 @@ async function verifyAssetTree(root: string, replacements: Map<ReplacementId, Va
       const replacement = replacements.get(replacementId)!
       const expected = path.endsWith('.png') ? replacement.runtimePngSha256 : replacement.runtimeWebpSha256
       if (sha256(v04Bytes) !== expected) throw new Error(`V04_RELEASE_REPLACEMENT_HASH_MISMATCH:${path}`)
+    } else if (path === faceZoneOverlay.headOcclusionMaskOverride.foreground.targetPath.replace(/^assets\/v0\.4\.0\//u, '')) {
+      if (sha256(v04Bytes) !== headOcclusionMasks.foregroundMaskSha256) throw new Error(`V04_RELEASE_FACE_ZONE_FOREGROUND_MASK_MISMATCH:${path}`)
+    } else if (path === faceZoneOverlay.headOcclusionMaskOverride.background.targetPath.replace(/^assets\/v0\.4\.0\//u, '')) {
+      if (sha256(v04Bytes) !== headOcclusionMasks.backgroundMaskSha256) throw new Error(`V04_RELEASE_FACE_ZONE_BACKGROUND_MASK_MISMATCH:${path}`)
     } else {
       const v03Bytes = await readRepositoryFile(root, `${V03_ASSET_ROOT}/${path}`)
       if (sha256(v04Bytes) !== sha256(v03Bytes)) throw new Error(`V04_RELEASE_RETAINED_ASSET_MISMATCH:${path}`)
@@ -471,7 +567,14 @@ async function verifyAssetTree(root: string, replacements: Map<ReplacementId, Va
 async function verifyV04Release(root: string): Promise<Catalog> {
   const completedCatalogPath = `${V04_CATALOG_ROOT}/catalog.json`
   if (!await exists(root, resolve(root, completedCatalogPath))) throw new Error('V04_RELEASE_NOT_COMPLETE')
-  const { replacements, provenanceSha256 } = await validateTask4Replacements(root)
+  const [{ replacements, provenanceSha256 }, faceZoneOverlayInput] = await Promise.all([
+    validateTask4Replacements(root),
+    validateV04InterfaceFaceZoneOverlay(root),
+  ])
+  const headOcclusionMasks = await deriveV04HeadOcclusionMaskOverride(
+    faceZoneOverlayInput.overlay,
+    path => readRepositoryFile(root, `${PACKAGE_ROOT}/${path}`),
+  )
   const [catalog, themes, rigs, parts, semanticTraits, modifiers, sourceIndex, evidence, review] = await Promise.all([
     readRepositoryJson<Catalog>(root, completedCatalogPath),
     readRepositoryJson<unknown>(root, `${V04_CATALOG_ROOT}/themes.json`),
@@ -483,7 +586,7 @@ async function verifyV04Release(root: string): Promise<Catalog> {
     readRepositoryJson<Record<string, unknown>>(root, `${V04_AUDIT_ROOT}/evidence-manifest.json`),
     readRepositoryJson<Record<string, unknown>>(root, `${V04_REVIEW_ROOT}/review-record.json`),
   ])
-  await validateV04Model(catalog, replacements)
+  await validateV04Model(catalog, replacements, faceZoneOverlayInput.overlay, headOcclusionMasks)
   if (!isDeepStrictEqual([themes, rigs, parts, semanticTraits, modifiers], [
     catalog.themes, catalog.rigs, catalog.parts, catalog.semanticTraits, catalog.modifiers,
   ])) throw new Error('V04_RELEASE_CATALOG_SHARD_MISMATCH')
@@ -500,13 +603,29 @@ async function verifyV04Release(root: string): Promise<Catalog> {
       || (source.replacementProvenance as Record<string, unknown> | undefined)?.sourceSha256 !== provenanceSha256
     ) throw new Error(`V04_RELEASE_SOURCE_INDEX_REPLACEMENT_INVALID:${partId}`)
   }
+  const overlay = faceZoneOverlayInput.overlay.overrides[0]!
+  const expectedOverlayProvenance = v04InterfaceFaceZoneOverlayProvenance(
+    faceZoneOverlayInput.overlay,
+    faceZoneOverlayInput.overlaySha256,
+  )
+  const overlaySource = (sourceIndex.sources as Array<Record<string, unknown>> | undefined)?.find(item => (
+    item.sourceId === `${overlay.partId}:${overlay.rigId}`
+  ))
+  if (!isDeepStrictEqual(overlaySource?.interfaceMetadataOverlay, expectedOverlayProvenance)) {
+    throw new Error(`V04_RELEASE_SOURCE_INDEX_FACE_ZONE_OVERLAY_INVALID:${overlay.partId}:${overlay.rigId}`)
+  }
   if (!isDeepStrictEqual(evidence, buildProductionEvidenceManifest(sourceIndex))) {
     throw new Error('V04_RELEASE_EVIDENCE_MANIFEST_INVALID')
   }
-  if (review.catalogVersion !== '0.4.0' || review.decision !== 'pending_user_review' || review.userApproved !== false) {
+  if (
+    review.catalogVersion !== '0.4.0'
+    || review.decision !== 'pending_user_review'
+    || review.userApproved !== false
+    || !isDeepStrictEqual(review.interfaceMetadataOverlay, expectedOverlayProvenance)
+  ) {
     throw new Error('V04_RELEASE_REVIEW_RECORD_INVALID')
   }
-  await verifyAssetTree(root, replacements)
+  await verifyAssetTree(root, replacements, faceZoneOverlayInput.overlay, headOcclusionMasks)
   return catalog
 }
 
@@ -570,17 +689,38 @@ export async function assembleV04Catalog(options: AssembleV04CatalogOptions = {}
     .map(path => resolve(root, path))
   for (const target of targets) await assertAbsent(root, target)
 
-  const [v03Catalog, v03SourceIndex, replacementInput] = await Promise.all([
+  const [v03Catalog, v03SourceIndex, replacementInput, faceZoneOverlayInput] = await Promise.all([
     readRepositoryJson<Catalog>(root, `${V03_CATALOG_ROOT}/catalog.json`),
     readRepositoryJson<Record<string, unknown>>(root, V03_SOURCE_INDEX),
     validateTask4Replacements(root),
+    validateV04InterfaceFaceZoneOverlay(root),
   ])
   if (parseCatalog(v03Catalog).ok === false || v03Catalog.version !== '0.3.0') throw new Error('V04_RELEASE_V03_CATALOG_INVALID')
   if (v03SourceIndex.catalogVersion !== '0.3.0') throw new Error('V04_RELEASE_V03_SOURCE_INDEX_INVALID')
-  const catalog = makeV04Catalog(v03Catalog, replacementInput.replacements)
-  const sourceIndex = makeV04SourceIndex(v03SourceIndex, replacementInput.replacements, replacementInput.provenanceSha256)
+  const headOcclusionMasks = await deriveV04HeadOcclusionMaskOverride(
+    faceZoneOverlayInput.overlay,
+    path => readRepositoryFile(root, `${PACKAGE_ROOT}/${path}`),
+  )
+  const catalog = makeV04Catalog(
+    v03Catalog,
+    replacementInput.replacements,
+    faceZoneOverlayInput.overlay,
+    headOcclusionMasks,
+  )
+  const sourceIndex = makeV04SourceIndex(
+    v03SourceIndex,
+    replacementInput.replacements,
+    replacementInput.provenanceSha256,
+    faceZoneOverlayInput.overlay,
+    faceZoneOverlayInput.overlaySha256,
+    headOcclusionMasks,
+  )
   const evidence = buildProductionEvidenceManifest(sourceIndex)
-  const review = makeReviewRecord(replacementInput.replacements)
+  const review = makeReviewRecord(
+    replacementInput.replacements,
+    faceZoneOverlayInput.overlay,
+    faceZoneOverlayInput.overlaySha256,
+  )
 
   const packageRoot = resolve(root, PACKAGE_ROOT)
   const stageRoot = join(packageRoot, `.qmonster-v04-catalog-transaction-${randomUUID()}`)
@@ -592,6 +732,16 @@ export async function assembleV04Catalog(options: AssembleV04CatalogOptions = {}
   try {
     const stageAssetRoot = portable(root, join(stageRoot, 'assets/v0.4.0'))
     await copyTreeToStage(root, V03_ASSET_ROOT, stageAssetRoot)
+    await Promise.all([
+      writeFile(
+        join(stageRoot, faceZoneOverlayInput.overlay.headOcclusionMaskOverride.foreground.targetPath.replace('assets/v0.4.0/', 'assets/v0.4.0/')),
+        headOcclusionMasks.foregroundPng,
+      ),
+      writeFile(
+        join(stageRoot, faceZoneOverlayInput.overlay.headOcclusionMaskOverride.background.targetPath.replace('assets/v0.4.0/', 'assets/v0.4.0/')),
+        headOcclusionMasks.backgroundPng,
+      ),
+    ])
     for (const [partId, replacement] of replacementInput.replacements) {
       for (const [sourcePath, extension] of [[replacement.runtimePngPath, 'png'], [replacement.runtimeWebpPath, 'webp']] as const) {
         const target = join(stageRoot, `assets/v0.4.0/parts/${partId}.${extension}`)

@@ -64,7 +64,10 @@ export default defineConfig({
         test: {
           name: 'production-browser-v03',
           environment: 'node',
-          include: ['tests/render/production-composition.spec.ts'],
+          include: [
+            'tests/render/production-composition.spec.ts',
+            'tests/render/v04-face-zone-regression.spec.ts',
+          ],
           testTimeout: 120_000,
           hookTimeout: 120_000,
         },

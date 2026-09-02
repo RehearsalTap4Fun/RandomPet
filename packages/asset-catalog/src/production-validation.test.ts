@@ -132,6 +132,35 @@ describe('strict production catalog validation', () => {
     expect(diagnostics).toEqual([])
   })
 
+  it('rejects a v0.4 face-zone change without its exact overlay provenance', async () => {
+    const catalog = JSON.parse(await readFile(
+      join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.4.0', 'catalog.json'),
+      'utf8',
+    )) as Catalog
+    const sourceIndex = JSON.parse(await readFile(
+      join(process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.4.0.json'),
+      'utf8',
+    ))
+    const head = catalog.parts.find(part => part.id === 'head_shadow_hood')
+    if (head?.composition?.mode !== 'interface') throw new Error('Expected exact v0.4 interface head.')
+    head.composition.variantsByRig.floating!.faceSafeZones = [{ x: 800, y: 1050, width: 448, height: 326 }]
+    delete sourceIndex.sources.find((source: { sourceId: string }) => (
+      source.sourceId === 'head_shadow_hood:floating'
+    )).interfaceMetadataOverlay
+
+    const diagnostics = await validateProductionInterfaceResources(
+      catalog,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.4.0'),
+      sourceIndex,
+      { manifestPath: join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json') },
+    )
+
+    expect(diagnostics).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_V04_INTERFACE_OVERLAY_INVALID',
+      path: ['sources', 'head_shadow_hood:floating', 'interfaceMetadataOverlay'],
+    }))
+  })
+
   async function faceSocketContractFixture(): Promise<{
     catalog: Catalog
     manifest: InterfaceSourceManifest

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "qmonster-v0.4-interface-face-zone-overlay-v1",
+  "catalogVersion": "0.4.0",
+  "basedOn": {
+    "manifestPath": "asset-source/v0.3.0/interface-manifest.json",
+    "manifestSha256": "d57f29d5b94c80d241569230ee1f8e10d8cbd2eaf5eae91a2b6eb61c69e3f2f8"
+  },
+  "overrides": [
+    {
+      "partId": "head_shadow_hood",
+      "rigId": "floating",
+      "baseFaceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 234
+        }
+      ],
+      "faceSafeZones": [
+        {
+          "x": 800,
+          "y": 1050,
+          "width": 448,
+          "height": 326
+        }
+      ]
+    }
+  ],
+  "headOcclusionMaskOverride": {
+    "derivation": "head-alpha-face-zone-promote-v1",
+    "node": {
+      "sourcePath": "assets/v0.3.0/structural/floating/task7-natural-neck/nodes/head_shadow_hood/neck.png",
+      "sourceSha256": "33dd458c8039f1775499696807e7ceb37ad7684166e2d5a14639168f9198bcda"
+    },
+    "foreground": {
+      "sourcePath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png",
+      "sourceSha256": "1aab57d718754a94b00b2d6c1b49014bcad76dda9e285a1ade2b11ef460a9914",
+      "targetPath": "assets/v0.4.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-foreground.png"
+    },
+    "background": {
+      "sourcePath": "assets/v0.3.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png",
+      "sourceSha256": "a6f5b0c96020d44e9cb989dfc5a4858bbe699195983982781c6292d7e7579b25",
+      "targetPath": "assets/v0.4.0/connectors/floating/task7-natural-neck/head_shadow_hood-neck-background.png"
+    }
+  }
+}
