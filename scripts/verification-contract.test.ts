@@ -12,6 +12,13 @@ const COVERAGE_ONLY_EXCLUDES = [
   'scripts/validate-interface-slice.test.ts',
 ]
 
+const ASSET_PRODUCTION_HEAVY_TESTS = [
+  'packages/asset-catalog/src/production-validation.test.ts',
+  'packages/asset-catalog/src/v04-interface-face-zone-overlay.test.ts',
+  'scripts/assemble-v04-catalog.test.ts',
+  'scripts/prepare-v04-single-face-assets.test.ts',
+]
+
 it('routes root verification through all three production catalog validators', async () => {
   const root = JSON.parse(await readFile('package.json', 'utf8'))
   const command = root.scripts['catalog:validate'] as string
@@ -65,7 +72,9 @@ it('keeps live reconstruction suites in full verification while coverage targets
   expect(productionValidation).toContain('tailExtraEntriesChecked')
 
   expect(defaultConfig).toContain("include: ['packages/**/*.test.ts', 'scripts/**/*.test.ts']")
-  expect(defaultConfig).toContain("include: ['packages/asset-catalog/src/production-validation.test.ts']")
+  expect(defaultConfig).toContain('const ASSET_PRODUCTION_HEAVY_TESTS = [')
+  expect(defaultConfig).toContain('include: ASSET_PRODUCTION_HEAVY_TESTS')
+  for (const path of ASSET_PRODUCTION_HEAVY_TESTS) expect(defaultConfig).toContain(`'${path}'`)
   expect(defaultConfig).toContain("name: 'interface-review-heavy'")
   for (const path of COVERAGE_ONLY_EXCLUDES) expect(coverageConfig).toContain(`'${path}'`)
   for (const path of COVERAGE_ONLY_EXCLUDES.slice(1)) expect(defaultConfig).toContain(`'${path}'`)
@@ -82,8 +91,11 @@ it('keeps live reconstruction suites in full verification while coverage targets
   })
 
   const projects = new Map(vitestConfig.test.projects.map((project: any) => [project.test.name, project.test]))
-  expect(projects.get('packages-node')?.exclude).toEqual(COVERAGE_ONLY_EXCLUDES)
-  expect(projects.get('asset-production-heavy')?.include).toEqual([COVERAGE_ONLY_EXCLUDES[0]])
+  expect(projects.get('packages-node')?.exclude).toEqual([
+    ...ASSET_PRODUCTION_HEAVY_TESTS,
+    ...COVERAGE_ONLY_EXCLUDES.slice(1),
+  ])
+  expect(projects.get('asset-production-heavy')?.include).toEqual(ASSET_PRODUCTION_HEAVY_TESTS)
   expect(projects.get('interface-review-heavy')?.include).toEqual(COVERAGE_ONLY_EXCLUDES.slice(1))
 
   const discovered = execFileSync('rg', ['--files', 'packages', 'scripts', 'apps'], { encoding: 'utf8' })
@@ -91,7 +103,7 @@ it('keeps live reconstruction suites in full verification while coverage targets
     .filter(path => /\.test\.tsx?$/.test(path))
     .map(path => path.replaceAll('\\', '/'))
   discovered.push('tests/render/production-composition.spec.ts')
-  expect(discovered).toHaveLength(93)
+  expect(discovered).toHaveLength(97)
 
   const configured = [
     ...discovered.filter(path => /^(packages|scripts)\//.test(path) && !COVERAGE_ONLY_EXCLUDES.includes(path)),
