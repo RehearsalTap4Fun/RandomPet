@@ -151,6 +151,7 @@ const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
     'render-test-diagnostic-option': '',
     'render-test-diagnostic-result': '',
     'render-test-transition-hole-route': '',
+    'render-test-v04-oral-detail-fixture': '',
   },
   'packages/renderer-canvas/src/render.ts': {
     'renderer-v04-composition-surface-fields': '',

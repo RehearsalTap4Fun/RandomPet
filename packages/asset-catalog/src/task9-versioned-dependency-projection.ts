@@ -9,6 +9,10 @@ interface Task9VersionedDependencyProjection {
 // release. They preserve the recorded Task 9 evidence hash only when the live
 // source still equals this reviewed implementation byte-for-byte.
 const TASK9_V04_SOURCE_PROJECTIONS: Readonly<Record<string, Task9VersionedDependencyProjection>> = {
+  'apps/creator-web/src/render-test.ts': {
+    historicalSha256: '2951ed7c40081e7f7f1da24436a9a95e1418feb5ac8c0ff2fb669e93a030b4ab',
+    approvedCurrentSha256: '55abdd88428982ebdcc78d1b2c1c06dc28fc5e5f4882ed6a1568448770eed35b',
+  },
   'packages/asset-catalog/src/cli.ts': {
     historicalSha256: 'e3c18b43c6d964fac3630429a273bfd5c4f0e22057be234e3529b22bb6e54435',
     approvedCurrentSha256: '1fd1c048a2db18b9db139dab70738097f2f349f7bf28ae3bd2bed29192a18040',
@@ -39,7 +43,7 @@ const TASK9_V04_SOURCE_PROJECTIONS: Readonly<Record<string, Task9VersionedDepend
   },
   'scripts/task8-stable-projection.ts': {
     historicalSha256: 'a5381f6d2fd30adb274e27043724dcc322cd23bbf10bb2aca68302f006f13c3e',
-    approvedCurrentSha256: '2cdfc142ddc2abca3c57f52a0085052d0ae3f1548b77e1f04e00e92829d8053c',
+    approvedCurrentSha256: '2e14c79f9f15ccbeae2b326c51a1986f523c4db51b8353c506095087d837e17a',
   },
 }
 
