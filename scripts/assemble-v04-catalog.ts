@@ -466,7 +466,10 @@ function makeReviewRecord(
   replacements: Map<ReplacementId, ValidatedReplacement>,
   faceZoneOverlay: V04InterfaceFaceZoneOverlay,
   faceZoneOverlaySha256: string,
+  headOcclusionMasks: V04HeadOcclusionMaskDerivation,
+  evidenceManifestSha256: string,
 ): Record<string, unknown> {
+  const faceZone = faceZoneOverlay.overrides[0]!
   return {
     schemaVersion: 'qmonster-catalog-release-review-v1',
     catalogVersion: '0.4.0',
@@ -478,14 +481,38 @@ function makeReviewRecord(
       pngSha256: replacement.runtimePngSha256,
       webpSha256: replacement.runtimeWebpSha256,
     }])),
+    interfaceFaceZone: {
+      partId: faceZone.partId,
+      rigId: faceZone.rigId,
+      baseFaceSafeZones: faceZone.baseFaceSafeZones,
+      faceSafeZones: faceZone.faceSafeZones,
+    },
+    interfaceMaskHashes: {
+      derivation: faceZoneOverlay.headOcclusionMaskOverride.derivation,
+      nodeSourcePath: faceZoneOverlay.headOcclusionMaskOverride.node.sourcePath,
+      nodeSourceSha256: faceZoneOverlay.headOcclusionMaskOverride.node.sourceSha256,
+      foregroundSourcePath: faceZoneOverlay.headOcclusionMaskOverride.foreground.sourcePath,
+      foregroundSourceSha256: faceZoneOverlay.headOcclusionMaskOverride.foreground.sourceSha256,
+      foregroundMaskPath: faceZoneOverlay.headOcclusionMaskOverride.foreground.targetPath,
+      foregroundMaskSha256: headOcclusionMasks.foregroundMaskSha256,
+      backgroundSourcePath: faceZoneOverlay.headOcclusionMaskOverride.background.sourcePath,
+      backgroundSourceSha256: faceZoneOverlay.headOcclusionMaskOverride.background.sourceSha256,
+      backgroundMaskPath: faceZoneOverlay.headOcclusionMaskOverride.background.targetPath,
+      backgroundMaskSha256: headOcclusionMasks.backgroundMaskSha256,
+    },
     interfaceMetadataOverlay: v04InterfaceFaceZoneOverlayProvenance(faceZoneOverlay, faceZoneOverlaySha256),
     evidenceManifestPath: `${V04_AUDIT_ROOT}/evidence-manifest.json`,
+    evidenceManifestSha256,
   }
 }
 
 async function writeJson(path: string, value: unknown): Promise<void> {
   await mkdir(dirname(path), { recursive: true })
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx' })
+}
+
+function serializedJsonSha256(value: unknown): string {
+  return sha256(Buffer.from(`${JSON.stringify(value, null, 2)}\n`))
 }
 
 async function validateV04Model(
@@ -575,7 +602,7 @@ async function verifyV04Release(root: string): Promise<Catalog> {
     faceZoneOverlayInput.overlay,
     path => readRepositoryFile(root, `${PACKAGE_ROOT}/${path}`),
   )
-  const [catalog, themes, rigs, parts, semanticTraits, modifiers, sourceIndex, evidence, review] = await Promise.all([
+  const [catalog, themes, rigs, parts, semanticTraits, modifiers, sourceIndex, evidence, evidenceBytes, review] = await Promise.all([
     readRepositoryJson<Catalog>(root, completedCatalogPath),
     readRepositoryJson<unknown>(root, `${V04_CATALOG_ROOT}/themes.json`),
     readRepositoryJson<unknown>(root, `${V04_CATALOG_ROOT}/rigs.json`),
@@ -584,6 +611,7 @@ async function verifyV04Release(root: string): Promise<Catalog> {
     readRepositoryJson<unknown>(root, `${V04_CATALOG_ROOT}/modifiers.json`),
     readRepositoryJson<Record<string, unknown>>(root, V04_SOURCE_INDEX),
     readRepositoryJson<Record<string, unknown>>(root, `${V04_AUDIT_ROOT}/evidence-manifest.json`),
+    readRepositoryFile(root, `${V04_AUDIT_ROOT}/evidence-manifest.json`),
     readRepositoryJson<Record<string, unknown>>(root, `${V04_REVIEW_ROOT}/review-record.json`),
   ])
   await validateV04Model(catalog, replacements, faceZoneOverlayInput.overlay, headOcclusionMasks)
@@ -617,12 +645,13 @@ async function verifyV04Release(root: string): Promise<Catalog> {
   if (!isDeepStrictEqual(evidence, buildProductionEvidenceManifest(sourceIndex))) {
     throw new Error('V04_RELEASE_EVIDENCE_MANIFEST_INVALID')
   }
-  if (
-    review.catalogVersion !== '0.4.0'
-    || review.decision !== 'pending_user_review'
-    || review.userApproved !== false
-    || !isDeepStrictEqual(review.interfaceMetadataOverlay, expectedOverlayProvenance)
-  ) {
+  if (!isDeepStrictEqual(review, makeReviewRecord(
+    replacements,
+    faceZoneOverlayInput.overlay,
+    faceZoneOverlayInput.overlaySha256,
+    headOcclusionMasks,
+    sha256(evidenceBytes),
+  ))) {
     throw new Error('V04_RELEASE_REVIEW_RECORD_INVALID')
   }
   await verifyAssetTree(root, replacements, faceZoneOverlayInput.overlay, headOcclusionMasks)
@@ -720,6 +749,8 @@ export async function assembleV04Catalog(options: AssembleV04CatalogOptions = {}
     replacementInput.replacements,
     faceZoneOverlayInput.overlay,
     faceZoneOverlayInput.overlaySha256,
+    headOcclusionMasks,
+    serializedJsonSha256(evidence),
   )
 
   const packageRoot = resolve(root, PACKAGE_ROOT)

@@ -1,4 +1,5 @@
 import { validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
+import { createHash } from 'node:crypto'
 import { realpath } from 'node:fs/promises'
 import { basename, dirname, relative, resolve } from 'node:path'
 import { validateCatalogFiles } from './file-validation.js'
@@ -97,17 +98,21 @@ async function main(): Promise<void> {
     let evidenceManifestPath = resolve(evidenceManifestInput!)
     let sourceIndex: ProductionSourceIndex = {}
     let evidenceManifest: unknown = null
+    let evidenceManifestSha256: string | undefined
     try {
       sourceIndex = JSON.parse((await readCanonicalProductionInput(packageRoot, sourceIndexPath, expectedSourceIndex)).toString('utf8')) as ProductionSourceIndex
     } catch {
       diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [sourceIndexPath], message: `Source-index must be the direct canonical ${expectedSourceIndex} for catalog version ${version}.` })
     }
     try {
-      evidenceManifest = JSON.parse((await readCanonicalProductionInput(packageRoot, evidenceManifestPath, expectedEvidenceManifest)).toString('utf8')) as unknown
+      const bytes = await readCanonicalProductionInput(packageRoot, evidenceManifestPath, expectedEvidenceManifest)
+      evidenceManifest = JSON.parse(bytes.toString('utf8')) as unknown
+      evidenceManifestSha256 = createHash('sha256').update(bytes).digest('hex')
     } catch {
       diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [evidenceManifestPath], message: `Evidence manifest must be the direct canonical ${expectedEvidenceManifest} for catalog version ${version}.` })
     }
     let task6Integrity: RuntimeIntegrityReview | undefined
+    let v04Review: unknown
     if (version === '0.3.0') {
       const task6IntegrityPath = resolve(packageRoot, 'review', `v${version}`, 'task6-approved-input-integrity.json')
       try {
@@ -116,6 +121,16 @@ async function main(): Promise<void> {
         )).toString('utf8')) as RuntimeIntegrityReview
       } catch {
         diagnostics.push({ severity: 'error', code: 'PRODUCTION_RUNTIME_REVIEW_MISSING', path: [task6IntegrityPath], message: 'Cannot read the canonical Task 6 approved-input integrity review.' })
+      }
+    }
+    if (version === '0.4.0') {
+      const reviewPath = resolve(packageRoot, 'review', `v${version}`, 'review-record.json')
+      try {
+        v04Review = JSON.parse((await readCanonicalProductionInput(
+          packageRoot, reviewPath, reviewPath,
+        )).toString('utf8')) as unknown
+      } catch {
+        diagnostics.push({ severity: 'error', code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review'], message: 'Cannot read the canonical v0.4 release review.' })
       }
     }
     if (sourceIndex.catalogVersion !== version) {
@@ -127,6 +142,10 @@ async function main(): Promise<void> {
       ...(await validateProductionSourceIndex(parsed.value, assetRoot, sourceIndex)),
       ...(await validateProductionInterfaceResources(parsed.value, assetRoot, sourceIndex, {
         manifestPath: resolve(packageRoot, '..', '..', 'asset-source', version === '0.4.0' ? 'v0.3.0' : `v${version}`, 'interface-manifest.json'),
+        ...(version === '0.4.0' ? {
+          v04Review,
+          ...(evidenceManifestSha256 === undefined ? {} : { v04EvidenceManifestSha256: evidenceManifestSha256 }),
+        } : {}),
       })),
       ...validateProductionEvidenceManifest(sourceIndex, evidenceManifest),
       ...(await validateProductionEvidenceDependencies(evidenceManifest, resolve(packageRoot, '..', '..'))),

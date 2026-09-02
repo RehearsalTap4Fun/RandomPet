@@ -161,6 +161,56 @@ describe('strict production catalog validation', () => {
     }))
   })
 
+  it('rejects a forged v0.4 release review before CLI production acceptance', async () => {
+    const catalog = JSON.parse(await readFile(
+      join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.4.0', 'catalog.json'),
+      'utf8',
+    )) as Catalog
+    const sourceIndex = JSON.parse(await readFile(
+      join(process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.4.0.json'),
+      'utf8',
+    ))
+    const review = JSON.parse(await readFile(
+      join(process.cwd(), 'packages', 'asset-catalog', 'review', 'v0.4.0', 'review-record.json'),
+      'utf8',
+    )) as Record<string, any>
+    review.schemaVersion = 'forged-review-schema'
+    review.basedOnCatalogVersion = '9.9.9'
+    review.replacementPartIds = []
+    review.replacementHashes.surface_soft_scales.pngSha256 = '0'.repeat(64)
+    review.interfaceFaceZone.faceSafeZones[0].height = 325
+    review.interfaceMaskHashes = {
+      foregroundMaskSha256: '0'.repeat(64),
+      backgroundMaskSha256: '0'.repeat(64),
+    }
+    review.evidenceManifestPath = 'packages/asset-catalog/audit/v0.4.0/forged.json'
+    review.evidenceManifestSha256 = '0'.repeat(64)
+
+    const diagnostics = await validateProductionInterfaceResources(
+      catalog,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.4.0'),
+      sourceIndex,
+      {
+        manifestPath: join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json'),
+        v04Review: review,
+        v04EvidenceManifestSha256: createHash('sha256').update(await readFile(
+          join(process.cwd(), 'packages', 'asset-catalog', 'audit', 'v0.4.0', 'evidence-manifest.json'),
+        )).digest('hex'),
+      },
+    )
+
+    expect(diagnostics).toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review', 'schemaVersion'] }),
+      expect.objectContaining({ code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review', 'basedOnCatalogVersion'] }),
+      expect.objectContaining({ code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review', 'replacementPartIds'] }),
+      expect.objectContaining({ code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review', 'replacementHashes', 'surface_soft_scales'] }),
+      expect.objectContaining({ code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review', 'interfaceFaceZone'] }),
+      expect.objectContaining({ code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review', 'interfaceMaskHashes'] }),
+      expect.objectContaining({ code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review', 'evidenceManifestPath'] }),
+      expect.objectContaining({ code: 'PRODUCTION_V04_REVIEW_INVALID', path: ['review', 'evidenceManifestSha256'] }),
+    ]))
+  })
+
   async function faceSocketContractFixture(): Promise<{
     catalog: Catalog
     manifest: InterfaceSourceManifest

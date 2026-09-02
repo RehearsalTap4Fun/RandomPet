@@ -25,6 +25,8 @@ import {
   parseV04InterfaceFaceZoneOverlay,
   v04InterfaceFaceZoneOverlayProvenance,
   V04_INTERFACE_FACE_ZONE_OVERLAY_PATH,
+  type V04HeadOcclusionMaskDerivation,
+  type V04InterfaceFaceZoneOverlay,
 } from './v04-interface-face-zone-overlay.js'
 import { readTrustedRepositoryFile } from './trusted-repository-file.js'
 
@@ -584,6 +586,94 @@ function validateV04InterfaceFaceZoneMaskHashes(
   ))
 }
 
+const V04_RELEASE_REVIEW_SCHEMA = 'qmonster-catalog-release-review-v1'
+const V04_REPLACEMENT_PART_IDS = [
+  'surface_soft_scales',
+  'pattern_gentle_stripes',
+  'effect_bioluminescent_orbs',
+] as const
+const V04_EVIDENCE_MANIFEST_PATH = 'packages/asset-catalog/audit/v0.4.0/evidence-manifest.json'
+
+function reviewRecord(value: unknown): Record<string, unknown> | undefined {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : undefined
+}
+
+function validateV04ReleaseReview(
+  catalog: Catalog,
+  sourceIndex: ProductionSourceIndex,
+  review: unknown,
+  evidenceManifestSha256: string | undefined,
+  overlay: V04InterfaceFaceZoneOverlay,
+  maskDerivation: V04HeadOcclusionMaskDerivation,
+): Diagnostic[] {
+  const diagnostics: Diagnostic[] = []
+  const invalid = (path: string[], message: string): void => {
+    diagnostics.push(error('PRODUCTION_V04_REVIEW_INVALID', ['review', ...path], message))
+  }
+  const record = reviewRecord(review)
+  if (record === undefined) {
+    invalid([], 'The canonical v0.4 release review must be a JSON object.')
+    return diagnostics
+  }
+  if (record.schemaVersion !== V04_RELEASE_REVIEW_SCHEMA) invalid(['schemaVersion'], 'Release review schemaVersion is not the approved v0.4 schema.')
+  if (record.catalogVersion !== '0.4.0') invalid(['catalogVersion'], 'Release review catalogVersion must be 0.4.0.')
+  if (record.basedOnCatalogVersion !== '0.3.0') invalid(['basedOnCatalogVersion'], 'Release review must identify immutable v0.3.0 as its base.')
+  if (record.decision !== 'pending_user_review' || record.userApproved !== false) invalid(['decision'], 'Release review decision must remain pending and unapproved.')
+  if (!sameJson(record.replacementPartIds, V04_REPLACEMENT_PART_IDS)) invalid(['replacementPartIds'], 'Release review replacement parts differ from the approved v0.4 release set.')
+
+  const replacementHashes = reviewRecord(record.replacementHashes)
+  for (const partId of V04_REPLACEMENT_PART_IDS) {
+    const part = catalog.parts.find(candidate => candidate.id === partId)
+    const expected = part === undefined ? undefined : { pngSha256: part.pngSha256, webpSha256: part.assetSha256 }
+    if (!sameJson(replacementHashes?.[partId], expected)) {
+      invalid(['replacementHashes', partId], `Release review replacement hashes differ from catalog ${partId}.`)
+    }
+  }
+  if (replacementHashes === undefined || Object.keys(replacementHashes).length !== V04_REPLACEMENT_PART_IDS.length) {
+    invalid(['replacementHashes'], 'Release review must contain exactly the approved replacement hash records.')
+  }
+
+  const target = overlay.overrides[0]!
+  const expectedFaceZone = {
+    partId: target.partId,
+    rigId: target.rigId,
+    baseFaceSafeZones: target.baseFaceSafeZones,
+    faceSafeZones: target.faceSafeZones,
+  }
+  if (!sameJson(record.interfaceFaceZone, expectedFaceZone)) {
+    invalid(['interfaceFaceZone'], 'Release review face-zone geometry differs from the exact approved overlay.')
+  }
+  const expectedMaskHashes = {
+    derivation: overlay.headOcclusionMaskOverride.derivation,
+    nodeSourcePath: overlay.headOcclusionMaskOverride.node.sourcePath,
+    nodeSourceSha256: overlay.headOcclusionMaskOverride.node.sourceSha256,
+    foregroundSourcePath: overlay.headOcclusionMaskOverride.foreground.sourcePath,
+    foregroundSourceSha256: overlay.headOcclusionMaskOverride.foreground.sourceSha256,
+    foregroundMaskPath: overlay.headOcclusionMaskOverride.foreground.targetPath,
+    foregroundMaskSha256: maskDerivation.foregroundMaskSha256,
+    backgroundSourcePath: overlay.headOcclusionMaskOverride.background.sourcePath,
+    backgroundSourceSha256: overlay.headOcclusionMaskOverride.background.sourceSha256,
+    backgroundMaskPath: overlay.headOcclusionMaskOverride.background.targetPath,
+    backgroundMaskSha256: maskDerivation.backgroundMaskSha256,
+  }
+  if (!sameJson(record.interfaceMaskHashes, expectedMaskHashes)) {
+    invalid(['interfaceMaskHashes'], 'Release review head-mask source or derived output hashes differ from the approved overlay.')
+  }
+  const source = (sourceIndex.sources ?? []).find(candidate => candidate.sourceId === `${target.partId}:${target.rigId}`)
+  if (!sameJson(record.interfaceMetadataOverlay, source?.interfaceMetadataOverlay)) {
+    invalid(['interfaceMetadataOverlay'], 'Release review overlay provenance must exactly match the source-index attestation.')
+  }
+  if (record.evidenceManifestPath !== V04_EVIDENCE_MANIFEST_PATH) {
+    invalid(['evidenceManifestPath'], 'Release review must bind the canonical v0.4 evidence manifest path.')
+  }
+  if (!isSha256(evidenceManifestSha256) || record.evidenceManifestSha256 !== evidenceManifestSha256) {
+    invalid(['evidenceManifestSha256'], 'Release review evidence manifest hash differs from the canonical committed bytes.')
+  }
+  return diagnostics
+}
+
 async function validateBinaryInterfaceMask(assetRoot: string, assetPath: string, path: string[], options: { allowUniform?: boolean } = {}): Promise<Diagnostic[]> {
   try {
     const decoded = await decodeCommittedRgba(assetRoot, assetPath)
@@ -705,7 +795,11 @@ export async function validateProductionInterfaceResources(
   catalog: Catalog,
   assetRoot: string,
   sourceIndex: ProductionSourceIndex,
-  options: { manifestPath?: string } = {},
+  options: {
+    manifestPath?: string
+    v04Review?: unknown
+    v04EvidenceManifestSha256?: string
+  } = {},
 ): Promise<Diagnostic[]> {
   if (!isInterfaceProductionVersion(catalog.version)) return []
   const diagnostics: Diagnostic[] = []
@@ -752,6 +846,16 @@ export async function validateProductionInterfaceResources(
             diagnostics,
           )
           validateV04InterfaceFaceZoneMaskHashes(catalog, overlay, maskHashes, diagnostics)
+          if (options.v04Review !== undefined || options.v04EvidenceManifestSha256 !== undefined) {
+            diagnostics.push(...validateV04ReleaseReview(
+              catalog,
+              sourceIndex,
+              options.v04Review,
+              options.v04EvidenceManifestSha256,
+              overlay,
+              maskHashes,
+            ))
+          }
           manifest = applyV04InterfaceFaceZoneOverlayToManifest(sourceManifest, overlay)
         } catch (caught) {
           diagnostics.push(error(

@@ -39,6 +39,8 @@ export interface V04InterfaceFaceZoneOverlayProvenance {
 }
 
 type FaceSafeZone = { x: number, y: number, width: number, height: number }
+const APPROVED_BASE_FACE_SAFE_ZONES: FaceSafeZone[] = [{ x: 800, y: 1050, width: 448, height: 234 }]
+const APPROVED_V04_FACE_SAFE_ZONES: FaceSafeZone[] = [{ x: 800, y: 1050, width: 448, height: 326 }]
 export interface V04HeadOcclusionMaskHashes {
   foregroundMaskSha256: string
   backgroundMaskSha256: string
@@ -187,8 +189,9 @@ export function parseV04InterfaceFaceZoneOverlay(
     || expectedBase === undefined
     || baseFaceSafeZones === null
     || replacementFaceSafeZones === null
-    || !sameJson(baseFaceSafeZones, expectedBase.faceSafeZones)
-    || sameJson(baseFaceSafeZones, replacementFaceSafeZones)
+    || !sameJson(expectedBase.faceSafeZones, APPROVED_BASE_FACE_SAFE_ZONES)
+    || !sameJson(baseFaceSafeZones, APPROVED_BASE_FACE_SAFE_ZONES)
+    || !sameJson(replacementFaceSafeZones, APPROVED_V04_FACE_SAFE_ZONES)
     || headOcclusionMaskOverride === null
     || headOcclusionMaskOverride.derivation !== 'head-alpha-face-zone-promote-v1'
     || !sameJson(headOcclusionMaskOverride.node, {
