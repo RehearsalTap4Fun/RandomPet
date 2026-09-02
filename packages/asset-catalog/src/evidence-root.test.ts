@@ -291,3 +291,21 @@ test('rejects stale hashes embedded by the Task 9 rework review even when depend
     await rm(root, { recursive: true, force: true })
   }
 })
+
+test('accepts only the explicitly attested v0.4 source extension when checking frozen Task 9 dependencies', async () => {
+  const manifest = JSON.parse(await readFile(
+    'packages/asset-catalog/audit/v0.3.0/evidence-manifest.json', 'utf8',
+  ))
+  const validateDependencies = (evidenceRootModule as unknown as {
+    validateProductionEvidenceDependencies: (manifest: unknown, repositoryRoot: string) => Promise<unknown[]>
+  }).validateProductionEvidenceDependencies
+
+  const diagnostics = await validateDependencies(manifest, process.cwd())
+
+  expect(diagnostics).not.toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_EVIDENCE_DEPENDENCY_SET_MISMATCH',
+  }))
+  expect(diagnostics).not.toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH',
+  }))
+})

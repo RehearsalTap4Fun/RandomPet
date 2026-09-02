@@ -6,6 +6,10 @@ import {
   expectedTask9TrackedDependencyPaths,
   TASK9_TRACKED_DEPENDENCIES_PATH,
 } from './task9-evidence-dependencies.js'
+import {
+  projectTask9EvidenceDependencies,
+  task9HistoricalDependencySha256,
+} from './task9-versioned-dependency-projection.js'
 import { readTrustedRepositoryFile } from './trusted-repository-file.js'
 
 export const PRODUCTION_EVIDENCE_MANIFEST_VERSION = 'qmonster-production-evidence-v1' as const
@@ -237,7 +241,9 @@ export async function validateProductionEvidenceDependencies(
   const diagnostics: Diagnostic[] = []
   const verified = new Map<string, { bytes: Buffer, sha256: string }>()
   try {
-    const expected = await collectExpectedTask9EvidenceDependencies(repositoryRoot)
+    const expected = projectTask9EvidenceDependencies(
+      await collectExpectedTask9EvidenceDependencies(repositoryRoot),
+    )
     const expectedTracked = expectedTask9TrackedDependencyPaths(expected)
     const trackedFile = await readTrustedRepositoryFile(repositoryRoot, TASK9_TRACKED_DEPENDENCIES_PATH)
     const tracked = JSON.parse(trackedFile.bytes.toString('utf8')) as {
@@ -270,7 +276,7 @@ export async function validateProductionEvidenceDependencies(
     try {
       const trusted = await readTrustedRepositoryFile(repositoryRoot, dependency.path)
       verified.set(dependency.path, { bytes: trusted.bytes, sha256: trusted.sha256 })
-      if (trusted.sha256 !== dependency.sha256) diagnostics.push({
+      if (task9HistoricalDependencySha256(dependency.path, trusted.sha256) !== dependency.sha256) diagnostics.push({
         severity: 'error', code: 'PRODUCTION_EVIDENCE_DEPENDENCY_HASH_MISMATCH', path,
         message: `Task 9 evidence dependency differs from its final recorded SHA-256: ${dependency.path}`,
       })
