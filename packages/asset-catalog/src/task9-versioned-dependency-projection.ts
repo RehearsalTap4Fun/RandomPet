@@ -43,7 +43,7 @@ const TASK9_V04_SOURCE_PROJECTIONS: Readonly<Record<string, Task9VersionedDepend
   },
   'scripts/task8-stable-projection.ts': {
     historicalSha256: 'a5381f6d2fd30adb274e27043724dcc322cd23bbf10bb2aca68302f006f13c3e',
-    approvedCurrentSha256: '2e14c79f9f15ccbeae2b326c51a1986f523c4db51b8353c506095087d837e17a',
+    approvedCurrentSha256: 'c94e051fc898ce1fea8c11023abcc6602346b6e27fe4ee9828e38aa076955f92',
   },
 }
 

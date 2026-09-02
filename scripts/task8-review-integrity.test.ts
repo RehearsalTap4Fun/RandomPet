@@ -134,7 +134,7 @@ describe('Task 8 clean-checkout review integrity', () => {
     }
   })
 
-  it('projects explicit Task 9/10 extensions out of frozen Task 8 renderer hashes without hiding Task 8 drift', async () => {
+  it('admits only the exact reviewed Task 9/10 renderer sources before projecting frozen Task 8 hashes', async () => {
     const { TASK8_APPROVED_RENDERER_BINDINGS, task8RendererProjectionSha256 } = await import('./task8-stable-projection.js')
     for (const path of [
       'apps/creator-web/src/render-test.ts',
@@ -148,19 +148,22 @@ describe('Task 8 clean-checkout review integrity', () => {
           "if (row.length === 0) throw new Error('Bridge mesh end row is empty.')",
           "if (row.length < 1) throw new Error('Bridge mesh end row is empty.')",
         ))
-        expect(task8RendererProjectionSha256(path, task9OnlyMutation)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+        expect(() => task8RendererProjectionSha256(path, task9OnlyMutation))
+          .toThrow(`TASK8_RENDERER_PROJECTION_SOURCE_DRIFT:${path}`)
         const v04OnlyMutation = Buffer.from(bytes.toString('utf8').replace(
           'const list = Array.from({ length: 20 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))',
           'const list = Array.from({ length: 21 }, () => factory(MASTER_SIZE, MASTER_SIZE, context))',
         ))
-        expect(task8RendererProjectionSha256(path, v04OnlyMutation)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+        expect(() => task8RendererProjectionSha256(path, v04OnlyMutation))
+          .toThrow(`TASK8_RENDERER_PROJECTION_SOURCE_DRIFT:${path}`)
       }
       if (path === 'packages/renderer-canvas/src/connector-metrics.ts') {
         const task10OnlyMutation = Buffer.from(bytes.toString('utf8').replace(
           'export const CONNECTOR_RECEIVER_COVERAGE_MIN = 0.62',
           'export const CONNECTOR_RECEIVER_COVERAGE_MIN = 0.63',
         ))
-        expect(task8RendererProjectionSha256(path, task10OnlyMutation)).toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+        expect(() => task8RendererProjectionSha256(path, task10OnlyMutation))
+          .toThrow(`TASK8_RENDERER_PROJECTION_SOURCE_DRIFT:${path}`)
       }
       const drifted = Buffer.from(bytes.toString('utf8').replace(
         path.includes('render-test')
@@ -174,7 +177,8 @@ describe('Task 8 clean-checkout review integrity', () => {
             ? 'overlapMass += contourAlpha * (bridge[offset] ?? 0) / 255'
             : 'validateMonsterSpecAgainstCatalog(spec, { ...catalog })',
       ))
-      expect(task8RendererProjectionSha256(path, drifted)).not.toBe(TASK8_APPROVED_RENDERER_BINDINGS[path])
+      expect(() => task8RendererProjectionSha256(path, drifted))
+        .toThrow(`TASK8_RENDERER_PROJECTION_SOURCE_DRIFT:${path}`)
     }
   })
 

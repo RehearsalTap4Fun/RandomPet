@@ -27,6 +27,16 @@ export const TASK8_APPROVED_RENDERER_BINDINGS = {
   'packages/renderer-canvas/src/connector-metrics.ts': '45ea8dd58a5977588f563ff48beb8596839beb5eca8970995e5cd428a5f15c5b',
 } as const
 
+// The historical Task 8 bindings may be projected only from these exact,
+// reviewed Task 9/10 source bytes. Any later edit inside a stable marker must
+// invalidate the historical projection rather than being silently replaced.
+const TASK8_APPROVED_CURRENT_RENDERER_SOURCE_SHA256: Readonly<Record<string, string>> = {
+  'apps/creator-web/src/render-test.ts': '55abdd88428982ebdcc78d1b2c1c06dc28fc5e5f4882ed6a1568448770eed35b',
+  'packages/renderer-canvas/src/render.ts': '5eb7cfbe1a8ea5823e05a9fce75e17ead08b530e202d1db2d5635c14f3ba060d',
+  'packages/renderer-canvas/src/connector-metrics.ts': '7b908d0a4855807543a3ec50b0c4214aaee98008dce22cf6bb8f2c513ac83901',
+  'scripts/render-limb-contact-sheets.ts': 'f41fdb4204c03f20b296ed79a2a27b361e2678a285d88f70a615cff0f60eefae',
+}
+
 const TASK8_PART_IDS = new Set([
   'body_blob_round',
   'body_blob_wide',
@@ -242,6 +252,11 @@ const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
 export function task8StableMarkerProjection(path: string, text: string): string {
   const replacements = TASK8_MARKER_REPLACEMENTS[path]
   if (replacements === undefined) return text
+  const approvedCurrentSha256 = TASK8_APPROVED_CURRENT_RENDERER_SOURCE_SHA256[path]
+  const currentSha256 = createHash('sha256').update(text).digest('hex')
+  if (approvedCurrentSha256 === undefined || currentSha256 !== approvedCurrentSha256) {
+    throw new Error(`TASK8_RENDERER_PROJECTION_SOURCE_DRIFT:${path}`)
+  }
   const observed = new Set<string>()
   const pattern = /^(?<indent>[ \t]*)\/\/ TASK8_STABLE_BEGIN:(?<id>[a-z0-9-]+)\r?\n[\s\S]*?^\k<indent>\/\/ TASK8_STABLE_END:\k<id>\r?\n(?:\r?\n)?/gmu
   const projected = text.replace(pattern, (...args: unknown[]) => {
