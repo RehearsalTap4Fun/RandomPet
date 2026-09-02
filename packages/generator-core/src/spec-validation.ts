@@ -129,16 +129,22 @@ function validateModifier(
   if (catalog.compositionPolicy !== undefined) {
     const bodySelection = spec.visualSlots.bodyFrame
     const bodyPart = selectedParts.get('bodyFrame')
-    if (
-      (isAttachmentPartComposition(bodyPart?.composition)
-        ? bodyPart.composition.geometryByRig[bodySelection.rigId]
-        : undefined)
-        ?.sockets[destinationSocket] === undefined
-    ) {
+    const bodyComposition = bodyPart?.composition
+    const interfaceRig = catalog.version === '0.4.0' && bodyComposition?.mode === 'interface'
+      ? catalog.rigs.find(rig => rig.id === bodySelection.rigId)
+      : undefined
+    const interfaceSocketAvailable = interfaceRig !== undefined
+      && interfaceRig.sockets.head !== undefined
+      && interfaceRig.sockets[destinationSocket] !== undefined
+    const attachmentSocketAvailable = isAttachmentPartComposition(bodyComposition)
+      && bodyComposition.geometryByRig[bodySelection.rigId]?.sockets[destinationSocket] !== undefined
+    if (!interfaceSocketAvailable && !attachmentSocketAvailable) {
       diagnostics.push(error(
         'SPEC_SOCKET_MISSING',
         path.concat('overrides', 'socket'),
-        `Body part ${bodyPart?.id ?? bodySelection.partId} has no ${destinationSocket} composition socket.`,
+        interfaceRig === undefined
+          ? `Body part ${bodyPart?.id ?? bodySelection.partId} has no ${destinationSocket} composition socket.`
+          : `Rig ${interfaceRig.id} requires both head and ${destinationSocket} sockets for modifier ${application.id}.`,
       ))
     }
     return

@@ -85,6 +85,51 @@ function diagnostic(code: string, slotId: VisualSlotId, message: string): Diagno
   return { severity: 'error', code, path: ['visualSlots', slotId], message }
 }
 
+function modifierSocketDiagnostic(path: string[], message: string): Diagnostic {
+  return { severity: 'error', code: 'RENDER_SOCKET_MISSING', path, message }
+}
+
+function translated(rect: WorldRect, delta: Point2D): WorldRect {
+  return { ...rect, x: rect.x + delta.x, y: rect.y + delta.y }
+}
+
+function exactV04InterfacePair(spec: MonsterSpec, catalog: Catalog): boolean {
+  return catalog.version === '0.4.0'
+    && spec.catalogVersion === '0.4.0'
+    && spec.rendererVersion === '0.4.0'
+}
+
+function interfaceModifierDelta(
+  spec: MonsterSpec,
+  catalog: Catalog,
+  bodyNode: ResolvedRenderNode,
+  destinationSocket: string | undefined,
+  path: string[],
+): { ok: true, delta: Point2D } | { ok: false, diagnostic: Diagnostic } {
+  const rigId = spec.visualSlots.bodyFrame.rigId
+  const rig = catalog.rigs.find(candidate => candidate.id === rigId)
+  const head = rig?.sockets.head
+  const destination = destinationSocket === undefined ? undefined : rig?.sockets[destinationSocket]
+  if (head === undefined || destination === undefined) {
+    return {
+      ok: false,
+      diagnostic: modifierSocketDiagnostic(
+        path.concat('overrides', 'socket'),
+        `Rig ${rigId} requires both head and ${destinationSocket ?? '(missing)'} sockets for interface modifier placement.`,
+      ),
+    }
+  }
+  const headWorld = worldPoint(bodyNode.placement, head)
+  const destinationWorld = worldPoint(bodyNode.placement, destination)
+  return {
+    ok: true,
+    delta: {
+      x: destinationWorld.x - headWorld.x,
+      y: destinationWorld.y - headWorld.y,
+    },
+  }
+}
+
 function childNodeForConnector(
   variant: StructuralVariantDefinition,
   connector: ConnectorProfile,
@@ -258,6 +303,62 @@ function structuralTree(spec: MonsterSpec, catalog: Catalog): InterfaceRenderRes
       resolvedForSlot.push(resolved)
     }
     providers.set(slotId, resolvedForSlot)
+  }
+
+  if (exactV04InterfacePair(spec, catalog)) {
+    const doubleHead = spec.mutation?.id === 'mutation_double_head'
+      && spec.mutation.overrides.duplicateLayerGroup === 'head'
+      ? spec.mutation
+      : undefined
+    if (doubleHead !== undefined) {
+      const resolved = interfaceModifierDelta(
+        spec, catalog, bodyNode, doubleHead.overrides.socket, ['mutation'],
+      )
+      if (!resolved.ok) {
+        return { nodes: [], bridges: [], faceSafeZones: [], diagnostics: [...diagnostics, resolved.diagnostic] }
+      }
+      const faceSlots = new Set<VisualSlotId>([
+        'headShape', 'eyes', 'mouthShape', 'oralDetail', 'headAppendage',
+      ])
+      const originals = nodes.filter(node => faceSlots.has(node.slotId))
+      for (const original of originals) {
+        nodes.push({
+          ...original,
+          key: `${original.key}:double-head`,
+          placement: {
+            ...original.placement,
+            x: original.placement.x + resolved.delta.x,
+            y: original.placement.y + resolved.delta.y,
+          },
+          sequence: sequence++,
+        })
+      }
+      const originalFaceZones = [...faceSafeZones]
+      faceSafeZones.push(...originalFaceZones.map(zone => translated(zone, resolved.delta)))
+    }
+
+    const misplacedEye = spec.aberrations.find(application => (
+      application.id === 'aberration_misplaced_eye'
+      && application.overrides.relocateSlot === 'eyes'
+    ))
+    if (misplacedEye !== undefined) {
+      const resolved = interfaceModifierDelta(
+        spec, catalog, bodyNode, misplacedEye.overrides.socket, ['aberrations', '0'],
+      )
+      if (!resolved.ok) {
+        return { nodes: [], bridges: [], faceSafeZones: [], diagnostics: [...diagnostics, resolved.diagnostic] }
+      }
+      for (const node of nodes) {
+        if (node.slotId !== 'eyes') continue
+        node.placement = {
+          ...node.placement,
+          x: node.placement.x + resolved.delta.x,
+          y: node.placement.y + resolved.delta.y,
+        }
+      }
+      const originalFaceZones = [...faceSafeZones]
+      faceSafeZones.push(...originalFaceZones.map(zone => translated(zone, resolved.delta)))
+    }
   }
   return { nodes, bridges, faceSafeZones, diagnostics }
 }

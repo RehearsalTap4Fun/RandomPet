@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   generateMonster,
+  parseCatalog,
   validateMonsterSpecAgainstCatalog,
   type Catalog,
 } from './index.js'
@@ -12,6 +13,7 @@ import {
   makeValidCatalogFixtureWithThreeRigs,
   makeValidMonsterSpecFixture,
 } from './test-fixtures.js'
+import v04ProductionCatalogDocument from '../../asset-catalog/catalog/v0.4.0/catalog.json'
 
 const versions = {
   schemaVersion: '0.1.0',
@@ -107,6 +109,67 @@ describe('validateMonsterSpecAgainstCatalog', () => {
     expect(validateMonsterSpecAgainstCatalog(spec, catalog)).not.toContainEqual(
       expect.objectContaining({
         code: 'SPEC_SOCKET_MISSING', path: ['mutation', 'overrides', 'socket'],
+      }),
+    )
+  })
+
+  it('accepts the frozen v0.4 recovery input when its interface rig declares the modifier destination', () => {
+    const parsedCatalog = parseCatalog(v04ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    const generated = generateMonster({
+      seed: 'qmonster-v04-user-review-002',
+      themeId: 'fungal',
+      mode: 'mutation',
+    }, parsedCatalog.value)
+
+    expect(generated.spec.visualSlots.bodyFrame.partId).toBe('body_floating_drop')
+    expect(generated.spec.mutation?.id).toBe('mutation_double_head')
+    expect(validateMonsterSpecAgainstCatalog(generated.spec, parsedCatalog.value)
+      .filter(item => item.severity === 'error')).toEqual([])
+  })
+
+  it('accepts exact-v0.4 interface modifier sockets but fails closed when the selected rig lacks one', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    catalog.version = '0.4.0'
+    catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+    const spec = makeValidCompositionSpecFixture(catalog)
+    spec.catalogVersion = '0.4.0'
+    spec.rendererVersion = '0.4.0'
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).not.toContainEqual(
+      expect.objectContaining({
+        code: 'SPEC_SOCKET_MISSING', path: ['mutation', 'overrides', 'socket'],
+      }),
+    )
+
+    delete catalog.rigs.find(rig => rig.id === 'blob')!.sockets.headAlternate
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).toContainEqual(
+      expect.objectContaining({
+        severity: 'error', code: 'SPEC_SOCKET_MISSING',
+        path: ['mutation', 'overrides', 'socket'],
+      }),
+    )
+  })
+
+  it('does not let attachment-mode modifiers fall back to rig sockets', () => {
+    const catalog = makeCompositionCatalogFixture()
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const body = catalog.parts.find(part => part.slotId === 'bodyFrame')!
+    if (body.composition?.mode === 'interface' || body.composition === undefined) {
+      throw new Error('Expected attachment body')
+    }
+    delete body.composition.geometryByRig.blob!.sockets.headAlternate
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).toContainEqual(
+      expect.objectContaining({
+        severity: 'error', code: 'SPEC_SOCKET_MISSING',
+        path: ['mutation', 'overrides', 'socket'],
       }),
     )
   })

@@ -13,6 +13,15 @@ function interfaceFixture() {
   return { catalog, spec }
 }
 
+function v04InterfaceFixture() {
+  const { catalog, spec } = interfaceFixture()
+  catalog.version = '0.4.0'
+  catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+  spec.catalogVersion = '0.4.0'
+  spec.rendererVersion = '0.4.0'
+  return { catalog, spec }
+}
+
 describe('resolveInterfaceTree', () => {
   it('uses selected exact-rig variants and resolves declared bridge identities without mutation', () => {
     const { catalog, spec } = interfaceFixture()
@@ -122,5 +131,69 @@ describe('resolveInterfaceTree', () => {
     expect(result.diagnostics).toContainEqual(expect.objectContaining({
       severity: 'error', code: 'CONNECTOR_VARIANT_MISSING', path: ['visualSlots', 'headShape'],
     }))
+  })
+
+  it('duplicates the exact-v0.4 complete face subtree and paired face zone at headAlternate', () => {
+    const { catalog, spec } = v04InterfaceFixture()
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    const result = resolveInterfaceTree(spec, catalog)
+
+    expect(result.diagnostics).toEqual([])
+    for (const slotId of [
+      'headShape', 'eyes', 'mouthShape', 'oralDetail', 'headAppendage',
+    ] as const) {
+      expect(result.nodes.filter(node => node.slotId === slotId)).toHaveLength(2)
+    }
+    expect(result.nodes.filter(node => node.key.endsWith(':double-head'))).toHaveLength(5)
+    expect(result.faceSafeZones).toEqual([
+      { x: 500, y: 400, width: 1048, height: 900 },
+      { x: 796, y: 440, width: 1048, height: 900 },
+    ])
+    expect(result.nodes.filter(node => node.slotId === 'oralDetail').map(node => node.placement)).toEqual([
+      { x: -524, y: -324, scaleX: 1, scaleY: 1 },
+      { x: -228, y: -284, scaleX: 1, scaleY: 1 },
+    ])
+  })
+
+  it('relocates only exact-v0.4 misplaced eyes and adds the matching face zone', () => {
+    const { catalog, spec } = v04InterfaceFixture()
+    const baseline = resolveInterfaceTree(spec, catalog)
+    const modifier = catalog.modifiers.find(item => item.id === 'aberration_misplaced_eye')!
+    spec.aberrations = [{ id: modifier.id, overrides: structuredClone(modifier.overrides) }]
+
+    const result = resolveInterfaceTree(spec, catalog)
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.nodes.filter(node => node.slotId === 'eyes').map(node => node.placement)).toEqual([
+      { x: 296, y: 40, scaleX: 1, scaleY: 1 },
+    ])
+    for (const slotId of ['headShape', 'mouthShape', 'oralDetail', 'headAppendage'] as const) {
+      expect(result.nodes.filter(node => node.slotId === slotId).map(node => node.placement)).toEqual(
+        baseline.nodes.filter(node => node.slotId === slotId).map(node => node.placement),
+      )
+    }
+    expect(result.faceSafeZones).toEqual([
+      { x: 500, y: 400, width: 1048, height: 900 },
+      { x: 796, y: 440, width: 1048, height: 900 },
+    ])
+  })
+
+  it('fails closed when an exact-v0.4 modifier destination is absent', () => {
+    const { catalog, spec } = v04InterfaceFixture()
+    delete catalog.rigs.find(rig => rig.id === 'blob')!.sockets.headAlternate
+    const modifier = catalog.modifiers.find(item => item.id === 'mutation_double_head')!
+    spec.mutation = { id: modifier.id, overrides: structuredClone(modifier.overrides) }
+
+    const result = resolveInterfaceTree(spec, catalog)
+
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'RENDER_SOCKET_MISSING',
+      path: ['mutation', 'overrides', 'socket'],
+    }))
+    expect(result.nodes).toEqual([])
+    expect(result.bridges).toEqual([])
+    expect(result.faceSafeZones).toEqual([])
   })
 })
