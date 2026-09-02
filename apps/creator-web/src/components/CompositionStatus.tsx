@@ -1,6 +1,7 @@
 import {
   planComposition,
   strongFeatureCount,
+  strongNonFacialFeatureCount,
   type Catalog,
   type Diagnostic,
   type MonsterSpec,
@@ -51,9 +52,15 @@ export function CompositionStatus({ spec, catalog, diagnostics }: CompositionSta
   return (
     <ul aria-label="组合约束" className="composition-status">
       <li>强特征 {strongFeatureCount(spec, catalog)}/{policy.maxStrongFeatures}</li>
+      <li>
+        强非脸部 {strongNonFacialFeatureCount(spec, catalog)}/
+        {policy.maxStrongNonFacialFeatures ?? '—'}
+      </li>
       <li>惊喜位 {usedSurprise}/{allowedSurprise}</li>
       <li>{faceReady ? '面部清晰' : '面部需调整'}</li>
-      {catalog.version === '0.3.0' && <li>{structureReady ? '结构连续' : '结构需调整'}</li>}
+      {(spec.rendererVersion === '0.3.0' || spec.rendererVersion === '0.4.0') && (
+        <li>{structureReady ? '结构连续' : '结构需调整'}</li>
+      )}
     </ul>
   )
 }

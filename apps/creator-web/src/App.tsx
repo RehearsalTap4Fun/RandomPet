@@ -9,7 +9,8 @@ import {
 } from '@qmonster/generator-core'
 import legacyProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.1.0/catalog.json'
 import v02ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
-import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
+import v03ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
+import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
 import type { CreatorAction, CreatorSession } from './state/contracts.js'
 import type { SessionStorage } from './state/persistence.js'
@@ -31,7 +32,11 @@ if (!parsedProductionCatalog.ok) {
   throw new Error(`Production catalog is invalid: ${parsedProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
 }
 export const productionCatalog = parsedProductionCatalog.value
-export const v03ProductionCatalog = productionCatalog
+const parsedV03ProductionCatalog = parseCatalog(v03ProductionCatalogDocument)
+if (!parsedV03ProductionCatalog.ok) {
+  throw new Error(`V0.3 production catalog is invalid: ${parsedV03ProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
+}
+export const v03ProductionCatalog = parsedV03ProductionCatalog.value
 const parsedLegacyProductionCatalog = parseCatalog(legacyProductionCatalogDocument)
 if (!parsedLegacyProductionCatalog.ok) {
   throw new Error(`Legacy production catalog is invalid: ${parsedLegacyProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
@@ -45,7 +50,8 @@ export const v02ProductionCatalog = parsedV02ProductionCatalog.value
 export const productionCatalogRegistry = new CatalogRegistry(new Map([
   ['0.1.0', async () => legacyProductionCatalog],
   ['0.2.0', async () => v02ProductionCatalog],
-  ['0.3.0', async () => productionCatalog],
+  ['0.3.0', async () => v03ProductionCatalog],
+  ['0.4.0', async () => productionCatalog],
 ]))
 
 interface CreatorWorkbenchProps {

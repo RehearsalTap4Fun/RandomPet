@@ -39,22 +39,24 @@ function deferred<T>() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CreatorWorkbench', () => {
-  it('starts first-hatch with exact catalog and renderer 0.3.0 after approval', async () => {
+  it('starts first-hatch with exact catalog and renderer 0.4.0 after approval', async () => {
     installCanvasContexts()
     vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation(callback => {
       callback(new Blob([], { type: 'image/webp' }))
     })
     render(<App />)
 
-    expect(await screen.findByText('目录 v0.3.0')).toBeTruthy()
-    expect(productionCatalog.version).toBe('0.3.0')
+    expect(await screen.findByText('目录 v0.4.0')).toBeTruthy()
+    expect(productionCatalog.version).toBe('0.4.0')
   })
 
-  it('installs exact 0.1.0, 0.2.0, and 0.3.0 catalogs while keeping v0.3 as the default', async () => {
+  it('installs exact 0.1.0 through 0.4.0 catalogs while keeping v0.4 as the default', async () => {
     expect((await productionCatalogRegistry.load('0.1.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.2.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.3.0')).ok).toBe(true)
-    expect(productionCatalog.version).toBe('0.3.0')
+    expect((await productionCatalogRegistry.load('0.4.0')).ok).toBe(true)
+    expect(productionCatalog.version).toBe('0.4.0')
+    expect(v03ProductionCatalog.version).toBe('0.3.0')
     expect(await productionCatalogRegistry.load('0.1')).toEqual({
       ok: false,
       diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
@@ -67,37 +69,57 @@ describe('CreatorWorkbench', () => {
       ok: false,
       diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
     })
+    expect(await productionCatalogRegistry.load('0.4.1')).toEqual({
+      ok: false,
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
+    })
   })
 
-  it('edits an exact v0.3 import transactionally while keeping v0.1 and rejected v0.2 imports read-only', async () => {
+  it('edits an exact v0.4 import while keeping valid v0.3, v0.2, and v0.1 imports read-only', async () => {
     installCanvasContexts()
     const user = userEvent.setup()
     const renderer: PreviewRenderer = vi.fn(async () => ({
       drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: [],
     }))
-    const currentV03 = generateMonster({ seed: 'import-v03', themeId: 'fungal', mode: 'normal' }, v03ProductionCatalog)
+    const currentV04 = generateMonster({ seed: 'import-v04', themeId: 'fungal', mode: 'normal' }, productionCatalog)
+    const legacyV03 = generateMonster({ seed: 'inspect-v03', themeId: 'fungal', mode: 'normal' }, v03ProductionCatalog)
     const rejectedV02 = generateMonster({ seed: 'inspect-v02', themeId: 'fungal', mode: 'normal' }, v02ProductionCatalog)
     const legacyV01 = generateMonster({ seed: 'inspect-v01', themeId: 'fungal', mode: 'normal' }, legacyProductionCatalog)
-    const parseSpecFile = vi.fn((file: File) => Promise.resolve(file.name === 'current-v03.json'
-      ? { ok: true as const, value: { spec: currentV03.spec, catalog: v03ProductionCatalog }, diagnostics: [] }
+    const parseSpecFile = vi.fn((file: File) => Promise.resolve(file.name === 'current-v04.json'
+      ? { ok: true as const, value: { spec: currentV04.spec, catalog: productionCatalog }, diagnostics: [] }
+      : file.name === 'legacy-v03.json'
+        ? {
+            ok: true as const,
+            value: { spec: legacyV03.spec, catalog: v03ProductionCatalog },
+            diagnostics: [{
+              severity: 'warning' as const,
+              code: 'CATALOG_VERSION_OLD',
+              path: ['catalogVersion'],
+              message: 'Catalog version 0.3.0 is installed but older than 0.4.0.',
+            }],
+          }
       : file.name === 'rejected-v02.json'
         ? { ok: true as const, value: { spec: rejectedV02.spec, catalog: v02ProductionCatalog }, diagnostics: [] }
         : { ok: true as const, value: { spec: legacyV01.spec, catalog: legacyProductionCatalog }, diagnostics: [] }))
 
     render(<App
-      catalog={v03ProductionCatalog}
       initialExportCapabilities={{ png: true, webp: true }}
       parseSpecFile={parseSpecFile}
       previewRenderer={renderer}
     />)
 
-    expect(await screen.findByText('目录 v0.3.0')).toBeTruthy()
+    expect(await screen.findByText('目录 v0.4.0')).toBeTruthy()
     const input = screen.getByLabelText('选择要导入的 JSON 文件')
-    await user.upload(input, new File(['v03'], 'current-v03.json'))
-    expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe('import-v03')
+    await user.upload(input, new File(['v04'], 'current-v04.json'))
+    expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe('import-v04')
     expect(screen.queryByText('旧版标本 · 只读查看')).toBeNull()
 
-    await user.upload(input, new File(['v02'], 'rejected-v02.json'))
+    await user.upload(input, new File(['v03'], 'legacy-v03.json'))
+    expect(await screen.findByText('旧版标本 · 只读查看')).toBeTruthy()
+    expect(screen.getByRole('heading', { name: '目录 v0.3.0 · 渲染器 v0.3.0' })).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: '返回新版生成器' }))
+
+    await user.upload(screen.getByLabelText('选择要导入的 JSON 文件'), new File(['v02'], 'rejected-v02.json'))
     expect(await screen.findByText('旧版标本 · 只读查看')).toBeTruthy()
     expect(screen.getByRole('heading', { name: '目录 v0.2.0 · 渲染器 v0.2.0' })).toBeTruthy()
     await user.click(screen.getByRole('button', { name: '返回新版生成器' }))

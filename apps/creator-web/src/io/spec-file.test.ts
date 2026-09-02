@@ -7,13 +7,17 @@ import {
   makeValidCompositionSpecFixture,
   makeValidMonsterSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
-import productionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
+import v03ProductionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
+import productionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
 import { downloadSpec, parseSpecFile } from './spec-file.js'
 
 const ONE_MIB = 1024 * 1024
 const parsedProductionCatalog = parseCatalog(productionCatalogDocument)
-if (!parsedProductionCatalog.ok) throw new Error('Expected the v0.3 production catalog fixture to parse.')
+if (!parsedProductionCatalog.ok) throw new Error('Expected the v0.4 production catalog fixture to parse.')
 const productionCatalog = parsedProductionCatalog.value
+const parsedV03ProductionCatalog = parseCatalog(v03ProductionCatalogDocument)
+if (!parsedV03ProductionCatalog.ok) throw new Error('Expected the v0.3 production catalog fixture to parse.')
+const v03ProductionCatalog = parsedV03ProductionCatalog.value
 
 function createRegistry(...catalogs: Catalog[]): CatalogRegistry {
   return new CatalogRegistry(new Map(
@@ -203,9 +207,9 @@ describe('parseSpecFile', () => {
     expect(spec).toEqual(snapshot)
   })
 
-  it('rejects a current v0.3 fungal specimen with a deep-sea color scheme', async () => {
+  it('rejects a current v0.4 fungal specimen with a deep-sea color scheme', async () => {
     const spec = generateMonster({
-      seed: 'current-v03-theme-conflict',
+      seed: 'current-v04-theme-conflict',
       themeId: 'fungal',
       mode: 'normal',
     }, productionCatalog).spec
@@ -319,19 +323,28 @@ describe('parseSpecFile', () => {
     })
   })
 
-  it('uses 0.3.0 as the default current catalog for legacy import warnings', async () => {
-    const oldCatalog = makeValidCatalogFixture()
-    oldCatalog.version = '0.2.0'
-    const spec = makeValidMonsterSpecFixture()
-    spec.catalogVersion = '0.2.0'
-    spec.rendererVersion = '0.2.0'
+  it('uses 0.4.0 as current while loading a valid v0.3 spec from its exact catalog', async () => {
+    const oldSpec = generateMonster({
+      seed: 'exact-v03-import', themeId: 'fungal', mode: 'normal',
+    }, v03ProductionCatalog).spec
+    const currentSpec = generateMonster({
+      seed: 'exact-v04-import', themeId: 'fungal', mode: 'normal',
+    }, productionCatalog).spec
+    const exactRegistry = createRegistry(v03ProductionCatalog, productionCatalog)
 
-    const result = await parseSpecFile(createSpecFile(spec), createRegistry(oldCatalog))
+    const oldResult = await parseSpecFile(createSpecFile(oldSpec), exactRegistry)
+    const currentResult = await parseSpecFile(createSpecFile(currentSpec), exactRegistry)
 
-    expect(result.ok).toBe(true)
-    if (result.ok) expect(result.diagnostics).toContainEqual(expect.objectContaining({
-      code: 'CATALOG_VERSION_OLD',
-    }))
+    expect(oldResult).toEqual({
+      ok: true,
+      value: { spec: oldSpec, catalog: v03ProductionCatalog },
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_OLD' })],
+    })
+    expect(currentResult).toEqual({
+      ok: true,
+      value: { spec: currentSpec, catalog: productionCatalog },
+      diagnostics: [],
+    })
   })
 })
 

@@ -9,18 +9,20 @@ import {
 import type { RenderResult } from '@qmonster/renderer-canvas'
 import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
+import v04ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
 import { PreviewCanvas, resolveProductionAssetUrl } from './components/PreviewCanvas.js'
 
 interface AcceptanceRenderResult extends RenderResult {
   dataUrl: string
   resolvedAssetPaths: string[]
+  resolvedAssetUrls: string[]
 }
 
 declare global {
   interface Window {
     renderAcceptanceMonster: (
       spec: unknown,
-      catalogVersion?: '0.2.0' | '0.3.0',
+      catalogVersion?: '0.2.0' | '0.3.0' | '0.4.0',
     ) => Promise<AcceptanceRenderResult>
   }
 }
@@ -34,9 +36,14 @@ const parsedV03Catalog = parseCatalog(v03ProductionCatalogDocument)
 if (!parsedV03Catalog.ok) {
   throw new Error(`Candidate catalog is invalid: ${parsedV03Catalog.diagnostics.map(item => item.code).join(', ')}`)
 }
-const catalogs = new Map<'0.2.0' | '0.3.0', Catalog>([
+const parsedV04Catalog = parseCatalog(v04ProductionCatalogDocument)
+if (!parsedV04Catalog.ok) {
+  throw new Error(`Current catalog is invalid: ${parsedV04Catalog.diagnostics.map(item => item.code).join(', ')}`)
+}
+const catalogs = new Map<'0.2.0' | '0.3.0' | '0.4.0', Catalog>([
   ['0.2.0', productionCatalog],
   ['0.3.0', parsedV03Catalog.value],
+  ['0.4.0', parsedV04Catalog.value],
 ] as const)
 const acceptanceImageCache = new Map<string, Promise<CanvasImageSource>>()
 
@@ -52,21 +59,23 @@ function renderSpec(
   const canvasRef = createRef<HTMLCanvasElement>()
   const sequence = ++renderSequence
   const resolvedAssetPaths = new Set<string>()
+  const resolvedAssetUrls = new Set<string>()
   const resolver = {
     resolve(assetPath: string): Promise<CanvasImageSource> {
       resolvedAssetPaths.add(assetPath)
       const key = `${catalog.version}\u0000${assetPath}`
       const cached = acceptanceImageCache.get(key)
       if (cached !== undefined) return cached
-      const pending = resolveProductionAssetUrl(catalog.version, assetPath).then(assetUrl => (
-        new Promise<CanvasImageSource>((resolve, reject) => {
+      const pending = resolveProductionAssetUrl(catalog.version, assetPath).then(assetUrl => {
+        resolvedAssetUrls.add(assetUrl)
+        return new Promise<CanvasImageSource>((resolve, reject) => {
           const image = new Image()
           image.decoding = 'async'
           image.onload = () => resolve(image)
           image.onerror = () => reject(new Error(`Unable to load ${assetPath}.`))
           image.src = assetUrl
         })
-      )).catch(error => {
+      }).catch(error => {
         acceptanceImageCache.delete(key)
         throw error
       })
@@ -92,6 +101,7 @@ function renderSpec(
         ...result,
         dataUrl: canvas.toDataURL('image/png'),
         resolvedAssetPaths: [...resolvedAssetPaths].sort(),
+        resolvedAssetUrls: [...resolvedAssetUrls].sort(),
       })
     }
 

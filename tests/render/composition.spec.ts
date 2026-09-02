@@ -11,6 +11,7 @@ const v03HashPath = fileURLToPath(new URL('./golden/first-hatch-v0.3.rgba.sha256
 const v03ReviewPath = fileURLToPath(new URL('./golden/first-hatch-v0.3.review.png', import.meta.url))
 const catalogPath = fileURLToPath(new URL('../../packages/asset-catalog/catalog/v0.2.0/catalog.json', import.meta.url))
 const v03CatalogPath = fileURLToPath(new URL('../../packages/asset-catalog/catalog/v0.3.0/catalog.json', import.meta.url))
+const v04CatalogPath = fileURLToPath(new URL('../../packages/asset-catalog/catalog/v0.4.0/catalog.json', import.meta.url))
 const parsedCatalog = parseCatalog(JSON.parse(readFileSync(catalogPath, 'utf8')))
 if (!parsedCatalog.ok) throw new Error('Production v0.2.0 catalog is invalid.')
 const firstHatch = generateMonster({
@@ -30,6 +31,16 @@ const firstHatchV03 = generateMonster({
 }, parsedV03Catalog.value)
 if (firstHatchV03.blocked || firstHatchV03.diagnostics.length > 0) {
   throw new Error(`First-hatch v0.3 generation failed: ${JSON.stringify(firstHatchV03.diagnostics)}`)
+}
+const parsedV04Catalog = parseCatalog(JSON.parse(readFileSync(v04CatalogPath, 'utf8')))
+if (!parsedV04Catalog.ok) throw new Error('Production v0.4.0 catalog is invalid.')
+const firstHatchV04 = generateMonster({
+  seed: 'qmonster-v0.1-first-hatch',
+  themeId: 'fungal',
+  mode: 'normal',
+}, parsedV04Catalog.value)
+if (firstHatchV04.blocked || firstHatchV04.diagnostics.length > 0) {
+  throw new Error(`First-hatch v0.4 generation failed: ${JSON.stringify(firstHatchV04.diagnostics)}`)
 }
 
 async function fileExists(filePath: string): Promise<boolean> {
@@ -140,6 +151,26 @@ test('matches the reviewed v0.3 first-hatch decoded RGBA golden with connector e
   }
   const expectedHash = (await readFile(v03HashPath, 'utf8')).trim()
   expect(actualHash).toBe(expectedHash)
+})
+
+test('resolves v0.4 and v0.3 specs only from their exact versioned assets', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 1024 })
+  await page.goto('/acceptance-render.html')
+  await page.waitForFunction(() => document.body.dataset.rendererReady === 'true')
+
+  const renderedV04 = await page.evaluate(async spec => (
+    window.renderAcceptanceMonster(spec, '0.4.0')
+  ), firstHatchV04.spec)
+  expect(renderedV04.resolvedAssetUrls.length).toBeGreaterThan(0)
+  expect(renderedV04.resolvedAssetUrls.every(url => url.includes('/v0.4.0/'))).toBe(true)
+  expect(renderedV04.resolvedAssetUrls.some(url => url.includes('/v0.3.0/'))).toBe(false)
+
+  const renderedV03 = await page.evaluate(async spec => (
+    window.renderAcceptanceMonster(spec, '0.3.0')
+  ), firstHatchV03.spec)
+  expect(renderedV03.resolvedAssetUrls.length).toBeGreaterThan(0)
+  expect(renderedV03.resolvedAssetUrls.every(url => url.includes('/v0.3.0/'))).toBe(true)
+  expect(renderedV03.resolvedAssetUrls.some(url => url.includes('/v0.4.0/'))).toBe(false)
 })
 
 test('keeps the fixed shadow acceptance mouth above the visibility gate', async ({ page }) => {

@@ -35,6 +35,29 @@ describe('CompositionStatus', () => {
     expect(screen.getByRole('list', { name: '组合约束' }).textContent).toContain(`强特征 ${strongCount}/2`)
   })
 
+  it('reports the separate strong non-facial feature budget', () => {
+    const catalog = makeCompositionCatalogFixture()
+    catalog.version = '0.4.0'
+    catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+    const spec = makeValidCompositionSpecFixture(catalog)
+    const source = catalog.parts.find(part => (
+      part.slotId === 'effect' && !part.composition!.isNone
+    ))!
+    catalog.parts.push({
+      ...structuredClone(source),
+      id: `${source.id}_strong_nonfacial`,
+      composition: { ...structuredClone(source.composition!), visualIntensity: 'strong' },
+    })
+    spec.visualSlots.effect = {
+      ...spec.visualSlots.effect,
+      partId: `${source.id}_strong_nonfacial`,
+    }
+
+    render(<CompositionStatus spec={spec} catalog={catalog} diagnostics={[]} />)
+
+    expect(screen.getByRole('list', { name: '组合约束' }).textContent).toContain('强非脸部 1/1')
+  })
+
   it('marks face unready when a render face error is present', () => {
     renderStatus(0, [{
       severity: 'error',
@@ -46,12 +69,13 @@ describe('CompositionStatus', () => {
     expect(screen.getByRole('list', { name: '组合约束' }).textContent).toContain('面部需调整')
   })
 
-  it('marks v0.3 structure unready when a connector error is present', () => {
+  it.each(['0.3.0', '0.4.0'] as const)('marks %s interface structure unready when a connector error is present', version => {
     const catalog = makeCompositionCatalogFixture()
-    catalog.version = '0.3.0'
+    catalog.version = version
+    if (version === '0.4.0') catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
     const spec = makeValidCompositionSpecFixture(makeCompositionCatalogFixture())
-    spec.catalogVersion = '0.3.0'
-    spec.rendererVersion = '0.3.0'
+    spec.catalogVersion = version
+    spec.rendererVersion = version
 
     render(<CompositionStatus spec={spec} catalog={catalog} diagnostics={[{
       severity: 'error',
