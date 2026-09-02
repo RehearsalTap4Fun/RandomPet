@@ -9,6 +9,11 @@ const INTERFACE_REVIEW_HEAVY_TESTS = [
   'scripts/validate-interface-slice.test.ts',
 ]
 
+const ASSET_PRODUCTION_HEAVY_TESTS = [
+  'packages/asset-catalog/src/production-validation.test.ts',
+  'scripts/prepare-v04-single-face-assets.test.ts',
+]
+
 export default defineConfig({
   resolve: { tsconfigPaths: true },
   test: {
@@ -19,7 +24,7 @@ export default defineConfig({
           environment: 'node',
           include: ['packages/**/*.test.ts', 'scripts/**/*.test.ts'],
           exclude: [
-            'packages/asset-catalog/src/production-validation.test.ts',
+            ...ASSET_PRODUCTION_HEAVY_TESTS,
             ...INTERFACE_REVIEW_HEAVY_TESTS,
           ],
         },
@@ -28,7 +33,7 @@ export default defineConfig({
         test: {
           name: 'asset-production-heavy',
           environment: 'node',
-          include: ['packages/asset-catalog/src/production-validation.test.ts'],
+          include: ASSET_PRODUCTION_HEAVY_TESTS,
           testTimeout: 20_000,
         },
       },
