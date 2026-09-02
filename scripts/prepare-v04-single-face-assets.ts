@@ -1,6 +1,6 @@
-import { createHash } from 'node:crypto'
-import { mkdir, readFile, realpath, writeFile } from 'node:fs/promises'
-import { dirname, isAbsolute, relative, resolve } from 'node:path'
+import { createHash, randomUUID } from 'node:crypto'
+import { link, lstat, mkdir, open, readFile, realpath, rm, rmdir } from 'node:fs/promises'
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { resolveExistingContainedPath, resolveOutputPath } from './safe-output.js'
@@ -21,15 +21,17 @@ export interface V04ReplacementInput {
 }
 
 const PNG_OPTIONS = { compressionLevel: 9, adaptiveFiltering: false, palette: false } as const
-const SOURCE_PARTS = ['asset-source', 'v0.4.0', 'parts'] as const
-const RECOVERED_PARTS = ['asset-source', 'v0.4.0', 'recovered', 'single-face'] as const
-const RUNTIME_PARTS = ['asset-source', 'v0.4.0', 'runtime-staging', 'parts'] as const
 const CHECKERBOARD_RECOVERY_PARAMETERS = {
   minimumChannel: 225,
   maximumChannelSpread: 12,
   connectivity: 4,
   minimumBorderLuminanceRange: 6,
 } as const
+const AUTHORIZED_CHECKERBOARD_RECOVERY_SHA256: Record<V04PartId, string> = {
+  surface_soft_scales: '086ab9f3ab69019d29ea5cd57e13824cb66dba30dbffff8a4826257d2c5abd03',
+  pattern_gentle_stripes: 'a8a98c6e4515231c29678e5e88cb4826159bc40574fa9451556f6ccaa516ccba',
+  effect_bioluminescent_orbs: '2c4f2ae34e4d0ce4e8af0e9d5eb1eee5d836297d479fa5f296d4ae90fad30ac1',
+}
 
 function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex')
@@ -67,6 +69,209 @@ async function exactExistingInput(
   return actual
 }
 
+export interface V04PublishOperations {
+  publish(stagedPath: string, targetPath: string): Promise<void>
+}
+
+const DEFAULT_PUBLISH_OPERATIONS: V04PublishOperations = {
+  async publish(stagedPath, targetPath) {
+    await link(stagedPath, targetPath)
+    await rm(stagedPath)
+  },
+}
+
+interface V04OutputFile {
+  repositoryRelativePath: string
+  bytes: Buffer
+}
+
+interface V04FileIdentity {
+  dev: number
+  ino: number
+}
+
+function isMissing(error: unknown): boolean {
+  return (error as NodeJS.ErrnoException).code === 'ENOENT'
+}
+
+function assertCanonicalContainment(root: string, target: string, label: string): void {
+  const remainder = relative(root, target)
+  if (remainder.startsWith('..') || isAbsolute(remainder)) throw new Error(`${label} escapes canonical repository root: ${target}`)
+}
+
+function directoryChain(root: string, target: string): string[] {
+  assertCanonicalContainment(root, target, 'V04_OUTPUT_DIRECTORY')
+  const chain: string[] = []
+  let cursor = target
+  while (cursor !== root) {
+    chain.push(cursor)
+    const parent = dirname(cursor)
+    if (parent === cursor) throw new Error(`V04_OUTPUT_DIRECTORY_ESCAPE:${target}`)
+    cursor = parent
+  }
+  return chain.reverse()
+}
+
+async function ensureSafeDirectory(
+  canonicalRoot: string,
+  target: string,
+  create: boolean,
+  createdDirectories: string[] = [],
+): Promise<boolean> {
+  for (const directory of directoryChain(canonicalRoot, target)) {
+    let metadata
+    try {
+      metadata = await lstat(directory)
+    } catch (error) {
+      if (!isMissing(error)) throw error
+      if (!create) return false
+      try {
+        await mkdir(directory)
+        createdDirectories.push(directory)
+      } catch (mkdirError) {
+        if ((mkdirError as NodeJS.ErrnoException).code !== 'EEXIST') throw mkdirError
+      }
+      metadata = await lstat(directory)
+    }
+    if (metadata.isSymbolicLink() || !metadata.isDirectory()) {
+      throw new Error(`V04_OUTPUT_DIRECTORY_LINK_OR_REPARSE_INVALID:${directory}`)
+    }
+    const canonicalDirectory = await realpath(directory)
+    assertCanonicalContainment(canonicalRoot, canonicalDirectory, 'V04_OUTPUT_DIRECTORY')
+  }
+  return true
+}
+
+async function assertOutputAbsent(canonicalRoot: string, target: string): Promise<void> {
+  assertCanonicalContainment(canonicalRoot, target, 'V04_OUTPUT')
+  if (!await ensureSafeDirectory(canonicalRoot, dirname(target), false)) return
+  try {
+    await lstat(target)
+  } catch (error) {
+    if (isMissing(error)) return
+    throw error
+  }
+  throw new Error(`V04_OUTPUT_EXISTS_NO_OVERWRITE:${target}`)
+}
+
+function sameIdentity(left: V04FileIdentity, right: V04FileIdentity): boolean {
+  return left.dev === right.dev && left.ino === right.ino
+}
+
+function fileIdentity(metadata: Awaited<ReturnType<typeof lstat>>): V04FileIdentity {
+  return { dev: metadata.dev, ino: metadata.ino }
+}
+
+async function stageOutputFile(stageRoot: string, output: V04OutputFile): Promise<{ stagedPath: string; targetRelativePath: string }> {
+  const targetRelativePath = relative('asset-source/v0.4.0', output.repositoryRelativePath).replaceAll('\\', '/')
+  if (!targetRelativePath || targetRelativePath.startsWith('..') || isAbsolute(targetRelativePath)) {
+    throw new Error(`V04_STAGE_PATH_INVALID:${output.repositoryRelativePath}`)
+  }
+  const stagedPath = resolve(stageRoot, targetRelativePath)
+  assertCanonicalContainment(stageRoot, stagedPath, 'V04_STAGE')
+  await ensureSafeDirectory(stageRoot, dirname(stagedPath), true)
+  const handle = await open(stagedPath, 'wx')
+  try {
+    await handle.writeFile(output.bytes)
+    await handle.sync()
+  } finally {
+    await handle.close()
+  }
+  const metadata = await lstat(stagedPath)
+  if (metadata.isSymbolicLink() || !metadata.isFile() || metadata.nlink !== 1) {
+    throw new Error(`V04_STAGE_FILE_INVALID:${stagedPath}`)
+  }
+  return { stagedPath, targetRelativePath }
+}
+
+async function publishV04Outputs(input: {
+  canonicalRoot: string
+  outputs: readonly V04OutputFile[]
+  operations: V04PublishOperations
+}): Promise<void> {
+  const v04Root = resolve(input.canonicalRoot, 'asset-source', 'v0.4.0')
+  if (!await ensureSafeDirectory(input.canonicalRoot, v04Root, false)) throw new Error('V04_OUTPUT_ROOT_MISSING')
+  const targets = input.outputs.map(output => resolve(input.canonicalRoot, output.repositoryRelativePath))
+  if (new Set(targets).size !== targets.length) throw new Error('V04_OUTPUT_DUPLICATE_TARGET')
+  for (const target of targets) await assertOutputAbsent(input.canonicalRoot, target)
+
+  const stageRoot = join(v04Root, `.qmonster-v04-transaction-${randomUUID()}`)
+  await assertOutputAbsent(input.canonicalRoot, stageRoot)
+  await mkdir(stageRoot)
+  let canonicalStageRoot = stageRoot
+  const staged: Array<{ stagedPath: string; targetPath: string }> = []
+  const committed: Array<{ targetPath: string; identity: V04FileIdentity }> = []
+  const createdDirectories: string[] = []
+  let caught: unknown
+  try {
+    canonicalStageRoot = await realpath(stageRoot)
+    if (canonicalStageRoot !== stageRoot) throw new Error(`V04_STAGE_ROOT_REPARSE_INVALID:${stageRoot}`)
+    for (const output of input.outputs) {
+      const item = await stageOutputFile(canonicalStageRoot, output)
+      staged.push({ stagedPath: item.stagedPath, targetPath: resolve(v04Root, item.targetRelativePath) })
+    }
+    for (const item of staged) await ensureSafeDirectory(input.canonicalRoot, dirname(item.targetPath), true, createdDirectories)
+    for (const item of staged) await assertOutputAbsent(input.canonicalRoot, item.targetPath)
+
+    for (const item of staged) {
+      await ensureSafeDirectory(input.canonicalRoot, dirname(item.targetPath), false)
+      await assertOutputAbsent(input.canonicalRoot, item.targetPath)
+      const stagedMetadata = await lstat(item.stagedPath)
+      if (stagedMetadata.isSymbolicLink() || !stagedMetadata.isFile() || stagedMetadata.nlink !== 1) {
+        throw new Error(`V04_STAGE_FILE_CHANGED:${item.stagedPath}`)
+      }
+      const expectedIdentity = fileIdentity(stagedMetadata)
+      try {
+        await input.operations.publish(item.stagedPath, item.targetPath)
+      } catch (error) {
+        try {
+          const published = await lstat(item.targetPath)
+          if (!published.isSymbolicLink() && published.isFile() && sameIdentity(expectedIdentity, fileIdentity(published))) {
+            committed.push({ targetPath: item.targetPath, identity: expectedIdentity })
+          }
+        } catch (inspectionError) {
+          if (!isMissing(inspectionError)) throw inspectionError
+        }
+        throw error
+      }
+      const published = await lstat(item.targetPath)
+      if (!published.isSymbolicLink() && published.isFile() && sameIdentity(expectedIdentity, fileIdentity(published))) {
+        committed.push({ targetPath: item.targetPath, identity: expectedIdentity })
+      }
+      if (published.isSymbolicLink() || !published.isFile() || published.nlink !== 1
+        || !sameIdentity(expectedIdentity, fileIdentity(published))) {
+        throw new Error(`V04_PUBLISHED_FILE_INVALID:${item.targetPath}`)
+      }
+    }
+  } catch (error) {
+    caught = error
+    for (const item of [...committed].reverse()) {
+      try {
+        if (!await ensureSafeDirectory(input.canonicalRoot, dirname(item.targetPath), false)) {
+          throw new Error(`V04_ROLLBACK_OUTPUT_PARENT_MISSING:${item.targetPath}`)
+        }
+        const current = await lstat(item.targetPath)
+        if (current.isSymbolicLink() || !current.isFile() || !sameIdentity(item.identity, fileIdentity(current))) {
+          throw new Error(`V04_ROLLBACK_OUTPUT_IDENTITY_CHANGED:${item.targetPath}`)
+        }
+        await rm(item.targetPath)
+      } catch (rollbackError) {
+        if (!isMissing(rollbackError)) throw rollbackError
+      }
+    }
+    for (const directory of [...createdDirectories].reverse()) {
+      try {
+        await rmdir(directory)
+      } catch (cleanupError) {
+        if (!['ENOENT', 'ENOTEMPTY'].includes((cleanupError as NodeJS.ErrnoException).code ?? '')) throw cleanupError
+      }
+    }
+  } finally {
+    await rm(stageRoot, { recursive: true, force: true })
+  }
+  if (caught !== undefined) throw caught
+}
+
 function alphaEvidence(decoded: { data: Buffer; info: { width: number; height: number; channels: number } }): {
   alphaPixels: number
   opaquePixels: number
@@ -85,7 +290,7 @@ function alphaEvidence(decoded: { data: Buffer; info: { width: number; height: n
   return { alphaPixels, opaquePixels, borderAlphaPixels }
 }
 
-async function recoverBorderConnectedNearNeutralCheckerboard(generatedBytes: Buffer, partId: V04PartId): Promise<{
+export async function recoverBorderConnectedNearNeutralCheckerboard(generatedBytes: Buffer, partId: V04PartId): Promise<{
   recoveredPng: Buffer
   recovery: {
     method: 'border-connected-near-neutral-checkerboard-v1'
@@ -243,6 +448,10 @@ async function normalizeInput(
   if (sourceAlpha.alphaPixels === 0) throw new Error(`${input.partId} has empty alpha`)
   if (sourceAlpha.borderAlphaPixels !== 0) {
     if (!recoverCheckerboard) throw new Error(`${input.partId} must have a fully transparent border`)
+    const generatedSha256 = sha256(generatedBytes)
+    if (generatedSha256 !== AUTHORIZED_CHECKERBOARD_RECOVERY_SHA256[input.partId]) {
+      throw new Error(`${input.partId} recovery source hash is not authorized: ${generatedSha256}`)
+    }
     const recovered = await recoverBorderConnectedNearNeutralCheckerboard(generatedBytes, input.partId)
     normalizedInput = recovered.recoveredPng
     recoveredPng = recovered.recoveredPng
@@ -278,7 +487,11 @@ async function normalizeInput(
 
 export async function prepareV04SingleFaceAssets(
   inputs: readonly V04ReplacementInput[],
-  options: { repositoryRoot?: string; recoverBorderConnectedNearNeutralCheckerboard?: true } = {},
+  options: {
+    repositoryRoot?: string
+    recoverBorderConnectedNearNeutralCheckerboard?: true
+    publishOperations?: V04PublishOperations
+  } = {},
 ): Promise<{ assets: Array<{ partId: string; pngSha256: string; webpSha256: string }> }> {
   const lexicalRoot = resolve(options.repositoryRoot ?? process.cwd())
   const repositoryRoot = await realpath(lexicalRoot)
@@ -318,21 +531,29 @@ export async function prepareV04SingleFaceAssets(
     })),
   }
 
-  for (const directory of [SOURCE_PARTS, RECOVERED_PARTS, RUNTIME_PARTS]) {
-    await mkdir(resolveOutputPath(repositoryRoot, ...directory), { recursive: true })
-  }
+  const outputs: V04OutputFile[] = []
   for (const item of normalized) {
     if (item.recoveredPng !== undefined) {
-      await writeFile(resolveOutputPath(repositoryRoot, ...RECOVERED_PARTS, `${item.input.partId}-recovered.png`), item.recoveredPng)
+      outputs.push({
+        repositoryRelativePath: `asset-source/v0.4.0/recovered/single-face/${item.input.partId}-recovered.png`,
+        bytes: item.recoveredPng,
+      })
     }
-    await writeFile(resolveOutputPath(repositoryRoot, ...SOURCE_PARTS, `${item.input.partId}.png`), item.master)
-    await writeFile(resolveOutputPath(repositoryRoot, ...RUNTIME_PARTS, `${item.input.partId}.png`), item.runtimePng)
-    await writeFile(resolveOutputPath(repositoryRoot, ...RUNTIME_PARTS, `${item.input.partId}.webp`), item.runtimeWebp)
+    outputs.push(
+      { repositoryRelativePath: `asset-source/v0.4.0/parts/${item.input.partId}.png`, bytes: item.master },
+      { repositoryRelativePath: `asset-source/v0.4.0/runtime-staging/parts/${item.input.partId}.png`, bytes: item.runtimePng },
+      { repositoryRelativePath: `asset-source/v0.4.0/runtime-staging/parts/${item.input.partId}.webp`, bytes: item.runtimeWebp },
+    )
   }
-  await writeFile(
-    resolveOutputPath(repositoryRoot, ...RUNTIME_PARTS, 'provenance.json'),
-    `${JSON.stringify(provenance, null, 2)}\n`,
-  )
+  outputs.push({
+    repositoryRelativePath: 'asset-source/v0.4.0/runtime-staging/parts/provenance.json',
+    bytes: Buffer.from(`${JSON.stringify(provenance, null, 2)}\n`),
+  })
+  await publishV04Outputs({
+    canonicalRoot: repositoryRoot,
+    outputs,
+    operations: options.publishOperations ?? DEFAULT_PUBLISH_OPERATIONS,
+  })
   return { assets }
 }
 
