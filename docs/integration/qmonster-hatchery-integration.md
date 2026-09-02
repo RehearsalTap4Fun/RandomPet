@@ -1,7 +1,7 @@
 # QMonster 生成器 × 怪奇生物孵化器对接指南
 
 > 文档版本：1.2
-> 生成器基线：`feature/qmonster-v0.1` / `0b73abea607ece9d01c7f34fd61eb47c808a4a2d`
+> 最低生成器基线：`feature/qmonster-v0.1` / `3b93fc385779c8ee44ae8ba190fc3c484736ee0f`
 > 新孵化默认目录版本：`0.4.0`
 > 新孵化默认渲染器版本：`0.4.0`
 > 更新日期：2026-09-02
@@ -265,41 +265,87 @@ export function loadCatalogForStoredSpec(
 `renderMonster` 不直接访问网络，而是依赖 `ImageResolver`。孵化器需要提供资源解析器：
 
 ```ts
+import type { Catalog } from '@qmonster/generator-core'
 import type { ImageResolver } from '@qmonster/renderer-canvas'
 
-export class BrowserImageResolver implements ImageResolver {
+const VERSIONED_ASSET_PREFIX = /^assets\/v([^/]+)\//
+
+export function normalizeCatalogAssetPath(
+  catalogVersion: string,
+  assetPath: string,
+): string {
+  const portablePath = assetPath.replaceAll('\\', '/')
+  const versionedPrefix = portablePath.match(VERSIONED_ASSET_PREFIX)
+  if (versionedPrefix !== null && versionedPrefix[1] !== catalogVersion) {
+    throw new Error(`ASSET_VERSION_MISMATCH:${catalogVersion}:${versionedPrefix[1]}`)
+  }
+
+  const exactVersionPrefix = `assets/v${catalogVersion}/`
+  const relativePath = portablePath.startsWith(exactVersionPrefix)
+    ? portablePath.slice(exactVersionPrefix.length)
+    : portablePath
+  const segments = relativePath.split('/')
+  if (
+    relativePath.length === 0
+    || relativePath.startsWith('/')
+    || segments.some(segment => segment === '' || segment === '.' || segment === '..')
+  ) {
+    throw new Error(`ASSET_PATH_INVALID:${assetPath}`)
+  }
+  return relativePath
+}
+
+export class CatalogImageResolverCache {
   private readonly cache = new Map<string, Promise<ImageBitmap>>()
 
   public constructor(private readonly assetBaseUrl: URL) {}
 
-  public resolve(assetPath: string): Promise<ImageBitmap> {
-    let pending = this.cache.get(assetPath)
-    if (pending === undefined) {
-      pending = this.load(assetPath).catch(error => {
-        this.cache.delete(assetPath)
-        throw error
-      })
-      this.cache.set(assetPath, pending)
+  public forCatalog(catalogVersion: string): ImageResolver {
+    return {
+      resolve: originalAssetPath => {
+        const assetPath = normalizeCatalogAssetPath(catalogVersion, originalAssetPath)
+        const key = `${catalogVersion}\u0000${assetPath}`
+        const cached = this.cache.get(key)
+        if (cached !== undefined) return cached
+
+        const pending = this.load(catalogVersion, assetPath).catch(error => {
+          if (this.cache.get(key) === pending) this.cache.delete(key)
+          throw error
+        })
+        this.cache.set(key, pending)
+        return pending
+      },
     }
-    return pending
   }
 
-  private async load(assetPath: string): Promise<ImageBitmap> {
-    const url = new URL(assetPath, this.assetBaseUrl)
+  private async load(catalogVersion: string, assetPath: string): Promise<ImageBitmap> {
+    const versionRoot = new URL(`v${catalogVersion}/`, this.assetBaseUrl)
+    const url = new URL(assetPath, versionRoot)
+    if (url.origin !== versionRoot.origin || !url.pathname.startsWith(versionRoot.pathname)) {
+      throw new Error(`ASSET_PATH_INVALID:${assetPath}`)
+    }
     const response = await fetch(url)
     if (!response.ok) throw new Error(`ASSET_HTTP_${response.status}:${assetPath}`)
     return createImageBitmap(await response.blob())
   }
 }
 
-export const qmonsterImageResolver = new BrowserImageResolver(
-  new URL('/qmonster/', window.location.origin),
+export const qmonsterImageResolvers = new CatalogImageResolverCache(
+  new URL('/qmonster/assets/', window.location.origin),
 )
+
+export function imageResolverForCatalog(
+  catalog: Pick<Catalog, 'version'>,
+): ImageResolver {
+  return qmonsterImageResolvers.forCatalog(catalog.version)
+}
 ```
 
 要求：
 
-- `/qmonster/` 必须以 `/` 结尾，否则相对资源路径可能解析到错误目录；
+- `/qmonster/assets/` 必须以 `/` 结尾；`forCatalog('0.4.0')` 的资源根是 `/qmonster/assets/v0.4.0/`，`forCatalog('0.3.0')` 的资源根是 `/qmonster/assets/v0.3.0/`；
+- 调用方必须传入实际加载的 `catalog.version`。版本同时参与路径标准化、URL 解析和缓存键，不能让不同版本的相同相对路径共享缓存；
+- `parts/example.webp` 与 `assets/v0.4.0/parts/example.webp` 在 `0.4.0` 下会标准化为同一相对路径，不会重复添加 `assets/v0.4.0/`；带有其他版本前缀、绝对路径或目录穿越片段的路径会被拒绝；
 - 推荐与孵化器同源部署，避免额外的 CORS 配置；
 - 失败的 Promise 不会永久留在缓存中，下一次请求可以重新加载资源；
 - 目录中使用的资源路径是项目相对路径，存档中不要保存解析后的绝对 URL。
