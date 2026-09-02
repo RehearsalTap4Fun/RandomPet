@@ -104,9 +104,10 @@ function isUnitVector(vector: { x: number; y: number }): boolean {
   return Math.abs(length - 1) < 0.0001
 }
 
-function isCanonicalResourcePath(path: string, extension: '.png' | '.webp'): boolean {
+function isCanonicalResourcePath(path: string, extension: '.png' | '.webp', catalogVersion: string): boolean {
   const suffix = extension === '.png' ? 'png' : 'webp'
-  return new RegExp(`^assets/v0\\.3\\.0/[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*\\.${suffix}$`, 'u').test(path)
+  const version = catalogVersion.replaceAll('.', '\\.')
+  return new RegExp(`^assets/v${version}/[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*\\.${suffix}$`, 'u').test(path)
 }
 
 function hasCanonicalHash(hash: string): boolean {
@@ -216,7 +217,7 @@ function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[])
           [connector.backgroundMaskPath, connector.backgroundMaskSha256],
         ] as const
         if (connectorResources.some(([resourcePath, hash]) => (
-          !isCanonicalResourcePath(resourcePath, '.png') || !hasCanonicalHash(hash)
+          !isCanonicalResourcePath(resourcePath, '.png', catalog.version) || !hasCanonicalHash(hash)
         ))) {
           diagnostics.push(error(
             'CONNECTOR_RESOURCE_INVALID',
@@ -248,7 +249,7 @@ function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[])
       [bridge.backMaskPath, bridge.backMaskSha256, '.png'],
     ]
     if (resources.some(([resourcePath, hash, extension]) => (
-      !isCanonicalResourcePath(resourcePath, extension) || !hasCanonicalHash(hash)
+      !isCanonicalResourcePath(resourcePath, extension, catalog.version) || !hasCanonicalHash(hash)
     ))) {
       diagnostics.push(error(
         'CONNECTOR_BRIDGE_RESOURCE_INVALID',

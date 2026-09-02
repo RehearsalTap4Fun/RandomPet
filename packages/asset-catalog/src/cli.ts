@@ -126,7 +126,7 @@ async function main(): Promise<void> {
       ...(await validateProductionSplitFiles(parsed.value, catalogDirectory)),
       ...(await validateProductionSourceIndex(parsed.value, assetRoot, sourceIndex)),
       ...(await validateProductionInterfaceResources(parsed.value, assetRoot, sourceIndex, {
-        manifestPath: resolve(packageRoot, '..', '..', 'asset-source', `v${version}`, 'interface-manifest.json'),
+        manifestPath: resolve(packageRoot, '..', '..', 'asset-source', version === '0.4.0' ? 'v0.3.0' : `v${version}`, 'interface-manifest.json'),
       })),
       ...validateProductionEvidenceManifest(sourceIndex, evidenceManifest),
       ...(await validateProductionEvidenceDependencies(evidenceManifest, resolve(packageRoot, '..', '..'))),

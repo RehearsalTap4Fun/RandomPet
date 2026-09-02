@@ -16,6 +16,19 @@ describe('catalog validation', () => {
     expect(parseCatalog(catalog).ok).toBe(true)
   })
 
+  it('accepts canonical v0.4 connector and bridge resource paths', () => {
+    const catalog = JSON.parse(
+      JSON.stringify(makeInterfaceCatalogFixture()).replaceAll('assets/v0.3.0/', 'assets/v0.4.0/'),
+    )
+    catalog.version = '0.4.0'
+    catalog.compositionPolicy.maxStrongNonFacialFeatures = 1
+
+    const codes = validateCatalogStructure(catalog).map(item => item.code)
+
+    expect(codes).not.toContain('CONNECTOR_RESOURCE_INVALID')
+    expect(codes).not.toContain('CONNECTOR_BRIDGE_RESOURCE_INVALID')
+  })
+
   it('rejects whitespace-only asset paths for visible parts', () => {
     const catalog = makeInterfaceCatalogFixture() as any
     const visible = catalog.parts.find((part: { composition?: { isNone?: boolean } }) => (

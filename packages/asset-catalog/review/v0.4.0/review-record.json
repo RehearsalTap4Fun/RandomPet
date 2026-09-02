@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "qmonster-catalog-release-review-v1",
+  "catalogVersion": "0.4.0",
+  "basedOnCatalogVersion": "0.3.0",
+  "decision": "pending_user_review",
+  "userApproved": false,
+  "replacementPartIds": [
+    "surface_soft_scales",
+    "pattern_gentle_stripes",
+    "effect_bioluminescent_orbs"
+  ],
+  "replacementHashes": {
+    "surface_soft_scales": {
+      "pngSha256": "9b3c9fc4b82edc389552efc895f1958ba07b9bce29d0215a6224231db816d8ec",
+      "webpSha256": "6ffc00c5ff4a7dfa3ac73d78b0b5fc0fca2234337be03e6383b0ac0a04ff35f8"
+    },
+    "pattern_gentle_stripes": {
+      "pngSha256": "3e4797bf34665e1cbbbce8ca8ed7e6d7835027c90d9faa72dff37f55ac4e923b",
+      "webpSha256": "5da7fd70f27d56e2205629274e089e811659bc71cd9ce676b8da7a8100cc2b92"
+    },
+    "effect_bioluminescent_orbs": {
+      "pngSha256": "ba5a4e3e16d5ca51d3c81c6b0fbc42e5965161d89a755c38d7a76ab4acf619f1",
+      "webpSha256": "0f5fbb06c9279f0e9bc6d0f0dc0be96047aa11300c2ba3d1c07b7f219a72f793"
+    }
+  },
+  "evidenceManifestPath": "packages/asset-catalog/audit/v0.4.0/evidence-manifest.json"
+}

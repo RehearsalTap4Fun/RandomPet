@@ -110,6 +110,28 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('applies retained interface production validation to the derived v0.4 release', async () => {
+    const catalog = JSON.parse(await readFile(
+      join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.4.0', 'catalog.json'),
+      'utf8',
+    )) as Catalog
+    const sourceIndex = JSON.parse(await readFile(
+      join(process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.4.0.json'),
+      'utf8',
+    ))
+    const assetRoot = join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.4.0')
+    const manifestPath = join(process.cwd(), 'asset-source', 'v0.3.0', 'interface-manifest.json')
+
+    const diagnostics = [
+      ...validateProductionMetadata(catalog),
+      ...await validateProductionSourceIndex(catalog, assetRoot, sourceIndex),
+      ...await validateProductionInterfaceResources(catalog, assetRoot, sourceIndex, { manifestPath }),
+      ...await validateNoStaleRuntimeAssets(catalog, assetRoot, sourceIndex),
+    ]
+
+    expect(diagnostics).toEqual([])
+  })
+
   async function faceSocketContractFixture(): Promise<{
     catalog: Catalog
     manifest: InterfaceSourceManifest

@@ -11,6 +11,7 @@ const INTERFACE_REVIEW_HEAVY_TESTS = [
 
 const ASSET_PRODUCTION_HEAVY_TESTS = [
   'packages/asset-catalog/src/production-validation.test.ts',
+  'scripts/assemble-v04-catalog.test.ts',
   'scripts/prepare-v04-single-face-assets.test.ts',
 ]
 

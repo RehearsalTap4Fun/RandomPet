@@ -37,11 +37,15 @@ function sameJson(left: unknown, right: unknown): boolean {
   return isDeepStrictEqual(left, right)
 }
 
+function isInterfaceProductionVersion(version: string): boolean {
+  return version === '0.3.0' || version === '0.4.0'
+}
+
 export function validateProductionHeadFaceSocketContract(
   catalog: Catalog,
   manifest?: InterfaceSourceManifest,
 ): Diagnostic[] {
-  if (catalog.version !== '0.3.0') return []
+  if (!isInterfaceProductionVersion(catalog.version)) return []
   const diagnostics: Diagnostic[] = []
   const runtimeHeads = new Map<string, StructuralVariantDefinition>()
   for (const part of catalog.parts) {
@@ -134,7 +138,7 @@ export function validateProductionMetadata(catalog: Catalog): Diagnostic[] {
         }
       }
     }
-    if (catalog.version === '0.3.0' && part.composition?.mode === 'interface') {
+    if (isInterfaceProductionVersion(catalog.version) && part.composition?.mode === 'interface') {
       for (const [rigId, variant] of Object.entries(part.composition.variantsByRig)) {
         if (variant === undefined) continue
         for (const [nodeIndex, node] of variant.renderNodes.entries()) {
@@ -173,7 +177,7 @@ export function validateProductionMetadata(catalog: Catalog): Diagnostic[] {
     }
   }
 
-  if (catalog.version === '0.3.0') {
+  if (isInterfaceProductionVersion(catalog.version)) {
     for (const [index, bridge] of (catalog.transitionBridges ?? []).entries()) {
       if (
         !nonemptyText(bridge.neutralAssetPath) || !isSha256(bridge.neutralAssetSha256)
@@ -337,7 +341,7 @@ export async function validateNoStaleRuntimeAssets(
       }
     }
   }
-  if (catalog.version === '0.3.0') {
+  if (isInterfaceProductionVersion(catalog.version)) {
     for (const part of catalog.parts) {
       if (part.composition?.mode !== 'interface') continue
       for (const variant of Object.values(part.composition.variantsByRig)) {
@@ -362,9 +366,21 @@ export async function validateNoStaleRuntimeAssets(
   }
   const actual = (await collectFiles(assetRoot))
     .filter(path => path.endsWith('.png') || path.endsWith('.webp'))
-  diagnostics.push(...actual
-    .filter(path => !expected.has(path))
-    .map(path => error('PRODUCTION_RUNTIME_STALE', path.split('/'), `Runtime asset is not referenced by the production catalog: ${path}`)))
+  for (const path of actual) {
+    if (expected.has(path)) continue
+    if (catalog.version === '0.4.0') {
+      try {
+        const [retained, baseline] = await Promise.all([
+          readProductionValidationInput(assetRoot, resolve(assetRoot, path)),
+          readProductionValidationInput(resolve(assetRoot, '..', 'v0.3.0'), resolve(assetRoot, '..', 'v0.3.0', path)),
+        ])
+        if (retained.equals(baseline)) continue
+      } catch {
+        // Report the unreferenced file below when no exact immutable v0.3 baseline exists.
+      }
+    }
+    diagnostics.push(error('PRODUCTION_RUNTIME_STALE', path.split('/'), `Runtime asset is not referenced by the production catalog: ${path}`))
+  }
   return diagnostics
 }
 
@@ -545,12 +561,12 @@ export function validateBridgeSplitAlpha(neutral: Uint8Array, front: Uint8Array,
   return [...errors]
 }
 
-async function validateBridgeSplitMasks(assetRoot: string, bridge: TransitionBridgeDefinition, path: string[]): Promise<Diagnostic[]> {
+async function validateBridgeSplitMasks(assetRoot: string, bridge: TransitionBridgeDefinition, version: string, path: string[]): Promise<Diagnostic[]> {
   try {
     const [neutral, front, back] = await Promise.all([
-      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.neutralPngPath, '0.3.0')),
-      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.frontMaskPath, '0.3.0')),
-      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.backMaskPath, '0.3.0')),
+      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.neutralPngPath, version)),
+      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.frontMaskPath, version)),
+      decodeCommittedRgba(assetRoot, assetPathBelowVersionRoot(bridge.backMaskPath, version)),
     ])
     if (neutral.width !== front.width || neutral.height !== front.height || neutral.width !== back.width || neutral.height !== back.height) {
       return [error('PRODUCTION_INTERFACE_MASK_PIXELS_INVALID', path, 'Task 9 bridge split masks must match neutral bridge dimensions.')]
@@ -631,7 +647,7 @@ export async function validateProductionInterfaceResources(
   sourceIndex: ProductionSourceIndex,
   options: { manifestPath?: string } = {},
 ): Promise<Diagnostic[]> {
-  if (catalog.version !== '0.3.0') return []
+  if (!isInterfaceProductionVersion(catalog.version)) return []
   const diagnostics: Diagnostic[] = []
   const bridgeIds = new Set<string>()
   for (const [bridgeIndex, bridge] of (catalog.transitionBridges ?? []).entries()) {
@@ -641,20 +657,28 @@ export async function validateProductionInterfaceResources(
   const canonicalAssetRoot = await realpath(resolve(assetRoot)).catch(() => resolve(assetRoot))
   const manifestPath = options.manifestPath ?? resolve(canonicalAssetRoot, '..', '..', '..', '..', 'asset-source', 'v0.3.0', 'interface-manifest.json')
   let manifest: InterfaceSourceManifest | undefined
+  let sourceManifest: InterfaceSourceManifest | undefined
   try {
     const repositoryRoot = resolve(canonicalAssetRoot, '..', '..', '..', '..')
     const parsed = parseInterfaceSourceManifest(JSON.parse(
       (await readProductionValidationInput(repositoryRoot, manifestPath)).toString('utf8'),
     ))
     if (!parsed.ok) diagnostics.push(...parsed.diagnostics.map(item => ({ ...item, code: 'PRODUCTION_INTERFACE_MANIFEST_INVALID' })))
-    else manifest = parsed.value
+    else {
+      sourceManifest = parsed.value
+      manifest = catalog.version === '0.4.0'
+        ? JSON.parse(JSON.stringify(parsed.value).replaceAll('assets/v0.3.0/', 'assets/v0.4.0/')) as InterfaceSourceManifest
+        : parsed.value
+    }
   } catch {
     diagnostics.push(error('PRODUCTION_INTERFACE_MANIFEST_MISSING', [manifestPath], 'Cannot read the canonical v0.3 interface manifest.'))
   }
   diagnostics.push(...validateProductionHeadFaceSocketContract(catalog, manifest))
-  if (manifest !== undefined) {
+  if (manifest !== undefined && sourceManifest !== undefined) {
     try {
-      validateInterfaceSourceIndex(manifest, sourceIndex)
+      validateInterfaceSourceIndex(sourceManifest, catalog.version === '0.4.0'
+        ? { ...sourceIndex, catalogVersion: sourceManifest.catalogVersion }
+        : sourceIndex)
     } catch (caught) {
       diagnostics.push(error('PRODUCTION_INTERFACE_SOURCE_INDEX_INVALID', ['sources'], caught instanceof Error ? caught.message : String(caught)))
     }
@@ -811,7 +835,7 @@ export async function validateProductionInterfaceResources(
     checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.frontMaskPath), bridge.frontMaskSha256, base.concat('frontMaskPath'), { dimensions: 'transition-bridge' }))
     checks.push(validateAssetFile(canonicalAssetRoot, checkedRuntimePath(bridge.backMaskPath), bridge.backMaskSha256, base.concat('backMaskPath'), { dimensions: 'transition-bridge' }))
     if (bridge.connectorClass === 'tail' || bridge.connectorClass === 'extra') {
-      maskChecks.push(validateBridgeSplitMasks(canonicalAssetRoot, bridge, base.concat('frontMaskPath', 'backMaskPath')))
+      maskChecks.push(validateBridgeSplitMasks(canonicalAssetRoot, bridge, catalog.version, base.concat('frontMaskPath', 'backMaskPath')))
     } else {
       maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(bridge.frontMaskPath), base.concat('frontMaskPath'), { allowUniform: true }))
       maskChecks.push(validateBinaryInterfaceMask(canonicalAssetRoot, checkedRuntimePath(bridge.backMaskPath), base.concat('backMaskPath'), { allowUniform: true }))
@@ -1181,7 +1205,7 @@ async function checkColorMaskAudit(
     diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', path.concat('paletteMaskAudit'), 'Color scheme needs its rig-aware palette-mask audit.'))
     return
   }
-  const usesStructuralUnionAlpha = version === '0.3.0'
+  const usesStructuralUnionAlpha = isInterfaceProductionVersion(version)
   if (usesStructuralUnionAlpha && audit.maskBasis !== 'v0.3-structural-union-alpha-v1') {
     diagnostics.push(error('PRODUCTION_COLOR_MASK_AUDIT_INVALID', path.concat('paletteMaskAudit', 'maskBasis'), 'v0.3 color masks must declare structural-union alpha as their coordinate basis.'))
   }
@@ -1344,8 +1368,8 @@ export async function validateProductionSourceIndex(
 
   for (const part of catalog.parts) {
     const resourceEmptyNone = part.composition?.isNone === true && part.assetPath === ''
-    if (catalog.version === '0.3.0' && resourceEmptyNone) continue
-    if (catalog.version === '0.3.0' && part.composition?.mode === 'interface') {
+    if (isInterfaceProductionVersion(catalog.version) && resourceEmptyNone) continue
+    if (isInterfaceProductionVersion(catalog.version) && part.composition?.mode === 'interface') {
       for (const rigId of Object.keys(part.composition.variantsByRig).sort()) {
         const exactSourceId = `${part.id}:${rigId}`
         const exactSource = indexed.get(exactSourceId)
@@ -1362,7 +1386,7 @@ export async function validateProductionSourceIndex(
       diagnostics.push(error('PRODUCTION_SOURCE_MISSING', ['sources', part.id], `Missing source-index entry for part ${part.id}.`))
       continue
     }
-    const interfaceStructural = catalog.version === '0.3.0'
+    const interfaceStructural = isInterfaceProductionVersion(catalog.version)
       && part.composition?.mode === 'interface'
       && source.kind === 'interface-structural'
     if (interfaceStructural) {
@@ -1407,7 +1431,7 @@ export async function validateProductionSourceIndex(
   }
 
   for (const rig of catalog.rigs) {
-    if (catalog.version === '0.3.0') {
+    if (isInterfaceProductionVersion(catalog.version)) {
       const exactBodyRoots = catalog.parts.filter(part => (
         part.slotId === 'bodyFrame'
         && part.composition?.mode === 'interface'

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "deep-sea",
+    "palette": {
+      "primary": "#237aa3",
+      "secondary": "#74c9bf",
+      "accent": "#f6d365"
+    },
+    "displayName": "深海",
+    "flavorText": "潮光从柔软的深渊皮膜中缓慢呼吸。"
+  },
+  {
+    "id": "fungal",
+    "palette": {
+      "primary": "#6b7d33",
+      "secondary": "#a7c957",
+      "accent": "#f4a261"
+    },
+    "displayName": "菌沼",
+    "flavorText": "孢子与湿润苔色长成一团好奇的生命。"
+  },
+  {
+    "id": "shadow",
+    "palette": {
+      "primary": "#463c78",
+      "secondary": "#8377d1",
+      "accent": "#f9c74f"
+    },
+    "displayName": "幽影",
+    "flavorText": "温柔的暗色轮廓把微光悄悄藏在身后。"
+  }
+]
