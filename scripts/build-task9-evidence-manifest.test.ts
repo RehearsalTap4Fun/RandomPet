@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os'
 import { basename, dirname, join } from 'node:path'
 import { expect, it } from 'vitest'
 import {
+  buildTask9EvidenceManifest,
   collectCanonicalInterfaceGuideSeeds,
   collectEvidenceDependencyClosure,
   task9PipelineScopeSnapshot,
@@ -12,6 +13,16 @@ import {
   TASK9_STALE_BASELINE_COMMIT,
 } from './build-task9-evidence-manifest.js'
 import { collectExpectedTask9EvidenceDependencies } from '../packages/asset-catalog/src/task9-evidence-dependencies.js'
+
+it('rebuilds legacy v0.3 evidence through the two-argument composition statistics contract', async () => {
+  const statisticsPath = 'packages/asset-catalog/audit/v0.3.0/task9-composition-statistics.json'
+  const before = await readFile(statisticsPath)
+
+  const { manifest } = await buildTask9EvidenceManifest(process.cwd())
+
+  expect(manifest.catalogVersion).toBe('0.3.0')
+  expect(await readFile(statisticsPath)).toEqual(before)
+}, 60_000)
 
 it('matches the audited baseline deletion and similarity-rename sets to Git exactly', async () => {
   const audit = JSON.parse(await readFile('packages/asset-catalog/audit/v0.3.0/task9-stale-runtime-removal.json', 'utf8'))

@@ -19,6 +19,22 @@ import v04ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.4
 const THEMES: readonly ThemeId[] = ['deep-sea', 'fungal', 'shadow']
 const OPTIONAL_SLOTS = ['headAppendage', 'tail', 'extraAppendage', 'effect'] as const
 type StatisticsCatalogVersion = '0.2.0' | '0.3.0' | '0.4.0'
+type OptionalNoneRates = Record<typeof OPTIONAL_SLOTS[number], number>
+
+interface LegacyCompositionDistribution {
+  optionalNoneRates: OptionalNoneRates
+  maximumStrongFeatures: number
+  maximumSurpriseSlots: number
+}
+
+interface ModeCompositionDistribution extends LegacyCompositionDistribution {
+  maximumStrongNonFacialFeatures: number
+  generationErrorCount: number
+}
+
+interface ModeAwareCompositionDistribution extends ModeCompositionDistribution {
+  byMode: Record<string, ModeCompositionDistribution & { optionalNoneRates: OptionalNoneRates }>
+}
 
 export function parseCompositionStatisticsArguments(args: readonly string[]): {
   version: StatisticsCatalogVersion
@@ -65,23 +81,20 @@ export function parseCompositionStatisticsArguments(args: readonly string[]): {
 export function measureCompositionDistribution(
   catalog: Catalog,
   seeds: readonly string[],
-  modes: readonly GenerationMode[] = ['normal'],
-): {
-  optionalNoneRates: Record<typeof OPTIONAL_SLOTS[number], number>
-  maximumStrongFeatures: number
-  maximumStrongNonFacialFeatures: number
-  maximumSurpriseSlots: number
-  generationErrorCount: number
-  byMode: Record<string, {
-    optionalNoneRates: Record<typeof OPTIONAL_SLOTS[number], number>
-    maximumStrongFeatures: number
-    maximumStrongNonFacialFeatures: number
-    maximumSurpriseSlots: number
-    generationErrorCount: number
-  }>
-} {
+): LegacyCompositionDistribution
+export function measureCompositionDistribution(
+  catalog: Catalog,
+  seeds: readonly string[],
+  modes: readonly GenerationMode[],
+): ModeAwareCompositionDistribution
+export function measureCompositionDistribution(
+  catalog: Catalog,
+  seeds: readonly string[],
+  modes?: readonly GenerationMode[],
+): LegacyCompositionDistribution | ModeAwareCompositionDistribution {
   if (seeds.length === 0) throw new Error('Composition distribution requires at least one seed.')
-  if (modes.length === 0 || new Set(modes).size !== modes.length) {
+  const requestedModes: readonly GenerationMode[] = modes ?? ['normal']
+  if (requestedModes.length === 0 || new Set(requestedModes).size !== requestedModes.length) {
     throw new Error('Composition distribution requires distinct generation modes.')
   }
   const noneCounts: Record<typeof OPTIONAL_SLOTS[number], number> = {
@@ -94,15 +107,9 @@ export function measureCompositionDistribution(
   let maximumStrongNonFacialFeatures = 0
   let maximumSurpriseSlots = 0
   let generationErrorCount = 0
-  const byMode: Record<string, {
-    optionalNoneRates: Record<typeof OPTIONAL_SLOTS[number], number>
-    maximumStrongFeatures: number
-    maximumStrongNonFacialFeatures: number
-    maximumSurpriseSlots: number
-    generationErrorCount: number
-  }> = {}
+  const byMode: ModeAwareCompositionDistribution['byMode'] = {}
 
-  for (const mode of modes) {
+  for (const mode of requestedModes) {
     const modeNoneCounts: Record<typeof OPTIONAL_SLOTS[number], number> = {
       headAppendage: 0,
       tail: 0,
@@ -167,14 +174,18 @@ export function measureCompositionDistribution(
     generationErrorCount += modeGenerationErrorCount
   }
 
-  return {
+  const legacyResult: LegacyCompositionDistribution = {
     optionalNoneRates: Object.fromEntries(OPTIONAL_SLOTS.map(slotId => [
       slotId,
-      noneCounts[slotId] / (seeds.length * modes.length),
-    ])) as Record<typeof OPTIONAL_SLOTS[number], number>,
+      noneCounts[slotId] / (seeds.length * requestedModes.length),
+    ])) as OptionalNoneRates,
     maximumStrongFeatures,
-    maximumStrongNonFacialFeatures,
     maximumSurpriseSlots,
+  }
+  if (modes === undefined) return legacyResult
+  return {
+    ...legacyResult,
+    maximumStrongNonFacialFeatures,
     generationErrorCount,
     byMode,
   }
