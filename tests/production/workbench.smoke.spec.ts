@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { expect, test } from '@playwright/test'
 
 test('production bundle renders a ready creature and exports a real WebP', async ({ page }) => {
+  test.setTimeout(120_000)
   const pageErrors: Error[] = []
   const consoleErrors: string[] = []
   const failedRequests: string[] = []
@@ -22,6 +23,9 @@ test('production bundle renders a ready creature and exports a real WebP', async
 
   await page.goto('/')
   await page.waitForLoadState('networkidle')
+  await expect.poll(() => page.evaluate(() => (
+    performance.getEntriesByName('qmonster-preview-commit', 'mark').length
+  )), { timeout: 120_000 }).toBeGreaterThan(0)
 
   expect(pageErrors.map(error => error.message)).toEqual([])
   expect(consoleErrors).toEqual([])

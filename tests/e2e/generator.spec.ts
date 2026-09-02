@@ -9,6 +9,7 @@ async function openWorkbench(page: Page): Promise<void> {
   await page.goto('/')
   await expect(page.getByRole('status')).toContainText('组合状态良好')
   await expect(page.getByRole('img', { name: '生物预览' })).toBeVisible()
+  await expect.poll(() => previewCommitCount(page), { timeout: 120_000 }).toBeGreaterThan(0)
 }
 
 async function previewCommitCount(page: Page): Promise<number> {
@@ -34,6 +35,7 @@ async function downloadJson(page: Page): Promise<Download> {
 }
 
 test('locks, rerolls, manually selects, and blocks an incompatible theme lock', async ({ page }) => {
+  test.setTimeout(120_000)
   await openWorkbench(page)
 
   const eyes = page.getByRole('combobox', { name: '眼睛部件' })

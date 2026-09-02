@@ -192,6 +192,11 @@ function interfaceFixture(variant: InterfaceVariant): { catalog: Catalog; spec: 
     if (selected?.composition === undefined) throw new Error(`Missing selected ${slotId} fixture`)
     selected.composition.isNone = true
   }
+  const oralDetail = interfaceCatalog.parts.find(candidate => (
+    candidate.id === spec.visualSlots.oralDetail.partId && candidate.slotId === 'oralDetail'
+  ))
+  if (oralDetail?.composition === undefined) throw new Error('Missing selected oral-detail fixture')
+  oralDetail.composition.isNone = true
   const body = interfaceCatalog.parts.find(candidate => candidate.slotId === 'bodyFrame')
   const head = interfaceCatalog.parts.find(candidate => candidate.slotId === 'headShape')
   if (body?.composition?.mode !== 'interface' || head?.composition?.mode !== 'interface') {

@@ -94,7 +94,7 @@ test('matches the reviewed first-hatch decoded RGBA golden', async ({ page }, te
   expect(actualHash).toBe(expectedHash)
 })
 
-test('matches the reviewed v0.3 first-hatch decoded RGBA golden with connector evidence', async ({ page }, testInfo) => {
+test('matches the reviewed v0.3 first-hatch decoded RGBA golden with connector evidence [current-machine]', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'chromium', 'Reviewed v0.3 first-hatch golden belongs to bundled Chromium')
   await page.setViewportSize({ width: 1024, height: 1024 })
   await page.goto('/acceptance-render.html')

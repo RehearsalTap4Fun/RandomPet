@@ -31,8 +31,9 @@ const expectedSlotControlIds = [
 
 async function openWorkbench(page: Page): Promise<void> {
   await page.goto('/')
-  await expect(page.getByRole('status')).toContainText('组合状态良好')
+  await expect(page.getByText('✓ 组合状态良好，未发现冲突。')).toBeVisible()
   await expect(page.getByRole('img', { name: '生物预览' })).toBeVisible()
+  await expect.poll(() => previewCommitCount(page), { timeout: 120_000 }).toBeGreaterThan(0)
 }
 
 async function expectDownload(page: Page, buttonName: string, filename: string): Promise<Download> {
@@ -57,7 +58,7 @@ async function waitForCommitAfter(page: Page, previousCount: number): Promise<vo
   await expect.poll(() => previewCommitCount(page), { timeout: 30_000 }).toBeGreaterThan(previousCount)
 }
 
-test('downloads exact v0.3 JSON and PNG names, then imports an explicit v0.2 specimen read-only', async ({ page }) => {
+test('downloads exact v0.4 JSON and PNG names, then imports an explicit v0.2 specimen read-only', async ({ page }) => {
   test.setTimeout(120_000)
   await openWorkbench(page)
   const seed = page.getByRole('textbox', { name: '种子' })
@@ -83,11 +84,11 @@ test('downloads exact v0.3 JSON and PNG names, then imports an explicit v0.2 spe
   expect(exported).toMatchObject({
     seed: seedBefore,
     themeId: 'fungal',
-    catalogVersion: '0.3.0',
-    rendererVersion: '0.3.0',
+    catalogVersion: '0.4.0',
+    rendererVersion: '0.4.0',
   })
 
-  const transactionalSeed = 'transactional-v03-e2e-seed'
+  const transactionalSeed = 'transactional-v04-e2e-seed'
   await seed.fill(transactionalSeed)
   let commits = await previewCommitCount(page)
   await page.getByRole('button', { name: '孵化整只生物' }).click()
@@ -141,7 +142,7 @@ test('downloads exact v0.3 JSON and PNG names, then imports an explicit v0.2 spe
     partId: 'color_deep_sea_coral',
   }
   await page.getByLabel('选择要导入的 JSON 文件').setInputFiles({
-    name: 'invalid-current-v0.3-theme-conflict.json',
+    name: 'invalid-current-v0.4-theme-conflict.json',
     mimeType: 'application/json',
     buffer: Buffer.from(JSON.stringify(invalidCurrentSpec)),
   })
@@ -163,6 +164,8 @@ test('keeps JSON and PNG enabled when WebP encoding is unsupported', async ({ pa
   })
   await page.goto('/')
 
+  await expect(page.getByText('✓ 组合状态良好，未发现冲突。')).toBeVisible()
+  await expect.poll(() => previewCommitCount(page), { timeout: 120_000 }).toBeGreaterThan(0)
   await expect(page.getByText('当前浏览器不支持 WebP 编码，请改用 PNG。')).toBeVisible()
   await expect(page.getByRole('button', { name: '导出 JSON' })).toBeEnabled()
   await expect(page.getByRole('button', { name: '导出透明 PNG' })).toBeEnabled()
