@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import {
   parseCatalog,
   parseMonsterSpec,
+  rendererVersionForCatalog,
   type Catalog,
   type MonsterSpec,
 } from '@qmonster/generator-core'
@@ -45,7 +46,10 @@ const catalogs = new Map<'0.2.0' | '0.3.0' | '0.4.0', Catalog>([
   ['0.3.0', parsedV03Catalog.value],
   ['0.4.0', parsedV04Catalog.value],
 ] as const)
-const acceptanceImageCache = new Map<string, Promise<CanvasImageSource>>()
+const acceptanceImageCache = new Map<string, Promise<{
+  assetUrl: string
+  source: CanvasImageSource
+}>>()
 
 const container = document.querySelector<HTMLElement>('#acceptance-root')
 if (container === null) throw new Error('Acceptance renderer root is missing.')
@@ -65,22 +69,30 @@ function renderSpec(
       resolvedAssetPaths.add(assetPath)
       const key = `${catalog.version}\u0000${assetPath}`
       const cached = acceptanceImageCache.get(key)
-      if (cached !== undefined) return cached
-      const pending = resolveProductionAssetUrl(catalog.version, assetPath).then(assetUrl => {
-        resolvedAssetUrls.add(assetUrl)
-        return new Promise<CanvasImageSource>((resolve, reject) => {
+      if (cached !== undefined) {
+        return cached.then(({ assetUrl, source }) => {
+          resolvedAssetUrls.add(assetUrl)
+          return source
+        })
+      }
+      const pending = resolveProductionAssetUrl(catalog.version, assetPath).then(async assetUrl => {
+        const source = await new Promise<CanvasImageSource>((resolve, reject) => {
           const image = new Image()
           image.decoding = 'async'
           image.onload = () => resolve(image)
           image.onerror = () => reject(new Error(`Unable to load ${assetPath}.`))
           image.src = assetUrl
         })
+        return { assetUrl, source }
       }).catch(error => {
         acceptanceImageCache.delete(key)
         throw error
       })
       acceptanceImageCache.set(key, pending)
-      return pending
+      return pending.then(({ assetUrl, source }) => {
+        resolvedAssetUrls.add(assetUrl)
+        return source
+      })
     },
   }
 
@@ -125,6 +137,10 @@ window.renderAcceptanceMonster = async (input: unknown, catalogVersion = '0.2.0'
   const catalog = catalogs.get(catalogVersion)
   if (catalog === undefined || parsedSpec.value.catalogVersion !== catalog.version) {
     throw new Error(`Acceptance renderer requires exact catalog ${parsedSpec.value.catalogVersion}.`)
+  }
+  const rendererVersion = rendererVersionForCatalog(catalog)
+  if (parsedSpec.value.rendererVersion !== rendererVersion) {
+    throw new Error(`Acceptance renderer requires exact renderer ${rendererVersion}.`)
   }
   document.body.dataset.renderComplete = 'false'
   try {

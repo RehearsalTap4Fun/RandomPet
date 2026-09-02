@@ -173,6 +173,35 @@ test('resolves v0.4 and v0.3 specs only from their exact versioned assets', asyn
   expect(renderedV03.resolvedAssetUrls.some(url => url.includes('/v0.4.0/'))).toBe(false)
 })
 
+test('rejects a renderer version mismatch for the exact acceptance catalog', async ({ page }) => {
+  await page.goto('/acceptance-render.html')
+  await page.waitForFunction(() => document.body.dataset.rendererReady === 'true')
+  const mismatchedRendererSpec = {
+    ...firstHatchV04.spec,
+    rendererVersion: '0.3.0' as const,
+  }
+
+  await expect(page.evaluate(async spec => (
+    window.renderAcceptanceMonster(spec, '0.4.0')
+  ), mismatchedRendererSpec)).rejects.toThrow(/exact renderer 0\.4\.0/u)
+})
+
+test('reports exact asset URLs again on acceptance image cache hits', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 1024 })
+  await page.goto('/acceptance-render.html')
+  await page.waitForFunction(() => document.body.dataset.rendererReady === 'true')
+
+  const firstRender = await page.evaluate(async spec => (
+    window.renderAcceptanceMonster(spec, '0.4.0')
+  ), firstHatchV04.spec)
+  const cachedRender = await page.evaluate(async spec => (
+    window.renderAcceptanceMonster(spec, '0.4.0')
+  ), firstHatchV04.spec)
+
+  expect(firstRender.resolvedAssetUrls.length).toBeGreaterThan(0)
+  expect(cachedRender.resolvedAssetUrls).toEqual(firstRender.resolvedAssetUrls)
+})
+
 test('keeps the fixed shadow acceptance mouth above the visibility gate', async ({ page }) => {
   const generated = generateMonster({ seed: '2026082106', themeId: 'shadow', mode: 'normal' }, parsedCatalog.value)
   expect(generated.diagnostics).toEqual([])
