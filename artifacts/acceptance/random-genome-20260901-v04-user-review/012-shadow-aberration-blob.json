@@ -1,0 +1,229 @@
+{
+  "schemaVersion": "0.1.0",
+  "catalogVersion": "0.4.0",
+  "rendererVersion": "0.4.0",
+  "seed": "qmonster-v04-user-review-012",
+  "themeId": "shadow",
+  "palette": {
+    "primary": "#463c78",
+    "secondary": "#8377d1",
+    "accent": "#f9c74f"
+  },
+  "slotRolls": {
+    "bodyFrame": 0,
+    "headShape": 0,
+    "eyes": 0,
+    "mouthShape": 0,
+    "oralDetail": 0,
+    "headAppendage": 0,
+    "arms": 0,
+    "legs": 0,
+    "tail": 0,
+    "extraAppendage": 0,
+    "surfaceMaterial": 0,
+    "pattern": 0,
+    "colorScheme": 0,
+    "effect": 0
+  },
+  "visualSlots": {
+    "bodyFrame": {
+      "partId": "body_blob_round",
+      "rigId": "blob"
+    },
+    "headShape": {
+      "partId": "head_mushroom_cap",
+      "rigId": "blob"
+    },
+    "eyes": {
+      "partId": "eyes_sleepy_crescent",
+      "rigId": "blob"
+    },
+    "mouthShape": {
+      "partId": "mouth_soft_beak",
+      "rigId": "blob"
+    },
+    "oralDetail": {
+      "partId": "oral_round_teeth",
+      "rigId": "blob"
+    },
+    "headAppendage": {
+      "partId": "head_appendage_none",
+      "rigId": "blob"
+    },
+    "arms": {
+      "partId": "arms_short_plush",
+      "rigId": "blob"
+    },
+    "legs": {
+      "partId": "legs_stub_feet",
+      "rigId": "blob"
+    },
+    "tail": {
+      "partId": "tail_mushroom_cluster",
+      "rigId": "blob"
+    },
+    "extraAppendage": {
+      "partId": "extra_moth_wings",
+      "rigId": "blob"
+    },
+    "surfaceMaterial": {
+      "partId": "surface_soft_scales",
+      "rigId": "blob"
+    },
+    "pattern": {
+      "partId": "pattern_spore_rings",
+      "rigId": "blob"
+    },
+    "colorScheme": {
+      "partId": "color_shadow_violet",
+      "rigId": "blob"
+    },
+    "effect": {
+      "partId": "effect_none",
+      "rigId": "blob"
+    }
+  },
+  "genome": {
+    "genomeVersion": "0.1.0",
+    "genes": {
+      "bodyFrame": {
+        "P": "body_blob_round",
+        "H1": "body_floating_drop",
+        "H2": "body_biped_tall",
+        "H3": "body_floating_drop"
+      },
+      "headShape": {
+        "P": "head_mushroom_cap",
+        "H1": "head_round_dome",
+        "H2": "head_round_dome",
+        "H3": "head_round_dome"
+      },
+      "eyes": {
+        "P": "eyes_sleepy_crescent",
+        "H1": "eyes_stalk_pair",
+        "H2": "eyes_stalk_pair",
+        "H3": "eyes_glossy_pair"
+      },
+      "mouthShape": {
+        "P": "mouth_soft_beak",
+        "H1": "mouth_soft_beak",
+        "H2": "mouth_soft_pout",
+        "H3": "mouth_soft_beak"
+      },
+      "oralDetail": {
+        "P": "oral_round_teeth",
+        "H1": "oral_round_teeth",
+        "H2": "oral_single_fang",
+        "H3": "oral_round_teeth"
+      },
+      "headAppendage": {
+        "P": "head_appendage_none",
+        "H1": "head_appendage_none",
+        "H2": "head_horns_soft_nubs",
+        "H3": "head_appendage_none"
+      },
+      "arms": {
+        "P": "arms_short_plush",
+        "H1": "arms_paddle",
+        "H2": "arms_paddle",
+        "H3": "arms_long_noodle"
+      },
+      "legs": {
+        "P": "legs_stub_feet",
+        "H1": "legs_stub_feet",
+        "H2": "legs_shadow_tiptoe",
+        "H3": "legs_stub_feet"
+      },
+      "tail": {
+        "P": "tail_mushroom_cluster",
+        "H1": "tail_none",
+        "H2": "tail_mushroom_cluster",
+        "H3": "tail_mushroom_cluster"
+      },
+      "extraAppendage": {
+        "P": "extra_moth_wings",
+        "H1": "extra_moth_wings",
+        "H2": "extra_soft_tentacles",
+        "H3": "extra_appendage_none"
+      },
+      "surfaceMaterial": {
+        "P": "surface_soft_scales",
+        "H1": "surface_gel_bubbles",
+        "H2": "surface_short_fur",
+        "H3": "surface_mushroom_velvet"
+      },
+      "pattern": {
+        "P": "pattern_spore_rings",
+        "H1": "pattern_spore_rings",
+        "H2": "pattern_soft_spots",
+        "H3": "pattern_gentle_stripes"
+      },
+      "colorScheme": {
+        "P": "color_shadow_violet",
+        "H1": "color_shadow_violet",
+        "H2": "color_shadow_violet",
+        "H3": "color_shadow_violet"
+      },
+      "effect": {
+        "P": "effect_none",
+        "H1": "effect_none",
+        "H2": "effect_bioluminescent_orbs",
+        "H3": "effect_bioluminescent_orbs"
+      }
+    }
+  },
+  "semanticTraits": {
+    "frame": {
+      "primaryTraitId": "frame_blob_round",
+      "detailTraitIds": []
+    },
+    "appendage": {
+      "primaryTraitId": "extra_moth_wings",
+      "detailTraitIds": [
+        "tail_mushroom",
+        "legs_stub",
+        "arms_short"
+      ]
+    },
+    "headAndEyes": {
+      "primaryTraitId": "eyes_sleepy",
+      "detailTraitIds": [
+        "head_mushroom"
+      ]
+    },
+    "mouth": {
+      "primaryTraitId": "oral_round_teeth",
+      "detailTraitIds": [
+        "mouth_soft_beak"
+      ]
+    },
+    "surface": {
+      "primaryTraitId": "surface_soft_scales",
+      "detailTraitIds": []
+    },
+    "pattern": {
+      "primaryTraitId": "pattern_spore_rings",
+      "detailTraitIds": [
+        "color_shadow"
+      ]
+    },
+    "personality": {
+      "primaryTraitId": "personality_brave",
+      "detailTraitIds": []
+    },
+    "quirk": {
+      "primaryTraitId": "quirk_collects_echoes",
+      "detailTraitIds": []
+    }
+  },
+  "mutation": null,
+  "aberrations": [
+    {
+      "id": "aberration_misplaced_eye",
+      "overrides": {
+        "relocateSlot": "eyes",
+        "socket": "headAlternate"
+      }
+    }
+  ]
+}

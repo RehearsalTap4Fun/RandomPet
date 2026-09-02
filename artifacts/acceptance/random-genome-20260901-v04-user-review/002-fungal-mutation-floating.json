@@ -1,0 +1,227 @@
+{
+  "schemaVersion": "0.1.0",
+  "catalogVersion": "0.4.0",
+  "rendererVersion": "0.4.0",
+  "seed": "qmonster-v04-user-review-002",
+  "themeId": "fungal",
+  "palette": {
+    "primary": "#6b7d33",
+    "secondary": "#a7c957",
+    "accent": "#f4a261"
+  },
+  "slotRolls": {
+    "bodyFrame": 0,
+    "headShape": 0,
+    "eyes": 0,
+    "mouthShape": 0,
+    "oralDetail": 0,
+    "headAppendage": 0,
+    "arms": 0,
+    "legs": 0,
+    "tail": 0,
+    "extraAppendage": 0,
+    "surfaceMaterial": 0,
+    "pattern": 0,
+    "colorScheme": 0,
+    "effect": 0
+  },
+  "visualSlots": {
+    "bodyFrame": {
+      "partId": "body_floating_drop",
+      "rigId": "floating"
+    },
+    "headShape": {
+      "partId": "head_mushroom_cap",
+      "rigId": "floating"
+    },
+    "eyes": {
+      "partId": "eyes_stalk_pair",
+      "rigId": "floating"
+    },
+    "mouthShape": {
+      "partId": "mouth_soft_beak",
+      "rigId": "floating"
+    },
+    "oralDetail": {
+      "partId": "oral_single_fang",
+      "rigId": "floating"
+    },
+    "headAppendage": {
+      "partId": "head_ears_floppy_fins",
+      "rigId": "floating"
+    },
+    "arms": {
+      "partId": "arms_short_plush",
+      "rigId": "floating"
+    },
+    "legs": {
+      "partId": "legs_mushroom",
+      "rigId": "floating"
+    },
+    "tail": {
+      "partId": "tail_fish_fan",
+      "rigId": "floating"
+    },
+    "extraAppendage": {
+      "partId": "extra_appendage_none",
+      "rigId": "floating"
+    },
+    "surfaceMaterial": {
+      "partId": "surface_mushroom_velvet",
+      "rigId": "floating"
+    },
+    "pattern": {
+      "partId": "pattern_gentle_stripes",
+      "rigId": "floating"
+    },
+    "colorScheme": {
+      "partId": "color_fungal_amber",
+      "rigId": "floating"
+    },
+    "effect": {
+      "partId": "effect_spore_glow",
+      "rigId": "floating"
+    }
+  },
+  "genome": {
+    "genomeVersion": "0.1.0",
+    "genes": {
+      "bodyFrame": {
+        "P": "body_floating_drop",
+        "H1": "body_floating_drop",
+        "H2": "body_floating_drop",
+        "H3": "body_blob_wide"
+      },
+      "headShape": {
+        "P": "head_mushroom_cap",
+        "H1": "head_round_dome",
+        "H2": "head_round_dome",
+        "H3": "head_shadow_hood"
+      },
+      "eyes": {
+        "P": "eyes_stalk_pair",
+        "H1": "eyes_sleepy_crescent",
+        "H2": "eyes_asymmetric",
+        "H3": "eyes_glossy_pair"
+      },
+      "mouthShape": {
+        "P": "mouth_soft_beak",
+        "H1": "mouth_vertical_oval",
+        "H2": "mouth_vertical_oval",
+        "H3": "mouth_vertical_oval"
+      },
+      "oralDetail": {
+        "P": "oral_single_fang",
+        "H1": "oral_round_teeth",
+        "H2": "oral_round_teeth",
+        "H3": "oral_gummy_ridges"
+      },
+      "headAppendage": {
+        "P": "head_ears_floppy_fins",
+        "H1": "head_antennae_glow",
+        "H2": "head_antennae_glow",
+        "H3": "head_horns_soft_nubs"
+      },
+      "arms": {
+        "P": "arms_short_plush",
+        "H1": "arms_paddle",
+        "H2": "arms_short_plush",
+        "H3": "arms_short_plush"
+      },
+      "legs": {
+        "P": "legs_mushroom",
+        "H1": "legs_webbed",
+        "H2": "legs_stub_feet",
+        "H3": "legs_mushroom"
+      },
+      "tail": {
+        "P": "tail_fish_fan",
+        "H1": "tail_soft_curl",
+        "H2": "tail_none",
+        "H3": "tail_soft_curl"
+      },
+      "extraAppendage": {
+        "P": "extra_appendage_none",
+        "H1": "extra_moth_wings",
+        "H2": "extra_appendage_none",
+        "H3": "extra_moth_wings"
+      },
+      "surfaceMaterial": {
+        "P": "surface_mushroom_velvet",
+        "H1": "surface_gel_bubbles",
+        "H2": "surface_short_fur",
+        "H3": "surface_short_fur"
+      },
+      "pattern": {
+        "P": "pattern_gentle_stripes",
+        "H1": "pattern_constellation",
+        "H2": "pattern_soft_spots",
+        "H3": "pattern_soft_spots"
+      },
+      "colorScheme": {
+        "P": "color_fungal_amber",
+        "H1": "color_fungal_amber",
+        "H2": "color_fungal_amber",
+        "H3": "color_fungal_amber"
+      },
+      "effect": {
+        "P": "effect_spore_glow",
+        "H1": "effect_none",
+        "H2": "effect_spore_glow",
+        "H3": "effect_none"
+      }
+    }
+  },
+  "semanticTraits": {
+    "frame": {
+      "primaryTraitId": "frame_floating_drop",
+      "detailTraitIds": []
+    },
+    "appendage": {
+      "primaryTraitId": "tail_fish_fan",
+      "detailTraitIds": [
+        "legs_mushroom",
+        "arms_short"
+      ]
+    },
+    "headAndEyes": {
+      "primaryTraitId": "eyes_stalk",
+      "detailTraitIds": [
+        "head_fin_ears",
+        "head_mushroom"
+      ]
+    },
+    "mouth": {
+      "primaryTraitId": "oral_single_fang",
+      "detailTraitIds": [
+        "mouth_soft_beak"
+      ]
+    },
+    "surface": {
+      "primaryTraitId": "surface_mushroom_velvet",
+      "detailTraitIds": []
+    },
+    "pattern": {
+      "primaryTraitId": "pattern_stripes",
+      "detailTraitIds": [
+        "color_fungal"
+      ]
+    },
+    "personality": {
+      "primaryTraitId": "personality_dreamy",
+      "detailTraitIds": []
+    },
+    "quirk": {
+      "primaryTraitId": "quirk_shadow_skip",
+      "detailTraitIds": []
+    }
+  },
+  "mutation": {
+    "id": "mutation_double_head",
+    "overrides": {
+      "duplicateLayerGroup": "head",
+      "socket": "headAlternate"
+    }
+  },
+  "aberrations": []
+}

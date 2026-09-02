@@ -1,0 +1,221 @@
+{
+  "schemaVersion": "0.1.0",
+  "catalogVersion": "0.4.0",
+  "rendererVersion": "0.4.0",
+  "seed": "qmonster-v04-user-review-001",
+  "themeId": "deep-sea",
+  "palette": {
+    "primary": "#237aa3",
+    "secondary": "#74c9bf",
+    "accent": "#f6d365"
+  },
+  "slotRolls": {
+    "bodyFrame": 0,
+    "headShape": 0,
+    "eyes": 0,
+    "mouthShape": 0,
+    "oralDetail": 0,
+    "headAppendage": 0,
+    "arms": 0,
+    "legs": 0,
+    "tail": 0,
+    "extraAppendage": 0,
+    "surfaceMaterial": 0,
+    "pattern": 0,
+    "colorScheme": 0,
+    "effect": 0
+  },
+  "visualSlots": {
+    "bodyFrame": {
+      "partId": "body_floating_drop",
+      "rigId": "floating"
+    },
+    "headShape": {
+      "partId": "head_round_dome",
+      "rigId": "floating"
+    },
+    "eyes": {
+      "partId": "eyes_sleepy_crescent",
+      "rigId": "floating"
+    },
+    "mouthShape": {
+      "partId": "mouth_soft_beak",
+      "rigId": "floating"
+    },
+    "oralDetail": {
+      "partId": "oral_gummy_ridges",
+      "rigId": "floating"
+    },
+    "headAppendage": {
+      "partId": "head_appendage_none",
+      "rigId": "floating"
+    },
+    "arms": {
+      "partId": "arms_long_noodle",
+      "rigId": "floating"
+    },
+    "legs": {
+      "partId": "legs_webbed",
+      "rigId": "floating"
+    },
+    "tail": {
+      "partId": "tail_fish_fan",
+      "rigId": "floating"
+    },
+    "extraAppendage": {
+      "partId": "extra_side_fins",
+      "rigId": "floating"
+    },
+    "surfaceMaterial": {
+      "partId": "surface_mushroom_velvet",
+      "rigId": "floating"
+    },
+    "pattern": {
+      "partId": "pattern_gentle_stripes",
+      "rigId": "floating"
+    },
+    "colorScheme": {
+      "partId": "color_deep_sea_coral",
+      "rigId": "floating"
+    },
+    "effect": {
+      "partId": "effect_bioluminescent_orbs",
+      "rigId": "floating"
+    }
+  },
+  "genome": {
+    "genomeVersion": "0.1.0",
+    "genes": {
+      "bodyFrame": {
+        "P": "body_floating_drop",
+        "H1": "body_biped_peanut",
+        "H2": "body_biped_tall",
+        "H3": "body_blob_round"
+      },
+      "headShape": {
+        "P": "head_round_dome",
+        "H1": "head_round_dome",
+        "H2": "head_round_dome",
+        "H3": "head_round_dome"
+      },
+      "eyes": {
+        "P": "eyes_sleepy_crescent",
+        "H1": "eyes_sleepy_crescent",
+        "H2": "eyes_glossy_pair",
+        "H3": "eyes_asymmetric"
+      },
+      "mouthShape": {
+        "P": "mouth_soft_beak",
+        "H1": "mouth_soft_pout",
+        "H2": "mouth_soft_pout",
+        "H3": "mouth_soft_beak"
+      },
+      "oralDetail": {
+        "P": "oral_gummy_ridges",
+        "H1": "oral_gummy_ridges",
+        "H2": "oral_single_fang",
+        "H3": "oral_round_teeth"
+      },
+      "headAppendage": {
+        "P": "head_appendage_none",
+        "H1": "head_antennae_glow",
+        "H2": "head_ears_floppy_fins",
+        "H3": "head_horns_soft_nubs"
+      },
+      "arms": {
+        "P": "arms_long_noodle",
+        "H1": "arms_paddle",
+        "H2": "arms_paddle",
+        "H3": "arms_paddle"
+      },
+      "legs": {
+        "P": "legs_webbed",
+        "H1": "legs_stub_feet",
+        "H2": "legs_mushroom",
+        "H3": "legs_stub_feet"
+      },
+      "tail": {
+        "P": "tail_fish_fan",
+        "H1": "tail_fish_fan",
+        "H2": "tail_fish_fan",
+        "H3": "tail_none"
+      },
+      "extraAppendage": {
+        "P": "extra_side_fins",
+        "H1": "extra_soft_tentacles",
+        "H2": "extra_soft_tentacles",
+        "H3": "extra_side_fins"
+      },
+      "surfaceMaterial": {
+        "P": "surface_mushroom_velvet",
+        "H1": "surface_soft_scales",
+        "H2": "surface_short_fur",
+        "H3": "surface_soft_scales"
+      },
+      "pattern": {
+        "P": "pattern_gentle_stripes",
+        "H1": "pattern_spore_rings",
+        "H2": "pattern_spore_rings",
+        "H3": "pattern_gentle_stripes"
+      },
+      "colorScheme": {
+        "P": "color_deep_sea_coral",
+        "H1": "color_deep_sea_coral",
+        "H2": "color_deep_sea_coral",
+        "H3": "color_deep_sea_coral"
+      },
+      "effect": {
+        "P": "effect_bioluminescent_orbs",
+        "H1": "effect_bioluminescent_orbs",
+        "H2": "effect_bioluminescent_orbs",
+        "H3": "effect_spore_glow"
+      }
+    }
+  },
+  "semanticTraits": {
+    "frame": {
+      "primaryTraitId": "frame_floating_drop",
+      "detailTraitIds": []
+    },
+    "appendage": {
+      "primaryTraitId": "extra_side_fins",
+      "detailTraitIds": [
+        "tail_fish_fan",
+        "legs_webbed",
+        "arms_noodle"
+      ]
+    },
+    "headAndEyes": {
+      "primaryTraitId": "eyes_sleepy",
+      "detailTraitIds": [
+        "head_round"
+      ]
+    },
+    "mouth": {
+      "primaryTraitId": "oral_gummy",
+      "detailTraitIds": [
+        "mouth_soft_beak"
+      ]
+    },
+    "surface": {
+      "primaryTraitId": "surface_mushroom_velvet",
+      "detailTraitIds": []
+    },
+    "pattern": {
+      "primaryTraitId": "pattern_stripes",
+      "detailTraitIds": [
+        "color_deep_sea"
+      ]
+    },
+    "personality": {
+      "primaryTraitId": "personality_shy_shadow",
+      "detailTraitIds": []
+    },
+    "quirk": {
+      "primaryTraitId": "quirk_spore_sneeze",
+      "detailTraitIds": []
+    }
+  },
+  "mutation": null,
+  "aberrations": []
+}
