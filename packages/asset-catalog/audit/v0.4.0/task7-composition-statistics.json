@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "qmonster-v0.4-composition-statistics-v1",
+  "catalogVersion": "0.4.0",
+  "seedCountPerMode": 10000,
+  "totalSampleCount": 30000,
+  "seedPattern": "v04-composition-{00000..09999}",
+  "themeCycle": [
+    "deep-sea",
+    "fungal",
+    "shadow"
+  ],
+  "modes": [
+    "normal",
+    "mutation",
+    "aberration"
+  ],
+  "maximumStrongFeaturesLimit": 2,
+  "maximumStrongNonFacialFeaturesLimit": 1,
+  "optionalNoneRates": {
+    "headAppendage": 0.3595,
+    "tail": 0.3935,
+    "extraAppendage": 0.4739,
+    "effect": 0.3998
+  },
+  "maximumStrongFeatures": 2,
+  "maximumStrongNonFacialFeatures": 1,
+  "maximumSurpriseSlots": 3,
+  "generationErrorCount": 0,
+  "byMode": {
+    "normal": {
+      "optionalNoneRates": {
+        "headAppendage": 0.3595,
+        "tail": 0.3935,
+        "extraAppendage": 0.4739,
+        "effect": 0.3998
+      },
+      "maximumStrongFeatures": 2,
+      "maximumStrongNonFacialFeatures": 1,
+      "maximumSurpriseSlots": 3,
+      "generationErrorCount": 0
+    },
+    "mutation": {
+      "optionalNoneRates": {
+        "headAppendage": 0.3595,
+        "tail": 0.3935,
+        "extraAppendage": 0.4739,
+        "effect": 0.3998
+      },
+      "maximumStrongFeatures": 2,
+      "maximumStrongNonFacialFeatures": 1,
+      "maximumSurpriseSlots": 3,
+      "generationErrorCount": 0
+    },
+    "aberration": {
+      "optionalNoneRates": {
+        "headAppendage": 0.3595,
+        "tail": 0.3935,
+        "extraAppendage": 0.4739,
+        "effect": 0.3998
+      },
+      "maximumStrongFeatures": 2,
+      "maximumStrongNonFacialFeatures": 1,
+      "maximumSurpriseSlots": 3,
+      "generationErrorCount": 0
+    }
+  }
+}

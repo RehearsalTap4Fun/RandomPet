@@ -1,11 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import { resolve } from 'node:path'
-import { parseCatalog } from '@qmonster/generator-core'
+import { generateMonster, parseCatalog } from '@qmonster/generator-core'
 import type { CompositionMetrics } from '@qmonster/renderer-canvas'
 import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.3.0/catalog.json'
+import v04ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.4.0/catalog.json'
+import problemSeeds from '../tests/fixtures/v04-problem-seeds.json'
 
-function makeValidRenderedAcceptanceEntry() {
+function makeValidRenderedAcceptanceEntry(version: '0.3.0' | '0.4.0' = '0.3.0') {
+  const parsedCatalog = parseCatalog(version === '0.4.0' ? v04ProductionCatalogDocument : v03ProductionCatalogDocument)
+  if (!parsedCatalog.ok) throw new Error(`Expected the production v${version} catalog fixture to parse.`)
+  const generated = generateMonster({ seed: 'acceptance-unit', themeId: 'fungal', mode: 'normal' }, parsedCatalog.value)
+  if (generated.blocked) throw new Error('Expected the acceptance unit fixture to generate.')
   const compositionMetrics: CompositionMetrics = {
     eyesInsideRatio: 1,
     eyesVisibleRatio: 1,
@@ -16,8 +22,11 @@ function makeValidRenderedAcceptanceEntry() {
     visibleBounds: { x: 100, y: 100, width: 800, height: 800 },
   }
   return {
-    catalogVersion: '0.3.0' as const,
+    catalog: parsedCatalog.value,
+    spec: generated.spec,
+    catalogVersion: version,
     strongFeatureCount: 2,
+    strongNonFacialFeatureCount: 1,
     surpriseSlots: 3,
     motifOpportunityCount: 12,
     compositionMetrics,
@@ -30,7 +39,7 @@ function makeValidRenderedAcceptanceEntry() {
       centerlineGapPixels: 2,
       childOutsideBodyRatio: null,
     }],
-    resolvedAssetPaths: ['assets/v0.3.0/structural/biped/nodes/body.webp'],
+    resolvedAssetPaths: [`assets/v${version}/structural/biped/nodes/body.webp`],
   }
 }
 
@@ -51,6 +60,11 @@ describe('acceptance manifest', () => {
       seedStart: 2026082101,
       count: 20,
       catalogVersion: '0.2.0',
+    })
+    expect(module.parseAcceptanceArguments(['--version', '0.4.0'])).toEqual({
+      seedStart: 2026082101,
+      count: 20,
+      catalogVersion: '0.4.0',
     })
   })
 
@@ -132,9 +146,58 @@ describe('acceptance manifest', () => {
     expect(selectedHead.composition?.motifTags).toContain('shadow')
   })
 
+  it('builds exact v0.4 entries with both strong-feature counts', async () => {
+    const { buildAcceptanceManifest } = await import('./generate-acceptance-set.js')
+    const parsedCatalog = parseCatalog(v04ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    const entries = await buildAcceptanceManifest(parsedCatalog.value)
+
+    expect(entries).toHaveLength(21)
+    expect(entries.every(item => item.catalogVersion === '0.4.0')).toBe(true)
+    expect(entries.every(item => item.spec.catalogVersion === '0.4.0')).toBe(true)
+    expect(entries.every(item => item.spec.rendererVersion === '0.4.0')).toBe(true)
+    expect(entries.every(item => item.strongFeatureCount <= 2)).toBe(true)
+    expect(entries.every(item => item.strongNonFacialFeatureCount <= 1)).toBe(true)
+  })
+
+  it('builds deterministic non-visual acceptance evidence for the twelve frozen inputs', async () => {
+    const { buildProblemSeedAcceptanceEvidence, parseMachineEvidenceArguments } = await import('./generate-acceptance-set.js')
+    const parsedCatalog = parseCatalog(v04ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    const evidence = buildProblemSeedAcceptanceEvidence(parsedCatalog.value, problemSeeds)
+
+    expect(evidence).toEqual(expect.objectContaining({
+      schemaVersion: 'qmonster-v0.4-machine-acceptance-v1',
+      catalogVersion: '0.4.0',
+      sourceBatch: 'random-genome-20260901-a',
+      seedCount: 12,
+      generationErrorCount: 0,
+      maximumStrongFeatures: expect.any(Number),
+      maximumStrongNonFacialFeatures: expect.any(Number),
+    }))
+    expect(evidence.entries).toHaveLength(12)
+    expect(evidence.entries.every(entry => (
+      entry.deterministic
+      && entry.validationErrorCount === 0
+      && /^[a-f0-9]{64}$/u.test(entry.specSha256)
+    ))).toBe(true)
+    expect(evidence).toEqual(buildProblemSeedAcceptanceEvidence(parsedCatalog.value, problemSeeds))
+    expect(parseMachineEvidenceArguments([
+      '--write-machine-evidence', '--version', '0.4.0',
+    ])).toEqual({ version: '0.4.0' })
+    expect(() => parseMachineEvidenceArguments([
+      '--write-machine-evidence', '--version', '0.3.0',
+    ])).toThrow('0.4.0')
+  })
+
   it.each([
     ['warnings', { generationDiagnostics: [{ severity: 'warning', code: 'TEST', path: [], message: 'warning' }] }],
     ['strong features over budget', { strongFeatureCount: 3 }],
+    ['non-facial strong features over budget', { strongNonFacialFeatureCount: 2 }],
     ['surprise slots over budget', { surpriseSlots: 4 }],
     ['missing face metrics', { compositionMetrics: null }],
     ['eyes outside the safe zone', { compositionMetrics: { ...makeValidRenderedAcceptanceEntry().compositionMetrics, eyesInsideRatio: 0.79 } }],
@@ -160,6 +223,22 @@ describe('acceptance manifest', () => {
     })).toThrow('composition acceptance')
   })
 
+  it('rejects oral metrics when the selected oral part is absent from resolved catalog context', async () => {
+    const { assertCompositionAcceptance } = await import('./generate-acceptance-set.js')
+    const entry = makeValidRenderedAcceptanceEntry()
+    const selectedPartId = entry.spec.visualSlots.oralDetail.partId
+    const catalog = structuredClone(entry.catalog)
+    catalog.parts = catalog.parts.filter(part => !(
+      part.slotId === 'oralDetail' && part.id === selectedPartId
+    ))
+
+    expect(() => assertCompositionAcceptance({
+      ...entry,
+      catalog,
+      generationDiagnostics: [],
+    })).toThrow('composition acceptance')
+  })
+
   it('accepts machine metrics at the exact composition thresholds', async () => {
     const { assertCompositionAcceptance } = await import('./generate-acceptance-set.js')
     expect(() => assertCompositionAcceptance({
@@ -180,6 +259,67 @@ describe('acceptance manifest', () => {
         plugCoverage: 0.90,
       }],
     })).not.toThrow()
+  })
+
+  it('requires connector metrics and exact-version resolved assets for v0.4', async () => {
+    const { assertCompositionAcceptance } = await import('./generate-acceptance-set.js')
+    const entry = makeValidRenderedAcceptanceEntry('0.4.0')
+
+    expect(() => assertCompositionAcceptance({
+      ...entry,
+      generationDiagnostics: [],
+    })).not.toThrow()
+    expect(() => assertCompositionAcceptance({
+      ...entry,
+      generationDiagnostics: [],
+      connectorMetrics: null,
+    })).toThrow('composition acceptance')
+    expect(() => assertCompositionAcceptance({
+      ...entry,
+      generationDiagnostics: [],
+      resolvedAssetPaths: ['assets/v0.3.0/structural/biped/nodes/body.webp'],
+    })).toThrow('composition acceptance')
+  })
+
+  it('accepts paired-null oral metrics only for a resolved explicit-none oral part', async () => {
+    const { assertCompositionAcceptance } = await import('./generate-acceptance-set.js')
+    const entry = makeValidRenderedAcceptanceEntry()
+    const catalog = structuredClone(entry.catalog)
+    const selectedOralPart = catalog.parts.find(part => (
+      part.slotId === 'oralDetail'
+      && part.id === entry.spec.visualSlots.oralDetail.partId
+    ))!
+    selectedOralPart.composition!.isNone = true
+
+    expect(() => assertCompositionAcceptance({
+      ...entry,
+      catalog,
+      generationDiagnostics: [],
+      compositionMetrics: {
+        ...entry.compositionMetrics,
+        oralDetailInsideRatio: null,
+        oralDetailVisibleRatio: null,
+      },
+    })).not.toThrow()
+  })
+
+  it.each([
+    ['inside null only', null, 1],
+    ['visible null only', 1, null],
+    ['paired null on a visible part', null, null],
+  ])('rejects %s for resolved oral-detail context', async (_label, oralDetailInsideRatio, oralDetailVisibleRatio) => {
+    const { assertCompositionAcceptance } = await import('./generate-acceptance-set.js')
+    const entry = makeValidRenderedAcceptanceEntry()
+
+    expect(() => assertCompositionAcceptance({
+      ...entry,
+      generationDiagnostics: [],
+      compositionMetrics: {
+        ...entry.compositionMetrics,
+        oralDetailInsideRatio,
+        oralDetailVisibleRatio,
+      },
+    })).toThrow('composition acceptance')
   })
 
   it('accepts the exact v0.3 master frame with y60 and unchanged bottom1952', async () => {

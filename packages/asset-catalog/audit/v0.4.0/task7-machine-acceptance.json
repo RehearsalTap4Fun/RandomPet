@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "qmonster-v0.4-machine-acceptance-v1",
+  "catalogVersion": "0.4.0",
+  "sourceBatch": "random-genome-20260901-a",
+  "mode": "normal",
+  "seedCount": 12,
+  "generationErrorCount": 0,
+  "maximumStrongFeatures": 2,
+  "maximumStrongFeaturesLimit": 2,
+  "maximumStrongNonFacialFeatures": 1,
+  "maximumStrongNonFacialFeaturesLimit": 1,
+  "entries": [
+    {
+      "index": 1,
+      "seed": "qmonster-batch-20260901-a-001",
+      "themeId": "deep-sea",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "d2d81ef91874974cfd9fa62c000c07c3c28d823c185b3e4bc90df330ebb5f5b3"
+    },
+    {
+      "index": 2,
+      "seed": "qmonster-batch-20260901-a-002",
+      "themeId": "fungal",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 1,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "0767902f5a78c7316c32139c43a232f162bfaed63536a441edacc0ca9af79c47"
+    },
+    {
+      "index": 3,
+      "seed": "qmonster-batch-20260901-a-003",
+      "themeId": "shadow",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "37b2d5a17028d6628ac2f2cc852a9b8718e3df7ee1267ce4f28445d5476f5716"
+    },
+    {
+      "index": 4,
+      "seed": "qmonster-batch-20260901-a-004",
+      "themeId": "deep-sea",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 1,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "d384decb028087069099edf9fd726cf53cb74b47330261b5a474c34c06738bda"
+    },
+    {
+      "index": 5,
+      "seed": "qmonster-batch-20260901-a-005",
+      "themeId": "fungal",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "feddb2413c6e8f16909eb8d1b71ca9ef8bfcef83fdb6253b83517d996aeb556a"
+    },
+    {
+      "index": 6,
+      "seed": "qmonster-batch-20260901-a-006",
+      "themeId": "shadow",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 0,
+      "specSha256": "87d2e72fb96d84818b63253f17006273d47e38e5ec33a26b428136fdcd51cd35"
+    },
+    {
+      "index": 7,
+      "seed": "qmonster-batch-20260901-a-007",
+      "themeId": "deep-sea",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "e8efeb08103d9ecbac4ee54d3a339c19aaff2b0e77eaa695a23098730de89042"
+    },
+    {
+      "index": 8,
+      "seed": "qmonster-batch-20260901-a-008",
+      "themeId": "fungal",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "e93020bc7c1b595a366dda389b5ffcc20b2a9e1bb32a8097dccd3761be46d02c"
+    },
+    {
+      "index": 9,
+      "seed": "qmonster-batch-20260901-a-009",
+      "themeId": "shadow",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 1,
+      "strongNonFacialFeatureCount": 0,
+      "specSha256": "89eed0e47b0f1fa37ef0f22b084a003b45111b5c12de2970d915a10ba90a8ef6"
+    },
+    {
+      "index": 10,
+      "seed": "qmonster-batch-20260901-a-010",
+      "themeId": "deep-sea",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "434fe035a7c83a9fb5da6c63e5935533d0a5d8ee1dde8d4175142a797fd79ede"
+    },
+    {
+      "index": 11,
+      "seed": "qmonster-batch-20260901-a-011",
+      "themeId": "fungal",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 0,
+      "specSha256": "75c6f037a7c5f2708828a3a06692cf7611372b167a747409e244e54f62aa87ca"
+    },
+    {
+      "index": 12,
+      "seed": "qmonster-batch-20260901-a-012",
+      "themeId": "shadow",
+      "deterministic": true,
+      "validationErrorCount": 0,
+      "strongFeatureCount": 2,
+      "strongNonFacialFeatureCount": 1,
+      "specSha256": "c2bb80186833df62388a2d9959e8364b7ea2d7e2ce6bfb41725c76c5071c3a78"
+    }
+  ]
+}
