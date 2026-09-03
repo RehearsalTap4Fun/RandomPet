@@ -81,12 +81,11 @@ export const MonsterSpecSchema = z.object({
   aberrations: z.array(ModifierApplicationSchema),
   archetypeId: AnimalArchetypeIdSchema.optional(),
 }).superRefine((spec, context) => {
-  if (
-    spec.schemaVersion === '0.2.0'
-    && spec.catalogVersion === '0.6.0'
-    && spec.rendererVersion === '0.6.0'
-    && spec.archetypeId !== 'feline'
-  ) {
+  if (spec.catalogVersion === '0.6.0' && (
+    spec.schemaVersion !== '0.2.0'
+    || spec.rendererVersion !== '0.6.0'
+    || spec.archetypeId !== 'feline'
+  )) {
     context.addIssue({
       code: 'custom',
       path: ['archetypeId'],

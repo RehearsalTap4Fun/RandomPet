@@ -301,6 +301,13 @@ export const CatalogSchema = z.object({
         message: 'Catalog 0.6.0 supports only the feline-sit archetype.',
       })
     }
+    if (catalog.rigs.length !== 1 || catalog.rigs[0]?.id !== 'feline-sit') {
+      context.addIssue({
+        code: 'custom',
+        path: ['rigs'],
+        message: 'Catalog 0.6.0 requires exactly one feline-sit rig.',
+      })
+    }
     for (const [index, part] of catalog.parts.entries()) {
       if (part.archetypeIds === undefined) {
         context.addIssue({

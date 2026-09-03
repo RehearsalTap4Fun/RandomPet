@@ -25,6 +25,9 @@ describe('MonsterSpecSchema', () => {
     v06.archetypeId = 'feline'
     expect(parseMonsterSpec(v06)).toEqual(expect.objectContaining({ ok: true }))
 
+    expect(parseMonsterSpec({ ...v06, schemaVersion: '0.1.0' }).ok).toBe(false)
+    expect(parseMonsterSpec({ ...v06, rendererVersion: '0.5.0' }).ok).toBe(false)
+
     const v05 = makeValidMonsterSpecFixture()
     v05.catalogVersion = '0.5.0'
     v05.rendererVersion = '0.5.0'
@@ -61,10 +64,17 @@ describe('MonsterSpecSchema', () => {
       integratedSlots: ['arms', 'legs', 'extraAppendage'],
       specialFeatureSlots: ['headAppendage', 'surfaceMaterial', 'tail'],
     }]
-    catalog.rigs.push({ id: 'feline-sit', sockets: {} })
+    catalog.rigs = []
     for (const part of catalog.parts) part.archetypeIds = ['feline']
 
+    expect(parseCatalog(catalog).ok).toBe(false)
+
+    catalog.rigs = [{ id: 'feline-sit', sockets: {} }]
+
     expect(parseCatalog(catalog)).toMatchObject({ ok: true })
+
+    catalog.rigs.push({ id: 'blob', sockets: {} })
+    expect(parseCatalog(catalog).ok).toBe(false)
   })
 
   it('limits v0.6 catalog archetypes to the feline sitting rig', () => {

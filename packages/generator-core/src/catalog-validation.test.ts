@@ -16,7 +16,7 @@ describe('catalog validation', () => {
       integratedSlots: ['arms', 'legs', 'extraAppendage'],
       specialFeatureSlots: ['headAppendage', 'surfaceMaterial', 'tail'],
     }]
-    catalog.rigs.push({ id: 'feline-sit' as any, sockets: {} })
+    catalog.rigs = [{ id: 'feline-sit' as any, sockets: {} }]
     for (const part of catalog.parts) (part as any).archetypeIds = ['feline']
 
     expect(parseCatalog(catalog)).toMatchObject({ ok: true })
