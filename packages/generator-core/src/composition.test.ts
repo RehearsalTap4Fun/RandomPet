@@ -78,11 +78,11 @@ describe('composition planning', () => {
     expect(rendererVersionForCatalog(makeInterfaceCatalogFixture())).toBe('0.3.0')
   })
 
-  it('rejects an unsupported catalog version instead of falling back to a renderer', () => {
+  it('routes catalog 0.5.0 to renderer 0.5.0 without falling back', () => {
     const catalog = makeLegacyCatalogFixture() as Catalog
     catalog.version = '0.5.0'
 
-    expect(() => rendererVersionForCatalog(catalog)).toThrow('Unsupported catalog version: 0.5.0')
+    expect(rendererVersionForCatalog(catalog)).toBe('0.5.0')
   })
 
   it('assigns at most floor(M * 0.3) stable surprise opportunities', () => {

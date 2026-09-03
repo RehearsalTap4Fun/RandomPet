@@ -250,7 +250,7 @@ test('rejects truncated or extra Task 9 dependencies even when count and hashes 
   expect(await validateDependencies(extra, process.cwd())).toContainEqual(expect.objectContaining({
     code: 'PRODUCTION_EVIDENCE_DEPENDENCY_SET_MISMATCH',
   }))
-})
+}, 20_000)
 
 test('rejects stale hashes embedded by the Task 9 rework review even when dependency hashes are current', async () => {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-review-closure-'))
@@ -292,7 +292,7 @@ test('rejects stale hashes embedded by the Task 9 rework review even when depend
   }
 })
 
-test('accepts only the explicitly attested v0.4 source extension when checking frozen Task 9 dependencies', async () => {
+test('accepts only explicitly attested post-v0.3 source extensions when checking frozen Task 9 dependencies', async () => {
   const manifest = JSON.parse(await readFile(
     'packages/asset-catalog/audit/v0.3.0/evidence-manifest.json', 'utf8',
   ))

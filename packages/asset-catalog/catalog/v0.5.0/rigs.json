@@ -1,0 +1,143 @@
+[
+  {
+    "id": "blob",
+    "sockets": {
+      "canvasCenter": {
+        "x": 1024,
+        "y": 1024
+      },
+      "head": {
+        "x": 1024,
+        "y": 700
+      },
+      "headAlternate": {
+        "x": 1320,
+        "y": 735
+      },
+      "armLeft": {
+        "x": 700,
+        "y": 1120
+      },
+      "armRight": {
+        "x": 1348,
+        "y": 1120
+      },
+      "legLeft": {
+        "x": 830,
+        "y": 1450
+      },
+      "legRight": {
+        "x": 1218,
+        "y": 1450
+      },
+      "tail": {
+        "x": 1510,
+        "y": 1260
+      },
+      "wingLeft": {
+        "x": 650,
+        "y": 930
+      },
+      "wingRight": {
+        "x": 1398,
+        "y": 930
+      }
+    },
+    "sourceId": "base_blob_v1",
+    "displayName": "团絮矮墩"
+  },
+  {
+    "id": "biped",
+    "sockets": {
+      "canvasCenter": {
+        "x": 1024,
+        "y": 1024
+      },
+      "head": {
+        "x": 1024,
+        "y": 620
+      },
+      "headAlternate": {
+        "x": 1300,
+        "y": 670
+      },
+      "armLeft": {
+        "x": 710,
+        "y": 1030
+      },
+      "armRight": {
+        "x": 1338,
+        "y": 1030
+      },
+      "legLeft": {
+        "x": 850,
+        "y": 1530
+      },
+      "legRight": {
+        "x": 1198,
+        "y": 1530
+      },
+      "tail": {
+        "x": 1460,
+        "y": 1240
+      },
+      "wingLeft": {
+        "x": 675,
+        "y": 900
+      },
+      "wingRight": {
+        "x": 1373,
+        "y": 900
+      }
+    },
+    "sourceId": "base_biped_v1",
+    "displayName": "圆身双足"
+  },
+  {
+    "id": "floating",
+    "sockets": {
+      "canvasCenter": {
+        "x": 1024,
+        "y": 1024
+      },
+      "head": {
+        "x": 1024,
+        "y": 690
+      },
+      "headAlternate": {
+        "x": 1300,
+        "y": 730
+      },
+      "armLeft": {
+        "x": 720,
+        "y": 1080
+      },
+      "armRight": {
+        "x": 1328,
+        "y": 1080
+      },
+      "legLeft": {
+        "x": 870,
+        "y": 1460
+      },
+      "legRight": {
+        "x": 1178,
+        "y": 1460
+      },
+      "tail": {
+        "x": 1480,
+        "y": 1240
+      },
+      "wingLeft": {
+        "x": 680,
+        "y": 920
+      },
+      "wingRight": {
+        "x": 1368,
+        "y": 920
+      }
+    },
+    "sourceId": "base_floating_v1",
+    "displayName": "悬浮软团"
+  }
+]

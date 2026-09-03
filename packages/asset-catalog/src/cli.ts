@@ -152,7 +152,15 @@ async function main(): Promise<void> {
       ...(await validateNoStaleRuntimeAssets(parsed.value, assetRoot, sourceIndex, task6Integrity)),
     )
     if (sourceRoot !== undefined) {
-      sourceRichResult = await validateProductionSourceFiles(sourceIndex, sourceRoot)
+      const inheritedSourceRoots = version === '0.5.0'
+        ? Object.fromEntries(['0.2.0', '0.3.0', '0.4.0'].map(inheritedVersion => [
+          `asset-source/v${inheritedVersion}/`,
+          resolve(sourceRoot, '..', `v${inheritedVersion}`),
+        ]))
+        : undefined
+      sourceRichResult = await validateProductionSourceFiles(sourceIndex, sourceRoot, {
+        ...(inheritedSourceRoots === undefined ? {} : { inheritedSourceRoots }),
+      })
       diagnostics.push(...sourceRichResult.diagnostics)
     }
   }

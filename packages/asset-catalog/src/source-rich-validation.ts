@@ -26,6 +26,15 @@ export interface SourceRichValidationResult {
   uniqueFilesChecked: number
 }
 
+export interface SourceRichValidationOptions {
+  /**
+   * A release may retain a finite, audited set of source files from an older
+   * catalog.  Each entry names the exact portable source prefix and the local
+   * directory that owns that prefix.  Claims outside this map remain invalid.
+   */
+  inheritedSourceRoots?: Readonly<Record<string, string>>
+}
+
 function error(code: string, path: string[], message: string): Diagnostic {
   return { severity: 'error', code, path, message }
 }
@@ -145,6 +154,7 @@ function collectProductionSourceClaims(sourceIndex: unknown): { claims: FileClai
 export async function validateProductionSourceFiles(
   sourceIndex: unknown,
   sourceRoot: string,
+  options: SourceRichValidationOptions = {},
 ): Promise<SourceRichValidationResult> {
   const { claims, diagnostics } = collectProductionSourceClaims(sourceIndex)
   const sourcePrefix = portableSourcePrefix(sourceIndex)
@@ -155,10 +165,23 @@ export async function validateProductionSourceFiles(
       uniqueFilesChecked: 0,
     }
   }
-  let canonicalRoot: string
-  try {
-    canonicalRoot = await realpath(resolve(sourceRoot))
-  } catch {
+  const configuredRoots = [
+    [sourcePrefix, sourceRoot] as const,
+    ...Object.entries(options.inheritedSourceRoots ?? {}),
+  ]
+  const canonicalRoots = new Map<string, string>()
+  for (const [prefix, root] of configuredRoots) {
+    if (!/^asset-source\/v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)\/$/u.test(prefix) || canonicalRoots.has(prefix)) {
+      diagnostics.push(error('PRODUCTION_SOURCE_ROOT_INVALID', ['sourceRoot', prefix], 'Source-rich roots need unique versioned asset-source prefixes.'))
+      continue
+    }
+    try {
+      canonicalRoots.set(prefix, await realpath(resolve(root)))
+    } catch {
+      diagnostics.push(error('PRODUCTION_SOURCE_ROOT_INVALID', ['sourceRoot', prefix], 'Source-rich root does not exist or cannot be resolved.'))
+    }
+  }
+  if (!canonicalRoots.has(sourcePrefix)) {
     return {
       diagnostics: [...diagnostics, error('PRODUCTION_SOURCE_ROOT_INVALID', ['sourceRoot'], 'Source-rich root does not exist or cannot be resolved.')],
       referencesChecked: claims.length,
@@ -166,21 +189,22 @@ export async function validateProductionSourceFiles(
     }
   }
 
-  const unique = new Map<string, FileClaim>()
+  const unique = new Map<string, FileClaim & { canonicalRoot: string, suffix: string }>()
   for (const claim of claims) {
     const portable = claim.path.replaceAll('\\', '/')
-    if (isAbsolute(claim.path) || !portable.startsWith(sourcePrefix)) {
-      diagnostics.push(error('PRODUCTION_SOURCE_FILE_PATH_INVALID', claim.diagnosticPath, `Source path must stay below ${sourcePrefix}.`))
+    const prefix = [...canonicalRoots.keys()].sort((left, right) => right.length - left.length).find(candidate => portable.startsWith(candidate))
+    if (isAbsolute(claim.path) || prefix === undefined) {
+      diagnostics.push(error('PRODUCTION_SOURCE_FILE_PATH_INVALID', claim.diagnosticPath, `Source path must stay below one configured source root (${[...canonicalRoots.keys()].join(', ')}).`))
       continue
     }
-    const suffix = portable.slice(sourcePrefix.length)
+    const suffix = portable.slice(prefix.length)
     try {
       assertPortableRepositoryLeaf(suffix)
     } catch {
       diagnostics.push(error('PRODUCTION_SOURCE_FILE_PATH_INVALID', claim.diagnosticPath, 'Source path escapes the injected source root.'))
       continue
     }
-    const previous = unique.get(suffix)
+    const previous = unique.get(portable)
     if (previous !== undefined && (
       previous.sha256 !== claim.sha256
       || previous.prompt !== claim.prompt
@@ -189,13 +213,13 @@ export async function validateProductionSourceFiles(
       diagnostics.push(error('PRODUCTION_SOURCE_FILE_CLAIM_CONFLICT', claim.diagnosticPath, 'The same source file has conflicting provenance claims.'))
       continue
     }
-    unique.set(suffix, claim)
+    unique.set(portable, { ...claim, canonicalRoot: canonicalRoots.get(prefix)!, suffix })
   }
 
-  for (const [suffix, claim] of unique) {
+  for (const claim of unique.values()) {
     let bytes: Buffer
     try {
-      bytes = (await readTrustedRepositoryFile(canonicalRoot, suffix)).bytes
+      bytes = (await readTrustedRepositoryFile(claim.canonicalRoot, claim.suffix)).bytes
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : ''
       const invalidFile = message.includes('symbolic link') || message.includes('single-link') || message.includes('regular file')

@@ -130,7 +130,7 @@ function validateModifier(
     const bodySelection = spec.visualSlots.bodyFrame
     const bodyPart = selectedParts.get('bodyFrame')
     const bodyComposition = bodyPart?.composition
-    const interfaceRig = catalog.version === '0.4.0' && bodyComposition?.mode === 'interface'
+    const interfaceRig = (catalog.version === '0.4.0' || catalog.version === '0.5.0') && bodyComposition?.mode === 'interface'
       ? catalog.rigs.find(rig => rig.id === bodySelection.rigId)
       : undefined
     const interfaceSocketAvailable = interfaceRig !== undefined

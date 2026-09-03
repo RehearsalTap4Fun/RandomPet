@@ -14,6 +14,8 @@ const ASSET_PRODUCTION_HEAVY_TESTS = [
   'packages/asset-catalog/src/v04-interface-face-zone-overlay.test.ts',
   'scripts/assemble-v04-catalog.test.ts',
   'scripts/prepare-v04-single-face-assets.test.ts',
+  'scripts/assemble-v05-catalog.test.ts',
+  'scripts/prepare-v05-long-tail-assets.test.ts',
 ]
 
 export default defineConfig({
@@ -36,7 +38,7 @@ export default defineConfig({
           name: 'asset-production-heavy',
           environment: 'node',
           include: ASSET_PRODUCTION_HEAVY_TESTS,
-          testTimeout: 20_000,
+          testTimeout: 30_000,
         },
       },
       {

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "qmonster-v05-long-tail-prompts-v1",
+  "constraints": [
+    "one connected long tubular tail component only",
+    "genuine transparency is recovered deterministically when the generator encodes a neutral checkerboard matte",
+    "no body, head, limbs, face, fins, fans, forks, fish-tail form, mushroom cluster, detached ornament, shadow, text, or background"
+  ],
+  "prompts": {
+    "tail_cat_long": "Slim plush cat-like long tail with one gentle natural curve and a rounded tip.",
+    "tail_dog_long": "Slightly thicker plush dog-like long tail with a natural relaxed curve and a rounded tip."
+  }
+}

@@ -156,6 +156,12 @@ describe('Task 8 clean-checkout review integrity', () => {
         ))
         expect(() => task8RendererProjectionSha256(path, v04OnlyMutation))
           .toThrow(`TASK8_RENDERER_PROJECTION_SOURCE_DRIFT:${path}`)
+        const v05RouteMutation = Buffer.from(bytes.toString('utf8').replace(
+          "    || (catalog.version === '0.5.0' && spec.rendererVersion === '0.5.0')",
+          '',
+        ))
+        expect(() => task8RendererProjectionSha256(path, v05RouteMutation))
+          .toThrow(`TASK8_RENDERER_PROJECTION_SOURCE_DRIFT:${path}`)
       }
       if (path === 'packages/renderer-canvas/src/connector-metrics.ts') {
         const task10OnlyMutation = Buffer.from(bytes.toString('utf8').replace(

@@ -32,7 +32,7 @@ export interface InterfaceBridgeSource {
   frontMaskPath: string, backMaskPath: string, promptEvidence: InterfacePromptEvidence,
 }
 export interface InterfaceSourceManifest {
-  schemaVersion: 'interface-source-v1' | 'interface-source-v2', catalogVersion: '0.3.0',
+  schemaVersion: 'interface-source-v1' | 'interface-source-v2', catalogVersion: '0.3.0' | '0.5.0',
   rigId?: 'biped', rigIds?: InterfaceRigId[], canvasSize: 2048,
   assets: Array<InterfaceAssetSource | InterfaceAssetGroupSource>, bridges: InterfaceBridgeSource[],
 }
@@ -67,10 +67,13 @@ export function structuralVariants(manifest: InterfaceSourceManifest): Flattened
 }
 export function interfaceVariantKey(partId: string, rigId: InterfaceRigId): string { return `${partId}:${rigId}` }
 
-export function task9VariantSourceMaskPaths(variant: Pick<FlattenedInterfaceVariant, 'partId' | 'slotId' | 'rigId' | 'connectors'>): string[] {
+export function task9VariantSourceMaskPaths(
+  variant: Pick<FlattenedInterfaceVariant, 'partId' | 'slotId' | 'rigId' | 'connectors'>,
+  catalogVersion: InterfaceSourceManifest['catalogVersion'] = '0.3.0',
+): string[] {
   if (variant.slotId !== 'tail' && variant.slotId !== 'extraAppendage') return []
   return variant.connectors.flatMap(profile => ['contour', 'foreground', 'background'].map(kind => (
-    `asset-source/v0.3.0/masks/${variant.rigId}/${variant.partId}/${profile.id}-${kind}.png`
+    `asset-source/v${catalogVersion}/masks/${variant.rigId}/${variant.partId}/${profile.id}-${kind}.png`
   )))
 }
 
@@ -86,11 +89,11 @@ export function canonicalBipedGuideFiles(manifest: InterfaceSourceManifest): str
 }
 
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/u)
-const runtimePngPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
-const runtimeWebpPath = z.string().regex(/^assets\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.webp$/u)
-const sourcePngPath = z.string().regex(/^asset-source\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
-const promptPath = z.string().regex(/^asset-source\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.json$/u)
-const reviewRecordPath = z.string().regex(/^packages\/asset-catalog\/review\/v0\.3\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.json$/u)
+const runtimePngPath = z.string().regex(/^assets\/v0\.(?:3|5)\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
+const runtimeWebpPath = z.string().regex(/^assets\/v0\.(?:3|5)\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.webp$/u)
+const sourcePngPath = z.string().regex(/^asset-source\/v0\.(?:3|5)\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.png$/u)
+const promptPath = z.string().regex(/^asset-source\/v0\.(?:3|5)\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.json$/u)
+const reviewRecordPath = z.string().regex(/^packages\/asset-catalog\/review\/v0\.(?:3|5)\.0\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.json$/u)
 const rigId = z.enum(['blob', 'biped', 'floating'])
 const slotId = z.enum(STRUCTURAL_SLOT_IDS)
 const point = z.object({ x: z.number().finite().min(0).max(2048), y: z.number().finite().min(0).max(2048) }).strict()
@@ -127,7 +130,7 @@ const bridge = z.object({
 }).strict()
 
 const InterfaceSourceManifestSchema = z.object({
-  schemaVersion: z.enum(['interface-source-v1', 'interface-source-v2']), catalogVersion: z.literal('0.3.0'),
+  schemaVersion: z.enum(['interface-source-v1', 'interface-source-v2']), catalogVersion: z.enum(['0.3.0', '0.5.0']),
   rigId: z.literal('biped').optional(), rigIds: z.array(rigId).optional(), canvasSize: z.literal(2048),
   assets: z.array(z.union([flatAsset, groupedAsset])), bridges: z.array(bridge),
 }).strict().superRefine((value, context) => {
@@ -191,7 +194,7 @@ export function validateInterfaceSourceIndex(manifest: InterfaceSourceManifest, 
   const indexed = new Map<string, Record<string, any>>(); const duplicates = new Set<string>()
   for (const source of sources) { if (source === null || typeof source !== 'object' || typeof source.sourceId !== 'string') continue; if (indexed.has(source.sourceId)) duplicates.add(source.sourceId); else indexed.set(source.sourceId, source) }
   const expected = [
-    ...structuralVariants(manifest).map(item => ({ sourceId: manifest.schemaVersion === 'interface-source-v2' ? interfaceVariantKey(item.partId, item.rigId) : item.partId, kind: 'interface-structural', evidence: item.promptEvidence, paths: [...new Set([item.sourcePngPath, ...item.renderNodes.map(node => node.sourcePngPath), ...task9VariantSourceMaskPaths(item)])] })),
+    ...structuralVariants(manifest).map(item => ({ sourceId: manifest.schemaVersion === 'interface-source-v2' ? interfaceVariantKey(item.partId, item.rigId) : item.partId, kind: 'interface-structural', evidence: item.promptEvidence, paths: [...new Set([item.sourcePngPath, ...item.renderNodes.map(node => node.sourcePngPath), ...task9VariantSourceMaskPaths(item, manifest.catalogVersion)])] })),
     ...manifest.bridges.map(item => ({ sourceId: item.id, kind: 'interface-bridge', evidence: item.promptEvidence, paths: [item.sourcePngPath] })),
   ]
   const expectedIds = new Set(expected.map(item => item.sourceId)); const invalid: string[] = index.catalogVersion === manifest.catalogVersion ? [] : ['catalogVersion']

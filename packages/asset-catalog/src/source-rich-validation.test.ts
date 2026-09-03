@@ -64,6 +64,66 @@ test('rehashes every source-rich claim under an injected safe root', async () =>
   })
 })
 
+test('rehashes claims from an explicitly configured inherited source version', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-source-rich-inherited-'))
+  temporaryDirectories.push(root)
+  const currentRoot = join(root, 'v0.5.0')
+  const inheritedRoot = join(root, 'v0.3.0')
+  await mkdir(join(currentRoot, 'prompts'), { recursive: true })
+  await mkdir(join(inheritedRoot, 'masks'), { recursive: true })
+  await writeFile(join(currentRoot, 'prompts', 'current.txt'), 'current prompt\n')
+  await writeFile(join(inheritedRoot, 'masks', 'retained.png'), 'retained bytes')
+  const sourceIndex = {
+    catalogVersion: '0.5.0',
+    sources: [{
+      sourceId: 'current',
+      promptPath: 'asset-source/v0.5.0/prompts/current.txt',
+      prompt: 'current prompt',
+      promptSha256: sha256('current prompt'),
+    }, {
+      sourceId: 'inherited',
+      sourceResources: [{
+        path: 'asset-source/v0.3.0/masks/retained.png',
+        sha256: sha256('retained bytes'),
+      }],
+    }],
+  }
+
+  await expect(validateProductionSourceFiles(sourceIndex, currentRoot, {
+    inheritedSourceRoots: { 'asset-source/v0.3.0/': inheritedRoot },
+  })).resolves.toEqual({
+    diagnostics: [],
+    referencesChecked: 2,
+    uniqueFilesChecked: 2,
+  })
+})
+
+test('rejects a cross-version claim that has not been explicitly configured', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-source-rich-unapproved-inherited-'))
+  temporaryDirectories.push(root)
+  const currentRoot = join(root, 'v0.5.0')
+  const inheritedRoot = join(root, 'v0.3.0')
+  await mkdir(join(currentRoot, 'prompts'), { recursive: true })
+  await mkdir(inheritedRoot, { recursive: true })
+  await writeFile(join(currentRoot, 'prompts', 'current.txt'), 'current prompt\n')
+  const sourceIndex = {
+    catalogVersion: '0.5.0',
+    sources: [{
+      sourceId: 'unapproved',
+      promptPath: 'asset-source/v0.2.0/prompts/current.txt',
+      prompt: 'current prompt',
+      promptSha256: sha256('current prompt'),
+    }],
+  }
+
+  const result = await validateProductionSourceFiles(sourceIndex, currentRoot, {
+    inheritedSourceRoots: { 'asset-source/v0.3.0/': inheritedRoot },
+  })
+  expect(result.diagnostics).toContainEqual(expect.objectContaining({
+    code: 'PRODUCTION_SOURCE_FILE_PATH_INVALID',
+  }))
+})
+
 test('rejects a missing, drifted, or escaping source-rich claim', async () => {
   const { root, sourceIndex } = await fixture()
   const source = (sourceIndex.sources as Array<Record<string, any>>)[0]!

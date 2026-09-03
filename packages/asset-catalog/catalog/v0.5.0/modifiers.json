@@ -1,0 +1,84 @@
+[
+  {
+    "id": "mutation_albino",
+    "kind": "mutation",
+    "baseWeight": 1,
+    "requiresMutation": false,
+    "overrides": {
+      "palette": {
+        "primary": "#f4f0ea",
+        "secondary": "#dce9ef",
+        "accent": "#f4c7b8"
+      }
+    },
+    "displayName": "月白变异",
+    "flavorText": "色素退成月光般的奶白，暖色仍藏在耳尖与软边里。",
+    "rarity": "R",
+    "themeBoosts": {
+      "shadow": 1.2
+    },
+    "excludes": [
+      "aberration_color_discord"
+    ],
+    "boosts": {},
+    "visualMapping": {
+      "type": "paletteOverride",
+      "targetSlot": null,
+      "assetIds": []
+    }
+  },
+  {
+    "id": "aberration_color_discord",
+    "kind": "aberration",
+    "baseWeight": 1,
+    "requiresMutation": false,
+    "overrides": {
+      "palette": {
+        "primary": "#ff5d8f",
+        "secondary": "#4cc9f0",
+        "accent": "#ffd166"
+      }
+    },
+    "displayName": "错彩乐章",
+    "flavorText": "本不该相遇的颜色挤到一起，却意外唱得很响亮。",
+    "rarity": "R",
+    "themeBoosts": {
+      "deep-sea": 1.05,
+      "fungal": 1.05,
+      "shadow": 1.05
+    },
+    "excludes": [
+      "mutation_albino"
+    ],
+    "boosts": {},
+    "visualMapping": {
+      "type": "paletteOverride",
+      "targetSlot": "colorScheme",
+      "assetIds": []
+    }
+  },
+  {
+    "id": "aberration_misplaced_eye",
+    "kind": "aberration",
+    "baseWeight": 1,
+    "requiresMutation": false,
+    "overrides": {
+      "relocateSlot": "eyes",
+      "socket": "headAlternate"
+    },
+    "displayName": "迷路之眼",
+    "flavorText": "有一组眼睛走错了位置，仍然认真地看着同一个方向。",
+    "rarity": "R",
+    "themeBoosts": {
+      "shadow": 1.25
+    },
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {
+      "type": "relocateSlot",
+      "targetSlot": "eyes",
+      "socket": "headAlternate",
+      "assetIds": []
+    }
+  }
+]

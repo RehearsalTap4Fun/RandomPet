@@ -32,7 +32,7 @@ export const TASK8_APPROVED_RENDERER_BINDINGS = {
 // invalidate the historical projection rather than being silently replaced.
 const TASK8_APPROVED_CURRENT_RENDERER_SOURCE_SHA256: Readonly<Record<string, string>> = {
   'apps/creator-web/src/render-test.ts': '55abdd88428982ebdcc78d1b2c1c06dc28fc5e5f4882ed6a1568448770eed35b',
-  'packages/renderer-canvas/src/render.ts': '5eb7cfbe1a8ea5823e05a9fce75e17ead08b530e202d1db2d5635c14f3ba060d',
+  'packages/renderer-canvas/src/render.ts': 'ac2c6d919c2005dc9f709448fa478bf9a59db26dcdd0fef42c835b36270921bf',
   'packages/renderer-canvas/src/connector-metrics.ts': '7b908d0a4855807543a3ec50b0c4214aaee98008dce22cf6bb8f2c513ac83901',
   'scripts/render-limb-contact-sheets.ts': 'f41fdb4204c03f20b296ed79a2a27b361e2678a285d88f70a615cff0f60eefae',
 }
@@ -181,7 +181,10 @@ const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
     'renderer-v04-interface-oral-surface-clear': '',
     'renderer-v04-interface-oral-start': '',
     'renderer-v04-interface-face-metrics': "    compositionMetrics = {\n      eyesInsideRatio: eyes.insideRatio, eyesVisibleRatio: eyes.visibleRatio,\n      mouthInsideRatio: mouth.insideRatio, mouthVisibleRatio: mouth.visibleRatio,\n      visibleBounds: scaleMetricBounds(measureVisibleBounds(\n        imageData(surfaces.outputAlpha, METRIC_SIZE), METRIC_SIZE, METRIC_SIZE,\n      )),\n    }\n    const policy = catalog.compositionPolicy!\n    for (const [slotId, metric] of [['eyes', eyes], ['mouthShape', mouth]] as const) {\n      if (metric.insideRatio < policy.faceInsideRatio) {\n        diagnostics.push(metricDiagnostic(\n          'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, policy.faceInsideRatio,\n        ))\n      }\n      if (metric.visibleRatio < policy.faceVisibleRatio) {\n        diagnostics.push(metricDiagnostic(\n          'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, policy.faceVisibleRatio,\n        ))\n      }\n    }\n",
-    'renderer-v04-interface-pair-helper': '',
+    'renderer-versioned-interface-pair-helper': '',
+    'renderer-v04-body-appearance-partition': '',
+    'renderer-v04-body-appearance-draw-helper': "    const drawNodes = (items: readonly ResolvedRenderNode[]) => {\n      for (const node of items) {\n        const source = sources.get(node.key)\n        if (source === undefined) continue\n        drawCompositionNodeToSurface(\n          surfaces.nodeLayer, node, source, surfaces.structureAlpha, tree.faceSafeZones,\n        )\n        finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)\n        drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)\n        drawnAssetIds.push(node.key)\n      }\n    }\n",
+    'renderer-v04-body-appearance-render-order': '    drawNodes(bodyAndHead)\n',
     'renderer-v04-invalid-interface-pair': "      connectorMetrics: spec.rendererVersion === '0.3.0' ? [] : null,\n",
     'renderer-v04-interface-route': "  if (catalog.version === '0.3.0' && spec.rendererVersion === '0.3.0') {\n",
     'renderer-structural-slot-helper-import': '',

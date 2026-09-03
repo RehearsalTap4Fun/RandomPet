@@ -16,6 +16,20 @@ describe('catalog validation', () => {
     expect(parseCatalog(catalog).ok).toBe(true)
   })
 
+  it('accepts v0.5 interface composition metadata with the inherited non-facial budget', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    catalog.version = '0.5.0'
+    catalog.compositionPolicy = {
+      ...catalog.compositionPolicy!,
+      maxStrongNonFacialFeatures: 1,
+    }
+
+    expect(parseCatalog(catalog)).toMatchObject({ ok: true })
+    expect(validateCatalogStructure(catalog)).not.toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_INTERFACE_MODE_REQUIRED',
+    }))
+  })
+
   it('accepts canonical v0.4 connector and bridge resource paths', () => {
     const catalog = JSON.parse(
       JSON.stringify(makeInterfaceCatalogFixture()).replaceAll('assets/v0.3.0/', 'assets/v0.4.0/'),

@@ -17,6 +17,8 @@ const ASSET_PRODUCTION_HEAVY_TESTS = [
   'packages/asset-catalog/src/v04-interface-face-zone-overlay.test.ts',
   'scripts/assemble-v04-catalog.test.ts',
   'scripts/prepare-v04-single-face-assets.test.ts',
+  'scripts/assemble-v05-catalog.test.ts',
+  'scripts/prepare-v05-long-tail-assets.test.ts',
 ]
 
 it('routes root verification through all three production catalog validators', async () => {
@@ -25,6 +27,8 @@ it('routes root verification through all three production catalog validators', a
   expect(command).toContain('validate:v0.1.0')
   expect(command).toContain('validate:v0.2.0')
   expect(command).toContain('validate:v0.3.0')
+  expect(command).toContain('validate:v0.4.0')
+  expect(command).toContain('validate:v0.5.0')
   expect(root.scripts.verify).toContain('npm run catalog:validate')
 })
 
@@ -103,7 +107,7 @@ it('keeps live reconstruction suites in full verification while coverage targets
     .filter(path => /\.test\.tsx?$/.test(path))
     .map(path => path.replaceAll('\\', '/'))
   discovered.push('tests/render/production-composition.spec.ts')
-  expect(discovered).toHaveLength(98)
+  expect(discovered).toHaveLength(101)
 
   const configured = [
     ...discovered.filter(path => /^(packages|scripts)\//.test(path) && !COVERAGE_ONLY_EXCLUDES.includes(path)),

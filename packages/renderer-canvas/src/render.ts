@@ -1553,6 +1553,7 @@ async function renderInterfaceMonster(
       - (right.slotId === 'headShape' ? 2 : right.slotId === 'bodyFrame' ? 1 : 0)
       || left.sequence - right.sequence
   ))
+  // TASK8_STABLE_BEGIN:renderer-v04-body-appearance-partition
   const body = bodyAndHead.filter(node => node.slotId === 'bodyFrame')
   const unlayeredHeads = bodyAndHead.filter(node => node.slotId === 'headShape')
   const limbsBehindBody = bodyAndHead.filter(node => (
@@ -1567,6 +1568,7 @@ async function renderInterfaceMonster(
     compositionLayerRank.get(left.node.layer)! - compositionLayerRank.get(right.node.layer)!
       || left.sequence - right.sequence
   ))
+  // TASK8_STABLE_END:renderer-v04-body-appearance-partition
   // TASK8_STABLE_BEGIN:renderer-nonstructural-final-filter
   const nonStructural = nodes.filter(node => (
     !isStructuralSlot(node.slotId) && !isBodyAppearanceNode(node)
@@ -1613,6 +1615,7 @@ async function renderInterfaceMonster(
       }
     }
     // TASK8_STABLE_END:renderer-bridge-draw-setup
+    // TASK8_STABLE_BEGIN:renderer-v04-body-appearance-draw-helper
     const drawNodes = (
       items: readonly ResolvedRenderNode[],
       clipAlpha = surfaces.structureAlpha,
@@ -1628,6 +1631,7 @@ async function renderInterfaceMonster(
         drawnAssetIds.push(node.key)
       }
     }
+    // TASK8_STABLE_END:renderer-v04-body-appearance-draw-helper
     // TASK8_STABLE_BEGIN:renderer-bridge-back-call
     drawBridges('back')
     // TASK8_STABLE_END:renderer-bridge-back-call
@@ -1647,10 +1651,12 @@ async function renderInterfaceMonster(
       })
       finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)
     }
+    // TASK8_STABLE_BEGIN:renderer-v04-body-appearance-render-order
     drawNodes(limbsBehindBody)
     drawNodes(body)
     drawNodes(bodyAppearance, surfaces.bodyAlpha)
     drawNodes(unlayeredHeads)
+    // TASK8_STABLE_END:renderer-v04-body-appearance-render-order
     for (const node of layeredHeads) {
       const source = sources.get(node.key)
       const masks = headOcclusionMasks.get(node.key)
@@ -1836,12 +1842,13 @@ async function renderInterfaceMonster(
   // TASK8_STABLE_END:renderer-diagnostic-return
 }
 
-// TASK8_STABLE_BEGIN:renderer-v04-interface-pair-helper
+// TASK8_STABLE_BEGIN:renderer-versioned-interface-pair-helper
 function isInterfaceRenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
   return (catalog.version === '0.3.0' && spec.rendererVersion === '0.3.0')
     || (catalog.version === '0.4.0' && spec.rendererVersion === '0.4.0')
+    || (catalog.version === '0.5.0' && spec.rendererVersion === '0.5.0')
 }
-// TASK8_STABLE_END:renderer-v04-interface-pair-helper
+// TASK8_STABLE_END:renderer-versioned-interface-pair-helper
 
 export async function renderMonster(
   context: CanvasRenderingContext2D,

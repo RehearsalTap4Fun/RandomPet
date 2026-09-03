@@ -8,7 +8,8 @@ import {
   makeValidMonsterSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
 import v03ProductionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
-import productionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
+import v04ProductionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
+import productionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.5.0/catalog.json'
 import { downloadSpec, parseSpecFile } from './spec-file.js'
 
 const ONE_MIB = 1024 * 1024
@@ -323,16 +324,22 @@ describe('parseSpecFile', () => {
     })
   })
 
-  it('uses 0.4.0 as current while loading a valid v0.3 spec from its exact catalog', async () => {
+  it('uses 0.5.0 as current while loading valid v0.3 and v0.4 specs from their exact catalogs', async () => {
     const oldSpec = generateMonster({
       seed: 'exact-v03-import', themeId: 'fungal', mode: 'normal',
     }, v03ProductionCatalog).spec
     const currentSpec = generateMonster({
-      seed: 'exact-v04-import', themeId: 'fungal', mode: 'normal',
+      seed: 'exact-v05-import', themeId: 'fungal', mode: 'normal',
     }, productionCatalog).spec
-    const exactRegistry = createRegistry(v03ProductionCatalog, productionCatalog)
+    const v04Catalog = parseCatalog(v04ProductionCatalogDocument)
+    if (!v04Catalog.ok) throw new Error(JSON.stringify(v04Catalog.diagnostics))
+    const v04Spec = generateMonster({
+      seed: 'exact-v04-import', themeId: 'fungal', mode: 'normal',
+    }, v04Catalog.value).spec
+    const exactRegistry = createRegistry(v03ProductionCatalog, v04Catalog.value, productionCatalog)
 
     const oldResult = await parseSpecFile(createSpecFile(oldSpec), exactRegistry)
+    const v04Result = await parseSpecFile(createSpecFile(v04Spec), exactRegistry)
     const currentResult = await parseSpecFile(createSpecFile(currentSpec), exactRegistry)
 
     expect(oldResult).toEqual({
@@ -344,6 +351,11 @@ describe('parseSpecFile', () => {
       ok: true,
       value: { spec: currentSpec, catalog: productionCatalog },
       diagnostics: [],
+    })
+    expect(v04Result).toEqual({
+      ok: true,
+      value: { spec: v04Spec, catalog: v04Catalog.value },
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_OLD' })],
     })
   })
 })

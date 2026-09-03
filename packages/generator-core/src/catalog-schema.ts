@@ -256,7 +256,7 @@ export const CatalogSchema = z.object({
   compositionPolicy: CompositionPolicySchema.optional(),
   transitionBridges: z.array(TransitionBridgeDefinitionSchema).optional(),
 }).superRefine((catalog, context) => {
-  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0'
+  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0'
   if (catalog.version === '0.2.0') {
     if (catalog.compositionPolicy === undefined) {
       context.addIssue({
@@ -288,11 +288,11 @@ export const CatalogSchema = z.object({
       message: 'Catalog 0.1.0 does not support composition policy metadata.',
     })
   }
-  if (catalog.version === '0.4.0' && catalog.compositionPolicy?.maxStrongNonFacialFeatures === undefined) {
+  if ((catalog.version === '0.4.0' || catalog.version === '0.5.0') && catalog.compositionPolicy?.maxStrongNonFacialFeatures === undefined) {
     context.addIssue({
       code: 'custom',
       path: ['compositionPolicy', 'maxStrongNonFacialFeatures'],
-      message: 'Catalog 0.4.0 requires a maximum of one strong non-facial feature.',
+      message: 'Catalog 0.4.0 and 0.5.0 require a maximum of one strong non-facial feature.',
     })
   }
   if (!isInterfaceCatalog) return

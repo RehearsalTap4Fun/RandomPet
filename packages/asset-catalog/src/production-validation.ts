@@ -47,7 +47,7 @@ function sameJson(left: unknown, right: unknown): boolean {
 }
 
 function isInterfaceProductionVersion(version: string): boolean {
-  return version === '0.3.0' || version === '0.4.0'
+  return version === '0.3.0' || version === '0.4.0' || version === '0.5.0'
 }
 
 export function validateProductionHeadFaceSocketContract(
@@ -245,8 +245,21 @@ export function validateProductionMetadata(catalog: Catalog): Diagnostic[] {
     const assetIds = modifier.visualMapping?.assetIds
     if (Array.isArray(assetIds)) for (const id of assetIds) if (typeof id !== 'string' || !partIds.has(id)) diagnostics.push(error('PRODUCTION_DANGLING_VISUAL_MAPPING', ['modifiers', String(index), 'visualMapping', 'assetIds'], `Unknown mapped part ${String(id)}.`))
   }
-  if (catalog.modifiers.length !== 4 || mutationCount !== 2 || aberrationCount !== 2) {
-    diagnostics.push(error('PRODUCTION_MODIFIER_COUNT_INVALID', ['modifiers'], 'Production requires exactly 2 mutations and 2 aberrations.'))
+  const expectedModifierCounts = catalog.version === '0.5.0'
+    ? { total: 3, mutations: 1, aberrations: 2 }
+    : { total: 4, mutations: 2, aberrations: 2 }
+  if (
+    catalog.modifiers.length !== expectedModifierCounts.total
+    || mutationCount !== expectedModifierCounts.mutations
+    || aberrationCount !== expectedModifierCounts.aberrations
+  ) {
+    diagnostics.push(error(
+      'PRODUCTION_MODIFIER_COUNT_INVALID',
+      ['modifiers'],
+      catalog.version === '0.5.0'
+        ? 'Production v0.5 requires exactly 1 mutation and 2 aberrations.'
+        : 'Production requires exactly 2 mutations and 2 aberrations.',
+    ))
   }
   return diagnostics
 }
@@ -486,6 +499,7 @@ const CANONICAL_INTERFACE_REVIEW_PATHS = new Set([
   'packages/asset-catalog/review/v0.3.0/body-head-review-record.json',
   'packages/asset-catalog/review/v0.3.0/limb-review-record.json',
   'packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json',
+  'packages/asset-catalog/review/v0.5.0/long-tail-review-record.json',
 ])
 
 function interfaceSourceEnvelope(
@@ -510,7 +524,7 @@ function interfaceSourceEnvelope(
   if (
     !CANONICAL_INTERFACE_REVIEW_PATHS.has(source.reviewRecordPath ?? '')
     || !isSha256(source.reviewRecordSha256)
-  ) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_MISSING', path.concat('reviewRecordPath'), 'Interface source needs an approved canonical hashed v0.3 review record.'))
+  ) diagnostics.push(error('PRODUCTION_INTERFACE_REVIEW_MISSING', path.concat('reviewRecordPath'), 'Interface source needs an approved canonical hashed interface review record.'))
 }
 
 function checkInterfaceRuntimeResources(

@@ -58,7 +58,7 @@ export function CompositionStatus({ spec, catalog, diagnostics }: CompositionSta
       </li>
       <li>惊喜位 {usedSurprise}/{allowedSurprise}</li>
       <li>{faceReady ? '面部清晰' : '面部需调整'}</li>
-      {(spec.rendererVersion === '0.3.0' || spec.rendererVersion === '0.4.0') && (
+      {(spec.rendererVersion === '0.3.0' || spec.rendererVersion === '0.4.0' || spec.rendererVersion === '0.5.0') && (
         <li>{structureReady ? '结构连续' : '结构需调整'}</li>
       )}
     </ul>

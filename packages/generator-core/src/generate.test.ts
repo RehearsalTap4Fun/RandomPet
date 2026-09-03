@@ -27,6 +27,7 @@ import {
   makeValidCatalogFixtureWithThreeRigs,
 } from './test-fixtures.js'
 import productionCatalogDocument from '../../asset-catalog/catalog/v0.3.0/catalog.json'
+import v05ProductionCatalogDocument from '../../asset-catalog/catalog/v0.5.0/catalog.json'
 
 const baseRequest = {
   seed: '84721937',
@@ -117,6 +118,29 @@ describe('generateMonster', () => {
       colorScheme: { partId: 'color_fungal_amber', rigId: 'biped' },
       effect: { partId: 'effect_none', rigId: 'biped' },
     })
+  })
+
+  it('generates only the single-head long-tail v0.5 pool across deterministic modes and seeds', () => {
+    const parsedCatalog = parseCatalog(v05ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    expect(parsedCatalog.value.parts.filter(part => part.slotId === 'tail').map(part => part.id).sort()).toEqual([
+      'tail_cat_long', 'tail_dog_long', 'tail_none',
+    ])
+    expect(parsedCatalog.value.modifiers.map(modifier => modifier.id)).not.toContain('mutation_double_head')
+    for (const mode of ['normal', 'mutation', 'aberration'] as const) for (let index = 0; index < 40; index += 1) {
+      const generated = generateMonster({
+        seed: `v05-single-head-long-tail-${mode}-${index}`,
+        themeId: ['deep-sea', 'fungal', 'shadow'][index % 3]!,
+        mode,
+      }, parsedCatalog.value)
+
+      expect(generated.diagnostics.filter(item => item.severity === 'error')).toEqual([])
+      expect(['tail_none', 'tail_cat_long', 'tail_dog_long']).toContain(generated.spec.visualSlots.tail.partId)
+      expect(generated.spec.mutation?.id).not.toBe('mutation_double_head')
+      expect(Object.keys(generated.spec.visualSlots).filter(slotId => slotId === 'headShape')).toHaveLength(1)
+    }
   })
 
   it('generates a deterministic complete genome whose P matches the phenotype', () => {

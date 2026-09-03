@@ -12,6 +12,7 @@ const v03ReviewPath = fileURLToPath(new URL('./golden/first-hatch-v0.3.review.pn
 const catalogPath = fileURLToPath(new URL('../../packages/asset-catalog/catalog/v0.2.0/catalog.json', import.meta.url))
 const v03CatalogPath = fileURLToPath(new URL('../../packages/asset-catalog/catalog/v0.3.0/catalog.json', import.meta.url))
 const v04CatalogPath = fileURLToPath(new URL('../../packages/asset-catalog/catalog/v0.4.0/catalog.json', import.meta.url))
+const v05CatalogPath = fileURLToPath(new URL('../../packages/asset-catalog/catalog/v0.5.0/catalog.json', import.meta.url))
 const parsedCatalog = parseCatalog(JSON.parse(readFileSync(catalogPath, 'utf8')))
 if (!parsedCatalog.ok) throw new Error('Production v0.2.0 catalog is invalid.')
 const firstHatch = generateMonster({
@@ -41,6 +42,16 @@ const firstHatchV04 = generateMonster({
 }, parsedV04Catalog.value)
 if (firstHatchV04.blocked || firstHatchV04.diagnostics.length > 0) {
   throw new Error(`First-hatch v0.4 generation failed: ${JSON.stringify(firstHatchV04.diagnostics)}`)
+}
+const parsedV05Catalog = parseCatalog(JSON.parse(readFileSync(v05CatalogPath, 'utf8')))
+if (!parsedV05Catalog.ok) throw new Error('Production v0.5.0 catalog is invalid.')
+const firstHatchV05 = generateMonster({
+  seed: 'qmonster-v0.1-first-hatch',
+  themeId: 'fungal',
+  mode: 'normal',
+}, parsedV05Catalog.value)
+if (firstHatchV05.blocked || firstHatchV05.diagnostics.length > 0) {
+  throw new Error(`First-hatch v0.5 generation failed: ${JSON.stringify(firstHatchV05.diagnostics)}`)
 }
 
 async function fileExists(filePath: string): Promise<boolean> {
@@ -153,10 +164,19 @@ test('matches the reviewed v0.3 first-hatch decoded RGBA golden with connector e
   expect(actualHash).toBe(expectedHash)
 })
 
-test('resolves v0.4 and v0.3 specs only from their exact versioned assets', async ({ page }) => {
+test('resolves v0.5, v0.4, and v0.3 specs only from their exact versioned assets', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 1024 })
   await page.goto('/acceptance-render.html')
   await page.waitForFunction(() => document.body.dataset.rendererReady === 'true')
+
+  const renderedV05 = await page.evaluate(async spec => (
+    window.renderAcceptanceMonster(spec, '0.5.0')
+  ), firstHatchV05.spec)
+  expect(firstHatchV05.spec.visualSlots.tail.partId).toBe('tail_cat_long')
+  expect(renderedV05.diagnostics).toEqual([])
+  expect(renderedV05.resolvedAssetUrls.length).toBeGreaterThan(0)
+  expect(renderedV05.resolvedAssetUrls.every(url => url.includes('/v0.5.0/'))).toBe(true)
+  expect(renderedV05.resolvedAssetUrls.some(url => url.includes('/v0.4.0/') || url.includes('/v0.3.0/'))).toBe(false)
 
   const renderedV04 = await page.evaluate(async spec => (
     window.renderAcceptanceMonster(spec, '0.4.0')

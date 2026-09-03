@@ -69,10 +69,10 @@ describe('CompositionStatus', () => {
     expect(screen.getByRole('list', { name: '组合约束' }).textContent).toContain('面部需调整')
   })
 
-  it.each(['0.3.0', '0.4.0'] as const)('marks %s interface structure unready when a connector error is present', version => {
+  it.each(['0.3.0', '0.4.0', '0.5.0'] as const)('marks %s interface structure unready when a connector error is present', version => {
     const catalog = makeCompositionCatalogFixture()
     catalog.version = version
-    if (version === '0.4.0') catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
+    if (version === '0.4.0' || version === '0.5.0') catalog.compositionPolicy!.maxStrongNonFacialFeatures = 1
     const spec = makeValidCompositionSpecFixture(makeCompositionCatalogFixture())
     spec.catalogVersion = version
     spec.rendererVersion = version

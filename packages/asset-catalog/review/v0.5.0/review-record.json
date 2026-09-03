@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "qmonster-v05-catalog-release-review-v1",
+  "catalogVersion": "0.5.0",
+  "basedOnCatalogVersion": "0.4.0",
+  "decision": "technical-validation-ready",
+  "visualReview": "not performed; user review is intentionally retained",
+  "removedModifierIds": [
+    "mutation_double_head"
+  ],
+  "activeTailIds": [
+    "tail_none",
+    "tail_cat_long",
+    "tail_dog_long"
+  ],
+  "evidenceManifestPath": "packages/asset-catalog/audit/v0.5.0/evidence-manifest.json",
+  "evidenceManifestSha256": "5a64237d98b29262bd38e103a08c619e619d125f5b99149478286dffdaa966e1"
+}

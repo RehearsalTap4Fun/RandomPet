@@ -84,7 +84,7 @@ function isSemanticVersionOlder(version: string, currentVersion: string): boolea
 export async function parseSpecFile(
   file: File,
   registry: CatalogRegistry,
-  currentCatalogVersion = '0.4.0',
+  currentCatalogVersion = '0.5.0',
 ): Promise<SpecFileResult> {
   if (file.size > MAX_SPEC_FILE_BYTES) {
     return {

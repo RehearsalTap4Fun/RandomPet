@@ -99,6 +99,13 @@ function exactV04InterfacePair(spec: MonsterSpec, catalog: Catalog): boolean {
     && spec.rendererVersion === '0.4.0'
 }
 
+function exactV04OrV05InterfacePair(spec: MonsterSpec, catalog: Catalog): boolean {
+  return exactV04InterfacePair(spec, catalog)
+    || (catalog.version === '0.5.0'
+      && spec.catalogVersion === '0.5.0'
+      && spec.rendererVersion === '0.5.0')
+}
+
 function interfaceModifierDelta(
   spec: MonsterSpec,
   catalog: Catalog,
@@ -336,7 +343,9 @@ function structuralTree(spec: MonsterSpec, catalog: Catalog): InterfaceRenderRes
       const originalFaceZones = [...faceSafeZones]
       faceSafeZones.push(...originalFaceZones.map(zone => translated(zone, resolved.delta)))
     }
+  }
 
+  if (exactV04OrV05InterfacePair(spec, catalog)) {
     const misplacedEye = spec.aberrations.find(application => (
       application.id === 'aberration_misplaced_eye'
       && application.overrides.relocateSlot === 'eyes'

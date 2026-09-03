@@ -58,7 +58,7 @@ async function waitForCommitAfter(page: Page, previousCount: number): Promise<vo
   await expect.poll(() => previewCommitCount(page), { timeout: 30_000 }).toBeGreaterThan(previousCount)
 }
 
-test('downloads exact v0.4 JSON and PNG names, then imports an explicit v0.2 specimen read-only', async ({ page }) => {
+test('downloads exact v0.5 JSON and PNG names, then imports an explicit v0.2 specimen read-only', async ({ page }) => {
   test.setTimeout(120_000)
   await openWorkbench(page)
   const seed = page.getByRole('textbox', { name: '种子' })
@@ -84,11 +84,11 @@ test('downloads exact v0.4 JSON and PNG names, then imports an explicit v0.2 spe
   expect(exported).toMatchObject({
     seed: seedBefore,
     themeId: 'fungal',
-    catalogVersion: '0.4.0',
-    rendererVersion: '0.4.0',
+    catalogVersion: '0.5.0',
+    rendererVersion: '0.5.0',
   })
 
-  const transactionalSeed = 'transactional-v04-e2e-seed'
+  const transactionalSeed = 'transactional-v05-e2e-seed'
   await seed.fill(transactionalSeed)
   let commits = await previewCommitCount(page)
   await page.getByRole('button', { name: '孵化整只生物' }).click()
@@ -142,7 +142,7 @@ test('downloads exact v0.4 JSON and PNG names, then imports an explicit v0.2 spe
     partId: 'color_deep_sea_coral',
   }
   await page.getByLabel('选择要导入的 JSON 文件').setInputFiles({
-    name: 'invalid-current-v0.4-theme-conflict.json',
+    name: 'invalid-current-v0.5-theme-conflict.json',
     mimeType: 'application/json',
     buffer: Buffer.from(JSON.stringify(invalidCurrentSpec)),
   })

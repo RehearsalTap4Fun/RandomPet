@@ -39,23 +39,24 @@ function deferred<T>() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CreatorWorkbench', () => {
-  it('starts first-hatch with exact catalog and renderer 0.4.0 after approval', async () => {
+  it('starts first-hatch with exact catalog and renderer 0.5.0 after approval', async () => {
     installCanvasContexts()
     vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation(callback => {
       callback(new Blob([], { type: 'image/webp' }))
     })
     render(<App />)
 
-    expect(await screen.findByText('目录 v0.4.0')).toBeTruthy()
-    expect(productionCatalog.version).toBe('0.4.0')
+    expect(await screen.findByText('目录 v0.5.0')).toBeTruthy()
+    expect(productionCatalog.version).toBe('0.5.0')
   })
 
-  it('installs exact 0.1.0 through 0.4.0 catalogs while keeping v0.4 as the default', async () => {
+  it('installs exact 0.1.0 through 0.5.0 catalogs while keeping v0.5 as the default', async () => {
     expect((await productionCatalogRegistry.load('0.1.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.2.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.3.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.4.0')).ok).toBe(true)
-    expect(productionCatalog.version).toBe('0.4.0')
+    expect((await productionCatalogRegistry.load('0.5.0')).ok).toBe(true)
+    expect(productionCatalog.version).toBe('0.5.0')
     expect(v03ProductionCatalog.version).toBe('0.3.0')
     expect(await productionCatalogRegistry.load('0.1')).toEqual({
       ok: false,
@@ -73,20 +74,24 @@ describe('CreatorWorkbench', () => {
       ok: false,
       diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
     })
+    expect(await productionCatalogRegistry.load('0.5.1')).toEqual({
+      ok: false,
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
+    })
   })
 
-  it('edits an exact v0.4 import while keeping valid v0.3, v0.2, and v0.1 imports read-only', async () => {
+  it('edits an exact v0.5 import while keeping valid v0.3, v0.2, and v0.1 imports read-only', async () => {
     installCanvasContexts()
     const user = userEvent.setup()
     const renderer: PreviewRenderer = vi.fn(async () => ({
       drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: [],
     }))
-    const currentV04 = generateMonster({ seed: 'import-v04', themeId: 'fungal', mode: 'normal' }, productionCatalog)
+    const currentV05 = generateMonster({ seed: 'import-v05', themeId: 'fungal', mode: 'normal' }, productionCatalog)
     const legacyV03 = generateMonster({ seed: 'inspect-v03', themeId: 'fungal', mode: 'normal' }, v03ProductionCatalog)
     const rejectedV02 = generateMonster({ seed: 'inspect-v02', themeId: 'fungal', mode: 'normal' }, v02ProductionCatalog)
     const legacyV01 = generateMonster({ seed: 'inspect-v01', themeId: 'fungal', mode: 'normal' }, legacyProductionCatalog)
-    const parseSpecFile = vi.fn((file: File) => Promise.resolve(file.name === 'current-v04.json'
-      ? { ok: true as const, value: { spec: currentV04.spec, catalog: productionCatalog }, diagnostics: [] }
+    const parseSpecFile = vi.fn((file: File) => Promise.resolve(file.name === 'current-v05.json'
+      ? { ok: true as const, value: { spec: currentV05.spec, catalog: productionCatalog }, diagnostics: [] }
       : file.name === 'legacy-v03.json'
         ? {
             ok: true as const,
@@ -95,7 +100,7 @@ describe('CreatorWorkbench', () => {
               severity: 'warning' as const,
               code: 'CATALOG_VERSION_OLD',
               path: ['catalogVersion'],
-              message: 'Catalog version 0.3.0 is installed but older than 0.4.0.',
+              message: 'Catalog version 0.3.0 is installed but older than 0.5.0.',
             }],
           }
       : file.name === 'rejected-v02.json'
@@ -108,10 +113,10 @@ describe('CreatorWorkbench', () => {
       previewRenderer={renderer}
     />)
 
-    expect(await screen.findByText('目录 v0.4.0')).toBeTruthy()
+    expect(await screen.findByText('目录 v0.5.0')).toBeTruthy()
     const input = screen.getByLabelText('选择要导入的 JSON 文件')
-    await user.upload(input, new File(['v04'], 'current-v04.json'))
-    expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe('import-v04')
+    await user.upload(input, new File(['v05'], 'current-v05.json'))
+    expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe('import-v05')
     expect(screen.queryByText('旧版标本 · 只读查看')).toBeNull()
 
     await user.upload(input, new File(['v03'], 'legacy-v03.json'))

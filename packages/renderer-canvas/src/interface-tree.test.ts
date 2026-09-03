@@ -22,6 +22,14 @@ function v04InterfaceFixture() {
   return { catalog, spec }
 }
 
+function v05InterfaceFixture() {
+  const { catalog, spec } = v04InterfaceFixture()
+  catalog.version = '0.5.0'
+  spec.catalogVersion = '0.5.0'
+  spec.rendererVersion = '0.5.0'
+  return { catalog, spec }
+}
+
 describe('resolveInterfaceTree', () => {
   it('uses selected exact-rig variants and resolves declared bridge identities without mutation', () => {
     const { catalog, spec } = interfaceFixture()
@@ -178,6 +186,21 @@ describe('resolveInterfaceTree', () => {
       { x: 500, y: 400, width: 1048, height: 900 },
       { x: 796, y: 440, width: 1048, height: 900 },
     ])
+  })
+
+  it('keeps the misplaced-eye aberration effective in the single-head v0.5 interface pair', () => {
+    const { catalog, spec } = v05InterfaceFixture()
+    const baseline = resolveInterfaceTree(spec, catalog)
+    const modifier = catalog.modifiers.find(item => item.id === 'aberration_misplaced_eye')!
+    spec.aberrations = [{ id: modifier.id, overrides: structuredClone(modifier.overrides) }]
+
+    const result = resolveInterfaceTree(spec, catalog)
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.nodes.filter(node => node.slotId === 'eyes').map(node => node.placement)).not.toEqual(
+      baseline.nodes.filter(node => node.slotId === 'eyes').map(node => node.placement),
+    )
+    expect(result.nodes.filter(node => node.key.endsWith(':double-head'))).toHaveLength(0)
   })
 
   it('fails closed when an exact-v0.4 modifier destination is absent', () => {

@@ -11,6 +11,7 @@ import type { RenderResult } from '@qmonster/renderer-canvas'
 import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import v04ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
+import v05ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.5.0/catalog.json'
 import { PreviewCanvas, resolveProductionAssetUrl } from './components/PreviewCanvas.js'
 
 interface AcceptanceRenderResult extends RenderResult {
@@ -23,7 +24,7 @@ declare global {
   interface Window {
     renderAcceptanceMonster: (
       spec: unknown,
-      catalogVersion?: '0.2.0' | '0.3.0' | '0.4.0',
+      catalogVersion?: '0.2.0' | '0.3.0' | '0.4.0' | '0.5.0',
     ) => Promise<AcceptanceRenderResult>
   }
 }
@@ -41,10 +42,15 @@ const parsedV04Catalog = parseCatalog(v04ProductionCatalogDocument)
 if (!parsedV04Catalog.ok) {
   throw new Error(`Current catalog is invalid: ${parsedV04Catalog.diagnostics.map(item => item.code).join(', ')}`)
 }
-const catalogs = new Map<'0.2.0' | '0.3.0' | '0.4.0', Catalog>([
+const parsedV05Catalog = parseCatalog(v05ProductionCatalogDocument)
+if (!parsedV05Catalog.ok) {
+  throw new Error(`V0.5 catalog is invalid: ${parsedV05Catalog.diagnostics.map(item => item.code).join(', ')}`)
+}
+const catalogs = new Map<'0.2.0' | '0.3.0' | '0.4.0' | '0.5.0', Catalog>([
   ['0.2.0', productionCatalog],
   ['0.3.0', parsedV03Catalog.value],
   ['0.4.0', parsedV04Catalog.value],
+  ['0.5.0', parsedV05Catalog.value],
 ] as const)
 const acceptanceImageCache = new Map<string, Promise<{
   assetUrl: string

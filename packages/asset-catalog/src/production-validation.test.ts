@@ -110,6 +110,15 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('accepts the v0.5 single-head modifier pool', async () => {
+    const catalog = JSON.parse(await readFile(
+      join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.5.0', 'catalog.json'),
+      'utf8',
+    )) as Catalog
+
+    expect(validateProductionMetadata(catalog).map(item => item.code)).not.toContain('PRODUCTION_MODIFIER_COUNT_INVALID')
+  })
+
   it('applies retained interface production validation to the derived v0.4 release', async () => {
     const catalog = JSON.parse(await readFile(
       join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.4.0', 'catalog.json'),

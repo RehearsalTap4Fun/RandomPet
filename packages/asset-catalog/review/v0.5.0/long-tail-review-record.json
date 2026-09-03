@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "qmonster-v05-long-tail-technical-review-v1",
+  "catalogVersion": "0.5.0",
+  "decision": "technical-validation-ready",
+  "visualReview": "not performed; user review is intentionally retained",
+  "tailIds": [
+    "tail_cat_long",
+    "tail_dog_long"
+  ],
+  "rigIds": [
+    "blob",
+    "biped",
+    "floating"
+  ],
+  "recovery": "border-connected-near-neutral-checkerboard-v1 with a single structural component gate"
+}

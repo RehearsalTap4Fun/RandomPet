@@ -15,6 +15,8 @@ export const COVERAGE_ONLY_INTEGRATION_EXCLUDES = [
   'scripts/retain-v02-nonstructural-assets.test.ts',
   'scripts/task8-review-integrity.test.ts',
   'scripts/validate-interface-slice.test.ts',
+  'scripts/assemble-v05-catalog.test.ts',
+  'scripts/prepare-v05-long-tail-assets.test.ts',
 ]
 
 // Task 9 locks these global floors to the measured stable baseline. Keep the

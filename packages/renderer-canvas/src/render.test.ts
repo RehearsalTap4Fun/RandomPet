@@ -1253,6 +1253,28 @@ describe('v0.3 interface rendering', () => {
     return { catalog, spec }
   }
 
+  function v05Fixture() {
+    const { catalog, spec } = v04Fixture()
+    catalog.version = '0.5.0'
+    spec.catalogVersion = '0.5.0'
+    spec.rendererVersion = '0.5.0'
+    return { catalog, spec }
+  }
+
+  it('routes the exact 0.5 single-head long-tail pair through interface composition', async () => {
+    const { catalog, spec } = v05Fixture()
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'healthy', 'v05-interface-route'),
+      },
+    )
+
+    expect(result.connectorMetrics).not.toBeNull()
+    expect(result.connectorMetrics).toHaveLength(8)
+  })
+
   it('routes the exact 0.4 pair through interface oral-detail placement and occlusion metrics', async () => {
     const { catalog, spec } = v04Fixture()
 
