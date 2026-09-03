@@ -1483,6 +1483,43 @@ describe('v0.3 interface rendering', () => {
     expect(faceIndices.every(faceIndex => headIndex < faceIndex)).toBe(true)
   })
 
+  it('keeps v0.4 surface material and pattern inside the torso before the head', async () => {
+    const { catalog, spec } = v04Fixture()
+    for (const slotId of ['surfaceMaterial', 'pattern'] as const) {
+      const part = catalog.parts.find(candidate => candidate.slotId === slotId)!
+      if (part.composition?.mode === 'interface') throw new Error('expected attachment appearance part')
+      part.composition!.renderNodes[0]!.clipPolicy = 'body'
+    }
+    const calls: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, catalog, makeResolver(), {
+        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls),
+      },
+    )
+
+    const index = (id: string) => result.drawnAssetIds.indexOf(id)
+    const bodyIndex = index('body_blob_0_blob')
+    const surfaceIndex = index('surface_gel_0')
+    const patternIndex = index('pattern_spots_0')
+    const headIndex = index('head_round_0_blob')
+    for (const assetIndex of [bodyIndex, surfaceIndex, patternIndex, headIndex]) {
+      expect(assetIndex).toBeGreaterThanOrEqual(0)
+    }
+    expect(bodyIndex).toBeLessThan(surfaceIndex)
+    expect(surfaceIndex).toBeLessThan(patternIndex)
+    expect(patternIndex).toBeLessThan(headIndex)
+
+    for (const source of ['nodes/surface_gel_0.webp', 'nodes/pattern_spots_0.webp']) {
+      const drawIndex = calls.indexOf(`interface-1:draw:${source}`)
+      expect(drawIndex).toBeGreaterThanOrEqual(0)
+      const clipMask = calls.slice(drawIndex + 1).find(call => (
+        /^interface-1:draw:interface-\d+$/u.test(call)
+      ))
+      expect(clipMask).toBe('interface-1:draw:interface-2')
+    }
+  })
+
   it('reports inactive face diagnostics separately only for an explicit Task 9 scope', async () => {
     const { catalog, spec } = fixture()
     const result = await renderMonster(

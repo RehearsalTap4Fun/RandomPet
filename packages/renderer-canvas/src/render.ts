@@ -1553,8 +1553,24 @@ async function renderInterfaceMonster(
       - (right.slotId === 'headShape' ? 2 : right.slotId === 'bodyFrame' ? 1 : 0)
       || left.sequence - right.sequence
   ))
+  const body = bodyAndHead.filter(node => node.slotId === 'bodyFrame')
+  const unlayeredHeads = bodyAndHead.filter(node => node.slotId === 'headShape')
+  const limbsBehindBody = bodyAndHead.filter(node => (
+    node.slotId !== 'bodyFrame' && node.slotId !== 'headShape'
+  ))
+  const isBodyAppearanceNode = (node: ResolvedRenderNode) => (
+    node.slotId === 'surfaceMaterial' || node.slotId === 'pattern'
+  )
+  const bodyAppearance = nodes.filter(node => (
+    !isStructuralSlot(node.slotId) && isBodyAppearanceNode(node)
+  )).sort((left, right) => (
+    compositionLayerRank.get(left.node.layer)! - compositionLayerRank.get(right.node.layer)!
+      || left.sequence - right.sequence
+  ))
   // TASK8_STABLE_BEGIN:renderer-nonstructural-final-filter
-  const nonStructural = nodes.filter(node => !isStructuralSlot(node.slotId)).sort((left, right) => (
+  const nonStructural = nodes.filter(node => (
+    !isStructuralSlot(node.slotId) && !isBodyAppearanceNode(node)
+  )).sort((left, right) => (
   // TASK8_STABLE_END:renderer-nonstructural-final-filter
     compositionLayerRank.get(left.node.layer)! - compositionLayerRank.get(right.node.layer)!
       || left.sequence - right.sequence
@@ -1597,12 +1613,15 @@ async function renderInterfaceMonster(
       }
     }
     // TASK8_STABLE_END:renderer-bridge-draw-setup
-    const drawNodes = (items: readonly ResolvedRenderNode[]) => {
+    const drawNodes = (
+      items: readonly ResolvedRenderNode[],
+      clipAlpha = surfaces.structureAlpha,
+    ) => {
       for (const node of items) {
         const source = sources.get(node.key)
         if (source === undefined) continue
         drawCompositionNodeToSurface(
-          surfaces.nodeLayer, node, source, surfaces.structureAlpha, tree.faceSafeZones,
+          surfaces.nodeLayer, node, source, clipAlpha, tree.faceSafeZones,
         )
         finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)
         drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
@@ -1628,7 +1647,10 @@ async function renderInterfaceMonster(
       })
       finalContext.drawImage(surfaces.nodeLayer.canvas, 0, 0)
     }
-    drawNodes(bodyAndHead)
+    drawNodes(limbsBehindBody)
+    drawNodes(body)
+    drawNodes(bodyAppearance, surfaces.bodyAlpha)
+    drawNodes(unlayeredHeads)
     for (const node of layeredHeads) {
       const source = sources.get(node.key)
       const masks = headOcclusionMasks.get(node.key)
