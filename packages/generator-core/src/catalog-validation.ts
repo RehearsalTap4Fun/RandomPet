@@ -136,7 +136,7 @@ function requiredConnectorProfiles(catalog: Catalog, part: Catalog['parts'][numb
 }
 
 function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
-  if (catalog.version !== '0.3.0' && catalog.version !== '0.4.0' && catalog.version !== '0.5.0') return
+  if (catalog.version !== '0.3.0' && catalog.version !== '0.4.0' && catalog.version !== '0.5.0' && catalog.version !== '0.6.0') return
   const bridges = catalog.transitionBridges ?? []
   reportDuplicateIds(bridges, 'transitionBridges', diagnostics)
   for (const [partIndex, part] of catalog.parts.entries()) {

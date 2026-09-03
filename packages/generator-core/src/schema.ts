@@ -7,8 +7,9 @@ import {
   type ParseResult,
 } from './contracts.js'
 
-const RigIdSchema = z.enum(['blob', 'biped', 'floating'])
+const RigIdSchema = z.enum(['blob', 'biped', 'floating', 'feline-sit'])
 const ThemeIdSchema = z.enum(['deep-sea', 'fungal', 'shadow'])
+const AnimalArchetypeIdSchema = z.enum(['feline', 'canine', 'lagomorph'])
 
 const PaletteSchema = z.object({
   primary: z.string().min(1),
@@ -78,6 +79,20 @@ export const MonsterSpecSchema = z.object({
   semanticTraits: z.record(z.enum(SEMANTIC_SLOT_IDS), SemanticTraitSelectionSchema),
   mutation: ModifierApplicationSchema.nullable(),
   aberrations: z.array(ModifierApplicationSchema),
+  archetypeId: AnimalArchetypeIdSchema.optional(),
+}).superRefine((spec, context) => {
+  if (
+    spec.schemaVersion === '0.2.0'
+    && spec.catalogVersion === '0.6.0'
+    && spec.rendererVersion === '0.6.0'
+    && spec.archetypeId !== 'feline'
+  ) {
+    context.addIssue({
+      code: 'custom',
+      path: ['archetypeId'],
+      message: 'The v0.6 spec contract requires the feline archetype ID.',
+    })
+  }
 })
 
 function toDiagnostic(issue: z.core.$ZodIssue): Diagnostic {

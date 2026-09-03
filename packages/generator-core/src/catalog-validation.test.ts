@@ -4,6 +4,27 @@ import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 
 describe('catalog validation', () => {
+  it('treats v0.6 as an interface catalog', () => {
+    const catalog = makeInterfaceCatalogFixture()
+    catalog.version = '0.6.0'
+    ;(catalog as any).archetypes = [{
+      id: 'feline',
+      displayName: '坐姿猫',
+      rigIds: ['feline-sit'],
+      defaultRigId: 'feline-sit',
+      requiredVisibleSlots: ['bodyFrame', 'headShape', 'tail'],
+      integratedSlots: ['arms', 'legs', 'extraAppendage'],
+      specialFeatureSlots: ['headAppendage', 'surfaceMaterial', 'tail'],
+    }]
+    catalog.rigs.push({ id: 'feline-sit' as any, sockets: {} })
+    for (const part of catalog.parts) (part as any).archetypeIds = ['feline']
+
+    expect(parseCatalog(catalog)).toMatchObject({ ok: true })
+    expect(validateCatalogStructure(catalog)).not.toContainEqual(expect.objectContaining({
+      code: 'CONNECTOR_INTERFACE_MODE_REQUIRED',
+    }))
+  })
+
   it('requires the non-facial budget in catalog 0.4.0', () => {
     const catalog = makeInterfaceCatalogFixture()
     catalog.version = '0.4.0'

@@ -38,7 +38,11 @@ export type VisualSlotId = typeof VISUAL_SLOT_IDS[number]
 export type SemanticSlotId = typeof SEMANTIC_SLOT_IDS[number]
 export type ThemeId = 'deep-sea' | 'fungal' | 'shadow'
 export type GenerationMode = 'normal' | 'mutation' | 'aberration'
-export type RigId = 'blob' | 'biped' | 'floating'
+export const ANIMAL_ARCHETYPE_IDS = ['feline', 'canine', 'lagomorph'] as const
+export type AnimalArchetypeId = typeof ANIMAL_ARCHETYPE_IDS[number]
+export type SpecialFeatureAnchor = 'ear' | 'back' | 'tailTip'
+export type FeatureTier = 'base' | 'special'
+export type RigId = 'blob' | 'biped' | 'floating' | 'feline-sit'
 export type RenderLayer =
   | 'groundShadow' | 'rearAppendage' | 'body' | 'surface' | 'pattern'
   | 'frontAppendage' | 'head' | 'faceAndHeadwear' | 'foregroundEffect'
@@ -220,6 +224,17 @@ export interface MonsterSpec {
   semanticTraits: Record<SemanticSlotId, SemanticTraitSelection>
   mutation: ModifierApplication | null
   aberrations: ModifierApplication[]
+  archetypeId?: AnimalArchetypeId
+}
+
+export interface AnimalArchetypeDefinition {
+  id: AnimalArchetypeId
+  displayName: string
+  rigIds: RigId[]
+  defaultRigId: RigId
+  requiredVisibleSlots: VisualSlotId[]
+  integratedSlots: VisualSlotId[]
+  specialFeatureSlots: VisualSlotId[]
 }
 
 export interface SupportedSpecVersions {
@@ -282,6 +297,9 @@ export interface VisualPartDefinition {
   pngPath?: string
   pngSha256?: string
   composition?: PartComposition
+  archetypeIds?: AnimalArchetypeId[]
+  featureTier?: FeatureTier
+  specialFeatureAnchor?: SpecialFeatureAnchor
 }
 
 export interface SemanticTraitDefinition {
@@ -321,6 +339,7 @@ export interface Catalog {
   dependencies: Partial<Record<VisualSlotId, VisualSlotId[]>>
   compositionPolicy?: CompositionPolicy
   transitionBridges?: TransitionBridgeDefinition[]
+  archetypes?: AnimalArchetypeDefinition[]
 }
 
 export const COMPOSITION_PARENT_BY_SLOT: Record<VisualSlotId, VisualSlotId | null> = {
@@ -346,6 +365,7 @@ export interface GenerationRequest {
   mode: GenerationMode
   slotRolls?: Partial<Record<VisualSlotId, number>>
   lockedSelections?: Partial<Record<VisualSlotId, string>>
+  archetypeId?: AnimalArchetypeId
 }
 
 export interface DiagnosticRevalidationScopes {

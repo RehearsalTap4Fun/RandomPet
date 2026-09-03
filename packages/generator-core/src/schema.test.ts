@@ -11,6 +11,26 @@ import {
 } from './test-fixtures.js'
 
 describe('MonsterSpecSchema', () => {
+  it('requires an archetype only for the exact v0.6 spec contract', () => {
+    const v06 = makeValidMonsterSpecFixture()
+    v06.schemaVersion = '0.2.0'
+    v06.catalogVersion = '0.6.0'
+    v06.rendererVersion = '0.6.0'
+
+    expect(parseMonsterSpec(v06).ok).toBe(false)
+
+    v06.archetypeId = 'canine'
+    expect(parseMonsterSpec(v06).ok).toBe(false)
+
+    v06.archetypeId = 'feline'
+    expect(parseMonsterSpec(v06)).toEqual(expect.objectContaining({ ok: true }))
+
+    const v05 = makeValidMonsterSpecFixture()
+    v05.catalogVersion = '0.5.0'
+    v05.rendererVersion = '0.5.0'
+    expect(parseMonsterSpec(v05)).toEqual(expect.objectContaining({ ok: true }))
+  })
+
   it('keeps the installed 0.1.0 catalog parseable without composition metadata', () => {
     expect(parseCatalog(makeValidCatalogFixture()).ok).toBe(true)
   })
@@ -24,6 +44,44 @@ describe('MonsterSpecSchema', () => {
   it('parses a complete v0.3 interface catalog and preserves v0.2 behavior', () => {
     expect(parseCatalog(makeInterfaceCatalogFixture()).ok).toBe(true)
     expect(parseCatalog(makeCompositionCatalogFixture()).ok).toBe(true)
+  })
+
+  it('requires a complete archetype contract for catalog 0.6.0', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    catalog.version = '0.6.0'
+    catalog.archetypes = []
+    expect(parseCatalog(catalog).ok).toBe(false)
+
+    catalog.archetypes = [{
+      id: 'feline',
+      displayName: '坐姿猫',
+      rigIds: ['feline-sit'],
+      defaultRigId: 'feline-sit',
+      requiredVisibleSlots: ['bodyFrame', 'headShape', 'tail'],
+      integratedSlots: ['arms', 'legs', 'extraAppendage'],
+      specialFeatureSlots: ['headAppendage', 'surfaceMaterial', 'tail'],
+    }]
+    catalog.rigs.push({ id: 'feline-sit', sockets: {} })
+    for (const part of catalog.parts) part.archetypeIds = ['feline']
+
+    expect(parseCatalog(catalog)).toMatchObject({ ok: true })
+  })
+
+  it('limits v0.6 catalog archetypes to the feline sitting rig', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    catalog.version = '0.6.0'
+    catalog.archetypes = [{
+      id: 'canine',
+      displayName: '坐姿犬',
+      rigIds: ['blob'],
+      defaultRigId: 'blob',
+      requiredVisibleSlots: ['bodyFrame', 'headShape', 'tail'],
+      integratedSlots: ['arms', 'legs', 'extraAppendage'],
+      specialFeatureSlots: ['headAppendage', 'surfaceMaterial', 'tail'],
+    }]
+    for (const part of catalog.parts) part.archetypeIds = ['canine']
+
+    expect(parseCatalog(catalog).ok).toBe(false)
   })
 
   it('accepts a resource-empty explicit none part and rejects empty visible resources', () => {

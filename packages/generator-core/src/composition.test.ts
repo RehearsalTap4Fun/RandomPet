@@ -85,6 +85,13 @@ describe('composition planning', () => {
     expect(rendererVersionForCatalog(catalog)).toBe('0.5.0')
   })
 
+  it('routes catalog 0.6.0 to renderer 0.6.0 without falling back', () => {
+    const catalog = makeLegacyCatalogFixture() as Catalog
+    catalog.version = '0.6.0'
+
+    expect(rendererVersionForCatalog(catalog)).toBe('0.6.0')
+  })
+
   it('assigns at most floor(M * 0.3) stable surprise opportunities', () => {
     const catalog = makeCompositionCatalogFixture()
     const first = planComposition('motif-seed', 'fungal', 'blob', catalog)

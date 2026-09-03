@@ -9,7 +9,9 @@ import {
 } from './contracts.js'
 
 const ThemeIdSchema = z.enum(['deep-sea', 'fungal', 'shadow'])
-const RigIdSchema = z.enum(['blob', 'biped', 'floating'])
+const RigIdSchema = z.enum(['blob', 'biped', 'floating', 'feline-sit'])
+const AnimalArchetypeIdSchema = z.enum(['feline', 'canine', 'lagomorph'])
+const SpecialFeatureAnchorSchema = z.enum(['ear', 'back', 'tailTip'])
 const VisualSlotIdSchema = z.enum(VISUAL_SLOT_IDS)
 const SemanticSlotIdSchema = z.enum(SEMANTIC_SLOT_IDS)
 const RenderLayerSchema = z.enum([
@@ -187,6 +189,24 @@ const RigDefinitionSchema = z.object({
   displayName: z.string().min(1).optional(),
 })
 
+const AnimalArchetypeDefinitionSchema = z.object({
+  id: AnimalArchetypeIdSchema,
+  displayName: z.string().min(1),
+  rigIds: z.array(RigIdSchema).min(1),
+  defaultRigId: RigIdSchema,
+  requiredVisibleSlots: z.array(VisualSlotIdSchema),
+  integratedSlots: z.array(VisualSlotIdSchema),
+  specialFeatureSlots: z.array(VisualSlotIdSchema),
+}).strict().superRefine((archetype, context) => {
+  if (!archetype.rigIds.includes(archetype.defaultRigId)) {
+    context.addIssue({
+      code: 'custom',
+      path: ['defaultRigId'],
+      message: 'Archetype default rig must be one of its supported rigs.',
+    })
+  }
+})
+
 const VisualPartDefinitionSchema = z.object({
   id: z.string().min(1),
   slotId: VisualSlotIdSchema,
@@ -222,6 +242,9 @@ const VisualPartDefinitionSchema = z.object({
   ...displayMetadata,
   description: z.string().min(1).optional(),
   composition: PartCompositionSchema.optional(),
+  archetypeIds: z.array(AnimalArchetypeIdSchema).min(1).optional(),
+  featureTier: z.enum(['base', 'special']).optional(),
+  specialFeatureAnchor: SpecialFeatureAnchorSchema.optional(),
 }).superRefine((part, context) => {
   const resourceEmptyNone = part.composition?.isNone === true && part.assetPath === ''
   if (!resourceEmptyNone && part.assetPath.trim().length === 0) {
@@ -255,8 +278,45 @@ export const CatalogSchema = z.object({
   dependencies: z.partialRecord(VisualSlotIdSchema, z.array(VisualSlotIdSchema)),
   compositionPolicy: CompositionPolicySchema.optional(),
   transitionBridges: z.array(TransitionBridgeDefinitionSchema).optional(),
+  archetypes: z.array(AnimalArchetypeDefinitionSchema).min(1).optional(),
 }).superRefine((catalog, context) => {
-  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0'
+  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0' || catalog.version === '0.6.0'
+  if (catalog.version === '0.6.0') {
+    if (catalog.archetypes === undefined) {
+      context.addIssue({
+        code: 'custom',
+        path: ['archetypes'],
+        message: 'Catalog 0.6.0 requires archetype definitions.',
+      })
+    } else if (
+      catalog.archetypes.length !== 1
+      || catalog.archetypes[0]?.id !== 'feline'
+      || catalog.archetypes[0].defaultRigId !== 'feline-sit'
+      || catalog.archetypes[0].rigIds.length !== 1
+      || catalog.archetypes[0].rigIds[0] !== 'feline-sit'
+    ) {
+      context.addIssue({
+        code: 'custom',
+        path: ['archetypes'],
+        message: 'Catalog 0.6.0 supports only the feline-sit archetype.',
+      })
+    }
+    for (const [index, part] of catalog.parts.entries()) {
+      if (part.archetypeIds === undefined) {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'archetypeIds'],
+          message: 'Catalog 0.6.0 parts require archetype compatibility.',
+        })
+      } else if (part.archetypeIds.length !== 1 || part.archetypeIds[0] !== 'feline') {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'archetypeIds'],
+          message: 'Catalog 0.6.0 parts support only the feline archetype.',
+        })
+      }
+    }
+  }
   if (catalog.version === '0.2.0') {
     if (catalog.compositionPolicy === undefined) {
       context.addIssue({
