@@ -64,21 +64,44 @@ describe('assemble v0.6 feline catalog', () => {
     expect(part).not.toHaveProperty('pngSha256')
     expect(catalog.parts.filter((candidate: { featureTier?: string }) => candidate.featureTier === 'special'))
       .not.toContainEqual(expect.objectContaining({ id: 'headAppendage_feline_none' }))
-  }, 60_000)
+  }, 90_000)
 
-  it('keeps the normal feline face zone in canvas and bridge alpha at both mesh ends', async () => {
+  it('keeps every normal feline body/head pairing in canvas and uses a tapered bridge silhouette', async () => {
     const stagedRoot = await mkdtemp(join(tmpdir(), 'qmonster-v06-interface-contract-'))
     temporaryRoots.push(stagedRoot)
     const catalog = await assembleV06Catalog({ repositoryRoot: process.cwd(), stagedRoot })
     const structuralVariant = (partId: string) => catalog.parts.find((part: { id: string }) => part.id === partId)
       .composition.variantsByRig['feline-sit']
     const neck = (variant: { connectors: Array<{ id: string }> }) => variant.connectors.find(connector => connector.id === 'neck')
-    const roundBodyNeck = neck(structuralVariant('body_feline_sit_round'))
+    const alphaAt = (image: { data: Buffer, info: { width: number } }, x: number, y: number) => (
+      image.data[(y * image.info.width + x) * 4 + 3]
+    )
+    const alphaPixels = (image: { data: Buffer, info: { width: number, height: number } }) => {
+      let pixels = 0
+      for (let pixel = 0; pixel < image.info.width * image.info.height; pixel += 1) {
+        if (image.data[pixel * 4 + 3]! > 0) pixels += 1
+      }
+      return pixels
+    }
+    const visibleBounds = (image: { data: Buffer, info: { width: number, height: number } }) => {
+      let minX = image.info.width; let minY = image.info.height; let maxX = -1; let maxY = -1
+      for (let y = 0; y < image.info.height; y += 1) for (let x = 0; x < image.info.width; x += 1) {
+        if (alphaAt(image, x, y) === 0) continue
+        minX = Math.min(minX, x); minY = Math.min(minY, y); maxX = Math.max(maxX, x); maxY = Math.max(maxY, y)
+      }
+      return { minX, minY, maxX, maxY }
+    }
 
-    for (const headId of ['head_feline_round', 'head_feline_tufted']) {
+    for (const bodyId of ['body_feline_sit_round', 'body_feline_sit_plush']) for (const headId of ['head_feline_round', 'head_feline_tufted']) {
+      const bodyNeck = neck(structuralVariant(bodyId))
+      const headPart = catalog.parts.find((part: { id: string }) => part.id === headId)
       const head = structuralVariant(headId)
+      const headPlacementY = bodyNeck.origin.y - neck(head).origin.y
+      const bounds = visibleBounds(await sharp(await readFile(join(stagedRoot, 'packages', 'asset-catalog', headPart.pngPath)))
+        .ensureAlpha().raw().toBuffer({ resolveWithObject: true }))
       const faceZone = head.faceSafeZones[0]
-      const headPlacementY = roundBodyNeck.origin.y - neck(head).origin.y
+      expect(headPlacementY + bounds.minY).toBeGreaterThanOrEqual(0)
+      expect(headPlacementY + bounds.maxY).toBeLessThan(2048)
       expect(headPlacementY + faceZone.y).toBeGreaterThanOrEqual(0)
       expect(headPlacementY + faceZone.y + faceZone.height).toBeLessThanOrEqual(2048)
     }
@@ -86,13 +109,29 @@ describe('assemble v0.6 feline catalog', () => {
     for (const bridge of catalog.transitionBridges) {
       const bridgePath = join(stagedRoot, 'packages', 'asset-catalog', bridge.neutralPngPath)
       const decoded = await sharp(await readFile(bridgePath)).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
-      const alphaAt = (x: number, y: number) => decoded.data[(y * decoded.info.width + x) * 4 + 3]
-      expect(alphaAt(Math.floor(decoded.info.width / 2), 0)).toBe(255)
-      expect(alphaAt(Math.floor(decoded.info.width / 2), decoded.info.height - 1)).toBe(255)
+      const front = await sharp(await readFile(join(stagedRoot, 'packages', 'asset-catalog', bridge.frontMaskPath)))
+        .ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+      const back = await sharp(await readFile(join(stagedRoot, 'packages', 'asset-catalog', bridge.backMaskPath)))
+        .ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+      const totalPixels = decoded.info.width * decoded.info.height
+      expect(alphaPixels(decoded)).toBeGreaterThan(totalPixels * 0.7)
+      expect(alphaPixels(decoded)).toBeLessThan(totalPixels * 0.9)
+      expect(alphaAt(decoded, 0, Math.floor(decoded.info.height / 2))).toBe(0)
+      expect(alphaAt(decoded, decoded.info.width - 1, Math.floor(decoded.info.height / 2))).toBe(0)
+      for (const x of [0, Math.floor(decoded.info.width / 2), decoded.info.width - 1]) {
+        expect(alphaAt(decoded, x, 0)).toBe(255)
+        expect(alphaAt(decoded, x, decoded.info.height - 1)).toBe(255)
+      }
+      for (const mask of [front, back]) {
+        expect(alphaPixels(mask)).toBeGreaterThan(totalPixels * 0.25)
+        expect(alphaPixels(mask)).toBeLessThan(totalPixels * 0.46)
+      }
+      expect(alphaAt(front, 0, Math.floor(front.info.height / 2) - 1)).toBe(0)
+      expect(alphaAt(back, 0, Math.floor(back.info.height / 2))).toBe(0)
       expect(await sharp(await readFile(join(stagedRoot, 'packages', 'asset-catalog', bridge.neutralAssetPath))).metadata())
         .toMatchObject({ hasAlpha: true })
     }
-  }, 60_000)
+  }, 90_000)
 
   it('writes aggregate, splits, provenance, manifest, evidence, review and assets together', async () => {
     const stagedRoot = await mkdtemp(join(tmpdir(), 'qmonster-v06-release-'))
@@ -106,7 +145,7 @@ describe('assemble v0.6 feline catalog', () => {
       'packages/asset-catalog/review/v0.6.0/review-record.json',
       'asset-source/v0.6.0/interface-manifest.json',
     ]) await expect(access(join(stagedRoot, path))).resolves.toBeUndefined()
-  }, 60_000)
+  }, 90_000)
 
   it('refuses an existing release target before writing any sibling target', async () => {
     const stagedRoot = await mkdtemp(join(tmpdir(), 'qmonster-v06-immutable-'))

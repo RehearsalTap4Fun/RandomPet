@@ -8,6 +8,7 @@ import { PRODUCTION_CHROMA_GATE_PROFILE, PRODUCTION_CHROMA_GATE_VERSION } from '
 import {
   prepareV06FelineAssets,
   V06_SOURCE_FILENAMES,
+  V06_HEAD_PRESENTATION_SEAMS,
   type V06FelineAssetProvenance,
   type V06SourceFilename,
 } from './prepare-v06-feline-assets.js'
@@ -146,8 +147,8 @@ const PRESENTATION_CONNECTOR_ORIGINS: Record<string, Partial<Record<'neck' | 'ta
   // interface solver needs the presentation anchor so the head and its face
   // sockets remain in the output frame; the connector masks still retain the
   // physical guide for bridge-contour sampling.
-  head_feline_round: { neck: { x: 1024, y: 512 } },
-  head_feline_tufted: { neck: { x: 1024, y: 512 } },
+  head_feline_round: { neck: V06_HEAD_PRESENTATION_SEAMS.head_feline_round.origin },
+  head_feline_tufted: { neck: V06_HEAD_PRESENTATION_SEAMS.head_feline_tufted.origin },
 }
 
 function connectorProfile(asset: V06FelineAssetProvenance, connectorId: 'neck' | 'tailRoot', role: 'receiver' | 'plug', assetRoot: string): any {
@@ -331,8 +332,10 @@ async function createBridgeAssets(assetRoot: string): Promise<Record<'neck' | 't
     const rgba = Buffer.alloc(512 * 256 * 4)
     const front = Buffer.alloc(rgba.length)
     const back = Buffer.alloc(rgba.length)
+    const maximumInset = connectorClass === 'neck' ? 80 : 64
     for (let y = 0; y < 256; y += 1) for (let x = 0; x < 512; x += 1) {
-      if (x === 0 && y === 0) continue
+      const inset = Math.round(maximumInset * Math.sin(Math.PI * y / 255))
+      if (x < inset || x >= 512 - inset) continue
       const pixel = y * 512 + x
       const offset = pixel * 4
       rgba[offset] = connectorClass === 'neck' ? 176 : 128

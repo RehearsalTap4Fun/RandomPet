@@ -243,7 +243,7 @@
           "connectorClass": "neck",
           "origin": {
             "x": 1024,
-            "y": 512
+            "y": 400
           },
           "tangent": {
             "x": 1,
@@ -333,7 +333,7 @@
           "connectorClass": "neck",
           "origin": {
             "x": 1024,
-            "y": 512
+            "y": 400
           },
           "tangent": {
             "x": 1,

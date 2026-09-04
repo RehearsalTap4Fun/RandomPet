@@ -58,7 +58,7 @@ describe('prepare v0.6 feline assets', () => {
       .every(asset => asset.outsideFelineMaskPixels === 0)).toBe(true)
   }, 60_000)
 
-  it('keeps the presentation neck seed behind the head face foreground', async () => {
+  it('partitions each presentation head-neck seam into nontrivial foreground and background masks', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-v06-head-occlusion-seed-'))
     temporaryRoots.push(root)
     const assets = await prepareV06FelineAssets({
@@ -67,16 +67,28 @@ describe('prepare v0.6 feline assets', () => {
     })
     for (const id of ['head_feline_round', 'head_feline_tufted']) {
       const connector = assets.find(asset => asset.partId === id)!.connectorMasks.find(mask => mask.id === 'neck')!
-      const [foreground, background] = await Promise.all([
+      const [contour, foreground, background] = await Promise.all([
+        sharp(connector.contourPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
         sharp(connector.foregroundPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
         sharp(connector.backgroundPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
       ])
       const alphaAt = (image: { data: Buffer, info: { width: number } }, x: number, y: number) => image.data[(y * image.info.width + x) * 4 + 3]
-      expect(alphaAt(background, 1024, 518)).toBe(255)
-      expect(alphaAt(foreground, 1024, 518)).toBe(0)
+      const alphaPixels = (image: { data: Buffer, info: { width: number, height: number } }) => {
+        let pixels = 0
+        for (let pixel = 0; pixel < image.info.width * image.info.height; pixel += 1) {
+          if (image.data[pixel * 4 + 3]! > 0) pixels += 1
+        }
+        return pixels
+      }
+      expect(alphaPixels(foreground)).toBeGreaterThan(1_000_000)
+      expect(alphaPixels(background)).toBeGreaterThan(300_000)
+      expect(alphaPixels(foreground) + alphaPixels(background)).toBe(alphaPixels(contour))
+      expect(alphaAt(background, 1024, 384)).toBe(255)
+      expect(alphaAt(foreground, 1024, 384)).toBe(0)
       expect(alphaAt(foreground, 1024, 760)).toBe(255)
+      expect(alphaAt(background, 1024, 760)).toBe(0)
     }
-  }, 60_000)
+  }, 90_000)
 
   it('rejects a missing or additional source before writing output', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-v06-inventory-'))

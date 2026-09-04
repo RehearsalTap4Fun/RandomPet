@@ -510,7 +510,7 @@
                 "rigId": "feline-sit",
                 "origin": {
                   "x": 1024,
-                  "y": 512
+                  "y": 400
                 },
                 "tangent": {
                   "x": 1,
@@ -525,9 +525,9 @@
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-contour.png",
                 "contourMaskSha256": "08b464089bd930590c0a8ad17fe2f92c1f36e0ec188e355b18b9aa994c55238f",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-foreground.png",
-                "foregroundMaskSha256": "e9c6dc9ec791f880e380c0ffb4d6653f61a6fa3ac3e45884f9912a21b91e5d9e",
+                "foregroundMaskSha256": "5e8134bbb289aa8566b6341d561f77d0c4c813efc4a9a797a03dfc46b03f079c",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-background.png",
-                "backgroundMaskSha256": "40e40af1efe2df8001008ee722c65f16d51d4decbb702a5a783316cea116cb3a",
+                "backgroundMaskSha256": "a777c9d3f2303f1b89fd0fe10e11df601029562d8d144c037ccaaba4f5836410",
                 "materialSampleRegion": {
                   "x": 999,
                   "y": 1717,
@@ -662,7 +662,7 @@
                 "rigId": "feline-sit",
                 "origin": {
                   "x": 1024,
-                  "y": 512
+                  "y": 400
                 },
                 "tangent": {
                   "x": 1,
@@ -677,9 +677,9 @@
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-contour.png",
                 "contourMaskSha256": "7fbd99fe869117f3abbffd2d8ec0e7a108eb975bc3946bf68cba37f7b160bad8",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-foreground.png",
-                "foregroundMaskSha256": "8686307ca46dd51ea109fd22c58e6f2224ea03ad4fa14bcbeae03d5b1346af5a",
+                "foregroundMaskSha256": "4c18518a5373522d7bea9add34257352bb11b0363a2bfbf69e293968054e2d5d",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-background.png",
-                "backgroundMaskSha256": "40e40af1efe2df8001008ee722c65f16d51d4decbb702a5a783316cea116cb3a",
+                "backgroundMaskSha256": "d871ca8b902c5eebc3ab6e13e7c38f51972136023173446654a8621047e8b3ce",
                 "materialSampleRegion": {
                   "x": 1004,
                   "y": 1745,
@@ -2807,13 +2807,13 @@
         "soft-skin"
       ],
       "neutralPngPath": "assets/v0.6.0/bridges/feline-sit/neck.png",
-      "neutralPngSha256": "ff10648da06d5c1f9e0c629d0f5156fbd2a4c9a96f2f2edfab35aedc01abac1e",
+      "neutralPngSha256": "6145892d0f3d3350d32bfed093addacad94ae2993ffe69aa73ced2c35cf460e2",
       "neutralAssetPath": "assets/v0.6.0/bridges/feline-sit/neck.webp",
-      "neutralAssetSha256": "d5c81646b5d6c244bceb42827c68ef0ad5832b9fd18f3755a8c89b7068f2883d",
+      "neutralAssetSha256": "f64de6424b771e0a5a40d6dcfa132f9da6c26d6e30c8cd4f3679ad9566146a98",
       "frontMaskPath": "assets/v0.6.0/bridges/feline-sit/neck-front.png",
-      "frontMaskSha256": "49d8a7f533cb779f4e37b9ea1440d043323338852208a2fac104e5906d80e3ee",
+      "frontMaskSha256": "19cf000e8426fbdc65bdefd4b96542267b056e755c3e6e78e85196a8205a8b03",
       "backMaskPath": "assets/v0.6.0/bridges/feline-sit/neck-back.png",
-      "backMaskSha256": "9a0fd1290409fbe6a60913f7b335c909674b6b3c6a4df861e7048a347e971614"
+      "backMaskSha256": "8ae6e4cfa90e38ea9fe75d7ae3294c317a0ee8d7003230fb4aae26d8562c7f6b"
     },
     {
       "id": "feline-sit-tail-bridge",
@@ -2825,13 +2825,13 @@
         "soft-skin"
       ],
       "neutralPngPath": "assets/v0.6.0/bridges/feline-sit/tail.png",
-      "neutralPngSha256": "8ef109c09007bb976db3281c069826a3cab960c3982b44610aff75615a428e47",
+      "neutralPngSha256": "f7d6699fa355bdf479133e9f80c5e15cac27eedc6d69d1bbcffc55d3e24c271a",
       "neutralAssetPath": "assets/v0.6.0/bridges/feline-sit/tail.webp",
-      "neutralAssetSha256": "5143a52e0943792867d55ea4e8e7cfdcfb3011df35c6ef96e47d745348db69d1",
+      "neutralAssetSha256": "496fea5e232900dbdf8cfc23a9ec1484154cfaaa8c6cb2564a0efbb795e3616d",
       "frontMaskPath": "assets/v0.6.0/bridges/feline-sit/tail-front.png",
-      "frontMaskSha256": "49d8a7f533cb779f4e37b9ea1440d043323338852208a2fac104e5906d80e3ee",
+      "frontMaskSha256": "9766b3ddd1be24b30c349a574cc602a2bc4c35de352797fdd7d33a7e2124cc15",
       "backMaskPath": "assets/v0.6.0/bridges/feline-sit/tail-back.png",
-      "backMaskSha256": "9a0fd1290409fbe6a60913f7b335c909674b6b3c6a4df861e7048a347e971614"
+      "backMaskSha256": "2e095f442455c67eae3432dccebfd2dfb003ff56c4df96cf69ef2bd2291162a9"
     }
   ],
   "archetypes": [

@@ -435,7 +435,7 @@
                 "rigId": "feline-sit",
                 "origin": {
                   "x": 1024,
-                  "y": 512
+                  "y": 400
               },
               "tangent": {
                 "x": 1,
@@ -450,9 +450,9 @@
               "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-contour.png",
               "contourMaskSha256": "08b464089bd930590c0a8ad17fe2f92c1f36e0ec188e355b18b9aa994c55238f",
               "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-foreground.png",
-                "foregroundMaskSha256": "e9c6dc9ec791f880e380c0ffb4d6653f61a6fa3ac3e45884f9912a21b91e5d9e",
+                "foregroundMaskSha256": "5e8134bbb289aa8566b6341d561f77d0c4c813efc4a9a797a03dfc46b03f079c",
               "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-background.png",
-                "backgroundMaskSha256": "40e40af1efe2df8001008ee722c65f16d51d4decbb702a5a783316cea116cb3a",
+                "backgroundMaskSha256": "a777c9d3f2303f1b89fd0fe10e11df601029562d8d144c037ccaaba4f5836410",
               "materialSampleRegion": {
                 "x": 999,
                 "y": 1717,
@@ -587,7 +587,7 @@
                 "rigId": "feline-sit",
                 "origin": {
                   "x": 1024,
-                  "y": 512
+                  "y": 400
               },
               "tangent": {
                 "x": 1,
@@ -602,9 +602,9 @@
               "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-contour.png",
               "contourMaskSha256": "7fbd99fe869117f3abbffd2d8ec0e7a108eb975bc3946bf68cba37f7b160bad8",
               "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-foreground.png",
-                "foregroundMaskSha256": "8686307ca46dd51ea109fd22c58e6f2224ea03ad4fa14bcbeae03d5b1346af5a",
+                "foregroundMaskSha256": "4c18518a5373522d7bea9add34257352bb11b0363a2bfbf69e293968054e2d5d",
               "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-background.png",
-                "backgroundMaskSha256": "40e40af1efe2df8001008ee722c65f16d51d4decbb702a5a783316cea116cb3a",
+                "backgroundMaskSha256": "d871ca8b902c5eebc3ab6e13e7c38f51972136023173446654a8621047e8b3ce",
               "materialSampleRegion": {
                 "x": 1004,
                 "y": 1745,

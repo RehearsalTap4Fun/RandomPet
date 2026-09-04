@@ -98,10 +98,15 @@ const REQUIRED_CONNECTOR_GUIDES: Record<string, ConnectorGuideRegion[]> = {
   tail_feline_star_tip: [{ id: 'tailRoot', role: 'plug', x: 250, y: 1350, width: 320, height: 350 }],
 }
 
-const PRESENTATION_HEAD_OCCLUSION_SEEDS: Partial<Record<string, { x: number, y: number }>> = {
-  head_feline_round: { x: 1024, y: 518 },
-  head_feline_tufted: { x: 1024, y: 518 },
-}
+export const V06_HEAD_PRESENTATION_SEAMS = {
+  // The source neck guides are near the lower edge of the approved head
+  // canvases. Interface placement instead uses this shared registered seam:
+  // it fits every body/head pairing. The cap ends before the face-safe zone,
+  // giving the bridge a connected seam-facing background and the face a
+  // connected foreground partition.
+  head_feline_round: { origin: { x: 1024, y: 400 }, foregroundStartY: 519 },
+  head_feline_tufted: { origin: { x: 1024, y: 400 }, foregroundStartY: 519 },
+} as const
 
 function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex')
@@ -289,17 +294,15 @@ async function writeConnectorMasks(
   const background = new Uint8Array(width * height * 4)
 
   if (role === 'plug' && connectorId === 'neck') {
-    for (let pixel = 0; pixel < width * height; pixel += 1) {
-      if (sourceData[pixel * 4 + 3]! === 0) continue
-      setMaskPixel(foreground, pixel)
+    const seam = V06_HEAD_PRESENTATION_SEAMS[id as keyof typeof V06_HEAD_PRESENTATION_SEAMS]
+    if (seam === undefined) throw new Error(`V06_FELINE_PRESENTATION_HEAD_SEAM_INVALID:${id}`)
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
+        const pixel = y * width + x
+        if (sourceData[pixel * 4 + 3]! === 0) continue
+        setMaskPixel(y < seam.foregroundStartY ? background : foreground, pixel)
+      }
     }
-    const seed = PRESENTATION_HEAD_OCCLUSION_SEEDS[id]
-    if (seed === undefined || sourceData[(seed.y * width + seed.x) * 4 + 3]! === 0) {
-      throw new Error(`V06_FELINE_PRESENTATION_HEAD_SEED_INVALID:${id}`)
-    }
-    const seedPixel = seed.y * width + seed.x
-    setMaskPixel(background, seedPixel)
-    foreground.fill(0, seedPixel * 4, seedPixel * 4 + 4)
   } else {
     for (let y = Math.max(0, origin.y - 32); y <= Math.min(height - 1, origin.y + 32); y += 1) {
       for (let x = Math.max(0, origin.x - 32); x <= Math.min(width - 1, origin.x + 32); x += 1) {
