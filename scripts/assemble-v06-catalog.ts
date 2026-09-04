@@ -140,15 +140,26 @@ function commonPart(id: string, slotId: VisualSlotId, asset: V06FelineAssetProve
   }
 }
 
+const PRESENTATION_CONNECTOR_ORIGINS: Record<string, Partial<Record<'neck' | 'tailRoot', { x: number, y: number }>>> = {
+  // The approved head layers share the 2048px registration canvas with the body,
+  // but their physical neck guide sits at the bottom of that source canvas. The
+  // interface solver needs the presentation anchor so the head and its face
+  // sockets remain in the output frame; the connector masks still retain the
+  // physical guide for bridge-contour sampling.
+  head_feline_round: { neck: { x: 1024, y: 512 } },
+  head_feline_tufted: { neck: { x: 1024, y: 512 } },
+}
+
 function connectorProfile(asset: V06FelineAssetProvenance, connectorId: 'neck' | 'tailRoot', role: 'receiver' | 'plug', assetRoot: string): any {
   const mask = asset.connectorMasks.find(candidate => candidate.id === connectorId)
   if (mask === undefined) throw new Error(`V06_CONNECTOR_MASK_MISSING:${asset.partId}:${connectorId}`)
+  const origin = PRESENTATION_CONNECTOR_ORIGINS[asset.partId]?.[connectorId] ?? mask.origin
   return {
     id: connectorId,
     role,
     connectorClass: connectorId === 'neck' ? 'neck' : 'tail',
     rigId: V06_FELINE_RIG_ID,
-    origin: mask.origin,
+    origin,
     tangent: { x: 1, y: 0 },
     outwardNormal: mask.outwardNormal,
     width: mask.width,
@@ -209,8 +220,8 @@ function structuralPart(asset: V06FelineAssetProvenance, assetRoot: string): any
           ? [connectorProfile(asset, 'neck', 'receiver', assetRoot), connectorProfile(asset, 'tailRoot', 'receiver', assetRoot)]
           : [connectorProfile(asset, isHead ? 'neck' : 'tailRoot', 'plug', assetRoot)],
         ...(isHead ? {
-          faceSafeZones: [{ x: 600, y: 420, width: 848, height: 780 }],
-          featureSockets: { eyes: { x: 1024, y: 760 }, mouth: { x: 1024, y: 960 }, headAppendage: { x: 1024, y: 420 } },
+          faceSafeZones: [{ x: 600, y: 519, width: 848, height: 780 }],
+          featureSockets: { eyes: { x: 1024, y: 800 }, mouth: { x: 1024, y: 960 }, headAppendage: { x: 1024, y: 420 } },
         } : {}),
       },
     },
@@ -320,7 +331,8 @@ async function createBridgeAssets(assetRoot: string): Promise<Record<'neck' | 't
     const rgba = Buffer.alloc(512 * 256 * 4)
     const front = Buffer.alloc(rgba.length)
     const back = Buffer.alloc(rgba.length)
-    for (let y = 80; y < 176; y += 1) for (let x = 80; x < 432; x += 1) {
+    for (let y = 0; y < 256; y += 1) for (let x = 0; x < 512; x += 1) {
+      if (x === 0 && y === 0) continue
       const pixel = y * 512 + x
       const offset = pixel * 4
       rgba[offset] = connectorClass === 'neck' ? 176 : 128

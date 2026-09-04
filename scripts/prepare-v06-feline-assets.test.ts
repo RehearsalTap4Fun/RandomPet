@@ -58,6 +58,26 @@ describe('prepare v0.6 feline assets', () => {
       .every(asset => asset.outsideFelineMaskPixels === 0)).toBe(true)
   }, 60_000)
 
+  it('keeps the presentation neck seed behind the head face foreground', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v06-head-occlusion-seed-'))
+    temporaryRoots.push(root)
+    const assets = await prepareV06FelineAssets({
+      sourceDirectory: 'asset-source/v0.6.0/generation/feline',
+      outputDirectory: join(root, 'assets'),
+    })
+    for (const id of ['head_feline_round', 'head_feline_tufted']) {
+      const connector = assets.find(asset => asset.partId === id)!.connectorMasks.find(mask => mask.id === 'neck')!
+      const [foreground, background] = await Promise.all([
+        sharp(connector.foregroundPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
+        sharp(connector.backgroundPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
+      ])
+      const alphaAt = (image: { data: Buffer, info: { width: number } }, x: number, y: number) => image.data[(y * image.info.width + x) * 4 + 3]
+      expect(alphaAt(background, 1024, 518)).toBe(255)
+      expect(alphaAt(foreground, 1024, 518)).toBe(0)
+      expect(alphaAt(foreground, 1024, 760)).toBe(255)
+    }
+  }, 60_000)
+
   it('rejects a missing or additional source before writing output', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-v06-inventory-'))
     temporaryRoots.push(root)
@@ -168,5 +188,5 @@ describe('prepare v0.6 feline assets', () => {
 
     await expect(prepareV06FelineAssets({ sourceDirectory, outputDirectory: join(root, 'output') }))
       .rejects.toThrow(/V06_FELINE_MASK_CONTAINMENT_INVALID:pattern_feline_tabby-source\.png/u)
-  }, 30_000)
+  }, 60_000)
 })

@@ -98,6 +98,11 @@ const REQUIRED_CONNECTOR_GUIDES: Record<string, ConnectorGuideRegion[]> = {
   tail_feline_star_tip: [{ id: 'tailRoot', role: 'plug', x: 250, y: 1350, width: 320, height: 350 }],
 }
 
+const PRESENTATION_HEAD_OCCLUSION_SEEDS: Partial<Record<string, { x: number, y: number }>> = {
+  head_feline_round: { x: 1024, y: 518 },
+  head_feline_tufted: { x: 1024, y: 518 },
+}
+
 function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex')
 }
@@ -284,12 +289,17 @@ async function writeConnectorMasks(
   const background = new Uint8Array(width * height * 4)
 
   if (role === 'plug' && connectorId === 'neck') {
-    const splitY = origin.y
     for (let pixel = 0; pixel < width * height; pixel += 1) {
       if (sourceData[pixel * 4 + 3]! === 0) continue
-      const y = Math.floor(pixel / width)
-      setMaskPixel(y < splitY ? foreground : background, pixel)
+      setMaskPixel(foreground, pixel)
     }
+    const seed = PRESENTATION_HEAD_OCCLUSION_SEEDS[id]
+    if (seed === undefined || sourceData[(seed.y * width + seed.x) * 4 + 3]! === 0) {
+      throw new Error(`V06_FELINE_PRESENTATION_HEAD_SEED_INVALID:${id}`)
+    }
+    const seedPixel = seed.y * width + seed.x
+    setMaskPixel(background, seedPixel)
+    foreground.fill(0, seedPixel * 4, seedPixel * 4 + 4)
   } else {
     for (let y = Math.max(0, origin.y - 32); y <= Math.min(height - 1, origin.y + 32); y += 1) {
       for (let x = Math.max(0, origin.x - 32); x <= Math.min(width - 1, origin.x + 32); x += 1) {

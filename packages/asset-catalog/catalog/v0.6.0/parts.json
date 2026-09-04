@@ -432,10 +432,10 @@
               "id": "neck",
               "role": "plug",
               "connectorClass": "neck",
-              "rigId": "feline-sit",
-              "origin": {
-                "x": 1023,
-                "y": 1741
+                "rigId": "feline-sit",
+                "origin": {
+                  "x": 1024,
+                  "y": 512
               },
               "tangent": {
                 "x": 1,
@@ -450,9 +450,9 @@
               "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-contour.png",
               "contourMaskSha256": "08b464089bd930590c0a8ad17fe2f92c1f36e0ec188e355b18b9aa994c55238f",
               "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-foreground.png",
-              "foregroundMaskSha256": "4f8f1379c07d6d74cc537908b2b5eaaf1d0d92b70d258c2181e2210610f92466",
+                "foregroundMaskSha256": "e9c6dc9ec791f880e380c0ffb4d6653f61a6fa3ac3e45884f9912a21b91e5d9e",
               "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-background.png",
-              "backgroundMaskSha256": "d7624382617236c416981db757e3eb1f8301d193cfda07d69b9cd4d6373bd8d0",
+                "backgroundMaskSha256": "40e40af1efe2df8001008ee722c65f16d51d4decbb702a5a783316cea116cb3a",
               "materialSampleRegion": {
                 "x": 999,
                 "y": 1717,
@@ -478,7 +478,7 @@
           "faceSafeZones": [
             {
               "x": 600,
-              "y": 420,
+                "y": 519,
               "width": 848,
               "height": 780
             }
@@ -486,7 +486,7 @@
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 760
+                "y": 800
             },
             "mouth": {
               "x": 1024,
@@ -584,10 +584,10 @@
               "id": "neck",
               "role": "plug",
               "connectorClass": "neck",
-              "rigId": "feline-sit",
-              "origin": {
-                "x": 1028,
-                "y": 1769
+                "rigId": "feline-sit",
+                "origin": {
+                  "x": 1024,
+                  "y": 512
               },
               "tangent": {
                 "x": 1,
@@ -602,9 +602,9 @@
               "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-contour.png",
               "contourMaskSha256": "7fbd99fe869117f3abbffd2d8ec0e7a108eb975bc3946bf68cba37f7b160bad8",
               "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-foreground.png",
-              "foregroundMaskSha256": "c3d09d20b4e8d2d95343f2f1a6792ec3a0d6db9d7135927f2bc61dfd2d112c16",
+                "foregroundMaskSha256": "8686307ca46dd51ea109fd22c58e6f2224ea03ad4fa14bcbeae03d5b1346af5a",
               "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-background.png",
-              "backgroundMaskSha256": "1718056835e45ee470883d1b973d335d7270c8bf6f219756f3636eb696c7c7ea",
+                "backgroundMaskSha256": "40e40af1efe2df8001008ee722c65f16d51d4decbb702a5a783316cea116cb3a",
               "materialSampleRegion": {
                 "x": 1004,
                 "y": 1745,
@@ -630,7 +630,7 @@
           "faceSafeZones": [
             {
               "x": 600,
-              "y": 420,
+                "y": 519,
               "width": 848,
               "height": 780
             }
@@ -638,7 +638,7 @@
           "featureSockets": {
             "eyes": {
               "x": 1024,
-              "y": 760
+                "y": 800
             },
             "mouth": {
               "x": 1024,

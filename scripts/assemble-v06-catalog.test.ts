@@ -1,6 +1,7 @@
-import { access, mkdir, mkdtemp, rm } from 'node:fs/promises'
+import { access, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
 import { assembleV06Catalog, V06_INTEGRATED_PART_IDS } from './assemble-v06-catalog.js'
 
@@ -63,6 +64,34 @@ describe('assemble v0.6 feline catalog', () => {
     expect(part).not.toHaveProperty('pngSha256')
     expect(catalog.parts.filter((candidate: { featureTier?: string }) => candidate.featureTier === 'special'))
       .not.toContainEqual(expect.objectContaining({ id: 'headAppendage_feline_none' }))
+  }, 60_000)
+
+  it('keeps the normal feline face zone in canvas and bridge alpha at both mesh ends', async () => {
+    const stagedRoot = await mkdtemp(join(tmpdir(), 'qmonster-v06-interface-contract-'))
+    temporaryRoots.push(stagedRoot)
+    const catalog = await assembleV06Catalog({ repositoryRoot: process.cwd(), stagedRoot })
+    const structuralVariant = (partId: string) => catalog.parts.find((part: { id: string }) => part.id === partId)
+      .composition.variantsByRig['feline-sit']
+    const neck = (variant: { connectors: Array<{ id: string }> }) => variant.connectors.find(connector => connector.id === 'neck')
+    const roundBodyNeck = neck(structuralVariant('body_feline_sit_round'))
+
+    for (const headId of ['head_feline_round', 'head_feline_tufted']) {
+      const head = structuralVariant(headId)
+      const faceZone = head.faceSafeZones[0]
+      const headPlacementY = roundBodyNeck.origin.y - neck(head).origin.y
+      expect(headPlacementY + faceZone.y).toBeGreaterThanOrEqual(0)
+      expect(headPlacementY + faceZone.y + faceZone.height).toBeLessThanOrEqual(2048)
+    }
+
+    for (const bridge of catalog.transitionBridges) {
+      const bridgePath = join(stagedRoot, 'packages', 'asset-catalog', bridge.neutralPngPath)
+      const decoded = await sharp(await readFile(bridgePath)).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+      const alphaAt = (x: number, y: number) => decoded.data[(y * decoded.info.width + x) * 4 + 3]
+      expect(alphaAt(Math.floor(decoded.info.width / 2), 0)).toBe(255)
+      expect(alphaAt(Math.floor(decoded.info.width / 2), decoded.info.height - 1)).toBe(255)
+      expect(await sharp(await readFile(join(stagedRoot, 'packages', 'asset-catalog', bridge.neutralAssetPath))).metadata())
+        .toMatchObject({ hasAlpha: true })
+    }
   }, 60_000)
 
   it('writes aggregate, splits, provenance, manifest, evidence, review and assets together', async () => {

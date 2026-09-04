@@ -242,8 +242,8 @@
           "role": "plug",
           "connectorClass": "neck",
           "origin": {
-            "x": 1023,
-            "y": 1741
+            "x": 1024,
+            "y": 512
           },
           "tangent": {
             "x": 1,
@@ -294,7 +294,7 @@
       "faceSafeZones": [
         {
           "x": 600,
-          "y": 420,
+          "y": 519,
           "width": 848,
           "height": 780
         }
@@ -302,7 +302,7 @@
       "featureSockets": {
         "eyes": {
           "x": 1024,
-          "y": 760
+          "y": 800
         },
         "mouth": {
           "x": 1024,
@@ -332,8 +332,8 @@
           "role": "plug",
           "connectorClass": "neck",
           "origin": {
-            "x": 1028,
-            "y": 1769
+            "x": 1024,
+            "y": 512
           },
           "tangent": {
             "x": 1,
@@ -384,7 +384,7 @@
       "faceSafeZones": [
         {
           "x": 600,
-          "y": 420,
+          "y": 519,
           "width": 848,
           "height": 780
         }
@@ -392,7 +392,7 @@
       "featureSockets": {
         "eyes": {
           "x": 1024,
-          "y": 760
+          "y": 800
         },
         "mouth": {
           "x": 1024,
