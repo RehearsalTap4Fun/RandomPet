@@ -3,5 +3,5 @@
   "canonicalization": "json-object-keys-unicode-code-point-v1",
   "catalogVersion": "0.6.0",
   "sourceIndexPath": "packages/asset-catalog/source-index-v0.6.0.json",
-  "evidenceRootSha256": "ff007df626786566ab95311ed76b6f691e32531cb521f4e304ad994d407fcd25"
+  "evidenceRootSha256": "86b27963303be6dc8c1490e79e388eca3a56e8f16f5d9e24cf48ebcb57254716"
 }

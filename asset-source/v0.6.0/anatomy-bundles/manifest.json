@@ -1,0 +1,663 @@
+{
+  "schemaVersion": "qmonster-v06-anatomy-bundles-v1",
+  "catalogVersion": "0.6.0",
+  "canvasSize": 2048,
+  "bundles": [
+    {
+      "id": "feline-sit-saffron-longtail",
+      "sourcePath": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-saffron-longtail.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 2048
+      },
+      "alphaBounds": {
+        "x": 448,
+        "y": 85,
+        "width": 1392,
+        "height": 1886
+      },
+      "sourceSha256": "98cf4f17444d568982c0dbf297eecf83ec946a93d87c3e8bfd928466bad2dac0",
+      "faceSafeZone": {
+        "x": 650,
+        "y": 280,
+        "width": 748,
+        "height": 620
+      },
+      "featureSockets": {
+        "eyes": {
+          "x": 880,
+          "y": 560
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 735
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 345
+        }
+      },
+      "mutationAnchors": {
+        "ear": {
+          "x": 540,
+          "y": 190,
+          "width": 340,
+          "height": 300
+        },
+        "back": {
+          "x": 1320,
+          "y": 900,
+          "width": 310,
+          "height": 420
+        },
+        "tailTip": {
+          "x": 1450,
+          "y": 1110,
+          "width": 380,
+          "height": 440
+        }
+      },
+      "allowedTraitPools": {
+        "eyes": [
+          "eyes_feline_bundle_feline_sit_saffron_longtail"
+        ],
+        "mouthShape": [
+          "mouthShape_feline_bundle_feline_sit_saffron_longtail"
+        ],
+        "oralDetail": [
+          "oralDetail_feline_bundle_feline_sit_saffron_longtail"
+        ],
+        "headAppendage": [
+          "headAppendage_feline_bundle_feline_sit_saffron_longtail"
+        ],
+        "surfaceMaterial": [
+          "surfaceMaterial_feline_bundle_feline_sit_saffron_longtail"
+        ],
+        "pattern": [
+          "pattern_feline_bundle_feline_sit_saffron_longtail"
+        ],
+        "colorScheme": [
+          "colorScheme_feline_bundle_feline_sit_saffron_longtail"
+        ],
+        "effect": [
+          "effect_feline_bundle_feline_sit_saffron_longtail"
+        ]
+      },
+      "prompt": "Built-in image_gen complete feline-sit feline-sit-saffron-longtail; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+    },
+    {
+      "id": "feline-sit-silver-curl",
+      "sourcePath": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-silver-curl.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 2048
+      },
+      "alphaBounds": {
+        "x": 379,
+        "y": 106,
+        "width": 1381,
+        "height": 1811
+      },
+      "sourceSha256": "ba552d7ea0419bb2d69b1446116230839f6ac18520d45e420b00897376a1db21",
+      "faceSafeZone": {
+        "x": 650,
+        "y": 280,
+        "width": 748,
+        "height": 620
+      },
+      "featureSockets": {
+        "eyes": {
+          "x": 880,
+          "y": 560
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 735
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 345
+        }
+      },
+      "mutationAnchors": {
+        "ear": {
+          "x": 540,
+          "y": 190,
+          "width": 340,
+          "height": 300
+        },
+        "back": {
+          "x": 1320,
+          "y": 900,
+          "width": 310,
+          "height": 420
+        },
+        "tailTip": {
+          "x": 1450,
+          "y": 1110,
+          "width": 380,
+          "height": 440
+        }
+      },
+      "allowedTraitPools": {
+        "eyes": [
+          "eyes_feline_bundle_feline_sit_silver_curl"
+        ],
+        "mouthShape": [
+          "mouthShape_feline_bundle_feline_sit_silver_curl"
+        ],
+        "oralDetail": [
+          "oralDetail_feline_bundle_feline_sit_silver_curl"
+        ],
+        "headAppendage": [
+          "headAppendage_feline_bundle_feline_sit_silver_curl"
+        ],
+        "surfaceMaterial": [
+          "surfaceMaterial_feline_bundle_feline_sit_silver_curl"
+        ],
+        "pattern": [
+          "pattern_feline_bundle_feline_sit_silver_curl"
+        ],
+        "colorScheme": [
+          "colorScheme_feline_bundle_feline_sit_silver_curl"
+        ],
+        "effect": [
+          "effect_feline_bundle_feline_sit_silver_curl"
+        ]
+      },
+      "prompt": "Built-in image_gen complete feline-sit feline-sit-silver-curl; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+    },
+    {
+      "id": "feline-sit-midnight-longtail",
+      "sourcePath": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-midnight-longtail.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 2048
+      },
+      "alphaBounds": {
+        "x": 574,
+        "y": 54,
+        "width": 1162,
+        "height": 1895
+      },
+      "sourceSha256": "37aef63d61e1954e241e50213ff75c3ae993a120482f33cd691430aecccf2499",
+      "faceSafeZone": {
+        "x": 650,
+        "y": 280,
+        "width": 748,
+        "height": 620
+      },
+      "featureSockets": {
+        "eyes": {
+          "x": 880,
+          "y": 560
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 735
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 345
+        }
+      },
+      "mutationAnchors": {
+        "ear": {
+          "x": 540,
+          "y": 190,
+          "width": 340,
+          "height": 300
+        },
+        "back": {
+          "x": 1320,
+          "y": 900,
+          "width": 310,
+          "height": 420
+        },
+        "tailTip": {
+          "x": 1450,
+          "y": 1110,
+          "width": 380,
+          "height": 440
+        }
+      },
+      "allowedTraitPools": {
+        "eyes": [
+          "eyes_feline_bundle_feline_sit_midnight_longtail"
+        ],
+        "mouthShape": [
+          "mouthShape_feline_bundle_feline_sit_midnight_longtail"
+        ],
+        "oralDetail": [
+          "oralDetail_feline_bundle_feline_sit_midnight_longtail"
+        ],
+        "headAppendage": [
+          "headAppendage_feline_bundle_feline_sit_midnight_longtail"
+        ],
+        "surfaceMaterial": [
+          "surfaceMaterial_feline_bundle_feline_sit_midnight_longtail"
+        ],
+        "pattern": [
+          "pattern_feline_bundle_feline_sit_midnight_longtail"
+        ],
+        "colorScheme": [
+          "colorScheme_feline_bundle_feline_sit_midnight_longtail"
+        ],
+        "effect": [
+          "effect_feline_bundle_feline_sit_midnight_longtail"
+        ]
+      },
+      "prompt": "Built-in image_gen complete feline-sit feline-sit-midnight-longtail; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+    },
+    {
+      "id": "feline-sit-moss-curl",
+      "sourcePath": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-moss-curl.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 2048
+      },
+      "alphaBounds": {
+        "x": 465,
+        "y": 92,
+        "width": 1358,
+        "height": 1854
+      },
+      "sourceSha256": "48b2c03dc83af31e5c32724a98b1dfe7479612fd1f8e5cbbc6242dc2fa7bfb43",
+      "faceSafeZone": {
+        "x": 650,
+        "y": 280,
+        "width": 748,
+        "height": 620
+      },
+      "featureSockets": {
+        "eyes": {
+          "x": 880,
+          "y": 560
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 735
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 345
+        }
+      },
+      "mutationAnchors": {
+        "ear": {
+          "x": 540,
+          "y": 190,
+          "width": 340,
+          "height": 300
+        },
+        "back": {
+          "x": 1320,
+          "y": 900,
+          "width": 310,
+          "height": 420
+        },
+        "tailTip": {
+          "x": 1450,
+          "y": 1110,
+          "width": 380,
+          "height": 440
+        }
+      },
+      "allowedTraitPools": {
+        "eyes": [
+          "eyes_feline_bundle_feline_sit_moss_curl"
+        ],
+        "mouthShape": [
+          "mouthShape_feline_bundle_feline_sit_moss_curl"
+        ],
+        "oralDetail": [
+          "oralDetail_feline_bundle_feline_sit_moss_curl"
+        ],
+        "headAppendage": [
+          "headAppendage_feline_bundle_feline_sit_moss_curl"
+        ],
+        "surfaceMaterial": [
+          "surfaceMaterial_feline_bundle_feline_sit_moss_curl"
+        ],
+        "pattern": [
+          "pattern_feline_bundle_feline_sit_moss_curl"
+        ],
+        "colorScheme": [
+          "colorScheme_feline_bundle_feline_sit_moss_curl"
+        ],
+        "effect": [
+          "effect_feline_bundle_feline_sit_moss_curl"
+        ]
+      },
+      "prompt": "Built-in image_gen complete feline-sit feline-sit-moss-curl; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+    },
+    {
+      "id": "feline-sit-rose-longtail",
+      "sourcePath": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-rose-longtail.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 2048
+      },
+      "alphaBounds": {
+        "x": 533,
+        "y": 61,
+        "width": 1325,
+        "height": 1914
+      },
+      "sourceSha256": "a5f0fe463989b5b246f66f36dfb693801dab61e2d477df3341c222eadb0bd721",
+      "faceSafeZone": {
+        "x": 650,
+        "y": 280,
+        "width": 748,
+        "height": 620
+      },
+      "featureSockets": {
+        "eyes": {
+          "x": 880,
+          "y": 560
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 735
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 345
+        }
+      },
+      "mutationAnchors": {
+        "ear": {
+          "x": 540,
+          "y": 190,
+          "width": 340,
+          "height": 300
+        },
+        "back": {
+          "x": 1320,
+          "y": 900,
+          "width": 310,
+          "height": 420
+        },
+        "tailTip": {
+          "x": 1450,
+          "y": 1110,
+          "width": 380,
+          "height": 440
+        }
+      },
+      "allowedTraitPools": {
+        "eyes": [
+          "eyes_feline_bundle_feline_sit_rose_longtail"
+        ],
+        "mouthShape": [
+          "mouthShape_feline_bundle_feline_sit_rose_longtail"
+        ],
+        "oralDetail": [
+          "oralDetail_feline_bundle_feline_sit_rose_longtail"
+        ],
+        "headAppendage": [
+          "headAppendage_feline_bundle_feline_sit_rose_longtail"
+        ],
+        "surfaceMaterial": [
+          "surfaceMaterial_feline_bundle_feline_sit_rose_longtail"
+        ],
+        "pattern": [
+          "pattern_feline_bundle_feline_sit_rose_longtail"
+        ],
+        "colorScheme": [
+          "colorScheme_feline_bundle_feline_sit_rose_longtail"
+        ],
+        "effect": [
+          "effect_feline_bundle_feline_sit_rose_longtail"
+        ]
+      },
+      "prompt": "Built-in image_gen complete feline-sit feline-sit-rose-longtail; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+    },
+    {
+      "id": "feline-sit-umber-curl",
+      "sourcePath": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-umber-curl.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 2048
+      },
+      "alphaBounds": {
+        "x": 516,
+        "y": 88,
+        "width": 1214,
+        "height": 1823
+      },
+      "sourceSha256": "d22b461e36bfd18f64973ed93d19c036933e1cd47f6f40ed80480f0e0e529397",
+      "faceSafeZone": {
+        "x": 650,
+        "y": 280,
+        "width": 748,
+        "height": 620
+      },
+      "featureSockets": {
+        "eyes": {
+          "x": 880,
+          "y": 560
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 735
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 345
+        }
+      },
+      "mutationAnchors": {
+        "ear": {
+          "x": 540,
+          "y": 190,
+          "width": 340,
+          "height": 300
+        },
+        "back": {
+          "x": 1320,
+          "y": 900,
+          "width": 310,
+          "height": 420
+        },
+        "tailTip": {
+          "x": 1450,
+          "y": 1110,
+          "width": 380,
+          "height": 440
+        }
+      },
+      "allowedTraitPools": {
+        "eyes": [
+          "eyes_feline_bundle_feline_sit_umber_curl"
+        ],
+        "mouthShape": [
+          "mouthShape_feline_bundle_feline_sit_umber_curl"
+        ],
+        "oralDetail": [
+          "oralDetail_feline_bundle_feline_sit_umber_curl"
+        ],
+        "headAppendage": [
+          "headAppendage_feline_bundle_feline_sit_umber_curl"
+        ],
+        "surfaceMaterial": [
+          "surfaceMaterial_feline_bundle_feline_sit_umber_curl"
+        ],
+        "pattern": [
+          "pattern_feline_bundle_feline_sit_umber_curl"
+        ],
+        "colorScheme": [
+          "colorScheme_feline_bundle_feline_sit_umber_curl"
+        ],
+        "effect": [
+          "effect_feline_bundle_feline_sit_umber_curl"
+        ]
+      },
+      "prompt": "Built-in image_gen complete feline-sit feline-sit-umber-curl; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+    },
+    {
+      "id": "feline-sit-ivory-longtail",
+      "sourcePath": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-ivory-longtail.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 2048
+      },
+      "alphaBounds": {
+        "x": 575,
+        "y": 61,
+        "width": 1036,
+        "height": 1866
+      },
+      "sourceSha256": "04820c5bc938b4e124029200412c227697ae96c85fd805d9be4c6947256042e1",
+      "faceSafeZone": {
+        "x": 650,
+        "y": 280,
+        "width": 748,
+        "height": 620
+      },
+      "featureSockets": {
+        "eyes": {
+          "x": 880,
+          "y": 560
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 735
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 345
+        }
+      },
+      "mutationAnchors": {
+        "ear": {
+          "x": 540,
+          "y": 190,
+          "width": 340,
+          "height": 300
+        },
+        "back": {
+          "x": 1320,
+          "y": 900,
+          "width": 310,
+          "height": 420
+        },
+        "tailTip": {
+          "x": 1450,
+          "y": 1110,
+          "width": 380,
+          "height": 440
+        }
+      },
+      "allowedTraitPools": {
+        "eyes": [
+          "eyes_feline_bundle_feline_sit_ivory_longtail"
+        ],
+        "mouthShape": [
+          "mouthShape_feline_bundle_feline_sit_ivory_longtail"
+        ],
+        "oralDetail": [
+          "oralDetail_feline_bundle_feline_sit_ivory_longtail"
+        ],
+        "headAppendage": [
+          "headAppendage_feline_bundle_feline_sit_ivory_longtail"
+        ],
+        "surfaceMaterial": [
+          "surfaceMaterial_feline_bundle_feline_sit_ivory_longtail"
+        ],
+        "pattern": [
+          "pattern_feline_bundle_feline_sit_ivory_longtail"
+        ],
+        "colorScheme": [
+          "colorScheme_feline_bundle_feline_sit_ivory_longtail"
+        ],
+        "effect": [
+          "effect_feline_bundle_feline_sit_ivory_longtail"
+        ]
+      },
+      "prompt": "Built-in image_gen complete feline-sit feline-sit-ivory-longtail; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+    },
+    {
+      "id": "feline-sit-violet-curl",
+      "sourcePath": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-violet-curl.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 2048
+      },
+      "alphaBounds": {
+        "x": 500,
+        "y": 196,
+        "width": 1225,
+        "height": 1670
+      },
+      "sourceSha256": "f02042dcb244b989bb41f4389f811394acd47dac5313ea4fbc06366fab8d12e3",
+      "faceSafeZone": {
+        "x": 650,
+        "y": 280,
+        "width": 748,
+        "height": 620
+      },
+      "featureSockets": {
+        "eyes": {
+          "x": 880,
+          "y": 560
+        },
+        "mouth": {
+          "x": 1024,
+          "y": 735
+        },
+        "headAppendage": {
+          "x": 1024,
+          "y": 345
+        }
+      },
+      "mutationAnchors": {
+        "ear": {
+          "x": 540,
+          "y": 190,
+          "width": 340,
+          "height": 300
+        },
+        "back": {
+          "x": 1320,
+          "y": 900,
+          "width": 310,
+          "height": 420
+        },
+        "tailTip": {
+          "x": 1450,
+          "y": 1110,
+          "width": 380,
+          "height": 440
+        }
+      },
+      "allowedTraitPools": {
+        "eyes": [
+          "eyes_feline_bundle_feline_sit_violet_curl"
+        ],
+        "mouthShape": [
+          "mouthShape_feline_bundle_feline_sit_violet_curl"
+        ],
+        "oralDetail": [
+          "oralDetail_feline_bundle_feline_sit_violet_curl"
+        ],
+        "headAppendage": [
+          "headAppendage_feline_bundle_feline_sit_violet_curl"
+        ],
+        "surfaceMaterial": [
+          "surfaceMaterial_feline_bundle_feline_sit_violet_curl"
+        ],
+        "pattern": [
+          "pattern_feline_bundle_feline_sit_violet_curl"
+        ],
+        "colorScheme": [
+          "colorScheme_feline_bundle_feline_sit_violet_curl"
+        ],
+        "effect": [
+          "effect_feline_bundle_feline_sit_violet_curl"
+        ]
+      },
+      "prompt": "Built-in image_gen complete feline-sit feline-sit-violet-curl; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+    }
+  ]
+}

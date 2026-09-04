@@ -819,8 +819,8 @@ async function validateHeadOcclusionSplit(
         if (node.data[pixel * 4 + 3]! > 0 && foreground.data[pixel * 4 + 3]! === 0) invalidFacePixels += 1
       }
     }
-    const seedX = Math.round(connector.origin.x + connector.outwardNormal.x * connector.depth / 2)
-    const seedY = Math.round(connector.origin.y + connector.outwardNormal.y * connector.depth / 2)
+    const seedX = Math.round(connector.origin.x - connector.outwardNormal.x * connector.depth / 2)
+    const seedY = Math.round(connector.origin.y - connector.outwardNormal.y * connector.depth / 2)
     const seed = seedY * node.info.width + seedX
     const invalidSeed = seedX < 0 || seedY < 0 || seedX >= node.info.width || seedY >= node.info.height
       || node.data[seed * 4 + 3]! === 0 || background.data[seed * 4 + 3]! === 0
@@ -830,7 +830,7 @@ async function validateHeadOcclusionSplit(
     ) return [error(
       'PRODUCTION_INTERFACE_HEAD_OCCLUSION_INVALID',
       path,
-      `Head foreground/background masks must be nonempty, disjoint, node-alpha-complete subsets with face alpha in foreground and the outward plug seed in background; overlap=${overlap}, uncovered=${uncovered}, outside=${outside}, invalidFace=${invalidFacePixels}, invalidSeed=${invalidSeed}.`,
+      `Head foreground/background masks must be nonempty, disjoint, node-alpha-complete subsets with face alpha in foreground and the inward plug-frontier seed in background; overlap=${overlap}, uncovered=${uncovered}, outside=${outside}, invalidFace=${invalidFacePixels}, invalidSeed=${invalidSeed}.`,
     )]
     return []
   } catch (caught) {
@@ -1147,7 +1147,7 @@ function checkV06TransparentSourceEnvelope(
   if (
     source.kind !== 'generated-transparent-layer'
     || !nonemptyText(source.promptId)
-    || source.promptCatalogPath !== 'asset-source/v0.6.0/prompts/feline-prompts.json'
+    || !['asset-source/v0.6.0/prompts/feline-prompts.json', 'asset-source/v0.6.0/anatomy-bundles/manifest.json'].includes(source.promptCatalogPath)
     || !isSha256(source.promptCatalogSha256)
     || !Number.isInteger(source.selectedCandidate)
     || Number(source.selectedCandidate) < 1
@@ -1256,6 +1256,52 @@ async function validateV06FelineMaskContainment(catalog: Catalog, assetRoot: str
         `Could not decode v0.6 feline ${part.slotId} alpha resource: ${caught instanceof Error ? caught.message : String(caught)}`,
       ))
     }
+  }
+  return diagnostics
+}
+
+function v06ConnectedComponents(data: Buffer, width: number, height: number): number {
+  const visited = new Uint8Array(width * height)
+  const queue = new Int32Array(width * height)
+  let components = 0
+  for (let start = 0; start < width * height; start += 1) {
+    if (visited[start] !== 0 || data[start * 4 + 3]! < V06_VISIBLE_ALPHA_THRESHOLD) continue
+    let head = 0; let tail = 1
+    queue[0] = start; visited[start] = 1
+    while (head < tail) {
+      const pixel = queue[head++]!; const x = pixel % width; const y = Math.floor(pixel / width)
+      const visit = (candidate: number): void => {
+        if (visited[candidate] !== 0 || data[candidate * 4 + 3]! < V06_VISIBLE_ALPHA_THRESHOLD) return
+        visited[candidate] = 1; queue[tail++] = candidate
+      }
+      if (x > 0) visit(pixel - 1)
+      if (x + 1 < width) visit(pixel + 1)
+      if (y > 0) visit(pixel - width)
+      if (y + 1 < height) visit(pixel + width)
+    }
+    components += 1
+  }
+  return components
+}
+
+async function validateV06AnatomyBundles(catalog: Catalog, assetRoot: string): Promise<Diagnostic[]> {
+  if (catalog.version !== '0.6.0') return []
+  const diagnostics: Diagnostic[] = []
+  for (const [index, bundle] of (catalog.anatomyBundles ?? []).entries()) try {
+    const [structural, alpha, clip] = await Promise.all([
+      decodeCommittedRgba(assetRoot, v06RuntimePath(bundle.structural.pngPath)),
+      decodeCommittedRgba(assetRoot, v06RuntimePath(bundle.alpha.pngPath)),
+      decodeCommittedRgba(assetRoot, v06RuntimePath(bundle.clip.pngPath)),
+    ])
+    if ([structural, alpha, clip].some(image => image.width !== 2048 || image.height !== 2048)) throw new Error('resources must be 2048×2048')
+    if (v06ConnectedComponents(structural.data, structural.width, structural.height) !== 1) throw new Error('single connected structure alpha required')
+    for (let pixel = 0; pixel < structural.width * structural.height; pixel += 1) {
+      if (alpha.data[pixel * 4 + 3] !== structural.data[pixel * 4 + 3] || (clip.data[pixel * 4 + 3]! > 0 && structural.data[pixel * 4 + 3] === 0)) throw new Error('alpha/clip must derive from the complete source alpha')
+    }
+    const rectangles = [bundle.faceSafeZone, ...Object.values(bundle.mutationAnchors)]
+    if (rectangles.some(rectangle => rectangle.x < 0 || rectangle.y < 0 || rectangle.width <= 0 || rectangle.height <= 0 || rectangle.x + rectangle.width > 2048 || rectangle.y + rectangle.height > 2048)) throw new Error('face/anchor rectangle outside canvas')
+  } catch (caught) {
+    diagnostics.push(error('PRODUCTION_ANATOMY_BUNDLE_INVALID', ['anatomyBundles', String(index)], caught instanceof Error ? caught.message : String(caught)))
   }
   return diagnostics
 }
@@ -1744,7 +1790,7 @@ export async function validateProductionSourceIndex(
   for (const part of catalog.parts) {
     const resourceEmptyNone = part.composition?.isNone === true && part.assetPath === ''
     if (isInterfaceProductionVersion(catalog.version) && resourceEmptyNone) continue
-    if (isInterfaceProductionVersion(catalog.version) && part.composition?.mode === 'interface') {
+    if (catalog.version !== '0.6.0' && isInterfaceProductionVersion(catalog.version) && part.composition?.mode === 'interface') {
       for (const rigId of Object.keys(part.composition.variantsByRig).sort()) {
         const exactSourceId = `${part.id}:${rigId}`
         const exactSource = indexed.get(exactSourceId)
@@ -1803,12 +1849,18 @@ export async function validateProductionSourceIndex(
     if (!resourceEmptyNone && (part.pngPath === undefined || !runtimePathMatches(source.runtimePngPath, part.pngPath, catalog.version) || source.runtimePngSha256 !== part.pngSha256)) {
       diagnostics.push(error('PRODUCTION_SOURCE_RUNTIME_MISMATCH', ['sources', part.id, 'runtimePngPath'], `Source-index PNG metadata differs for ${part.id}.`))
     }
-    if (!resourceEmptyNone && typeof source.runtimeWebpSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, part.assetPath, source.runtimeWebpSha256, ['sources', part.id, 'runtimeWebpPath']))
-    if (!resourceEmptyNone && part.pngPath !== undefined && typeof source.runtimePngSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, part.pngPath, source.runtimePngSha256, ['sources', part.id, 'runtimePngPath']))
+    if (!resourceEmptyNone && typeof source.runtimeWebpSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, catalog.version === '0.6.0' ? v06RuntimePath(part.assetPath) : part.assetPath, source.runtimeWebpSha256, ['sources', part.id, 'runtimeWebpPath']))
+    if (!resourceEmptyNone && part.pngPath !== undefined && typeof source.runtimePngSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, catalog.version === '0.6.0' ? v06RuntimePath(part.pngPath) : part.pngPath, source.runtimePngSha256, ['sources', part.id, 'runtimePngPath']))
   }
 
   for (const rig of catalog.rigs) {
-    if (isInterfaceProductionVersion(catalog.version)) {
+    if (catalog.version === '0.6.0') {
+      const source = rig.sourceId === undefined ? undefined : indexed.get(rig.sourceId)
+      if (source === undefined) diagnostics.push(error('PRODUCTION_SOURCE_MISSING', ['sources', rig.sourceId ?? rig.id], `Rig ${rig.id} must resolve through a feline anatomy bundle body source.`))
+      else checkV06TransparentSourceEnvelope(source, ['sources', rig.sourceId!], diagnostics)
+      continue
+    }
+    if (catalog.version !== '0.6.0' && isInterfaceProductionVersion(catalog.version)) {
       const exactBodyRoots = catalog.parts.filter(part => (
         part.slotId === 'bodyFrame'
         && part.composition?.mode === 'interface'
@@ -1838,7 +1890,7 @@ export async function validateProductionSourceIndex(
     if (typeof source.runtimePngSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, pngPath, source.runtimePngSha256, ['sources', rig.sourceId, 'runtimePngPath']))
     if (typeof source.runtimeWebpSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, webpPath, source.runtimeWebpSha256, ['sources', rig.sourceId, 'runtimeWebpPath']))
   }
-  if (catalog.version === '0.6.0') diagnostics.push(...await validateV06FelineMaskContainment(catalog, assetRoot))
+  if (catalog.version === '0.6.0') diagnostics.push(...await validateV06AnatomyBundles(catalog, assetRoot))
   diagnostics.push(...(await Promise.all(assetChecks)).flat())
 
   const rigSources = sources.filter(source => source.kind === 'rig-base')

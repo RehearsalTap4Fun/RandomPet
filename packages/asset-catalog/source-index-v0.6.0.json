@@ -23,807 +23,354 @@
   },
   "sources": [
     {
-      "sourceId": "body_feline_sit_round:feline-sit",
-      "kind": "interface-structural",
-      "promptId": "v06-feline-1",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/body_feline_sit_round-source.png",
-          "sha256": "5e855f0ccdee9c894a83349ab58b41944578353488785ee3120b65f80708e14c"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/body_feline_sit_round.webp",
-          "sha256": "fab2a32c6df4c147445020b1ce60e5f3b0b70d38eb2fcd258b1a6992e8973c9c"
-        },
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/body_feline_sit_round.png",
-          "sha256": "5e855f0ccdee9c894a83349ab58b41944578353488785ee3120b65f80708e14c"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-contour.png",
-          "sha256": "6b1ab7c7c587f6979488e6086b93f3554e07ac406c0df23949f21796ebc8b4d2"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-foreground.png",
-          "sha256": "8e6ef03b9a9f2a2f85be47eeb8f32b39a225cabbdeb70cb6f35650e74dbb103a"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-background.png",
-          "sha256": "98f82ce2e12e961fa34b4094b7cf61d44b0788f15e542824fdfbf9a6705f1720"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-contour.png",
-          "sha256": "0952c9fedf10240054d225d5e6c455694ffc2f0246d9b9b62c16839454401bdc"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-foreground.png",
-          "sha256": "e414290d2ee744ad1fcc64b9a81772354b4d6866b1498b78eec17c6801f371f1"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-background.png",
-          "sha256": "5a1a2f852ee0763e3fc1b739191c49f14344e2805d6a9aa76b949b7eb266a87c"
-        }
-      ]
-    },
-    {
-      "sourceId": "body_feline_sit_plush:feline-sit",
-      "kind": "interface-structural",
-      "promptId": "v06-feline-2",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/body_feline_sit_plush-source.png",
-          "sha256": "00083f0932cf95854edc4dfa2f2c8471cf9757f73b2dcf3e1f53822c3af19dde"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/body_feline_sit_plush.webp",
-          "sha256": "ee3b95ab073b3435283d8e24d831fcde98196a66d54587a7778e29c85ff3716e"
-        },
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/body_feline_sit_plush.png",
-          "sha256": "00083f0932cf95854edc4dfa2f2c8471cf9757f73b2dcf3e1f53822c3af19dde"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-contour.png",
-          "sha256": "6b1ab7c7c587f6979488e6086b93f3554e07ac406c0df23949f21796ebc8b4d2"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-foreground.png",
-          "sha256": "de9f5aff3f352c68e8ce2de76a6867be45bf4bd383feb136a89b0ac3a49ab771"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-background.png",
-          "sha256": "0568b6a0f566f55564b96a406780a9374e1a8e4691e3d5568c0c43dc41e51767"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-contour.png",
-          "sha256": "63b214daf39b042d2186ac23dae610b5a709dd97e2ab3e2d99174ee9612ed745"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-foreground.png",
-          "sha256": "e95bccfb3796ef44f30cfdd393028849267ffcabc3a799136334181f3a2f821a"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-background.png",
-          "sha256": "da2cbe80767c47f8f1c580c2efa2d7bd700b64ace9a3ebde83c6aad000933a2b"
-        }
-      ]
-    },
-    {
-      "sourceId": "head_feline_round:feline-sit",
-      "kind": "interface-structural",
-      "promptId": "v06-feline-3",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/head_feline_round-source.png",
-          "sha256": "cfa0a6e6fc37342dde525e2b2e10b631b423ad281ac5acd3415b8a1309dc5944"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/head_feline_round.webp",
-          "sha256": "eb4645d354b6cefb8278eaceb3c8cfc2f0fbc4709f5bb823eb1235c981e4d56b"
-        },
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/head_feline_round.png",
-          "sha256": "cfa0a6e6fc37342dde525e2b2e10b631b423ad281ac5acd3415b8a1309dc5944"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-contour.png",
-          "sha256": "cb0e2fe2cb2a9a24516e94474c52c6ddb6b1bddb6936ec31ebbac51b9a068fb6"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-foreground.png",
-          "sha256": "5e8134bbb289aa8566b6341d561f77d0c4c813efc4a9a797a03dfc46b03f079c"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-background.png",
-          "sha256": "a777c9d3f2303f1b89fd0fe10e11df601029562d8d144c037ccaaba4f5836410"
-        }
-      ]
-    },
-    {
-      "sourceId": "head_feline_tufted:feline-sit",
-      "kind": "interface-structural",
-      "promptId": "v06-feline-4",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/head_feline_tufted-source.png",
-          "sha256": "8b81de9db002c577c43c758402c8ad3786ff3253432727525e25ff29bf9aae89"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/head_feline_tufted.webp",
-          "sha256": "2f9d56b825018d45fc791b6582341128fd0a369c53a6eafd48ab7f65b3863409"
-        },
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/head_feline_tufted.png",
-          "sha256": "8b81de9db002c577c43c758402c8ad3786ff3253432727525e25ff29bf9aae89"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-contour.png",
-          "sha256": "cb0e2fe2cb2a9a24516e94474c52c6ddb6b1bddb6936ec31ebbac51b9a068fb6"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-foreground.png",
-          "sha256": "4c18518a5373522d7bea9add34257352bb11b0363a2bfbf69e293968054e2d5d"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-background.png",
-          "sha256": "d871ca8b902c5eebc3ab6e13e7c38f51972136023173446654a8621047e8b3ce"
-        }
-      ]
-    },
-    {
-      "sourceId": "tail_feline_long:feline-sit",
-      "kind": "interface-structural",
-      "promptId": "v06-feline-5",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/tail_feline_long-source.png",
-          "sha256": "8cbf7d1e23e48b569cc2b75692142a8fd19d3d88ffe04c97d685012bf4fb0539"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/tail_feline_long.webp",
-          "sha256": "0f95f97504f10b2f8bdb82865641cb425fa2b0aa30864e5ff6f308d257ac3b9c"
-        },
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/tail_feline_long.png",
-          "sha256": "8cbf7d1e23e48b569cc2b75692142a8fd19d3d88ffe04c97d685012bf4fb0539"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-contour.png",
-          "sha256": "0644212a20af050ec99a4ee86b34fc1857c8d22b505d1a68fb2b2a2e642cf2a0"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-foreground.png",
-          "sha256": "57b4d4e4187327364357480a7cc92caf1b8953c080a6022f76cbe97443f0fd50"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-background.png",
-          "sha256": "e5e6730334a077cd53b6d7024b7428ab79a93fad62d6e09ba3e08d6d7804cbef"
-        }
-      ]
-    },
-    {
-      "sourceId": "tail_feline_curl:feline-sit",
-      "kind": "interface-structural",
-      "promptId": "v06-feline-6",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/tail_feline_curl-source.png",
-          "sha256": "e14cfa743a549a0013c941430c8ff8df86a0bb3e1bce7fbd0ebab94a3fb9b0e2"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/tail_feline_curl.webp",
-          "sha256": "5630425fdd5b40026be680266e13cdc82f958a68f4c487895b2e24051ad935db"
-        },
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/tail_feline_curl.png",
-          "sha256": "e14cfa743a549a0013c941430c8ff8df86a0bb3e1bce7fbd0ebab94a3fb9b0e2"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-contour.png",
-          "sha256": "dcd72da88c44a6a709a9d74fef9d8ba3afe1430cb37d028737642fd01ed72c84"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-foreground.png",
-          "sha256": "79cdf4c6b0f924a685deee5c20ddfc2c6a4e553705296398b613455b069f7cfe"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-background.png",
-          "sha256": "d516d4765c1887c03eab5172c2e294e6cf004e82595996b2190e30eb58c2d798"
-        }
-      ]
-    },
-    {
-      "sourceId": "tail_feline_star_tip:feline-sit",
-      "kind": "interface-structural",
-      "promptId": "v06-feline-7",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/tail_feline_star_tip-source.png",
-          "sha256": "95ae79be44270b53cdc0c044f871c0ae0a065ded0f1fce812c2c32ee7f148126"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/tail_feline_star_tip.webp",
-          "sha256": "e1a9bc1a805cd41cc89f5601317043cf52a7bd62dc764740056789db0975b240"
-        },
-        {
-          "path": "assets/v0.6.0/structural/feline-sit/tail_feline_star_tip.png",
-          "sha256": "95ae79be44270b53cdc0c044f871c0ae0a065ded0f1fce812c2c32ee7f148126"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-contour.png",
-          "sha256": "0644212a20af050ec99a4ee86b34fc1857c8d22b505d1a68fb2b2a2e642cf2a0"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-foreground.png",
-          "sha256": "e9b53447f48c705c49436bd7e0757e9747adac37d2011192cef95c5b88ea9d08"
-        },
-        {
-          "path": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-background.png",
-          "sha256": "7cb6b7001f327aabf319604a35b1ac18c6dce3bde107690ad309425e2fe86275"
-        }
-      ]
-    },
-    {
-      "sourceId": "eyes_feline_round",
+      "sourceId": "bodyFrame_feline_bundle_feline_sit_saffron_longtail",
       "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-8",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
+      "promptId": "v06-anatomy-feline-sit-saffron-longtail",
+      "promptCatalogPath": "asset-source/v0.6.0/anatomy-bundles/manifest.json",
+      "promptCatalogSha256": "abd9e664c5e3aaedd5d455f3a265df5f85b5fdfb7328d0a64dd632639fe86cc2",
       "selectedCandidate": 1,
       "sourceResources": [
         {
-          "path": "asset-source/v0.6.0/generation/feline/eyes_feline_round-source.png",
-          "sha256": "3562d00b4d3413294e8f08368d10e7b4ae463bbe82e68f20ef647365d4cfbf99"
+          "path": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-saffron-longtail.png",
+          "sha256": "98cf4f17444d568982c0dbf297eecf83ec946a93d87c3e8bfd928466bad2dac0"
         }
       ],
-      "runtimePngPath": "face/eyes_feline_round.png",
-      "runtimePngSha256": "3562d00b4d3413294e8f08368d10e7b4ae463bbe82e68f20ef647365d4cfbf99",
-      "runtimeWebpPath": "face/eyes_feline_round.webp",
-      "runtimeWebpSha256": "ff3071de52f98b165901b3464fb6fe168aca2339dc9e5d863a88781eb8ee2381",
+      "runtimePngPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/structural.png",
+      "runtimePngSha256": "ceefa235833c124606d554e166fca277e99774f82ef8a46a5f24fae52d65443e",
+      "runtimeWebpPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/structural.webp",
+      "runtimeWebpSha256": "2957f46a3158bd855463f58c80408e82f29a776173a49ed6245a455445c0ddf2",
       "runtimeResources": [
         {
-          "path": "face/eyes_feline_round.webp",
-          "sha256": "ff3071de52f98b165901b3464fb6fe168aca2339dc9e5d863a88781eb8ee2381"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/structural.png",
+          "sha256": "ceefa235833c124606d554e166fca277e99774f82ef8a46a5f24fae52d65443e"
         },
         {
-          "path": "face/eyes_feline_round.png",
-          "sha256": "3562d00b4d3413294e8f08368d10e7b4ae463bbe82e68f20ef647365d4cfbf99"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/structural.webp",
+          "sha256": "2957f46a3158bd855463f58c80408e82f29a776173a49ed6245a455445c0ddf2"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/alpha.png",
+          "sha256": "d8dc3bbf717e207cf49cf9b14a90f58311f6f55000b8574da5885282f60d71c0"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/alpha.webp",
+          "sha256": "62afa3c5d5c77f0a9bf954c507279463a140923868a6fe30440557adf56455e3"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/clip.png",
+          "sha256": "296ca5b62e492d7c63281eefba15fa88a1f1a6cd8bc5a41c2db7bb5d019156a8"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/clip.webp",
+          "sha256": "62afa3c5d5c77f0a9bf954c507279463a140923868a6fe30440557adf56455e3"
         }
       ]
     },
     {
-      "sourceId": "eyes_feline_sleepy",
+      "sourceId": "bodyFrame_feline_bundle_feline_sit_silver_curl",
       "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-9",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
+      "promptId": "v06-anatomy-feline-sit-silver-curl",
+      "promptCatalogPath": "asset-source/v0.6.0/anatomy-bundles/manifest.json",
+      "promptCatalogSha256": "abd9e664c5e3aaedd5d455f3a265df5f85b5fdfb7328d0a64dd632639fe86cc2",
       "selectedCandidate": 1,
       "sourceResources": [
         {
-          "path": "asset-source/v0.6.0/generation/feline/eyes_feline_sleepy-source.png",
-          "sha256": "dfba098187084d6dbef3385fe8c28d08b47225e504444e1c420290a6d51813cd"
+          "path": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-silver-curl.png",
+          "sha256": "ba552d7ea0419bb2d69b1446116230839f6ac18520d45e420b00897376a1db21"
         }
       ],
-      "runtimePngPath": "face/eyes_feline_sleepy.png",
-      "runtimePngSha256": "dfba098187084d6dbef3385fe8c28d08b47225e504444e1c420290a6d51813cd",
-      "runtimeWebpPath": "face/eyes_feline_sleepy.webp",
-      "runtimeWebpSha256": "344f6e3b1fccf48c43aceae1078973db346b9e8f7a53565b5af2850dd47835fc",
+      "runtimePngPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/structural.png",
+      "runtimePngSha256": "5c8811cd5d8f411bd0ec402bace949ffc6ec624535868929c5d1e91db9962e18",
+      "runtimeWebpPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/structural.webp",
+      "runtimeWebpSha256": "4a94bb19a024904fbe79f1a591f5062b70d20f4de06b9fcee1ac8985e4932347",
       "runtimeResources": [
         {
-          "path": "face/eyes_feline_sleepy.webp",
-          "sha256": "344f6e3b1fccf48c43aceae1078973db346b9e8f7a53565b5af2850dd47835fc"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/structural.png",
+          "sha256": "5c8811cd5d8f411bd0ec402bace949ffc6ec624535868929c5d1e91db9962e18"
         },
         {
-          "path": "face/eyes_feline_sleepy.png",
-          "sha256": "dfba098187084d6dbef3385fe8c28d08b47225e504444e1c420290a6d51813cd"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/structural.webp",
+          "sha256": "4a94bb19a024904fbe79f1a591f5062b70d20f4de06b9fcee1ac8985e4932347"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/alpha.png",
+          "sha256": "a3caee9f05536b5a967c3a60a65ebe97e0252aa830a7cae0a5a792a86ee4ff79"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/alpha.webp",
+          "sha256": "099a105831c75095fc2981ed673619957ef53b42d04ce28509149c4b1f10a981"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/clip.png",
+          "sha256": "f125b3fa0a04996c25b4ce7718c9e177ce530bf4555db2ce4d2e6d134ff0adee"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/clip.webp",
+          "sha256": "099a105831c75095fc2981ed673619957ef53b42d04ce28509149c4b1f10a981"
         }
       ]
     },
     {
-      "sourceId": "eyes_feline_wide",
+      "sourceId": "bodyFrame_feline_bundle_feline_sit_midnight_longtail",
       "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-10",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
+      "promptId": "v06-anatomy-feline-sit-midnight-longtail",
+      "promptCatalogPath": "asset-source/v0.6.0/anatomy-bundles/manifest.json",
+      "promptCatalogSha256": "abd9e664c5e3aaedd5d455f3a265df5f85b5fdfb7328d0a64dd632639fe86cc2",
       "selectedCandidate": 1,
       "sourceResources": [
         {
-          "path": "asset-source/v0.6.0/generation/feline/eyes_feline_wide-source.png",
-          "sha256": "e54428b0778848fa62e5f069109b051992bb285d4ef177b633288f4f8c030e15"
+          "path": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-midnight-longtail.png",
+          "sha256": "37aef63d61e1954e241e50213ff75c3ae993a120482f33cd691430aecccf2499"
         }
       ],
-      "runtimePngPath": "face/eyes_feline_wide.png",
-      "runtimePngSha256": "e54428b0778848fa62e5f069109b051992bb285d4ef177b633288f4f8c030e15",
-      "runtimeWebpPath": "face/eyes_feline_wide.webp",
-      "runtimeWebpSha256": "62bcc9eaa2f758b9787230ec81c908995b01c9b64bae9919f187f80658668b56",
+      "runtimePngPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/structural.png",
+      "runtimePngSha256": "31e74185bc95ed4356d0d87d72876cd62da66e53aa91a3d0e4edf359ce3178b1",
+      "runtimeWebpPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/structural.webp",
+      "runtimeWebpSha256": "7100302c0d1879a03d1230e805e44f682f60f07d1cf25a816b205dc065f5bfc0",
       "runtimeResources": [
         {
-          "path": "face/eyes_feline_wide.webp",
-          "sha256": "62bcc9eaa2f758b9787230ec81c908995b01c9b64bae9919f187f80658668b56"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/structural.png",
+          "sha256": "31e74185bc95ed4356d0d87d72876cd62da66e53aa91a3d0e4edf359ce3178b1"
         },
         {
-          "path": "face/eyes_feline_wide.png",
-          "sha256": "e54428b0778848fa62e5f069109b051992bb285d4ef177b633288f4f8c030e15"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/structural.webp",
+          "sha256": "7100302c0d1879a03d1230e805e44f682f60f07d1cf25a816b205dc065f5bfc0"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/alpha.png",
+          "sha256": "77053df1f66ba92df816c3709c8ea788ceaa32488647831e3de611971d12213a"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/alpha.webp",
+          "sha256": "be0bdb5d72eed20656a8a9e3635b6a70798e5a00aa7d2ce2ee1473905bcf6f9d"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/clip.png",
+          "sha256": "e52acb5cd660f3e65a216d711a1bfe714c18a144c270ab9b9df507212be092bf"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/clip.webp",
+          "sha256": "be0bdb5d72eed20656a8a9e3635b6a70798e5a00aa7d2ce2ee1473905bcf6f9d"
         }
       ]
     },
     {
-      "sourceId": "mouth_feline_smile",
+      "sourceId": "bodyFrame_feline_bundle_feline_sit_moss_curl",
       "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-11",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
+      "promptId": "v06-anatomy-feline-sit-moss-curl",
+      "promptCatalogPath": "asset-source/v0.6.0/anatomy-bundles/manifest.json",
+      "promptCatalogSha256": "abd9e664c5e3aaedd5d455f3a265df5f85b5fdfb7328d0a64dd632639fe86cc2",
       "selectedCandidate": 1,
       "sourceResources": [
         {
-          "path": "asset-source/v0.6.0/generation/feline/mouth_feline_smile-source.png",
-          "sha256": "9fb90f5c11720250b2898c8bbd6db5b542464417818c687e7ce4fcf57c1ed694"
+          "path": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-moss-curl.png",
+          "sha256": "48b2c03dc83af31e5c32724a98b1dfe7479612fd1f8e5cbbc6242dc2fa7bfb43"
         }
       ],
-      "runtimePngPath": "face/mouth_feline_smile.png",
-      "runtimePngSha256": "9fb90f5c11720250b2898c8bbd6db5b542464417818c687e7ce4fcf57c1ed694",
-      "runtimeWebpPath": "face/mouth_feline_smile.webp",
-      "runtimeWebpSha256": "a46a114d586b4ba97ce31facf73d2bd57bdd0b3e9d8154f808701906542af507",
+      "runtimePngPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/structural.png",
+      "runtimePngSha256": "739cf1f191e3ab7a69f5ab33cf680695873e17a4111f7d9103fc126d83f25185",
+      "runtimeWebpPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/structural.webp",
+      "runtimeWebpSha256": "57b0d4561fb6f847a0c98421af978fef915688f84d3a6cbffc1fbd07c9f39dab",
       "runtimeResources": [
         {
-          "path": "face/mouth_feline_smile.webp",
-          "sha256": "a46a114d586b4ba97ce31facf73d2bd57bdd0b3e9d8154f808701906542af507"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/structural.png",
+          "sha256": "739cf1f191e3ab7a69f5ab33cf680695873e17a4111f7d9103fc126d83f25185"
         },
         {
-          "path": "face/mouth_feline_smile.png",
-          "sha256": "9fb90f5c11720250b2898c8bbd6db5b542464417818c687e7ce4fcf57c1ed694"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/structural.webp",
+          "sha256": "57b0d4561fb6f847a0c98421af978fef915688f84d3a6cbffc1fbd07c9f39dab"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/alpha.png",
+          "sha256": "7b689b84ad59e6f842a780f9e74ad8615b429e7bfeb557d93985326813b7e56e"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/alpha.webp",
+          "sha256": "332a4e3ea1e7de3fff76cdd7b84da1c9e247c1788bc325166abd52d8e23fc1ac"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/clip.png",
+          "sha256": "3b6dd0a0647b9948d4a174385341dc413650d44cf85b11bc0596960cbc5340eb"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/clip.webp",
+          "sha256": "332a4e3ea1e7de3fff76cdd7b84da1c9e247c1788bc325166abd52d8e23fc1ac"
         }
       ]
     },
     {
-      "sourceId": "mouth_feline_pout",
+      "sourceId": "bodyFrame_feline_bundle_feline_sit_rose_longtail",
       "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-12",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
+      "promptId": "v06-anatomy-feline-sit-rose-longtail",
+      "promptCatalogPath": "asset-source/v0.6.0/anatomy-bundles/manifest.json",
+      "promptCatalogSha256": "abd9e664c5e3aaedd5d455f3a265df5f85b5fdfb7328d0a64dd632639fe86cc2",
       "selectedCandidate": 1,
       "sourceResources": [
         {
-          "path": "asset-source/v0.6.0/generation/feline/mouth_feline_pout-source.png",
-          "sha256": "8973347f96c027921ce245b6f1454f94351c405a0f2237fe55789029d3abe99d"
+          "path": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-rose-longtail.png",
+          "sha256": "a5f0fe463989b5b246f66f36dfb693801dab61e2d477df3341c222eadb0bd721"
         }
       ],
-      "runtimePngPath": "face/mouth_feline_pout.png",
-      "runtimePngSha256": "8973347f96c027921ce245b6f1454f94351c405a0f2237fe55789029d3abe99d",
-      "runtimeWebpPath": "face/mouth_feline_pout.webp",
-      "runtimeWebpSha256": "b7016f43cbbbb3ae39f4e147cd515db8809d491d857a2e36d62636b9f427ce11",
+      "runtimePngPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/structural.png",
+      "runtimePngSha256": "2e0730d74964430fba96bf5a0ed422abf407416715e1d238583462b9b443c477",
+      "runtimeWebpPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/structural.webp",
+      "runtimeWebpSha256": "6903602de94db7ab849856995f98358a9da541d4a5ca0f64932772dc5bcc648f",
       "runtimeResources": [
         {
-          "path": "face/mouth_feline_pout.webp",
-          "sha256": "b7016f43cbbbb3ae39f4e147cd515db8809d491d857a2e36d62636b9f427ce11"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/structural.png",
+          "sha256": "2e0730d74964430fba96bf5a0ed422abf407416715e1d238583462b9b443c477"
         },
         {
-          "path": "face/mouth_feline_pout.png",
-          "sha256": "8973347f96c027921ce245b6f1454f94351c405a0f2237fe55789029d3abe99d"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/structural.webp",
+          "sha256": "6903602de94db7ab849856995f98358a9da541d4a5ca0f64932772dc5bcc648f"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/alpha.png",
+          "sha256": "51e1c6d210c6899dd42690a0813ecec8cfb70ea3d9a56204fbcf5a10b6e94ccc"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/alpha.webp",
+          "sha256": "1e60c205b6bf623b35730cacfd02e715aeef99616ad09296f7b2365395380983"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/clip.png",
+          "sha256": "64cd89ad5a625a7b0811141f193e919703bf30e4af208a3a36504c239ffa2698"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/clip.webp",
+          "sha256": "1e60c205b6bf623b35730cacfd02e715aeef99616ad09296f7b2365395380983"
         }
       ]
     },
     {
-      "sourceId": "oral_feline_none",
+      "sourceId": "bodyFrame_feline_bundle_feline_sit_umber_curl",
       "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-13",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
+      "promptId": "v06-anatomy-feline-sit-umber-curl",
+      "promptCatalogPath": "asset-source/v0.6.0/anatomy-bundles/manifest.json",
+      "promptCatalogSha256": "abd9e664c5e3aaedd5d455f3a265df5f85b5fdfb7328d0a64dd632639fe86cc2",
       "selectedCandidate": 1,
       "sourceResources": [
         {
-          "path": "asset-source/v0.6.0/generation/feline/oral_feline_none-source.png",
-          "sha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93"
+          "path": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-umber-curl.png",
+          "sha256": "d22b461e36bfd18f64973ed93d19c036933e1cd47f6f40ed80480f0e0e529397"
         }
       ],
-      "runtimePngPath": "face/oral_feline_none.png",
-      "runtimePngSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
-      "runtimeWebpPath": "face/oral_feline_none.webp",
-      "runtimeWebpSha256": "b6debde7d81c5f871e4751570a9d3f625b4bc1f3cb04937e2cf6bc3feb84128f",
+      "runtimePngPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/structural.png",
+      "runtimePngSha256": "89406f01bc5b1ab9356140a3341bd7e4c18268d3d2d70f6b7e11152b3012ac44",
+      "runtimeWebpPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/structural.webp",
+      "runtimeWebpSha256": "6c040b9997a4a9ac7af0de9a84638bf5faf14769b074173dec63d4920ff49b41",
       "runtimeResources": [
         {
-          "path": "face/oral_feline_none.webp",
-          "sha256": "b6debde7d81c5f871e4751570a9d3f625b4bc1f3cb04937e2cf6bc3feb84128f"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/structural.png",
+          "sha256": "89406f01bc5b1ab9356140a3341bd7e4c18268d3d2d70f6b7e11152b3012ac44"
         },
         {
-          "path": "face/oral_feline_none.png",
-          "sha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/structural.webp",
+          "sha256": "6c040b9997a4a9ac7af0de9a84638bf5faf14769b074173dec63d4920ff49b41"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/alpha.png",
+          "sha256": "1f462983f5e14d501cd61a124e860dbd4c2acea4cc709d0adbd18d4ac2ae50f9"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/alpha.webp",
+          "sha256": "3b629c00626cf17a2162100bc774814ca5979fd3ebc1a9c88adb55d3e4eac9f8"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/clip.png",
+          "sha256": "de44e6e1ad8ace8da8da0d3f6878554726fc0cc667b928aa5f37a39ed1ab033f"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/clip.webp",
+          "sha256": "3b629c00626cf17a2162100bc774814ca5979fd3ebc1a9c88adb55d3e4eac9f8"
         }
       ]
     },
     {
-      "sourceId": "ear_crystal_rim",
+      "sourceId": "bodyFrame_feline_bundle_feline_sit_ivory_longtail",
       "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-14",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
+      "promptId": "v06-anatomy-feline-sit-ivory-longtail",
+      "promptCatalogPath": "asset-source/v0.6.0/anatomy-bundles/manifest.json",
+      "promptCatalogSha256": "abd9e664c5e3aaedd5d455f3a265df5f85b5fdfb7328d0a64dd632639fe86cc2",
       "selectedCandidate": 1,
       "sourceResources": [
         {
-          "path": "asset-source/v0.6.0/generation/feline/ear_crystal_rim-source.png",
-          "sha256": "ea42384ebc0124e069bec496f17552b5377130e1187640ee87b8821ae56786be"
+          "path": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-ivory-longtail.png",
+          "sha256": "04820c5bc938b4e124029200412c227697ae96c85fd805d9be4c6947256042e1"
         }
       ],
-      "runtimePngPath": "face/ear_crystal_rim.png",
-      "runtimePngSha256": "ea42384ebc0124e069bec496f17552b5377130e1187640ee87b8821ae56786be",
-      "runtimeWebpPath": "face/ear_crystal_rim.webp",
-      "runtimeWebpSha256": "694161f28ebb6aed6b378c164c668b02a95c9cba78753673893a67fa158ad064",
+      "runtimePngPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/structural.png",
+      "runtimePngSha256": "68cac5e2df47b06fdc03f3b96bab6d7ec88bf0f5217f0c64d28e9146d934f814",
+      "runtimeWebpPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/structural.webp",
+      "runtimeWebpSha256": "5a159efb650ec56e729988b455a62c2da7b9bb4a997a272c680441fa63478497",
       "runtimeResources": [
         {
-          "path": "face/ear_crystal_rim.webp",
-          "sha256": "694161f28ebb6aed6b378c164c668b02a95c9cba78753673893a67fa158ad064"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/structural.png",
+          "sha256": "68cac5e2df47b06fdc03f3b96bab6d7ec88bf0f5217f0c64d28e9146d934f814"
         },
         {
-          "path": "face/ear_crystal_rim.png",
-          "sha256": "ea42384ebc0124e069bec496f17552b5377130e1187640ee87b8821ae56786be"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/structural.webp",
+          "sha256": "5a159efb650ec56e729988b455a62c2da7b9bb4a997a272c680441fa63478497"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/alpha.png",
+          "sha256": "d40de481d7d0a424e2dbf72ad63fe795728ce99a907666f47d947ed1e33674a2"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/alpha.webp",
+          "sha256": "f38f3b502ddf485d7d5a4cfa35716328fbd074972296fe303560696c43b969a4"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/clip.png",
+          "sha256": "75ca9b35517f317a64007bd5b01cb194618f3805458e6bb0fe7331343a15979e"
+        },
+        {
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/clip.webp",
+          "sha256": "f38f3b502ddf485d7d5a4cfa35716328fbd074972296fe303560696c43b969a4"
         }
       ]
     },
     {
-      "sourceId": "surface_feline_short_fur",
+      "sourceId": "bodyFrame_feline_bundle_feline_sit_violet_curl",
       "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-15",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
+      "promptId": "v06-anatomy-feline-sit-violet-curl",
+      "promptCatalogPath": "asset-source/v0.6.0/anatomy-bundles/manifest.json",
+      "promptCatalogSha256": "abd9e664c5e3aaedd5d455f3a265df5f85b5fdfb7328d0a64dd632639fe86cc2",
       "selectedCandidate": 1,
       "sourceResources": [
         {
-          "path": "asset-source/v0.6.0/generation/feline/surface_feline_short_fur-source.png",
-          "sha256": "839996ff4f90aefb2a81a1c8f3303fd767bfb513d18ecdb5d32a51575be1f1fa"
+          "path": "asset-source/v0.6.0/anatomy-bundles/feline/feline-sit-violet-curl.png",
+          "sha256": "f02042dcb244b989bb41f4389f811394acd47dac5313ea4fbc06366fab8d12e3"
         }
       ],
-      "runtimePngPath": "surface/surface_feline_short_fur.png",
-      "runtimePngSha256": "839996ff4f90aefb2a81a1c8f3303fd767bfb513d18ecdb5d32a51575be1f1fa",
-      "runtimeWebpPath": "surface/surface_feline_short_fur.webp",
-      "runtimeWebpSha256": "8d424c13512d01337dd9946420db32f6ff65ee06a650130640fc288dcb558041",
+      "runtimePngPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/structural.png",
+      "runtimePngSha256": "5019c9e19514da156354b88a3a2a953247b4c09b37b7590d8b742c4e8484c8ac",
+      "runtimeWebpPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/structural.webp",
+      "runtimeWebpSha256": "e93613bef6c74501b03dcb6065833a8797066647e3a50b0ad0b8325aee89f0e0",
       "runtimeResources": [
         {
-          "path": "surface/surface_feline_short_fur.webp",
-          "sha256": "8d424c13512d01337dd9946420db32f6ff65ee06a650130640fc288dcb558041"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/structural.png",
+          "sha256": "5019c9e19514da156354b88a3a2a953247b4c09b37b7590d8b742c4e8484c8ac"
         },
         {
-          "path": "surface/surface_feline_short_fur.png",
-          "sha256": "839996ff4f90aefb2a81a1c8f3303fd767bfb513d18ecdb5d32a51575be1f1fa"
-        }
-      ]
-    },
-    {
-      "sourceId": "surface_feline_moss_back",
-      "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-16",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "selectedCandidate": 1,
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/surface_feline_moss_back-source.png",
-          "sha256": "4149257da6116c73c19bbdeab1d3fe5a3b30580bdcd372dcb49ed7ac6b8bf4fb"
-        }
-      ],
-      "runtimePngPath": "surface/surface_feline_moss_back.png",
-      "runtimePngSha256": "4149257da6116c73c19bbdeab1d3fe5a3b30580bdcd372dcb49ed7ac6b8bf4fb",
-      "runtimeWebpPath": "surface/surface_feline_moss_back.webp",
-      "runtimeWebpSha256": "7681d0a91ac61408ce4d8b56432d923752bcf86161fcd2de884b3c1ae517523c",
-      "runtimeResources": [
-        {
-          "path": "surface/surface_feline_moss_back.webp",
-          "sha256": "7681d0a91ac61408ce4d8b56432d923752bcf86161fcd2de884b3c1ae517523c"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/structural.webp",
+          "sha256": "e93613bef6c74501b03dcb6065833a8797066647e3a50b0ad0b8325aee89f0e0"
         },
         {
-          "path": "surface/surface_feline_moss_back.png",
-          "sha256": "4149257da6116c73c19bbdeab1d3fe5a3b30580bdcd372dcb49ed7ac6b8bf4fb"
-        }
-      ]
-    },
-    {
-      "sourceId": "pattern_feline_tabby",
-      "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-17",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "selectedCandidate": 1,
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/pattern_feline_tabby-source.png",
-          "sha256": "bcf3aad5d5c8e8a78e19b6fad5da48947c63fc896ecb8df22a29c87985838e68"
-        }
-      ],
-      "runtimePngPath": "pattern/pattern_feline_tabby.png",
-      "runtimePngSha256": "bcf3aad5d5c8e8a78e19b6fad5da48947c63fc896ecb8df22a29c87985838e68",
-      "runtimeWebpPath": "pattern/pattern_feline_tabby.webp",
-      "runtimeWebpSha256": "bca3c57bf7e89113e145e68dd3460343a514b0b7061e504fe532f96b86a17f71",
-      "runtimeResources": [
-        {
-          "path": "pattern/pattern_feline_tabby.webp",
-          "sha256": "bca3c57bf7e89113e145e68dd3460343a514b0b7061e504fe532f96b86a17f71"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/alpha.png",
+          "sha256": "8b6d2e319a23e6d4bbfc06acacfc35da17e478946bce12a0e1a5912d3a5ef65f"
         },
         {
-          "path": "pattern/pattern_feline_tabby.png",
-          "sha256": "bcf3aad5d5c8e8a78e19b6fad5da48947c63fc896ecb8df22a29c87985838e68"
-        }
-      ]
-    },
-    {
-      "sourceId": "pattern_feline_spots",
-      "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-18",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "selectedCandidate": 1,
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/pattern_feline_spots-source.png",
-          "sha256": "bd43fd03aa473fdefb2d0b61be476eab5177b4ae90375ec5af3650d4d2aa982e"
-        }
-      ],
-      "runtimePngPath": "pattern/pattern_feline_spots.png",
-      "runtimePngSha256": "bd43fd03aa473fdefb2d0b61be476eab5177b4ae90375ec5af3650d4d2aa982e",
-      "runtimeWebpPath": "pattern/pattern_feline_spots.webp",
-      "runtimeWebpSha256": "cfbb24afb57af5d0acb08a90f0127e763a2e31edf1279a0c7949da5e6c937da0",
-      "runtimeResources": [
-        {
-          "path": "pattern/pattern_feline_spots.webp",
-          "sha256": "cfbb24afb57af5d0acb08a90f0127e763a2e31edf1279a0c7949da5e6c937da0"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/alpha.webp",
+          "sha256": "1452678bbfba06b0b204207efd84a2932289b2e3bd368ceb6b624e612c5785c7"
         },
         {
-          "path": "pattern/pattern_feline_spots.png",
-          "sha256": "bd43fd03aa473fdefb2d0b61be476eab5177b4ae90375ec5af3650d4d2aa982e"
-        }
-      ]
-    },
-    {
-      "sourceId": "color_feline_deep_sea",
-      "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-19",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "selectedCandidate": 1,
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/color_feline_deep_sea-source.png",
-          "sha256": "5780670871d7d2fcacc418aa7eb0fbde2f913a641facb75c95390acd74d87945"
-        }
-      ],
-      "runtimePngPath": "palette/color_feline_deep_sea.png",
-      "runtimePngSha256": "5780670871d7d2fcacc418aa7eb0fbde2f913a641facb75c95390acd74d87945",
-      "runtimeWebpPath": "palette/color_feline_deep_sea.webp",
-      "runtimeWebpSha256": "f708ce4a4e1503a56ebefa8be64bb39c2812ed47fff837b1a4d4efcb95f51fbf",
-      "runtimeResources": [
-        {
-          "path": "palette/color_feline_deep_sea.webp",
-          "sha256": "f708ce4a4e1503a56ebefa8be64bb39c2812ed47fff837b1a4d4efcb95f51fbf"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/clip.png",
+          "sha256": "969f4833c9c1542d98d5082ff9b4e0cb6ab0016ebc00bb4fad065abb73597717"
         },
         {
-          "path": "palette/color_feline_deep_sea.png",
-          "sha256": "5780670871d7d2fcacc418aa7eb0fbde2f913a641facb75c95390acd74d87945"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_deep_sea-primary.png",
-          "sha256": "5de416f11c5343b9263a38fdae752e881eb149479937f8701527df4363d86ea7"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_deep_sea-secondary.png",
-          "sha256": "f483ca62082208d95e379f46b6a35cc036cbcf4a371a4dee34b95c668d30e427"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_deep_sea-accent.png",
-          "sha256": "61f1488fc3d733a16f5f2cb153efc3add3a5c924756d5dcb143b93ca22fe53c1"
-        }
-      ]
-    },
-    {
-      "sourceId": "color_feline_fungal",
-      "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-20",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "selectedCandidate": 1,
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/color_feline_fungal-source.png",
-          "sha256": "60a1b94153f1ff88710bc96700f7a3dadf2a0df6debc8310653a44fbf04ffe61"
-        }
-      ],
-      "runtimePngPath": "palette/color_feline_fungal.png",
-      "runtimePngSha256": "60a1b94153f1ff88710bc96700f7a3dadf2a0df6debc8310653a44fbf04ffe61",
-      "runtimeWebpPath": "palette/color_feline_fungal.webp",
-      "runtimeWebpSha256": "abff6f16e9c9ae31f6b7b6d37d97bb4bd3cc74a10159a782c6eb93f34b25e577",
-      "runtimeResources": [
-        {
-          "path": "palette/color_feline_fungal.webp",
-          "sha256": "abff6f16e9c9ae31f6b7b6d37d97bb4bd3cc74a10159a782c6eb93f34b25e577"
-        },
-        {
-          "path": "palette/color_feline_fungal.png",
-          "sha256": "60a1b94153f1ff88710bc96700f7a3dadf2a0df6debc8310653a44fbf04ffe61"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_fungal-primary.png",
-          "sha256": "3afbaaa17b07c3b874c0586927e1baf045f91c5e88bc08ea72d7aa8c00c5ade7"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_fungal-secondary.png",
-          "sha256": "921cd4d56ca95295dd0ceaa19f91b3f38855b3d51166ebb31570ce8f1ed9640f"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_fungal-accent.png",
-          "sha256": "ae9d7ac27356761873fba535a556ece4829cbd7dee9ef4333632d4938b49f4dd"
-        }
-      ]
-    },
-    {
-      "sourceId": "color_feline_shadow",
-      "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-21",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "selectedCandidate": 1,
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/color_feline_shadow-source.png",
-          "sha256": "5df6763d87483cb047541e37953ffd4b9bf67c03c68367022d3376a207b65ea4"
-        }
-      ],
-      "runtimePngPath": "palette/color_feline_shadow.png",
-      "runtimePngSha256": "5df6763d87483cb047541e37953ffd4b9bf67c03c68367022d3376a207b65ea4",
-      "runtimeWebpPath": "palette/color_feline_shadow.webp",
-      "runtimeWebpSha256": "0026f5a33eadfd67393e0246a897b59115dee0330bac7349f4e2fd66236ea551",
-      "runtimeResources": [
-        {
-          "path": "palette/color_feline_shadow.webp",
-          "sha256": "0026f5a33eadfd67393e0246a897b59115dee0330bac7349f4e2fd66236ea551"
-        },
-        {
-          "path": "palette/color_feline_shadow.png",
-          "sha256": "5df6763d87483cb047541e37953ffd4b9bf67c03c68367022d3376a207b65ea4"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_shadow-primary.png",
-          "sha256": "838900e20476bbbd63d23c2387dadb513592519c25378d6107e47a17342a3ad7"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_shadow-secondary.png",
-          "sha256": "e8f798ee7f401c4d704f4125f4e04497f2bff465911b41498626fcf559df3788"
-        },
-        {
-          "path": "assets/v0.6.0/palette/masks/color_feline_shadow-accent.png",
-          "sha256": "fca3cf01c0dbff0034c5f09cfcf45438e5f3ae7a861290ba23855f7e69afe658"
-        }
-      ]
-    },
-    {
-      "sourceId": "effect_feline_none",
-      "kind": "generated-transparent-layer",
-      "promptId": "v06-feline-22",
-      "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "selectedCandidate": 1,
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/effect_feline_none-source.png",
-          "sha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93"
-        }
-      ],
-      "runtimePngPath": "face/effect_feline_none.png",
-      "runtimePngSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
-      "runtimeWebpPath": "face/effect_feline_none.webp",
-      "runtimeWebpSha256": "b6debde7d81c5f871e4751570a9d3f625b4bc1f3cb04937e2cf6bc3feb84128f",
-      "runtimeResources": [
-        {
-          "path": "face/effect_feline_none.webp",
-          "sha256": "b6debde7d81c5f871e4751570a9d3f625b4bc1f3cb04937e2cf6bc3feb84128f"
-        },
-        {
-          "path": "face/effect_feline_none.png",
-          "sha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93"
-        }
-      ]
-    },
-    {
-      "sourceId": "feline-sit-neck-bridge",
-      "kind": "interface-bridge",
-      "promptId": "v06-feline-1",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/body_feline_sit_round-source.png",
-          "sha256": "5e855f0ccdee9c894a83349ab58b41944578353488785ee3120b65f80708e14c"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/bridges/feline-sit/neck.webp",
-          "sha256": "f64de6424b771e0a5a40d6dcfa132f9da6c26d6e30c8cd4f3679ad9566146a98"
-        },
-        {
-          "path": "assets/v0.6.0/bridges/feline-sit/neck.png",
-          "sha256": "6145892d0f3d3350d32bfed093addacad94ae2993ffe69aa73ced2c35cf460e2"
-        },
-        {
-          "path": "assets/v0.6.0/bridges/feline-sit/neck-front.png",
-          "sha256": "19cf000e8426fbdc65bdefd4b96542267b056e755c3e6e78e85196a8205a8b03"
-        },
-        {
-          "path": "assets/v0.6.0/bridges/feline-sit/neck-back.png",
-          "sha256": "8ae6e4cfa90e38ea9fe75d7ae3294c317a0ee8d7003230fb4aae26d8562c7f6b"
-        }
-      ]
-    },
-    {
-      "sourceId": "feline-sit-tail-bridge",
-      "kind": "interface-bridge",
-      "promptId": "v06-feline-1",
-      "promptPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
-      "promptSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7",
-      "reviewRecordPath": "packages/asset-catalog/review/v0.6.0/review-record.json",
-      "reviewRecordSha256": "6cc122998e470bdde640f1116ebea2f9070488592d0deda2b6ed02be93a7387d",
-      "sourceResources": [
-        {
-          "path": "asset-source/v0.6.0/generation/feline/body_feline_sit_round-source.png",
-          "sha256": "5e855f0ccdee9c894a83349ab58b41944578353488785ee3120b65f80708e14c"
-        }
-      ],
-      "runtimeResources": [
-        {
-          "path": "assets/v0.6.0/bridges/feline-sit/tail.webp",
-          "sha256": "496fea5e232900dbdf8cfc23a9ec1484154cfaaa8c6cb2564a0efbb795e3616d"
-        },
-        {
-          "path": "assets/v0.6.0/bridges/feline-sit/tail.png",
-          "sha256": "f7d6699fa355bdf479133e9f80c5e15cac27eedc6d69d1bbcffc55d3e24c271a"
-        },
-        {
-          "path": "assets/v0.6.0/bridges/feline-sit/tail-front.png",
-          "sha256": "9766b3ddd1be24b30c349a574cc602a2bc4c35de352797fdd7d33a7e2124cc15"
-        },
-        {
-          "path": "assets/v0.6.0/bridges/feline-sit/tail-back.png",
-          "sha256": "2e095f442455c67eae3432dccebfd2dfb003ff56c4df96cf69ef2bd2291162a9"
+          "path": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/clip.webp",
+          "sha256": "1452678bbfba06b0b204207efd84a2932289b2e3bd368ceb6b624e612c5785c7"
         }
       ]
     }
@@ -837,7 +384,7 @@
     "approvedPartSelectionsPassing": 0
   },
   "review": {
-    "generatedSourceCount": 22,
-    "invalidCandidateCount": 1
+    "generatedSourceCount": 8,
+    "invalidCandidateCount": 0
   }
 }
