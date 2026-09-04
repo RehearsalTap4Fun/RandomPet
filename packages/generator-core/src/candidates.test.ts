@@ -40,23 +40,20 @@ function makeStrongCompositionEyesCatalog() {
 }
 
 describe('candidate pool boundaries', () => {
-  it('filters candidates to the requested feline archetype and planned special tier', () => {
+  it('filters v0.6 local candidates to the selected anatomy bundle pool', () => {
     const parsed = parseCatalog(v06ProductionCatalogDocument)
     expect(parsed.ok).toBe(true)
     if (!parsed.ok) return
 
+    const bundle = parsed.value.anatomyBundles![0]!
     const normal = buildCandidates({
-      catalog: parsed.value, slotId: 'tail', themeId: 'fungal', rigId: 'feline-sit', selections: {},
+      catalog: parsed.value, slotId: 'eyes', themeId: 'fungal', rigId: bundle.rigId, selections: {},
       archetypeId: 'feline', specialFeature: { required: false, forbidden: true }, rng: createRng(['feline-normal']),
-    })
-    const special = buildCandidates({
-      catalog: parsed.value, slotId: 'tail', themeId: 'fungal', rigId: 'feline-sit', selections: {},
-      archetypeId: 'feline', specialFeature: { required: true, forbidden: false }, rng: createRng(['feline-special']),
+      allowedPartIds: bundle.allowedTraitPools.eyes,
     })
 
-    expect(normal.trace.candidateIds).toEqual(expect.arrayContaining(['tail_feline_long', 'tail_feline_curl']))
-    expect(normal.trace.candidateIds).not.toContain('tail_feline_star_tip')
-    expect(special.trace.candidateIds).toEqual(['tail_feline_star_tip'])
+    expect(normal.trace.candidateIds).toEqual(bundle.allowedTraitPools.eyes)
+    expect(normal.part?.id).toBe(bundle.allowedTraitPools.eyes![0])
   })
 
   it('forward-filters only bodies that empty a required dominant structural theme pool', () => {

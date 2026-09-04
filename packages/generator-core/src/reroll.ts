@@ -41,6 +41,7 @@ import {
   strongNonFacialFeatureCountForSelections,
   validateCompositionSelections,
 } from './composition.js'
+import { resolveAnatomyBundle } from './anatomy-bundle.js'
 
 export type SlotLocks = Partial<Record<VisualSlotId, boolean>>
 
@@ -59,21 +60,72 @@ function isInterfaceCatalog(catalog: Catalog): boolean {
   return catalog.version === '0.3.0'
 }
 
-const FROZEN_FELINE_SLOTS = new Set<VisualSlotId>(['arms', 'legs', 'extraAppendage'])
-
 function modeForSpec(spec: MonsterSpec): GenerationMode {
   if (spec.mutation !== null) return 'mutation'
   return spec.aberrations.length > 0 ? 'aberration' : 'normal'
 }
 
 function immutableFelineSlotResult(request: RerollSlotRequest): GenerationResult | null {
-  if (request.catalog.version !== '0.6.0' || !FROZEN_FELINE_SLOTS.has(request.slotId)) return null
+  if (request.catalog.version !== '0.6.0' || !isStructuralSlot(request.slotId)) return null
   return result(request.spec, [{
     severity: 'error',
-    code: 'ARCHETYPE_SLOT_IMMUTABLE',
+    code: 'ANATOMY_BUNDLE_SLOT_IMMUTABLE',
     path: ['visualSlots', request.slotId],
-    message: `Archetype-integrated slot ${request.slotId} cannot be rerolled or manually selected.`,
+    message: `Anatomy-bundle structural slot ${request.slotId} cannot be rerolled or manually selected.`,
   }], [request.slotId])
+}
+
+function rerollAnatomyBundleLocalSlot(request: RerollSlotRequest): GenerationResult {
+  const bundle = resolveAnatomyBundle(request.spec, request.catalog)
+  if (bundle === null) {
+    return result(structuredClone(request.spec), [{
+      severity: 'error',
+      code: 'ANATOMY_BUNDLE_UNAVAILABLE',
+      path: ['anatomyBundleId'],
+      message: 'The selected anatomy bundle is unavailable.',
+    }], [request.slotId])
+  }
+  if (request.locks[request.slotId]) {
+    return result(structuredClone(request.spec), [{
+      severity: 'error', code: 'SLOT_LOCKED', path: ['visualSlots', request.slotId], message: `${request.slotId} is locked.`,
+    }], [request.slotId])
+  }
+  const spec = structuredClone(request.spec)
+  spec.slotRolls[request.slotId] += 1
+  const diagnostics: Diagnostic[] = []
+  spec.visualSlots[request.slotId] = resolveSlot({
+    seed: spec.seed,
+    themeId: spec.themeId,
+    mode: modeForSpec(spec),
+    ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
+    slotRolls: spec.slotRolls,
+  }, request.catalog, request.slotId, bundle.rigId, spec.visualSlots, diagnostics, undefined,
+  bundle.allowedTraitPools[request.slotId])
+  spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
+  if (spec.genome !== undefined) {
+    spec.genome = syncDominantGenes(spec.genome, spec.visualSlots, [request.slotId])
+  }
+  return result(spec, diagnostics, [request.slotId])
+}
+
+function selectAnatomyBundleLocalPart(request: SelectVisualPartRequest): GenerationResult {
+  const bundle = resolveAnatomyBundle(request.spec, request.catalog)
+  if (bundle === null || !bundle.allowedTraitPools[request.slotId]?.includes(request.partId)) {
+    return result(structuredClone(request.spec), [{
+      severity: 'error',
+      code: 'ANATOMY_BUNDLE_TRAIT_POOL_INCOMPATIBLE',
+      path: ['visualSlots', request.slotId, 'partId'],
+      message: `Part ${request.partId} is not available in the selected anatomy bundle trait pool.`,
+    }], [request.slotId])
+  }
+  const phenotype = selectPhenotypePart(request)
+  if (phenotype.blocked || phenotype.spec.genome === undefined) return phenotype
+  phenotype.spec.genome = syncDominantGenes(
+    phenotype.spec.genome,
+    phenotype.spec.visualSlots,
+    phenotype.affectedSlots,
+  )
+  return phenotype
 }
 
 function specialFeatureSelectionDiagnostic(
@@ -554,6 +606,13 @@ function fullGenomeScopes(
 export function rerollSlot(request: RerollSlotRequest): GenerationResult {
   const immutable = immutableFelineSlotResult(request)
   if (immutable !== null) return withRevalidatedDiagnosticScopes(immutable, {})
+  if (request.catalog.version === '0.6.0' && request.spec.anatomyBundleId !== undefined) {
+    const generated = rerollAnatomyBundleLocalSlot(request)
+    return withRevalidatedDiagnosticScopes(generated, generated.blocked ? {} : {
+      visualSlots: generated.affectedSlots,
+      genomeGenes: { P: generated.affectedSlots },
+    })
+  }
   if (request.spec.genome === undefined) return rerollPhenotypeSlot(request)
   const generated = rerollGenomeSlot(request)
   if (generated.blocked) return withRevalidatedDiagnosticScopes(generated, {})
@@ -568,6 +627,13 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
 export function selectVisualPart(request: SelectVisualPartRequest): GenerationResult {
   const immutable = immutableFelineSlotResult(request)
   if (immutable !== null) return withRevalidatedDiagnosticScopes(immutable, {})
+  if (request.catalog.version === '0.6.0' && request.spec.anatomyBundleId !== undefined) {
+    const generated = selectAnatomyBundleLocalPart(request)
+    return withRevalidatedDiagnosticScopes(generated, generated.blocked ? {} : {
+      visualSlots: generated.affectedSlots,
+      genomeGenes: { P: generated.affectedSlots },
+    })
+  }
   if (request.spec.genome === undefined) return selectPhenotypePart(request)
   if (request.slotId === 'bodyFrame') {
     const generated = selectGenomeBodyFrame(request)

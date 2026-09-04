@@ -9,6 +9,7 @@ import {
   type GenomeLayer,
   type GenerationRequest,
   type GenerationResult,
+  type MonsterSpec,
   type RigId,
   type VisualPartDefinition,
   type VisualSelection,
@@ -24,7 +25,8 @@ import { applyModifiers } from './modifiers.js'
 import { projectSemanticTraits } from './projection.js'
 import { selectRigId } from './rig-selection.js'
 import { planSpecialFeature, resolveArchetype } from './archetype-plan.js'
-import { validateMonsterSpecAgainstCatalog } from './spec-validation.js'
+import { applyAnatomyBundle, selectAnatomyBundle } from './anatomy-bundle-generation.js'
+import { validateAnatomyBundleSpec } from './anatomy-bundle.js'
 import {
   compositionAllowanceForSlot,
   planComposition,
@@ -93,6 +95,7 @@ export function resolveSlot(
   visualSlots: Partial<Record<VisualSlotId, VisualSelection>>,
   diagnostics: Diagnostic[],
   composition?: CompositionAllowance,
+  allowedPartIds?: readonly string[],
 ): VisualSelection {
   const lockedPartId = request.lockedSelections?.[slotId]
   if (lockedPartId !== undefined) {
@@ -103,6 +106,7 @@ export function resolveSlot(
     }
     if (
       !checkPartCompatibility(lockedPart, rigId, catalog, visualSlots, request.themeId)
+      || (allowedPartIds !== undefined && !allowedPartIds.includes(lockedPart.id))
       || !supportsLockedFelineSelection(request, catalog, slotId, lockedPart)
     ) {
       diagnostics.push(error('LOCK_INCOMPATIBLE', ['visualSlots', slotId], `Locked part ${lockedPartId} is incompatible with the current selections.`))
@@ -119,6 +123,7 @@ export function resolveSlot(
     selections: visualSlots,
     rng: createRng(slotSeedParts(request.seed, request.themeId, slotId, rerollIndex)),
     ...(request.archetypeId === undefined ? {} : { archetypeId: request.archetypeId }),
+    ...(allowedPartIds === undefined ? {} : { allowedPartIds }),
     specialFeature: (() => {
       const archetype = resolveArchetype(request, catalog)
       const specialPlan = planSpecialFeature(request.seed, request.themeId, request.mode ?? 'normal', archetype, catalog)
@@ -139,6 +144,42 @@ export function resolveSlot(
     return { partId: `missing_${slotId}`, rigId }
   }
   return selectionFor(result.part, rigId)
+}
+
+function generateAnatomyBundleVisualLayer(
+  request: VisualLayerRequest,
+  catalog: Catalog,
+  diagnostics: Diagnostic[],
+  selectedBundle = selectAnatomyBundle(request as GenerationRequest, catalog),
+): { visualSlots: Record<VisualSlotId, VisualSelection>; anatomyBundleId: string | undefined } {
+  const bundle = selectedBundle
+  if (bundle === null) {
+    diagnostics.push(error('ANATOMY_BUNDLE_UNAVAILABLE', ['anatomyBundleId'], 'No anatomy bundle is available for this request.'))
+    return { visualSlots: {} as Record<VisualSlotId, VisualSelection>, anatomyBundleId: undefined }
+  }
+  const visualSlots: Partial<Record<VisualSlotId, VisualSelection>> = {
+    ...Object.fromEntries(Object.entries(bundle.derivedSlots).map(([slotId, partId]) => [
+      slotId,
+      { partId, rigId: bundle.rigId },
+    ])),
+  }
+  for (const slotId of generationOrderForCatalog(catalog)) {
+    if (slotId in bundle.derivedSlots) continue
+    visualSlots[slotId] = resolveSlot(
+      request,
+      catalog,
+      slotId,
+      bundle.rigId,
+      visualSlots,
+      diagnostics,
+      undefined,
+      bundle.allowedTraitPools[slotId],
+    )
+  }
+  return {
+    visualSlots: visualSlots as Record<VisualSlotId, VisualSelection>,
+    anatomyBundleId: bundle.id,
+  }
 }
 
 function unresolvedLockedSelections(
@@ -218,18 +259,36 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
   }
 
   const layers = {} as VisualGenomeLayers
-  for (const layer of GENOME_LAYERS) {
-    const hidden = layer !== 'P'
-    const generatedLayer = generateVisualLayer({
-      seed: genomeLayerSeed(request.seed, layer),
-      themeId: request.themeId,
-      mode: hidden ? 'normal' : request.mode,
-      ...(request.archetypeId === undefined ? {} : { archetypeId: request.archetypeId }),
-      ...(request.slotRolls === undefined ? {} : { slotRolls: request.slotRolls }),
-      ...(hidden || request.lockedSelections === undefined ? {} : { lockedSelections: request.lockedSelections }),
-    }, catalog)
-    layers[layer] = generatedLayer.visualSlots
-    diagnostics.push(...mapLayerDiagnostics(generatedLayer.diagnostics, layer))
+  let anatomyBundleId: string | undefined
+  if (catalog.version === '0.6.0' && archetype !== null) {
+    const bundle = selectAnatomyBundle(request, catalog)
+    for (const layer of GENOME_LAYERS) {
+      const hidden = layer !== 'P'
+      const generatedLayer = generateAnatomyBundleVisualLayer({
+        seed: genomeLayerSeed(request.seed, layer),
+        themeId: request.themeId,
+        mode: hidden ? 'normal' : request.mode,
+        archetypeId: archetype.id,
+        ...(request.slotRolls === undefined ? {} : { slotRolls: request.slotRolls }),
+        ...(hidden || request.lockedSelections === undefined ? {} : { lockedSelections: request.lockedSelections }),
+      }, catalog, diagnostics, bundle)
+      layers[layer] = generatedLayer.visualSlots
+      if (!hidden) anatomyBundleId = generatedLayer.anatomyBundleId
+    }
+  } else {
+    for (const layer of GENOME_LAYERS) {
+      const hidden = layer !== 'P'
+      const generatedLayer = generateVisualLayer({
+        seed: genomeLayerSeed(request.seed, layer),
+        themeId: request.themeId,
+        mode: hidden ? 'normal' : request.mode,
+        ...(request.archetypeId === undefined ? {} : { archetypeId: request.archetypeId }),
+        ...(request.slotRolls === undefined ? {} : { slotRolls: request.slotRolls }),
+        ...(hidden || request.lockedSelections === undefined ? {} : { lockedSelections: request.lockedSelections }),
+      }, catalog)
+      layers[layer] = generatedLayer.visualSlots
+      diagnostics.push(...mapLayerDiagnostics(generatedLayer.diagnostics, layer))
+    }
   }
   const completeVisualSlots = layers.P
   const genome = genomeFromVisualLayers(layers)
@@ -255,7 +314,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
       diagnostics.push(error('MODIFIER_NOT_FOUND', ['mutation'], 'The selected aberration requires a weighted mutation.'))
     }
   }
-  const spec = {
+  let spec: MonsterSpec = {
     schemaVersion: catalog.version === '0.6.0' ? '0.2.0' : '0.1.0',
     catalogVersion: catalog.version,
     rendererVersion: rendererVersionForCatalog(catalog),
@@ -269,10 +328,15 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     mutation: modifiers.mutation,
     aberrations: modifiers.aberrations,
     ...(catalog.version === '0.6.0' && request.archetypeId !== undefined ? { archetypeId: request.archetypeId } : {}),
+    ...(anatomyBundleId === undefined ? {} : { anatomyBundleId }),
+  }
+  if (anatomyBundleId !== undefined) {
+    const bundle = catalog.anatomyBundles?.find(candidate => candidate.id === anatomyBundleId)
+    if (bundle !== undefined) spec = applyAnatomyBundle(spec, bundle)
   }
   diagnostics.push(...validateCompositionSelections(spec, catalog, compositionPlan))
   diagnostics.push(...validateStructuralSelections(spec, catalog))
-  if (catalog.version === '0.6.0') diagnostics.push(...validateMonsterSpecAgainstCatalog(spec, catalog))
+  if (catalog.version === '0.6.0') diagnostics.push(...validateAnatomyBundleSpec(spec, catalog))
   return {
     spec,
     diagnostics,

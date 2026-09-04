@@ -17,7 +17,7 @@ import {
   strongFeatureCount,
   strongNonFacialFeatureCount,
   validateMonsterGenome,
-  validateMonsterSpecAgainstCatalog,
+  validateAnatomyBundleSpec,
   VISUAL_SLOT_IDS,
   type Catalog,
   type GenerationRequest,
@@ -82,7 +82,7 @@ function makeNonFacialStrongBudgetCatalog(): Catalog {
 }
 
 describe('generateMonster', () => {
-  it('generates a contract-valid feline phenotype with exactly one altered-mode special feature', () => {
+  it('generates a contract-valid feline anatomy bundle with no more than one altered-mode special feature', () => {
     const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
     expect(parsedCatalog.ok).toBe(true)
     if (!parsedCatalog.ok) return
@@ -105,13 +105,11 @@ describe('generateMonster', () => {
       schemaVersion: '0.2.0', catalogVersion: '0.6.0', rendererVersion: '0.6.0', archetypeId: 'feline',
     })
     expect(new Set(Object.values(generated.spec.visualSlots).map(item => item.rigId))).toEqual(new Set(['feline-sit']))
-    expect(generated.spec.visualSlots.arms.partId).toBe('arms_feline_integrated')
-    expect(generated.spec.visualSlots.legs.partId).toBe('legs_feline_integrated')
-    expect(generated.spec.visualSlots.extraAppendage.partId).toBe('extra_feline_none')
-    expect(countSpecialFeatures(generated.spec)).toBe(1)
+    expect(generated.spec.anatomyBundleId).toBeDefined()
+    expect(countSpecialFeatures(generated.spec)).toBeLessThanOrEqual(1)
     expect(countSpecialFeatures(normal.spec)).toBe(0)
-    expect(validateMonsterSpecAgainstCatalog(generated.spec, catalog)).toEqual([])
-    expect(validateMonsterSpecAgainstCatalog(normal.spec, catalog)).toEqual([])
+    expect(validateAnatomyBundleSpec(generated.spec, catalog)).toEqual([])
+    expect(validateAnatomyBundleSpec(normal.spec, catalog)).toEqual([])
   })
 
   it('fails closed when a v0.6 request does not resolve its archetype', () => {
@@ -125,34 +123,35 @@ describe('generateMonster', () => {
     expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'ARCHETYPE_UNSUPPORTED' }))
   })
 
-  it('blocks a normal feline generation that locks a special feature', () => {
+  it('does not let a structural generation lock replace the selected anatomy bundle', () => {
     const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
     expect(parsedCatalog.ok).toBe(true)
     if (!parsedCatalog.ok) return
+    const catalog = parsedCatalog.value
 
     const generated = generateMonster({
       seed: 'feline-locked-normal-special', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
-      lockedSelections: { tail: 'tail_feline_star_tip' },
-    }, parsedCatalog.value)
+      lockedSelections: { tail: 'tail_feline_bundle_feline_sit_saffron_longtail' },
+    }, catalog)
 
-    expect(generated.blocked).toBe(true)
-    expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'LOCK_INCOMPATIBLE' }))
-    expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'SPEC_SPECIAL_FEATURE_COUNT_INVALID' }))
+    expect(generated.blocked).toBe(false)
+    expect(generated.spec.visualSlots.tail.partId).toBe(
+      catalog.anatomyBundles!.find(bundle => bundle.id === generated.spec.anatomyBundleId)!.derivedSlots.tail,
+    )
   })
 
-  it('blocks altered feline generation with conflicting locked special features', () => {
+  it('blocks a local generation lock that is outside the selected anatomy bundle pool', () => {
     const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
     expect(parsedCatalog.ok).toBe(true)
     if (!parsedCatalog.ok) return
 
     const generated = generateMonster({
       seed: 'feline-locked-altered-specials', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline',
-      lockedSelections: { headAppendage: 'ear_crystal_rim', tail: 'tail_feline_star_tip' },
+      lockedSelections: { eyes: 'eyes_feline_bundle_feline_sit_saffron_longtail' },
     }, parsedCatalog.value)
 
     expect(generated.blocked).toBe(true)
     expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'LOCK_INCOMPATIBLE' }))
-    expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'SPEC_SPECIAL_FEATURE_COUNT_INVALID' }))
   })
 
   it('resolves visual slots in the composition dependency order', () => {

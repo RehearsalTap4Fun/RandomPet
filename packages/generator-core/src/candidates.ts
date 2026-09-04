@@ -34,6 +34,7 @@ export interface BuildCandidatesInput {
   selections: Partial<Record<VisualSlotId, VisualSelection>>
   rng: Rng
   archetypeId?: AnimalArchetypeId
+  allowedPartIds?: readonly string[]
   specialFeature?: { required: boolean; forbidden: boolean }
   composition?: {
     motifMode: MotifMode
@@ -131,6 +132,7 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
   const connectorExclusions: Record<string, string[]> = {}
   const compatible = input.catalog.parts.filter(part => {
     if (part.slotId !== input.slotId || !isHardCompatible(part, input.rigId, input.catalog, selectedPartIds, selectedParts)) return false
+    if (input.allowedPartIds !== undefined && !input.allowedPartIds.includes(part.id)) return false
     if (!supportsArchetype(part, input.archetypeId)) return false
     if (!supportsSpecialFeature(part, input.specialFeature ?? { required: false, forbidden: false })) return false
     if (!supportsRequiredDominantStructuralSlots(input, part)) return false

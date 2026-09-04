@@ -19,38 +19,33 @@ import {
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('rerollSlot', () => {
-  it('keeps hidden v0.6 genome layers free of visible special features after a reroll', () => {
+  it('keeps v0.6 local rerolls inside the selected anatomy bundle pool', () => {
     const parsed = parseCatalog(v06ProductionCatalogDocument)
     expect(parsed.ok).toBe(true)
     if (!parsed.ok) return
     const catalog = parsed.value
     const initial = generateMonster({ seed: 'feline-special-reroll', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline' }, catalog).spec
-    const specialSlot = VISUAL_SLOT_IDS.find(slotId => (
-      catalog.parts.find(part => part.id === initial.visualSlots[slotId].partId)?.featureTier === 'special'
-    ))!
-    const rerolled = rerollSlot({ spec: initial, slotId: specialSlot, locks: {}, catalog })
+    const rerolled = rerollSlot({ spec: initial, slotId: 'eyes', locks: {}, catalog })
 
     expect(rerolled.blocked).toBe(false)
-    for (const layer of ['H1', 'H2', 'H3'] as const) {
-      expect(VISUAL_SLOT_IDS.filter(slotId => (
-        catalog.parts.find(part => part.id === rerolled.spec.genome!.genes[slotId][layer])?.featureTier === 'special'
-      ))).toEqual([])
-    }
+    const bundle = catalog.anatomyBundles!.find(item => item.id === initial.anatomyBundleId)!
+    expect(bundle.allowedTraitPools.eyes).toContain(rerolled.spec.visualSlots.eyes.partId)
+    expect(rerolled.spec.genome!.genes.eyes.P).toBe(rerolled.spec.visualSlots.eyes.partId)
   })
 
-  it('rejects v0.6 integrated-slot rerolls and preserves the current spec', () => {
+  it('rejects direct v0.6 structural-slot changes and preserves the current spec', () => {
     const parsed = parseCatalog(v06ProductionCatalogDocument)
     expect(parsed.ok).toBe(true)
     if (!parsed.ok) return
     const spec = generateMonster({ seed: 'feline-reroll', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline' }, parsed.value).spec
-    const rerolled = rerollSlot({ spec, slotId: 'arms', locks: {}, catalog: parsed.value })
-    const selected = selectVisualPart({ spec, slotId: 'legs', partId: 'legs_feline_integrated', locks: {}, catalog: parsed.value })
+    const rerolled = rerollSlot({ spec, slotId: 'tail', locks: {}, catalog: parsed.value })
+    const selected = selectVisualPart({ spec, slotId: 'tail', partId: spec.visualSlots.tail.partId, locks: {}, catalog: parsed.value })
 
     expect(rerolled.blocked).toBe(true)
-    expect(rerolled.diagnostics).toContainEqual(expect.objectContaining({ code: 'ARCHETYPE_SLOT_IMMUTABLE' }))
+    expect(rerolled.diagnostics).toContainEqual(expect.objectContaining({ code: 'ANATOMY_BUNDLE_SLOT_IMMUTABLE' }))
     expect(rerolled.spec).toEqual(spec)
     expect(selected.blocked).toBe(true)
-    expect(selected.diagnostics).toContainEqual(expect.objectContaining({ code: 'ARCHETYPE_SLOT_IMMUTABLE' }))
+    expect(selected.diagnostics).toContainEqual(expect.objectContaining({ code: 'ANATOMY_BUNDLE_SLOT_IMMUTABLE' }))
   })
 
   it('keeps a non-facial reroll within the remaining strong-feature budget', () => {
