@@ -24,6 +24,7 @@ import { applyModifiers } from './modifiers.js'
 import { projectSemanticTraits } from './projection.js'
 import { selectRigId } from './rig-selection.js'
 import { planSpecialFeature, resolveArchetype } from './archetype-plan.js'
+import { validateMonsterSpecAgainstCatalog } from './spec-validation.js'
 import {
   compositionAllowanceForSlot,
   planComposition,
@@ -71,6 +72,19 @@ function selectionFor(part: VisualPartDefinition, rigId: RigId): VisualSelection
   return { partId: part.id, rigId }
 }
 
+function supportsLockedFelineSelection(
+  request: VisualLayerRequest,
+  catalog: Catalog,
+  slotId: VisualSlotId,
+  part: VisualPartDefinition,
+): boolean {
+  if (catalog.version !== '0.6.0') return true
+  const archetype = resolveArchetype(request, catalog)
+  if (archetype === null || part.archetypeIds?.includes(archetype.id) !== true) return false
+  const plan = planSpecialFeature(request.seed, request.themeId, request.mode ?? 'normal', archetype, catalog)
+  return plan.slotId === slotId ? part.featureTier === 'special' : part.featureTier !== 'special'
+}
+
 export function resolveSlot(
   request: VisualLayerRequest,
   catalog: Catalog,
@@ -87,7 +101,10 @@ export function resolveSlot(
       diagnostics.push(error('LOCK_NOT_FOUND', ['visualSlots', slotId], `Locked part ${lockedPartId} does not exist in ${slotId}.`))
       return { partId: lockedPartId, rigId }
     }
-    if (!checkPartCompatibility(lockedPart, rigId, catalog, visualSlots, request.themeId)) {
+    if (
+      !checkPartCompatibility(lockedPart, rigId, catalog, visualSlots, request.themeId)
+      || !supportsLockedFelineSelection(request, catalog, slotId, lockedPart)
+    ) {
       diagnostics.push(error('LOCK_INCOMPATIBLE', ['visualSlots', slotId], `Locked part ${lockedPartId} is incompatible with the current selections.`))
     }
     return selectionFor(lockedPart, rigId)
@@ -190,9 +207,7 @@ function mapLayerDiagnostics(diagnostics: readonly Diagnostic[], layer: GenomeLa
 }
 
 export function generateMonster(request: GenerationRequest, catalog: Catalog): GenerationResult {
-  const diagnostics: Diagnostic[] = validateCatalogStructure(catalog).filter(diagnostic => (
-    catalog.version !== '0.6.0' || diagnostic.code !== 'CATALOG_RIG_UNCOVERED'
-  ))
+  const diagnostics: Diagnostic[] = [...validateCatalogStructure(catalog)]
   const archetype = resolveArchetype(request, catalog)
   if (catalog.version === '0.6.0' && archetype === null) {
     diagnostics.push(error('ARCHETYPE_UNSUPPORTED', ['archetypeId'], `Archetype ${request.archetypeId ?? 'missing'} is not supported by catalog ${catalog.version}.`))
@@ -257,6 +272,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
   }
   diagnostics.push(...validateCompositionSelections(spec, catalog, compositionPlan))
   diagnostics.push(...validateStructuralSelections(spec, catalog))
+  if (catalog.version === '0.6.0') diagnostics.push(...validateMonsterSpecAgainstCatalog(spec, catalog))
   return {
     spec,
     diagnostics,

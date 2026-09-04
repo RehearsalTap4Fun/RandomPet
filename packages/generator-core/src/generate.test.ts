@@ -125,6 +125,36 @@ describe('generateMonster', () => {
     expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'ARCHETYPE_UNSUPPORTED' }))
   })
 
+  it('blocks a normal feline generation that locks a special feature', () => {
+    const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    const generated = generateMonster({
+      seed: 'feline-locked-normal-special', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+      lockedSelections: { tail: 'tail_feline_star_tip' },
+    }, parsedCatalog.value)
+
+    expect(generated.blocked).toBe(true)
+    expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'LOCK_INCOMPATIBLE' }))
+    expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'SPEC_SPECIAL_FEATURE_COUNT_INVALID' }))
+  })
+
+  it('blocks altered feline generation with conflicting locked special features', () => {
+    const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    const generated = generateMonster({
+      seed: 'feline-locked-altered-specials', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline',
+      lockedSelections: { headAppendage: 'ear_crystal_rim', tail: 'tail_feline_star_tip' },
+    }, parsedCatalog.value)
+
+    expect(generated.blocked).toBe(true)
+    expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'LOCK_INCOMPATIBLE' }))
+    expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'SPEC_SPECIAL_FEATURE_COUNT_INVALID' }))
+  })
+
   it('resolves visual slots in the composition dependency order', () => {
     expect(GENERATION_ORDER).toEqual([
       'bodyFrame', 'headShape', 'eyes', 'mouthShape', 'oralDetail',

@@ -54,6 +54,35 @@ describe('validateMonsterSpecAgainstCatalog', () => {
     expect(validateMonsterSpecAgainstCatalog(requiresMutation, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_MODIFIER_INVALID' }))
   })
 
+  it('rejects a v0.6 modifier state that combines mutation and aberration', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    const catalog = parsed.value
+    const spec = generateMonster({ seed: 'feline-stacked-modifiers', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline' }, catalog).spec
+    spec.aberrations = [{ id: 'aberration_feline_crystal_glint', overrides: {} }]
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).toContainEqual(expect.objectContaining({
+      code: 'SPEC_MODIFIER_STATE_INVALID', path: ['aberrations'],
+    }))
+  })
+
+  it('rejects a v0.6 modifier state with multiple aberrations', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    const catalog = parsed.value
+    const spec = generateMonster({ seed: 'feline-many-aberrations', themeId: 'fungal', mode: 'aberration', archetypeId: 'feline' }, catalog).spec
+    spec.aberrations = [
+      { id: 'aberration_feline_crystal_glint', overrides: {} },
+      { id: 'aberration_feline_soft_glow', overrides: {} },
+    ]
+
+    expect(validateMonsterSpecAgainstCatalog(spec, catalog)).toContainEqual(expect.objectContaining({
+      code: 'SPEC_MODIFIER_STATE_INVALID', path: ['aberrations'],
+    }))
+  })
+
   it('appends genome diagnostics after the existing spec diagnostics', () => {
     const catalog = makeValidCatalogFixture()
     const spec = generateMonster({ seed: 'full-genome-validation', themeId: 'fungal', mode: 'normal' }, catalog).spec

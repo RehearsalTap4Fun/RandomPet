@@ -243,6 +243,24 @@ function validateFelineSpec(
   return archetype
 }
 
+function validateFelineModifierState(spec: MonsterSpec, catalog: Catalog, diagnostics: Diagnostic[]): void {
+  if (catalog.version !== '0.6.0') return
+  if (spec.mutation !== null && spec.aberrations.length > 0) {
+    diagnostics.push(error(
+      'SPEC_MODIFIER_STATE_INVALID',
+      ['aberrations'],
+      'Catalog 0.6.0 does not permit mutation and aberration modifiers together.',
+    ))
+  }
+  if (spec.aberrations.length > 1) {
+    diagnostics.push(error(
+      'SPEC_MODIFIER_STATE_INVALID',
+      ['aberrations'],
+      'Catalog 0.6.0 permits at most one aberration modifier.',
+    ))
+  }
+}
+
 export function validateMonsterSpecAgainstCatalog(
   spec: MonsterSpec,
   catalog: Catalog,
@@ -362,6 +380,7 @@ export function validateMonsterSpecAgainstCatalog(
   }
 
   validateFelineSpec(spec, catalog, selectedParts, diagnostics)
+  validateFelineModifierState(spec, catalog, diagnostics)
 
   for (const semanticSlotId of SEMANTIC_SLOT_IDS) {
     const selection = spec.semanticTraits[semanticSlotId]

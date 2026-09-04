@@ -2,8 +2,34 @@ import { describe, expect, it } from 'vitest'
 import { makeCompositionCatalogFixture, makeInterfaceCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
 import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
+import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('catalog validation', () => {
+  it('accepts the production v0.6 catalog without legacy rig coverage', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+
+    expect(validateCatalogStructure(parsed.value)).toEqual([])
+  })
+
+  it('rejects v0.6 modifiers that can require or create structural stacking', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    const requiresMutation = structuredClone(parsed.value)
+    requiresMutation.modifiers[0]!.requiresMutation = true
+    const structuralOverride = structuredClone(parsed.value)
+    structuralOverride.modifiers[0]!.overrides = { duplicateLayerGroup: 'head', socket: 'headAlternate' }
+
+    expect(validateCatalogStructure(requiresMutation)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_MODIFIER_V06_INVALID', path: ['modifiers', '0'],
+    }))
+    expect(validateCatalogStructure(structuralOverride)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_MODIFIER_V06_INVALID', path: ['modifiers', '0'],
+    }))
+  })
+
   it('treats v0.6 as an interface catalog', () => {
     const catalog = makeInterfaceCatalogFixture()
     catalog.version = '0.6.0'

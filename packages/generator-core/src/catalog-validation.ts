@@ -463,7 +463,7 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
   const semanticTraitIds = reportDuplicateIds(catalog.semanticTraits, 'semanticTraits', diagnostics)
   const modifierIds = reportDuplicateIds(catalog.modifiers, 'modifiers', diagnostics)
   reportMissingFixedIds(themeIds, REQUIRED_THEME_IDS, 'THEME', diagnostics)
-  reportMissingFixedIds(rigIds, REQUIRED_RIG_IDS, 'RIG', diagnostics)
+  if (catalog.version !== '0.6.0') reportMissingFixedIds(rigIds, REQUIRED_RIG_IDS, 'RIG', diagnostics)
 
   const rigs = new Map(catalog.rigs.map(rig => [rig.id, rig]))
   for (const [index, part] of catalog.parts.entries()) {
@@ -513,6 +513,20 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
 
   for (const [index, modifier] of catalog.modifiers.entries()) {
     const path = ['modifiers', String(index)]
+    if (
+      catalog.version === '0.6.0'
+      && (
+        modifier.requiresMutation
+        || modifier.overrides.duplicateLayerGroup !== undefined
+        || modifier.overrides.relocateSlot !== undefined
+      )
+    ) {
+      diagnostics.push(error(
+        'CATALOG_MODIFIER_V06_INVALID',
+        path,
+        `Catalog 0.6.0 modifier ${modifier.id} cannot require mutation or alter structural layers.`,
+      ))
+    }
     for (const excludedId of modifier.excludes ?? []) {
       if (!modifierIds.has(excludedId)) diagnostics.push(error('CATALOG_DANGLING_MODIFIER_EXCLUDE', path.concat('excludes'), `Modifier ${modifier.id} excludes unknown modifier ${excludedId}.`))
     }
