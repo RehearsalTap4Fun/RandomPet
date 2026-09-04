@@ -110,6 +110,58 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('rejects a v0.6 surface resource with pixels outside the feline structural alpha mask', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v06-feline-mask-'))
+    temporaryDirectories.push(root)
+    const assetRoot = join(root, 'assets', 'v0.6.0')
+    await mkdir(assetRoot, { recursive: true })
+    const structural = await sharp({
+      create: { width: 2048, height: 2048, channels: 4, background: '#00000000' },
+    }).composite([{
+      input: { create: { width: 512, height: 512, channels: 4, background: '#ffffffff' } }, left: 768, top: 768,
+    }]).png().toBuffer()
+    const overflowingSurface = await sharp({
+      create: { width: 2048, height: 2048, channels: 4, background: '#00000000' },
+    }).composite([{
+      input: { create: { width: 16, height: 16, channels: 4, background: '#ff0000ff' } }, left: 0, top: 0,
+    }]).png().toBuffer()
+    await mkdir(join(assetRoot, 'structural'), { recursive: true })
+    await writeFile(join(assetRoot, 'structural', 'body.png'), structural)
+    await writeFile(join(assetRoot, 'surface.png'), overflowingSurface)
+    const catalog = {
+      version: '0.6.0',
+      rigs: [{ id: 'feline-sit', sockets: {} }],
+      parts: [
+        {
+          id: 'body', slotId: 'bodyFrame', assetPath: 'structural/body.webp', pngPath: 'structural/body.png',
+          composition: { mode: 'interface', isNone: false, variantsByRig: { 'feline-sit': { renderNodes: [{ pngPath: 'structural/body.png' }] } } },
+        },
+        {
+          id: 'surface', slotId: 'surfaceMaterial', assetPath: 'surface.webp', pngPath: 'surface.png',
+          composition: { mode: 'attachment', isNone: false, renderNodes: [] },
+        },
+      ],
+    } as any as Catalog
+    const sourceIndex = {
+      catalogVersion: '0.6.0',
+      sources: [
+        { sourceId: 'body:feline-sit', kind: 'interface-structural' },
+        {
+          sourceId: 'surface', kind: 'generated-transparent-layer', promptId: 'v06-feline-test',
+          promptCatalogPath: 'asset-source/v0.6.0/prompts/feline-prompts.json', promptCatalogSha256: 'a'.repeat(64),
+          selectedCandidate: 1, sourceResources: [{ path: 'asset-source/v0.6.0/generation/feline/surface_feline_short_fur-source.png', sha256: 'b'.repeat(64) }],
+          runtimePngPath: 'surface.png', runtimePngSha256: 'c'.repeat(64), runtimeWebpPath: 'surface.webp', runtimeWebpSha256: 'd'.repeat(64),
+        },
+      ],
+      qualityGateSummary: {},
+    }
+
+    await expect(validateProductionSourceIndex(catalog, assetRoot, sourceIndex)).resolves.toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_FELINE_MASK_CONTAINMENT_INVALID',
+      path: ['parts', 'surface', 'pngPath'],
+    }))
+  })
+
   it('requires exactly one face-safe zone for every v0.6 head variant', () => {
     const catalog = makeInterfaceCatalogFixture() as any
     catalog.version = '0.6.0'

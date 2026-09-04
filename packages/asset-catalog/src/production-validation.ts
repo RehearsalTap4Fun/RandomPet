@@ -1161,6 +1161,105 @@ function checkV06TransparentSourceEnvelope(
   ))
 }
 
+const V06_VISIBLE_ALPHA_THRESHOLD = 16
+const V06_FELINE_MASK_DILATION_PIXELS = 192
+
+function v06RuntimePath(assetPath: string): string {
+  const normalized = assetPath.replaceAll('\\', '/')
+  const prefix = 'assets/v0.6.0/'
+  return normalized.startsWith(prefix) ? normalized.slice(prefix.length) : normalized
+}
+
+function expandV06FelineStructuralMask(structuralLayers: Array<{ data: Buffer, width: number, height: number }>): Uint8Array {
+  const width = structuralLayers[0]!.width
+  const height = structuralLayers[0]!.height
+  const pixels = width * height
+  const unavailable = 0xffff
+  const distance = new Uint16Array(pixels)
+  distance.fill(unavailable)
+  for (const layer of structuralLayers) {
+    if (layer.width !== width || layer.height !== height) throw new Error('Feline structural layers have inconsistent dimensions.')
+    for (let pixel = 0; pixel < pixels; pixel += 1) {
+      if (layer.data[pixel * 4 + 3]! >= V06_VISIBLE_ALPHA_THRESHOLD) distance[pixel] = 0
+    }
+  }
+  for (let y = 0; y < height; y += 1) for (let x = 0; x < width; x += 1) {
+    const pixel = y * width + x
+    let value = distance[pixel]!
+    for (const candidate of [
+      x > 0 ? pixel - 1 : -1,
+      y > 0 ? pixel - width : -1,
+      x > 0 && y > 0 ? pixel - width - 1 : -1,
+      x + 1 < width && y > 0 ? pixel - width + 1 : -1,
+    ]) if (candidate >= 0 && distance[candidate]! !== unavailable) value = Math.min(value, distance[candidate]! + 1)
+    distance[pixel] = value
+  }
+  for (let y = height - 1; y >= 0; y -= 1) for (let x = width - 1; x >= 0; x -= 1) {
+    const pixel = y * width + x
+    let value = distance[pixel]!
+    for (const candidate of [
+      x + 1 < width ? pixel + 1 : -1,
+      y + 1 < height ? pixel + width : -1,
+      x + 1 < width && y + 1 < height ? pixel + width + 1 : -1,
+      x > 0 && y + 1 < height ? pixel + width - 1 : -1,
+    ]) if (candidate >= 0 && distance[candidate]! !== unavailable) value = Math.min(value, distance[candidate]! + 1)
+    distance[pixel] = value
+  }
+  return Uint8Array.from(distance, value => value <= V06_FELINE_MASK_DILATION_PIXELS ? 1 : 0)
+}
+
+async function validateV06FelineMaskContainment(catalog: Catalog, assetRoot: string): Promise<Diagnostic[]> {
+  const diagnostics: Diagnostic[] = []
+  const structuralPngPaths = catalog.parts.flatMap(part => {
+    if (!['bodyFrame', 'headShape', 'tail'].includes(part.slotId) || part.composition?.mode !== 'interface') return []
+    return Object.values(part.composition.variantsByRig).flatMap(variant => variant?.renderNodes ?? [])
+      .flatMap(node => node.pngPath === undefined ? [] : [v06RuntimePath(node.pngPath)])
+  })
+  if (structuralPngPaths.length === 0) {
+    diagnostics.push(error('PRODUCTION_FELINE_MASK_CONTAINMENT_INVALID', ['parts'], 'v0.6 feline containment requires structural body, head, and tail alpha resources.'))
+    return diagnostics
+  }
+  let mask: Uint8Array
+  let width: number
+  let height: number
+  try {
+    const structuralLayers = await Promise.all(structuralPngPaths.map(path => decodeCommittedRgba(assetRoot, path)))
+    width = structuralLayers[0]!.width
+    height = structuralLayers[0]!.height
+    mask = expandV06FelineStructuralMask(structuralLayers)
+  } catch (caught) {
+    diagnostics.push(error(
+      'PRODUCTION_FELINE_MASK_CONTAINMENT_INVALID',
+      ['parts'],
+      `Could not decode v0.6 feline structural alpha resources: ${caught instanceof Error ? caught.message : String(caught)}`,
+    ))
+    return diagnostics
+  }
+  for (const part of catalog.parts) {
+    if (!['surfaceMaterial', 'pattern', 'colorScheme'].includes(part.slotId) || part.pngPath === undefined) continue
+    try {
+      const layer = await decodeCommittedRgba(assetRoot, v06RuntimePath(part.pngPath))
+      if (layer.width !== width || layer.height !== height) throw new Error('Appearance layer dimensions differ from the feline structural mask.')
+      let outsidePixels = 0
+      for (let pixel = 0; pixel < mask.length; pixel += 1) {
+        if (layer.data[pixel * 4 + 3]! >= V06_VISIBLE_ALPHA_THRESHOLD && mask[pixel] === 0) outsidePixels += 1
+      }
+      if (outsidePixels !== 0) diagnostics.push(error(
+        'PRODUCTION_FELINE_MASK_CONTAINMENT_INVALID',
+        ['parts', part.id, 'pngPath'],
+        `v0.6 feline ${part.slotId} has ${outsidePixels} visible pixels outside the expanded structural alpha mask.`,
+      ))
+    } catch (caught) {
+      diagnostics.push(error(
+        'PRODUCTION_FELINE_MASK_CONTAINMENT_INVALID',
+        ['parts', part.id, 'pngPath'],
+        `Could not decode v0.6 feline ${part.slotId} alpha resource: ${caught instanceof Error ? caught.message : String(caught)}`,
+      ))
+    }
+  }
+  return diagnostics
+}
+
 async function decodeCommittedRgba(assetRoot: string, assetPath: string): Promise<{
   data: Buffer
   width: number
@@ -1739,6 +1838,7 @@ export async function validateProductionSourceIndex(
     if (typeof source.runtimePngSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, pngPath, source.runtimePngSha256, ['sources', rig.sourceId, 'runtimePngPath']))
     if (typeof source.runtimeWebpSha256 === 'string') assetChecks.push(validateAssetFile(assetRoot, webpPath, source.runtimeWebpSha256, ['sources', rig.sourceId, 'runtimeWebpPath']))
   }
+  if (catalog.version === '0.6.0') diagnostics.push(...await validateV06FelineMaskContainment(catalog, assetRoot))
   diagnostics.push(...(await Promise.all(assetChecks)).flat())
 
   const rigSources = sources.filter(source => source.kind === 'rig-base')

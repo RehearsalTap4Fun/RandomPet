@@ -1,4 +1,5 @@
 import { validateCatalogStructure, type Diagnostic } from '@qmonster/generator-core'
+import { filterV06CatalogStructureDiagnostics } from './cli-structure-diagnostics.js'
 import { createHash } from 'node:crypto'
 import { realpath } from 'node:fs/promises'
 import { basename, dirname, relative, resolve } from 'node:path'
@@ -81,7 +82,7 @@ async function main(): Promise<void> {
   const structureDiagnostics = validateCatalogStructure(parsed.value)
   const diagnostics = [
     ...(parsed.value.version === '0.6.0'
-      ? structureDiagnostics.filter(diagnostic => diagnostic.code !== 'CATALOG_RIG_UNCOVERED')
+      ? filterV06CatalogStructureDiagnostics(structureDiagnostics)
       : structureDiagnostics),
     ...(await validateCatalogFiles(parsed.value, assetRoot)),
   ]
