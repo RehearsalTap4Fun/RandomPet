@@ -43,6 +43,13 @@ export function applyModifiers(
   catalog: Catalog,
   rolls: ModifierRolls,
 ): ModifierState {
+  if (catalog.version === '0.6.0') {
+    if (mode === 'normal') return { mutation: null, aberrations: [] }
+    const modifier = selectModifier(catalog, mode, mode === 'mutation' ? rolls.mutation : rolls.aberration)
+    return mode === 'mutation'
+      ? { mutation: modifier === null ? null : toApplication(modifier), aberrations: [] }
+      : { mutation: null, aberrations: modifier === null ? [] : [toApplication(modifier)] }
+  }
   if (mode === 'normal') {
     return { mutation: null, aberrations: [] }
   }

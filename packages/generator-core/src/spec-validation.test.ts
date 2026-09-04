@@ -14,6 +14,7 @@ import {
   makeValidMonsterSpecFixture,
 } from './test-fixtures.js'
 import v04ProductionCatalogDocument from '../../asset-catalog/catalog/v0.4.0/catalog.json'
+import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 const versions = {
   schemaVersion: '0.1.0',
@@ -21,6 +22,38 @@ const versions = {
 } as const
 
 describe('validateMonsterSpecAgainstCatalog', () => {
+  it('blocks forged feline contract violations', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    const catalog = parsed.value
+    const versions = { schemaVersion: '0.2.0', rendererVersion: '0.6.0' }
+    const base = generateMonster({ seed: 'feline-forge', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline' }, catalog).spec
+
+    const forgedArchetype = { ...structuredClone(base), archetypeId: 'canine' as const }
+    const legacyBody = structuredClone(base)
+    legacyBody.visualSlots.bodyFrame.partId = 'body_blob'
+    const integrated = structuredClone(base)
+    integrated.visualSlots.arms.partId = 'tail_feline_long'
+    const twoSpecials = structuredClone(base)
+    twoSpecials.visualSlots.tail.partId = 'tail_feline_star_tip'
+    twoSpecials.visualSlots.headAppendage.partId = 'ear_crystal_rim'
+    const doubleHead = structuredClone(base)
+    doubleHead.mutation = { id: 'mutation_double_head', overrides: { duplicateLayerGroup: 'head', socket: 'headAlternate' } }
+    const requiresMutation = structuredClone(base)
+    requiresMutation.mutation = null
+    requiresMutation.aberrations = [{ id: 'aberration_feline_crystal_glint', overrides: {} }]
+    catalog.modifiers = catalog.modifiers.map(modifier => modifier.id === 'aberration_feline_crystal_glint'
+      ? { ...modifier, requiresMutation: true } : modifier)
+
+    expect(validateMonsterSpecAgainstCatalog(forgedArchetype, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ARCHETYPE_INVALID' }))
+    expect(validateMonsterSpecAgainstCatalog(legacyBody, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_PART_MISSING' }))
+    expect(validateMonsterSpecAgainstCatalog(integrated, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_INTEGRATED_SLOT_INVALID' }))
+    expect(validateMonsterSpecAgainstCatalog(twoSpecials, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_SPECIAL_FEATURE_COUNT_INVALID' }))
+    expect(validateMonsterSpecAgainstCatalog(doubleHead, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_MODIFIER_INVALID' }))
+    expect(validateMonsterSpecAgainstCatalog(requiresMutation, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_MODIFIER_INVALID' }))
+  })
+
   it('appends genome diagnostics after the existing spec diagnostics', () => {
     const catalog = makeValidCatalogFixture()
     const spec = generateMonster({ seed: 'full-genome-validation', themeId: 'fungal', mode: 'normal' }, catalog).spec

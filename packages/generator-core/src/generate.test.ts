@@ -17,6 +17,7 @@ import {
   strongFeatureCount,
   strongNonFacialFeatureCount,
   validateMonsterGenome,
+  validateMonsterSpecAgainstCatalog,
   VISUAL_SLOT_IDS,
   type Catalog,
   type GenerationRequest,
@@ -28,6 +29,7 @@ import {
 } from './test-fixtures.js'
 import productionCatalogDocument from '../../asset-catalog/catalog/v0.3.0/catalog.json'
 import v05ProductionCatalogDocument from '../../asset-catalog/catalog/v0.5.0/catalog.json'
+import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 const baseRequest = {
   seed: '84721937',
@@ -80,6 +82,49 @@ function makeNonFacialStrongBudgetCatalog(): Catalog {
 }
 
 describe('generateMonster', () => {
+  it('generates a contract-valid feline phenotype with exactly one altered-mode special feature', () => {
+    const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+    const catalog = parsedCatalog.value
+    const countSpecialFeatures = (spec: ReturnType<typeof generateMonster>['spec']) => (
+      Object.values(spec.visualSlots).filter(selection => (
+        catalog.parts.find(part => part.id === selection.partId)?.featureTier === 'special'
+      )).length
+    )
+
+    const generated = generateMonster({
+      seed: 'feline-contract', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline',
+    }, catalog)
+    const normal = generateMonster({
+      seed: 'feline-contract', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(generated.blocked).toBe(false)
+    expect(generated.spec).toMatchObject({
+      schemaVersion: '0.2.0', catalogVersion: '0.6.0', rendererVersion: '0.6.0', archetypeId: 'feline',
+    })
+    expect(new Set(Object.values(generated.spec.visualSlots).map(item => item.rigId))).toEqual(new Set(['feline-sit']))
+    expect(generated.spec.visualSlots.arms.partId).toBe('arms_feline_integrated')
+    expect(generated.spec.visualSlots.legs.partId).toBe('legs_feline_integrated')
+    expect(generated.spec.visualSlots.extraAppendage.partId).toBe('extra_feline_none')
+    expect(countSpecialFeatures(generated.spec)).toBe(1)
+    expect(countSpecialFeatures(normal.spec)).toBe(0)
+    expect(validateMonsterSpecAgainstCatalog(generated.spec, catalog)).toEqual([])
+    expect(validateMonsterSpecAgainstCatalog(normal.spec, catalog)).toEqual([])
+  })
+
+  it('fails closed when a v0.6 request does not resolve its archetype', () => {
+    const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    const generated = generateMonster({ seed: 'feline-no-archetype', themeId: 'fungal', mode: 'normal' }, parsedCatalog.value)
+
+    expect(generated.blocked).toBe(true)
+    expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'ARCHETYPE_UNSUPPORTED' }))
+  })
+
   it('resolves visual slots in the composition dependency order', () => {
     expect(GENERATION_ORDER).toEqual([
       'bodyFrame', 'headShape', 'eyes', 'mouthShape', 'oralDetail',

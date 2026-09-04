@@ -10,6 +10,7 @@ import {
   VISUAL_SLOT_IDS,
   isStructuralSlot,
   type GenomeLayer,
+  type GenerationMode,
 } from './contracts.js'
 import { generateVisualLayer, generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
@@ -32,6 +33,7 @@ import { materializeGenomeLayer, validateMonsterGenome } from './genome-validati
 import { projectSemanticTraits } from './projection.js'
 import { descendantsOf, evaluatePartSelection } from './selection.js'
 import { selectRigId } from './rig-selection.js'
+import { planSpecialFeature, resolveArchetype } from './archetype-plan.js'
 import {
   compositionAllowanceForSlot,
   planComposition,
@@ -55,6 +57,51 @@ export interface SelectVisualPartRequest extends RerollSlotRequest {
 
 function isInterfaceCatalog(catalog: Catalog): boolean {
   return catalog.version === '0.3.0'
+}
+
+const FROZEN_FELINE_SLOTS = new Set<VisualSlotId>(['arms', 'legs', 'extraAppendage'])
+
+function modeForSpec(spec: MonsterSpec): GenerationMode {
+  if (spec.mutation !== null) return 'mutation'
+  return spec.aberrations.length > 0 ? 'aberration' : 'normal'
+}
+
+function immutableFelineSlotResult(request: RerollSlotRequest): GenerationResult | null {
+  if (request.catalog.version !== '0.6.0' || !FROZEN_FELINE_SLOTS.has(request.slotId)) return null
+  return result(request.spec, [{
+    severity: 'error',
+    code: 'ARCHETYPE_SLOT_IMMUTABLE',
+    path: ['visualSlots', request.slotId],
+    message: `Archetype-integrated slot ${request.slotId} cannot be rerolled or manually selected.`,
+  }], [request.slotId])
+}
+
+function specialFeatureSelectionDiagnostic(
+  spec: MonsterSpec,
+  slotId: VisualSlotId,
+  part: Catalog['parts'][number],
+  catalog: Catalog,
+): Diagnostic | null {
+  if (catalog.version !== '0.6.0') return null
+  const archetype = resolveArchetype(
+    spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId },
+    catalog,
+  )
+  if (archetype === null || part.archetypeIds?.includes(archetype.id) !== true) {
+    return {
+      severity: 'error', code: 'SPEC_ARCHETYPE_PART_MISMATCH', path: ['visualSlots', slotId, 'partId'],
+      message: `Part ${part.id} is not compatible with archetype ${spec.archetypeId ?? 'missing'}.`,
+    }
+  }
+  const plan = planSpecialFeature(spec.seed, spec.themeId, modeForSpec(spec), archetype, catalog)
+  const requiresSpecial = plan.slotId === slotId
+  if ((requiresSpecial && part.featureTier !== 'special') || (!requiresSpecial && part.featureTier === 'special')) {
+    return {
+      severity: 'error', code: 'SPEC_SPECIAL_FEATURE_COUNT_INVALID', path: ['visualSlots', slotId, 'partId'],
+      message: `Slot ${slotId} does not match the planned v0.6 special-feature tier.`,
+    }
+  }
+  return null
 }
 
 function selectedStructuralParts(spec: MonsterSpec, catalog: Catalog) {
@@ -139,7 +186,8 @@ function regenerateDescendants(
   const generationRequest: GenerationRequest = {
     seed: spec.seed,
     themeId: spec.themeId,
-    mode: 'normal',
+    mode: modeForSpec(spec),
+    ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
     slotRolls: spec.slotRolls,
   }
   for (const slotId of generationOrderForCatalog(catalog)) {
@@ -192,7 +240,8 @@ function rerollPhenotypeSlot(request: RerollSlotRequest): GenerationResult {
   const generationRequest: GenerationRequest = {
     seed: spec.seed,
     themeId: spec.themeId,
-    mode: 'normal',
+    mode: modeForSpec(spec),
+    ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
     slotRolls: spec.slotRolls,
   }
   const affectedSlots = orderedAffectedSlots(request.slotId, request.catalog)
@@ -239,6 +288,10 @@ function selectPhenotypePart(request: SelectVisualPartRequest): GenerationResult
   const spec = cloneSpec(request.spec)
   const diagnostics: Diagnostic[] = []
   const part = request.catalog.parts.find(item => item.slotId === request.slotId && item.id === request.partId)
+  if (part !== undefined) {
+    const specialDiagnostic = specialFeatureSelectionDiagnostic(spec, request.slotId, part, request.catalog)
+    if (specialDiagnostic !== null) return result(spec, [specialDiagnostic], [request.slotId])
+  }
   const evaluation = part === undefined ? null : evaluatePartSelection(part, spec, request.catalog)
   const connectorFailures = part !== undefined && evaluation !== null && evaluation.rigId !== null
     ? connectorExclusions(request.catalog, part, evaluation.rigId, selectedStructuralParts(spec, request.catalog))
@@ -324,6 +377,8 @@ function rerollGenomeBodyFrame(request: RerollSlotRequest): GenerationResult {
     const generated = generateVisualLayer({
       seed: genomeLayerSeed(request.spec.seed, layer),
       themeId: request.spec.themeId,
+      mode: hidden ? 'normal' : modeForSpec(request.spec),
+      ...(request.spec.archetypeId === undefined ? {} : { archetypeId: request.spec.archetypeId }),
       slotRolls,
       ...(hidden ? {} : { lockedSelections: lockedSelectionsForFullRebuild(request) }),
     }, request.catalog)
@@ -367,6 +422,8 @@ function hiddenLayerSpec(
   temporary.seed = genomeLayerSeed(spec.seed, layer)
   temporary.visualSlots = visualSlots
   temporary.semanticTraits = projectSemanticTraits(visualSlots, temporary.seed, catalog)
+  temporary.mutation = null
+  temporary.aberrations = []
   return temporary
 }
 
@@ -445,6 +502,8 @@ function selectGenomeBodyFrame(request: SelectVisualPartRequest): GenerationResu
     const generated = generateVisualLayer({
       seed: genomeLayerSeed(request.spec.seed, hiddenLayer),
       themeId: request.spec.themeId,
+      mode: 'normal',
+      ...(request.spec.archetypeId === undefined ? {} : { archetypeId: request.spec.archetypeId }),
       slotRolls: request.spec.slotRolls,
     }, request.catalog)
     layers[hiddenLayer] = generated.visualSlots
@@ -493,6 +552,8 @@ function fullGenomeScopes(
 }
 
 export function rerollSlot(request: RerollSlotRequest): GenerationResult {
+  const immutable = immutableFelineSlotResult(request)
+  if (immutable !== null) return withRevalidatedDiagnosticScopes(immutable, {})
   if (request.spec.genome === undefined) return rerollPhenotypeSlot(request)
   const generated = rerollGenomeSlot(request)
   if (generated.blocked) return withRevalidatedDiagnosticScopes(generated, {})
@@ -505,6 +566,8 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
 }
 
 export function selectVisualPart(request: SelectVisualPartRequest): GenerationResult {
+  const immutable = immutableFelineSlotResult(request)
+  if (immutable !== null) return withRevalidatedDiagnosticScopes(immutable, {})
   if (request.spec.genome === undefined) return selectPhenotypePart(request)
   if (request.slotId === 'bodyFrame') {
     const generated = selectGenomeBodyFrame(request)

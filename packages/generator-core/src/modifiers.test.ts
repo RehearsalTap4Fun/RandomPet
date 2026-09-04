@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { generateMonster, type Catalog } from './index.js'
+import { applyModifiers, createRng, generateMonster, parseCatalog, type Catalog } from './index.js'
 import { makeValidCatalogFixture } from './test-fixtures.js'
+import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 function catalogWithOnlyModifier(id: string): Catalog {
   const catalog = makeValidCatalogFixture()
@@ -12,6 +13,21 @@ function catalogWithOnlyModifier(id: string): Catalog {
 }
 
 describe('modifier applications', () => {
+  it('keeps v0.6 altered modes structurally singular', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+
+    const catalog = structuredClone(parsed.value)
+    const aberration = catalog.modifiers.find(modifier => modifier.kind === 'aberration')!
+    catalog.modifiers = [{ ...aberration, requiresMutation: true }, ...catalog.modifiers.filter(modifier => modifier.kind === 'mutation')]
+    const state = applyModifiers('aberration', catalog, {
+      mutation: createRng(['feline-mutation']), aberration: createRng(['feline-aberration']),
+    })
+
+    expect(state).toMatchObject({ mutation: null, aberrations: [{ id: aberration.id }] })
+  })
+
   it('keeps base visual slots unchanged when applying albino', () => {
     const catalog = catalogWithOnlyModifier('mutation_albino')
     const normal = generateMonster({ seed: '84721937', themeId: 'fungal', mode: 'normal' }, catalog)

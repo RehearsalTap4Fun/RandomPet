@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { buildCandidates, createRng, type Rng, type VisualPartDefinition } from './index.js'
 import { makeCompositionCatalogFixture, makeInterfaceCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
+import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
+import { parseCatalog } from './catalog-schema.js'
 
 function scriptedRng(...values: number[]): Rng {
   let index = 0
@@ -38,6 +40,25 @@ function makeStrongCompositionEyesCatalog() {
 }
 
 describe('candidate pool boundaries', () => {
+  it('filters candidates to the requested feline archetype and planned special tier', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+
+    const normal = buildCandidates({
+      catalog: parsed.value, slotId: 'tail', themeId: 'fungal', rigId: 'feline-sit', selections: {},
+      archetypeId: 'feline', specialFeature: { required: false, forbidden: true }, rng: createRng(['feline-normal']),
+    })
+    const special = buildCandidates({
+      catalog: parsed.value, slotId: 'tail', themeId: 'fungal', rigId: 'feline-sit', selections: {},
+      archetypeId: 'feline', specialFeature: { required: true, forbidden: false }, rng: createRng(['feline-special']),
+    })
+
+    expect(normal.trace.candidateIds).toEqual(expect.arrayContaining(['tail_feline_long', 'tail_feline_curl']))
+    expect(normal.trace.candidateIds).not.toContain('tail_feline_star_tip')
+    expect(special.trace.candidateIds).toEqual(['tail_feline_star_tip'])
+  })
+
   it('forward-filters only bodies that empty a required dominant structural theme pool', () => {
     const catalog = makeInterfaceCatalogFixture()
     const compatibleBody = catalog.parts.find(part => part.id === 'body_blob')!

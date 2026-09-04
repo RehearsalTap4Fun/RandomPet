@@ -63,6 +63,14 @@ function resolveLayerParts(
       ))
       continue
     }
+    if (catalog.version === '0.6.0' && part.archetypeIds?.includes(spec.archetypeId!) !== true) {
+      diagnostics.push(error(
+        'SPEC_ARCHETYPE_PART_MISMATCH',
+        genePath(slotId, layer),
+        `Gene part ${part.id} is not compatible with archetype ${spec.archetypeId ?? 'missing'}.`,
+      ))
+      continue
+    }
     parts[slotId] = part
   }
   return diagnostics.length === 0 ? { ok: true, value: parts } : { ok: false, diagnostics }

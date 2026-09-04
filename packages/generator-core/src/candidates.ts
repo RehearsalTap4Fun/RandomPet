@@ -3,6 +3,7 @@ import {
   isStructuralSlot,
   type StructuralSlotId,
   type Catalog,
+  type AnimalArchetypeId,
   type RigId,
   type ThemeId,
   type VisualPartDefinition,
@@ -32,12 +33,30 @@ export interface BuildCandidatesInput {
   rigId: RigId
   selections: Partial<Record<VisualSlotId, VisualSelection>>
   rng: Rng
+  archetypeId?: AnimalArchetypeId
+  specialFeature?: { required: boolean; forbidden: boolean }
   composition?: {
     motifMode: MotifMode
     remainingStrong: number
     remainingStrongNonFacial: number
     requiredDominantStructuralSlots?: VisualSlotId[]
   }
+}
+
+function supportsArchetype(
+  part: VisualPartDefinition,
+  archetypeId: AnimalArchetypeId | undefined,
+): boolean {
+  return archetypeId === undefined || part.archetypeIds?.includes(archetypeId) === true
+}
+
+function supportsSpecialFeature(
+  part: VisualPartDefinition,
+  specialFeature: NonNullable<BuildCandidatesInput['specialFeature']>,
+): boolean {
+  if (specialFeature.required) return part.featureTier === 'special'
+  if (specialFeature.forbidden) return part.featureTier !== 'special'
+  return true
 }
 
 export interface CandidateResult {
@@ -112,6 +131,8 @@ export function buildCandidates(input: BuildCandidatesInput): CandidateResult {
   const connectorExclusions: Record<string, string[]> = {}
   const compatible = input.catalog.parts.filter(part => {
     if (part.slotId !== input.slotId || !isHardCompatible(part, input.rigId, input.catalog, selectedPartIds, selectedParts)) return false
+    if (!supportsArchetype(part, input.archetypeId)) return false
+    if (!supportsSpecialFeature(part, input.specialFeature ?? { required: false, forbidden: false })) return false
     if (!supportsRequiredDominantStructuralSlots(input, part)) return false
     const exclusions = connectorExclusionCodes(input.catalog, part, input.rigId, selectedStructuralParts)
     if (exclusions.length > 0) {

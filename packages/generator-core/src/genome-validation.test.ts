@@ -4,14 +4,30 @@ import {
   generateMonster,
   materializeGenomeLayer,
   validateMonsterGenome,
+  parseCatalog,
 } from './index.js'
 import {
   makeValidCatalogFixture,
   makeValidCatalogFixtureWithThreeRigs,
   makeValidMonsterSpecFixture,
 } from './test-fixtures.js'
+import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('genome catalog validation', () => {
+  it('rejects non-feline hidden genes in every v0.6 genome layer', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    const catalog = parsed.value
+    const spec = generateMonster({ seed: 'feline-genome', themeId: 'fungal', mode: 'normal', archetypeId: 'feline' }, catalog).spec
+    catalog.parts.push({ ...structuredClone(catalog.parts.find(part => part.slotId === 'bodyFrame')!), id: 'body_canine_forged', archetypeIds: ['canine'] })
+    spec.genome!.genes.bodyFrame.H1 = 'body_canine_forged'
+
+    expect(validateMonsterGenome(spec, catalog)).toContainEqual(expect.objectContaining({
+      code: 'SPEC_ARCHETYPE_PART_MISMATCH', path: ['genome', 'genes', 'bodyFrame', 'H1'],
+    }))
+  })
+
   it('does not materialize or synthesize a genome for a legacy spec', () => {
     const catalog = makeValidCatalogFixture()
     const spec = makeValidMonsterSpecFixture()

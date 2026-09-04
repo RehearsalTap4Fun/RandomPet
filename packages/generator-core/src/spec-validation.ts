@@ -3,6 +3,7 @@ import {
   VISUAL_SLOT_IDS,
   isAttachmentPartComposition,
   type ApprovedTransform,
+  type AnimalArchetypeDefinition,
   type Catalog,
   type Diagnostic,
   type ModifierApplication,
@@ -112,6 +113,11 @@ function validateModifier(
   ))
   if (
     definition === undefined
+    || (catalog.version === '0.6.0' && (
+      definition.requiresMutation
+      || definition.overrides.duplicateLayerGroup !== undefined
+      || definition.overrides.relocateSlot !== undefined
+    ))
     || !sameOverrides(application.overrides, definition.overrides)
     || !hasRequiredBehaviorSocket(application.overrides)
     || !hasRequiredBehaviorSocket(definition.overrides)
@@ -169,17 +175,86 @@ function validateModifier(
   }
 }
 
+function validateFelineSpec(
+  spec: MonsterSpec,
+  catalog: Catalog,
+  selectedParts: ReadonlyMap<VisualSlotId, VisualPartDefinition>,
+  diagnostics: Diagnostic[],
+): AnimalArchetypeDefinition | null {
+  if (catalog.version !== '0.6.0') return null
+  const archetype = catalog.archetypes?.find(candidate => candidate.id === spec.archetypeId) ?? null
+  if (archetype === null) {
+    diagnostics.push(error(
+      'SPEC_ARCHETYPE_INVALID',
+      ['archetypeId'],
+      `Archetype ${spec.archetypeId ?? 'missing'} is not supported by catalog ${catalog.version}.`,
+    ))
+    return null
+  }
+  for (const slotId of VISUAL_SLOT_IDS) {
+    const part = selectedParts.get(slotId)
+    const selection = spec.visualSlots[slotId]
+    if (part !== undefined && part.archetypeIds?.includes(archetype.id) !== true) {
+      diagnostics.push(error(
+        'SPEC_ARCHETYPE_PART_MISMATCH',
+        ['visualSlots', slotId, 'partId'],
+        `Part ${part.id} is not compatible with archetype ${archetype.id}.`,
+      ))
+    }
+    if (!archetype.rigIds.includes(selection.rigId)) {
+      diagnostics.push(error(
+        'SPEC_ARCHETYPE_INVALID',
+        ['visualSlots', slotId, 'rigId'],
+        `Rig ${selection.rigId} is not legal for archetype ${archetype.id}.`,
+      ))
+    }
+  }
+  const integratedSentinels: Partial<Record<VisualSlotId, string>> = {
+    arms: 'arms_feline_integrated',
+    legs: 'legs_feline_integrated',
+    extraAppendage: 'extra_feline_none',
+  }
+  for (const [slotId, partId] of Object.entries(integratedSentinels) as [VisualSlotId, string][]) {
+    if (spec.visualSlots[slotId].partId !== partId) {
+      diagnostics.push(error(
+        'SPEC_INTEGRATED_SLOT_INVALID',
+        ['visualSlots', slotId, 'partId'],
+        `Archetype ${archetype.id} requires integrated sentinel ${partId} for ${slotId}.`,
+      ))
+    }
+  }
+  const tail = selectedParts.get('tail')
+  if (tail === undefined || tail.composition?.isNone === true) {
+    diagnostics.push(error(
+      'SPEC_ARCHETYPE_INVALID',
+      ['visualSlots', 'tail', 'partId'],
+      `Archetype ${archetype.id} requires one visible tail.`,
+    ))
+  }
+  const specialCount = [...selectedParts.values()].filter(part => part.featureTier === 'special').length
+  const expectedSpecialCount = spec.mutation === null && spec.aberrations.length === 0 ? 0 : 1
+  if (specialCount !== expectedSpecialCount) {
+    diagnostics.push(error(
+      'SPEC_SPECIAL_FEATURE_COUNT_INVALID',
+      ['visualSlots'],
+      `Archetype ${archetype.id} requires ${expectedSpecialCount} special feature selection(s), received ${specialCount}.`,
+    ))
+  }
+  return archetype
+}
+
 export function validateMonsterSpecAgainstCatalog(
   spec: MonsterSpec,
   catalog: Catalog,
   versions: SupportedSpecVersions = CURRENT_SPEC_VERSIONS,
 ): Diagnostic[] {
   const diagnostics: Diagnostic[] = []
-  if (spec.schemaVersion !== versions.schemaVersion) {
+  const expectedSchemaVersion = catalog.version === '0.6.0' ? '0.2.0' : versions.schemaVersion
+  if (spec.schemaVersion !== expectedSchemaVersion) {
     diagnostics.push(error(
       'SPEC_SCHEMA_VERSION_UNSUPPORTED',
       ['schemaVersion'],
-      `MonsterSpec schema version ${spec.schemaVersion} is unsupported; expected ${versions.schemaVersion}.`,
+      `MonsterSpec schema version ${spec.schemaVersion} is unsupported; expected ${expectedSchemaVersion}.`,
     ))
   }
   let expectedRenderer: MonsterSpec['rendererVersion']
@@ -285,6 +360,8 @@ export function validateMonsterSpecAgainstCatalog(
       }
     }
   }
+
+  validateFelineSpec(spec, catalog, selectedParts, diagnostics)
 
   for (const semanticSlotId of SEMANTIC_SLOT_IDS) {
     const selection = spec.semanticTraits[semanticSlotId]

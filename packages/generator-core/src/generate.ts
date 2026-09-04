@@ -23,6 +23,7 @@ import { createRng, slotSeedParts } from './prng.js'
 import { applyModifiers } from './modifiers.js'
 import { projectSemanticTraits } from './projection.js'
 import { selectRigId } from './rig-selection.js'
+import { planSpecialFeature, resolveArchetype } from './archetype-plan.js'
 import {
   compositionAllowanceForSlot,
   planComposition,
@@ -57,7 +58,7 @@ function defaultRig(catalog: Catalog): RigId {
   return catalog.rigs[0]?.id ?? 'blob'
 }
 
-type VisualLayerRequest = Pick<GenerationRequest, 'seed' | 'themeId' | 'slotRolls' | 'lockedSelections'>
+type VisualLayerRequest = Pick<GenerationRequest, 'seed' | 'themeId' | 'mode' | 'archetypeId' | 'slotRolls' | 'lockedSelections'>
 
 function lockedBodyRig(request: VisualLayerRequest, catalog: Catalog): RigId | undefined {
   const lockedBodyId = request.lockedSelections?.bodyFrame
@@ -100,6 +101,12 @@ export function resolveSlot(
     rigId,
     selections: visualSlots,
     rng: createRng(slotSeedParts(request.seed, request.themeId, slotId, rerollIndex)),
+    ...(request.archetypeId === undefined ? {} : { archetypeId: request.archetypeId }),
+    specialFeature: (() => {
+      const archetype = resolveArchetype(request, catalog)
+      const specialPlan = planSpecialFeature(request.seed, request.themeId, request.mode ?? 'normal', archetype, catalog)
+      return { required: specialPlan.slotId === slotId, forbidden: specialPlan.slotId !== slotId }
+    })(),
     ...(composition === undefined ? {} : { composition }),
   })
   if (composition?.motifMode === 'dominant' && result.trace.themeFallback) {
@@ -134,11 +141,11 @@ export interface GeneratedVisualLayer {
 }
 
 export function generateVisualLayer(
-  request: Pick<GenerationRequest, 'seed' | 'themeId' | 'slotRolls' | 'lockedSelections'>,
+  request: Pick<GenerationRequest, 'seed' | 'themeId' | 'mode' | 'archetypeId' | 'slotRolls' | 'lockedSelections'>,
   catalog: Catalog,
 ): GeneratedVisualLayer {
   const diagnostics: Diagnostic[] = []
-  const selectedRig = lockedBodyRig(request, catalog) ?? selectRigId({ ...request, mode: 'normal' }, catalog)
+  const selectedRig = lockedBodyRig(request, catalog) ?? selectRigId({ ...request, mode: request.mode ?? 'normal' }, catalog)
   const rigId = selectedRig ?? defaultRig(catalog)
   if (selectedRig === null) {
     diagnostics.push(error('NO_COMPATIBLE_RIG', ['visualSlots', 'bodyFrame'], 'No legal bodyFrame rig is available in the catalog.'))
@@ -183,7 +190,13 @@ function mapLayerDiagnostics(diagnostics: readonly Diagnostic[], layer: GenomeLa
 }
 
 export function generateMonster(request: GenerationRequest, catalog: Catalog): GenerationResult {
-  const diagnostics: Diagnostic[] = [...validateCatalogStructure(catalog)]
+  const diagnostics: Diagnostic[] = validateCatalogStructure(catalog).filter(diagnostic => (
+    catalog.version !== '0.6.0' || diagnostic.code !== 'CATALOG_RIG_UNCOVERED'
+  ))
+  const archetype = resolveArchetype(request, catalog)
+  if (catalog.version === '0.6.0' && archetype === null) {
+    diagnostics.push(error('ARCHETYPE_UNSUPPORTED', ['archetypeId'], `Archetype ${request.archetypeId ?? 'missing'} is not supported by catalog ${catalog.version}.`))
+  }
   const theme = catalog.themes.find(item => item.id === request.themeId)
   if (theme === undefined) {
     diagnostics.push(error('THEME_NOT_FOUND', ['themeId'], `Theme ${request.themeId} is not present in the catalog.`))
@@ -195,6 +208,8 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     const generatedLayer = generateVisualLayer({
       seed: genomeLayerSeed(request.seed, layer),
       themeId: request.themeId,
+      mode: hidden ? 'normal' : request.mode,
+      ...(request.archetypeId === undefined ? {} : { archetypeId: request.archetypeId }),
       ...(request.slotRolls === undefined ? {} : { slotRolls: request.slotRolls }),
       ...(hidden || request.lockedSelections === undefined ? {} : { lockedSelections: request.lockedSelections }),
     }, catalog)
@@ -226,7 +241,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     }
   }
   const spec = {
-    schemaVersion: '0.1.0',
+    schemaVersion: catalog.version === '0.6.0' ? '0.2.0' : '0.1.0',
     catalogVersion: catalog.version,
     rendererVersion: rendererVersionForCatalog(catalog),
     seed: request.seed,
@@ -238,6 +253,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     semanticTraits: projectSemanticTraits(completeVisualSlots, request.seed, catalog),
     mutation: modifiers.mutation,
     aberrations: modifiers.aberrations,
+    ...(catalog.version === '0.6.0' && request.archetypeId !== undefined ? { archetypeId: request.archetypeId } : {}),
   }
   diagnostics.push(...validateCompositionSelections(spec, catalog, compositionPlan))
   diagnostics.push(...validateStructuralSelections(spec, catalog))
