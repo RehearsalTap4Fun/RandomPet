@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
+import { solveConnector } from '../packages/renderer-canvas/src/connector-solver.js'
 import { assembleV06Catalog, V06_INTEGRATED_PART_IDS } from './assemble-v06-catalog.js'
 
 const temporaryRoots: string[] = []
@@ -132,6 +133,117 @@ describe('assemble v0.6 feline catalog', () => {
         .toMatchObject({ hasAlpha: true })
     }
   }, 90_000)
+
+  it('keeps every structural and face alpha bound inside the declared normal-render frame', async () => {
+    const stagedRoot = await mkdtemp(join(tmpdir(), 'qmonster-v06-resolved-frame-contract-'))
+    temporaryRoots.push(stagedRoot)
+    const catalog = await assembleV06Catalog({ repositoryRoot: process.cwd(), stagedRoot })
+    const part = (partId: string) => catalog.parts.find((candidate: { id: string }) => candidate.id === partId)
+    const variant = (partId: string) => part(partId).composition.variantsByRig['feline-sit']
+    const connector = (partId: string, connectorId: string) => variant(partId).connectors
+      .find((candidate: { id: string }) => candidate.id === connectorId)
+    const alphaBounds = async (partId: string) => {
+      const selected = part(partId)
+      const catalogRoot = join(stagedRoot, 'packages', 'asset-catalog')
+      const runtimePath = selected.pngPath.startsWith('assets/')
+        ? join(catalogRoot, selected.pngPath)
+        : join(catalogRoot, 'assets', 'v0.6.0', selected.pngPath)
+      const decoded = await sharp(await readFile(runtimePath))
+        .ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+      let minX = decoded.info.width; let minY = decoded.info.height; let maxX = -1; let maxY = -1
+      for (let y = 0; y < decoded.info.height; y += 1) for (let x = 0; x < decoded.info.width; x += 1) {
+        if (decoded.data[(y * decoded.info.width + x) * 4 + 3] === 0) continue
+        minX = Math.min(minX, x); minY = Math.min(minY, y)
+        maxX = Math.max(maxX, x); maxY = Math.max(maxY, y)
+      }
+      return { minX, minY, maxX, maxY }
+    }
+    const placeBounds = (
+      bounds: { minX: number, minY: number, maxX: number, maxY: number },
+      placement: { x: number, y: number, scaleX: number, scaleY: number },
+    ) => {
+      const xs = [placement.x + bounds.minX * placement.scaleX, placement.x + bounds.maxX * placement.scaleX]
+      const ys = [placement.y + bounds.minY * placement.scaleY, placement.y + bounds.maxY * placement.scaleY]
+      return { minX: Math.min(...xs), minY: Math.min(...ys), maxX: Math.max(...xs), maxY: Math.max(...ys) }
+    }
+    const assertInside = (
+      bounds: { minX: number, minY: number, maxX: number, maxY: number },
+      frame: { x: number, y: number, width: number, height: number },
+    ) => {
+      expect(bounds.minX).toBeGreaterThanOrEqual(frame.x)
+      expect(bounds.minY).toBeGreaterThanOrEqual(frame.y)
+      expect(bounds.maxX + 1).toBeLessThanOrEqual(frame.x + frame.width)
+      expect(bounds.maxY + 1).toBeLessThanOrEqual(frame.y + frame.height)
+    }
+    const frame = catalog.compositionPolicy.frameBounds
+    const bridgeFor = (connectorClass: string) => catalog.transitionBridges
+      .find((candidate: { connectorClass: string }) => candidate.connectorClass === connectorClass)
+    const boundsById = new Map<string, Awaited<ReturnType<typeof alphaBounds>>>()
+    for (const partId of [
+      'body_feline_sit_round', 'body_feline_sit_plush',
+      'head_feline_round', 'head_feline_tufted',
+      'tail_feline_long', 'tail_feline_curl', 'tail_feline_star_tip',
+      'eyes_feline_round', 'eyes_feline_sleepy', 'eyes_feline_wide',
+      'mouth_feline_smile', 'mouth_feline_pout',
+    ]) boundsById.set(partId, await alphaBounds(partId))
+
+    for (const bodyId of ['body_feline_sit_round', 'body_feline_sit_plush']) {
+      const bodyNode = variant(bodyId).renderNodes[0]
+      const bodyPlacement = {
+        x: 1024 - bodyNode.origin.x * bodyNode.transform.scale,
+        y: 1024 - bodyNode.origin.y * bodyNode.transform.scale,
+        scaleX: bodyNode.transform.mirrorX ? -bodyNode.transform.scale : bodyNode.transform.scale,
+        scaleY: bodyNode.transform.scale,
+      }
+      assertInside(placeBounds(boundsById.get(bodyId)!, bodyPlacement), frame)
+      for (const childId of [
+        'head_feline_round', 'head_feline_tufted',
+        'tail_feline_long', 'tail_feline_curl', 'tail_feline_star_tip',
+      ]) {
+        const isHead = childId.startsWith('head_')
+        const connectorId = isHead ? 'neck' : 'tailRoot'
+        const connectorClass = isHead ? 'neck' : 'tail'
+        const childVariant = variant(childId)
+        const solved = solveConnector(
+          connector(bodyId, connectorId), connector(childId, connectorId),
+          bridgeFor(connectorClass), childVariant.renderNodes[0].transform,
+        )
+        expect(solved.ok).toBe(true)
+        if (!solved.ok) continue
+        const childBounds = placeBounds(boundsById.get(childId)!, solved.childPlacement)
+        assertInside(childBounds, frame)
+        if (!isHead) continue
+
+        const zone = childVariant.faceSafeZones[0]
+        const zoneWorld = {
+          x: solved.childPlacement.x + zone.x * solved.childPlacement.scaleX,
+          y: solved.childPlacement.y + zone.y * solved.childPlacement.scaleY,
+          width: zone.width * Math.abs(solved.childPlacement.scaleX),
+          height: zone.height * Math.abs(solved.childPlacement.scaleY),
+        }
+        for (const faceId of [
+          'eyes_feline_round', 'eyes_feline_sleepy', 'eyes_feline_wide',
+          'mouth_feline_smile', 'mouth_feline_pout',
+        ]) {
+          const facePart = part(faceId)
+          const faceNode = facePart.composition.renderNodes[0]
+          const socket = childVariant.featureSockets[faceNode.socket]
+          const socketWorld = {
+            x: solved.childPlacement.x + socket.x * solved.childPlacement.scaleX,
+            y: solved.childPlacement.y + socket.y * solved.childPlacement.scaleY,
+          }
+          const faceScaleX = faceNode.transform.mirrorX ? -faceNode.transform.scale : faceNode.transform.scale
+          const facePlacement = {
+            x: socketWorld.x - faceNode.origin.x * faceScaleX,
+            y: socketWorld.y - faceNode.origin.y * faceNode.transform.scale,
+            scaleX: faceScaleX,
+            scaleY: faceNode.transform.scale,
+          }
+          assertInside(placeBounds(boundsById.get(faceId)!, facePlacement), zoneWorld)
+        }
+      }
+    }
+  }, 120_000)
 
   it('writes aggregate, splits, provenance, manifest, evidence, review and assets together', async () => {
     const stagedRoot = await mkdtemp(join(tmpdir(), 'qmonster-v06-release-'))

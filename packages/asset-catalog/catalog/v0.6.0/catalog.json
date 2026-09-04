@@ -158,8 +158,8 @@
                 "connectorClass": "neck",
                 "rigId": "feline-sit",
                 "origin": {
-                  "x": 1055,
-                  "y": 455
+                  "x": 1024,
+                  "y": 400
                 },
                 "tangent": {
                   "x": 1,
@@ -172,14 +172,14 @@
                 "width": 64,
                 "depth": 12,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-contour.png",
-                "contourMaskSha256": "48550dc8702b3fdd0d6928b985ee5ed82309837a161651e5f5bad6ca362782e6",
+                "contourMaskSha256": "6b1ab7c7c587f6979488e6086b93f3554e07ac406c0df23949f21796ebc8b4d2",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-foreground.png",
-                "foregroundMaskSha256": "a307708b1336c36ae8d5ff092cbb19d2923f92b9db11685e2cf34f1586a3f5da",
+                "foregroundMaskSha256": "8e6ef03b9a9f2a2f85be47eeb8f32b39a225cabbdeb70cb6f35650e74dbb103a",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-background.png",
-                "backgroundMaskSha256": "0eacec1684877b6066649a3c29506dac70a57e6789a98771feacfac9d87eabac",
+                "backgroundMaskSha256": "98f82ce2e12e961fa34b4094b7cf61d44b0788f15e542824fdfbf9a6705f1720",
                 "materialSampleRegion": {
-                  "x": 1031,
-                  "y": 431,
+                  "x": 1000,
+                  "y": 376,
                   "width": 48,
                   "height": 48
                 },
@@ -204,8 +204,8 @@
                 "connectorClass": "tail",
                 "rigId": "feline-sit",
                 "origin": {
-                  "x": 1679,
-                  "y": 1235
+                  "x": 1680,
+                  "y": 1240
                 },
                 "tangent": {
                   "x": 1,
@@ -218,14 +218,14 @@
                 "width": 64,
                 "depth": 12,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-contour.png",
-                "contourMaskSha256": "04b16dc3b4943ee21eb1d6a927e0746f4e378e357279266828b3a2bfc5523124",
+                "contourMaskSha256": "0952c9fedf10240054d225d5e6c455694ffc2f0246d9b9b62c16839454401bdc",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-foreground.png",
-                "foregroundMaskSha256": "77e934f71dd8fe6cc5ec3397c0215177c6a052a15ebc6ae1a1cb32f6792e9abe",
+                "foregroundMaskSha256": "e414290d2ee744ad1fcc64b9a81772354b4d6866b1498b78eec17c6801f371f1",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-background.png",
-                "backgroundMaskSha256": "0298447ee34218a35b375edabbdc771e7ecdefa1a57dd035eb27a4207b3351dd",
+                "backgroundMaskSha256": "5a1a2f852ee0763e3fc1b739191c49f14344e2805d6a9aa76b949b7eb266a87c",
                 "materialSampleRegion": {
-                  "x": 1655,
-                  "y": 1211,
+                  "x": 1656,
+                  "y": 1216,
                   "width": 48,
                   "height": 48
                 },
@@ -333,8 +333,8 @@
                 "connectorClass": "neck",
                 "rigId": "feline-sit",
                 "origin": {
-                  "x": 1025,
-                  "y": 332
+                  "x": 1024,
+                  "y": 400
                 },
                 "tangent": {
                   "x": 1,
@@ -347,14 +347,14 @@
                 "width": 64,
                 "depth": 12,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-contour.png",
-                "contourMaskSha256": "97cea4b6e3f7e8488d7bfcbcd6ee1bce686636b6500c77296bb9868a09ef1ca8",
+                "contourMaskSha256": "6b1ab7c7c587f6979488e6086b93f3554e07ac406c0df23949f21796ebc8b4d2",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-foreground.png",
-                "foregroundMaskSha256": "91d5a3e4b69ef98ebaf1d109c4a09ded25d2c5d6762b25564a0329a34bb01338",
+                "foregroundMaskSha256": "de9f5aff3f352c68e8ce2de76a6867be45bf4bd383feb136a89b0ac3a49ab771",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-background.png",
-                "backgroundMaskSha256": "80a51b58db7f788a38f4e9c6abb5a0c6a3f056442dc05cebf20596b8deee652d",
+                "backgroundMaskSha256": "0568b6a0f566f55564b96a406780a9374e1a8e4691e3d5568c0c43dc41e51767",
                 "materialSampleRegion": {
-                  "x": 1001,
-                  "y": 308,
+                  "x": 1000,
+                  "y": 376,
                   "width": 48,
                   "height": 48
                 },
@@ -379,8 +379,8 @@
                 "connectorClass": "tail",
                 "rigId": "feline-sit",
                 "origin": {
-                  "x": 1649,
-                  "y": 1222
+                  "x": 1680,
+                  "y": 1240
                 },
                 "tangent": {
                   "x": 1,
@@ -393,14 +393,14 @@
                 "width": 64,
                 "depth": 12,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-contour.png",
-                "contourMaskSha256": "7bed0ab5efdc200aa76db123713d109ada3696aa1b17a7a86eace0951293e6db",
+                "contourMaskSha256": "63b214daf39b042d2186ac23dae610b5a709dd97e2ab3e2d99174ee9612ed745",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-foreground.png",
-                "foregroundMaskSha256": "dfff08dbab9d842cfc9e9a0d5bac7ab0c68f2fbd39e571e0df5fb734820a0e15",
+                "foregroundMaskSha256": "e95bccfb3796ef44f30cfdd393028849267ffcabc3a799136334181f3a2f821a",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-background.png",
-                "backgroundMaskSha256": "004af1a87b44896896164b3b1cd330f9b8d207678c2751ca2e7bd60faf3fdc1c",
+                "backgroundMaskSha256": "da2cbe80767c47f8f1c580c2efa2d7bd700b64ace9a3ebde83c6aad000933a2b",
                 "materialSampleRegion": {
-                  "x": 1625,
-                  "y": 1198,
+                  "x": 1656,
+                  "y": 1216,
                   "width": 48,
                   "height": 48
                 },
@@ -492,7 +492,7 @@
                   "y": 1024
                 },
                 "transform": {
-                  "scale": 1,
+                  "scale": 0.9,
                   "mirrorX": false
                 },
                 "layer": "head",
@@ -523,14 +523,14 @@
                 "width": 64,
                 "depth": 12,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-contour.png",
-                "contourMaskSha256": "08b464089bd930590c0a8ad17fe2f92c1f36e0ec188e355b18b9aa994c55238f",
+                "contourMaskSha256": "cb0e2fe2cb2a9a24516e94474c52c6ddb6b1bddb6936ec31ebbac51b9a068fb6",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-foreground.png",
                 "foregroundMaskSha256": "5e8134bbb289aa8566b6341d561f77d0c4c813efc4a9a797a03dfc46b03f079c",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-background.png",
                 "backgroundMaskSha256": "a777c9d3f2303f1b89fd0fe10e11df601029562d8d144c037ccaaba4f5836410",
                 "materialSampleRegion": {
-                  "x": 999,
-                  "y": 1717,
+                  "x": 1000,
+                  "y": 376,
                   "width": 48,
                   "height": 48
                 },
@@ -561,11 +561,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 800
+                "y": 700
               },
               "mouth": {
                 "x": 1024,
-                "y": 960
+                "y": 1100
               },
               "headAppendage": {
                 "x": 1024,
@@ -644,7 +644,7 @@
                   "y": 1024
                 },
                 "transform": {
-                  "scale": 1,
+                  "scale": 0.9,
                   "mirrorX": false
                 },
                 "layer": "head",
@@ -675,14 +675,14 @@
                 "width": 64,
                 "depth": 12,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-contour.png",
-                "contourMaskSha256": "7fbd99fe869117f3abbffd2d8ec0e7a108eb975bc3946bf68cba37f7b160bad8",
+                "contourMaskSha256": "cb0e2fe2cb2a9a24516e94474c52c6ddb6b1bddb6936ec31ebbac51b9a068fb6",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-foreground.png",
                 "foregroundMaskSha256": "4c18518a5373522d7bea9add34257352bb11b0363a2bfbf69e293968054e2d5d",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-background.png",
                 "backgroundMaskSha256": "d871ca8b902c5eebc3ab6e13e7c38f51972136023173446654a8621047e8b3ce",
                 "materialSampleRegion": {
-                  "x": 1004,
-                  "y": 1745,
+                  "x": 1000,
+                  "y": 376,
                   "width": 48,
                   "height": 48
                 },
@@ -713,11 +713,11 @@
             "featureSockets": {
               "eyes": {
                 "x": 1024,
-                "y": 800
+                "y": 700
               },
               "mouth": {
                 "x": 1024,
-                "y": 960
+                "y": 1100
               },
               "headAppendage": {
                 "x": 1024,
@@ -796,8 +796,8 @@
                   "y": 1024
                 },
                 "transform": {
-                  "scale": 1,
-                  "mirrorX": false
+                  "scale": 0.75,
+                  "mirrorX": true
                 },
                 "layer": "rearAppendage",
                 "compatibleRigs": [
@@ -813,28 +813,28 @@
                 "connectorClass": "tail",
                 "rigId": "feline-sit",
                 "origin": {
-                  "x": 362,
-                  "y": 1508
+                  "x": 410,
+                  "y": 1525
                 },
                 "tangent": {
-                  "x": 1,
+                  "x": -1,
                   "y": 0
                 },
                 "outwardNormal": {
                   "x": 0,
                   "y": 1
                 },
-                "width": 64,
-                "depth": 12,
+                "width": 85.33333333333333,
+                "depth": 16,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-contour.png",
-                "contourMaskSha256": "321746121e8bb5643c00278d208b63b43327e164caaf2317a4790385861b828f",
+                "contourMaskSha256": "0644212a20af050ec99a4ee86b34fc1857c8d22b505d1a68fb2b2a2e642cf2a0",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-foreground.png",
-                "foregroundMaskSha256": "318bed1efa0493f62fea6502c03764918c13cdb0469fa7d57bb576483a1e01b7",
+                "foregroundMaskSha256": "57b4d4e4187327364357480a7cc92caf1b8953c080a6022f76cbe97443f0fd50",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-background.png",
-                "backgroundMaskSha256": "76c9a22dc73f11beef336f776c92810e0d5265aaf00f157afdfafc7ae6dd793b",
+                "backgroundMaskSha256": "e5e6730334a077cd53b6d7024b7428ab79a93fad62d6e09ba3e08d6d7804cbef",
                 "materialSampleRegion": {
-                  "x": 338,
-                  "y": 1484,
+                  "x": 386,
+                  "y": 1501,
                   "width": 48,
                   "height": 48
                 },
@@ -926,8 +926,8 @@
                   "y": 1024
                 },
                 "transform": {
-                  "scale": 1,
-                  "mirrorX": false
+                  "scale": 0.75,
+                  "mirrorX": true
                 },
                 "layer": "rearAppendage",
                 "compatibleRigs": [
@@ -943,28 +943,28 @@
                 "connectorClass": "tail",
                 "rigId": "feline-sit",
                 "origin": {
-                  "x": 384,
-                  "y": 1588
+                  "x": 418,
+                  "y": 1563
                 },
                 "tangent": {
-                  "x": 1,
+                  "x": -1,
                   "y": 0
                 },
                 "outwardNormal": {
                   "x": 0,
                   "y": 1
                 },
-                "width": 64,
-                "depth": 12,
+                "width": 85.33333333333333,
+                "depth": 16,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-contour.png",
-                "contourMaskSha256": "c6bc7466dce980469e889ac7e039546f8a79e320067843e2df38dab6e1c8034f",
+                "contourMaskSha256": "dcd72da88c44a6a709a9d74fef9d8ba3afe1430cb37d028737642fd01ed72c84",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-foreground.png",
-                "foregroundMaskSha256": "0717f62debd8fdbfbec60bcc8a06549859a9ca2f0642ab181807f28e316634bb",
+                "foregroundMaskSha256": "79cdf4c6b0f924a685deee5c20ddfc2c6a4e553705296398b613455b069f7cfe",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-background.png",
-                "backgroundMaskSha256": "4008994683f15ccf8a236c69b1908cf698cb82ebe9eec6f5c5dc5aed325602dd",
+                "backgroundMaskSha256": "d516d4765c1887c03eab5172c2e294e6cf004e82595996b2190e30eb58c2d798",
                 "materialSampleRegion": {
-                  "x": 360,
-                  "y": 1564,
+                  "x": 394,
+                  "y": 1539,
                   "width": 48,
                   "height": 48
                 },
@@ -1057,8 +1057,8 @@
                   "y": 1024
                 },
                 "transform": {
-                  "scale": 1,
-                  "mirrorX": false
+                  "scale": 0.75,
+                  "mirrorX": true
                 },
                 "layer": "rearAppendage",
                 "compatibleRigs": [
@@ -1074,28 +1074,28 @@
                 "connectorClass": "tail",
                 "rigId": "feline-sit",
                 "origin": {
-                  "x": 395,
-                  "y": 1577
+                  "x": 410,
+                  "y": 1525
                 },
                 "tangent": {
-                  "x": 1,
+                  "x": -1,
                   "y": 0
                 },
                 "outwardNormal": {
                   "x": 0,
                   "y": 1
                 },
-                "width": 64,
-                "depth": 12,
+                "width": 85.33333333333333,
+                "depth": 16,
                 "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-contour.png",
-                "contourMaskSha256": "5732a1c1a5fda7e07e76f012bea00cdaa2da77e82d7934052d4499d9d724a0b3",
+                "contourMaskSha256": "0644212a20af050ec99a4ee86b34fc1857c8d22b505d1a68fb2b2a2e642cf2a0",
                 "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-foreground.png",
-                "foregroundMaskSha256": "160b59347e6843b809df49c7c647a32800ce77e7e1e18efdb6f1faecc8afc532",
+                "foregroundMaskSha256": "e9b53447f48c705c49436bd7e0757e9747adac37d2011192cef95c5b88ea9d08",
                 "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-background.png",
-                "backgroundMaskSha256": "e29fd0202a729fc64b2c3d6887e7a37901ac09150a44d9a570887384fc27c52a",
+                "backgroundMaskSha256": "7cb6b7001f327aabf319604a35b1ac18c6dce3bde107690ad309425e2fe86275",
                 "materialSampleRegion": {
-                  "x": 371,
-                  "y": 1553,
+                  "x": 386,
+                  "y": 1501,
                   "width": 48,
                   "height": 48
                 },
@@ -1182,7 +1182,7 @@
               "y": 1024
             },
             "transform": {
-              "scale": 1,
+              "scale": 0.4,
               "mirrorX": false
             },
             "layer": "faceAndHeadwear",
@@ -1258,7 +1258,7 @@
               "y": 1024
             },
             "transform": {
-              "scale": 1,
+              "scale": 0.4,
               "mirrorX": false
             },
             "layer": "faceAndHeadwear",
@@ -1334,7 +1334,7 @@
               "y": 1024
             },
             "transform": {
-              "scale": 1,
+              "scale": 0.4,
               "mirrorX": false
             },
             "layer": "faceAndHeadwear",
@@ -1410,7 +1410,7 @@
               "y": 1024
             },
             "transform": {
-              "scale": 1,
+              "scale": 0.4,
               "mirrorX": false
             },
             "layer": "faceAndHeadwear",
@@ -1486,7 +1486,7 @@
               "y": 1024
             },
             "transform": {
-              "scale": 1,
+              "scale": 0.4,
               "mirrorX": false
             },
             "layer": "faceAndHeadwear",

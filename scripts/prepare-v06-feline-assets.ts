@@ -108,6 +108,8 @@ export const V06_HEAD_PRESENTATION_SEAMS = {
   head_feline_tufted: { origin: { x: 1024, y: 400 }, foregroundStartY: 519 },
 } as const
 
+const V06_BODY_NECK_PRESENTATION_ORIGIN = { x: 1024, y: 400 } as const
+
 function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex')
 }
@@ -288,7 +290,13 @@ async function writeConnectorMasks(
   role: 'receiver' | 'plug',
 ): Promise<V06ConnectorMaskProvenance> {
   const guide = connectorGuide(id, connectorId, role)
-  const origin = guideOrigin(sourceData, width, guide)
+  const measuredOrigin = guideOrigin(sourceData, width, guide)
+  const origin = connectorId === 'neck'
+    ? role === 'receiver' ? V06_BODY_NECK_PRESENTATION_ORIGIN : V06_HEAD_PRESENTATION_SEAMS[id as keyof typeof V06_HEAD_PRESENTATION_SEAMS]?.origin
+    : measuredOrigin
+  if (origin === undefined) throw new Error(`V06_FELINE_PRESENTATION_HEAD_SEAM_INVALID:${id}`)
+  const profileWidth = connectorId === 'tailRoot' && role === 'plug' ? 64 / 0.75 : 64
+  const profileDepth = connectorId === 'tailRoot' && role === 'plug' ? 16 : 12
   const contour = new Uint8Array(width * height * 4)
   const foreground = new Uint8Array(width * height * 4)
   const background = new Uint8Array(width * height * 4)
@@ -304,16 +312,31 @@ async function writeConnectorMasks(
       }
     }
   } else {
-    for (let y = Math.max(0, origin.y - 32); y <= Math.min(height - 1, origin.y + 32); y += 1) {
-      for (let x = Math.max(0, origin.x - 32); x <= Math.min(width - 1, origin.x + 32); x += 1) {
-        const pixel = y * width + x
-        if (sourceData[pixel * 4 + 3]! === 0) continue
-        setMaskPixel(y < origin.y ? foreground : background, pixel)
-      }
+    for (let pixel = 0; pixel < width * height; pixel += 1) {
+      if (sourceData[pixel * 4 + 3]! === 0) continue
+      const y = Math.floor(pixel / width)
+      setMaskPixel(y < origin.y ? foreground : background, pixel)
     }
   }
-  for (let pixel = 0; pixel < width * height; pixel += 1) {
-    if (foreground[pixel * 4 + 3] === 255 || background[pixel * 4 + 3] === 255) setMaskPixel(contour, pixel)
+
+  const halfWidth = Math.floor(profileWidth / 2)
+  const halfDepth = Math.ceil(profileDepth / 2)
+  const outwardStep = role === 'receiver' ? -1 : 1
+  const outerY = origin.y + outwardStep * halfDepth
+  const minX = Math.max(0, origin.x - halfWidth)
+  const maxX = Math.min(width - 1, origin.x + halfWidth)
+  const outerXs: number[] = []
+  for (let x = minX; x <= maxX; x += 1) {
+    const pixel = outerY * width + x
+    if (sourceData[pixel * 4 + 3]! > 0) outerXs.push(x)
+    for (let inset = 1; inset <= 3; inset += 1) {
+      const y = outerY - outwardStep * inset
+      const insetPixel = y * width + x
+      if (sourceData[insetPixel * 4 + 3]! > 0) setMaskPixel(contour, insetPixel)
+    }
+  }
+  for (const x of [outerXs[0], outerXs.at(-1)]) {
+    if (x !== undefined) setMaskPixel(contour, outerY * width + x)
   }
   if (![contour, foreground, background].every(mask => mask.some((value, index) => index % 4 === 3 && value > 0))) {
     throw new Error(`V06_FELINE_CONNECTOR_GUIDE_EMPTY:${id}:${connectorId}`)
@@ -338,8 +361,8 @@ async function writeConnectorMasks(
     backgroundSha256: sha256(backgroundBytes),
     origin,
     outwardNormal: { x: 0, y: role === 'plug' ? 1 : -1 },
-    width: 64,
-    depth: 12,
+    width: profileWidth,
+    depth: profileDepth,
   }
 }
 

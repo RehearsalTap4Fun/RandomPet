@@ -3,7 +3,11 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
-import { prepareV06FelineAssets, V06_SOURCE_FILENAMES } from './prepare-v06-feline-assets.js'
+import {
+  prepareV06FelineAssets,
+  V06_HEAD_PRESENTATION_SEAMS,
+  V06_SOURCE_FILENAMES,
+} from './prepare-v06-feline-assets.js'
 
 const temporaryRoots: string[] = []
 
@@ -67,8 +71,9 @@ describe('prepare v0.6 feline assets', () => {
     })
     for (const id of ['head_feline_round', 'head_feline_tufted']) {
       const connector = assets.find(asset => asset.partId === id)!.connectorMasks.find(mask => mask.id === 'neck')!
-      const [contour, foreground, background] = await Promise.all([
-        sharp(connector.contourPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
+      const nodePath = assets.find(asset => asset.partId === id)!.runtimePngPath
+      const [node, foreground, background] = await Promise.all([
+        sharp(nodePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
         sharp(connector.foregroundPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
         sharp(connector.backgroundPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
       ])
@@ -82,11 +87,43 @@ describe('prepare v0.6 feline assets', () => {
       }
       expect(alphaPixels(foreground)).toBeGreaterThan(1_000_000)
       expect(alphaPixels(background)).toBeGreaterThan(300_000)
-      expect(alphaPixels(foreground) + alphaPixels(background)).toBe(alphaPixels(contour))
+      expect(alphaPixels(foreground) + alphaPixels(background)).toBe(alphaPixels(node))
       expect(alphaAt(background, 1024, 384)).toBe(255)
       expect(alphaAt(foreground, 1024, 384)).toBe(0)
       expect(alphaAt(foreground, 1024, 760)).toBe(255)
       expect(alphaAt(background, 1024, 760)).toBe(0)
+    }
+  }, 90_000)
+
+  it('registers each head contour on its declared presentation seam', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v06-head-contour-registration-'))
+    temporaryRoots.push(root)
+    const assets = await prepareV06FelineAssets({
+      sourceDirectory: 'asset-source/v0.6.0/generation/feline',
+      outputDirectory: join(root, 'assets'),
+    })
+
+    for (const id of ['head_feline_round', 'head_feline_tufted'] as const) {
+      const source = await sharp(`asset-source/v0.6.0/generation/feline/${id}-source.png`)
+        .ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+      const connector = assets.find(asset => asset.partId === id)!.connectorMasks.find(mask => mask.id === 'neck')!
+      const contour = await sharp(connector.contourPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+      const seam = V06_HEAD_PRESENTATION_SEAMS[id].origin
+      let visible = 0
+      const occupiedRows = new Set<number>()
+      for (let y = 0; y < contour.info.height; y += 1) for (let x = 0; x < contour.info.width; x += 1) {
+        const alpha = contour.data[(y * contour.info.width + x) * 4 + 3]!
+        if (alpha === 0) continue
+        visible += 1
+        occupiedRows.add(y)
+        expect(Math.abs(x - seam.x)).toBeLessThanOrEqual(48)
+        expect(Math.abs(y - seam.y)).toBeLessThanOrEqual(12)
+        expect(source.data[(y * source.info.width + x) * 4 + 3]).toBeGreaterThan(0)
+      }
+      expect(connector.origin).toEqual(seam)
+      expect(visible).toBeGreaterThan(32)
+      expect(visible).toBeLessThan(512)
+      expect(occupiedRows.size).toBeLessThanOrEqual(4)
     }
   }, 90_000)
 

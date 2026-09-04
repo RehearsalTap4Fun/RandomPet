@@ -8,7 +8,6 @@ import { PRODUCTION_CHROMA_GATE_PROFILE, PRODUCTION_CHROMA_GATE_VERSION } from '
 import {
   prepareV06FelineAssets,
   V06_SOURCE_FILENAMES,
-  V06_HEAD_PRESENTATION_SEAMS,
   type V06FelineAssetProvenance,
   type V06SourceFilename,
 } from './prepare-v06-feline-assets.js'
@@ -141,27 +140,16 @@ function commonPart(id: string, slotId: VisualSlotId, asset: V06FelineAssetProve
   }
 }
 
-const PRESENTATION_CONNECTOR_ORIGINS: Record<string, Partial<Record<'neck' | 'tailRoot', { x: number, y: number }>>> = {
-  // The approved head layers share the 2048px registration canvas with the body,
-  // but their physical neck guide sits at the bottom of that source canvas. The
-  // interface solver needs the presentation anchor so the head and its face
-  // sockets remain in the output frame; the connector masks still retain the
-  // physical guide for bridge-contour sampling.
-  head_feline_round: { neck: V06_HEAD_PRESENTATION_SEAMS.head_feline_round.origin },
-  head_feline_tufted: { neck: V06_HEAD_PRESENTATION_SEAMS.head_feline_tufted.origin },
-}
-
 function connectorProfile(asset: V06FelineAssetProvenance, connectorId: 'neck' | 'tailRoot', role: 'receiver' | 'plug', assetRoot: string): any {
   const mask = asset.connectorMasks.find(candidate => candidate.id === connectorId)
   if (mask === undefined) throw new Error(`V06_CONNECTOR_MASK_MISSING:${asset.partId}:${connectorId}`)
-  const origin = PRESENTATION_CONNECTOR_ORIGINS[asset.partId]?.[connectorId] ?? mask.origin
   return {
     id: connectorId,
     role,
     connectorClass: connectorId === 'neck' ? 'neck' : 'tail',
     rigId: V06_FELINE_RIG_ID,
-    origin,
-    tangent: { x: 1, y: 0 },
+    origin: mask.origin,
+    tangent: { x: connectorId === 'tailRoot' && role === 'plug' ? -1 : 1, y: 0 },
     outwardNormal: mask.outwardNormal,
     width: mask.width,
     depth: mask.depth,
@@ -192,6 +180,9 @@ function structuralPart(asset: V06FelineAssetProvenance, assetRoot: string): any
     part.featureTier = 'special'
     part.specialFeatureAnchor = 'tailTip'
   }
+  const transform = isHead
+    ? { scale: 0.9, mirrorX: false }
+    : isBody ? { scale: 1, mirrorX: false } : { scale: 0.75, mirrorX: true }
   const node = {
     id: `${asset.partId}-feline-sit-node`,
     ...(isBody ? {} : { connectorId: isHead ? 'neck' : 'tailRoot' }),
@@ -202,7 +193,7 @@ function structuralPart(asset: V06FelineAssetProvenance, assetRoot: string): any
     parentSlot: isBody ? null : 'bodyFrame',
     socket: isBody ? null : isHead ? 'head' : 'tail',
     origin: { x: 1024, y: 1024 },
-    transform: { scale: 1, mirrorX: false },
+    transform,
     layer: part.layer,
     compatibleRigs: [V06_FELINE_RIG_ID],
     clipPolicy: 'none',
@@ -222,7 +213,7 @@ function structuralPart(asset: V06FelineAssetProvenance, assetRoot: string): any
           : [connectorProfile(asset, isHead ? 'neck' : 'tailRoot', 'plug', assetRoot)],
         ...(isHead ? {
           faceSafeZones: [{ x: 600, y: 519, width: 848, height: 780 }],
-          featureSockets: { eyes: { x: 1024, y: 800 }, mouth: { x: 1024, y: 960 }, headAppendage: { x: 1024, y: 420 } },
+          featureSockets: { eyes: { x: 1024, y: 700 }, mouth: { x: 1024, y: 1100 }, headAppendage: { x: 1024, y: 420 } },
         } : {}),
       },
     },
@@ -255,6 +246,7 @@ function attachmentPart(asset: V06FelineAssetProvenance, assetRoot: string): any
   part.assetPath = portable(assetRoot, asset.runtimeWebpPath)
   part.pngPath = portable(assetRoot, asset.runtimePngPath)
   Object.assign(part, { socket: definition.socket, layer: definition.layer, semanticTraitId: definition.semantic })
+  const isFaceFeature = definition.slotId === 'eyes' || definition.slotId === 'mouthShape'
   part.composition = {
     mode: 'attachment',
     isNone: asset.partId.endsWith('_none'),
@@ -269,7 +261,7 @@ function attachmentPart(asset: V06FelineAssetProvenance, assetRoot: string): any
       parentSlot: definition.parentSlot,
       socket: definition.socket,
       origin: { x: 1024, y: 1024 },
-      transform: { scale: 1, mirrorX: false },
+      transform: { scale: isFaceFeature ? 0.4 : 1, mirrorX: false },
       layer: definition.layer,
       compatibleRigs: [V06_FELINE_RIG_ID],
       clipPolicy: definition.clipPolicy,
