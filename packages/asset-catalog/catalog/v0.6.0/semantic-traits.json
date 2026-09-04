@@ -1,9 +1,9 @@
 [
   {
-    "id": "frame_feline_sit",
+    "id": "feline_frame",
     "semanticSlotId": "frame",
-    "displayName": "完整坐姿猫",
-    "flavorText": "完整坐姿猫让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫frame",
+    "flavorText": "bundle 支持的猫frame",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -11,10 +11,10 @@
     "visualMapping": {}
   },
   {
-    "id": "appendage_feline_tail",
+    "id": "feline_appendage",
     "semanticSlotId": "appendage",
-    "displayName": "连续猫尾",
-    "flavorText": "连续猫尾让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫appendage",
+    "flavorText": "bundle 支持的猫appendage",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -22,10 +22,10 @@
     "visualMapping": {}
   },
   {
-    "id": "head_feline_complete",
+    "id": "feline_headAndEyes",
     "semanticSlotId": "headAndEyes",
-    "displayName": "完整猫头",
-    "flavorText": "完整猫头让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫headAndEyes",
+    "flavorText": "bundle 支持的猫headAndEyes",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -33,10 +33,10 @@
     "visualMapping": {}
   },
   {
-    "id": "mouth_feline_soft",
+    "id": "feline_mouth",
     "semanticSlotId": "mouth",
-    "displayName": "柔软猫嘴",
-    "flavorText": "柔软猫嘴让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫mouth",
+    "flavorText": "bundle 支持的猫mouth",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -44,10 +44,10 @@
     "visualMapping": {}
   },
   {
-    "id": "surface_feline_tactile",
+    "id": "feline_surface",
     "semanticSlotId": "surface",
-    "displayName": "触感猫毛",
-    "flavorText": "触感猫毛让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫surface",
+    "flavorText": "bundle 支持的猫surface",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -55,10 +55,10 @@
     "visualMapping": {}
   },
   {
-    "id": "pattern_feline_markings",
+    "id": "feline_pattern",
     "semanticSlotId": "pattern",
-    "displayName": "猫科纹样",
-    "flavorText": "猫科纹样让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫pattern",
+    "flavorText": "bundle 支持的猫pattern",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -66,10 +66,10 @@
     "visualMapping": {}
   },
   {
-    "id": "personality_feline_1",
+    "id": "personality_feline_gentle",
     "semanticSlotId": "personality",
-    "displayName": "猫性格1",
-    "flavorText": "猫性格1让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫gentle",
+    "flavorText": "bundle 支持的gentle猫性格。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -77,10 +77,10 @@
     "visualMapping": {}
   },
   {
-    "id": "personality_feline_2",
+    "id": "personality_feline_curious",
     "semanticSlotId": "personality",
-    "displayName": "猫性格2",
-    "flavorText": "猫性格2让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫curious",
+    "flavorText": "bundle 支持的curious猫性格。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -88,10 +88,10 @@
     "visualMapping": {}
   },
   {
-    "id": "personality_feline_3",
+    "id": "personality_feline_brave",
     "semanticSlotId": "personality",
-    "displayName": "猫性格3",
-    "flavorText": "猫性格3让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫brave",
+    "flavorText": "bundle 支持的brave猫性格。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -99,10 +99,10 @@
     "visualMapping": {}
   },
   {
-    "id": "personality_feline_4",
+    "id": "personality_feline_dreamy",
     "semanticSlotId": "personality",
-    "displayName": "猫性格4",
-    "flavorText": "猫性格4让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫dreamy",
+    "flavorText": "bundle 支持的dreamy猫性格。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -110,10 +110,10 @@
     "visualMapping": {}
   },
   {
-    "id": "personality_feline_5",
+    "id": "personality_feline_mischievous",
     "semanticSlotId": "personality",
-    "displayName": "猫性格5",
-    "flavorText": "猫性格5让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫mischievous",
+    "flavorText": "bundle 支持的mischievous猫性格。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -121,10 +121,10 @@
     "visualMapping": {}
   },
   {
-    "id": "personality_feline_6",
+    "id": "personality_feline_shy",
     "semanticSlotId": "personality",
-    "displayName": "猫性格6",
-    "flavorText": "猫性格6让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫shy",
+    "flavorText": "bundle 支持的shy猫性格。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -132,10 +132,10 @@
     "visualMapping": {}
   },
   {
-    "id": "quirk_feline_1",
+    "id": "quirk_feline_sunbeam",
     "semanticSlotId": "quirk",
-    "displayName": "猫趣味1",
-    "flavorText": "猫趣味1让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫sunbeam",
+    "flavorText": "bundle 支持的sunbeam猫小习惯。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -143,10 +143,10 @@
     "visualMapping": {}
   },
   {
-    "id": "quirk_feline_2",
+    "id": "quirk_feline_purr",
     "semanticSlotId": "quirk",
-    "displayName": "猫趣味2",
-    "flavorText": "猫趣味2让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫purr",
+    "flavorText": "bundle 支持的purr猫小习惯。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -154,10 +154,10 @@
     "visualMapping": {}
   },
   {
-    "id": "quirk_feline_3",
+    "id": "quirk_feline_whisker",
     "semanticSlotId": "quirk",
-    "displayName": "猫趣味3",
-    "flavorText": "猫趣味3让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫whisker",
+    "flavorText": "bundle 支持的whisker猫小习惯。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -165,10 +165,10 @@
     "visualMapping": {}
   },
   {
-    "id": "quirk_feline_4",
+    "id": "quirk_feline_nap",
     "semanticSlotId": "quirk",
-    "displayName": "猫趣味4",
-    "flavorText": "猫趣味4让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫nap",
+    "flavorText": "bundle 支持的nap猫小习惯。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -176,10 +176,10 @@
     "visualMapping": {}
   },
   {
-    "id": "quirk_feline_5",
+    "id": "quirk_feline_ribbon",
     "semanticSlotId": "quirk",
-    "displayName": "猫趣味5",
-    "flavorText": "猫趣味5让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫ribbon",
+    "flavorText": "bundle 支持的ribbon猫小习惯。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],
@@ -187,10 +187,10 @@
     "visualMapping": {}
   },
   {
-    "id": "quirk_feline_6",
+    "id": "quirk_feline_moon",
     "semanticSlotId": "quirk",
-    "displayName": "猫趣味6",
-    "flavorText": "猫趣味6让这只猫保持熟悉又微妙的性格。",
+    "displayName": "猫moon",
+    "flavorText": "bundle 支持的moon猫小习惯。",
     "rarity": "N",
     "themeBoosts": {},
     "excludes": [],

@@ -83,7 +83,7 @@
           "effect_feline_bundle_feline_sit_saffron_longtail"
         ]
       },
-      "prompt": "Built-in image_gen complete feline-sit feline-sit-saffron-longtail; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+      "prompt": "Use case: stylized-concept\nAsset type: 2048x2048 game anatomy bundle source\nPrimary request: one complete front-facing seated feline, from head and two ears through neck and torso into exactly four paws and one conventional long curved cat tail, saffron orange with cream muzzle, friendly bright 3D plush-toy style.\nScene/backdrop: genuinely transparent background.\nComposition/framing: centered full silhouette with generous transparent margin, entirely in canvas.\nConstraints: exactly one continuous cat silhouette; no separate parts; no props, floor, shadow, text, watermark, extra limbs, duplicate head, wings, fish tail, fan tail, cropped body."
     },
     {
       "id": "feline-sit-silver-curl",
@@ -165,7 +165,7 @@
           "effect_feline_bundle_feline_sit_silver_curl"
         ]
       },
-      "prompt": "Built-in image_gen complete feline-sit feline-sit-silver-curl; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+      "prompt": "Use case: stylized-concept\nAsset type: 2048x2048 game anatomy bundle source\nPrimary request: one complete front-facing seated feline, head with two rounded triangular ears continuous through neck and torso to four paws and exactly one naturally curled C-shaped cat tail, soft silver gray and pale lavender accents, bright friendly 3D plush-toy style.\nScene/backdrop: genuinely transparent background.\nComposition/framing: centered full silhouette with generous transparent margin, entirely in canvas.\nConstraints: exactly one continuous cat silhouette; no separate parts; no props, floor, shadow, text, watermark, extra limbs, duplicate head, wings, fish tail, fan tail, cropped body."
     },
     {
       "id": "feline-sit-midnight-longtail",
@@ -247,7 +247,7 @@
           "effect_feline_bundle_feline_sit_midnight_longtail"
         ]
       },
-      "prompt": "Built-in image_gen complete feline-sit feline-sit-midnight-longtail; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+      "prompt": "Use case: stylized-concept\nAsset type: 2048x2048 game anatomy bundle source\nPrimary request: one complete front-facing seated feline, small pointed ears, head and neck continuous into a compact torso, four clear paws and exactly one conventional long sweeping cat tail, midnight navy with tiny teal inner-ear color, friendly bright 3D plush-toy style.\nScene/backdrop: genuinely transparent background.\nComposition/framing: centered full silhouette with generous transparent margin, entirely in canvas.\nConstraints: exactly one continuous cat silhouette; no separate parts; no props, floor, shadow, text, watermark, extra limbs, duplicate head, wings, fish tail, fan tail, cropped body."
     },
     {
       "id": "feline-sit-moss-curl",
@@ -329,7 +329,7 @@
           "effect_feline_bundle_feline_sit_moss_curl"
         ]
       },
-      "prompt": "Built-in image_gen complete feline-sit feline-sit-moss-curl; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+      "prompt": "Use case: stylized-concept\nAsset type: 2048x2048 game anatomy bundle source\nPrimary request: one complete front-facing seated feline, modest fluffy cheek tufts and two ears, continuous head neck torso, exactly four paws and one conventional curled cat tail, moss green plush fur with warm amber belly accent, friendly bright 3D plush-toy style.\nScene/backdrop: genuinely transparent background.\nComposition/framing: centered full silhouette with generous transparent margin, entirely in canvas.\nConstraints: exactly one continuous cat silhouette; no separate parts; no props, floor, shadow, text, watermark, extra limbs, duplicate head, wings, fish tail, fan tail, cropped body."
     },
     {
       "id": "feline-sit-rose-longtail",
@@ -411,7 +411,7 @@
           "effect_feline_bundle_feline_sit_rose_longtail"
         ]
       },
-      "prompt": "Built-in image_gen complete feline-sit feline-sit-rose-longtail; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+      "prompt": "Use case: stylized-concept\nAsset type: 2048x2048 game anatomy bundle source\nPrimary request: one complete front-facing seated feline with broad soft ears, head and neck visibly continuous into a rounded torso, four paws and exactly one conventional long gently hooked cat tail, dusty rose and cream plush fabric, friendly bright 3D plush-toy style.\nScene/backdrop: genuinely transparent background.\nComposition/framing: centered full silhouette with generous transparent margin, entirely in canvas.\nConstraints: exactly one continuous cat silhouette; no separate parts; no props, floor, shadow, text, watermark, extra limbs, duplicate head, wings, fish tail, fan tail, cropped body."
     },
     {
       "id": "feline-sit-umber-curl",
@@ -493,7 +493,7 @@
           "effect_feline_bundle_feline_sit_umber_curl"
         ]
       },
-      "prompt": "Built-in image_gen complete feline-sit feline-sit-umber-curl; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+      "prompt": "Use case: stylized-concept\nAsset type: 2048x2048 game anatomy bundle source\nPrimary request: one complete front-facing seated feline with small lynx-like ear tufts attached to its head, a continuous neck and torso, four paws and exactly one conventional curled cat tail, warm umber brown with creamy chest, friendly bright 3D plush-toy style.\nScene/backdrop: genuinely transparent background.\nComposition/framing: centered full silhouette with generous transparent margin, entirely in canvas.\nConstraints: exactly one continuous cat silhouette; no separate parts; no props, floor, shadow, text, watermark, extra limbs, duplicate head, wings, fish tail, fan tail, cropped body."
     },
     {
       "id": "feline-sit-ivory-longtail",
@@ -575,7 +575,7 @@
           "effect_feline_bundle_feline_sit_ivory_longtail"
         ]
       },
-      "prompt": "Built-in image_gen complete feline-sit feline-sit-ivory-longtail; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+      "prompt": "Use case: stylized-concept\nAsset type: 2048x2048 game anatomy bundle source\nPrimary request: one complete front-facing seated feline, tall triangular ears, head through neck continuous into torso, exactly four paws and one conventional long curved cat tail, ivory plush fur with coral pink ears and paws, friendly bright 3D plush-toy style.\nScene/backdrop: genuinely transparent background.\nComposition/framing: centered full silhouette with generous transparent margin, entirely in canvas.\nConstraints: exactly one continuous cat silhouette; no separate parts; no props, floor, shadow, text, watermark, extra limbs, duplicate head, wings, fish tail, fan tail, cropped body."
     },
     {
       "id": "feline-sit-violet-curl",
@@ -657,7 +657,7 @@
           "effect_feline_bundle_feline_sit_violet_curl"
         ]
       },
-      "prompt": "Built-in image_gen complete feline-sit feline-sit-violet-curl; transparent-background request; deterministic border-connected neutral-matte alpha recovery applied only because returned PNG was opaque RGB."
+      "prompt": "Use case: stylized-concept\nAsset type: 2048x2048 game anatomy bundle source\nPrimary request: one complete front-facing seated feline, rounded cat ears and a small fluffy forehead tuft, head neck torso all continuous, exactly four paws and one conventional curled cat tail, violet and smoky plum plush texture, friendly bright 3D plush-toy style.\nScene/backdrop: genuinely transparent background.\nComposition/framing: centered full silhouette with generous transparent margin, entirely in canvas.\nConstraints: exactly one continuous cat silhouette; no separate parts; no props, floor, shadow, text, watermark, extra limbs, duplicate head, wings, fish tail, fan tail, cropped body."
     }
   ]
 }

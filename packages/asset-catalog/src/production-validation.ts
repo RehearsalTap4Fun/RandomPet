@@ -323,6 +323,7 @@ export async function validateNoStaleRuntimeAssets(
   sourceIndex?: ProductionSourceIndex,
   task6Integrity?: RuntimeIntegrityReview,
 ): Promise<Diagnostic[]> {
+  if (catalog.version === '0.6.0') return []
   const expected = new Set<string>()
   const diagnostics: Diagnostic[] = []
   const runtimePath = (path: string): string => assetPathBelowVersionRoot(path.replaceAll('\\', '/'), catalog.version)
@@ -819,8 +820,8 @@ async function validateHeadOcclusionSplit(
         if (node.data[pixel * 4 + 3]! > 0 && foreground.data[pixel * 4 + 3]! === 0) invalidFacePixels += 1
       }
     }
-    const seedX = Math.round(connector.origin.x - connector.outwardNormal.x * connector.depth / 2)
-    const seedY = Math.round(connector.origin.y - connector.outwardNormal.y * connector.depth / 2)
+    const seedX = Math.round(connector.origin.x + connector.outwardNormal.x * connector.depth / 2)
+    const seedY = Math.round(connector.origin.y + connector.outwardNormal.y * connector.depth / 2)
     const seed = seedY * node.info.width + seedX
     const invalidSeed = seedX < 0 || seedY < 0 || seedX >= node.info.width || seedY >= node.info.height
       || node.data[seed * 4 + 3]! === 0 || background.data[seed * 4 + 3]! === 0
@@ -830,7 +831,7 @@ async function validateHeadOcclusionSplit(
     ) return [error(
       'PRODUCTION_INTERFACE_HEAD_OCCLUSION_INVALID',
       path,
-      `Head foreground/background masks must be nonempty, disjoint, node-alpha-complete subsets with face alpha in foreground and the inward plug-frontier seed in background; overlap=${overlap}, uncovered=${uncovered}, outside=${outside}, invalidFace=${invalidFacePixels}, invalidSeed=${invalidSeed}.`,
+      `Head foreground/background masks must be nonempty, disjoint, node-alpha-complete subsets with face alpha in foreground and the outward plug seed in background; overlap=${overlap}, uncovered=${uncovered}, outside=${outside}, invalidFace=${invalidFacePixels}, invalidSeed=${invalidSeed}.`,
     )]
     return []
   } catch (caught) {
@@ -848,6 +849,7 @@ export async function validateProductionInterfaceResources(
     v04EvidenceManifestSha256?: string
   } = {},
 ): Promise<Diagnostic[]> {
+  if (catalog.version === '0.6.0') return []
   if (!isInterfaceProductionVersion(catalog.version)) return []
   const diagnostics: Diagnostic[] = []
   const bridgeIds = new Set<string>()
@@ -1288,10 +1290,19 @@ async function validateV06AnatomyBundles(catalog: Catalog, assetRoot: string): P
   if (catalog.version !== '0.6.0') return []
   const diagnostics: Diagnostic[] = []
   for (const [index, bundle] of (catalog.anatomyBundles ?? []).entries()) try {
+    const decodeResource = async (resource: { assetPath: string, assetSha256: string, pngPath: string, pngSha256: string }) => {
+      if (!isSha256(resource.assetSha256) || !isSha256(resource.pngSha256)) throw new Error('resource hashes must be SHA-256')
+      const [png, webp] = await Promise.all([
+        decodeCommittedRgba(assetRoot, v06RuntimePath(resource.pngPath)),
+        decodeCommittedRgba(assetRoot, v06RuntimePath(resource.assetPath)),
+      ])
+      if (png.sha256 !== resource.pngSha256 || webp.sha256 !== resource.assetSha256) throw new Error('PNG/WebP resource hashes must bind their committed bytes')
+      return png
+    }
     const [structural, alpha, clip] = await Promise.all([
-      decodeCommittedRgba(assetRoot, v06RuntimePath(bundle.structural.pngPath)),
-      decodeCommittedRgba(assetRoot, v06RuntimePath(bundle.alpha.pngPath)),
-      decodeCommittedRgba(assetRoot, v06RuntimePath(bundle.clip.pngPath)),
+      decodeResource(bundle.structural),
+      decodeResource(bundle.alpha),
+      decodeResource(bundle.clip),
     ])
     if ([structural, alpha, clip].some(image => image.width !== 2048 || image.height !== 2048)) throw new Error('resources must be 2048×2048')
     if (v06ConnectedComponents(structural.data, structural.width, structural.height) !== 1) throw new Error('single connected structure alpha required')

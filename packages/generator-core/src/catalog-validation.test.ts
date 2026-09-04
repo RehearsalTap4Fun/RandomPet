@@ -36,6 +36,7 @@ describe('catalog validation', () => {
     if (!parsed.ok) return
 
     expect(validateCatalogStructure(parsed.value)).toEqual([])
+    expect(parsed.value.modifiers).toHaveLength(4)
   })
 
   it('rejects v0.6 modifiers that can require or create structural stacking', () => {

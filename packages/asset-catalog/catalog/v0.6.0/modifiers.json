@@ -1,58 +1,98 @@
 [
   {
-    "id": "mutation_feline_heterochromia",
+    "id": "mutation_moonlit",
     "kind": "mutation",
     "baseWeight": 1,
     "requiresMutation": false,
-    "overrides": {},
-    "displayName": "异色瞳",
-    "flavorText": "异色瞳只允许一个受控锚点变化。",
+    "overrides": {
+      "palette": {
+        "primary": "#f4f0ea",
+        "secondary": "#dce9ef",
+        "accent": "#f4c7b8"
+      }
+    },
+    "displayName": "mutation_moonlit",
+    "flavorText": "mutation_moonlit为完整猫科 bundle 增添稳定配色。",
     "rarity": "R",
     "themeBoosts": {},
     "excludes": [],
     "boosts": {},
-    "visualMapping": {}
+    "visualMapping": {
+      "type": "paletteOverride",
+      "targetSlot": "colorScheme",
+      "assetIds": []
+    }
   },
   {
-    "id": "mutation_feline_local_curl",
+    "id": "mutation_ember",
     "kind": "mutation",
     "baseWeight": 1,
     "requiresMutation": false,
-    "overrides": {},
-    "displayName": "局部卷毛",
-    "flavorText": "局部卷毛只允许一个受控锚点变化。",
+    "overrides": {
+      "palette": {
+        "primary": "#8a3f2c",
+        "secondary": "#d98955",
+        "accent": "#ffe0b3"
+      }
+    },
+    "displayName": "mutation_ember",
+    "flavorText": "mutation_ember为完整猫科 bundle 增添稳定配色。",
     "rarity": "R",
     "themeBoosts": {},
     "excludes": [],
     "boosts": {},
-    "visualMapping": {}
+    "visualMapping": {
+      "type": "paletteOverride",
+      "targetSlot": "colorScheme",
+      "assetIds": []
+    }
   },
   {
-    "id": "aberration_feline_crystal_glint",
+    "id": "aberration_tideglass",
     "kind": "aberration",
     "baseWeight": 1,
     "requiresMutation": false,
-    "overrides": {},
-    "displayName": "晶点微光",
-    "flavorText": "晶点微光只允许一个受控锚点变化。",
+    "overrides": {
+      "palette": {
+        "primary": "#365f8f",
+        "secondary": "#65c7d8",
+        "accent": "#f2d37a"
+      }
+    },
+    "displayName": "aberration_tideglass",
+    "flavorText": "aberration_tideglass为完整猫科 bundle 增添稳定配色。",
     "rarity": "R",
     "themeBoosts": {},
     "excludes": [],
     "boosts": {},
-    "visualMapping": {}
+    "visualMapping": {
+      "type": "paletteOverride",
+      "targetSlot": "colorScheme",
+      "assetIds": []
+    }
   },
   {
-    "id": "aberration_feline_soft_glow",
+    "id": "aberration_plumlight",
     "kind": "aberration",
     "baseWeight": 1,
     "requiresMutation": false,
-    "overrides": {},
-    "displayName": "柔和亮斑",
-    "flavorText": "柔和亮斑只允许一个受控锚点变化。",
+    "overrides": {
+      "palette": {
+        "primary": "#5f447b",
+        "secondary": "#9f72bb",
+        "accent": "#e8c98f"
+      }
+    },
+    "displayName": "aberration_plumlight",
+    "flavorText": "aberration_plumlight为完整猫科 bundle 增添稳定配色。",
     "rarity": "R",
     "themeBoosts": {},
     "excludes": [],
     "boosts": {},
-    "visualMapping": {}
+    "visualMapping": {
+      "type": "paletteOverride",
+      "targetSlot": "colorScheme",
+      "assetIds": []
+    }
   }
 ]

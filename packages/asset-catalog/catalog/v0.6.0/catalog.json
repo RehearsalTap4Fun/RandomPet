@@ -725,6 +725,20 @@
         "visualIntensity": "quiet",
         "renderNodes": [],
         "geometryByRig": {}
+      },
+      "rigMaskPaths": {
+        "feline-sit": {
+          "primary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/alpha.png",
+          "secondary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/alpha.png",
+          "accent": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/alpha.png"
+        }
+      },
+      "rigMaskSha256": {
+        "feline-sit": {
+          "primary": "d8dc3bbf717e207cf49cf9b14a90f58311f6f55000b8574da5885282f60d71c0",
+          "secondary": "d8dc3bbf717e207cf49cf9b14a90f58311f6f55000b8574da5885282f60d71c0",
+          "accent": "d8dc3bbf717e207cf49cf9b14a90f58311f6f55000b8574da5885282f60d71c0"
+        }
       }
     },
     {
@@ -1424,6 +1438,20 @@
         "visualIntensity": "quiet",
         "renderNodes": [],
         "geometryByRig": {}
+      },
+      "rigMaskPaths": {
+        "feline-sit": {
+          "primary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/alpha.png",
+          "secondary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/alpha.png",
+          "accent": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/alpha.png"
+        }
+      },
+      "rigMaskSha256": {
+        "feline-sit": {
+          "primary": "a3caee9f05536b5a967c3a60a65ebe97e0252aa830a7cae0a5a792a86ee4ff79",
+          "secondary": "a3caee9f05536b5a967c3a60a65ebe97e0252aa830a7cae0a5a792a86ee4ff79",
+          "accent": "a3caee9f05536b5a967c3a60a65ebe97e0252aa830a7cae0a5a792a86ee4ff79"
+        }
       }
     },
     {
@@ -2123,6 +2151,20 @@
         "visualIntensity": "quiet",
         "renderNodes": [],
         "geometryByRig": {}
+      },
+      "rigMaskPaths": {
+        "feline-sit": {
+          "primary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/alpha.png",
+          "secondary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/alpha.png",
+          "accent": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/alpha.png"
+        }
+      },
+      "rigMaskSha256": {
+        "feline-sit": {
+          "primary": "77053df1f66ba92df816c3709c8ea788ceaa32488647831e3de611971d12213a",
+          "secondary": "77053df1f66ba92df816c3709c8ea788ceaa32488647831e3de611971d12213a",
+          "accent": "77053df1f66ba92df816c3709c8ea788ceaa32488647831e3de611971d12213a"
+        }
       }
     },
     {
@@ -2822,6 +2864,20 @@
         "visualIntensity": "quiet",
         "renderNodes": [],
         "geometryByRig": {}
+      },
+      "rigMaskPaths": {
+        "feline-sit": {
+          "primary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/alpha.png",
+          "secondary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/alpha.png",
+          "accent": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/alpha.png"
+        }
+      },
+      "rigMaskSha256": {
+        "feline-sit": {
+          "primary": "7b689b84ad59e6f842a780f9e74ad8615b429e7bfeb557d93985326813b7e56e",
+          "secondary": "7b689b84ad59e6f842a780f9e74ad8615b429e7bfeb557d93985326813b7e56e",
+          "accent": "7b689b84ad59e6f842a780f9e74ad8615b429e7bfeb557d93985326813b7e56e"
+        }
       }
     },
     {
@@ -3521,6 +3577,20 @@
         "visualIntensity": "quiet",
         "renderNodes": [],
         "geometryByRig": {}
+      },
+      "rigMaskPaths": {
+        "feline-sit": {
+          "primary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/alpha.png",
+          "secondary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/alpha.png",
+          "accent": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/alpha.png"
+        }
+      },
+      "rigMaskSha256": {
+        "feline-sit": {
+          "primary": "51e1c6d210c6899dd42690a0813ecec8cfb70ea3d9a56204fbcf5a10b6e94ccc",
+          "secondary": "51e1c6d210c6899dd42690a0813ecec8cfb70ea3d9a56204fbcf5a10b6e94ccc",
+          "accent": "51e1c6d210c6899dd42690a0813ecec8cfb70ea3d9a56204fbcf5a10b6e94ccc"
+        }
       }
     },
     {
@@ -4220,6 +4290,20 @@
         "visualIntensity": "quiet",
         "renderNodes": [],
         "geometryByRig": {}
+      },
+      "rigMaskPaths": {
+        "feline-sit": {
+          "primary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/alpha.png",
+          "secondary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/alpha.png",
+          "accent": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/alpha.png"
+        }
+      },
+      "rigMaskSha256": {
+        "feline-sit": {
+          "primary": "1f462983f5e14d501cd61a124e860dbd4c2acea4cc709d0adbd18d4ac2ae50f9",
+          "secondary": "1f462983f5e14d501cd61a124e860dbd4c2acea4cc709d0adbd18d4ac2ae50f9",
+          "accent": "1f462983f5e14d501cd61a124e860dbd4c2acea4cc709d0adbd18d4ac2ae50f9"
+        }
       }
     },
     {
@@ -4919,6 +5003,20 @@
         "visualIntensity": "quiet",
         "renderNodes": [],
         "geometryByRig": {}
+      },
+      "rigMaskPaths": {
+        "feline-sit": {
+          "primary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/alpha.png",
+          "secondary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/alpha.png",
+          "accent": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/alpha.png"
+        }
+      },
+      "rigMaskSha256": {
+        "feline-sit": {
+          "primary": "d40de481d7d0a424e2dbf72ad63fe795728ce99a907666f47d947ed1e33674a2",
+          "secondary": "d40de481d7d0a424e2dbf72ad63fe795728ce99a907666f47d947ed1e33674a2",
+          "accent": "d40de481d7d0a424e2dbf72ad63fe795728ce99a907666f47d947ed1e33674a2"
+        }
       }
     },
     {
@@ -5618,6 +5716,20 @@
         "visualIntensity": "quiet",
         "renderNodes": [],
         "geometryByRig": {}
+      },
+      "rigMaskPaths": {
+        "feline-sit": {
+          "primary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/alpha.png",
+          "secondary": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/alpha.png",
+          "accent": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/alpha.png"
+        }
+      },
+      "rigMaskSha256": {
+        "feline-sit": {
+          "primary": "8b6d2e319a23e6d4bbfc06acacfc35da17e478946bce12a0e1a5912d3a5ef65f",
+          "secondary": "8b6d2e319a23e6d4bbfc06acacfc35da17e478946bce12a0e1a5912d3a5ef65f",
+          "accent": "8b6d2e319a23e6d4bbfc06acacfc35da17e478946bce12a0e1a5912d3a5ef65f"
+        }
       }
     },
     {
@@ -5735,10 +5847,10 @@
       "visualMapping": {}
     },
     {
-      "id": "feline_personality",
+      "id": "personality_feline_gentle",
       "semanticSlotId": "personality",
-      "displayName": "猫personality",
-      "flavorText": "bundle 支持的猫personality",
+      "displayName": "猫gentle",
+      "flavorText": "bundle 支持的gentle猫性格。",
       "rarity": "N",
       "themeBoosts": {},
       "excludes": [],
@@ -5746,10 +5858,120 @@
       "visualMapping": {}
     },
     {
-      "id": "feline_quirk",
+      "id": "personality_feline_curious",
+      "semanticSlotId": "personality",
+      "displayName": "猫curious",
+      "flavorText": "bundle 支持的curious猫性格。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "personality_feline_brave",
+      "semanticSlotId": "personality",
+      "displayName": "猫brave",
+      "flavorText": "bundle 支持的brave猫性格。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "personality_feline_dreamy",
+      "semanticSlotId": "personality",
+      "displayName": "猫dreamy",
+      "flavorText": "bundle 支持的dreamy猫性格。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "personality_feline_mischievous",
+      "semanticSlotId": "personality",
+      "displayName": "猫mischievous",
+      "flavorText": "bundle 支持的mischievous猫性格。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "personality_feline_shy",
+      "semanticSlotId": "personality",
+      "displayName": "猫shy",
+      "flavorText": "bundle 支持的shy猫性格。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "quirk_feline_sunbeam",
       "semanticSlotId": "quirk",
-      "displayName": "猫quirk",
-      "flavorText": "bundle 支持的猫quirk",
+      "displayName": "猫sunbeam",
+      "flavorText": "bundle 支持的sunbeam猫小习惯。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "quirk_feline_purr",
+      "semanticSlotId": "quirk",
+      "displayName": "猫purr",
+      "flavorText": "bundle 支持的purr猫小习惯。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "quirk_feline_whisker",
+      "semanticSlotId": "quirk",
+      "displayName": "猫whisker",
+      "flavorText": "bundle 支持的whisker猫小习惯。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "quirk_feline_nap",
+      "semanticSlotId": "quirk",
+      "displayName": "猫nap",
+      "flavorText": "bundle 支持的nap猫小习惯。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "quirk_feline_ribbon",
+      "semanticSlotId": "quirk",
+      "displayName": "猫ribbon",
+      "flavorText": "bundle 支持的ribbon猫小习惯。",
+      "rarity": "N",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {}
+    },
+    {
+      "id": "quirk_feline_moon",
+      "semanticSlotId": "quirk",
+      "displayName": "猫moon",
+      "flavorText": "bundle 支持的moon猫小习惯。",
       "rarity": "N",
       "themeBoosts": {},
       "excludes": [],
@@ -5757,7 +5979,104 @@
       "visualMapping": {}
     }
   ],
-  "modifiers": [],
+  "modifiers": [
+    {
+      "id": "mutation_moonlit",
+      "kind": "mutation",
+      "baseWeight": 1,
+      "requiresMutation": false,
+      "overrides": {
+        "palette": {
+          "primary": "#f4f0ea",
+          "secondary": "#dce9ef",
+          "accent": "#f4c7b8"
+        }
+      },
+      "displayName": "mutation_moonlit",
+      "flavorText": "mutation_moonlit为完整猫科 bundle 增添稳定配色。",
+      "rarity": "R",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "type": "paletteOverride",
+        "targetSlot": "colorScheme",
+        "assetIds": []
+      }
+    },
+    {
+      "id": "mutation_ember",
+      "kind": "mutation",
+      "baseWeight": 1,
+      "requiresMutation": false,
+      "overrides": {
+        "palette": {
+          "primary": "#8a3f2c",
+          "secondary": "#d98955",
+          "accent": "#ffe0b3"
+        }
+      },
+      "displayName": "mutation_ember",
+      "flavorText": "mutation_ember为完整猫科 bundle 增添稳定配色。",
+      "rarity": "R",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "type": "paletteOverride",
+        "targetSlot": "colorScheme",
+        "assetIds": []
+      }
+    },
+    {
+      "id": "aberration_tideglass",
+      "kind": "aberration",
+      "baseWeight": 1,
+      "requiresMutation": false,
+      "overrides": {
+        "palette": {
+          "primary": "#365f8f",
+          "secondary": "#65c7d8",
+          "accent": "#f2d37a"
+        }
+      },
+      "displayName": "aberration_tideglass",
+      "flavorText": "aberration_tideglass为完整猫科 bundle 增添稳定配色。",
+      "rarity": "R",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "type": "paletteOverride",
+        "targetSlot": "colorScheme",
+        "assetIds": []
+      }
+    },
+    {
+      "id": "aberration_plumlight",
+      "kind": "aberration",
+      "baseWeight": 1,
+      "requiresMutation": false,
+      "overrides": {
+        "palette": {
+          "primary": "#5f447b",
+          "secondary": "#9f72bb",
+          "accent": "#e8c98f"
+        }
+      },
+      "displayName": "aberration_plumlight",
+      "flavorText": "aberration_plumlight为完整猫科 bundle 增添稳定配色。",
+      "rarity": "R",
+      "themeBoosts": {},
+      "excludes": [],
+      "boosts": {},
+      "visualMapping": {
+        "type": "paletteOverride",
+        "targetSlot": "colorScheme",
+        "assetIds": []
+      }
+    }
+  ],
   "dependencies": {
     "headShape": [
       "bodyFrame"

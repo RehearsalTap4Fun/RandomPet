@@ -10,6 +10,7 @@ const VISIBLE_ALPHA = 16
 export interface AnatomyBundleSource {
   id: string
   sourcePath: string
+  prompt: string
   faceSafeZone: Rect
   featureSockets: Record<string, Point2D>
   mutationAnchors: Record<string, Rect>
@@ -24,6 +25,7 @@ export interface PreparedResource extends ResourceRef {
 export interface PreparedAnatomyBundle {
   id: string
   sourcePath: string
+  prompt: string
   structural: PreparedResource
   alpha: PreparedResource
   clip: PreparedResource

@@ -110,6 +110,42 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('accepts the committed v0.6 anatomy catalog production metadata and resources', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.6.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const sourceIndex = JSON.parse(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.6.0.json',
+    ), 'utf8'))
+
+    expect(validateProductionMetadata(parsed.value)).toEqual([])
+    await expect(validateProductionSourceIndex(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.6.0'),
+      sourceIndex,
+    )).resolves.toEqual([])
+  }, 120_000)
+
+  it('rejects a v0.6 anatomy bundle whose declared alpha WebP hash is not committed', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.6.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const sourceIndex = JSON.parse(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.6.0.json',
+    ), 'utf8'))
+    const catalog = structuredClone(parsed.value)
+    catalog.anatomyBundles![0]!.alpha.assetSha256 = '0'.repeat(64)
+
+    await expect(validateProductionSourceIndex(
+      catalog,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.6.0'),
+      sourceIndex,
+    )).resolves.toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_ANATOMY_BUNDLE_INVALID',
+      path: ['anatomyBundles', '0'],
+    }))
+  }, 120_000)
+
   it.skip('superseded v0.6 interface-mask fixture', async () => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-v06-feline-mask-'))
     temporaryDirectories.push(root)

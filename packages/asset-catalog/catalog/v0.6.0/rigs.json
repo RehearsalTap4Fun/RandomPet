@@ -1,40 +1,40 @@
 [
   {
     "id": "feline-sit",
-    "sourceId": "body_feline_sit_round",
+    "sourceId": "bodyFrame_feline_bundle_feline_sit_saffron_longtail",
     "displayName": "正面居中坐姿猫",
     "sockets": {
       "head": {
         "x": 1024,
-        "y": 720
+        "y": 650
       },
       "tail": {
-        "x": 1510,
-        "y": 1340
+        "x": 1540,
+        "y": 1320
       },
       "eyes": {
-        "x": 1024,
-        "y": 760
+        "x": 880,
+        "y": 560
       },
       "mouth": {
         "x": 1024,
-        "y": 960
+        "y": 735
       },
       "oralDetail": {
         "x": 1024,
-        "y": 1010
+        "y": 760
       },
       "headAppendage": {
         "x": 1024,
-        "y": 420
+        "y": 345
       },
       "overlay": {
         "x": 1024,
-        "y": 1120
+        "y": 1024
       },
       "effect": {
         "x": 1024,
-        "y": 1120
+        "y": 1024
       }
     }
   }

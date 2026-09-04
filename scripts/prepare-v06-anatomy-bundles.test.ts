@@ -12,6 +12,7 @@ afterEach(async () => { await Promise.all(roots.splice(0).map(root => rm(root, {
 function entry(sourcePath: string): AnatomyBundleSource {
   return {
     id: 'feline-sit-test', sourcePath,
+    prompt: 'test prompt',
     faceSafeZone: { x: 680, y: 360, width: 680, height: 500 },
     featureSockets: { eyes: { x: 860, y: 590 }, mouth: { x: 1024, y: 750 } },
     mutationAnchors: { ear: { x: 600, y: 180, width: 260, height: 260 } },
