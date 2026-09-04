@@ -152,12 +152,17 @@ export interface InterfacePartComposition extends CompositionMetadata {
   variantsByRig: Partial<Record<RigId, StructuralVariantDefinition>>
 }
 
-export type PartComposition = AttachmentPartComposition | InterfacePartComposition
+export interface BundlePartComposition extends Omit<AttachmentPartComposition, 'mode'> {
+  mode: 'bundle'
+  bundleId: string
+}
+
+export type PartComposition = AttachmentPartComposition | InterfacePartComposition | BundlePartComposition
 
 export function isAttachmentPartComposition(
   composition: PartComposition | undefined,
 ): composition is AttachmentPartComposition {
-  return composition !== undefined && composition.mode !== 'interface'
+  return composition !== undefined && (composition.mode === undefined || composition.mode === 'attachment')
 }
 
 export interface CompositionPolicy {
@@ -225,6 +230,29 @@ export interface MonsterSpec {
   mutation: ModifierApplication | null
   aberrations: ModifierApplication[]
   archetypeId?: AnimalArchetypeId
+  anatomyBundleId?: string
+}
+
+export interface ResourceRef {
+  assetPath: string
+  assetSha256: string
+  pngPath: string
+  pngSha256: string
+}
+
+export interface AnatomyBundleDefinition {
+  id: string
+  archetypeId: AnimalArchetypeId
+  rigId: RigId
+  poseId: string
+  structural: ResourceRef
+  alpha: ResourceRef
+  clip: ResourceRef
+  faceSafeZone: Rect
+  featureSockets: Record<string, Point2D>
+  mutationAnchors: Record<string, Rect>
+  derivedSlots: Record<StructuralSlotId, string>
+  allowedTraitPools: Partial<Record<VisualSlotId, string[]>>
 }
 
 export interface AnimalArchetypeDefinition {
@@ -340,6 +368,7 @@ export interface Catalog {
   compositionPolicy?: CompositionPolicy
   transitionBridges?: TransitionBridgeDefinition[]
   archetypes?: AnimalArchetypeDefinition[]
+  anatomyBundles?: AnatomyBundleDefinition[]
 }
 
 export const COMPOSITION_PARENT_BY_SLOT: Record<VisualSlotId, VisualSlotId | null> = {

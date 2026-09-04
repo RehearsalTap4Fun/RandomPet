@@ -80,6 +80,9 @@ export const MonsterSpecSchema = z.object({
   mutation: ModifierApplicationSchema.nullable(),
   aberrations: z.array(ModifierApplicationSchema),
   archetypeId: AnimalArchetypeIdSchema.optional(),
+  anatomyBundleId: z.string().refine(value => value.trim().length > 0, {
+    message: 'Anatomy bundle ID must be non-blank.',
+  }).optional(),
 }).superRefine((spec, context) => {
   if (spec.catalogVersion === '0.6.0' && (
     spec.schemaVersion !== '0.2.0'
@@ -90,6 +93,19 @@ export const MonsterSpecSchema = z.object({
       code: 'custom',
       path: ['archetypeId'],
       message: 'The v0.6 spec contract requires the feline archetype ID.',
+    })
+  }
+  if (
+    spec.schemaVersion === '0.2.0'
+    && spec.catalogVersion === '0.6.0'
+    && spec.rendererVersion === '0.6.0'
+    && spec.archetypeId === 'feline'
+    && spec.anatomyBundleId === undefined
+  ) {
+    context.addIssue({
+      code: 'custom',
+      path: ['anatomyBundleId'],
+      message: 'The exact v0.6 feline spec contract requires an anatomy bundle ID.',
     })
   }
 })

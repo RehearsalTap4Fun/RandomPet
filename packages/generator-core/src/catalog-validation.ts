@@ -1,10 +1,12 @@
 import {
   COMPOSITION_PARENT_BY_SLOT,
   SEMANTIC_SLOT_IDS,
+  STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
   isStructuralSlot,
   isAttachmentPartComposition,
   type Catalog,
+  type AnatomyBundleDefinition,
   type ConnectorClass,
   type Diagnostic,
   type MaterialFamily,
@@ -114,6 +116,175 @@ function hasCanonicalHash(hash: string): boolean {
   return /^[a-f0-9]{64}$/i.test(hash)
 }
 
+function isBoundedRect(value: { x: number; y: number; width: number; height: number }): boolean {
+  return Number.isFinite(value.x)
+    && Number.isFinite(value.y)
+    && Number.isFinite(value.width)
+    && Number.isFinite(value.height)
+    && value.x >= 0
+    && value.y >= 0
+    && value.width > 0
+    && value.height > 0
+    && value.x + value.width <= 2048
+    && value.y + value.height <= 2048
+}
+
+function hasValidBundleResource(resource: AnatomyBundleDefinition['structural']): boolean {
+  return resource.assetPath.trim().length > 0
+    && resource.pngPath.trim().length > 0
+    && hasCanonicalHash(resource.assetSha256)
+    && hasCanonicalHash(resource.pngSha256)
+}
+
+function validateAnatomyBundles(catalog: Catalog, diagnostics: Diagnostic[]): void {
+  if (catalog.version !== '0.6.0') return
+  const bundles = catalog.anatomyBundles ?? []
+  if (bundles.length === 0) {
+    diagnostics.push(error(
+      'CATALOG_ANATOMY_BUNDLE_MISSING',
+      ['anatomyBundles'],
+      'Catalog 0.6.0 requires at least one anatomy bundle.',
+    ))
+  }
+
+  const bundleIds = new Set<string>()
+  const derivedPartOwners = new Map<string, string>()
+  const partsById = new Map(catalog.parts.map(part => [part.id, part]))
+  for (const [bundleIndex, bundle] of bundles.entries()) {
+    const path = ['anatomyBundles', String(bundleIndex)]
+    if (bundleIds.has(bundle.id)) {
+      diagnostics.push(error(
+        'CATALOG_ANATOMY_BUNDLE_ID_DUPLICATE',
+        path.concat('id'),
+        `Anatomy bundle ID ${bundle.id} is duplicated.`,
+      ))
+    }
+    bundleIds.add(bundle.id)
+    if (bundle.archetypeId !== 'feline') {
+      diagnostics.push(error(
+        'CATALOG_ANATOMY_BUNDLE_ARCHETYPE_MISMATCH',
+        path.concat('archetypeId'),
+        `Anatomy bundle ${bundle.id} must use the feline archetype.`,
+      ))
+    }
+    if (bundle.rigId !== 'feline-sit') {
+      diagnostics.push(error(
+        'CATALOG_ANATOMY_BUNDLE_RIG_MISMATCH',
+        path.concat('rigId'),
+        `Anatomy bundle ${bundle.id} must use the feline-sit rig.`,
+      ))
+    }
+    for (const [resourceName, resource] of Object.entries({
+      structural: bundle.structural,
+      alpha: bundle.alpha,
+      clip: bundle.clip,
+    })) {
+      if (!hasValidBundleResource(resource)) {
+        diagnostics.push(error(
+          'CATALOG_ANATOMY_BUNDLE_RESOURCE_INVALID',
+          path.concat(resourceName),
+          `Anatomy bundle ${bundle.id} has an invalid ${resourceName} resource reference.`,
+        ))
+      }
+    }
+    if (!isBoundedRect(bundle.faceSafeZone)) {
+      diagnostics.push(error(
+        'CATALOG_ANATOMY_BUNDLE_RECT_INVALID',
+        path.concat('faceSafeZone'),
+        `Anatomy bundle ${bundle.id} has an out-of-bounds face safe zone.`,
+      ))
+    }
+    for (const [anchorId, anchor] of Object.entries(bundle.mutationAnchors)) {
+      if (!isBoundedRect(anchor)) {
+        diagnostics.push(error(
+          'CATALOG_ANATOMY_BUNDLE_RECT_INVALID',
+          path.concat('mutationAnchors', anchorId),
+          `Anatomy bundle ${bundle.id} has an out-of-bounds mutation anchor ${anchorId}.`,
+        ))
+      }
+    }
+    for (const slotId of STRUCTURAL_SLOT_IDS) {
+      const partId = bundle.derivedSlots[slotId]
+      const derivedPath = path.concat('derivedSlots', slotId)
+      const owner = derivedPartOwners.get(partId)
+      if (owner !== undefined) {
+        diagnostics.push(error(
+          'CATALOG_ANATOMY_BUNDLE_DERIVED_SLOT_DUPLICATE',
+          derivedPath,
+          `Derived structural part ${partId} is already owned by anatomy bundle ${owner}.`,
+        ))
+      }
+      derivedPartOwners.set(partId, bundle.id)
+      const part = partsById.get(partId)
+      if (part === undefined) {
+        diagnostics.push(error(
+          'CATALOG_ANATOMY_BUNDLE_PART_MISSING',
+          derivedPath,
+          `Anatomy bundle ${bundle.id} references missing structural part ${partId}.`,
+        ))
+        continue
+      }
+      if (part.slotId !== slotId) {
+        diagnostics.push(error(
+          'CATALOG_ANATOMY_BUNDLE_PART_SLOT_MISMATCH',
+          derivedPath,
+          `Anatomy bundle ${bundle.id} maps ${slotId} to ${part.id}, which belongs to ${part.slotId}.`,
+        ))
+      }
+      if (!part.compatibleRigs.includes(bundle.rigId)) {
+        diagnostics.push(error(
+          'CATALOG_ANATOMY_BUNDLE_PART_RIG_MISMATCH',
+          derivedPath,
+          `Structural part ${part.id} does not support anatomy bundle rig ${bundle.rigId}.`,
+        ))
+      }
+      if (part.archetypeIds?.includes(bundle.archetypeId) !== true) {
+        diagnostics.push(error(
+          'CATALOG_ANATOMY_BUNDLE_PART_ARCHETYPE_MISMATCH',
+          derivedPath,
+          `Structural part ${part.id} does not support anatomy bundle archetype ${bundle.archetypeId}.`,
+        ))
+      }
+    }
+    for (const [slotId, partIds] of Object.entries(bundle.allowedTraitPools) as [VisualSlotId, string[]][]) {
+      for (const [poolIndex, partId] of partIds.entries()) {
+        const poolPath = path.concat('allowedTraitPools', slotId, String(poolIndex))
+        const part = partsById.get(partId)
+        if (part === undefined) {
+          diagnostics.push(error(
+            'CATALOG_ANATOMY_BUNDLE_TRAIT_POOL_PART_MISSING',
+            poolPath,
+            `Anatomy bundle ${bundle.id} trait pool references missing part ${partId}.`,
+          ))
+        } else if (part.slotId !== slotId) {
+          diagnostics.push(error(
+            'CATALOG_ANATOMY_BUNDLE_TRAIT_POOL_SLOT_MISMATCH',
+            poolPath,
+            `Trait pool ${slotId} references ${part.id}, which belongs to ${part.slotId}.`,
+          ))
+        }
+      }
+    }
+  }
+
+  if (catalog.transitionBridges !== undefined) {
+    diagnostics.push(error(
+      'CATALOG_ANATOMY_BUNDLE_BRIDGES_FORBIDDEN',
+      ['transitionBridges'],
+      'Catalog 0.6.0 anatomy bundles cannot coexist with transition bridges.',
+    ))
+  }
+  for (const [partIndex, part] of catalog.parts.entries()) {
+    if (isStructuralSlot(part.slotId) && part.composition?.mode === 'interface') {
+      diagnostics.push(error(
+        'CATALOG_ANATOMY_BUNDLE_INTERFACE_FORBIDDEN',
+        ['parts', String(partIndex), 'composition', 'mode'],
+        `Structural part ${part.id} cannot use interface composition in catalog 0.6.0.`,
+      ))
+    }
+  }
+}
+
 function requiredConnectorProfiles(catalog: Catalog, part: Catalog['parts'][number], rigId: RigId): ReadonlyArray<{
   id: string
   role: 'receiver' | 'plug'
@@ -136,7 +307,7 @@ function requiredConnectorProfiles(catalog: Catalog, part: Catalog['parts'][numb
 }
 
 function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
-  if (catalog.version !== '0.3.0' && catalog.version !== '0.4.0' && catalog.version !== '0.5.0' && catalog.version !== '0.6.0') return
+  if (catalog.version !== '0.3.0' && catalog.version !== '0.4.0' && catalog.version !== '0.5.0') return
   const bridges = catalog.transitionBridges ?? []
   reportDuplicateIds(bridges, 'transitionBridges', diagnostics)
   for (const [partIndex, part] of catalog.parts.entries()) {
@@ -305,7 +476,7 @@ function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[
       ))
       continue
     }
-    if (composition.mode === 'interface') {
+    if (composition.mode === 'interface' || composition.mode === 'bundle') {
       diagnostics.push(error(
         'COMPOSITION_INTERFACE_MODE_FORBIDDEN',
         path.concat('composition', 'mode'),
@@ -548,6 +719,7 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
 
   validateCompositionStructure(catalog, diagnostics)
   validateInterfaceStructure(catalog, diagnostics)
+  validateAnatomyBundles(catalog, diagnostics)
 
   if (hasCycle(catalog.dependencies)) {
     diagnostics.push(error('CATALOG_DEPENDENCY_CYCLE', ['dependencies'], 'Catalog slot dependencies must be acyclic.'))

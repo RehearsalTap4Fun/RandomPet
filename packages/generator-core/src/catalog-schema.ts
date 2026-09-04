@@ -117,9 +117,17 @@ const InterfacePartCompositionSchema = z.object({
   ...CompositionMetadataSchema,
   variantsByRig: z.partialRecord(RigIdSchema, StructuralVariantDefinitionSchema),
 }).strict()
+const BundlePartCompositionSchema = z.object({
+  mode: z.literal('bundle'),
+  ...CompositionMetadataSchema,
+  bundleId: nonBlankString,
+  renderNodes: z.array(RenderNodeDefinitionSchema),
+  geometryByRig: z.partialRecord(RigIdSchema, CompositionGeometrySchema),
+}).strict()
 const PartCompositionSchema = z.union([
   AttachmentPartCompositionSchema,
   InterfacePartCompositionSchema,
+  BundlePartCompositionSchema,
 ])
 const CompositionPolicySchema = z.object({
   motifSlots: z.array(VisualSlotIdSchema),
@@ -207,6 +215,34 @@ const AnimalArchetypeDefinitionSchema = z.object({
   }
 })
 
+const ResourceRefSchema = z.object({
+  assetPath: nonBlankString,
+  assetSha256: sha256,
+  pngPath: nonBlankString,
+  pngSha256: sha256,
+}).strict()
+const AnatomyBundleDefinitionSchema = z.object({
+  id: nonBlankString,
+  archetypeId: AnimalArchetypeIdSchema,
+  rigId: RigIdSchema,
+  poseId: nonBlankString,
+  structural: ResourceRefSchema,
+  alpha: ResourceRefSchema,
+  clip: ResourceRefSchema,
+  faceSafeZone: RectSchema,
+  featureSockets: z.record(z.string().min(1), Point2DSchema),
+  mutationAnchors: z.record(z.string().min(1), RectSchema),
+  derivedSlots: z.object({
+    bodyFrame: nonBlankString,
+    headShape: nonBlankString,
+    arms: nonBlankString,
+    legs: nonBlankString,
+    tail: nonBlankString,
+    extraAppendage: nonBlankString,
+  }).strict(),
+  allowedTraitPools: z.partialRecord(VisualSlotIdSchema, z.array(nonBlankString).min(1)),
+}).strict()
+
 const VisualPartDefinitionSchema = z.object({
   id: z.string().min(1),
   slotId: VisualSlotIdSchema,
@@ -279,9 +315,24 @@ export const CatalogSchema = z.object({
   compositionPolicy: CompositionPolicySchema.optional(),
   transitionBridges: z.array(TransitionBridgeDefinitionSchema).optional(),
   archetypes: z.array(AnimalArchetypeDefinitionSchema).min(1).optional(),
+  anatomyBundles: z.array(AnatomyBundleDefinitionSchema).min(1).optional(),
 }).superRefine((catalog, context) => {
-  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0' || catalog.version === '0.6.0'
+  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0'
   if (catalog.version === '0.6.0') {
+    if (catalog.anatomyBundles === undefined || catalog.anatomyBundles.length === 0) {
+      context.addIssue({
+        code: 'custom',
+        path: ['anatomyBundles'],
+        message: 'Catalog 0.6.0 requires at least one anatomy bundle.',
+      })
+    }
+    if (catalog.transitionBridges !== undefined) {
+      context.addIssue({
+        code: 'custom',
+        path: ['transitionBridges'],
+        message: 'Catalog 0.6.0 cannot define transition bridges.',
+      })
+    }
     if (catalog.archetypes === undefined) {
       context.addIssue({
         code: 'custom',
@@ -322,6 +373,13 @@ export const CatalogSchema = z.object({
           message: 'Catalog 0.6.0 parts support only the feline archetype.',
         })
       }
+      if (isStructuralSlot(part.slotId) && part.composition?.mode === 'interface') {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'composition', 'mode'],
+          message: 'Catalog 0.6.0 structural parts cannot use interface composition metadata.',
+        })
+      }
     }
   }
   if (catalog.version === '0.2.0') {
@@ -339,7 +397,7 @@ export const CatalogSchema = z.object({
           path: ['parts', index, 'composition'],
           message: 'Catalog 0.2.0 requires composition metadata for every part.',
         })
-      } else if (part.composition.mode === 'interface') {
+      } else if (part.composition.mode === 'interface' || part.composition.mode === 'bundle') {
         context.addIssue({
           code: 'custom',
           path: ['parts', index, 'composition', 'mode'],

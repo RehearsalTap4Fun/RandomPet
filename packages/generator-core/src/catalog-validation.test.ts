@@ -5,6 +5,31 @@ import { validateCatalogStructure } from './catalog-validation.js'
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('catalog validation', () => {
+  it('reports stable anatomy-bundle diagnostics for malformed v0.6 bundles', () => {
+    const catalog = makeValidCatalogFixture() as any
+    catalog.version = '0.6.0'
+    catalog.anatomyBundles = []
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_ANATOMY_BUNDLE_MISSING', path: ['anatomyBundles'],
+    }))
+
+    catalog.anatomyBundles = [{
+      id: 'round', archetypeId: 'feline', rigId: 'feline-sit', poseId: 'sit',
+      structural: { assetPath: 'assets/v0.6.0/bundles/body.webp', assetSha256: 'a'.repeat(64), pngPath: 'assets/v0.6.0/bundles/body.png', pngSha256: 'a'.repeat(64) },
+      alpha: { assetPath: 'assets/v0.6.0/bundles/alpha.webp', assetSha256: 'a'.repeat(64), pngPath: 'assets/v0.6.0/bundles/alpha.png', pngSha256: 'a'.repeat(64) },
+      clip: { assetPath: 'assets/v0.6.0/bundles/clip.webp', assetSha256: 'a'.repeat(64), pngPath: 'assets/v0.6.0/bundles/clip.png', pngSha256: 'a'.repeat(64) },
+      faceSafeZone: { x: 0, y: 0, width: 2049, height: 1 }, featureSockets: {}, mutationAnchors: {},
+      derivedSlots: { bodyFrame: 'missing-body', headShape: 'missing-head', arms: 'missing-arms', legs: 'missing-legs', tail: 'missing-tail', extraAppendage: 'missing-extra' },
+      allowedTraitPools: { eyes: ['missing-eyes'] },
+    }]
+
+    const codes = validateCatalogStructure(catalog).map(item => item.code)
+    expect(codes).toContain('CATALOG_ANATOMY_BUNDLE_PART_MISSING')
+    expect(codes).toContain('CATALOG_ANATOMY_BUNDLE_RECT_INVALID')
+    expect(codes).toContain('CATALOG_ANATOMY_BUNDLE_TRAIT_POOL_PART_MISSING')
+  })
+
   it('accepts the production v0.6 catalog without legacy rig coverage', () => {
     const parsed = parseCatalog(v06ProductionCatalogDocument)
     expect(parsed.ok).toBe(true)
@@ -30,7 +55,7 @@ describe('catalog validation', () => {
     }))
   })
 
-  it('treats v0.6 as an interface catalog', () => {
+  it('rejects legacy interface composition in a v0.6 anatomy bundle catalog', () => {
     const catalog = makeInterfaceCatalogFixture()
     catalog.version = '0.6.0'
     ;(catalog as any).archetypes = [{
@@ -45,9 +70,9 @@ describe('catalog validation', () => {
     catalog.rigs = [{ id: 'feline-sit' as any, sockets: {} }]
     for (const part of catalog.parts) (part as any).archetypeIds = ['feline']
 
-    expect(parseCatalog(catalog)).toMatchObject({ ok: true })
-    expect(validateCatalogStructure(catalog)).not.toContainEqual(expect.objectContaining({
-      code: 'CONNECTOR_INTERFACE_MODE_REQUIRED',
+    expect(parseCatalog(catalog)).toMatchObject({ ok: false })
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_ANATOMY_BUNDLE_INTERFACE_FORBIDDEN',
     }))
   })
 

@@ -23,7 +23,18 @@ describe('MonsterSpecSchema', () => {
     expect(parseMonsterSpec(v06).ok).toBe(false)
 
     v06.archetypeId = 'feline'
+    const missingBundle = parseMonsterSpec(v06)
+    expect(missingBundle.ok).toBe(false)
+    if (!missingBundle.ok) {
+      expect(missingBundle.diagnostics).toContainEqual(expect.objectContaining({
+        path: ['anatomyBundleId'],
+      }))
+    }
+
+    v06.anatomyBundleId = 'feline-sit-round'
     expect(parseMonsterSpec(v06)).toEqual(expect.objectContaining({ ok: true }))
+
+    expect(parseMonsterSpec({ ...v06, anatomyBundleId: '   ' }).ok).toBe(false)
 
     expect(parseMonsterSpec({ ...v06, schemaVersion: '0.1.0' }).ok).toBe(false)
     expect(parseMonsterSpec({ ...v06, rendererVersion: '0.5.0' }).ok).toBe(false)
@@ -70,6 +81,29 @@ describe('MonsterSpecSchema', () => {
     expect(parseCatalog(catalog).ok).toBe(false)
 
     catalog.rigs = [{ id: 'feline-sit', sockets: {} }]
+    catalog.transitionBridges = undefined
+    for (const part of catalog.parts) {
+      if (['bodyFrame', 'headShape', 'arms', 'legs', 'tail', 'extraAppendage'].includes(part.slotId)) {
+        part.composition = {
+          mode: 'bundle', bundleId: 'feline-sit-round', isNone: false,
+          motifTags: [], visualIntensity: 'quiet', renderNodes: [], geometryByRig: {},
+        }
+      }
+    }
+    const resource = {
+      assetPath: 'assets/v0.6.0/bundles/round.webp', assetSha256: 'a'.repeat(64),
+      pngPath: 'assets/v0.6.0/bundles/round.png', pngSha256: 'a'.repeat(64),
+    }
+    catalog.anatomyBundles = [{
+      id: 'feline-sit-round', archetypeId: 'feline', rigId: 'feline-sit', poseId: 'sit',
+      structural: resource, alpha: resource, clip: resource,
+      faceSafeZone: { x: 400, y: 300, width: 800, height: 700 }, featureSockets: {}, mutationAnchors: {},
+      derivedSlots: {
+        bodyFrame: 'body_blob', headShape: 'head_round', arms: 'arms_short', legs: 'legs_webbed',
+        tail: 'tail_anchor', extraAppendage: 'extra_wings',
+      },
+      allowedTraitPools: {},
+    }]
 
     expect(parseCatalog(catalog)).toMatchObject({ ok: true })
 
