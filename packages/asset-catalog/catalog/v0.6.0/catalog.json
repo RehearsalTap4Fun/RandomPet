@@ -2432,6 +2432,52 @@
         "renderNodes": [],
         "geometryByRig": {}
       }
+    },
+    {
+      "id": "headAppendage_feline_none",
+      "slotId": "headAppendage",
+      "rarity": "N",
+      "baseWeight": 1,
+      "themeIds": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "themeWeights": {
+        "deep-sea": 1,
+        "fungal": 1,
+        "shadow": 1
+      },
+      "compatibleRigs": [
+        "feline-sit"
+      ],
+      "assetPath": "",
+      "maskPaths": {},
+      "origin": {
+        "x": 1024,
+        "y": 1024
+      },
+      "socket": "headAppendage",
+      "layer": "faceAndHeadwear",
+      "semanticTraitId": null,
+      "semanticPriority": 0,
+      "excludes": [],
+      "boosts": {},
+      "displayName": "head appendage feline none",
+      "flavorText": "猫耳与头顶保持原本的安静轮廓。",
+      "description": "resource-empty normal feline head appendage placeholder",
+      "archetypeIds": [
+        "feline"
+      ],
+      "featureTier": "base",
+      "composition": {
+        "mode": "attachment",
+        "isNone": true,
+        "motifTags": [],
+        "visualIntensity": "quiet",
+        "renderNodes": [],
+        "geometryByRig": {}
+      }
     }
   ],
   "semanticTraits": [

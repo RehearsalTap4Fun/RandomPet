@@ -44,6 +44,27 @@ describe('assemble v0.6 feline catalog', () => {
     expect(JSON.stringify(catalog)).not.toMatch(/\b(?:blob|biped|floating)\b/u)
   }, 60_000)
 
+  it('adds a source-free normal head appendage candidate', async () => {
+    const stagedRoot = await mkdtemp(join(tmpdir(), 'qmonster-v06-head-appendage-none-'))
+    temporaryRoots.push(stagedRoot)
+    const catalog = await assembleV06Catalog({ repositoryRoot: process.cwd(), stagedRoot })
+
+    const part = catalog.parts.find((candidate: { id: string }) => candidate.id === 'headAppendage_feline_none')
+    expect(part).toMatchObject({
+      id: 'headAppendage_feline_none',
+      slotId: 'headAppendage',
+      archetypeIds: ['feline'],
+      featureTier: 'base',
+      assetPath: '',
+      composition: { isNone: true, renderNodes: [] },
+    })
+    expect(part).not.toHaveProperty('assetSha256')
+    expect(part).not.toHaveProperty('pngPath')
+    expect(part).not.toHaveProperty('pngSha256')
+    expect(catalog.parts.filter((candidate: { featureTier?: string }) => candidate.featureTier === 'special'))
+      .not.toContainEqual(expect.objectContaining({ id: 'headAppendage_feline_none' }))
+  }, 60_000)
+
   it('writes aggregate, splits, provenance, manifest, evidence, review and assets together', async () => {
     const stagedRoot = await mkdtemp(join(tmpdir(), 'qmonster-v06-release-'))
     temporaryRoots.push(stagedRoot)

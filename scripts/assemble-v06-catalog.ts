@@ -294,6 +294,18 @@ function integratedPart(slotId: keyof typeof V06_INTEGRATED_PART_IDS): any {
   }
 }
 
+function headAppendageNonePart(): any {
+  return {
+    id: 'headAppendage_feline_none', slotId: 'headAppendage', rarity: 'N', baseWeight: 1,
+    themeIds: ['deep-sea', 'fungal', 'shadow'], themeWeights: { 'deep-sea': 1, fungal: 1, shadow: 1 },
+    compatibleRigs: [V06_FELINE_RIG_ID], assetPath: '', maskPaths: {}, origin: { x: 1024, y: 1024 }, socket: 'headAppendage',
+    layer: 'faceAndHeadwear', semanticTraitId: null, semanticPriority: 0, excludes: [], boosts: {},
+    displayName: 'head appendage feline none', flavorText: '猫耳与头顶保持原本的安静轮廓。',
+    description: 'resource-empty normal feline head appendage placeholder', archetypeIds: ['feline'], featureTier: 'base',
+    composition: { mode: 'attachment', isNone: true, motifTags: [], visualIntensity: 'quiet', renderNodes: [], geometryByRig: {} },
+  }
+}
+
 function richSemantic(id: string, semanticSlotId: string, displayName: string): any {
   return { id, semanticSlotId, displayName, flavorText: `${displayName}让这只猫保持熟悉又微妙的性格。`, rarity: 'N', themeBoosts: {}, excludes: [], boosts: {}, visualMapping: {} }
 }
@@ -362,7 +374,7 @@ function buildCatalog(themes: any[], assets: V06FelineAssetProvenance[], assetRo
         oralDetail: { x: 1024, y: 1010 }, headAppendage: { x: 1024, y: 420 }, overlay: { x: 1024, y: 1120 }, effect: { x: 1024, y: 1120 },
       },
     }],
-    parts: [...structural, ...attachments, integratedPart('arms'), integratedPart('legs'), integratedPart('extraAppendage')],
+    parts: [...structural, ...attachments, integratedPart('arms'), integratedPart('legs'), integratedPart('extraAppendage'), headAppendageNonePart()],
     semanticTraits: [...baseSemantics, ...personality, ...quirks],
     modifiers: [
       richModifier('mutation_feline_heterochromia', 'mutation', '异色瞳'),
