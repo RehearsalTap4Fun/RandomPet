@@ -1,0 +1,391 @@
+{
+  "schemaVersion": "qmonster-v06-feline-prompts-v1",
+  "catalogVersion": "0.6.0",
+  "generationTool": "Codex built-in image_gen",
+  "canvasSize": 2048,
+  "transparencyRecovery": "built-in transparency request followed by deterministic border-connected neutral-matte removal and alpha-component cleanup",
+  "prompts": [
+    {
+      "promptId": "v06-feline-1",
+      "sourceFilename": "body_feline_sit_round-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create the complete continuous rounded seated-cat body-frame layer: one torso, exactly two integrated front paws and exactly two integrated rear paws, no head and no visible tail. Preserve the occupied neck receiver at upper center and tailRoot receiver on the side-rear boundary. Exactly one connected alpha component.",
+      "selectedCandidate": 2,
+      "sourceSha256": "5e855f0ccdee9c894a83349ab58b41944578353488785ee3120b65f80708e14c",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-cc996a68-47e3-4296-8846-1268c9a3e50e.png",
+          "selected": false,
+          "machineApproved": false,
+          "sourceSha256": null,
+          "rejectionReason": "Generator returned baked checkerboard RGB with no alpha channel; targeted transparency correction still lacked alpha."
+        },
+        {
+          "index": 2,
+          "candidateId": "exec-915e9b6f-f26b-43d9-81c0-7b1d7f7be576.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "5e855f0ccdee9c894a83349ab58b41944578353488785ee3120b65f80708e14c",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-2",
+      "sourceFilename": "body_feline_sit_plush-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create the same complete continuous seated-cat anatomy with a longer fluffy fur silhouette: one torso, four integrated paws, no head and no visible tail. Preserve the occupied neck receiver and tailRoot receiver. Exactly one connected alpha component.",
+      "selectedCandidate": 1,
+      "sourceSha256": "00083f0932cf95854edc4dfa2f2c8471cf9757f73b2dcf3e1f53822c3af19dde",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-cc57cafe-0d12-4b5b-93da-fd2f33ff7163.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "00083f0932cf95854edc4dfa2f2c8471cf9757f73b2dcf3e1f53822c3af19dde",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-3",
+      "sourceFilename": "head_feline_round-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one complete round cat head with exactly two triangular ears and no body. Preserve one occupied neck plug at lower center and a broad face-safe zone. Exactly one connected alpha component.",
+      "selectedCandidate": 1,
+      "sourceSha256": "cfa0a6e6fc37342dde525e2b2e10b631b423ad281ac5acd3415b8a1309dc5944",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-d0e58921-98da-41c4-91e6-9e3f7cd2abc9.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "cfa0a6e6fc37342dde525e2b2e10b631b423ad281ac5acd3415b8a1309dc5944",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-4",
+      "sourceFilename": "head_feline_tufted-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one complete slightly tufted cat head with exactly two triangular ears and no body. Preserve one occupied neck plug at lower center and a broad face-safe zone. Exactly one connected alpha component with connected tufts.",
+      "selectedCandidate": 1,
+      "sourceSha256": "8b81de9db002c577c43c758402c8ad3786ff3253432727525e25ff29bf9aae89",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-6c62a8dc-24c7-490c-aead-7deb23e72f2e.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "8b81de9db002c577c43c758402c8ad3786ff3253432727525e25ff29bf9aae89",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-5",
+      "sourceFilename": "tail_feline_long-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one long continuous plush cat tail only, gently curved, with one occupied tailRoot plug at the lower-left end. Exactly one connected alpha component; no body or detached tip.",
+      "selectedCandidate": 1,
+      "sourceSha256": "8cbf7d1e23e48b569cc2b75692142a8fd19d3d88ffe04c97d685012bf4fb0539",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-34dcf343-6e54-49fa-8839-7efa0067c69e.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "8cbf7d1e23e48b569cc2b75692142a8fd19d3d88ffe04c97d685012bf4fb0539",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-6",
+      "sourceFilename": "tail_feline_curl-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one long continuous plush cat tail only, curling naturally into a loose C curve, with one occupied tailRoot plug at the lower-left end. Exactly one connected alpha component; no body or detached tip.",
+      "selectedCandidate": 1,
+      "sourceSha256": "e14cfa743a549a0013c941430c8ff8df86a0bb3e1bce7fbd0ebab94a3fb9b0e2",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-7dd23d01-0e10-4709-b2be-6cc19172b17d.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "e14cfa743a549a0013c941430c8ff8df86a0bb3e1bce7fbd0ebab94a3fb9b0e2",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-7",
+      "sourceFilename": "tail_feline_star_tip-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one continuous plush cat tail only with one occupied tailRoot plug and one small integrated star-like luminous tuft at the tailTip anchor. Exactly one connected alpha component; glow stays attached.",
+      "selectedCandidate": 1,
+      "sourceSha256": "95ae79be44270b53cdc0c044f871c0ae0a065ded0f1fce812c2c32ee7f148126",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-2c58bf27-878d-4526-92b9-fe231b3e50cb.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "95ae79be44270b53cdc0c044f871c0ae0a065ded0f1fce812c2c32ee7f148126",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-8",
+      "sourceFilename": "eyes_feline_round-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one matched pair of round glossy plush-toy cat eyes only, aligned to the eyes socket guide, with a coherent friendly gaze and no head.",
+      "selectedCandidate": 1,
+      "sourceSha256": "3562d00b4d3413294e8f08368d10e7b4ae463bbe82e68f20ef647365d4cfbf99",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-007b64d0-eab6-4994-8811-a01d32774e02.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "3562d00b4d3413294e8f08368d10e7b4ae463bbe82e68f20ef647365d4cfbf99",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-9",
+      "sourceFilename": "eyes_feline_sleepy-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one matched pair of sleepy half-closed embroidered cat eyes only, aligned to the eyes socket guide, with no head.",
+      "selectedCandidate": 1,
+      "sourceSha256": "dfba098187084d6dbef3385fe8c28d08b47225e504444e1c420290a6d51813cd",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-19ec4585-007b-43e0-be8d-89316d53bc51.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "dfba098187084d6dbef3385fe8c28d08b47225e504444e1c420290a6d51813cd",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-10",
+      "sourceFilename": "eyes_feline_wide-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one matched pair of wide curious glossy cat eyes only, aligned to the eyes socket guide, with a coherent gaze and no head.",
+      "selectedCandidate": 1,
+      "sourceSha256": "e54428b0778848fa62e5f069109b051992bb285d4ef177b633288f4f8c030e15",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-85bd8ea8-b934-47ef-abd5-42724eb80250.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "e54428b0778848fa62e5f069109b051992bb285d4ef177b633288f4f8c030e15",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-11",
+      "sourceFilename": "mouth_feline_smile-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one small plush cat muzzle-and-smile layer only, aligned to the mouth socket guide, with no head, eyes, or detached teeth.",
+      "selectedCandidate": 1,
+      "sourceSha256": "9fb90f5c11720250b2898c8bbd6db5b542464417818c687e7ce4fcf57c1ed694",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-22d4a2b6-0356-417f-a702-0cb5686d470b.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "9fb90f5c11720250b2898c8bbd6db5b542464417818c687e7ce4fcf57c1ed694",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-12",
+      "sourceFilename": "mouth_feline_pout-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one small plush cat muzzle-and-pout layer only, aligned to the mouth socket guide, with no head, eyes, or detached teeth.",
+      "selectedCandidate": 1,
+      "sourceSha256": "8973347f96c027921ce245b6f1454f94351c405a0f2237fe55789029d3abe99d",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-c89975b3-094e-4842-be34-5a1f8ace8e58.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "8973347f96c027921ce245b6f1454f94351c405a0f2237fe55789029d3abe99d",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-13",
+      "sourceFilename": "oral_feline_none-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create an intentionally empty oral-detail registration layer for the oralDetail socket guide: a fully transparent canvas with no visible mark.",
+      "selectedCandidate": 1,
+      "sourceSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-487518e2-290f-47a4-88dc-87c99cddcd39.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-14",
+      "sourceFilename": "ear_crystal_rim-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create one subtle paired crystal-fleck ear-rim trim layer only at the ear anchor, protecting the face-safe zone, with no head fill, body, third ear, or free-floating crystals.",
+      "selectedCandidate": 1,
+      "sourceSha256": "ea42384ebc0124e069bec496f17552b5377130e1187640ee87b8821ae56786be",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-9c7ed4ff-9772-47df-84bc-10ae319b1014.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "ea42384ebc0124e069bec496f17552b5377130e1187640ee87b8821ae56786be",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-15",
+      "sourceFilename": "surface_feline_short_fur-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create a short-fur tactile surface layer only, shaped to the continuous torso, four-paw and head-safe feline mask, with no independent creature outside that mask.",
+      "selectedCandidate": 1,
+      "sourceSha256": "839996ff4f90aefb2a81a1c8f3303fd767bfb513d18ecdb5d32a51575be1f1fa",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-2ca9ded4-649e-4ac3-9922-89c8f7cf6b8d.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "839996ff4f90aefb2a81a1c8f3303fd767bfb513d18ecdb5d32a51575be1f1fa",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-16",
+      "sourceFilename": "surface_feline_moss_back-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create a small controlled mossy plush growth layer only at the back anchor, attached to and within the feline body mask, with no face coverage or free-floating moss.",
+      "selectedCandidate": 1,
+      "sourceSha256": "4149257da6116c73c19bbdeab1d3fe5a3b30580bdcd372dcb49ed7ac6b8bf4fb",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-0810d952-eca6-4a1f-beff-cde5731c83ae.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "4149257da6116c73c19bbdeab1d3fe5a3b30580bdcd372dcb49ed7ac6b8bf4fb",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-17",
+      "sourceFilename": "pattern_feline_tabby-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create a soft tabby stripe pattern layer only within the feline head-and-body mask, leaving the face-safe zone readable.",
+      "selectedCandidate": 1,
+      "sourceSha256": "bcf3aad5d5c8e8a78e19b6fad5da48947c63fc896ecb8df22a29c87985838e68",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-b30f483d-70f5-4a6f-8d42-cc92f45969be.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "bcf3aad5d5c8e8a78e19b6fad5da48947c63fc896ecb8df22a29c87985838e68",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-18",
+      "sourceFilename": "pattern_feline_spots-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create a restrained rounded spot pattern layer only within the feline head-and-body mask, leaving the face-safe zone readable.",
+      "selectedCandidate": 1,
+      "sourceSha256": "bd43fd03aa473fdefb2d0b61be476eab5177b4ae90375ec5af3650d4d2aa982e",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-e594dcdb-daa2-4da0-9400-5981fa8a2e2d.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "bd43fd03aa473fdefb2d0b61be476eab5177b4ae90375ec5af3650d4d2aa982e",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-19",
+      "sourceFilename": "color_feline_deep_sea-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create a deep-sea palette wash layer only within the feline mask: midnight blue primary, teal secondary, and small coral accent.",
+      "selectedCandidate": 1,
+      "sourceSha256": "5780670871d7d2fcacc418aa7eb0fbde2f913a641facb75c95390acd74d87945",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-158f88f7-fa39-4d99-bb20-584ea62c2b34.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "5780670871d7d2fcacc418aa7eb0fbde2f913a641facb75c95390acd74d87945",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-20",
+      "sourceFilename": "color_feline_fungal-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create a fungal palette wash layer only within the feline mask: moss green primary, warm amber secondary, and soft cream accent.",
+      "selectedCandidate": 1,
+      "sourceSha256": "60a1b94153f1ff88710bc96700f7a3dadf2a0df6debc8310653a44fbf04ffe61",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-4509e8b4-c905-44c7-87a2-be982e4d3b6c.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "60a1b94153f1ff88710bc96700f7a3dadf2a0df6debc8310653a44fbf04ffe61",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-21",
+      "sourceFilename": "color_feline_shadow-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create a shadow palette wash layer only within the feline mask: deep violet primary, smoky plum secondary, and pale gold accent.",
+      "selectedCandidate": 1,
+      "sourceSha256": "5df6763d87483cb047541e37953ffd4b9bf67c03c68367022d3376a207b65ea4",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-87b94c62-0b26-4dfd-bff1-2a43e0dee213.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "5df6763d87483cb047541e37953ffd4b9bf67c03c68367022d3376a207b65ea4",
+          "rejectionReason": null
+        }
+      ]
+    },
+    {
+      "promptId": "v06-feline-22",
+      "sourceFilename": "effect_feline_none-source.png",
+      "prompt": "Use case: stylized-concept\nAsset type: modular 2048×2048 game character source layer\nStyle/medium: original tactile 3D plush rendering; friendly strange-creature polish; do not copy any existing character.\nComposition/framing: square 2048×2048 registration for a front-facing centered seated cat; isolate only the named source layer with generous transparent margin.\nConstraints: genuinely transparent background with preserved alpha; no text, props, background, floor, cast shadow, copied characters, extra limbs, wings, duplicate heads, detached objects, watermark, checkerboard or fake transparency; preserve the named connector guide and source layer boundary.\nPrimary request: Create an intentionally empty effect registration layer for the effect socket guide: a fully transparent canvas with no visible mark.",
+      "selectedCandidate": 1,
+      "sourceSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
+      "candidates": [
+        {
+          "index": 1,
+          "candidateId": "exec-354fe6e2-01ac-4ba9-b70d-78574fcc2ebd.png",
+          "selected": true,
+          "machineApproved": true,
+          "sourceSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
+          "rejectionReason": null
+        }
+      ]
+    }
+  ]
+}

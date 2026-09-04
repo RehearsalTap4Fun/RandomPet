@@ -110,6 +110,29 @@ async function createSyntheticSourceRichRoot(
 }
 
 describe('strict production catalog validation', () => {
+  it('requires exactly one face-safe zone for every v0.6 head variant', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    catalog.version = '0.6.0'
+    const head = catalog.parts.find((part: any) => part.slotId === 'headShape')
+    head.composition.variantsByRig.blob.faceSafeZones.push({ x: 600, y: 500, width: 300, height: 300 })
+
+    expect(validateProductionHeadFaceSocketContract(catalog)).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_INTERFACE_FACE_SAFE_ZONE_COUNT_INVALID',
+    }))
+  })
+
+  it('rejects v0.6 body appearance nodes that do not use body clipping', () => {
+    const catalog = makeInterfaceCatalogFixture() as any
+    catalog.version = '0.6.0'
+    const surface = catalog.parts.find((part: any) => part.slotId === 'surfaceMaterial')
+    surface.composition.renderNodes[0].clipPolicy = 'none'
+
+    expect(validateProductionMetadata(catalog)).toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_FELINE_CLIP_POLICY_INVALID',
+      path: expect.arrayContaining(['surfaceMaterial']),
+    }))
+  })
+
   it('accepts the v0.5 single-head modifier pool', async () => {
     const catalog = JSON.parse(await readFile(
       join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.5.0', 'catalog.json'),

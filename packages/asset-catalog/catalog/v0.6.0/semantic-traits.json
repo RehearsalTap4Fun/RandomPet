@@ -1,0 +1,200 @@
+[
+  {
+    "id": "frame_feline_sit",
+    "semanticSlotId": "frame",
+    "displayName": "完整坐姿猫",
+    "flavorText": "完整坐姿猫让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "appendage_feline_tail",
+    "semanticSlotId": "appendage",
+    "displayName": "连续猫尾",
+    "flavorText": "连续猫尾让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "head_feline_complete",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "完整猫头",
+    "flavorText": "完整猫头让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "mouth_feline_soft",
+    "semanticSlotId": "mouth",
+    "displayName": "柔软猫嘴",
+    "flavorText": "柔软猫嘴让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "surface_feline_tactile",
+    "semanticSlotId": "surface",
+    "displayName": "触感猫毛",
+    "flavorText": "触感猫毛让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "pattern_feline_markings",
+    "semanticSlotId": "pattern",
+    "displayName": "猫科纹样",
+    "flavorText": "猫科纹样让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_1",
+    "semanticSlotId": "personality",
+    "displayName": "猫性格1",
+    "flavorText": "猫性格1让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_2",
+    "semanticSlotId": "personality",
+    "displayName": "猫性格2",
+    "flavorText": "猫性格2让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_3",
+    "semanticSlotId": "personality",
+    "displayName": "猫性格3",
+    "flavorText": "猫性格3让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_4",
+    "semanticSlotId": "personality",
+    "displayName": "猫性格4",
+    "flavorText": "猫性格4让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_5",
+    "semanticSlotId": "personality",
+    "displayName": "猫性格5",
+    "flavorText": "猫性格5让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_6",
+    "semanticSlotId": "personality",
+    "displayName": "猫性格6",
+    "flavorText": "猫性格6让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_1",
+    "semanticSlotId": "quirk",
+    "displayName": "猫趣味1",
+    "flavorText": "猫趣味1让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_2",
+    "semanticSlotId": "quirk",
+    "displayName": "猫趣味2",
+    "flavorText": "猫趣味2让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_3",
+    "semanticSlotId": "quirk",
+    "displayName": "猫趣味3",
+    "flavorText": "猫趣味3让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_4",
+    "semanticSlotId": "quirk",
+    "displayName": "猫趣味4",
+    "flavorText": "猫趣味4让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_5",
+    "semanticSlotId": "quirk",
+    "displayName": "猫趣味5",
+    "flavorText": "猫趣味5让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_6",
+    "semanticSlotId": "quirk",
+    "displayName": "猫趣味6",
+    "flavorText": "猫趣味6让这只猫保持熟悉又微妙的性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  }
+]

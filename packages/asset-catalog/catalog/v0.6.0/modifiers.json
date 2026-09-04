@@ -1,0 +1,58 @@
+[
+  {
+    "id": "mutation_feline_heterochromia",
+    "kind": "mutation",
+    "baseWeight": 1,
+    "requiresMutation": false,
+    "overrides": {},
+    "displayName": "异色瞳",
+    "flavorText": "异色瞳只允许一个受控锚点变化。",
+    "rarity": "R",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "mutation_feline_local_curl",
+    "kind": "mutation",
+    "baseWeight": 1,
+    "requiresMutation": false,
+    "overrides": {},
+    "displayName": "局部卷毛",
+    "flavorText": "局部卷毛只允许一个受控锚点变化。",
+    "rarity": "R",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "aberration_feline_crystal_glint",
+    "kind": "aberration",
+    "baseWeight": 1,
+    "requiresMutation": false,
+    "overrides": {},
+    "displayName": "晶点微光",
+    "flavorText": "晶点微光只允许一个受控锚点变化。",
+    "rarity": "R",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "aberration_feline_soft_glow",
+    "kind": "aberration",
+    "baseWeight": 1,
+    "requiresMutation": false,
+    "overrides": {},
+    "displayName": "柔和亮斑",
+    "flavorText": "柔和亮斑只允许一个受控锚点变化。",
+    "rarity": "R",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  }
+]

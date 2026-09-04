@@ -1,0 +1,2361 @@
+[
+  {
+    "id": "body_feline_sit_round",
+    "slotId": "bodyFrame",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "assets/v0.6.0/structural/feline-sit/body_feline_sit_round.webp",
+    "assetSha256": "fab2a32c6df4c147445020b1ce60e5f3b0b70d38eb2fcd258b1a6992e8973c9c",
+    "pngPath": "assets/v0.6.0/structural/feline-sit/body_feline_sit_round.png",
+    "pngSha256": "5e855f0ccdee9c894a83349ab58b41944578353488785ee3120b65f80708e14c",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": null,
+    "layer": "body",
+    "semanticTraitId": "frame_feline_sit",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "body feline sit round",
+    "flavorText": "body feline sit round稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for body_feline_sit_round",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "feline-sit": {
+          "rigId": "feline-sit",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "body_feline_sit_round-feline-sit-node",
+              "assetPath": "assets/v0.6.0/structural/feline-sit/body_feline_sit_round.webp",
+              "pngPath": "assets/v0.6.0/structural/feline-sit/body_feline_sit_round.png",
+              "assetSha256": "fab2a32c6df4c147445020b1ce60e5f3b0b70d38eb2fcd258b1a6992e8973c9c",
+              "pngSha256": "5e855f0ccdee9c894a83349ab58b41944578353488785ee3120b65f80708e14c",
+              "parentSlot": null,
+              "socket": null,
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "body",
+              "compatibleRigs": [
+                "feline-sit"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "receiver",
+              "connectorClass": "neck",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 1055,
+                "y": 455
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-contour.png",
+              "contourMaskSha256": "48550dc8702b3fdd0d6928b985ee5ed82309837a161651e5f5bad6ca362782e6",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-foreground.png",
+              "foregroundMaskSha256": "a307708b1336c36ae8d5ff092cbb19d2923f92b9db11685e2cf34f1586a3f5da",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-neck-background.png",
+              "backgroundMaskSha256": "0eacec1684877b6066649a3c29506dac70a57e6789a98771feacfac9d87eabac",
+              "materialSampleRegion": {
+                "x": 1031,
+                "y": 431,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            },
+            {
+              "id": "tailRoot",
+              "role": "receiver",
+              "connectorClass": "tail",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 1679,
+                "y": 1235
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-contour.png",
+              "contourMaskSha256": "04b16dc3b4943ee21eb1d6a927e0746f4e378e357279266828b3a2bfc5523124",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-foreground.png",
+              "foregroundMaskSha256": "77e934f71dd8fe6cc5ec3397c0215177c6a052a15ebc6ae1a1cb32f6792e9abe",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_round-tailRoot-background.png",
+              "backgroundMaskSha256": "0298447ee34218a35b375edabbdc771e7ecdefa1a57dd035eb27a4207b3351dd",
+              "materialSampleRegion": {
+                "x": 1655,
+                "y": 1211,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "body_feline_sit_plush",
+    "slotId": "bodyFrame",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "assets/v0.6.0/structural/feline-sit/body_feline_sit_plush.webp",
+    "assetSha256": "ee3b95ab073b3435283d8e24d831fcde98196a66d54587a7778e29c85ff3716e",
+    "pngPath": "assets/v0.6.0/structural/feline-sit/body_feline_sit_plush.png",
+    "pngSha256": "00083f0932cf95854edc4dfa2f2c8471cf9757f73b2dcf3e1f53822c3af19dde",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": null,
+    "layer": "body",
+    "semanticTraitId": "frame_feline_sit",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "body feline sit plush",
+    "flavorText": "body feline sit plush稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for body_feline_sit_plush",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "feline-sit": {
+          "rigId": "feline-sit",
+          "materialFamily": "mushroom-velvet",
+          "renderNodes": [
+            {
+              "id": "body_feline_sit_plush-feline-sit-node",
+              "assetPath": "assets/v0.6.0/structural/feline-sit/body_feline_sit_plush.webp",
+              "pngPath": "assets/v0.6.0/structural/feline-sit/body_feline_sit_plush.png",
+              "assetSha256": "ee3b95ab073b3435283d8e24d831fcde98196a66d54587a7778e29c85ff3716e",
+              "pngSha256": "00083f0932cf95854edc4dfa2f2c8471cf9757f73b2dcf3e1f53822c3af19dde",
+              "parentSlot": null,
+              "socket": null,
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "body",
+              "compatibleRigs": [
+                "feline-sit"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "receiver",
+              "connectorClass": "neck",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 1025,
+                "y": 332
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-contour.png",
+              "contourMaskSha256": "97cea4b6e3f7e8488d7bfcbcd6ee1bce686636b6500c77296bb9868a09ef1ca8",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-foreground.png",
+              "foregroundMaskSha256": "91d5a3e4b69ef98ebaf1d109c4a09ded25d2c5d6762b25564a0329a34bb01338",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-neck-background.png",
+              "backgroundMaskSha256": "80a51b58db7f788a38f4e9c6abb5a0c6a3f056442dc05cebf20596b8deee652d",
+              "materialSampleRegion": {
+                "x": 1001,
+                "y": 308,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            },
+            {
+              "id": "tailRoot",
+              "role": "receiver",
+              "connectorClass": "tail",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 1649,
+                "y": 1222
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": -1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-contour.png",
+              "contourMaskSha256": "7bed0ab5efdc200aa76db123713d109ada3696aa1b17a7a86eace0951293e6db",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-foreground.png",
+              "foregroundMaskSha256": "dfff08dbab9d842cfc9e9a0d5bac7ab0c68f2fbd39e571e0df5fb734820a0e15",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/body_feline_sit_plush-tailRoot-background.png",
+              "backgroundMaskSha256": "004af1a87b44896896164b3b1cd330f9b8d207678c2751ca2e7bd60faf3fdc1c",
+              "materialSampleRegion": {
+                "x": 1625,
+                "y": 1198,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "head_feline_round",
+    "slotId": "headShape",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "assets/v0.6.0/structural/feline-sit/head_feline_round.webp",
+    "assetSha256": "eb4645d354b6cefb8278eaceb3c8cfc2f0fbc4709f5bb823eb1235c981e4d56b",
+    "pngPath": "assets/v0.6.0/structural/feline-sit/head_feline_round.png",
+    "pngSha256": "cfa0a6e6fc37342dde525e2b2e10b631b423ad281ac5acd3415b8a1309dc5944",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "head",
+    "layer": "head",
+    "semanticTraitId": "head_feline_complete",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "head feline round",
+    "flavorText": "head feline round稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for head_feline_round",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "feline-sit": {
+          "rigId": "feline-sit",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "head_feline_round-feline-sit-node",
+              "connectorId": "neck",
+              "assetPath": "assets/v0.6.0/structural/feline-sit/head_feline_round.webp",
+              "pngPath": "assets/v0.6.0/structural/feline-sit/head_feline_round.png",
+              "assetSha256": "eb4645d354b6cefb8278eaceb3c8cfc2f0fbc4709f5bb823eb1235c981e4d56b",
+              "pngSha256": "cfa0a6e6fc37342dde525e2b2e10b631b423ad281ac5acd3415b8a1309dc5944",
+              "parentSlot": "bodyFrame",
+              "socket": "head",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "head",
+              "compatibleRigs": [
+                "feline-sit"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 1023,
+                "y": 1741
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-contour.png",
+              "contourMaskSha256": "08b464089bd930590c0a8ad17fe2f92c1f36e0ec188e355b18b9aa994c55238f",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-foreground.png",
+              "foregroundMaskSha256": "4f8f1379c07d6d74cc537908b2b5eaaf1d0d92b70d258c2181e2210610f92466",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_round-neck-background.png",
+              "backgroundMaskSha256": "d7624382617236c416981db757e3eb1f8301d193cfda07d69b9cd4d6373bd8d0",
+              "materialSampleRegion": {
+                "x": 999,
+                "y": 1717,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 600,
+              "y": 420,
+              "width": 848,
+              "height": 780
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 760
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 960
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 420
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "head_feline_tufted",
+    "slotId": "headShape",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "assets/v0.6.0/structural/feline-sit/head_feline_tufted.webp",
+    "assetSha256": "2f9d56b825018d45fc791b6582341128fd0a369c53a6eafd48ab7f65b3863409",
+    "pngPath": "assets/v0.6.0/structural/feline-sit/head_feline_tufted.png",
+    "pngSha256": "8b81de9db002c577c43c758402c8ad3786ff3253432727525e25ff29bf9aae89",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "head",
+    "layer": "head",
+    "semanticTraitId": "head_feline_complete",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "head feline tufted",
+    "flavorText": "head feline tufted稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for head_feline_tufted",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "feline-sit": {
+          "rigId": "feline-sit",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "head_feline_tufted-feline-sit-node",
+              "connectorId": "neck",
+              "assetPath": "assets/v0.6.0/structural/feline-sit/head_feline_tufted.webp",
+              "pngPath": "assets/v0.6.0/structural/feline-sit/head_feline_tufted.png",
+              "assetSha256": "2f9d56b825018d45fc791b6582341128fd0a369c53a6eafd48ab7f65b3863409",
+              "pngSha256": "8b81de9db002c577c43c758402c8ad3786ff3253432727525e25ff29bf9aae89",
+              "parentSlot": "bodyFrame",
+              "socket": "head",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "head",
+              "compatibleRigs": [
+                "feline-sit"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "neck",
+              "role": "plug",
+              "connectorClass": "neck",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 1028,
+                "y": 1769
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-contour.png",
+              "contourMaskSha256": "7fbd99fe869117f3abbffd2d8ec0e7a108eb975bc3946bf68cba37f7b160bad8",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-foreground.png",
+              "foregroundMaskSha256": "c3d09d20b4e8d2d95343f2f1a6792ec3a0d6db9d7135927f2bc61dfd2d112c16",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/head_feline_tufted-neck-background.png",
+              "backgroundMaskSha256": "1718056835e45ee470883d1b973d335d7270c8bf6f219756f3636eb696c7c7ea",
+              "materialSampleRegion": {
+                "x": 1004,
+                "y": 1745,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            }
+          ],
+          "faceSafeZones": [
+            {
+              "x": 600,
+              "y": 420,
+              "width": 848,
+              "height": 780
+            }
+          ],
+          "featureSockets": {
+            "eyes": {
+              "x": 1024,
+              "y": 760
+            },
+            "mouth": {
+              "x": 1024,
+              "y": 960
+            },
+            "headAppendage": {
+              "x": 1024,
+              "y": 420
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "tail_feline_long",
+    "slotId": "tail",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "assets/v0.6.0/structural/feline-sit/tail_feline_long.webp",
+    "assetSha256": "0f95f97504f10b2f8bdb82865641cb425fa2b0aa30864e5ff6f308d257ac3b9c",
+    "pngPath": "assets/v0.6.0/structural/feline-sit/tail_feline_long.png",
+    "pngSha256": "8cbf7d1e23e48b569cc2b75692142a8fd19d3d88ffe04c97d685012bf4fb0539",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "tail",
+    "layer": "rearAppendage",
+    "semanticTraitId": "appendage_feline_tail",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "tail feline long",
+    "flavorText": "tail feline long稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for tail_feline_long",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "feline-sit": {
+          "rigId": "feline-sit",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "tail_feline_long-feline-sit-node",
+              "connectorId": "tailRoot",
+              "assetPath": "assets/v0.6.0/structural/feline-sit/tail_feline_long.webp",
+              "pngPath": "assets/v0.6.0/structural/feline-sit/tail_feline_long.png",
+              "assetSha256": "0f95f97504f10b2f8bdb82865641cb425fa2b0aa30864e5ff6f308d257ac3b9c",
+              "pngSha256": "8cbf7d1e23e48b569cc2b75692142a8fd19d3d88ffe04c97d685012bf4fb0539",
+              "parentSlot": "bodyFrame",
+              "socket": "tail",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "rearAppendage",
+              "compatibleRigs": [
+                "feline-sit"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "tailRoot",
+              "role": "plug",
+              "connectorClass": "tail",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 362,
+                "y": 1508
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-contour.png",
+              "contourMaskSha256": "321746121e8bb5643c00278d208b63b43327e164caaf2317a4790385861b828f",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-foreground.png",
+              "foregroundMaskSha256": "318bed1efa0493f62fea6502c03764918c13cdb0469fa7d57bb576483a1e01b7",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_long-tailRoot-background.png",
+              "backgroundMaskSha256": "76c9a22dc73f11beef336f776c92810e0d5265aaf00f157afdfafc7ae6dd793b",
+              "materialSampleRegion": {
+                "x": 338,
+                "y": 1484,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "tail_feline_curl",
+    "slotId": "tail",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "assets/v0.6.0/structural/feline-sit/tail_feline_curl.webp",
+    "assetSha256": "5630425fdd5b40026be680266e13cdc82f958a68f4c487895b2e24051ad935db",
+    "pngPath": "assets/v0.6.0/structural/feline-sit/tail_feline_curl.png",
+    "pngSha256": "e14cfa743a549a0013c941430c8ff8df86a0bb3e1bce7fbd0ebab94a3fb9b0e2",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "tail",
+    "layer": "rearAppendage",
+    "semanticTraitId": "appendage_feline_tail",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "tail feline curl",
+    "flavorText": "tail feline curl稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for tail_feline_curl",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "feline-sit": {
+          "rigId": "feline-sit",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "tail_feline_curl-feline-sit-node",
+              "connectorId": "tailRoot",
+              "assetPath": "assets/v0.6.0/structural/feline-sit/tail_feline_curl.webp",
+              "pngPath": "assets/v0.6.0/structural/feline-sit/tail_feline_curl.png",
+              "assetSha256": "5630425fdd5b40026be680266e13cdc82f958a68f4c487895b2e24051ad935db",
+              "pngSha256": "e14cfa743a549a0013c941430c8ff8df86a0bb3e1bce7fbd0ebab94a3fb9b0e2",
+              "parentSlot": "bodyFrame",
+              "socket": "tail",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "rearAppendage",
+              "compatibleRigs": [
+                "feline-sit"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "tailRoot",
+              "role": "plug",
+              "connectorClass": "tail",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 384,
+                "y": 1588
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-contour.png",
+              "contourMaskSha256": "c6bc7466dce980469e889ac7e039546f8a79e320067843e2df38dab6e1c8034f",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-foreground.png",
+              "foregroundMaskSha256": "0717f62debd8fdbfbec60bcc8a06549859a9ca2f0642ab181807f28e316634bb",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_curl-tailRoot-background.png",
+              "backgroundMaskSha256": "4008994683f15ccf8a236c69b1908cf698cb82ebe9eec6f5c5dc5aed325602dd",
+              "materialSampleRegion": {
+                "x": 360,
+                "y": 1564,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "tail_feline_star_tip",
+    "slotId": "tail",
+    "rarity": "R",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "assets/v0.6.0/structural/feline-sit/tail_feline_star_tip.webp",
+    "assetSha256": "e1a9bc1a805cd41cc89f5601317043cf52a7bd62dc764740056789db0975b240",
+    "pngPath": "assets/v0.6.0/structural/feline-sit/tail_feline_star_tip.png",
+    "pngSha256": "95ae79be44270b53cdc0c044f871c0ae0a065ded0f1fce812c2c32ee7f148126",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "tail",
+    "layer": "rearAppendage",
+    "semanticTraitId": "appendage_feline_tail",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "tail feline star tip",
+    "flavorText": "tail feline star tip稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for tail_feline_star_tip",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "special",
+    "specialFeatureAnchor": "tailTip",
+    "composition": {
+      "mode": "interface",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "variantsByRig": {
+        "feline-sit": {
+          "rigId": "feline-sit",
+          "materialFamily": "short-fur",
+          "renderNodes": [
+            {
+              "id": "tail_feline_star_tip-feline-sit-node",
+              "connectorId": "tailRoot",
+              "assetPath": "assets/v0.6.0/structural/feline-sit/tail_feline_star_tip.webp",
+              "pngPath": "assets/v0.6.0/structural/feline-sit/tail_feline_star_tip.png",
+              "assetSha256": "e1a9bc1a805cd41cc89f5601317043cf52a7bd62dc764740056789db0975b240",
+              "pngSha256": "95ae79be44270b53cdc0c044f871c0ae0a065ded0f1fce812c2c32ee7f148126",
+              "parentSlot": "bodyFrame",
+              "socket": "tail",
+              "origin": {
+                "x": 1024,
+                "y": 1024
+              },
+              "transform": {
+                "scale": 1,
+                "mirrorX": false
+              },
+              "layer": "rearAppendage",
+              "compatibleRigs": [
+                "feline-sit"
+              ],
+              "clipPolicy": "none"
+            }
+          ],
+          "connectors": [
+            {
+              "id": "tailRoot",
+              "role": "plug",
+              "connectorClass": "tail",
+              "rigId": "feline-sit",
+              "origin": {
+                "x": 395,
+                "y": 1577
+              },
+              "tangent": {
+                "x": 1,
+                "y": 0
+              },
+              "outwardNormal": {
+                "x": 0,
+                "y": 1
+              },
+              "width": 64,
+              "depth": 12,
+              "contourMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-contour.png",
+              "contourMaskSha256": "5732a1c1a5fda7e07e76f012bea00cdaa2da77e82d7934052d4499d9d724a0b3",
+              "foregroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-foreground.png",
+              "foregroundMaskSha256": "160b59347e6843b809df49c7c647a32800ce77e7e1e18efdb6f1faecc8afc532",
+              "backgroundMaskPath": "assets/v0.6.0/connectors/feline-sit/tail_feline_star_tip-tailRoot-background.png",
+              "backgroundMaskSha256": "e29fd0202a729fc64b2c3d6887e7a37901ac09150a44d9a570887384fc27c52a",
+              "materialSampleRegion": {
+                "x": 371,
+                "y": 1553,
+                "width": 48,
+                "height": 48
+              },
+              "warpLimits": {
+                "widthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "depthRatio": {
+                  "min": 0.9,
+                  "max": 1.1
+                },
+                "rotationDegrees": {
+                  "min": -8,
+                  "max": 8
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "eyes_feline_round",
+    "slotId": "eyes",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "face/eyes_feline_round.webp",
+    "assetSha256": "ff3071de52f98b165901b3464fb6fe168aca2339dc9e5d863a88781eb8ee2381",
+    "pngPath": "face/eyes_feline_round.png",
+    "pngSha256": "3562d00b4d3413294e8f08368d10e7b4ae463bbe82e68f20ef647365d4cfbf99",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "eyes",
+    "layer": "faceAndHeadwear",
+    "semanticTraitId": "head_feline_complete",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "eyes feline round",
+    "flavorText": "eyes feline round稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for eyes_feline_round",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "eyes_feline_round-node",
+          "assetPath": "face/eyes_feline_round.webp",
+          "pngPath": "face/eyes_feline_round.png",
+          "assetSha256": "ff3071de52f98b165901b3464fb6fe168aca2339dc9e5d863a88781eb8ee2381",
+          "pngSha256": "3562d00b4d3413294e8f08368d10e7b4ae463bbe82e68f20ef647365d4cfbf99",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "faceAndHeadwear",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "none"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "eyes_feline_sleepy",
+    "slotId": "eyes",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "face/eyes_feline_sleepy.webp",
+    "assetSha256": "344f6e3b1fccf48c43aceae1078973db346b9e8f7a53565b5af2850dd47835fc",
+    "pngPath": "face/eyes_feline_sleepy.png",
+    "pngSha256": "dfba098187084d6dbef3385fe8c28d08b47225e504444e1c420290a6d51813cd",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "eyes",
+    "layer": "faceAndHeadwear",
+    "semanticTraitId": "head_feline_complete",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "eyes feline sleepy",
+    "flavorText": "eyes feline sleepy稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for eyes_feline_sleepy",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "eyes_feline_sleepy-node",
+          "assetPath": "face/eyes_feline_sleepy.webp",
+          "pngPath": "face/eyes_feline_sleepy.png",
+          "assetSha256": "344f6e3b1fccf48c43aceae1078973db346b9e8f7a53565b5af2850dd47835fc",
+          "pngSha256": "dfba098187084d6dbef3385fe8c28d08b47225e504444e1c420290a6d51813cd",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "faceAndHeadwear",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "none"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "eyes_feline_wide",
+    "slotId": "eyes",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "face/eyes_feline_wide.webp",
+    "assetSha256": "62bcc9eaa2f758b9787230ec81c908995b01c9b64bae9919f187f80658668b56",
+    "pngPath": "face/eyes_feline_wide.png",
+    "pngSha256": "e54428b0778848fa62e5f069109b051992bb285d4ef177b633288f4f8c030e15",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "eyes",
+    "layer": "faceAndHeadwear",
+    "semanticTraitId": "head_feline_complete",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "eyes feline wide",
+    "flavorText": "eyes feline wide稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for eyes_feline_wide",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "eyes_feline_wide-node",
+          "assetPath": "face/eyes_feline_wide.webp",
+          "pngPath": "face/eyes_feline_wide.png",
+          "assetSha256": "62bcc9eaa2f758b9787230ec81c908995b01c9b64bae9919f187f80658668b56",
+          "pngSha256": "e54428b0778848fa62e5f069109b051992bb285d4ef177b633288f4f8c030e15",
+          "parentSlot": "headShape",
+          "socket": "eyes",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "faceAndHeadwear",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "none"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "mouth_feline_smile",
+    "slotId": "mouthShape",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "face/mouth_feline_smile.webp",
+    "assetSha256": "a46a114d586b4ba97ce31facf73d2bd57bdd0b3e9d8154f808701906542af507",
+    "pngPath": "face/mouth_feline_smile.png",
+    "pngSha256": "9fb90f5c11720250b2898c8bbd6db5b542464417818c687e7ce4fcf57c1ed694",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "mouth",
+    "layer": "faceAndHeadwear",
+    "semanticTraitId": "mouth_feline_soft",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "mouth feline smile",
+    "flavorText": "mouth feline smile稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for mouth_feline_smile",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "mouth_feline_smile-node",
+          "assetPath": "face/mouth_feline_smile.webp",
+          "pngPath": "face/mouth_feline_smile.png",
+          "assetSha256": "a46a114d586b4ba97ce31facf73d2bd57bdd0b3e9d8154f808701906542af507",
+          "pngSha256": "9fb90f5c11720250b2898c8bbd6db5b542464417818c687e7ce4fcf57c1ed694",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "faceAndHeadwear",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "none"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "mouth_feline_pout",
+    "slotId": "mouthShape",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "face/mouth_feline_pout.webp",
+    "assetSha256": "b7016f43cbbbb3ae39f4e147cd515db8809d491d857a2e36d62636b9f427ce11",
+    "pngPath": "face/mouth_feline_pout.png",
+    "pngSha256": "8973347f96c027921ce245b6f1454f94351c405a0f2237fe55789029d3abe99d",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "mouth",
+    "layer": "faceAndHeadwear",
+    "semanticTraitId": "mouth_feline_soft",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "mouth feline pout",
+    "flavorText": "mouth feline pout稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for mouth_feline_pout",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "mouth_feline_pout-node",
+          "assetPath": "face/mouth_feline_pout.webp",
+          "pngPath": "face/mouth_feline_pout.png",
+          "assetSha256": "b7016f43cbbbb3ae39f4e147cd515db8809d491d857a2e36d62636b9f427ce11",
+          "pngSha256": "8973347f96c027921ce245b6f1454f94351c405a0f2237fe55789029d3abe99d",
+          "parentSlot": "headShape",
+          "socket": "mouth",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "faceAndHeadwear",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "none"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "oral_feline_none",
+    "slotId": "oralDetail",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "face/oral_feline_none.webp",
+    "assetSha256": "b6debde7d81c5f871e4751570a9d3f625b4bc1f3cb04937e2cf6bc3feb84128f",
+    "pngPath": "face/oral_feline_none.png",
+    "pngSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "oralDetail",
+    "layer": "faceAndHeadwear",
+    "semanticTraitId": "mouth_feline_soft",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "oral feline none",
+    "flavorText": "oral feline none稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for oral_feline_none",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": true,
+      "motifTags": [],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "oral_feline_none-node",
+          "assetPath": "face/oral_feline_none.webp",
+          "pngPath": "face/oral_feline_none.png",
+          "assetSha256": "b6debde7d81c5f871e4751570a9d3f625b4bc1f3cb04937e2cf6bc3feb84128f",
+          "pngSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
+          "parentSlot": "mouthShape",
+          "socket": "oralDetail",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "faceAndHeadwear",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "none"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "ear_crystal_rim",
+    "slotId": "headAppendage",
+    "rarity": "R",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "face/ear_crystal_rim.webp",
+    "assetSha256": "694161f28ebb6aed6b378c164c668b02a95c9cba78753673893a67fa158ad064",
+    "pngPath": "face/ear_crystal_rim.png",
+    "pngSha256": "ea42384ebc0124e069bec496f17552b5377130e1187640ee87b8821ae56786be",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "headAppendage",
+    "layer": "faceAndHeadwear",
+    "semanticTraitId": "head_feline_complete",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "ear crystal rim",
+    "flavorText": "ear crystal rim稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for ear_crystal_rim",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "special",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "strong",
+      "renderNodes": [
+        {
+          "id": "ear_crystal_rim-node",
+          "assetPath": "face/ear_crystal_rim.webp",
+          "pngPath": "face/ear_crystal_rim.png",
+          "assetSha256": "694161f28ebb6aed6b378c164c668b02a95c9cba78753673893a67fa158ad064",
+          "pngSha256": "ea42384ebc0124e069bec496f17552b5377130e1187640ee87b8821ae56786be",
+          "parentSlot": "headShape",
+          "socket": "headAppendage",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "faceAndHeadwear",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "protect-face"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    "specialFeatureAnchor": "ear"
+  },
+  {
+    "id": "surface_feline_short_fur",
+    "slotId": "surfaceMaterial",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "surface/surface_feline_short_fur.webp",
+    "assetSha256": "8d424c13512d01337dd9946420db32f6ff65ee06a650130640fc288dcb558041",
+    "pngPath": "surface/surface_feline_short_fur.png",
+    "pngSha256": "839996ff4f90aefb2a81a1c8f3303fd767bfb513d18ecdb5d32a51575be1f1fa",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "overlay",
+    "layer": "surface",
+    "semanticTraitId": "surface_feline_tactile",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "surface feline short fur",
+    "flavorText": "surface feline short fur稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for surface_feline_short_fur",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "surface_feline_short_fur-node",
+          "assetPath": "surface/surface_feline_short_fur.webp",
+          "pngPath": "surface/surface_feline_short_fur.png",
+          "assetSha256": "8d424c13512d01337dd9946420db32f6ff65ee06a650130640fc288dcb558041",
+          "pngSha256": "839996ff4f90aefb2a81a1c8f3303fd767bfb513d18ecdb5d32a51575be1f1fa",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "surface",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "body"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "surface_feline_moss_back",
+    "slotId": "surfaceMaterial",
+    "rarity": "R",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "surface/surface_feline_moss_back.webp",
+    "assetSha256": "7681d0a91ac61408ce4d8b56432d923752bcf86161fcd2de884b3c1ae517523c",
+    "pngPath": "surface/surface_feline_moss_back.png",
+    "pngSha256": "4149257da6116c73c19bbdeab1d3fe5a3b30580bdcd372dcb49ed7ac6b8bf4fb",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "overlay",
+    "layer": "surface",
+    "semanticTraitId": "surface_feline_tactile",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "surface feline moss back",
+    "flavorText": "surface feline moss back稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for surface_feline_moss_back",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "special",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "strong",
+      "renderNodes": [
+        {
+          "id": "surface_feline_moss_back-node",
+          "assetPath": "surface/surface_feline_moss_back.webp",
+          "pngPath": "surface/surface_feline_moss_back.png",
+          "assetSha256": "7681d0a91ac61408ce4d8b56432d923752bcf86161fcd2de884b3c1ae517523c",
+          "pngSha256": "4149257da6116c73c19bbdeab1d3fe5a3b30580bdcd372dcb49ed7ac6b8bf4fb",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "surface",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "body"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    "specialFeatureAnchor": "back"
+  },
+  {
+    "id": "pattern_feline_tabby",
+    "slotId": "pattern",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "pattern/pattern_feline_tabby.webp",
+    "assetSha256": "bca3c57bf7e89113e145e68dd3460343a514b0b7061e504fe532f96b86a17f71",
+    "pngPath": "pattern/pattern_feline_tabby.png",
+    "pngSha256": "bcf3aad5d5c8e8a78e19b6fad5da48947c63fc896ecb8df22a29c87985838e68",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "overlay",
+    "layer": "pattern",
+    "semanticTraitId": "pattern_feline_markings",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "pattern feline tabby",
+    "flavorText": "pattern feline tabby稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for pattern_feline_tabby",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "pattern_feline_tabby-node",
+          "assetPath": "pattern/pattern_feline_tabby.webp",
+          "pngPath": "pattern/pattern_feline_tabby.png",
+          "assetSha256": "bca3c57bf7e89113e145e68dd3460343a514b0b7061e504fe532f96b86a17f71",
+          "pngSha256": "bcf3aad5d5c8e8a78e19b6fad5da48947c63fc896ecb8df22a29c87985838e68",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "pattern",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "body"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "pattern_feline_spots",
+    "slotId": "pattern",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "pattern/pattern_feline_spots.webp",
+    "assetSha256": "cfbb24afb57af5d0acb08a90f0127e763a2e31edf1279a0c7949da5e6c937da0",
+    "pngPath": "pattern/pattern_feline_spots.png",
+    "pngSha256": "bd43fd03aa473fdefb2d0b61be476eab5177b4ae90375ec5af3650d4d2aa982e",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "overlay",
+    "layer": "pattern",
+    "semanticTraitId": "pattern_feline_markings",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "pattern feline spots",
+    "flavorText": "pattern feline spots稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for pattern_feline_spots",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "pattern_feline_spots-node",
+          "assetPath": "pattern/pattern_feline_spots.webp",
+          "pngPath": "pattern/pattern_feline_spots.png",
+          "assetSha256": "cfbb24afb57af5d0acb08a90f0127e763a2e31edf1279a0c7949da5e6c937da0",
+          "pngSha256": "bd43fd03aa473fdefb2d0b61be476eab5177b4ae90375ec5af3650d4d2aa982e",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "pattern",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "body"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "color_feline_deep_sea",
+    "slotId": "colorScheme",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "palette/color_feline_deep_sea.webp",
+    "assetSha256": "f708ce4a4e1503a56ebefa8be64bb39c2812ed47fff837b1a4d4efcb95f51fbf",
+    "pngPath": "palette/color_feline_deep_sea.png",
+    "pngSha256": "5780670871d7d2fcacc418aa7eb0fbde2f913a641facb75c95390acd74d87945",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "overlay",
+    "layer": "pattern",
+    "semanticTraitId": "pattern_feline_markings",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "color feline deep sea",
+    "flavorText": "color feline deep sea稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for color_feline_deep_sea",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "color_feline_deep_sea-node",
+          "assetPath": "palette/color_feline_deep_sea.webp",
+          "pngPath": "palette/color_feline_deep_sea.png",
+          "assetSha256": "f708ce4a4e1503a56ebefa8be64bb39c2812ed47fff837b1a4d4efcb95f51fbf",
+          "pngSha256": "5780670871d7d2fcacc418aa7eb0fbde2f913a641facb75c95390acd74d87945",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "pattern",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "body"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    "rigMaskPaths": {
+      "feline-sit": {
+        "primary": "assets/v0.6.0/palette/masks/color_feline_deep_sea-primary.png",
+        "secondary": "assets/v0.6.0/palette/masks/color_feline_deep_sea-secondary.png",
+        "accent": "assets/v0.6.0/palette/masks/color_feline_deep_sea-accent.png"
+      }
+    },
+    "rigMaskSha256": {
+      "feline-sit": {
+        "primary": "5de416f11c5343b9263a38fdae752e881eb149479937f8701527df4363d86ea7",
+        "secondary": "f483ca62082208d95e379f46b6a35cc036cbcf4a371a4dee34b95c668d30e427",
+        "accent": "61f1488fc3d733a16f5f2cb153efc3add3a5c924756d5dcb143b93ca22fe53c1"
+      }
+    }
+  },
+  {
+    "id": "color_feline_fungal",
+    "slotId": "colorScheme",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "palette/color_feline_fungal.webp",
+    "assetSha256": "abff6f16e9c9ae31f6b7b6d37d97bb4bd3cc74a10159a782c6eb93f34b25e577",
+    "pngPath": "palette/color_feline_fungal.png",
+    "pngSha256": "60a1b94153f1ff88710bc96700f7a3dadf2a0df6debc8310653a44fbf04ffe61",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "overlay",
+    "layer": "pattern",
+    "semanticTraitId": "pattern_feline_markings",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "color feline fungal",
+    "flavorText": "color feline fungal稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for color_feline_fungal",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "color_feline_fungal-node",
+          "assetPath": "palette/color_feline_fungal.webp",
+          "pngPath": "palette/color_feline_fungal.png",
+          "assetSha256": "abff6f16e9c9ae31f6b7b6d37d97bb4bd3cc74a10159a782c6eb93f34b25e577",
+          "pngSha256": "60a1b94153f1ff88710bc96700f7a3dadf2a0df6debc8310653a44fbf04ffe61",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "pattern",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "body"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    "rigMaskPaths": {
+      "feline-sit": {
+        "primary": "assets/v0.6.0/palette/masks/color_feline_fungal-primary.png",
+        "secondary": "assets/v0.6.0/palette/masks/color_feline_fungal-secondary.png",
+        "accent": "assets/v0.6.0/palette/masks/color_feline_fungal-accent.png"
+      }
+    },
+    "rigMaskSha256": {
+      "feline-sit": {
+        "primary": "3afbaaa17b07c3b874c0586927e1baf045f91c5e88bc08ea72d7aa8c00c5ade7",
+        "secondary": "921cd4d56ca95295dd0ceaa19f91b3f38855b3d51166ebb31570ce8f1ed9640f",
+        "accent": "ae9d7ac27356761873fba535a556ece4829cbd7dee9ef4333632d4938b49f4dd"
+      }
+    }
+  },
+  {
+    "id": "color_feline_shadow",
+    "slotId": "colorScheme",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "palette/color_feline_shadow.webp",
+    "assetSha256": "0026f5a33eadfd67393e0246a897b59115dee0330bac7349f4e2fd66236ea551",
+    "pngPath": "palette/color_feline_shadow.png",
+    "pngSha256": "5df6763d87483cb047541e37953ffd4b9bf67c03c68367022d3376a207b65ea4",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "overlay",
+    "layer": "pattern",
+    "semanticTraitId": "pattern_feline_markings",
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "color feline shadow",
+    "flavorText": "color feline shadow稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for color_feline_shadow",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": false,
+      "motifTags": [
+        "deep-sea",
+        "fungal",
+        "shadow"
+      ],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "color_feline_shadow-node",
+          "assetPath": "palette/color_feline_shadow.webp",
+          "pngPath": "palette/color_feline_shadow.png",
+          "assetSha256": "0026f5a33eadfd67393e0246a897b59115dee0330bac7349f4e2fd66236ea551",
+          "pngSha256": "5df6763d87483cb047541e37953ffd4b9bf67c03c68367022d3376a207b65ea4",
+          "parentSlot": "bodyFrame",
+          "socket": "overlay",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "pattern",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "body"
+        }
+      ],
+      "geometryByRig": {}
+    },
+    "rigMaskPaths": {
+      "feline-sit": {
+        "primary": "assets/v0.6.0/palette/masks/color_feline_shadow-primary.png",
+        "secondary": "assets/v0.6.0/palette/masks/color_feline_shadow-secondary.png",
+        "accent": "assets/v0.6.0/palette/masks/color_feline_shadow-accent.png"
+      }
+    },
+    "rigMaskSha256": {
+      "feline-sit": {
+        "primary": "838900e20476bbbd63d23c2387dadb513592519c25378d6107e47a17342a3ad7",
+        "secondary": "e8f798ee7f401c4d704f4125f4e04497f2bff465911b41498626fcf559df3788",
+        "accent": "fca3cf01c0dbff0034c5f09cfcf45438e5f3ae7a861290ba23855f7e69afe658"
+      }
+    }
+  },
+  {
+    "id": "effect_feline_none",
+    "slotId": "effect",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "face/effect_feline_none.webp",
+    "assetSha256": "b6debde7d81c5f871e4751570a9d3f625b4bc1f3cb04937e2cf6bc3feb84128f",
+    "pngPath": "face/effect_feline_none.png",
+    "pngSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": "effect",
+    "layer": "foregroundEffect",
+    "semanticTraitId": null,
+    "semanticPriority": 1,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "effect feline none",
+    "flavorText": "effect feline none稳稳贴合坐姿猫的完整轮廓。",
+    "description": "original feline-sit production layer for effect_feline_none",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": true,
+      "motifTags": [],
+      "visualIntensity": "quiet",
+      "renderNodes": [
+        {
+          "id": "effect_feline_none-node",
+          "assetPath": "face/effect_feline_none.webp",
+          "pngPath": "face/effect_feline_none.png",
+          "assetSha256": "b6debde7d81c5f871e4751570a9d3f625b4bc1f3cb04937e2cf6bc3feb84128f",
+          "pngSha256": "19d52f30fede600de172362807f7bed1d8645e1ad8d49873b4ee5f9d84ca7e93",
+          "parentSlot": "bodyFrame",
+          "socket": "effect",
+          "origin": {
+            "x": 1024,
+            "y": 1024
+          },
+          "transform": {
+            "scale": 1,
+            "mirrorX": false
+          },
+          "layer": "foregroundEffect",
+          "compatibleRigs": [
+            "feline-sit"
+          ],
+          "clipPolicy": "protect-face"
+        }
+      ],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "arms_feline_integrated",
+    "slotId": "arms",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": null,
+    "layer": "frontAppendage",
+    "semanticTraitId": null,
+    "semanticPriority": 0,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "arms feline integrated",
+    "flavorText": "四肢已经完整地长在猫的身体轮廓里。",
+    "description": "resource-empty integrated arms placeholder",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": true,
+      "motifTags": [],
+      "visualIntensity": "quiet",
+      "renderNodes": [],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "legs_feline_integrated",
+    "slotId": "legs",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": null,
+    "layer": "frontAppendage",
+    "semanticTraitId": null,
+    "semanticPriority": 0,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "legs feline integrated",
+    "flavorText": "四肢已经完整地长在猫的身体轮廓里。",
+    "description": "resource-empty integrated legs placeholder",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": true,
+      "motifTags": [],
+      "visualIntensity": "quiet",
+      "renderNodes": [],
+      "geometryByRig": {}
+    }
+  },
+  {
+    "id": "extra_feline_none",
+    "slotId": "extraAppendage",
+    "rarity": "N",
+    "baseWeight": 1,
+    "themeIds": [
+      "deep-sea",
+      "fungal",
+      "shadow"
+    ],
+    "themeWeights": {
+      "deep-sea": 1,
+      "fungal": 1,
+      "shadow": 1
+    },
+    "compatibleRigs": [
+      "feline-sit"
+    ],
+    "assetPath": "",
+    "maskPaths": {},
+    "origin": {
+      "x": 1024,
+      "y": 1024
+    },
+    "socket": null,
+    "layer": "frontAppendage",
+    "semanticTraitId": null,
+    "semanticPriority": 0,
+    "excludes": [],
+    "boosts": {},
+    "displayName": "extra feline none",
+    "flavorText": "四肢已经完整地长在猫的身体轮廓里。",
+    "description": "resource-empty integrated extraAppendage placeholder",
+    "archetypeIds": [
+      "feline"
+    ],
+    "featureTier": "base",
+    "composition": {
+      "mode": "attachment",
+      "isNone": true,
+      "motifTags": [],
+      "visualIntensity": "quiet",
+      "renderNodes": [],
+      "geometryByRig": {}
+    }
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "qmonster-v06-feline-release-review-v1",
+  "catalogVersion": "0.6.0",
+  "decision": "technical-validation-ready",
+  "visualReview": "All 22 built-in image_gen outputs inspected; transparent final source layers retained with deterministic alpha recovery.",
+  "sourceLayerCount": 22,
+  "rigIds": [
+    "feline-sit"
+  ],
+  "archetypeIds": [
+    "feline"
+  ],
+  "invalidCandidateCount": 1,
+  "promptCatalogPath": "asset-source/v0.6.0/prompts/feline-prompts.json",
+  "promptCatalogSha256": "91e51360643d90757829d3832904dd3b5da98b15ddec83cb934faaca712158d7"
+}

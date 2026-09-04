@@ -47,7 +47,7 @@ function sameJson(left: unknown, right: unknown): boolean {
 }
 
 function isInterfaceProductionVersion(version: string): boolean {
-  return version === '0.3.0' || version === '0.4.0' || version === '0.5.0'
+  return version === '0.3.0' || version === '0.4.0' || version === '0.5.0' || version === '0.6.0'
 }
 
 export function validateProductionHeadFaceSocketContract(
@@ -62,6 +62,11 @@ export function validateProductionHeadFaceSocketContract(
     for (const [rigId, variant] of Object.entries(part.composition.variantsByRig)) {
       if (variant === undefined) continue
       runtimeHeads.set(`${part.id}:${rigId}`, variant)
+      if (catalog.version === '0.6.0' && variant.faceSafeZones?.length !== 1) diagnostics.push(error(
+        'PRODUCTION_INTERFACE_FACE_SAFE_ZONE_COUNT_INVALID',
+        ['parts', part.id, rigId, 'faceSafeZones'],
+        'Every v0.6 feline head variant requires exactly one face-safe zone.',
+      ))
       const issue = headFaceSocketPolicyIssue(variant)
       if (issue !== null) diagnostics.push(error(
         'PRODUCTION_INTERFACE_FACE_SOCKET_INVALID',
@@ -182,6 +187,16 @@ export function validateProductionMetadata(catalog: Catalog): Diagnostic[] {
             ))
           }
         }
+      }
+    }
+    if (catalog.version === '0.6.0' && ['surfaceMaterial', 'pattern', 'colorScheme'].includes(part.slotId)) {
+      const nodes = isAttachmentPartComposition(part.composition) ? part.composition.renderNodes : []
+      for (const [nodeIndex, node] of nodes.entries()) {
+        if (node.clipPolicy !== 'body') diagnostics.push(error(
+          'PRODUCTION_FELINE_CLIP_POLICY_INVALID',
+          ['parts', part.slotId, String(index), 'composition', 'renderNodes', String(nodeIndex), 'clipPolicy'],
+          `v0.6 feline ${part.slotId} nodes must use body clipping.`,
+        ))
       }
     }
   }
@@ -457,6 +472,9 @@ interface ProductionSourceRecord {
   promptId?: string
   promptPath?: string
   promptSha256?: string
+  promptCatalogPath?: string
+  promptCatalogSha256?: string
+  selectedCandidate?: number
   sheetPath?: string | null
   sheetSha256?: string | null
   masterPath?: string
@@ -500,7 +518,22 @@ const CANONICAL_INTERFACE_REVIEW_PATHS = new Set([
   'packages/asset-catalog/review/v0.3.0/limb-review-record.json',
   'packages/asset-catalog/review/v0.3.0/tail-extra-review-record.json',
   'packages/asset-catalog/review/v0.5.0/long-tail-review-record.json',
+  'packages/asset-catalog/review/v0.6.0/review-record.json',
 ])
+
+function parseV06InterfaceSourceManifest(value: unknown): InterfaceSourceManifest | undefined {
+  if (value === null || typeof value !== 'object') return undefined
+  const record = value as Record<string, unknown>
+  if (
+    record.schemaVersion !== 'interface-source-v3'
+    || record.catalogVersion !== '0.6.0'
+    || record.canvasSize !== 2048
+    || !sameJson(record.rigIds, ['feline-sit'])
+    || !Array.isArray(record.assets)
+    || !Array.isArray(record.bridges)
+  ) return undefined
+  return value as InterfaceSourceManifest
+}
 
 function interfaceSourceEnvelope(
   source: ProductionSourceRecord | undefined,
@@ -830,7 +863,15 @@ export async function validateProductionInterfaceResources(
   try {
     repositoryRoot = resolve(canonicalAssetRoot, '..', '..', '..', '..')
     const manifestBytes = await readProductionValidationInput(repositoryRoot, manifestPath)
-    const parsed = parseInterfaceSourceManifest(JSON.parse(manifestBytes.toString('utf8')))
+    const rawManifest = JSON.parse(manifestBytes.toString('utf8')) as unknown
+    const parsed = catalog.version === '0.6.0'
+      ? (() => {
+          const value = parseV06InterfaceSourceManifest(rawManifest)
+          return value === undefined
+            ? { ok: false as const, diagnostics: [error('PRODUCTION_INTERFACE_MANIFEST_INVALID', ['manifest'], 'Invalid immutable v0.6 feline interface manifest.')] }
+            : { ok: true as const, value }
+        })()
+      : parseInterfaceSourceManifest(rawManifest)
     if (!parsed.ok) diagnostics.push(...parsed.diagnostics.map(item => ({ ...item, code: 'PRODUCTION_INTERFACE_MANIFEST_INVALID' })))
     else {
       sourceManifest = parsed.value
@@ -889,7 +930,7 @@ export async function validateProductionInterfaceResources(
   diagnostics.push(...validateProductionHeadFaceSocketContract(catalog, manifest))
   if (manifest !== undefined && sourceManifest !== undefined) {
     try {
-      validateInterfaceSourceIndex(sourceManifest, catalog.version === '0.4.0'
+      if (catalog.version !== '0.6.0') validateInterfaceSourceIndex(sourceManifest, catalog.version === '0.4.0'
         ? { ...sourceIndex, catalogVersion: sourceManifest.catalogVersion }
         : sourceIndex)
     } catch (caught) {
@@ -1096,6 +1137,28 @@ function runtimePathMatches(recorded: unknown, expected: string, version: string
   if (typeof recorded !== 'string') return false
   const normalized = recorded.replaceAll('\\', '/')
   return normalized === expected || normalized.endsWith(`/assets/v${version}/${expected}`)
+}
+
+function checkV06TransparentSourceEnvelope(
+  source: ProductionSourceRecord,
+  path: string[],
+  diagnostics: Diagnostic[],
+): void {
+  if (
+    source.kind !== 'generated-transparent-layer'
+    || !nonemptyText(source.promptId)
+    || source.promptCatalogPath !== 'asset-source/v0.6.0/prompts/feline-prompts.json'
+    || !isSha256(source.promptCatalogSha256)
+    || !Number.isInteger(source.selectedCandidate)
+    || Number(source.selectedCandidate) < 1
+    || !Array.isArray(source.sourceResources)
+    || source.sourceResources.length < 1
+    || source.sourceResources.some(resource => !nonemptyText(resource.path) || !isSha256(resource.sha256))
+  ) diagnostics.push(error(
+    'PRODUCTION_FELINE_SOURCE_INVALID',
+    path,
+    'v0.6 generated layers require immutable prompt-catalog, selected-candidate, source-file, and SHA-256 provenance.',
+  ))
 }
 
 async function decodeCommittedRgba(assetRoot: string, assetPath: string): Promise<{
@@ -1604,6 +1667,8 @@ export async function validateProductionSourceIndex(
       && source.kind === 'interface-structural'
     if (interfaceStructural) {
       interfaceSourceEnvelope(source, 'interface-structural', ['sources', part.id], diagnostics)
+    } else if (catalog.version === '0.6.0') {
+      checkV06TransparentSourceEnvelope(source, ['sources', part.id], diagnostics)
     } else {
       checkSourceAuditEnvelope(source, ['sources', part.id], diagnostics)
       checkSourceSelection(source, ['sources', part.id], diagnostics)
@@ -1632,7 +1697,7 @@ export async function validateProductionSourceIndex(
         if (node.pngPath !== undefined && node.pngSha256 !== undefined) assetChecks.push(validateAssetFile(assetRoot, node.pngPath, node.pngSha256, ['parts', part.id, 'composition', 'renderNodes', String(nodeIndex), 'pngPath'], { dimensions: 'trimmed-node' }))
       }
     }
-    if (!interfaceStructural) await checkColorMaskAudit(source, part, catalog, indexed, assetRoot, catalog.version, ['sources', part.id], diagnostics)
+    if (!interfaceStructural && catalog.version !== '0.6.0') await checkColorMaskAudit(source, part, catalog, indexed, assetRoot, catalog.version, ['sources', part.id], diagnostics)
     if (!resourceEmptyNone && (!runtimePathMatches(source.runtimeWebpPath, part.assetPath, catalog.version) || source.runtimeWebpSha256 !== part.assetSha256)) {
       diagnostics.push(error('PRODUCTION_SOURCE_RUNTIME_MISMATCH', ['sources', part.id, 'runtimeWebpPath'], `Source-index WebP metadata differs for ${part.id}.`))
     }

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "feline-sit",
+    "sourceId": "body_feline_sit_round",
+    "displayName": "正面居中坐姿猫",
+    "sockets": {
+      "head": {
+        "x": 1024,
+        "y": 720
+      },
+      "tail": {
+        "x": 1510,
+        "y": 1340
+      },
+      "eyes": {
+        "x": 1024,
+        "y": 760
+      },
+      "mouth": {
+        "x": 1024,
+        "y": 960
+      },
+      "oralDetail": {
+        "x": 1024,
+        "y": 1010
+      },
+      "headAppendage": {
+        "x": 1024,
+        "y": 420
+      },
+      "overlay": {
+        "x": 1024,
+        "y": 1120
+      },
+      "effect": {
+        "x": 1024,
+        "y": 1120
+      }
+    }
+  }
+]

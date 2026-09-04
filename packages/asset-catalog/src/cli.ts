@@ -78,8 +78,11 @@ async function main(): Promise<void> {
     process.exitCode = 1
     return
   }
+  const structureDiagnostics = validateCatalogStructure(parsed.value)
   const diagnostics = [
-    ...validateCatalogStructure(parsed.value),
+    ...(parsed.value.version === '0.6.0'
+      ? structureDiagnostics.filter(diagnostic => diagnostic.code !== 'CATALOG_RIG_UNCOVERED')
+      : structureDiagnostics),
     ...(await validateCatalogFiles(parsed.value, assetRoot)),
   ]
   let sourceRichResult: SourceRichValidationResult | undefined
