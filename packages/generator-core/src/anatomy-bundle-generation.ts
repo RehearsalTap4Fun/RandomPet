@@ -10,7 +10,12 @@ import type {
   MonsterSpec,
   StructuralSlotId,
 } from './contracts.js'
-import { isIndependentPartCatalog, RARITY_WEIGHTS, STRUCTURAL_SLOT_IDS } from './contracts.js'
+import {
+  isIndependentPartCatalog,
+  RARITY_WEIGHTS,
+  STRUCTURAL_SLOT_IDS,
+  VISUAL_SLOT_IDS,
+} from './contracts.js'
 
 export function selectAnatomyBundle(
   request: GenerationRequest,
@@ -18,12 +23,15 @@ export function selectAnatomyBundle(
 ): AnatomyBundleDefinition | null {
   const candidates = (catalog.anatomyBundles ?? []).filter(bundle => (
     bundle.archetypeId === request.archetypeId
-    && STRUCTURAL_SLOT_IDS.every((slotId: StructuralSlotId) => (
-      request.lockedSelections?.[slotId] === undefined
-      || (isIndependentPartCatalog(catalog)
-        ? bundle.partPools?.[slotId].includes(request.lockedSelections[slotId]!) === true
-        : bundle.derivedSlots[slotId] === request.lockedSelections[slotId])
-    ))
+    && (isIndependentPartCatalog(catalog)
+      ? VISUAL_SLOT_IDS.every(slotId => (
+        request.lockedSelections?.[slotId] === undefined
+        || bundle.partPools?.[slotId].includes(request.lockedSelections[slotId]!) === true
+      ))
+      : STRUCTURAL_SLOT_IDS.every((slotId: StructuralSlotId) => (
+        request.lockedSelections?.[slotId] === undefined
+        || bundle.derivedSlots[slotId] === request.lockedSelections[slotId]
+      )))
   ))
   if (candidates.length === 0) return null
   const availableRarities = (['N', 'R', 'L'] as const).filter(rarity => (

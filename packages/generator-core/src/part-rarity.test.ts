@@ -3,23 +3,28 @@ import {
   generateMonster,
   pickIndependentPartTier,
   validateAnatomyBundleSpec,
-  type Rarity,
+  VISUAL_SLOT_IDS,
 } from './index.js'
-import { createRng } from './prng.js'
 import { makeV07FelinePartLibraryFixture } from './test-fixtures.js'
 
 describe('independent part rarity', () => {
-  it('draws all independent tiers from the dedicated 8:4:1 weights', () => {
-    const seen = new Set<Rarity>()
-    for (let index = 0; index < 400; index += 1) {
-      seen.add(pickIndependentPartTier(createRng([`tier-${index}`])))
-    }
-    expect(seen).toEqual(new Set(['N', 'R', 'L']))
+  it('uses exact 8:4:1 tier boundaries', () => {
+    const rng = (value: number) => ({ nextFloat: () => value })
+
+    expect(pickIndependentPartTier(rng(0))).toBe('N')
+    expect(pickIndependentPartTier(rng((8 / 13) - Number.EPSILON))).toBe('N')
+    expect(pickIndependentPartTier(rng(8 / 13))).toBe('R')
+    expect(pickIndependentPartTier(rng((12 / 13) - Number.EPSILON))).toBe('R')
+    expect(pickIndependentPartTier(rng(12 / 13))).toBe('L')
   })
 
-  it('selects each v0.7 eye part independently and projects it into the P gene', () => {
+  it('selects all fourteen v0.7 slots independently and permits multiple high-rarity parts', () => {
     const catalog = makeV07FelinePartLibraryFixture()
-    const seen = new Set<string>()
+    const seen = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [slotId, new Set<string>()])) as Record<
+      typeof VISUAL_SLOT_IDS[number],
+      Set<string>
+    >
+    let hasMultipleHighRarityParts = false
     for (let index = 0; index < 400; index += 1) {
       const result = generateMonster({
         seed: `tier-${index}`,
@@ -28,11 +33,19 @@ describe('independent part rarity', () => {
         archetypeId: 'feline',
       }, catalog)
       expect(result.blocked).toBe(false)
-      seen.add(result.spec.visualSlots.eyes.partId)
-      expect(result.spec.genome!.genes.eyes.P).toBe(result.spec.visualSlots.eyes.partId)
+      const highRarityCount = VISUAL_SLOT_IDS.filter(slotId => {
+        const partId = result.spec.visualSlots[slotId].partId
+        seen[slotId].add(partId)
+        expect(result.spec.genome!.genes[slotId].P).toBe(partId)
+        return /_[rl]_/.test(partId)
+      }).length
+      hasMultipleHighRarityParts ||= highRarityCount >= 2
     }
-    expect([...seen].some(id => id.includes('_r_'))).toBe(true)
-    expect([...seen].some(id => id.includes('_l_'))).toBe(true)
+    for (const slotId of VISUAL_SLOT_IDS) {
+      expect([...seen[slotId]].some(id => id.includes('_r_')), slotId).toBe(true)
+      expect([...seen[slotId]].some(id => id.includes('_l_')), slotId).toBe(true)
+    }
+    expect(hasMultipleHighRarityParts).toBe(true)
   })
 
   it('keeps independently selected structural genes rather than applying derived slots', () => {

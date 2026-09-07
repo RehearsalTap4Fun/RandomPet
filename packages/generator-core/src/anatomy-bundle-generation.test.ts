@@ -12,6 +12,31 @@ import {
 } from './anatomy-bundle-generation.js'
 import { makeV07FelinePartLibraryFixture } from './test-fixtures.js'
 
+function makeTwoBundleV07Fixture() {
+  const catalog = makeV07FelinePartLibraryFixture()
+  const [firstBundle] = catalog.anatomyBundles
+  if (firstBundle === undefined) throw new Error('Expected v0.7 feline bundle')
+  const displacedEye = catalog.parts.find(part => part.id === firstBundle.partPools.eyes[0])
+  if (displacedEye === undefined) throw new Error('Expected v0.7 eye part')
+  const lockedEye = { ...structuredClone(displacedEye), id: 'eyes_n_second_bundle' }
+  catalog.parts.push(lockedEye)
+  const secondBundle = {
+    ...structuredClone(firstBundle),
+    id: 'feline-sit-alternate',
+    baseWeight: 1,
+    partPools: {
+      ...structuredClone(firstBundle.partPools),
+      eyes: [
+        ...firstBundle.partPools.eyes.filter(partId => partId !== displacedEye.id),
+        lockedEye.id,
+      ],
+    },
+  }
+  firstBundle.baseWeight = 1_000_000
+  catalog.anatomyBundles.push(secondBundle)
+  return { catalog, firstBundle, secondBundle, lockedEyeId: lockedEye.id }
+}
+
 function productionCatalog() {
   const parsed = parseCatalog(v06ProductionCatalogDocument)
   expect(parsed.ok).toBe(true)
@@ -20,6 +45,21 @@ function productionCatalog() {
 }
 
 describe('anatomy bundle generation', () => {
+  it('uses every locked v0.7 visual slot to select the bundle that owns it', () => {
+    const { catalog, firstBundle, secondBundle, lockedEyeId } = makeTwoBundleV07Fixture()
+
+    const bundle = selectAnatomyBundle({
+      seed: 'v07-local-lock-bundle',
+      themeId: 'fungal',
+      mode: 'normal',
+      archetypeId: 'feline',
+      lockedSelections: { eyes: lockedEyeId },
+    }, catalog)
+
+    expect(bundle?.id).toBe(secondBundle.id)
+    expect(bundle?.id).not.toBe(firstBundle.id)
+  })
+
   it('selects one v0.7 bundle while retaining independently selected structural parts', () => {
     const catalog = makeV07FelinePartLibraryFixture()
     const generated = generateMonster({

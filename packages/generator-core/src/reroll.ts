@@ -14,7 +14,7 @@ import {
   type GenomeLayer,
   type GenerationMode,
 } from './contracts.js'
-import { generateMonster, generateVisualLayer, generationOrderForCatalog, resolveSlot } from './generate.js'
+import { generateVisualLayer, generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
   Catalog,
   Diagnostic,
@@ -480,15 +480,42 @@ function rerollGenomeBodyFrame(request: RerollSlotRequest): GenerationResult {
 
   if (isIndependentPartCatalog(request.catalog)) {
     const slotRolls = { ...request.spec.slotRolls, bodyFrame: request.spec.slotRolls.bodyFrame + 1 }
-    const generated = generateMonster({
-      seed: request.spec.seed,
-      themeId: request.spec.themeId,
-      mode: modeForSpec(request.spec),
-      ...(request.spec.archetypeId === undefined ? {} : { archetypeId: request.spec.archetypeId }),
+    const spec = cloneSpec(request.spec)
+    const diagnostics: Diagnostic[] = []
+    const bundle = request.catalog.anatomyBundles.find(item => item.id === spec.anatomyBundleId)
+    if (bundle === undefined) {
+      diagnostics.push({
+        severity: 'error',
+        code: 'ANATOMY_BUNDLE_UNAVAILABLE',
+        path: ['anatomyBundleId'],
+        message: 'The selected independent anatomy bundle is unavailable.',
+      })
+      return rollbackReroll(request, slotRolls.bodyFrame, diagnostics, ['bodyFrame'])
+    }
+    const selection = selectIndependentPoolPart({
+      seed: spec.seed,
+      themeId: spec.themeId,
+      ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
       slotRolls,
-      lockedSelections: lockedSelectionsForFullRebuild(request),
-    }, request.catalog)
-    return result(generated.spec, generated.diagnostics, [...generationOrderForCatalog(request.catalog)])
+    }, request.catalog, bundle, 'bodyFrame', spec.visualSlots, diagnostics)
+    if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+      return rollbackReroll(request, slotRolls.bodyFrame, diagnostics, ['bodyFrame'])
+    }
+    spec.slotRolls = slotRolls
+    spec.visualSlots.bodyFrame = selection
+    spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
+    spec.genome = syncDominantGenes(spec.genome!, spec.visualSlots, ['bodyFrame'])
+    diagnostics.push(...validateCompositionSelections(
+      spec,
+      request.catalog,
+      planComposition(spec.seed, spec.themeId, spec.visualSlots.bodyFrame.rigId, request.catalog),
+    ))
+    diagnostics.push(...validateStructuralSelections(spec, request.catalog))
+    diagnostics.push(...validateMonsterGenome(spec, request.catalog))
+    if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+      return rollbackReroll(request, slotRolls.bodyFrame, diagnostics, ['bodyFrame'])
+    }
+    return result(spec, diagnostics, ['bodyFrame'])
   }
 
   const slotRolls = { ...request.spec.slotRolls }
@@ -689,7 +716,7 @@ export function rerollSlot(request: RerollSlotRequest): GenerationResult {
   if (generated.blocked) return withRevalidatedDiagnosticScopes(generated, {})
   return withRevalidatedDiagnosticScopes(
     generated,
-    request.slotId === 'bodyFrame'
+    request.slotId === 'bodyFrame' && !isIndependentPartCatalog(request.catalog)
       ? fullGenomeScopes(request.catalog)
       : ordinaryRerollScopes(generated.affectedSlots),
   )
