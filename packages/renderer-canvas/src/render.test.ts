@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import {
+  generateMonster,
+  parseCatalog,
   VISUAL_SLOT_IDS,
   type Catalog,
   type MonsterSpec,
@@ -17,6 +19,7 @@ import { resolvePartPlacement, resolvePlacement } from './layout.js'
 import { expandRenderLayers, RENDER_LAYER_ORDER } from './layers.js'
 import { faceMetricOcclusionTargets, faceMetricThresholds, interfaceRenderCacheSize, renderMonster } from './render.js'
 import type { ImageResolver, RenderOptions } from './types.js'
+import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 interface FakeImage {
   id: string
@@ -434,6 +437,41 @@ const options1024: RenderOptions = {
   height: 1024,
   includeGroundShadow: true,
 }
+
+const parsedV06Catalog = parseCatalog(v06ProductionCatalogDocument)
+if (!parsedV06Catalog.ok) throw new Error('Production v0.6.0 catalog is invalid.')
+const v06Catalog: Catalog = parsedV06Catalog.value
+
+function makeV06Spec(): MonsterSpec {
+  const generated = generateMonster({
+    seed: 's11', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+  }, v06Catalog)
+  if (generated.blocked) throw new Error('Unable to build a v0.6 bundle fixture.')
+  return generated.spec
+}
+
+describe('v0.6 feline anatomy-bundle rendering', () => {
+  it('draws one bundle resource with its alpha and clip masks, without connector metrics', async () => {
+    const spec = makeV06Spec()
+    const bundle = v06Catalog.anatomyBundles!.find(item => item.id === spec.anatomyBundleId)!
+    const paths: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, v06Catalog, {
+        async resolve(path) { paths.push(path); return image(path) },
+      }, {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'healthy', 'valid'),
+      },
+    )
+
+    expect(paths).toEqual([
+      bundle.structural.assetPath, bundle.alpha.assetPath, bundle.clip.assetPath,
+    ])
+    expect(result.drawnAssetIds).toEqual([bundle.id])
+    expect(result.connectorMetrics).toEqual([])
+  })
+})
 
 describe('interface face metric occlusion policy', () => {
   it('treats direct oral detail as part of the eye-occluding mouth cluster, not as mouth occlusion', () => {

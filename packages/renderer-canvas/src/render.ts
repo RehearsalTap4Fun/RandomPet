@@ -1,5 +1,5 @@
 // TASK8_STABLE_BEGIN:renderer-structural-slot-helper-import
-import { isStructuralSlot } from '@qmonster/generator-core'
+import { isAttachmentPartComposition, isStructuralSlot } from '@qmonster/generator-core'
 // TASK8_STABLE_END:renderer-structural-slot-helper-import
 import {
   validateMonsterSpecAgainstCatalog,
@@ -9,6 +9,7 @@ import {
   type Palette,
 } from '@qmonster/generator-core'
 import { resolveAttachmentTree } from './attachment-tree.js'
+import { resolveAnatomyBundleRenderPlan } from './anatomy-bundle.js'
 import { buildBridgeMesh, type BridgeMesh } from './bridge-mesh.js'
 import {
   connectorMetricMeetsThresholds,
@@ -1842,6 +1843,269 @@ async function renderInterfaceMonster(
   // TASK8_STABLE_END:renderer-diagnostic-return
 }
 
+function anatomyBundleAssetLoadDiagnostic(assetPath: string): Diagnostic {
+  return {
+    severity: 'error',
+    code: 'ASSET_LOAD_FAILED',
+    path: ['anatomyBundle'],
+    message: `Failed to load anatomy bundle resource ${assetPath}.`,
+  }
+}
+
+function anatomyBundleRenderPlanDiagnostic(): Diagnostic {
+  return {
+    severity: 'error',
+    code: 'ANATOMY_BUNDLE_RENDER_PLAN_INVALID',
+    path: ['anatomyBundleId'],
+    message: 'The selected anatomy bundle does not provide its structural render node.',
+  }
+}
+
+function anatomyNodePlacement(
+  node: ResolvedRenderNode['node'],
+  slotId: ResolvedRenderNode['slotId'],
+  bundle: ReturnType<typeof resolveAnatomyBundleRenderPlan> extends infer Plan
+    ? Plan extends { bundle: infer Bundle } ? Bundle : never
+    : never,
+): Placement {
+  const localSocket = node.parentSlot === null
+    ? { x: 1024, y: 1024 }
+    : bundle.featureSockets[node.socket ?? slotId] ?? { x: 1024, y: 1024 }
+  const scaleX = node.transform.mirrorX ? -node.transform.scale : node.transform.scale
+  return {
+    x: localSocket.x - node.origin.x * scaleX,
+    y: localSocket.y - node.origin.y * node.transform.scale,
+    scaleX,
+    scaleY: node.transform.scale,
+  }
+}
+
+function anatomyBundleNodes(
+  spec: MonsterSpec,
+  catalog: Catalog,
+  plan: NonNullable<ReturnType<typeof resolveAnatomyBundleRenderPlan>>,
+): ResolvedRenderNode[] {
+  const nodes: ResolvedRenderNode[] = []
+  let sequence = 0
+  for (const slotId of Object.keys(spec.visualSlots) as ResolvedRenderNode['slotId'][]) {
+    if (isStructuralSlot(slotId)) continue
+    const selection = spec.visualSlots[slotId]
+    const part = catalog.parts.find(candidate => (
+      candidate.slotId === slotId && candidate.id === selection.partId
+    ))
+    const composition = part?.composition
+    if (part === undefined || !isAttachmentPartComposition(composition) || composition.isNone) continue
+    for (const node of composition.renderNodes) {
+      if (!node.compatibleRigs.includes(selection.rigId)) continue
+      nodes.push({
+        key: node.id,
+        slotId,
+        part,
+        node,
+        placement: anatomyNodePlacement(node, slotId, plan.bundle),
+        sequence,
+      })
+      sequence += 1
+    }
+  }
+  return nodes.sort((left, right) => (
+    compositionLayerRank.get(left.node.layer)! - compositionLayerRank.get(right.node.layer)!
+      || left.sequence - right.sequence
+  ))
+}
+
+function anatomyNodeClip(
+  node: ResolvedRenderNode,
+  plan: NonNullable<ReturnType<typeof resolveAnatomyBundleRenderPlan>>,
+): 'surface' | { x: number; y: number; width: number; height: number } | null {
+  if (['surfaceMaterial', 'pattern', 'colorScheme'].includes(node.slotId)) return 'surface'
+  const anchor = plan.bundle.mutationAnchors[node.node.socket ?? '']
+  if (anchor !== undefined) return anchor
+  if (['eyes', 'mouthShape', 'oralDetail', 'headAppendage'].includes(node.slotId)) {
+    return plan.bundle.faceSafeZone
+  }
+  return null
+}
+
+function clipAnatomyNode(
+  surface: RenderSurface,
+  clip: ReturnType<typeof anatomyNodeClip>,
+  localClipMask: RenderSurface,
+): void {
+  if (clip === null) return
+  withSavedContext(surface.context, () => {
+    surface.context.globalCompositeOperation = 'destination-in'
+    if (clip === 'surface') surface.context.drawImage(localClipMask.canvas, 0, 0)
+    else surface.context.fillRect(clip.x, clip.y, clip.width, clip.height)
+  })
+}
+
+async function renderAnatomyBundleMonster(
+  context: CanvasRenderingContext2D,
+  spec: MonsterSpec,
+  catalog: Catalog,
+  resolver: ImageResolver,
+  options: RenderOptions,
+): Promise<RenderResult> {
+  const plan = resolveAnatomyBundleRenderPlan(spec, catalog)
+  if (plan === null) {
+    return {
+      drawnAssetIds: [], diagnostics: [anatomyBundleRenderPlanDiagnostic()],
+      compositionMetrics: null, connectorMetrics: [],
+    }
+  }
+  const surfaces = createInterfaceSurfaces(context, options.surfaceFactory ?? browserSurfaceFactory)
+  if (surfaces === null) {
+    return {
+      drawnAssetIds: [], diagnostics: [compositionSurfaceUnavailableDiagnostic()],
+      compositionMetrics: null, connectorMetrics: [],
+    }
+  }
+  const diagnostics: Diagnostic[] = []
+  const sources = new Map<string, CanvasImageSource>()
+  const load = async (assetPath: string): Promise<CanvasImageSource | null> => {
+    const cached = sources.get(assetPath)
+    if (cached !== undefined) return cached
+    try {
+      const source = await resolver.resolve(assetPath)
+      sources.set(assetPath, source)
+      return source
+    } catch {
+      diagnostics.push(anatomyBundleAssetLoadDiagnostic(assetPath))
+      return null
+    }
+  }
+  const [structural, structuralAlpha, localClip] = await Promise.all([
+    load(plan.bundle.structural.assetPath),
+    load(plan.bundle.alpha.assetPath),
+    load(plan.localClipMask.assetPath),
+  ])
+  if (structural === null || structuralAlpha === null || localClip === null) {
+    return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
+  }
+
+  const nodes = anatomyBundleNodes(spec, catalog, plan)
+  const nodeSources = new Map<string, CanvasImageSource>()
+  for (const node of nodes) {
+    const source = await load(node.node.assetPath)
+    if (source !== null) nodeSources.set(node.key, source)
+  }
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
+  }
+
+  for (const surface of [
+    surfaces.nodeLayer, surfaces.childAlpha, surfaces.structureAlpha, surfaces.finalOutput,
+    surfaces.eyesAlpha, surfaces.mouthAlpha, surfaces.outputAlpha,
+    surfaces.eyesOccluderAlpha, surfaces.mouthOccluderAlpha,
+    surfaces.oralDetailAlpha, surfaces.oralDetailOccluderAlpha,
+  ]) clearSurface(surface)
+  surfaces.structureAlpha.context.drawImage(structuralAlpha, 0, 0)
+  surfaces.childAlpha.context.drawImage(localClip, 0, 0)
+  surfaces.finalOutput.context.drawImage(structural, 0, 0)
+  drawMetricAlpha(surfaces.outputAlpha, surfaces.structureAlpha)
+
+  const seenFaceSlots = new Set<ResolvedRenderNode['slotId']>()
+  let eyesStarted = false
+  let mouthStarted = false
+  let oralDetailStarted = false
+  for (const node of nodes) {
+    const source = nodeSources.get(node.key)
+    if (source === undefined) continue
+    clearSurface(surfaces.nodeLayer)
+    drawPlacedSource(surfaces.nodeLayer.context, node, source)
+    clipAnatomyNode(surfaces.nodeLayer, anatomyNodeClip(node, plan), surfaces.childAlpha)
+    surfaces.finalOutput.context.drawImage(surfaces.nodeLayer.canvas, 0, 0)
+    drawMetricAlpha(surfaces.outputAlpha, surfaces.nodeLayer)
+    if (node.slotId === 'eyes') {
+      drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+      drawMetricAlpha(surfaces.eyesAlpha, surfaces.nodeLayer)
+      eyesStarted = true
+      seenFaceSlots.add(node.slotId)
+    } else if (eyesStarted) drawMetricAlpha(surfaces.eyesOccluderAlpha, surfaces.nodeLayer)
+    if (node.slotId === 'mouthShape') {
+      drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+      drawMetricAlpha(surfaces.mouthAlpha, surfaces.nodeLayer)
+      mouthStarted = true
+      seenFaceSlots.add(node.slotId)
+    } else if (mouthStarted) drawMetricAlpha(surfaces.mouthOccluderAlpha, surfaces.nodeLayer)
+    if (node.slotId === 'oralDetail') {
+      drawMetricAlpha(surfaces.oralDetailOccluderAlpha, surfaces.nodeLayer, 'destination-out')
+      drawMetricAlpha(surfaces.oralDetailAlpha, surfaces.nodeLayer)
+      oralDetailStarted = true
+      seenFaceSlots.add(node.slotId)
+    } else if (oralDetailStarted) drawMetricAlpha(surfaces.oralDetailOccluderAlpha, surfaces.nodeLayer)
+  }
+
+  let compositionMetrics: CompositionMetrics | null = null
+  try {
+    const metricFaceSafeZones = scaleFaceSafeZones(plan.faceSafeZones)
+    const eyes = measureFeatureAlpha(
+      imageData(surfaces.eyesAlpha, METRIC_SIZE), imageData(surfaces.eyesOccluderAlpha, METRIC_SIZE),
+      METRIC_SIZE, METRIC_SIZE, metricFaceSafeZones,
+    )
+    const mouth = measureFeatureAlpha(
+      imageData(surfaces.mouthAlpha, METRIC_SIZE), imageData(surfaces.mouthOccluderAlpha, METRIC_SIZE),
+      METRIC_SIZE, METRIC_SIZE, metricFaceSafeZones,
+    )
+    const oralDetail = seenFaceSlots.has('oralDetail')
+      ? measureFeatureAlpha(
+        imageData(surfaces.oralDetailAlpha, METRIC_SIZE),
+        imageData(surfaces.oralDetailOccluderAlpha, METRIC_SIZE),
+        METRIC_SIZE, METRIC_SIZE, metricFaceSafeZones,
+      )
+      : null
+    const visibleBounds = scaleMetricBounds(measureVisibleBounds(
+      imageData(surfaces.outputAlpha, METRIC_SIZE), METRIC_SIZE, METRIC_SIZE,
+    ))
+    compositionMetrics = {
+      eyesInsideRatio: seenFaceSlots.has('eyes') ? eyes.insideRatio : 1,
+      eyesVisibleRatio: seenFaceSlots.has('eyes') ? eyes.visibleRatio : 1,
+      mouthInsideRatio: seenFaceSlots.has('mouthShape') ? mouth.insideRatio : 1,
+      mouthVisibleRatio: seenFaceSlots.has('mouthShape') ? mouth.visibleRatio : 1,
+      oralDetailInsideRatio: oralDetail?.insideRatio ?? null,
+      oralDetailVisibleRatio: oralDetail?.visibleRatio ?? null,
+      visibleBounds,
+    }
+    const policy = catalog.compositionPolicy
+    if (policy !== undefined) {
+      const metrics: Array<readonly ['eyes' | 'mouthShape' | 'oralDetail', typeof eyes]> = []
+      if (seenFaceSlots.has('eyes')) metrics.push(['eyes', eyes])
+      if (seenFaceSlots.has('mouthShape')) metrics.push(['mouthShape', mouth])
+      if (oralDetail !== null) metrics.push(['oralDetail', oralDetail])
+      for (const [slotId, metric] of metrics) {
+        const thresholds = faceMetricThresholds(policy, slotId)!
+        if (metric.insideRatio < thresholds.inside) diagnostics.push(metricDiagnostic(
+          'COMPOSITION_FACE_OUT_OF_ZONE', slotId, metric.insideRatio, thresholds.inside,
+        ))
+        if (metric.visibleRatio < thresholds.visible) diagnostics.push(metricDiagnostic(
+          'COMPOSITION_FACE_OCCLUDED', slotId, metric.visibleRatio, thresholds.visible,
+        ))
+      }
+      if (visibleBounds !== null && !boundsInsideFrame(visibleBounds, policy.frameBounds)) {
+        diagnostics.push(boundsExceededDiagnostic())
+      }
+    }
+  } catch {
+    diagnostics.push(anatomyBundleAssetLoadDiagnostic('anatomy-bundle-metrics'))
+  }
+  try {
+    withSavedContext(context, () => {
+      context.scale(options.width / MASTER_SIZE, options.height / MASTER_SIZE)
+      context.drawImage(surfaces.finalOutput.canvas, 0, 0)
+    })
+  } catch {
+    diagnostics.push(anatomyBundleAssetLoadDiagnostic('anatomy-bundle-output'))
+    return { drawnAssetIds: [], diagnostics, compositionMetrics: null, connectorMetrics: [] }
+  }
+  return {
+    drawnAssetIds: [plan.bundle.id, ...nodes.map(node => node.key)],
+    diagnostics,
+    compositionMetrics,
+    connectorMetrics: [],
+  }
+}
+
 // TASK8_STABLE_BEGIN:renderer-versioned-interface-pair-helper
 function isInterfaceRenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
   return (catalog.version === '0.3.0' && spec.rendererVersion === '0.3.0')
@@ -1881,6 +2145,9 @@ export async function renderMonster(
     }
   }
   // TASK8_STABLE_END:renderer-diagnostic-scope-validation
+  if (resolveAnatomyBundleRenderPlan(spec, catalog) !== null) {
+    return renderAnatomyBundleMonster(context, spec, catalog, resolver, options)
+  }
   const validationDiagnostics = validateMonsterSpecAgainstCatalog(spec, catalog)
   if (validationDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return {
