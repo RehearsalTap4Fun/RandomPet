@@ -2,7 +2,7 @@
 
 ## Goal
 
-Add a standalone, local web report that shows the currently installed feline catalog by rarity, including the number of selectable types in every visual category and the actual silhouette of every whole-appearance bundle. The report must derive its content from the catalog and packaged assets so that later catalog extensions appear after the development server updates and the page is refreshed.
+Add a standalone, local web report that shows the currently installed feline catalog by rarity, including the number of selectable types in every visual category and the actual silhouette of every whole-appearance bundle. The report must derive its content from the catalog and packaged assets so that later animal-archetype extensions appear as separate report views after the development server updates and the page is refreshed.
 
 ## Scope
 
@@ -12,6 +12,7 @@ Add a standalone, local web report that shows the currently installed feline cat
 - Render each anatomy bundle with its packaged `structural.png` through the existing production asset resolver, plus pose, whole-appearance rarity, and the resolved display names of its body, head, limbs, tail, and local feature pools.
 - Show category-by-rarity tables for whole appearances, local visual slots, and mutations. The report must state when a category presently has no `R` or `L` entries rather than implying those tiers exist.
 - Include an accessible N/R/L filter, an "all" state, a catalog-version label, current tier weights, and empty/asset-unavailable fallbacks.
+- Derive one report view per `anatomyBundle.archetypeId`; default to the `feline` view when it exists. A later `canine` or `rabbit` bundle must appear in its own selectable view and must never be counted in the feline totals.
 
 ## Current Catalog Baseline
 
@@ -24,13 +25,13 @@ The report will compute, rather than hardcode, the following current values:
 
 ## Architecture
 
-`catalog-report.html` loads a small React entry that imports the validated production catalog. A pure report-model module groups definitions and resolves the human-readable values used by the view. A report component renders the counters, filter, category table, and bundle gallery. It receives the existing `resolveProductionAssetUrl` function as an image-url dependency so report visuals use the identical Vite asset graph as the creator preview.
+`catalog-report.html` loads a small React entry that imports the validated production catalog. A pure report-model module groups bundles by `archetypeId`, then resolves only that group's structural and local part references into human-readable values. A report component renders the archetype selector, counters, filter, category table, and bundle gallery. It receives the existing `resolveProductionAssetUrl` function as an image-url dependency so report visuals use the identical Vite asset graph as the creator preview.
 
 The report is intentionally a separate Vite entry instead of a workbench tab or router. This keeps it refreshable, bookmarkable, and independent from editing state. Vite observes imported catalog JSON and asset files in development; refreshing after a catalog update shows the rebuilt model. For a built distribution, the normal `npm run build` step packages the updated data and assets before the refreshed page is served.
 
 ## User Experience
 
-The first viewport is a working reference surface: catalog version and tier odds, then three rarity counters. The category table immediately answers "which part has how many types at each tier?" A tier selector filters the gallery without discarding the table context. Each visual card shows the real bundled cat silhouette on a neutral checkerboard, tier badge, generated/fallback display label, pose, structural component labels, and the available local feature labels. Copy must distinguish whole-appearance rarity from local trait rarity.
+The first viewport is a working reference surface: catalog version, animal selector, tier odds, then three rarity counters. The category table immediately answers "which part has how many types at each tier?" for the selected animal. A tier selector filters the gallery without discarding the table context. Each visual card shows the selected animal's real bundled silhouette on a neutral checkerboard, tier badge, generated/fallback display label, pose, structural component labels, and the available local feature labels. Copy must distinguish whole-appearance rarity from local trait rarity. Mutations without an archetype restriction are explicitly labelled as catalog-wide rather than presented as feline-only.
 
 The report uses the established tactile laboratory tokens and rounded cards, but has its own scrollable document layout so it remains readable at narrow widths and does not inherit the fixed, full-screen workbench behavior.
 
