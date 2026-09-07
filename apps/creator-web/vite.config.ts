@@ -9,6 +9,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
+        catalogReport: resolve(import.meta.dirname, 'catalog-report.html'),
         synthetic: resolve(import.meta.dirname, 'render-test.html'),
         production: resolve(import.meta.dirname, 'production-render-test.html'),
       },

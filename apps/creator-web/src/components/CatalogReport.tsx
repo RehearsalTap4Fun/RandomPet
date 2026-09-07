@@ -7,7 +7,7 @@ import {
   type CatalogReportModel,
   type ReportBundle,
 } from '../catalog-report.js'
-import { resolveProductionAssetUrl } from './PreviewCanvas.js'
+import { resolveCatalogReportAssetUrl } from '../catalog-report-assets.js'
 
 type RarityFilter = 'all' | Rarity
 type AssetUrlResolver = (catalogVersion: string, assetPath: string) => Promise<string>
@@ -24,7 +24,7 @@ const FILTER_LABEL: Record<RarityFilter, string> = {
   L: '传说 L',
 }
 
-export function CatalogReport({ model, resolveAssetUrl = resolveProductionAssetUrl }: CatalogReportProps) {
+export function CatalogReport({ model, resolveAssetUrl = resolveCatalogReportAssetUrl }: CatalogReportProps) {
   const [selectedArchetypeId, setSelectedArchetypeId] = useState<AnimalArchetypeId | null>(model.defaultArchetypeId)
   const [rarityFilter, setRarityFilter] = useState<RarityFilter>('all')
   const selectedArchetype = useMemo(() => (
