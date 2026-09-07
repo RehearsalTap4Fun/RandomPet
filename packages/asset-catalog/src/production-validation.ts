@@ -1149,6 +1149,7 @@ function checkV06TransparentSourceEnvelope(
   if (
     source.kind !== 'generated-transparent-layer'
     || !nonemptyText(source.promptId)
+    || typeof source.promptCatalogPath !== 'string'
     || !['asset-source/v0.6.0/prompts/feline-prompts.json', 'asset-source/v0.6.0/anatomy-bundles/manifest.json'].includes(source.promptCatalogPath)
     || !isSha256(source.promptCatalogSha256)
     || !Number.isInteger(source.selectedCandidate)

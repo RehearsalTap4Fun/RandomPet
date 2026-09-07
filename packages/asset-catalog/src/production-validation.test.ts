@@ -126,6 +126,29 @@ describe('strict production catalog validation', () => {
     )).resolves.toEqual([])
   }, 120_000)
 
+  it('rejects a v0.6 generated layer with a missing prompt catalog path', async () => {
+    const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.6.0', 'catalog.json')
+    const parsed = await loadCatalog(catalogPath)
+    if (!parsed.ok) throw new Error(JSON.stringify(parsed.diagnostics))
+    const sourceIndex = structuredClone(JSON.parse(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'source-index-v0.6.0.json'),
+      'utf8',
+    ))) as Record<string, any>
+    const generatedLayer = sourceIndex.sources.find((source: Record<string, unknown>) => (
+      source.kind === 'generated-transparent-layer'
+    )) as Record<string, unknown> | undefined
+    if (!generatedLayer) throw new Error('Expected a v0.6 generated-transparent-layer source.')
+    delete generatedLayer.promptCatalogPath
+
+    await expect(validateProductionSourceIndex(
+      parsed.value,
+      join(process.cwd(), 'packages', 'asset-catalog', 'assets', 'v0.6.0'),
+      sourceIndex,
+    )).resolves.toContainEqual(expect.objectContaining({
+      code: 'PRODUCTION_FELINE_SOURCE_INVALID',
+    }))
+  }, 120_000)
+
   it('rejects a v0.6 anatomy bundle whose declared alpha WebP hash is not committed', async () => {
     const catalogPath = join(process.cwd(), 'packages', 'asset-catalog', 'catalog', 'v0.6.0', 'catalog.json')
     const parsed = await loadCatalog(catalogPath)
