@@ -123,21 +123,64 @@ describe('generateMonster', () => {
     expect(generated.diagnostics).toContainEqual(expect.objectContaining({ code: 'ARCHETYPE_UNSUPPORTED' }))
   })
 
-  it('does not let a structural generation lock replace the selected anatomy bundle', () => {
+  it('returns a blocked result instead of throwing when no feline anatomy bundle is available', () => {
+    const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+    const catalog = structuredClone(parsedCatalog.value)
+    catalog.anatomyBundles = []
+
+    expect(() => generateMonster({
+      seed: 'feline-no-bundle', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)).not.toThrow()
+
+    const generated = generateMonster({
+      seed: 'feline-no-bundle', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(generated.blocked).toBe(true)
+    expect(generated.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'ANATOMY_BUNDLE_UNAVAILABLE', path: ['anatomyBundleId'],
+    }))
+  })
+
+  it('selects the bundle that owns a locked structural part during global generation', () => {
     const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
     expect(parsedCatalog.ok).toBe(true)
     if (!parsedCatalog.ok) return
     const catalog = parsedCatalog.value
+    const lockedBundle = catalog.anatomyBundles!.find(bundle => bundle.id === 'feline-sit-saffron-longtail')!
 
     const generated = generateMonster({
-      seed: 'feline-locked-normal-special', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
-      lockedSelections: { tail: 'tail_feline_bundle_feline_sit_saffron_longtail' },
+      seed: 'remediation-0', themeId: 'shadow', mode: 'normal', archetypeId: 'feline',
+      lockedSelections: { tail: lockedBundle.derivedSlots.tail },
     }, catalog)
 
     expect(generated.blocked).toBe(false)
-    expect(generated.spec.visualSlots.tail.partId).toBe(
-      catalog.anatomyBundles!.find(bundle => bundle.id === generated.spec.anatomyBundleId)!.derivedSlots.tail,
-    )
+    expect(generated.spec.anatomyBundleId).toBe(lockedBundle.id)
+    expect(generated.spec.visualSlots.tail.partId).toBe(lockedBundle.derivedSlots.tail)
+  })
+
+  it('blocks contradictory structural locks instead of selecting a different anatomy bundle', () => {
+    const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+    const catalog = parsedCatalog.value
+    const saffron = catalog.anatomyBundles!.find(bundle => bundle.id === 'feline-sit-saffron-longtail')!
+    const silver = catalog.anatomyBundles!.find(bundle => bundle.id === 'feline-sit-silver-curl')!
+
+    const generated = generateMonster({
+      seed: 'remediation-0', themeId: 'shadow', mode: 'normal', archetypeId: 'feline',
+      lockedSelections: {
+        bodyFrame: silver.derivedSlots.bodyFrame,
+        tail: saffron.derivedSlots.tail,
+      },
+    }, catalog)
+
+    expect(generated.blocked).toBe(true)
+    expect(generated.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'ANATOMY_BUNDLE_UNAVAILABLE', path: ['anatomyBundleId'],
+    }))
   })
 
   it('blocks a local generation lock that is outside the selected anatomy bundle pool', () => {

@@ -39,6 +39,33 @@ describe('catalog validation', () => {
     expect(parsed.value.modifiers).toHaveLength(4)
   })
 
+  it('rejects a v0.6 bundle that omits a required local trait pool', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    const catalog = structuredClone(parsed.value)
+    delete (catalog.anatomyBundles![0]!.allowedTraitPools as Partial<Record<string, string[]>>).eyes
+
+    expect(parseCatalog(catalog).ok).toBe(false)
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_ANATOMY_BUNDLE_TRAIT_POOL_REQUIRED',
+      path: ['anatomyBundles', '0', 'allowedTraitPools', 'eyes'],
+    }))
+  })
+
+  it('rejects an empty v0.6 local trait pool before it can select a foreign part', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    const catalog = structuredClone(parsed.value)
+    ;(catalog.anatomyBundles![0]!.allowedTraitPools as Partial<Record<string, string[]>>).eyes = []
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_ANATOMY_BUNDLE_TRAIT_POOL_REQUIRED',
+      path: ['anatomyBundles', '0', 'allowedTraitPools', 'eyes'],
+    }))
+  })
+
   it('rejects v0.6 modifiers that can require or create structural stacking', () => {
     const parsed = parseCatalog(v06ProductionCatalogDocument)
     expect(parsed.ok).toBe(true)

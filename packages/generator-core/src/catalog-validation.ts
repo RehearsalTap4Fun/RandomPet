@@ -1,5 +1,6 @@
 import {
   COMPOSITION_PARENT_BY_SLOT,
+  LOCAL_VISUAL_SLOT_IDS,
   SEMANTIC_SLOT_IDS,
   STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
@@ -246,7 +247,16 @@ function validateAnatomyBundles(catalog: Catalog, diagnostics: Diagnostic[]): vo
         ))
       }
     }
-    for (const [slotId, partIds] of Object.entries(bundle.allowedTraitPools) as [VisualSlotId, string[]][]) {
+    for (const slotId of LOCAL_VISUAL_SLOT_IDS) {
+      const partIds = bundle.allowedTraitPools[slotId]
+      if (partIds === undefined || partIds.length === 0) {
+        diagnostics.push(error(
+          'CATALOG_ANATOMY_BUNDLE_TRAIT_POOL_REQUIRED',
+          path.concat('allowedTraitPools', slotId),
+          `Anatomy bundle ${bundle.id} requires a non-empty ${slotId} trait pool.`,
+        ))
+        continue
+      }
       for (const [poolIndex, partId] of partIds.entries()) {
         const poolPath = path.concat('allowedTraitPools', slotId, String(poolIndex))
         const part = partsById.get(partId)

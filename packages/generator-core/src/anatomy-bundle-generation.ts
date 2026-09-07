@@ -7,7 +7,9 @@ import type {
   GenerationRequest,
   GenerationResult,
   MonsterSpec,
+  StructuralSlotId,
 } from './contracts.js'
+import { STRUCTURAL_SLOT_IDS } from './contracts.js'
 
 export function selectAnatomyBundle(
   request: GenerationRequest,
@@ -15,6 +17,10 @@ export function selectAnatomyBundle(
 ): AnatomyBundleDefinition | null {
   const candidates = (catalog.anatomyBundles ?? []).filter(bundle => (
     bundle.archetypeId === request.archetypeId
+    && STRUCTURAL_SLOT_IDS.every((slotId: StructuralSlotId) => (
+      request.lockedSelections?.[slotId] === undefined
+      || bundle.derivedSlots[slotId] === request.lockedSelections[slotId]
+    ))
   ))
   if (candidates.length === 0) return null
   const bodyFrameRoll = request.slotRolls?.bodyFrame ?? 0

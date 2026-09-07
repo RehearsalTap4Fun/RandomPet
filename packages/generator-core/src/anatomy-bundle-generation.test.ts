@@ -53,6 +53,25 @@ describe('anatomy bundle generation', () => {
     expect(rerolled.spec).toEqual(initial)
   })
 
+  it('blocks malformed local pools before they can choose a trait owned by another bundle', () => {
+    const catalog = structuredClone(productionCatalog())
+    const selectedBundle = catalog.anatomyBundles![0]!
+    const foreignEye = catalog.anatomyBundles![1]!.allowedTraitPools.eyes![0]!
+    catalog.anatomyBundles = [selectedBundle]
+    delete (selectedBundle.allowedTraitPools as Partial<Record<string, string[]>>).eyes
+
+    const generated = generateMonster({
+      seed: 'remediation-0', themeId: 'shadow', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(generated.blocked).toBe(true)
+    expect(generated.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_ANATOMY_BUNDLE_TRAIT_POOL_REQUIRED',
+      path: ['anatomyBundles', '0', 'allowedTraitPools', 'eyes'],
+    }))
+    expect(generated.spec.visualSlots.eyes.partId).not.toBe(foreignEye)
+  })
+
   it('keeps bundle structure stable throughout local rerolls for every mode and seed', () => {
     const catalog = productionCatalog()
     for (const mode of ['normal', 'mutation', 'aberration'] as const) {

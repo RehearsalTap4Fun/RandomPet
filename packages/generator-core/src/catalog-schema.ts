@@ -240,7 +240,16 @@ const AnatomyBundleDefinitionSchema = z.object({
     tail: nonBlankString,
     extraAppendage: nonBlankString,
   }).strict(),
-  allowedTraitPools: z.partialRecord(VisualSlotIdSchema, z.array(nonBlankString).min(1)),
+  allowedTraitPools: z.object({
+    eyes: z.array(nonBlankString).min(1),
+    mouthShape: z.array(nonBlankString).min(1),
+    oralDetail: z.array(nonBlankString).min(1),
+    headAppendage: z.array(nonBlankString).min(1),
+    surfaceMaterial: z.array(nonBlankString).min(1),
+    pattern: z.array(nonBlankString).min(1),
+    colorScheme: z.array(nonBlankString).min(1),
+    effect: z.array(nonBlankString).min(1),
+  }).strict(),
 }).strict()
 
 const VisualPartDefinitionSchema = z.object({

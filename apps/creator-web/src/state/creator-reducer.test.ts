@@ -176,6 +176,22 @@ describe('createCreatorReducer', () => {
     expect(next.blocked).toBe(false)
   })
 
+  it('keeps a locked structural part bound to its anatomy bundle when creating a new creature', () => {
+    const reducer = createCreatorReducer(v06Catalog)
+    const initial = createCreatorSession(generateMonster({
+      seed: 'remediation-2', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, v06Catalog))
+    const before = withLocked(initial, 'tail')
+
+    expect(before.spec.anatomyBundleId).toBe('feline-sit-rose-longtail')
+
+    const next = reducer(before, { type: 'newCreature', seed: 'remediation-0' })
+
+    expect(next.blocked).toBe(false)
+    expect(next.spec.anatomyBundleId).toBe(before.spec.anatomyBundleId)
+    expect(next.spec.visualSlots.tail).toEqual(before.spec.visualSlots.tail)
+  })
+
   it('clears an anatomy-pool incompatibility after returning to the selected bundle trait', () => {
     const reducer = createCreatorReducer(v06Catalog)
     const before = makeV06Session()

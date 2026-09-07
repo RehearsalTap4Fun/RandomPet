@@ -76,6 +76,12 @@ export interface CompositionGeometry {
 
 export type StructuralSlotId = typeof STRUCTURAL_SLOT_IDS[number]
 
+export const LOCAL_VISUAL_SLOT_IDS = [
+  'eyes', 'mouthShape', 'oralDetail', 'headAppendage',
+  'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
+] as const satisfies readonly (typeof VISUAL_SLOT_IDS[number])[]
+export type LocalVisualSlotId = typeof LOCAL_VISUAL_SLOT_IDS[number]
+
 const STRUCTURAL_SLOT_ID_SET = new Set<VisualSlotId>(STRUCTURAL_SLOT_IDS)
 
 export function isStructuralSlot(slotId: VisualSlotId): slotId is StructuralSlotId {

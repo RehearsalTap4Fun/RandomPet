@@ -61,6 +61,41 @@ function defaultRig(catalog: Catalog): RigId {
   return catalog.rigs[0]?.id ?? 'blob'
 }
 
+function blockedGenerationResult(
+  request: GenerationRequest,
+  catalog: Catalog,
+  diagnostics: Diagnostic[],
+): GenerationResult {
+  const rigId = defaultRig(catalog)
+  const visualSlots = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
+    slotId,
+    { partId: `missing_${slotId}`, rigId },
+  ])) as Record<VisualSlotId, VisualSelection>
+  const theme = catalog.themes.find(item => item.id === request.themeId)
+  return {
+    spec: {
+      schemaVersion: catalog.version === '0.6.0' ? '0.2.0' : '0.1.0',
+      catalogVersion: catalog.version,
+      rendererVersion: rendererVersionForCatalog(catalog),
+      seed: request.seed,
+      themeId: request.themeId,
+      palette: theme?.palette ?? { primary: '#000000', secondary: '#000000', accent: '#000000' },
+      slotRolls: Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
+        slotId,
+        request.slotRolls?.[slotId] ?? 0,
+      ])) as Record<VisualSlotId, number>,
+      visualSlots,
+      semanticTraits: projectSemanticTraits(visualSlots, request.seed, catalog),
+      mutation: null,
+      aberrations: [],
+      ...(catalog.version === '0.6.0' && request.archetypeId !== undefined ? { archetypeId: request.archetypeId } : {}),
+    },
+    diagnostics,
+    blocked: true,
+    affectedSlots: [...generationOrderForCatalog(catalog)],
+  }
+}
+
 type VisualLayerRequest = Pick<GenerationRequest, 'seed' | 'themeId' | 'mode' | 'archetypeId' | 'slotRolls' | 'lockedSelections'>
 
 function lockedBodyRig(request: VisualLayerRequest, catalog: Catalog): RigId | undefined {
@@ -258,10 +293,19 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     diagnostics.push(error('THEME_NOT_FOUND', ['themeId'], `Theme ${request.themeId} is not present in the catalog.`))
   }
 
+  const anatomyBundle = catalog.version === '0.6.0' && archetype !== null
+    ? selectAnatomyBundle(request, catalog)
+    : null
+  if (catalog.version === '0.6.0' && archetype !== null && anatomyBundle === null) {
+    diagnostics.push(error('ANATOMY_BUNDLE_UNAVAILABLE', ['anatomyBundleId'], 'No anatomy bundle is available for this request.'))
+  }
+  if (catalog.version === '0.6.0' && diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return blockedGenerationResult(request, catalog, diagnostics)
+  }
+
   const layers = {} as VisualGenomeLayers
   let anatomyBundleId: string | undefined
   if (catalog.version === '0.6.0' && archetype !== null) {
-    const bundle = selectAnatomyBundle(request, catalog)
     for (const layer of GENOME_LAYERS) {
       const hidden = layer !== 'P'
       const generatedLayer = generateAnatomyBundleVisualLayer({
@@ -271,7 +315,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
         archetypeId: archetype.id,
         ...(request.slotRolls === undefined ? {} : { slotRolls: request.slotRolls }),
         ...(hidden || request.lockedSelections === undefined ? {} : { lockedSelections: request.lockedSelections }),
-      }, catalog, diagnostics, bundle)
+      }, catalog, diagnostics, anatomyBundle)
       layers[layer] = generatedLayer.visualSlots
       if (!hidden) anatomyBundleId = generatedLayer.anatomyBundleId
     }
