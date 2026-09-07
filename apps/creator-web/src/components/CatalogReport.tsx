@@ -227,7 +227,10 @@ function AppearanceImage({
 
   return (
     <div className="appearance-card__image">
-      {url !== null && <img src={url} alt={alt} />}
+      {url !== null && <img src={url} alt={alt} onError={() => {
+        setUrl(null)
+        setFailed(true)
+      }} />}
       {url === null && !failed && <span>加载外观图…</span>}
       {failed && <span>外观图暂不可用</span>}
     </div>

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { parseCatalog } from '@qmonster/generator-core'
@@ -33,5 +33,31 @@ describe('CatalogReport', () => {
     expect(screen.getByText('feline-sit-umber-curl')).toBeTruthy()
     expect(screen.queryByText('feline-sit-saffron-longtail')).toBeNull()
     await waitFor(() => expect(screen.getAllByText('外观图暂不可用')).toHaveLength(2))
+  })
+
+  it('keeps image load failures visible after a URL has resolved', async () => {
+    const model = createCatalogReportModel(parsedCatalog.value)
+
+    render(<CatalogReport model={model} resolveAssetUrl={async () => '/image-will-fail.png'} />)
+
+    const image = await screen.findByRole('img', { name: 'feline-sit-saffron-longtail 外观预览' })
+    fireEvent.error(image)
+
+    expect(screen.getByText('外观图暂不可用')).toBeTruthy()
+  })
+
+  it('renders a future archetype as its own selectable report tab', async () => {
+    const user = userEvent.setup()
+    const catalog = structuredClone(parsedCatalog.value)
+    const felineBundle = catalog.anatomyBundles?.[0]
+    if (felineBundle === undefined) throw new Error('Expected a feline bundle fixture.')
+    catalog.anatomyBundles?.push({ ...felineBundle, id: 'canine-sit-test', archetypeId: 'canine' })
+
+    render(<CatalogReport model={createCatalogReportModel(catalog)} resolveAssetUrl={async () => '/canine.png'} />)
+    await user.click(screen.getByRole('button', { name: 'canine' }))
+
+    expect(screen.getByRole('heading', { name: 'canine稀有度图鉴' })).toBeTruthy()
+    expect(screen.getByText('canine-sit-test')).toBeTruthy()
+    expect(screen.queryByText('feline-sit-saffron-longtail')).toBeNull()
   })
 })
