@@ -1,10 +1,10 @@
 # QMonster 生成器 × 怪奇生物孵化器对接指南
 
-> 文档版本：1.3
+> 文档版本：1.4
 > 最低生成器基线：`feature/qmonster-v0.1` / `3b93fc385779c8ee44ae8ba190fc3c484736ee0f`
-> 新孵化默认目录版本：`0.5.0`
-> 新孵化默认渲染器版本：`0.5.0`
-> 更新日期：2026-09-03
+> 新孵化默认目录版本：`0.6.0`
+> 新孵化默认渲染器版本：`0.6.0`
+> 更新日期：2026-09-07
 
 ## 1. 目标与结论
 
@@ -24,8 +24,8 @@
 2. WebP/PNG 是由 `MonsterSpec` 派生的缓存，可以随时重新生成。
 3. 恢复存档时必须使用 `MonsterSpec.catalogVersion` 指定的目录，不得自动换成最新目录。
 4. 只有生成和渲染均无错误时，孵化结果才能进入 `READY` 状态。
-5. 新生成的 `MonsterSpec` 必须把 `genome` 与 `visualSlots` 作为同一份身份数据一起持久化。
-6. 新孵化默认加载 `0.5.0`；旧记录继续按其存储的 `catalogVersion` 与 `rendererVersion` 精确分派。
+5. 新生成的 `MonsterSpec` 必须把 `genome`、`visualSlots` 和 v0.6 的 Bundle 身份作为同一份身份数据一起持久化。
+6. 新孵化默认加载 `0.6.0`；旧记录继续按其存储的 `catalogVersion` 与 `rendererVersion` 精确分派。
 
 本文面向浏览器端孵化器。当前提供的“怪奇生物孵化器 (Copy).html”是保存后的页面外壳，其引用的 `_files/saved_resource.html` 没有随文件保存，因此本文按“孵化动作”定义稳定接入边界，不引用该页面中不可恢复的函数名或 DOM ID。
 
@@ -53,10 +53,12 @@
 孵化器构建产物至少需要包含：
 
 ```text
-packages/asset-catalog/catalog/v0.5.0/catalog.json
-packages/asset-catalog/assets/v0.5.0/**
+packages/asset-catalog/catalog/v0.6.0/catalog.json
+packages/asset-catalog/assets/v0.6.0/**
 
 # 只要仍有旧存档，就同时保留其精确版本：
+packages/asset-catalog/catalog/v0.5.0/catalog.json
+packages/asset-catalog/assets/v0.5.0/**
 packages/asset-catalog/catalog/v0.4.0/catalog.json
 packages/asset-catalog/assets/v0.4.0/**
 packages/asset-catalog/catalog/v0.3.0/catalog.json
@@ -66,10 +68,12 @@ packages/asset-catalog/assets/v0.3.0/**
 推荐发布到同源、不可变的版本目录，例如：
 
 ```text
+/qmonster/catalog/v0.6.0/catalog.json
+/qmonster/assets/v0.6.0/**
+
+# 旧记录恢复路径，不得被 0.6.0 覆盖：
 /qmonster/catalog/v0.5.0/catalog.json
 /qmonster/assets/v0.5.0/**
-
-# 旧记录恢复路径，不得被 0.5.0 覆盖：
 /qmonster/catalog/v0.4.0/catalog.json
 /qmonster/assets/v0.4.0/**
 /qmonster/catalog/v0.3.0/catalog.json
@@ -484,6 +488,7 @@ export async function hatchMonster(
 | 普通孵化 | `mode: 'normal'` | 默认模式 |
 | 变异孵化 | `mode: 'mutation'` | 应在 UI 中明确提示 |
 | 怪诞孵化 | `mode: 'aberration'` | 用于更高变异度玩法 |
+| v0.6 外观类型 | `archetypeId: 'feline'` | 蛋请求可省略 `archetype`，适配器默认映射到猫科；`canine` 与 `lagomorph` 被拒绝 |
 | 指定遗传特征 | `lockedSelections` | 只传允许继承的槽位及合法 part ID |
 
 不要根据中文展示名回填特征；展示名可能本地化。持久化和业务判断始终使用 `partId`、`themeId`、`rigId` 等稳定 ID。
@@ -498,6 +503,7 @@ export async function hatchMonster(
 - 8 个 `semanticTraits`；
 - `mutation` 与 `aberrations`；
 - `schemaVersion`、`catalogVersion`、`rendererVersion`。
+- 对于 v0.6，`archetypeId: 'feline'` 与 `anatomyBundleId`；两者是恢复完整外观所必需的身份数据。
 
 展示具体中文名称和描述时，应通过当前版本 `Catalog` 用 ID 查找 `displayName`、`flavorText`，不要把显示文案重复写进 `MonsterSpec`。
 
@@ -531,6 +537,19 @@ interface HatchedMonsterRecord {
 
 新生成记录必须原子持久化完整 `MonsterSpec`，也就是把 `genome` 与解析后的表现型 `visualSlots` 一起保存；不能只保存其中之一。缺少 `genome` 仅对历史遗留（legacy）规格有效，这类记录应继续保持无基因状态，普通读取、编辑或重新渲染都不得推测并补齐 `H1/H2/H3`。
 
+### 6.1.1 v0.6 Bundle 身份与历史记录
+
+v0.6 孵化记录必须原样保存以下精确元组：
+
+```text
+(schemaVersion, catalogVersion, rendererVersion, archetypeId, anatomyBundleId)
+= ('0.2.0', '0.6.0', '0.6.0', 'feline', <catalog bundle ID>)
+```
+
+`anatomyBundleId` 表示一张完整、连续的猫科外观（躯干、头部、四肢、尾巴和额外附肢），不是可由单个结构槽位重新推断的装饰 ID。`visualSlots` 仍保存该 Bundle 派生的结构选择和局部特征；眼睛、口部、口腔细节、头部附饰、材质、花纹、配色与效果只在该 Bundle 允许的局部 trait pool 内解释。
+
+旧版本记录可以缺少 `archetypeId`、`anatomyBundleId` 和 `genome`，并且必须以只读历史模式恢复：不得从旧结构槽位猜测 Bundle，不得补写新字段，也不得把它们迁移成 v0.6 记录。只有显式重新生成才会产生新的 v0.6 身份元组。
+
 ### 6.2 两阶段保存
 
 1. 生成包含 `visualSlots` 与 `genome` 的完整 `MonsterSpec`，校验显性一致性后按 canonical JSON 计算 `specSha256`；
@@ -554,6 +573,8 @@ interface HatchedMonsterRecord {
 
 - 缺少对应 `catalogVersion`：标记 `UNSUPPORTED_VERSION`，保留原始记录，不得用新目录猜测替换；
 - 规格校验含错误：隔离该记录并上报，不进入正常展示；
+- v0.6 缺少 Bundle、Bundle 不在已加载目录中，或 Bundle 与猫科/版本不匹配：拒绝该记录且不创建部分孵化结果；未知 Bundle 会返回 `SPEC_ANATOMY_BUNDLE_UNKNOWN`；
+- v0.6 请求的 `archetype` 不是 `feline`：适配器返回 `ADAPTER_ARCHETYPE_UNSUPPORTED`；缺少或非法的存档 archetype 同样阻断恢复；
 - genome 存在时必须验证 `genomeVersion`、完整的 `P/H1/H2/H3`、目录部件和层兼容性，以及 `genome.genes[slotId].P === visualSlots[slotId].partId`；任一错误都阻断 `READY`，不得静默修复；
 - genome 缺失只作为旧版记录处理；恢复和导入不得为其合成隐藏层。若业务明确把旧版生物“重新生成”为一只新生物，新结果才按正常生成流程获得 genome；
 - 只有警告：可以展示，但应记录遥测；
@@ -575,6 +596,7 @@ interface HatchedMonsterRecord {
 - `severity: 'error'`：阻断当前阶段；
 - `severity: 'warning'`：允许继续，但写入日志或遥测；
 - 不要只检查异常。`generateMonster` 和 `renderMonster` 都可能通过返回的 `diagnostics` 报告业务错误。
+- `ADAPTER_ARCHETYPE_UNSUPPORTED`、`SPEC_ANATOMY_BUNDLE_UNKNOWN` 以及 v0.6 的缺失 Bundle/archetype 诊断都是阻断错误；不得保存部分 `visualExtension` 或降级到旧结构槽位。
 
 建议遥测字段：`hatchId`、`seed`、`catalogVersion`、`rendererVersion`、失败阶段、诊断 code。不要上传完整图片或用户隐私数据作为普通错误日志。
 
@@ -588,9 +610,11 @@ interface HatchedMonsterRecord {
 - `catalogVersion`：部件、兼容性和资源版本；
 - `rendererVersion`：合成与渲染算法版本。
 
-存在 genome 时还记录独立的 `genomeVersion`。本次新增字段是可选的增量契约，因此 `MonsterSpec.schemaVersion` 仍为 `0.1.0`，`MonsterGenome.genomeVersion` 也固定为 `0.1.0`；两者版本职责不同，不得相互替代或在读档时覆写。
+v0.6 还记录 `archetypeId` 与 `anatomyBundleId`。五个字段必须作为一个整体比较、存储和恢复；不能用同名 Bundle、最新目录或单个 `visualSlots` 替代其中任一字段。
 
-三者必须作为一个兼容性组合处理。孵化器不得在读档时直接覆写任何版本字段。
+存在 genome 时还记录独立的 `genomeVersion`。v0.6 Bundle 规格使用 `MonsterSpec.schemaVersion: '0.2.0'`；`MonsterGenome.genomeVersion` 仍固定为 `0.1.0`。两者版本职责不同，不得相互替代或在读档时覆写。
+
+五个身份字段必须作为一个兼容性组合处理。孵化器不得在读档时直接覆写其中任一字段。
 
 ### 8.2 兼容性表
 
@@ -600,9 +624,10 @@ interface HatchedMonsterRecord {
 | `0.2.0` | `0.2.0` | 更早的旧记录恢复 | 仅在存在该版本记录时注册并保留精确目录与渲染器 |
 | `0.3.0` | `0.3.0` | 旧记录恢复 | 调用 `loadCatalogV030`，按存储版本重绘 |
 | `0.4.0` | `0.4.0` | 旧记录恢复 | 调用 `loadCatalogV040`，按存储版本重绘 |
-| `0.5.0` | `0.5.0` | 新孵化默认；新记录恢复 | 新孵化调用 `loadCatalogV050`；仅使用单头和 `tail_none` / `tail_cat_long` / `tail_dog_long` |
+| `0.5.0` | `0.5.0` | 旧记录恢复 | 调用 `loadCatalogV050`；仅使用单头和 `tail_none` / `tail_cat_long` / `tail_dog_long` |
+| `0.6.0` | `0.6.0` | 新孵化默认；Bundle 记录恢复 | 仅接受 `schemaVersion: '0.2.0'`、`archetypeId: 'feline'` 和目录内的 `anatomyBundleId` |
 
-只支持同版本的精确组合。`0.3.0`、`0.4.0`、`0.5.0` 的目录与渲染器不得交叉使用；未注册的版本应进入 `UNSUPPORTED_VERSION`，不能静默回退。
+只支持同版本的精确组合。`0.3.0`、`0.4.0`、`0.5.0`、`0.6.0` 的目录与渲染器不得交叉使用；未注册的版本应进入 `UNSUPPORTED_VERSION`，不能静默回退。
 
 ### 8.3 推荐升级流程
 

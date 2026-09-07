@@ -6,6 +6,8 @@ import {
   type MonsterSpec,
 } from '@qmonster/generator-core'
 import productionCatalogDocument from '../../asset-catalog/catalog/v0.1.0/catalog.json'
+import v06CatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
+import fungalEgg from '../fixtures/fungal-egg.json'
 import { toGenerationRequest, toIncubatorRecord } from './index.js'
 
 function productionCatalog(): Catalog {
@@ -18,6 +20,21 @@ function productionCatalog(): Catalog {
 function generatedSpec(catalog: Catalog): MonsterSpec {
   const generated = generateMonster({
     seed: 'adapter-output', themeId: 'fungal', mode: 'normal',
+  }, catalog)
+  expect(generated.blocked).toBe(false)
+  return generated.spec
+}
+
+function v06Catalog(): Catalog {
+  const parsed = parseCatalog(v06CatalogDocument)
+  expect(parsed.ok).toBe(true)
+  if (!parsed.ok) throw new Error('v0.6 catalog fixture must parse.')
+  return parsed.value
+}
+
+function v06Spec(catalog: Catalog): MonsterSpec {
+  const generated = generateMonster({
+    seed: 'adapter-v06-output', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
   }, catalog)
   expect(generated.blocked).toBe(false)
   return generated.spec
@@ -77,6 +94,38 @@ describe('incubator adapter', () => {
     expect(toGenerationRequest(input)).toEqual(request)
   })
 
+  it('maps an omitted v0.6 egg archetype to feline', () => {
+    expect(toGenerationRequest({
+      id: 'v06-default-archetype', theme: 'fungal', seed: 'v06-default', risk: 0, mutationBonus: 0,
+    })).toMatchObject({
+      ok: true,
+      value: { archetypeId: 'feline' },
+    })
+  })
+
+  it('keeps the legacy egg fixture seed and theme mapping intact', () => {
+    expect(toGenerationRequest(fungalEgg)).toMatchObject({
+      ok: true,
+      value: {
+        seed: fungalEgg.seed,
+        themeId: 'fungal',
+        archetypeId: 'feline',
+      },
+    })
+  })
+
+  it('rejects a v0.6 egg request with an unsupported archetype', () => {
+    expect(toGenerationRequest({
+      id: 'v06-unsupported-archetype', theme: 'fungal', seed: 'v06-unsupported', risk: 0,
+      mutationBonus: 0, archetype: 'canine',
+    })).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'ADAPTER_ARCHETYPE_UNSUPPORTED' }),
+      ]),
+    })
+  })
+
   it('rolls an aberration before mutation when both chances apply', () => {
     const request = toGenerationRequest({
       id: 'egg-2', theme: 'fungal', seed: '0', risk: 1, mutationBonus: 1,
@@ -121,6 +170,39 @@ describe('incubator adapter', () => {
       ok: false,
       diagnostics: expect.arrayContaining([
         expect.objectContaining({ code: 'SPEC_PART_MISSING' }),
+      ]),
+    })
+  })
+
+  it('exports the exact v0.6 anatomy identity tuple in visualExtension', () => {
+    const catalog = v06Catalog()
+    const spec = v06Spec(catalog)
+    const result = toIncubatorRecord(spec, catalog)
+
+    expect(result).toEqual({
+      ok: true,
+      value: expect.objectContaining({
+        visualExtension: expect.objectContaining({
+          schemaVersion: spec.schemaVersion,
+          catalogVersion: spec.catalogVersion,
+          rendererVersion: spec.rendererVersion,
+          archetypeId: 'feline',
+          anatomyBundleId: spec.anatomyBundleId,
+          visualSlots: spec.visualSlots,
+        }),
+      }),
+    })
+  })
+
+  it('rejects a forged v0.6 anatomy bundle without a partial record', () => {
+    const catalog = v06Catalog()
+    const spec = v06Spec(catalog)
+    const invalid = { ...spec, anatomyBundleId: 'forged-feline-bundle' }
+
+    expect(toIncubatorRecord(invalid, catalog)).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_UNKNOWN' }),
       ]),
     })
   })

@@ -16,6 +16,18 @@ export function toGenerationRequest(input: unknown): AdapterResult<GenerationReq
   const parsed = parseIncubatorEggInput(input)
   if (!parsed.ok) return parsed
 
+  if (parsed.value.archetype !== undefined && parsed.value.archetype !== 'feline') {
+    return {
+      ok: false,
+      diagnostics: [{
+        severity: 'error',
+        code: 'ADAPTER_ARCHETYPE_UNSUPPORTED',
+        path: ['archetype'],
+        message: `Archetype ${parsed.value.archetype} is not supported by the v0.6 incubator adapter.`,
+      }],
+    }
+  }
+
   const seed = parsed.value.seed
   const themeId = themeMap[parsed.value.theme]
   const aberrationRisk = clampProbability(parsed.value.risk, 0.85)
@@ -26,12 +38,20 @@ export function toGenerationRequest(input: unknown): AdapterResult<GenerationReq
 
   const aberrationRoll = createRng([seed, themeId, 'aberration-roll']).nextFloat()
   if (aberrationRoll < aberrationRisk) {
-    return { ok: true, value: { seed, themeId, mode: 'aberration' } }
+    return {
+      ok: true,
+      value: { seed, themeId, mode: 'aberration', archetypeId: 'feline' },
+    }
   }
 
   const mutationRoll = createRng([seed, themeId, 'mutation-roll']).nextFloat()
   return {
     ok: true,
-    value: { seed, themeId, mode: mutationRoll < mutationChance ? 'mutation' : 'normal' },
+    value: {
+      seed,
+      themeId,
+      mode: mutationRoll < mutationChance ? 'mutation' : 'normal',
+      archetypeId: 'feline',
+    },
   }
 }

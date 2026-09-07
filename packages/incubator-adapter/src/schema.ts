@@ -15,6 +15,7 @@ export const IncubatorEggInputSchema = z.strictObject({
   seed: SeedSchema,
   risk: z.number().finite(),
   mutationBonus: z.number().finite(),
+  archetype: z.enum(['feline', 'canine', 'lagomorph']).optional(),
 })
 
 export interface ParsedIncubatorEggInput {
@@ -23,6 +24,7 @@ export interface ParsedIncubatorEggInput {
   seed: string
   risk: number
   mutationBonus: number
+  archetype?: 'feline' | 'canine' | 'lagomorph'
 }
 
 function issueCode(issue: z.core.$ZodIssue): string {
@@ -34,6 +36,8 @@ function issueCode(issue: z.core.$ZodIssue): string {
     case 'risk':
     case 'mutationBonus':
       return 'ADAPTER_NUMBER_INVALID'
+    case 'archetype':
+      return 'ADAPTER_ARCHETYPE_UNSUPPORTED'
     default:
       return 'ADAPTER_INPUT_INVALID'
   }
@@ -77,6 +81,7 @@ export function parseIncubatorEggInput(
       seed,
       risk: parsed.data.risk,
       mutationBonus: parsed.data.mutationBonus,
+      ...(parsed.data.archetype === undefined ? {} : { archetype: parsed.data.archetype }),
     },
   }
 }

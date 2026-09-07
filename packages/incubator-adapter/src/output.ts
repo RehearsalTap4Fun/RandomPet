@@ -68,6 +68,9 @@ export function toIncubatorRecord(
       visualExtension: {
         schemaVersion: spec.schemaVersion,
         catalogVersion: spec.catalogVersion,
+        rendererVersion: spec.rendererVersion,
+        ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
+        ...(spec.anatomyBundleId === undefined ? {} : { anatomyBundleId: spec.anatomyBundleId }),
         visualSlots: copyVisualSlots(spec),
         ...(genome === undefined ? {} : { genome }),
       },

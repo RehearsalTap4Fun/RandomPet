@@ -1,4 +1,8 @@
-import type { Diagnostic, MonsterSpec } from '@qmonster/generator-core'
+import type {
+  AnimalArchetypeId,
+  Diagnostic,
+  MonsterSpec,
+} from '@qmonster/generator-core'
 
 export type AdapterResult<T> =
   | { ok: true; value: T }
@@ -10,6 +14,7 @@ export interface IncubatorEggInput {
   seed: string | number
   risk: number
   mutationBonus: number
+  archetype?: AnimalArchetypeId
 }
 
 export interface IncubatorCreatureRecord {
@@ -21,6 +26,12 @@ export interface IncubatorCreatureRecord {
   palette: [string, string, string]
   visualExtension: Pick<
     MonsterSpec,
-    'schemaVersion' | 'catalogVersion' | 'visualSlots' | 'genome'
+    | 'schemaVersion'
+    | 'catalogVersion'
+    | 'rendererVersion'
+    | 'archetypeId'
+    | 'anatomyBundleId'
+    | 'visualSlots'
+    | 'genome'
   >
 }
