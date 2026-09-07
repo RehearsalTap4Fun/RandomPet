@@ -10,6 +10,55 @@ import { validateCatalogStructure } from './catalog-validation.js'
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('catalog validation', () => {
+  it('rejects non-feline archetypes, bundles, and dual-archetype parts from v0.7', () => {
+    const extraArchetype = makeV07FelinePartLibraryFixture()
+    extraArchetype.archetypes!.push({
+      id: 'canine', displayName: 'Canine', rigIds: ['feline-sit'], defaultRigId: 'feline-sit',
+      requiredVisibleSlots: [], integratedSlots: [], specialFeatureSlots: [],
+    })
+    const canineBundle = makeV07FelinePartLibraryFixture()
+    canineBundle.anatomyBundles![0]!.archetypeId = 'canine'
+    const dualArchetypePart = makeV07FelinePartLibraryFixture()
+    dualArchetypePart.parts[0]!.archetypeIds = ['feline', 'lagomorph']
+
+    expect(parseCatalog(extraArchetype).ok).toBe(false)
+    expect(validateCatalogStructure(extraArchetype)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_INDEPENDENT_PART_ARCHETYPE_INVALID',
+    }))
+    expect(parseCatalog(canineBundle).ok).toBe(false)
+    expect(validateCatalogStructure(canineBundle)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_INDEPENDENT_PART_BUNDLE_ARCHETYPE_INVALID',
+    }))
+    expect(parseCatalog(dualArchetypePart).ok).toBe(false)
+    expect(validateCatalogStructure(dualArchetypePart)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_INDEPENDENT_PART_PART_ARCHETYPE_INVALID',
+    }))
+  })
+
+  it('rejects a partPools-only v0.6 bundle without throwing during validation', () => {
+    const catalog = structuredClone(makeV07FelinePartLibraryFixture()) as unknown as import('./contracts.js').Catalog
+    catalog.version = '0.6.0'
+
+    expect(parseCatalog(catalog).ok).toBe(false)
+    expect(() => validateCatalogStructure(catalog)).not.toThrow()
+  })
+
+  it('requires renderable v0.7 structural and local pool candidates for the bundle rig', () => {
+    const structural = makeV07FelinePartLibraryFixture()
+    const body = structural.parts.find(part => part.slotId === 'bodyFrame')!
+    body.composition!.variantsByRig['feline-sit']!.renderNodes = []
+    const local = makeV07FelinePartLibraryFixture()
+    const eyes = local.parts.find(part => part.slotId === 'eyes')!
+    eyes.composition!.renderNodes[0]!.compatibleRigs = ['blob']
+
+    expect(validateCatalogStructure(structural)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_INDEPENDENT_PART_POOL_STRUCTURAL_RENDER_NODES_MISSING',
+    }))
+    expect(validateCatalogStructure(local)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_INDEPENDENT_PART_POOL_LOCAL_RENDER_NODE_RIG_MISMATCH',
+    }))
+  })
+
   it('requires every v0.7 feline part pool to contain 8 N, 4 R, and 1 L candidates', () => {
     const catalog = makeV07FelinePartLibraryFixture()
     catalog.anatomyBundles![0]!.partPools!.eyes.pop()

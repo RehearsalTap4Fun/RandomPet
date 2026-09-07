@@ -155,6 +155,15 @@ function validateAnatomyBundles(catalog: Catalog, diagnostics: Diagnostic[]): vo
   const partsById = new Map(catalog.parts.map(part => [part.id, part]))
   for (const [bundleIndex, bundle] of bundles.entries()) {
     const path = ['anatomyBundles', String(bundleIndex)]
+    const legacyFields = bundle as Partial<Pick<AnatomyBundleDefinition, 'derivedSlots' | 'allowedTraitPools'>>
+    if (legacyFields.derivedSlots === undefined || legacyFields.allowedTraitPools === undefined) {
+      diagnostics.push(error(
+        'CATALOG_ANATOMY_BUNDLE_LEGACY_FIELDS_REQUIRED',
+        path,
+        `Catalog 0.6.0 anatomy bundle ${bundle.id} requires derived slots and allowed trait pools.`,
+      ))
+      continue
+    }
     if (bundleIds.has(bundle.id)) {
       diagnostics.push(error(
         'CATALOG_ANATOMY_BUNDLE_ID_DUPLICATE',
@@ -308,9 +317,38 @@ function validateIndependentPartPools(catalog: Catalog, diagnostics: Diagnostic[
     ))
     return
   }
+  const archetypes = catalog.archetypes ?? []
+  if (
+    archetypes.length !== 1
+    || archetypes[0]?.id !== 'feline'
+    || archetypes[0].rigIds.length !== 1
+    || archetypes[0].rigIds[0] !== 'feline-sit'
+    || archetypes[0].defaultRigId !== 'feline-sit'
+  ) {
+    diagnostics.push(error(
+      'CATALOG_INDEPENDENT_PART_ARCHETYPE_INVALID',
+      ['archetypes'],
+      'Catalog 0.7.0 supports only the feline-sit archetype.',
+    ))
+  }
+  for (const [partIndex, part] of catalog.parts.entries()) {
+    if (part.archetypeIds?.length === 1 && part.archetypeIds[0] === 'feline') continue
+    diagnostics.push(error(
+      'CATALOG_INDEPENDENT_PART_PART_ARCHETYPE_INVALID',
+      ['parts', String(partIndex), 'archetypeIds'],
+      `Catalog 0.7.0 part ${part.id} must support only the feline archetype.`,
+    ))
+  }
   const partsById = new Map(catalog.parts.map(part => [part.id, part]))
   for (const [bundleIndex, bundle] of bundles.entries()) {
     const bundlePath = ['anatomyBundles', String(bundleIndex)]
+    if (bundle.archetypeId !== 'feline' || bundle.rigId !== 'feline-sit') {
+      diagnostics.push(error(
+        'CATALOG_INDEPENDENT_PART_BUNDLE_ARCHETYPE_INVALID',
+        bundlePath,
+        `Catalog 0.7.0 anatomy bundle ${bundle.id} must use feline-sit.`,
+      ))
+    }
     if (bundle.partPools === undefined) {
       diagnostics.push(error(
         'CATALOG_INDEPENDENT_PART_POOL_REQUIRED',
@@ -378,12 +416,20 @@ function validateIndependentPartPools(catalog: Catalog, diagnostics: Diagnostic[
             `Part ${part.id} does not support anatomy bundle rig ${bundle.rigId}.`,
           ))
         }
-        if (isStructuralSlot(slotId) && part.composition?.mode !== 'interface') {
-          diagnostics.push(error(
-            'CATALOG_INDEPENDENT_PART_POOL_STRUCTURAL_INTERFACE_REQUIRED',
-            candidatePath,
-            `Structural pool ${slotId} requires interface composition for ${part.id}.`,
-          ))
+        if (isStructuralSlot(slotId)) {
+          if (part.composition?.mode !== 'interface') {
+            diagnostics.push(error(
+              'CATALOG_INDEPENDENT_PART_POOL_STRUCTURAL_INTERFACE_REQUIRED',
+              candidatePath,
+              `Structural pool ${slotId} requires interface composition for ${part.id}.`,
+            ))
+          } else if ((part.composition.variantsByRig[bundle.rigId]?.renderNodes.length ?? 0) === 0) {
+            diagnostics.push(error(
+              'CATALOG_INDEPENDENT_PART_POOL_STRUCTURAL_RENDER_NODES_MISSING',
+              candidatePath,
+              `Structural pool candidate ${part.id} requires render nodes for ${bundle.rigId}.`,
+            ))
+          }
         }
         if (!isStructuralSlot(slotId) && !part.composition?.isNone && (
           !isAttachmentPartComposition(part.composition) || part.composition.renderNodes.length === 0
@@ -392,6 +438,15 @@ function validateIndependentPartPools(catalog: Catalog, diagnostics: Diagnostic[
             'CATALOG_INDEPENDENT_PART_POOL_LOCAL_ATTACHMENT_INVALID',
             candidatePath,
             `Visible local pool candidate ${part.id} requires attachment composition with render nodes.`,
+          ))
+        } else if (!isStructuralSlot(slotId) && !part.composition?.isNone && (
+          !isAttachmentPartComposition(part.composition)
+          || !part.composition.renderNodes.some(node => node.compatibleRigs.includes(bundle.rigId))
+        )) {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_LOCAL_RENDER_NODE_RIG_MISMATCH',
+            candidatePath,
+            `Visible local pool candidate ${part.id} requires a render node for ${bundle.rigId}.`,
           ))
         }
       }

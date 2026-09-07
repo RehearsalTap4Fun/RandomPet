@@ -3,6 +3,7 @@ import {
   VISUAL_SLOT_IDS,
   GENOME_VERSION,
   type Catalog,
+  type IndependentPartCatalog,
   type MonsterGenome,
   type MonsterSpec,
   type Palette,
@@ -13,6 +14,8 @@ import {
   type VisualSelection,
   type VisualSlotId,
   type SlotGenes,
+  type TransitionBridgeDefinition,
+  isAttachmentPartComposition,
 } from './contracts.js'
 
 const fixturePalette: Palette = {
@@ -427,14 +430,11 @@ export function makeInterfaceCatalogFixture(): Catalog {
   return catalog as Catalog
 }
 
-export function makeV07FelinePartLibraryFixture(): Catalog {
-  const catalog = structuredClone(makeInterfaceCatalogFixture()) as any
-  catalog.version = '0.7.0'
-  catalog.rigs = [{
-    ...catalog.rigs.find((rig: { id: RigId }) => rig.id === 'blob'),
-    id: 'feline-sit',
-  }]
-  catalog.archetypes = [{
+export function makeV07FelinePartLibraryFixture(): IndependentPartCatalog {
+  const sourceCatalog = makeInterfaceCatalogFixture()
+  const blobRig = sourceCatalog.rigs.find(rig => rig.id === 'blob')
+  if (blobRig === undefined) throw new Error('Expected blob fixture rig')
+  const archetypes: IndependentPartCatalog['archetypes'] = [{
     id: 'feline',
     displayName: 'Feline sit',
     rigIds: ['feline-sit'],
@@ -443,63 +443,88 @@ export function makeV07FelinePartLibraryFixture(): Catalog {
     integratedSlots: [],
     specialFeatureSlots: [],
   }]
-
-  const partPools: Record<VisualSlotId, string[]> = {} as Record<VisualSlotId, string[]>
-  catalog.parts = VISUAL_SLOT_IDS.flatMap((slotId: VisualSlotId) => {
-    const source = catalog.parts.find((part: any) => (
+  const partGroups = VISUAL_SLOT_IDS.map(slotId => {
+    const source = sourceCatalog.parts.find(part => (
       part.slotId === slotId && part.composition?.isNone !== true
     ))
+    const sourceComposition = source?.composition
+    if (source === undefined || sourceComposition === undefined) {
+      throw new Error(`Expected visible ${slotId} fixture part`)
+    }
     const candidates = [
       ...Array.from({ length: 8 }, (_, index) => ['N', index + 1] as const),
       ...Array.from({ length: 4 }, (_, index) => ['R', index + 1] as const),
       ['L', 1] as const,
-    ].map(([rarity, index]) => {
+    ].map<VisualPartDefinition>(([rarity, index]) => {
       const id = `${slotId}_${rarity.toLowerCase()}_${index}`
-      const part = structuredClone(source)
-      part.id = id
-      part.rarity = rarity
-      part.compatibleRigs = ['feline-sit']
-      part.archetypeIds = ['feline']
-      part.assetPath = `assets/v0.7.0/parts/${id}.webp`
-      part.pngPath = `assets/v0.7.0/parts/${id}.png`
-      part.assetSha256 = fixtureHash
-      part.pngSha256 = fixtureHash
-      if (part.composition.mode === 'interface') {
-        const variant = structuredClone(part.composition.variantsByRig.blob)
-        part.composition.variantsByRig = {
+      const { composition: _sourceComposition, ...partBase } = source
+      const part = {
+        ...partBase,
+        id,
+        rarity,
+        compatibleRigs: ['feline-sit'] as RigId[],
+        archetypeIds: ['feline'] as Array<'feline'>,
+        assetPath: `assets/v0.7.0/parts/${id}.webp`,
+        pngPath: `assets/v0.7.0/parts/${id}.png`,
+        assetSha256: fixtureHash,
+        pngSha256: fixtureHash,
+      }
+      if (sourceComposition.mode === 'interface') {
+        const variant = sourceComposition.variantsByRig.blob
+        if (variant === undefined) throw new Error(`Expected blob ${slotId} interface variant`)
+        return {
+          ...part,
+          composition: {
+            ...sourceComposition,
+            variantsByRig: {
           'feline-sit': {
             ...variant,
-            rigId: 'feline-sit',
-            renderNodes: variant.renderNodes.map((node: any) => ({
+            rigId: 'feline-sit' as RigId,
+            renderNodes: variant.renderNodes.map(node => ({
               ...node,
-              compatibleRigs: ['feline-sit'],
+              compatibleRigs: ['feline-sit'] as RigId[],
             })),
-            connectors: variant.connectors.map((connector: any) => ({
+            connectors: variant.connectors.map(connector => ({
               ...connector,
-              rigId: 'feline-sit',
+              rigId: 'feline-sit' as RigId,
               contourMaskPath: connector.contourMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
               foregroundMaskPath: connector.foregroundMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
               backgroundMaskPath: connector.backgroundMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
             })),
+            },
           },
         }
-      } else {
-        part.composition.renderNodes = part.composition.renderNodes.map((node: any) => ({
-          ...node,
-          compatibleRigs: ['feline-sit'],
-        }))
-        part.composition.geometryByRig = {
-          'feline-sit': structuredClone(part.composition.geometryByRig.blob),
         }
       }
-      return part
+      if (!isAttachmentPartComposition(sourceComposition)) {
+        throw new Error(`Expected ${slotId} attachment composition`)
+      }
+      const geometry = sourceComposition.geometryByRig.blob
+      if (geometry === undefined) throw new Error(`Expected blob ${slotId} attachment geometry`)
+      return {
+        ...part,
+        composition: {
+          ...sourceComposition,
+          renderNodes: sourceComposition.renderNodes.map(node => ({
+          ...node,
+          compatibleRigs: ['feline-sit'] as RigId[],
+          })),
+          geometryByRig: {
+          'feline-sit': structuredClone(geometry),
+          },
+        },
+      }
     })
-    partPools[slotId] = candidates.map(part => part.id)
-    return candidates
+    return [slotId, candidates] as const
   })
-  catalog.transitionBridges = catalog.transitionBridges
-    .filter((bridge: { rigId: RigId }) => bridge.rigId === 'blob')
-    .map((bridge: any) => ({
+  const parts = partGroups.flatMap(([, candidates]) => candidates)
+  const partPools = Object.fromEntries(partGroups.map(([slotId, candidates]) => [
+    slotId,
+    candidates.map(part => part.id),
+  ])) as Record<VisualSlotId, string[]>
+  const transitionBridges = (sourceCatalog.transitionBridges ?? [])
+    .filter(bridge => bridge.rigId === 'blob')
+    .map<TransitionBridgeDefinition>(bridge => ({
       ...bridge,
       rigId: 'feline-sit',
       neutralAssetPath: bridge.neutralAssetPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
@@ -507,7 +532,18 @@ export function makeV07FelinePartLibraryFixture(): Catalog {
       frontMaskPath: bridge.frontMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
       backMaskPath: bridge.backMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
     }))
-  catalog.anatomyBundles = [{
+  return {
+    version: '0.7.0',
+    themes: sourceCatalog.themes,
+    rigs: [{ ...blobRig, id: 'feline-sit' }],
+    parts,
+    semanticTraits: sourceCatalog.semanticTraits,
+    modifiers: sourceCatalog.modifiers,
+    dependencies: sourceCatalog.dependencies,
+    ...(sourceCatalog.compositionPolicy === undefined ? {} : { compositionPolicy: sourceCatalog.compositionPolicy }),
+    transitionBridges,
+    archetypes,
+    anatomyBundles: [{
     id: 'feline-sit',
     archetypeId: 'feline',
     rigId: 'feline-sit',
@@ -520,9 +556,27 @@ export function makeV07FelinePartLibraryFixture(): Catalog {
     faceSafeZone: { x: 500, y: 400, width: 1048, height: 900 },
     featureSockets: {},
     mutationAnchors: {},
+    derivedSlots: {
+      bodyFrame: partPools.bodyFrame[0]!,
+      headShape: partPools.headShape[0]!,
+      arms: partPools.arms[0]!,
+      legs: partPools.legs[0]!,
+      tail: partPools.tail[0]!,
+      extraAppendage: partPools.extraAppendage[0]!,
+    },
+    allowedTraitPools: {
+      eyes: partPools.eyes,
+      mouthShape: partPools.mouthShape,
+      oralDetail: partPools.oralDetail,
+      headAppendage: partPools.headAppendage,
+      surfaceMaterial: partPools.surfaceMaterial,
+      pattern: partPools.pattern,
+      colorScheme: partPools.colorScheme,
+      effect: partPools.effect,
+    },
     partPools,
-  }]
-  return catalog as Catalog
+    }],
+  }
 }
 
 export function makeValidCompositionSpecFixture(

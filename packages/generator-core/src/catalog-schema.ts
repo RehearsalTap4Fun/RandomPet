@@ -273,6 +273,9 @@ const IndependentPartAnatomyBundleDefinitionSchema = AnatomyBundleBaseSchema.ext
     effect: z.array(nonBlankString).min(1),
   }).strict(),
 }).strict()
+const V07AnatomyBundleDefinitionSchema = AnatomyBundleDefinitionSchema.extend({
+  partPools: IndependentPartAnatomyBundleDefinitionSchema.shape.partPools,
+}).strict()
 
 const VisualPartDefinitionSchema = z.object({
   id: z.string().min(1),
@@ -349,6 +352,7 @@ export const CatalogSchema = z.object({
   anatomyBundles: z.array(z.union([
     AnatomyBundleDefinitionSchema,
     IndependentPartAnatomyBundleDefinitionSchema,
+    V07AnatomyBundleDefinitionSchema,
   ])).min(1).optional(),
 }).superRefine((catalog, context) => {
   const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0' || catalog.version === '0.7.0'
@@ -393,6 +397,15 @@ export const CatalogSchema = z.object({
         message: 'Catalog 0.6.0 requires exactly one feline-sit rig.',
       })
     }
+    for (const [index, bundle] of (catalog.anatomyBundles ?? []).entries()) {
+      if (!('derivedSlots' in bundle) || !('allowedTraitPools' in bundle)) {
+        context.addIssue({
+          code: 'custom',
+          path: ['anatomyBundles', index],
+          message: 'Catalog 0.6.0 anatomy bundles require derived slots and allowed trait pools.',
+        })
+      }
+    }
     for (const [index, part] of catalog.parts.entries()) {
       if (part.archetypeIds === undefined) {
         context.addIssue({
@@ -424,11 +437,18 @@ export const CatalogSchema = z.object({
         message: 'Catalog 0.7.0 requires at least one independent-part anatomy bundle.',
       })
     }
-    if (catalog.archetypes === undefined) {
+    if (
+      catalog.archetypes === undefined
+      || catalog.archetypes.length !== 1
+      || catalog.archetypes[0]?.id !== 'feline'
+      || catalog.archetypes[0].rigIds.length !== 1
+      || catalog.archetypes[0].rigIds[0] !== 'feline-sit'
+      || catalog.archetypes[0].defaultRigId !== 'feline-sit'
+    ) {
       context.addIssue({
         code: 'custom',
         path: ['archetypes'],
-        message: 'Catalog 0.7.0 requires archetype definitions.',
+        message: 'Catalog 0.7.0 supports only the feline-sit archetype.',
       })
     }
     if (catalog.rigs.length !== 1 || catalog.rigs[0]?.id !== 'feline-sit') {
@@ -439,20 +459,20 @@ export const CatalogSchema = z.object({
       })
     }
     for (const [index, bundle] of (catalog.anatomyBundles ?? []).entries()) {
-      if (!('partPools' in bundle)) {
+      if (!('partPools' in bundle) || bundle.archetypeId !== 'feline' || bundle.rigId !== 'feline-sit') {
         context.addIssue({
           code: 'custom',
-          path: ['anatomyBundles', index, 'partPools'],
-          message: 'Catalog 0.7.0 anatomy bundles require all independent part pools.',
+          path: ['anatomyBundles', index],
+          message: 'Catalog 0.7.0 anatomy bundles require feline-sit independent part pools.',
         })
       }
     }
     for (const [index, part] of catalog.parts.entries()) {
-      if (part.archetypeIds?.includes('feline') !== true) {
+      if (part.archetypeIds?.length !== 1 || part.archetypeIds[0] !== 'feline') {
         context.addIssue({
           code: 'custom',
           path: ['parts', index, 'archetypeIds'],
-          message: 'Catalog 0.7.0 parts require feline archetype compatibility.',
+          message: 'Catalog 0.7.0 parts support only the feline archetype.',
         })
       }
     }

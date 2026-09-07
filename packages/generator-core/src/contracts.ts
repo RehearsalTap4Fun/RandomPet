@@ -393,7 +393,12 @@ export interface Catalog {
   anatomyBundles?: AnatomyBundleDefinition[]
 }
 
-export function isIndependentPartCatalog(catalog: Catalog): boolean {
+export interface IndependentPartCatalog extends Catalog {
+  version: '0.7.0'
+  anatomyBundles: IndependentPartAnatomyBundleDefinition[]
+}
+
+export function isIndependentPartCatalog(catalog: Catalog): catalog is IndependentPartCatalog {
   return catalog.version === '0.7.0'
 }
 
