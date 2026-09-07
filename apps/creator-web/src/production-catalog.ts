@@ -6,20 +6,15 @@ const productionCatalogDocuments = import.meta.glob<unknown>(
 )
 
 export function loadLatestProductionCatalog(): Catalog {
-  const parsedCatalogs = Object.entries(productionCatalogDocuments).map(([path, document]) => ({
-    path,
-    result: parseCatalog(document),
-  }))
-  const invalidCatalog = parsedCatalogs.find(item => !item.result.ok)
-  if (invalidCatalog !== undefined && !invalidCatalog.result.ok) {
-    throw new Error(
-      `Catalog report cannot read ${invalidCatalog.path}: ${invalidCatalog.result.diagnostics.map(item => item.code).join(', ')}`,
-    )
-  }
-  return pickLatestCatalog(parsedCatalogs.map(item => {
-    if (!item.result.ok) throw new Error(`Catalog report cannot read ${item.path}.`)
-    return item.result.value
-  }))
+  return selectLatestValidCatalog(productionCatalogDocuments)
+}
+
+export function selectLatestValidCatalog(documents: Readonly<Record<string, unknown>>): Catalog {
+  const validCatalogs = Object.values(documents).flatMap(document => {
+    const parsed = parseCatalog(document)
+    return parsed.ok ? [parsed.value] : []
+  })
+  return pickLatestCatalog(validCatalogs)
 }
 
 export function pickLatestCatalog(catalogs: readonly Catalog[]): Catalog {
