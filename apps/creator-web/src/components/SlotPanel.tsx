@@ -1,10 +1,12 @@
 import {
   evaluatePartSelection,
+  STRUCTURAL_SLOT_IDS,
   type Catalog,
   type VisualPartDefinition,
   type VisualSlotId,
 } from '@qmonster/generator-core'
 import type { CreatorAction, CreatorSession } from '../state/contracts.js'
+import { AnatomyBundlePanel } from './AnatomyBundlePanel.js'
 import { GenomePanel } from './GenomePanel.js'
 import { SLOT_GROUPS, SLOT_LABELS } from './slot-config.js'
 
@@ -109,19 +111,31 @@ function SlotRow({ slotId, session, catalog, onAction }: SlotRowProps) {
 }
 
 export function SlotPanel(props: SlotPanelProps) {
+  const usesAnatomyBundle = props.catalog.version === '0.6.0'
+    && props.catalog.anatomyBundles?.some(bundle => bundle.id === props.session.spec.anatomyBundleId) === true
+  const groups = SLOT_GROUPS.map(group => ({
+    ...group,
+    slots: usesAnatomyBundle
+      ? group.slots.filter(slotId => !STRUCTURAL_SLOT_IDS.some(structuralSlotId => structuralSlotId === slotId))
+      : group.slots,
+  })).filter(group => group.slots.length > 0)
+  const visibleSlotCount = groups.reduce((total, group) => total + group.slots.length, 0)
+
   return (
     <aside className="panel slot-panel" aria-labelledby="slot-panel-title">
       <div className="panel-heading slot-panel__heading">
         <div>
-          <p className="eyebrow">14 VISUAL SLOTS</p>
+          <p className="eyebrow">{usesAnatomyBundle ? 'LOCAL TRAITS' : '14 VISUAL SLOTS'}</p>
           <h2 id="slot-panel-title">特征槽位</h2>
         </div>
-        <span className="slot-total">14 / 14</span>
+        <span className="slot-total">{visibleSlotCount} / {visibleSlotCount}</span>
       </div>
 
       <GenomePanel genome={props.session.spec.genome} />
 
-      {SLOT_GROUPS.map(group => (
+      {usesAnatomyBundle && <AnatomyBundlePanel {...props} />}
+
+      {groups.map(group => (
         <section
           className="slot-group"
           role="group"

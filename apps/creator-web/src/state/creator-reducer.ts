@@ -2,6 +2,7 @@ import type { Reducer } from 'react'
 import {
   generateMonster,
   GENOME_LAYERS,
+  rerollAnatomyBundle,
   rerollSlot,
   selectVisualPart,
   STRUCTURAL_SLOT_IDS,
@@ -208,6 +209,16 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
           }
         }
         return { ...state, locks }
+      }
+      case 'rerollAppearance': {
+        const generated = rerollAnatomyBundle({
+          spec: state.spec,
+          catalog,
+          locked: STRUCTURAL_SLOT_IDS.some(slotId => state.locks[slotId]),
+        })
+        return generated.blocked
+          ? reconcileLocalGenerationResult(state, generated, false)
+          : withGenerationResult(state, generated)
       }
       case 'rerollSlot': {
         const generated = rerollSlot({

@@ -24,6 +24,7 @@ export type CreatorAction =
   | { type: 'setTheme'; themeId: ThemeId }
   | { type: 'setMode'; mode: GenerationRequest['mode'] }
   | { type: 'toggleLock'; slotId: VisualSlotId }
+  | { type: 'rerollAppearance' }
   | { type: 'rerollSlot'; slotId: VisualSlotId }
   | { type: 'manualSelect'; slotId: VisualSlotId; partId: string }
   | { type: 'importSpec'; spec: MonsterSpec }

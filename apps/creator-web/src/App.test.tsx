@@ -15,6 +15,7 @@ import {
   productionCatalogRegistry,
   v02ProductionCatalog,
   v03ProductionCatalog,
+  v05ProductionCatalog,
 } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
 
@@ -39,24 +40,28 @@ function deferred<T>() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CreatorWorkbench', () => {
-  it('starts first-hatch with exact catalog and renderer 0.5.0 after approval', async () => {
+  it('starts first-hatch with the exact v0.6 anatomy-bundle catalog after approval', async () => {
     installCanvasContexts()
     vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation(callback => {
       callback(new Blob([], { type: 'image/webp' }))
     })
     render(<App />)
 
-    expect(await screen.findByText('目录 v0.5.0')).toBeTruthy()
-    expect(productionCatalog.version).toBe('0.5.0')
+    expect(await screen.findByText('目录 v0.6.0')).toBeTruthy()
+    expect(screen.getByText('外形基因')).toBeTruthy()
+    expect(screen.getByText(/外形 feline-sit-/)).toBeTruthy()
+    expect(productionCatalog.version).toBe('0.6.0')
   })
 
-  it('installs exact 0.1.0 through 0.5.0 catalogs while keeping v0.5 as the default', async () => {
+  it('installs exact 0.1.0 through 0.6.0 catalogs while keeping v0.6 as the default', async () => {
     expect((await productionCatalogRegistry.load('0.1.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.2.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.3.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.4.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.5.0')).ok).toBe(true)
-    expect(productionCatalog.version).toBe('0.5.0')
+    expect((await productionCatalogRegistry.load('0.6.0')).ok).toBe(true)
+    expect(productionCatalog.version).toBe('0.6.0')
+    expect(v05ProductionCatalog.version).toBe('0.5.0')
     expect(v03ProductionCatalog.version).toBe('0.3.0')
     expect(await productionCatalogRegistry.load('0.1')).toEqual({
       ok: false,
@@ -78,20 +83,29 @@ describe('CreatorWorkbench', () => {
       ok: false,
       diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
     })
+    expect(await productionCatalogRegistry.load('0.6.1')).toEqual({
+      ok: false,
+      diagnostics: [expect.objectContaining({ code: 'CATALOG_VERSION_MISSING' })],
+    })
   })
 
-  it('edits an exact v0.5 import while keeping valid v0.3, v0.2, and v0.1 imports read-only', async () => {
+  it('edits an exact v0.6 import while keeping valid v0.5 through v0.1 imports read-only', async () => {
     installCanvasContexts()
     const user = userEvent.setup()
     const renderer: PreviewRenderer = vi.fn(async () => ({
       drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: [],
     }))
-    const currentV05 = generateMonster({ seed: 'import-v05', themeId: 'fungal', mode: 'normal' }, productionCatalog)
+    const currentV06 = generateMonster({
+      seed: 'import-v06', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, productionCatalog)
+    const legacyV05 = generateMonster({ seed: 'inspect-v05', themeId: 'fungal', mode: 'normal' }, v05ProductionCatalog)
     const legacyV03 = generateMonster({ seed: 'inspect-v03', themeId: 'fungal', mode: 'normal' }, v03ProductionCatalog)
     const rejectedV02 = generateMonster({ seed: 'inspect-v02', themeId: 'fungal', mode: 'normal' }, v02ProductionCatalog)
     const legacyV01 = generateMonster({ seed: 'inspect-v01', themeId: 'fungal', mode: 'normal' }, legacyProductionCatalog)
-    const parseSpecFile = vi.fn((file: File) => Promise.resolve(file.name === 'current-v05.json'
-      ? { ok: true as const, value: { spec: currentV05.spec, catalog: productionCatalog }, diagnostics: [] }
+    const parseSpecFile = vi.fn((file: File) => Promise.resolve(file.name === 'current-v06.json'
+      ? { ok: true as const, value: { spec: currentV06.spec, catalog: productionCatalog }, diagnostics: [] }
+      : file.name === 'legacy-v05.json'
+        ? { ok: true as const, value: { spec: legacyV05.spec, catalog: v05ProductionCatalog }, diagnostics: [] }
       : file.name === 'legacy-v03.json'
         ? {
             ok: true as const,
@@ -100,7 +114,7 @@ describe('CreatorWorkbench', () => {
               severity: 'warning' as const,
               code: 'CATALOG_VERSION_OLD',
               path: ['catalogVersion'],
-              message: 'Catalog version 0.3.0 is installed but older than 0.5.0.',
+              message: 'Catalog version 0.3.0 is installed but older than 0.6.0.',
             }],
           }
       : file.name === 'rejected-v02.json'
@@ -113,13 +127,18 @@ describe('CreatorWorkbench', () => {
       previewRenderer={renderer}
     />)
 
-    expect(await screen.findByText('目录 v0.5.0')).toBeTruthy()
+    expect(await screen.findByText('目录 v0.6.0')).toBeTruthy()
     const input = screen.getByLabelText('选择要导入的 JSON 文件')
-    await user.upload(input, new File(['v05'], 'current-v05.json'))
-    expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe('import-v05')
+    await user.upload(input, new File(['v06'], 'current-v06.json'))
+    expect((await screen.findByLabelText('种子') as HTMLInputElement).value).toBe('import-v06')
     expect(screen.queryByText('旧版标本 · 只读查看')).toBeNull()
 
-    await user.upload(input, new File(['v03'], 'legacy-v03.json'))
+    await user.upload(input, new File(['v05'], 'legacy-v05.json'))
+    expect(await screen.findByText('旧版标本 · 只读查看')).toBeTruthy()
+    expect(screen.getByRole('heading', { name: '目录 v0.5.0 · 渲染器 v0.5.0' })).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: '返回新版生成器' }))
+
+    await user.upload(screen.getByLabelText('选择要导入的 JSON 文件'), new File(['v03'], 'legacy-v03.json'))
     expect(await screen.findByText('旧版标本 · 只读查看')).toBeTruthy()
     expect(screen.getByRole('heading', { name: '目录 v0.3.0 · 渲染器 v0.3.0' })).toBeTruthy()
     await user.click(screen.getByRole('button', { name: '返回新版生成器' }))
@@ -370,7 +389,7 @@ describe('CreatorWorkbench', () => {
     const user = userEvent.setup()
     const preparedSession = refreshSessionValidity({
       ...createCreatorSession(generateMonster({
-        seed: 'saved-v0.2-session', themeId: 'shadow', mode: 'normal',
+        seed: 'saved-v0.2-session', themeId: 'shadow', mode: 'normal', archetypeId: 'feline',
       }, productionCatalog), { png: true, webp: true }),
       generationDiagnostics: [{
         severity: 'warning', code: 'PRESEEDED_DIAGNOSTIC', path: ['visualSlots', 'tail'], message: 'keep this diagnostic',
@@ -411,7 +430,9 @@ describe('CreatorWorkbench', () => {
     expect(await screen.findByText('旧版标本 · 只读查看')).toBeTruthy()
     slowCurrent.resolve({
       ok: true,
-      value: { spec: generateMonster({ seed: 'new-current', themeId: 'shadow', mode: 'normal' }, productionCatalog).spec, catalog: productionCatalog },
+      value: { spec: generateMonster({
+        seed: 'new-current', themeId: 'shadow', mode: 'normal', archetypeId: 'feline',
+      }, productionCatalog).spec, catalog: productionCatalog },
       diagnostics: [],
     })
     await Promise.resolve()

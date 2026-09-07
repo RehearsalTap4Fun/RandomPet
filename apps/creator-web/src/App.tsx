@@ -11,7 +11,8 @@ import legacyProductionCatalogDocument from '../../../packages/asset-catalog/cat
 import v02ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import v04ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
-import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.5.0/catalog.json'
+import v05ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.5.0/catalog.json'
+import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
 import type { CreatorAction, CreatorSession } from './state/contracts.js'
 import type { SessionStorage } from './state/persistence.js'
@@ -33,6 +34,11 @@ if (!parsedProductionCatalog.ok) {
   throw new Error(`Production catalog is invalid: ${parsedProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
 }
 export const productionCatalog = parsedProductionCatalog.value
+const parsedV05ProductionCatalog = parseCatalog(v05ProductionCatalogDocument)
+if (!parsedV05ProductionCatalog.ok) {
+  throw new Error(`V0.5 production catalog is invalid: ${parsedV05ProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
+}
+export const v05ProductionCatalog = parsedV05ProductionCatalog.value
 const parsedV03ProductionCatalog = parseCatalog(v03ProductionCatalogDocument)
 if (!parsedV03ProductionCatalog.ok) {
   throw new Error(`V0.3 production catalog is invalid: ${parsedV03ProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
@@ -58,7 +64,8 @@ export const productionCatalogRegistry = new CatalogRegistry(new Map([
   ['0.2.0', async () => v02ProductionCatalog],
   ['0.3.0', async () => v03ProductionCatalog],
   ['0.4.0', async () => v04ProductionCatalog],
-  ['0.5.0', async () => productionCatalog],
+  ['0.5.0', async () => v05ProductionCatalog],
+  ['0.6.0', async () => productionCatalog],
 ]))
 
 interface CreatorWorkbenchProps {
@@ -97,6 +104,7 @@ function StatusStrip({
   const lockCount = VISUAL_SLOT_IDS.filter(slotId => session.locks[slotId]).length
   const errorCount = session.diagnostics.filter(item => item.severity === 'error').length
   const theme = catalog.themes.find(item => item.id === session.spec.themeId)
+  const bundle = catalog.anatomyBundles?.find(item => item.id === session.spec.anatomyBundleId)
 
   return (
     <ul className="status-strip" aria-label="作品状态">
@@ -106,6 +114,7 @@ function StatusStrip({
         <span aria-hidden="true">!</span> 错误 {errorCount}
       </li>
       <li><span aria-hidden="true">●</span> 主题 {theme?.displayName ?? session.spec.themeId}</li>
+      {bundle !== undefined && <li><span aria-hidden="true">✦</span> 外形 {bundle.id}</li>}
       <li><span aria-hidden="true">#</span> 目录 v{catalog.version}</li>
     </ul>
   )
@@ -284,6 +293,7 @@ function InitializedCreatorApp({
       seed: 'qmonster-v0.1-first-hatch',
       themeId: 'fungal',
       mode: 'normal',
+      archetypeId: 'feline',
     },
     exportCapabilities,
     ...(storage === undefined ? {} : { storage }),

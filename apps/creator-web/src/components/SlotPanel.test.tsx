@@ -3,9 +3,11 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import {
   generateMonster,
+  parseCatalog,
   type Catalog,
 } from '@qmonster/generator-core'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
+import v06CatalogDocument from '../../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
 import { createCreatorSession } from '../state/contracts.js'
 import { v02ProductionCatalog } from '../App.js'
 import { SlotPanel } from './SlotPanel.js'
@@ -18,7 +20,26 @@ function fixture(catalog: Catalog = makeValidCatalogFixture()) {
   }, catalog))
 }
 
+const parsedV06Catalog = parseCatalog(v06CatalogDocument)
+if (!parsedV06Catalog.ok) throw new Error('Expected valid v0.6 fixture catalog.')
+const v06Catalog = parsedV06Catalog.value
+
 describe('SlotPanel', () => {
+  it('renders one whole-appearance control and no independent structural controls for v0.6', () => {
+    const session = createCreatorSession(generateMonster({
+      seed: 'v06-appearance-panel', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, v06Catalog))
+
+    render(<SlotPanel session={session} catalog={v06Catalog} onAction={() => undefined} />)
+
+    expect(screen.getByText('外形基因')).toBeTruthy()
+    expect(screen.getAllByTestId('visual-slot-row')).toHaveLength(8)
+    for (const label of ['体型骨架', '头部轮廓', '手臂', '腿脚', '尾巴', '额外附肢']) {
+      expect(screen.queryByRole('combobox', { name: `${label}部件` })).toBeNull()
+      expect(screen.queryByRole('button', { name: `重抽${label}` })).toBeNull()
+    }
+  })
+
   it('exposes fourteen visual slot rows in four responsibility groups', () => {
     const catalog = makeValidCatalogFixture()
     render(<SlotPanel session={fixture(catalog)} catalog={catalog} onAction={() => undefined} />)

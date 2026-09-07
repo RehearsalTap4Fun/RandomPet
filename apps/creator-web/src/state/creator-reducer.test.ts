@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   generateMonster,
+  parseCatalog,
   VISUAL_SLOT_IDS,
   type Catalog,
   type Diagnostic,
@@ -13,6 +14,7 @@ import {
   makeValidCatalogFixture,
   makeValidCompositionSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
+import v06CatalogDocument from '../../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
 import { createCreatorReducer } from './creator-reducer.js'
 import {
   createCreatorSession,
@@ -44,6 +46,16 @@ function withLocked(session: CreatorSession, ...slotIds: VisualSlotId[]): Creato
       ...Object.fromEntries(slotIds.map(slotId => [slotId, true])),
     },
   }
+}
+
+const parsedV06Catalog = parseCatalog(v06CatalogDocument)
+if (!parsedV06Catalog.ok) throw new Error('Expected valid v0.6 fixture catalog.')
+const v06Catalog = parsedV06Catalog.value
+
+function makeV06Session(): CreatorSession {
+  return createCreatorSession(generateMonster({
+    seed: 'v06-appearance-reroll', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+  }, v06Catalog))
 }
 
 function catalogWithoutModifiers(): Catalog {
@@ -149,6 +161,27 @@ function catalogThatReplacesEveryUnlockedSlot(): Catalog {
 }
 
 describe('createCreatorReducer', () => {
+  it('rerolls the whole v0.6 appearance unless any structural slot is locked', () => {
+    const reducer = createCreatorReducer(v06Catalog)
+    const before = makeV06Session()
+
+    const rerolled = reducer(before, { type: 'rerollAppearance' })
+    const locked = reducer(withLocked(before, 'tail'), { type: 'rerollAppearance' })
+
+    expect(rerolled.spec.anatomyBundleId).not.toBe(before.spec.anatomyBundleId)
+    expect(locked.spec.anatomyBundleId).toBe(before.spec.anatomyBundleId)
+    expect(locked.diagnostics).toContainEqual(expect.objectContaining({ code: 'ANATOMY_BUNDLE_LOCKED' }))
+  })
+
+  it('keeps the selected anatomy bundle when rerolling a local eye trait', () => {
+    const reducer = createCreatorReducer(v06Catalog)
+    const before = makeV06Session()
+
+    const rerolled = reducer(before, { type: 'rerollSlot', slotId: 'eyes' })
+
+    expect(rerolled.spec.anatomyBundleId).toBe(before.spec.anatomyBundleId)
+  })
+
   it('clears child connector errors after an invalid body replacement is repaired', () => {
     const catalog = catalogWithIncompatibleBodyReplacement()
     const session = makeSession(catalog)
