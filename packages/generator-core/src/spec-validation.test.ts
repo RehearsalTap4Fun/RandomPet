@@ -22,22 +22,43 @@ const versions = {
 } as const
 
 describe('validateMonsterSpecAgainstCatalog', () => {
-  it('blocks forged feline contract violations', () => {
+  it.each(['normal', 'mutation', 'aberration'] as const)(
+    'accepts a generated exact-v0.6 feline anatomy bundle in %s mode',
+    mode => {
+      const parsed = parseCatalog(v06ProductionCatalogDocument)
+      expect(parsed.ok).toBe(true)
+      if (!parsed.ok) return
+
+      const generated = generateMonster({
+        seed: `feline-v06-${mode}`,
+        themeId: 'fungal',
+        mode,
+        archetypeId: 'feline',
+      }, parsed.value)
+
+      expect(generated.blocked).toBe(false)
+      expect(validateMonsterSpecAgainstCatalog(generated.spec, parsed.value)
+        .filter(diagnostic => diagnostic.severity === 'error')).toEqual([])
+    },
+  )
+
+  it('rejects forged structural and local selections outside an exact-v0.6 anatomy bundle', () => {
     const parsed = parseCatalog(v06ProductionCatalogDocument)
     expect(parsed.ok).toBe(true)
     if (!parsed.ok) return
     const catalog = parsed.value
     const versions = { schemaVersion: '0.2.0', rendererVersion: '0.6.0' }
-    const base = generateMonster({ seed: 'feline-forge', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline' }, catalog).spec
+    const base = generateMonster({ seed: 'feline-forge', themeId: 'fungal', mode: 'normal', archetypeId: 'feline' }, catalog).spec
+    const selectedBundle = catalog.anatomyBundles!.find(bundle => bundle.id === base.anatomyBundleId)!
+    const otherBundle = catalog.anatomyBundles!.find(bundle => bundle.id !== selectedBundle.id)!
 
     const forgedArchetype = { ...structuredClone(base), archetypeId: 'canine' as const }
-    const legacyBody = structuredClone(base)
-    legacyBody.visualSlots.bodyFrame.partId = 'body_blob'
-    const integrated = structuredClone(base)
-    integrated.visualSlots.arms.partId = 'tail_feline_long'
-    const twoSpecials = structuredClone(base)
-    twoSpecials.visualSlots.tail.partId = 'tail_feline_star_tip'
-    twoSpecials.visualSlots.headAppendage.partId = 'ear_crystal_rim'
+    const unknownBundle = structuredClone(base)
+    unknownBundle.anatomyBundleId = 'unknown-feline-bundle'
+    const structural = structuredClone(base)
+    structural.visualSlots.tail.partId = otherBundle.derivedSlots.tail
+    const local = structuredClone(base)
+    local.visualSlots.eyes.partId = otherBundle.allowedTraitPools.eyes![0]!
     const doubleHead = structuredClone(base)
     doubleHead.mutation = { id: 'mutation_double_head', overrides: { duplicateLayerGroup: 'head', socket: 'headAlternate' } }
     const requiresMutation = structuredClone(base)
@@ -47,11 +68,30 @@ describe('validateMonsterSpecAgainstCatalog', () => {
       ? { ...modifier, requiresMutation: true } : modifier)
 
     expect(validateMonsterSpecAgainstCatalog(forgedArchetype, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ARCHETYPE_INVALID' }))
-    expect(validateMonsterSpecAgainstCatalog(legacyBody, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_PART_MISSING' }))
-    expect(validateMonsterSpecAgainstCatalog(integrated, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_INTEGRATED_SLOT_INVALID' }))
-    expect(validateMonsterSpecAgainstCatalog(twoSpecials, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_SPECIAL_FEATURE_COUNT_INVALID' }))
+    expect(validateMonsterSpecAgainstCatalog(forgedArchetype, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_ARCHETYPE_MISMATCH' }))
+    expect(validateMonsterSpecAgainstCatalog(unknownBundle, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_UNKNOWN' }))
+    expect(validateMonsterSpecAgainstCatalog(structural, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_SLOT_MISMATCH' }))
+    expect(validateMonsterSpecAgainstCatalog(local, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_TRAIT_MISMATCH' }))
     expect(validateMonsterSpecAgainstCatalog(doubleHead, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_MODIFIER_INVALID' }))
     expect(validateMonsterSpecAgainstCatalog(requiresMutation, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_MODIFIER_INVALID' }))
+  })
+
+  it('keeps independent feline sentinels and eligible-special counts for non-Bundle specs', () => {
+    const parsed = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    const catalog = parsed.value
+    catalog.archetypes = catalog.archetypes!.map(archetype => ({
+      ...archetype,
+      specialFeatureSlots: ['headAppendage'],
+    }))
+    const spec = generateMonster({ seed: 'feline-non-bundle', themeId: 'fungal', mode: 'mutation', archetypeId: 'feline' }, catalog).spec
+    delete spec.anatomyBundleId
+
+    const codes = validateMonsterSpecAgainstCatalog(spec, catalog).map(diagnostic => diagnostic.code)
+
+    expect(codes).toContain('SPEC_INTEGRATED_SLOT_INVALID')
+    expect(codes).toContain('SPEC_SPECIAL_FEATURE_COUNT_INVALID')
   })
 
   it('rejects a v0.6 modifier state that combines mutation and aberration', () => {

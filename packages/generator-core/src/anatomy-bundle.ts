@@ -37,16 +37,17 @@ export function validateAnatomyBundleSpec(spec: MonsterSpec, catalog: Catalog): 
       message: `Unknown anatomy bundle ${spec.anatomyBundleId}.`,
     }]
   }
+  const diagnostics: Diagnostic[] = []
   if (spec.archetypeId !== undefined && spec.archetypeId !== bundle.archetypeId) {
-    return [{
+    diagnostics.push({
       severity: 'error',
       code: 'SPEC_ANATOMY_BUNDLE_ARCHETYPE_MISMATCH',
       path: ['anatomyBundleId'],
       message: `Anatomy bundle ${bundle.id} requires archetype ${bundle.archetypeId}.`,
-    }]
+    })
   }
   const expected = deriveBundleStructuralSlots(bundle)
-  return STRUCTURAL_SLOT_IDS.flatMap(slotId => {
+  diagnostics.push(...STRUCTURAL_SLOT_IDS.flatMap(slotId => {
     const actual = spec.visualSlots[slotId]
     const selection = expected[slotId]
     return actual.partId === selection.partId && actual.rigId === selection.rigId
@@ -57,5 +58,15 @@ export function validateAnatomyBundleSpec(spec: MonsterSpec, catalog: Catalog): 
         path: ['visualSlots', slotId],
         message: `Structural slot ${slotId} must match anatomy bundle ${bundle.id}.`,
       }]
-  })
+  }))
+  for (const [slotId, allowedPartIds] of Object.entries(bundle.allowedTraitPools) as [VisualSlotId, readonly string[]][]) {
+    if (allowedPartIds.includes(spec.visualSlots[slotId].partId)) continue
+    diagnostics.push({
+      severity: 'error',
+      code: 'SPEC_ANATOMY_BUNDLE_TRAIT_MISMATCH',
+      path: ['visualSlots', slotId, 'partId'],
+      message: `Local slot ${slotId} must select a trait allowed by anatomy bundle ${bundle.id}.`,
+    })
+  }
+  return diagnostics
 }

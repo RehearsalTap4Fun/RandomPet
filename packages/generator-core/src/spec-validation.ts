@@ -23,6 +23,7 @@ import {
 } from './composition.js'
 import { validateStructuralSelections } from './connector-compatibility.js'
 import { validateMonsterGenome } from './genome-validation.js'
+import { validateAnatomyBundleSpec } from './anatomy-bundle.js'
 
 export const CURRENT_SPEC_VERSIONS: SupportedSpecVersions = {
   schemaVersion: '0.1.0',
@@ -180,6 +181,7 @@ function validateFelineSpec(
   catalog: Catalog,
   selectedParts: ReadonlyMap<VisualSlotId, VisualPartDefinition>,
   diagnostics: Diagnostic[],
+  usesAnatomyBundle: boolean,
 ): AnimalArchetypeDefinition | null {
   if (catalog.version !== '0.6.0') return null
   const archetype = catalog.archetypes?.find(candidate => candidate.id === spec.archetypeId) ?? null
@@ -209,30 +211,33 @@ function validateFelineSpec(
       ))
     }
   }
-  const integratedSentinels: Partial<Record<VisualSlotId, string>> = {
-    arms: 'arms_feline_integrated',
-    legs: 'legs_feline_integrated',
-    extraAppendage: 'extra_feline_none',
-  }
-  for (const [slotId, partId] of Object.entries(integratedSentinels) as [VisualSlotId, string][]) {
-    if (spec.visualSlots[slotId].partId !== partId) {
+  if (!usesAnatomyBundle) {
+    const integratedSentinels: Partial<Record<VisualSlotId, string>> = {
+      arms: 'arms_feline_integrated',
+      legs: 'legs_feline_integrated',
+      extraAppendage: 'extra_feline_none',
+    }
+    for (const [slotId, partId] of Object.entries(integratedSentinels) as [VisualSlotId, string][]) {
+      if (spec.visualSlots[slotId].partId === partId) continue
       diagnostics.push(error(
         'SPEC_INTEGRATED_SLOT_INVALID',
         ['visualSlots', slotId, 'partId'],
         `Archetype ${archetype.id} requires integrated sentinel ${partId} for ${slotId}.`,
       ))
     }
-  }
-  const tail = selectedParts.get('tail')
-  if (tail === undefined || tail.composition?.isNone === true) {
-    diagnostics.push(error(
-      'SPEC_ARCHETYPE_INVALID',
-      ['visualSlots', 'tail', 'partId'],
-      `Archetype ${archetype.id} requires one visible tail.`,
-    ))
+    const tail = selectedParts.get('tail')
+    if (tail === undefined || tail.composition?.isNone === true) {
+      diagnostics.push(error(
+        'SPEC_ARCHETYPE_INVALID',
+        ['visualSlots', 'tail', 'partId'],
+        `Archetype ${archetype.id} requires one visible tail.`,
+      ))
+    }
   }
   const specialCount = [...selectedParts.values()].filter(part => part.featureTier === 'special').length
-  const expectedSpecialCount = spec.mutation === null && spec.aberrations.length === 0 ? 0 : 1
+  const expectedSpecialCount = archetype.specialFeatureSlots.length === 0
+    ? 0
+    : (spec.mutation === null && spec.aberrations.length === 0 ? 0 : 1)
   if (specialCount !== expectedSpecialCount) {
     diagnostics.push(error(
       'SPEC_SPECIAL_FEATURE_COUNT_INVALID',
@@ -241,6 +246,14 @@ function validateFelineSpec(
     ))
   }
   return archetype
+}
+
+function usesExactV06AnatomyBundle(spec: MonsterSpec, catalog: Catalog): boolean {
+  return catalog.version === '0.6.0'
+    && spec.schemaVersion === '0.2.0'
+    && spec.catalogVersion === '0.6.0'
+    && spec.rendererVersion === '0.6.0'
+    && spec.anatomyBundleId !== undefined
 }
 
 function validateFelineModifierState(spec: MonsterSpec, catalog: Catalog, diagnostics: Diagnostic[]): void {
@@ -379,7 +392,9 @@ export function validateMonsterSpecAgainstCatalog(
     }
   }
 
-  validateFelineSpec(spec, catalog, selectedParts, diagnostics)
+  const anatomyBundleRoute = usesExactV06AnatomyBundle(spec, catalog)
+  validateFelineSpec(spec, catalog, selectedParts, diagnostics, anatomyBundleRoute)
+  if (anatomyBundleRoute) diagnostics.push(...validateAnatomyBundleSpec(spec, catalog))
   validateFelineModifierState(spec, catalog, diagnostics)
 
   for (const semanticSlotId of SEMANTIC_SLOT_IDS) {
