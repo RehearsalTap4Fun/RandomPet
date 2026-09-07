@@ -5,7 +5,7 @@ import {
   resolveAnatomyBundle,
   validateAnatomyBundleSpec,
 } from './anatomy-bundle.js'
-import { makeValidMonsterSpecFixture } from './test-fixtures.js'
+import { makeV07FelinePartLibraryFixture, makeValidMonsterSpecFixture } from './test-fixtures.js'
 
 const hash = 'a'.repeat(64)
 const resource = (name: string) => ({
@@ -96,5 +96,27 @@ describe('anatomy bundles', () => {
         code: 'SPEC_ANATOMY_BUNDLE_SLOT_MISMATCH', path: ['visualSlots', 'tail'],
       }),
     )
+  })
+
+  it('requires every v0.7 selection to belong to its independent part pool', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const bundle = catalog.anatomyBundles![0]!
+    const spec = makeValidMonsterSpecFixture()
+    spec.catalogVersion = '0.7.0'
+    spec.rendererVersion = '0.7.0'
+    spec.archetypeId = 'feline'
+    spec.anatomyBundleId = bundle.id
+    for (const slotId of Object.keys(spec.visualSlots) as VisualSlotId[]) {
+      spec.visualSlots[slotId] = {
+        partId: bundle.partPools![slotId]![0]!,
+        rigId: 'feline-sit',
+      }
+    }
+    spec.visualSlots.eyes.partId = 'eyes_not_in_pool'
+
+    expect(validateAnatomyBundleSpec(spec, catalog)).toContainEqual(expect.objectContaining({
+      code: 'SPEC_ANATOMY_BUNDLE_PART_POOL_MISMATCH',
+      path: ['visualSlots', 'eyes', 'partId'],
+    }))
   })
 })

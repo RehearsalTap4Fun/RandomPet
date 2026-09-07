@@ -83,6 +83,8 @@ export const LOCAL_VISUAL_SLOT_IDS = [
 export type LocalVisualSlotId = typeof LOCAL_VISUAL_SLOT_IDS[number]
 export type Rarity = 'N' | 'R' | 'L'
 export const RARITY_WEIGHTS: Record<Rarity, number> = { N: 70, R: 25, L: 5 }
+export const PART_RARITY_WEIGHTS: Record<Rarity, number> = { N: 8, R: 4, L: 1 }
+export const INDEPENDENT_PART_POOL_COUNTS: Record<Rarity, number> = { N: 8, R: 4, L: 1 }
 
 const STRUCTURAL_SLOT_ID_SET = new Set<VisualSlotId>(STRUCTURAL_SLOT_IDS)
 const LOCAL_VISUAL_SLOT_ID_SET = new Set<VisualSlotId>(LOCAL_VISUAL_SLOT_IDS)
@@ -268,6 +270,11 @@ export interface AnatomyBundleDefinition {
   mutationAnchors: Record<string, Rect>
   derivedSlots: Record<StructuralSlotId, string>
   allowedTraitPools: Record<LocalVisualSlotId, string[]>
+  partPools?: Record<VisualSlotId, string[]>
+}
+
+export interface IndependentPartAnatomyBundleDefinition extends AnatomyBundleDefinition {
+  partPools: Record<VisualSlotId, string[]>
 }
 
 export interface AnimalArchetypeDefinition {
@@ -384,6 +391,10 @@ export interface Catalog {
   transitionBridges?: TransitionBridgeDefinition[]
   archetypes?: AnimalArchetypeDefinition[]
   anatomyBundles?: AnatomyBundleDefinition[]
+}
+
+export function isIndependentPartCatalog(catalog: Catalog): boolean {
+  return catalog.version === '0.7.0'
 }
 
 export const COMPOSITION_PARENT_BY_SLOT: Record<VisualSlotId, VisualSlotId | null> = {

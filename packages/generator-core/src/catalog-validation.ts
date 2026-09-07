@@ -4,8 +4,10 @@ import {
   SEMANTIC_SLOT_IDS,
   STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  INDEPENDENT_PART_POOL_COUNTS,
   isStructuralSlot,
   isAttachmentPartComposition,
+  isIndependentPartCatalog,
   type Catalog,
   type AnatomyBundleDefinition,
   type ConnectorClass,
@@ -295,6 +297,117 @@ function validateAnatomyBundles(catalog: Catalog, diagnostics: Diagnostic[]): vo
   }
 }
 
+function validateIndependentPartPools(catalog: Catalog, diagnostics: Diagnostic[]): void {
+  if (!isIndependentPartCatalog(catalog)) return
+  const bundles = catalog.anatomyBundles ?? []
+  if (bundles.length === 0) {
+    diagnostics.push(error(
+      'CATALOG_INDEPENDENT_PART_POOL_BUNDLE_MISSING',
+      ['anatomyBundles'],
+      'Catalog 0.7.0 requires at least one independent-part anatomy bundle.',
+    ))
+    return
+  }
+  const partsById = new Map(catalog.parts.map(part => [part.id, part]))
+  for (const [bundleIndex, bundle] of bundles.entries()) {
+    const bundlePath = ['anatomyBundles', String(bundleIndex)]
+    if (bundle.partPools === undefined) {
+      diagnostics.push(error(
+        'CATALOG_INDEPENDENT_PART_POOL_REQUIRED',
+        bundlePath.concat('partPools'),
+        `Anatomy bundle ${bundle.id} requires independent part pools.`,
+      ))
+      continue
+    }
+    for (const [resourceName, resource] of Object.entries({
+      structural: bundle.structural,
+      alpha: bundle.alpha,
+      clip: bundle.clip,
+    })) {
+      if (!hasValidBundleResource(resource)) {
+        diagnostics.push(error(
+          'CATALOG_INDEPENDENT_PART_POOL_RESOURCE_INVALID',
+          bundlePath.concat(resourceName),
+          `Anatomy bundle ${bundle.id} has an invalid ${resourceName} resource reference.`,
+        ))
+      }
+    }
+    for (const slotId of VISUAL_SLOT_IDS) {
+      const partIds = bundle.partPools[slotId]
+      const poolPath = bundlePath.concat('partPools', slotId)
+      const seenPartIds = new Set<string>()
+      const rarityCounts = { N: 0, R: 0, L: 0 }
+      for (const [partIndex, partId] of partIds.entries()) {
+        const candidatePath = poolPath.concat(String(partIndex))
+        if (seenPartIds.has(partId)) {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_PART_DUPLICATE',
+            candidatePath,
+            `Part pool ${slotId} repeats ${partId}.`,
+          ))
+        }
+        seenPartIds.add(partId)
+        const part = partsById.get(partId)
+        if (part === undefined) {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_PART_MISSING',
+            candidatePath,
+            `Part pool ${slotId} references missing part ${partId}.`,
+          ))
+          continue
+        }
+        rarityCounts[part.rarity] += 1
+        if (part.slotId !== slotId) {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_PART_SLOT_MISMATCH',
+            candidatePath,
+            `Part pool ${slotId} references ${part.id}, which belongs to ${part.slotId}.`,
+          ))
+        }
+        if (part.archetypeIds?.includes(bundle.archetypeId) !== true) {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_PART_ARCHETYPE_MISMATCH',
+            candidatePath,
+            `Part ${part.id} does not support anatomy bundle archetype ${bundle.archetypeId}.`,
+          ))
+        }
+        if (!part.compatibleRigs.includes(bundle.rigId)) {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_PART_RIG_MISMATCH',
+            candidatePath,
+            `Part ${part.id} does not support anatomy bundle rig ${bundle.rigId}.`,
+          ))
+        }
+        if (isStructuralSlot(slotId) && part.composition?.mode !== 'interface') {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_STRUCTURAL_INTERFACE_REQUIRED',
+            candidatePath,
+            `Structural pool ${slotId} requires interface composition for ${part.id}.`,
+          ))
+        }
+        if (!isStructuralSlot(slotId) && !part.composition?.isNone && (
+          !isAttachmentPartComposition(part.composition) || part.composition.renderNodes.length === 0
+        )) {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_LOCAL_ATTACHMENT_INVALID',
+            candidatePath,
+            `Visible local pool candidate ${part.id} requires attachment composition with render nodes.`,
+          ))
+        }
+      }
+      for (const rarity of ['N', 'R', 'L'] as const) {
+        if (rarityCounts[rarity] !== INDEPENDENT_PART_POOL_COUNTS[rarity]) {
+          diagnostics.push(error(
+            'CATALOG_INDEPENDENT_PART_POOL_RARITY_COUNT_INVALID',
+            poolPath,
+            `Part pool ${slotId} requires ${INDEPENDENT_PART_POOL_COUNTS[rarity]} ${rarity} candidates.`,
+          ))
+        }
+      }
+    }
+  }
+}
+
 function requiredConnectorProfiles(catalog: Catalog, part: Catalog['parts'][number], rigId: RigId): ReadonlyArray<{
   id: string
   role: 'receiver' | 'plug'
@@ -317,7 +430,7 @@ function requiredConnectorProfiles(catalog: Catalog, part: Catalog['parts'][numb
 }
 
 function validateInterfaceStructure(catalog: Catalog, diagnostics: Diagnostic[]): void {
-  if (catalog.version !== '0.3.0' && catalog.version !== '0.4.0' && catalog.version !== '0.5.0') return
+  if (catalog.version !== '0.3.0' && catalog.version !== '0.4.0' && catalog.version !== '0.5.0' && catalog.version !== '0.7.0') return
   const bridges = catalog.transitionBridges ?? []
   reportDuplicateIds(bridges, 'transitionBridges', diagnostics)
   for (const [partIndex, part] of catalog.parts.entries()) {
@@ -644,7 +757,7 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
   const semanticTraitIds = reportDuplicateIds(catalog.semanticTraits, 'semanticTraits', diagnostics)
   const modifierIds = reportDuplicateIds(catalog.modifiers, 'modifiers', diagnostics)
   reportMissingFixedIds(themeIds, REQUIRED_THEME_IDS, 'THEME', diagnostics)
-  if (catalog.version !== '0.6.0') reportMissingFixedIds(rigIds, REQUIRED_RIG_IDS, 'RIG', diagnostics)
+  if (catalog.version !== '0.6.0' && catalog.version !== '0.7.0') reportMissingFixedIds(rigIds, REQUIRED_RIG_IDS, 'RIG', diagnostics)
 
   const rigs = new Map(catalog.rigs.map(rig => [rig.id, rig]))
   for (const [index, part] of catalog.parts.entries()) {
@@ -730,6 +843,7 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
   validateCompositionStructure(catalog, diagnostics)
   validateInterfaceStructure(catalog, diagnostics)
   validateAnatomyBundles(catalog, diagnostics)
+  validateIndependentPartPools(catalog, diagnostics)
 
   if (hasCycle(catalog.dependencies)) {
     diagnostics.push(error('CATALOG_DEPENDENCY_CYCLE', ['dependencies'], 'Catalog slot dependencies must be acyclic.'))

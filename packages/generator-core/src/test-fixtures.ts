@@ -303,6 +303,15 @@ export function makeCompositionCatalogFixture(): Catalog {
 
 const fixtureHash = 'a'.repeat(64)
 
+function fixtureResource(name: string) {
+  return {
+    assetPath: `assets/v0.7.0/bundles/${name}.webp`,
+    assetSha256: fixtureHash,
+    pngPath: `assets/v0.7.0/bundles/${name}.png`,
+    pngSha256: fixtureHash,
+  }
+}
+
 function interfaceConnector(
   id: string,
   role: 'receiver' | 'plug',
@@ -415,6 +424,104 @@ export function makeInterfaceCatalogFixture(): Catalog {
       backMaskSha256: fixtureHash,
     }))
   ))
+  return catalog as Catalog
+}
+
+export function makeV07FelinePartLibraryFixture(): Catalog {
+  const catalog = structuredClone(makeInterfaceCatalogFixture()) as any
+  catalog.version = '0.7.0'
+  catalog.rigs = [{
+    ...catalog.rigs.find((rig: { id: RigId }) => rig.id === 'blob'),
+    id: 'feline-sit',
+  }]
+  catalog.archetypes = [{
+    id: 'feline',
+    displayName: 'Feline sit',
+    rigIds: ['feline-sit'],
+    defaultRigId: 'feline-sit',
+    requiredVisibleSlots: [...VISUAL_SLOT_IDS],
+    integratedSlots: [],
+    specialFeatureSlots: [],
+  }]
+
+  const partPools: Record<VisualSlotId, string[]> = {} as Record<VisualSlotId, string[]>
+  catalog.parts = VISUAL_SLOT_IDS.flatMap((slotId: VisualSlotId) => {
+    const source = catalog.parts.find((part: any) => (
+      part.slotId === slotId && part.composition?.isNone !== true
+    ))
+    const candidates = [
+      ...Array.from({ length: 8 }, (_, index) => ['N', index + 1] as const),
+      ...Array.from({ length: 4 }, (_, index) => ['R', index + 1] as const),
+      ['L', 1] as const,
+    ].map(([rarity, index]) => {
+      const id = `${slotId}_${rarity.toLowerCase()}_${index}`
+      const part = structuredClone(source)
+      part.id = id
+      part.rarity = rarity
+      part.compatibleRigs = ['feline-sit']
+      part.archetypeIds = ['feline']
+      part.assetPath = `assets/v0.7.0/parts/${id}.webp`
+      part.pngPath = `assets/v0.7.0/parts/${id}.png`
+      part.assetSha256 = fixtureHash
+      part.pngSha256 = fixtureHash
+      if (part.composition.mode === 'interface') {
+        const variant = structuredClone(part.composition.variantsByRig.blob)
+        part.composition.variantsByRig = {
+          'feline-sit': {
+            ...variant,
+            rigId: 'feline-sit',
+            renderNodes: variant.renderNodes.map((node: any) => ({
+              ...node,
+              compatibleRigs: ['feline-sit'],
+            })),
+            connectors: variant.connectors.map((connector: any) => ({
+              ...connector,
+              rigId: 'feline-sit',
+              contourMaskPath: connector.contourMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
+              foregroundMaskPath: connector.foregroundMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
+              backgroundMaskPath: connector.backgroundMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
+            })),
+          },
+        }
+      } else {
+        part.composition.renderNodes = part.composition.renderNodes.map((node: any) => ({
+          ...node,
+          compatibleRigs: ['feline-sit'],
+        }))
+        part.composition.geometryByRig = {
+          'feline-sit': structuredClone(part.composition.geometryByRig.blob),
+        }
+      }
+      return part
+    })
+    partPools[slotId] = candidates.map(part => part.id)
+    return candidates
+  })
+  catalog.transitionBridges = catalog.transitionBridges
+    .filter((bridge: { rigId: RigId }) => bridge.rigId === 'blob')
+    .map((bridge: any) => ({
+      ...bridge,
+      rigId: 'feline-sit',
+      neutralAssetPath: bridge.neutralAssetPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
+      neutralPngPath: bridge.neutralPngPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
+      frontMaskPath: bridge.frontMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
+      backMaskPath: bridge.backMaskPath.replaceAll('v0.3.0', 'v0.7.0').replaceAll('/blob/', '/feline-sit/'),
+    }))
+  catalog.anatomyBundles = [{
+    id: 'feline-sit',
+    archetypeId: 'feline',
+    rigId: 'feline-sit',
+    poseId: 'sit',
+    rarity: 'N',
+    baseWeight: 1,
+    structural: fixtureResource('feline-sit-structural'),
+    alpha: fixtureResource('feline-sit-alpha'),
+    clip: fixtureResource('feline-sit-clip'),
+    faceSafeZone: { x: 500, y: 400, width: 1048, height: 900 },
+    featureSockets: {},
+    mutationAnchors: {},
+    partPools,
+  }]
   return catalog as Catalog
 }
 

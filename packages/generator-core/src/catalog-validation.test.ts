@@ -1,10 +1,35 @@
 import { describe, expect, it } from 'vitest'
-import { makeCompositionCatalogFixture, makeInterfaceCatalogFixture, makeValidCatalogFixture } from './test-fixtures.js'
+import {
+  makeCompositionCatalogFixture,
+  makeInterfaceCatalogFixture,
+  makeV07FelinePartLibraryFixture,
+  makeValidCatalogFixture,
+} from './test-fixtures.js'
 import { parseCatalog } from './catalog-schema.js'
 import { validateCatalogStructure } from './catalog-validation.js'
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('catalog validation', () => {
+  it('requires every v0.7 feline part pool to contain 8 N, 4 R, and 1 L candidates', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    catalog.anatomyBundles![0]!.partPools!.eyes.pop()
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_INDEPENDENT_PART_POOL_RARITY_COUNT_INVALID',
+      path: ['anatomyBundles', '0', 'partPools', 'eyes'],
+    }))
+  })
+
+  it('rejects a v0.7 pool that references an interface-incompatible structural part', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const tail = catalog.parts.find(part => part.slotId === 'tail')!
+    tail.compatibleRigs = ['blob']
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'CATALOG_INDEPENDENT_PART_POOL_PART_RIG_MISMATCH',
+    }))
+  })
+
   it('reports stable anatomy-bundle diagnostics for malformed v0.6 bundles', () => {
     const catalog = makeValidCatalogFixture() as any
     catalog.version = '0.6.0'

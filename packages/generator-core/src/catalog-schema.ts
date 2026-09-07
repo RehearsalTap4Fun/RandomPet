@@ -221,7 +221,7 @@ const ResourceRefSchema = z.object({
   pngPath: nonBlankString,
   pngSha256: sha256,
 }).strict()
-const AnatomyBundleDefinitionSchema = z.object({
+const AnatomyBundleBaseSchema = z.object({
   id: nonBlankString,
   archetypeId: AnimalArchetypeIdSchema,
   rigId: RigIdSchema,
@@ -234,6 +234,8 @@ const AnatomyBundleDefinitionSchema = z.object({
   faceSafeZone: RectSchema,
   featureSockets: z.record(z.string().min(1), Point2DSchema),
   mutationAnchors: z.record(z.string().min(1), RectSchema),
+})
+const AnatomyBundleDefinitionSchema = AnatomyBundleBaseSchema.extend({
   derivedSlots: z.object({
     bodyFrame: nonBlankString,
     headShape: nonBlankString,
@@ -247,6 +249,24 @@ const AnatomyBundleDefinitionSchema = z.object({
     mouthShape: z.array(nonBlankString).min(1),
     oralDetail: z.array(nonBlankString).min(1),
     headAppendage: z.array(nonBlankString).min(1),
+    surfaceMaterial: z.array(nonBlankString).min(1),
+    pattern: z.array(nonBlankString).min(1),
+    colorScheme: z.array(nonBlankString).min(1),
+    effect: z.array(nonBlankString).min(1),
+  }).strict(),
+}).strict()
+const IndependentPartAnatomyBundleDefinitionSchema = AnatomyBundleBaseSchema.extend({
+  partPools: z.object({
+    bodyFrame: z.array(nonBlankString).min(1),
+    headShape: z.array(nonBlankString).min(1),
+    eyes: z.array(nonBlankString).min(1),
+    mouthShape: z.array(nonBlankString).min(1),
+    oralDetail: z.array(nonBlankString).min(1),
+    headAppendage: z.array(nonBlankString).min(1),
+    arms: z.array(nonBlankString).min(1),
+    legs: z.array(nonBlankString).min(1),
+    tail: z.array(nonBlankString).min(1),
+    extraAppendage: z.array(nonBlankString).min(1),
     surfaceMaterial: z.array(nonBlankString).min(1),
     pattern: z.array(nonBlankString).min(1),
     colorScheme: z.array(nonBlankString).min(1),
@@ -326,9 +346,12 @@ export const CatalogSchema = z.object({
   compositionPolicy: CompositionPolicySchema.optional(),
   transitionBridges: z.array(TransitionBridgeDefinitionSchema).optional(),
   archetypes: z.array(AnimalArchetypeDefinitionSchema).min(1).optional(),
-  anatomyBundles: z.array(AnatomyBundleDefinitionSchema).min(1).optional(),
+  anatomyBundles: z.array(z.union([
+    AnatomyBundleDefinitionSchema,
+    IndependentPartAnatomyBundleDefinitionSchema,
+  ])).min(1).optional(),
 }).superRefine((catalog, context) => {
-  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0'
+  const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0' || catalog.version === '0.7.0'
   if (catalog.version === '0.6.0') {
     if (catalog.anatomyBundles === undefined || catalog.anatomyBundles.length === 0) {
       context.addIssue({
@@ -389,6 +412,47 @@ export const CatalogSchema = z.object({
           code: 'custom',
           path: ['parts', index, 'composition', 'mode'],
           message: 'Catalog 0.6.0 structural parts cannot use interface composition metadata.',
+        })
+      }
+    }
+  }
+  if (catalog.version === '0.7.0') {
+    if (catalog.anatomyBundles === undefined || catalog.anatomyBundles.length === 0) {
+      context.addIssue({
+        code: 'custom',
+        path: ['anatomyBundles'],
+        message: 'Catalog 0.7.0 requires at least one independent-part anatomy bundle.',
+      })
+    }
+    if (catalog.archetypes === undefined) {
+      context.addIssue({
+        code: 'custom',
+        path: ['archetypes'],
+        message: 'Catalog 0.7.0 requires archetype definitions.',
+      })
+    }
+    if (catalog.rigs.length !== 1 || catalog.rigs[0]?.id !== 'feline-sit') {
+      context.addIssue({
+        code: 'custom',
+        path: ['rigs'],
+        message: 'Catalog 0.7.0 requires exactly one feline-sit rig.',
+      })
+    }
+    for (const [index, bundle] of (catalog.anatomyBundles ?? []).entries()) {
+      if (!('partPools' in bundle)) {
+        context.addIssue({
+          code: 'custom',
+          path: ['anatomyBundles', index, 'partPools'],
+          message: 'Catalog 0.7.0 anatomy bundles require all independent part pools.',
+        })
+      }
+    }
+    for (const [index, part] of catalog.parts.entries()) {
+      if (part.archetypeIds?.includes('feline') !== true) {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'archetypeIds'],
+          message: 'Catalog 0.7.0 parts require feline archetype compatibility.',
         })
       }
     }

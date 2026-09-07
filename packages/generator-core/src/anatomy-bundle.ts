@@ -7,6 +7,7 @@ import {
   type StructuralSlotId,
   type VisualSelection,
   type VisualSlotId,
+  isIndependentPartCatalog,
 } from './contracts.js'
 
 export function resolveAnatomyBundle(
@@ -45,6 +46,26 @@ export function validateAnatomyBundleSpec(spec: MonsterSpec, catalog: Catalog): 
       path: ['anatomyBundleId'],
       message: `Anatomy bundle ${bundle.id} requires archetype ${bundle.archetypeId}.`,
     })
+  }
+  if (isIndependentPartCatalog(catalog)) {
+    if (bundle.partPools === undefined) {
+      return [...diagnostics, {
+        severity: 'error',
+        code: 'SPEC_ANATOMY_BUNDLE_PART_POOL_MISSING',
+        path: ['anatomyBundleId'],
+        message: `Anatomy bundle ${bundle.id} has no independent part pools.`,
+      }]
+    }
+    for (const slotId of Object.keys(spec.visualSlots) as VisualSlotId[]) {
+      if (bundle.partPools[slotId].includes(spec.visualSlots[slotId].partId)) continue
+      diagnostics.push({
+        severity: 'error',
+        code: 'SPEC_ANATOMY_BUNDLE_PART_POOL_MISMATCH',
+        path: ['visualSlots', slotId, 'partId'],
+        message: `Slot ${slotId} must select a part allowed by anatomy bundle ${bundle.id}.`,
+      })
+    }
+    return diagnostics
   }
   const expected = deriveBundleStructuralSlots(bundle)
   diagnostics.push(...STRUCTURAL_SLOT_IDS.flatMap(slotId => {
