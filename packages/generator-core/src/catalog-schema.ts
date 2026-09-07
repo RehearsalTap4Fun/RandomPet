@@ -226,6 +226,8 @@ const AnatomyBundleDefinitionSchema = z.object({
   archetypeId: AnimalArchetypeIdSchema,
   rigId: RigIdSchema,
   poseId: nonBlankString,
+  rarity: z.enum(['N', 'R', 'L']),
+  baseWeight: weight,
   structural: ResourceRefSchema,
   alpha: ResourceRefSchema,
   clip: ResourceRefSchema,

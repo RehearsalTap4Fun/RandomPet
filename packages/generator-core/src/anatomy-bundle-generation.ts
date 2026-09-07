@@ -5,11 +5,12 @@ import type {
   AnatomyBundleDefinition,
   Catalog,
   GenerationRequest,
+  Rarity,
   GenerationResult,
   MonsterSpec,
   StructuralSlotId,
 } from './contracts.js'
-import { STRUCTURAL_SLOT_IDS } from './contracts.js'
+import { RARITY_WEIGHTS, STRUCTURAL_SLOT_IDS } from './contracts.js'
 
 export function selectAnatomyBundle(
   request: GenerationRequest,
@@ -23,13 +24,18 @@ export function selectAnatomyBundle(
     ))
   ))
   if (candidates.length === 0) return null
+  const availableRarities = (['N', 'R', 'L'] as const).filter(rarity => (
+    candidates.some(bundle => bundle.rarity === rarity)
+  ))
   const bodyFrameRoll = request.slotRolls?.bodyFrame ?? 0
-  return pickWeighted(candidates, () => 1, createRng([
+  const rng = createRng([
     request.seed,
     request.themeId,
     'anatomy-bundle',
     String(bodyFrameRoll),
-  ]))
+  ])
+  const rarity = pickWeighted(availableRarities, (tier: Rarity) => RARITY_WEIGHTS[tier], rng)
+  return pickWeighted(candidates.filter(bundle => bundle.rarity === rarity), bundle => bundle.baseWeight, rng)
 }
 
 export function applyAnatomyBundle(

@@ -1,4 +1,5 @@
 import {
+  deriveCollectionRarity,
   STRUCTURAL_SLOT_IDS,
   type Catalog,
 } from '@qmonster/generator-core'
@@ -10,6 +11,8 @@ interface AnatomyBundlePanelProps {
   onAction: (action: CreatorAction) => void
 }
 
+const rarityLabel = { N: '普通', R: '稀有', L: '传说' } as const
+
 export function AnatomyBundlePanel({ session, catalog, onAction }: AnatomyBundlePanelProps) {
   const bundle = catalog.anatomyBundles?.find(item => item.id === session.spec.anatomyBundleId)
   if (catalog.version !== '0.6.0' || bundle === undefined) return null
@@ -17,6 +20,7 @@ export function AnatomyBundlePanel({ session, catalog, onAction }: AnatomyBundle
   const body = catalog.parts.find(part => part.id === bundle.derivedSlots.bodyFrame)
   const locked = STRUCTURAL_SLOT_IDS.some(slotId => session.locks[slotId])
   const displayName = body?.displayName ?? bundle.id
+  const collectionRarity = deriveCollectionRarity(session.spec, catalog)
 
   return (
     <section className="slot-group anatomy-bundle-panel" aria-labelledby="anatomy-bundle-title">
@@ -41,7 +45,7 @@ export function AnatomyBundlePanel({ session, catalog, onAction }: AnatomyBundle
       <p>{displayName}</p>
       <dl>
         <div><dt>姿势</dt><dd>{bundle.poseId}</dd></div>
-        <div><dt>稀有度</dt><dd>{body?.rarity ?? '—'}</dd></div>
+        <div><dt>稀有度</dt><dd><span className="rarity-badge" data-rarity={collectionRarity}>{rarityLabel[collectionRarity]} · {collectionRarity}</span></dd></div>
       </dl>
       <code title={bundle.id}>{bundle.id}</code>
       <button type="button" disabled={locked} onClick={() => onAction({ type: 'rerollAppearance' })}>

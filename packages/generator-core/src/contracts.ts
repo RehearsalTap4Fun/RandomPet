@@ -81,6 +81,8 @@ export const LOCAL_VISUAL_SLOT_IDS = [
   'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
 ] as const satisfies readonly (typeof VISUAL_SLOT_IDS[number])[]
 export type LocalVisualSlotId = typeof LOCAL_VISUAL_SLOT_IDS[number]
+export type Rarity = 'N' | 'R' | 'L'
+export const RARITY_WEIGHTS: Record<Rarity, number> = { N: 70, R: 25, L: 5 }
 
 const STRUCTURAL_SLOT_ID_SET = new Set<VisualSlotId>(STRUCTURAL_SLOT_IDS)
 const LOCAL_VISUAL_SLOT_ID_SET = new Set<VisualSlotId>(LOCAL_VISUAL_SLOT_IDS)
@@ -256,6 +258,8 @@ export interface AnatomyBundleDefinition {
   archetypeId: AnimalArchetypeId
   rigId: RigId
   poseId: string
+  rarity: Rarity
+  baseWeight: number
   structural: ResourceRef
   alpha: ResourceRef
   clip: ResourceRef
@@ -303,7 +307,7 @@ export interface ApprovedTransform {
 export interface VisualPartDefinition {
   id: string
   slotId: VisualSlotId
-  rarity: 'N' | 'R' | 'L'
+  rarity: Rarity
   baseWeight: number
   themeIds: string[]
   themeWeights: Partial<Record<ThemeId, number>>
@@ -346,7 +350,7 @@ export interface SemanticTraitDefinition {
   semanticSlotId: SemanticSlotId
   displayName?: string
   flavorText?: string
-  rarity?: 'N' | 'R' | 'L'
+  rarity?: Rarity
   themeBoosts?: Partial<Record<ThemeId, number>>
   excludes?: string[]
   boosts?: Record<string, number>
@@ -361,7 +365,7 @@ export interface ModifierDefinition {
   overrides: ModifierOverrides
   displayName?: string
   flavorText?: string
-  rarity?: 'N' | 'R' | 'L'
+  rarity?: Rarity
   themeBoosts?: Partial<Record<ThemeId, number>>
   excludes?: string[]
   boosts?: Record<string, number>

@@ -32,6 +32,17 @@ describe('assemble v0.6 feline anatomy catalog', () => {
     roots.push(stagedRoot)
     const catalog = await assembleV06Catalog({ repositoryRoot: process.cwd(), stagedRoot })
     expect(catalog.anatomyBundles).toHaveLength(8)
+    expect(catalog.anatomyBundles!.map(bundle => [bundle.id, bundle.rarity])).toEqual([
+      ['feline-sit-saffron-longtail', 'N'],
+      ['feline-sit-silver-curl', 'N'],
+      ['feline-sit-midnight-longtail', 'N'],
+      ['feline-sit-moss-curl', 'N'],
+      ['feline-sit-rose-longtail', 'R'],
+      ['feline-sit-umber-curl', 'R'],
+      ['feline-sit-ivory-longtail', 'N'],
+      ['feline-sit-violet-curl', 'L'],
+    ])
+    expect(catalog.anatomyBundles!.every(bundle => bundle.baseWeight === 1)).toBe(true)
     expect(catalog.transitionBridges).toBeUndefined()
     expect(JSON.stringify(catalog)).not.toContain('connectors/')
     for (const bundle of catalog.anatomyBundles!) {
@@ -63,5 +74,6 @@ describe('assemble v0.6 feline anatomy catalog', () => {
       prompt: (source as AnatomyBundleSource & { prompt?: string }).prompt,
     })))
     expect(Object.fromEntries(ANATOMY_BUNDLE_SOURCES.map(source => [source.id, source.prompt]))).toEqual(expectedFinalPrompts)
+    expect(manifest.bundles.find((bundle: { id: string }) => bundle.id === 'feline-sit-violet-curl')?.rarity).toBe('L')
   }, 120_000)
 })

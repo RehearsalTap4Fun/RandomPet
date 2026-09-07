@@ -182,8 +182,10 @@ describe('createCreatorReducer', () => {
       seed: 'remediation-2', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
     }, v06Catalog))
     const before = withLocked(initial, 'tail')
+    const selectedBundle = v06Catalog.anatomyBundles!.find(bundle => bundle.id === before.spec.anatomyBundleId)!
 
-    expect(before.spec.anatomyBundleId).toBe('feline-sit-rose-longtail')
+    expect(before.spec.anatomyBundleId).toMatch(/^feline-sit-/)
+    expect(before.spec.visualSlots.tail.partId).toBe(selectedBundle.derivedSlots.tail)
 
     const next = reducer(before, { type: 'newCreature', seed: 'remediation-0' })
 

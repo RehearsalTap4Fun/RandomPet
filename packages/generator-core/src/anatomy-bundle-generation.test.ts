@@ -40,6 +40,33 @@ describe('anatomy bundle generation', () => {
     }
   })
 
+  it('rolls the available Bundle rarity tier before choosing a Bundle within that tier', () => {
+    const catalog = structuredClone(productionCatalog())
+    const rarityByBundleId = {
+      'feline-sit-saffron-longtail': 'N',
+      'feline-sit-silver-curl': 'N',
+      'feline-sit-midnight-longtail': 'N',
+      'feline-sit-moss-curl': 'N',
+      'feline-sit-rose-longtail': 'R',
+      'feline-sit-umber-curl': 'R',
+      'feline-sit-ivory-longtail': 'N',
+      'feline-sit-violet-curl': 'L',
+    } as const
+    for (const bundle of catalog.anatomyBundles ?? []) {
+      Object.assign(bundle, {
+        rarity: rarityByBundleId[bundle.id as keyof typeof rarityByBundleId],
+        baseWeight: 1,
+      })
+    }
+
+    const bundle = selectAnatomyBundle({
+      seed: 'rarity-tier-10', themeId: 'shadow', mode: 'normal', archetypeId: 'feline',
+      slotRolls: { bodyFrame: 0 },
+    }, catalog)
+
+    expect((bundle as { rarity?: string } | null)?.rarity).toBe('R')
+  })
+
   it('keeps a locked appearance on its selected bundle', () => {
     const catalog = productionCatalog()
     const initial = generateMonster({

@@ -26,6 +26,7 @@
 4. 只有生成和渲染均无错误时，孵化结果才能进入 `READY` 状态。
 5. 新生成的 `MonsterSpec` 必须把 `genome`、`visualSlots` 和 v0.6 的 Bundle 身份作为同一份身份数据一起持久化。
 6. 新孵化默认加载 `0.6.0`；旧记录继续按其存储的 `catalogVersion` 与 `rendererVersion` 精确分派。
+7. `visualExtension.collectionRarity` 是孵化结果的收藏稀有度：普通（N）、稀有（R）、传说（L）。它由完整 Bundle、已选局部特征和 mutation/aberration 的最高稀有档确定，不得由 UI 自行猜测。
 
 本文面向浏览器端孵化器。当前提供的“怪奇生物孵化器 (Copy).html”是保存后的页面外壳，其引用的 `_files/saved_resource.html` 没有随文件保存，因此本文按“孵化动作”定义稳定接入边界，不引用该页面中不可恢复的函数名或 DOM ID。
 
@@ -185,8 +186,8 @@ export interface MonsterGenome {
 ```ts
 visualExtension: Pick<
   MonsterSpec,
-  'schemaVersion' | 'catalogVersion' | 'visualSlots' | 'genome'
->
+  'schemaVersion' | 'catalogVersion' | 'rendererVersion' | 'archetypeId' | 'anatomyBundleId' | 'visualSlots' | 'genome'
+> & { collectionRarity: 'N' | 'R' | 'L' }
 ```
 
 适配器必须深拷贝 `visualSlots` 和可选的 `genome`，使孵化器记录与输入规格之间没有可变对象别名。新生成记录携带 `genome`；合法旧版（legacy）规格没有基因记录时，`visualExtension` 必须完全省略 `genome` 键，不能写入 `undefined` 占位或补造隐藏基因。
@@ -506,6 +507,7 @@ export async function hatchMonster(
 - `mutation` 与 `aberrations`；
 - `schemaVersion`、`catalogVersion`、`rendererVersion`。
 - 对于 v0.6，`archetypeId: 'feline'` 与 `anatomyBundleId`；两者是恢复完整外观所必需的身份数据。
+- `visualExtension.collectionRarity`；列表和详情页可将 N/R/L 本地化为普通、稀有、传说。当前 v0.6 的完整 Bundle 按 70%/25%/5% 的 N/R/L 可用档位抽取；锁定外形时以锁定后的可用档位为准。
 
 展示具体中文名称和描述时，应通过当前版本 `Catalog` 用 ID 查找 `displayName`、`flavorText`，不要把显示文案重复写进 `MonsterSpec`。
 

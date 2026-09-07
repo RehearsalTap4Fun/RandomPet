@@ -1,6 +1,7 @@
 import {
   SEMANTIC_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  deriveCollectionRarity,
   parseMonsterSpec,
   validateMonsterSpecAgainstCatalog,
   type Catalog,
@@ -71,6 +72,7 @@ export function toIncubatorRecord(
         rendererVersion: spec.rendererVersion,
         ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
         ...(spec.anatomyBundleId === undefined ? {} : { anatomyBundleId: spec.anatomyBundleId }),
+        collectionRarity: deriveCollectionRarity(spec, catalog),
         visualSlots: copyVisualSlots(spec),
         ...(genome === undefined ? {} : { genome }),
       },

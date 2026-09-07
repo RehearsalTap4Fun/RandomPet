@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import { lstat, mkdir, open, readFile } from 'node:fs/promises'
 import { dirname, join, relative, resolve } from 'node:path'
-import type { Catalog, StructuralSlotId, VisualSlotId } from '@qmonster/generator-core'
+import type { Catalog, Rarity, StructuralSlotId, VisualSlotId } from '@qmonster/generator-core'
 import { buildProductionEvidenceManifest } from '../packages/asset-catalog/src/evidence-root.js'
 import { PRODUCTION_CHROMA_GATE_PROFILE, PRODUCTION_CHROMA_GATE_VERSION } from '../packages/asset-catalog/src/chroma-quality-gate.js'
 import { prepareAnatomyBundle, type AnatomyBundleSource, type PreparedAnatomyBundle } from './prepare-v06-anatomy-bundles.js'
@@ -33,6 +33,21 @@ export const ANATOMY_BUNDLE_SOURCES: AnatomyBundleSource[] = ['saffron-longtail'
   faceSafeZone: { x: 650, y: 280, width: 748, height: 620 }, featureSockets: { eyes: { x: 880, y: 560 }, mouth: { x: 1024, y: 735 }, headAppendage: { x: 1024, y: 345 } },
   mutationAnchors: { ear: { x: 540, y: 190, width: 340, height: 300 }, back: { x: 1320, y: 900, width: 310, height: 420 }, tailTip: { x: 1450, y: 1110, width: 380, height: 440 } }, allowedTraitPools: {},
 }))
+const BUNDLE_RARITY: Record<string, Rarity> = {
+  'feline-sit-saffron-longtail': 'N',
+  'feline-sit-silver-curl': 'N',
+  'feline-sit-midnight-longtail': 'N',
+  'feline-sit-moss-curl': 'N',
+  'feline-sit-rose-longtail': 'R',
+  'feline-sit-umber-curl': 'R',
+  'feline-sit-ivory-longtail': 'N',
+  'feline-sit-violet-curl': 'L',
+}
+function rarityForBundle(id: string): Rarity {
+  const rarity = BUNDLE_RARITY[id]
+  if (rarity === undefined) throw new Error(`V06_BUNDLE_RARITY_MISSING:${id}`)
+  return rarity
+}
 const digest = (value: Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const json = (value: unknown): Buffer => Buffer.from(`${JSON.stringify(value, null, 2)}\n`)
 const portable = (root: string, file: string): string => relative(root, file).replaceAll('\\', '/')
@@ -56,7 +71,7 @@ function partsFor(bundle: PreparedAnatomyBundle): any[] {
   }))
 }
 function buildCatalog(prepared: PreparedAnatomyBundle[], themes: any[]): Catalog {
-  const anatomyBundles = prepared.map(bundle => ({ id: bundle.id, archetypeId: 'feline' as const, rigId: V06_FELINE_RIG_ID, poseId: 'feline-sit', structural: { assetPath: bundle.structural.assetPath, assetSha256: bundle.structural.assetSha256, pngPath: bundle.structural.pngPath, pngSha256: bundle.structural.pngSha256 }, alpha: { assetPath: bundle.alpha.assetPath, assetSha256: bundle.alpha.assetSha256, pngPath: bundle.alpha.pngPath, pngSha256: bundle.alpha.pngSha256 }, clip: { assetPath: bundle.clip.assetPath, assetSha256: bundle.clip.assetSha256, pngPath: bundle.clip.pngPath, pngSha256: bundle.clip.pngSha256 }, faceSafeZone: bundle.faceSafeZone, featureSockets: bundle.featureSockets, mutationAnchors: bundle.mutationAnchors, derivedSlots: Object.fromEntries(STRUCTURAL_SLOTS.map(slot => [slot, idFor(bundle, slot)])), allowedTraitPools: Object.fromEntries(TRAIT_SLOTS.map(slot => [slot, [idFor(bundle, slot)]])) }))
+  const anatomyBundles = prepared.map(bundle => ({ id: bundle.id, archetypeId: 'feline' as const, rigId: V06_FELINE_RIG_ID, poseId: 'feline-sit', rarity: rarityForBundle(bundle.id), baseWeight: 1, structural: { assetPath: bundle.structural.assetPath, assetSha256: bundle.structural.assetSha256, pngPath: bundle.structural.pngPath, pngSha256: bundle.structural.pngSha256 }, alpha: { assetPath: bundle.alpha.assetPath, assetSha256: bundle.alpha.assetSha256, pngPath: bundle.alpha.pngPath, pngSha256: bundle.alpha.pngSha256 }, clip: { assetPath: bundle.clip.assetPath, assetSha256: bundle.clip.assetSha256, pngPath: bundle.clip.pngPath, pngSha256: bundle.clip.pngSha256 }, faceSafeZone: bundle.faceSafeZone, featureSockets: bundle.featureSockets, mutationAnchors: bundle.mutationAnchors, derivedSlots: Object.fromEntries(STRUCTURAL_SLOTS.map(slot => [slot, idFor(bundle, slot)])), allowedTraitPools: Object.fromEntries(TRAIT_SLOTS.map(slot => [slot, [idFor(bundle, slot)]])) }))
   const semanticSlots = ['frame', 'appendage', 'headAndEyes', 'mouth', 'surface', 'pattern']
   const semanticTraits = semanticSlots.map(semanticSlotId => ({ id: `feline_${semanticSlotId}`, semanticSlotId, displayName: `猫${semanticSlotId}`, flavorText: `bundle 支持的猫${semanticSlotId}`, rarity: 'N', themeBoosts: {}, excludes: [], boosts: {}, visualMapping: {} })).concat(
     ['gentle', 'curious', 'brave', 'dreamy', 'mischievous', 'shy'].map(id => ({ id: `personality_feline_${id}`, semanticSlotId: 'personality', displayName: `猫${id}`, flavorText: `bundle 支持的${id}猫性格。`, rarity: 'N', themeBoosts: {}, excludes: [], boosts: {}, visualMapping: {} })),
@@ -76,7 +91,7 @@ export async function assembleV06Catalog(options: { repositoryRoot?: string, sta
   const prepared = await Promise.all(ANATOMY_BUNDLE_SOURCES.map(source => prepareAnatomyBundle({ ...source, sourcePath: join(repositoryRoot, source.sourcePath) }, assetRoot)))
   const catalog = buildCatalog(prepared, JSON.parse(await readFile(join(repositoryRoot, 'packages', 'asset-catalog', 'catalog', 'v0.5.0', 'themes.json'), 'utf8')))
   const sourceHashes = new Map(await Promise.all(prepared.map(async bundle => [bundle.id, digest(await readFile(bundle.sourcePath))] as const)))
-  const manifest = { schemaVersion: 'qmonster-v06-anatomy-bundles-v1', catalogVersion: VERSION, canvasSize: 2048, bundles: prepared.map(bundle => ({ id: bundle.id, sourcePath: portable(repositoryRoot, bundle.sourcePath), dimensions: { width: 2048, height: 2048 }, alphaBounds: bundle.alphaBounds, sourceSha256: sourceHashes.get(bundle.id), faceSafeZone: bundle.faceSafeZone, featureSockets: bundle.featureSockets, mutationAnchors: bundle.mutationAnchors, allowedTraitPools: Object.fromEntries(TRAIT_SLOTS.map(slot => [slot, [idFor(bundle, slot)]])), prompt: bundle.prompt })) }
+  const manifest = { schemaVersion: 'qmonster-v06-anatomy-bundles-v1', catalogVersion: VERSION, canvasSize: 2048, bundles: prepared.map(bundle => ({ id: bundle.id, rarity: rarityForBundle(bundle.id), baseWeight: 1, sourcePath: portable(repositoryRoot, bundle.sourcePath), dimensions: { width: 2048, height: 2048 }, alphaBounds: bundle.alphaBounds, sourceSha256: sourceHashes.get(bundle.id), faceSafeZone: bundle.faceSafeZone, featureSockets: bundle.featureSockets, mutationAnchors: bundle.mutationAnchors, allowedTraitPools: Object.fromEntries(TRAIT_SLOTS.map(slot => [slot, [idFor(bundle, slot)]])), prompt: bundle.prompt })) }
   const manifestBytes = json(manifest)
   const sources = prepared.map(bundle => { const part = catalog.parts.find(item => item.id === idFor(bundle, 'bodyFrame'))!; return { sourceId: part.id, kind: 'generated-transparent-layer', promptId: `v06-anatomy-${bundle.id}`, promptCatalogPath: 'asset-source/v0.6.0/anatomy-bundles/manifest.json', promptCatalogSha256: digest(manifestBytes), selectedCandidate: 1, sourceResources: [{ path: portable(repositoryRoot, bundle.sourcePath), sha256: sourceHashes.get(bundle.id) }], runtimePngPath: part.pngPath, runtimePngSha256: part.pngSha256, runtimeWebpPath: part.assetPath, runtimeWebpSha256: part.assetSha256, runtimeResources: [bundle.structural, bundle.alpha, bundle.clip].flatMap(resource => [{ path: resource.pngPath, sha256: resource.pngSha256 }, { path: resource.assetPath, sha256: resource.assetSha256 }]) } })
   const index = { catalogVersion: VERSION, extractionGate: { gateVersion: PRODUCTION_CHROMA_GATE_VERSION, profile: PRODUCTION_CHROMA_GATE_PROFILE }, sources, qualityGateSummary: { rigCandidatesEvaluated: 0, rigCandidatesPassed: 0, partCandidatesEvaluated: 0, partCandidatesPassed: 0, approvedRigSelectionsPassing: 0, approvedPartSelectionsPassing: 0 }, review: { generatedSourceCount: 8, invalidCandidateCount: 0 } }

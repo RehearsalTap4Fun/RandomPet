@@ -2,6 +2,7 @@ import type {
   AnimalArchetypeId,
   Diagnostic,
   MonsterSpec,
+  Rarity,
 } from '@qmonster/generator-core'
 
 export type AdapterResult<T> =
@@ -33,5 +34,5 @@ export interface IncubatorCreatureRecord {
     | 'anatomyBundleId'
     | 'visualSlots'
     | 'genome'
-  >
+  > & { collectionRarity: Rarity }
 }

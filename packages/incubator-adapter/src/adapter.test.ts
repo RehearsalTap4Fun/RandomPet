@@ -204,6 +204,28 @@ describe('incubator adapter', () => {
     })
   })
 
+  it('exports the derived collection rarity with the v0.6 anatomy identity', () => {
+    const catalog = v06Catalog()
+    const legendary = catalog.anatomyBundles!.find(bundle => bundle.rarity === 'L')!
+    const generated = generateMonster({
+      seed: 'adapter-v06-legendary', themeId: 'shadow', mode: 'normal', archetypeId: 'feline',
+      lockedSelections: Object.fromEntries([
+        ['bodyFrame', legendary.derivedSlots.bodyFrame],
+        ['headShape', legendary.derivedSlots.headShape],
+        ['arms', legendary.derivedSlots.arms],
+        ['legs', legendary.derivedSlots.legs],
+        ['tail', legendary.derivedSlots.tail],
+        ['extraAppendage', legendary.derivedSlots.extraAppendage],
+      ]),
+    }, catalog)
+    expect(generated.blocked).toBe(false)
+    const result = toIncubatorRecord(generated.spec, catalog)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect((result.value.visualExtension as { collectionRarity?: string }).collectionRarity).toBe('L')
+  })
+
   it('rejects a forged v0.6 anatomy bundle without a partial record', () => {
     const catalog = v06Catalog()
     const spec = v06Spec(catalog)

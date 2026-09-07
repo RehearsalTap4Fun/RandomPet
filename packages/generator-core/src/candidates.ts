@@ -5,6 +5,8 @@ import {
   type Catalog,
   type AnimalArchetypeId,
   type RigId,
+  RARITY_WEIGHTS,
+  type Rarity,
   type ThemeId,
   type VisualPartDefinition,
   type VisualSelection,
@@ -13,8 +15,6 @@ import {
 import { connectorExclusionCodes, type StructuralPartSelection } from './connector-compatibility.js'
 import type { MotifMode } from './composition.js'
 import { pickWeighted, type Rng } from './prng.js'
-
-type Rarity = VisualPartDefinition['rarity']
 
 export interface CandidateTrace {
   rangeMode: 'theme' | 'full'
@@ -65,7 +65,6 @@ export interface CandidateResult {
   trace: CandidateTrace
 }
 
-const RARITY_WEIGHTS: Record<Rarity, number> = { N: 70, R: 25, L: 5 }
 const NON_FACIAL_SLOT_SET = new Set<VisualSlotId>(NON_FACIAL_VISUAL_SLOT_IDS)
 
 function isHardCompatible(

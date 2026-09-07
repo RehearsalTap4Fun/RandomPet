@@ -6145,6 +6145,8 @@
       "archetypeId": "feline",
       "rigId": "feline-sit",
       "poseId": "feline-sit",
+      "rarity": "N",
+      "baseWeight": 1,
       "structural": {
         "assetPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-saffron-longtail/structural.webp",
         "assetSha256": "2957f46a3158bd855463f58c80408e82f29a776173a49ed6245a455445c0ddf2",
@@ -6243,6 +6245,8 @@
       "archetypeId": "feline",
       "rigId": "feline-sit",
       "poseId": "feline-sit",
+      "rarity": "N",
+      "baseWeight": 1,
       "structural": {
         "assetPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-silver-curl/structural.webp",
         "assetSha256": "4a94bb19a024904fbe79f1a591f5062b70d20f4de06b9fcee1ac8985e4932347",
@@ -6341,6 +6345,8 @@
       "archetypeId": "feline",
       "rigId": "feline-sit",
       "poseId": "feline-sit",
+      "rarity": "N",
+      "baseWeight": 1,
       "structural": {
         "assetPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-midnight-longtail/structural.webp",
         "assetSha256": "7100302c0d1879a03d1230e805e44f682f60f07d1cf25a816b205dc065f5bfc0",
@@ -6439,6 +6445,8 @@
       "archetypeId": "feline",
       "rigId": "feline-sit",
       "poseId": "feline-sit",
+      "rarity": "N",
+      "baseWeight": 1,
       "structural": {
         "assetPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-moss-curl/structural.webp",
         "assetSha256": "57b0d4561fb6f847a0c98421af978fef915688f84d3a6cbffc1fbd07c9f39dab",
@@ -6537,6 +6545,8 @@
       "archetypeId": "feline",
       "rigId": "feline-sit",
       "poseId": "feline-sit",
+      "rarity": "R",
+      "baseWeight": 1,
       "structural": {
         "assetPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-rose-longtail/structural.webp",
         "assetSha256": "6903602de94db7ab849856995f98358a9da541d4a5ca0f64932772dc5bcc648f",
@@ -6635,6 +6645,8 @@
       "archetypeId": "feline",
       "rigId": "feline-sit",
       "poseId": "feline-sit",
+      "rarity": "R",
+      "baseWeight": 1,
       "structural": {
         "assetPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-umber-curl/structural.webp",
         "assetSha256": "6c040b9997a4a9ac7af0de9a84638bf5faf14769b074173dec63d4920ff49b41",
@@ -6733,6 +6745,8 @@
       "archetypeId": "feline",
       "rigId": "feline-sit",
       "poseId": "feline-sit",
+      "rarity": "N",
+      "baseWeight": 1,
       "structural": {
         "assetPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-ivory-longtail/structural.webp",
         "assetSha256": "5a159efb650ec56e729988b455a62c2da7b9bb4a997a272c680441fa63478497",
@@ -6831,6 +6845,8 @@
       "archetypeId": "feline",
       "rigId": "feline-sit",
       "poseId": "feline-sit",
+      "rarity": "L",
+      "baseWeight": 1,
       "structural": {
         "assetPath": "assets/v0.6.0/anatomy/feline-sit/feline-sit-violet-curl/structural.webp",
         "assetSha256": "e93613bef6c74501b03dcb6065833a8797066647e3a50b0ad0b8325aee89f0e0",

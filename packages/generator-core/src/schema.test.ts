@@ -114,6 +114,8 @@ describe('MonsterSpecSchema', () => {
       },
     }]
 
+    expect(parseCatalog(catalog).ok).toBe(false)
+    Object.assign(catalog.anatomyBundles[0], { rarity: 'N', baseWeight: 1 })
     expect(parseCatalog(catalog)).toMatchObject({ ok: true })
 
     catalog.rigs.push({ id: 'blob', sockets: {} })
