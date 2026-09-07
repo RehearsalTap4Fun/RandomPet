@@ -442,15 +442,89 @@ const parsedV06Catalog = parseCatalog(v06ProductionCatalogDocument)
 if (!parsedV06Catalog.ok) throw new Error('Production v0.6.0 catalog is invalid.')
 const v06Catalog: Catalog = parsedV06Catalog.value
 
-function makeV06Spec(): MonsterSpec {
+function makeV06Spec(mode: 'normal' | 'mutation' | 'aberration' = 'normal'): MonsterSpec {
   const generated = generateMonster({
-    seed: 's11', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    seed: 's11', themeId: 'fungal', mode, archetypeId: 'feline',
   }, v06Catalog)
   if (generated.blocked) throw new Error('Unable to build a v0.6 bundle fixture.')
   return generated.spec
 }
 
+function makeV06LocalLayerFixture(mode: 'normal' | 'mutation' | 'aberration') {
+  const catalog = structuredClone(v06Catalog)
+  const spec = makeV06Spec(mode)
+  const bundle = catalog.anatomyBundles!.find(item => item.id === spec.anatomyBundleId)!
+  const localNode = (
+    slotId: 'eyes' | 'headAppendage' | 'surfaceMaterial' | 'pattern',
+    socket: string,
+    layer: RenderLayer,
+  ) => {
+    const part = catalog.parts.find(item => item.id === spec.visualSlots[slotId].partId)!
+    part.assetPath = `local/${slotId}.webp`
+    part.composition = {
+      mode: 'attachment',
+      isNone: false,
+      motifTags: [],
+      visualIntensity: 'quiet',
+      renderNodes: [{
+        id: `local-${slotId}`,
+        assetPath: `local/${slotId}.webp`,
+        parentSlot: 'bodyFrame',
+        socket,
+        origin: { x: 0, y: 0 },
+        transform: { scale: 1, mirrorX: false },
+        layer,
+        compatibleRigs: ['feline-sit'],
+        clipPolicy: 'none',
+      }],
+      geometryByRig: {},
+    }
+    return part
+  }
+  localNode('eyes', 'eyes', 'faceAndHeadwear')
+  const surface = localNode('surfaceMaterial', 'surfaceMaterial', 'surface')
+  localNode('pattern', 'surfaceMaterial', 'pattern')
+  if (mode === 'mutation') {
+    const headAppendage = localNode('headAppendage', 'headAppendage', 'faceAndHeadwear')
+    headAppendage.featureTier = 'special'
+    headAppendage.specialFeatureAnchor = 'ear'
+    catalog.archetypes![0]!.specialFeatureSlots = ['headAppendage']
+  }
+  if (mode === 'aberration') {
+    surface.featureTier = 'special'
+    surface.specialFeatureAnchor = 'back'
+    catalog.archetypes![0]!.specialFeatureSlots = ['surfaceMaterial']
+  }
+  return { catalog, spec, bundle }
+}
+
 describe('v0.6 feline anatomy-bundle rendering', () => {
+  it('rejects forged exact-v0.6 structural and local selections before bundle drawing', async () => {
+    const spec = makeV06Spec()
+    spec.visualSlots.arms = { ...spec.visualSlots.bodyFrame }
+    spec.visualSlots.eyes = { ...spec.visualSlots.eyes, rigId: 'blob' }
+    const paths: string[] = []
+
+    const result = await renderMonster(
+      makeRecordingContext([]), spec, v06Catalog, {
+        async resolve(path) { paths.push(path); return image(path) },
+      }, {
+        ...options1024,
+        surfaceFactory: makeHealthyInterfaceSurfaceFactory([], 'healthy', 'valid'),
+      },
+    )
+
+    expect(paths).toEqual([])
+    expect(result.drawnAssetIds).toEqual([])
+    expect(result.connectorMetrics).toEqual([])
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'SPEC_ANATOMY_BUNDLE_SLOT_MISMATCH', path: ['visualSlots', 'arms'],
+    }))
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      severity: 'error', code: 'SPEC_RIG_MISSING', path: ['visualSlots', 'eyes', 'rigId'],
+    }))
+  })
+
   it('draws one bundle resource with its alpha and clip masks, without connector metrics', async () => {
     const spec = makeV06Spec()
     const bundle = v06Catalog.anatomyBundles!.find(item => item.id === spec.anatomyBundleId)!
@@ -470,6 +544,37 @@ describe('v0.6 feline anatomy-bundle rendering', () => {
     ])
     expect(result.drawnAssetIds).toEqual([bundle.id])
     expect(result.connectorMetrics).toEqual([])
+  })
+
+  it('anchors special local layers from part metadata while clipping ordinary local layers by role', async () => {
+    const calls: string[] = []
+    const mutation = makeV06LocalLayerFixture('mutation')
+    const aberration = makeV06LocalLayerFixture('aberration')
+
+    const mutationResult = await renderMonster(
+      makeRecordingContext(calls, 'mutation-main:'), mutation.spec, mutation.catalog, makeResolver(), {
+        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls, 'healthy', 'valid'),
+      },
+    )
+    const mutationEar = mutation.bundle.mutationAnchors.ear!
+    expect(mutationResult.diagnostics.filter(item => item.severity === 'error')).toEqual([])
+    expect(calls).toContain(`interface-1:translate:${mutationEar.x + mutationEar.width / 2},${mutationEar.y + mutationEar.height / 2}`)
+    expect(calls).toContain(`interface-1:fillRect:${mutationEar.x},${mutationEar.y},${mutationEar.width},${mutationEar.height}:`)
+    expect(calls).toContain('interface-1:translate:880,560')
+    expect(calls).toContain('interface-1:fillRect:650,280,748,620:')
+    expect(calls.filter(call => call === 'interface-1:draw:interface-3')).toHaveLength(2)
+
+    calls.length = 0
+    const aberrationResult = await renderMonster(
+      makeRecordingContext(calls, 'aberration-main:'), aberration.spec, aberration.catalog, makeResolver(), {
+        ...options1024, surfaceFactory: makeHealthyInterfaceSurfaceFactory(calls, 'healthy', 'valid'),
+      },
+    )
+    const aberrationBack = aberration.bundle.mutationAnchors.back!
+    expect(aberrationResult.diagnostics.filter(item => item.severity === 'error')).toEqual([])
+    expect(calls).toContain(`interface-1:translate:${aberrationBack.x + aberrationBack.width / 2},${aberrationBack.y + aberrationBack.height / 2}`)
+    expect(calls).toContain(`interface-1:fillRect:${aberrationBack.x},${aberrationBack.y},${aberrationBack.width},${aberrationBack.height}:`)
+    expect(calls.filter(call => call === 'interface-1:draw:interface-3')).toHaveLength(1)
   })
 })
 

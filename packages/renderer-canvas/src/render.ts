@@ -1864,13 +1864,22 @@ function anatomyBundleRenderPlanDiagnostic(): Diagnostic {
 function anatomyNodePlacement(
   node: ResolvedRenderNode['node'],
   slotId: ResolvedRenderNode['slotId'],
+  part: ResolvedRenderNode['part'],
   bundle: ReturnType<typeof resolveAnatomyBundleRenderPlan> extends infer Plan
     ? Plan extends { bundle: infer Bundle } ? Bundle : never
     : never,
 ): Placement {
-  const localSocket = node.parentSlot === null
-    ? { x: 1024, y: 1024 }
-    : bundle.featureSockets[node.socket ?? slotId] ?? { x: 1024, y: 1024 }
+  const specialAnchor = part.specialFeatureAnchor === undefined
+    ? undefined
+    : bundle.mutationAnchors[part.specialFeatureAnchor]
+  const localSocket = specialAnchor === undefined
+    ? node.parentSlot === null
+      ? { x: 1024, y: 1024 }
+      : bundle.featureSockets[node.socket ?? slotId] ?? { x: 1024, y: 1024 }
+    : {
+      x: specialAnchor.x + specialAnchor.width / 2,
+      y: specialAnchor.y + specialAnchor.height / 2,
+    }
   const scaleX = node.transform.mirrorX ? -node.transform.scale : node.transform.scale
   return {
     x: localSocket.x - node.origin.x * scaleX,
@@ -1902,7 +1911,7 @@ function anatomyBundleNodes(
         slotId,
         part,
         node,
-        placement: anatomyNodePlacement(node, slotId, plan.bundle),
+        placement: anatomyNodePlacement(node, slotId, part, plan.bundle),
         sequence,
       })
       sequence += 1
@@ -1918,9 +1927,11 @@ function anatomyNodeClip(
   node: ResolvedRenderNode,
   plan: NonNullable<ReturnType<typeof resolveAnatomyBundleRenderPlan>>,
 ): 'surface' | { x: number; y: number; width: number; height: number } | null {
+  const specialAnchor = node.part.specialFeatureAnchor === undefined
+    ? undefined
+    : plan.bundle.mutationAnchors[node.part.specialFeatureAnchor]
+  if (specialAnchor !== undefined) return specialAnchor
   if (['surfaceMaterial', 'pattern', 'colorScheme'].includes(node.slotId)) return 'surface'
-  const anchor = plan.bundle.mutationAnchors[node.node.socket ?? '']
-  if (anchor !== undefined) return anchor
   if (['eyes', 'mouthShape', 'oralDetail', 'headAppendage'].includes(node.slotId)) {
     return plan.bundle.faceSafeZone
   }
@@ -2112,6 +2123,10 @@ function isInterfaceRenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
     || (catalog.version === '0.4.0' && spec.rendererVersion === '0.4.0')
     || (catalog.version === '0.5.0' && spec.rendererVersion === '0.5.0')
 }
+
+function isV06RenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
+  return catalog.version === '0.6.0' && spec.rendererVersion === '0.6.0'
+}
 // TASK8_STABLE_END:renderer-versioned-interface-pair-helper
 
 export async function renderMonster(
@@ -2145,17 +2160,17 @@ export async function renderMonster(
     }
   }
   // TASK8_STABLE_END:renderer-diagnostic-scope-validation
-  if (resolveAnatomyBundleRenderPlan(spec, catalog) !== null) {
-    return renderAnatomyBundleMonster(context, spec, catalog, resolver, options)
-  }
   const validationDiagnostics = validateMonsterSpecAgainstCatalog(spec, catalog)
   if (validationDiagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return {
       drawnAssetIds: [], diagnostics: validationDiagnostics, compositionMetrics: null,
       // TASK8_STABLE_BEGIN:renderer-v04-invalid-interface-pair
-      connectorMetrics: isInterfaceRenderPair(spec, catalog) ? [] : null,
+      connectorMetrics: isInterfaceRenderPair(spec, catalog) || isV06RenderPair(spec, catalog) ? [] : null,
       // TASK8_STABLE_END:renderer-v04-invalid-interface-pair
     }
+  }
+  if (resolveAnatomyBundleRenderPlan(spec, catalog) !== null) {
+    return renderAnatomyBundleMonster(context, spec, catalog, resolver, options)
   }
   // TASK8_STABLE_BEGIN:renderer-v04-interface-route
   if (isInterfaceRenderPair(spec, catalog)) {
