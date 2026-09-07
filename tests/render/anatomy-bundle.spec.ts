@@ -151,6 +151,29 @@ test('v0.6 anatomy bundles render as one connected structure without bridges', a
   }
 })
 
+test('Creator acceptance rendering returns the v0.6 anatomy acceptance measurements', async ({ page }) => {
+  await page.goto('/acceptance-render.html')
+  await page.waitForFunction(() => document.body.dataset.rendererReady === 'true')
+  const spec = generatedSpec('mutation')
+  const result = await page.evaluate(async input => window.renderAcceptanceMonster(input, '0.6.0'), spec)
+
+  expect(result.connectorMetrics).toEqual([])
+  expect(result.anatomyAcceptance).toEqual(expect.objectContaining({
+    anatomyBundleId: spec.anatomyBundleId,
+    archetypeId: 'feline',
+    structuralConnectedComponentCount: 1,
+    surfaceOutsideAlphaCount: 0,
+    specialAnchorValid: true,
+  }))
+  expect(result.anatomyAcceptance.frameBounds).not.toBeNull()
+  expect(result.anatomyAcceptance.faceRatios).toEqual(expect.objectContaining({
+    eyesInsideRatio: expect.any(Number),
+    eyesVisibleRatio: expect.any(Number),
+    mouthInsideRatio: expect.any(Number),
+    mouthVisibleRatio: expect.any(Number),
+  }))
+})
+
 test('v0.6 anatomy bundles clip injected local layers and constrain special anchors', async ({ page }) => {
   test.setTimeout(90_000)
   await page.goto('/acceptance-render.html')

@@ -28,6 +28,7 @@ import {
 import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import v04ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.4.0/catalog.json'
+import v06ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.6.0/catalog.json'
 import problemSeeds from '../tests/fixtures/v04-problem-seeds.json'
 import { pruneStaleFiles } from './safe-output.js'
 
@@ -36,13 +37,15 @@ const ACCEPTANCE_RIGS = ['blob', 'biped', 'floating'] as const
 const DEFAULT_SEED_START = 2026082101
 const DEFAULT_COUNT = 20
 const RENDER_SIZE = 1024
-type AcceptanceCatalogVersion = '0.2.0' | '0.3.0' | '0.4.0'
+type AcceptanceCatalogVersion = '0.2.0' | '0.3.0' | '0.4.0' | '0.6.0'
+type AcceptanceMode = 'normal' | 'mutation' | 'aberration'
 
 export interface AcceptanceManifestEntry {
   index: number
   seed: string
   themeId: ThemeId
   rigId: RigId
+  mode: AcceptanceMode
   filename: string
   spec: MonsterSpec
   generationDiagnostics: Diagnostic[]
@@ -52,6 +55,8 @@ export interface AcceptanceManifestEntry {
   surpriseSlots: number
   motifOpportunityCount: number
   catalogVersion: AcceptanceCatalogVersion
+  archetypeId?: string
+  anatomyBundleId?: string
 }
 
 export interface RenderedAcceptanceEntry extends AcceptanceManifestEntry {
@@ -61,6 +66,18 @@ export interface RenderedAcceptanceEntry extends AcceptanceManifestEntry {
   renderDiagnostics: Diagnostic[]
   compositionMetrics: CompositionMetrics | null
   connectorMetrics: ConnectorMetric[] | null
+  structuralConnectedComponentCount?: number
+  frameBounds?: CompositionMetrics['visibleBounds']
+  faceRatios?: Pick<CompositionMetrics,
+    | 'eyesInsideRatio'
+    | 'eyesVisibleRatio'
+    | 'mouthInsideRatio'
+    | 'mouthVisibleRatio'
+    | 'oralDetailInsideRatio'
+    | 'oralDetailVisibleRatio'
+  >
+  surfaceOutsideAlphaCount?: number
+  specialAnchorValid?: boolean
   resolvedAssetPaths: string[]
   resolvedAssets: Array<{ path: string; sha256: string }>
 }
@@ -81,16 +98,29 @@ export async function buildAcceptanceManifest(
   if (!Number.isSafeInteger(seedStart) || !Number.isSafeInteger(count) || count <= 0) {
     throw new Error('Acceptance seed start and count must be positive safe integers.')
   }
-  const inputs = [
-    ...Array.from({ length: count }, (_, offset) => ({
+  const inputs: Array<{ seed: string, themeId: ThemeId, mode: AcceptanceMode, regression: boolean }> = catalog.version === '0.6.0'
+    ? Array.from({ length: count }, (_, offset) => ({
       seed: String(seedStart + offset),
-      themeId: ACCEPTANCE_THEMES[offset % ACCEPTANCE_THEMES.length]!,
+      themeId: ACCEPTANCE_THEMES[Math.floor(offset / 3) % ACCEPTANCE_THEMES.length]!,
+      mode: (['normal', 'mutation', 'aberration'] as const)[offset % 3]!,
       regression: false,
-    })),
-    { seed: 'qmonster-v0.1-first-hatch', themeId: 'fungal' as const, regression: true },
-  ]
-  const entries = inputs.map(({ seed, themeId, regression }, offset): AcceptanceManifestEntry => {
-    const generated = generateMonster({ seed, themeId, mode: 'normal' }, catalog)
+    }))
+    : [
+      ...Array.from({ length: count }, (_, offset) => ({
+        seed: String(seedStart + offset),
+        themeId: ACCEPTANCE_THEMES[offset % ACCEPTANCE_THEMES.length]!,
+        mode: 'normal' as const,
+        regression: false,
+      })),
+      { seed: 'qmonster-v0.1-first-hatch', themeId: 'fungal' as const, mode: 'normal' as const, regression: true },
+    ]
+  const entries = inputs.map(({ seed, themeId, mode, regression }, offset): AcceptanceManifestEntry => {
+    const generated = generateMonster({
+      seed,
+      themeId,
+      mode,
+      ...(catalog.version === '0.6.0' ? { archetypeId: 'feline' as const } : {}),
+    }, catalog)
     if (generated.blocked || generated.diagnostics.length > 0) {
       throw new Error(`Acceptance generation failed for ${seed}: ${JSON.stringify(generated.diagnostics)}`)
     }
@@ -107,6 +137,7 @@ export async function buildAcceptanceManifest(
       seed,
       themeId,
       rigId,
+      mode,
       filename: filenameFor(offset + 1, themeId, seed),
       spec: generated.spec,
       generationDiagnostics: generated.diagnostics,
@@ -116,10 +147,14 @@ export async function buildAcceptanceManifest(
       surpriseSlots,
       motifOpportunityCount,
       catalogVersion: catalog.version as AcceptanceCatalogVersion,
+      ...(catalog.version === '0.6.0' ? {
+        archetypeId: generated.spec.archetypeId,
+        anatomyBundleId: generated.spec.anatomyBundleId,
+      } : {}),
     }
   })
   const coveredRigs = new Set(entries.map(entry => entry.rigId))
-  if (ACCEPTANCE_RIGS.some(rigId => !coveredRigs.has(rigId))) {
+  if (catalog.version !== '0.6.0' && ACCEPTANCE_RIGS.some(rigId => !coveredRigs.has(rigId))) {
     throw new Error(`Acceptance generation did not naturally cover every rig: ${[...coveredRigs].join(', ')}`)
   }
   return entries
@@ -228,6 +263,13 @@ export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
   | 'compositionMetrics'
   | 'renderDiagnostics'
   | 'catalogVersion'
+  | 'archetypeId'
+  | 'anatomyBundleId'
+  | 'structuralConnectedComponentCount'
+  | 'frameBounds'
+  | 'faceRatios'
+  | 'surfaceOutsideAlphaCount'
+  | 'specialAnchorValid'
   | 'connectorMetrics'
   | 'resolvedAssetPaths'
   | 'spec'
@@ -235,7 +277,10 @@ export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
   const metrics = entry.compositionMetrics
   const compositionPolicy = entry.catalog.compositionPolicy!
   const requiresInterfaceEvidence = entry.catalogVersion === '0.3.0' || entry.catalogVersion === '0.4.0'
-  const connectorMetricsAccepted = !requiresInterfaceEvidence || (
+  const isV06BundleAcceptance = entry.catalogVersion === '0.6.0'
+  const connectorMetricsAccepted = isV06BundleAcceptance
+    ? entry.connectorMetrics !== null && entry.connectorMetrics.length === 0
+    : !requiresInterfaceEvidence || (
     entry.connectorMetrics !== null
     && entry.connectorMetrics.length > 0
     && entry.connectorMetrics.every(metric => (
@@ -257,6 +302,27 @@ export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
     && entry.spec.catalogVersion === entry.catalogVersion
     && entry.spec.rendererVersion === entry.catalogVersion
   const exactAssetPrefix = `assets/v${entry.catalogVersion}/`
+  const anatomyBundleAccepted = !isV06BundleAcceptance || (
+    entry.archetypeId === 'feline'
+    && entry.anatomyBundleId !== undefined
+    && entry.spec.anatomyBundleId === entry.anatomyBundleId
+    && entry.spec.archetypeId === entry.archetypeId
+    && entry.catalog.anatomyBundles?.some(bundle => bundle.id === entry.anatomyBundleId) === true
+  )
+  const anatomyMetricsAccepted = !isV06BundleAcceptance || (
+    entry.structuralConnectedComponentCount === 1
+    && entry.frameBounds !== undefined
+    && entry.faceRatios !== undefined
+    && entry.faceRatios.eyesInsideRatio === metrics?.eyesInsideRatio
+    && entry.faceRatios.eyesVisibleRatio === metrics?.eyesVisibleRatio
+    && entry.faceRatios.mouthInsideRatio === metrics?.mouthInsideRatio
+    && entry.faceRatios.mouthVisibleRatio === metrics?.mouthVisibleRatio
+    && entry.faceRatios.oralDetailInsideRatio === metrics?.oralDetailInsideRatio
+    && entry.faceRatios.oralDetailVisibleRatio === metrics?.oralDetailVisibleRatio
+    && JSON.stringify(entry.frameBounds) === JSON.stringify(metrics?.visibleBounds ?? null)
+    && entry.surfaceOutsideAlphaCount === 0
+    && entry.specialAnchorValid === true
+  )
   const accepted = entry.generationDiagnostics.length === 0
     && entry.strongFeatureCount <= 2
     && entry.strongNonFacialFeatureCount <= 1
@@ -265,8 +331,10 @@ export function assertCompositionAcceptance(entry: Pick<RenderedAcceptanceEntry,
     && oralMetricsHaveResolvedContext
     && compositionMetricsMeetThresholds(metrics, compositionPolicy)
     && connectorMetricsAccepted
+    && anatomyBundleAccepted
+    && anatomyMetricsAccepted
     && exactContext
-    && (!requiresInterfaceEvidence || (
+    && (!(requiresInterfaceEvidence || isV06BundleAcceptance) || (
       entry.resolvedAssetPaths.length > 0
       && entry.resolvedAssetPaths.every(path => path.startsWith(exactAssetPrefix))
     ))
@@ -298,8 +366,8 @@ export function parseAcceptanceArguments(args: readonly string[]): {
       continue
     }
     if (flag === '--catalog-version' || flag === '--version') {
-      if (rawValue !== '0.2.0' && rawValue !== '0.3.0' && rawValue !== '0.4.0') {
-        throw new Error(`${flag} must be exactly 0.2.0, 0.3.0, or 0.4.0.`)
+      if (rawValue !== '0.2.0' && rawValue !== '0.3.0' && rawValue !== '0.4.0' && rawValue !== '0.6.0') {
+        throw new Error(`${flag} must be exactly 0.2.0, 0.3.0, 0.4.0, or 0.6.0.`)
       }
       catalogVersion = rawValue
       index += 1
@@ -320,6 +388,7 @@ export function parseAcceptanceArguments(args: readonly string[]): {
 }
 
 function catalogDocument(version: AcceptanceCatalogVersion): unknown {
+  if (version === '0.6.0') return v06ProductionCatalogDocument
   if (version === '0.4.0') return v04ProductionCatalogDocument
   return version === '0.3.0' ? v03ProductionCatalogDocument : productionCatalogDocument
 }
@@ -499,6 +568,7 @@ export async function generateAcceptanceSet(args = process.argv.slice(2)): Promi
         renderDiagnostics: rendered.diagnostics,
         compositionMetrics: rendered.compositionMetrics,
         connectorMetrics: rendered.connectorMetrics,
+        ...(rendered.anatomyAcceptance === undefined ? {} : rendered.anatomyAcceptance),
         resolvedAssetPaths,
         resolvedAssets,
       }

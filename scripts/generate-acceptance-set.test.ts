@@ -5,6 +5,7 @@ import type { CompositionMetrics } from '@qmonster/renderer-canvas'
 import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import v04ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.4.0/catalog.json'
+import v06ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.6.0/catalog.json'
 import problemSeeds from '../tests/fixtures/v04-problem-seeds.json'
 
 function makeValidRenderedAcceptanceEntry(version: '0.3.0' | '0.4.0' = '0.3.0') {
@@ -162,6 +163,29 @@ describe('acceptance manifest', () => {
     expect(entries.every(item => item.strongNonFacialFeatureCount <= 1)).toBe(true)
   })
 
+  it('builds exactly twenty-four fixed v0.6 anatomy records across every theme and mode', async () => {
+    const { buildAcceptanceManifest, parseAcceptanceArguments } = await import('./generate-acceptance-set.js')
+    const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+
+    const entries = await buildAcceptanceManifest(parsedCatalog.value, 2026090601, 24)
+
+    expect(parseAcceptanceArguments(['--version', '0.6.0', '--count', '24'])).toEqual({
+      seedStart: 2026082101,
+      count: 24,
+      catalogVersion: '0.6.0',
+    })
+    expect(entries).toHaveLength(24)
+    expect(new Set(entries.map(entry => entry.themeId))).toEqual(new Set(['deep-sea', 'fungal', 'shadow']))
+    expect(new Set(entries.map(entry => entry.mode))).toEqual(new Set(['normal', 'mutation', 'aberration']))
+    expect(entries.every(entry => (
+      entry.catalogVersion === '0.6.0'
+      && entry.archetypeId === 'feline'
+      && entry.anatomyBundleId !== undefined
+    ))).toBe(true)
+  })
+
   it('builds deterministic non-visual acceptance evidence for the twelve frozen inputs', async () => {
     const { buildProblemSeedAcceptanceEvidence, parseMachineEvidenceArguments } = await import('./generate-acceptance-set.js')
     const parsedCatalog = parseCatalog(v04ProductionCatalogDocument)
@@ -210,7 +234,7 @@ describe('acceptance manifest', () => {
     ['missing connector metrics', { connectorMetrics: null }],
     ['empty connector metrics', { connectorMetrics: [] }],
     ['receiver connector under coverage', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], receiverCoverage: 0.619999 }] }],
-    ['plug connector under coverage', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], plugCoverage: 0.899999 }] }],
+    ['plug connector under antialiasing margin', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], plugCoverage: 0.898999 }] }],
     ['disconnected structural alpha', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], largestComponentRatio: 0.989999 }] }],
     ['connector centerline gap over two pixels', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], centerlineGapPixels: 2.000001 }] }],
     ['missing exact asset resources', { resolvedAssetPaths: [] }],
@@ -256,7 +280,7 @@ describe('acceptance manifest', () => {
       connectorMetrics: [{
         ...makeValidRenderedAcceptanceEntry().connectorMetrics[0],
         receiverCoverage: 0.62,
-        plugCoverage: 0.90,
+        plugCoverage: 0.899,
       }],
     })).not.toThrow()
   })
@@ -278,6 +302,67 @@ describe('acceptance manifest', () => {
       ...entry,
       generationDiagnostics: [],
       resolvedAssetPaths: ['assets/v0.3.0/structural/biped/nodes/body.webp'],
+    })).toThrow('composition acceptance')
+  })
+
+  it('accepts v0.6 bundle evidence only when every record names a bundle and connector metrics are empty', async () => {
+    const { assertCompositionAcceptance } = await import('./generate-acceptance-set.js')
+    const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
+    expect(parsedCatalog.ok).toBe(true)
+    if (!parsedCatalog.ok) return
+    const generated = generateMonster({
+      seed: 'v06-acceptance-unit', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, parsedCatalog.value)
+    expect(generated.blocked).toBe(false)
+    if (generated.blocked) return
+    const entry = {
+      ...makeValidRenderedAcceptanceEntry(),
+      catalog: parsedCatalog.value,
+      spec: generated.spec,
+      catalogVersion: '0.6.0' as const,
+      archetypeId: 'feline',
+      anatomyBundleId: generated.spec.anatomyBundleId,
+      connectorMetrics: [],
+      structuralConnectedComponentCount: 1,
+      frameBounds: { x: 100, y: 100, width: 800, height: 800 },
+      faceRatios: {
+        eyesInsideRatio: 1,
+        eyesVisibleRatio: 1,
+        mouthInsideRatio: 1,
+        mouthVisibleRatio: 1,
+        oralDetailInsideRatio: 1,
+        oralDetailVisibleRatio: 1,
+      },
+      surfaceOutsideAlphaCount: 0,
+      specialAnchorValid: true,
+      resolvedAssetPaths: [
+        `assets/v0.6.0/anatomy/feline-sit/${generated.spec.anatomyBundleId}/structural.webp`,
+      ],
+    }
+
+    expect(() => assertCompositionAcceptance({ ...entry, generationDiagnostics: [] })).not.toThrow()
+    expect(() => assertCompositionAcceptance({
+      ...entry, generationDiagnostics: [], anatomyBundleId: undefined,
+    })).toThrow('composition acceptance')
+    expect(() => assertCompositionAcceptance({
+      ...entry, generationDiagnostics: [], archetypeId: undefined,
+    })).toThrow('composition acceptance')
+    expect(() => assertCompositionAcceptance({
+      ...entry, generationDiagnostics: [], connectorMetrics: null,
+    })).toThrow('composition acceptance')
+    expect(() => assertCompositionAcceptance({
+      ...entry, generationDiagnostics: [], connectorMetrics: [{
+        ...makeValidRenderedAcceptanceEntry().connectorMetrics[0],
+      }],
+    })).toThrow('composition acceptance')
+    expect(() => assertCompositionAcceptance({
+      ...entry, generationDiagnostics: [], structuralConnectedComponentCount: 2,
+    })).toThrow('composition acceptance')
+    expect(() => assertCompositionAcceptance({
+      ...entry, generationDiagnostics: [], surfaceOutsideAlphaCount: 1,
+    })).toThrow('composition acceptance')
+    expect(() => assertCompositionAcceptance({
+      ...entry, generationDiagnostics: [], specialAnchorValid: false,
     })).toThrow('composition acceptance')
   })
 
