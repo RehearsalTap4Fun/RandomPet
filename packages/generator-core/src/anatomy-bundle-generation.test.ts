@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { generateMonster } from './generate.js'
-import { rerollSlot } from './reroll.js'
+import { rerollSlot, selectVisualPart } from './reroll.js'
 import { parseCatalog } from './catalog-schema.js'
-import { STRUCTURAL_SLOT_IDS } from './contracts.js'
+import { STRUCTURAL_SLOT_IDS, VISUAL_SLOT_IDS } from './contracts.js'
+import { validateAnatomyBundleSpec } from './anatomy-bundle.js'
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 import {
   applyAnatomyBundle,
@@ -77,5 +78,42 @@ describe('anatomy bundle generation', () => {
         }
       }
     }
+  })
+
+  it('changes only the requested local slot when selecting an allowed v0.6 eye part', () => {
+    const catalog = productionCatalog()
+    const before = generateMonster({
+      seed: 'bundle-local-eye-selection', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    const bundle = catalog.anatomyBundles!.find(item => item.id === before.anatomyBundleId)!
+    const selected = selectVisualPart({
+      spec: before,
+      slotId: 'eyes',
+      partId: bundle.allowedTraitPools.eyes![0]!,
+      locks: {},
+      catalog,
+    })
+
+    expect(selected.blocked).toBe(false)
+    expect(selected.affectedSlots).toEqual(['eyes'])
+    expect(selected.spec.anatomyBundleId).toBe(before.anatomyBundleId)
+    expect(selected.spec.visualSlots.eyes.partId).toBe(bundle.allowedTraitPools.eyes![0])
+    for (const slotId of VISUAL_SLOT_IDS) {
+      if (slotId !== 'eyes') expect(selected.spec.visualSlots[slotId]).toEqual(before.visualSlots[slotId])
+    }
+    for (const slotId of STRUCTURAL_SLOT_IDS) {
+      expect(selected.spec.visualSlots[slotId]).toEqual(before.visualSlots[slotId])
+    }
+    expect(selected.spec.genome!.genes.eyes.P).toBe(bundle.allowedTraitPools.eyes![0])
+    expect(selected.spec.genome!.genes).toEqual(before.genome!.genes)
+    expect(validateAnatomyBundleSpec(selected.spec, catalog)).toEqual([])
+  })
+
+  it('publishes anatomy bundle APIs from the package root', async () => {
+    const publicApi = await import('./index.js')
+
+    expect(publicApi.selectAnatomyBundle).toBeTypeOf('function')
+    expect(publicApi.applyAnatomyBundle).toBeTypeOf('function')
+    expect(publicApi.rerollAnatomyBundle).toBeTypeOf('function')
   })
 })

@@ -118,14 +118,13 @@ function selectAnatomyBundleLocalPart(request: SelectVisualPartRequest): Generat
       message: `Part ${request.partId} is not available in the selected anatomy bundle trait pool.`,
     }], [request.slotId])
   }
-  const phenotype = selectPhenotypePart(request)
-  if (phenotype.blocked || phenotype.spec.genome === undefined) return phenotype
-  phenotype.spec.genome = syncDominantGenes(
-    phenotype.spec.genome,
-    phenotype.spec.visualSlots,
-    phenotype.affectedSlots,
-  )
-  return phenotype
+  const spec = cloneSpec(request.spec)
+  spec.visualSlots[request.slotId] = { partId: request.partId, rigId: bundle.rigId }
+  spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
+  if (spec.genome !== undefined) {
+    spec.genome = syncDominantGenes(spec.genome, spec.visualSlots, [request.slotId])
+  }
+  return result(spec, [], [request.slotId])
 }
 
 function specialFeatureSelectionDiagnostic(
