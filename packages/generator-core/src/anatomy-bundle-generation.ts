@@ -10,7 +10,7 @@ import type {
   MonsterSpec,
   StructuralSlotId,
 } from './contracts.js'
-import { RARITY_WEIGHTS, STRUCTURAL_SLOT_IDS } from './contracts.js'
+import { isIndependentPartCatalog, RARITY_WEIGHTS, STRUCTURAL_SLOT_IDS } from './contracts.js'
 
 export function selectAnatomyBundle(
   request: GenerationRequest,
@@ -20,7 +20,9 @@ export function selectAnatomyBundle(
     bundle.archetypeId === request.archetypeId
     && STRUCTURAL_SLOT_IDS.every((slotId: StructuralSlotId) => (
       request.lockedSelections?.[slotId] === undefined
-      || bundle.derivedSlots[slotId] === request.lockedSelections[slotId]
+      || (isIndependentPartCatalog(catalog)
+        ? bundle.partPools?.[slotId].includes(request.lockedSelections[slotId]!) === true
+        : bundle.derivedSlots[slotId] === request.lockedSelections[slotId])
     ))
   ))
   if (candidates.length === 0) return null

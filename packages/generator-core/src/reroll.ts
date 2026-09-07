@@ -10,10 +10,11 @@ import {
   VISUAL_SLOT_IDS,
   isLocalVisualSlot,
   isStructuralSlot,
+  isIndependentPartCatalog,
   type GenomeLayer,
   type GenerationMode,
 } from './contracts.js'
-import { generateVisualLayer, generationOrderForCatalog, resolveSlot } from './generate.js'
+import { generateMonster, generateVisualLayer, generationOrderForCatalog, resolveSlot } from './generate.js'
 import type {
   Catalog,
   Diagnostic,
@@ -43,6 +44,7 @@ import {
   validateCompositionSelections,
 } from './composition.js'
 import { resolveAnatomyBundle } from './anatomy-bundle.js'
+import { selectIndependentPoolPart } from './part-rarity.js'
 
 export type SlotLocks = Partial<Record<VisualSlotId, boolean>>
 
@@ -248,18 +250,38 @@ function regenerateDescendants(
     ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
     slotRolls: spec.slotRolls,
   }
+  const independentBundle = isIndependentPartCatalog(catalog)
+    ? catalog.anatomyBundles.find(bundle => bundle.id === spec.anatomyBundleId) ?? null
+    : null
+  if (isIndependentPartCatalog(catalog) && independentBundle === null) {
+    diagnostics.push({
+      severity: 'error', code: 'ANATOMY_BUNDLE_UNAVAILABLE', path: ['anatomyBundleId'],
+      message: 'The selected independent anatomy bundle is unavailable.',
+    })
+    return
+  }
   for (const slotId of generationOrderForCatalog(catalog)) {
     if (!descendants.has(slotId)) continue
     if (locks[slotId]) continue
-    spec.visualSlots[slotId] = resolveSlot(
-      generationRequest,
-      catalog,
-      slotId,
-      spec.visualSlots.bodyFrame.rigId,
-      generationContext(spec, affected, slotId, catalog),
-      diagnostics,
-      compositionAllowanceForReplacement(spec, slotId, catalog),
-    )
+    const selections = generationContext(spec, affected, slotId, catalog)
+    spec.visualSlots[slotId] = independentBundle === null
+      ? resolveSlot(
+        generationRequest,
+        catalog,
+        slotId,
+        spec.visualSlots.bodyFrame.rigId,
+        selections,
+        diagnostics,
+        compositionAllowanceForReplacement(spec, slotId, catalog),
+      )
+      : selectIndependentPoolPart(
+        generationRequest,
+        catalog,
+        independentBundle,
+        slotId,
+        selections,
+        diagnostics,
+      )
   }
   for (const slotId of descendants) {
     if (!locks[slotId]) continue
@@ -317,15 +339,34 @@ function rerollPhenotypeSlot(request: RerollSlotRequest): GenerationResult {
       spec.visualSlots.bodyFrame.rigId = rigId
     }
   }
-  spec.visualSlots[request.slotId] = resolveSlot(
-    generationRequest,
-    request.catalog,
-    request.slotId,
-    spec.visualSlots.bodyFrame.rigId,
-    generationContext(spec, affected, request.slotId, request.catalog),
-    diagnostics,
-    compositionAllowanceForReplacement(spec, request.slotId, request.catalog),
-  )
+  const independentBundle = isIndependentPartCatalog(request.catalog)
+    ? request.catalog.anatomyBundles.find(bundle => bundle.id === spec.anatomyBundleId) ?? null
+    : null
+  if (isIndependentPartCatalog(request.catalog) && independentBundle === null) {
+    diagnostics.push({
+      severity: 'error', code: 'ANATOMY_BUNDLE_UNAVAILABLE', path: ['anatomyBundleId'],
+      message: 'The selected independent anatomy bundle is unavailable.',
+    })
+    return result(spec, diagnostics, affectedSlots)
+  }
+  spec.visualSlots[request.slotId] = independentBundle === null
+    ? resolveSlot(
+      generationRequest,
+      request.catalog,
+      request.slotId,
+      spec.visualSlots.bodyFrame.rigId,
+      generationContext(spec, affected, request.slotId, request.catalog),
+      diagnostics,
+      compositionAllowanceForReplacement(spec, request.slotId, request.catalog),
+    )
+    : selectIndependentPoolPart(
+      generationRequest,
+      request.catalog,
+      independentBundle,
+      request.slotId,
+      generationContext(spec, affected, request.slotId, request.catalog),
+      diagnostics,
+    )
   regenerateDescendants(spec, request.slotId, request.locks, request.catalog, diagnostics)
   spec.semanticTraits = projectSemanticTraits(spec.visualSlots, spec.seed, request.catalog)
   diagnostics.push(...validateCompositionSelections(
@@ -346,6 +387,17 @@ function selectPhenotypePart(request: SelectVisualPartRequest): GenerationResult
   const spec = cloneSpec(request.spec)
   const diagnostics: Diagnostic[] = []
   const part = request.catalog.parts.find(item => item.slotId === request.slotId && item.id === request.partId)
+  if (isIndependentPartCatalog(request.catalog)) {
+    const bundle = resolveAnatomyBundle(spec, request.catalog)
+    if (bundle === null || !bundle.partPools?.[request.slotId].includes(request.partId)) {
+      return result(spec, [{
+        severity: 'error',
+        code: 'ANATOMY_BUNDLE_PART_POOL_INCOMPATIBLE',
+        path: ['visualSlots', request.slotId, 'partId'],
+        message: `Part ${request.partId} is not available in the selected anatomy bundle part pool.`,
+      }], [request.slotId])
+    }
+  }
   if (part !== undefined) {
     const specialDiagnostic = specialFeatureSelectionDiagnostic(spec, request.slotId, part, request.catalog)
     if (specialDiagnostic !== null) return result(spec, [specialDiagnostic], [request.slotId])
@@ -425,6 +477,19 @@ function lockedSelectionsForFullRebuild(
 
 function rerollGenomeBodyFrame(request: RerollSlotRequest): GenerationResult {
   if (request.locks.bodyFrame) return rerollPhenotypeSlot(request)
+
+  if (isIndependentPartCatalog(request.catalog)) {
+    const slotRolls = { ...request.spec.slotRolls, bodyFrame: request.spec.slotRolls.bodyFrame + 1 }
+    const generated = generateMonster({
+      seed: request.spec.seed,
+      themeId: request.spec.themeId,
+      mode: modeForSpec(request.spec),
+      ...(request.spec.archetypeId === undefined ? {} : { archetypeId: request.spec.archetypeId }),
+      slotRolls,
+      lockedSelections: lockedSelectionsForFullRebuild(request),
+    }, request.catalog)
+    return result(generated.spec, generated.diagnostics, [...generationOrderForCatalog(request.catalog)])
+  }
 
   const slotRolls = { ...request.spec.slotRolls }
   slotRolls.bodyFrame += 1
@@ -638,6 +703,26 @@ export function selectVisualPart(request: SelectVisualPartRequest): GenerationRe
     return withRevalidatedDiagnosticScopes(generated, generated.blocked ? {} : {
       visualSlots: generated.affectedSlots,
       genomeGenes: { P: generated.affectedSlots },
+    })
+  }
+  if (isIndependentPartCatalog(request.catalog)) {
+    const phenotype = selectPhenotypePart(request)
+    if (phenotype.blocked) return withRevalidatedDiagnosticScopes(phenotype, {})
+    const spec = phenotype.spec
+    if (request.spec.genome !== undefined) {
+      spec.genome = syncDominantGenes(request.spec.genome, spec.visualSlots, phenotype.affectedSlots)
+      const diagnostics = [...phenotype.diagnostics, ...validateMonsterGenome(spec, request.catalog)]
+      if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+        return withRevalidatedDiagnosticScopes(result(cloneSpec(request.spec), diagnostics, []), {})
+      }
+      return withRevalidatedDiagnosticScopes(result(spec, diagnostics, phenotype.affectedSlots), {
+        visualSlots: phenotype.affectedSlots,
+        genomeGenes: { P: phenotype.affectedSlots },
+      })
+    }
+    return withRevalidatedDiagnosticScopes(phenotype, {
+      visualSlots: phenotype.affectedSlots,
+      genomeGenes: { P: phenotype.affectedSlots },
     })
   }
   if (request.spec.genome === undefined) return selectPhenotypePart(request)

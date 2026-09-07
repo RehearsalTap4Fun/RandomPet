@@ -10,6 +10,7 @@ import {
   rerollAnatomyBundle,
   selectAnatomyBundle,
 } from './anatomy-bundle-generation.js'
+import { makeV07FelinePartLibraryFixture } from './test-fixtures.js'
 
 function productionCatalog() {
   const parsed = parseCatalog(v06ProductionCatalogDocument)
@@ -19,6 +20,18 @@ function productionCatalog() {
 }
 
 describe('anatomy bundle generation', () => {
+  it('selects one v0.7 bundle while retaining independently selected structural parts', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const generated = generateMonster({
+      seed: 'v07-bundle-generation', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(generated.blocked).toBe(false)
+    expect(generated.spec.anatomyBundleId).toBe('feline-sit')
+    expect(generated.spec.visualSlots.tail.partId).toMatch(/^tail_[nrl]_/)
+    expect(validateAnatomyBundleSpec(generated.spec, catalog)).toEqual([])
+  })
+
   it('selects a deterministic exact-v0.6 bundle and applies all derived structural slots', () => {
     const catalog = productionCatalog()
     const request = { seed: 'bundle-selection', themeId: 'fungal', mode: 'normal' as const, archetypeId: 'feline' as const }

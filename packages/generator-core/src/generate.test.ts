@@ -24,6 +24,7 @@ import {
 } from './index.js'
 import {
   makeCompositionCatalogFixture,
+  makeV07FelinePartLibraryFixture,
   makeValidCatalogFixture,
   makeValidCatalogFixtureWithThreeRigs,
 } from './test-fixtures.js'
@@ -82,6 +83,18 @@ function makeNonFacialStrongBudgetCatalog(): Catalog {
 }
 
 describe('generateMonster', () => {
+  it('generates valid independent v0.7 feline parts without derived structural rewrites', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const result = generateMonster({
+      seed: 'v07-generate', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(result.blocked).toBe(false)
+    expect(result.spec.anatomyBundleId).toBe('feline-sit')
+    expect(result.spec.visualSlots.headShape.partId).toMatch(/^headShape_[nrl]_/)
+    expect(validateAnatomyBundleSpec(result.spec, catalog)).toEqual([])
+  })
+
   it('generates a contract-valid feline anatomy bundle with no more than one altered-mode special feature', () => {
     const parsedCatalog = parseCatalog(v06ProductionCatalogDocument)
     expect(parsedCatalog.ok).toBe(true)

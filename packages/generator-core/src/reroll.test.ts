@@ -11,6 +11,7 @@ import {
   parseCatalog,
 } from './index.js'
 import {
+  makeV07FelinePartLibraryFixture,
   makeInterfaceCatalogFixture,
   makeValidCatalogFixture,
   makeValidCompositionSpecFixture,
@@ -19,6 +20,28 @@ import {
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('rerollSlot', () => {
+  it('permits v0.7 structural rerolls and selections from the selected bundle pool', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const initial = generateMonster({
+      seed: 'v07-reroll', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    const bundle = catalog.anatomyBundles[0]!
+    const selected = selectVisualPart({
+      spec: initial,
+      slotId: 'tail',
+      partId: bundle.partPools.tail[1]!,
+      locks: {},
+      catalog,
+    })
+    const rerolled = rerollSlot({ spec: selected.spec, slotId: 'tail', locks: {}, catalog })
+
+    expect(selected.blocked).toBe(false)
+    expect(selected.spec.visualSlots.tail.partId).toBe(bundle.partPools.tail[1])
+    expect(rerolled.blocked).toBe(false)
+    expect(bundle.partPools.tail).toContain(rerolled.spec.visualSlots.tail.partId)
+    expect(rerolled.spec.genome!.genes.tail.P).toBe(rerolled.spec.visualSlots.tail.partId)
+  })
+
   it('keeps v0.6 local rerolls inside the selected anatomy bundle pool', () => {
     const parsed = parseCatalog(v06ProductionCatalogDocument)
     expect(parsed.ok).toBe(true)
