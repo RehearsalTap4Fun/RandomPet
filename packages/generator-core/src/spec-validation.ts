@@ -23,7 +23,7 @@ import {
 } from './composition.js'
 import { validateStructuralSelections } from './connector-compatibility.js'
 import { validateMonsterGenome } from './genome-validation.js'
-import { validateAnatomyBundleSpec } from './anatomy-bundle.js'
+import { resolveAnatomyBundle, validateAnatomyBundleSpec } from './anatomy-bundle.js'
 
 export const CURRENT_SPEC_VERSIONS: SupportedSpecVersions = {
   schemaVersion: '0.1.0',
@@ -249,11 +249,13 @@ function validateFelineSpec(
 }
 
 function usesExactV06AnatomyBundle(spec: MonsterSpec, catalog: Catalog): boolean {
+  const bundle = resolveAnatomyBundle(spec, catalog)
   return catalog.version === '0.6.0'
     && spec.schemaVersion === '0.2.0'
     && spec.catalogVersion === '0.6.0'
     && spec.rendererVersion === '0.6.0'
-    && spec.anatomyBundleId !== undefined
+    && spec.archetypeId === 'feline'
+    && bundle?.archetypeId === spec.archetypeId
 }
 
 function validateFelineModifierState(spec: MonsterSpec, catalog: Catalog, diagnostics: Diagnostic[]): void {
@@ -394,7 +396,7 @@ export function validateMonsterSpecAgainstCatalog(
 
   const anatomyBundleRoute = usesExactV06AnatomyBundle(spec, catalog)
   validateFelineSpec(spec, catalog, selectedParts, diagnostics, anatomyBundleRoute)
-  if (anatomyBundleRoute) diagnostics.push(...validateAnatomyBundleSpec(spec, catalog))
+  if (spec.anatomyBundleId !== undefined) diagnostics.push(...validateAnatomyBundleSpec(spec, catalog))
   validateFelineModifierState(spec, catalog, diagnostics)
 
   for (const semanticSlotId of SEMANTIC_SLOT_IDS) {

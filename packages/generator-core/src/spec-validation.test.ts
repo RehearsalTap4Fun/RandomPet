@@ -70,6 +70,10 @@ describe('validateMonsterSpecAgainstCatalog', () => {
     expect(validateMonsterSpecAgainstCatalog(forgedArchetype, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ARCHETYPE_INVALID' }))
     expect(validateMonsterSpecAgainstCatalog(forgedArchetype, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_ARCHETYPE_MISMATCH' }))
     expect(validateMonsterSpecAgainstCatalog(unknownBundle, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_UNKNOWN' }))
+    expect(validateMonsterSpecAgainstCatalog(unknownBundle, catalog, versions)).toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_UNKNOWN' }),
+      expect.objectContaining({ code: 'SPEC_INTEGRATED_SLOT_INVALID' }),
+    ]))
     expect(validateMonsterSpecAgainstCatalog(structural, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_SLOT_MISMATCH' }))
     expect(validateMonsterSpecAgainstCatalog(local, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_ANATOMY_BUNDLE_TRAIT_MISMATCH' }))
     expect(validateMonsterSpecAgainstCatalog(doubleHead, catalog, versions)).toContainEqual(expect.objectContaining({ code: 'SPEC_MODIFIER_INVALID' }))
