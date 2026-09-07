@@ -62,6 +62,7 @@ const REPLACEABLE_SLOT_DIAGNOSTIC_CODES = new Set([
   'NO_COMPATIBLE_RIG',
   'PART_NOT_FOUND',
   'PART_INCOMPATIBLE',
+  'ANATOMY_BUNDLE_TRAIT_POOL_INCOMPATIBLE',
   'CONNECTOR_VARIANT_MISSING',
   'CONNECTOR_PROFILE_INVALID',
   'CONNECTOR_WARP_EXCEEDED',
@@ -177,6 +178,7 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
           seed: action.seed,
           themeId: state.spec.themeId,
           mode: modeFromSession(state),
+          ...(state.spec.archetypeId === undefined ? {} : { archetypeId: state.spec.archetypeId }),
           lockedSelections: lockedSelections(state),
         }, catalog))
       case 'setTheme':
@@ -185,6 +187,7 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
           themeId: action.themeId,
           mode: modeFromSession(state),
           slotRolls: state.spec.slotRolls,
+          ...(state.spec.archetypeId === undefined ? {} : { archetypeId: state.spec.archetypeId }),
           lockedSelections: lockedSelections(state),
         }, catalog))
       case 'setMode':
@@ -193,6 +196,7 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
           themeId: state.spec.themeId,
           mode: action.mode,
           slotRolls: state.spec.slotRolls,
+          ...(state.spec.archetypeId === undefined ? {} : { archetypeId: state.spec.archetypeId }),
           lockedSelections: lockedSelections(state),
         }, catalog))
       case 'toggleLock': {
@@ -242,8 +246,12 @@ export function createCreatorReducer(catalog: Catalog): Reducer<CreatorSession, 
           catalog,
         })
         const selectionFailed = generated.diagnostics.some(diagnostic =>
-          (diagnostic.code === 'PART_NOT_FOUND' || diagnostic.code === 'PART_INCOMPATIBLE')
-          && diagnostic.path.length === 2
+          (
+            diagnostic.code === 'PART_NOT_FOUND'
+            || diagnostic.code === 'PART_INCOMPATIBLE'
+            || diagnostic.code === 'ANATOMY_BUNDLE_TRAIT_POOL_INCOMPATIBLE'
+          )
+          && (diagnostic.path.length === 2 || diagnostic.path.length === 3)
           && diagnostic.path[0] === 'visualSlots'
           && diagnostic.path[1] === action.slotId,
         )

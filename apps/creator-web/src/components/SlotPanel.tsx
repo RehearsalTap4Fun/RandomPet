@@ -22,12 +22,15 @@ function partLabel(part: VisualPartDefinition): string {
 
 interface SlotRowProps extends SlotPanelProps {
   slotId: VisualSlotId
+  allowedPartIds?: readonly string[]
 }
 
-function SlotRow({ slotId, session, catalog, onAction }: SlotRowProps) {
+function SlotRow({ slotId, allowedPartIds, session, catalog, onAction }: SlotRowProps) {
   const label = SLOT_LABELS[slotId]
   const selection = session.spec.visualSlots[slotId]
-  const candidates = catalog.parts.filter(part => part.slotId === slotId)
+  const candidates = catalog.parts.filter(part => (
+    part.slotId === slotId && (allowedPartIds === undefined || allowedPartIds.includes(part.id))
+  ))
   const evaluations = candidates.map(part => ({
     part,
     evaluation: evaluatePartSelection(part, session.spec, catalog),
@@ -112,7 +115,9 @@ function SlotRow({ slotId, session, catalog, onAction }: SlotRowProps) {
 
 export function SlotPanel(props: SlotPanelProps) {
   const usesAnatomyBundle = props.catalog.version === '0.6.0'
-    && props.catalog.anatomyBundles?.some(bundle => bundle.id === props.session.spec.anatomyBundleId) === true
+  const bundle = usesAnatomyBundle
+    ? props.catalog.anatomyBundles?.find(item => item.id === props.session.spec.anatomyBundleId)
+    : undefined
   const groups = SLOT_GROUPS.map(group => ({
     ...group,
     slots: usesAnatomyBundle
@@ -143,7 +148,15 @@ export function SlotPanel(props: SlotPanelProps) {
           key={group.id}
         >
           <h3 id={`slot-group-${group.id}`}>{group.label}</h3>
-          {group.slots.map(slotId => <SlotRow {...props} slotId={slotId} key={slotId} />)}
+          {group.slots.map(slotId => {
+            const allowedPartIds = bundle?.allowedTraitPools[slotId]
+            return <SlotRow
+              {...props}
+              slotId={slotId}
+              {...(allowedPartIds === undefined ? {} : { allowedPartIds })}
+              key={slotId}
+            />
+          })}
         </section>
       ))}
     </aside>

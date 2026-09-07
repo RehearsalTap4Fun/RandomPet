@@ -161,6 +161,47 @@ function catalogThatReplacesEveryUnlockedSlot(): Catalog {
 }
 
 describe('createCreatorReducer', () => {
+  it.each([
+    { action: { type: 'newCreature' as const, seed: 'v06-next-creature' } },
+    { action: { type: 'setTheme' as const, themeId: 'shadow' as const } },
+    { action: { type: 'setMode' as const, mode: 'mutation' as const } },
+  ])('preserves the selected feline anatomy bundle through global v0.6 actions', ({ action }) => {
+    const reducer = createCreatorReducer(v06Catalog)
+    const before = makeV06Session()
+
+    const next = reducer(before, action)
+
+    expect(next.spec.archetypeId).toBe('feline')
+    expect(next.spec.anatomyBundleId).toMatch(/^feline-sit-/)
+    expect(next.blocked).toBe(false)
+  })
+
+  it('clears an anatomy-pool incompatibility after returning to the selected bundle trait', () => {
+    const reducer = createCreatorReducer(v06Catalog)
+    const before = makeV06Session()
+    const selectedBundle = v06Catalog.anatomyBundles!.find(bundle => bundle.id === before.spec.anatomyBundleId)!
+    const differentBundle = v06Catalog.anatomyBundles!.find(bundle => bundle.id !== selectedBundle.id)!
+    const allowedEyeId = selectedBundle.allowedTraitPools.eyes![0]!
+    const incompatibleEyeId = differentBundle.allowedTraitPools.eyes![0]!
+
+    const blocked = reducer(before, {
+      type: 'manualSelect', slotId: 'eyes', partId: incompatibleEyeId,
+    })
+    const repaired = reducer(blocked, {
+      type: 'manualSelect', slotId: 'eyes', partId: allowedEyeId,
+    })
+
+    expect(blocked.blocked).toBe(true)
+    expect(blocked.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'ANATOMY_BUNDLE_TRAIT_POOL_INCOMPATIBLE',
+    }))
+    expect(repaired.spec.visualSlots.eyes.partId).toBe(allowedEyeId)
+    expect(repaired.blocked).toBe(false)
+    expect(repaired.diagnostics).not.toContainEqual(expect.objectContaining({
+      code: 'ANATOMY_BUNDLE_TRAIT_POOL_INCOMPATIBLE',
+    }))
+  })
+
   it('rerolls the whole v0.6 appearance unless any structural slot is locked', () => {
     const reducer = createCreatorReducer(v06Catalog)
     const before = makeV06Session()

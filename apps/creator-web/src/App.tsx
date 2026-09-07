@@ -287,14 +287,21 @@ function InitializedCreatorApp({
   onSessionChange?: (session: CreatorSession) => void
 }) {
   const [editorCatalog, setEditorCatalog] = useState(initialCatalog)
+  const initialRequest = editorCatalog.version === '0.6.0'
+    ? {
+        seed: 'qmonster-v0.1-first-hatch',
+        themeId: 'fungal' as const,
+        mode: 'normal' as const,
+        archetypeId: 'feline' as const,
+      }
+    : {
+        seed: 'qmonster-v0.1-first-hatch',
+        themeId: 'fungal' as const,
+        mode: 'normal' as const,
+      }
   const { session, dispatch } = useCreator({
     catalog: editorCatalog,
-    initialRequest: {
-      seed: 'qmonster-v0.1-first-hatch',
-      themeId: 'fungal',
-      mode: 'normal',
-      archetypeId: 'feline',
-    },
+    initialRequest,
     exportCapabilities,
     ...(storage === undefined ? {} : { storage }),
   })

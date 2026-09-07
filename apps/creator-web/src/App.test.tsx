@@ -53,6 +53,26 @@ describe('CreatorWorkbench', () => {
     expect(productionCatalog.version).toBe('0.6.0')
   })
 
+  it('initializes an explicitly supplied v0.5 catalog without the v0.6 feline archetype', async () => {
+    installCanvasContexts()
+    const renderer: PreviewRenderer = vi.fn(async () => ({
+      drawnAssetIds: [], diagnostics: [], compositionMetrics: null, connectorMetrics: null,
+    }))
+    let observedSession: CreatorSession | undefined
+
+    render(<App
+      catalog={v05ProductionCatalog}
+      initialExportCapabilities={{ png: true, webp: true }}
+      previewRenderer={renderer}
+      onSessionChange={session => { observedSession = session }}
+    />)
+
+    await waitFor(() => expect(observedSession).toBeDefined())
+    expect(observedSession?.spec.catalogVersion).toBe('0.5.0')
+    expect(observedSession?.spec.archetypeId).toBeUndefined()
+    expect(observedSession?.blocked).toBe(false)
+  })
+
   it('installs exact 0.1.0 through 0.6.0 catalogs while keeping v0.6 as the default', async () => {
     expect((await productionCatalogRegistry.load('0.1.0')).ok).toBe(true)
     expect((await productionCatalogRegistry.load('0.2.0')).ok).toBe(true)

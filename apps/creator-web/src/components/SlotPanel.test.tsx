@@ -40,6 +40,36 @@ describe('SlotPanel', () => {
     }
   })
 
+  it('limits v0.6 local trait candidates to the selected anatomy bundle pool', () => {
+    const session = createCreatorSession(generateMonster({
+      seed: 'v06-local-trait-pool', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, v06Catalog))
+    const selectedBundle = v06Catalog.anatomyBundles!.find(bundle => bundle.id === session.spec.anatomyBundleId)!
+
+    render(<SlotPanel session={session} catalog={v06Catalog} onAction={() => undefined} />)
+
+    const eyes = screen.getByRole('combobox', { name: '眼睛部件' }) as HTMLSelectElement
+    expect(Array.from(eyes.options).map(option => option.value)).toEqual(selectedBundle.allowedTraitPools.eyes)
+  })
+
+  it.each(['missing-bundle', undefined])('keeps v0.6 structural controls hidden without a resolved anatomy bundle', anatomyBundleId => {
+    const generated = generateMonster({
+      seed: 'v06-unresolved-bundle', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, v06Catalog)
+    const { anatomyBundleId: _discardedBundle, ...specWithoutBundle } = generated.spec
+    const session = createCreatorSession({
+      ...generated,
+      spec: anatomyBundleId === undefined ? specWithoutBundle : { ...generated.spec, anatomyBundleId },
+    })
+
+    render(<SlotPanel session={session} catalog={v06Catalog} onAction={() => undefined} />)
+
+    expect(screen.getAllByTestId('visual-slot-row')).toHaveLength(8)
+    for (const label of ['体型骨架', '头部轮廓', '手臂', '腿脚', '尾巴', '额外附肢']) {
+      expect(screen.queryByRole('combobox', { name: `${label}部件` })).toBeNull()
+    }
+  })
+
   it('exposes fourteen visual slot rows in four responsibility groups', () => {
     const catalog = makeValidCatalogFixture()
     render(<SlotPanel session={fixture(catalog)} catalog={catalog} onAction={() => undefined} />)
