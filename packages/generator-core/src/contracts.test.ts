@@ -1,14 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import {
   ANIMAL_ARCHETYPE_IDS,
+  LOCAL_VISUAL_SLOT_IDS,
   NON_FACIAL_VISUAL_SLOT_IDS,
   STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  isLocalVisualSlot,
   isStructuralSlot,
 } from './contracts.js'
-import type { NonFacialVisualSlotId } from './contracts.js'
+import type { LocalVisualSlotId, NonFacialVisualSlotId } from './contracts.js'
 
 const nonFacialVisualSlot: NonFacialVisualSlotId = 'surfaceMaterial'
+const localVisualSlot: LocalVisualSlotId = 'eyes'
 
 describe('structural slot contract', () => {
   it('classifies exactly the six structural visual slots', () => {
@@ -27,6 +30,17 @@ describe('non-facial visual slot contract', () => {
 
   it('declares the exact non-facial visual slots', () => {
     expect(NON_FACIAL_VISUAL_SLOT_IDS).toEqual(['surfaceMaterial', 'pattern', 'effect'])
+  })
+})
+
+describe('anatomy bundle local slot contract', () => {
+  it('exposes exactly the eight non-structural slots that anatomy bundles can pool', () => {
+    expect(localVisualSlot).toBe('eyes')
+    expect(LOCAL_VISUAL_SLOT_IDS).toEqual([
+      'eyes', 'mouthShape', 'oralDetail', 'headAppendage',
+      'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
+    ])
+    expect(VISUAL_SLOT_IDS.filter(isLocalVisualSlot)).toEqual(LOCAL_VISUAL_SLOT_IDS)
   })
 })
 

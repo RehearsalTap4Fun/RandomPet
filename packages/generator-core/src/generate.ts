@@ -4,6 +4,7 @@ import { validateCatalogStructure } from './catalog-validation.js'
 import {
   GENOME_LAYERS,
   VISUAL_SLOT_IDS,
+  isLocalVisualSlot,
   type Catalog,
   type Diagnostic,
   type GenomeLayer,
@@ -200,6 +201,7 @@ function generateAnatomyBundleVisualLayer(
   }
   for (const slotId of generationOrderForCatalog(catalog)) {
     if (slotId in bundle.derivedSlots) continue
+    if (!isLocalVisualSlot(slotId)) continue
     visualSlots[slotId] = resolveSlot(
       request,
       catalog,

@@ -102,7 +102,16 @@ describe('MonsterSpecSchema', () => {
         bodyFrame: 'body_blob', headShape: 'head_round', arms: 'arms_short', legs: 'legs_webbed',
         tail: 'tail_anchor', extraAppendage: 'extra_wings',
       },
-      allowedTraitPools: {},
+      allowedTraitPools: {
+        eyes: ['eyes_asymmetric'],
+        mouthShape: ['mouth_wide'],
+        oralDetail: ['oral_teeth'],
+        headAppendage: ['head_antennae'],
+        surfaceMaterial: ['surface_gel'],
+        pattern: ['pattern_spots'],
+        colorScheme: ['color_scheme_ocean'],
+        effect: ['effect_glow'],
+      },
     }]
 
     expect(parseCatalog(catalog)).toMatchObject({ ok: true })

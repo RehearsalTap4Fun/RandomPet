@@ -1,6 +1,7 @@
 import {
   evaluatePartSelection,
   STRUCTURAL_SLOT_IDS,
+  isLocalVisualSlot,
   type Catalog,
   type VisualPartDefinition,
   type VisualSlotId,
@@ -149,7 +150,9 @@ export function SlotPanel(props: SlotPanelProps) {
         >
           <h3 id={`slot-group-${group.id}`}>{group.label}</h3>
           {group.slots.map(slotId => {
-            const allowedPartIds = bundle?.allowedTraitPools[slotId]
+            const allowedPartIds = isLocalVisualSlot(slotId)
+              ? bundle?.allowedTraitPools[slotId]
+              : undefined
             return <SlotRow
               {...props}
               slotId={slotId}

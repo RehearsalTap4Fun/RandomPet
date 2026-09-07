@@ -38,6 +38,12 @@ function bundle(id: string, partIds: Partial<Record<VisualSlotId, string>> = {})
     allowedTraitPools: {
       eyes: [`${id}-eyes`],
       mouthShape: [`${id}-mouth`],
+      oralDetail: [`${id}-oral-detail`],
+      headAppendage: [`${id}-head-appendage`],
+      surfaceMaterial: [`${id}-surface`],
+      pattern: [`${id}-pattern`],
+      colorScheme: [`${id}-color`],
+      effect: [`${id}-effect`],
     },
   }
 }

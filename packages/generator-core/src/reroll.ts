@@ -8,6 +8,7 @@ import {
   GENOME_LAYERS,
   STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
+  isLocalVisualSlot,
   isStructuralSlot,
   type GenomeLayer,
   type GenerationMode,
@@ -65,8 +66,7 @@ function modeForSpec(spec: MonsterSpec): GenerationMode {
   return spec.aberrations.length > 0 ? 'aberration' : 'normal'
 }
 
-function immutableFelineSlotResult(request: RerollSlotRequest): GenerationResult | null {
-  if (request.catalog.version !== '0.6.0' || !isStructuralSlot(request.slotId)) return null
+function anatomyBundleStructuralSlotResult(request: RerollSlotRequest): GenerationResult {
   return result(request.spec, [{
     severity: 'error',
     code: 'ANATOMY_BUNDLE_SLOT_IMMUTABLE',
@@ -75,7 +75,13 @@ function immutableFelineSlotResult(request: RerollSlotRequest): GenerationResult
   }], [request.slotId])
 }
 
+function immutableFelineSlotResult(request: RerollSlotRequest): GenerationResult | null {
+  if (request.catalog.version !== '0.6.0' || !isStructuralSlot(request.slotId)) return null
+  return anatomyBundleStructuralSlotResult(request)
+}
+
 function rerollAnatomyBundleLocalSlot(request: RerollSlotRequest): GenerationResult {
+  if (!isLocalVisualSlot(request.slotId)) return anatomyBundleStructuralSlotResult(request)
   const bundle = resolveAnatomyBundle(request.spec, request.catalog)
   if (bundle === null) {
     return result(structuredClone(request.spec), [{
@@ -109,6 +115,7 @@ function rerollAnatomyBundleLocalSlot(request: RerollSlotRequest): GenerationRes
 }
 
 function selectAnatomyBundleLocalPart(request: SelectVisualPartRequest): GenerationResult {
+  if (!isLocalVisualSlot(request.slotId)) return anatomyBundleStructuralSlotResult(request)
   const bundle = resolveAnatomyBundle(request.spec, request.catalog)
   if (bundle === null || !bundle.allowedTraitPools[request.slotId]?.includes(request.partId)) {
     return result(structuredClone(request.spec), [{

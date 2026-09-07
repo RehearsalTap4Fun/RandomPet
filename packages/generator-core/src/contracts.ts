@@ -83,9 +83,14 @@ export const LOCAL_VISUAL_SLOT_IDS = [
 export type LocalVisualSlotId = typeof LOCAL_VISUAL_SLOT_IDS[number]
 
 const STRUCTURAL_SLOT_ID_SET = new Set<VisualSlotId>(STRUCTURAL_SLOT_IDS)
+const LOCAL_VISUAL_SLOT_ID_SET = new Set<VisualSlotId>(LOCAL_VISUAL_SLOT_IDS)
 
 export function isStructuralSlot(slotId: VisualSlotId): slotId is StructuralSlotId {
   return STRUCTURAL_SLOT_ID_SET.has(slotId)
+}
+
+export function isLocalVisualSlot(slotId: VisualSlotId): slotId is LocalVisualSlotId {
+  return LOCAL_VISUAL_SLOT_ID_SET.has(slotId)
 }
 export type ConnectorRole = 'receiver' | 'plug'
 export type ConnectorClass = 'neck' | 'shoulder' | 'hip' | 'tail' | 'extra'
@@ -258,7 +263,7 @@ export interface AnatomyBundleDefinition {
   featureSockets: Record<string, Point2D>
   mutationAnchors: Record<string, Rect>
   derivedSlots: Record<StructuralSlotId, string>
-  allowedTraitPools: Partial<Record<VisualSlotId, string[]>>
+  allowedTraitPools: Record<LocalVisualSlotId, string[]>
 }
 
 export interface AnimalArchetypeDefinition {
