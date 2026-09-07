@@ -30,6 +30,7 @@ export function toGenerationRequest(input: unknown): AdapterResult<GenerationReq
 
   const seed = parsed.value.seed
   const themeId = themeMap[parsed.value.theme]
+  const archetypeId = parsed.value.archetype === 'feline' ? 'feline' : undefined
   const aberrationRisk = clampProbability(parsed.value.risk, 0.85)
   const mutationChance = Math.min(
     0.05 + clampProbability(parsed.value.mutationBonus, 0.1),
@@ -40,7 +41,12 @@ export function toGenerationRequest(input: unknown): AdapterResult<GenerationReq
   if (aberrationRoll < aberrationRisk) {
     return {
       ok: true,
-      value: { seed, themeId, mode: 'aberration', archetypeId: 'feline' },
+      value: {
+        seed,
+        themeId,
+        mode: 'aberration',
+        ...(archetypeId === undefined ? {} : { archetypeId }),
+      },
     }
   }
 
@@ -51,7 +57,7 @@ export function toGenerationRequest(input: unknown): AdapterResult<GenerationReq
       seed,
       themeId,
       mode: mutationRoll < mutationChance ? 'mutation' : 'normal',
-      archetypeId: 'feline',
+      ...(archetypeId === undefined ? {} : { archetypeId }),
     },
   }
 }

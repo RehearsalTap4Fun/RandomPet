@@ -94,24 +94,34 @@ describe('incubator adapter', () => {
     expect(toGenerationRequest(input)).toEqual(request)
   })
 
-  it('maps an omitted v0.6 egg archetype to feline', () => {
-    expect(toGenerationRequest({
+  it('maps an explicit v0.6 feline egg archetype to feline', () => {
+    const request = toGenerationRequest({
       id: 'v06-default-archetype', theme: 'fungal', seed: 'v06-default', risk: 0, mutationBonus: 0,
-    })).toMatchObject({
+      archetype: 'feline',
+    })
+    expect(request).toMatchObject({
       ok: true,
       value: { archetypeId: 'feline' },
     })
+    if (!request.ok) return
+    const generated = generateMonster(request.value, v06Catalog())
+    expect(generated.blocked).toBe(false)
   })
 
   it('keeps the legacy egg fixture seed and theme mapping intact', () => {
-    expect(toGenerationRequest(fungalEgg)).toMatchObject({
+    const request = toGenerationRequest(fungalEgg)
+    expect(request).toMatchObject({
       ok: true,
       value: {
         seed: fungalEgg.seed,
         themeId: 'fungal',
-        archetypeId: 'feline',
       },
     })
+    if (!request.ok) return
+    expect(request.value).not.toHaveProperty('archetypeId')
+
+    const generated = generateMonster(request.value, productionCatalog())
+    expect(generated.blocked).toBe(false)
   })
 
   it('rejects a v0.6 egg request with an unsupported archetype', () => {

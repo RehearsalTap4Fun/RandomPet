@@ -106,6 +106,7 @@ interface HatchMonsterRequest {
   seed: string
   themeId: 'deep-sea' | 'fungal' | 'shadow'
   mode: 'normal' | 'mutation' | 'aberration'
+  archetypeId: 'feline'
   lockedSelections?: Partial<Record<VisualSlotId, string>>
   imageSize?: 1024 | 2048
 }
@@ -395,6 +396,7 @@ export async function hatchMonster(
     seed: request.seed,
     themeId: request.themeId,
     mode: request.mode,
+    archetypeId: request.archetypeId,
     lockedSelections: request.lockedSelections,
   }, catalog)
 
@@ -488,7 +490,7 @@ export async function hatchMonster(
 | 普通孵化 | `mode: 'normal'` | 默认模式 |
 | 变异孵化 | `mode: 'mutation'` | 应在 UI 中明确提示 |
 | 怪诞孵化 | `mode: 'aberration'` | 用于更高变异度玩法 |
-| v0.6 外观类型 | `archetypeId: 'feline'` | 蛋请求可省略 `archetype`，适配器默认映射到猫科；`canine` 与 `lagomorph` 被拒绝 |
+| v0.6 外观类型 | `archetypeId: 'feline'` | v0.6 请求必须显式传入 `feline`；`canine` 与 `lagomorph` 被拒绝。旧版请求省略该字段 |
 | 指定遗传特征 | `lockedSelections` | 只传允许继承的槽位及合法 part ID |
 
 不要根据中文展示名回填特征；展示名可能本地化。持久化和业务判断始终使用 `partId`、`themeId`、`rigId` 等稳定 ID。
