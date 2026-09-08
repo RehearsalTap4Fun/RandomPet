@@ -42,6 +42,7 @@ export function selectIndependentPoolPart(
   slotId: VisualSlotId,
   selections: Partial<Record<VisualSlotId, VisualSelection>>,
   diagnostics: Diagnostic[],
+  excludedPartIds: readonly string[] = [],
 ): VisualSelection {
   const rigId = bundle.rigId
   const pool = bundle.partPools[slotId]
@@ -67,7 +68,7 @@ export function selectIndependentPoolPart(
   const rerollIndex = request.slotRolls?.[slotId] ?? 0
   const rng = createRng([...slotSeedParts(request.seed, request.themeId, slotId, rerollIndex), 'part-rarity'])
   const tier = pickIndependentPartTier(rng)
-  const candidateIds = pool.filter(partId => catalog.parts.some(part => (
+  const candidateIds = pool.filter(partId => !excludedPartIds.includes(partId) && catalog.parts.some(part => (
     part.id === partId && part.slotId === slotId && part.rarity === tier
   )))
   const result = buildCandidates({

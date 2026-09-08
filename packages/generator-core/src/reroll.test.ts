@@ -66,6 +66,67 @@ describe('rerollSlot', () => {
     }
   })
 
+  it('never reselects the current v0.7 bodyFrame on a fixed seed and keeps its bundle pool', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const initial = generateMonster({
+      seed: 'same-0', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    const before = structuredClone(initial)
+    const bundle = catalog.anatomyBundles.find(item => item.id === initial.anatomyBundleId)!
+
+    const rerolled = rerollSlot({ spec: initial, slotId: 'bodyFrame', locks: {}, catalog })
+
+    expect(rerolled.blocked).toBe(false)
+    expect(bundle.partPools.bodyFrame).toContain(rerolled.spec.visualSlots.bodyFrame.partId)
+    expect(rerolled.spec.visualSlots.bodyFrame.partId).not.toBe(before.visualSlots.bodyFrame.partId)
+  })
+
+  it('rolls back a v0.7 bodyFrame reroll with an explicit error when its pool has no alternative', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const initial = generateMonster({
+      seed: 'same-0', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    const before = structuredClone(initial)
+    const bundle = catalog.anatomyBundles.find(item => item.id === initial.anatomyBundleId)!
+    bundle.partPools.bodyFrame = [before.visualSlots.bodyFrame.partId]
+
+    const rerolled = rerollSlot({ spec: initial, slotId: 'bodyFrame', locks: {}, catalog })
+
+    expect(rerolled.blocked).toBe(true)
+    expect(rerolled.spec).toEqual({
+      ...before,
+      slotRolls: { ...before.slotRolls, bodyFrame: before.slotRolls.bodyFrame + 1 },
+    })
+    expect(rerolled.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'NO_REROLL_ALTERNATIVE', path: ['visualSlots', 'bodyFrame'],
+    }))
+  })
+
+  it('rolls back every no-genome v0.7 field after post-selection anatomy-pool validation fails', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const initial = generateMonster({
+      seed: 'post-selection-no-genome', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    delete initial.genome
+    const bundle = catalog.anatomyBundles.find(item => item.id === initial.anatomyBundleId)!
+    const sourceEye = catalog.parts.find(part => part.id === bundle.partPools.eyes[0])!
+    const outsidePoolEye = { ...structuredClone(sourceEye), id: 'eyes_post_selection_outside_pool' }
+    catalog.parts.push(outsidePoolEye)
+    initial.visualSlots.eyes = { partId: outsidePoolEye.id, rigId: outsidePoolEye.compatibleRigs[0]! }
+    const before = structuredClone(initial)
+
+    const rerolled = rerollSlot({ spec: initial, slotId: 'bodyFrame', locks: {}, catalog })
+
+    expect(rerolled.blocked).toBe(true)
+    expect(rerolled.spec).toEqual({
+      ...before,
+      slotRolls: { ...before.slotRolls, bodyFrame: before.slotRolls.bodyFrame + 1 },
+    })
+    expect(rerolled.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SPEC_ANATOMY_BUNDLE_PART_POOL_MISMATCH', path: ['visualSlots', 'eyes', 'partId'],
+    }))
+  })
+
   it('rolls back a public v0.7 bodyFrame spec without a genome on a candidate failure', () => {
     const catalog = makeV07FelinePartLibraryFixture()
     const initial = generateMonster({
@@ -113,6 +174,32 @@ describe('rerollSlot', () => {
       if (slotId !== 'bodyFrame') expect(rerolled.spec.visualSlots[slotId]).toEqual(before.visualSlots[slotId])
     }
     expect(rerolled.spec.genome!.genes.bodyFrame.P).toBe(rerolled.spec.visualSlots.bodyFrame.partId)
+    for (const slotId of VISUAL_SLOT_IDS) {
+      for (const layer of GENOME_LAYERS) {
+        if (slotId === 'bodyFrame' && layer === 'P') continue
+        expect(rerolled.spec.genome!.genes[slotId][layer]).toBe(before.genome!.genes[slotId][layer])
+      }
+    }
+  })
+
+  it('rolls back every genome layer after post-selection v0.7 genome validation fails', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const initial = generateMonster({
+      seed: 'post-selection-genome', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    initial.genome!.genes.eyes.H1 = 'missing_hidden_eyes'
+    const before = structuredClone(initial)
+
+    const rerolled = rerollSlot({ spec: initial, slotId: 'bodyFrame', locks: {}, catalog })
+
+    expect(rerolled.blocked).toBe(true)
+    expect(rerolled.spec).toEqual({
+      ...before,
+      slotRolls: { ...before.slotRolls, bodyFrame: before.slotRolls.bodyFrame + 1 },
+    })
+    expect(rerolled.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'SPEC_GENE_PART_MISSING', path: ['genome', 'genes', 'eyes', 'H1'],
+    }))
   })
 
   it('rolls back a v0.7 bodyFrame reroll when the current bundle has no compatible body candidate', () => {

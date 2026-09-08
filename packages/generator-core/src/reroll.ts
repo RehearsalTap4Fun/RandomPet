@@ -43,7 +43,7 @@ import {
   strongNonFacialFeatureCountForSelections,
   validateCompositionSelections,
 } from './composition.js'
-import { resolveAnatomyBundle } from './anatomy-bundle.js'
+import { resolveAnatomyBundle, validateAnatomyBundleSpec } from './anatomy-bundle.js'
 import { selectIndependentPoolPart } from './part-rarity.js'
 
 export type SlotLocks = Partial<Record<VisualSlotId, boolean>>
@@ -493,12 +493,22 @@ function rerollIndependentBodyFrame(request: RerollSlotRequest): GenerationResul
     })
     return rollbackReroll(request, slotRolls.bodyFrame, diagnostics, ['bodyFrame'])
   }
+  const excludedPartIds = [spec.visualSlots.bodyFrame.partId]
+  if (!bundle.partPools.bodyFrame.some(partId => !excludedPartIds.includes(partId))) {
+    diagnostics.push({
+      severity: 'error',
+      code: 'NO_REROLL_ALTERNATIVE',
+      path: ['visualSlots', 'bodyFrame'],
+      message: 'No alternative independent bodyFrame part exists in the selected anatomy bundle.',
+    })
+    return rollbackReroll(request, slotRolls.bodyFrame, diagnostics, ['bodyFrame'])
+  }
   const selection = selectIndependentPoolPart({
     seed: spec.seed,
     themeId: spec.themeId,
     ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
     slotRolls,
-  }, catalog, bundle, 'bodyFrame', spec.visualSlots, diagnostics)
+  }, catalog, bundle, 'bodyFrame', spec.visualSlots, diagnostics, excludedPartIds)
   if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return rollbackReroll(request, slotRolls.bodyFrame, diagnostics, ['bodyFrame'])
   }
@@ -508,6 +518,7 @@ function rerollIndependentBodyFrame(request: RerollSlotRequest): GenerationResul
   if (spec.genome !== undefined) {
     spec.genome = syncDominantGenes(spec.genome, spec.visualSlots, ['bodyFrame'])
   }
+  diagnostics.push(...validateAnatomyBundleSpec(spec, request.catalog))
   diagnostics.push(...validateCompositionSelections(
     spec,
     request.catalog,
