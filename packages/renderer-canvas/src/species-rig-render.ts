@@ -323,8 +323,8 @@ async function renderSpeciesRigMonsterUnchecked(
       drawMetric(surfaces.faceAlpha[currentFaceSlot], surfaces.trait)
       started.add(currentFaceSlot)
     }
-    for (const slotId of started) {
-      if (slotId !== currentFaceSlot) drawMetric(surfaces.faceOccluder[slotId], surfaces.trait)
+    if (currentFaceSlot === null) {
+      for (const slotId of started) drawMetric(surfaces.faceOccluder[slotId], surfaces.trait)
     }
     withSavedContext(surfaces.finalOutput.context, () => {
       surfaces.finalOutput.context.globalCompositeOperation = trait.composition.blendMode
