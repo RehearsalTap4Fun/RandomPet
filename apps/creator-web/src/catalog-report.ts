@@ -1,5 +1,6 @@
 import {
   LOCAL_VISUAL_SLOT_IDS,
+  PART_RARITY_WEIGHTS,
   RARITY_WEIGHTS,
   STRUCTURAL_SLOT_IDS,
   type AnatomyBundleDefinition,
@@ -51,6 +52,15 @@ export interface ReportTraitGroup {
   slotId: VisualSlotId
   label: string
   values: readonly string[]
+  parts: readonly ReportTrait[]
+}
+
+export interface ReportTrait {
+  id: string
+  displayName: string
+  rarity: Rarity
+  ownerRegionId: string | null
+  expressionKind: string | null
 }
 
 export interface ReportBundle {
@@ -72,8 +82,10 @@ export interface ArchetypeReport {
 }
 
 export interface CatalogReportModel {
+  catalog: Catalog
   catalogVersion: string
   tierWeights: Record<Rarity, number>
+  tierWeightUnit: '%' | '份'
   archetypes: readonly ArchetypeReport[]
   defaultArchetypeId: AnimalArchetypeId | null
 }
@@ -98,8 +110,10 @@ export function createCatalogReportModel(catalog: Catalog): CatalogReportModel {
   ))
 
   return {
+    catalog,
     catalogVersion: catalog.version,
-    tierWeights: { ...RARITY_WEIGHTS },
+    tierWeights: { ...(catalog.version === '0.8.0' ? PART_RARITY_WEIGHTS : RARITY_WEIGHTS) },
+    tierWeightUnit: catalog.version === '0.8.0' ? '份' : '%',
     archetypes,
     defaultArchetypeId: archetypes.some(item => item.id === 'feline') ? 'feline' : archetypes[0]?.id ?? null,
   }
@@ -114,8 +128,15 @@ function createArchetypeReport(
 ): ArchetypeReport {
   const reachablePartIds = new Set<string>()
   for (const bundle of bundles) {
-    for (const partId of Object.values(bundle.derivedSlots)) reachablePartIds.add(partId)
-    for (const partIds of Object.values(bundle.allowedTraitPools)) {
+    const independentPools = (bundle as AnatomyBundleDefinition & { partPools?: Partial<Record<VisualSlotId, string[]>> }).partPools
+    if (independentPools !== undefined) {
+      for (const partIds of Object.values(independentPools)) {
+        for (const partId of partIds ?? []) reachablePartIds.add(partId)
+      }
+      continue
+    }
+    for (const partId of Object.values(bundle.derivedSlots ?? {})) reachablePartIds.add(partId)
+    for (const partIds of Object.values(bundle.allowedTraitPools ?? {})) {
       for (const partId of partIds) reachablePartIds.add(partId)
     }
   }
@@ -166,14 +187,23 @@ function projectBundle(
   bundle: AnatomyBundleDefinition,
   partsById: ReadonlyMap<string, VisualPartDefinition>,
 ): ReportBundle {
+  const independentPools = (bundle as AnatomyBundleDefinition & { partPools?: Record<VisualSlotId, string[]> }).partPools
   return {
     id: bundle.id,
     label: bundle.id,
     rarity: bundle.rarity,
     poseId: bundle.poseId,
     structuralAssetPath: bundle.structural.pngPath,
-    structuralTraits: STRUCTURAL_SLOT_IDS.map(slotId => traitGroup(slotId, [bundle.derivedSlots[slotId]], partsById)),
-    localTraits: LOCAL_VISUAL_SLOT_IDS.map(slotId => traitGroup(slotId, bundle.allowedTraitPools[slotId], partsById)),
+    structuralTraits: STRUCTURAL_SLOT_IDS.map(slotId => traitGroup(
+      slotId,
+      independentPools?.[slotId] ?? [bundle.derivedSlots[slotId]],
+      partsById,
+    )),
+    localTraits: LOCAL_VISUAL_SLOT_IDS.map(slotId => traitGroup(
+      slotId,
+      independentPools?.[slotId] ?? bundle.allowedTraitPools[slotId],
+      partsById,
+    )),
   }
 }
 
@@ -186,6 +216,17 @@ function traitGroup(
     slotId,
     label: SLOT_LABEL[slotId],
     values: partIds.map(partId => labelForPart(partsById.get(partId), partId)),
+    parts: partIds.map(partId => {
+      const part = partsById.get(partId)
+      const composition = part?.composition?.mode === 'species-rig' ? part.composition : undefined
+      return {
+        id: partId,
+        displayName: labelForPart(part, partId),
+        rarity: part?.rarity ?? 'N',
+        ownerRegionId: composition?.ownerRegionId ?? null,
+        expressionKind: composition?.expressionKind ?? null,
+      }
+    }),
   }
 }
 

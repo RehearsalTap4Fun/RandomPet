@@ -1,13 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { AnimalArchetypeId, Rarity } from '@qmonster/generator-core'
+import type { AnimalArchetypeId, Rarity, VisualSlotId } from '@qmonster/generator-core'
+import type { ImageResolver } from '@qmonster/renderer-canvas'
 import {
   RARITY_ORDER,
   rarityLabel,
   type ArchetypeReport,
   type CatalogReportModel,
   type ReportBundle,
+  type ReportTrait,
 } from '../catalog-report.js'
 import { resolveCatalogReportAssetUrl } from '../catalog-report-assets.js'
+import { TraitPreviewCanvas } from './TraitPreviewCanvas.js'
+import type { PreviewRenderer } from './PreviewCanvas.js'
 
 type RarityFilter = 'all' | Rarity
 type AssetUrlResolver = (catalogVersion: string, assetPath: string) => Promise<string>
@@ -15,6 +19,8 @@ type AssetUrlResolver = (catalogVersion: string, assetPath: string) => Promise<s
 export interface CatalogReportProps {
   model: CatalogReportModel
   resolveAssetUrl?: AssetUrlResolver
+  traitRenderer?: PreviewRenderer
+  traitResolver?: ImageResolver
 }
 
 const FILTER_LABEL: Record<RarityFilter, string> = {
@@ -24,9 +30,15 @@ const FILTER_LABEL: Record<RarityFilter, string> = {
   L: '传说 L',
 }
 
-export function CatalogReport({ model, resolveAssetUrl = resolveCatalogReportAssetUrl }: CatalogReportProps) {
+export function CatalogReport({
+  model,
+  resolveAssetUrl = resolveCatalogReportAssetUrl,
+  traitRenderer,
+  traitResolver,
+}: CatalogReportProps) {
   const [selectedArchetypeId, setSelectedArchetypeId] = useState<AnimalArchetypeId | null>(model.defaultArchetypeId)
   const [rarityFilter, setRarityFilter] = useState<RarityFilter>('all')
+  const [selectedSlotId, setSelectedSlotId] = useState<VisualSlotId>('bodyFrame')
   const selectedArchetype = useMemo(() => (
     model.archetypes.find(item => item.id === selectedArchetypeId) ?? model.archetypes[0]
   ), [model.archetypes, selectedArchetypeId])
@@ -47,6 +59,12 @@ export function CatalogReport({ model, resolveAssetUrl = resolveCatalogReportAss
   const allLocalTraitsNormal = selectedArchetype.categoryRows
     .filter(row => row.scope === 'local')
     .every(row => row.counts.R === 0 && row.counts.L === 0)
+  const speciesRigBundle = model.catalogVersion === '0.8.0' ? selectedArchetype.bundles[0] : undefined
+  const speciesRigGroups = speciesRigBundle === undefined
+    ? []
+    : [...speciesRigBundle.structuralTraits, ...speciesRigBundle.localTraits]
+  const selectedTraitGroup = speciesRigGroups.find(group => group.slotId === selectedSlotId) ?? speciesRigGroups[0]
+  const filteredTraits = selectedTraitGroup?.parts.filter(part => rarityFilter === 'all' || part.rarity === rarityFilter) ?? []
 
   return (
     <main className="catalog-report">
@@ -62,7 +80,7 @@ export function CatalogReport({ model, resolveAssetUrl = resolveCatalogReportAss
           {RARITY_ORDER.map(rarity => (
             <div key={rarity} data-rarity={rarity}>
               <dt>{rarityLabel(rarity)} {rarity}</dt>
-              <dd>{model.tierWeights[rarity]}%</dd>
+              <dd>{model.tierWeights[rarity]}{model.tierWeightUnit}</dd>
             </div>
           ))}
         </dl>
@@ -78,6 +96,7 @@ export function CatalogReport({ model, resolveAssetUrl = resolveCatalogReportAss
             onClick={() => {
               setSelectedArchetypeId(archetype.id)
               setRarityFilter('all')
+              setSelectedSlotId('bodyFrame')
             }}
           >
             {archetype.label}
@@ -92,7 +111,56 @@ export function CatalogReport({ model, resolveAssetUrl = resolveCatalogReportAss
         ))}
       </section>
 
-      <section className="catalog-report__section">
+      {speciesRigBundle !== undefined && selectedTraitGroup !== undefined && (
+        <section className="catalog-report__section">
+          <div className="catalog-report__section-heading catalog-report__section-heading--cards">
+            <div>
+              <p className="catalog-report__eyebrow">TRAIT SPECIMENS</p>
+              <h2>部件完整形象预览</h2>
+            </div>
+            <span>每张卡都通过 V0.8 正式渲染器生成完整生物，不直接展示漂浮部件。</span>
+          </div>
+          <div className="catalog-report__slot-tabs" aria-label="部位分类">
+            {speciesRigGroups.map(group => (
+              <button
+                key={group.slotId}
+                type="button"
+                aria-pressed={selectedTraitGroup.slotId === group.slotId}
+                onClick={() => setSelectedSlotId(group.slotId)}
+              >
+                {group.label} · 8/4/1
+              </button>
+            ))}
+          </div>
+          <div className="catalog-report__filters catalog-report__trait-filters" aria-label="按部件稀有度筛选">
+            {(['all', ...RARITY_ORDER] as const).map(filter => (
+              <button
+                key={filter}
+                type="button"
+                aria-pressed={rarityFilter === filter}
+                data-rarity={filter === 'all' ? undefined : filter}
+                onClick={() => setRarityFilter(filter)}
+              >
+                {FILTER_LABEL[filter]}
+              </button>
+            ))}
+          </div>
+          <div className="catalog-report__trait-grid">
+            {filteredTraits.map(trait => (
+              <TraitCard
+                key={trait.id}
+                trait={trait}
+                bundleId={speciesRigBundle.id}
+                model={model}
+                {...(traitRenderer === undefined ? {} : { renderer: traitRenderer })}
+                {...(traitResolver === undefined ? {} : { resolver: traitResolver })}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {speciesRigBundle === undefined && <section className="catalog-report__section">
         <div className="catalog-report__section-heading">
           <div>
             <p className="catalog-report__eyebrow">TYPE COUNTS</p>
@@ -120,7 +188,7 @@ export function CatalogReport({ model, resolveAssetUrl = resolveCatalogReportAss
             <strong>局部特征当前全部为普通</strong>：稀有度目前施加在完整外形 bundle 与全局变异，而不是单个局部部位。
           </p>
         )}
-      </section>
+      </section>}
 
       <section className="catalog-report__section">
         <div className="catalog-report__section-heading catalog-report__section-heading--cards">
@@ -157,6 +225,41 @@ export function CatalogReport({ model, resolveAssetUrl = resolveCatalogReportAss
         ) : <p className="catalog-report__empty-filter">当前筛选下没有完整外形。</p>}
       </section>
     </main>
+  )
+}
+
+function TraitCard({
+  trait,
+  bundleId,
+  model,
+  renderer,
+  resolver,
+}: {
+  trait: ReportTrait
+  bundleId: string
+  model: CatalogReportModel
+  renderer?: PreviewRenderer
+  resolver?: ImageResolver
+}) {
+  return (
+    <article className="trait-card" data-rarity={trait.rarity}>
+      <TraitPreviewCanvas
+        catalog={model.catalog}
+        bundleId={bundleId}
+        partId={trait.id}
+        {...(renderer === undefined ? {} : { renderer })}
+        {...(resolver === undefined ? {} : { resolver })}
+      />
+      <div className="trait-card__content">
+        <span className="appearance-card__rarity">{rarityLabel(trait.rarity)} · {trait.rarity}</span>
+        <h3>{trait.displayName}</h3>
+        <code>{trait.id}</code>
+        <dl>
+          <div><dt>区域</dt><dd>{trait.ownerRegionId ?? '—'}</dd></div>
+          <div><dt>表达</dt><dd>{trait.expressionKind ?? '—'}</dd></div>
+        </dl>
+      </div>
+    </article>
   )
 }
 

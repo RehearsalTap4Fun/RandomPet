@@ -12,7 +12,8 @@ import v02ProductionCatalogDocument from '../../../packages/asset-catalog/catalo
 import v03ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import v04ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
 import v05ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.5.0/catalog.json'
-import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
+import v06ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
+import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.8.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
 import type { CreatorAction, CreatorSession } from './state/contracts.js'
 import type { SessionStorage } from './state/persistence.js'
@@ -34,6 +35,11 @@ if (!parsedProductionCatalog.ok) {
   throw new Error(`Production catalog is invalid: ${parsedProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
 }
 export const productionCatalog = parsedProductionCatalog.value
+const parsedV06ProductionCatalog = parseCatalog(v06ProductionCatalogDocument)
+if (!parsedV06ProductionCatalog.ok) {
+  throw new Error(`V0.6 production catalog is invalid: ${parsedV06ProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
+}
+export const v06ProductionCatalog = parsedV06ProductionCatalog.value
 const parsedV05ProductionCatalog = parseCatalog(v05ProductionCatalogDocument)
 if (!parsedV05ProductionCatalog.ok) {
   throw new Error(`V0.5 production catalog is invalid: ${parsedV05ProductionCatalog.diagnostics.map(item => item.code).join(', ')}`)
@@ -65,7 +71,8 @@ export const productionCatalogRegistry = new CatalogRegistry(new Map([
   ['0.3.0', async () => v03ProductionCatalog],
   ['0.4.0', async () => v04ProductionCatalog],
   ['0.5.0', async () => v05ProductionCatalog],
-  ['0.6.0', async () => productionCatalog],
+  ['0.6.0', async () => v06ProductionCatalog],
+  ['0.8.0', async () => productionCatalog],
 ]))
 
 interface CreatorWorkbenchProps {
@@ -287,7 +294,7 @@ function InitializedCreatorApp({
   onSessionChange?: (session: CreatorSession) => void
 }) {
   const [editorCatalog, setEditorCatalog] = useState(initialCatalog)
-  const initialRequest = editorCatalog.version === '0.6.0'
+  const initialRequest = editorCatalog.version === '0.6.0' || editorCatalog.version === '0.8.0'
     ? {
         seed: 'qmonster-v0.1-first-hatch',
         themeId: 'fungal' as const,

@@ -7,8 +7,8 @@ const parsedCatalog = parseCatalog(v06CatalogDocument)
 if (!parsedCatalog.ok) throw new Error('Expected the v0.6 production catalog to be valid.')
 
 describe('production catalog selection', () => {
-  it('loads the latest bundled catalog instead of binding the report page to one version', () => {
-    expect(loadLatestProductionCatalog().version).toBe('0.6.0')
+  it('loads v0.8 as the latest bundled production catalog', () => {
+    expect(loadLatestProductionCatalog().version).toBe('0.8.0')
 
     const older = { ...parsedCatalog.value, version: '0.5.0' }
     const newer = { ...parsedCatalog.value, version: '0.7.0' }

@@ -72,6 +72,7 @@ export function toIncubatorRecord(
         rendererVersion: spec.rendererVersion,
         ...(spec.archetypeId === undefined ? {} : { archetypeId: spec.archetypeId }),
         ...(spec.anatomyBundleId === undefined ? {} : { anatomyBundleId: spec.anatomyBundleId }),
+        ...(spec.speciesRigId === undefined ? {} : { speciesRigId: spec.speciesRigId }),
         collectionRarity: deriveCollectionRarity(spec, catalog),
         visualSlots: copyVisualSlots(spec),
         ...(genome === undefined ? {} : { genome }),

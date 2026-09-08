@@ -1,10 +1,10 @@
 # QMonster 生成器 × 怪奇生物孵化器对接指南
 
-> 文档版本：1.4
-> 最低生成器基线：`feature/qmonster-v0.1` / `3b93fc385779c8ee44ae8ba190fc3c484736ee0f`
-> 新孵化默认目录版本：`0.6.0`
-> 新孵化默认渲染器版本：`0.6.0`
-> 更新日期：2026-09-07
+> 文档版本：1.5
+> 最低生成器基线：`feature/qmonster-v0.1`
+> 新孵化默认目录版本：`0.8.0`
+> 新孵化默认渲染器版本：`0.8.0`
+> 更新日期：2026-09-08
 
 ## 1. 目标与结论
 
@@ -24,8 +24,8 @@
 2. WebP/PNG 是由 `MonsterSpec` 派生的缓存，可以随时重新生成。
 3. 恢复存档时必须使用 `MonsterSpec.catalogVersion` 指定的目录，不得自动换成最新目录。
 4. 只有生成和渲染均无错误时，孵化结果才能进入 `READY` 状态。
-5. 新生成的 `MonsterSpec` 必须把 `genome`、`visualSlots` 和 v0.6 的 Bundle 身份作为同一份身份数据一起持久化。
-6. 新孵化默认加载 `0.6.0`；旧记录继续按其存储的 `catalogVersion` 与 `rendererVersion` 精确分派。
+5. 新生成的 `MonsterSpec` 必须把 `genome`、`visualSlots`、`anatomyBundleId` 和 `speciesRigId` 作为同一份身份数据一起持久化。
+6. 新孵化默认加载 `0.8.0`；旧记录继续按其存储的 `catalogVersion` 与 `rendererVersion` 精确分派。
 7. `visualExtension.collectionRarity` 是孵化结果的收藏稀有度：普通（N）、稀有（R）、传说（L）。它由完整 Bundle、已选局部特征和 mutation/aberration 的最高稀有档确定，不得由 UI 自行猜测。
 
 本文面向浏览器端孵化器。当前提供的“怪奇生物孵化器 (Copy).html”是保存后的页面外壳，其引用的 `_files/saved_resource.html` 没有随文件保存，因此本文按“孵化动作”定义稳定接入边界，不引用该页面中不可恢复的函数名或 DOM ID。
@@ -54,10 +54,12 @@
 孵化器构建产物至少需要包含：
 
 ```text
-packages/asset-catalog/catalog/v0.6.0/catalog.json
-packages/asset-catalog/assets/v0.6.0/**
+packages/asset-catalog/catalog/v0.8.0/catalog.json
+packages/asset-catalog/assets/v0.8.0/**
 
 # 只要仍有旧存档，就同时保留其精确版本：
+packages/asset-catalog/catalog/v0.6.0/catalog.json
+packages/asset-catalog/assets/v0.6.0/**
 packages/asset-catalog/catalog/v0.5.0/catalog.json
 packages/asset-catalog/assets/v0.5.0/**
 packages/asset-catalog/catalog/v0.4.0/catalog.json
@@ -69,10 +71,12 @@ packages/asset-catalog/assets/v0.3.0/**
 推荐发布到同源、不可变的版本目录，例如：
 
 ```text
+/qmonster/catalog/v0.8.0/catalog.json
+/qmonster/assets/v0.8.0/**
+
+# 旧记录恢复路径，不得被 0.8.0 覆盖：
 /qmonster/catalog/v0.6.0/catalog.json
 /qmonster/assets/v0.6.0/**
-
-# 旧记录恢复路径，不得被 0.6.0 覆盖：
 /qmonster/catalog/v0.5.0/catalog.json
 /qmonster/assets/v0.5.0/**
 /qmonster/catalog/v0.4.0/catalog.json
@@ -96,6 +100,7 @@ interface GenerationRequest {
   mode: 'normal' | 'mutation' | 'aberration'
   slotRolls?: Partial<Record<VisualSlotId, number>>
   lockedSelections?: Partial<Record<VisualSlotId, string>>
+  archetypeId?: 'feline' | 'canine' | 'lagomorph'
 }
 ```
 
@@ -186,7 +191,7 @@ export interface MonsterGenome {
 ```ts
 visualExtension: Pick<
   MonsterSpec,
-  'schemaVersion' | 'catalogVersion' | 'rendererVersion' | 'archetypeId' | 'anatomyBundleId' | 'visualSlots' | 'genome'
+  'schemaVersion' | 'catalogVersion' | 'rendererVersion' | 'archetypeId' | 'anatomyBundleId' | 'speciesRigId' | 'visualSlots' | 'genome'
 > & { collectionRarity: 'N' | 'R' | 'L' }
 ```
 
@@ -491,7 +496,7 @@ export async function hatchMonster(
 | 普通孵化 | `mode: 'normal'` | 默认模式 |
 | 变异孵化 | `mode: 'mutation'` | 应在 UI 中明确提示 |
 | 怪诞孵化 | `mode: 'aberration'` | 用于更高变异度玩法 |
-| v0.6 外观类型 | `archetypeId: 'feline'` | v0.6 请求必须显式传入 `feline`；`canine` 与 `lagomorph` 被拒绝。旧版请求省略该字段 |
+| v0.8 物种骨架 | `archetypeId: 'feline'` | v0.8 请求必须显式传入 `feline`；后续狗、兔子将各自增加独立 SpeciesRig，不能复用猫的锚点。旧版请求按原版本约定处理 |
 | 指定遗传特征 | `lockedSelections` | 只传允许继承的槽位及合法 part ID |
 
 不要根据中文展示名回填特征；展示名可能本地化。持久化和业务判断始终使用 `partId`、`themeId`、`rigId` 等稳定 ID。
@@ -506,8 +511,10 @@ export async function hatchMonster(
 - 8 个 `semanticTraits`；
 - `mutation` 与 `aberrations`；
 - `schemaVersion`、`catalogVersion`、`rendererVersion`。
-- 对于 v0.6，`archetypeId: 'feline'` 与 `anatomyBundleId`；两者是恢复完整外观所必需的身份数据。
-- `visualExtension.collectionRarity`；列表和详情页可将 N/R/L 本地化为普通、稀有、传说。当前 v0.6 的完整 Bundle 按 70%/25%/5% 的 N/R/L 可用档位抽取；锁定外形时以锁定后的可用档位为准。
+- 对于 v0.8，`archetypeId: 'feline'`、`anatomyBundleId: 'feline-sit-canonical-v1'` 与 `speciesRigId: 'feline-sit-v1'`；三者是恢复完整外观所必需的身份数据。
+- `visualExtension.collectionRarity`；列表和详情页可将 N/R/L 本地化为普通、稀有、传说。v0.8 每个部件槽位按 8/4/1 权重独立抽取，整只生物的收藏稀有度取已选部件的最高档。
+
+v0.8 不再随机拼接结构件。一个完整 AnatomyBundle 固定猫的头、躯干、四肢和长条猫尾连接关系；14 个表现槽位分别在固定区域内按普通/稀有/传说 `8:4:1` 权重独立抽取。稀有度改变特征表现，不改变骨架拓扑。
 
 展示具体中文名称和描述时，应通过当前版本 `Catalog` 用 ID 查找 `displayName`、`flavorText`，不要把显示文案重复写进 `MonsterSpec`。
 
@@ -541,7 +548,18 @@ interface HatchedMonsterRecord {
 
 新生成记录必须原子持久化完整 `MonsterSpec`，也就是把 `genome` 与解析后的表现型 `visualSlots` 一起保存；不能只保存其中之一。缺少 `genome` 仅对历史遗留（legacy）规格有效，这类记录应继续保持无基因状态，普通读取、编辑或重新渲染都不得推测并补齐 `H1/H2/H3`。
 
-### 6.1.1 v0.6 Bundle 身份与历史记录
+### 6.1.1 v0.8 SpeciesRig 身份
+
+v0.8 孵化记录必须原样保存以下精确元组：
+
+```text
+(schemaVersion, catalogVersion, rendererVersion, archetypeId, anatomyBundleId, speciesRigId)
+= ('0.3.0', '0.8.0', '0.8.0', 'feline', 'feline-sit-canonical-v1', 'feline-sit-v1')
+```
+
+`anatomyBundleId` 标识不可拆散的完整猫科结构，`speciesRigId` 标识固定 2048×2048 坐标、15 个区域遮罩和图层顺序。14 个 `visualSlots` 是区域约束的表现基因；它们不能携带位移、缩放、连接器或第二套结构。
+
+### 6.1.2 v0.6 Bundle 身份与历史记录
 
 v0.6 孵化记录必须原样保存以下精确元组：
 
@@ -578,6 +596,7 @@ v0.6 孵化记录必须原样保存以下精确元组：
 - 缺少对应 `catalogVersion`：标记 `UNSUPPORTED_VERSION`，保留原始记录，不得用新目录猜测替换；
 - 规格校验含错误：隔离该记录并上报，不进入正常展示；
 - v0.6 缺少 Bundle、Bundle 不在已加载目录中，或 Bundle 与猫科/版本不匹配：拒绝该记录且不创建部分孵化结果；未知 Bundle 会返回 `SPEC_ANATOMY_BUNDLE_UNKNOWN`；
+- v0.8 缺少或伪造 `speciesRigId`、与 Bundle/母版哈希不一致、或任一部件不属于对应 `partPools`：返回 `ADAPTER_SPEC_INVALID`，不得回退到 v0.6 连接器渲染；
 - v0.6 请求的 `archetype` 不是 `feline`：适配器返回 `ADAPTER_ARCHETYPE_UNSUPPORTED`；缺少或非法的存档 archetype 同样阻断恢复；
 - genome 存在时必须验证 `genomeVersion`、完整的 `P/H1/H2/H3`、目录部件和层兼容性，以及 `genome.genes[slotId].P === visualSlots[slotId].partId`；任一错误都阻断 `READY`，不得静默修复；
 - genome 缺失只作为旧版记录处理；恢复和导入不得为其合成隐藏层。若业务明确把旧版生物“重新生成”为一只新生物，新结果才按正常生成流程获得 genome；
@@ -614,11 +633,11 @@ v0.6 孵化记录必须原样保存以下精确元组：
 - `catalogVersion`：部件、兼容性和资源版本；
 - `rendererVersion`：合成与渲染算法版本。
 
-v0.6 还记录 `archetypeId` 与 `anatomyBundleId`。五个字段必须作为一个整体比较、存储和恢复；不能用同名 Bundle、最新目录或单个 `visualSlots` 替代其中任一字段。
+v0.8 还记录 `archetypeId`、`anatomyBundleId` 与 `speciesRigId`。六个字段必须作为一个整体比较、存储和恢复；不能用同名 Bundle、最新目录或单个 `visualSlots` 替代其中任一字段。
 
-存在 genome 时还记录独立的 `genomeVersion`。v0.6 Bundle 规格使用 `MonsterSpec.schemaVersion: '0.2.0'`；`MonsterGenome.genomeVersion` 仍固定为 `0.1.0`。两者版本职责不同，不得相互替代或在读档时覆写。
+存在 genome 时还记录独立的 `genomeVersion`。v0.8 SpeciesRig 规格使用 `MonsterSpec.schemaVersion: '0.3.0'`；`MonsterGenome.genomeVersion` 仍固定为 `0.1.0`。两者版本职责不同，不得相互替代或在读档时覆写。
 
-五个身份字段必须作为一个兼容性组合处理。孵化器不得在读档时直接覆写其中任一字段。
+六个身份字段必须作为一个兼容性组合处理。孵化器不得在读档时直接覆写其中任一字段。
 
 ### 8.2 兼容性表
 
@@ -629,9 +648,10 @@ v0.6 还记录 `archetypeId` 与 `anatomyBundleId`。五个字段必须作为一
 | `0.3.0` | `0.3.0` | 旧记录恢复 | 调用 `loadCatalogV030`，按存储版本重绘 |
 | `0.4.0` | `0.4.0` | 旧记录恢复 | 调用 `loadCatalogV040`，按存储版本重绘 |
 | `0.5.0` | `0.5.0` | 旧记录恢复 | 调用 `loadCatalogV050`；仅使用单头和 `tail_none` / `tail_cat_long` / `tail_dog_long` |
-| `0.6.0` | `0.6.0` | 新孵化默认；Bundle 记录恢复 | 仅接受 `schemaVersion: '0.2.0'`、`archetypeId: 'feline'` 和目录内的 `anatomyBundleId` |
+| `0.6.0` | `0.6.0` | 旧版猫科 Bundle 记录恢复 | 仅接受 `schemaVersion: '0.2.0'`、`archetypeId: 'feline'` 和目录内的 `anatomyBundleId` |
+| `0.8.0` | `0.8.0` | 新孵化默认；固定 SpeciesRig | 仅接受 `schemaVersion: '0.3.0'`、猫科 canonical Bundle 与 `speciesRigId: 'feline-sit-v1'` |
 
-只支持同版本的精确组合。`0.3.0`、`0.4.0`、`0.5.0`、`0.6.0` 的目录与渲染器不得交叉使用；未注册的版本应进入 `UNSUPPORTED_VERSION`，不能静默回退。
+只支持同版本的精确组合。`0.3.0`、`0.4.0`、`0.5.0`、`0.6.0`、`0.8.0` 的目录与渲染器不得交叉使用；未注册的版本应进入 `UNSUPPORTED_VERSION`，不能静默回退。
 
 ### 8.3 推荐升级流程
 

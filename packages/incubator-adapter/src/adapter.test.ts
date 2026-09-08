@@ -7,6 +7,7 @@ import {
 } from '@qmonster/generator-core'
 import productionCatalogDocument from '../../asset-catalog/catalog/v0.1.0/catalog.json'
 import v06CatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
+import v08CatalogDocument from '../../asset-catalog/catalog/v0.8.0/catalog.json'
 import fungalEgg from '../fixtures/fungal-egg.json'
 import { toGenerationRequest, toIncubatorRecord } from './index.js'
 
@@ -40,7 +41,34 @@ function v06Spec(catalog: Catalog): MonsterSpec {
   return generated.spec
 }
 
+function v08Catalog(): Catalog {
+  const parsed = parseCatalog(v08CatalogDocument)
+  expect(parsed.ok).toBe(true)
+  if (!parsed.ok) throw new Error('v0.8 catalog fixture must parse.')
+  return parsed.value
+}
+
 describe('incubator adapter', () => {
+  it('preserves the v0.8 species rig identity in incubator output', () => {
+    const catalog = v08Catalog()
+    const generated = generateMonster({
+      seed: 'adapter-v08-output', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(generated.blocked).toBe(false)
+    expect(toIncubatorRecord(generated.spec, catalog)).toMatchObject({
+      ok: true,
+      value: {
+        visualExtension: {
+          catalogVersion: '0.8.0',
+          rendererVersion: '0.8.0',
+          anatomyBundleId: 'feline-sit-canonical-v1',
+          speciesRigId: 'feline-sit-v1',
+        },
+      },
+    })
+  })
+
   it.each([
     [{ theme: 'unknown', seed: 'x', risk: 0, mutationBonus: 0 }, 'ADAPTER_THEME_INVALID'],
     [{ theme: 'fungal', seed: 'x'.repeat(129), risk: 0, mutationBonus: 0 }, 'ADAPTER_SEED_INVALID'],

@@ -13,6 +13,7 @@ import v03ProductionCatalogDocument from '../../../packages/asset-catalog/catalo
 import v04ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.4.0/catalog.json'
 import v05ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.5.0/catalog.json'
 import v06ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
+import v08ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.8.0/catalog.json'
 import { PreviewCanvas, resolveProductionAssetUrl } from './components/PreviewCanvas.js'
 
 interface AnatomyAcceptanceMetrics {
@@ -45,7 +46,7 @@ declare global {
   interface Window {
     renderAcceptanceMonster: (
       spec: unknown,
-      catalogVersion?: '0.2.0' | '0.3.0' | '0.4.0' | '0.5.0' | '0.6.0',
+      catalogVersion?: '0.2.0' | '0.3.0' | '0.4.0' | '0.5.0' | '0.6.0' | '0.8.0',
     ) => Promise<AcceptanceRenderResult>
   }
 }
@@ -71,12 +72,17 @@ const parsedV06Catalog = parseCatalog(v06ProductionCatalogDocument)
 if (!parsedV06Catalog.ok) {
   throw new Error(`V0.6 catalog is invalid: ${parsedV06Catalog.diagnostics.map(item => item.code).join(', ')}`)
 }
-const catalogs = new Map<'0.2.0' | '0.3.0' | '0.4.0' | '0.5.0' | '0.6.0', Catalog>([
+const parsedV08Catalog = parseCatalog(v08ProductionCatalogDocument)
+if (!parsedV08Catalog.ok) {
+  throw new Error(`V0.8 catalog is invalid: ${parsedV08Catalog.diagnostics.map(item => item.code).join(', ')}`)
+}
+const catalogs = new Map<'0.2.0' | '0.3.0' | '0.4.0' | '0.5.0' | '0.6.0' | '0.8.0', Catalog>([
   ['0.2.0', productionCatalog],
   ['0.3.0', parsedV03Catalog.value],
   ['0.4.0', parsedV04Catalog.value],
   ['0.5.0', parsedV05Catalog.value],
   ['0.6.0', parsedV06Catalog.value],
+  ['0.8.0', parsedV08Catalog.value],
 ] as const)
 const acceptanceImageCache = new Map<string, Promise<{
   assetUrl: string
@@ -126,7 +132,7 @@ async function anatomyAcceptanceMetrics(
   const bundle = spec.anatomyBundleId === undefined
     ? undefined
     : catalog.anatomyBundles?.find(candidate => candidate.id === spec.anatomyBundleId)
-  if (catalog.version !== '0.6.0' || bundle === undefined || spec.archetypeId === undefined) return undefined
+  if (!['0.6.0', '0.8.0'].includes(catalog.version) || bundle === undefined || spec.archetypeId === undefined) return undefined
   const alphaCanvas = document.createElement('canvas')
   alphaCanvas.width = canvas.width
   alphaCanvas.height = canvas.height

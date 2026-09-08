@@ -32,6 +32,7 @@ export interface IncubatorCreatureRecord {
     | 'rendererVersion'
     | 'archetypeId'
     | 'anatomyBundleId'
+    | 'speciesRigId'
     | 'visualSlots'
     | 'genome'
   > & { collectionRarity: Rarity }
