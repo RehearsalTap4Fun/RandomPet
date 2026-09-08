@@ -1,0 +1,140 @@
+[
+  {
+    "schemaVersion": "qmonster-species-rig-v1",
+    "id": "feline-sit-v1",
+    "rigVersion": "1.0.0",
+    "archetypeId": "feline",
+    "rigId": "feline-sit",
+    "poseId": "sit",
+    "canvas": {
+      "width": 2048,
+      "height": 2048
+    },
+    "coordinatePolicy": "fixed-canvas-no-trim",
+    "sourceMasterSha256": "eb9f53d9aa3d41c5cc93365445a9b82cbefcec2317a6bb8eee2fc796b5004c12",
+    "regions": {
+      "bodySurface": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/bodySurface.webp",
+        "assetSha256": "cdea13f07520fc3ffa17af4ea072227617c9bd2fa8338070cc30189e934d049a",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/bodySurface.png",
+        "pngSha256": "7a8c7fd5f8963e39d3e84a191053fc1f173bb97f2ebbc8f3d31c82f53fe808b5"
+      },
+      "headSurface": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/headSurface.webp",
+        "assetSha256": "d32ebbce82c9252c88a2dcd6ce569aa787bfec8d1bf43110449c7f35c4c983f9",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/headSurface.png",
+        "pngSha256": "93b03467290fb1e3694f066fa9392f0f2abc9c0d9cab5f82c427d8d2a5b26eb2"
+      },
+      "faceSafeZone": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/faceSafeZone.webp",
+        "assetSha256": "0491ee5882345fa67a72b2508b00433e73fe6ecaf2cd72002ed0a2665f92e514",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/faceSafeZone.png",
+        "pngSha256": "bc13226534334d1a5a047fa96a8232f2cf3266701d11f46c4a16f3c467d68d86"
+      },
+      "eyesRegion": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/eyesRegion.webp",
+        "assetSha256": "169178d3bdc8ae157de67f78ec7cb1cf73b439c70d48e9094f0b222c04656da6",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/eyesRegion.png",
+        "pngSha256": "2d0affbc8b8b5b67d857685638aced6a56ebfd81e76a9c48be61d1f10c8ea0c0"
+      },
+      "mouthRegion": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mouthRegion.webp",
+        "assetSha256": "657687b0f009279cf150b8cbd1e51a6435885b96d7a6eb663eee3dd5ff326ba2",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mouthRegion.png",
+        "pngSha256": "33a68e792a0f971a842b3b40b6b02621f60e7af1d905c9091953902444a42fc0"
+      },
+      "oralRegion": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/oralRegion.webp",
+        "assetSha256": "57959e9b1c34dd90b96d65ab66af49e313f489381bd0eeb2d87f70c3458c924d",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/oralRegion.png",
+        "pngSha256": "f6d99d254d2a63cb111d073d16a83b0e602de2cd8bbdc8632924f0294d69e798"
+      },
+      "tailSurface": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/tailSurface.webp",
+        "assetSha256": "9e761b483929fbb1526caa9d6e1b4294c10ca64225412afeb875e3dcb803726b",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/tailSurface.png",
+        "pngSha256": "1f64ef2a3f5f0e1cd65012f571f9ee90ae9513cf0343e122ee36009aaa817901"
+      },
+      "frontPawDetail": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/frontPawDetail.webp",
+        "assetSha256": "4eb4031155dd9bf8afa65e4062b2f00d6449efe142264d7aacb17d511f18da0a",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/frontPawDetail.png",
+        "pngSha256": "fb218663bf19fbc227a7df58c9980f7f051e5b5ec1800f6d46e7e1ba9c9cca2d"
+      },
+      "hindPawDetail": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/hindPawDetail.webp",
+        "assetSha256": "1989a7f5ad648506ec05089719993c31fa325094671b54593af3d38e53a44047",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/hindPawDetail.png",
+        "pngSha256": "f1b396b74046fd05746195f4014d6d79269f54ca9d5b1d1b80b79999e1118fc9"
+      },
+      "headAccessory": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/headAccessory.webp",
+        "assetSha256": "c7abec150b6d76299c159e7847f4b2fad22d7c64d1a78fa94078617a9547ed47",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/headAccessory.png",
+        "pngSha256": "768f91749aaf8f6d0b8ad800110a40568ac6a7a67c08a944b5c2e11f0be2e5f7"
+      },
+      "mutationEar": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationEar.webp",
+        "assetSha256": "dd6622a3ffba357f1df7e5fc57faddafec38280ee92aaad4063630101f533394",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationEar.png",
+        "pngSha256": "8279e5c87a8a687467096867b125179cf63e74f25ab745da7000ec8e53dc709e"
+      },
+      "mutationBack": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationBack.webp",
+        "assetSha256": "6b01d05d0719d39076da63a3b3a5de75f26e3492d2ae8835bc07d973b1c66e8a",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationBack.png",
+        "pngSha256": "81f14c82860c91fdde09d166e35ac39229a5a476c47a28cd45f1c4e47488652e"
+      },
+      "mutationTailTip": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationTailTip.webp",
+        "assetSha256": "37036fa2579486befdbaa925977835d42dab6c5a17738ef06367e24639f87440",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationTailTip.png",
+        "pngSha256": "5976d3d465abed6503ef77f47dd5e3cc18988b4e6cd0bdaf9214665727e605aa"
+      },
+      "effectField": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/effectField.webp",
+        "assetSha256": "648a998dfbec7b5c4c7e5c2cb4b38801af78a4d5a8b0bbe57bacf90a3aa0f5f4",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/effectField.png",
+        "pngSha256": "598116632300763aa92e78050edaa4c2e21cc3006078b91b9aeeb37a402e99f2"
+      },
+      "faceProtection": {
+        "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/faceProtection.webp",
+        "assetSha256": "0491ee5882345fa67a72b2508b00433e73fe6ecaf2cd72002ed0a2665f92e514",
+        "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/faceProtection.png",
+        "pngSha256": "bc13226534334d1a5a047fa96a8232f2cf3266701d11f46c4a16f3c467d68d86"
+      }
+    },
+    "layerOrder": [
+      "colorScheme",
+      "surfaceMaterial",
+      "pattern",
+      "bodyFrame",
+      "tail",
+      "arms",
+      "legs",
+      "headShape",
+      "eyes",
+      "mouthShape",
+      "oralDetail",
+      "headAppendage",
+      "extraAppendage",
+      "effect"
+    ],
+    "allowedSlotExpressions": {
+      "bodyFrame": "body-clipped",
+      "headShape": "head-clipped",
+      "eyes": "face-clipped",
+      "mouthShape": "face-clipped",
+      "oralDetail": "face-clipped",
+      "headAppendage": "anchor-clipped",
+      "arms": "anchor-clipped",
+      "legs": "anchor-clipped",
+      "tail": "body-clipped",
+      "extraAppendage": "anchor-clipped",
+      "surfaceMaterial": "body-clipped",
+      "pattern": "body-clipped",
+      "colorScheme": "body-clipped",
+      "effect": "protected-effect"
+    }
+  }
+]

@@ -8,6 +8,7 @@ import { loadCatalog } from './load-catalog.js'
 import { productionEvidenceSourceIndexPath, validateProductionEvidenceDependencies, validateProductionEvidenceManifest } from './evidence-root.js'
 import { validateProductionSourceFiles, type SourceRichValidationResult } from './source-rich-validation.js'
 import { readTrustedRepositoryFile } from './trusted-repository-file.js'
+import { validateV08ProductionRelease } from './v08-production-validation.js'
 import {
   validateNoStaleRuntimeAssets,
   validateProductionInterfaceResources,
@@ -80,7 +81,8 @@ async function main(): Promise<void> {
     return
   }
   const structureDiagnostics = validateCatalogStructure(parsed.value)
-  const diagnostics = [
+  const v08Production = production && parsed.value.version === '0.8.0'
+  const diagnostics = v08Production ? [] : [
     ...(parsed.value.version === '0.6.0'
       ? filterV06CatalogStructureDiagnostics(structureDiagnostics)
       : structureDiagnostics),
@@ -98,6 +100,15 @@ async function main(): Promise<void> {
     const packageRoot = resolve(catalogDirectory, '..', '..')
     const expectedSourceIndex = resolve(packageRoot, basename(productionEvidenceSourceIndexPath(version)))
     const expectedEvidenceManifest = resolve(packageRoot, 'audit', `v${version}`, 'evidence-manifest.json')
+    if (version === '0.8.0') {
+      if (resolve(sourceIndexInput!) !== expectedSourceIndex || resolve(evidenceManifestInput!) !== expectedEvidenceManifest) {
+        diagnostics.push({ severity: 'error', code: 'PRODUCTION_EVIDENCE_PATH_INVALID', path: [], message: 'v0.8 production evidence must use its canonical source-index and evidence manifest paths.' })
+      }
+      diagnostics.push(...await validateV08ProductionRelease(resolve(packageRoot, '..', '..'), sourceRoot))
+      printDiagnostics(diagnostics)
+      if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) process.exitCode = 1
+      return
+    }
     let sourceIndexPath = resolve(sourceIndexInput!)
     let evidenceManifestPath = resolve(evidenceManifestInput!)
     let sourceIndex: ProductionSourceIndex = {}

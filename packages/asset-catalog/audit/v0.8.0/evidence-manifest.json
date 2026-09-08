@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "qmonster-v08-production-evidence-v1",
+  "catalogVersion": "0.8.0",
+  "sourceIndexPath": "packages/asset-catalog/source-index-v0.8.0.json",
+  "sourceIndexSha256": "c46379fdb657deb2ef3fb0dd0c4333cdf504bff65df736e8764e753c5cd8b5db",
+  "catalogPath": "packages/asset-catalog/catalog/v0.8.0/catalog.json",
+  "catalogSha256": "376a1d8549e7a02450aea8a828243fb2589ca82340e128b26fe018df746d0e6d",
+  "sourceMasterSha256": "eb9f53d9aa3d41c5cc93365445a9b82cbefcec2317a6bb8eee2fc796b5004c12",
+  "traitCount": 182,
+  "runtimeResourceCount": 396
+}

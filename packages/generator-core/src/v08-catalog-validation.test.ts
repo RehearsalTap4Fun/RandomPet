@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import * as generatorCore from './index.js'
 import { VISUAL_SLOT_IDS } from './contracts.js'
+import { validateCatalogStructure } from './catalog-validation.js'
 import { makeV08SpeciesRigCatalogFixture } from './test-fixtures.js'
 
 function validator(): (catalog: any) => Array<{ code: string; path: string[] }> {
@@ -10,6 +11,12 @@ function validator(): (catalog: any) => Array<{ code: string; path: string[] }> 
 }
 
 describe('validateV08SpeciesRigCatalog', () => {
+  it('does not require legacy optional-none parts in fixed 8:4:1 pools', () => {
+    const catalog = makeV08SpeciesRigCatalogFixture()
+
+    expect(validateCatalogStructure(catalog).filter(item => item.code === 'CATALOG_OPTIONAL_NONE_MISSING')).toEqual([])
+  })
+
   it('accepts the complete canonical fixture', () => {
     expect(validator()(makeV08SpeciesRigCatalogFixture())).toEqual([])
   })

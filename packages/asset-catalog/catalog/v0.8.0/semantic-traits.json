@@ -1,0 +1,200 @@
+[
+  {
+    "id": "feline_frame",
+    "semanticSlotId": "frame",
+    "displayName": "猫frame",
+    "flavorText": "bundle 支持的猫frame",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "feline_appendage",
+    "semanticSlotId": "appendage",
+    "displayName": "猫appendage",
+    "flavorText": "bundle 支持的猫appendage",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "feline_headAndEyes",
+    "semanticSlotId": "headAndEyes",
+    "displayName": "猫headAndEyes",
+    "flavorText": "bundle 支持的猫headAndEyes",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "feline_mouth",
+    "semanticSlotId": "mouth",
+    "displayName": "猫mouth",
+    "flavorText": "bundle 支持的猫mouth",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "feline_surface",
+    "semanticSlotId": "surface",
+    "displayName": "猫surface",
+    "flavorText": "bundle 支持的猫surface",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "feline_pattern",
+    "semanticSlotId": "pattern",
+    "displayName": "猫pattern",
+    "flavorText": "bundle 支持的猫pattern",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_gentle",
+    "semanticSlotId": "personality",
+    "displayName": "猫gentle",
+    "flavorText": "bundle 支持的gentle猫性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_curious",
+    "semanticSlotId": "personality",
+    "displayName": "猫curious",
+    "flavorText": "bundle 支持的curious猫性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_brave",
+    "semanticSlotId": "personality",
+    "displayName": "猫brave",
+    "flavorText": "bundle 支持的brave猫性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_dreamy",
+    "semanticSlotId": "personality",
+    "displayName": "猫dreamy",
+    "flavorText": "bundle 支持的dreamy猫性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_mischievous",
+    "semanticSlotId": "personality",
+    "displayName": "猫mischievous",
+    "flavorText": "bundle 支持的mischievous猫性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "personality_feline_shy",
+    "semanticSlotId": "personality",
+    "displayName": "猫shy",
+    "flavorText": "bundle 支持的shy猫性格。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_sunbeam",
+    "semanticSlotId": "quirk",
+    "displayName": "猫sunbeam",
+    "flavorText": "bundle 支持的sunbeam猫小习惯。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_purr",
+    "semanticSlotId": "quirk",
+    "displayName": "猫purr",
+    "flavorText": "bundle 支持的purr猫小习惯。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_whisker",
+    "semanticSlotId": "quirk",
+    "displayName": "猫whisker",
+    "flavorText": "bundle 支持的whisker猫小习惯。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_nap",
+    "semanticSlotId": "quirk",
+    "displayName": "猫nap",
+    "flavorText": "bundle 支持的nap猫小习惯。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_ribbon",
+    "semanticSlotId": "quirk",
+    "displayName": "猫ribbon",
+    "flavorText": "bundle 支持的ribbon猫小习惯。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  },
+  {
+    "id": "quirk_feline_moon",
+    "semanticSlotId": "quirk",
+    "displayName": "猫moon",
+    "flavorText": "bundle 支持的moon猫小习惯。",
+    "rarity": "N",
+    "themeBoosts": {},
+    "excludes": [],
+    "boosts": {},
+    "visualMapping": {}
+  }
+]

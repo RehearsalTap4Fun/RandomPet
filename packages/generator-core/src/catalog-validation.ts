@@ -898,7 +898,11 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
     }
   }
   for (const slotId of OPTIONAL_SLOTS) {
-    if (catalog.compositionPolicy === undefined && !catalog.parts.some(part => part.slotId === slotId && part.id.endsWith('_none'))) {
+    if (
+      catalog.version !== '0.8.0'
+      && catalog.compositionPolicy === undefined
+      && !catalog.parts.some(part => part.slotId === slotId && part.id.endsWith('_none'))
+    ) {
       diagnostics.push(error('CATALOG_OPTIONAL_NONE_MISSING', ['parts'], `Optional slot ${slotId} needs an explicit none candidate.`))
     }
   }
