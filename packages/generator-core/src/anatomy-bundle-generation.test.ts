@@ -10,7 +10,10 @@ import {
   rerollAnatomyBundle,
   selectAnatomyBundle,
 } from './anatomy-bundle-generation.js'
-import { makeV07FelinePartLibraryFixture } from './test-fixtures.js'
+import {
+  makeV07FelinePartLibraryFixture,
+  makeV08SpeciesRigCatalogFixture,
+} from './test-fixtures.js'
 
 function makeTwoBundleV07Fixture() {
   const catalog = makeV07FelinePartLibraryFixture()
@@ -48,6 +51,88 @@ function productionCatalog() {
 }
 
 describe('anatomy bundle generation', () => {
+  it('generates v0.8 only from the selected canonical bundle pools', () => {
+    const catalog = makeV08SpeciesRigCatalogFixture() as any
+    const generated = generateMonster({
+      seed: 'v08-bundle-generation', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(generated.blocked).toBe(false)
+    expect(generated.spec).toMatchObject({
+      schemaVersion: '0.3.0',
+      catalogVersion: '0.8.0',
+      rendererVersion: '0.8.0',
+      archetypeId: 'feline',
+      anatomyBundleId: 'feline-sit-canonical-v1',
+      speciesRigId: 'feline-sit-v1',
+    })
+    const bundle = catalog.anatomyBundles[0]
+    for (const slotId of VISUAL_SLOT_IDS) {
+      expect(bundle.partPools[slotId]).toContain(generated.spec.visualSlots[slotId].partId)
+    }
+  })
+
+  it('keeps the v0.8 canonical bundle immutable while rerolling any phenotype slot', () => {
+    const catalog = makeV08SpeciesRigCatalogFixture() as any
+    const initial = generateMonster({
+      seed: 'v08-reroll', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+
+    for (const slotId of VISUAL_SLOT_IDS) {
+      const rerolled = rerollSlot({ spec: initial, slotId, locks: {}, catalog })
+      expect(rerolled.blocked, slotId).toBe(false)
+      expect(rerolled.spec.anatomyBundleId, slotId).toBe(initial.anatomyBundleId)
+      expect(rerolled.spec.speciesRigId, slotId).toBe(initial.speciesRigId)
+      expect(rerolled.affectedSlots, slotId).toEqual([slotId])
+      for (const otherSlot of VISUAL_SLOT_IDS) {
+        if (otherSlot !== slotId) {
+          expect(rerolled.spec.visualSlots[otherSlot], `${slotId} changed ${otherSlot}`).toEqual(
+            initial.visualSlots[otherSlot],
+          )
+        }
+      }
+    }
+  })
+
+  it('rejects rerolling the v0.8 anatomy bundle itself', () => {
+    const catalog = makeV08SpeciesRigCatalogFixture() as any
+    const initial = generateMonster({
+      seed: 'v08-bundle-immutable', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+
+    const rerolled = rerollAnatomyBundle({ spec: initial, catalog, locked: false })
+
+    expect(rerolled.blocked).toBe(true)
+    expect(rerolled.spec).toEqual(initial)
+    expect(rerolled.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'V08_ANATOMY_BUNDLE_IMMUTABLE',
+    }))
+  })
+
+  it('manually selects one v0.8 trait without changing the bundle or any other slot', () => {
+    const catalog = makeV08SpeciesRigCatalogFixture() as any
+    const initial = generateMonster({
+      seed: 'v08-manual', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    const alternative = catalog.anatomyBundles[0].partPools.eyes.find(
+      (partId: string) => partId !== initial.visualSlots.eyes.partId,
+    )
+    if (alternative === undefined) throw new Error('Expected an alternative v0.8 eye trait')
+
+    const selected = selectVisualPart({
+      spec: initial, slotId: 'eyes', partId: alternative, locks: {}, catalog,
+    })
+
+    expect(selected.blocked).toBe(false)
+    expect(selected.affectedSlots).toEqual(['eyes'])
+    expect(selected.spec.visualSlots.eyes.partId).toBe(alternative)
+    expect(selected.spec.anatomyBundleId).toBe(initial.anatomyBundleId)
+    expect(selected.spec.speciesRigId).toBe(initial.speciesRigId)
+    for (const slotId of VISUAL_SLOT_IDS) {
+      if (slotId !== 'eyes') expect(selected.spec.visualSlots[slotId]).toEqual(initial.visualSlots[slotId])
+    }
+  })
+
   it.each(VISUAL_SLOT_IDS)('uses a locked v0.7 %s part to select the bundle that owns it', slotId => {
     const { catalog, firstBundle, secondBundle, lockedPartIds } = makeTwoBundleV07Fixture()
 

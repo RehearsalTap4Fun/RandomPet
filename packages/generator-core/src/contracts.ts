@@ -466,6 +466,12 @@ export interface V08SpeciesRigCatalog extends Catalog {
   anatomyBundles: V08AnatomyBundleDefinition[]
 }
 
+export type PartPoolCatalog = IndependentPartCatalog | V08SpeciesRigCatalog
+
+export function isPartPoolCatalog(catalog: Catalog): catalog is PartPoolCatalog {
+  return catalog.version === '0.7.0' || catalog.version === V08_CATALOG_VERSION
+}
+
 export const COMPOSITION_PARENT_BY_SLOT: Record<VisualSlotId, VisualSlotId | null> = {
   bodyFrame: null,
   headShape: 'bodyFrame',

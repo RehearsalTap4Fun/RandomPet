@@ -1,14 +1,32 @@
 import { describe, expect, it } from 'vitest'
 import {
+  createRng,
   generateMonster,
   pickIndependentPartTier,
   rerollSlot,
   validateAnatomyBundleSpec,
   VISUAL_SLOT_IDS,
 } from './index.js'
+import { slotSeedParts } from './prng.js'
 import { makeV07FelinePartLibraryFixture } from './test-fixtures.js'
 
 describe('independent part rarity', () => {
+  it('keeps every v0.8 slot close to the 8:4:1 tier weights across 13,000 deterministic seeds', () => {
+    for (const slotId of VISUAL_SLOT_IDS) {
+      const counts = { N: 0, R: 0, L: 0 }
+      for (let index = 0; index < 13_000; index += 1) {
+        const rng = createRng([
+          ...slotSeedParts(`v08-frequency-${index}`, 'fungal', slotId, 0),
+          'part-rarity',
+        ])
+        counts[pickIndependentPartTier(rng)] += 1
+      }
+      expect(counts.N / 13_000, `${slotId}:N`).toBeCloseTo(8 / 13, 1)
+      expect(counts.R / 13_000, `${slotId}:R`).toBeCloseTo(4 / 13, 1)
+      expect(counts.L / 13_000, `${slotId}:L`).toBeCloseTo(1 / 13, 1)
+    }
+  })
+
   it('uses exact 8:4:1 tier boundaries', () => {
     const rng = (value: number) => ({ nextFloat: () => value })
 

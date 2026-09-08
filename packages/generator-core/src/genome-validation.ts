@@ -63,7 +63,10 @@ function resolveLayerParts(
       ))
       continue
     }
-    if (catalog.version === '0.6.0' && part.archetypeIds?.includes(spec.archetypeId!) !== true) {
+    if (
+      (catalog.version === '0.6.0' || catalog.version === '0.8.0')
+      && part.archetypeIds?.includes(spec.archetypeId!) !== true
+    ) {
       diagnostics.push(error(
         'SPEC_ARCHETYPE_PART_MISMATCH',
         genePath(slotId, layer),

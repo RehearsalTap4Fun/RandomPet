@@ -11,7 +11,7 @@ import type {
   StructuralSlotId,
 } from './contracts.js'
 import {
-  isIndependentPartCatalog,
+  isPartPoolCatalog,
   RARITY_WEIGHTS,
   STRUCTURAL_SLOT_IDS,
   VISUAL_SLOT_IDS,
@@ -23,7 +23,7 @@ export function selectAnatomyBundle(
 ): AnatomyBundleDefinition | null {
   const candidates = (catalog.anatomyBundles ?? []).filter(bundle => (
     bundle.archetypeId === request.archetypeId
-    && (isIndependentPartCatalog(catalog)
+    && (isPartPoolCatalog(catalog)
       ? VISUAL_SLOT_IDS.every(slotId => (
         request.lockedSelections?.[slotId] === undefined
         || bundle.partPools?.[slotId].includes(request.lockedSelections[slotId]!) === true
@@ -55,6 +55,8 @@ export function applyAnatomyBundle(
   const applied = structuredClone(spec)
   applied.anatomyBundleId = bundle.id
   applied.archetypeId = bundle.archetypeId
+  if (bundle.speciesRigId !== undefined) applied.speciesRigId = bundle.speciesRigId
+  if (bundle.speciesRigId !== undefined) return applied
   Object.assign(applied.visualSlots, deriveBundleStructuralSlots(bundle))
   if (applied.genome !== undefined) {
     for (const [slotId, selection] of Object.entries(deriveBundleStructuralSlots(bundle))) {
@@ -73,6 +75,19 @@ export function rerollAnatomyBundle(request: {
   catalog: Catalog
   locked: boolean
 }): GenerationResult {
+  if (request.catalog.version === '0.8.0') {
+    return {
+      spec: structuredClone(request.spec),
+      diagnostics: [{
+        severity: 'error',
+        code: 'V08_ANATOMY_BUNDLE_IMMUTABLE',
+        path: ['anatomyBundleId'],
+        message: 'Catalog 0.8.0 keeps its canonical anatomy bundle immutable.',
+      }],
+      blocked: true,
+      affectedSlots: [],
+    }
+  }
   if (request.locked) {
     return {
       spec: structuredClone(request.spec),

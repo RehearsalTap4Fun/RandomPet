@@ -12,6 +12,7 @@ import {
   makeValidCatalogFixture,
   makeValidCatalogFixtureWithThreeRigs,
   makeValidMonsterSpecFixture,
+  makeV08SpeciesRigCatalogFixture,
 } from './test-fixtures.js'
 import v04ProductionCatalogDocument from '../../asset-catalog/catalog/v0.4.0/catalog.json'
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
@@ -22,6 +23,21 @@ const versions = {
 } as const
 
 describe('validateMonsterSpecAgainstCatalog', () => {
+  it('accepts the exact generated v0.8 tuple and rejects a forged species rig', () => {
+    const catalog = makeV08SpeciesRigCatalogFixture()
+    const generated = generateMonster({
+      seed: 'v08-spec-validation', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(validateMonsterSpecAgainstCatalog(generated.spec, catalog)
+      .filter(diagnostic => diagnostic.severity === 'error')).toEqual([])
+
+    const forged = { ...structuredClone(generated.spec), speciesRigId: 'other-rig' }
+    expect(validateMonsterSpecAgainstCatalog(forged, catalog)).toContainEqual(expect.objectContaining({
+      code: 'SPEC_SPECIES_RIG_MISMATCH', path: ['speciesRigId'],
+    }))
+  })
+
   it.each(['normal', 'mutation', 'aberration'] as const)(
     'accepts a generated exact-v0.6 feline anatomy bundle in %s mode',
     mode => {

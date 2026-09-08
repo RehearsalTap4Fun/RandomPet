@@ -7,7 +7,7 @@ import {
   type StructuralSlotId,
   type VisualSelection,
   type VisualSlotId,
-  isIndependentPartCatalog,
+  isPartPoolCatalog,
 } from './contracts.js'
 
 export function resolveAnatomyBundle(
@@ -47,7 +47,7 @@ export function validateAnatomyBundleSpec(spec: MonsterSpec, catalog: Catalog): 
       message: `Anatomy bundle ${bundle.id} requires archetype ${bundle.archetypeId}.`,
     })
   }
-  if (isIndependentPartCatalog(catalog)) {
+  if (isPartPoolCatalog(catalog)) {
     if (bundle.partPools === undefined) {
       return [...diagnostics, {
         severity: 'error',

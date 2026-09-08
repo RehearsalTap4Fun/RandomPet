@@ -24,6 +24,7 @@ import {
 import { validateStructuralSelections } from './connector-compatibility.js'
 import { validateMonsterGenome } from './genome-validation.js'
 import { resolveAnatomyBundle, validateAnatomyBundleSpec } from './anatomy-bundle.js'
+import { resolveSpeciesRig } from './species-rig.js'
 
 export const CURRENT_SPEC_VERSIONS: SupportedSpecVersions = {
   schemaVersion: '0.1.0',
@@ -61,6 +62,9 @@ function isApprovedTransform(
   transform: ApprovedTransform | undefined,
   part: VisualPartDefinition,
 ): boolean {
+  if (part.composition?.mode === 'species-rig') {
+    return sameTransform(transform ?? IDENTITY_TRANSFORM, IDENTITY_TRANSFORM)
+  }
   if (part.composition !== undefined) return transform === undefined
   const candidate = transform ?? IDENTITY_TRANSFORM
   const presets = part.approvedTransforms ?? []
@@ -282,7 +286,9 @@ export function validateMonsterSpecAgainstCatalog(
   versions: SupportedSpecVersions = CURRENT_SPEC_VERSIONS,
 ): Diagnostic[] {
   const diagnostics: Diagnostic[] = []
-  const expectedSchemaVersion = catalog.version === '0.6.0' ? '0.2.0' : versions.schemaVersion
+  const expectedSchemaVersion = catalog.version === '0.8.0'
+    ? '0.3.0'
+    : catalog.version === '0.6.0' ? '0.2.0' : versions.schemaVersion
   if (spec.schemaVersion !== expectedSchemaVersion) {
     diagnostics.push(error(
       'SPEC_SCHEMA_VERSION_UNSUPPORTED',
@@ -397,6 +403,13 @@ export function validateMonsterSpecAgainstCatalog(
   const anatomyBundleRoute = usesExactV06AnatomyBundle(spec, catalog)
   validateFelineSpec(spec, catalog, selectedParts, diagnostics, anatomyBundleRoute)
   if (spec.anatomyBundleId !== undefined) diagnostics.push(...validateAnatomyBundleSpec(spec, catalog))
+  if (catalog.version === '0.8.0' && resolveSpeciesRig(spec, catalog) === null) {
+    diagnostics.push(error(
+      'SPEC_SPECIES_RIG_MISMATCH',
+      ['speciesRigId'],
+      `Species rig ${spec.speciesRigId ?? 'missing'} does not match the selected anatomy bundle and archetype.`,
+    ))
+  }
   validateFelineModifierState(spec, catalog, diagnostics)
 
   for (const semanticSlotId of SEMANTIC_SLOT_IDS) {

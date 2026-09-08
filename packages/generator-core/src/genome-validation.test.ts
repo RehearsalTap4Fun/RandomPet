@@ -10,10 +10,25 @@ import {
   makeValidCatalogFixture,
   makeValidCatalogFixtureWithThreeRigs,
   makeValidMonsterSpecFixture,
+  makeV08SpeciesRigCatalogFixture,
 } from './test-fixtures.js'
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('genome catalog validation', () => {
+  it('rejects a v0.8 hidden gene whose archetype differs from the species rig', () => {
+    const catalog = makeV08SpeciesRigCatalogFixture()
+    const spec = generateMonster({
+      seed: 'v08-hidden-archetype', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    const source = catalog.parts.find(part => part.slotId === 'eyes')!
+    catalog.parts.push({ ...structuredClone(source), id: 'eyes_canine_forged', archetypeIds: ['canine'] })
+    spec.genome!.genes.eyes.H1 = 'eyes_canine_forged'
+
+    expect(validateMonsterGenome(spec, catalog)).toContainEqual(expect.objectContaining({
+      code: 'SPEC_ARCHETYPE_PART_MISMATCH', path: ['genome', 'genes', 'eyes', 'H1'],
+    }))
+  })
+
   it('rejects non-feline hidden genes in every v0.6 genome layer', () => {
     const parsed = parseCatalog(v06ProductionCatalogDocument)
     expect(parsed.ok).toBe(true)

@@ -5,7 +5,7 @@ import {
   GENOME_LAYERS,
   VISUAL_SLOT_IDS,
   isLocalVisualSlot,
-  isIndependentPartCatalog,
+  isPartPoolCatalog,
   type Catalog,
   type Diagnostic,
   type GenomeLayer,
@@ -77,7 +77,7 @@ function blockedGenerationResult(
   const theme = catalog.themes.find(item => item.id === request.themeId)
   return {
     spec: {
-      schemaVersion: catalog.version === '0.6.0' ? '0.2.0' : '0.1.0',
+      schemaVersion: catalog.version === '0.8.0' ? '0.3.0' : catalog.version === '0.6.0' ? '0.2.0' : '0.1.0',
       catalogVersion: catalog.version,
       rendererVersion: catalog.version === '0.7.0' ? '0.7.0' : rendererVersionForCatalog(catalog),
       seed: request.seed,
@@ -91,7 +91,9 @@ function blockedGenerationResult(
       semanticTraits: projectSemanticTraits(visualSlots, request.seed, catalog),
       mutation: null,
       aberrations: [],
-      ...(catalog.version === '0.6.0' && request.archetypeId !== undefined ? { archetypeId: request.archetypeId } : {}),
+      ...((catalog.version === '0.6.0' || catalog.version === '0.8.0') && request.archetypeId !== undefined
+        ? { archetypeId: request.archetypeId }
+        : {}),
     },
     diagnostics,
     blocked: true,
@@ -195,7 +197,7 @@ function generateAnatomyBundleVisualLayer(
     diagnostics.push(error('ANATOMY_BUNDLE_UNAVAILABLE', ['anatomyBundleId'], 'No anatomy bundle is available for this request.'))
     return { visualSlots: {} as Record<VisualSlotId, VisualSelection>, anatomyBundleId: undefined }
   }
-  if (isIndependentPartCatalog(catalog)) {
+  if (isPartPoolCatalog(catalog)) {
     const independentBundle = catalog.anatomyBundles.find(candidate => candidate.id === bundle.id)
     if (independentBundle === undefined) {
       diagnostics.push(error('ANATOMY_BUNDLE_UNAVAILABLE', ['anatomyBundleId'], 'No independent anatomy bundle is available for this request.'))
@@ -311,7 +313,7 @@ function mapLayerDiagnostics(diagnostics: readonly Diagnostic[], layer: GenomeLa
 export function generateMonster(request: GenerationRequest, catalog: Catalog): GenerationResult {
   const diagnostics: Diagnostic[] = [...validateCatalogStructure(catalog)]
   const archetype = resolveArchetype(request, catalog)
-  const independentCatalog = isIndependentPartCatalog(catalog)
+  const independentCatalog = isPartPoolCatalog(catalog)
   const independentArchetype = independentCatalog
     ? catalog.archetypes?.find(item => item.id === request.archetypeId) ?? null
     : null
@@ -389,7 +391,7 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     }
   }
   let spec: MonsterSpec = {
-    schemaVersion: catalog.version === '0.6.0' ? '0.2.0' : '0.1.0',
+    schemaVersion: catalog.version === '0.8.0' ? '0.3.0' : catalog.version === '0.6.0' ? '0.2.0' : '0.1.0',
     catalogVersion: catalog.version,
     rendererVersion: catalog.version === '0.7.0' ? '0.7.0' : rendererVersionForCatalog(catalog),
     seed: request.seed,
@@ -403,6 +405,9 @@ export function generateMonster(request: GenerationRequest, catalog: Catalog): G
     aberrations: modifiers.aberrations,
     ...((catalog.version === '0.6.0' || independentCatalog) && request.archetypeId !== undefined ? { archetypeId: request.archetypeId } : {}),
     ...(anatomyBundleId === undefined ? {} : { anatomyBundleId }),
+    ...(catalog.version === '0.8.0' && anatomyBundle?.speciesRigId !== undefined
+      ? { speciesRigId: anatomyBundle.speciesRigId }
+      : {}),
   }
   if (anatomyBundleId !== undefined && !independentCatalog) {
     const bundle = catalog.anatomyBundles?.find(candidate => candidate.id === anatomyBundleId)
