@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { generateMonster } from './generate.js'
 import { rerollSlot, selectVisualPart } from './reroll.js'
 import { parseCatalog } from './catalog-schema.js'
-import { STRUCTURAL_SLOT_IDS, VISUAL_SLOT_IDS } from './contracts.js'
+import { STRUCTURAL_SLOT_IDS, VISUAL_SLOT_IDS, type VisualSlotId } from './contracts.js'
 import { validateAnatomyBundleSpec } from './anatomy-bundle.js'
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 import {
@@ -16,25 +16,28 @@ function makeTwoBundleV07Fixture() {
   const catalog = makeV07FelinePartLibraryFixture()
   const [firstBundle] = catalog.anatomyBundles
   if (firstBundle === undefined) throw new Error('Expected v0.7 feline bundle')
-  const displacedEye = catalog.parts.find(part => part.id === firstBundle.partPools.eyes[0])
-  if (displacedEye === undefined) throw new Error('Expected v0.7 eye part')
-  const lockedEye = { ...structuredClone(displacedEye), id: 'eyes_n_second_bundle' }
-  catalog.parts.push(lockedEye)
+  const lockedPartIds = {} as Record<VisualSlotId, string>
+  const secondPartPools = structuredClone(firstBundle.partPools)
+  for (const slotId of VISUAL_SLOT_IDS) {
+    const displaced = catalog.parts.find(part => part.id === firstBundle.partPools[slotId][0])
+    if (displaced === undefined) throw new Error(`Expected v0.7 ${slotId} part`)
+    const locked = { ...structuredClone(displaced), id: `${slotId}_n_second_bundle` }
+    catalog.parts.push(locked)
+    secondPartPools[slotId] = [
+      ...firstBundle.partPools[slotId].filter(partId => partId !== displaced.id),
+      locked.id,
+    ]
+    lockedPartIds[slotId] = locked.id
+  }
   const secondBundle = {
     ...structuredClone(firstBundle),
     id: 'feline-sit-alternate',
     baseWeight: 1,
-    partPools: {
-      ...structuredClone(firstBundle.partPools),
-      eyes: [
-        ...firstBundle.partPools.eyes.filter(partId => partId !== displacedEye.id),
-        lockedEye.id,
-      ],
-    },
+    partPools: secondPartPools,
   }
   firstBundle.baseWeight = 1_000_000
   catalog.anatomyBundles.push(secondBundle)
-  return { catalog, firstBundle, secondBundle, lockedEyeId: lockedEye.id }
+  return { catalog, firstBundle, secondBundle, lockedPartIds }
 }
 
 function productionCatalog() {
@@ -45,19 +48,33 @@ function productionCatalog() {
 }
 
 describe('anatomy bundle generation', () => {
-  it('uses every locked v0.7 visual slot to select the bundle that owns it', () => {
-    const { catalog, firstBundle, secondBundle, lockedEyeId } = makeTwoBundleV07Fixture()
+  it.each(VISUAL_SLOT_IDS)('uses a locked v0.7 %s part to select the bundle that owns it', slotId => {
+    const { catalog, firstBundle, secondBundle, lockedPartIds } = makeTwoBundleV07Fixture()
 
     const bundle = selectAnatomyBundle({
-      seed: 'v07-local-lock-bundle',
+      seed: `v07-${slotId}-lock-bundle`,
       themeId: 'fungal',
       mode: 'normal',
       archetypeId: 'feline',
-      lockedSelections: { eyes: lockedEyeId },
+      lockedSelections: { [slotId]: lockedPartIds[slotId] },
     }, catalog)
 
     expect(bundle?.id).toBe(secondBundle.id)
     expect(bundle?.id).not.toBe(firstBundle.id)
+  })
+
+  it('retains v0.6 structural-only bundle lock filtering', () => {
+    const catalog = productionCatalog()
+
+    const bundle = selectAnatomyBundle({
+      seed: 'v06-local-lock-ignored',
+      themeId: 'fungal',
+      mode: 'normal',
+      archetypeId: 'feline',
+      lockedSelections: { eyes: 'not-a-v06-eye-part' },
+    }, catalog)
+
+    expect(bundle).not.toBeNull()
   })
 
   it('selects one v0.7 bundle while retaining independently selected structural parts', () => {

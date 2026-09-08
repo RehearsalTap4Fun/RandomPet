@@ -45,6 +45,51 @@ function makeTwoBundleV07Fixture() {
 }
 
 describe('rerollSlot', () => {
+  it('rerolls a public v0.7 bodyFrame spec without a genome through the preserved bundle pool', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const initial = generateMonster({
+      seed: 'nog-0', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    delete initial.genome
+    const before = structuredClone(initial)
+    const bundle = catalog.anatomyBundles.find(item => item.id === initial.anatomyBundleId)!
+
+    const rerolled = rerollSlot({ spec: initial, slotId: 'bodyFrame', locks: {}, catalog })
+
+    expect(rerolled.blocked).toBe(false)
+    expect(rerolled.spec.genome).toBeUndefined()
+    expect(rerolled.spec.anatomyBundleId).toBe(before.anatomyBundleId)
+    expect(bundle.partPools.bodyFrame).toContain(rerolled.spec.visualSlots.bodyFrame.partId)
+    expect(rerolled.spec.visualSlots.bodyFrame.partId).not.toBe(before.visualSlots.bodyFrame.partId)
+    for (const slotId of VISUAL_SLOT_IDS) {
+      if (slotId !== 'bodyFrame') expect(rerolled.spec.visualSlots[slotId]).toEqual(before.visualSlots[slotId])
+    }
+  })
+
+  it('rolls back a public v0.7 bodyFrame spec without a genome on a candidate failure', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const initial = generateMonster({
+      seed: 'nog-0', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog).spec
+    delete initial.genome
+    const before = structuredClone(initial)
+    const bundle = catalog.anatomyBundles.find(item => item.id === initial.anatomyBundleId)!
+    for (const partId of bundle.partPools.bodyFrame) {
+      catalog.parts.find(part => part.id === partId)!.compatibleRigs = []
+    }
+
+    const rerolled = rerollSlot({ spec: initial, slotId: 'bodyFrame', locks: {}, catalog })
+
+    expect(rerolled.blocked).toBe(true)
+    expect(rerolled.spec).toEqual({
+      ...before,
+      slotRolls: { ...before.slotRolls, bodyFrame: before.slotRolls.bodyFrame + 1 },
+    })
+    expect(rerolled.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'NO_COMPATIBLE_CANDIDATE', path: ['visualSlots', 'bodyFrame'],
+    }))
+  })
+
   it('keeps the v0.7 bundle and every non-body slot during a bodyFrame reroll with a local lock', () => {
     const { catalog, secondBundle, lockedEyeId } = makeTwoBundleV07Fixture()
     const initial = generateMonster({
@@ -62,6 +107,8 @@ describe('rerollSlot', () => {
     expect(rerolled.spec.anatomyBundleId).toBe(secondBundle.id)
     expect(rerolled.spec.slotRolls.bodyFrame).toBe(before.slotRolls.bodyFrame + 1)
     expect(rerolled.spec.visualSlots.eyes.partId).toBe(lockedEyeId)
+    expect(secondBundle.partPools.bodyFrame).toContain(rerolled.spec.visualSlots.bodyFrame.partId)
+    expect(rerolled.spec.visualSlots.bodyFrame.partId).not.toBe(before.visualSlots.bodyFrame.partId)
     for (const slotId of VISUAL_SLOT_IDS) {
       if (slotId !== 'bodyFrame') expect(rerolled.spec.visualSlots[slotId]).toEqual(before.visualSlots[slotId])
     }

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   generateMonster,
   pickIndependentPartTier,
+  rerollSlot,
   validateAnatomyBundleSpec,
   VISUAL_SLOT_IDS,
 } from './index.js'
@@ -46,6 +47,41 @@ describe('independent part rarity', () => {
       expect([...seen[slotId]].some(id => id.includes('_l_')), slotId).toBe(true)
     }
     expect(hasMultipleHighRarityParts).toBe(true)
+  })
+
+  it('keeps a fixed mixed-tier vector slot-scoped when one visual slot rerolls', () => {
+    const catalog = makeV07FelinePartLibraryFixture()
+    const initial = generateMonster({
+      seed: 'vector-0', themeId: 'fungal', mode: 'normal', archetypeId: 'feline',
+    }, catalog)
+
+    expect(Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
+      slotId,
+      initial.spec.visualSlots[slotId].partId,
+    ]))).toEqual({
+      bodyFrame: 'bodyFrame_l_1',
+      headShape: 'headShape_n_8',
+      eyes: 'eyes_n_4',
+      mouthShape: 'mouthShape_n_6',
+      oralDetail: 'oralDetail_r_1',
+      headAppendage: 'headAppendage_n_7',
+      arms: 'arms_r_2',
+      legs: 'legs_r_3',
+      tail: 'tail_n_1',
+      extraAppendage: 'extraAppendage_n_8',
+      surfaceMaterial: 'surfaceMaterial_n_2',
+      pattern: 'pattern_r_4',
+      colorScheme: 'colorScheme_l_1',
+      effect: 'effect_n_5',
+    })
+
+    const rerolled = rerollSlot({ spec: initial.spec, slotId: 'eyes', locks: {}, catalog })
+
+    expect(rerolled.blocked).toBe(false)
+    expect(rerolled.spec.visualSlots.eyes.partId).toBe('eyes_n_5')
+    for (const slotId of VISUAL_SLOT_IDS) {
+      if (slotId !== 'eyes') expect(rerolled.spec.visualSlots[slotId]).toEqual(initial.spec.visualSlots[slotId])
+    }
   })
 
   it('keeps independently selected structural genes rather than applying derived slots', () => {
