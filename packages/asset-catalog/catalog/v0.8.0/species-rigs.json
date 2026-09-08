@@ -33,9 +33,9 @@
       },
       "eyesRegion": {
         "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/eyesRegion.webp",
-        "assetSha256": "169178d3bdc8ae157de67f78ec7cb1cf73b439c70d48e9094f0b222c04656da6",
+        "assetSha256": "32178bb53eb59ddc113c7a7079ebd65a4db6702629098cf6c0f45145ec657f08",
         "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/eyesRegion.png",
-        "pngSha256": "2d0affbc8b8b5b67d857685638aced6a56ebfd81e76a9c48be61d1f10c8ea0c0"
+        "pngSha256": "45f489a0ba013f23594d428dff610196ab8205cf13729aa54699310201f60848"
       },
       "mouthRegion": {
         "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mouthRegion.webp",
@@ -81,9 +81,9 @@
       },
       "mutationBack": {
         "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationBack.webp",
-        "assetSha256": "6b01d05d0719d39076da63a3b3a5de75f26e3492d2ae8835bc07d973b1c66e8a",
+        "assetSha256": "d0750fce95042128b46d1c5122b41eafae035d463ab9e1bbf9d2d0f0e4f0f042",
         "pngPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationBack.png",
-        "pngSha256": "81f14c82860c91fdde09d166e35ac39229a5a476c47a28cd45f1c4e47488652e"
+        "pngSha256": "c5ba4d7d68372fcd0b8435a421f5115f74cd82a26f240364efff37268543d86a"
       },
       "mutationTailTip": {
         "assetPath": "assets/v0.8.0/rigs/feline-sit-v1/masks/mutationTailTip.webp",

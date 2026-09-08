@@ -19,7 +19,7 @@ describe('prepare v0.8 feline trait sources', () => {
     temporaryRoots.push(root)
     const maskPath = join(root, 'mask.png')
     const pixels = Buffer.alloc(2048 * 2048 * 4)
-    for (let y = 500; y < 700; y += 1) for (let x = 500; x < 700; x += 1) {
+    for (let y = 450; y < 800; y += 1) for (let x = 600; x < 1450; x += 1) {
       const offset = (y * 2048 + x) * 4
       pixels[offset] = 255
       pixels[offset + 1] = 255
