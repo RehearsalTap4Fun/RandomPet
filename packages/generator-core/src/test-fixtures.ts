@@ -318,6 +318,15 @@ function fixtureResource(name: string) {
   }
 }
 
+function fixtureV08Resource(name: string) {
+  const resource = fixtureResource(name)
+  return {
+    ...resource,
+    assetPath: resource.assetPath.replace('assets/v0.7.0/', 'assets/v0.8.0/'),
+    pngPath: resource.pngPath.replace('assets/v0.7.0/', 'assets/v0.8.0/'),
+  }
+}
+
 function interfaceConnector(
   id: string,
   role: 'receiver' | 'plug',
@@ -651,9 +660,9 @@ export function makeV08SpeciesRigCatalogFixture(): Catalog {
     id: 'feline-sit-canonical-v1',
     speciesRigId,
     sourceMasterSha256,
-    structural: fixtureResource('v08-feline-structural'),
-    alpha: fixtureResource('v08-feline-alpha'),
-    clip: fixtureResource('v08-feline-clip'),
+    structural: fixtureV08Resource('v08-feline-structural'),
+    alpha: fixtureV08Resource('v08-feline-alpha'),
+    clip: fixtureV08Resource('v08-feline-clip'),
   } as any))
   catalog.speciesRigs = [{
     schemaVersion: 'qmonster-species-rig-v1',
@@ -667,7 +676,7 @@ export function makeV08SpeciesRigCatalogFixture(): Catalog {
     sourceMasterSha256,
     regions: Object.fromEntries(regionIds.map(regionId => [
       regionId,
-      fixtureResource(`v08-${regionId}`),
+      fixtureV08Resource(`v08-${regionId}`),
     ])) as any,
     layerOrder: [
       'colorScheme', 'surfaceMaterial', 'pattern', 'bodyFrame', 'tail', 'arms',

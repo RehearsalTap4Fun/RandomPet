@@ -1,0 +1,408 @@
+{
+  "schemaVersion": "qmonster-rejected-source-v1",
+  "targetCatalogVersion": "0.8.0",
+  "policy": "STRUCTURE_NOT_BUNDLE_DERIVED",
+  "sourceRoot": "asset-source/v0.7.0/feline/parts",
+  "entries": [
+    {
+      "slotId": "arms",
+      "sourcePath": "arms_l_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "arms",
+      "sourcePath": "arms_n_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "arms",
+      "sourcePath": "arms_n_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "arms",
+      "sourcePath": "arms_n_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "arms",
+      "sourcePath": "arms_r_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "arms",
+      "sourcePath": "arms_r_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "arms",
+      "sourcePath": "arms_r_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "arms",
+      "sourcePath": "arms_r_4-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "bodyFrame",
+      "sourcePath": "bodyFrame_l_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "bodyFrame",
+      "sourcePath": "bodyFrame_n_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "bodyFrame",
+      "sourcePath": "bodyFrame_n_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "bodyFrame",
+      "sourcePath": "bodyFrame_n_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "bodyFrame",
+      "sourcePath": "bodyFrame_r_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "bodyFrame",
+      "sourcePath": "bodyFrame_r_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "bodyFrame",
+      "sourcePath": "bodyFrame_r_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "bodyFrame",
+      "sourcePath": "bodyFrame_r_4-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "headShape",
+      "sourcePath": "headShape_l_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "headShape",
+      "sourcePath": "headShape_n_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "headShape",
+      "sourcePath": "headShape_n_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "headShape",
+      "sourcePath": "headShape_n_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "headShape",
+      "sourcePath": "headShape_r_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "headShape",
+      "sourcePath": "headShape_r_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "headShape",
+      "sourcePath": "headShape_r_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "headShape",
+      "sourcePath": "headShape_r_4-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "legs",
+      "sourcePath": "legs_l_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "legs",
+      "sourcePath": "legs_n_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "legs",
+      "sourcePath": "legs_n_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "legs",
+      "sourcePath": "legs_n_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "legs",
+      "sourcePath": "legs_r_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "legs",
+      "sourcePath": "legs_r_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "legs",
+      "sourcePath": "legs_r_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "legs",
+      "sourcePath": "legs_r_4-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\arms",
+      "sourcePath": "raw\\arms_l_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\arms",
+      "sourcePath": "raw\\arms_n_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\arms",
+      "sourcePath": "raw\\arms_n_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\arms",
+      "sourcePath": "raw\\arms_n_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\arms",
+      "sourcePath": "raw\\arms_r_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\arms",
+      "sourcePath": "raw\\arms_r_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\arms",
+      "sourcePath": "raw\\arms_r_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\arms",
+      "sourcePath": "raw\\arms_r_4-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\bodyFrame",
+      "sourcePath": "raw\\bodyFrame_l_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\bodyFrame",
+      "sourcePath": "raw\\bodyFrame_n_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\bodyFrame",
+      "sourcePath": "raw\\bodyFrame_n_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\bodyFrame",
+      "sourcePath": "raw\\bodyFrame_n_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\bodyFrame",
+      "sourcePath": "raw\\bodyFrame_r_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\bodyFrame",
+      "sourcePath": "raw\\bodyFrame_r_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\bodyFrame",
+      "sourcePath": "raw\\bodyFrame_r_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\bodyFrame",
+      "sourcePath": "raw\\bodyFrame_r_4-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\headShape",
+      "sourcePath": "raw\\headShape_l_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\headShape",
+      "sourcePath": "raw\\headShape_n_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\headShape",
+      "sourcePath": "raw\\headShape_n_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\headShape",
+      "sourcePath": "raw\\headShape_n_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\headShape",
+      "sourcePath": "raw\\headShape_r_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\headShape",
+      "sourcePath": "raw\\headShape_r_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\headShape",
+      "sourcePath": "raw\\headShape_r_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\headShape",
+      "sourcePath": "raw\\headShape_r_4-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\legs",
+      "sourcePath": "raw\\legs_l_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\legs",
+      "sourcePath": "raw\\legs_n_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\legs",
+      "sourcePath": "raw\\legs_n_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\legs",
+      "sourcePath": "raw\\legs_n_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\legs",
+      "sourcePath": "raw\\legs_r_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\legs",
+      "sourcePath": "raw\\legs_r_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\legs",
+      "sourcePath": "raw\\legs_r_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\legs",
+      "sourcePath": "raw\\legs_r_4-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\tail",
+      "sourcePath": "raw\\tail_l_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\tail",
+      "sourcePath": "raw\\tail_n_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\tail",
+      "sourcePath": "raw\\tail_n_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\tail",
+      "sourcePath": "raw\\tail_n_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\tail",
+      "sourcePath": "raw\\tail_r_1-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\tail",
+      "sourcePath": "raw\\tail_r_2-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\tail",
+      "sourcePath": "raw\\tail_r_3-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "raw\\tail",
+      "sourcePath": "raw\\tail_r_4-imagegen-chroma-original.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "tail",
+      "sourcePath": "tail_l_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "tail",
+      "sourcePath": "tail_n_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "tail",
+      "sourcePath": "tail_n_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "tail",
+      "sourcePath": "tail_n_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "tail",
+      "sourcePath": "tail_r_1-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "tail",
+      "sourcePath": "tail_r_2-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "tail",
+      "sourcePath": "tail_r_3-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    },
+    {
+      "slotId": "tail",
+      "sourcePath": "tail_r_4-source.png",
+      "reason": "STRUCTURE_NOT_BUNDLE_DERIVED"
+    }
+  ]
+}

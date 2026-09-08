@@ -15,7 +15,9 @@ import {
   type MaterialFamily,
   type RigId,
   type VisualSlotId,
+  type V08SpeciesRigCatalog,
 } from './contracts.js'
+import { validateV08SpeciesRigCatalog } from './v08-catalog-validation.js'
 
 const OPTIONAL_SLOTS = new Set<VisualSlotId>(['headAppendage', 'tail', 'extraAppendage', 'effect'])
 const MANDATORY_SLOTS = VISUAL_SLOT_IDS.filter(slotId => !OPTIONAL_SLOTS.has(slotId))
@@ -816,7 +818,9 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
   const semanticTraitIds = reportDuplicateIds(catalog.semanticTraits, 'semanticTraits', diagnostics)
   const modifierIds = reportDuplicateIds(catalog.modifiers, 'modifiers', diagnostics)
   reportMissingFixedIds(themeIds, REQUIRED_THEME_IDS, 'THEME', diagnostics)
-  if (catalog.version !== '0.6.0' && catalog.version !== '0.7.0') reportMissingFixedIds(rigIds, REQUIRED_RIG_IDS, 'RIG', diagnostics)
+  if (catalog.version !== '0.6.0' && catalog.version !== '0.7.0' && catalog.version !== '0.8.0') {
+    reportMissingFixedIds(rigIds, REQUIRED_RIG_IDS, 'RIG', diagnostics)
+  }
 
   const rigs = new Map(catalog.rigs.map(rig => [rig.id, rig]))
   for (const [index, part] of catalog.parts.entries()) {
@@ -903,6 +907,9 @@ export function validateCatalogStructure(catalog: Catalog): Diagnostic[] {
   validateInterfaceStructure(catalog, diagnostics)
   validateAnatomyBundles(catalog, diagnostics)
   validateIndependentPartPools(catalog, diagnostics)
+  if (catalog.version === '0.8.0') {
+    diagnostics.push(...validateV08SpeciesRigCatalog(catalog as V08SpeciesRigCatalog))
+  }
 
   if (hasCycle(catalog.dependencies)) {
     diagnostics.push(error('CATALOG_DEPENDENCY_CYCLE', ['dependencies'], 'Catalog slot dependencies must be acyclic.'))

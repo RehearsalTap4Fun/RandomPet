@@ -3,6 +3,7 @@ import {
   makeCompositionCatalogFixture,
   makeInterfaceCatalogFixture,
   makeV07FelinePartLibraryFixture,
+  makeV08SpeciesRigCatalogFixture,
   makeValidCatalogFixture,
 } from './test-fixtures.js'
 import { parseCatalog } from './catalog-schema.js'
@@ -10,6 +11,17 @@ import { validateCatalogStructure } from './catalog-validation.js'
 import v06ProductionCatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 
 describe('catalog validation', () => {
+  it('fails a v0.8 catalog closed when a structural trait restores interface topology', () => {
+    const catalog = makeV08SpeciesRigCatalogFixture() as any
+    const head = catalog.parts.find((part: any) => part.slotId === 'headShape')
+    head.composition = { mode: 'interface' }
+
+    expect(validateCatalogStructure(catalog)).toContainEqual(expect.objectContaining({
+      code: 'V08_STRUCTURAL_PART_TOPOLOGY_FORBIDDEN',
+      path: ['parts', expect.any(String), 'composition', 'mode'],
+    }))
+  })
+
   it('rejects non-feline archetypes, bundles, and dual-archetype parts from v0.7', () => {
     const extraArchetype = makeV07FelinePartLibraryFixture()
     extraArchetype.archetypes!.push({
