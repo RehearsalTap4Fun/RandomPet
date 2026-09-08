@@ -10,6 +10,7 @@ import {
 } from '@qmonster/generator-core'
 import { resolveAttachmentTree } from './attachment-tree.js'
 import { resolveAnatomyBundleRenderPlan } from './anatomy-bundle.js'
+import { renderSpeciesRigMonster } from './species-rig-render.js'
 import { buildBridgeMesh, type BridgeMesh } from './bridge-mesh.js'
 import {
   connectorMetricMeetsThresholds,
@@ -2127,6 +2128,10 @@ function isInterfaceRenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
 function isV06RenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
   return catalog.version === '0.6.0' && spec.rendererVersion === '0.6.0'
 }
+
+function isV08RenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
+  return catalog.version === '0.8.0' && spec.rendererVersion === '0.8.0'
+}
 // TASK8_STABLE_END:renderer-versioned-interface-pair-helper
 
 export async function renderMonster(
@@ -2165,9 +2170,13 @@ export async function renderMonster(
     return {
       drawnAssetIds: [], diagnostics: validationDiagnostics, compositionMetrics: null,
       // TASK8_STABLE_BEGIN:renderer-v04-invalid-interface-pair
-      connectorMetrics: isInterfaceRenderPair(spec, catalog) || isV06RenderPair(spec, catalog) ? [] : null,
+      connectorMetrics: isInterfaceRenderPair(spec, catalog) || isV06RenderPair(spec, catalog)
+        || isV08RenderPair(spec, catalog) ? [] : null,
       // TASK8_STABLE_END:renderer-v04-invalid-interface-pair
     }
+  }
+  if (catalog.version === '0.8.0' || spec.rendererVersion === '0.8.0') {
+    return renderSpeciesRigMonster(context, spec, catalog, resolver, options)
   }
   if (resolveAnatomyBundleRenderPlan(spec, catalog) !== null) {
     return renderAnatomyBundleMonster(context, spec, catalog, resolver, options)

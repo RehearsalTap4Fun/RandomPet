@@ -4,8 +4,12 @@ import type {
   Diagnostic,
   Palette,
   RenderNodeDefinition,
+  ResourceRef,
   RigDefinition,
+  SpeciesRigContract,
+  SpeciesRigPartComposition,
   TransitionBridgeDefinition,
+  V08AnatomyBundleDefinition,
   VisualPartDefinition,
   VisualSlotId,
 } from '@qmonster/generator-core'
@@ -53,6 +57,19 @@ export interface RenderResult {
     activeConnectorIds: string[]
     suppressedDiagnostics: Diagnostic[]
   }
+}
+
+export interface SpeciesRigRenderTrait {
+  slotId: VisualSlotId
+  part: VisualPartDefinition
+  composition: SpeciesRigPartComposition
+  ownerRegion: ResourceRef
+}
+
+export interface SpeciesRigRenderPlan {
+  speciesRig: SpeciesRigContract
+  bundle: V08AnatomyBundleDefinition
+  traits: SpeciesRigRenderTrait[]
 }
 
 export interface Placement {
