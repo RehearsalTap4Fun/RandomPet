@@ -15,6 +15,7 @@ import {
   type VisualSlotId,
   type SlotGenes,
   type TransitionBridgeDefinition,
+  type V08ExpressionKind,
   isAttachmentPartComposition,
 } from './contracts.js'
 
@@ -296,7 +297,9 @@ export function makeCompositionCatalogFixture(): Catalog {
   })
   const strongEyes = structuredClone(catalog.parts.find(part => part.slotId === 'eyes')!)
   const strongEyesComposition = strongEyes.composition!
-  if (strongEyesComposition.mode === 'interface') throw new Error('Expected attachment composition fixture')
+  if (!isAttachmentPartComposition(strongEyesComposition)) {
+    throw new Error('Expected attachment composition fixture')
+  }
   strongEyes.id = 'eyes_strong'
   strongEyesComposition.visualIntensity = 'strong'
   strongEyesComposition.renderNodes[0]!.id = 'eyes_strong_0'
@@ -577,6 +580,125 @@ export function makeV07FelinePartLibraryFixture(): IndependentPartCatalog {
     partPools,
     }],
   }
+}
+
+export function makeV08SpeciesRigCatalogFixture(): Catalog {
+  const catalog = structuredClone(makeV07FelinePartLibraryFixture()) as Catalog & Record<string, any>
+  const sourceMasterSha256 = 'b'.repeat(64)
+  const speciesRigId = 'feline-sit-v1'
+  const rigVersion = '1.0.0'
+  const regionIds = [
+    'bodySurface', 'headSurface', 'faceSafeZone', 'eyesRegion', 'mouthRegion',
+    'oralRegion', 'tailSurface', 'frontPawDetail', 'hindPawDetail', 'headAccessory',
+    'mutationEar', 'mutationBack', 'mutationTailTip', 'effectField', 'faceProtection',
+  ] as const
+  const expressionBySlot: Record<VisualSlotId, V08ExpressionKind> = {
+    bodyFrame: 'body-clipped',
+    headShape: 'head-clipped',
+    eyes: 'face-clipped',
+    mouthShape: 'face-clipped',
+    oralDetail: 'face-clipped',
+    headAppendage: 'anchor-clipped',
+    arms: 'anchor-clipped',
+    legs: 'anchor-clipped',
+    tail: 'body-clipped',
+    extraAppendage: 'anchor-clipped',
+    surfaceMaterial: 'body-clipped',
+    pattern: 'body-clipped',
+    colorScheme: 'body-clipped',
+    effect: 'protected-effect',
+  }
+  const ownerBySlot: Record<VisualSlotId, string> = {
+    bodyFrame: 'bodySurface',
+    headShape: 'headSurface',
+    eyes: 'eyesRegion',
+    mouthShape: 'mouthRegion',
+    oralDetail: 'oralRegion',
+    headAppendage: 'headAccessory',
+    arms: 'frontPawDetail',
+    legs: 'hindPawDetail',
+    tail: 'tailSurface',
+    extraAppendage: 'mutationBack',
+    surfaceMaterial: 'bodySurface',
+    pattern: 'bodySurface',
+    colorScheme: 'bodySurface',
+    effect: 'effectField',
+  }
+
+  catalog.version = '0.8.0'
+  delete catalog.transitionBridges
+  catalog.parts = catalog.parts.map(part => ({
+    ...part,
+    assetPath: `assets/v0.8.0/parts/${part.id}.webp`,
+    pngPath: `assets/v0.8.0/parts/${part.id}.png`,
+    approvedTransforms: [{ scale: 1, mirrorX: false }],
+    composition: {
+      mode: 'species-rig',
+      isNone: false,
+      motifTags: [],
+      visualIntensity: 'quiet',
+      speciesRigId,
+      rigVersion,
+      sourceMasterSha256,
+      expressionKind: expressionBySlot[part.slotId],
+      ownerRegionId: ownerBySlot[part.slotId],
+      blendMode: 'source-over',
+      opacity: 1,
+    },
+  } as any))
+  catalog.anatomyBundles = (catalog.anatomyBundles ?? []).map(bundle => ({
+    ...bundle,
+    id: 'feline-sit-canonical-v1',
+    speciesRigId,
+    sourceMasterSha256,
+    structural: fixtureResource('v08-feline-structural'),
+    alpha: fixtureResource('v08-feline-alpha'),
+    clip: fixtureResource('v08-feline-clip'),
+  } as any))
+  catalog.speciesRigs = [{
+    schemaVersion: 'qmonster-species-rig-v1',
+    id: speciesRigId,
+    rigVersion,
+    archetypeId: 'feline',
+    rigId: 'feline-sit',
+    poseId: 'sit',
+    canvas: { width: 2048, height: 2048 },
+    coordinatePolicy: 'fixed-canvas-no-trim',
+    sourceMasterSha256,
+    regions: Object.fromEntries(regionIds.map(regionId => [
+      regionId,
+      fixtureResource(`v08-${regionId}`),
+    ])) as any,
+    layerOrder: [
+      'colorScheme', 'surfaceMaterial', 'pattern', 'bodyFrame', 'tail', 'arms',
+      'legs', 'headShape', 'eyes', 'mouthShape', 'oralDetail', 'headAppendage',
+      'extraAppendage', 'effect',
+    ],
+    allowedSlotExpressions: expressionBySlot,
+  }]
+  return catalog
+}
+
+export function makeV08MonsterSpecFixture(): MonsterSpec {
+  const catalog = makeV08SpeciesRigCatalogFixture() as Catalog & Record<string, any>
+  const bundle = catalog.anatomyBundles?.[0] as any
+  if (bundle === undefined) throw new Error('Expected v0.8 anatomy bundle fixture')
+  const spec = makeValidMonsterSpecFixture()
+  spec.schemaVersion = '0.3.0'
+  spec.catalogVersion = '0.8.0'
+  spec.rendererVersion = '0.8.0'
+  spec.archetypeId = 'feline'
+  spec.anatomyBundleId = 'feline-sit-canonical-v1'
+  Object.assign(spec, { speciesRigId: 'feline-sit-v1' })
+  spec.visualSlots = Object.fromEntries(VISUAL_SLOT_IDS.map(slotId => [
+    slotId,
+    {
+      partId: bundle.partPools[slotId][0],
+      rigId: 'feline-sit',
+      transform: { scale: 1, mirrorX: false },
+    },
+  ])) as MonsterSpec['visualSlots']
+  return spec
 }
 
 export function makeValidCompositionSpecFixture(

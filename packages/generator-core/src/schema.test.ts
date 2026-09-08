@@ -8,9 +8,41 @@ import {
   makeValidCatalogFixture,
   makeValidMonsterSpecFixture,
   makeGenomeForSpecFixture,
+  makeV08MonsterSpecFixture,
+  makeV08SpeciesRigCatalogFixture,
 } from './test-fixtures.js'
 
 describe('MonsterSpecSchema', () => {
+  it('parses the exact v0.8 catalog and preserves its species-rig contract', () => {
+    const parsed = parseCatalog(makeV08SpeciesRigCatalogFixture())
+
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    expect((parsed.value as any).speciesRigs[0]).toMatchObject({
+      id: 'feline-sit-v1',
+      coordinatePolicy: 'fixed-canvas-no-trim',
+      canvas: { width: 2048, height: 2048 },
+    })
+  })
+
+  it('requires speciesRigId only on the exact v0.8 spec tuple', () => {
+    const v08 = makeV08MonsterSpecFixture() as MonsterSpec & { speciesRigId?: string }
+    delete v08.speciesRigId
+
+    const missingRig = parseMonsterSpec(v08)
+    expect(missingRig.ok).toBe(false)
+    if (!missingRig.ok) {
+      expect(missingRig.diagnostics).toContainEqual(expect.objectContaining({
+        path: ['speciesRigId'],
+      }))
+    }
+
+    v08.speciesRigId = 'feline-sit-v1'
+    expect(parseMonsterSpec(v08)).toMatchObject({ ok: true })
+    expect(parseMonsterSpec({ ...v08, schemaVersion: '0.2.0' }).ok).toBe(false)
+    expect(parseMonsterSpec({ ...v08, rendererVersion: '0.7.0' }).ok).toBe(false)
+  })
+
   it('requires an archetype only for the exact v0.6 spec contract', () => {
     const v06 = makeValidMonsterSpecFixture()
     v06.schemaVersion = '0.2.0'

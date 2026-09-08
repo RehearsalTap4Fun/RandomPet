@@ -49,3 +49,20 @@ describe('animal archetype contract', () => {
     expect(ANIMAL_ARCHETYPE_IDS).toEqual(['feline', 'canine', 'lagomorph'])
   })
 })
+
+describe('v0.8 species-rig contract', () => {
+  it('exports the exact version and region identities consumed by v0.8', async () => {
+    const contracts = await import('./contracts.js') as Record<string, unknown>
+
+    expect(contracts).toMatchObject({
+      V08_CATALOG_VERSION: '0.8.0',
+      V08_RENDERER_VERSION: '0.8.0',
+      V08_SPEC_SCHEMA_VERSION: '0.3.0',
+      V08_REGION_IDS: [
+        'bodySurface', 'headSurface', 'faceSafeZone', 'eyesRegion', 'mouthRegion',
+        'oralRegion', 'tailSurface', 'frontPawDetail', 'hindPawDetail', 'headAccessory',
+        'mutationEar', 'mutationBack', 'mutationTailTip', 'effectField', 'faceProtection',
+      ],
+    })
+  })
+})

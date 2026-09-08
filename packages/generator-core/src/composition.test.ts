@@ -10,6 +10,7 @@ import {
   makeInterfaceCatalogFixture,
   makeLegacyCatalogFixture,
   makeValidCompositionSpecFixture,
+  makeV08SpeciesRigCatalogFixture,
 } from './test-fixtures.js'
 import {
   planComposition,
@@ -90,6 +91,10 @@ describe('composition planning', () => {
     catalog.version = '0.6.0'
 
     expect(rendererVersionForCatalog(catalog)).toBe('0.6.0')
+  })
+
+  it('routes catalog 0.8.0 to renderer 0.8.0 without falling back', () => {
+    expect(rendererVersionForCatalog(makeV08SpeciesRigCatalogFixture())).toBe('0.8.0')
   })
 
   it('assigns at most floor(M * 0.3) stable surprise opportunities', () => {

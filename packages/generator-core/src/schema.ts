@@ -1,6 +1,9 @@
 import { z } from 'zod'
 import {
   SEMANTIC_SLOT_IDS,
+  V08_CATALOG_VERSION,
+  V08_RENDERER_VERSION,
+  V08_SPEC_SCHEMA_VERSION,
   VISUAL_SLOT_IDS,
   type Diagnostic,
   type MonsterSpec,
@@ -83,6 +86,9 @@ export const MonsterSpecSchema = z.object({
   anatomyBundleId: z.string().refine(value => value.trim().length > 0, {
     message: 'Anatomy bundle ID must be non-blank.',
   }).optional(),
+  speciesRigId: z.string().refine(value => value.trim().length > 0, {
+    message: 'Species rig ID must be non-blank.',
+  }).optional(),
 }).superRefine((spec, context) => {
   if (spec.catalogVersion === '0.6.0' && (
     spec.schemaVersion !== '0.2.0'
@@ -107,6 +113,47 @@ export const MonsterSpecSchema = z.object({
       path: ['anatomyBundleId'],
       message: 'The exact v0.6 feline spec contract requires an anatomy bundle ID.',
     })
+  }
+  const usesV08Version = spec.schemaVersion === V08_SPEC_SCHEMA_VERSION
+    || spec.catalogVersion === V08_CATALOG_VERSION
+    || spec.rendererVersion === V08_RENDERER_VERSION
+  if (usesV08Version && (
+    spec.schemaVersion !== V08_SPEC_SCHEMA_VERSION
+    || spec.catalogVersion !== V08_CATALOG_VERSION
+    || spec.rendererVersion !== V08_RENDERER_VERSION
+  )) {
+    context.addIssue({
+      code: 'custom',
+      path: ['catalogVersion'],
+      message: 'The v0.8 spec requires the exact schema/catalog/renderer version tuple 0.3.0/0.8.0/0.8.0.',
+    })
+  }
+  if (
+    spec.schemaVersion === V08_SPEC_SCHEMA_VERSION
+    && spec.catalogVersion === V08_CATALOG_VERSION
+    && spec.rendererVersion === V08_RENDERER_VERSION
+  ) {
+    if (spec.archetypeId !== 'feline') {
+      context.addIssue({
+        code: 'custom',
+        path: ['archetypeId'],
+        message: 'The v0.8 spec contract requires the feline archetype ID.',
+      })
+    }
+    if (spec.anatomyBundleId === undefined) {
+      context.addIssue({
+        code: 'custom',
+        path: ['anatomyBundleId'],
+        message: 'The v0.8 spec contract requires an anatomy bundle ID.',
+      })
+    }
+    if (spec.speciesRigId === undefined) {
+      context.addIssue({
+        code: 'custom',
+        path: ['speciesRigId'],
+        message: 'The v0.8 spec contract requires a species rig ID.',
+      })
+    }
   }
 })
 

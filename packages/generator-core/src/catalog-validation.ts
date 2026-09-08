@@ -654,7 +654,11 @@ function validateCompositionStructure(catalog: Catalog, diagnostics: Diagnostic[
       ))
       continue
     }
-    if (composition.mode === 'interface' || composition.mode === 'bundle') {
+    if (
+      composition.mode === 'interface'
+      || composition.mode === 'bundle'
+      || composition.mode === 'species-rig'
+    ) {
       diagnostics.push(error(
         'COMPOSITION_INTERFACE_MODE_FORBIDDEN',
         path.concat('composition', 'mode'),

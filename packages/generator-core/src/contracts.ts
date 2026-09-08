@@ -4,6 +4,25 @@ export const VISUAL_SLOT_IDS = [
   'surfaceMaterial', 'pattern', 'colorScheme', 'effect',
 ] as const
 
+export const V08_CATALOG_VERSION = '0.8.0' as const
+export const V08_RENDERER_VERSION = '0.8.0' as const
+export const V08_SPEC_SCHEMA_VERSION = '0.3.0' as const
+export const V08_REGION_IDS = [
+  'bodySurface', 'headSurface', 'faceSafeZone', 'eyesRegion', 'mouthRegion',
+  'oralRegion', 'tailSurface', 'frontPawDetail', 'hindPawDetail', 'headAccessory',
+  'mutationEar', 'mutationBack', 'mutationTailTip', 'effectField', 'faceProtection',
+] as const
+export const V08_EXPRESSION_KINDS = [
+  'body-clipped', 'head-clipped', 'face-clipped', 'anchor-clipped', 'protected-effect',
+] as const
+export const V08_BLEND_MODES = [
+  'source-over', 'multiply', 'color', 'soft-light', 'screen',
+] as const
+
+export type V08RegionId = typeof V08_REGION_IDS[number]
+export type V08ExpressionKind = typeof V08_EXPRESSION_KINDS[number]
+export type V08BlendMode = typeof V08_BLEND_MODES[number]
+
 export const GENOME_VERSION = '0.1.0' as const
 export const GENOME_LAYERS = ['P', 'H1', 'H2', 'H3'] as const
 export type GenomeLayer = typeof GENOME_LAYERS[number]
@@ -172,7 +191,22 @@ export interface BundlePartComposition extends Omit<AttachmentPartComposition, '
   bundleId: string
 }
 
-export type PartComposition = AttachmentPartComposition | InterfacePartComposition | BundlePartComposition
+export interface SpeciesRigPartComposition extends CompositionMetadata {
+  mode: 'species-rig'
+  speciesRigId: string
+  rigVersion: string
+  sourceMasterSha256: string
+  expressionKind: V08ExpressionKind
+  ownerRegionId: V08RegionId
+  blendMode: V08BlendMode
+  opacity: number
+}
+
+export type PartComposition =
+  | AttachmentPartComposition
+  | InterfacePartComposition
+  | BundlePartComposition
+  | SpeciesRigPartComposition
 
 export function isAttachmentPartComposition(
   composition: PartComposition | undefined,
@@ -246,6 +280,7 @@ export interface MonsterSpec {
   aberrations: ModifierApplication[]
   archetypeId?: AnimalArchetypeId
   anatomyBundleId?: string
+  speciesRigId?: string
 }
 
 export interface ResourceRef {
@@ -271,6 +306,8 @@ export interface AnatomyBundleDefinition {
   derivedSlots: Record<StructuralSlotId, string>
   allowedTraitPools: Record<LocalVisualSlotId, string[]>
   partPools?: Record<VisualSlotId, string[]>
+  speciesRigId?: string
+  sourceMasterSha256?: string
 }
 
 export interface IndependentPartAnatomyBundleDefinition extends AnatomyBundleDefinition {
@@ -391,6 +428,7 @@ export interface Catalog {
   transitionBridges?: TransitionBridgeDefinition[]
   archetypes?: AnimalArchetypeDefinition[]
   anatomyBundles?: AnatomyBundleDefinition[]
+  speciesRigs?: SpeciesRigContract[]
 }
 
 export interface IndependentPartCatalog extends Catalog {
@@ -400,6 +438,32 @@ export interface IndependentPartCatalog extends Catalog {
 
 export function isIndependentPartCatalog(catalog: Catalog): catalog is IndependentPartCatalog {
   return catalog.version === '0.7.0'
+}
+
+export interface SpeciesRigContract {
+  schemaVersion: 'qmonster-species-rig-v1'
+  id: string
+  rigVersion: string
+  archetypeId: AnimalArchetypeId
+  rigId: RigId
+  poseId: string
+  canvas: { width: 2048; height: 2048 }
+  coordinatePolicy: 'fixed-canvas-no-trim'
+  sourceMasterSha256: string
+  regions: Record<V08RegionId, ResourceRef>
+  layerOrder: VisualSlotId[]
+  allowedSlotExpressions: Record<VisualSlotId, V08ExpressionKind>
+}
+
+export interface V08AnatomyBundleDefinition extends IndependentPartAnatomyBundleDefinition {
+  speciesRigId: string
+  sourceMasterSha256: string
+}
+
+export interface V08SpeciesRigCatalog extends Catalog {
+  version: typeof V08_CATALOG_VERSION
+  speciesRigs: SpeciesRigContract[]
+  anatomyBundles: V08AnatomyBundleDefinition[]
 }
 
 export const COMPOSITION_PARENT_BY_SLOT: Record<VisualSlotId, VisualSlotId | null> = {

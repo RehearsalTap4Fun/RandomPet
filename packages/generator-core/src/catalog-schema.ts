@@ -1,6 +1,9 @@
 import { z } from 'zod'
 import {
   SEMANTIC_SLOT_IDS,
+  V08_BLEND_MODES,
+  V08_EXPRESSION_KINDS,
+  V08_REGION_IDS,
   VISUAL_SLOT_IDS,
   isStructuralSlot,
   type Catalog,
@@ -124,10 +127,23 @@ const BundlePartCompositionSchema = z.object({
   renderNodes: z.array(RenderNodeDefinitionSchema),
   geometryByRig: z.partialRecord(RigIdSchema, CompositionGeometrySchema),
 }).strict()
+const V08ExpressionKindSchema = z.enum(V08_EXPRESSION_KINDS)
+const SpeciesRigPartCompositionSchema = z.object({
+  mode: z.literal('species-rig'),
+  ...CompositionMetadataSchema,
+  speciesRigId: nonBlankString,
+  rigVersion: nonBlankString,
+  sourceMasterSha256: sha256,
+  expressionKind: V08ExpressionKindSchema,
+  ownerRegionId: z.enum(V08_REGION_IDS),
+  blendMode: z.enum(V08_BLEND_MODES),
+  opacity: z.number().finite().min(0).max(1),
+}).strict()
 const PartCompositionSchema = z.union([
   AttachmentPartCompositionSchema,
   InterfacePartCompositionSchema,
   BundlePartCompositionSchema,
+  SpeciesRigPartCompositionSchema,
 ])
 const CompositionPolicySchema = z.object({
   motifSlots: z.array(VisualSlotIdSchema),
@@ -221,6 +237,34 @@ const ResourceRefSchema = z.object({
   pngPath: nonBlankString,
   pngSha256: sha256,
 }).strict()
+const V08RegionResourcesSchema = z.object(Object.fromEntries(
+  V08_REGION_IDS.map(regionId => [regionId, ResourceRefSchema]),
+) as Record<typeof V08_REGION_IDS[number], typeof ResourceRefSchema>).strict()
+const V08AllowedSlotExpressionsSchema = z.object(Object.fromEntries(
+  VISUAL_SLOT_IDS.map(slotId => [slotId, V08ExpressionKindSchema]),
+) as unknown as Record<typeof VISUAL_SLOT_IDS[number], typeof V08ExpressionKindSchema>).strict()
+const SpeciesRigContractSchema = z.object({
+  schemaVersion: z.literal('qmonster-species-rig-v1'),
+  id: nonBlankString,
+  rigVersion: nonBlankString,
+  archetypeId: AnimalArchetypeIdSchema,
+  rigId: RigIdSchema,
+  poseId: nonBlankString,
+  canvas: z.object({ width: z.literal(2048), height: z.literal(2048) }).strict(),
+  coordinatePolicy: z.literal('fixed-canvas-no-trim'),
+  sourceMasterSha256: sha256,
+  regions: V08RegionResourcesSchema,
+  layerOrder: z.array(VisualSlotIdSchema).length(VISUAL_SLOT_IDS.length),
+  allowedSlotExpressions: V08AllowedSlotExpressionsSchema,
+}).strict().superRefine((speciesRig, context) => {
+  if (new Set(speciesRig.layerOrder).size !== VISUAL_SLOT_IDS.length) {
+    context.addIssue({
+      code: 'custom',
+      path: ['layerOrder'],
+      message: 'Species rig layer order must contain each visual slot exactly once.',
+    })
+  }
+})
 const AnatomyBundleBaseSchema = z.object({
   id: nonBlankString,
   archetypeId: AnimalArchetypeIdSchema,
@@ -234,6 +278,8 @@ const AnatomyBundleBaseSchema = z.object({
   faceSafeZone: RectSchema,
   featureSockets: z.record(z.string().min(1), Point2DSchema),
   mutationAnchors: z.record(z.string().min(1), RectSchema),
+  speciesRigId: nonBlankString.optional(),
+  sourceMasterSha256: sha256.optional(),
 })
 const AnatomyBundleDefinitionSchema = AnatomyBundleBaseSchema.extend({
   derivedSlots: z.object({
@@ -275,6 +321,10 @@ const IndependentPartAnatomyBundleDefinitionSchema = AnatomyBundleBaseSchema.ext
 }).strict()
 const V07AnatomyBundleDefinitionSchema = AnatomyBundleDefinitionSchema.extend({
   partPools: IndependentPartAnatomyBundleDefinitionSchema.shape.partPools,
+}).strict()
+const V08AnatomyBundleDefinitionSchema = IndependentPartAnatomyBundleDefinitionSchema.extend({
+  speciesRigId: nonBlankString,
+  sourceMasterSha256: sha256,
 }).strict()
 
 const VisualPartDefinitionSchema = z.object({
@@ -353,7 +403,9 @@ export const CatalogSchema = z.object({
     AnatomyBundleDefinitionSchema,
     IndependentPartAnatomyBundleDefinitionSchema,
     V07AnatomyBundleDefinitionSchema,
+    V08AnatomyBundleDefinitionSchema,
   ])).min(1).optional(),
+  speciesRigs: z.array(SpeciesRigContractSchema).min(1).optional(),
 }).superRefine((catalog, context) => {
   const isInterfaceCatalog = catalog.version === '0.3.0' || catalog.version === '0.4.0' || catalog.version === '0.5.0' || catalog.version === '0.7.0'
   if (catalog.version === '0.6.0') {
@@ -473,6 +525,72 @@ export const CatalogSchema = z.object({
           code: 'custom',
           path: ['parts', index, 'archetypeIds'],
           message: 'Catalog 0.7.0 parts support only the feline archetype.',
+        })
+      }
+    }
+  }
+  if (catalog.version === '0.8.0') {
+    if (catalog.speciesRigs === undefined || catalog.speciesRigs.length === 0) {
+      context.addIssue({
+        code: 'custom',
+        path: ['speciesRigs'],
+        message: 'Catalog 0.8.0 requires at least one species rig.',
+      })
+    }
+    if (catalog.anatomyBundles === undefined || catalog.anatomyBundles.length === 0) {
+      context.addIssue({
+        code: 'custom',
+        path: ['anatomyBundles'],
+        message: 'Catalog 0.8.0 requires at least one species-rig anatomy bundle.',
+      })
+    }
+    if (catalog.transitionBridges !== undefined) {
+      context.addIssue({
+        code: 'custom',
+        path: ['transitionBridges'],
+        message: 'Catalog 0.8.0 cannot define transition bridges.',
+      })
+    }
+    if (
+      catalog.archetypes === undefined
+      || catalog.archetypes.length !== 1
+      || catalog.archetypes[0]?.id !== 'feline'
+      || catalog.archetypes[0].rigIds.length !== 1
+      || catalog.archetypes[0].rigIds[0] !== 'feline-sit'
+      || catalog.archetypes[0].defaultRigId !== 'feline-sit'
+    ) {
+      context.addIssue({
+        code: 'custom',
+        path: ['archetypes'],
+        message: 'Catalog 0.8.0 supports only the feline-sit archetype.',
+      })
+    }
+    if (catalog.rigs.length !== 1 || catalog.rigs[0]?.id !== 'feline-sit') {
+      context.addIssue({
+        code: 'custom',
+        path: ['rigs'],
+        message: 'Catalog 0.8.0 requires exactly one feline-sit rig.',
+      })
+    }
+    for (const [index, bundle] of (catalog.anatomyBundles ?? []).entries()) {
+      if (
+        !('partPools' in bundle)
+        || bundle.speciesRigId === undefined
+        || bundle.sourceMasterSha256 === undefined
+      ) {
+        context.addIssue({
+          code: 'custom',
+          path: ['anatomyBundles', index],
+          message: 'Catalog 0.8.0 anatomy bundles require a species rig, master hash, and complete part pools.',
+        })
+      }
+    }
+    for (const [index, part] of catalog.parts.entries()) {
+      if (part.composition?.mode !== 'species-rig') {
+        context.addIssue({
+          code: 'custom',
+          path: ['parts', index, 'composition', 'mode'],
+          message: 'Catalog 0.8.0 parts require species-rig composition metadata.',
         })
       }
     }
