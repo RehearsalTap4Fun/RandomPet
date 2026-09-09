@@ -60,6 +60,7 @@ const SIZE = 2048
 const ATTACHMENT_CLASSES = new Set<AttachmentShapeClass>(['ear-horn-small', 'ear-ornament', 'mane-small', 'collar'])
 const PLACEMENT_KEYS = new Set(['anchor', 'anchorx', 'anchory', 'x', 'y', 'offset', 'position', 'transform', 'translate', 'scale', 'rotation', 'crop', 'zindex', 'layerorder', 'occludermask', 'occludermasks'])
 const PATH_KEYS = new Set(['assetpath', 'path', 'url'])
+const DANGEROUS_STRUCTURE_KEYS = new Set(['__proto__', 'prototype', 'constructor'])
 const EXPECTED_ROLES: Record<TraitKind, readonly string[]> = {
   surface: ['materialOperation'], eyePair: ['underlay', 'content'], mouth: ['mouthBack', 'mouthFront'], oralDetail: ['oralProjection'],
   attachment: ['attachmentBehind', 'attachmentFront'], targetedEffect: ['effectLayer'], ambientEffect: ['effectLayer'],
@@ -108,6 +109,7 @@ function snapshotPureData(value: unknown, ancestors = new WeakSet<object>()): un
     if (Object.getPrototypeOf(value) !== Object.prototype) fail('TRAIT_SCHEMA_INVALID', 'Trait drafts must use ordinary plain-object prototypes.')
     const result: Record<string, unknown> = {}
     for (const key of stringKeys) {
+      if (DANGEROUS_STRUCTURE_KEYS.has(key.toLowerCase())) fail('TRAIT_SCHEMA_INVALID', `Trait drafts cannot contain dangerous structure key: ${key}.`)
       const descriptor = Object.getOwnPropertyDescriptor(value, key)
       if (descriptor === undefined || !Object.hasOwn(descriptor, 'value')) fail('TRAIT_SCHEMA_INVALID', 'Trait drafts cannot contain accessors.')
       result[key] = snapshotPureData(descriptor.value, ancestors)

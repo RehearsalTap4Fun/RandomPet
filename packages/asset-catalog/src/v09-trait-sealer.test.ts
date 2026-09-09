@@ -172,6 +172,14 @@ describe('v0.9 trait sealer', () => {
     expect(calls).toBe(0)
   })
 
+  it('rejects a JSON __proto__ payload before forbidden-key traversal while accepting ordinary metadata', async () => {
+    const { context, draft } = await fixture()
+    const malicious = { ...draft, note: JSON.parse('{"__proto__":{"Anchor":"forbidden"}}') }
+
+    await expect(sealTraitBundle(malicious, context)).rejects.toEqual(errorCode('TRAIT_SCHEMA_INVALID'))
+    await expect(sealTraitBundle({ ...draft, note: { label: 'ordinary metadata' } }, context)).resolves.toMatchObject({ artifact: { kind: 'attachment' } })
+  })
+
   it('uses fixed role order regardless of caller resource insertion order', async () => {
     const { context, draft } = await fixture()
     const reordered = { ...draft, resources: { attachmentFront: draft.resources.attachmentFront, attachmentBehind: draft.resources.attachmentBehind } }
