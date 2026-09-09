@@ -1,10 +1,10 @@
-import { mkdir, mkdtemp, rename, rm, symlink, writeFile } from 'node:fs/promises'
+import { cp, mkdir, mkdtemp, rename, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { dirname, join } from 'node:path'
+import { basename, dirname, join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import sharp from 'sharp'
 import { canonicalJsonBytes, canonicalJsonSha256, decodedPngSha256 } from './v09-content-identity.js'
-import { loadActiveV09Release, resolveV09Resource } from './v09-release-loader.js'
+import { __setV09StableReadHookForTest, loadActiveV09Release, resolveV09Resource } from './v09-release-loader.js'
 
 type JsonRef = { resourceId: string; sha256: string; mediaType: 'application/qmonster-manifest-v1+json' }
 type PngRef = { resourceId: string; sha256: string; mediaType: 'image/png'; width: 2048; height: 2048 }
@@ -172,6 +172,43 @@ describe('active v0.9 release loader', () => {
       } finally {
         await rm(resources, { recursive: true, force: true })
         await rename(heldResources, resources)
+      }
+    })
+  })
+
+  it('rejects a release when the root is replaced for the opened handle then restored', async ({ skip }) => {
+    await withRelease(async ({ root }) => {
+      const original = join(dirname(root), `${basename(root)}-original`)
+      const external = join(dirname(root), `${basename(root)}-external`)
+      let rootMoved = false
+      try {
+        await cp(root, external, { recursive: true })
+        __setV09StableReadHookForTest(async (stage) => {
+          if (stage === 'afterPrecheck') {
+            await rename(root, original)
+            rootMoved = true
+            await symlink(external, root, process.platform === 'win32' ? 'junction' : 'dir')
+          }
+          if (stage === 'afterOpen' && rootMoved) {
+            await rm(root, { recursive: true, force: true })
+            await rename(original, root)
+            rootMoved = false
+          }
+        })
+        await expect(loadActiveV09Release({ root })).rejects.toMatchObject({ code: 'RESOURCE_OUTSIDE_CATALOG_ROOT' })
+      } catch (error) {
+        if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) {
+          skip('directory links are unavailable on this host')
+          return
+        }
+        throw error
+      } finally {
+        __setV09StableReadHookForTest()
+        if (rootMoved) {
+          await rm(root, { recursive: true, force: true })
+          await rename(original, root)
+        }
+        await rm(external, { recursive: true, force: true })
       }
     })
   })

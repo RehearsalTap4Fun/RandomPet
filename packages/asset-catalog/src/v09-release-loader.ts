@@ -1,4 +1,5 @@
-import { lstat, realpath } from 'node:fs/promises'
+import { lstat, open, realpath, stat } from 'node:fs/promises'
+import type { Stats } from 'node:fs'
 import { isAbsolute, join, relative, resolve } from 'node:path'
 import { z } from 'zod'
 import {
@@ -15,9 +16,9 @@ import {
 } from '@qmonster/generator-core'
 import { parseReleaseManifestV09, parseSealedTraitArtifactV1 } from '@qmonster/generator-core'
 import { canonicalJsonSha256, decodedPngSha256, V09CatalogError } from './v09-content-identity.js'
-import { readTrustedRepositoryFile } from './trusted-repository-file.js'
 
 const HASH = /^[a-f0-9]{64}$/
+const STABLE_READ_FAILURE_CODE = 'RESOURCE_OUTSIDE_CATALOG_ROOT'
 const contentId = z.string().regex(/^sha256:[a-f0-9]{64}$/)
 const hash = z.string().regex(HASH)
 const pngRef = z.strictObject({ resourceId: contentId, sha256: hash, mediaType: z.literal('image/png'), width: z.literal(2048), height: z.literal(2048) })
@@ -90,6 +91,18 @@ const assemblyTemplateSchema = z.strictObject({
   compositionGraph: compositionGraphSchema,
 })
 
+type StableReadStage = 'afterPrecheck' | 'afterOpen'
+let stableReadHook: ((stage: StableReadStage) => void | Promise<void>) | undefined
+
+/** @internal Test-only deterministic seam; it is intentionally not exported from the package barrel. */
+export function __setV09StableReadHookForTest(hook?: (stage: StableReadStage) => void | Promise<void>): void {
+  stableReadHook = hook
+}
+
+async function runStableReadHook(stage: StableReadStage): Promise<void> {
+  await stableReadHook?.(stage)
+}
+
 function fail(code: string, message: string, cause?: unknown): never {
   throw new V09CatalogError(code, message, cause === undefined ? undefined : { cause })
 }
@@ -108,6 +121,31 @@ async function directDirectory(path: string, code: string): Promise<string> {
 function contained(root: string, target: string): boolean {
   const pathRelative = relative(root, target)
   return pathRelative === '' || (!pathRelative.startsWith('..') && !isAbsolute(pathRelative))
+}
+
+function sameIdentity(left: Stats, right: Stats): boolean {
+  return left.dev === right.dev && left.ino === right.ino
+}
+
+function sameStableFile(left: Stats, right: Stats): boolean {
+  return sameIdentity(left, right)
+    && left.size === right.size
+    && left.mtimeMs === right.mtimeMs
+    && left.ctimeMs === right.ctimeMs
+    && left.nlink === right.nlink
+}
+
+async function stableRootIdentity(root: string, code: string): Promise<Stats> {
+  let entry: Stats
+  try {
+    entry = await lstat(root)
+  } catch (error) {
+    return fail(code, 'Catalog root became unavailable.', error)
+  }
+  if (!entry.isDirectory() || entry.isSymbolicLink() || await realpath(root) !== root) {
+    fail(code, 'Catalog root is no longer its original direct directory.')
+  }
+  return entry
 }
 
 async function directFile(root: string, segments: string[], code: string): Promise<string> {
@@ -136,17 +174,38 @@ async function directFile(root: string, segments: string[], code: string): Promi
 }
 
 async function trustedFileBytes(root: string, segments: string[], code: string): Promise<Buffer> {
-  await directFile(root, segments, code)
+  const rootBefore = await stableRootIdentity(root, STABLE_READ_FAILURE_CODE)
+  const initialPath = await directFile(root, segments, code)
+  const initialFile = await lstat(initialPath)
+  if (!initialFile.isFile() || initialFile.isSymbolicLink()) fail(code, 'Trusted file is not a direct regular file.')
+  await runStableReadHook('afterPrecheck')
+
+  let handle: Awaited<ReturnType<typeof open>>
   try {
-    const trusted = await readTrustedRepositoryFile(root, segments.join('/'))
-    // Recheck every component after the stable read: the helper's trust root
-    // remains the canonical catalog root rather than a mutable child directory.
-    const finalPath = await directFile(root, segments, code)
-    if (!contained(root, await realpath(finalPath))) fail(code, 'Trusted file escaped the catalog root after read.')
-    return trusted.bytes
+    handle = await open(initialPath, 'r')
   } catch (error) {
-    if (error instanceof V09CatalogError) throw error
-    return fail(code, 'Trusted file failed its stable identity check.', error)
+    return fail(code, 'Trusted file could not be opened.', error)
+  }
+  try {
+    await runStableReadHook('afterOpen')
+    const openedBeforeRead = await handle.stat()
+    if (!openedBeforeRead.isFile() || !sameStableFile(initialFile, openedBeforeRead)) {
+      fail(STABLE_READ_FAILURE_CODE, 'Opened file does not match the initially trusted file.')
+    }
+    const bytes = await handle.readFile()
+    const openedAfterRead = await handle.stat()
+    if (!sameStableFile(openedBeforeRead, openedAfterRead)) fail(STABLE_READ_FAILURE_CODE, 'Trusted file changed while being read.')
+
+    const rootAfter = await stableRootIdentity(root, STABLE_READ_FAILURE_CODE)
+    if (!sameIdentity(rootBefore, rootAfter)) fail(STABLE_READ_FAILURE_CODE, 'Catalog root identity changed while reading.')
+    const finalPath = await directFile(root, segments, code)
+    const finalFile = await stat(finalPath)
+    if (!sameStableFile(openedAfterRead, finalFile) || !contained(root, await realpath(finalPath))) {
+      fail(STABLE_READ_FAILURE_CODE, 'Opened file no longer matches the final trusted catalog path.')
+    }
+    return bytes
+  } finally {
+    await handle.close()
   }
 }
 
