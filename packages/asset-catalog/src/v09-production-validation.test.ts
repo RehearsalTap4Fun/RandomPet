@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { mkdtemp, mkdir, readFile, readdir, realpath, rename, rm, symlink, writeFile } from 'node:fs/promises'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
@@ -11,15 +11,45 @@ import { canonicalJsonBytes, canonicalJsonSha256, decodedPngSha256 } from './v09
 import { __setV09AssemblyFailureHookForTest, assembleV09Release, validateV09CandidatePointer, validateV09Release, type V09ContentRecordV1, type V09ReleaseCandidate } from './v09-production-validation.js'
 import { runV09ValidationCli } from './v09-cli.js'
 
+const ioFault = vi.hoisted(() => ({ role: '', phase: '', fired: false, foreign: false }))
+vi.mock('node:fs/promises', async importOriginal => {
+  const fs = await importOriginal<typeof import('node:fs/promises')>()
+  const isTarget = (path: unknown) => typeof path === 'string' && (ioFault.role === 'owner' ? /[\\/]\.qmonster-v09-assemble-lock[\\/]owner$/.test(path) : ioFault.role === 'blocker' && /[\\/]\.qmonster-v09-release-gate[\\/][^\\/]+$/.test(path))
+  const inject = async (path: string) => {
+    ioFault.fired = true
+    if (ioFault.foreign) { await fs.rename(path, path + '.foreign-held'); await fs.writeFile(path, 'foreign-replacement') }
+    throw new Error('injected-' + ioFault.role + '-' + ioFault.phase)
+  }
+  return { ...fs,
+    writeFile: async (...args: Parameters<typeof fs.writeFile>) => {
+      await fs.writeFile(...args)
+      if (!ioFault.fired && isTarget(args[0])) await inject(String(args[0]))
+    },
+    open: async (...args: Parameters<typeof fs.open>) => {
+      const handle = await fs.open(...args)
+      if (args[1] !== 'wx' || !isTarget(args[0])) return handle
+      return new Proxy(handle, { get(target, key) {
+        const value = Reflect.get(target, key, target)
+        if (key === 'writeFile' || key === 'close') return async (...callArgs: unknown[]) => {
+          const result = await value.apply(target, callArgs)
+          if (!ioFault.fired && (key === 'writeFile' ? ioFault.phase === 'write' : ioFault.phase === 'close')) await inject(String(args[0]))
+          return result
+        }
+        return typeof value === 'function' ? value.bind(target) : value
+      } })
+    },
+  }
+})
+
 type JsonRef = { resourceId: string; sha256: string; mediaType: 'application/qmonster-manifest-v1+json' }
 type PngRef = { resourceId: string; sha256: string; mediaType: 'image/png'; width: 2048; height: 2048 }
 const graph = { schemaVersion: 'qmonster-composition-graph-v1', orderedNodes: [...V09_COMPOSITION_NODE_IDS], blendMode: 'source-over-premultiplied-srgb', transformPolicy: 'identity-only' }
 const jsonRef = (value: unknown): JsonRef => { const sha256 = canonicalJsonSha256(value); return { resourceId: `sha256:${sha256}`, sha256, mediaType: 'application/qmonster-manifest-v1+json' } }
 
-async function fixture(): Promise<V09ReleaseCandidate> {
+async function fixture(materialOverride?: Record<string, unknown>): Promise<V09ReleaseCandidate> {
   const image = await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 9, g: 8, b: 7, alpha: 1 } } }).png().toBuffer()
   const digest = await decodedPngSha256(image); const png: PngRef = { resourceId: `sha256:${digest}`, sha256: digest, mediaType: 'image/png', width: 2048, height: 2048 }
-  const material = { ownerMaterialId: 'owner' }; const materialRef = jsonRef(material)
+  const material = materialOverride ?? { schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorLut: [0, 0.5, 1], alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'replace-color' }; const materialRef = { ...jsonRef(material), mediaType: 'application/qmonster-material-v1+json' as const }
   const families = ['base', 'legendary'].map((id, position) => ({ schemaVersion: 'qmonster-skeleton-family-v1', skeletonFamilyId: id, skeletonClass: position === 0 ? 'base' as const : 'legendary' as const, structuralShapeClasses: ['feline-standard'], archetypeId: 'feline', poseId: 'sit', speciesRigId: 'feline-sit-v2', canvas: { width: 2048, height: 2048 }, neutralMaster: png, materialMap: png, fixedOccluderMasks: { fixed: png }, assemblyTemplateId: `template-${id}` }))
   const templates = families.map(family => ({ schemaVersion: 'qmonster-assembly-template-v1', assemblyTemplateId: family.assemblyTemplateId, skeletonFamilyId: family.skeletonFamilyId, canvas: { width: 2048, height: 2048 }, neutralMasterSha256: digest, slots: {
     surface: ['bodyColor', 'surfacePattern', 'surfaceTexture', 'forepawDetail', 'hindpawDetail', 'tailSurface'].map(slotId => ({ kind: 'surface' as const, slotId, ownerMaterialId: 'owner', authoringZone: png })),
@@ -27,8 +57,10 @@ async function fixture(): Promise<V09ReleaseCandidate> {
     attachment: ['headAppendage', 'extraAppendage'].map(slotId => ({ kind: 'attachment' as const, slotId, attachmentInterface: { interfaceId: `${slotId}-interface`, allowedShapeClasses: ['ear-horn-small'] as const, allowedZone: png, rearRootStencil: png, fixedOccluderMaskId: 'fixed' } })), effect: [{ kind: 'ambientEffect' as const, slotId: 'effect', zoneId: 'background' as const, authoringZone: png, compositionNode: 'backgroundEffect' as const }],
   }, compositionGraph: graph }))
   const inventory = { schemaVersion: 'qmonster-trait-inventory-v1' as const, traits: V09_TRAIT_SLOT_IDS.flatMap(slotId => (['common', 'rare', 'legendary'] as const).flatMap((rarity, tier) => Array.from({ length: [8, 4, 1][tier]! }, (_, index) => ({ slotId, traitId: slotId === 'oralDetail' && rarity === 'common' && index === 0 ? 'oral-none' : `${slotId}-${rarity}-${index}`, rarity, ...(slotId === 'oralDetail' ? { oralSocketClass: index === 0 && rarity === 'common' ? 'oral-none' : 'open' } : {}) })))) }
+  const overlays = templates.map(template => ({ schemaVersion: 'qmonster-overlay-policy-v1', skeletonFamilyId: template.skeletonFamilyId, assemblyTemplateSha256: canonicalJsonSha256(template), fullContextOverlay: png, previewPolicy: 'full-context-identity-only' }))
   const sealedTraits = families.flatMap(family => inventory.traits.map(entry => {
     const template = templates.find(item => item.skeletonFamilyId === family.skeletonFamilyId)!; const common = { schemaVersion: 'qmonster-sealed-trait-v1' as const, traitId: entry.traitId, rarity: entry.rarity, skeletonFamilyId: family.skeletonFamilyId, assemblyTemplateId: template.assemblyTemplateId, assemblyTemplateSha256: canonicalJsonSha256(template), neutralMasterSha256: digest, authoringInputs: [png], fullContextPreview: png, sealerVersion: '0.9.0' }
+    common.authoringInputs.push(jsonRef(overlays.find(item => item.skeletonFamilyId === family.skeletonFamilyId)) as any)
     if (entry.slotId === 'eyes') return { ...common, kind: 'eyePair' as const, slotId: 'eyes' as const, runtimeResources: { underlay: png, content: png } }
     if (entry.slotId === 'mouthShape') return { ...common, kind: 'mouth' as const, slotId: 'mouthShape' as const, oralSocketClass: 'open', runtimeResources: { mouthBack: png, mouthFront: png } }
     if (entry.slotId === 'oralDetail') return { ...common, kind: 'oralDetail' as const, slotId: 'oralDetail' as const, runtimeResources: { oralProjection: png } }
@@ -39,10 +71,10 @@ async function fixture(): Promise<V09ReleaseCandidate> {
   const traitApprovals = sealedTraits.map(artifact => ({ schemaVersion: 'qmonster-trait-visual-approval-v1' as const, skeletonFamilyId: artifact.skeletonFamilyId, assemblyTemplateSha256: artifact.assemblyTemplateSha256, sealedArtifactSha256: canonicalJsonSha256(artifact), fullContextPreviewSha256: digest, approvedBy: 'artist', approvedAt: '2026-09-09T00:00:00.000Z', approvalRevision: 1, status: 'approved' as const }))
   const allowlist = { schemaVersion: 'qmonster-approved-attachment-allowlist-v1' as const, entries: sealedTraits.filter(item => item.kind === 'attachment').map(artifact => ({ skeletonFamilyId: artifact.skeletonFamilyId, interfaceId: artifact.interfaceId, shapeClass: artifact.shapeClass, sealedArtifactSha256: canonicalJsonSha256(artifact), traitVisualApprovalSha256: canonicalJsonSha256(traitApprovals.find(item => item.sealedArtifactSha256 === canonicalJsonSha256(artifact))!) })) }
   const pool = { schemaVersion: 'qmonster-skeleton-pool-v1', skeletonPoolId: 'pool', candidates: [{ skeletonFamilyId: 'base', skeletonClass: 'base' as const, weight: 8 as const }, { skeletonFamilyId: 'legendary', skeletonClass: 'legendary' as const, weight: 1 as const }] }
-  const approvals = families.map(family => { const template = templates.find(item => item.skeletonFamilyId === family.skeletonFamilyId)!; return { schemaVersion: 'qmonster-assembly-approval-v1' as const, skeletonFamilyId: family.skeletonFamilyId, assemblyTemplateId: template.assemblyTemplateId, assemblyTemplateSha256: canonicalJsonSha256(template), neutralMasterSha256: digest, materialMapSha256: digest, fixedOccluderMasksSha256: canonicalJsonSha256(family.fixedOccluderMasks), attachmentAllowlistSha256: canonicalJsonSha256(allowlist), compositionGraphSha256: canonicalJsonSha256(graph), overlayPolicySha256: 'a'.repeat(64), approvedBy: 'artist', approvedAt: '2026-09-09T00:00:00.000Z', approvalRevision: 1, status: 'approved' as const } })
+  const approvals = families.map(family => { const template = templates.find(item => item.skeletonFamilyId === family.skeletonFamilyId)!; return { schemaVersion: 'qmonster-assembly-approval-v1' as const, skeletonFamilyId: family.skeletonFamilyId, assemblyTemplateId: template.assemblyTemplateId, assemblyTemplateSha256: canonicalJsonSha256(template), neutralMasterSha256: digest, materialMapSha256: digest, fixedOccluderMasksSha256: canonicalJsonSha256(family.fixedOccluderMasks), attachmentAllowlistSha256: canonicalJsonSha256(allowlist), compositionGraphSha256: canonicalJsonSha256(graph), overlaySha256: canonicalJsonSha256(overlays.find(item => item.skeletonFamilyId === family.skeletonFamilyId)), approvedBy: 'artist', approvedAt: '2026-09-09T00:00:00.000Z', approvalRevision: 1, status: 'approved' as const } })
   const speciesRig = { speciesRigId: 'feline-sit-v2' }
   const manifest = { schemaVersion: 'qmonster-release-v1', versionTuple: { schemaVersion: '0.4.0', catalogVersion: '0.9.0', generatorVersion: '0.9.0' }, speciesRig: jsonRef(speciesRig), skeletonPool: jsonRef(pool), skeletonFamilies: families.map(jsonRef), assemblyTemplates: templates.map(jsonRef), approvals: approvals.map(jsonRef), traitApprovals: traitApprovals.map(jsonRef), traitInventory: jsonRef(inventory), sealedTraits: sealedTraits.map(jsonRef), compositionGraph: jsonRef(graph), rendererBuildSha256: 'b'.repeat(64) }
-  const docs = [speciesRig, pool, ...families, ...templates, ...approvals, ...traitApprovals, allowlist, inventory, ...sealedTraits, graph]
+  const docs = [speciesRig, pool, ...families, ...templates, ...approvals, ...traitApprovals, allowlist, inventory, ...sealedTraits, graph, ...overlays]
   const resources: V09ContentRecordV1[] = [{ ref: png as any, bytes: image }, { ref: materialRef as any, bytes: canonicalJsonBytes(material) }, ...docs.map(value => ({ ref: jsonRef(value) as any, bytes: canonicalJsonBytes(value) }))]
   return { releaseManifest: manifest, speciesRig, skeletonPool: pool, skeletonFamilies: families, assemblyTemplates: templates, assemblyApprovals: approvals, traitApprovals, attachmentAllowlist: allowlist, traitInventory: inventory, sealedTraits, compositionGraph: graph, resources }
 }
@@ -54,7 +86,7 @@ function recatalog(candidate: V09ReleaseCandidate): V09ReleaseCandidate {
   c.assemblyApprovals = c.assemblyApprovals.map((item: any) => ({ ...item, attachmentAllowlistSha256: canonicalJsonSha256(c.attachmentAllowlist) }))
   const manifest = { ...c.releaseManifest, speciesRig: jsonRef(c.speciesRig), skeletonPool: jsonRef(c.skeletonPool), skeletonFamilies: c.skeletonFamilies.map(jsonRef), assemblyTemplates: c.assemblyTemplates.map(jsonRef), approvals: c.assemblyApprovals.map(jsonRef), traitApprovals: c.traitApprovals.map(jsonRef), traitInventory: jsonRef(c.traitInventory), sealedTraits: c.sealedTraits.map(jsonRef), compositionGraph: jsonRef(c.compositionGraph) }
   const docs = [c.speciesRig, c.skeletonPool, ...c.skeletonFamilies, ...c.assemblyTemplates, ...c.assemblyApprovals, ...c.traitApprovals, c.attachmentAllowlist, c.traitInventory, ...c.sealedTraits, c.compositionGraph]
-  const leaf = candidate.resources.filter(resource => resource.ref.mediaType === 'image/png' || JSON.parse(Buffer.from(resource.bytes).toString()).ownerMaterialId)
+  const leaf = candidate.resources.filter(resource => resource.ref.mediaType === 'image/png' || ['qmonster-material-v1', 'qmonster-overlay-policy-v1'].includes(JSON.parse(Buffer.from(resource.bytes).toString()).schemaVersion))
   return { ...candidate, releaseManifest: manifest, resources: [...leaf, ...new Map(docs.map(value => [canonicalJsonSha256(value), { ref: jsonRef(value), bytes: canonicalJsonBytes(value) }])).values()] as V09ContentRecordV1[] }
 }
 
@@ -73,6 +105,95 @@ async function files(root: string, prefix = ''): Promise<string[]> {
   const entries = await readdir(join(root, prefix), { withFileTypes: true })
   return (await Promise.all(entries.map(entry => entry.isDirectory() ? files(root, join(prefix, entry.name)) : [join(prefix, entry.name)]))).flat().sort()
 }
+
+describe('v0.9 round 5 contracts', () => {
+  it.each(['owner-write', 'owner-close', 'blocker-write', 'blocker-close'])('cleans partial %s initialization and permits the next assembler', async mode => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-partial-lock-')); const candidate = await fixture()
+    Object.assign(ioFault, { role: mode.split('-')[0], phase: mode.split('-')[1], fired: false, foreign: false })
+    try {
+      const error = await assembleV09Release({ root, candidate }).catch(error => error)
+      expect(ioFault.fired).toBe(true)
+      expect(error).toBeInstanceOf(Error)
+      expect((await readdir(root)).filter(name => name.startsWith('.qmonster-v09-staging-') || name.startsWith('.qmonster-v09-assemble-lock'))).toEqual([])
+      expect(await readdir(join(root, '.qmonster-v09-release-gate'))).toEqual([])
+      Object.assign(ioFault, { role: '' })
+      await expect(assembleV09Release({ root, candidate })).resolves.toHaveProperty('releaseManifestSha256')
+    } finally { Object.assign(ioFault, { role: '', phase: '', fired: false, foreign: false }); await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it.each(['owner', 'blocker'])('preserves foreign replacement during %s initialization cleanup', async role => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-partial-foreign-')); const candidate = await fixture()
+    Object.assign(ioFault, { role, phase: 'close', fired: false, foreign: true })
+    try {
+      await expect(assembleV09Release({ root, candidate })).rejects.toBeInstanceOf(Error)
+      expect(ioFault.fired).toBe(true)
+      const names = await files(root); const path = names.find(name => role === 'owner' ? name.endsWith('owner') : name.startsWith('.qmonster-v09-release-gate') && !name.endsWith('.foreign-held'))!
+      expect(await readFile(join(root, path), 'utf8')).toBe('foreign-replacement')
+    } finally { Object.assign(ioFault, { role: '', phase: '', fired: false, foreign: false }); await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it('accepts the real finite colorLut material in the complete 312 fixture', async () => {
+    expect(await validateV09Release(await fixture())).toEqual([])
+  }, 30000)
+
+  it.each(['missing-schema', 'missing-alpha', 'missing-blend', 'extra', 'policy', 'blend', 'empty-owner', 'no-color', 'empty-lut', 'huge-lut', 'nonfinite-lut', 'bad-color-ref'])('rejects strict material %s through validator and CLI', async mode => {
+    const material: any = { schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorLut: [0, 1], alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'replace-color' }
+    if (mode === 'missing-schema') delete material.schemaVersion
+    if (mode === 'missing-alpha') delete material.alphaPolicy
+    if (mode === 'missing-blend') delete material.blendMode
+    if (mode === 'extra') material.extra = true
+    if (mode === 'policy') material.alphaPolicy = 'replace-alpha'
+    if (mode === 'blend') material.blendMode = 'arbitrary'
+    if (mode === 'empty-owner') material.ownerMaterialId = ''
+    if (mode === 'no-color') delete material.colorLut
+    if (mode === 'empty-lut') material.colorLut = []
+    if (mode === 'huge-lut') material.colorLut = Array(1025).fill(0)
+    // JSON exponent overflow parses to Infinity while remaining valid JSON.
+    if (mode === 'nonfinite-lut') material.colorLut = [null]
+    if (mode === 'bad-color-ref') material.colorMap = { resourceId: 'bad' }
+    const candidate = await fixture(material)
+    if (mode === 'nonfinite-lut') candidate.resources[1]!.bytes = Buffer.from(Buffer.from(candidate.resources[1]!.bytes).toString().replace('[null]', '[1e999]'))
+    expect((await validateV09Release(candidate)).some(item => item.code === 'RESOURCE_HASH_MISMATCH')).toBe(true)
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-material-'))
+    try { expect(await runV09ValidationCli(['--release-pointer', await publishUnchecked(root, candidate)])).toBe(1) }
+    finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it('resolves a PNG reachable only inside material colorMap and rejects its tampering in validator and CLI', async () => {
+    const image = await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 77, g: 22, b: 1, alpha: 1 } } }).png().toBuffer()
+    const sha256 = await decodedPngSha256(image)
+    const png: PngRef = { resourceId: `sha256:${sha256}`, sha256, mediaType: 'image/png', width: 2048, height: 2048 }
+    const candidate = await fixture({ schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorMap: png, alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'multiply' })
+    candidate.resources.push({ ref: png, bytes: image })
+    expect(await validateV09Release(candidate)).toEqual([])
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-material-png-'))
+    try {
+      const pointer = await publishUnchecked(root, candidate)
+      expect(await runV09ValidationCli(['--release-pointer', pointer])).toBe(0)
+      candidate.resources.at(-1)!.bytes = Buffer.from('tampered')
+      expect((await validateV09Release(candidate)).some(item => item.code === 'RESOURCE_HASH_MISMATCH')).toBe(true)
+      await writeFile(join(root, 'resources', 'by-sha256', sha256), 'tampered')
+      expect(await runV09ValidationCli(['--release-pointer', pointer])).toBe(1)
+    } finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it.each(['missing', 'random', 'cross-wire', 'alias', 'missing-source', 'unreferenced-source', 'missing-resource', 'tampered-source'])('rejects overlay %s binding with the same diagnostic in validator and CLI', async mode => {
+    let c = await fixture() as any
+    if (mode === 'missing') delete c.assemblyApprovals[0].overlaySha256
+    if (mode === 'random') c.assemblyApprovals[0].overlaySha256 = 'f'.repeat(64)
+    if (mode === 'cross-wire') c.assemblyApprovals[0].overlaySha256 = c.assemblyApprovals[1].overlaySha256
+    if (mode === 'alias') { c.assemblyApprovals[0].overlayPolicySha256 = c.assemblyApprovals[0].overlaySha256; delete c.assemblyApprovals[0].overlaySha256 }
+    if (mode === 'unreferenced-source' || mode === 'missing-source') for (const trait of c.sealedTraits) trait.authoringInputs = trait.authoringInputs.filter((ref: any) => ref.sha256 !== c.assemblyApprovals[0].overlaySha256)
+    if (mode === 'missing-source') c.resources = c.resources.filter((resource: any) => resource.ref.sha256 !== c.assemblyApprovals[0].overlaySha256)
+    c = recatalog(c)
+    if (mode === 'missing-resource') c.resources = c.resources.filter((resource: any) => resource.ref.sha256 !== c.assemblyApprovals[0].overlaySha256)
+    if (mode === 'tampered-source') { const resource = c.resources.find((resource: any) => resource.ref.sha256 === c.assemblyApprovals[0].overlaySha256); const policy = JSON.parse(Buffer.from(resource.bytes).toString()); policy.previewPolicy = 'different-policy'; resource.bytes = canonicalJsonBytes(policy) }
+    expect((await validateV09Release(c)).some(item => item.code === 'ASSEMBLY_TEMPLATE_HASH_MISMATCH')).toBe(true)
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-overlay-'))
+    try { const pointer = await publishUnchecked(root, c); expect((await validateV09CandidatePointer({ root: await realpath(root), releasePointer: pointer })).some(item => item.code === 'ASSEMBLY_TEMPLATE_HASH_MISMATCH')).toBe(true) }
+    finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+})
 
 describe('v0.9 round 4 boundaries', () => {
   it.each([

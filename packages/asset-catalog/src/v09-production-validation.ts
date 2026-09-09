@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto'
-import { link, lstat, mkdir, open, readdir, realpath, rename, rmdir, unlink, writeFile } from 'node:fs/promises'
+import { link, lstat, mkdir, open, readdir, realpath, rename, rmdir, unlink } from 'node:fs/promises'
 import type { Stats } from 'node:fs'
 import { dirname, isAbsolute, join, parse, relative, resolve, sep } from 'node:path'
 import { z } from 'zod'
@@ -36,6 +36,10 @@ export function __setV09AssemblyFailureHookForTest(hook?: (stage: AssemblyStage)
 const idSchema = z.string().min(1).max(512).refine(value => value.trim() === value && !/[\\/]|:\/\//.test(value))
 const hashSchema = z.string().regex(HASH)
 const pngSchema = z.strictObject({ resourceId: z.string().regex(/^sha256:[a-f0-9]{64}$/), sha256: hashSchema, mediaType: z.literal('image/png'), width: z.literal(2048), height: z.literal(2048) })
+const materialSchema = z.strictObject({ schemaVersion: z.literal('qmonster-material-v1'), ownerMaterialId: idSchema, colorMap: pngSchema.optional(), colorLut: z.array(z.number().finite()).min(1).max(1024).optional(), alphaPolicy: z.literal('preserve-skeleton-alpha'), blendMode: z.enum(['replace-color', 'multiply', 'overlay']) }).refine(value => value.colorMap !== undefined || value.colorLut !== undefined, 'A material operation requires colorMap or colorLut.')
+// An independent, content-addressed input of every projection in this family.
+// It binds the template and actual overlay without referring back to approvals.
+const overlaySchema = z.strictObject({ schemaVersion: z.literal('qmonster-overlay-policy-v1'), skeletonFamilyId: idSchema, assemblyTemplateSha256: hashSchema, fullContextOverlay: pngSchema, previewPolicy: z.literal('full-context-identity-only') })
 const canvasSchema = z.strictObject({ width: z.literal(2048), height: z.literal(2048) })
 const boundedRecord = <T extends z.ZodType>(schema: T) => z.record(idSchema, schema).refine(value => Object.keys(value).length <= MAX_ARRAY)
 const graphSchema = z.strictObject({ schemaVersion: z.literal('qmonster-composition-graph-v1'), orderedNodes: z.array(z.enum(V09_COMPOSITION_NODE_IDS)).max(21), blendMode: z.literal('source-over-premultiplied-srgb'), transformPolicy: z.literal('identity-only') })
@@ -74,7 +78,7 @@ export interface AssemblyApprovalV1 {
   fixedOccluderMasksSha256: string
   attachmentAllowlistSha256: string
   compositionGraphSha256: string
-  overlayPolicySha256: string
+  overlaySha256: string
   approvedBy: string
   approvedAt: string
   approvalRevision: number
@@ -264,10 +268,11 @@ function validInstant(value: Pure | undefined): boolean {
 }
 
 function validateApprovalDocuments(assemblies: Pure[], traits: Pure[], allowlist: Pure | undefined, inventory: Pure | undefined, diagnostics: Diagnostic[]): void {
-  const assemblyKeys = ['schemaVersion', 'skeletonFamilyId', 'assemblyTemplateId', 'assemblyTemplateSha256', 'neutralMasterSha256', 'materialMapSha256', 'fixedOccluderMasksSha256', 'attachmentAllowlistSha256', 'compositionGraphSha256', 'overlayPolicySha256', 'approvedBy', 'approvedAt', 'approvalRevision', 'status'] as const
+  const assemblyKeys = ['schemaVersion', 'skeletonFamilyId', 'assemblyTemplateId', 'assemblyTemplateSha256', 'neutralMasterSha256', 'materialMapSha256', 'fixedOccluderMasksSha256', 'attachmentAllowlistSha256', 'compositionGraphSha256', 'overlaySha256', 'approvedBy', 'approvedAt', 'approvalRevision', 'status'] as const
   const traitKeys = ['schemaVersion', 'skeletonFamilyId', 'assemblyTemplateSha256', 'sealedArtifactSha256', 'fullContextPreviewSha256', 'approvedBy', 'approvedAt', 'approvalRevision', 'status'] as const
   for (const [index, value] of assemblies.entries()) {
     const item = record(value, diagnostics, ['assemblyApprovals', String(index)], assemblyKeys)
+    if (!hash(item?.overlaySha256)) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_HASH_MISMATCH', ['assemblyApprovals', String(index), 'overlaySha256'], 'Assembly approval requires the exact overlay policy digest.'))
     if (item === undefined || item.schemaVersion !== 'qmonster-assembly-approval-v1' || !text(item.skeletonFamilyId) || !text(item.assemblyTemplateId) || assemblyKeys.filter(key => key.endsWith('Sha256')).some(key => !hash(item[key])) || !text(item.approvedBy) || typeof item.approvalRevision !== 'number' || !Number.isInteger(item.approvalRevision) || item.approvalRevision <= 0 || (item.status !== 'approved' && item.status !== 'revoked')) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_UNAPPROVED', ['assemblyApprovals', String(index)], 'Assembly approval is not a strict approved-design record.'))
     if (!validInstant(item?.approvedAt)) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_UNAPPROVED', ['assemblyApprovals', String(index), 'approvedAt'], 'Expected a valid ISO instant.'))
   }
@@ -323,13 +328,21 @@ async function parseAndValidateV09Release(input: unknown): Promise<{ candidate?:
   const declaredDocs = new Set([candidate.speciesRig, candidate.skeletonPool, ...candidate.skeletonFamilies, ...candidate.assemblyTemplates, ...candidate.assemblyApprovals, ...candidate.traitApprovals, candidate.attachmentAllowlist, candidate.traitInventory, ...candidate.sealedTraits, candidate.compositionGraph].map(canonicalOrEmpty))
   // Inspect JSON bytes too: forbidden fields and nested refs cannot hide in a
   // resource record whose outer candidate representation happened to be valid.
+  const payloads = new Map<string, Pure>()
   for (const resource of candidate.resources) if (resource.ref.mediaType !== 'image/png') {
     const path = ['resources', resource.ref.resourceId]
     try {
       const payload = snapshot(JSON.parse(Buffer.from(resource.bytes).toString('utf8')), path)
+      payloads.set(resource.ref.resourceId, payload)
       forbidden(payload, diagnostics, path)
-      if (!declaredDocs.has(canonicalOrEmpty(payload))) schemaCheck(z.strictObject({ ownerMaterialId: idSchema }), payload, path, 'RESOURCE_HASH_MISMATCH', diagnostics)
+      if (resource.ref.mediaType === 'application/qmonster-material-v1+json' || !declaredDocs.has(canonicalOrEmpty(payload))) schemaCheck((payload as Record<string, Pure>)?.schemaVersion === 'qmonster-overlay-policy-v1' && resource.ref.mediaType === 'application/qmonster-manifest-v1+json' ? overlaySchema : materialSchema, payload, path, 'RESOURCE_HASH_MISMATCH', diagnostics)
     } catch { diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', path, 'Resource must contain strict plain JSON.')) }
+  }
+  // Expand only reachable JSON documents: an orphan cannot make its own children
+  // reachable. Map iteration also visits refs discovered in nested materials.
+  for (const [resourceId] of requiredRefs) {
+    const payload = payloads.get(resourceId)
+    if (payload !== undefined) refsFrom(payload, requiredRefs, diagnostics, ['resources', resourceId])
   }
   for (const [resourceId, declared] of requiredRefs) {
     const supplied = resourceById.get(resourceId)
@@ -342,6 +355,7 @@ async function parseAndValidateV09Release(input: unknown): Promise<{ candidate?:
 
   validatePoolAndFamilies(candidate, diagnostics)
   validateGraph(candidate.compositionGraph, diagnostics)
+  validateOverlayBindings(candidate, payloads, diagnostics)
   const inventory = validateInventory(candidate.traitInventory, diagnostics)
   // Report independent graph/inventory/resource failures even if another
   // document is malformed; only cross-document relations need parsed shapes.
@@ -531,6 +545,21 @@ function validateArtifactRoles(artifact: SealedTraitArtifactV1, family: Record<s
   }
 }
 
+function validateOverlayBindings(candidate: V09ReleaseCandidate, payloads: Map<string, Pure>, diagnostics: Diagnostic[]): void {
+  for (const [index, rawTemplate] of candidate.assemblyTemplates.entries()) {
+    const template = rawTemplate as Record<string, unknown> | null
+    if (!template) continue
+    const policies = [...payloads.entries()].filter(([, payload]) => (payload as Record<string, Pure> | null)?.schemaVersion === 'qmonster-overlay-policy-v1' && (payload as Record<string, Pure>).skeletonFamilyId === template.skeletonFamilyId)
+    const [resourceId, payload] = policies[0] ?? []
+    const policy = overlaySchema.safeParse(payload)
+    const digest = canonicalOrEmpty(payload)
+    const approval = candidate.assemblyApprovals.find(item => item?.skeletonFamilyId === template.skeletonFamilyId)
+    const artifacts = candidate.sealedTraits.filter(value => (value as Record<string, unknown> | null)?.skeletonFamilyId === template.skeletonFamilyId) as Array<Record<string, unknown>>
+    const expected = { resourceId: 'sha256:' + digest, sha256: digest, mediaType: 'application/qmonster-manifest-v1+json' }
+    if (policies.length !== 1 || !policy.success || resourceId !== expected.resourceId || policy.data.assemblyTemplateSha256 !== canonicalOrEmpty(template) || approval?.overlaySha256 !== digest || artifacts.length === 0 || artifacts.some(artifact => !Array.isArray(artifact.authoringInputs) || artifact.authoringInputs.filter(value => equalJson(value, expected)).length !== 1)) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_HASH_MISMATCH', ['assemblyApprovals', String(index), 'overlaySha256'], 'Approval must bind one exact template-owned overlay policy referenced by every family projection.'))
+  }
+}
+
 function validateApprovals(candidate: V09ReleaseCandidate, projections: Map<string, { artifact: SealedTraitArtifactV1; hash: string }>, diagnostics: Diagnostic[]): void {
   const allowlist = candidate.attachmentAllowlist as unknown as Record<string, unknown>
   const entries = Array.isArray(allowlist?.entries) ? allowlist.entries as Record<string, unknown>[] : []
@@ -560,7 +589,7 @@ function validateApprovals(candidate: V09ReleaseCandidate, projections: Map<stri
     const value = family as Record<string, unknown>; const id = String(value.skeletonFamilyId); const template = candidate.assemblyTemplates.find(item => (item as Record<string, unknown>).skeletonFamilyId === id) as Record<string, unknown> | undefined; const approvals = assemblies.get(id) ?? []; const approval = approvals[0]
     const masksHash = canonicalOrEmpty(value.fixedOccluderMasks)
     if (approvals.length !== 1 || approval?.status !== 'approved') diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_UNAPPROVED', ['assemblyApprovals', String(index)], 'Family requires exactly one approved, non-revoked assembly approval.'))
-    else if (template === undefined || approval.assemblyTemplateId !== template.assemblyTemplateId || approval.assemblyTemplateSha256 !== canonicalOrEmpty(template) || approval.neutralMasterSha256 !== (value.neutralMaster as Record<string, unknown> | undefined)?.sha256 || approval.materialMapSha256 !== (value.materialMap as Record<string, unknown> | undefined)?.sha256 || approval.fixedOccluderMasksSha256 !== masksHash || approval.attachmentAllowlistSha256 !== allowlistHash || approval.compositionGraphSha256 !== canonicalOrEmpty(candidate.compositionGraph) || !HASH.test(approval.overlayPolicySha256)) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_HASH_MISMATCH', ['assemblyApprovals', String(index)], 'Assembly approval does not bind the exact template/family/allowlist/graph identities.'))
+    else if (template === undefined || approval.assemblyTemplateId !== template.assemblyTemplateId || approval.assemblyTemplateSha256 !== canonicalOrEmpty(template) || approval.neutralMasterSha256 !== (value.neutralMaster as Record<string, unknown> | undefined)?.sha256 || approval.materialMapSha256 !== (value.materialMap as Record<string, unknown> | undefined)?.sha256 || approval.fixedOccluderMasksSha256 !== masksHash || approval.attachmentAllowlistSha256 !== allowlistHash || approval.compositionGraphSha256 !== canonicalOrEmpty(candidate.compositionGraph)) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_HASH_MISMATCH', ['assemblyApprovals', String(index)], 'Assembly approval does not bind the exact template/family/allowlist/graph identities.'))
   }
   for (const item of projections.values()) {
     const artifact = item.artifact; const matching = traits.get(`${artifact.skeletonFamilyId}\u0000${item.hash}`) ?? []; const approval = matching[0]
@@ -638,6 +667,39 @@ async function trustedRead(root: string, rootIdentity: Stats, path: string): Pro
   return state.bytes
 }
 
+function withCleanupCause(error: unknown, label: string, cause: unknown): Error {
+  const original = error instanceof Error ? error : new Error(String(error))
+  const prior = (original as Error & { rollbackDiagnostics?: string[] }).rollbackDiagnostics ?? []
+  return Object.assign(original, { rollbackDiagnostics: [...prior, label + ': ' + String(cause)], cause: new AggregateError([cause], label, { cause: original.cause }) })
+}
+
+/** Record the exclusive handle identity before any write/close can fail. */
+async function createOwnedToken(path: string, token: string): Promise<FileState> {
+  const handle = await open(path, 'wx')
+  let identity: Stats | undefined
+  let closed = false
+  try {
+    identity = await handle.stat()
+    await handle.writeFile(token)
+    await handle.sync()
+    await handle.close(); closed = true
+    const state = { identity, bytes: Buffer.from(token), digest: byteDigest(Buffer.from(token)) }
+    if (!await matches(path, state)) fail('V09_ASSEMBLY_LOCKED', 'Token ownership changed during initialization.')
+    return state
+  } catch (cause) {
+    let error = cause
+    if (!closed) { try { await handle.close() } catch (cleanup) { error = withCleanupCause(error, 'token handle close', cleanup) } }
+    try {
+      const current = await lstat(path).catch(error => { if ((error as NodeJS.ErrnoException).code === 'ENOENT') return undefined; throw error })
+      if (current !== undefined) {
+        if (identity !== undefined && current.isFile() && !current.isSymbolicLink() && sameIdentity(identity, current)) await unlink(path)
+        else fail('V09_ASSEMBLY_LOCKED', 'Token ownership changed; preserved ' + path)
+      }
+    } catch (cleanup) { error = withCleanupCause(error, 'token initialization cleanup', cleanup) }
+    throw error
+  }
+}
+
 interface OwnedLock { path: string; token: string; identity: Stats; owner?: FileState; gate: string }
 async function acquireAssemblyLock(root: string, token: string): Promise<OwnedLock> {
   // The gate directory is permanent infrastructure. Only token-named blocker
@@ -649,8 +711,7 @@ async function acquireAssemblyLock(root: string, token: string): Promise<OwnedLo
   const identity = await lstat(path)
   let owner: FileState | undefined
   try {
-    await writeFile(join(path, 'owner'), token, { flag: 'wx' })
-    owner = (await fileState(join(path, 'owner')))!
+    owner = await createOwnedToken(join(path, 'owner'), token)
     const lock = { path, token, identity, owner, gate }
     if ((await readdir(gate)).length !== 0) {
       await releaseAssemblyLock(lock)
@@ -660,20 +721,30 @@ async function acquireAssemblyLock(root: string, token: string): Promise<OwnedLo
   } catch (error) {
     // Partial setup uses the same protected move protocol; never delete the
     // fixed lock path even when creating its owner record failed.
-    await releaseAssemblyLock({ path, token, identity, gate, ...(owner === undefined ? {} : { owner }) }).catch(() => {})
+    try { await releaseAssemblyLock({ path, token, identity, gate, ...(owner === undefined ? {} : { owner }) }) }
+    catch (cleanup) { throw withCleanupCause(error, 'partial lock cleanup', cleanup) }
     throw error
   }
 }
 
-async function releaseAssemblyLock(lock: OwnedLock): Promise<void> {
+async function releaseAssemblyLock(lock: OwnedLock, retryInitialization = true): Promise<void> {
   const owned = async (path: string) => {
     try { const entry = await lstat(path); return entry.isDirectory() && !entry.isSymbolicLink() && sameIdentity(lock.identity, entry) && (lock.owner === undefined ? (await readdir(path)).length === 0 : await matches(join(path, 'owner'), lock.owner)) }
     catch { return false }
   }
   if (!await owned(lock.path)) return
   const blocker = join(lock.gate, lock.token)
-  await writeFile(blocker, lock.token, { flag: 'wx' })
-  const blockerState = (await fileState(blocker))!
+  let blockerState: FileState
+  try { blockerState = await createOwnedToken(blocker, lock.token) }
+  catch (error) {
+    // A transient partial blocker write must not strand the still-owned lock.
+    // Retry the protected release once, retaining the original failure.
+    if (retryInitialization) {
+      try { await releaseAssemblyLock(lock, false) }
+      catch (cleanup) { throw withCleanupCause(error, 'blocker retry cleanup', cleanup) }
+    }
+    throw error
+  }
   const tombstone = lock.path + '.releasing-' + lock.token
   let safe = false
   try {
@@ -719,12 +790,12 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
   if (processRootMutex.has(mutexKey)) fail('V09_ASSEMBLY_LOCKED', 'Another v0.9 assembly owns this catalog root.')
   processRootMutex.add(mutexKey)
   const token = randomUUID(); const staging = join(root, '.qmonster-v09-staging-' + token)
-  const stagedPaths = new Map<string, Stats>(); const journal: JournalEntry[] = []; const diagnostics: string[] = []
+  const stagedPaths = new Map<string, Stats>(); const journal: JournalEntry[] = []; const diagnostics: string[] = []; const cleanupCauses: unknown[] = []
   let lock: OwnedLock | undefined; let stagingIdentity: Stats | undefined; let original: unknown; let failed = false
   const manifestHash = canonicalJsonSha256(candidate.releaseManifest)
   const pointerPath = join(root, 'releases', 'candidate-v0.9.0.json')
   const auditPath = join(root, 'audit', 'v0.9.0', 'release-' + manifestHash + '.json')
-  const attempt = async (label: string, action: () => Promise<void>) => { try { await action() } catch (cause) { diagnostics.push(label + ': ' + String(cause)) } }
+  const attempt = async (label: string, action: () => Promise<void>) => { try { await action() } catch (cause) { cleanupCauses.push(cause); diagnostics.push(label + ': ' + String(cause), ...((cause as { rollbackDiagnostics?: string[] })?.rollbackDiagnostics ?? [])) } }
   const checkWrite = async (path: string) => {
     if (!contained(root, path) || !sameIdentity(rootIdentity, await lstat(root))) fail('RESOURCE_OUTSIDE_CATALOG_ROOT', 'Write root identity changed.')
     await directDirectory(dirname(path))
@@ -832,10 +903,10 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
     processRootMutex.delete(mutexKey)
   }
   if (failed) {
-    if (original instanceof Error) { Object.assign(original, { rollbackDiagnostics: diagnostics }); throw original }
+    if (original instanceof Error) { Object.assign(original, { rollbackDiagnostics: [...((original as Error & { rollbackDiagnostics?: string[] }).rollbackDiagnostics ?? []), ...diagnostics] }); throw original }
     throw Object.assign(new Error('Assembly failed.', { cause: original }), { rollbackDiagnostics: diagnostics })
   }
-  if (diagnostics.length > 0) throw Object.assign(new Error('Assembly cleanup did not finish.'), { code: 'V09_ASSEMBLY_CLEANUP_FAILED', rollbackDiagnostics: diagnostics })
+  if (diagnostics.length > 0) throw Object.assign(new Error('Assembly cleanup did not finish.', { cause: new AggregateError(cleanupCauses, 'Assembly cleanup failures') }), { code: 'V09_ASSEMBLY_CLEANUP_FAILED', rollbackDiagnostics: diagnostics })
   return { releaseManifestSha256: manifestHash, candidatePointerPath: pointerPath, auditPath }
 }
 
@@ -857,18 +928,25 @@ export async function validateV09CandidatePointer(options: { root: string; relea
     if (!parsed.ok) return stable(parsed.diagnostics)
     const manifest = parsed.value
     const diagnostics: Diagnostic[] = []; const refs = new Map<string, ContentResourceRef>()
-    const records = new Map<string, V09ContentRecordV1>(); const docs = new Map<string, unknown>()
+    const records = new Map<string, V09ContentRecordV1>(); const docs = new Map<string, unknown>(); const overlayHashes = new Set<string>()
     refsFrom(manifest, refs, diagnostics, ['releaseManifest'])
     while ([...refs.keys()].some(id => !records.has(id))) {
       if (refs.size > MAX_RESOURCES) fail('RESOURCE_HASH_MISMATCH', 'Release closure exceeds the resource limit.')
       const pending = [...refs.values()].filter(ref => !records.has(ref.resourceId))
       for (const declared of pending) {
-        const bytes = await trustedRead(root, identity, join(root, 'resources', 'by-sha256', declared.sha256))
-        if (!await verifyResource(declared, bytes)) fail('RESOURCE_HASH_MISMATCH', 'Resource identity mismatch: ' + declared.resourceId)
+        let bytes: Buffer
+        try {
+          bytes = await trustedRead(root, identity, join(root, 'resources', 'by-sha256', declared.sha256))
+          if (!await verifyResource(declared, bytes)) fail('RESOURCE_HASH_MISMATCH', 'Resource identity mismatch: ' + declared.resourceId)
+        } catch (error) {
+          if (overlayHashes.has(declared.sha256) && (error as { code?: string }).code === 'RESOURCE_HASH_MISMATCH') fail('ASSEMBLY_TEMPLATE_HASH_MISMATCH', 'Bound overlay policy is missing or its content identity differs: ' + declared.resourceId)
+          throw error
+        }
         records.set(declared.resourceId, { ref: declared, bytes })
         if (declared.mediaType !== 'image/png') {
           const payload = snapshot(JSON.parse(bytes.toString('utf8'))) as Record<string, Pure>
           docs.set(declared.resourceId, payload)
+          if (payload?.schemaVersion === 'qmonster-assembly-approval-v1' && hash(payload.overlaySha256)) overlayHashes.add(payload.overlaySha256 as string)
           refsFrom(payload, refs, diagnostics, ['resources', declared.resourceId])
           // Approval contracts contain this canonical digest rather than a ref.
           if (payload?.schemaVersion === 'qmonster-assembly-approval-v1' && hash(payload.attachmentAllowlistSha256)) {
