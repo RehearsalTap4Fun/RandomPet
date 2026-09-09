@@ -49,9 +49,9 @@ const jsonRef = (value: unknown): JsonRef => { const sha256 = canonicalJsonSha25
 async function fixture(materialOverride?: Record<string, unknown>): Promise<V09ReleaseCandidate> {
   const image = await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 9, g: 8, b: 7, alpha: 1 } } }).png().toBuffer()
   const digest = await decodedPngSha256(image); const png: PngRef = { resourceId: `sha256:${digest}`, sha256: digest, mediaType: 'image/png', width: 2048, height: 2048 }
-  const material = materialOverride ?? { schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorLut: [0, 0.5, 1], alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'replace-color' }; const materialRef = { ...jsonRef(material), mediaType: 'application/qmonster-material-v1+json' as const }
+  const material = materialOverride ?? { schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorLut: Array(1024).fill(128), alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'replace-color' }; const materialRef = { ...jsonRef(material), mediaType: 'application/qmonster-material-v1+json' as const }
   const families = ['base', 'legendary'].map((id, position) => ({ schemaVersion: 'qmonster-skeleton-family-v1', skeletonFamilyId: id, skeletonClass: position === 0 ? 'base' as const : 'legendary' as const, structuralShapeClasses: ['feline-standard'], archetypeId: 'feline', poseId: 'sit', speciesRigId: 'feline-sit-v2', canvas: { width: 2048, height: 2048 }, neutralMaster: png, materialMap: png, fixedOccluderMasks: { fixed: png }, assemblyTemplateId: `template-${id}` }))
-  const templates = families.map(family => ({ schemaVersion: 'qmonster-assembly-template-v1', assemblyTemplateId: family.assemblyTemplateId, skeletonFamilyId: family.skeletonFamilyId, canvas: { width: 2048, height: 2048 }, neutralMasterSha256: digest, slots: {
+  const templates = families.map(family => ({ schemaVersion: 'qmonster-assembly-template-v1', assemblyTemplateId: family.assemblyTemplateId, skeletonFamilyId: family.skeletonFamilyId, canvas: { width: 2048, height: 2048 }, neutralMasterSha256: digest, materialRegistry: { owner: 7 }, slots: {
     surface: ['bodyColor', 'surfacePattern', 'surfaceTexture', 'forepawDetail', 'hindpawDetail', 'tailSurface'].map(slotId => ({ kind: 'surface' as const, slotId, ownerMaterialId: 'owner', authoringZone: png })),
     embedded: [{ kind: 'eyePair' as const, slotId: 'eyes', leftAuthoringZone: png, rightAuthoringZone: png, pairAuthoringZone: png, occlusionReplayZone: png }, { kind: 'mouth' as const, slotId: 'mouthShape', authoringZone: png, occlusionReplayZone: png }, { kind: 'oralDetail' as const, slotId: 'oralDetail', socketRegistry: { 'oral-none': { authoringZone: png, parentMouthTraitIds: ['mouthShape-common-0'] }, open: { authoringZone: png, parentMouthTraitIds: ['common', 'rare', 'legendary'].flatMap((rarity, tier) => Array.from({ length: [8, 4, 1][tier]! }, (_, i) => `mouthShape-${rarity}-${i}`)) } }, closedMouthSentinel: 'oral-none' }],
     attachment: ['headAppendage', 'extraAppendage'].map(slotId => ({ kind: 'attachment' as const, slotId, attachmentInterface: { interfaceId: `${slotId}-interface`, allowedShapeClasses: ['ear-horn-small'] as const, allowedZone: png, rearRootStencil: png, fixedOccluderMaskId: 'fixed' } })), effect: [{ kind: 'ambientEffect' as const, slotId: 'effect', zoneId: 'background' as const, authoringZone: png, compositionNode: 'backgroundEffect' as const }],
@@ -107,6 +107,21 @@ async function files(root: string, prefix = ''): Promise<string[]> {
 }
 
 describe('v0.9 round 5 contracts', () => {
+  it.each(['missing', 'duplicate', 'range', 'fraction', 'blank', 'surface-owner'])('rejects template material registry %s', async mode => {
+    const candidate = await fixture(); const template = candidate.assemblyTemplates[0] as any
+    if (mode === 'missing') delete template.materialRegistry
+    if (mode === 'duplicate') template.materialRegistry.other = 7
+    if (mode === 'range') template.materialRegistry.owner = 256
+    if (mode === 'fraction') template.materialRegistry.owner = 0.5
+    if (mode === 'blank') template.materialRegistry[' '] = 8
+    if (mode === 'surface-owner') template.slots.surface[0].ownerMaterialId = 'absent'
+    const diagnostics = await validateV09Release(recatalog(candidate))
+    expect(diagnostics.some(item => item.code === (mode === 'surface-owner' ? 'SURFACE_OWNER_VIOLATION' : 'SKELETON_PROJECTION_MISSING') && item.path[0] === 'assemblyTemplates')).toBe(true)
+  }, 30000)
+  it.each([Array(1023).fill(0), Array(1024).fill(0.5), Array(1024).fill(-1), Array(1024).fill(256)])('rejects non-RGBA8 LUT %#', async colorLut => {
+    const candidate = await fixture({ schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorLut, alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'replace-color' })
+    expect((await validateV09Release(candidate)).some(item => item.code === 'RESOURCE_HASH_MISMATCH')).toBe(true)
+  }, 30000)
   it.each(['owner-write', 'owner-close', 'blocker-write', 'blocker-close'])('cleans partial %s initialization and permits the next assembler', async mode => {
     const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-partial-lock-')); const candidate = await fixture()
     Object.assign(ioFault, { role: mode.split('-')[0], phase: mode.split('-')[1], fired: false, foreign: false })
@@ -137,7 +152,7 @@ describe('v0.9 round 5 contracts', () => {
   }, 30000)
 
   it.each(['missing-schema', 'missing-alpha', 'missing-blend', 'extra', 'policy', 'blend', 'empty-owner', 'no-color', 'empty-lut', 'huge-lut', 'nonfinite-lut', 'bad-color-ref'])('rejects strict material %s through validator and CLI', async mode => {
-    const material: any = { schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorLut: [0, 1], alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'replace-color' }
+    const material: any = { schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorLut: Array(1024).fill(128), alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'replace-color' }
     if (mode === 'missing-schema') delete material.schemaVersion
     if (mode === 'missing-alpha') delete material.alphaPolicy
     if (mode === 'missing-blend') delete material.blendMode

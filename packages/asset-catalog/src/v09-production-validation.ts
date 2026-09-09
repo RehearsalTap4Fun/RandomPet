@@ -7,6 +7,7 @@ import {
   V09_COMPOSITION_NODE_IDS,
   V09_TRAIT_SLOT_IDS,
   V09_VERSION_TUPLE,
+  isV09MaterialRegistry,
   parseReleaseManifestV09,
   parseSealedTraitArtifactV1,
   type ContentResourceRef,
@@ -36,7 +37,7 @@ export function __setV09AssemblyFailureHookForTest(hook?: (stage: AssemblyStage)
 const idSchema = z.string().min(1).max(512).refine(value => value.trim() === value && !/[\\/]|:\/\//.test(value))
 const hashSchema = z.string().regex(HASH)
 const pngSchema = z.strictObject({ resourceId: z.string().regex(/^sha256:[a-f0-9]{64}$/), sha256: hashSchema, mediaType: z.literal('image/png'), width: z.literal(2048), height: z.literal(2048) })
-const materialSchema = z.strictObject({ schemaVersion: z.literal('qmonster-material-v1'), ownerMaterialId: idSchema, colorMap: pngSchema.optional(), colorLut: z.array(z.number().finite()).min(1).max(1024).optional(), alphaPolicy: z.literal('preserve-skeleton-alpha'), blendMode: z.enum(['replace-color', 'multiply', 'overlay']) }).refine(value => value.colorMap !== undefined || value.colorLut !== undefined, 'A material operation requires colorMap or colorLut.')
+const materialSchema = z.strictObject({ schemaVersion: z.literal('qmonster-material-v1'), ownerMaterialId: idSchema, colorMap: pngSchema.optional(), colorLut: z.array(z.number().int().min(0).max(255)).length(1024).optional(), alphaPolicy: z.literal('preserve-skeleton-alpha'), blendMode: z.enum(['replace-color', 'multiply', 'overlay']) }).refine(value => value.colorMap !== undefined || value.colorLut !== undefined, 'A material operation requires colorMap or colorLut.')
 // An independent, content-addressed input of every projection in this family.
 // It binds the template and actual overlay without referring back to approvals.
 const overlaySchema = z.strictObject({ schemaVersion: z.literal('qmonster-overlay-policy-v1'), skeletonFamilyId: idSchema, assemblyTemplateSha256: hashSchema, fullContextOverlay: pngSchema, previewPolicy: z.literal('full-context-identity-only') })
@@ -48,6 +49,7 @@ const familySchema = z.strictObject({ schemaVersion: z.literal('qmonster-skeleto
 const attachmentClassSchema = z.enum(['ear-horn-small', 'ear-ornament', 'mane-small', 'collar'])
 const templateSchema = z.strictObject({
   schemaVersion: z.literal('qmonster-assembly-template-v1'), assemblyTemplateId: idSchema, skeletonFamilyId: idSchema, canvas: canvasSchema, neutralMasterSha256: hashSchema, compositionGraph: graphSchema,
+  materialRegistry: z.record(z.string(), z.number()).refine(isV09MaterialRegistry),
   slots: z.strictObject({
     surface: z.array(z.strictObject({ kind: z.literal('surface'), slotId: z.enum(['bodyColor', 'surfacePattern', 'surfaceTexture', 'forepawDetail', 'hindpawDetail', 'tailSurface']), ownerMaterialId: idSchema, authoringZone: pngSchema })).length(6),
     embedded: z.array(z.discriminatedUnion('kind', [
@@ -61,11 +63,13 @@ const templateSchema = z.strictObject({
       z.strictObject({ kind: z.literal('ambientEffect'), slotId: z.literal('effect'), zoneId: z.enum(['background', 'foreground']), authoringZone: pngSchema, compositionNode: z.enum(['backgroundEffect', 'foregroundAmbientEffect']) }),
     ])).min(1).max(32),
   }),
+}).refine(value => value.slots.surface.every(slot => Object.hasOwn(value.materialRegistry, slot.ownerMaterialId)), {
+  message: 'Every surface owner must be registered.', path: ['slots', 'surface'], params: { diagnosticCode: 'SURFACE_OWNER_VIOLATION' },
 })
 
 function schemaCheck(schema: z.ZodType, value: unknown, path: string[], code: string, diagnostics: Diagnostic[]): void {
   const result = schema.safeParse(value)
-  if (!result.success) for (const issue of result.error.issues) diagnostics.push(diagnostic(code, [...path, ...issue.path.map(String)], issue.message))
+  if (!result.success) for (const issue of result.error.issues) diagnostics.push(diagnostic(issue.code === 'custom' && issue.params?.diagnosticCode === 'SURFACE_OWNER_VIOLATION' ? 'SURFACE_OWNER_VIOLATION' : code, [...path, ...issue.path.map(String)], issue.message))
 }
 
 export interface AssemblyApprovalV1 {

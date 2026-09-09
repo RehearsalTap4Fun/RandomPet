@@ -203,6 +203,7 @@ export interface AssemblyTemplateV1 {
   skeletonFamilyId: string
   canvas: V09Canvas
   neutralMasterSha256: string
+  materialRegistry: Record<string, number>
   slots: {
     surface: SurfaceSlotTemplateV1[]
     embedded: Array<EyePairSlotTemplateV1 | MouthSlotTemplateV1 | OralDetailSlotTemplateV1>
@@ -210,6 +211,23 @@ export interface AssemblyTemplateV1 {
     effect: Array<TargetedEffectSlotTemplateV1 | AmbientEffectSlotTemplateV1>
   }
   compositionGraph: CompositionGraphV1
+}
+
+/** Exactly 256 consecutive RGBA8 entries (1024 integer bytes), validated at runtime. */
+export interface MaterialOperationV1 {
+  schemaVersion: 'qmonster-material-v1'
+  ownerMaterialId: string
+  colorMap?: PngResourceRef
+  colorLut?: number[]
+  alphaPolicy: 'preserve-skeleton-alpha'
+  blendMode: 'replace-color' | 'multiply' | 'overlay'
+}
+
+export function isV09MaterialRegistry(value: unknown): value is Record<string, number> {
+  if (value === null || typeof value !== 'object' || Array.isArray(value) || Object.getPrototypeOf(value) !== Object.prototype) return false
+  const entries = Object.entries(value)
+  return entries.every(([key, index]) => key.trim().length > 0 && Number.isInteger(index) && index >= 0 && index <= 255)
+    && new Set(entries.map(([, index]) => index)).size === entries.length
 }
 
 interface SealedTraitArtifactBaseV1 {

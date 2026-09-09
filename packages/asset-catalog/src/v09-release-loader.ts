@@ -4,6 +4,7 @@ import { isAbsolute, join, relative, resolve } from 'node:path'
 import { z } from 'zod'
 import {
   parseContentResourceId,
+  isV09MaterialRegistry,
   type ContentResourceRef,
   type ContentResourceId,
   type ResolvedV09Catalog,
@@ -83,6 +84,7 @@ const assemblyTemplateSchema = z.strictObject({
   skeletonFamilyId: z.string().min(1),
   canvas,
   neutralMasterSha256: hash,
+  materialRegistry: z.record(z.string(), z.number()).refine(isV09MaterialRegistry),
   slots: z.strictObject({
     surface: z.array(surfaceTemplate),
     embedded: z.array(z.discriminatedUnion('kind', [eyeTemplate, mouthTemplate, oralDetailTemplate])),
@@ -90,7 +92,7 @@ const assemblyTemplateSchema = z.strictObject({
     effect: z.array(z.discriminatedUnion('kind', [targetedEffectTemplate, ambientEffectTemplate])),
   }),
   compositionGraph: compositionGraphSchema,
-})
+}).refine(value => value.slots.surface.every(slot => Object.hasOwn(value.materialRegistry, slot.ownerMaterialId)), 'Every surface owner must be registered.')
 
 type StableReadStage = 'afterPrecheck' | 'afterOpen'
 let stableReadHook: ((stage: StableReadStage) => void | Promise<void>) | undefined

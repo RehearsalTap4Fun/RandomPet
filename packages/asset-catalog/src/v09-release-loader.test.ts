@@ -38,6 +38,9 @@ async function createRelease(options: {
   inventoryValue?: unknown
   templateGraph?: unknown
   attachmentMaskId?: string
+  materialRegistry?: unknown
+  omitMaterialRegistry?: boolean
+  surfaceOwner?: string
 } = {}) {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-release-'))
   const resources = join(root, 'resources', 'by-sha256')
@@ -57,8 +60,9 @@ async function createRelease(options: {
     skeletonFamilyId,
     canvas: { width: 2048, height: 2048 },
     neutralMasterSha256: pngSha256,
+    ...(options.omitMaterialRegistry ? {} : { materialRegistry: options.materialRegistry ?? { fur: 7 } }),
     slots: {
-      surface: [], embedded: [],
+      surface: options.surfaceOwner === undefined ? [] : [{ kind: 'surface', slotId: 'bodyColor', ownerMaterialId: options.surfaceOwner, authoringZone: png }], embedded: [],
       attachment: options.attachmentMaskId === undefined ? [] : [{
         kind: 'attachment', slotId: 'headAppendage',
         attachmentInterface: {
@@ -124,6 +128,15 @@ async function withRelease(test: (release: Awaited<ReturnType<typeof createRelea
 }
 
 describe('active v0.9 release loader', () => {
+  it.each([
+    { omitMaterialRegistry: true }, { materialRegistry: { fur: 7, nose: 7 } },
+    { materialRegistry: { fur: 256 } }, { materialRegistry: { fur: 7.5 } },
+    { materialRegistry: { ' ': 7 } }, { surfaceOwner: 'undeclared' },
+  ])('rejects invalid material registry %#', async options => {
+    const release = await createRelease(options)
+    try { await expect(loadActiveV09Release({ root: release.root })).rejects.toMatchObject({ code: 'SKELETON_PROJECTION_MISSING' }) }
+    finally { await rm(release.root, { recursive: true, force: true }) }
+  })
   it('does not expose the stable-read test seam through the public package barrel', () => {
     expect(publicAssetCatalog).not.toHaveProperty('__setV09StableReadHookForTest')
   })
