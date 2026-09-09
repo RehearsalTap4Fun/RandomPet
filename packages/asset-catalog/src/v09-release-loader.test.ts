@@ -4,6 +4,7 @@ import { basename, dirname, join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import sharp from 'sharp'
 import { canonicalJsonBytes, canonicalJsonSha256, decodedPngSha256 } from './v09-content-identity.js'
+import * as publicAssetCatalog from './index.js'
 import { __setV09StableReadHookForTest, loadActiveV09Release, resolveV09Resource } from './v09-release-loader.js'
 
 type JsonRef = { resourceId: string; sha256: string; mediaType: 'application/qmonster-manifest-v1+json' }
@@ -123,6 +124,10 @@ async function withRelease(test: (release: Awaited<ReturnType<typeof createRelea
 }
 
 describe('active v0.9 release loader', () => {
+  it('does not expose the stable-read test seam through the public package barrel', () => {
+    expect(publicAssetCatalog).not.toHaveProperty('__setV09StableReadHookForTest')
+  })
+
   it('rejects raw traversal, absolute, URL, UNC, and malformed content identities', async () => {
     await withRelease(async ({ root }) => {
       for (const id of ['../outside', '/tmp/outside', 'C:\\outside', 'https://example.test/a', '\\\\server\\share\\file', 'sha256:ABC']) {
@@ -209,6 +214,30 @@ describe('active v0.9 release loader', () => {
           await rename(original, root)
         }
         await rm(external, { recursive: true, force: true })
+      }
+    })
+  })
+
+  it('retries a legitimately atomically replaced active pointer without accepting the first handle bytes', async () => {
+    await withRelease(async ({ root, manifest }) => {
+      const nextManifest = { ...manifest, rendererBuildSha256: 'b'.repeat(64) }
+      const nextSha256 = canonicalJsonSha256(nextManifest)
+      const pointer = join(root, 'releases', 'active-release.json')
+      const replacement = join(root, 'releases', 'next-active-release.json')
+      let replaced = false
+      try {
+        await writeFile(join(root, 'releases', 'by-sha256', `${nextSha256}.json`), canonicalJsonBytes(nextManifest))
+        __setV09StableReadHookForTest(async (stage) => {
+          if (stage === 'afterPrecheck' && !replaced) {
+            replaced = true
+            await writeFile(replacement, JSON.stringify({ schemaVersion: 'qmonster-active-release-v1', releaseManifestSha256: nextSha256 }))
+            await rename(replacement, pointer)
+          }
+        })
+        await expect(loadActiveV09Release({ root })).resolves.toMatchObject({ releaseManifestSha256: nextSha256 })
+      } finally {
+        __setV09StableReadHookForTest()
+        await rm(replacement, { force: true })
       }
     })
   })

@@ -19,6 +19,7 @@ import { canonicalJsonSha256, decodedPngSha256, V09CatalogError } from './v09-co
 
 const HASH = /^[a-f0-9]{64}$/
 const STABLE_READ_FAILURE_CODE = 'RESOURCE_OUTSIDE_CATALOG_ROOT'
+const MAX_STABLE_READ_ATTEMPTS = 3
 const contentId = z.string().regex(/^sha256:[a-f0-9]{64}$/)
 const hash = z.string().regex(HASH)
 const pngRef = z.strictObject({ resourceId: contentId, sha256: hash, mediaType: z.literal('image/png'), width: z.literal(2048), height: z.literal(2048) })
@@ -103,6 +104,17 @@ async function runStableReadHook(stage: StableReadStage): Promise<void> {
   await stableReadHook?.(stage)
 }
 
+class RetryStableReadError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'RetryStableReadError'
+  }
+}
+
+function retryStableRead(message: string): never {
+  throw new RetryStableReadError(message)
+}
+
 function fail(code: string, message: string, cause?: unknown): never {
   throw new V09CatalogError(code, message, cause === undefined ? undefined : { cause })
 }
@@ -173,9 +185,10 @@ async function directFile(root: string, segments: string[], code: string): Promi
   return target
 }
 
-async function trustedFileBytes(root: string, segments: string[], code: string): Promise<Buffer> {
+async function trustedFileBytes(root: string, expectedRoot: Stats, segments: string[], code: string): Promise<Buffer> {
   const rootBefore = await stableRootIdentity(root, STABLE_READ_FAILURE_CODE)
-  const initialPath = await directFile(root, segments, code)
+  if (!sameIdentity(expectedRoot, rootBefore)) fail(STABLE_READ_FAILURE_CODE, 'Catalog root identity changed before reading.')
+  const initialPath = await directFile(root, segments, STABLE_READ_FAILURE_CODE)
   const initialFile = await lstat(initialPath)
   if (!initialFile.isFile() || initialFile.isSymbolicLink()) fail(code, 'Trusted file is not a direct regular file.')
   await runStableReadHook('afterPrecheck')
@@ -190,18 +203,18 @@ async function trustedFileBytes(root: string, segments: string[], code: string):
     await runStableReadHook('afterOpen')
     const openedBeforeRead = await handle.stat()
     if (!openedBeforeRead.isFile() || !sameStableFile(initialFile, openedBeforeRead)) {
-      fail(STABLE_READ_FAILURE_CODE, 'Opened file does not match the initially trusted file.')
+      retryStableRead('Opened file does not match the initially trusted file.')
     }
     const bytes = await handle.readFile()
     const openedAfterRead = await handle.stat()
-    if (!sameStableFile(openedBeforeRead, openedAfterRead)) fail(STABLE_READ_FAILURE_CODE, 'Trusted file changed while being read.')
+    if (!sameStableFile(openedBeforeRead, openedAfterRead)) retryStableRead('Trusted file changed while being read.')
 
     const rootAfter = await stableRootIdentity(root, STABLE_READ_FAILURE_CODE)
-    if (!sameIdentity(rootBefore, rootAfter)) fail(STABLE_READ_FAILURE_CODE, 'Catalog root identity changed while reading.')
-    const finalPath = await directFile(root, segments, code)
+    if (!sameIdentity(expectedRoot, rootAfter) || !sameIdentity(rootBefore, rootAfter)) fail(STABLE_READ_FAILURE_CODE, 'Catalog root identity changed while reading.')
+    const finalPath = await directFile(root, segments, STABLE_READ_FAILURE_CODE)
     const finalFile = await stat(finalPath)
     if (!sameStableFile(openedAfterRead, finalFile) || !contained(root, await realpath(finalPath))) {
-      fail(STABLE_READ_FAILURE_CODE, 'Opened file no longer matches the final trusted catalog path.')
+      retryStableRead('Opened file no longer matches the final trusted catalog path.')
     }
     return bytes
   } finally {
@@ -259,10 +272,10 @@ function collectRefs(value: unknown, found = new Map<string, ContentResourceRef>
   return found
 }
 
-async function loadRef(root: string, ref: ContentResourceRef): Promise<{ ref: ContentResourceRef; parsed?: unknown }> {
+async function loadRef(root: string, rootIdentity: Stats, ref: ContentResourceRef): Promise<{ ref: ContentResourceRef; parsed?: unknown }> {
   const declared = refDigest(ref)
   const parsed = parseContentResourceId(ref.resourceId) as ContentResourceId
-  const bytes = await trustedFileBytes(root, ['resources', 'by-sha256', parsed.slice('sha256:'.length)], 'RESOURCE_OUTSIDE_CATALOG_ROOT')
+  const bytes = await trustedFileBytes(root, rootIdentity, ['resources', 'by-sha256', parsed.slice('sha256:'.length)], 'RESOURCE_OUTSIDE_CATALOG_ROOT')
   if (ref.mediaType === 'image/png') {
     const actual = await decodedPngSha256(bytes)
     if (actual !== declared) fail('RESOURCE_HASH_MISMATCH', 'PNG resource digest mismatch.')
@@ -319,13 +332,11 @@ function validateProjections(pool: SkeletonPoolV1, families: SkeletonFamilyV1[],
   }
 }
 
-/** Load one complete content-addressed v0.9 release, with no legacy fallback path. */
-export async function loadActiveV09Release(options: { root: string }): Promise<ResolvedV09Catalog> {
-  const root = await trustedRoot(options?.root)
-  const pointer = z.strictObject({ schemaVersion: z.literal('qmonster-active-release-v1'), releaseManifestSha256: hash }).safeParse(parseJson(await trustedFileBytes(root, ['releases', 'active-release.json'], 'RELEASE_MANIFEST_SCHEMA_INVALID'), 'RELEASE_MANIFEST_SCHEMA_INVALID'))
+async function loadActiveV09ReleaseOnce(root: string, rootIdentity: Stats): Promise<ResolvedV09Catalog> {
+  const pointer = z.strictObject({ schemaVersion: z.literal('qmonster-active-release-v1'), releaseManifestSha256: hash }).safeParse(parseJson(await trustedFileBytes(root, rootIdentity, ['releases', 'active-release.json'], 'RELEASE_MANIFEST_SCHEMA_INVALID'), 'RELEASE_MANIFEST_SCHEMA_INVALID'))
   if (!pointer.success) fail('RELEASE_MANIFEST_SCHEMA_INVALID', 'Active release pointer has an invalid schema.')
 
-  const manifestInput = parseJson(await trustedFileBytes(root, ['releases', 'by-sha256', `${pointer.data.releaseManifestSha256}.json`], 'RELEASE_MANIFEST_SCHEMA_INVALID'), 'RELEASE_MANIFEST_SCHEMA_INVALID')
+  const manifestInput = parseJson(await trustedFileBytes(root, rootIdentity, ['releases', 'by-sha256', `${pointer.data.releaseManifestSha256}.json`], 'RELEASE_MANIFEST_SCHEMA_INVALID'), 'RELEASE_MANIFEST_SCHEMA_INVALID')
   if (canonicalJsonSha256(manifestInput) !== pointer.data.releaseManifestSha256) fail('RELEASE_MANIFEST_HASH_MISMATCH', 'Release manifest digest mismatch.')
   const parsedManifest = parseReleaseManifestV09(manifestInput)
   if (!parsedManifest.ok) {
@@ -341,7 +352,7 @@ export async function loadActiveV09Release(options: { root: string }): Promise<R
     const [resourceId, ref] = pending.entries().next().value as [string, ContentResourceRef]
     pending.delete(resourceId)
     if (loadedRefs.has(resourceId)) continue
-    const loaded = await loadRef(root, ref)
+    const loaded = await loadRef(root, rootIdentity, ref)
     loadedRefs.set(resourceId, ref)
     if (loaded.parsed !== undefined) {
       loadedJson.set(resourceId, loaded.parsed)
@@ -362,4 +373,21 @@ export async function loadActiveV09Release(options: { root: string }): Promise<R
   })
   validateProjections(pool, families, templates, graph, loadedRefs)
   return { releaseManifestSha256: pointer.data.releaseManifestSha256, releaseManifest: manifest, speciesRig: manifest.speciesRig, skeletonPool: pool, skeletonFamilies: families, assemblyTemplates: templates, sealedTraits: traits as SealedTraitArtifactV1[], compositionGraph: graph }
+}
+
+/** Load one complete content-addressed v0.9 release, with no legacy fallback path. */
+export async function loadActiveV09Release(options: { root: string }): Promise<ResolvedV09Catalog> {
+  const root = await trustedRoot(options?.root)
+  const rootIdentity = await stableRootIdentity(root, STABLE_READ_FAILURE_CODE)
+  for (let attempt = 0; attempt < MAX_STABLE_READ_ATTEMPTS; attempt += 1) {
+    try {
+      return await loadActiveV09ReleaseOnce(root, rootIdentity)
+    } catch (error) {
+      if (!(error instanceof RetryStableReadError)) throw error
+      if (attempt === MAX_STABLE_READ_ATTEMPTS - 1) {
+        fail(STABLE_READ_FAILURE_CODE, 'Catalog files did not remain stable across bounded read attempts.', error)
+      }
+    }
+  }
+  return fail(STABLE_READ_FAILURE_CODE, 'Catalog release could not be read stably.')
 }
