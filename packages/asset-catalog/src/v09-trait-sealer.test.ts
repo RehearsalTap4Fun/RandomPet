@@ -92,6 +92,24 @@ describe('v0.9 trait sealer', () => {
     expect(JSON.stringify({ context, draft })).toBe(before)
   })
 
+  it('seals a no-front-root attachment without an undefined front resource property', async () => {
+    const fixed = await fixture()
+    const attachment = fixed.context.template.slots.attachment[0]!
+    const { frontRootStencil: _removed, ...interfaceWithoutFront } = attachment.attachmentInterface
+    const template = {
+      ...fixed.context.template,
+      slots: { ...fixed.context.template.slots, attachment: [{ ...attachment, attachmentInterface: interfaceWithoutFront }] },
+    }
+    const templateHash = canonicalJsonSha256(template)
+    const context = { ...fixed.context, template, assemblyTemplateSha256: templateHash }
+    const draft = { ...fixed.draft, assemblyTemplateSha256: templateHash, resources: { attachmentBehind: fixed.refs.layer } }
+
+    const sealed = await sealTraitBundle(draft, context)
+
+    expect(sealed.artifact).toMatchObject({ kind: 'attachment', runtimeResources: { attachmentBehind: fixed.refs.layer } })
+    expect(Object.hasOwn(sealed.artifact.runtimeResources, 'attachmentFront')).toBe(false)
+  })
+
   it('rejects deleted or recolored fixed rear and front roots', async () => {
     const fixed = await fixture()
     const { draft, rearRoot, front } = fixed
@@ -130,6 +148,49 @@ describe('v0.9 trait sealer', () => {
     for (const key of ['anchor', 'anchorX', 'anchorY', 'x', 'y', 'offset', 'position', 'transform', 'translate', 'scale', 'rotation', 'crop', 'zIndex', 'layerOrder', 'occluderMask', 'occluderMasks', 'assetPath', 'path', 'url']) {
       await expect(sealTraitBundle({ ...draft, note: { deep: { [key]: 'forbidden' } } }, context))
         .rejects.toEqual(errorCode(['assetPath', 'path', 'url'].includes(key) ? 'RESOURCE_HASH_MISMATCH' : 'NON_IDENTITY_TRANSFORM'))
+    }
+  })
+
+  it('fails closed on case variants, inherited keys, symbols, instances, and accessors without invoking accessors', async () => {
+    const { context, draft } = await fixture()
+    for (const key of ['Anchor', 'aNcHoRx', 'PATH', 'Url']) {
+      await expect(sealTraitBundle({ ...draft, note: { [key]: 'forbidden' } }, context))
+        .rejects.toEqual(errorCode(key.toLowerCase() === 'path' || key.toLowerCase() === 'url' ? 'RESOURCE_HASH_MISMATCH' : 'NON_IDENTITY_TRANSFORM'))
+    }
+    const inherited = Object.create({ path: 'forbidden' })
+    const withInherited = { ...draft, note: inherited }
+    const withSymbol = { ...draft, note: { [Symbol('path')]: 'forbidden' } }
+    class DraftInstance { readonly note = 'invalid' }
+    let calls = 0
+    const withAccessor = { ...draft } as Record<string, unknown>
+    Object.defineProperty(withAccessor, 'shapeClass', { enumerable: true, get: () => { calls += 1; return calls === 1 ? 'ear-horn-small' : 'collar' } })
+    await expect(sealTraitBundle(withInherited, context)).rejects.toEqual(errorCode('TRAIT_SCHEMA_INVALID'))
+    await expect(sealTraitBundle(withSymbol, context)).rejects.toEqual(errorCode('TRAIT_SCHEMA_INVALID'))
+    await expect(sealTraitBundle({ ...draft, note: new Date('2026-09-09T00:00:00.000Z') }, context)).rejects.toEqual(errorCode('TRAIT_SCHEMA_INVALID'))
+    await expect(sealTraitBundle({ ...draft, note: new DraftInstance() }, context)).rejects.toEqual(errorCode('TRAIT_SCHEMA_INVALID'))
+    await expect(sealTraitBundle(withAccessor as any, context)).rejects.toEqual(errorCode('TRAIT_SCHEMA_INVALID'))
+    expect(calls).toBe(0)
+  })
+
+  it('uses fixed role order regardless of caller resource insertion order', async () => {
+    const { context, draft } = await fixture()
+    const reordered = { ...draft, resources: { attachmentFront: draft.resources.attachmentFront, attachmentBehind: draft.resources.attachmentBehind } }
+    const first = await sealTraitBundle(draft, context)
+    const second = await sealTraitBundle(reordered, context)
+
+    expect(first.artifact.authoringInputs).toEqual([draft.resources.attachmentBehind, draft.resources.attachmentFront])
+    expect(second.artifactSha256).toBe(first.artifactSha256)
+  })
+
+  it('rejects canonically hashed non-object or ownerless surface material JSON with a stable error', async () => {
+    const fixed = await fixture()
+    for (const payload of [null, [], 'color', { operation: 'paint' }]) {
+      const bytes = Buffer.from(JSON.stringify(payload), 'utf8')
+      const digest = canonicalJsonSha256(payload)
+      const material = { resourceId: `sha256:${digest}`, sha256: digest, mediaType: 'application/qmonster-material-v1+json' as const }
+      const context = { ...fixed.context, resources: new Map(fixed.context.resources).set(material.resourceId, bytes) }
+      const draft = { ...fixed.draft, kind: 'surface' as const, slotId: 'bodyColor' as const, resources: { materialOperation: material } }
+      await expect(sealTraitBundle(draft, context)).rejects.toEqual(errorCode('RESOURCE_SCHEMA_INVALID'))
     }
   })
 

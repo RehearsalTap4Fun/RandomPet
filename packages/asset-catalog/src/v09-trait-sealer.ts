@@ -58,8 +58,8 @@ export interface TraitVisualApprovalV1 {
 const HASH = /^[a-f0-9]{64}$/
 const SIZE = 2048
 const ATTACHMENT_CLASSES = new Set<AttachmentShapeClass>(['ear-horn-small', 'ear-ornament', 'mane-small', 'collar'])
-const PLACEMENT_KEYS = new Set(['anchor', 'anchorX', 'anchorY', 'x', 'y', 'offset', 'position', 'transform', 'translate', 'scale', 'rotation', 'crop', 'zIndex', 'layerOrder', 'occluderMask', 'occluderMasks'])
-const PATH_KEYS = new Set(['assetPath', 'path', 'url'])
+const PLACEMENT_KEYS = new Set(['anchor', 'anchorx', 'anchory', 'x', 'y', 'offset', 'position', 'transform', 'translate', 'scale', 'rotation', 'crop', 'zindex', 'layerorder', 'occludermask', 'occludermasks'])
+const PATH_KEYS = new Set(['assetpath', 'path', 'url'])
 const EXPECTED_ROLES: Record<TraitKind, readonly string[]> = {
   surface: ['materialOperation'], eyePair: ['underlay', 'content'], mouth: ['mouthBack', 'mouthFront'], oralDetail: ['oralProjection'],
   attachment: ['attachmentBehind', 'attachmentFront'], targetedEffect: ['effectLayer'], ambientEffect: ['effectLayer'],
@@ -79,6 +79,45 @@ function hash(value: unknown, code: string): string {
   return value
 }
 
+function snapshotPureData(value: unknown, ancestors = new WeakSet<object>()): unknown {
+  if (value === null || typeof value === 'string' || typeof value === 'boolean') return value
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value)) fail('TRAIT_SCHEMA_INVALID', 'Trait drafts only allow finite primitive data.')
+    return value
+  }
+  if (typeof value !== 'object') fail('TRAIT_SCHEMA_INVALID', 'Trait drafts only allow plain data structures.')
+  if (ancestors.has(value)) fail('TRAIT_SCHEMA_INVALID', 'Trait drafts cannot contain cycles.')
+  ancestors.add(value)
+  try {
+    const keys = Reflect.ownKeys(value)
+    if (keys.some(key => typeof key === 'symbol')) fail('TRAIT_SCHEMA_INVALID', 'Trait drafts cannot contain symbol keys.')
+    const stringKeys = keys as string[]
+    if (Array.isArray(value)) {
+      if (Object.getPrototypeOf(value) !== Array.prototype) fail('TRAIT_SCHEMA_INVALID', 'Trait draft arrays must have the ordinary Array prototype.')
+      const result: unknown[] = []
+      for (let index = 0; index < value.length; index += 1) {
+        const descriptor = Object.getOwnPropertyDescriptor(value, String(index))
+        if (descriptor === undefined || !Object.hasOwn(descriptor, 'value')) fail('TRAIT_SCHEMA_INVALID', 'Trait draft arrays cannot be sparse or contain accessors.')
+        result.push(snapshotPureData(descriptor.value, ancestors))
+      }
+      if (stringKeys.some(key => key !== 'length' && (!/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= value.length))) {
+        fail('TRAIT_SCHEMA_INVALID', 'Trait draft arrays cannot contain non-index properties.')
+      }
+      return Object.freeze(result)
+    }
+    if (Object.getPrototypeOf(value) !== Object.prototype) fail('TRAIT_SCHEMA_INVALID', 'Trait drafts must use ordinary plain-object prototypes.')
+    const result: Record<string, unknown> = {}
+    for (const key of stringKeys) {
+      const descriptor = Object.getOwnPropertyDescriptor(value, key)
+      if (descriptor === undefined || !Object.hasOwn(descriptor, 'value')) fail('TRAIT_SCHEMA_INVALID', 'Trait drafts cannot contain accessors.')
+      result[key] = snapshotPureData(descriptor.value, ancestors)
+    }
+    return Object.freeze(result)
+  } finally {
+    ancestors.delete(value)
+  }
+}
+
 function rejectForbidden(value: unknown, ancestors = new WeakSet<object>()): void {
   if (value === null || typeof value !== 'object') return
   if (ancestors.has(value)) fail('NON_IDENTITY_TRANSFORM', 'Draft cannot contain cycles.')
@@ -89,13 +128,27 @@ function rejectForbidden(value: unknown, ancestors = new WeakSet<object>()): voi
       return
     }
     for (const [key, member] of Object.entries(value)) {
-      if (PLACEMENT_KEYS.has(key)) fail('NON_IDENTITY_TRANSFORM', `Forbidden author placement key: ${key}.`)
-      if (PATH_KEYS.has(key)) fail('RESOURCE_HASH_MISMATCH', `Filesystem paths and URLs are forbidden: ${key}.`)
+      const normalized = key.toLowerCase()
+      if (PLACEMENT_KEYS.has(normalized)) fail('NON_IDENTITY_TRANSFORM', `Forbidden author placement key: ${key}.`)
+      if (PATH_KEYS.has(normalized)) fail('RESOURCE_HASH_MISMATCH', `Filesystem paths and URLs are forbidden: ${key}.`)
       rejectForbidden(member, ancestors)
     }
   } finally {
     ancestors.delete(value)
   }
+}
+
+function parseStrictJsonObject(bytes: Buffer): Record<string, unknown> {
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(bytes.toString('utf8'))
+  } catch (error) {
+    fail('RESOURCE_SCHEMA_INVALID', 'JSON resource bytes are invalid.', error)
+  }
+  if (parsed === null || Array.isArray(parsed) || typeof parsed !== 'object' || Object.getPrototypeOf(parsed) !== Object.prototype) {
+    fail('RESOURCE_SCHEMA_INVALID', 'JSON resources must contain an ordinary object payload.')
+  }
+  return parsed as Record<string, unknown>
 }
 
 function contentBytes(context: SealContext, resourceId: string): Buffer {
@@ -132,11 +185,7 @@ async function verifyRef(refInput: unknown, context: SealContext): Promise<Conte
   if (ref.mediaType === 'image/png') {
     actual = await decodedPngSha256(bytes)
   } else {
-    try {
-      actual = canonicalJsonSha256(JSON.parse(bytes.toString('utf8')))
-    } catch (error) {
-      fail('RESOURCE_HASH_MISMATCH', 'JSON resource bytes are not strict canonical JSON.', error)
-    }
+    actual = canonicalJsonSha256(parseStrictJsonObject(bytes))
   }
   if (actual !== ref.sha256) fail('RESOURCE_HASH_MISMATCH', 'Content bytes do not match their declared content identity.')
   return ref
@@ -217,7 +266,8 @@ async function validateLayerRoles(kind: TraitKind, roles: Record<string, Content
     if (slot === undefined) fail('AUTHORING_ZONE_VIOLATION', 'Surface slot is not owned by the selected assembly template.')
     const ref = await verifyRef(roles.materialOperation, context)
     if (ref.mediaType !== 'application/qmonster-material-v1+json') fail('RESOURCE_HASH_MISMATCH', 'Surface material operation must be JSON.')
-    const json = JSON.parse(contentBytes(context, ref.resourceId).toString('utf8')) as Record<string, unknown>
+    const json = parseStrictJsonObject(contentBytes(context, ref.resourceId))
+    if (json.ownerMaterialId === undefined) fail('RESOURCE_SCHEMA_INVALID', 'Surface material operation requires an ownerMaterialId.')
     if (json.ownerMaterialId !== slot.ownerMaterialId) fail('AUTHORING_ZONE_VIOLATION', 'Surface operation does not bind the template owner material slot.')
     return
   }
@@ -270,38 +320,49 @@ async function validateLayerRoles(kind: TraitKind, roles: Record<string, Content
 
 /** Seal a typed, content-addressed trait only after all full-master contracts are verified. */
 export async function sealTraitBundle(draft: TraitBundleV1, context: SealContext): Promise<{ artifact: SealedTraitArtifactV1; artifactSha256: string }> {
-  rejectForbidden(draft)
-  const record = draft as unknown as Record<string, unknown>
+  const snapshot = snapshotPureData(draft) as TraitBundleV1
+  rejectForbidden(snapshot)
+  const record = snapshot as unknown as Record<string, unknown>
   const kind = record.kind as TraitKind
   if (!Object.hasOwn(EXPECTED_ROLES, kind)) fail('RESOURCE_HASH_MISMATCH', 'Unknown trait kind.')
-  if (draft.skeletonFamilyId !== context.family.skeletonFamilyId || draft.assemblyTemplateId !== context.template.assemblyTemplateId
-    || context.template.skeletonFamilyId !== context.family.skeletonFamilyId || draft.assemblyTemplateSha256 !== context.assemblyTemplateSha256) {
+  if (snapshot.skeletonFamilyId !== context.family.skeletonFamilyId || snapshot.assemblyTemplateId !== context.template.assemblyTemplateId
+    || context.template.skeletonFamilyId !== context.family.skeletonFamilyId || snapshot.assemblyTemplateSha256 !== context.assemblyTemplateSha256) {
     fail('ASSEMBLY_TEMPLATE_HASH_MISMATCH', 'Draft does not bind the selected skeleton family and assembly template hash.')
   }
-  if (draft.neutralMasterSha256 !== context.family.neutralMaster.sha256 || draft.neutralMasterSha256 !== context.template.neutralMasterSha256) {
+  if (snapshot.neutralMasterSha256 !== context.family.neutralMaster.sha256 || snapshot.neutralMasterSha256 !== context.template.neutralMasterSha256) {
     fail('RESOURCE_HASH_MISMATCH', 'Draft neutral master does not match the selected family/template.')
   }
   await verifyRef(context.family.neutralMaster, context)
   const selectedAttachment = kind === 'attachment'
-    ? attachmentTemplate(context.template, draft.slotId, nonBlank(draft.interfaceId, 'ATTACHMENT_INTERFACE_INVALID'))
+    ? attachmentTemplate(context.template, snapshot.slotId, nonBlank(snapshot.interfaceId, 'ATTACHMENT_INTERFACE_INVALID'))
     : undefined
-  const roles = exactRoles(kind, draft.resources, selectedAttachment?.frontRootStencil === undefined ? ['attachmentBehind'] : undefined)
+  const roleOrder = kind === 'attachment' && selectedAttachment?.frontRootStencil === undefined
+    ? ['attachmentBehind']
+    : EXPECTED_ROLES[kind]
+  const roles = exactRoles(kind, snapshot.resources, roleOrder)
   for (const ref of Object.values(roles)) await verifyRef(ref, context)
-  const preview = await checkedPng(draft.fullContextPreview, context)
+  const preview = await checkedPng(snapshot.fullContextPreview, context)
   await decodeFullMasterPng(preview.bytes, 'RESOURCE_HASH_MISMATCH')
-  await validateLayerRoles(kind, roles, context.template, draft, context)
+  await validateLayerRoles(kind, roles, context.template, snapshot, context)
+
+  const authoringInputs = roleOrder.map(role => roles[role]!)
+  const attachmentRuntimeResources = kind === 'attachment'
+    ? (selectedAttachment?.frontRootStencil === undefined
+      ? { attachmentBehind: roles.attachmentBehind }
+      : { attachmentBehind: roles.attachmentBehind, attachmentFront: roles.attachmentFront })
+    : undefined
 
   const artifact = {
-    schemaVersion: 'qmonster-sealed-trait-v1', traitId: draft.traitId, rarity: draft.rarity, kind, slotId: draft.slotId,
-    skeletonFamilyId: draft.skeletonFamilyId, assemblyTemplateId: draft.assemblyTemplateId, assemblyTemplateSha256: draft.assemblyTemplateSha256,
-    neutralMasterSha256: draft.neutralMasterSha256, authoringInputs: Object.values(roles), fullContextPreview: preview.ref, sealerVersion: draft.sealerVersion,
+    schemaVersion: 'qmonster-sealed-trait-v1', traitId: snapshot.traitId, rarity: snapshot.rarity, kind, slotId: snapshot.slotId,
+    skeletonFamilyId: snapshot.skeletonFamilyId, assemblyTemplateId: snapshot.assemblyTemplateId, assemblyTemplateSha256: snapshot.assemblyTemplateSha256,
+    neutralMasterSha256: snapshot.neutralMasterSha256, authoringInputs, fullContextPreview: preview.ref, sealerVersion: snapshot.sealerVersion,
     ...(kind === 'surface' ? { runtimeResources: { materialOperation: roles.materialOperation } }
       : kind === 'eyePair' ? { runtimeResources: { underlay: roles.underlay, content: roles.content } }
-        : kind === 'mouth' ? { oralSocketClass: draft.oralSocketClass, runtimeResources: { mouthBack: roles.mouthBack, mouthFront: roles.mouthFront } }
+        : kind === 'mouth' ? { oralSocketClass: snapshot.oralSocketClass, runtimeResources: { mouthBack: roles.mouthBack, mouthFront: roles.mouthFront } }
           : kind === 'oralDetail' ? { runtimeResources: { oralProjection: roles.oralProjection } }
-            : kind === 'attachment' ? { interfaceId: draft.interfaceId, shapeClass: draft.shapeClass, runtimeResources: { attachmentBehind: roles.attachmentBehind, attachmentFront: roles.attachmentFront } }
-              : kind === 'targetedEffect' ? { targetId: draft.targetId, runtimeResources: { effectLayer: roles.effectLayer } }
-                : { zoneId: draft.zoneId, runtimeResources: { effectLayer: roles.effectLayer } }),
+            : kind === 'attachment' ? { interfaceId: snapshot.interfaceId, shapeClass: snapshot.shapeClass, runtimeResources: attachmentRuntimeResources }
+              : kind === 'targetedEffect' ? { targetId: snapshot.targetId, runtimeResources: { effectLayer: roles.effectLayer } }
+                : { zoneId: snapshot.zoneId, runtimeResources: { effectLayer: roles.effectLayer } }),
   }
   const parsed = parseSealedTraitArtifactV1(artifact)
   if (!parsed.ok) fail('RESOURCE_HASH_MISMATCH', 'Sealed artifact failed the frozen v0.9 schema parser.')
