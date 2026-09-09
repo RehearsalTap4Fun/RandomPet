@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "qmonster-superseded-approval-notice-v1",
+  "status": "superseded",
+  "approvalRevision": 1,
+  "supersededBy": "pending-expanded-review-revision-2",
+  "reason": "Revision 1 visible report omitted individually inspectable paw, tail, effect and other authoring masks. Its owner approval cannot authorize the complete expanded mask scope. These historical records are not active approvals.",
+  "historicalReviewIndexSha256": "ac96ec3b5fe44617043bb289610c371171041a6a126df808473df06fcd83e3c1",
+  "historicalReportSha256": "f0acf7f36850bbb16ef9c0bbd06a08ca3d9a53a8902b4be02bfd737e9b0ef3f5"
+}

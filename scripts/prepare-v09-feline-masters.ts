@@ -11,7 +11,7 @@ import { validateV09Release, type AssemblyApprovalV1, type ApprovedAttachmentAll
 const SIZE = 2048, PIXELS = SIZE * SIZE
 const ROOT = 'asset-source/v0.9.0/feline'
 const REVIEW = 'artifacts/acceptance/v0.9.0-feline/master-overlay-review.png'
-const INDEX = 'artifacts/acceptance/v0.9.0-feline/master-overlay-review.index.json'
+const INDEX = `${ROOT}/review/master-overlay-review.index.json`
 const APPROVAL_PATH = `${ROOT}/approvals/assembly-approvals.json`
 const EMPTY_ATTACHMENT_ALLOWLIST: ApprovedAttachmentAllowlistV1 = { schemaVersion: 'qmonster-approved-attachment-allowlist-v1', entries: [] }
 const digestSchema = z.string().regex(/^[a-f0-9]{64}$/)
@@ -19,7 +19,7 @@ const approvalSchema = z.strictObject({
   schemaVersion: z.literal('qmonster-assembly-approval-v1'), skeletonFamilyId: z.string(), assemblyTemplateId: z.string(),
   assemblyTemplateSha256: digestSchema, neutralMasterSha256: digestSchema, materialMapSha256: digestSchema,
   fixedOccluderMasksSha256: digestSchema, attachmentAllowlistSha256: digestSchema, compositionGraphSha256: digestSchema, overlaySha256: digestSchema,
-  approvedBy: z.literal('project-owner'), approvedAt: z.iso.datetime({ offset: true }), approvalRevision: z.literal(1), status: z.literal('approved'),
+  approvedBy: z.literal('project-owner'), approvedAt: z.iso.datetime({ offset: true }), approvalRevision: z.literal(2), status: z.literal('approved'),
 })
 type ReviewBinding = Pick<AssemblyApprovalV1, 'skeletonFamilyId' | 'assemblyTemplateId' | 'assemblyTemplateSha256' | 'neutralMasterSha256' | 'materialMapSha256' | 'fixedOccluderMasksSha256' | 'compositionGraphSha256' | 'overlaySha256'> & { maskSetSha256: string; attachmentInterfacesSha256: string }
 type ReviewIndex = { report: PngResourceRef; families: ReviewBinding[] }
@@ -30,12 +30,12 @@ function approvalsForReview(index: ReviewIndex, approvedAt: string): AssemblyApp
     assemblyTemplateSha256: family.assemblyTemplateSha256, neutralMasterSha256: family.neutralMasterSha256, materialMapSha256: family.materialMapSha256,
     fixedOccluderMasksSha256: family.fixedOccluderMasksSha256, attachmentAllowlistSha256: canonicalJsonSha256(EMPTY_ATTACHMENT_ALLOWLIST),
     compositionGraphSha256: family.compositionGraphSha256, overlaySha256: family.overlaySha256,
-    approvedBy: 'project-owner', approvedAt, approvalRevision: 1, status: 'approved',
+    approvedBy: 'project-owner', approvedAt, approvalRevision: 2, status: 'approved',
   }))
 }
 
 function approvalEvidence(index: ReviewIndex, approvals: AssemblyApprovalV1[]) {
-  return { schemaVersion: 'qmonster-approved-master-review-v1', status: 'approved', approvedBy: 'project-owner', approvedAt: approvals[0]!.approvedAt, approvalRevision: 1,
+  return { schemaVersion: 'qmonster-approved-master-review-v1', status: 'approved', approvedBy: 'project-owner', approvedAt: approvals[0]!.approvedAt, approvalRevision: 2,
     report: index.report, reviewIndexSha256: canonicalJsonSha256(index), assemblyApprovalsSha256: canonicalJsonSha256(approvals), attachmentAllowlistSha256: canonicalJsonSha256(EMPTY_ATTACHMENT_ALLOWLIST),
     families: index.families.map(family => ({ skeletonFamilyId: family.skeletonFamilyId, maskSetSha256: family.maskSetSha256, attachmentInterfacesSha256: family.attachmentInterfacesSha256 })) }
 }
@@ -44,7 +44,7 @@ function approvalEvidence(index: ReviewIndex, approvals: AssemblyApprovalV1[]) {
  * are accepted merely because a JSON file calls itself approved. */
 export function approvalBindingErrors(approvalsInput: unknown, evidence: unknown, allowlist: unknown, index: ReviewIndex): string[] {
   const parsed = z.array(approvalSchema).length(2).safeParse(approvalsInput)
-  if (!parsed.success) return ['Assembly approvals must be two strict owner-approved revision-1 records']
+  if (!parsed.success) return ['Assembly approvals must be two strict owner-approved revision-2 records']
   const expected = approvalsForReview(index, parsed.data[0]!.approvedAt)
   const errors: string[] = []
   if (!equal(parsed.data, expected)) errors.push('Assembly approval identity or timestamp differs from reviewed master bindings')
@@ -78,7 +78,7 @@ const polygonSchema = z.array(pointSchema).min(3)
 const regionSchema = z.strictObject({ description: z.string().min(10), vertices: polygonSchema, additionalPolygons: z.array(polygonSchema) })
 const masterSchema = z.strictObject({
   skeletonFamilyId: z.enum(['feline-sit-v2-core', 'feline-sit-v2-legendary-01']), skeletonClass: z.enum(['base', 'legendary']), weight: z.union([z.literal(8), z.literal(1)]),
-  structuralShapeClasses: z.tuple([z.literal('feline-standard'), z.enum(['cat-tail-long', 'cat-tail-curled'])]), speciesRigId: z.literal('feline-sit-v2'), archetypeId: z.literal('domestic-plush-cat'), poseId: z.literal('seated-front-three-quarter'),
+  structuralShapeClasses: z.tuple([z.literal('feline-standard'), z.enum(['cat-tail-long', 'cat-tail-curled'])]), speciesRigId: z.literal('feline-sit-v2'), archetypeId: z.literal('feline'), poseId: z.literal('seated-front-three-quarter'),
   masterPath: z.string(), masterSha256: z.string().regex(/^[a-f0-9]{64}$/), sourcePath: z.string(), assemblyTemplateId: z.string(), templatePath: z.string(),
   materialRegistry: z.strictObject({ fur: z.literal(1), innerEar: z.literal(2), nose: z.literal(3) }), landmarks: z.record(z.string(), pointSchema),
   regions: z.record(z.string(), regionSchema), expectedMaskPaths: z.record(z.string(), z.string()),
@@ -248,57 +248,131 @@ function overlayPixels(masks: MaskSet, layers: Array<[string, number[], number]>
   return out
 }
 
-async function makeReview(families: FamilyResult[]): Promise<PngResourceRef> {
-  const composites: sharp.OverlayOptions[] = []
-  const labels: string[] = []
-  const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
-  const text = (x: number, y: number, value: string, size = 19, fill = '#17212b') => labels.push(`<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" font-family="DejaVu Sans,Arial">${escape(value)}</text>`)
-  text(32, 43, 'QMONSTER v0.9 | TWO WHOLE FELINE MASTERS | PENDING OWNER APPROVAL', 30)
-  text(32, 77, 'No trait combinations. Smooth eyeless face; original head / neck / torso / four paws / one tail remain one image.', 21)
-  for (const [row, result] of families.entries()) {
-    const y = 110 + row * 935, { entry, masks } = result
-    text(24, y + 28, `${entry.skeletonFamilyId} | ${entry.skeletonClass} | ${entry.structuralShapeClasses[1]} | weight ${entry.weight}`, 26)
-    text(24, y + 57, `MASTER ${entry.masterSha256}`, 20)
-    text(24, y + 84, `TEMPLATE ${canonicalJsonSha256(result.template)}`, 20)
-    const views: Array<Array<[string, number[], number]>> = [[], [['global-fur', [0, 178, 190], 76], ['inner-ears', [230, 72, 160], 180], ['nose', [255, 105, 42], 200]], [['left-eye', [32, 174, 255], 125], ['right-eye', [188, 77, 235], 125], ['mouth', [242, 161, 34], 105], ['oral-wide', [255, 84, 88], 125], ['oral-open', [24, 200, 170], 155], ['oral-narrow', [51, 58, 255], 170], ['eye-edge', [255, 255, 255], 190], ['mouth-edge', [255, 255, 255], 190]], [['head-allowed', [170, 80, 235], 95], ['extra-allowed', [0, 160, 218], 95], ['head-occluder', [255, 170, 55], 160], ['extra-occluder', [255, 170, 55], 160], ['head-rear', [255, 20, 75], 235], ['extra-rear', [255, 20, 75], 235], ['head-front', [10, 245, 160], 230], ['extra-front', [10, 245, 160], 230]]]
-    const titles = ['CLEAN MASTER / ALPHA EDGE', 'MATERIAL OWNERSHIP', 'EYE / MOUTH / ORAL ZONES', 'ATTACHMENT / ROOTS / OCCLUDERS']
-    for (let col = 0; col < 4; col++) {
-      const x = col * 512
-      text(x + 15, y + 125, titles[col]!, 20)
-      const layers = views[col]!.length ? [{ input: await encode(overlayPixels(masks, views[col]!)) }] : []
-      const tile = await sharp(await readFile(entry.masterPath)).composite(layers).png().toBuffer()
-      const resized = await sharp(tile).resize(500, 500).flatten({ background: col === 0 ? '#202936' : '#edf0f4' }).png().toBuffer()
-      composites.push({ input: resized, left: x + 6, top: y + 146 })
+// Embedded bitmap glyphs make decoded review identity independent of host typography.
+const GLYPHS: Record<string, string> = {
+  '=':'00000/00000/11111/00000/11111/00000/00000',
+  A:'01110/10001/10001/11111/10001/10001/10001', B:'11110/10001/10001/11110/10001/10001/11110', C:'01111/10000/10000/10000/10000/10000/01111',
+  D:'11110/10001/10001/10001/10001/10001/11110', E:'11111/10000/10000/11110/10000/10000/11111', F:'11111/10000/10000/11110/10000/10000/10000',
+  G:'01111/10000/10000/10111/10001/10001/01111', H:'10001/10001/10001/11111/10001/10001/10001', I:'11111/00100/00100/00100/00100/00100/11111',
+  J:'00111/00010/00010/00010/10010/10010/01100', K:'10001/10010/10100/11000/10100/10010/10001', L:'10000/10000/10000/10000/10000/10000/11111',
+  M:'10001/11011/10101/10101/10001/10001/10001', N:'10001/11001/10101/10011/10001/10001/10001', O:'01110/10001/10001/10001/10001/10001/01110',
+  P:'11110/10001/10001/11110/10000/10000/10000', Q:'01110/10001/10001/10001/10101/10010/01101', R:'11110/10001/10001/11110/10100/10010/10001',
+  S:'01111/10000/10000/01110/00001/00001/11110', T:'11111/00100/00100/00100/00100/00100/00100', U:'10001/10001/10001/10001/10001/10001/01110',
+  V:'10001/10001/10001/10001/10001/01010/00100', W:'10001/10001/10001/10101/10101/10101/01010', X:'10001/10001/01010/00100/01010/10001/10001',
+  Y:'10001/10001/01010/00100/00100/00100/00100', Z:'11111/00001/00010/00100/01000/10000/11111',
+  '0':'01110/10001/10011/10101/11001/10001/01110','1':'00100/01100/00100/00100/00100/00100/01110','2':'01110/10001/00001/00010/00100/01000/11111',
+  '3':'11110/00001/00001/01110/00001/00001/11110','4':'00010/00110/01010/10010/11111/00010/00010','5':'11111/10000/10000/11110/00001/00001/11110',
+  '6':'01110/10000/10000/11110/10001/10001/01110','7':'11111/00001/00010/00100/01000/01000/01000','8':'01110/10001/10001/01110/10001/10001/01110',
+  '9':'01110/10001/10001/01111/00001/00001/01110','-':'00000/00000/00000/11111/00000/00000/00000',
+  ':':'00000/00100/00100/00000/00100/00100/00000','/':'00001/00010/00010/00100/01000/01000/10000','.':'00000/00000/00000/00000/00000/00110/00110',
+  '|':'00100/00100/00100/00100/00100/00100/00100',' ':'00000/00000/00000/00000/00000/00000/00000',
+}
+type ReviewPanel = { skeletonFamilyId: string; view: string; maskName?: string; maskSha256?: string; visibleMaskPixels?: number; x: number; y: number; size: number }
+
+/** One independent, full-coordinate preview for every mask. Max-pool support
+ * preserves even thin roots/replay edges; no mask can hide another mask. */
+async function makeReview(families: FamilyResult[]): Promise<{ ref: PngResourceRef; panels: ReviewPanel[] }> {
+  const canvas = Buffer.alloc(PIXELS * 4), panels: ReviewPanel[] = []
+  for (let i = 0; i < canvas.length; i += 4) canvas.set([242, 245, 249, 255], i)
+  const label = (x: number, y: number, value: string, scale = 2) => {
+    for (const [n, char] of [...value.toUpperCase()].entries()) {
+      const glyph = GLYPHS[char]; if (!glyph) throw new Error('Unsupported review glyph: ' + char)
+      for (const [gy, row] of glyph.split('/').entries()) for (const [gx, on] of [...row].entries()) if (on === '1') {
+        for (let dy = 0; dy < scale; dy++) for (let dx = 0; dx < scale; dx++) {
+          const px = x + n * 6 * scale + gx * scale + dx, py = y + gy * scale + dy
+          if (px >= SIZE || py >= SIZE) throw new Error('Review label overflow')
+          canvas.set([21, 34, 48, 255], (py * SIZE + px) * 4)
+        }
+      }
     }
-    const stats = componentStats(result.master)
-    text(18, y + 681, `RGBA8 2048 x 2048 | safe border ${stats.safeBorder}px | dominant alpha component ${(stats.largest / stats.included * 100).toFixed(5)}%`, 22)
-    text(18, y + 716, 'Material: cyan = fur; pink = inner ears; orange = nose. Local paw/tail surface zones own fur only.', 21)
-    text(18, y + 749, 'Face: blue/purple = left/right eyes; amber = mouth; red/teal/indigo = wide/open/narrow oral sockets; white = replay edge.', 21)
-    text(18, y + 782, 'Attachment: purple/cyan = extension allowance; red = fixed rear root; green = front root; amber = native fur occluder.', 21)
-    text(18, y + 815, `MATERIAL ${result.family.materialMap.sha256}`, 20)
-    text(18, y + 845, `MASK SET ${canonicalJsonSha256(result.refs)}`, 20)
-    text(18, y + 878, 'Human gate: confirm familiar feline silhouette, one head/two ears/four paws/one tail, no eyes/sockets, continuous fur and clean edges.', 20)
   }
-  const labelSvg = Buffer.from(`<svg width="2048" height="2048" xmlns="http://www.w3.org/2000/svg">${labels.join('')}</svg>`)
-  await mkdir(dirname(REVIEW), { recursive: true })
-  await sharp({ create: { width: SIZE, height: SIZE, channels: 4, background: '#f8fafc' } }).composite([...composites, { input: labelSvg }]).png().toFile(REVIEW)
-  return pngRef(await readFile(REVIEW))
+  const tile = (result: FamilyResult, x: number, y: number, size: number, maskName?: string, material = false) => {
+    let visibleMaskPixels = 0
+    const support = new Uint8Array(size * size)
+    if (maskName) {
+      const mask = result.masks[maskName]!
+      for (let sy = 0; sy < SIZE; sy++) for (let sx = 0; sx < SIZE; sx++) if (mask[(sy * SIZE + sx) * 4 + 3]) support[Math.floor(sy * size / SIZE) * size + Math.floor(sx * size / SIZE)] = 1
+    }
+    for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) {
+      const sx = Math.floor((px + 0.5) * SIZE / size), sy = Math.floor((py + 0.5) * SIZE / size), source = (sy * SIZE + sx) * 4
+      const dark = !maskName && !material, background = dark ? [28, 40, 55] : [218, 226, 235]
+      const alpha = result.master[source + 3]! / 255
+      let rgb = background.map((v, c) => Math.round(v * (1 - alpha) + result.master[source + c]! * alpha))
+      if (material && alpha) {
+        const color = result.masks['inner-ears']![source + 3] ? [230, 72, 160] : result.masks.nose![source + 3] ? [255, 105, 42] : [0, 178, 190]
+        rgb = rgb.map((v, c) => Math.round(v * 0.35 + color[c]! * 0.65))
+      }
+      if (maskName && support[py * size + px]) { visibleMaskPixels++; rgb = rgb.map((v, c) => Math.round(v * 0.32 + [240, 38, 109][c]! * 0.68)) }
+      canvas.set([...rgb, 255], ((y + py) * SIZE + x + px) * 4)
+    }
+    panels.push({ skeletonFamilyId: result.entry.skeletonFamilyId, view: maskName ? 'individual-mask-full-context' : material ? 'material' : 'clean', ...(maskName ? { maskName, maskSha256: result.refs[maskName]!.sha256, visibleMaskPixels } : {}), x, y, size })
+  }
+  label(20, 14, 'QMONSTER V0.9 | EXPANDED MASTER REVIEW | PENDING OWNER APPROVAL', 3)
+  label(20, 45, '52 INDIVIDUAL MASKS. PINK = MASK SUPPORT. MASTER COORDINATES / NO TRAIT COMBINATIONS.')
+  for (const [i, result] of families.entries()) {
+    const x = i * 1024
+    label(x + 12, 72, result.entry.skeletonFamilyId)
+    label(x + 12, 93, result.entry.skeletonClass + ' / ' + result.entry.structuralShapeClasses[1] + ' / WEIGHT ' + result.entry.weight)
+    label(x + 12, 116, 'CLEAN MASTER'); label(x + 524, 116, 'MATERIAL: CYAN FUR / PINK EAR / ORANGE NOSE', 1)
+    tile(result, x + 6, 138, 500); tile(result, x + 518, 138, 500, undefined, true)
+    label(x + 12, 644, 'MASTER ' + result.entry.masterSha256, 2)
+    label(x + 12, 664, 'MASKS ' + canonicalJsonSha256(result.refs), 2)
+  }
+  for (const [familyIndex, result] of families.entries()) {
+    const top = 696 + familyIndex * 662
+    label(12, top, result.entry.skeletonFamilyId + ' / ALL 26 MASKS')
+    const names = Object.keys(result.masks).sort()
+    for (const [n, name] of names.entries()) {
+      const x = n % 9 * 227, y = top + 28 + Math.floor(n / 9) * 207
+      label(x + 4, y, name, 2)
+      tile(result, x + 21, y + 18, 184, name)
+    }
+  }
+  label(12, 2029, 'REVIEW: ONE HEAD / TWO EARS / FOUR PAWS / ONE TAIL / SMOOTH EYELESS FACE / ALPHA EDGES / ALL ZONES', 2)
+  const bytes = await encode(canvas), ref = await pngRef(bytes)
+  await mkdir(dirname(REVIEW), { recursive: true }); await writeFile(REVIEW, bytes)
+  await mkdir(ROOT + '/review/resources', { recursive: true }); await writeFile(ROOT + '/review/resources/' + ref.sha256 + '.png', bytes)
+  return { ref, panels }
 }
 
 export async function prepareFelineMasters(): Promise<void> {
   const inventory = await readInventory(), families: FamilyResult[] = []
   for (const entry of inventory.masters) families.push(await produceFamily(entry))
-  const reviewRef = await makeReview(families)
+  const { ref: reviewRef, panels } = await makeReview(families)
+  const resourcePaths: Record<string, string> = { [reviewRef.resourceId]: `${ROOT}/review/resources/${reviewRef.sha256}.png` }
   const pending = []
   for (const { entry, template, family, refs, master } of families) {
     const policy = { schemaVersion: 'qmonster-overlay-policy-v1', skeletonFamilyId: entry.skeletonFamilyId, assemblyTemplateSha256: canonicalJsonSha256(template), fullContextOverlay: reviewRef, previewPolicy: 'full-context-identity-only' }
     await writeJson(`${ROOT}/templates/${entry.skeletonFamilyId}/overlay-policy.json`, policy)
+    const policyRef = jsonRef(policy), policyPath = `${ROOT}/review/resources/${policyRef.sha256}.json`
+    await writeJson(policyPath, policy); resourcePaths[policyRef.resourceId] = policyPath
     pending.push({ skeletonFamilyId: entry.skeletonFamilyId, assemblyTemplateId: entry.assemblyTemplateId, assemblyTemplateSha256: canonicalJsonSha256(template), neutralMasterSha256: entry.masterSha256, materialMapSha256: family.materialMap.sha256, fixedOccluderMasksSha256: canonicalJsonSha256(family.fixedOccluderMasks), maskSetSha256: canonicalJsonSha256(refs), masks: refs, attachmentInterfacesSha256: canonicalJsonSha256(template.slots.attachment), compositionGraphSha256: canonicalJsonSha256(GRAPH), overlaySha256: canonicalJsonSha256(policy), stats: componentStats(master) })
   }
-  await writeJson(INDEX, { schemaVersion: 'qmonster-master-review-index-v1', status: 'pending-owner-approval', inventorySha256: canonicalJsonSha256(inventory), reportPath: REVIEW, report: reviewRef, families: pending })
+  await writeJson(INDEX, { schemaVersion: 'qmonster-master-review-index-v1', status: 'pending-owner-approval', inventorySha256: canonicalJsonSha256(inventory), reportPath: resourcePaths[reviewRef.resourceId], report: reviewRef, panels, resourcePaths, families: pending })
   // A pending design index is never an AssemblyApprovalV1; no approvedBy/time/status
   // is generated here. Future attachment allowlist hashes require actual sealed traits.
   await writeJson(`${ROOT}/templates/pending-master-review.json`, { schemaVersion: 'qmonster-pending-master-review-v1', status: 'pending-owner-approval', reportPath: REVIEW, report: reviewRef, families: pending })
+}
+
+/** Exact tracked resource closure usable by downstream sealed authoring inputs. */
+export async function loadReviewResources(): Promise<V09ContentRecordV1[]> {
+  const index = JSON.parse(await readFile(INDEX, 'utf8'))
+  const resources: V09ContentRecordV1[] = []
+  for (const [id, path] of Object.entries(index.resourcePaths as Record<string, string>)) {
+    if (!path.startsWith(ROOT + '/review/resources/') || path.includes('..')) throw new Error('Review resource escaped ownership')
+    const bytes = await readFile(path)
+    const ref = path.endsWith('.png') ? await pngRef(bytes) : jsonRef(JSON.parse(bytes.toString('utf8')))
+    if (ref.resourceId !== id || !path.endsWith('/' + ref.sha256 + (ref.mediaType === 'image/png' ? '.png' : '.json'))) throw new Error('Review resource identity mismatch')
+    resources.push({ ref, bytes })
+  }
+  if (resources.length !== 3 || !resources.some(r => equal(r.ref, index.report))) throw new Error('Review closure is incomplete')
+  for (const family of index.families) {
+    const resource = resources.find(r => r.ref.sha256 === family.overlaySha256 && r.ref.mediaType !== 'image/png')
+    if (!resource) throw new Error('Review closure lacks family overlay policy')
+    const policy = JSON.parse(Buffer.from(resource.bytes).toString('utf8'))
+    if (policy.skeletonFamilyId !== family.skeletonFamilyId || policy.assemblyTemplateSha256 !== family.assemblyTemplateSha256 || !equal(policy.fullContextOverlay, index.report)) throw new Error('Overlay policy does not resolve exact full context')
+  }
+  return resources
 }
 
 async function decode(path: string): Promise<Buffer> { return sharp(await readFile(path)).raw().toBuffer() }
@@ -314,7 +388,9 @@ export async function productionContractDiagnostics(families: SkeletonFamilyV1[]
   const traitInventory = { schemaVersion: 'qmonster-trait-inventory-v1' as const, traits: [] }
   const attachmentAllowlist = EMPTY_ATTACHMENT_ALLOWLIST
   const documents = [speciesRig, skeletonPool, ...families, ...templates, ...approvals, traitInventory, attachmentAllowlist, GRAPH]
-  const records: V09ContentRecordV1[] = documents.map(value => ({ ref: jsonRef(value), bytes: canonicalJsonBytes(value) }))
+  // Pending authoring evidence is verified separately; without approvals or
+  // sealed traits it is not reachable from an honest release manifest yet.
+  const records: V09ContentRecordV1[] = [...documents.map(value => ({ ref: jsonRef(value), bytes: canonicalJsonBytes(value) })), ...(approvals.length ? await loadReviewResources() : [])]
   const required = new Set<string>()
   const refs = (v: unknown) => { if (v === null || typeof v !== 'object') return; if ('mediaType' in v && v.mediaType === 'image/png') { required.add((v as PngResourceRef).resourceId); return }; for (const next of Object.values(v)) refs(next) }
   families.forEach(refs); templates.forEach(refs)
@@ -330,7 +406,8 @@ export async function validateFelineMasters(options: { requireApproval?: boolean
   const check = (condition: unknown, error: string) => { if (!condition) errors.push(error) }
   check(index.status === 'pending-owner-approval', 'Review index must remain pending')
   check(index.inventorySha256 === canonicalJsonSha256(inventory), 'Inventory identity differs from report')
-  check(index.report.sha256 === await decodedPngSha256(await readFile(REVIEW)), 'Review hash changed')
+  check(index.report.sha256 === await decodedPngSha256(await readFile(index.reportPath)), 'Review hash changed')
+  await loadReviewResources()
   for (const entry of inventory.masters) {
     const label = entry.skeletonFamilyId
     const bytes = await readFile(entry.masterPath), master = await decode(entry.masterPath)

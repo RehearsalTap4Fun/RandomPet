@@ -23,7 +23,7 @@
         "cat-tail-long"
       ],
       "speciesRigId": "feline-sit-v2",
-      "archetypeId": "domestic-plush-cat",
+      "archetypeId": "feline",
       "poseId": "seated-front-three-quarter",
       "masterPath": "asset-source/v0.9.0/feline/masters/feline-sit-v2-core.png",
       "masterSha256": "dff812d9e2138b491ffa5263871832f21e359baf3942e1391988a56549a11778",
@@ -1118,7 +1118,7 @@
         "cat-tail-curled"
       ],
       "speciesRigId": "feline-sit-v2",
-      "archetypeId": "domestic-plush-cat",
+      "archetypeId": "feline",
       "poseId": "seated-front-three-quarter",
       "masterPath": "asset-source/v0.9.0/feline/masters/feline-sit-v2-legendary-01.png",
       "masterSha256": "46b358a9c7d37e6ce4dccef95ad786e3eb2c25d64305241e46b3b0a0303cce86",
