@@ -1,0 +1,2252 @@
+{
+  "schemaVersion": "qmonster-authored-master-inventory-v1",
+  "canvas": {
+    "width": 2048,
+    "height": 2048
+  },
+  "authoringMethod": "Explicit inspected landmark polygons; no procedural ellipses or symmetry inference. Coordinates include the fixed 96px authoring canvas safety border.",
+  "alphaExtraction": {
+    "method": "neutral-checker-local-chroma-v1",
+    "script": "scripts/extract-v09-feline-alpha.ts",
+    "ownerAuthorized": true,
+    "sourceCanvas": 1254,
+    "normalizedContentSize": 1856,
+    "border": 96
+  },
+  "masters": [
+    {
+      "skeletonFamilyId": "feline-sit-v2-core",
+      "skeletonClass": "base",
+      "weight": 8,
+      "structuralShapeClasses": [
+        "feline-standard",
+        "cat-tail-long"
+      ],
+      "speciesRigId": "feline-sit-v2",
+      "archetypeId": "domestic-plush-cat",
+      "poseId": "seated-front-three-quarter",
+      "masterPath": "asset-source/v0.9.0/feline/masters/feline-sit-v2-core.png",
+      "masterSha256": "dff812d9e2138b491ffa5263871832f21e359baf3942e1391988a56549a11778",
+      "sourcePath": "asset-source/v0.9.0/feline/sources/feline-sit-v2-core-rgb.png",
+      "assemblyTemplateId": "feline-sit-v2-core-assembly-v1",
+      "templatePath": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core.json",
+      "materialRegistry": {
+        "fur": 1,
+        "innerEar": 2,
+        "nose": 3
+      },
+      "landmarks": {
+        "head": [
+          840,
+          592
+        ],
+        "neck": [
+          801,
+          1036
+        ],
+        "torso": [
+          815,
+          1324
+        ],
+        "frontPawLeft": [
+          620,
+          1788
+        ],
+        "frontPawRight": [
+          953,
+          1813
+        ],
+        "hindPawLeft": [
+          448,
+          1715
+        ],
+        "hindPawRight": [
+          1295,
+          1758
+        ],
+        "tailRoot": [
+          1507,
+          1632
+        ],
+        "tailTip": [
+          1714,
+          803
+        ]
+      },
+      "regions": {
+        "leftEye": {
+          "description": "Viewer-left smooth brow/cheek above muzzle; perspective-narrow eye seat",
+          "vertices": [
+            [
+              407,
+              549
+            ],
+            [
+              467,
+              485
+            ],
+            [
+              601,
+              472
+            ],
+            [
+              670,
+              515
+            ],
+            [
+              688,
+              607
+            ],
+            [
+              650,
+              669
+            ],
+            [
+              510,
+              685
+            ],
+            [
+              429,
+              645
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "rightEye": {
+          "description": "Viewer-right broad smooth face above whisker cheek",
+          "vertices": [
+            [
+              811,
+              507
+            ],
+            [
+              912,
+              454
+            ],
+            [
+              1080,
+              460
+            ],
+            [
+              1181,
+              512
+            ],
+            [
+              1225,
+              602
+            ],
+            [
+              1184,
+              679
+            ],
+            [
+              1040,
+              706
+            ],
+            [
+              886,
+              673
+            ],
+            [
+              827,
+              610
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "mouth": {
+          "description": "Muzzle below pink nose including philtrum and closed mouth crease",
+          "vertices": [
+            [
+              626,
+              781
+            ],
+            [
+              724,
+              793
+            ],
+            [
+              809,
+              784
+            ],
+            [
+              897,
+              821
+            ],
+            [
+              914,
+              891
+            ],
+            [
+              848,
+              943
+            ],
+            [
+              746,
+              959
+            ],
+            [
+              638,
+              916
+            ],
+            [
+              596,
+              861
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "oralOpen": {
+          "description": "Open socket below preserved nose inside muzzle authoring polygon",
+          "vertices": [
+            [
+              663,
+              843
+            ],
+            [
+              756,
+              818
+            ],
+            [
+              846,
+              846
+            ],
+            [
+              869,
+              891
+            ],
+            [
+              805,
+              928
+            ],
+            [
+              710,
+              925
+            ],
+            [
+              650,
+              894
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "oralNarrow": {
+          "description": "Narrow horizontal socket at native closed crease",
+          "vertices": [
+            [
+              666,
+              863
+            ],
+            [
+              735,
+              846
+            ],
+            [
+              809,
+              858
+            ],
+            [
+              845,
+              888
+            ],
+            [
+              790,
+              907
+            ],
+            [
+              718,
+              901
+            ],
+            [
+              664,
+              885
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "oralWide": {
+          "description": "Wide mouth interior inset from cheek edge",
+          "vertices": [
+            [
+              635,
+              840
+            ],
+            [
+              722,
+              805
+            ],
+            [
+              820,
+              814
+            ],
+            [
+              885,
+              846
+            ],
+            [
+              886,
+              892
+            ],
+            [
+              823,
+              934
+            ],
+            [
+              724,
+              941
+            ],
+            [
+              639,
+              903
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "forepaw": {
+          "description": "Two front paws; separately traced near and far forefeet",
+          "vertices": [
+            [
+              475,
+              1712
+            ],
+            [
+              531,
+              1674
+            ],
+            [
+              658,
+              1683
+            ],
+            [
+              744,
+              1739
+            ],
+            [
+              780,
+              1814
+            ],
+            [
+              756,
+              1860
+            ],
+            [
+              608,
+              1878
+            ],
+            [
+              503,
+              1854
+            ],
+            [
+              478,
+              1803
+            ]
+          ],
+          "additionalPolygons": [
+            [
+              [
+                792,
+                1727
+              ],
+              [
+                876,
+                1694
+              ],
+              [
+                1002,
+                1706
+              ],
+              [
+                1085,
+                1754
+              ],
+              [
+                1114,
+                1820
+              ],
+              [
+                1085,
+                1887
+              ],
+              [
+                972,
+                1909
+              ],
+              [
+                854,
+                1896
+              ],
+              [
+                790,
+                1845
+              ]
+            ]
+          ]
+        },
+        "hindpaw": {
+          "description": "Two rear paws; left is narrow visible heel, right is broad seated hindfoot",
+          "vertices": [
+            [
+              388,
+              1677
+            ],
+            [
+              422,
+              1640
+            ],
+            [
+              478,
+              1638
+            ],
+            [
+              510,
+              1684
+            ],
+            [
+              493,
+              1760
+            ],
+            [
+              454,
+              1786
+            ],
+            [
+              405,
+              1774
+            ],
+            [
+              383,
+              1733
+            ]
+          ],
+          "additionalPolygons": [
+            [
+              [
+                1142,
+                1705
+              ],
+              [
+                1202,
+                1660
+              ],
+              [
+                1319,
+                1650
+              ],
+              [
+                1412,
+                1683
+              ],
+              [
+                1450,
+                1749
+              ],
+              [
+                1428,
+                1816
+              ],
+              [
+                1332,
+                1842
+              ],
+              [
+                1212,
+                1834
+              ],
+              [
+                1142,
+                1801
+              ]
+            ]
+          ]
+        },
+        "tail": {
+          "description": "Single long cat tail from right rump up to rounded tip",
+          "vertices": [
+            [
+              1351,
+              1567
+            ],
+            [
+              1505,
+              1478
+            ],
+            [
+              1552,
+              1363
+            ],
+            [
+              1549,
+              1199
+            ],
+            [
+              1499,
+              1033
+            ],
+            [
+              1472,
+              875
+            ],
+            [
+              1495,
+              761
+            ],
+            [
+              1576,
+              704
+            ],
+            [
+              1687,
+              673
+            ],
+            [
+              1795,
+              710
+            ],
+            [
+              1848,
+              786
+            ],
+            [
+              1842,
+              886
+            ],
+            [
+              1751,
+              935
+            ],
+            [
+              1721,
+              980
+            ],
+            [
+              1754,
+              1134
+            ],
+            [
+              1792,
+              1283
+            ],
+            [
+              1776,
+              1459
+            ],
+            [
+              1709,
+              1573
+            ],
+            [
+              1588,
+              1674
+            ],
+            [
+              1461,
+              1751
+            ],
+            [
+              1379,
+              1734
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "innerEars": {
+          "description": "Pink inner ear material, two independently traced patches",
+          "vertices": [
+            [
+              494,
+              213
+            ],
+            [
+              478,
+              309
+            ],
+            [
+              479,
+              430
+            ],
+            [
+              539,
+              411
+            ],
+            [
+              618,
+              380
+            ],
+            [
+              633,
+              349
+            ],
+            [
+              580,
+              265
+            ]
+          ],
+          "additionalPolygons": [
+            [
+              [
+                1290,
+                280
+              ],
+              [
+                1215,
+                325
+              ],
+              [
+                1145,
+                402
+              ],
+              [
+                1188,
+                465
+              ],
+              [
+                1265,
+                540
+              ],
+              [
+                1302,
+                516
+              ],
+              [
+                1339,
+                408
+              ],
+              [
+                1348,
+                322
+              ]
+            ]
+          ]
+        },
+        "nose": {
+          "description": "Preserved pink nose only; no eye sockets",
+          "vertices": [
+            [
+              682,
+              709
+            ],
+            [
+              727,
+              697
+            ],
+            [
+              771,
+              709
+            ],
+            [
+              790,
+              732
+            ],
+            [
+              777,
+              758
+            ],
+            [
+              753,
+              769
+            ],
+            [
+              737,
+              790
+            ],
+            [
+              715,
+              771
+            ],
+            [
+              710,
+              753
+            ],
+            [
+              679,
+              740
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "headAllowed": {
+          "description": "Exterior crest above native cranium with interior seam for small horns/ear ornaments",
+          "vertices": [
+            [
+              584,
+              303
+            ],
+            [
+              635,
+              211
+            ],
+            [
+              900,
+              189
+            ],
+            [
+              1154,
+              263
+            ],
+            [
+              1184,
+              355
+            ],
+            [
+              1064,
+              411
+            ],
+            [
+              901,
+              380
+            ],
+            [
+              752,
+              402
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "headRear": {
+          "description": "Fixed rear root follows upper head silhouette; crosses master boundary",
+          "vertices": [
+            [
+              718,
+              288
+            ],
+            [
+              803,
+              287
+            ],
+            [
+              898,
+              290
+            ],
+            [
+              986,
+              303
+            ],
+            [
+              1057,
+              319
+            ],
+            [
+              1052,
+              355
+            ],
+            [
+              968,
+              339
+            ],
+            [
+              891,
+              327
+            ],
+            [
+              802,
+              322
+            ],
+            [
+              716,
+              325
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "headFront": {
+          "description": "Small front root entirely inside crown fur",
+          "vertices": [
+            [
+              790,
+              334
+            ],
+            [
+              870,
+              327
+            ],
+            [
+              953,
+              339
+            ],
+            [
+              1000,
+              359
+            ],
+            [
+              988,
+              383
+            ],
+            [
+              898,
+              368
+            ],
+            [
+              808,
+              371
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "headOccluder": {
+          "description": "Family-owned crown fur replay covering rear/front root seam",
+          "vertices": [
+            [
+              681,
+              291
+            ],
+            [
+              787,
+              281
+            ],
+            [
+              920,
+              288
+            ],
+            [
+              1071,
+              322
+            ],
+            [
+              1082,
+              399
+            ],
+            [
+              987,
+              438
+            ],
+            [
+              848,
+              422
+            ],
+            [
+              721,
+              404
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "extraAllowed": {
+          "description": "Left neck/chest collar or small mane region contiguous with side seam",
+          "vertices": [
+            [
+              481,
+              910
+            ],
+            [
+              382,
+              978
+            ],
+            [
+              367,
+              1150
+            ],
+            [
+              398,
+              1361
+            ],
+            [
+              531,
+              1406
+            ],
+            [
+              638,
+              1298
+            ],
+            [
+              658,
+              1091
+            ],
+            [
+              574,
+              980
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "extraRear": {
+          "description": "Fixed root straddles left neck/chest silhouette",
+          "vertices": [
+            [
+              516,
+              978
+            ],
+            [
+              540,
+              1058
+            ],
+            [
+              518,
+              1141
+            ],
+            [
+              500,
+              1231
+            ],
+            [
+              469,
+              1225
+            ],
+            [
+              484,
+              1139
+            ],
+            [
+              500,
+              1062
+            ],
+            [
+              485,
+              1006
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "extraFront": {
+          "description": "Fixed collar front root on neck fur",
+          "vertices": [
+            [
+              546,
+              1074
+            ],
+            [
+              579,
+              1092
+            ],
+            [
+              561,
+              1162
+            ],
+            [
+              539,
+              1197
+            ],
+            [
+              516,
+              1181
+            ],
+            [
+              531,
+              1129
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "extraOccluder": {
+          "description": "Native left neck fur hides collar/mane attachment root",
+          "vertices": [
+            [
+              488,
+              951
+            ],
+            [
+              583,
+              1017
+            ],
+            [
+              618,
+              1095
+            ],
+            [
+              584,
+              1190
+            ],
+            [
+              527,
+              1255
+            ],
+            [
+              466,
+              1233
+            ],
+            [
+              484,
+              1122
+            ],
+            [
+              496,
+              1040
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "background": {
+          "description": "Exterior halo authoring extent around complete silhouette; no floor",
+          "vertices": [
+            [
+              274,
+              244
+            ],
+            [
+              1709,
+              226
+            ],
+            [
+              1887,
+              608
+            ],
+            [
+              1902,
+              1512
+            ],
+            [
+              1680,
+              1857
+            ],
+            [
+              362,
+              1872
+            ],
+            [
+              216,
+              1541
+            ],
+            [
+              203,
+              647
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "foreground": {
+          "description": "Ambient foreground envelope covering full cat and clear margin",
+          "vertices": [
+            [
+              259,
+              265
+            ],
+            [
+              1808,
+              260
+            ],
+            [
+              1896,
+              855
+            ],
+            [
+              1881,
+              1882
+            ],
+            [
+              503,
+              1916
+            ],
+            [
+              235,
+              1606
+            ],
+            [
+              226,
+              903
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "targeted": {
+          "description": "Chest-directed effect area inside actual master fur",
+          "vertices": [
+            [
+              570,
+              1058
+            ],
+            [
+              710,
+              1028
+            ],
+            [
+              966,
+              1079
+            ],
+            [
+              1157,
+              1213
+            ],
+            [
+              1176,
+              1471
+            ],
+            [
+              1051,
+              1609
+            ],
+            [
+              759,
+              1594
+            ],
+            [
+              602,
+              1459
+            ],
+            [
+              530,
+              1224
+            ]
+          ],
+          "additionalPolygons": []
+        }
+      },
+      "expectedMaskPaths": {
+        "global-fur": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/global-fur.png",
+        "forepaw": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/forepaw.png",
+        "hindpaw": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/hindpaw.png",
+        "tail": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/tail.png",
+        "left-eye": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/left-eye.png",
+        "right-eye": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/right-eye.png",
+        "eye-pair": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/eye-pair.png",
+        "eye-edge": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/eye-edge.png",
+        "mouth": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/mouth.png",
+        "mouth-edge": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/mouth-edge.png",
+        "oral-open": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/oral-open.png",
+        "oral-narrow": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/oral-narrow.png",
+        "oral-wide": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/oral-wide.png",
+        "head-allowed": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/head-allowed.png",
+        "head-rear": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/head-rear.png",
+        "head-front": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/head-front.png",
+        "head-occluder": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/head-occluder.png",
+        "extra-allowed": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/extra-allowed.png",
+        "extra-rear": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/extra-rear.png",
+        "extra-front": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/extra-front.png",
+        "extra-occluder": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/extra-occluder.png",
+        "targeted": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/targeted.png",
+        "background": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/background.png",
+        "foreground": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/foreground.png",
+        "inner-ears": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/inner-ears.png",
+        "nose": "asset-source/v0.9.0/feline/templates/feline-sit-v2-core/nose.png"
+      }
+    },
+    {
+      "skeletonFamilyId": "feline-sit-v2-legendary-01",
+      "skeletonClass": "legendary",
+      "weight": 1,
+      "structuralShapeClasses": [
+        "feline-standard",
+        "cat-tail-curled"
+      ],
+      "speciesRigId": "feline-sit-v2",
+      "archetypeId": "domestic-plush-cat",
+      "poseId": "seated-front-three-quarter",
+      "masterPath": "asset-source/v0.9.0/feline/masters/feline-sit-v2-legendary-01.png",
+      "masterSha256": "46b358a9c7d37e6ce4dccef95ad786e3eb2c25d64305241e46b3b0a0303cce86",
+      "sourcePath": "asset-source/v0.9.0/feline/sources/feline-sit-v2-legendary-01-rgb.png",
+      "assemblyTemplateId": "feline-sit-v2-legendary-01-assembly-v1",
+      "templatePath": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01.json",
+      "materialRegistry": {
+        "fur": 1,
+        "innerEar": 2,
+        "nose": 3
+      },
+      "landmarks": {
+        "head": [
+          879,
+          626
+        ],
+        "neck": [
+          846,
+          1067
+        ],
+        "torso": [
+          901,
+          1393
+        ],
+        "frontPawLeft": [
+          636,
+          1816
+        ],
+        "frontPawRight": [
+          987,
+          1842
+        ],
+        "hindPawLeft": [
+          454,
+          1746
+        ],
+        "hindPawRight": [
+          1342,
+          1811
+        ],
+        "tailRoot": [
+          1551,
+          1712
+        ],
+        "tailTip": [
+          1804,
+          904
+        ]
+      },
+      "regions": {
+        "leftEye": {
+          "description": "Viewer-left smooth eye seat above legendary cheek mane",
+          "vertices": [
+            [
+              442,
+              539
+            ],
+            [
+              527,
+              488
+            ],
+            [
+              658,
+              499
+            ],
+            [
+              713,
+              562
+            ],
+            [
+              712,
+              655
+            ],
+            [
+              650,
+              701
+            ],
+            [
+              527,
+              695
+            ],
+            [
+              444,
+              639
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "rightEye": {
+          "description": "Viewer-right eye seat following broad forehead in three-quarter pose",
+          "vertices": [
+            [
+              857,
+              530
+            ],
+            [
+              963,
+              490
+            ],
+            [
+              1139,
+              502
+            ],
+            [
+              1239,
+              559
+            ],
+            [
+              1265,
+              633
+            ],
+            [
+              1218,
+              707
+            ],
+            [
+              1079,
+              732
+            ],
+            [
+              929,
+              701
+            ],
+            [
+              866,
+              636
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "mouth": {
+          "description": "Legendary muzzle underside; surrounds native closed crease",
+          "vertices": [
+            [
+              666,
+              802
+            ],
+            [
+              771,
+              812
+            ],
+            [
+              870,
+              805
+            ],
+            [
+              946,
+              855
+            ],
+            [
+              949,
+              910
+            ],
+            [
+              892,
+              956
+            ],
+            [
+              783,
+              974
+            ],
+            [
+              690,
+              940
+            ],
+            [
+              647,
+              875
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "oralOpen": {
+          "description": "Open interior socket beneath legendary nose",
+          "vertices": [
+            [
+              709,
+              861
+            ],
+            [
+              789,
+              842
+            ],
+            [
+              879,
+              866
+            ],
+            [
+              904,
+              904
+            ],
+            [
+              839,
+              946
+            ],
+            [
+              741,
+              937
+            ],
+            [
+              694,
+              901
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "oralNarrow": {
+          "description": "Small central mouth socket within closed crease",
+          "vertices": [
+            [
+              712,
+              879
+            ],
+            [
+              781,
+              863
+            ],
+            [
+              849,
+              873
+            ],
+            [
+              883,
+              903
+            ],
+            [
+              821,
+              920
+            ],
+            [
+              744,
+              913
+            ],
+            [
+              704,
+              898
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "oralWide": {
+          "description": "Wide inset oral projection socket",
+          "vertices": [
+            [
+              679,
+              857
+            ],
+            [
+              768,
+              827
+            ],
+            [
+              870,
+              836
+            ],
+            [
+              917,
+              867
+            ],
+            [
+              922,
+              907
+            ],
+            [
+              872,
+              947
+            ],
+            [
+              775,
+              957
+            ],
+            [
+              691,
+              922
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "forepaw": {
+          "description": "Legendary two broad front paws, distinct traced contours",
+          "vertices": [
+            [
+              502,
+              1733
+            ],
+            [
+              571,
+              1690
+            ],
+            [
+              695,
+              1706
+            ],
+            [
+              775,
+              1760
+            ],
+            [
+              803,
+              1831
+            ],
+            [
+              772,
+              1884
+            ],
+            [
+              642,
+              1902
+            ],
+            [
+              525,
+              1871
+            ],
+            [
+              500,
+              1817
+            ]
+          ],
+          "additionalPolygons": [
+            [
+              [
+                830,
+                1745
+              ],
+              [
+                925,
+                1715
+              ],
+              [
+                1042,
+                1734
+              ],
+              [
+                1116,
+                1785
+              ],
+              [
+                1148,
+                1862
+              ],
+              [
+                1113,
+                1911
+              ],
+              [
+                999,
+                1931
+              ],
+              [
+                880,
+                1911
+              ],
+              [
+                826,
+                1866
+              ]
+            ]
+          ]
+        },
+        "hindpaw": {
+          "description": "Visible left rear heel and broad right rear paw",
+          "vertices": [
+            [
+              383,
+              1696
+            ],
+            [
+              428,
+              1662
+            ],
+            [
+              499,
+              1652
+            ],
+            [
+              536,
+              1702
+            ],
+            [
+              506,
+              1797
+            ],
+            [
+              447,
+              1823
+            ],
+            [
+              395,
+              1801
+            ],
+            [
+              374,
+              1754
+            ]
+          ],
+          "additionalPolygons": [
+            [
+              [
+                1193,
+                1746
+              ],
+              [
+                1265,
+                1692
+              ],
+              [
+                1381,
+                1687
+              ],
+              [
+                1464,
+                1726
+              ],
+              [
+                1501,
+                1791
+              ],
+              [
+                1478,
+                1872
+              ],
+              [
+                1379,
+                1900
+              ],
+              [
+                1250,
+                1884
+              ],
+              [
+                1188,
+                1840
+              ]
+            ]
+          ]
+        },
+        "tail": {
+          "description": "Single curled long cat tail connected to right rump; trace excludes torso gap",
+          "vertices": [
+            [
+              1440,
+              1600
+            ],
+            [
+              1558,
+              1517
+            ],
+            [
+              1586,
+              1406
+            ],
+            [
+              1588,
+              1319
+            ],
+            [
+              1549,
+              1194
+            ],
+            [
+              1496,
+              1055
+            ],
+            [
+              1472,
+              949
+            ],
+            [
+              1496,
+              842
+            ],
+            [
+              1576,
+              768
+            ],
+            [
+              1686,
+              724
+            ],
+            [
+              1788,
+              735
+            ],
+            [
+              1875,
+              795
+            ],
+            [
+              1893,
+              889
+            ],
+            [
+              1854,
+              994
+            ],
+            [
+              1764,
+              1049
+            ],
+            [
+              1709,
+              1009
+            ],
+            [
+              1708,
+              965
+            ],
+            [
+              1748,
+              922
+            ],
+            [
+              1783,
+              898
+            ],
+            [
+              1770,
+              869
+            ],
+            [
+              1720,
+              860
+            ],
+            [
+              1677,
+              904
+            ],
+            [
+              1683,
+              963
+            ],
+            [
+              1739,
+              1083
+            ],
+            [
+              1810,
+              1213
+            ],
+            [
+              1863,
+              1324
+            ],
+            [
+              1887,
+              1446
+            ],
+            [
+              1860,
+              1595
+            ],
+            [
+              1794,
+              1686
+            ],
+            [
+              1681,
+              1757
+            ],
+            [
+              1561,
+              1810
+            ],
+            [
+              1465,
+              1783
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "innerEars": {
+          "description": "Warm inner ear material with tufted ear outline preserved",
+          "vertices": [
+            [
+              528,
+              234
+            ],
+            [
+              491,
+              327
+            ],
+            [
+              487,
+              485
+            ],
+            [
+              544,
+              481
+            ],
+            [
+              645,
+              439
+            ],
+            [
+              667,
+              402
+            ],
+            [
+              620,
+              315
+            ]
+          ],
+          "additionalPolygons": [
+            [
+              [
+                1344,
+                336
+              ],
+              [
+                1262,
+                388
+              ],
+              [
+                1202,
+                457
+              ],
+              [
+                1240,
+                553
+              ],
+              [
+                1308,
+                621
+              ],
+              [
+                1363,
+                574
+              ],
+              [
+                1407,
+                475
+              ],
+              [
+                1401,
+                392
+              ]
+            ]
+          ]
+        },
+        "nose": {
+          "description": "Legendary preserved pink nose",
+          "vertices": [
+            [
+              740,
+              735
+            ],
+            [
+              784,
+              731
+            ],
+            [
+              826,
+              744
+            ],
+            [
+              848,
+              764
+            ],
+            [
+              835,
+              790
+            ],
+            [
+              811,
+              802
+            ],
+            [
+              796,
+              826
+            ],
+            [
+              768,
+              805
+            ],
+            [
+              761,
+              780
+            ],
+            [
+              737,
+              761
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "headAllowed": {
+          "description": "Crest extension allowance above broadened legendary cranium",
+          "vertices": [
+            [
+              626,
+              327
+            ],
+            [
+              688,
+              217
+            ],
+            [
+              923,
+              214
+            ],
+            [
+              1208,
+              308
+            ],
+            [
+              1250,
+              401
+            ],
+            [
+              1138,
+              457
+            ],
+            [
+              969,
+              425
+            ],
+            [
+              801,
+              428
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "headRear": {
+          "description": "Rear root traces top head seam between native ears",
+          "vertices": [
+            [
+              752,
+              322
+            ],
+            [
+              843,
+              317
+            ],
+            [
+              950,
+              331
+            ],
+            [
+              1052,
+              355
+            ],
+            [
+              1091,
+              373
+            ],
+            [
+              1082,
+              408
+            ],
+            [
+              997,
+              377
+            ],
+            [
+              907,
+              359
+            ],
+            [
+              827,
+              355
+            ],
+            [
+              750,
+              364
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "headFront": {
+          "description": "Front crown root seated on plush forehead",
+          "vertices": [
+            [
+              824,
+              370
+            ],
+            [
+              907,
+              361
+            ],
+            [
+              990,
+              380
+            ],
+            [
+              1031,
+              401
+            ],
+            [
+              1017,
+              428
+            ],
+            [
+              928,
+              408
+            ],
+            [
+              842,
+              413
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "headOccluder": {
+          "description": "Legendary crown fixed fur replay around both roots",
+          "vertices": [
+            [
+              709,
+              303
+            ],
+            [
+              821,
+              296
+            ],
+            [
+              969,
+              311
+            ],
+            [
+              1135,
+              355
+            ],
+            [
+              1138,
+              457
+            ],
+            [
+              1036,
+              488
+            ],
+            [
+              892,
+              469
+            ],
+            [
+              768,
+              433
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "extraAllowed": {
+          "description": "Left side neck mane/collar envelope with exterior space",
+          "vertices": [
+            [
+              494,
+              971
+            ],
+            [
+              362,
+              1015
+            ],
+            [
+              342,
+              1209
+            ],
+            [
+              380,
+              1435
+            ],
+            [
+              534,
+              1447
+            ],
+            [
+              672,
+              1320
+            ],
+            [
+              687,
+              1134
+            ],
+            [
+              608,
+              1036
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "extraRear": {
+          "description": "Rear collar root straddles legendary neck fur edge",
+          "vertices": [
+            [
+              504,
+              1036
+            ],
+            [
+              534,
+              1107
+            ],
+            [
+              509,
+              1187
+            ],
+            [
+              482,
+              1289
+            ],
+            [
+              451,
+              1279
+            ],
+            [
+              475,
+              1181
+            ],
+            [
+              502,
+              1104
+            ],
+            [
+              476,
+              1058
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "extraFront": {
+          "description": "Front collar root on visible upper chest fur",
+          "vertices": [
+            [
+              555,
+              1128
+            ],
+            [
+              598,
+              1148
+            ],
+            [
+              579,
+              1212
+            ],
+            [
+              549,
+              1249
+            ],
+            [
+              519,
+              1230
+            ],
+            [
+              540,
+              1175
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "extraOccluder": {
+          "description": "Fixed left cheek/neck fur occluder for mane/collar roots",
+          "vertices": [
+            [
+              478,
+              1002
+            ],
+            [
+              586,
+              1073
+            ],
+            [
+              636,
+              1163
+            ],
+            [
+              592,
+              1247
+            ],
+            [
+              521,
+              1321
+            ],
+            [
+              447,
+              1290
+            ],
+            [
+              469,
+              1184
+            ],
+            [
+              478,
+              1085
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "background": {
+          "description": "Exterior envelope around legendary ears and single curled tail",
+          "vertices": [
+            [
+              271,
+              158
+            ],
+            [
+              1797,
+              201
+            ],
+            [
+              1918,
+              647
+            ],
+            [
+              1934,
+              1579
+            ],
+            [
+              1717,
+              1912
+            ],
+            [
+              337,
+              1916
+            ],
+            [
+              201,
+              1582
+            ],
+            [
+              195,
+              660
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "foreground": {
+          "description": "Foreground ambient envelope spans complete legendary silhouette",
+          "vertices": [
+            [
+              243,
+              194
+            ],
+            [
+              1847,
+              241
+            ],
+            [
+              1937,
+              957
+            ],
+            [
+              1905,
+              1927
+            ],
+            [
+              482,
+              1940
+            ],
+            [
+              203,
+              1601
+            ],
+            [
+              207,
+              931
+            ]
+          ],
+          "additionalPolygons": []
+        },
+        "targeted": {
+          "description": "Heavy legendary chest targeted effect zone",
+          "vertices": [
+            [
+              595,
+              1094
+            ],
+            [
+              787,
+              1065
+            ],
+            [
+              1031,
+              1135
+            ],
+            [
+              1190,
+              1279
+            ],
+            [
+              1208,
+              1544
+            ],
+            [
+              1060,
+              1660
+            ],
+            [
+              761,
+              1640
+            ],
+            [
+              596,
+              1493
+            ],
+            [
+              534,
+              1245
+            ]
+          ],
+          "additionalPolygons": []
+        }
+      },
+      "expectedMaskPaths": {
+        "global-fur": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/global-fur.png",
+        "forepaw": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/forepaw.png",
+        "hindpaw": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/hindpaw.png",
+        "tail": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/tail.png",
+        "left-eye": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/left-eye.png",
+        "right-eye": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/right-eye.png",
+        "eye-pair": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/eye-pair.png",
+        "eye-edge": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/eye-edge.png",
+        "mouth": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/mouth.png",
+        "mouth-edge": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/mouth-edge.png",
+        "oral-open": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/oral-open.png",
+        "oral-narrow": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/oral-narrow.png",
+        "oral-wide": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/oral-wide.png",
+        "head-allowed": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/head-allowed.png",
+        "head-rear": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/head-rear.png",
+        "head-front": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/head-front.png",
+        "head-occluder": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/head-occluder.png",
+        "extra-allowed": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/extra-allowed.png",
+        "extra-rear": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/extra-rear.png",
+        "extra-front": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/extra-front.png",
+        "extra-occluder": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/extra-occluder.png",
+        "targeted": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/targeted.png",
+        "background": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/background.png",
+        "foreground": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/foreground.png",
+        "inner-ears": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/inner-ears.png",
+        "nose": "asset-source/v0.9.0/feline/templates/feline-sit-v2-legendary-01/nose.png"
+      }
+    }
+  ]
+}
