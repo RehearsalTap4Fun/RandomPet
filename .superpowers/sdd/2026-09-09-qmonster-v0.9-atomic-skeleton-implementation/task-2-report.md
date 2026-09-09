@@ -44,3 +44,27 @@ It failed as expected because `generateMonsterV09` (and reroll APIs) were not ex
 ## Residual risk
 
 The Task 1 `ResolvedV09Catalog` contract exposes sealed traits as a flat array rather than a pre-indexed `traitsBySkeleton` map. Generation therefore builds filtered candidate views per selection. This is deterministic and correct for the current bounded catalog, but a future large release loader may want to provide a validated index for efficiency.
+
+## Fix round 1
+
+### RED
+
+Added exact regressions and ran the focused suite before the fix. Both failed as expected:
+
+- a closed-mouth `oral-none` remained after rerolling the mouth to an open socket;
+- a failed whole-skeleton reroll returned skeleton roll `0` rather than preserving its new roll `1`.
+
+### GREEN and verification
+
+- Focused v0.9 tests: `12 passed`.
+- Required focused + legacy regression suite: `5 files passed`, `90 tests passed`.
+- `npm run typecheck`: passed.
+
+### Fix behavior
+
+- `mouthShape` rerolls compare the prior and selected socket state. On a state transition, `oralDetail` is deterministically re-resolved using its unchanged roll; it is included in `affectedSlots` only when its selection actually changes.
+- Blocked whole-skeleton rerolls now return the generated attempted spec and all twelve affected slots, retaining the incremented skeleton roll and missing-projection placeholder for the next explicit reroll attempt.
+
+### Deferred minor feedback
+
+The two Minor review items were explicitly left out of scope for this round. Their detailed text was not included in the fix brief; they remain deferred for a separately scoped follow-up.

@@ -14,6 +14,17 @@ describe('v0.9 rerolls', () => {
     expect(rerolled.affectedSlots).toEqual(['eyes'])
   })
 
+  it('restores an oral projection when a mouth reroll opens a previously closed socket', () => {
+    const first = generateMonsterV09({ seed: 'closed-4', slotRolls: {} }, fixtureCatalog())
+    const rerolled = rerollV09Slot({ spec: first.spec, slotId: 'mouthShape' }, fixtureCatalog())
+
+    expect(first.spec.visualSlots.oralDetail).toEqual({ traitId: 'oral-none', rarity: 'common', roll: 0 })
+    expect(rerolled.blocked).toBe(false)
+    expect(rerolled.spec.visualSlots.mouthShape).toEqual({ traitId: 'mouthShape_c_base-cat_7', rarity: 'common', roll: 1 })
+    expect(rerolled.spec.visualSlots.oralDetail).toEqual({ traitId: 'oralDetail_c_base-cat_6', rarity: 'common', roll: 0 })
+    expect(rerolled.affectedSlots).toEqual(['mouthShape', 'oralDetail'])
+  })
+
   it('rebuilds all skeleton projections from the next whole-skeleton roll', () => {
     const first = generateMonsterV09({ seed: 'reroll-71', slotRolls: {} }, fixtureCatalog())
     const rerolled = rerollV09Skeleton({ spec: first.spec }, fixtureCatalog())
@@ -32,5 +43,8 @@ describe('v0.9 rerolls', () => {
       blocked: true,
       diagnostics: [expect.objectContaining({ code: 'SKELETON_PROJECTION_MISSING' })],
     })
+    expect(rerolled.spec.skeletonSelection.roll).toBe(first.spec.skeletonSelection.roll + 1)
+    expect(rerolled.spec.visualSlots.eyes).toEqual({ traitId: 'missing_eyes', rarity: 'common', roll: 0 })
+    expect(rerolled.affectedSlots).toEqual(V09_TRAIT_SLOT_IDS)
   })
 })
