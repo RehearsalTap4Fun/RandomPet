@@ -14,3 +14,24 @@ export {
   loadActiveV09Release,
   resolveV09Resource,
 } from './v09-release-loader.js'
+export {
+  enforceAuthoringZone,
+  injectFixedRootStencil,
+  decodeFullMasterPng,
+  decodeBinaryFullMasterMask,
+} from './v09-authoring-workbench.js'
+export {
+  sealTraitBundle,
+  createTraitVisualApproval,
+} from './v09-trait-sealer.js'
+export type {
+  AuthoringZoneInput,
+  DecodedMasterRgba,
+  PngBytes,
+} from './v09-authoring-workbench.js'
+export type {
+  SealContext,
+  TraitBundleV1,
+  TraitVisualApprovalInput,
+  TraitVisualApprovalV1,
+} from './v09-trait-sealer.js'
