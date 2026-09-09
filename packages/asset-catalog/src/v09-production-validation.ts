@@ -9,6 +9,7 @@ import {
   parseSealedTraitArtifactV1,
   type ContentResourceRef,
   type Diagnostic,
+  type ReleaseManifestV09,
   type SealedTraitArtifactV1,
 } from '@qmonster/generator-core'
 import { canonicalJsonBytes, canonicalJsonSha256, decodedPngSha256 } from './v09-content-identity.js'
@@ -20,6 +21,10 @@ const ATTACHMENT_CLASSES = new Set(['ear-horn-small', 'ear-ornament', 'mane-smal
 const PLACEMENT_KEYS = new Set(['anchor', 'anchorx', 'anchory', 'x', 'y', 'offset', 'position', 'transform', 'translate', 'scale', 'rotation', 'crop', 'zindex', 'layerorder', 'occludermask', 'occludermasks'])
 const PATH_KEYS = new Set(['assetpath', 'path', 'url'])
 const MAX_ARRAY = 1024
+let assemblyFailureHook: ((stage: 'resource' | 'manifest' | 'audit' | 'pointer') => void | Promise<void>) | undefined
+
+/** @internal deterministic failure seam for rollback tests; intentionally not re-exported by the package barrel. */
+export function __setV09AssemblyFailureHookForTest(hook?: (stage: 'resource' | 'manifest' | 'audit' | 'pointer') => void | Promise<void>): void { assemblyFailureHook = hook }
 
 export interface AssemblyApprovalV1 {
   schemaVersion: 'qmonster-assembly-approval-v1'
@@ -131,7 +136,7 @@ function forbidden(value: Pure, diagnostics: Diagnostic[], path: string[] = []):
   }
 }
 
-function record(value: Pure, diagnostics: Diagnostic[], path: string[], keys?: readonly string[]): Record<string, Pure> | undefined {
+function record(value: Pure | undefined, diagnostics: Diagnostic[], path: string[], keys?: readonly string[]): Record<string, Pure> | undefined {
   if (value === null || typeof value !== 'object' || Array.isArray(value) || value instanceof Uint8Array) { diagnostics.push(diagnostic('RELEASE_CANDIDATE_INVALID', path, 'Expected an ordinary object.')); return undefined }
   const result = value as Record<string, Pure>
   if (keys !== undefined) for (const key of Object.keys(result)) if (!keys.includes(key)) diagnostics.push(diagnostic('RELEASE_CANDIDATE_INVALID', [...path, key], 'Unknown field.'))
@@ -195,7 +200,25 @@ function candidateShape(raw: Pure, diagnostics: Diagnostic[]): V09ReleaseCandida
     if (resourceRef === undefined || !(item?.bytes instanceof Uint8Array)) { diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['resources', String(index)], 'Resource records require a strict ref and in-memory bytes.')); continue }
     resources.push({ ref: resourceRef, bytes: item.bytes })
   }
+  validateApprovalDocuments(assemblyApprovals, traitApprovals, input.attachmentAllowlist, input.traitInventory, diagnostics)
   return { releaseManifest: input.releaseManifest, speciesRig: input.speciesRig, skeletonPool: input.skeletonPool, skeletonFamilies, assemblyTemplates, assemblyApprovals: assemblyApprovals as unknown as AssemblyApprovalV1[], traitApprovals: traitApprovals as unknown as TraitVisualApprovalV1[], attachmentAllowlist: input.attachmentAllowlist as unknown as ApprovedAttachmentAllowlistV1, traitInventory: input.traitInventory as unknown as TraitInventoryV1, sealedTraits, compositionGraph: input.compositionGraph, resources }
+}
+
+function validateApprovalDocuments(assemblies: Pure[], traits: Pure[], allowlist: Pure | undefined, inventory: Pure | undefined, diagnostics: Diagnostic[]): void {
+  const assemblyKeys = ['schemaVersion', 'skeletonFamilyId', 'assemblyTemplateId', 'assemblyTemplateSha256', 'neutralMasterSha256', 'materialMapSha256', 'fixedOccluderMasksSha256', 'attachmentAllowlistSha256', 'compositionGraphSha256', 'overlayPolicySha256', 'approvedBy', 'approvedAt', 'approvalRevision', 'status'] as const
+  const traitKeys = ['schemaVersion', 'skeletonFamilyId', 'assemblyTemplateSha256', 'sealedArtifactSha256', 'fullContextPreviewSha256', 'approvedBy', 'approvedAt', 'approvalRevision', 'status'] as const
+  for (const [index, value] of assemblies.entries()) {
+    const item = record(value, diagnostics, ['assemblyApprovals', String(index)], assemblyKeys)
+    if (item === undefined || item.schemaVersion !== 'qmonster-assembly-approval-v1' || !text(item.skeletonFamilyId) || !text(item.assemblyTemplateId) || assemblyKeys.filter(key => key.endsWith('Sha256')).some(key => !hash(item[key])) || !text(item.approvedBy) || typeof item.approvalRevision !== 'number' || !Number.isInteger(item.approvalRevision) || item.approvalRevision <= 0 || (item.status !== 'approved' && item.status !== 'revoked')) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_UNAPPROVED', ['assemblyApprovals', String(index)], 'Assembly approval is not a strict approved-design record.'))
+  }
+  for (const [index, value] of traits.entries()) {
+    const item = record(value, diagnostics, ['traitApprovals', String(index)], traitKeys)
+    if (item === undefined || item.schemaVersion !== 'qmonster-trait-visual-approval-v1' || !text(item.skeletonFamilyId) || traitKeys.filter(key => key.endsWith('Sha256')).some(key => !hash(item[key])) || !text(item.approvedBy) || typeof item.approvalRevision !== 'number' || !Number.isInteger(item.approvalRevision) || item.approvalRevision <= 0 || (item.status !== 'approved' && item.status !== 'revoked')) diagnostics.push(diagnostic('TRAIT_APPROVAL_MISSING', ['traitApprovals', String(index)], 'Trait approval is not a strict approved-design record.'))
+  }
+  const allow = record(allowlist as Pure, diagnostics, ['attachmentAllowlist'], ['schemaVersion', 'entries'])
+  if (allow === undefined || allow.schemaVersion !== 'qmonster-approved-attachment-allowlist-v1' || array(allow.entries, diagnostics, ['attachmentAllowlist', 'entries']) === undefined) diagnostics.push(diagnostic('ATTACHMENT_HASH_NOT_APPROVED', ['attachmentAllowlist'], 'Attachment allowlist is not a strict record.'))
+  const inv = record(inventory as Pure, diagnostics, ['traitInventory'], ['schemaVersion', 'traits'])
+  if (inv === undefined || inv.schemaVersion !== 'qmonster-trait-inventory-v1' || array(inv.traits, diagnostics, ['traitInventory', 'traits']) === undefined) diagnostics.push(diagnostic('RARITY_INVENTORY_MISMATCH', ['traitInventory'], 'Inventory is not a strict record.'))
 }
 
 function addOnce(seen: Set<string>, key: string, diagnostics: Diagnostic[], code: string, path: string[], label: string): void {
@@ -204,14 +227,14 @@ function addOnce(seen: Set<string>, key: string, diagnostics: Diagnostic[], code
 
 function approvalHash(value: unknown): string | undefined { try { return canonicalJsonSha256(value) } catch { return undefined } }
 
-/** Validate an untrusted release candidate without mutating it or performing filesystem writes. */
-export async function validateV09Release(input: unknown): Promise<Diagnostic[]> {
+/** Snapshot and validate once; callers that write must retain this exact frozen copy. */
+async function parseAndValidateV09Release(input: unknown): Promise<{ candidate?: V09ReleaseCandidate; diagnostics: Diagnostic[] }> {
   const diagnostics: Diagnostic[] = []
   let raw: Pure
-  try { raw = snapshot(input) } catch (error) { return [error as Diagnostic] }
+  try { raw = snapshot(input) } catch (error) { return { diagnostics: [error as Diagnostic] } }
   forbidden(raw, diagnostics)
   const candidate = candidateShape(raw, diagnostics)
-  if (candidate === undefined) return stable(diagnostics)
+  if (candidate === undefined) return { diagnostics: stable(diagnostics) }
 
   const manifestParsed = parseReleaseManifestV09(candidate.releaseManifest)
   if (!manifestParsed.ok) diagnostics.push(...manifestParsed.diagnostics)
@@ -234,17 +257,9 @@ export async function validateV09Release(input: unknown): Promise<Diagnostic[]> 
     const supplied = resourceById.get(resourceId)
     if (supplied === undefined || !equalJson(supplied.ref, declared) || !await verifyResource(supplied.ref, supplied.bytes)) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['resources', resourceId], 'Referenced resource is absent, not exact, or does not match its canonical/decoded identity.'))
   }
+  for (const resource of candidate.resources) if (!requiredRefs.has(resource.ref.resourceId)) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['resources', resource.ref.resourceId], 'Orphan resource is not reachable from the manifest closure.'))
   if (manifest !== undefined) {
-    const documentBindings: Array<[ContentResourceRef, unknown, string]> = [
-      [manifest.speciesRig, candidate.speciesRig, 'speciesRig'], [manifest.skeletonPool, candidate.skeletonPool, 'skeletonPool'],
-      [manifest.traitInventory, candidate.traitInventory, 'traitInventory'], [manifest.compositionGraph, candidate.compositionGraph, 'compositionGraph'],
-    ]
-    manifest.skeletonFamilies.forEach((item, index) => documentBindings.push([item, candidate.skeletonFamilies[index], `skeletonFamilies.${index}`]))
-    manifest.assemblyTemplates.forEach((item, index) => documentBindings.push([item, candidate.assemblyTemplates[index], `assemblyTemplates.${index}`]))
-    manifest.approvals.forEach((item, index) => documentBindings.push([item, candidate.assemblyApprovals[index], `assemblyApprovals.${index}`]))
-    manifest.traitApprovals.forEach((item, index) => documentBindings.push([item, candidate.traitApprovals[index], `traitApprovals.${index}`]))
-    manifest.sealedTraits.forEach((item, index) => documentBindings.push([item, candidate.sealedTraits[index], `sealedTraits.${index}`]))
-    for (const [item, payload, label] of documentBindings) if (payload === undefined || item.sha256 !== canonicalOrEmpty(payload)) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['releaseManifest', label], 'Manifest reference does not bind the exact candidate document.'))
+    validateManifestClosure(manifest, candidate, diagnostics)
   }
 
   validatePoolAndFamilies(candidate, diagnostics)
@@ -252,7 +267,32 @@ export async function validateV09Release(input: unknown): Promise<Diagnostic[]> 
   const inventory = validateInventory(candidate.traitInventory, diagnostics)
   const projections = await validateTraits(candidate, inventory, diagnostics)
   validateApprovals(candidate, projections, diagnostics)
-  return stable(diagnostics)
+  return { candidate, diagnostics: stable(diagnostics) }
+}
+
+function validateManifestClosure(manifest: ReleaseManifestV09, candidate: V09ReleaseCandidate, diagnostics: Diagnostic[]): void {
+  const one = (document: ContentResourceRef, payload: unknown, label: string) => {
+    if (document.sha256 !== canonicalOrEmpty(payload)) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['releaseManifest', label], 'Manifest singleton does not bind the exact candidate document.'))
+  }
+  const many = (refs: ContentResourceRef[], payloads: unknown[], label: string) => {
+    const refHashes = refs.map(ref => ref.sha256).sort(); const payloadHashes = payloads.map(canonicalOrEmpty).sort()
+    const uniqueRefs = new Set(refHashes); const uniquePayloads = new Set(payloadHashes)
+    if (refs.length !== payloads.length || uniqueRefs.size !== refs.length || uniquePayloads.size !== payloads.length || !equalJson(refHashes, payloadHashes)) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['releaseManifest', label], 'Manifest references must be an exact duplicate-free set of candidate documents.'))
+  }
+  one(manifest.speciesRig, candidate.speciesRig, 'speciesRig')
+  one(manifest.skeletonPool, candidate.skeletonPool, 'skeletonPool')
+  one(manifest.traitInventory, candidate.traitInventory, 'traitInventory')
+  one(manifest.compositionGraph, candidate.compositionGraph, 'compositionGraph')
+  many(manifest.skeletonFamilies, candidate.skeletonFamilies, 'skeletonFamilies')
+  many(manifest.assemblyTemplates, candidate.assemblyTemplates, 'assemblyTemplates')
+  many(manifest.approvals, candidate.assemblyApprovals, 'approvals')
+  many(manifest.traitApprovals, candidate.traitApprovals, 'traitApprovals')
+  many(manifest.sealedTraits, candidate.sealedTraits, 'sealedTraits')
+}
+
+/** Validate an untrusted release candidate without mutating it or performing filesystem writes. */
+export async function validateV09Release(input: unknown): Promise<Diagnostic[]> {
+  return (await parseAndValidateV09Release(input)).diagnostics
 }
 
 function canonicalOrEmpty(value: unknown): string { try { return canonicalJsonSha256(value) } catch { return '' } }
@@ -266,6 +306,12 @@ function validatePoolAndFamilies(candidate: V09ReleaseCandidate, diagnostics: Di
     const id = family === undefined ? undefined : text(family.skeletonFamilyId)
     if (id === undefined) diagnostics.push(diagnostic('SKELETON_POOL_INVALID', ['skeletonFamilies', String(index)], 'Skeleton family requires an ID.'))
     else { if (familyById.has(id)) diagnostics.push(diagnostic('SKELETON_POOL_INVALID', ['skeletonFamilies', String(index)], `Duplicate skeleton family: ${id}.`)); familyById.set(id, family!) }
+    const shapes = family === undefined ? undefined : array(family.structuralShapeClasses, diagnostics, ['skeletonFamilies', String(index), 'structuralShapeClasses'])
+    if (family?.speciesRigId !== 'feline-sit-v2' || shapes === undefined || !shapes.includes('feline-standard') || shapes.some(shape => !['feline-standard', 'cat-tail-long', 'cat-tail-curled'].includes(shape as string))) diagnostics.push(diagnostic('SKELETON_POOL_INVALID', ['skeletonFamilies', String(index)], 'Family must be a complete feline-sit-v2 projection with only feline structural classes.'))
+    if (family !== undefined) {
+      const masks = record(family.fixedOccluderMasks, diagnostics, ['skeletonFamilies', String(index), 'fixedOccluderMasks'])
+      if (masks === undefined || Object.keys(masks).length === 0 || Object.values(masks).some(value => ref(value)?.mediaType !== 'image/png')) diagnostics.push(diagnostic('SKELETON_PROJECTION_MISSING', ['skeletonFamilies', String(index), 'fixedOccluderMasks'], 'Family fixed occluder masks must be manifest-reachable PNG references.'))
+    }
   }
   const templateByFamily = new Map<string, Record<string, Pure>>()
   for (const [index, value] of candidate.assemblyTemplates.entries()) {
@@ -404,19 +450,22 @@ function validateApprovals(candidate: V09ReleaseCandidate, projections: Map<stri
   const entries = Array.isArray(allowlist?.entries) ? allowlist.entries as Record<string, unknown>[] : []
   const allowlistHash = canonicalOrEmpty(candidate.attachmentAllowlist)
   if (allowlist?.schemaVersion !== 'qmonster-approved-attachment-allowlist-v1') diagnostics.push(diagnostic('ATTACHMENT_HASH_NOT_APPROVED', ['attachmentAllowlist'], 'Attachment allowlist is malformed.'))
-  const traits = new Map<string, TraitVisualApprovalV1>()
-  for (const approval of candidate.traitApprovals) if (approval.status === 'approved') traits.set(`${approval.skeletonFamilyId}\u0000${approval.sealedArtifactSha256}`, approval)
-  const assemblies = new Map<string, AssemblyApprovalV1>()
-  for (const approval of candidate.assemblyApprovals) if (approval.status === 'approved') assemblies.set(approval.skeletonFamilyId, approval)
+  const traits = new Map<string, TraitVisualApprovalV1[]>()
+  for (const approval of candidate.traitApprovals) {
+    const key = `${approval.skeletonFamilyId}\u0000${approval.sealedArtifactSha256}`
+    traits.set(key, [...(traits.get(key) ?? []), approval])
+  }
+  const assemblies = new Map<string, AssemblyApprovalV1[]>()
+  for (const approval of candidate.assemblyApprovals) assemblies.set(approval.skeletonFamilyId, [...(assemblies.get(approval.skeletonFamilyId) ?? []), approval])
   for (const [index, family] of candidate.skeletonFamilies.entries()) {
-    const value = family as Record<string, unknown>; const id = String(value.skeletonFamilyId); const template = candidate.assemblyTemplates.find(item => (item as Record<string, unknown>).skeletonFamilyId === id) as Record<string, unknown> | undefined; const approval = assemblies.get(id)
+    const value = family as Record<string, unknown>; const id = String(value.skeletonFamilyId); const template = candidate.assemblyTemplates.find(item => (item as Record<string, unknown>).skeletonFamilyId === id) as Record<string, unknown> | undefined; const approvals = assemblies.get(id) ?? []; const approval = approvals[0]
     const masksHash = canonicalOrEmpty(value.fixedOccluderMasks)
-    if (approval === undefined) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_UNAPPROVED', ['assemblyApprovals', String(index)], 'Family has no non-revoked assembly approval.'))
+    if (approvals.length !== 1 || approval?.status !== 'approved') diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_UNAPPROVED', ['assemblyApprovals', String(index)], 'Family requires exactly one approved, non-revoked assembly approval.'))
     else if (template === undefined || approval.assemblyTemplateId !== template.assemblyTemplateId || approval.assemblyTemplateSha256 !== canonicalOrEmpty(template) || approval.neutralMasterSha256 !== (value.neutralMaster as Record<string, unknown> | undefined)?.sha256 || approval.materialMapSha256 !== (value.materialMap as Record<string, unknown> | undefined)?.sha256 || approval.fixedOccluderMasksSha256 !== masksHash || approval.attachmentAllowlistSha256 !== allowlistHash || approval.compositionGraphSha256 !== canonicalOrEmpty(candidate.compositionGraph) || !HASH.test(approval.overlayPolicySha256)) diagnostics.push(diagnostic('ASSEMBLY_TEMPLATE_HASH_MISMATCH', ['assemblyApprovals', String(index)], 'Assembly approval does not bind the exact template/family/allowlist/graph identities.'))
   }
   for (const item of projections.values()) {
-    const artifact = item.artifact; const approval = traits.get(`${artifact.skeletonFamilyId}\u0000${item.hash}`)
-    if (approval === undefined || approval.assemblyTemplateSha256 !== artifact.assemblyTemplateSha256 || approval.fullContextPreviewSha256 !== artifact.fullContextPreview.sha256) diagnostics.push(diagnostic('TRAIT_APPROVAL_MISSING', ['sealedTraits', artifact.slotId, artifact.traitId], 'Trait lacks an exact non-revoked visual approval.'))
+    const artifact = item.artifact; const matching = traits.get(`${artifact.skeletonFamilyId}\u0000${item.hash}`) ?? []; const approval = matching[0]
+    if (matching.length !== 1 || approval?.status !== 'approved' || approval.assemblyTemplateSha256 !== artifact.assemblyTemplateSha256 || approval.fullContextPreviewSha256 !== artifact.fullContextPreview.sha256) diagnostics.push(diagnostic('TRAIT_APPROVAL_MISSING', ['sealedTraits', artifact.slotId, artifact.traitId], 'Trait requires exactly one exact non-revoked visual approval.'))
     if (artifact.kind === 'attachment') {
       const found = entries.some(entry => entry.skeletonFamilyId === artifact.skeletonFamilyId && entry.interfaceId === artifact.interfaceId && entry.shapeClass === artifact.shapeClass && entry.sealedArtifactSha256 === item.hash && entry.traitVisualApprovalSha256 === approvalHash(approval))
       if (!found) diagnostics.push(diagnostic('ATTACHMENT_HASH_NOT_APPROVED', ['sealedTraits', artifact.slotId, artifact.traitId], 'Attachment tuple is not exactly in the approved allowlist.'))
@@ -445,14 +494,17 @@ async function ensureDirectory(root: string, segments: string[]): Promise<string
   return current
 }
 
-async function immutableWrite(path: string, refValue: ContentResourceRef, bytes: Uint8Array): Promise<void> {
+async function immutableWrite(path: string, refValue: ContentResourceRef, bytes: Uint8Array): Promise<boolean> {
   const expected = refValue.mediaType === 'image/png' ? Buffer.from(bytes) : Buffer.concat([canonicalJsonBytes(JSON.parse(Buffer.from(bytes).toString('utf8'))), Buffer.from('\n')])
   try {
+    const entry = await lstat(path)
+    if (!entry.isFile() || entry.isSymbolicLink()) throw Object.assign(new Error('Immutable target is a link or non-file.'), { code: 'RESOURCE_OUTSIDE_CATALOG_ROOT' })
     const current = await readFile(path)
     if (!await verifyResource(refValue, current)) throw Object.assign(new Error('Conflicting immutable content.'), { code: 'IMMUTABLE_CONTENT_CONFLICT' })
-    return
+    return false
   } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error }
   await writeFile(path, expected, { flag: 'wx' })
+  return true
 }
 
 async function atomicJson(directory: string, name: string, value: unknown): Promise<string> {
@@ -463,23 +515,33 @@ async function atomicJson(directory: string, name: string, value: unknown): Prom
 
 /** Assemble a fully validated immutable v0.9 candidate, never activating it. */
 export async function assembleV09Release(options: AssembleV09ReleaseOptions): Promise<{ releaseManifestSha256: string; candidatePointerPath: string; auditPath: string }> {
-  const diagnostics = await validateV09Release(options?.candidate)
-  if (diagnostics.length > 0) throw Object.assign(new Error('V0.9 release candidate is invalid.'), { code: 'V09_RELEASE_INVALID', diagnostics })
+  const suppliedCandidate = options?.candidate
+  const parsed = await parseAndValidateV09Release(suppliedCandidate)
+  if (parsed.diagnostics.length > 0 || parsed.candidate === undefined) throw Object.assign(new Error('V0.9 release candidate is invalid.'), { code: 'V09_RELEASE_INVALID', diagnostics: parsed.diagnostics })
   if (typeof options.root !== 'string' || options.root.length === 0) throw Object.assign(new Error('Release root is required.'), { code: 'RESOURCE_OUTSIDE_CATALOG_ROOT' })
-  const assemblyDiagnostics: Diagnostic[] = []
-  const candidate = candidateShape(snapshot(options.candidate), assemblyDiagnostics)
-  if (candidate === undefined || assemblyDiagnostics.length > 0) throw Object.assign(new Error('Candidate changed while being assembled.'), { code: 'V09_RELEASE_INVALID' })
+  const candidate = parsed.candidate
   const target = resolve(options.root)
   try { await directDirectory(target) } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; await mkdir(target, { recursive: true }); await directDirectory(target) }
   const root = await directDirectory(target)
   const resourceDirectory = await ensureDirectory(root, ['resources', 'by-sha256']); const releaseDirectory = await ensureDirectory(root, ['releases', 'by-sha256']); const candidateDirectory = await ensureDirectory(root, ['releases']); const auditDirectory = await ensureDirectory(root, ['audit', 'v0.9.0'])
-  for (const resource of candidate.resources) await immutableWrite(join(resourceDirectory, resource.ref.sha256), resource.ref, resource.bytes)
+  const created: string[] = []
   const manifestHash = canonicalJsonSha256(candidate.releaseManifest); const manifestPath = join(releaseDirectory, `${manifestHash}.json`)
-  const manifestRef = { resourceId: `sha256:${manifestHash}`, sha256: manifestHash, mediaType: 'application/qmonster-manifest-v1+json' as const } as unknown as ContentResourceRef
-  await immutableWrite(manifestPath, manifestRef, canonicalJsonBytes(candidate.releaseManifest))
-  const candidatePointerPath = await atomicJson(candidateDirectory, 'candidate-v0.9.0.json', { schemaVersion: 'qmonster-active-release-v1', releaseManifestSha256: manifestHash })
-  const auditPath = await atomicJson(auditDirectory, `release-${manifestHash}.json`, { schemaVersion: 'qmonster-v09-release-audit-v1', versionTuple: V09_VERSION_TUPLE, releaseManifestSha256: manifestHash, inventoryCounts: RARITY_COUNTS, skeletons: candidate.skeletonFamilies.map(value => ({ skeletonFamilyId: (value as Record<string, unknown>).skeletonFamilyId, assemblyTemplateId: (value as Record<string, unknown>).assemblyTemplateId })), assemblyApprovals: candidate.assemblyApprovals.map(approval => ({ skeletonFamilyId: approval.skeletonFamilyId, assemblyApprovalSha256: canonicalOrEmpty(approval) })), result: 'valid' })
-  return { releaseManifestSha256: manifestHash, candidatePointerPath, auditPath }
+  const pointerPath = join(candidateDirectory, 'candidate-v0.9.0.json'); const auditName = `release-${manifestHash}.json`; const auditPath = join(auditDirectory, auditName)
+  const before = async (path: string): Promise<Buffer | undefined> => { try { const entry = await lstat(path); if (!entry.isFile() || entry.isSymbolicLink()) throw Object.assign(new Error('Mutable target is unsafe.'), { code: 'RESOURCE_OUTSIDE_CATALOG_ROOT' }); return await readFile(path) } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') return undefined; throw error } }
+  const restore = async (path: string, bytes: Buffer | undefined) => { if (bytes === undefined) await rm(path, { force: true }); else await writeFile(path, bytes) }
+  const pointerBefore = await before(pointerPath); const auditBefore = await before(auditPath)
+  try {
+    for (const resource of candidate.resources) { if (await immutableWrite(join(resourceDirectory, resource.ref.sha256), resource.ref, resource.bytes)) created.push(join(resourceDirectory, resource.ref.sha256)); await assemblyFailureHook?.('resource') }
+    const manifestRef = { resourceId: `sha256:${manifestHash}`, sha256: manifestHash, mediaType: 'application/qmonster-manifest-v1+json' as const } as unknown as ContentResourceRef
+    if (await immutableWrite(manifestPath, manifestRef, canonicalJsonBytes(candidate.releaseManifest))) created.push(manifestPath); await assemblyFailureHook?.('manifest')
+    await atomicJson(auditDirectory, auditName, { schemaVersion: 'qmonster-v09-release-audit-v1', versionTuple: V09_VERSION_TUPLE, releaseManifestSha256: manifestHash, inventoryCounts: RARITY_COUNTS, skeletons: candidate.skeletonFamilies.map(value => ({ skeletonFamilyId: (value as Record<string, unknown>).skeletonFamilyId, assemblyTemplateId: (value as Record<string, unknown>).assemblyTemplateId })), assemblyApprovals: candidate.assemblyApprovals.map(approval => ({ skeletonFamilyId: approval.skeletonFamilyId, assemblyApprovalSha256: canonicalOrEmpty(approval) })), result: 'valid' }); await assemblyFailureHook?.('audit')
+    const candidatePointerPath = await atomicJson(candidateDirectory, 'candidate-v0.9.0.json', { schemaVersion: 'qmonster-active-release-v1', releaseManifestSha256: manifestHash }); await assemblyFailureHook?.('pointer')
+    return { releaseManifestSha256: manifestHash, candidatePointerPath, auditPath }
+  } catch (error) {
+    await restore(auditPath, auditBefore); await restore(pointerPath, pointerBefore)
+    await Promise.all(created.reverse().map(path => rm(path, { force: true })))
+    throw error
+  }
 }
 
 /** Strictly validate a non-active candidate pointer and its immutable manifest identity. */

@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import sharp from 'sharp'
 import { V09_COMPOSITION_NODE_IDS, V09_TRAIT_SLOT_IDS } from '@qmonster/generator-core'
 import { canonicalJsonBytes, canonicalJsonSha256, decodedPngSha256 } from './v09-content-identity.js'
-import { assembleV09Release, validateV09Release, type V09ContentRecordV1, type V09ReleaseCandidate } from './v09-production-validation.js'
+import { __setV09AssemblyFailureHookForTest, assembleV09Release, validateV09Release, type V09ContentRecordV1, type V09ReleaseCandidate } from './v09-production-validation.js'
 
 type JsonRef = { resourceId: string; sha256: string; mediaType: 'application/qmonster-manifest-v1+json' }
 type PngRef = { resourceId: string; sha256: string; mediaType: 'image/png'; width: 2048; height: 2048 }
@@ -70,5 +70,28 @@ describe('v0.9 production validation', () => {
       expect(JSON.parse(await readFile(first.candidatePointerPath, 'utf8'))).toMatchObject({ schemaVersion: 'qmonster-active-release-v1', releaseManifestSha256: first.releaseManifestSha256 })
       await expect(readFile(first.auditPath)).resolves.toBeInstanceOf(Buffer)
     } finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it('uses the same verified snapshot for assembly instead of rereading the caller candidate', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-toctou-'))
+    const good = await fixture(); const bad = { ...good, resources: good.resources.map((resource, index) => index === 0 ? { ...resource, bytes: Buffer.from('tampered') } : resource) }
+    let reads = 0
+    const options = { root, get candidate() { return reads++ === 0 ? good : bad } } as unknown as { root: string; candidate: unknown }
+    try {
+      const result = await assembleV09Release(options)
+      expect(await readFile(join(root, 'resources', 'by-sha256', good.resources[0]!.ref.sha256))).toEqual(Buffer.from(good.resources[0]!.bytes))
+      expect(result.releaseManifestSha256).toBe(canonicalJsonSha256(good.releaseManifest))
+    } finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it.each(['resource', 'manifest', 'audit', 'pointer'] as const)('rolls back official output after an injected %s-stage failure', async (stage) => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-rollback-')); const active = join(root, 'releases', 'active-release.json'); const sentinel = Buffer.from('active-sentinel')
+    await mkdir(join(root, 'releases'), { recursive: true }); await writeFile(active, sentinel)
+    __setV09AssemblyFailureHookForTest(async current => { if (current === stage) throw new Error(`fail-${stage}`) })
+    try {
+      await expect(assembleV09Release({ root, candidate: await fixture() })).rejects.toThrow(`fail-${stage}`)
+      expect(await readFile(active)).toEqual(sentinel)
+      await expect(readFile(join(root, 'releases', 'candidate-v0.9.0.json'))).rejects.toMatchObject({ code: 'ENOENT' })
+    } finally { __setV09AssemblyFailureHookForTest(); await rm(root, { recursive: true, force: true }) }
   }, 30000)
 })
