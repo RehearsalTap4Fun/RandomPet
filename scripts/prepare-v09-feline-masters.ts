@@ -388,9 +388,11 @@ export async function productionContractDiagnostics(families: SkeletonFamilyV1[]
   const traitInventory = { schemaVersion: 'qmonster-trait-inventory-v1' as const, traits: [] }
   const attachmentAllowlist = EMPTY_ATTACHMENT_ALLOWLIST
   const documents = [speciesRig, skeletonPool, ...families, ...templates, ...approvals, traitInventory, attachmentAllowlist, GRAPH]
-  // Pending authoring evidence is verified separately; without approvals or
-  // sealed traits it is not reachable from an honest release manifest yet.
-  const records: V09ContentRecordV1[] = [...documents.map(value => ({ ref: jsonRef(value), bytes: canonicalJsonBytes(value) })), ...(approvals.length ? await loadReviewResources() : [])]
+  // This zero-trait probe cannot reach overlay policies: approval.overlaySha256
+  // is a digest, not a resource ref. Real sealed traits will reference policies
+  // through authoringInputs. Validate the complete review closure separately,
+  // including after owner approval, rather than inventing release reachability.
+  const records: V09ContentRecordV1[] = documents.map(value => ({ ref: jsonRef(value), bytes: canonicalJsonBytes(value) }))
   const required = new Set<string>()
   const refs = (v: unknown) => { if (v === null || typeof v !== 'object') return; if ('mediaType' in v && v.mediaType === 'image/png') { required.add((v as PngResourceRef).resourceId); return }; for (const next of Object.values(v)) refs(next) }
   families.forEach(refs); templates.forEach(refs)
