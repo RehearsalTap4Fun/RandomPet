@@ -22,6 +22,7 @@ const PLACEMENT_KEYS = new Set(['anchor', 'anchorx', 'anchory', 'x', 'y', 'offse
 const PATH_KEYS = new Set(['assetpath', 'path', 'url'])
 const MAX_ARRAY = 1024
 let assemblyFailureHook: ((stage: 'resource' | 'manifest' | 'audit' | 'pointer') => void | Promise<void>) | undefined
+const processRootMutex = new Set<string>()
 
 /** @internal deterministic failure seam for rollback tests; intentionally not re-exported by the package barrel. */
 export function __setV09AssemblyFailureHookForTest(hook?: (stage: 'resource' | 'manifest' | 'audit' | 'pointer') => void | Promise<void>): void { assemblyFailureHook = hook }
@@ -155,9 +156,10 @@ function equalJson(left: unknown, right: unknown): boolean { try { return canoni
 function ref(value: unknown): ContentResourceRef | undefined {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) return undefined
   const entry = value as Record<string, unknown>
+  const keys = Object.keys(entry).sort()
   if (typeof entry.resourceId !== 'string' || typeof entry.sha256 !== 'string' || !HASH.test(entry.sha256) || entry.resourceId !== `sha256:${entry.sha256}`) return undefined
-  if (entry.mediaType === 'image/png' && entry.width === 2048 && entry.height === 2048) return entry as unknown as ContentResourceRef
-  if ((entry.mediaType === 'application/qmonster-material-v1+json' || entry.mediaType === 'application/qmonster-manifest-v1+json')) return entry as unknown as ContentResourceRef
+  if (entry.mediaType === 'image/png' && entry.width === 2048 && entry.height === 2048 && equalJson(keys, ['height', 'mediaType', 'resourceId', 'sha256', 'width'])) return entry as unknown as ContentResourceRef
+  if ((entry.mediaType === 'application/qmonster-material-v1+json' || entry.mediaType === 'application/qmonster-manifest-v1+json') && equalJson(keys, ['mediaType', 'resourceId', 'sha256'])) return entry as unknown as ContentResourceRef
   return undefined
 }
 
@@ -524,16 +526,25 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
   const target = resolve(options.root)
   try { await directDirectory(target) } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; await mkdir(target, { recursive: true }); await directDirectory(target) }
   const root = await directDirectory(target)
+  if (processRootMutex.has(root)) throw Object.assign(new Error('Another v0.9 assembly owns this catalog root.'), { code: 'V09_ASSEMBLY_LOCKED' })
+  processRootMutex.add(root)
   const lockPath = join(root, '.qmonster-v09-assemble-lock')
   const lockToken = randomUUID()
+  let lockOwned = false
   try {
     await mkdir(lockPath)
     await writeFile(join(lockPath, 'owner'), lockToken, { flag: 'wx' })
+    lockOwned = true
   } catch (error) {
+    processRootMutex.delete(root)
     throw Object.assign(new Error('Another v0.9 assembly owns this catalog root.'), { code: 'V09_ASSEMBLY_LOCKED', cause: error })
   }
   const stagingPath = join(root, `.qmonster-v09-staging-${lockToken}`)
-  await mkdir(stagingPath)
+  try { await mkdir(stagingPath) } catch (error) {
+    if (lockOwned) await releaseAssemblyLock(lockPath, lockToken)
+    processRootMutex.delete(root)
+    throw error
+  }
   try {
   const resourceDirectory = await ensureDirectory(root, ['resources', 'by-sha256']); const releaseDirectory = await ensureDirectory(root, ['releases', 'by-sha256']); const candidateDirectory = await ensureDirectory(root, ['releases']); const auditDirectory = await ensureDirectory(root, ['audit', 'v0.9.0'])
   const created: string[] = []
@@ -556,11 +567,21 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
   }
   } finally {
     await rm(stagingPath, { recursive: true, force: true })
-    try {
-      const owner = await readFile(join(lockPath, 'owner'), 'utf8')
-      if (owner === lockToken) await rm(lockPath, { recursive: true, force: true })
-    } catch { /* Never remove a lock whose ownership cannot be established. */ }
+    if (lockOwned) await releaseAssemblyLock(lockPath, lockToken)
+    processRootMutex.delete(root)
   }
+}
+
+async function releaseAssemblyLock(lockPath: string, token: string): Promise<void> {
+  const tombstone = `${lockPath}.releasing-${token}`
+  try {
+    const entry = await lstat(lockPath)
+    if (!entry.isDirectory() || entry.isSymbolicLink() || await readFile(join(lockPath, 'owner'), 'utf8') !== token) return
+    await rename(lockPath, tombstone)
+    const moved = await lstat(tombstone)
+    if (!moved.isDirectory() || moved.isSymbolicLink() || await readFile(join(tombstone, 'owner'), 'utf8') !== token) return
+    await rm(tombstone, { recursive: true, force: true })
+  } catch { /* Ownership changed or cleanup failed: never delete by the fixed path. */ }
 }
 
 /** Strictly validate a non-active candidate pointer and its immutable manifest identity. */
@@ -568,9 +589,13 @@ export async function validateV09CandidatePointer(options: { root: string; relea
   try {
     const root = await directDirectory(resolve(options.root)); const pointer = resolve(options.releasePointer)
     if (relative(root, pointer).startsWith('..') || isAbsolute(relative(root, pointer)) || pointer.endsWith('active-release.json')) return [diagnostic('RESOURCE_OUTSIDE_CATALOG_ROOT', ['releasePointer'], 'Candidate pointer must be below root and must not be active-release.json.')]
+    await directDirectory(join(root, 'releases'))
+    const pointerEntry = await lstat(pointer)
+    if (!pointerEntry.isFile() || pointerEntry.isSymbolicLink()) return [diagnostic('RESOURCE_OUTSIDE_CATALOG_ROOT', ['releasePointer'], 'Candidate pointer must be a direct regular file.')]
     const value = JSON.parse((await readFile(pointer)).toString('utf8')) as Record<string, unknown>
     if (!equalJson(Object.keys(value).sort(), ['releaseManifestSha256', 'schemaVersion']) || value.schemaVersion !== 'qmonster-active-release-v1' || !HASH.test(value.releaseManifestSha256 as string)) return [diagnostic('RELEASE_MANIFEST_SCHEMA_INVALID', ['releasePointer'], 'Candidate pointer has invalid strict shape.')]
-    const manifestPath = join(root, 'releases', 'by-sha256', `${value.releaseManifestSha256}.json`); const manifest = JSON.parse((await readFile(manifestPath)).toString('utf8')) as unknown
+    await directDirectory(join(root, 'releases', 'by-sha256'))
+    const manifestPath = join(root, 'releases', 'by-sha256', `${value.releaseManifestSha256}.json`); const manifestEntry = await lstat(manifestPath); if (!manifestEntry.isFile() || manifestEntry.isSymbolicLink()) return [diagnostic('RESOURCE_OUTSIDE_CATALOG_ROOT', ['releasePointer'], 'Manifest must be a direct regular file.')]; const manifest = JSON.parse((await readFile(manifestPath)).toString('utf8')) as unknown
     if (canonicalJsonSha256(manifest) !== value.releaseManifestSha256) return [diagnostic('RELEASE_MANIFEST_HASH_MISMATCH', ['releasePointer'], 'Candidate pointer manifest identity does not match its content.')]
     return parseReleaseManifestV09(manifest).ok ? [] : [diagnostic('RELEASE_MANIFEST_SCHEMA_INVALID', ['releasePointer'], 'Candidate pointer manifest is invalid.')]
   } catch { return [diagnostic('RESOURCE_OUTSIDE_CATALOG_ROOT', ['releasePointer'], 'Candidate pointer cannot be read from the trusted root.')] }
