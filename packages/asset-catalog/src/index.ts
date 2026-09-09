@@ -24,6 +24,11 @@ export {
   sealTraitBundle,
   createTraitVisualApproval,
 } from './v09-trait-sealer.js'
+export {
+  assembleV09Release,
+  validateV09CandidatePointer,
+  validateV09Release,
+} from './v09-production-validation.js'
 export type {
   AuthoringZoneInput,
   DecodedMasterRgba,
@@ -35,3 +40,11 @@ export type {
   TraitVisualApprovalInput,
   TraitVisualApprovalV1,
 } from './v09-trait-sealer.js'
+export type {
+  ApprovedAttachmentAllowlistV1,
+  AssemblyApprovalV1,
+  AssembleV09ReleaseOptions,
+  TraitInventoryV1,
+  V09ContentRecordV1,
+  V09ReleaseCandidate,
+} from './v09-production-validation.js'
