@@ -7,7 +7,7 @@
 export const V09_VERSION_TUPLE = {
   schemaVersion: '0.4.0',
   catalogVersion: '0.9.0',
-  rendererVersion: '0.9.0',
+  generatorVersion: '0.9.0',
 } as const
 
 export const V09_TRAIT_SLOT_IDS = [
@@ -53,8 +53,11 @@ export type StructuralShapeClass =
 export type AttachmentShapeClass =
   | 'ear-horn-small' | 'ear-ornament' | 'mane-small' | 'collar'
 
+/** A content-addressed resource identity; it never names a filesystem path or URL. */
+export type ContentResourceId = `sha256:${string}`
+
 export interface PngResourceRef {
-  resourceId: string
+  resourceId: ContentResourceId
   sha256: string
   mediaType: 'image/png'
   width: 2048
@@ -62,7 +65,7 @@ export interface PngResourceRef {
 }
 
 export interface JsonResourceRef {
-  resourceId: string
+  resourceId: ContentResourceId
   sha256: string
   mediaType: 'application/qmonster-material-v1+json' | 'application/qmonster-manifest-v1+json'
 }
@@ -73,7 +76,7 @@ export type V09Canvas = { width: 2048; height: 2048 }
 export interface MonsterSpecV09 {
   schemaVersion: typeof V09_VERSION_TUPLE.schemaVersion
   catalogVersion: typeof V09_VERSION_TUPLE.catalogVersion
-  rendererVersion: typeof V09_VERSION_TUPLE.rendererVersion
+  generatorVersion: typeof V09_VERSION_TUPLE.generatorVersion
   seed: string
   speciesRigId: 'feline-sit-v2'
   skeletonFamilyId: string

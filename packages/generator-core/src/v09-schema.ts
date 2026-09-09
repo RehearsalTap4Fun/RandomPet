@@ -10,6 +10,10 @@ import { V09_TRAIT_SLOT_IDS } from './v09-contracts.js'
 import type { Diagnostic, ParseResult } from './contracts.js'
 
 const Sha256Schema = z.string().regex(/^[a-f0-9]{64}$/, 'Expected a lowercase SHA-256 digest.')
+const ContentResourceIdSchema = z.string().regex(
+  /^sha256:[a-f0-9]{64}$/,
+  'Expected a sha256 content resource ID, not a path or URL.',
+)
 const NonBlankStringSchema = z.string().min(1).refine(value => value.trim().length > 0, {
   message: 'Expected a non-blank string.',
 })
@@ -17,7 +21,7 @@ const RollSchema = z.number().int().finite().min(0)
 const RaritySchema = z.enum(['common', 'rare', 'legendary'])
 
 const PngResourceRefSchema = z.strictObject({
-  resourceId: NonBlankStringSchema,
+  resourceId: ContentResourceIdSchema,
   sha256: Sha256Schema,
   mediaType: z.literal('image/png'),
   width: z.literal(2048),
@@ -25,7 +29,7 @@ const PngResourceRefSchema = z.strictObject({
 })
 
 const JsonResourceRefSchema = z.strictObject({
-  resourceId: NonBlankStringSchema,
+  resourceId: ContentResourceIdSchema,
   sha256: Sha256Schema,
   mediaType: z.enum(['application/qmonster-material-v1+json', 'application/qmonster-manifest-v1+json']),
 })
@@ -51,7 +55,7 @@ const VisualSlotsShape = Object.fromEntries(
 const MonsterSpecV09Schema = z.strictObject({
   schemaVersion: z.literal('0.4.0'),
   catalogVersion: z.literal('0.9.0'),
-  rendererVersion: z.literal('0.9.0'),
+  generatorVersion: z.literal('0.9.0'),
   seed: z.string().min(1).max(512),
   speciesRigId: z.literal('feline-sit-v2'),
   skeletonFamilyId: NonBlankStringSchema,
@@ -128,7 +132,7 @@ const ReleaseManifestV09Schema = z.strictObject({
   versionTuple: z.strictObject({
     schemaVersion: z.literal('0.4.0'),
     catalogVersion: z.literal('0.9.0'),
-    rendererVersion: z.literal('0.9.0'),
+    generatorVersion: z.literal('0.9.0'),
   }),
   speciesRig: JsonResourceRefSchema,
   skeletonPool: JsonResourceRefSchema,
@@ -144,8 +148,8 @@ const ReleaseManifestV09Schema = z.strictObject({
 
 function toDiagnostic(issue: z.core.$ZodIssue, defaultCode: string): Diagnostic {
   const path = issue.path.map(String)
-  const code = ['schemaVersion', 'catalogVersion', 'rendererVersion'].includes(path[0] ?? '')
-    || (path[0] === 'versionTuple' && ['schemaVersion', 'catalogVersion', 'rendererVersion'].includes(path[1] ?? ''))
+  const code = ['schemaVersion', 'catalogVersion', 'generatorVersion'].includes(path[0] ?? '')
+    || (path[0] === 'versionTuple' && ['schemaVersion', 'catalogVersion', 'generatorVersion'].includes(path[1] ?? ''))
     ? 'VERSION_TUPLE_MISMATCH'
     : defaultCode
   return { severity: 'error', code, path, message: issue.message }

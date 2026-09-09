@@ -9,7 +9,7 @@ import {
 
 const sha256 = 'a'.repeat(64)
 
-function pngRef(resourceId = 'v0.9.0/example.png') {
+function pngRef(resourceId = `sha256:${sha256}`) {
   return {
     resourceId,
     sha256,
@@ -19,7 +19,7 @@ function pngRef(resourceId = 'v0.9.0/example.png') {
   }
 }
 
-function jsonRef(resourceId = 'v0.9.0/example.json') {
+function jsonRef(resourceId = `sha256:${sha256}`) {
   return {
     resourceId,
     sha256,
@@ -31,7 +31,7 @@ function makeMonsterSpecV09Fixture() {
   return {
     schemaVersion: '0.4.0',
     catalogVersion: '0.9.0',
-    rendererVersion: '0.9.0',
+    generatorVersion: '0.9.0',
     seed: 'fixture-seed',
     speciesRigId: 'feline-sit-v2',
     skeletonFamilyId: 'feline-sit-v2-core',
@@ -54,9 +54,9 @@ function makeSealedTraitFixture(overrides: Record<string, unknown> = {}) {
     assemblyTemplateId: 'feline-sit-v2-core-template',
     assemblyTemplateSha256: sha256,
     neutralMasterSha256: sha256,
-    authoringInputs: [pngRef('v0.9.0/eyes-zone.png')],
-    runtimeResources: { underlay: pngRef('v0.9.0/eyes-underlay.png'), content: pngRef('v0.9.0/eyes-content.png') },
-    fullContextPreview: pngRef('v0.9.0/eyes-preview.png'),
+    authoringInputs: [pngRef()],
+    runtimeResources: { underlay: pngRef(), content: pngRef() },
+    fullContextPreview: pngRef(),
     sealerVersion: '1.0.0',
     ...overrides,
   }
@@ -65,16 +65,16 @@ function makeSealedTraitFixture(overrides: Record<string, unknown> = {}) {
 function makeReleaseManifestFixture() {
   return {
     schemaVersion: 'qmonster-release-v1',
-    versionTuple: { schemaVersion: '0.4.0', catalogVersion: '0.9.0', rendererVersion: '0.9.0' },
-    speciesRig: jsonRef('v0.9.0/feline/rig.json'),
-    skeletonPool: jsonRef('v0.9.0/feline/pool.json'),
-    skeletonFamilies: [jsonRef('v0.9.0/feline/skeleton.json')],
-    assemblyTemplates: [jsonRef('v0.9.0/feline/template.json')],
-    approvals: [jsonRef('v0.9.0/feline/approval.json')],
-    traitApprovals: [jsonRef('v0.9.0/feline/trait-approval.json')],
-    traitInventory: jsonRef('v0.9.0/feline/inventory.json'),
-    sealedTraits: [jsonRef('v0.9.0/feline/trait.json')],
-    compositionGraph: jsonRef('v0.9.0/feline/composition.json'),
+    versionTuple: { schemaVersion: '0.4.0', catalogVersion: '0.9.0', generatorVersion: '0.9.0' },
+    speciesRig: jsonRef(),
+    skeletonPool: jsonRef(),
+    skeletonFamilies: [jsonRef()],
+    assemblyTemplates: [jsonRef()],
+    approvals: [jsonRef()],
+    traitApprovals: [jsonRef()],
+    traitInventory: jsonRef(),
+    sealedTraits: [jsonRef()],
+    compositionGraph: jsonRef(),
     rendererBuildSha256: sha256,
   }
 }
@@ -84,6 +84,12 @@ describe('v0.9 schema contracts', () => {
     const parsed = parseMonsterSpecV09(makeMonsterSpecV09Fixture())
 
     expect(parsed.ok).toBe(true)
+  })
+
+  it('accepts generatorVersion and rejects the legacy rendererVersion field', () => {
+    expect(parseMonsterSpecV09(makeMonsterSpecV09Fixture()).ok).toBe(true)
+    expect(parseMonsterSpecV09({ ...makeMonsterSpecV09Fixture(), rendererVersion: '0.9.0' }).ok).toBe(false)
+    expect(parseReleaseManifestV09(makeReleaseManifestFixture()).ok).toBe(true)
   })
 
   it('freezes the exact composition order consumed by the v0.9 renderer', () => {
@@ -112,6 +118,20 @@ describe('v0.9 schema contracts', () => {
     expect(parseSealedTraitArtifactV1(input).ok).toBe(false)
   })
 
+  it.each(['../outside.png', 'C:\\secret.png', 'https://example.invalid/trait.png'])(
+    'rejects a path-like resource ID: %s',
+    resourceId => {
+      const input = makeSealedTraitFixture({
+        runtimeResources: { underlay: pngRef(resourceId), content: pngRef() },
+      })
+
+      expect(parseSealedTraitArtifactV1(input)).toMatchObject({
+        ok: false,
+        diagnostics: expect.arrayContaining([expect.objectContaining({ code: 'TRAIT_SCHEMA_INVALID' })]),
+      })
+    },
+  )
+
   it('rejects a mouth without both fixed resource roles', () => {
     const input = makeSealedTraitFixture({
       kind: 'mouth',
@@ -132,8 +152,8 @@ describe('v0.9 schema contracts', () => {
       interfaceId: 'ear-interface',
       shapeClass: 'ear-ornament',
       runtimeResources: {
-        attachmentBehind: pngRef('v0.9.0/attachment-behind.png'),
-        attachmentFront: pngRef('v0.9.0/attachment-front.png'),
+        attachmentBehind: pngRef(),
+        attachmentFront: pngRef(),
       },
     })
 
