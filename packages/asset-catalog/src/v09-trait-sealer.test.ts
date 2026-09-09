@@ -70,6 +70,37 @@ async function fixture() {
   return { context, draft, refs, layer, front, rearRoot, neutral }
 }
 
+async function oralFixture() {
+  const f = await fixture(); const template: any = f.context.template
+  template.slots.embedded[2].socketRegistry = {
+    narrow: { authoringZone: f.refs.allowedZone, parentMouthTraitIds: ['mouth-narrow'] },
+    wide: { authoringZone: f.refs.allowedZone, parentMouthTraitIds: ['mouth-wide'] },
+  }
+  const draft: any = { ...f.draft, kind: 'oralDetail', slotId: 'oralDetail', oralSocketClasses: ['narrow', 'wide'], resources: { oralProjections: { narrow: f.refs.layer, wide: f.refs.front } } }
+  return { ...f, draft }
+}
+
+describe('v0.9 socket-indexed oral sealing', () => {
+  it('seals all declared socket projections in deterministic class order', async () => {
+    const f = await oralFixture(); const first = await sealTraitBundle(f.draft, f.context)
+    expect(first.artifact).toMatchObject({ runtimeResources: { oralProjections: f.draft.resources.oralProjections } })
+    expect(first.artifact.authoringInputs).toEqual([f.refs.layer, f.refs.front])
+    f.draft.resources.oralProjections = { wide: f.refs.front, narrow: f.refs.layer }; f.draft.oralSocketClasses.reverse()
+    expect((await sealTraitBundle(f.draft, f.context)).artifactSha256).toBe(first.artifactSha256)
+  })
+  it.each(['missing', 'extra', 'empty', 'duplicate-class', 'closed', 'unknown', 'outside', 'hash'])('rejects invalid oral projections: %s', async mode => {
+    const f = await oralFixture()
+    if (mode === 'missing') delete f.draft.resources.oralProjections.wide
+    if (mode === 'extra') f.draft.resources.oralProjections.other = f.refs.layer
+    if (mode === 'empty') { f.draft.resources.oralProjections = {}; f.draft.oralSocketClasses = [] }
+    if (mode === 'duplicate-class') f.draft.oralSocketClasses = ['narrow', 'narrow', 'wide']
+    if (mode === 'closed' || mode === 'unknown') { f.draft.resources.oralProjections[mode] = f.refs.layer; f.draft.oralSocketClasses.push(mode) }
+    if (mode === 'outside') (f.context.template.slots.embedded[2] as any).socketRegistry.wide.authoringZone = f.refs.neutral
+    if (mode === 'hash') f.context.resources.set(f.refs.front.resourceId, await raster([]))
+    await expect(sealTraitBundle(f.draft, f.context)).rejects.toEqual(errorCode(mode === 'outside' ? 'AUTHORING_ZONE_VIOLATION' : mode === 'hash' ? 'RESOURCE_HASH_MISMATCH' : 'ORAL_SOCKET_INCOMPATIBLE'))
+  })
+})
+
 async function withReplacedPng(fixed: Awaited<ReturnType<typeof fixture>>, role: 'attachmentBehind' | 'attachmentFront', bytes: Buffer) {
   const previous = fixed.draft.resources[role]
   const digest = await decodedPngSha256(bytes)

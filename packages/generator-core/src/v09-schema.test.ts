@@ -81,6 +81,12 @@ function makeReleaseManifestFixture() {
 }
 
 describe('v0.9 schema contracts', () => {
+  it('accepts strict socket-indexed oral projection records', () => {
+    expect(parseSealedTraitArtifactV1(makeSealedTraitFixture({ kind: 'oralDetail', slotId: 'oralDetail', runtimeResources: { oralProjections: { narrow: pngRef(), wide: pngRef() } } })).ok).toBe(true)
+  })
+  it.each([{ oralProjection: pngRef() }, { oralProjections: {} }, { oralProjections: { ' ': pngRef() } }, { oralProjections: { closed: pngRef() } }, { oralProjections: { 'oral-none': pngRef() } }, { oralProjections: { narrow: { ...pngRef(), crop: true } } }])('rejects malformed oral projection roles %#', runtimeResources => {
+    expect(parseSealedTraitArtifactV1(makeSealedTraitFixture({ kind: 'oralDetail', slotId: 'oralDetail', runtimeResources })).ok).toBe(false)
+  })
   it('accepts the exact v0.9 identity tuple and twelve slots', () => {
     const parsed = parseMonsterSpecV09(makeMonsterSpecV09Fixture())
 

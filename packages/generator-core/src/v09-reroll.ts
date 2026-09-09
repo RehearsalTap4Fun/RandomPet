@@ -22,9 +22,12 @@ function validSpec(spec: MonsterSpecV09): Diagnostic[] {
   return parsed.ok ? [] : parsed.diagnostics
 }
 
-function mouthSocketIsClosed(traitId: string, catalog: ResolvedV09Catalog): boolean {
-  const trait = catalog.sealedTraits.find(candidate => candidate.traitId === traitId)
-  return trait?.kind === 'mouth' && trait.oralSocketClass === 'closed'
+function mouthSocketClass(spec: MonsterSpecV09, catalog: ResolvedV09Catalog): string | undefined {
+  const mouths = catalog.sealedTraits.filter(candidate => candidate.kind === 'mouth' && candidate.slotId === 'mouthShape'
+    && candidate.traitId === spec.visualSlots.mouthShape.traitId && candidate.rarity === spec.visualSlots.mouthShape.rarity
+    && candidate.skeletonFamilyId === spec.skeletonFamilyId && candidate.assemblyTemplateId === spec.assemblyTemplateId)
+  const trait = mouths.length === 1 ? mouths[0] : undefined
+  return trait?.kind === 'mouth' ? trait.oralSocketClass : undefined
 }
 
 function sameSelection(
@@ -47,8 +50,8 @@ export function rerollV09Slot(
   const visualSlots = { ...incremented.visualSlots, [request.slotId]: selected.selection }
   const affectedSlots: V09TraitSlotId[] = [request.slotId]
   if (request.slotId === 'mouthShape' && (
-    mouthSocketIsClosed(request.spec.visualSlots.mouthShape.traitId, catalog)
-    !== mouthSocketIsClosed(selected.selection.traitId, catalog)
+    mouthSocketClass(request.spec, catalog)
+    !== mouthSocketClass({ ...incremented, visualSlots }, catalog)
   )) {
     const oral = selectV09TraitForSlot({ ...incremented, visualSlots }, 'oralDetail', catalog)
     if (oral.diagnostics.length > 0) return invalidSpecResult(request.spec, oral.diagnostics)

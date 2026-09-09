@@ -39,7 +39,7 @@ function trait(slotId: V09TraitSlotId, rarity: V09TraitRarity, index: number, sk
     case 'surface': return { ...base, kind: 'surface', slotId, runtimeResources: { materialOperation: {} } } as SealedTraitArtifactV1
     case 'eyePair': return { ...base, kind: 'eyePair', slotId, runtimeResources: { underlay: {}, content: {} } } as SealedTraitArtifactV1
     case 'mouth': return { ...base, kind: 'mouth', slotId, oralSocketClass: index === 0 ? 'closed' : 'open', runtimeResources: { mouthBack: {}, mouthFront: {} } } as SealedTraitArtifactV1
-    case 'oralDetail': return { ...base, kind: 'oralDetail', slotId, runtimeResources: { oralProjection: {} } } as SealedTraitArtifactV1
+    case 'oralDetail': return { ...base, kind: 'oralDetail', slotId, runtimeResources: { oralProjections: { open: {} } } } as SealedTraitArtifactV1
     case 'attachment': return { ...base, kind: 'attachment', slotId, interfaceId: 'fixture-interface', shapeClass: 'ear-ornament', runtimeResources: { attachmentBehind: {} } } as SealedTraitArtifactV1
     case 'ambientEffect': return { ...base, kind: 'ambientEffect', slotId, zoneId: 'background', runtimeResources: { effectLayer: {} } } as SealedTraitArtifactV1
     default: throw new Error(`Unknown kind for ${slotId}`)
@@ -76,6 +76,26 @@ export function fixtureCatalog(withoutTraitId?: string): ResolvedV09Catalog {
 }
 
 describe('v0.9 deterministic generation', () => {
+  it('selects only narrow-compatible oral candidates without changing the random domain', () => {
+    const result = generateMonsterV09({ seed: 'fixed-generation' }, socketFixtureCatalog())
+    expect(result.blocked).toBe(false)
+    expect(result.spec.visualSlots.mouthShape.traitId).toBe('mouthShape_r_base-cat_2')
+    expect(result.spec.visualSlots.oralDetail).toEqual({ traitId: 'oralDetail_c_base-cat_0', rarity: 'common', roll: 0 })
+  })
+  it('generates a wide-mouth spec from its own compatible oral pool at the unchanged oral roll', () => {
+    const result = generateMonsterV09({ seed: 'closed-4', slotRolls: { mouthShape: 1 } }, socketFixtureCatalog())
+    expect(result.blocked).toBe(false)
+    expect(result.spec.visualSlots.mouthShape.traitId).toBe('mouthShape_c_base-cat_7')
+    expect(result.spec.visualSlots.oralDetail).toEqual({ traitId: 'oralDetail_c_base-cat_7', rarity: 'common', roll: 0 })
+  })
+  it('fails closed when the rolled oral rarity has no current-socket projection', () => {
+    const catalog = socketFixtureCatalog()
+    catalog.sealedTraits = catalog.sealedTraits.filter(trait => !(trait.kind === 'oralDetail' && trait.rarity === 'common' && Object.hasOwn(trait.runtimeResources.oralProjections, 'narrow')))
+    const result = generateMonsterV09({ seed: 'fixed-generation' }, catalog)
+    expect(result.blocked).toBe(true)
+    expect(result.diagnostics).toEqual([expect.objectContaining({ code: 'SKELETON_PROJECTION_MISSING', path: ['visualSlots', 'oralDetail'] })])
+    expect(result.spec.visualSlots.oralDetail.traitId).toBe('missing_oralDetail')
+  })
   it('uses the fixed twelve-slot order and produces a strict v0.9 spec', () => {
     const result = generateMonsterV09({ seed: 'fixed-generation', slotRolls: {} }, fixtureCatalog())
     expect(result.spec.visualSlots).toEqual({
@@ -138,3 +158,13 @@ describe('v0.9 deterministic generation', () => {
     expect(countsByRarity.legendary).toBeGreaterThan(700)
   })
 })
+
+export function socketFixtureCatalog(): ResolvedV09Catalog {
+  const catalog = fixtureCatalog()
+  for (const trait of catalog.sealedTraits) {
+    const index = Number(trait.traitId.split('_').at(-1))
+    if (trait.kind === 'mouth') trait.oralSocketClass = index % 2 === 0 ? 'narrow' : 'wide'
+    if (trait.kind === 'oralDetail') trait.runtimeResources.oralProjections = (trait.rarity === 'legendary' ? { narrow: {}, wide: {} } : index % 2 === 0 ? { narrow: {} } : { wide: {} }) as any
+  }
+  return catalog
+}

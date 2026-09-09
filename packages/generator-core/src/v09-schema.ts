@@ -106,7 +106,9 @@ const SealedTraitArtifactV1Schema = z.discriminatedUnion('kind', [
     ...SealedTraitBaseShape,
     kind: z.literal('oralDetail'),
     slotId: z.literal('oralDetail'),
-    runtimeResources: z.strictObject({ oralProjection: PngResourceRefSchema }),
+    runtimeResources: z.strictObject({ oralProjections: z.record(
+      NonBlankStringSchema.refine(value => value !== 'closed' && value !== 'oral-none'), PngResourceRefSchema,
+    ).refine(value => Object.keys(value).length > 0, 'At least one open-socket projection is required.') }),
   }),
   z.strictObject({
     ...SealedTraitBaseShape,

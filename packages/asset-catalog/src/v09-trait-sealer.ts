@@ -3,7 +3,7 @@ import { canonicalJsonSha256, decodedPngSha256, V09CatalogError } from './v09-co
 import { decodeBinaryFullMasterMask, decodeFullMasterPng, enforceAuthoringZone, type PngBytes } from './v09-authoring-workbench.js'
 
 type TraitKind = 'surface' | 'eyePair' | 'mouth' | 'oralDetail' | 'attachment' | 'targetedEffect' | 'ambientEffect'
-type ResourceRole = Record<string, ContentResourceRef>
+type ResourceRole = Record<string, ContentResourceRef | Record<string, PngResourceRef>>
 
 export interface TraitBundleV1 {
   traitId: string
@@ -20,6 +20,7 @@ export interface TraitBundleV1 {
   interfaceId?: string
   shapeClass?: AttachmentShapeClass
   oralSocketClass?: string
+  oralSocketClasses?: string[]
   targetId?: string
   zoneId?: 'background' | 'foreground'
 }
@@ -62,7 +63,7 @@ const PLACEMENT_KEYS = new Set(['anchor', 'anchorx', 'anchory', 'x', 'y', 'offse
 const PATH_KEYS = new Set(['assetpath', 'path', 'url'])
 const DANGEROUS_STRUCTURE_KEYS = new Set(['__proto__', 'prototype', 'constructor'])
 const EXPECTED_ROLES: Record<TraitKind, readonly string[]> = {
-  surface: ['materialOperation'], eyePair: ['underlay', 'content'], mouth: ['mouthBack', 'mouthFront'], oralDetail: ['oralProjection'],
+  surface: ['materialOperation'], eyePair: ['underlay', 'content'], mouth: ['mouthBack', 'mouthFront'], oralDetail: ['oralProjections'],
   attachment: ['attachmentBehind', 'attachmentFront'], targetedEffect: ['effectLayer'], ambientEffect: ['effectLayer'],
 }
 
@@ -193,13 +194,13 @@ async function verifyRef(refInput: unknown, context: SealContext): Promise<Conte
   return ref
 }
 
-function exactRoles(kind: TraitKind, roles: unknown, required = EXPECTED_ROLES[kind]): Record<string, ContentResourceRef> {
+function exactRoles(kind: TraitKind, roles: unknown, required = EXPECTED_ROLES[kind]): Record<string, unknown> {
   if (roles === null || typeof roles !== 'object' || Array.isArray(roles)) fail('RESOURCE_HASH_MISMATCH', 'Trait resources must be a named role object.')
   const actual = Object.keys(roles as Record<string, unknown>).sort()
   if (actual.length !== required.length || actual.some((role, index) => role !== [...required].sort()[index])) {
     fail('RESOURCE_HASH_MISMATCH', `Trait kind ${kind} has missing or extra runtime resource roles.`)
   }
-  return roles as Record<string, ContentResourceRef>
+  return roles as Record<string, unknown>
 }
 
 async function checkedPng(ref: unknown, context: SealContext): Promise<{ ref: PngResourceRef; bytes: Buffer }> {
@@ -262,7 +263,20 @@ async function validateAttachment(layer: { bytes: Buffer }, rootRef: PngResource
   if (!componentsConnectToRoot(decodedLayer.pixels, decodedRoot.pixels)) fail('ATTACHMENT_INTERFACE_INVALID', 'Visible attachment alpha must be 8-neighbour connected to its fixed root.')
 }
 
-async function validateLayerRoles(kind: TraitKind, roles: Record<string, ContentResourceRef>, template: AssemblyTemplateV1, draft: TraitBundleV1, context: SealContext): Promise<void> {
+function oralProjectionRoles(roles: Record<string, unknown>, template: AssemblyTemplateV1, draft: TraitBundleV1): Record<string, PngResourceRef> {
+  const projections = roles.oralProjections
+  const classes = draft.oralSocketClasses
+  const slot = template.slots.embedded.find(item => item.kind === 'oralDetail' && item.slotId === draft.slotId)
+  if (slot?.kind !== 'oralDetail' || !Array.isArray(classes) || classes.length === 0 || new Set(classes).size !== classes.length
+    || classes.some(key => typeof key !== 'string' || key.trim() === '' || key === 'closed' || key === 'oral-none' || !Object.hasOwn(slot.socketRegistry, key) || slot.socketRegistry[key]!.parentMouthTraitIds.length === 0)
+    || projections === null || typeof projections !== 'object' || Array.isArray(projections)
+    || Object.keys(projections).length !== classes.length || classes.some(key => !Object.hasOwn(projections, key)) || draft.oralSocketClass !== undefined) {
+    fail('ORAL_SOCKET_INCOMPATIBLE', 'Oral resources must exactly cover the declared nonempty set of registered open socket classes.')
+  }
+  return projections as Record<string, PngResourceRef>
+}
+
+async function validateLayerRoles(kind: TraitKind, roles: Record<string, unknown>, template: AssemblyTemplateV1, draft: TraitBundleV1, context: SealContext): Promise<void> {
   if (kind === 'surface') {
     const slot = template.slots.surface.find(item => item.slotId === draft.slotId)
     if (slot === undefined) fail('AUTHORING_ZONE_VIOLATION', 'Surface slot is not owned by the selected assembly template.')
@@ -289,7 +303,18 @@ async function validateLayerRoles(kind: TraitKind, roles: Record<string, Content
     return
   }
 
-  const role = kind === 'eyePair' ? ['underlay', 'content'] : kind === 'mouth' ? ['mouthBack', 'mouthFront'] : kind === 'oralDetail' ? ['oralProjection'] : ['effectLayer']
+  if (kind === 'oralDetail') {
+    const projections = oralProjectionRoles(roles, template, draft)
+    const slot = template.slots.embedded.find(item => item.kind === 'oralDetail' && item.slotId === draft.slotId)!
+    if (slot.kind !== 'oralDetail') fail('ORAL_SOCKET_INCOMPATIBLE', 'Expected oral socket registry.')
+    for (const key of Object.keys(projections).sort()) {
+      const layer = await checkedPng(projections[key], context)
+      const zone = await checkedPng(slot.socketRegistry[key]!.authoringZone, context)
+      await enforceAuthoringZone({ mode: 'exported-layer', candidate: layer.bytes, authoringZone: zone.bytes })
+    }
+    return
+  }
+  const role = kind === 'eyePair' ? ['underlay', 'content'] : kind === 'mouth' ? ['mouthBack', 'mouthFront'] : ['effectLayer']
   const zones: PngResourceRef[] = []
   if (kind === 'eyePair') {
     const slot = template.slots.embedded.find(item => item.kind === 'eyePair' && item.slotId === draft.slotId)
@@ -300,10 +325,6 @@ async function validateLayerRoles(kind: TraitKind, roles: Record<string, Content
     const slot = template.slots.embedded.find(item => item.kind === 'mouth' && item.slotId === draft.slotId)
     if (slot === undefined || slot.kind !== 'mouth') fail('AUTHORING_ZONE_VIOLATION', 'Mouth slot is not template compatible.')
     zones.push(slot.authoringZone)
-  } else if (kind === 'oralDetail') {
-    const slot = template.slots.embedded.find(item => item.kind === 'oralDetail' && item.slotId === draft.slotId)
-    if (slot === undefined || slot.kind !== 'oralDetail' || !Object.hasOwn(slot.socketRegistry, nonBlank(draft.oralSocketClass, 'AUTHORING_ZONE_VIOLATION'))) fail('AUTHORING_ZONE_VIOLATION', 'Oral detail must target a declared socket class.')
-    zones.push(slot.socketRegistry[draft.oralSocketClass!]!.authoringZone)
   } else if (kind === 'targetedEffect') {
     const slot = template.slots.effect.find(item => item.kind === 'targetedEffect' && item.targetId === draft.targetId)
     if (slot === undefined || slot.kind !== 'targetedEffect') fail('AUTHORING_ZONE_VIOLATION', 'Targeted effect target is not template compatible.')
@@ -342,12 +363,13 @@ export async function sealTraitBundle(draft: TraitBundleV1, context: SealContext
     ? ['attachmentBehind']
     : EXPECTED_ROLES[kind]
   const roles = exactRoles(kind, snapshot.resources, roleOrder)
-  for (const ref of Object.values(roles)) await verifyRef(ref, context)
+  const oralProjections = kind === 'oralDetail' ? oralProjectionRoles(roles, context.template, snapshot) : undefined
+  for (const ref of Object.values(oralProjections ?? roles)) await verifyRef(ref, context)
   const preview = await checkedPng(snapshot.fullContextPreview, context)
   await decodeFullMasterPng(preview.bytes, 'RESOURCE_HASH_MISMATCH')
   await validateLayerRoles(kind, roles, context.template, snapshot, context)
 
-  const authoringInputs = roleOrder.map(role => roles[role]!)
+  const authoringInputs = oralProjections === undefined ? roleOrder.map(role => roles[role]!) : Object.keys(oralProjections).sort().map(key => oralProjections[key]!)
   const attachmentRuntimeResources = kind === 'attachment'
     ? (selectedAttachment?.frontRootStencil === undefined
       ? { attachmentBehind: roles.attachmentBehind }
@@ -361,7 +383,7 @@ export async function sealTraitBundle(draft: TraitBundleV1, context: SealContext
     ...(kind === 'surface' ? { runtimeResources: { materialOperation: roles.materialOperation } }
       : kind === 'eyePair' ? { runtimeResources: { underlay: roles.underlay, content: roles.content } }
         : kind === 'mouth' ? { oralSocketClass: snapshot.oralSocketClass, runtimeResources: { mouthBack: roles.mouthBack, mouthFront: roles.mouthFront } }
-          : kind === 'oralDetail' ? { runtimeResources: { oralProjection: roles.oralProjection } }
+          : kind === 'oralDetail' ? { runtimeResources: { oralProjections } }
             : kind === 'attachment' ? { interfaceId: snapshot.interfaceId, shapeClass: snapshot.shapeClass, runtimeResources: attachmentRuntimeResources }
               : kind === 'targetedEffect' ? { targetId: snapshot.targetId, runtimeResources: { effectLayer: roles.effectLayer } }
                 : { zoneId: snapshot.zoneId, runtimeResources: { effectLayer: roles.effectLayer } }),

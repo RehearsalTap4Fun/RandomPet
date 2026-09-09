@@ -52,6 +52,7 @@ function selectTrait(
   skeletonFamilyId: string,
   slotId: V09TraitSlotId,
   roll: number,
+  oralSocketClass?: string,
 ): { selection: MonsterSpecV09['visualSlots'][V09TraitSlotId]; trait?: SealedTraitArtifactV1; diagnostic?: Diagnostic } {
   const rng = createRng([request.seed, 'v0.9', 'slot', slotId, String(roll)])
   const rarity = pickWeighted(
@@ -61,6 +62,8 @@ function selectTrait(
   )
   const candidates = catalog.sealedTraits.filter(trait => (
     trait.skeletonFamilyId === skeletonFamilyId && trait.slotId === slotId && trait.rarity === rarity
+    && (slotId !== 'oralDetail' || (trait.kind === 'oralDetail' && oralSocketClass !== undefined
+      && Object.hasOwn(trait.runtimeResources.oralProjections, oralSocketClass)))
   ))
   if (candidates.length === 0) {
     return {
@@ -130,7 +133,7 @@ export function generateMonsterV09(
       visualSlots[slotId] = { traitId: 'oral-none', rarity: 'common', roll }
       continue
     }
-    const selected = selectTrait(catalog, request, selectedSkeleton.spec.skeletonFamilyId, slotId, roll)
+    const selected = selectTrait(catalog, request, selectedSkeleton.spec.skeletonFamilyId, slotId, roll, selectedMouth?.kind === 'mouth' ? selectedMouth.oralSocketClass : undefined)
     visualSlots[slotId] = selected.selection
     if (selected.diagnostic !== undefined) diagnostics.push(selected.diagnostic)
     if (slotId === 'mouthShape') selectedMouth = selected.trait
@@ -156,10 +159,13 @@ export function selectV09TraitForSlot(
   catalog: ResolvedV09Catalog,
 ): { selection: MonsterSpecV09['visualSlots'][V09TraitSlotId]; diagnostics: Diagnostic[] } {
   const roll = spec.visualSlots[slotId].roll
-  const selectedMouth = catalog.sealedTraits.find(trait => trait.traitId === spec.visualSlots.mouthShape.traitId)
+  const mouths = catalog.sealedTraits.filter(trait => trait.kind === 'mouth' && trait.slotId === 'mouthShape'
+    && trait.traitId === spec.visualSlots.mouthShape.traitId && trait.rarity === spec.visualSlots.mouthShape.rarity
+    && trait.skeletonFamilyId === spec.skeletonFamilyId && trait.assemblyTemplateId === spec.assemblyTemplateId)
+  const selectedMouth = mouths.length === 1 ? mouths[0] : undefined
   if (slotId === 'oralDetail' && isClosedMouth(selectedMouth)) {
     return { selection: { traitId: 'oral-none', rarity: 'common', roll }, diagnostics: [] }
   }
-  const selected = selectTrait(catalog, { seed: spec.seed }, spec.skeletonFamilyId, slotId, roll)
+  const selected = selectTrait(catalog, { seed: spec.seed }, spec.skeletonFamilyId, slotId, roll, selectedMouth?.kind === 'mouth' ? selectedMouth.oralSocketClass : undefined)
   return { selection: selected.selection, diagnostics: selected.diagnostic === undefined ? [] : [selected.diagnostic] }
 }

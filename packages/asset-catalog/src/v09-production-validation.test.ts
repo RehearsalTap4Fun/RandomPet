@@ -46,7 +46,7 @@ type PngRef = { resourceId: string; sha256: string; mediaType: 'image/png'; widt
 const graph = { schemaVersion: 'qmonster-composition-graph-v1', orderedNodes: [...V09_COMPOSITION_NODE_IDS], blendMode: 'source-over-premultiplied-srgb', transformPolicy: 'identity-only' }
 const jsonRef = (value: unknown): JsonRef => { const sha256 = canonicalJsonSha256(value); return { resourceId: `sha256:${sha256}`, sha256, mediaType: 'application/qmonster-manifest-v1+json' } }
 
-async function fixture(materialOverride?: Record<string, unknown>): Promise<V09ReleaseCandidate> {
+async function fixture(materialOverride?: Record<string, unknown>, oralMode?: 'multi' | 'unknown' | 'closed' | 'unreachable' | 'unused' | 'missing-resource'): Promise<V09ReleaseCandidate> {
   const image = await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 9, g: 8, b: 7, alpha: 1 } } }).png().toBuffer()
   const digest = await decodedPngSha256(image); const png: PngRef = { resourceId: `sha256:${digest}`, sha256: digest, mediaType: 'image/png', width: 2048, height: 2048 }
   const material = materialOverride ?? { schemaVersion: 'qmonster-material-v1', ownerMaterialId: 'owner', colorLut: Array(1024).fill(128), alphaPolicy: 'preserve-skeleton-alpha', blendMode: 'replace-color' }; const materialRef = { ...jsonRef(material), mediaType: 'application/qmonster-material-v1+json' as const }
@@ -56,14 +56,20 @@ async function fixture(materialOverride?: Record<string, unknown>): Promise<V09R
     embedded: [{ kind: 'eyePair' as const, slotId: 'eyes', leftAuthoringZone: png, rightAuthoringZone: png, pairAuthoringZone: png, occlusionReplayZone: png }, { kind: 'mouth' as const, slotId: 'mouthShape', authoringZone: png, occlusionReplayZone: png }, { kind: 'oralDetail' as const, slotId: 'oralDetail', socketRegistry: { 'oral-none': { authoringZone: png, parentMouthTraitIds: ['mouthShape-common-0'] }, open: { authoringZone: png, parentMouthTraitIds: ['common', 'rare', 'legendary'].flatMap((rarity, tier) => Array.from({ length: [8, 4, 1][tier]! }, (_, i) => `mouthShape-${rarity}-${i}`)) } }, closedMouthSentinel: 'oral-none' }],
     attachment: ['headAppendage', 'extraAppendage'].map(slotId => ({ kind: 'attachment' as const, slotId, attachmentInterface: { interfaceId: `${slotId}-interface`, allowedShapeClasses: ['ear-horn-small'] as const, allowedZone: png, rearRootStencil: png, fixedOccluderMaskId: 'fixed' } })), effect: [{ kind: 'ambientEffect' as const, slotId: 'effect', zoneId: 'background' as const, authoringZone: png, compositionNode: 'backgroundEffect' as const }],
   }, compositionGraph: graph }))
-  const inventory = { schemaVersion: 'qmonster-trait-inventory-v1' as const, traits: V09_TRAIT_SLOT_IDS.flatMap(slotId => (['common', 'rare', 'legendary'] as const).flatMap((rarity, tier) => Array.from({ length: [8, 4, 1][tier]! }, (_, index) => ({ slotId, traitId: slotId === 'oralDetail' && rarity === 'common' && index === 0 ? 'oral-none' : `${slotId}-${rarity}-${index}`, rarity, ...(slotId === 'oralDetail' ? { oralSocketClass: index === 0 && rarity === 'common' ? 'oral-none' : 'open' } : {}) })))) }
+  const inventory = { schemaVersion: 'qmonster-trait-inventory-v1' as const, traits: V09_TRAIT_SLOT_IDS.flatMap(slotId => (['common', 'rare', 'legendary'] as const).flatMap((rarity, tier) => Array.from({ length: [8, 4, 1][tier]! }, (_, index) => ({ slotId, traitId: `${slotId}-${rarity}-${index}`, rarity, ...(slotId === 'oralDetail' ? { oralSocketClass: 'open' } : {}) })))) }
+  if (oralMode !== undefined) for (const template of templates) Object.assign((template.slots.embedded[2] as any).socketRegistry, {
+    narrow: { authoringZone: png, parentMouthTraitIds: ['mouthShape-common-1'] },
+    wide: { authoringZone: png, parentMouthTraitIds: oralMode === 'unreachable' ? ['missing-mouth'] : ['mouthShape-common-2'] },
+  })
+  const oralImage = oralMode === undefined ? image : await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 22, g: 33, b: 44, alpha: 1 } } }).png().toBuffer()
+  const oralDigest = await decodedPngSha256(oralImage); const oralPng: PngRef = { ...png, sha256: oralDigest, resourceId: `sha256:${oralDigest}` }
   const overlays = templates.map(template => ({ schemaVersion: 'qmonster-overlay-policy-v1', skeletonFamilyId: template.skeletonFamilyId, assemblyTemplateSha256: canonicalJsonSha256(template), fullContextOverlay: png, previewPolicy: 'full-context-identity-only' }))
   const sealedTraits = families.flatMap(family => inventory.traits.map(entry => {
     const template = templates.find(item => item.skeletonFamilyId === family.skeletonFamilyId)!; const common = { schemaVersion: 'qmonster-sealed-trait-v1' as const, traitId: entry.traitId, rarity: entry.rarity, skeletonFamilyId: family.skeletonFamilyId, assemblyTemplateId: template.assemblyTemplateId, assemblyTemplateSha256: canonicalJsonSha256(template), neutralMasterSha256: digest, authoringInputs: [png], fullContextPreview: png, sealerVersion: '0.9.0' }
     common.authoringInputs.push(jsonRef(overlays.find(item => item.skeletonFamilyId === family.skeletonFamilyId)) as any)
     if (entry.slotId === 'eyes') return { ...common, kind: 'eyePair' as const, slotId: 'eyes' as const, runtimeResources: { underlay: png, content: png } }
-    if (entry.slotId === 'mouthShape') return { ...common, kind: 'mouth' as const, slotId: 'mouthShape' as const, oralSocketClass: 'open', runtimeResources: { mouthBack: png, mouthFront: png } }
-    if (entry.slotId === 'oralDetail') return { ...common, kind: 'oralDetail' as const, slotId: 'oralDetail' as const, runtimeResources: { oralProjection: png } }
+    if (entry.slotId === 'mouthShape') return { ...common, kind: 'mouth' as const, slotId: 'mouthShape' as const, oralSocketClass: oralMode !== undefined && entry.traitId === 'mouthShape-common-1' ? 'narrow' : oralMode !== undefined && oralMode !== 'unused' && entry.traitId === 'mouthShape-common-2' ? 'wide' : 'open', runtimeResources: { mouthBack: png, mouthFront: png } }
+    if (entry.slotId === 'oralDetail') return { ...common, kind: 'oralDetail' as const, slotId: 'oralDetail' as const, runtimeResources: { oralProjections: oralMode === undefined ? { open: png } : { open: png, narrow: png, wide: oralPng, ...(oralMode === 'unknown' ? { unknown: png } : oralMode === 'closed' ? { closed: png } : {}) } } }
     if (entry.slotId === 'headAppendage' || entry.slotId === 'extraAppendage') return { ...common, kind: 'attachment' as const, slotId: entry.slotId, interfaceId: `${entry.slotId}-interface`, shapeClass: 'ear-horn-small' as const, runtimeResources: { attachmentBehind: png } }
     if (entry.slotId === 'effect') return { ...common, kind: 'ambientEffect' as const, slotId: 'effect' as const, zoneId: 'background' as const, runtimeResources: { effectLayer: png } }
     return { ...common, kind: 'surface' as const, slotId: entry.slotId as 'bodyColor', runtimeResources: { materialOperation: materialRef } }
@@ -76,6 +82,7 @@ async function fixture(materialOverride?: Record<string, unknown>): Promise<V09R
   const manifest = { schemaVersion: 'qmonster-release-v1', versionTuple: { schemaVersion: '0.4.0', catalogVersion: '0.9.0', generatorVersion: '0.9.0' }, speciesRig: jsonRef(speciesRig), skeletonPool: jsonRef(pool), skeletonFamilies: families.map(jsonRef), assemblyTemplates: templates.map(jsonRef), approvals: approvals.map(jsonRef), traitApprovals: traitApprovals.map(jsonRef), traitInventory: jsonRef(inventory), sealedTraits: sealedTraits.map(jsonRef), compositionGraph: jsonRef(graph), rendererBuildSha256: 'b'.repeat(64) }
   const docs = [speciesRig, pool, ...families, ...templates, ...approvals, ...traitApprovals, allowlist, inventory, ...sealedTraits, graph, ...overlays]
   const resources: V09ContentRecordV1[] = [{ ref: png as any, bytes: image }, { ref: materialRef as any, bytes: canonicalJsonBytes(material) }, ...docs.map(value => ({ ref: jsonRef(value) as any, bytes: canonicalJsonBytes(value) }))]
+  if (oralMode !== undefined && oralMode !== 'missing-resource') resources.push({ ref: oralPng as any, bytes: oralImage })
   return { releaseManifest: manifest, speciesRig, skeletonPool: pool, skeletonFamilies: families, assemblyTemplates: templates, assemblyApprovals: approvals, traitApprovals, attachmentAllowlist: allowlist, traitInventory: inventory, sealedTraits, compositionGraph: graph, resources }
 }
 
@@ -107,6 +114,28 @@ async function files(root: string, prefix = ''): Promise<string[]> {
 }
 
 describe('v0.9 round 5 contracts', () => {
+  it('validates and reloads multi-socket oral resources through CLI with unchanged 312 projection count', async () => {
+    const candidate = await fixture(undefined, 'multi')
+    expect(candidate.sealedTraits).toHaveLength(312); expect(candidate.traitInventory.traits).toHaveLength(156)
+    expect(await validateV09Release(candidate)).toEqual([])
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-oral-multi-'))
+    try { expect(await runV09ValidationCli(['--release-pointer', await publishUnchecked(root, candidate)])).toBe(0) }
+    finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+  it.each(['unknown', 'closed', 'unreachable', 'unused'] as const)('rejects oral projection class %s in validator and CLI', async mode => {
+    const candidate = await fixture(undefined, mode)
+    expect((await validateV09Release(candidate)).some(item => item.code === 'ORAL_SOCKET_INCOMPATIBLE')).toBe(true)
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-oral-invalid-'))
+    try { expect(await runV09ValidationCli(['--release-pointer', await publishUnchecked(root, candidate)])).toBe(1) }
+    finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+  it('rejects a missing PNG reachable only through an oral projection record', async () => {
+    const candidate = await fixture(undefined, 'missing-resource')
+    expect((await validateV09Release(candidate)).some(item => item.code === 'RESOURCE_HASH_MISMATCH')).toBe(true)
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-oral-missing-'))
+    try { expect(await runV09ValidationCli(['--release-pointer', await publishUnchecked(root, candidate)])).toBe(1) }
+    finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
   it.each(['missing', 'duplicate', 'range', 'fraction', 'blank', 'surface-owner'])('rejects template material registry %s', async mode => {
     const candidate = await fixture(); const template = candidate.assemblyTemplates[0] as any
     if (mode === 'missing') delete template.materialRegistry

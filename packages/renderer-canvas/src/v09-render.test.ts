@@ -21,7 +21,7 @@ function fixture() {
     const base = { schemaVersion: 'qmonster-sealed-trait-v1', slotId, traitId: `${slotId}-trait`, rarity: 'common', skeletonFamilyId: 'base', assemblyTemplateId: 'template-base', assemblyTemplateSha256: templateRef.sha256, neutralMasterSha256: neutral.sha256, authoringInputs: [mask], fullContextPreview: png(), sealerVersion: '0.9.0' }
     if (slotId === 'eyes') return { ...base, kind: 'eyePair', runtimeResources: { underlay: png(), content: png() } }
     if (slotId === 'mouthShape') return { ...base, kind: 'mouth', oralSocketClass: 'open', runtimeResources: { mouthBack: png(), mouthFront: png() } }
-    if (slotId === 'oralDetail') return { ...base, kind: 'oralDetail', runtimeResources: { oralProjection: png() } }
+    if (slotId === 'oralDetail') return { ...base, kind: 'oralDetail', runtimeResources: { oralProjections: { open: png() } } }
     if (slotId === 'headAppendage' || slotId === 'extraAppendage') return { ...base, kind: 'attachment', interfaceId: slotId, shapeClass: 'ear-horn-small', runtimeResources: { attachmentBehind: png(), attachmentFront: png() } }
     if (slotId === 'effect') return { ...base, kind: 'ambientEffect', zoneId: 'background', runtimeResources: { effectLayer: png() } }
     return { ...base, kind: 'surface', runtimeResources: { materialOperation: json() } }
@@ -174,11 +174,26 @@ describe('v0.9 fixed composite and renderer', () => {
     const f = fixture(); (f.catalog.sealedTraits[0] as any).runtimeResources.materialOperation.mediaType = 'application/qmonster-manifest-v1+json'
     expect(() => renderer.resolveV09Composite(f.spec, f.catalog)).toThrowError(expect.objectContaining({ code: 'TRAIT_SLOT_INCOMPATIBLE' }))
   })
-  it('draws shared attachment content at most once at its owned node', async () => {
+  it('rejects repeated attachment content within the same node', () => {
     const f = fixture(); const head = f.catalog.sealedTraits[9] as any; const extra = f.catalog.sealedTraits[10] as any
     extra.runtimeResources.attachmentBehind = head.runtimeResources.attachmentBehind
+    expect(() => renderer.resolveV09Composite(f.spec, f.catalog)).toThrowError(expect.objectContaining({ code: 'UNREGISTERED_ALPHA_SOURCE' }))
+  })
+  it.each(['eyes', 'attachment-effect'])('rejects global visible resource ownership conflict: %s', mode => {
+    const f = fixture(); const eye = f.catalog.sealedTraits[6] as any; const effect = f.catalog.sealedTraits[11] as any; const attachment = f.catalog.sealedTraits[9] as any
+    if (mode === 'eyes') eye.runtimeResources.content = eye.runtimeResources.underlay
+    else effect.runtimeResources.effectLayer = attachment.runtimeResources.attachmentBehind
+    expect(() => renderer.resolveV09Composite(f.spec, f.catalog)).toThrowError(expect.objectContaining({ code: 'UNREGISTERED_ALPHA_SOURCE', message: expect.stringMatching(mode === 'eyes' ? /eyePair\.underlay.*eyePair\.content/ : /backgroundEffect.*attachment\.behind/) }))
+  })
+  it.each(['narrow', 'wide'])('selects exactly the %s mouth projection', async socketClass => {
+    const f = fixture(); const oral = f.catalog.sealedTraits[8] as any; const mouth = f.catalog.sealedTraits[7] as any
+    const narrow = png(); const wide = png(); oral.runtimeResources = { oralProjections: { narrow, wide } }; mouth.oralSocketClass = socketClass
+    ;(f.template.slots.embedded[2] as any).socketRegistry = { narrow: { authoringZone: png(), parentMouthTraitIds: [mouth.traitId] }, wide: { authoringZone: png(), parentMouthTraitIds: [mouth.traitId] } }
     const composite = renderer.resolveV09Composite(f.spec, f.catalog)
+    expect(composite.orderedNodes.oralDetail).toEqual([socketClass === 'narrow' ? narrow : wide])
     await renderer.renderMonsterV09(f.context, composite, f.resolver)
-    expect(f.draws.filter(args => (args[0] as any).id === head.runtimeResources.attachmentBehind.resourceId)).toHaveLength(1)
+    expect(f.draws.filter(args => [narrow.resourceId, wide.resourceId].includes((args[0] as any).id))).toEqual([[{ id: socketClass === 'narrow' ? narrow.resourceId : wide.resourceId }, 0, 0]])
+    delete oral.runtimeResources.oralProjections[socketClass]
+    expect(() => renderer.resolveV09Composite(f.spec, f.catalog)).toThrowError(expect.objectContaining({ code: 'ORAL_SOCKET_INCOMPATIBLE' }))
   })
 })

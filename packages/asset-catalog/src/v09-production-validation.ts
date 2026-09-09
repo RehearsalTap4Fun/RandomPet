@@ -473,6 +473,7 @@ async function validateTraits(candidate: V09ReleaseCandidate, inventory: Invento
   for (const [index, value] of candidate.sealedTraits.entries()) {
     const rawArtifact = value as Record<string, unknown>
     if (rawArtifact?.kind === 'attachment' && !ATTACHMENT_CLASSES.has(String(rawArtifact.shapeClass))) diagnostics.push(diagnostic('SHAPE_CLASS_NOT_ALLOWED', ['sealedTraits', String(index), 'shapeClass'], 'Attachment class is outside the closed global enum.'))
+    if (rawArtifact?.kind === 'oralDetail') validateOralProjectionBindings(rawArtifact, templates.get(String(rawArtifact.skeletonFamilyId)), candidate, diagnostics, index)
     const parsed = parseSealedTraitArtifactV1(value)
     if (!parsed.ok) { diagnostics.push(...parsed.diagnostics); continue }
     const artifact = parsed.value; const semantic = `${artifact.slotId}\u0000${artifact.traitId}`; const family = families.get(artifact.skeletonFamilyId); const template = templates.get(artifact.skeletonFamilyId)
@@ -512,9 +513,26 @@ function validateOralCompatibility(inventory: InventoryEntry[], templates: unkno
   }
 }
 
+function validateOralProjectionBindings(artifact: Record<string, unknown>, template: Record<string, unknown> | undefined, candidate: V09ReleaseCandidate, diagnostics: Diagnostic[], index: number): void {
+  const projections = (artifact.runtimeResources as Record<string, unknown> | null)?.oralProjections
+  const embedded = (template?.slots as Record<string, unknown> | undefined)?.embedded
+  const oral = Array.isArray(embedded) ? embedded.find(slot => slot?.kind === 'oralDetail') as Record<string, unknown> | undefined : undefined
+  const registry = oral?.socketRegistry as Record<string, { parentMouthTraitIds?: unknown }> | undefined
+  const keys = projections !== null && typeof projections === 'object' && !Array.isArray(projections) ? Object.keys(projections) : []
+  if (artifact.traitId === 'oral-none' || keys.length === 0 || keys.some(key => {
+    if (key.trim() === '' || key === 'closed' || key === 'oral-none' || !registry || !Object.hasOwn(registry, key)) return true
+    const parents = registry[key]?.parentMouthTraitIds
+    return !Array.isArray(parents) || !candidate.sealedTraits.some(value => {
+      const mouth = value as Record<string, unknown> | null
+      return mouth?.kind === 'mouth' && mouth.slotId === 'mouthShape' && mouth.skeletonFamilyId === artifact.skeletonFamilyId
+        && mouth.assemblyTemplateId === artifact.assemblyTemplateId && mouth.oralSocketClass === key && parents.includes(mouth.traitId)
+    })
+  })) diagnostics.push(diagnostic('ORAL_SOCKET_INCOMPATIBLE', ['sealedTraits', String(index), 'runtimeResources', 'oralProjections'], 'Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.'))
+}
+
 function validateArtifactRoles(artifact: SealedTraitArtifactV1, family: Record<string, unknown> | undefined, template: Record<string, unknown> | undefined, candidate: V09ReleaseCandidate, diagnostics: Diagnostic[], index: number): void {
   const resources = artifact.runtimeResources as Record<string, ContentResourceRef>
-  const roles = Object.keys(resources).sort(); const required = artifact.kind === 'surface' ? ['materialOperation'] : artifact.kind === 'eyePair' ? ['content', 'underlay'] : artifact.kind === 'mouth' ? ['mouthBack', 'mouthFront'] : artifact.kind === 'oralDetail' ? ['oralProjection'] : artifact.kind === 'attachment' ? (resources.attachmentFront === undefined ? ['attachmentBehind'] : ['attachmentBehind', 'attachmentFront']) : ['effectLayer']
+  const roles = Object.keys(resources).sort(); const required = artifact.kind === 'surface' ? ['materialOperation'] : artifact.kind === 'eyePair' ? ['content', 'underlay'] : artifact.kind === 'mouth' ? ['mouthBack', 'mouthFront'] : artifact.kind === 'oralDetail' ? ['oralProjections'] : artifact.kind === 'attachment' ? (resources.attachmentFront === undefined ? ['attachmentBehind'] : ['attachmentBehind', 'attachmentFront']) : ['effectLayer']
   if (!equalJson(roles, [...required].sort())) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['sealedTraits', String(index), 'runtimeResources'], 'Trait has missing or extra resource roles.'))
   if (template === undefined || family === undefined) return
   const slots = template.slots as Record<string, unknown> | undefined

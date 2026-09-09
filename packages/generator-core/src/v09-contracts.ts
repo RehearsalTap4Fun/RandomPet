@@ -265,7 +265,7 @@ export interface SealedMouthTraitArtifactV1 extends SealedTraitArtifactBaseV1 {
 export interface SealedOralDetailTraitArtifactV1 extends SealedTraitArtifactBaseV1 {
   kind: 'oralDetail'
   slotId: 'oralDetail'
-  runtimeResources: { oralProjection: PngResourceRef }
+  runtimeResources: { oralProjections: Record<string, PngResourceRef> }
 }
 
 export interface SealedAttachmentTraitArtifactV1 extends SealedTraitArtifactBaseV1 {

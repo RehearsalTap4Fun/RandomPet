@@ -135,7 +135,12 @@ export function resolveV09Composite(spec: MonsterSpecV09, catalog: ResolvedV09Ca
         nodes[surfaceNodes[V09_SURFACE_ORDER.indexOf(trait.slotId)]!].push(trait.runtimeResources.materialOperation); break
       case 'eyePair': nodes['eyePair.underlay'].push(trait.runtimeResources.underlay); nodes['eyePair.content'].push(trait.runtimeResources.content); break
       case 'mouth': nodes['mouth.back'].push(trait.runtimeResources.mouthBack); nodes['mouth.front'].push(trait.runtimeResources.mouthFront); break
-      case 'oralDetail': nodes.oralDetail.push(trait.runtimeResources.oralProjection); break
+      case 'oralDetail': {
+        const projections = trait.runtimeResources.oralProjections
+        const projection = Object.hasOwn(projections, socketKey) ? projections[socketKey] : undefined
+        if (!projection || Object.keys(projections).some(key => !Object.hasOwn(oral.socketRegistry, key))) fail('ORAL_SOCKET_INCOMPATIBLE', `Oral trait has no compatible projection for mouth socket ${socketKey}.`)
+        nodes.oralDetail.push(projection); break
+      }
       case 'attachment': {
         const attachment = exactlyOne(template.slots.attachment.filter(slot => slot.kind === 'attachment' && slot.slotId === slotId), 'TRAIT_SLOT_INCOMPATIBLE', 'Attachment must own exactly one template interface.')
         const iface = attachment.attachmentInterface
@@ -159,12 +164,17 @@ export function resolveV09Composite(spec: MonsterSpecV09, catalog: ResolvedV09Ca
         nodes[effect.compositionNode].push(trait.runtimeResources.effectLayer); break
       }
     }
-    Object.values(resources).forEach(verifyRef)
+    Object.values(trait.kind === 'oralDetail' ? trait.runtimeResources.oralProjections : resources).forEach(verifyRef)
   }
   verifyRef(family.neutralMaster); verifyRef(family.materialMap); Object.values(replayMasks).flat().forEach(verifyRef)
-  // Two attachments can share a sealed raster. Repainting it at the same node
-  // would accumulate partial alpha, so retain its first declared occurrence.
-  for (const node of V09_COMPOSITION_NODE_IDS) nodes[node] = [...new Map(nodes[node].map(ref => [ref.resourceId, ref])).values()]
+  // Visible external rasters have exactly one occurrence and one owner. Material
+  // inputs and template masks are not draws; derived replays have their own nodes.
+  const visibleOwners = new Map<string, V09CompositionNodeId>()
+  for (const node of V09_COMPOSITION_NODE_IDS) for (const ref of nodes[node]) if (ref.mediaType === 'image/png') {
+    const previous = visibleOwners.get(ref.resourceId)
+    if (previous !== undefined) fail('UNREGISTERED_ALPHA_SOURCE', `Visible resource ${ref.resourceId} is owned by both ${previous} and ${node}.`)
+    visibleOwners.set(ref.resourceId, node)
+  }
   const composite = freeze({ versionTuple: { ...V09_VERSION_TUPLE }, speciesRigId: spec.speciesRigId, skeletonFamilyId: family.skeletonFamilyId, assemblyTemplateId: template.assemblyTemplateId, releaseManifestSha256: catalog.releaseManifestSha256, orderedNodes: nodes, sourceArtifactSha256s })
   resolved.set(composite, freeze({ family, template, replayMasks }))
   return composite

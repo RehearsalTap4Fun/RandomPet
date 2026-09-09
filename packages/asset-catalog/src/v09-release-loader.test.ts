@@ -1,4 +1,4 @@
-import { cp, mkdir, mkdtemp, rename, rm, symlink, writeFile } from 'node:fs/promises'
+import { cp, mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, join } from 'node:path'
 import { describe, expect, it } from 'vitest'
@@ -41,6 +41,7 @@ async function createRelease(options: {
   materialRegistry?: unknown
   omitMaterialRegistry?: boolean
   surfaceOwner?: string
+  oralMode?: 'multi' | 'empty' | 'legacy'
 } = {}) {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-release-'))
   const resources = join(root, 'resources', 'by-sha256')
@@ -54,6 +55,10 @@ async function createRelease(options: {
   const pngSha256 = await decodedPngSha256(pngBytes)
   await writeFile(join(resources, pngSha256), pngBytes)
   const png: PngRef = { resourceId: `sha256:${pngSha256}`, sha256: pngSha256, mediaType: 'image/png', width: 2048, height: 2048 }
+  const oralBytes = options.oralMode === undefined ? undefined : await sharp({ create: { width: 2048, height: 2048, channels: 4, background: { r: 80, g: 70, b: 60, alpha: 1 } } }).png().toBuffer()
+  const oralSha256 = oralBytes === undefined ? undefined : await decodedPngSha256(oralBytes)
+  if (oralBytes && oralSha256) await writeFile(join(resources, oralSha256), oralBytes)
+  const oralPng = { ...png, resourceId: `sha256:${oralSha256}`, sha256: oralSha256 }
   const template = (skeletonFamilyId: string) => ({
     schemaVersion: 'qmonster-assembly-template-v1',
     assemblyTemplateId: `template-${skeletonFamilyId}`,
@@ -100,6 +105,11 @@ async function createRelease(options: {
   }
   const approval = await addJson(options.approvalValue ?? { approvalId: 'approved' })
   const traitApproval = await addJson({ traitApprovalId: 'approved' })
+  const oralTrait = options.oralMode === undefined ? undefined : await addJson({
+    schemaVersion: 'qmonster-sealed-trait-v1', kind: 'oralDetail', slotId: 'oralDetail', traitId: 'teeth', rarity: 'common', skeletonFamilyId: 'base', assemblyTemplateId: 'template-base',
+    assemblyTemplateSha256: assemblyTemplates[0]!.sha256, neutralMasterSha256: pngSha256, authoringInputs: [png], fullContextPreview: png, sealerVersion: '0.9.0',
+    runtimeResources: options.oralMode === 'legacy' ? { oralProjection: png } : { oralProjections: options.oralMode === 'empty' ? {} : { narrow: png, wide: oralPng } },
+  })
   const manifest = {
     schemaVersion: 'qmonster-release-v1',
     versionTuple: options.versionTuple ?? { schemaVersion: '0.4.0', catalogVersion: '0.9.0', generatorVersion: '0.9.0' },
@@ -107,7 +117,7 @@ async function createRelease(options: {
     skeletonPool: await addJson(options.pool ?? defaultPool),
     skeletonFamilies,
     assemblyTemplates,
-    approvals: [approval], traitApprovals: [traitApproval], traitInventory: await addJson(options.inventoryValue ?? { inventory: [] }), sealedTraits: [],
+    approvals: [approval], traitApprovals: [traitApproval], traitInventory: await addJson(options.inventoryValue ?? { inventory: [] }), sealedTraits: oralTrait ? [oralTrait] : [],
     compositionGraph: await addJson(compositionGraph),
     rendererBuildSha256: 'a'.repeat(64),
   }
@@ -115,7 +125,7 @@ async function createRelease(options: {
   await mkdir(join(root, 'releases', 'by-sha256'), { recursive: true })
   await writeFile(join(root, 'releases', 'by-sha256', `${manifestSha256}.json`), canonicalJsonBytes(manifest))
   await writeFile(join(root, 'releases', 'active-release.json'), JSON.stringify({ schemaVersion: 'qmonster-active-release-v1', releaseManifestSha256: manifestSha256 }))
-  return { root, resources, manifest, manifestSha256, pngSha256 }
+  return { root, resources, manifest, manifestSha256, pngSha256, oralSha256 }
 }
 
 async function withRelease(test: (release: Awaited<ReturnType<typeof createRelease>>) => Promise<void>, options?: Parameters<typeof createRelease>[0]) {
@@ -128,6 +138,22 @@ async function withRelease(test: (release: Awaited<ReturnType<typeof createRelea
 }
 
 describe('active v0.9 release loader', () => {
+  it('loads every socket-indexed oral ref and rejects tampered nested projection bytes', async () => {
+    const release = await createRelease({ oralMode: 'multi' })
+    try {
+      const loaded = await loadActiveV09Release({ root: release.root }); const trait = loaded.sealedTraits[0]!
+      expect(trait.kind).toBe('oralDetail')
+      if (trait.kind !== 'oralDetail') throw new Error('Expected oral trait')
+      expect(Object.keys(trait.runtimeResources.oralProjections)).toEqual(['narrow', 'wide'])
+      await writeFile(join(release.resources, release.oralSha256!), await readFile(join(release.resources, release.pngSha256)))
+      await expect(loadActiveV09Release({ root: release.root })).rejects.toMatchObject({ code: 'RESOURCE_HASH_MISMATCH' })
+    } finally { await rm(release.root, { recursive: true, force: true }) }
+  })
+  it.each(['empty', 'legacy'] as const)('rejects %s oral projection shape during loading', async oralMode => {
+    const release = await createRelease({ oralMode })
+    try { await expect(loadActiveV09Release({ root: release.root })).rejects.toMatchObject({ code: 'RESOURCE_SCHEMA_INVALID' }) }
+    finally { await rm(release.root, { recursive: true, force: true }) }
+  })
   it.each([
     { omitMaterialRegistry: true }, { materialRegistry: { fur: 7, nose: 7 } },
     { materialRegistry: { fur: 256 } }, { materialRegistry: { fur: 7.5 } },
