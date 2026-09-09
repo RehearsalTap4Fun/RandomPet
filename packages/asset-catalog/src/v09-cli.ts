@@ -1,10 +1,6 @@
 import { dirname, resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { validateV09CandidatePointer } from './v09-production-validation.js'
-
-function argument(name: string): string | undefined {
-  const index = process.argv.indexOf(name)
-  return index >= 0 ? process.argv[index + 1] : undefined
-}
 
 export async function runV09ValidationCli(args = process.argv.slice(2)): Promise<number> {
   const index = args.indexOf('--release-pointer')
@@ -19,4 +15,4 @@ export async function runV09ValidationCli(args = process.argv.slice(2)): Promise
   return diagnostics.length === 0 ? 0 : 1
 }
 
-if (import.meta.url === `file://${process.argv[1]?.replaceAll('\\', '/')}`) process.exitCode = await runV09ValidationCli()
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) process.exitCode = await runV09ValidationCli()
