@@ -6,14 +6,19 @@ import type {
   SealedTraitArtifactV1,
   V09TraitSlotId,
 } from './v09-contracts.js'
-import { V09_TRAIT_SLOT_IDS } from './v09-contracts.js'
+import { parseContentResourceId, V09_TRAIT_SLOT_IDS } from './v09-contracts.js'
 import type { Diagnostic, ParseResult } from './contracts.js'
 
 const Sha256Schema = z.string().regex(/^[a-f0-9]{64}$/, 'Expected a lowercase SHA-256 digest.')
-const ContentResourceIdSchema = z.string().regex(
-  /^sha256:[a-f0-9]{64}$/,
-  'Expected a sha256 content resource ID, not a path or URL.',
-)
+const ContentResourceIdSchema = z.string().transform((value, context) => {
+  const parsed = parseContentResourceId(value)
+  if (parsed !== undefined) return parsed
+  context.addIssue({
+    code: 'custom',
+    message: 'Expected a sha256 content resource ID, not a path or URL.',
+  })
+  return z.NEVER
+})
 const NonBlankStringSchema = z.string().min(1).refine(value => value.trim().length > 0, {
   message: 'Expected a non-blank string.',
 })

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   V09_COMPOSITION_NODE_IDS,
   V09_TRAIT_SLOT_IDS,
+  parseContentResourceId,
   parseMonsterSpecV09,
   parseReleaseManifestV09,
   parseSealedTraitArtifactV1,
@@ -90,6 +91,12 @@ describe('v0.9 schema contracts', () => {
     expect(parseMonsterSpecV09(makeMonsterSpecV09Fixture()).ok).toBe(true)
     expect(parseMonsterSpecV09({ ...makeMonsterSpecV09Fixture(), rendererVersion: '0.9.0' }).ok).toBe(false)
     expect(parseReleaseManifestV09(makeReleaseManifestFixture()).ok).toBe(true)
+  })
+
+  it('creates content resource IDs only through the controlled parser', () => {
+    expect(parseContentResourceId(`sha256:${sha256}`)).toBe(`sha256:${sha256}`)
+    expect(parseContentResourceId('sha256:https://example.invalid/trait.png')).toBeUndefined()
+    expect(parseContentResourceId('sha256:../outside.png')).toBeUndefined()
   })
 
   it('freezes the exact composition order consumed by the v0.9 renderer', () => {

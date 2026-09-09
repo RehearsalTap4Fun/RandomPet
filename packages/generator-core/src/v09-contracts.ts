@@ -53,8 +53,20 @@ export type StructuralShapeClass =
 export type AttachmentShapeClass =
   | 'ear-horn-small' | 'ear-ornament' | 'mane-small' | 'collar'
 
-/** A content-addressed resource identity; it never names a filesystem path or URL. */
-export type ContentResourceId = `sha256:${string}`
+declare const contentResourceIdBrand: unique symbol
+
+/**
+ * An opaque, content-addressed resource identity. Construct it only through
+ * `parseContentResourceId`, never from a caller-supplied string or path.
+ */
+export type ContentResourceId = string & { readonly [contentResourceIdBrand]: 'ContentResourceId' }
+
+const CONTENT_RESOURCE_ID_PATTERN = /^sha256:[a-f0-9]{64}$/
+
+export function parseContentResourceId(input: unknown): ContentResourceId | undefined {
+  if (typeof input !== 'string' || !CONTENT_RESOURCE_ID_PATTERN.test(input)) return undefined
+  return input as ContentResourceId
+}
 
 export interface PngResourceRef {
   resourceId: ContentResourceId
