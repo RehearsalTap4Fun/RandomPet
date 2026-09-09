@@ -271,13 +271,14 @@ async function parseAndValidateV09Release(input: unknown): Promise<{ candidate?:
 }
 
 function validateManifestClosure(manifest: ReleaseManifestV09, candidate: V09ReleaseCandidate, diagnostics: Diagnostic[]): void {
+  const expectedRef = (payload: unknown) => ({ resourceId: `sha256:${canonicalOrEmpty(payload)}`, sha256: canonicalOrEmpty(payload), mediaType: 'application/qmonster-manifest-v1+json' })
   const one = (document: ContentResourceRef, payload: unknown, label: string) => {
-    if (document.sha256 !== canonicalOrEmpty(payload)) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['releaseManifest', label], 'Manifest singleton does not bind the exact candidate document.'))
+    if (!equalJson(document, expectedRef(payload))) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['releaseManifest', label], 'Manifest singleton does not bind the exact canonical candidate reference.'))
   }
   const many = (refs: ContentResourceRef[], payloads: unknown[], label: string) => {
-    const refHashes = refs.map(ref => ref.sha256).sort(); const payloadHashes = payloads.map(canonicalOrEmpty).sort()
-    const uniqueRefs = new Set(refHashes); const uniquePayloads = new Set(payloadHashes)
-    if (refs.length !== payloads.length || uniqueRefs.size !== refs.length || uniquePayloads.size !== payloads.length || !equalJson(refHashes, payloadHashes)) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['releaseManifest', label], 'Manifest references must be an exact duplicate-free set of candidate documents.'))
+    const refObjects = refs.map(ref => canonicalOrEmpty(ref)).sort(); const payloadRefs = payloads.map(expectedRef).map(canonicalOrEmpty).sort()
+    const uniqueRefs = new Set(refObjects); const uniquePayloads = new Set(payloadRefs)
+    if (refs.length !== payloads.length || uniqueRefs.size !== refs.length || uniquePayloads.size !== payloads.length || !equalJson(refObjects, payloadRefs)) diagnostics.push(diagnostic('RESOURCE_HASH_MISMATCH', ['releaseManifest', label], 'Manifest references must be an exact duplicate-free set of canonical candidate references.'))
   }
   one(manifest.speciesRig, candidate.speciesRig, 'speciesRig')
   one(manifest.skeletonPool, candidate.skeletonPool, 'skeletonPool')
@@ -523,6 +524,17 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
   const target = resolve(options.root)
   try { await directDirectory(target) } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; await mkdir(target, { recursive: true }); await directDirectory(target) }
   const root = await directDirectory(target)
+  const lockPath = join(root, '.qmonster-v09-assemble-lock')
+  const lockToken = randomUUID()
+  try {
+    await mkdir(lockPath)
+    await writeFile(join(lockPath, 'owner'), lockToken, { flag: 'wx' })
+  } catch (error) {
+    throw Object.assign(new Error('Another v0.9 assembly owns this catalog root.'), { code: 'V09_ASSEMBLY_LOCKED', cause: error })
+  }
+  const stagingPath = join(root, `.qmonster-v09-staging-${lockToken}`)
+  await mkdir(stagingPath)
+  try {
   const resourceDirectory = await ensureDirectory(root, ['resources', 'by-sha256']); const releaseDirectory = await ensureDirectory(root, ['releases', 'by-sha256']); const candidateDirectory = await ensureDirectory(root, ['releases']); const auditDirectory = await ensureDirectory(root, ['audit', 'v0.9.0'])
   const created: string[] = []
   const manifestHash = canonicalJsonSha256(candidate.releaseManifest); const manifestPath = join(releaseDirectory, `${manifestHash}.json`)
@@ -541,6 +553,13 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
     await restore(auditPath, auditBefore); await restore(pointerPath, pointerBefore)
     await Promise.all(created.reverse().map(path => rm(path, { force: true })))
     throw error
+  }
+  } finally {
+    await rm(stagingPath, { recursive: true, force: true })
+    try {
+      const owner = await readFile(join(lockPath, 'owner'), 'utf8')
+      if (owner === lockToken) await rm(lockPath, { recursive: true, force: true })
+    } catch { /* Never remove a lock whose ownership cannot be established. */ }
   }
 }
 

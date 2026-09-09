@@ -94,4 +94,16 @@ describe('v0.9 production validation', () => {
       await expect(readFile(join(root, 'releases', 'candidate-v0.9.0.json'))).rejects.toMatchObject({ code: 'ENOENT' })
     } finally { __setV09AssemblyFailureHookForTest(); await rm(root, { recursive: true, force: true }) }
   }, 30000)
+
+  it('fails a concurrent assembler closed while the root lock is owned', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-lock-')); const candidate = await fixture()
+    let unblock!: () => void; const held = new Promise<void>(resolve => { unblock = resolve })
+    __setV09AssemblyFailureHookForTest(async stage => { if (stage === 'resource') await held })
+    try {
+      const first = assembleV09Release({ root, candidate })
+      await new Promise(resolve => setTimeout(resolve, 20))
+      await expect(assembleV09Release({ root, candidate })).rejects.toMatchObject({ code: 'V09_ASSEMBLY_LOCKED' })
+      unblock(); await expect(first).resolves.toMatchObject({ releaseManifestSha256: expect.any(String) })
+    } finally { __setV09AssemblyFailureHookForTest(); await rm(root, { recursive: true, force: true }) }
+  }, 30000)
 })
