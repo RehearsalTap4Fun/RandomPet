@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, rm, symlink, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, rename, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { describe, expect, it } from 'vitest'
@@ -32,6 +32,11 @@ async function createRelease(options: {
   skeletonFamilyIds?: string[]
   templateFamilyIds?: string[]
   familyProjection?: 'complete' | 'missing'
+  speciesRigValue?: unknown
+  approvalValue?: unknown
+  inventoryValue?: unknown
+  templateGraph?: unknown
+  attachmentMaskId?: string
 } = {}) {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-release-'))
   const resources = join(root, 'resources', 'by-sha256')
@@ -51,8 +56,18 @@ async function createRelease(options: {
     skeletonFamilyId,
     canvas: { width: 2048, height: 2048 },
     neutralMasterSha256: pngSha256,
-    slots: { surface: [], embedded: [], attachment: [], effect: [] },
-    compositionGraph,
+    slots: {
+      surface: [], embedded: [],
+      attachment: options.attachmentMaskId === undefined ? [] : [{
+        kind: 'attachment', slotId: 'headAppendage',
+        attachmentInterface: {
+          interfaceId: 'test-interface', allowedShapeClasses: ['ear-horn-small'], allowedZone: png,
+          rearRootStencil: png, fixedOccluderMaskId: options.attachmentMaskId,
+        },
+      }],
+      effect: [],
+    },
+    compositionGraph: options.templateGraph ?? compositionGraph,
   })
   const family = (skeletonFamilyId: string, skeletonClass: 'base' | 'legendary') => ({
     schemaVersion: 'qmonster-skeleton-family-v1',
@@ -78,16 +93,16 @@ async function createRelease(options: {
       { skeletonFamilyId: 'legendary', skeletonClass: 'legendary', weight: 1 },
     ],
   }
-  const approval = await addJson({ approvalId: 'approved' })
+  const approval = await addJson(options.approvalValue ?? { approvalId: 'approved' })
   const traitApproval = await addJson({ traitApprovalId: 'approved' })
   const manifest = {
     schemaVersion: 'qmonster-release-v1',
     versionTuple: options.versionTuple ?? { schemaVersion: '0.4.0', catalogVersion: '0.9.0', generatorVersion: '0.9.0' },
-    speciesRig: await addJson({ speciesRigId: 'feline-sit-v2' }),
+    speciesRig: await addJson(options.speciesRigValue ?? { speciesRigId: 'feline-sit-v2' }),
     skeletonPool: await addJson(options.pool ?? defaultPool),
     skeletonFamilies,
     assemblyTemplates,
-    approvals: [approval], traitApprovals: [traitApproval], traitInventory: await addJson({ inventory: [] }), sealedTraits: [],
+    approvals: [approval], traitApprovals: [traitApproval], traitInventory: await addJson(options.inventoryValue ?? { inventory: [] }), sealedTraits: [],
     compositionGraph: await addJson(compositionGraph),
     rendererBuildSha256: 'a'.repeat(64),
   }
@@ -139,6 +154,28 @@ describe('active v0.9 release loader', () => {
     })
   })
 
+  it('rejects a linked intermediate resource directory without rebinding the catalog root', async ({ skip }) => {
+    await withRelease(async ({ root, resources }) => {
+      const heldResources = join(root, 'held-resources')
+      await rename(resources, heldResources)
+      try {
+        try {
+          await symlink(heldResources, resources, process.platform === 'win32' ? 'junction' : 'dir')
+        } catch (error) {
+          if (['EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) {
+            skip('directory links are unavailable on this host')
+            return
+          }
+          throw error
+        }
+        await expect(loadActiveV09Release({ root })).rejects.toMatchObject({ code: 'RESOURCE_OUTSIDE_CATALOG_ROOT' })
+      } finally {
+        await rm(resources, { recursive: true, force: true })
+        await rename(heldResources, resources)
+      }
+    })
+  })
+
   it('rejects a malformed active pointer', async () => {
     await withRelease(async ({ root }) => {
       await writeFile(join(root, 'releases', 'active-release.json'), '{"schemaVersion":"wrong"}')
@@ -165,6 +202,19 @@ describe('active v0.9 release loader', () => {
       await writeFile(join(resources, manifest.approvals[0].sha256), canonicalJsonBytes({ alteredApproval: true }))
       await expect(loadActiveV09Release({ root })).rejects.toMatchObject({ code: 'RESOURCE_HASH_MISMATCH' })
     })
+  })
+
+  it('fails closed when nested species rig, approval, or inventory objects resemble invalid resource refs', async () => {
+    const digest = 'b'.repeat(64)
+    for (const options of [
+      { speciesRigValue: { nested: { resourceId: `sha256:${digest}`, sha256: digest, mediaType: 'application/unknown' } } },
+      { approvalValue: { nested: { resourceId: `sha256:${digest}`, sha256: digest, mediaType: 'application/qmonster-manifest-v1+json', unexpected: true } } },
+      { inventoryValue: { nested: { resourceId: `sha256:${digest}`, mediaType: 'application/qmonster-manifest-v1+json' } } },
+    ]) {
+      await withRelease(async ({ root }) => {
+        await expect(loadActiveV09Release({ root })).rejects.toMatchObject({ code: 'RESOURCE_SCHEMA_INVALID' })
+      }, options)
+    }
   })
 
   it('preserves the version-tuple failure code', async () => {
@@ -194,6 +244,18 @@ describe('active v0.9 release loader', () => {
         await expect(loadActiveV09Release({ root })).rejects.toMatchObject({ code: 'SKELETON_PROJECTION_MISSING' })
       }, options)
     }
+  })
+
+  it('rejects an assembly template whose composition graph differs from the declared release graph', async () => {
+    await withRelease(async ({ root }) => {
+      await expect(loadActiveV09Release({ root })).rejects.toMatchObject({ code: 'SKELETON_PROJECTION_MISSING' })
+    }, { templateGraph: { ...compositionGraph, orderedNodes: ['skeleton.base'] } })
+  })
+
+  it('rejects an attachment template that names no fixed occluder mask on its family', async () => {
+    await withRelease(async ({ root }) => {
+      await expect(loadActiveV09Release({ root })).rejects.toMatchObject({ code: 'SKELETON_PROJECTION_MISSING' })
+    }, { attachmentMaskId: 'missing-mask' })
   })
 
   it('returns a complete, verified v0.9 catalog only after the entire release is loaded', async () => {

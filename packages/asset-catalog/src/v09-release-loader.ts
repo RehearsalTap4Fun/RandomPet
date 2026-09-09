@@ -1,5 +1,5 @@
 import { lstat, realpath } from 'node:fs/promises'
-import { basename, dirname, isAbsolute, join, relative, resolve } from 'node:path'
+import { isAbsolute, join, relative, resolve } from 'node:path'
 import { z } from 'zod'
 import {
   parseContentResourceId,
@@ -136,10 +136,16 @@ async function directFile(root: string, segments: string[], code: string): Promi
 }
 
 async function trustedFileBytes(root: string, segments: string[], code: string): Promise<Buffer> {
-  const path = await directFile(root, segments, code)
+  await directFile(root, segments, code)
   try {
-    return (await readTrustedRepositoryFile(dirname(path), basename(path))).bytes
+    const trusted = await readTrustedRepositoryFile(root, segments.join('/'))
+    // Recheck every component after the stable read: the helper's trust root
+    // remains the canonical catalog root rather than a mutable child directory.
+    const finalPath = await directFile(root, segments, code)
+    if (!contained(root, await realpath(finalPath))) fail(code, 'Trusted file escaped the catalog root after read.')
+    return trusted.bytes
   } catch (error) {
+    if (error instanceof V09CatalogError) throw error
     return fail(code, 'Trusted file failed its stable identity check.', error)
   }
 }
@@ -178,6 +184,9 @@ function collectRefs(value: unknown, found = new Map<string, ContentResourceRef>
     value.forEach(item => collectRefs(item, found))
   } else if (value !== null && typeof value === 'object') {
     const candidate = anyRef.safeParse(value)
+    const object = value as Record<string, unknown>
+    const refLike = ['resourceId', 'sha256', 'mediaType'].some(key => Object.prototype.hasOwnProperty.call(object, key))
+    if (refLike && !candidate.success) fail('RESOURCE_SCHEMA_INVALID', 'Resource-like objects must be strict, supported content references.')
     if (candidate.success) {
       const ref = candidate.data as ContentResourceRef
       const existing = found.get(ref.resourceId)
@@ -186,7 +195,7 @@ function collectRefs(value: unknown, found = new Map<string, ContentResourceRef>
       }
       found.set(ref.resourceId, ref)
     }
-    for (const item of Object.values(value as Record<string, unknown>)) collectRefs(item, found)
+    for (const item of Object.values(object)) collectRefs(item, found)
   }
   return found
 }
@@ -219,7 +228,7 @@ function requiredJson<T>(loaded: Map<string, unknown>, ref: ContentResourceRef, 
   return checked(parser.safeParse(value), code, message)
 }
 
-function validateProjections(pool: SkeletonPoolV1, families: SkeletonFamilyV1[], templates: AssemblyTemplateV1[], loadedRefs: Map<string, ContentResourceRef>): void {
+function validateProjections(pool: SkeletonPoolV1, families: SkeletonFamilyV1[], templates: AssemblyTemplateV1[], graph: CompositionGraphV1, loadedRefs: Map<string, ContentResourceRef>): void {
   const familyById = new Map<string, SkeletonFamilyV1>()
   for (const family of families) {
     if (familyById.has(family.skeletonFamilyId)) fail('SKELETON_PROJECTION_MISSING', 'Skeleton family IDs must be unique.')
@@ -229,6 +238,15 @@ function validateProjections(pool: SkeletonPoolV1, families: SkeletonFamilyV1[],
   for (const template of templates) {
     if (templateById.has(template.assemblyTemplateId)) fail('SKELETON_PROJECTION_MISSING', 'Assembly template IDs must be unique.')
     templateById.set(template.assemblyTemplateId, template)
+    const family = familyById.get(template.skeletonFamilyId)
+    if (family === undefined || canonicalJsonSha256(template.compositionGraph) !== canonicalJsonSha256(graph)) {
+      fail('SKELETON_PROJECTION_MISSING', 'Assembly template does not share its family or declared composition graph.')
+    }
+    for (const attachment of template.slots.attachment) {
+      if (!Object.prototype.hasOwnProperty.call(family.fixedOccluderMasks, attachment.attachmentInterface.fixedOccluderMaskId)) {
+        fail('SKELETON_PROJECTION_MISSING', 'Attachment template references a missing fixed occluder mask.')
+      }
+    }
   }
   for (const candidate of pool.candidates) {
     const family = familyById.get(candidate.skeletonFamilyId)
@@ -283,6 +301,6 @@ export async function loadActiveV09Release(options: { root: string }): Promise<R
     if (!parsed.ok) fail('RESOURCE_SCHEMA_INVALID', 'Sealed trait payload has an invalid schema.')
     return parsed.value
   })
-  validateProjections(pool, families, templates, loadedRefs)
+  validateProjections(pool, families, templates, graph, loadedRefs)
   return { releaseManifestSha256: pointer.data.releaseManifestSha256, releaseManifest: manifest, speciesRig: manifest.speciesRig, skeletonPool: pool, skeletonFamilies: families, assemblyTemplates: templates, sealedTraits: traits as SealedTraitArtifactV1[], compositionGraph: graph }
 }
