@@ -1,5 +1,7 @@
 export type { NonFacialVisualSlotId } from './contracts.js'
 export * from './contracts.js'
+export * from './v09-contracts.js'
+export * from './v09-schema.js'
 export * from './genome.js'
 export * from './genome-validation.js'
 export * from './schema.js'
