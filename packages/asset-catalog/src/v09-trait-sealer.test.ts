@@ -81,6 +81,12 @@ async function oralFixture() {
 }
 
 describe('v0.9 socket-indexed oral sealing', () => {
+  it.each(['valid', 'undecodable'] as const)('rejects oral-none before decoding %s resources or emitting an artifact', async mode => {
+    const f = await oralFixture()
+    f.draft.traitId = 'oral-none'
+    if (mode === 'undecodable') f.context.resources.set(f.refs.neutral.resourceId, Buffer.from('not a PNG'))
+    await expect(sealTraitBundle(f.draft, f.context)).rejects.toEqual(errorCode('TRAIT_SCHEMA_INVALID'))
+  })
   it('seals all declared socket projections in deterministic class order', async () => {
     const f = await oralFixture(); const first = await sealTraitBundle(f.draft, f.context)
     expect(first.artifact).toMatchObject({ runtimeResources: { oralProjections: f.draft.resources.oralProjections } })

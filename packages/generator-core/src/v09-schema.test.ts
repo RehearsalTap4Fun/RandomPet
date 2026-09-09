@@ -81,6 +81,10 @@ function makeReleaseManifestFixture() {
 }
 
 describe('v0.9 schema contracts', () => {
+  it('rejects oral-none as an ordinary sealed oral artifact', () => {
+    const result = parseSealedTraitArtifactV1(makeSealedTraitFixture({ traitId: 'oral-none', kind: 'oralDetail', slotId: 'oralDetail', runtimeResources: { oralProjections: { narrow: pngRef() } } }))
+    expect(result).toMatchObject({ ok: false, diagnostics: [{ code: 'TRAIT_SCHEMA_INVALID', path: ['traitId'] }] })
+  })
   it('accepts strict socket-indexed oral projection records', () => {
     expect(parseSealedTraitArtifactV1(makeSealedTraitFixture({ kind: 'oralDetail', slotId: 'oralDetail', runtimeResources: { oralProjections: { narrow: pngRef(), wide: pngRef() } } })).ok).toBe(true)
   })

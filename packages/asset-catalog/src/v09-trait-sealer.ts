@@ -348,6 +348,7 @@ export async function sealTraitBundle(draft: TraitBundleV1, context: SealContext
   const record = snapshot as unknown as Record<string, unknown>
   const kind = record.kind as TraitKind
   if (!Object.hasOwn(EXPECTED_ROLES, kind)) fail('RESOURCE_HASH_MISMATCH', 'Unknown trait kind.')
+  if (kind === 'oralDetail' && snapshot.traitId === 'oral-none') fail('TRAIT_SCHEMA_INVALID', 'oral-none is a derived closed-mouth sentinel, not a sealable trait.')
   if (snapshot.skeletonFamilyId !== context.family.skeletonFamilyId || snapshot.assemblyTemplateId !== context.template.assemblyTemplateId
     || context.template.skeletonFamilyId !== context.family.skeletonFamilyId || snapshot.assemblyTemplateSha256 !== context.assemblyTemplateSha256) {
     fail('ASSEMBLY_TEMPLATE_HASH_MISMATCH', 'Draft does not bind the selected skeleton family and assembly template hash.')

@@ -41,7 +41,7 @@ async function createRelease(options: {
   materialRegistry?: unknown
   omitMaterialRegistry?: boolean
   surfaceOwner?: string
-  oralMode?: 'multi' | 'empty' | 'legacy'
+  oralMode?: 'multi' | 'empty' | 'legacy' | 'sentinel'
 } = {}) {
   const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-release-'))
   const resources = join(root, 'resources', 'by-sha256')
@@ -106,7 +106,7 @@ async function createRelease(options: {
   const approval = await addJson(options.approvalValue ?? { approvalId: 'approved' })
   const traitApproval = await addJson({ traitApprovalId: 'approved' })
   const oralTrait = options.oralMode === undefined ? undefined : await addJson({
-    schemaVersion: 'qmonster-sealed-trait-v1', kind: 'oralDetail', slotId: 'oralDetail', traitId: 'teeth', rarity: 'common', skeletonFamilyId: 'base', assemblyTemplateId: 'template-base',
+    schemaVersion: 'qmonster-sealed-trait-v1', kind: 'oralDetail', slotId: 'oralDetail', traitId: options.oralMode === 'sentinel' ? 'oral-none' : 'teeth', rarity: 'common', skeletonFamilyId: 'base', assemblyTemplateId: 'template-base',
     assemblyTemplateSha256: assemblyTemplates[0]!.sha256, neutralMasterSha256: pngSha256, authoringInputs: [png], fullContextPreview: png, sealerVersion: '0.9.0',
     runtimeResources: options.oralMode === 'legacy' ? { oralProjection: png } : { oralProjections: options.oralMode === 'empty' ? {} : { narrow: png, wide: oralPng } },
   })
@@ -138,6 +138,11 @@ async function withRelease(test: (release: Awaited<ReturnType<typeof createRelea
 }
 
 describe('active v0.9 release loader', () => {
+  it('rejects a content-addressed release containing an ordinary oral-none artifact', async () => {
+    await withRelease(async ({ root }) => {
+      await expect(loadActiveV09Release({ root })).rejects.toMatchObject({ code: 'RESOURCE_SCHEMA_INVALID' })
+    }, { oralMode: 'sentinel' })
+  })
   it('loads every socket-indexed oral ref and rejects tampered nested projection bytes', async () => {
     const release = await createRelease({ oralMode: 'multi' })
     try {
