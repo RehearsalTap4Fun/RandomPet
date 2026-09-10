@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import {
   SEMANTIC_SLOT_IDS,
+  V09_COMPOSITION_NODE_IDS,
   V09_TRAIT_SLOT_IDS,
   V09_VERSION_TUPLE,
   deriveCollectionRarity,
   generateMonster,
+  generateMonsterV09,
   parseCatalog,
   parseContentResourceId,
   type Catalog,
@@ -16,6 +18,8 @@ import {
   type SealedTraitArtifactV1,
   type V09TraitSlotId,
 } from '@qmonster/generator-core'
+import { canonicalJsonSha256 } from '@qmonster/asset-catalog'
+import { loadCandidateProductionRelease } from '../../../apps/creator-web/src/v09-production-release.test-support.js'
 import productionCatalogDocument from '../../asset-catalog/catalog/v0.1.0/catalog.json'
 import v06CatalogDocument from '../../asset-catalog/catalog/v0.6.0/catalog.json'
 import v08CatalogDocument from '../../asset-catalog/catalog/v0.8.0/catalog.json'
@@ -35,20 +39,24 @@ function v09PngRef(): PngResourceRef {
   return { resourceId, sha256: V09_HASH, mediaType: 'image/png', width: 2048, height: 2048 }
 }
 
-function v09JsonRef(): JsonResourceRef {
-  const resourceId = parseContentResourceId(`sha256:${V09_HASH}`)
+function v09JsonRef(value: unknown): JsonResourceRef {
+  const sha256 = canonicalJsonSha256(value)
+  const resourceId = parseContentResourceId(`sha256:${sha256}`)
   if (resourceId === undefined) throw new Error('Test JSON resource ID must parse.')
-  return { resourceId, sha256: V09_HASH, mediaType: 'application/qmonster-manifest-v1+json' }
+  return { resourceId, sha256, mediaType: 'application/qmonster-manifest-v1+json' }
 }
 
-function v09Trait(slotId: V09TraitSlotId): SealedTraitArtifactV1 {
+function v09Trait(
+  slotId: V09TraitSlotId,
+  template: ResolvedV09Catalog['assemblyTemplates'][number],
+): SealedTraitArtifactV1 {
   const base = {
     schemaVersion: 'qmonster-sealed-trait-v1' as const,
     traitId: `trait-${slotId}`,
     rarity: 'common' as const,
     skeletonFamilyId: 'feline-sit-v2-core',
     assemblyTemplateId: 'feline-sit-v2-core-template',
-    assemblyTemplateSha256: V09_HASH,
+    assemblyTemplateSha256: canonicalJsonSha256(template),
     neutralMasterSha256: V09_HASH,
     authoringInputs: [v09PngRef()],
     fullContextPreview: v09PngRef(),
@@ -67,7 +75,7 @@ function v09Trait(slotId: V09TraitSlotId): SealedTraitArtifactV1 {
     case 'effect':
       return { ...base, kind: 'ambientEffect', slotId, zoneId: 'background', runtimeResources: { effectLayer: v09PngRef() } }
     default:
-      return { ...base, kind: 'surface', slotId, runtimeResources: { materialOperation: v09JsonRef() } }
+      return { ...base, kind: 'surface', slotId, runtimeResources: { materialOperation: v09JsonRef({ slotId, kind: 'material' }) } }
   }
 }
 
@@ -87,12 +95,32 @@ function v09Spec(): MonsterSpecV09 {
 }
 
 function v09Catalog(): ResolvedV09Catalog {
-  const manifestRef = v09JsonRef()
-  const skeletonFamily = {
+  const compositionGraph: ResolvedV09Catalog['compositionGraph'] = {
+    schemaVersion: 'qmonster-composition-graph-v1',
+    orderedNodes: [...V09_COMPOSITION_NODE_IDS],
+    blendMode: 'source-over-premultiplied-srgb',
+    transformPolicy: 'identity-only',
+  }
+  const template: ResolvedV09Catalog['assemblyTemplates'][number] = {
+    schemaVersion: 'qmonster-assembly-template-v1',
+    assemblyTemplateId: 'feline-sit-v2-core-template',
+    skeletonFamilyId: 'feline-sit-v2-core',
+    canvas: { width: 2048, height: 2048 },
+    neutralMasterSha256: V09_HASH,
+    materialRegistry: {},
+    slots: { surface: [], embedded: [], attachment: [], effect: [] },
+    compositionGraph,
+  }
+  const legendaryTemplate: ResolvedV09Catalog['assemblyTemplates'][number] = {
+    ...template,
+    assemblyTemplateId: 'feline-sit-v2-legendary-template',
+    skeletonFamilyId: 'feline-sit-v2-legendary-01',
+  }
+  const skeletonFamily: ResolvedV09Catalog['skeletonFamilies'][number] = {
     schemaVersion: 'qmonster-skeleton-family-v1' as const,
     skeletonFamilyId: 'feline-sit-v2-core',
     skeletonClass: 'base' as const,
-    structuralShapeClasses: ['feline-standard'] as const,
+    structuralShapeClasses: ['feline-standard'],
     archetypeId: 'feline',
     poseId: 'sit',
     speciesRigId: 'feline-sit-v2',
@@ -108,54 +136,39 @@ function v09Catalog(): ResolvedV09Catalog {
     skeletonClass: 'legendary' as const,
     assemblyTemplateId: 'feline-sit-v2-legendary-template',
   }
-  const template = {
-    schemaVersion: 'qmonster-assembly-template-v1' as const,
-    assemblyTemplateId: 'feline-sit-v2-core-template',
-    skeletonFamilyId: 'feline-sit-v2-core',
-    canvas: { width: 2048 as const, height: 2048 as const },
-    neutralMasterSha256: V09_HASH,
-    materialRegistry: {},
-    slots: { surface: [], embedded: [], attachment: [], effect: [] },
-    compositionGraph: {
-      schemaVersion: 'qmonster-composition-graph-v1' as const,
-      orderedNodes: [],
-      blendMode: 'source-over-premultiplied-srgb' as const,
-      transformPolicy: 'identity-only' as const,
-    },
+  const skeletonPool: ResolvedV09Catalog['skeletonPool'] = {
+    schemaVersion: 'qmonster-skeleton-pool-v1',
+    skeletonPoolId: 'feline-sit-v2-pool',
+    candidates: [
+      { skeletonFamilyId: 'feline-sit-v2-core', skeletonClass: 'base', weight: 8 },
+      { skeletonFamilyId: 'feline-sit-v2-legendary-01', skeletonClass: 'legendary', weight: 1 },
+    ],
   }
+  const sealedTraits = V09_TRAIT_SLOT_IDS.map(slotId => v09Trait(slotId, template))
+  const speciesRig = v09JsonRef({ schemaVersion: 'qmonster-species-rig-v1', speciesRigId: 'feline-sit-v2' })
   const releaseManifest = {
     schemaVersion: 'qmonster-release-v1' as const,
     versionTuple: { ...V09_VERSION_TUPLE },
-    speciesRig: manifestRef,
-    skeletonPool: manifestRef,
-    skeletonFamilies: [manifestRef, manifestRef],
-    assemblyTemplates: [manifestRef, manifestRef],
-    approvals: [manifestRef, manifestRef],
-    traitApprovals: V09_TRAIT_SLOT_IDS.map(() => manifestRef),
-    traitInventory: manifestRef,
-    sealedTraits: V09_TRAIT_SLOT_IDS.map(() => manifestRef),
-    compositionGraph: manifestRef,
+    speciesRig,
+    skeletonPool: v09JsonRef(skeletonPool),
+    skeletonFamilies: [v09JsonRef(skeletonFamily), v09JsonRef(legendaryFamily)],
+    assemblyTemplates: [v09JsonRef(template), v09JsonRef(legendaryTemplate)],
+    approvals: [v09JsonRef({ approval: 'base' }), v09JsonRef({ approval: 'legendary' })],
+    traitApprovals: sealedTraits.map(trait => v09JsonRef({ approval: trait.traitId })),
+    traitInventory: v09JsonRef({ traits: sealedTraits.map(trait => trait.traitId) }),
+    sealedTraits: sealedTraits.map(v09JsonRef),
+    compositionGraph: v09JsonRef(compositionGraph),
     rendererBuildSha256: V09_HASH,
   }
   return {
-    releaseManifestSha256: 'b'.repeat(64),
+    releaseManifestSha256: canonicalJsonSha256(releaseManifest),
     releaseManifest,
-    speciesRig: manifestRef,
-    skeletonPool: {
-      schemaVersion: 'qmonster-skeleton-pool-v1',
-      skeletonPoolId: 'feline-sit-v2-pool',
-      candidates: [
-        { skeletonFamilyId: 'feline-sit-v2-core', skeletonClass: 'base', weight: 8 },
-        { skeletonFamilyId: 'feline-sit-v2-legendary-01', skeletonClass: 'legendary', weight: 1 },
-      ],
-    },
+    speciesRig,
+    skeletonPool,
     skeletonFamilies: [skeletonFamily, legendaryFamily],
-    assemblyTemplates: [
-      template,
-      { ...template, assemblyTemplateId: 'feline-sit-v2-legendary-template', skeletonFamilyId: 'feline-sit-v2-legendary-01' },
-    ],
-    sealedTraits: V09_TRAIT_SLOT_IDS.map(v09Trait),
-    compositionGraph: template.compositionGraph,
+    assemblyTemplates: [template, legendaryTemplate],
+    sealedTraits,
+    compositionGraph,
   }
 }
 
@@ -235,7 +248,7 @@ describe('incubator adapter', () => {
           schemaVersion: '0.4.0',
           catalogVersion: '0.9.0',
           generatorVersion: '0.9.0',
-          releaseManifestSha256: 'b'.repeat(64),
+          releaseManifestSha256: catalog.releaseManifestSha256,
           speciesRigId: 'feline-sit-v2',
           skeletonFamilyId: 'feline-sit-v2-core',
           assemblyTemplateId: 'feline-sit-v2-core-template',
@@ -296,6 +309,164 @@ describe('incubator adapter', () => {
     })
   })
 
+  it('rejects an arbitrary 64hex release identity', () => {
+    const catalog = v09Catalog()
+    catalog.releaseManifestSha256 = 'f'.repeat(64)
+
+    const result = toIncubatorRecordV09(v09Spec(), catalog)
+    expect(result.ok).toBe(false)
+    expect(result).not.toHaveProperty('value')
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'RELEASE_MANIFEST_HASH_MISMATCH' }),
+      ]),
+    })
+  })
+
+  it('rejects a changed manifest body retained under its previous hash', () => {
+    const catalog = v09Catalog()
+    catalog.releaseManifest.rendererBuildSha256 = 'c'.repeat(64)
+
+    const result = toIncubatorRecordV09(v09Spec(), catalog)
+    expect(result.ok).toBe(false)
+    expect(result).not.toHaveProperty('value')
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'RELEASE_MANIFEST_HASH_MISMATCH' }),
+      ]),
+    })
+  })
+
+  it.each([
+    ['skeleton family', (catalog: ResolvedV09Catalog) => { catalog.skeletonFamilies[1]!.poseId = 'tampered-pose' }],
+    ['assembly template', (catalog: ResolvedV09Catalog) => { catalog.assemblyTemplates[1]!.neutralMasterSha256 = 'c'.repeat(64) }],
+    ['sealed trait', (catalog: ResolvedV09Catalog) => { catalog.sealedTraits[0]!.sealerVersion = 'tampered-sealer' }],
+  ])('rejects a changed %s body under its declared manifest ref', (_label, tamper) => {
+    const catalog = v09Catalog()
+    tamper(catalog)
+
+    const result = toIncubatorRecordV09(v09Spec(), catalog)
+    expect(result.ok).toBe(false)
+    expect(result).not.toHaveProperty('value')
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'RESOURCE_HASH_MISMATCH' }),
+      ]),
+    })
+  })
+
+  it('rejects swapped family refs even when the changed manifest is rehashed', () => {
+    const catalog = v09Catalog()
+    catalog.releaseManifest.skeletonFamilies = [
+      catalog.releaseManifest.skeletonFamilies[1]!,
+      catalog.releaseManifest.skeletonFamilies[0]!,
+    ]
+    catalog.releaseManifestSha256 = canonicalJsonSha256(catalog.releaseManifest)
+
+    const result = toIncubatorRecordV09(v09Spec(), catalog)
+    expect(result.ok).toBe(false)
+    expect(result).not.toHaveProperty('value')
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'RESOURCE_HASH_MISMATCH', path: ['skeletonFamilies', '0'] }),
+      ]),
+    })
+  })
+
+  it.each([
+    ['unknown body', (catalog: ResolvedV09Catalog) => {
+      catalog.skeletonFamilies.push({ ...catalog.skeletonFamilies[1]!, skeletonFamilyId: 'unknown-family' })
+    }],
+    ['unknown ref', (catalog: ResolvedV09Catalog) => {
+      catalog.releaseManifest.skeletonFamilies.push(v09JsonRef({ skeletonFamilyId: 'unknown-family' }))
+      catalog.releaseManifestSha256 = canonicalJsonSha256(catalog.releaseManifest)
+    }],
+  ])('rejects an extra %s outside the release identity map', (_label, tamper) => {
+    const catalog = v09Catalog()
+    tamper(catalog)
+
+    const result = toIncubatorRecordV09(v09Spec(), catalog)
+    expect(result.ok).toBe(false)
+    expect(result).not.toHaveProperty('value')
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'RESOURCE_HASH_MISMATCH' }),
+      ]),
+    })
+  })
+
+  it.each([
+    ['missing body', (catalog: ResolvedV09Catalog) => { catalog.skeletonFamilies.pop() }],
+    ['missing ref', (catalog: ResolvedV09Catalog) => {
+      catalog.releaseManifest.skeletonFamilies.pop()
+      catalog.releaseManifestSha256 = canonicalJsonSha256(catalog.releaseManifest)
+    }],
+    ['duplicate body/ref identity', (catalog: ResolvedV09Catalog) => {
+      catalog.skeletonFamilies[1] = structuredClone(catalog.skeletonFamilies[0]!)
+      catalog.releaseManifest.skeletonFamilies[1] = structuredClone(catalog.releaseManifest.skeletonFamilies[0]!)
+      catalog.releaseManifestSha256 = canonicalJsonSha256(catalog.releaseManifest)
+    }],
+  ])('rejects a %s in the release identity map', (_label, tamper) => {
+    const catalog = v09Catalog()
+    tamper(catalog)
+
+    const result = toIncubatorRecordV09(v09Spec(), catalog)
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'RESOURCE_HASH_MISMATCH' }),
+      ]),
+    })
+  })
+
+  it('fails closed when a resolved body collection is missing at runtime', () => {
+    const catalog = v09Catalog()
+    delete (catalog as Partial<ResolvedV09Catalog>).sealedTraits
+
+    expect(() => toIncubatorRecordV09(v09Spec(), catalog)).not.toThrow()
+    const result = toIncubatorRecordV09(v09Spec(), catalog)
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'RESOURCE_HASH_MISMATCH', path: ['resolvedCatalog'] }),
+      ]),
+    })
+  })
+
+  it.each([
+    ['trait template hash', (catalog: ResolvedV09Catalog) => {
+      catalog.sealedTraits[0]!.assemblyTemplateSha256 = canonicalJsonSha256(catalog.assemblyTemplates[1])
+      catalog.releaseManifest.sealedTraits[0] = v09JsonRef(catalog.sealedTraits[0])
+    }],
+    ['trait neutral master hash', (catalog: ResolvedV09Catalog) => {
+      catalog.sealedTraits[0]!.neutralMasterSha256 = 'c'.repeat(64)
+      catalog.releaseManifest.sealedTraits[0] = v09JsonRef(catalog.sealedTraits[0])
+    }],
+    ['template neutral master hash', (catalog: ResolvedV09Catalog) => {
+      catalog.assemblyTemplates[0]!.neutralMasterSha256 = 'c'.repeat(64)
+      catalog.releaseManifest.assemblyTemplates[0] = v09JsonRef(catalog.assemblyTemplates[0])
+    }],
+  ])('rejects a canonically rehashed cross-binding for %s', (_label, tamper) => {
+    const catalog = v09Catalog()
+    tamper(catalog)
+    catalog.releaseManifestSha256 = canonicalJsonSha256(catalog.releaseManifest)
+
+    const result = toIncubatorRecordV09(v09Spec(), catalog)
+    expect(result.ok).toBe(false)
+    expect(result).not.toHaveProperty('value')
+    expect(result).toEqual({
+      ok: false,
+      diagnostics: expect.arrayContaining([
+        expect.objectContaining({ code: 'ASSEMBLY_TEMPLATE_HASH_MISMATCH' }),
+      ]),
+    })
+  })
+
   it('rejects a trait selection that is not sealed for the selected skeleton and template', () => {
     const spec = v09Spec()
     spec.visualSlots.eyes.traitId = 'forged-eyes'
@@ -326,6 +497,26 @@ describe('incubator adapter', () => {
     spec.visualSlots.eyes.traitId = 'mutated-input'
     expect(result.value.visualExtension.skeletonSelection.candidateId).toBe('mutated-output')
     expect(result.value.visualExtension.visualSlots.eyes.traitId).toBe('trait-eyes')
+  })
+
+  it('round-trips a generated record against the loader-verified candidate snapshot', async () => {
+    const release = await loadCandidateProductionRelease()
+    const generated = generateMonsterV09({ seed: 'incubator-candidate-round-trip' }, release.catalog)
+    expect(generated.blocked).toBe(false)
+
+    const result = toIncubatorRecordV09(generated.spec, release.catalog)
+    expect(result).toEqual({
+      ok: true,
+      value: expect.objectContaining({
+        seed: 'incubator-candidate-round-trip',
+        visualExtension: expect.objectContaining({
+          releaseManifestSha256: release.manifestHash,
+          schemaVersion: '0.4.0',
+          catalogVersion: '0.9.0',
+          generatorVersion: '0.9.0',
+        }),
+      }),
+    })
   })
 
   it('preserves the v0.8 species rig identity in incubator output', () => {

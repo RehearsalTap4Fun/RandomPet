@@ -293,9 +293,11 @@ v0.9 不扩宽旧 `MonsterSpec` 或旧孵化记录。调用方必须先按版本
 }
 ```
 
-适配器在成功前会校验：release manifest 的精确元组与内容身份、`speciesRig` 引用、骨架池 candidate/class、骨架家族、assembly template，以及十二个槽位中每个 `traitId/rarity` 对当前骨架与模板的唯一 sealed projection。关闭嘴只接受派生的普通 `oral-none`；张口嘴必须具有当前 `oralSocketClass` 的口腔投影。任何失败都返回 `{ "ok": false, "diagnostics": [...] }`，且结果中不存在 `value`。常见阻断 code 包括 `VERSION_TUPLE_MISMATCH`、`ADAPTER_SPEC_INVALID`、`RELEASE_MANIFEST_HASH_MISMATCH`、`RESOURCE_HASH_MISMATCH`、`SKELETON_PROJECTION_MISSING`、`ASSEMBLY_TEMPLATE_UNAPPROVED`、`TRAIT_SLOT_INCOMPATIBLE` 和 `ORAL_SOCKET_INCOMPATIBLE`。
+适配器在成功前会重新计算 release manifest 的 canonical JSON SHA-256，并要求它精确等于 `releaseManifestSha256`。随后它按 manifest 中的原始顺序，把公开 `ResolvedV09Catalog` 中可见的 `skeletonPool`、全部 `skeletonFamilies`、全部 `assemblyTemplates`、全部 `sealedTraits` 和 `compositionGraph` 逐个重新哈希并绑定到对应 ref；`speciesRig` ref 必须精确相同。数量不等、缺失、重复、换序、未知 body/ref 或内容与 ref 不符都会失败关闭。完成这个 snapshot 身份闭环后，适配器才校验骨架池 candidate/class、骨架家族、assembly template，以及十二个槽位中每个 `traitId/rarity` 对当前骨架与模板的唯一 sealed projection；所选 trait 的 `assemblyTemplateSha256` 和 `neutralMasterSha256` 还必须绑定所选 canonical template/family。关闭嘴只接受派生的普通 `oral-none`；张口嘴必须具有当前 `oralSocketClass` 的口腔投影。任何失败都返回 `{ "ok": false, "diagnostics": [...] }`，且结果中不存在 `value`。常见阻断 code 包括 `VERSION_TUPLE_MISMATCH`、`ADAPTER_SPEC_INVALID`、`RELEASE_MANIFEST_HASH_MISMATCH`、`RESOURCE_HASH_MISMATCH`、`SKELETON_PROJECTION_MISSING`、`ASSEMBLY_TEMPLATE_UNAPPROVED`、`ASSEMBLY_TEMPLATE_HASH_MISMATCH`、`TRAIT_SLOT_INCOMPATIBLE` 和 `ORAL_SOCKET_INCOMPATIBLE`。
 
 `releaseManifestSha256` 是 v0.9 记录的 release 身份。生产新孵化只能把 `active-release.json` 的哈希交给共享 release loader，再把得到的 `ResolvedV09Catalog` 传给适配器；不得扫描“最高版本”、按路径猜 manifest，或在 active 指针缺失/损坏时退回 candidate。内容资源使用 `sha256:<64 lowercase hex>` 的不可变 ID，记录只保存稳定身份，不保存本机路径或网络 URL。
+
+这里有一条必须保留的信任边界：公开的 `ResolvedV09Catalog` 只携带 assembly approval、trait approval 和 trait inventory 的 manifest refs，不携带这些 approval/inventory body。共享 release loader 在构造 resolved catalog 前已经对这些不可见 body 的内容哈希、approval 状态、allowlist 和完整矩阵做过验证；适配器只能检查这些 opaque refs 自身的 `resourceId/sha256/mediaType` 一致性，不能声称重新哈希了未提供的 body。调用方不得绕过 loader 后自行拼装 `ResolvedV09Catalog`，因为适配器的可见 snapshot 校验不能替代 loader 的 approval 校验。
 
 骨架重掷不是局部换皮：它推进 `skeletonSelection.roll`，重新选择完整 skeleton，并为新 skeleton 重新解析全部十二个 projection。持久化必须原子替换完整 `visualExtension`，不能保留旧骨架的某些 trait 对象。单槽重掷只推进该槽的 roll。适配器会深拷贝 `skeletonSelection` 和十二个 selection，调用方修改输出对象不会改变输入 spec。
 
