@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
-import { lstat, mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
-import { dirname, join, relative, resolve, sep } from 'node:path'
+import { lstat, mkdir, open, readFile, readdir, rmdir, unlink } from 'node:fs/promises'
+import { join, relative, resolve, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import {
   V09_VERSION_TUPLE,
@@ -36,6 +36,21 @@ export interface BuildV09ReleaseCandidateOptions {
 
 export interface V09AssemblyCliOptions extends BuildV09ReleaseCandidateOptions {
   outputPointer: string
+}
+
+type V09Assembler = typeof assembleV09Release
+
+export interface AssembleBuiltV09CandidateOptions {
+  catalogRoot: string
+  outputPointer: string
+  candidate: V09ReleaseCandidate
+  assembler?: V09Assembler
+}
+
+interface OwnedEntry {
+  path: string
+  dev: number
+  ino: number
 }
 
 function contained(root: string, target: string): boolean {
@@ -246,13 +261,107 @@ async function optionalBytes(path: string): Promise<Buffer | undefined> {
   }
 }
 
-async function publishImmutableJson(path: string, value: unknown): Promise<void> {
+async function inspectImmutableJson(path: string, value: unknown): Promise<'missing' | 'exact'> {
   const bytes = Buffer.concat([canonicalJsonBytes(value), Buffer.from('\n')])
-  await mkdir(dirname(path), { recursive: true })
-  try { await writeFile(path, bytes, { flag: 'wx' }) } catch (error) {
+  try {
+    const state = await lstat(path)
+    if (!state.isFile() || state.isSymbolicLink() || !(await readFile(path)).equals(bytes)) {
+      throw new Error(`Immutable catalog document already exists with different bytes: ${path}`)
+    }
+    return 'exact'
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return 'missing'
+    throw error
+  }
+}
+
+function sameOwnedEntry(entry: OwnedEntry, state: Awaited<ReturnType<typeof lstat>>): boolean {
+  return !state.isSymbolicLink() && state.dev === entry.dev && state.ino === entry.ino
+}
+
+async function ensureOwnedDirectory(path: string, owned: OwnedEntry[]): Promise<void> {
+  try {
+    const state = await lstat(path)
+    if (!state.isDirectory() || state.isSymbolicLink()) throw new Error(`Catalog output directory is not a direct directory: ${path}`)
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+    await mkdir(path)
+    const state = await lstat(path)
+    owned.push({ path, dev: state.dev, ino: state.ino })
+  }
+}
+
+async function publishOwnedJson(path: string, value: unknown, owned: OwnedEntry[]): Promise<void> {
+  const bytes = Buffer.concat([canonicalJsonBytes(value), Buffer.from('\n')])
+  let handle: Awaited<ReturnType<typeof open>>
+  try {
+    handle = await open(path, 'wx')
+  } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
-    const existing = await readFile(path)
-    if (!existing.equals(bytes)) throw new Error(`Immutable catalog document already exists with different bytes: ${path}`)
+    await inspectImmutableJson(path, value)
+    return
+  }
+  try {
+    const state = await handle.stat()
+    owned.push({ path, dev: state.dev, ino: state.ino })
+    await handle.writeFile(bytes)
+  } finally {
+    await handle.close()
+  }
+  if (!(await readFile(path)).equals(bytes)) throw new Error(`Immutable catalog document write did not retain exact bytes: ${path}`)
+}
+
+/** Publish wrapper-owned catalog documents and the Task 5 release as one failure-atomic operation. */
+export async function assembleBuiltV09Candidate(options: AssembleBuiltV09CandidateOptions): Promise<Awaited<ReturnType<V09Assembler>>> {
+  const catalogRoot = resolve(options.catalogRoot)
+  const expectedPointer = resolve(catalogRoot, 'releases', 'candidate-v0.9.0.json')
+  if (resolve(options.outputPointer) !== expectedPointer) throw new Error('Built candidate output pointer is not the explicit v0.9 candidate pointer.')
+  const documents = [
+    { path: resolve(catalogRoot, 'catalog', 'v0.9.0', 'trait-inventory.json'), value: options.candidate.traitInventory },
+    { path: resolve(catalogRoot, 'catalog', 'v0.9.0', 'skeleton-pool.json'), value: options.candidate.skeletonPool },
+  ]
+  const states = await Promise.all(documents.map(document => inspectImmutableJson(document.path, document.value)))
+  const activePointer = resolve(catalogRoot, 'releases', 'active-release.json')
+  const activeBefore = await optionalBytes(activePointer)
+  const ownedFiles: OwnedEntry[] = []
+  const ownedDirectories: OwnedEntry[] = []
+  try {
+    await ensureOwnedDirectory(resolve(catalogRoot, 'catalog'), ownedDirectories)
+    await ensureOwnedDirectory(resolve(catalogRoot, 'catalog', 'v0.9.0'), ownedDirectories)
+    for (const [index, document] of documents.entries()) {
+      if (states[index] === 'missing') await publishOwnedJson(document.path, document.value, ownedFiles)
+    }
+    const result = await (options.assembler ?? assembleV09Release)({ root: catalogRoot, candidate: options.candidate })
+    if (resolve(result.candidatePointerPath) !== expectedPointer) throw new Error('Assembler returned an unexpected candidate pointer path.')
+    const activeAfter = await optionalBytes(activePointer)
+    if (activeBefore === undefined ? activeAfter !== undefined : activeAfter === undefined || !activeAfter.equals(activeBefore)) {
+      throw new Error('active-release.json changed during non-activating candidate assembly.')
+    }
+    return result
+  } catch (error) {
+    const rollbackDiagnostics: string[] = []
+    for (const entry of ownedFiles.reverse()) {
+      try {
+        const state = await lstat(entry.path)
+        if (sameOwnedEntry(entry, state)) await unlink(entry.path)
+        else rollbackDiagnostics.push(`Ownership changed; preserved ${entry.path}`)
+      } catch (cleanup) {
+        if ((cleanup as NodeJS.ErrnoException).code !== 'ENOENT') rollbackDiagnostics.push(`Rollback failed for ${entry.path}: ${String(cleanup)}`)
+      }
+    }
+    for (const entry of ownedDirectories.reverse()) {
+      try {
+        const state = await lstat(entry.path)
+        if (sameOwnedEntry(entry, state)) await rmdir(entry.path)
+        else rollbackDiagnostics.push(`Ownership changed; preserved ${entry.path}`)
+      } catch (cleanup) {
+        if (!['ENOENT', 'ENOTEMPTY'].includes((cleanup as NodeJS.ErrnoException).code ?? '')) rollbackDiagnostics.push(`Rollback failed for ${entry.path}: ${String(cleanup)}`)
+      }
+    }
+    if (rollbackDiagnostics.length > 0 && error instanceof Error) Object.assign(error, {
+      rollbackDiagnostics: [...((error as Error & { rollbackDiagnostics?: string[] }).rollbackDiagnostics ?? []), ...rollbackDiagnostics],
+    })
+    throw error
   }
 }
 
@@ -264,17 +373,8 @@ export async function assembleApprovedV09Candidate(options: V09AssemblyCliOption
   resourceBytes: number
 }> {
   const catalogRoot = resolve(options.repositoryRoot, CATALOG_ROOT)
-  const activePointer = resolve(catalogRoot, 'releases', 'active-release.json')
-  const activeBefore = await optionalBytes(activePointer)
   const candidate = await buildV09ReleaseCandidate(options)
-  const result = await assembleV09Release({ root: catalogRoot, candidate })
-  if (resolve(result.candidatePointerPath) !== resolve(options.outputPointer)) throw new Error('Assembler returned an unexpected candidate pointer path.')
-  await publishImmutableJson(resolve(catalogRoot, 'catalog', 'v0.9.0', 'trait-inventory.json'), candidate.traitInventory)
-  await publishImmutableJson(resolve(catalogRoot, 'catalog', 'v0.9.0', 'skeleton-pool.json'), candidate.skeletonPool)
-  const activeAfter = await optionalBytes(activePointer)
-  if (activeBefore === undefined ? activeAfter !== undefined : activeAfter === undefined || !activeAfter.equals(activeBefore)) {
-    throw new Error('active-release.json changed during non-activating candidate assembly.')
-  }
+  const result = await assembleBuiltV09Candidate({ catalogRoot, outputPointer: options.outputPointer, candidate })
   return {
     releaseManifestSha256: result.releaseManifestSha256,
     rendererBuildSha256: (candidate.releaseManifest as ReleaseManifestV09).rendererBuildSha256,
