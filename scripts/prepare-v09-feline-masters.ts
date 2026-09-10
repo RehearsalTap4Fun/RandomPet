@@ -13,43 +13,56 @@ const ROOT = 'asset-source/v0.9.0/feline'
 const REVIEW = 'artifacts/acceptance/v0.9.0-feline/master-overlay-review.png'
 const INDEX = `${ROOT}/review/master-overlay-review.index.json`
 const APPROVAL_PATH = `${ROOT}/approvals/assembly-approvals.json`
+const TRAIT_REVIEW_INDEX = `${ROOT}/trait-review/trait-catalog-review.index.json`
+const TRAIT_APPROVAL_PLAN = `${ROOT}/trait-approval-plan.json`
 const EMPTY_ATTACHMENT_ALLOWLIST: ApprovedAttachmentAllowlistV1 = { schemaVersion: 'qmonster-approved-attachment-allowlist-v1', entries: [] }
 const digestSchema = z.string().regex(/^[a-f0-9]{64}$/)
 const approvalSchema = z.strictObject({
   schemaVersion: z.literal('qmonster-assembly-approval-v1'), skeletonFamilyId: z.string(), assemblyTemplateId: z.string(),
   assemblyTemplateSha256: digestSchema, neutralMasterSha256: digestSchema, materialMapSha256: digestSchema,
   fixedOccluderMasksSha256: digestSchema, attachmentAllowlistSha256: digestSchema, compositionGraphSha256: digestSchema, overlaySha256: digestSchema,
-  approvedBy: z.literal('project-owner'), approvedAt: z.iso.datetime({ offset: true }), approvalRevision: z.literal(2), status: z.literal('approved'),
+  approvedBy: z.literal('project-owner'), approvedAt: z.iso.datetime({ offset: true }), approvalRevision: z.number().int().positive(), status: z.literal('approved'),
 })
 type ReviewBinding = Pick<AssemblyApprovalV1, 'skeletonFamilyId' | 'assemblyTemplateId' | 'assemblyTemplateSha256' | 'neutralMasterSha256' | 'materialMapSha256' | 'fixedOccluderMasksSha256' | 'compositionGraphSha256' | 'overlaySha256'> & { maskSetSha256: string; attachmentInterfacesSha256: string }
 type ReviewIndex = { report: PngResourceRef; families: ReviewBinding[] }
+export type CombinedTraitReview = { reportSha256: string; reviewIndexSha256: string; approvalPlanSha256: string }
 
-function approvalsForReview(index: ReviewIndex, approvedAt: string): AssemblyApprovalV1[] {
+async function currentCombinedTraitReview(): Promise<CombinedTraitReview> {
+  const reviewIndex = JSON.parse(await readFile(TRAIT_REVIEW_INDEX, 'utf8'))
+  const approvalPlan = JSON.parse(await readFile(TRAIT_APPROVAL_PLAN, 'utf8'))
+  return { reportSha256: reviewIndex.report.sha256, reviewIndexSha256: canonicalJsonSha256(reviewIndex), approvalPlanSha256: canonicalJsonSha256(approvalPlan) }
+}
+
+function approvalsForReview(index: ReviewIndex, approvedAt: string, approvalRevision: number, allowlist: ApprovedAttachmentAllowlistV1): AssemblyApprovalV1[] {
   return index.families.map(family => ({
     schemaVersion: 'qmonster-assembly-approval-v1', skeletonFamilyId: family.skeletonFamilyId, assemblyTemplateId: family.assemblyTemplateId,
     assemblyTemplateSha256: family.assemblyTemplateSha256, neutralMasterSha256: family.neutralMasterSha256, materialMapSha256: family.materialMapSha256,
-    fixedOccluderMasksSha256: family.fixedOccluderMasksSha256, attachmentAllowlistSha256: canonicalJsonSha256(EMPTY_ATTACHMENT_ALLOWLIST),
+    fixedOccluderMasksSha256: family.fixedOccluderMasksSha256, attachmentAllowlistSha256: canonicalJsonSha256(allowlist),
     compositionGraphSha256: family.compositionGraphSha256, overlaySha256: family.overlaySha256,
-    approvedBy: 'project-owner', approvedAt, approvalRevision: 2, status: 'approved',
+    approvedBy: 'project-owner', approvedAt, approvalRevision, status: 'approved',
   }))
 }
 
-function approvalEvidence(index: ReviewIndex, approvals: AssemblyApprovalV1[]) {
-  return { schemaVersion: 'qmonster-approved-master-review-v1', status: 'approved', approvedBy: 'project-owner', approvedAt: approvals[0]!.approvedAt, approvalRevision: 2,
-    report: index.report, reviewIndexSha256: canonicalJsonSha256(index), assemblyApprovalsSha256: canonicalJsonSha256(approvals), attachmentAllowlistSha256: canonicalJsonSha256(EMPTY_ATTACHMENT_ALLOWLIST),
+function approvalEvidence(index: ReviewIndex, approvals: AssemblyApprovalV1[], allowlist: ApprovedAttachmentAllowlistV1, combinedTraitReview?: CombinedTraitReview) {
+  return { schemaVersion: 'qmonster-approved-master-review-v1', status: 'approved', approvedBy: 'project-owner', approvedAt: approvals[0]!.approvedAt, approvalRevision: approvals[0]!.approvalRevision,
+    report: index.report, reviewIndexSha256: canonicalJsonSha256(index), assemblyApprovalsSha256: canonicalJsonSha256(approvals), attachmentAllowlistSha256: canonicalJsonSha256(allowlist),
+    ...(combinedTraitReview === undefined ? {} : { combinedTraitReview }),
     families: index.families.map(family => ({ skeletonFamilyId: family.skeletonFamilyId, maskSetSha256: family.maskSetSha256, attachmentInterfacesSha256: family.attachmentInterfacesSha256 })) }
 }
 
 /** Strict approval and supplementary full-mask/interface evidence; no new hashes
  * are accepted merely because a JSON file calls itself approved. */
-export function approvalBindingErrors(approvalsInput: unknown, evidence: unknown, allowlist: unknown, index: ReviewIndex): string[] {
+export function approvalBindingErrors(approvalsInput: unknown, evidence: unknown, allowlist: unknown, index: ReviewIndex, combinedTraitReview?: CombinedTraitReview): string[] {
   const parsed = z.array(approvalSchema).length(2).safeParse(approvalsInput)
-  if (!parsed.success) return ['Assembly approvals must be two strict owner-approved revision-2 records']
-  const expected = approvalsForReview(index, parsed.data[0]!.approvedAt)
+  if (!parsed.success) return ['Assembly approvals must be two strict owner-approved records']
+  const parsedAllowlist = allowlist as ApprovedAttachmentAllowlistV1
+  const revision = parsed.data[0]!.approvalRevision
+  const expected = approvalsForReview(index, parsed.data[0]!.approvedAt, revision, parsedAllowlist)
   const errors: string[] = []
+  if (!parsed.data.every(item => item.approvalRevision === revision) || (revision === 3) !== (combinedTraitReview !== undefined)) errors.push('Assembly approval revision does not match its combined review evidence')
   if (!equal(parsed.data, expected)) errors.push('Assembly approval identity or timestamp differs from reviewed master bindings')
-  if (!equal(allowlist, EMPTY_ATTACHMENT_ALLOWLIST)) errors.push('Task 7 cannot approve unreviewed attachment artifacts')
-  if (!equal(evidence, approvalEvidence(index, expected))) errors.push('Approved review evidence no longer binds the complete mask/interface/report set')
+  if (revision === 2 && !equal(allowlist, EMPTY_ATTACHMENT_ALLOWLIST)) errors.push('Revision-2 cannot approve unreviewed attachment artifacts')
+  if (!equal(evidence, approvalEvidence(index, expected, parsedAllowlist, combinedTraitReview))) errors.push('Approved review evidence no longer binds the complete mask/interface/report set')
   return errors
 }
 
@@ -60,17 +73,20 @@ async function readApprovals(): Promise<AssemblyApprovalV1[] | undefined> {
 
 /** Explicit post-owner-approval action only. The caller must supply the exact
  * reviewed PNG digest and the approval instant; normal prepare never calls it. */
-export async function approveFelineMasters(input: { reportSha256: string; approvedAt: string }): Promise<void> {
+export async function approveFelineMasters(input: { reportSha256: string; approvedAt: string; approvalRevision?: number; combinedTraitReview?: CombinedTraitReview }): Promise<void> {
   digestSchema.parse(input.reportSha256); z.iso.datetime({ offset: true }).parse(input.approvedAt)
   const errors = await validateFelineMasters()
   if (errors.length) throw new Error(errors.join('\n'))
   const index: ReviewIndex = JSON.parse(await readFile(INDEX, 'utf8'))
   if (index.report.sha256 !== input.reportSha256) throw new Error('Owner approval does not match this review PNG')
-  const approvals = approvalsForReview(index, input.approvedAt)
+  const approvalRevision = input.approvalRevision ?? 2
+  if ((approvalRevision === 3) !== (input.combinedTraitReview !== undefined)) throw new Error('Revision-3 approval requires exact combined trait-review evidence')
+  if (input.combinedTraitReview !== undefined && !equal(input.combinedTraitReview, await currentCombinedTraitReview())) throw new Error('Combined trait-review evidence differs from current reviewed closure')
+  const allowlist = JSON.parse(await readFile(`${ROOT}/approvals/attachment-allowlist.json`, 'utf8')) as ApprovedAttachmentAllowlistV1
+  const approvals = approvalsForReview(index, input.approvedAt, approvalRevision, allowlist)
   const previous = await readApprovals()
   if (previous !== undefined && !equal(previous, approvals)) throw new Error('Existing approval differs; a new explicit revision is required')
-  await writeJson(`${ROOT}/approvals/attachment-allowlist.json`, EMPTY_ATTACHMENT_ALLOWLIST)
-  await writeJson(`${ROOT}/approvals/approved-master-review.json`, approvalEvidence(index, approvals))
+  await writeJson(`${ROOT}/approvals/approved-master-review.json`, approvalEvidence(index, approvals, allowlist, input.combinedTraitReview))
   await writeJson(APPROVAL_PATH, approvals)
 }
 const pointSchema = z.tuple([z.number().int().min(0).max(2047), z.number().int().min(0).max(2047)])
@@ -93,6 +109,12 @@ type Region = z.infer<typeof regionSchema>
 type MaskSet = Record<string, Buffer>
 type FamilyResult = { entry: MasterInventoryEntry; master: Buffer; masks: MaskSet; refs: Record<string, PngResourceRef>; template: AssemblyTemplateV1; family: SkeletonFamilyV1 }
 export const GRAPH: CompositionGraphV1 = { schemaVersion: 'qmonster-composition-graph-v1', orderedNodes: [...V09_COMPOSITION_NODE_IDS], blendMode: 'source-over-premultiplied-srgb', transformPolicy: 'identity-only' }
+export const MOUTH_SOCKET_PARENT_TRAIT_IDS = {
+  'oral-none': ['mouth-soft-smile', 'mouth-petite-pout', 'mouth-serene-closed'],
+  open: ['mouth-open-cheer', 'mouth-tiny-yawn', 'mouth-heart-open'],
+  narrow: ['mouth-narrow-grin', 'mouth-narrow-mew', 'mouth-fanged-smirk'],
+  wide: ['mouth-wide-laugh', 'mouth-wide-surprise', 'mouth-royal-wide', 'mouth-celestial-roar'],
+} as const
 
 export async function readInventory() {
   const inventory = inventorySchema.parse(JSON.parse(await readFile(`${ROOT}/master-inventory.json`, 'utf8')))
@@ -181,7 +203,12 @@ function makeTemplate(entry: MasterInventoryEntry, refs: Record<string, PngResou
       embedded: [
         { kind: 'eyePair', slotId: 'eyes', leftAuthoringZone: ref('left-eye'), rightAuthoringZone: ref('right-eye'), pairAuthoringZone: ref('eye-pair'), occlusionReplayZone: ref('eye-edge') },
         { kind: 'mouth', slotId: 'mouthShape', authoringZone: ref('mouth'), occlusionReplayZone: ref('mouth-edge') },
-        { kind: 'oralDetail', slotId: 'oralDetail', socketRegistry: Object.fromEntries(['open', 'narrow', 'wide'].map(name => [name, { authoringZone: ref(`oral-${name}`), parentMouthTraitIds: [`mouth-${name}`] }])), closedMouthSentinel: 'oral-none' },
+        { kind: 'oralDetail', slotId: 'oralDetail', socketRegistry: {
+          'oral-none': { authoringZone: ref('mouth'), parentMouthTraitIds: [...MOUTH_SOCKET_PARENT_TRAIT_IDS['oral-none']] },
+          open: { authoringZone: ref('oral-open'), parentMouthTraitIds: [...MOUTH_SOCKET_PARENT_TRAIT_IDS.open] },
+          narrow: { authoringZone: ref('oral-narrow'), parentMouthTraitIds: [...MOUTH_SOCKET_PARENT_TRAIT_IDS.narrow] },
+          wide: { authoringZone: ref('oral-wide'), parentMouthTraitIds: [...MOUTH_SOCKET_PARENT_TRAIT_IDS.wide] },
+        }, closedMouthSentinel: 'oral-none' },
       ],
       attachment: [
         { kind: 'attachment', slotId: 'headAppendage', attachmentInterface: { interfaceId: `${entry.skeletonFamilyId}-crown`, allowedShapeClasses: ['ear-horn-small', 'ear-ornament'], allowedZone: ref('head-allowed'), rearRootStencil: ref('head-rear'), frontRootStencil: ref('head-front'), fixedOccluderMaskId: 'crown-fur' } },
@@ -382,11 +409,13 @@ function overlaps(a: Buffer, b: Buffer): boolean { for (let i = 3; i < a.length;
 
 /** Probe the real Task 5 parser using an honest incomplete candidate. Missing
  * traits and approvals remain visible failures; no fake approval/traits are built. */
-export async function productionContractDiagnostics(families: SkeletonFamilyV1[], templates: AssemblyTemplateV1[], pngs: Map<string, V09ContentRecordV1>, approvals: AssemblyApprovalV1[] = []) {
+export async function productionContractDiagnostics(
+  families: SkeletonFamilyV1[], templates: AssemblyTemplateV1[], pngs: Map<string, V09ContentRecordV1>,
+  approvals: AssemblyApprovalV1[] = [], attachmentAllowlist: ApprovedAttachmentAllowlistV1 = EMPTY_ATTACHMENT_ALLOWLIST,
+) {
   const speciesRig = { speciesRigId: 'feline-sit-v2' }
   const skeletonPool = { schemaVersion: 'qmonster-skeleton-pool-v1', skeletonPoolId: 'feline-sit-v2-masters', candidates: families.map((family, i) => ({ skeletonFamilyId: family.skeletonFamilyId, skeletonClass: family.skeletonClass, weight: i === 0 ? 8 : 1 })) }
   const traitInventory = { schemaVersion: 'qmonster-trait-inventory-v1' as const, traits: [] }
-  const attachmentAllowlist = EMPTY_ATTACHMENT_ALLOWLIST
   const documents = [speciesRig, skeletonPool, ...families, ...templates, ...approvals, traitInventory, attachmentAllowlist, GRAPH]
   // This zero-trait probe cannot reach overlay policies: approval.overlaySha256
   // is a digest, not a resource ref. Real sealed traits will reference policies
@@ -462,13 +491,16 @@ export async function validateFelineMasters(options: { requireApproval?: boolean
     families.push(family); templates.push(template)
   }
   const approvals = await readApprovals()
+  let activeAttachmentAllowlist = EMPTY_ATTACHMENT_ALLOWLIST
   if (approvals !== undefined) {
     const evidence = JSON.parse(await readFile(`${ROOT}/approvals/approved-master-review.json`, 'utf8'))
-    const allowlist = JSON.parse(await readFile(`${ROOT}/approvals/attachment-allowlist.json`, 'utf8'))
-    errors.push(...approvalBindingErrors(approvals, evidence, allowlist, index))
+    const allowlist = JSON.parse(await readFile(`${ROOT}/approvals/attachment-allowlist.json`, 'utf8')) as ApprovedAttachmentAllowlistV1
+    activeAttachmentAllowlist = allowlist
+    const combined = approvals[0]?.approvalRevision === 3 ? await currentCombinedTraitReview() : undefined
+    errors.push(...approvalBindingErrors(approvals, evidence, allowlist, index, combined))
   } else if (options.requireApproval) errors.push('Explicit owner approval records are required')
-  const diagnostics = await productionContractDiagnostics(families, templates, pngs, approvals)
-  const expectedPending = (d: { code: string; path: (string | number)[] }) => (d.code === 'RARITY_INVENTORY_MISMATCH' && d.path[0] === 'traitInventory') || (d.code === 'SKELETON_PROJECTION_MISSING' && d.path.join('.') === 'sealedTraits') || (d.code === 'ASSEMBLY_TEMPLATE_HASH_MISMATCH' && d.path[0] === 'assemblyApprovals' && d.path[2] === 'overlaySha256') || (approvals === undefined && d.code === 'ASSEMBLY_TEMPLATE_UNAPPROVED' && d.path[0] === 'assemblyApprovals')
+  const diagnostics = await productionContractDiagnostics(families, templates, pngs, approvals, activeAttachmentAllowlist)
+  const expectedPending = (d: { code: string; path: (string | number)[] }) => (d.code === 'RARITY_INVENTORY_MISMATCH' && d.path[0] === 'traitInventory') || (d.code === 'SKELETON_PROJECTION_MISSING' && d.path.join('.') === 'sealedTraits') || (d.code === 'ATTACHMENT_HASH_NOT_APPROVED' && d.path[0] === 'attachmentAllowlist') || (d.code === 'ASSEMBLY_TEMPLATE_HASH_MISMATCH' && d.path[0] === 'assemblyApprovals' && d.path[2] === 'overlaySha256') || (approvals === undefined && d.code === 'ASSEMBLY_TEMPLATE_UNAPPROVED' && d.path[0] === 'assemblyApprovals')
   for (const diagnostic of diagnostics) if (!expectedPending(diagnostic)) errors.push(`Task 5: ${diagnostic.code} ${diagnostic.path.join('.')} ${diagnostic.message}`)
   check(approvals === undefined ? diagnostics.some(d => d.code === 'ASSEMBLY_TEMPLATE_UNAPPROVED') : !diagnostics.some(d => d.code === 'ASSEMBLY_TEMPLATE_UNAPPROVED'), 'Task 5 owner-approval gate disagrees with the actual approved records')
   return errors

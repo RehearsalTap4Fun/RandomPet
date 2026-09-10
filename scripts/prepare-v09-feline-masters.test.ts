@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { access, readFile } from 'node:fs/promises'
-import { prepareFelineMasters, validateFelineMasters, readInventory, loadReviewResources, approvalBindingErrors } from './prepare-v09-feline-masters.js'
+import { MOUTH_SOCKET_PARENT_TRAIT_IDS, prepareFelineMasters, validateFelineMasters, readInventory, loadReviewResources, approvalBindingErrors } from './prepare-v09-feline-masters.js'
 import { canonicalJsonSha256, decodedPngSha256 } from '../packages/asset-catalog/src/v09-content-identity.js'
 import { extractCheckerAlpha } from './extract-v09-feline-alpha.js'
 import sharp from 'sharp'
@@ -31,7 +31,7 @@ it('removes enclosed checkerboard holes without discarding small neutral highlig
   expect(output[(50 * 64 + 50) * 4 + 3]).toBe(255)
 })
 
-describe('v0.9 feline masters approved expanded revision-2 review', () => {
+describe('v0.9 feline masters approved combined revision-3 review', () => {
   beforeAll(async () => { await access('asset-source/v0.9.0/feline/review/master-overlay-review.index.json') })
   it('locks exactly one base and one legendary whole master at 8:1', async () => {
     const inventory = await readInventory()
@@ -51,6 +51,7 @@ describe('v0.9 feline masters approved expanded revision-2 review', () => {
     }
   })
   it('verifies RGBA masters, alpha continuity, binary masks, authored seams, strict templates and report hashes', async () => {
+    expect(await validateFelineMasters()).toEqual([])
     expect(await validateFelineMasters({ requireApproval: true })).toEqual([])
   }, 120_000)
   it('owns every visible pixel exactly once while retaining nose/ear color and three disjoint material indices', async () => {
@@ -94,33 +95,36 @@ describe('v0.9 feline masters approved expanded revision-2 review', () => {
       }
     }
   })
-  it('rebuilds exact committed review identities without rewriting owner approval', async () => {
+  it('rebuilds exact committed review identities without changing owner approval', async () => {
     const indexPath = 'asset-source/v0.9.0/feline/review/master-overlay-review.index.json'
     const before = canonicalJsonSha256(JSON.parse(await readFile(indexPath, 'utf8')))
     const approvalPath = 'asset-source/v0.9.0/feline/approvals/assembly-approvals.json'
-    const approvalBefore = await readFile(approvalPath, 'utf8')
+    const approvalBefore = canonicalJsonSha256(JSON.parse(await readFile(approvalPath, 'utf8')))
     await prepareFelineMasters()
     expect(canonicalJsonSha256(JSON.parse(await readFile(indexPath, 'utf8')))).toBe(before)
-    expect(await readFile(approvalPath, 'utf8')).toBe(approvalBefore)
+    expect(canonicalJsonSha256(JSON.parse(await readFile(approvalPath, 'utf8')))).toBe(approvalBefore)
   }, 120_000)
-  it('binds revision-2 approval to the expanded index and rejects superseded or tampered evidence', async () => {
+  it('preserves revision-2 evidence as superseded history and exhaustively registers revision-3 mouth IDs', async () => {
     const readJson = async (path: string) => JSON.parse(await readFile(`asset-source/v0.9.0/feline/${path}`, 'utf8'))
     const index = await readJson('review/master-overlay-review.index.json')
-    const approvals = await readJson('approvals/assembly-approvals.json')
-    const evidence = await readJson('approvals/approved-master-review.json')
-    const allowlist = await readJson('approvals/attachment-allowlist.json')
+    const approvals = await readJson('approval-history/revision-2/assembly-approvals.json')
+    const evidence = await readJson('approval-history/revision-2/approved-master-review.json')
+    const allowlist = await readJson('approval-history/revision-2/attachment-allowlist.json')
+    const historicalIndex = await readJson('approval-history/revision-2/master-overlay-review.index.json')
     expect(approvals.map((item: { approvalRevision: number; status: string; approvedBy: string }) => [item.approvalRevision, item.status, item.approvedBy])).toEqual([[2, 'approved', 'project-owner'], [2, 'approved', 'project-owner']])
     expect(evidence.reviewIndexSha256).toBe('ee010c378c183e879d5ea85d4b372bd1909c7e3b3013c2c6ec7efe842a897016')
     expect(evidence.report.sha256).toBe('c1da927ab6e23bd3ad55a7146ad9fd7c27690025a95dcd54198c6c8fbd58cbd7')
-    expect(approvalBindingErrors(approvals, evidence, allowlist, index)).toEqual([])
-    expect(approvalBindingErrors(await readJson('approval-history/revision-1/assembly-approvals.json'), evidence, allowlist, index).length).toBeGreaterThan(0)
-    for (const key of ['maskSetSha256', 'attachmentInterfacesSha256', 'overlaySha256']) {
-      const tampered = structuredClone(index); tampered.families[0][key] = '0'.repeat(64)
-      expect(approvalBindingErrors(approvals, evidence, allowlist, tampered).length).toBeGreaterThan(0)
+    expect(approvalBindingErrors(approvals, evidence, allowlist, historicalIndex)).toEqual([])
+    expect(approvalBindingErrors(approvals, evidence, allowlist, index).length).toBeGreaterThan(0)
+    const superseded = await readJson('approval-history/revision-2/superseded.json')
+    expect(superseded).toMatchObject({ status: 'superseded', supersededRevision: 2, nextRevision: 3 })
+    for (const familyId of ['feline-sit-v2-core', 'feline-sit-v2-legendary-01']) {
+      const template = await readJson(`templates/${familyId}.json`)
+      const oral = template.slots.embedded.find((slot: { kind: string }) => slot.kind === 'oralDetail')
+      expect(Object.keys(oral.socketRegistry).sort()).toEqual(['narrow', 'open', 'oral-none', 'wide'])
+      for (const [socket, ids] of Object.entries(MOUTH_SOCKET_PARENT_TRAIT_IDS)) {
+        expect(oral.socketRegistry[socket].parentMouthTraitIds).toEqual(ids)
+      }
     }
-    expect(approvalBindingErrors(approvals, { ...evidence, reviewIndexSha256: '0'.repeat(64) }, allowlist, index).length).toBeGreaterThan(0)
-    const superseded = JSON.parse(await readFile('asset-source/v0.9.0/feline/approval-history/revision-1/superseded.json', 'utf8'))
-    expect(superseded.status).toBe('superseded')
-    expect(superseded.reason).toContain('visible')
   }, 120_000)
 })

@@ -266,4 +266,13 @@ describe('v0.9 trait sealer', () => {
     expect(first.approval.fullContextPreviewSha256).toBe(draft.fullContextPreview.sha256)
     expect(first.approvalSha256).toBe(second.approvalSha256)
   })
+
+  it('preserves an explicitly supplied high-precision UTC approval instant', async () => {
+    const { draft, neutral } = await fixture()
+    const approvedAt = '2026-09-10T01:52:20.3959909Z'
+    const result = await createTraitVisualApproval({ skeletonFamilyId: 'feline', assemblyTemplateSha256: draft.assemblyTemplateSha256,
+      sealedArtifactSha256: hash('d'), fullContextPreview: draft.fullContextPreview, fullContextPreviewBytes: neutral,
+      approvedBy: 'project-owner', approvedAt, approvalRevision: 1, status: 'approved' })
+    expect(result.approval.approvedAt).toBe(approvedAt)
+  })
 })

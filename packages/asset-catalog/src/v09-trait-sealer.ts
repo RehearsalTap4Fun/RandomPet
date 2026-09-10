@@ -17,6 +17,8 @@ export interface TraitBundleV1 {
   resources: ResourceRole
   fullContextPreview: PngResourceRef
   sealerVersion: string
+  /** Template-owned full-context policy. It is provenance, never a runtime layer. */
+  overlayPolicy?: ContentResourceRef
   interfaceId?: string
   shapeClass?: AttachmentShapeClass
   oralSocketClass?: string
@@ -367,10 +369,15 @@ export async function sealTraitBundle(draft: TraitBundleV1, context: SealContext
   const oralProjections = kind === 'oralDetail' ? oralProjectionRoles(roles, context.template, snapshot) : undefined
   for (const ref of Object.values(oralProjections ?? roles)) await verifyRef(ref, context)
   const preview = await checkedPng(snapshot.fullContextPreview, context)
+  const overlayPolicy = snapshot.overlayPolicy === undefined ? undefined : await verifyRef(snapshot.overlayPolicy, context)
+  if (overlayPolicy !== undefined && overlayPolicy.mediaType !== 'application/qmonster-manifest-v1+json') fail('ASSEMBLY_TEMPLATE_HASH_MISMATCH', 'Overlay policy must be a content-addressed manifest JSON resource.')
   await decodeFullMasterPng(preview.bytes, 'RESOURCE_HASH_MISMATCH')
   await validateLayerRoles(kind, roles, context.template, snapshot, context)
 
-  const authoringInputs = oralProjections === undefined ? roleOrder.map(role => roles[role]!) : Object.keys(oralProjections).sort().map(key => oralProjections[key]!)
+  const authoringInputs = [
+    ...(oralProjections === undefined ? roleOrder.map(role => roles[role]!) : Object.keys(oralProjections).sort().map(key => oralProjections[key]!)),
+    ...(overlayPolicy === undefined ? [] : [overlayPolicy]),
+  ]
   const attachmentRuntimeResources = kind === 'attachment'
     ? (selectedAttachment?.frontRootStencil === undefined
       ? { attachmentBehind: roles.attachmentBehind }
@@ -407,7 +414,7 @@ export async function createTraitVisualApproval(input: TraitVisualApprovalInput)
     if (previewRef.mediaType !== 'image/png' || previewRef.sha256 !== previewHash) fail('RESOURCE_HASH_MISMATCH', 'Visual approval preview reference does not bind its decoded PNG digest.')
   }
   const approvedAt = nonBlank(input.approvedAt, 'RESOURCE_HASH_MISMATCH')
-  if (!Number.isFinite(Date.parse(approvedAt)) || new Date(approvedAt).toISOString() !== approvedAt) fail('RESOURCE_HASH_MISMATCH', 'Approval timestamp must be an ISO-8601 instant.')
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(approvedAt) || !Number.isFinite(Date.parse(approvedAt))) fail('RESOURCE_HASH_MISMATCH', 'Approval timestamp must be an ISO-8601 UTC instant.')
   if (!Number.isInteger(input.approvalRevision) || input.approvalRevision <= 0) fail('RESOURCE_HASH_MISMATCH', 'Approval revision must be a positive integer.')
   if (input.status !== 'approved' && input.status !== 'revoked') fail('RESOURCE_HASH_MISMATCH', 'Approval status is invalid.')
   const approval: TraitVisualApprovalV1 = {
