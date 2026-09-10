@@ -16,7 +16,15 @@ export interface V09DecodedPng {
   drawable: CanvasImageSource
 }
 
-/** Trusted decoder boundary. No path, URL, placement, crop or scale parameters exist. */
+/**
+ * Trusted decoder boundary. No path, URL, placement, crop or scale parameters exist.
+ * Both drawable-producing methods transfer ownership of close-capable results to
+ * the calling render. Do not return borrowed/shared close-capable cache entries:
+ * concurrent renders must receive independent resources. The renderer closes each
+ * unique result after its last draw, including on failure. Non-closeable canvas or
+ * image fallbacks need no disposal. A rejected method retains responsibility for
+ * allocations it did not return to the caller.
+ */
 export interface V09ResourceResolver {
   resolvePng(ref: PngResourceRef): Promise<V09DecodedPng>
   /** Verify canonical JSON digest before returning parsed, ordinary JSON data. */
@@ -203,11 +211,17 @@ export async function renderMonsterV09(context: CanvasRenderingContext2D, compos
   requireIdentity(context)
   forbidPlacement(resolver)
   const cache = new Map<string, Promise<V09DecodedPng>>()
+  const ownedDrawables = new Set<CanvasImageSource & { close(): void }>()
+  const acquire = (drawable: CanvasImageSource): CanvasImageSource => {
+    if ('close' in drawable && typeof drawable.close === 'function') ownedDrawables.add(drawable as CanvasImageSource & { close(): void })
+    return drawable
+  }
   const load = (ref: PngResourceRef): Promise<V09DecodedPng> => {
     verifyRef(ref)
     let pending = cache.get(ref.resourceId)
     if (!pending) {
       pending = resolver.resolvePng(ref).then(value => {
+        acquire(value.drawable)
         if (value.sha256 !== ref.sha256 || value.width !== 2048 || value.height !== 2048) fail('RESOURCE_HASH_MISMATCH', 'Resolver did not verify the requested 2048x2048 content.')
         requireV09Pixels(value.pixels, 'RESOURCE_HASH_MISMATCH')
         return { ...value, pixels: new Uint8Array(value.pixels) }
@@ -216,39 +230,46 @@ export async function renderMonsterV09(context: CanvasRenderingContext2D, compos
     }
     return pending
   }
-  const operations: V09DecodedMaterialOperation[] = []
-  for (const [index, slotId] of V09_SURFACE_ORDER.entries()) {
-    const ref = composite.orderedNodes[surfaceNodes[index]!]![0] as JsonResourceRef
-    let document: Awaited<ReturnType<V09ResourceResolver['resolveJson']>>
-    try { document = await resolver.resolveJson(ref) } catch (cause) { throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'Material JSON could not be verified.', { cause }) }
-    if (document.sha256 !== ref.sha256) fail('RESOURCE_HASH_MISMATCH', 'Material JSON digest mismatch.')
-    const operation = parseV09MaterialOperation(document.value)
-    const owner = state.template.slots.surface.find(slot => slot.slotId === slotId)!.ownerMaterialId
-    if (operation.ownerMaterialId !== owner) fail('SURFACE_OWNER_VIOLATION', 'Operation owner differs from its template slot.')
-    const colorMap = operation.colorMap ? (await load(operation.colorMap)).pixels : undefined
-    operations.push({ slotId, operation, colorMap })
-  }
-  const [neutral, map] = await Promise.all([load(state.family.neutralMaster), load(state.family.materialMap)])
-  const surface = applyV09MaterialOperations({ neutralMaster: neutral.pixels, materialMap: map.pixels, materialRegistry: state.template.materialRegistry, operations })
-  const draws = Object.fromEntries(V09_COMPOSITION_NODE_IDS.map(node => [node, []])) as unknown as Record<V09CompositionNodeId, CanvasImageSource[]>
-  for (const node of V09_COMPOSITION_NODE_IDS) for (const ref of composite.orderedNodes[node]) if (ref.mediaType === 'image/png') draws[node].push((await load(ref)).drawable)
-  // Validate every mask before asking the resolver to allocate generated drawables.
-  const replays: Array<[ReplayNode, Uint8Array]> = []
-  for (const node of Object.keys(state.replayMasks) as ReplayNode[]) replays.push([node, replay(surface, await Promise.all(state.replayMasks[node].map(load)))])
   try {
-    draws['skeleton.base'].push(await resolver.createDrawable(surface.slice(), 2048, 2048))
-    for (const [node, pixels] of replays) draws[node].push(await resolver.createDrawable(pixels, 2048, 2048))
-  } catch (cause) { throw new V09RenderError('RESOURCE_MATERIALIZATION_FAILED', 'Generated skeleton or replay drawable could not be created.', { cause }) }
-  requireIdentity(context)
-  const trace: V09CompositionNodeId[] = []
-  for (const node of V09_COMPOSITION_NODE_IDS) {
-    trace.push(node)
-    for (const drawable of draws[node]) {
-      context.setTransform(1, 0, 0, 1, 0, 0)
-      context.globalCompositeOperation = 'source-over'
-      context.globalAlpha = 1; context.filter = 'none'; context.shadowColor = 'rgba(0,0,0,0)'; context.shadowBlur = 0; context.shadowOffsetX = 0; context.shadowOffsetY = 0
-      context.drawImage(drawable, 0, 0)
+    const operations: V09DecodedMaterialOperation[] = []
+    for (const [index, slotId] of V09_SURFACE_ORDER.entries()) {
+      const ref = composite.orderedNodes[surfaceNodes[index]!]![0] as JsonResourceRef
+      let document: Awaited<ReturnType<V09ResourceResolver['resolveJson']>>
+      try { document = await resolver.resolveJson(ref) } catch (cause) { throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'Material JSON could not be verified.', { cause }) }
+      if (document.sha256 !== ref.sha256) fail('RESOURCE_HASH_MISMATCH', 'Material JSON digest mismatch.')
+      const operation = parseV09MaterialOperation(document.value)
+      const owner = state.template.slots.surface.find(slot => slot.slotId === slotId)!.ownerMaterialId
+      if (operation.ownerMaterialId !== owner) fail('SURFACE_OWNER_VIOLATION', 'Operation owner differs from its template slot.')
+      const colorMap = operation.colorMap ? (await load(operation.colorMap)).pixels : undefined
+      operations.push({ slotId, operation, colorMap })
     }
+    const [neutral, map] = await Promise.all([load(state.family.neutralMaster), load(state.family.materialMap)])
+    const surface = applyV09MaterialOperations({ neutralMaster: neutral.pixels, materialMap: map.pixels, materialRegistry: state.template.materialRegistry, operations })
+    const draws = Object.fromEntries(V09_COMPOSITION_NODE_IDS.map(node => [node, []])) as unknown as Record<V09CompositionNodeId, CanvasImageSource[]>
+    for (const node of V09_COMPOSITION_NODE_IDS) for (const ref of composite.orderedNodes[node]) if (ref.mediaType === 'image/png') draws[node].push((await load(ref)).drawable)
+    // Validate every mask before asking the resolver to allocate generated drawables.
+    const replays: Array<[ReplayNode, Uint8Array]> = []
+    for (const node of Object.keys(state.replayMasks) as ReplayNode[]) replays.push([node, replay(surface, await Promise.all(state.replayMasks[node].map(load)))])
+    try {
+      draws['skeleton.base'].push(acquire(await resolver.createDrawable(surface.slice(), 2048, 2048)))
+      for (const [node, pixels] of replays) draws[node].push(acquire(await resolver.createDrawable(pixels, 2048, 2048)))
+    } catch (cause) { throw new V09RenderError('RESOURCE_MATERIALIZATION_FAILED', 'Generated skeleton or replay drawable could not be created.', { cause }) }
+    requireIdentity(context)
+    const trace: V09CompositionNodeId[] = []
+    for (const node of V09_COMPOSITION_NODE_IDS) {
+      trace.push(node)
+      for (const drawable of draws[node]) {
+        context.setTransform(1, 0, 0, 1, 0, 0)
+        context.globalCompositeOperation = 'source-over'
+        context.globalAlpha = 1; context.filter = 'none'; context.shadowColor = 'rgba(0,0,0,0)'; context.shadowBlur = 0; context.shadowOffsetX = 0; context.shadowOffsetY = 0
+        context.drawImage(drawable, 0, 0)
+      }
+    }
+    return { trace }
+  } finally {
+    // Promise.all can reject while sibling PNG loads still own pending resources.
+    // Drain them before disposal so late results cannot escape this render's scope.
+    await Promise.allSettled(cache.values())
+    for (const drawable of ownedDrawables) drawable.close()
   }
-  return { trace }
 }

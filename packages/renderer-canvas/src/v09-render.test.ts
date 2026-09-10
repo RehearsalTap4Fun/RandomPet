@@ -39,6 +39,132 @@ function fixture() {
   return { catalog, spec, template, traits, family, resolver, context, generated, draws, events }
 }
 
+// A drawable double makes use-after-close and duplicate disposal observable without
+// requiring a browser; production coverage below separately instruments real bitmaps.
+function ownedFixture() {
+  const f = fixture()
+  const acquired: Array<{ closes: number; close(): void }> = []
+  const allocate = () => {
+    const drawable = { closes: 0, close() { this.closes += 1 } }
+    acquired.push(drawable)
+    return drawable as unknown as CanvasImageSource
+  }
+  const resolvePng = f.resolver.resolvePng
+  f.resolver.resolvePng = async ref => ({ ...await resolvePng(ref), drawable: allocate() })
+  f.resolver.createDrawable = async () => allocate()
+  const drawImage = f.context.drawImage.bind(f.context)
+  f.context.drawImage = ((...args: Parameters<CanvasRenderingContext2D['drawImage']>) => {
+    expect((args[0] as unknown as { closes: number }).closes).toBe(0)
+    drawImage(...args)
+  }) as CanvasRenderingContext2D['drawImage']
+  return { ...f, acquired, allocate, decodePng: resolvePng }
+}
+
+describe('v0.9 drawable ownership', () => {
+  it('closes every acquired PNG and generated drawable once after its last draw', async () => {
+    const f = ownedFixture()
+    const result = await renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)
+    expect(result.trace).toEqual([...V09_COMPOSITION_NODE_IDS])
+    expect(f.draws).toHaveLength(14)
+    expect(f.acquired).toHaveLength(17)
+    expect(f.acquired.map(item => item.closes)).toEqual(Array(17).fill(1))
+  })
+  it.each(['png-load', 'png-validation', 'json-load', 'mask', 'create', 'draw'])('releases partial acquisitions on %s failure', async mode => {
+    const f = ownedFixture()
+    const originalPng = f.resolver.resolvePng
+    let loads = 0
+    f.resolver.resolvePng = async ref => {
+      loads += 1
+      if (mode === 'png-load' && loads === 4) throw new Error('load failed')
+      const value = await originalPng(ref)
+      if (mode === 'png-validation' && loads === 4) value.sha256 = '0'.repeat(64)
+      if (mode === 'mask' && ref.sha256 === f.family.fixedOccluderMasks.fixed.sha256) value.pixels[3] = 128
+      return value
+    }
+    if (mode === 'json-load') {
+      const resolveJson = f.resolver.resolveJson
+      let documents = 0
+      f.resolver.resolveJson = async ref => {
+        if (++documents === 2) throw new Error('JSON load failed')
+        const value = await resolveJson(ref)
+        Object.assign(value.value, { colorMap: f.family.neutralMaster })
+        return value
+      }
+    }
+    if (mode === 'create') {
+      let generated = 0
+      f.resolver.createDrawable = async () => { if (++generated === 2) throw new Error('allocation failed'); return f.allocate() }
+    }
+    if (mode === 'draw') {
+      const drawImage = f.context.drawImage.bind(f.context)
+      f.context.drawImage = ((...args: Parameters<CanvasRenderingContext2D['drawImage']>) => {
+        if (f.draws.length === 3) throw new Error('draw failed')
+        drawImage(...args)
+      }) as CanvasRenderingContext2D['drawImage']
+    }
+    await expect(renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)).rejects.toThrow()
+    expect(f.acquired.length).toBeGreaterThan(0)
+    expect(f.acquired.every(item => item.closes === 1)).toBe(true)
+    expect(f.draws).toHaveLength(mode === 'draw' ? 3 : 0)
+  })
+  it('waits for a pending sibling load and closes its late drawable before rejecting', async () => {
+    const f = ownedFixture()
+    const original = f.resolver.resolvePng
+    let release!: () => void
+    let started!: () => void
+    const loading = new Promise<void>(resolve => { started = resolve })
+    const gate = new Promise<void>(resolve => { release = resolve })
+    f.resolver.resolvePng = async ref => {
+      if (ref.sha256 === f.family.neutralMaster.sha256) throw new Error('neutral failed')
+      started(); await gate
+      return original(ref)
+    }
+    let settled = false
+    const rendering = renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)
+    const rejection = expect(rendering).rejects.toThrow()
+    void rendering.then(() => { settled = true }, () => { settled = true })
+    await loading
+    await new Promise(resolve => setTimeout(resolve, 0))
+    const settledBeforeSibling = settled
+    release(); await rejection
+    await new Promise(resolve => setTimeout(resolve, 0))
+    expect(settledBeforeSibling).toBe(false)
+    expect(f.acquired).toHaveLength(1)
+    expect(f.acquired[0]!.closes).toBe(1)
+  })
+  it('deduplicates shared resource refs and closes duplicate drawable identities only once', async () => {
+    const f = ownedFixture()
+    const shared = f.allocate()
+    const refs: string[] = []
+    f.resolver.resolvePng = async ref => {
+      refs.push(ref.resourceId)
+      return { ...await f.decodePng(ref), drawable: shared }
+    }
+    f.resolver.createDrawable = async () => shared
+    await renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)
+    expect(new Set(refs).size).toBe(refs.length)
+    expect(refs.filter(ref => ref === f.family.fixedOccluderMasks.fixed.resourceId)).toHaveLength(1)
+    expect(f.draws).toHaveLength(14)
+    expect(f.acquired[0]!.closes).toBe(1)
+  })
+  it('renders non-closeable canvas/image fallbacks without disposal', async () => {
+    const f = fixture()
+    await renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)
+    expect(f.draws).toHaveLength(14)
+    expect(f.draws.every(args => !('close' in (args[0] as object)))).toBe(true)
+  })
+  it('keeps concurrent renders isolated when they share a resolver', async () => {
+    const f = ownedFixture()
+    const composite = renderer.resolveV09Composite(f.spec, f.catalog)
+    const secondContext = { ...f.context } as CanvasRenderingContext2D
+    await Promise.all([renderer.renderMonsterV09(f.context, composite, f.resolver), renderer.renderMonsterV09(secondContext, composite, f.resolver)])
+    expect(f.draws).toHaveLength(28)
+    expect(f.acquired).toHaveLength(34)
+    expect(new Set(f.acquired).size).toBe(34)
+    expect(f.acquired.every(item => item.closes === 1)).toBe(true)
+  })
+})
+
 describe('v0.9 fixed composite and renderer', () => {
   it('exports independent composite and rendering entry points', () => { expect(renderer).toHaveProperty('resolveV09Composite', expect.any(Function)); expect(renderer).toHaveProperty('renderMonsterV09', expect.any(Function)) })
   it.each(['missing', 'duplicate', 'cross-family', 'cross-template', 'wrong-rarity', 'wrong-slot', 'wrong-kind'])('rejects %s selected projection', mode => {
