@@ -212,8 +212,21 @@ export async function renderMonsterV09(context: CanvasRenderingContext2D, compos
   forbidPlacement(resolver)
   const cache = new Map<string, Promise<V09DecodedPng>>()
   const ownedDrawables = new Set<CanvasImageSource & { close(): void }>()
+  const closedDrawables = new WeakSet<CanvasImageSource>()
+  let scopeClosed = false
+  const safeClose = (drawable: CanvasImageSource & { close(): void }): void => {
+    if (closedDrawables.has(drawable)) return
+    closedDrawables.add(drawable)
+    // Disposal is best-effort: one resolver's close must not replace the frame's
+    // result/error or prevent the remaining owned resources from being released.
+    try { drawable.close() } catch { /* Preserve the primary render outcome. */ }
+  }
   const acquire = (drawable: CanvasImageSource): CanvasImageSource => {
-    if ('close' in drawable && typeof drawable.close === 'function') ownedDrawables.add(drawable as CanvasImageSource & { close(): void })
+    if ('close' in drawable && typeof drawable.close === 'function') {
+      const owned = drawable as CanvasImageSource & { close(): void }
+      if (scopeClosed) safeClose(owned)
+      else ownedDrawables.add(owned)
+    }
     return drawable
   }
   const load = (ref: PngResourceRef): Promise<V09DecodedPng> => {
@@ -226,6 +239,9 @@ export async function renderMonsterV09(context: CanvasRenderingContext2D, compos
         requireV09Pixels(value.pixels, 'RESOURCE_HASH_MISMATCH')
         return { ...value, pixels: new Uint8Array(value.pixels) }
       }).catch(error => { if (error instanceof V09RenderError) throw error; throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'PNG resource could not be verified.', { cause: error }) })
+      // A sibling can throw synchronously before Promise.all observes this load.
+      // Keep its rejection handled even if it arrives after the render has exited.
+      void pending.catch(() => {})
       cache.set(ref.resourceId, pending)
     }
     return pending
@@ -267,9 +283,11 @@ export async function renderMonsterV09(context: CanvasRenderingContext2D, compos
     }
     return { trace }
   } finally {
-    // Promise.all can reject while sibling PNG loads still own pending resources.
-    // Drain them before disposal so late results cannot escape this render's scope.
-    await Promise.allSettled(cache.values())
-    for (const drawable of ownedDrawables) drawable.close()
+    // Do not wait for failed-frame siblings: they may never settle. Their acquire
+    // callbacks release late arrivals after this scope closes, with identity dedupe.
+    scopeClosed = true
+    for (const drawable of ownedDrawables) safeClose(drawable)
+    ownedDrawables.clear()
+    cache.clear()
   }
 }

@@ -107,7 +107,7 @@ describe('v0.9 drawable ownership', () => {
     expect(f.acquired.every(item => item.closes === 1)).toBe(true)
     expect(f.draws).toHaveLength(mode === 'draw' ? 3 : 0)
   })
-  it('waits for a pending sibling load and closes its late drawable before rejecting', async () => {
+  it('rejects before a pending sibling finishes and closes its drawable on late arrival', async () => {
     const f = ownedFixture()
     const original = f.resolver.resolvePng
     let release!: () => void
@@ -128,9 +128,117 @@ describe('v0.9 drawable ownership', () => {
     const settledBeforeSibling = settled
     release(); await rejection
     await new Promise(resolve => setTimeout(resolve, 0))
-    expect(settledBeforeSibling).toBe(false)
+    expect(settledBeforeSibling).toBe(true)
     expect(f.acquired).toHaveLength(1)
     expect(f.acquired[0]!.closes).toBe(1)
+  })
+  it('returns the primary failure promptly when a sibling never settles', async () => {
+    const f = ownedFixture()
+    const primary = new Error('neutral load failed')
+    f.resolver.resolvePng = ref => ref.sha256 === f.family.neutralMaster.sha256
+      ? Promise.reject(primary) : new Promise(() => {})
+    const outcome = renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)
+      .then(() => 'unexpected success', error => error)
+    const timeout = Symbol('render still pending')
+    let timer!: ReturnType<typeof setTimeout>
+    try {
+      const result = await Promise.race([outcome, new Promise(resolve => { timer = setTimeout(() => resolve(timeout), 100) })])
+      expect(result).not.toBe(timeout)
+      expect(result).toMatchObject({ code: 'RESOURCE_HASH_MISMATCH', cause: primary })
+      expect(f.draws).toHaveLength(0)
+    } finally { clearTimeout(timer) }
+  })
+  it.each(['load', 'validation', 'draw'])('isolates throwing closes and preserves the primary %s failure', async mode => {
+    const f = ownedFixture()
+    const original = f.resolver.resolvePng
+    const primary = new Error('primary failure')
+    let loads = 0
+    f.resolver.resolvePng = async ref => {
+      if (++loads === 4 && mode === 'load') throw primary
+      const value = await original(ref)
+      if (loads === 4 && mode === 'validation') value.sha256 = '0'.repeat(64)
+      const drawable = value.drawable as unknown as { closes: number; close(): void }
+      if (f.acquired[0] === drawable) drawable.close = function () { this.closes += 1; throw new Error('close failed') }
+      return value
+    }
+    if (mode === 'draw') f.context.drawImage = () => { throw primary }
+    const result = await renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)
+      .then(() => 'unexpected success', error => error)
+    if (mode === 'draw') expect(result).toBe(primary)
+    else {
+      expect(result).toMatchObject({ code: 'RESOURCE_HASH_MISMATCH' })
+      if (mode === 'load') expect(result.cause).toBe(primary)
+    }
+    expect(f.acquired.length).toBeGreaterThan(1)
+    expect(f.acquired.every(item => item.closes === 1)).toBe(true)
+  })
+  it('returns a successful frame and closes the remaining drawables even when a close throws', async () => {
+    const f = ownedFixture()
+    const original = f.resolver.createDrawable
+    f.resolver.createDrawable = async (...args) => {
+      const drawable = await original(...args) as unknown as { closes: number; close(): void }
+      drawable.close = function () { this.closes += 1; throw new Error('close failed') }
+      return drawable as unknown as CanvasImageSource
+    }
+    const result = await renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)
+    expect(result.trace).toEqual([...V09_COMPOSITION_NODE_IDS])
+    expect(f.draws).toHaveLength(14)
+    expect(f.acquired.map(item => item.closes)).toEqual(Array(17).fill(1))
+  })
+  it('disposes multiple late arrivals once and observes late validation, load and close errors', async () => {
+    const unhandled: unknown[] = []
+    const observe = (error: unknown) => { unhandled.push(error) }
+    process.on('unhandledRejection', observe)
+    try {
+      const pending = ['valid', 'invalid', 'reject', 'duplicate', 'sync-sibling'].map(mode => {
+        const f = ownedFixture()
+        const shared = f.allocate()
+        const drawable = f.acquired[0]!
+        drawable.close = function () { this.closes += 1; throw new Error('late close failed') }
+        let release!: () => void
+        const gate = new Promise<void>(resolve => { release = resolve })
+        const primary = new Error('primary failed')
+        // A color-map acquisition and a later ref may own the same drawable.
+        const earlier = png()
+        const originalJson = f.resolver.resolveJson
+        f.resolver.resolveJson = async ref => {
+          const document = await originalJson(ref)
+          if (mode === 'duplicate') Object.assign(document.value, { colorMap: earlier })
+          return document
+        }
+        const resolveLate = async (ref: PngResourceRef) => {
+          if (ref.sha256 === earlier.sha256) return { ...await f.decodePng(ref), drawable: shared }
+          if (mode !== 'sync-sibling' && ref.sha256 === f.family.neutralMaster.sha256) throw primary
+          await gate
+          if (mode === 'reject' || mode === 'sync-sibling') throw new Error('late load failed')
+          return { ...await f.decodePng(ref), sha256: mode === 'invalid' ? '0'.repeat(64) : ref.sha256, drawable: shared }
+        }
+        f.resolver.resolvePng = ref => {
+          // The second call throws before Promise.all can attach to the first load.
+          if (mode === 'sync-sibling' && ref.sha256 === f.family.materialMap.sha256) throw primary
+          return resolveLate(ref)
+        }
+        const outcome = renderer.renderMonsterV09(f.context, renderer.resolveV09Composite(f.spec, f.catalog), f.resolver)
+          .then(() => 'unexpected success', error => error)
+        return { f, mode, outcome, primary, release }
+      })
+      // A macrotask boundary lets all immediate failures settle before releasing siblings.
+      const settled: unknown[] = []
+      pending.forEach(item => { void item.outcome.then(result => { settled.push(result) }) })
+      await new Promise(resolve => setTimeout(resolve, 0))
+      const beforeArrival = settled.length
+      pending.forEach(item => item.release())
+      const results = await Promise.all(pending.map(item => item.outcome))
+      await new Promise(resolve => setTimeout(resolve, 0))
+      expect(beforeArrival).toBe(5)
+      results.forEach((result, index) => {
+        const item = pending[index]!
+        if (item.mode === 'sync-sibling') expect(result).toBe(item.primary)
+        else expect(result).toMatchObject({ code: 'RESOURCE_HASH_MISMATCH', cause: item.primary })
+      })
+      expect(pending.map(item => item.f.acquired[0]!.closes)).toEqual([1, 1, 0, 1, 0])
+      expect(unhandled).toEqual([])
+    } finally { process.off('unhandledRejection', observe) }
   })
   it('deduplicates shared resource refs and closes duplicate drawable identities only once', async () => {
     const f = ownedFixture()
