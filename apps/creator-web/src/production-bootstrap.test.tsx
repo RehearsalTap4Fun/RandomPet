@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
 import candidatePointer from '../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
 import { loadProductionBootstrap } from './production-bootstrap.js'
-import { ProductionReleaseError, loadActiveProductionRelease } from './v09-production-release.js'
+import { ProductionReleaseError } from './v09-production-release.js'
+import { loadCandidateProductionRelease } from './v09-production-release.test-support.js'
 
 describe('production entrypoint release activation', () => {
   it('keeps the legacy v0.8 target only when the active pointer is absent', async () => {
@@ -14,7 +15,7 @@ describe('production entrypoint release activation', () => {
   })
 
   it('enters v0.9 deterministically when an active pointer resolves', async () => {
-    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadCandidateProductionRelease()
     const target = await loadProductionBootstrap(vi.fn(async () => release))
 
     expect(target).toMatchObject({

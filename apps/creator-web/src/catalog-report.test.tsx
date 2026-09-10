@@ -4,7 +4,7 @@ import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v
 import v08CatalogDocument from '../../../packages/asset-catalog/catalog/v0.8.0/catalog.json'
 import candidatePointer from '../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
 import { createCatalogReportModel } from './catalog-report.js'
-import { loadActiveProductionRelease } from './v09-production-release.js'
+import { loadCandidateProductionRelease } from './v09-production-release.test-support.js'
 
 const parsedCatalog = parseCatalog(productionCatalogDocument)
 if (!parsedCatalog.ok) throw new Error('Expected the v0.6 production catalog to be valid.')
@@ -20,7 +20,7 @@ function reportFor(catalog: Catalog, archetypeId: string) {
 
 describe('createCatalogReportModel', () => {
   it('derives the v0.9 report from the immutable release inventory and sealed projections', async () => {
-    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadCandidateProductionRelease()
     const report = createCatalogReportModel(release)
 
     expect(report.kind).toBe('v09')

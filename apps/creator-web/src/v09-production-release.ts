@@ -15,12 +15,6 @@ const bundledActivePointerDocuments = import.meta.glob<unknown>(
 const bundledReleaseManifestModules = import.meta.glob<string>(
   '../../../packages/asset-catalog/releases/by-sha256/*.json', { query: '?raw', import: 'default' },
 )
-const bundledResourceRawModules = import.meta.glob<string>(
-  '../../../packages/asset-catalog/resources/by-sha256/*', { query: '?raw', import: 'default' },
-)
-const bundledResourceUrlModules = import.meta.glob<string>(
-  '../../../packages/asset-catalog/resources/by-sha256/*', { query: '?url', import: 'default' },
-)
 
 export class ProductionReleaseError extends Error {
   public constructor(public readonly code: string, message: string, options?: { cause?: unknown }) {
@@ -35,6 +29,7 @@ export interface ProductionReleaseDocuments {
   activePointerDocuments?: Readonly<Record<string, unknown>>
   releaseManifestDocuments?: Readonly<Record<string, DocumentInput>>
   resourceDocuments?: Readonly<Record<string, DocumentInput>>
+  loadResourceBytes?: (resourceId: string) => Promise<Uint8Array>
 }
 
 function fail(code: string, message: string, cause?: unknown): never { throw new ProductionReleaseError(code, message, cause === undefined ? undefined : { cause }) }
@@ -148,16 +143,31 @@ export async function loadActiveProductionRelease(options: ProductionReleaseDocu
   const manifest = manifestParsed.value
   if (canonicalize(manifest.versionTuple) !== canonicalize(V09_VERSION_TUPLE)) return fail('VERSION_TUPLE_MISMATCH', 'Only the exact v0.9 tuple is supported.')
 
-  const resources = inputsByHash({ ...bundledResourceRawModules, ...options.resourceDocuments })
+  const resources = inputsByHash(options.resourceDocuments ?? {})
+  const loadBytes = options.loadResourceBytes ?? (resourceId => bundledV09ResourceBytes(resourceId.slice('sha256:'.length)))
+  const loadJsonByHash = async (resourceId: string, hash: string, code: string): Promise<unknown> => {
+    const source = resources.get(hash)
+    let document: unknown
+    if (source !== undefined) document = await materialize(source, code)
+    else {
+      try {
+        const text = new TextDecoder('utf-8', { fatal: true }).decode(await loadBytes(resourceId))
+        document = await materialize(text, code)
+      } catch (error) {
+        if (error instanceof ProductionReleaseError) throw error
+        return fail('RESOURCE_HASH_MISMATCH', `Referenced resource could not be loaded: ${resourceId}`, error)
+      }
+    }
+    if (await browserCanonicalJsonSha256(document) !== hash) return fail('RESOURCE_HASH_MISMATCH', `JSON resource digest mismatch: ${resourceId}`)
+    return document
+  }
   const loadedJson = new Map<string, unknown>(), loadedRefs = new Map<string, ContentResourceRef>(), pending = collectRefs(manifest)
   while (pending.size > 0) {
     const batch = [...pending.entries()]; pending.clear()
     const nested = await Promise.all(batch.map(async ([resourceId, ref]) => {
       if (loadedRefs.has(resourceId)) return [] as Array<[string, ContentResourceRef]>
-      const source = resources.get(ref.sha256); if (source === undefined) return fail('RESOURCE_HASH_MISMATCH', `Referenced resource is not bundled: ${resourceId}`)
       loadedRefs.set(resourceId, ref); if (ref.mediaType === 'image/png') return [] as Array<[string, ContentResourceRef]>
-      const document = await materialize(source, 'RESOURCE_SCHEMA_INVALID')
-      if (await browserCanonicalJsonSha256(document) !== ref.sha256) return fail('RESOURCE_HASH_MISMATCH', `JSON resource digest mismatch: ${resourceId}`)
+      const document = await loadJsonByHash(resourceId, ref.sha256, 'RESOURCE_SCHEMA_INVALID')
       loadedJson.set(resourceId, document)
       return [...collectRefs(document).entries()]
     }))
@@ -201,8 +211,8 @@ export async function loadActiveProductionRelease(options: ProductionReleaseDocu
   if ([...semantic.keys()].some(key => families.some(family => !traitRecords.has(`${family.skeletonFamilyId}\u0000${key}`)))) return fail('SKELETON_PROJECTION_MISSING', 'Projection matrix incomplete.')
   const assemblyByFamily = new Map(assemblyApprovals.map(approval => [approval.skeletonFamilyId, approval])); if (assemblyByFamily.size !== 2) return fail('ASSEMBLY_TEMPLATE_UNAPPROVED', 'Assembly approvals must be unique.')
   const allowlistHashes = new Set(assemblyApprovals.map(approval => approval.attachmentAllowlistSha256)); if (allowlistHashes.size !== 1) return fail('ATTACHMENT_HASH_NOT_APPROVED', 'Approvals must bind one allowlist.')
-  const allowlistHash = [...allowlistHashes][0]!, allowlistSource = resources.get(allowlistHash); if (allowlistSource === undefined) return fail('ATTACHMENT_HASH_NOT_APPROVED', 'Attachment allowlist missing.')
-  const allowlistDocument = await materialize(allowlistSource, 'ATTACHMENT_HASH_NOT_APPROVED'); if (await browserCanonicalJsonSha256(allowlistDocument) !== allowlistHash) return fail('RESOURCE_HASH_MISMATCH', 'Attachment allowlist digest mismatch.')
+  const allowlistHash = [...allowlistHashes][0]!
+  const allowlistDocument = await loadJsonByHash(`sha256:${allowlistHash}`, allowlistHash, 'ATTACHMENT_HASH_NOT_APPROVED')
   const allowlist = parsed(allowlistSchema, allowlistDocument, 'ATTACHMENT_HASH_NOT_APPROVED', 'Attachment allowlist invalid.')
   const approvalHashByArtifact = new Map<string, string>(); traitApprovals.forEach((approval, index) => approvalHashByArtifact.set(approval.sealedArtifactSha256, manifest.traitApprovals[index]!.sha256))
   for (const record of traitRecords.values()) if (record.artifact.kind === 'attachment') {
@@ -219,12 +229,9 @@ export async function loadActiveProductionRelease(options: ProductionReleaseDocu
   return { manifestHash: pointer.releaseManifestSha256, catalog, traits: [...traitRecords.values()], assemblies }
 }
 
-export async function bundledV09ResourceUrl(sha256: string): Promise<string> {
+export function bundledV09ResourceUrl(sha256: string): Promise<string> {
   if (!HASH.test(sha256)) return Promise.reject(new ProductionReleaseError('RESOURCE_HASH_MISMATCH', 'Invalid resource digest.'))
-  const loader = inputsByHash(bundledResourceUrlModules).get(sha256)
-  if (typeof loader !== 'function') return Promise.reject(new ProductionReleaseError('RESOURCE_HASH_MISMATCH', 'Resource URL is not bundled.'))
-  const productionUrl = await loader() as string
-  return import.meta.env.DEV ? `/@qmonster-v09-resource/${sha256}` : productionUrl
+  return Promise.resolve(`/v09-resources/${sha256}`)
 }
 export async function bundledV09ResourceBytes(sha256: string): Promise<Uint8Array> {
   const response = await fetch(await bundledV09ResourceUrl(sha256)); if (!response.ok) return fail('RESOURCE_HASH_MISMATCH', `Resource request failed: ${response.status}`)

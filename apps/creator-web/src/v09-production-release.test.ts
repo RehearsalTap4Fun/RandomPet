@@ -10,6 +10,7 @@ import {
   ProductionReleaseError,
   loadActiveProductionRelease,
 } from './v09-production-release.js'
+import { candidateProductionReleaseOptions } from './v09-production-release.test-support.js'
 
 describe('browser production v0.9 release loading', () => {
   it('fails closed when no active pointer is supplied or bundled', async () => {
@@ -18,7 +19,7 @@ describe('browser production v0.9 release loading', () => {
   })
 
   it('resolves only the explicitly injected candidate hash through content-addressed resources', async () => {
-    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadActiveProductionRelease(candidateProductionReleaseOptions())
 
     expect(release.manifestHash).toBe(candidatePointer.releaseManifestSha256)
     expect(release.catalog.releaseManifestSha256).toBe(candidatePointer.releaseManifestSha256)
@@ -37,10 +38,9 @@ describe('browser production v0.9 release loading', () => {
     const tamperedManifest = structuredClone(candidateManifest)
     tamperedManifest.rendererBuildSha256 = '0'.repeat(64)
 
-    await expect(loadActiveProductionRelease({
-      pointer: candidatePointer,
+    await expect(loadActiveProductionRelease(candidateProductionReleaseOptions({
       releaseManifestDocuments: { [hash]: tamperedManifest },
-    })).rejects.toMatchObject({ code: 'RELEASE_MANIFEST_HASH_MISMATCH' })
+    }))).rejects.toMatchObject({ code: 'RELEASE_MANIFEST_HASH_MISMATCH' })
   })
 
   it('rejects sealed traits and approvals swapped beneath their content identities', async () => {
@@ -49,15 +49,14 @@ describe('browser production v0.9 release loading', () => {
     const firstApprovalRef = candidateManifest.traitApprovals[0]!
     const secondApprovalRef = candidateManifest.traitApprovals[1]!
 
-    await expect(loadActiveProductionRelease({
-      pointer: candidatePointer,
+    await expect(loadActiveProductionRelease(candidateProductionReleaseOptions({
       resourceDocuments: {
         [firstSealedRef.sha256]: secondSealed,
         [secondSealedRef.sha256]: firstSealed,
         [firstApprovalRef.sha256]: secondApproval,
         [secondApprovalRef.sha256]: firstApproval,
       },
-    })).rejects.toMatchObject({ code: 'RESOURCE_HASH_MISMATCH' })
+    }))).rejects.toMatchObject({ code: 'RESOURCE_HASH_MISMATCH' })
   })
 
   it('rejects a canonically addressed family/template mismatch', async () => {
@@ -72,11 +71,11 @@ describe('browser production v0.9 release loading', () => {
     }
     const changedManifestHash = await canonicalHash(changedManifest)
 
-    await expect(loadActiveProductionRelease({
+    await expect(loadActiveProductionRelease(candidateProductionReleaseOptions({
       pointer: { schemaVersion: 'qmonster-active-release-v1', releaseManifestSha256: changedManifestHash },
       releaseManifestDocuments: { [changedManifestHash]: changedManifest },
       resourceDocuments: { [changedTemplateHash]: changedTemplate },
-    })).rejects.toMatchObject({ code: 'SKELETON_PROJECTION_MISSING' })
+    }))).rejects.toMatchObject({ code: 'SKELETON_PROJECTION_MISSING' })
   })
 
   it('exposes stable structured failures', () => {

@@ -2,7 +2,6 @@ import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { V09_TRAIT_SLOT_IDS, generateMonster, type Catalog, type Diagnostic } from '@qmonster/generator-core'
-import candidatePointer from '../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { createCreatorSession, type AnyCreatorSession, type CreatorSession } from './state/contracts.js'
@@ -20,7 +19,7 @@ import {
 } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
 import type { V09PreviewRenderer } from './components/PreviewCanvas.js'
-import { loadActiveProductionRelease } from './v09-production-release.js'
+import { loadCandidateProductionRelease } from './v09-production-release.test-support.js'
 
 function installCanvasContexts() {
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function (
@@ -46,7 +45,7 @@ describe('CreatorWorkbench', () => {
   it('exposes one whole-skeleton control and exactly twelve v0.9 appearance controls', async () => {
     installCanvasContexts()
     const user = userEvent.setup()
-    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadCandidateProductionRelease()
     const renderer: V09PreviewRenderer = vi.fn(async () => ({ trace: [] }))
     let observedSession: AnyCreatorSession | undefined
 

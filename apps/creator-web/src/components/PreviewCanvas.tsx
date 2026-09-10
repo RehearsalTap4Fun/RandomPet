@@ -88,6 +88,7 @@ const productionAssetUrls = import.meta.glob<string>(
   [
     '../../../../packages/asset-catalog/assets/v*/**/*.{png,webp}',
     '!../../../../packages/asset-catalog/assets/v*/split-*/**/*.{png,webp}',
+    '!../../../../packages/asset-catalog/assets/v0.9.0/**/*.{png,webp}',
   ],
   { query: '?url', import: 'default' },
 )
@@ -117,6 +118,12 @@ export function resolveProductionV09ResourceUrl(sha256: string): Promise<string>
 
 interface ProductionV09ResolverOptions {
   loadResourceBytes?: (resourceId: string) => Promise<Uint8Array>
+  maxPngEntries?: number
+  maxJsonEntries?: number
+}
+
+export interface ProductionV09ResourceResolver extends V09ResourceResolver {
+  dispose(): void
 }
 
 const PNG_SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10] as const
@@ -211,10 +218,39 @@ async function createExactDrawable(pixels: Uint8Array, width: 2048, height: 2048
   context.putImageData(imageData, 0, 0); return canvas
 }
 
-export function createProductionV09ResourceResolver(options: ProductionV09ResolverOptions = {}): V09ResourceResolver {
+function cacheLimit(value: number | undefined, fallback: number): number {
+  if (value === undefined) return fallback
+  if (!Number.isSafeInteger(value) || value < 1) throw new TypeError('Resource cache limit must be a positive safe integer.')
+  return value
+}
+
+function closeDrawable(drawable: CanvasImageSource): void {
+  const close = (drawable as { close?: unknown }).close
+  if (typeof close === 'function') close.call(drawable)
+}
+
+export function createProductionV09ResourceResolver(options: ProductionV09ResolverOptions = {}): ProductionV09ResourceResolver {
   const loadBytes = options.loadResourceBytes ?? (resourceId => bundledV09ResourceBytes(resourceId.slice('sha256:'.length)))
+  const maxPngEntries = cacheLimit(options.maxPngEntries, 32)
+  const maxJsonEntries = cacheLimit(options.maxJsonEntries, 256)
   const pngCache = new Map<string, Promise<{ pixels: Uint8Array; drawable: CanvasImageSource }>>()
   const jsonCache = new Map<string, Promise<{ sha256: string; value: unknown }>>()
+  const touch = <T,>(cache: Map<string, T>, key: string, value: T): void => { cache.delete(key); cache.set(key, value) }
+  const trimPngCache = (): void => {
+    while (pngCache.size > maxPngEntries) {
+      const oldest = pngCache.entries().next().value as [string, Promise<{ pixels: Uint8Array; drawable: CanvasImageSource }>] | undefined
+      if (oldest === undefined) return
+      pngCache.delete(oldest[0])
+      void oldest[1].then(value => closeDrawable(value.drawable), () => undefined)
+    }
+  }
+  const trimJsonCache = (): void => {
+    while (jsonCache.size > maxJsonEntries) {
+      const oldest = jsonCache.keys().next().value as string | undefined
+      if (oldest === undefined) return
+      jsonCache.delete(oldest)
+    }
+  }
   const validateIdentity = (ref: PngResourceRef | JsonResourceRef): void => {
     if (ref.resourceId !== `sha256:${ref.sha256}` || !V09_HASH.test(ref.sha256)) throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'Resource ID and digest do not agree.')
   }
@@ -225,9 +261,10 @@ export function createProductionV09ResourceResolver(options: ProductionV09Resolv
       if (pending === undefined) {
         pending = (async () => { const pixels = await decodeVerifiedPng(await loadBytes(ref.resourceId), ref.sha256); return { pixels, drawable: await createExactDrawable(pixels, 2048, 2048) } })().catch(error => { pngCache.delete(ref.resourceId); if (error instanceof V09RenderError) throw error; throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'PNG resource verification failed.', { cause: error }) })
         pngCache.set(ref.resourceId, pending)
-      }
+        trimPngCache()
+      } else touch(pngCache, ref.resourceId, pending)
       const verified = await pending
-      return { sha256: ref.sha256, width: 2048, height: 2048, pixels: verified.pixels.slice(), drawable: verified.drawable }
+      return { sha256: ref.sha256, width: 2048, height: 2048, pixels: verified.pixels, drawable: verified.drawable }
     },
     async resolveJson(ref) {
       validateIdentity(ref)
@@ -239,10 +276,15 @@ export function createProductionV09ResourceResolver(options: ProductionV09Resolv
           return { sha256, value }
         })().catch(error => { jsonCache.delete(ref.resourceId); if (error instanceof V09RenderError) throw error; throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'JSON resource verification failed.', { cause: error }) })
         jsonCache.set(ref.resourceId, pending)
-      }
+        trimJsonCache()
+      } else touch(jsonCache, ref.resourceId, pending)
       const verified = await pending; return { sha256: verified.sha256, value: structuredClone(verified.value) }
     },
     createDrawable: createExactDrawable,
+    dispose() {
+      for (const pending of pngCache.values()) void pending.then(value => closeDrawable(value.drawable), () => undefined)
+      pngCache.clear(); jsonCache.clear()
+    },
   }
 }
 

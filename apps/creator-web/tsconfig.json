@@ -5,7 +5,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "vite-content-resources.ts"],
   "references": [
     { "path": "../../packages/generator-core" },
     { "path": "../../packages/renderer-canvas" },

@@ -6,7 +6,7 @@ import productionCatalogDocument from '../../../../packages/asset-catalog/catalo
 import v08CatalogDocument from '../../../../packages/asset-catalog/catalog/v0.8.0/catalog.json'
 import candidatePointer from '../../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
 import { createCatalogReportModel } from '../catalog-report.js'
-import { loadActiveProductionRelease } from '../v09-production-release.js'
+import { loadCandidateProductionRelease } from '../v09-production-release.test-support.js'
 import { CatalogReport } from './CatalogReport.js'
 import type { PreviewRenderer } from './PreviewCanvas.js'
 
@@ -20,7 +20,7 @@ afterEach(() => vi.restoreAllMocks())
 describe('CatalogReport', () => {
   it('shows the immutable v0.9 skeleton weights and inspectable sealed trait metadata', async () => {
     const user = userEvent.setup()
-    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadCandidateProductionRelease()
     const model = createCatalogReportModel(release)
 
     render(<CatalogReport model={model} resolveV09ResourceUrl={async sha256 => `/resource/${sha256}`} />)
