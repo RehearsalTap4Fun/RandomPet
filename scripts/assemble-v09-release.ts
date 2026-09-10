@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { lstat, mkdir, open, readFile, readdir, rmdir, unlink } from 'node:fs/promises'
+import { lstat, readFile, readdir } from 'node:fs/promises'
 import { join, relative, resolve, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import {
@@ -45,12 +45,6 @@ export interface AssembleBuiltV09CandidateOptions {
   outputPointer: string
   candidate: V09ReleaseCandidate
   assembler?: V09Assembler
-}
-
-interface OwnedEntry {
-  path: string
-  dev: number
-  ino: number
 }
 
 function contained(root: string, target: string): boolean {
@@ -254,115 +248,14 @@ export function parseV09AssemblyArgs(args: readonly string[], repositoryRoot: st
   return { repositoryRoot: root, catalogVersion, outputPointer }
 }
 
-async function optionalBytes(path: string): Promise<Buffer | undefined> {
-  try { return await readFile(path) } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return undefined
-    throw error
-  }
-}
-
-async function inspectImmutableJson(path: string, value: unknown): Promise<'missing' | 'exact'> {
-  const bytes = Buffer.concat([canonicalJsonBytes(value), Buffer.from('\n')])
-  try {
-    const state = await lstat(path)
-    if (!state.isFile() || state.isSymbolicLink() || !(await readFile(path)).equals(bytes)) {
-      throw new Error(`Immutable catalog document already exists with different bytes: ${path}`)
-    }
-    return 'exact'
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return 'missing'
-    throw error
-  }
-}
-
-function sameOwnedEntry(entry: OwnedEntry, state: Awaited<ReturnType<typeof lstat>>): boolean {
-  return !state.isSymbolicLink() && state.dev === entry.dev && state.ino === entry.ino
-}
-
-async function ensureOwnedDirectory(path: string, owned: OwnedEntry[]): Promise<void> {
-  try {
-    const state = await lstat(path)
-    if (!state.isDirectory() || state.isSymbolicLink()) throw new Error(`Catalog output directory is not a direct directory: ${path}`)
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
-    await mkdir(path)
-    const state = await lstat(path)
-    owned.push({ path, dev: state.dev, ino: state.ino })
-  }
-}
-
-async function publishOwnedJson(path: string, value: unknown, owned: OwnedEntry[]): Promise<void> {
-  const bytes = Buffer.concat([canonicalJsonBytes(value), Buffer.from('\n')])
-  let handle: Awaited<ReturnType<typeof open>>
-  try {
-    handle = await open(path, 'wx')
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
-    await inspectImmutableJson(path, value)
-    return
-  }
-  try {
-    const state = await handle.stat()
-    owned.push({ path, dev: state.dev, ino: state.ino })
-    await handle.writeFile(bytes)
-  } finally {
-    await handle.close()
-  }
-  if (!(await readFile(path)).equals(bytes)) throw new Error(`Immutable catalog document write did not retain exact bytes: ${path}`)
-}
-
-/** Publish wrapper-owned catalog documents and the Task 5 release as one failure-atomic operation. */
+/** Delegate public catalog documents and release outputs to one Task 5 transaction. */
 export async function assembleBuiltV09Candidate(options: AssembleBuiltV09CandidateOptions): Promise<Awaited<ReturnType<V09Assembler>>> {
   const catalogRoot = resolve(options.catalogRoot)
   const expectedPointer = resolve(catalogRoot, 'releases', 'candidate-v0.9.0.json')
   if (resolve(options.outputPointer) !== expectedPointer) throw new Error('Built candidate output pointer is not the explicit v0.9 candidate pointer.')
-  const documents = [
-    { path: resolve(catalogRoot, 'catalog', 'v0.9.0', 'trait-inventory.json'), value: options.candidate.traitInventory },
-    { path: resolve(catalogRoot, 'catalog', 'v0.9.0', 'skeleton-pool.json'), value: options.candidate.skeletonPool },
-  ]
-  const states = await Promise.all(documents.map(document => inspectImmutableJson(document.path, document.value)))
-  const activePointer = resolve(catalogRoot, 'releases', 'active-release.json')
-  const activeBefore = await optionalBytes(activePointer)
-  const ownedFiles: OwnedEntry[] = []
-  const ownedDirectories: OwnedEntry[] = []
-  try {
-    await ensureOwnedDirectory(resolve(catalogRoot, 'catalog'), ownedDirectories)
-    await ensureOwnedDirectory(resolve(catalogRoot, 'catalog', 'v0.9.0'), ownedDirectories)
-    for (const [index, document] of documents.entries()) {
-      if (states[index] === 'missing') await publishOwnedJson(document.path, document.value, ownedFiles)
-    }
-    const result = await (options.assembler ?? assembleV09Release)({ root: catalogRoot, candidate: options.candidate })
-    if (resolve(result.candidatePointerPath) !== expectedPointer) throw new Error('Assembler returned an unexpected candidate pointer path.')
-    const activeAfter = await optionalBytes(activePointer)
-    if (activeBefore === undefined ? activeAfter !== undefined : activeAfter === undefined || !activeAfter.equals(activeBefore)) {
-      throw new Error('active-release.json changed during non-activating candidate assembly.')
-    }
-    return result
-  } catch (error) {
-    const rollbackDiagnostics: string[] = []
-    for (const entry of ownedFiles.reverse()) {
-      try {
-        const state = await lstat(entry.path)
-        if (sameOwnedEntry(entry, state)) await unlink(entry.path)
-        else rollbackDiagnostics.push(`Ownership changed; preserved ${entry.path}`)
-      } catch (cleanup) {
-        if ((cleanup as NodeJS.ErrnoException).code !== 'ENOENT') rollbackDiagnostics.push(`Rollback failed for ${entry.path}: ${String(cleanup)}`)
-      }
-    }
-    for (const entry of ownedDirectories.reverse()) {
-      try {
-        const state = await lstat(entry.path)
-        if (sameOwnedEntry(entry, state)) await rmdir(entry.path)
-        else rollbackDiagnostics.push(`Ownership changed; preserved ${entry.path}`)
-      } catch (cleanup) {
-        if (!['ENOENT', 'ENOTEMPTY'].includes((cleanup as NodeJS.ErrnoException).code ?? '')) rollbackDiagnostics.push(`Rollback failed for ${entry.path}: ${String(cleanup)}`)
-      }
-    }
-    if (rollbackDiagnostics.length > 0 && error instanceof Error) Object.assign(error, {
-      rollbackDiagnostics: [...((error as Error & { rollbackDiagnostics?: string[] }).rollbackDiagnostics ?? []), ...rollbackDiagnostics],
-    })
-    throw error
-  }
+  const result = await (options.assembler ?? assembleV09Release)({ root: catalogRoot, candidate: options.candidate, publishCatalogDocuments: true })
+  if (resolve(result.candidatePointerPath) !== expectedPointer) throw new Error('Assembler returned an unexpected candidate pointer path.')
+  return result
 }
 
 /** Assemble the approved production candidate while proving the active pointer is untouched. */

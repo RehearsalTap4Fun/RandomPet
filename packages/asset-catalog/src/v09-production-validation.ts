@@ -25,9 +25,10 @@ const PLACEMENT_KEYS = new Set(['anchor', 'anchorx', 'anchory', 'x', 'y', 'offse
 const PATH_KEYS = new Set(['assetpath', 'path', 'url'])
 const MAX_ARRAY = 1024
 const MAX_RESOURCES = 8192
-type AssemblyStage = 'staging-create' | 'staged' | 'resource' | 'manifest' | 'audit' | 'pointer' | 'restore' | 'lock-before-move' | 'lock-after-move'
+type AssemblyStage = 'staging-create' | 'staged' | 'resource' | 'manifest' | 'audit' | 'pointer' | 'catalog-trait-inventory' | 'catalog-skeleton-pool' | 'catalog-revalidate' | 'restore' | 'lock-before-move' | 'lock-after-move'
 let assemblyFailureHook: ((stage: AssemblyStage) => void | Promise<void>) | undefined
 const processRootMutex = new Set<string>()
+const catalogAssemblyQueues = new Map<string, Promise<void>>()
 
 /** @internal deterministic failure seam for rollback tests; intentionally not re-exported by the package barrel. */
 export function __setV09AssemblyFailureHookForTest(hook?: (stage: AssemblyStage) => void | Promise<void>): void { assemblyFailureHook = hook }
@@ -125,7 +126,12 @@ export interface V09ReleaseCandidate {
   resources: V09ContentRecordV1[]
 }
 
-export interface AssembleV09ReleaseOptions { root: string; candidate: unknown }
+export interface AssembleV09ReleaseOptions {
+  root: string
+  candidate: unknown
+  /** Publish the two public v0.9 catalog documents inside the release transaction. */
+  publishCatalogDocuments?: true
+}
 
 type Pure = null | string | boolean | number | Uint8Array | Pure[] | { [key: string]: Pure }
 
@@ -794,7 +800,7 @@ interface JournalEntry { path: string; written: FileState; before?: FileState; m
 interface StagedFile { path: string; state: FileState; ref?: ContentResourceRef }
 
 /** Assemble the single verified snapshot through a call-owned staging transaction. */
-export async function assembleV09Release(options: AssembleV09ReleaseOptions): Promise<{ releaseManifestSha256: string; candidatePointerPath: string; auditPath: string }> {
+async function assembleV09ReleaseTransaction(options: AssembleV09ReleaseOptions): Promise<{ releaseManifestSha256: string; candidatePointerPath: string; auditPath: string }> {
   const parsed = await parseAndValidateV09Release(options?.candidate)
   if (parsed.diagnostics.length > 0 || parsed.candidate === undefined) throw Object.assign(new Error('V0.9 release candidate is invalid.'), { code: 'V09_RELEASE_INVALID', diagnostics: parsed.diagnostics })
   if (typeof options.root !== 'string' || options.root.length === 0) fail('RESOURCE_OUTSIDE_CATALOG_ROOT', 'Release root is required.')
@@ -817,6 +823,7 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
   const manifestHash = canonicalJsonSha256(candidate.releaseManifest)
   const pointerPath = join(root, 'releases', 'candidate-v0.9.0.json')
   const auditPath = join(root, 'audit', 'v0.9.0', 'release-' + manifestHash + '.json')
+  const activePath = join(root, 'releases', 'active-release.json')
   const attempt = async (label: string, action: () => Promise<void>) => { try { await action() } catch (cause) { cleanupCauses.push(cause); diagnostics.push(label + ': ' + String(cause), ...((cause as { rollbackDiagnostics?: string[] })?.rollbackDiagnostics ?? [])) } }
   const checkWrite = async (path: string) => {
     if (!contained(root, path) || !sameIdentity(rootIdentity, await lstat(root))) fail('RESOURCE_OUTSIDE_CATALOG_ROOT', 'Write root identity changed.')
@@ -843,7 +850,10 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
     if (!await matches(source.path, source.state)) fail('RESOURCE_HASH_MISMATCH', 'Staged resource changed before publication.')
     const before = await fileState(path)
     if (!mutable && before !== undefined) {
-      if (source.ref === undefined || !await verifyResource(source.ref, before.bytes)) fail('IMMUTABLE_CONTENT_CONFLICT', 'Conflicting immutable content: ' + path)
+      const exact = source.ref === undefined
+        ? before.digest === source.state.digest && before.bytes.equals(source.state.bytes)
+        : await verifyResource(source.ref, before.bytes)
+      if (!exact) fail('IMMUTABLE_CONTENT_CONFLICT', 'Conflicting immutable content: ' + path)
       return
     }
     const entry: JournalEntry = { path, written: source.state, mutable, ...(before === undefined ? {} : { before }) }
@@ -857,7 +867,10 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
       try { await link(source.path, path) } catch (error) {
         if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
         const raced = await fileState(path)
-        if (raced === undefined || source.ref === undefined || !await verifyResource(source.ref, raced.bytes)) fail('IMMUTABLE_CONTENT_CONFLICT', 'Conflicting immutable content created concurrently.')
+        const exact = raced !== undefined && (source.ref === undefined
+          ? raced.digest === source.state.digest && raced.bytes.equals(source.state.bytes)
+          : await verifyResource(source.ref, raced.bytes))
+        if (!exact) fail('IMMUTABLE_CONTENT_CONFLICT', 'Conflicting immutable content created concurrently.')
         return
       }
       journal.push(entry)
@@ -866,6 +879,7 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
   }
   try {
     lock = await acquireAssemblyLock(root, token)
+    const activeBefore = options.publishCatalogDocuments === true ? await fileState(activePath) : undefined
     await assemblyFailureHook?.('staging-create')
     await mkdir(staging); stagingIdentity = await lstat(staging)
     const resourceFiles: StagedFile[] = []
@@ -881,14 +895,32 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
       assemblyApprovals: candidate.assemblyApprovals.map(approval => ({ skeletonFamilyId: approval.skeletonFamilyId, assemblyApprovalSha256: canonicalOrEmpty(approval) })), result: 'valid',
     }))
     const pointerFile = await stage('pointer.json', jsonDisk({ schemaVersion: 'qmonster-active-release-v1', releaseManifestSha256: manifestHash }))
+    const catalogFiles = options.publishCatalogDocuments === true ? [
+      { stage: 'catalog-trait-inventory' as const, path: join(root, 'catalog', 'v0.9.0', 'trait-inventory.json'), file: await stage('trait-inventory.json', jsonDisk(candidate.traitInventory)) },
+      { stage: 'catalog-skeleton-pool' as const, path: join(root, 'catalog', 'v0.9.0', 'skeleton-pool.json'), file: await stage('skeleton-pool.json', jsonDisk(candidate.skeletonPool)) },
+    ] : []
     await assemblyFailureHook?.('staged')
     const resourceDirectory = await ensureDirectory(root, ['resources', 'by-sha256'])
     const manifestDirectory = await ensureDirectory(root, ['releases', 'by-sha256'])
     await ensureDirectory(root, ['audit', 'v0.9.0'])
+    if (catalogFiles.length > 0) await ensureDirectory(root, ['catalog', 'v0.9.0'])
+    for (const publication of catalogFiles) { await publish(publication.file, publication.path, false); await assemblyFailureHook?.(publication.stage) }
     for (const source of resourceFiles) { await publish(source, join(resourceDirectory, source.ref!.sha256), false); await assemblyFailureHook?.('resource') }
     await publish(manifestFile, join(manifestDirectory, manifestHash + '.json'), false); await assemblyFailureHook?.('manifest')
     await publish(auditFile, auditPath, true); await assemblyFailureHook?.('audit')
     await publish(pointerFile, pointerPath, true); await assemblyFailureHook?.('pointer')
+    if (catalogFiles.length > 0) {
+      await assemblyFailureHook?.('catalog-revalidate')
+      for (const publication of catalogFiles) {
+        const final = await fileState(publication.path)
+        if (final === undefined || final.digest !== publication.file.state.digest || !final.bytes.equals(publication.file.state.bytes)) fail('IMMUTABLE_CONTENT_CONFLICT', 'Catalog document changed before release commit: ' + publication.path)
+      }
+      const activeAfter = await fileState(activePath)
+      const activeUnchanged = activeBefore === undefined
+        ? activeAfter === undefined
+        : activeAfter !== undefined && activeAfter.digest === activeBefore.digest && activeAfter.bytes.equals(activeBefore.bytes)
+      if (!activeUnchanged) fail('IMMUTABLE_CONTENT_CONFLICT', 'active-release.json changed during non-activating candidate assembly.')
+    }
   } catch (cause) {
     original = cause; failed = true
     for (const entry of journal.reverse()) {
@@ -930,6 +962,27 @@ export async function assembleV09Release(options: AssembleV09ReleaseOptions): Pr
   }
   if (diagnostics.length > 0) throw Object.assign(new Error('Assembly cleanup did not finish.', { cause: new AggregateError(cleanupCauses, 'Assembly cleanup failures') }), { code: 'V09_ASSEMBLY_CLEANUP_FAILED', rollbackDiagnostics: diagnostics })
   return { releaseManifestSha256: manifestHash, candidatePointerPath: pointerPath, auditPath }
+}
+
+/**
+ * Catalog-publishing callers are serialized in-process before taking the existing
+ * filesystem release lock. Other callers retain the Task 5 fail-closed lock API.
+ */
+export async function assembleV09Release(options: AssembleV09ReleaseOptions): Promise<{ releaseManifestSha256: string; candidatePointerPath: string; auditPath: string }> {
+  if (options.publishCatalogDocuments !== true) return assembleV09ReleaseTransaction(options)
+  const target = resolve(options.root)
+  const key = process.platform === 'win32' ? target.toLowerCase() : target
+  const previous = catalogAssemblyQueues.get(key) ?? Promise.resolve()
+  let finish!: () => void
+  const current = new Promise<void>(resolve => { finish = resolve })
+  const tail = previous.catch(() => undefined).then(() => current)
+  catalogAssemblyQueues.set(key, tail)
+  await previous.catch(() => undefined)
+  try { return await assembleV09ReleaseTransaction(options) }
+  finally {
+    finish()
+    if (catalogAssemblyQueues.get(key) === tail) catalogAssemblyQueues.delete(key)
+  }
 }
 
 function jsonDisk(value: unknown): Buffer { return Buffer.concat([canonicalJsonBytes(value), Buffer.from('\n')]) }

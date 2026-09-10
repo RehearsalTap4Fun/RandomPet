@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { mkdtemp, mkdir, readFile, readdir, realpath, rename, rm, symlink, writeFile } from 'node:fs/promises'
+import { lstat, mkdtemp, mkdir, readFile, readdir, realpath, rename, rm, symlink, writeFile } from 'node:fs/promises'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { pathToFileURL } from 'node:url'
@@ -444,11 +444,27 @@ describe('v0.9 production validation', () => {
     const active = join(root, 'releases', 'active-release.json'); const sentinel = Buffer.from('do-not-touch')
     await mkdir(join(root, 'releases'), { recursive: true }); await writeFile(active, sentinel)
     try {
-      const candidate = await fixture(); const first = await assembleV09Release({ root, candidate }); const second = await assembleV09Release({ root, candidate })
+      const candidate = await fixture(); const first = await assembleV09Release({ root, candidate, publishCatalogDocuments: true }); const second = await assembleV09Release({ root, candidate, publishCatalogDocuments: true })
       expect(second.releaseManifestSha256).toBe(first.releaseManifestSha256)
       expect(await readFile(active)).toEqual(sentinel)
       expect(JSON.parse(await readFile(first.candidatePointerPath, 'utf8'))).toMatchObject({ schemaVersion: 'qmonster-active-release-v1', releaseManifestSha256: first.releaseManifestSha256 })
       await expect(readFile(first.auditPath)).resolves.toBeInstanceOf(Buffer)
+      await expect(readFile(join(root, 'catalog', 'v0.9.0', 'trait-inventory.json'))).resolves.toEqual(Buffer.concat([canonicalJsonBytes(candidate.traitInventory), Buffer.from('\n')]))
+      await expect(readFile(join(root, 'catalog', 'v0.9.0', 'skeleton-pool.json'))).resolves.toEqual(Buffer.concat([canonicalJsonBytes(candidate.skeletonPool), Buffer.from('\n')]))
+    } finally { await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it.each(['trait-inventory.json', 'skeleton-pool.json'] as const)('rolls the whole release back around a conflicting public %s', async conflictName => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-public-conflict-')); const candidate = await fixture()
+    const directory = join(root, 'catalog', 'v0.9.0'); const conflict = join(directory, conflictName); const active = join(root, 'releases', 'active-release.json')
+    await mkdir(directory, { recursive: true }); await mkdir(join(root, 'releases'), { recursive: true })
+    await writeFile(conflict, 'foreign-conflict'); await writeFile(active, 'active-sentinel')
+    const before = await files(root)
+    try {
+      await expect(assembleV09Release({ root, candidate, publishCatalogDocuments: true })).rejects.toMatchObject({ code: 'IMMUTABLE_CONTENT_CONFLICT' })
+      expect(await files(root)).toEqual(before)
+      expect(await readFile(conflict, 'utf8')).toBe('foreign-conflict')
+      expect(await readFile(active, 'utf8')).toBe('active-sentinel')
     } finally { await rm(root, { recursive: true, force: true }) }
   }, 30000)
 
@@ -485,5 +501,81 @@ describe('v0.9 production validation', () => {
       await expect(assembleV09Release({ root, candidate })).rejects.toMatchObject({ code: 'V09_ASSEMBLY_LOCKED' })
       unblock(); await expect(first).resolves.toMatchObject({ releaseManifestSha256: expect.any(String) })
     } finally { __setV09AssemblyFailureHookForTest(); await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it('serializes a second catalog publication until the failed owner has rolled back', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-catalog-handoff-')); const candidate = await fixture()
+    const trait = join(root, 'catalog', 'v0.9.0', 'trait-inventory.json'); const pool = join(root, 'catalog', 'v0.9.0', 'skeleton-pool.json')
+    let reached!: () => void; const published = new Promise<void>(resolve => { reached = resolve })
+    let release!: () => void; const held = new Promise<void>(resolve => { release = resolve })
+    let first = true
+    __setV09AssemblyFailureHookForTest(async stage => {
+      if (stage !== 'pointer' || !first) return
+      first = false; reached(); await held; throw new Error('first-owner-failure')
+    })
+    try {
+      const ownerA = assembleV09Release({ root, candidate, publishCatalogDocuments: true })
+      await published
+      expect(await readFile(trait)).toEqual(Buffer.concat([canonicalJsonBytes(candidate.traitInventory), Buffer.from('\n')]))
+      expect(await readFile(pool)).toEqual(Buffer.concat([canonicalJsonBytes(candidate.skeletonPool), Buffer.from('\n')]))
+      const ownerB = assembleV09Release({ root, candidate, publishCatalogDocuments: true })
+      release()
+      await expect(ownerA).rejects.toThrow('first-owner-failure')
+      await expect(ownerB).resolves.toMatchObject({ releaseManifestSha256: canonicalJsonSha256(candidate.releaseManifest) })
+      expect(await readFile(trait)).toEqual(Buffer.concat([canonicalJsonBytes(candidate.traitInventory), Buffer.from('\n')]))
+      expect(await readFile(pool)).toEqual(Buffer.concat([canonicalJsonBytes(candidate.skeletonPool), Buffer.from('\n')]))
+    } finally { release(); __setV09AssemblyFailureHookForTest(); await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it('preserves a same-inode foreign rewrite instead of unlinking it during rollback', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-catalog-inline-owner-')); const candidate = await fixture()
+    const trait = join(root, 'catalog', 'v0.9.0', 'trait-inventory.json'); const pool = join(root, 'catalog', 'v0.9.0', 'skeleton-pool.json')
+    let originalIdentity: { dev: number; ino: number } | undefined
+    __setV09AssemblyFailureHookForTest(async stage => {
+      if (stage !== 'pointer') return
+      const before = await lstat(trait); originalIdentity = { dev: before.dev, ino: before.ino }
+      await writeFile(trait, 'foreign-inline-rewrite')
+      const after = await lstat(trait)
+      expect({ dev: after.dev, ino: after.ino }).toEqual(originalIdentity)
+      throw new Error('rollback-after-inline-rewrite')
+    })
+    try {
+      await expect(assembleV09Release({ root, candidate, publishCatalogDocuments: true })).rejects.toThrow('rollback-after-inline-rewrite')
+      expect(await readFile(trait, 'utf8')).toBe('foreign-inline-rewrite')
+      await expect(readFile(pool)).rejects.toMatchObject({ code: 'ENOENT' })
+      await expect(readFile(join(root, 'releases', 'candidate-v0.9.0.json'))).rejects.toMatchObject({ code: 'ENOENT' })
+    } finally { __setV09AssemblyFailureHookForTest(); await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it.each(['inline', 'replacement'] as const)('rejects a %s catalog mutation before return and rolls release outputs back', async mode => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-catalog-revalidate-')); const candidate = await fixture()
+    const directory = join(root, 'catalog', 'v0.9.0'); const trait = join(directory, 'trait-inventory.json'); const pool = join(directory, 'skeleton-pool.json')
+    await mkdir(directory, { recursive: true })
+    await writeFile(trait, Buffer.concat([canonicalJsonBytes(candidate.traitInventory), Buffer.from('\n')]))
+    await writeFile(pool, Buffer.concat([canonicalJsonBytes(candidate.skeletonPool), Buffer.from('\n')]))
+    __setV09AssemblyFailureHookForTest(async stage => {
+      if (stage !== 'catalog-revalidate') return
+      if (mode === 'replacement') await rm(trait)
+      await writeFile(trait, `foreign-${mode}`)
+    })
+    try {
+      await expect(assembleV09Release({ root, candidate, publishCatalogDocuments: true })).rejects.toMatchObject({ code: 'IMMUTABLE_CONTENT_CONFLICT' })
+      expect(await readFile(trait, 'utf8')).toBe(`foreign-${mode}`)
+      expect(await readFile(pool)).toEqual(Buffer.concat([canonicalJsonBytes(candidate.skeletonPool), Buffer.from('\n')]))
+      await expect(readFile(join(root, 'releases', 'candidate-v0.9.0.json'))).rejects.toMatchObject({ code: 'ENOENT' })
+    } finally { __setV09AssemblyFailureHookForTest(); await rm(root, { recursive: true, force: true }) }
+  }, 30000)
+
+  it('makes normal concurrent exact catalog assemblies converge on one complete release', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'qmonster-v09-catalog-concurrent-')); const candidate = await fixture()
+    try {
+      const results = await Promise.all([
+        assembleV09Release({ root, candidate, publishCatalogDocuments: true }),
+        assembleV09Release({ root, candidate, publishCatalogDocuments: true }),
+      ])
+      expect(results[1]).toEqual(results[0])
+      await expect(readFile(join(root, 'catalog', 'v0.9.0', 'trait-inventory.json'))).resolves.toEqual(Buffer.concat([canonicalJsonBytes(candidate.traitInventory), Buffer.from('\n')]))
+      await expect(readFile(join(root, 'catalog', 'v0.9.0', 'skeleton-pool.json'))).resolves.toEqual(Buffer.concat([canonicalJsonBytes(candidate.skeletonPool), Buffer.from('\n')]))
+    } finally { await rm(root, { recursive: true, force: true }) }
   }, 30000)
 })
