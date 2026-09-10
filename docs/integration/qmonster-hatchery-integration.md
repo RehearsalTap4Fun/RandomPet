@@ -1,10 +1,10 @@
 # QMonster 生成器 × 怪奇生物孵化器对接指南
 
-> 文档版本：1.5
+> 文档版本：1.6
 > 最低生成器基线：`feature/qmonster-v0.1`
 > 新孵化默认目录版本：`0.8.0`
 > 新孵化默认渲染器版本：`0.8.0`
-> 更新日期：2026-09-08
+> 更新日期：2026-09-10
 
 ## 1. 目标与结论
 
@@ -27,6 +27,7 @@
 5. 新生成的 `MonsterSpec` 必须把 `genome`、`visualSlots`、`anatomyBundleId` 和 `speciesRigId` 作为同一份身份数据一起持久化。
 6. 新孵化默认加载 `0.8.0`；旧记录继续按其存储的 `catalogVersion` 与 `rendererVersion` 精确分派。
 7. `visualExtension.collectionRarity` 是孵化结果的收藏稀有度：普通（N）、稀有（R）、传说（L）。它由完整 Bundle、已选局部特征和 mutation/aberration 的最高稀有档确定，不得由 UI 自行猜测。
+8. v0.9 使用独立的 `toV09GenerationRequest` / `toIncubatorRecordV09` 边界；在 active release 尚未切换前，默认新孵化仍保持 v0.8，不能因为仓库中存在 v0.9 candidate 就自行升级。
 
 本文面向浏览器端孵化器。当前提供的“怪奇生物孵化器 (Copy).html”是保存后的页面外壳，其引用的 `_files/saved_resource.html` 没有随文件保存，因此本文按“孵化动作”定义稳定接入边界，不引用该页面中不可恢复的函数名或 DOM ID。
 
@@ -214,6 +215,91 @@ qmonster:{catalogVersion}:{rendererVersion}:{width}:{groundShadow}:{specSha256}
 ```
 
 `specSha256` 应对完整 `MonsterSpec` 的 canonical JSON 计算 SHA-256：对象键递归按键名排序，数组保持原顺序，字符串按 UTF-8 编码；可选字段缺失时保持缺失，不要自行写入 `undefined` 或 `null`。canonical 输入必须包含存在的 `genome` 及其 `genomeVersion`、全部槽位和 `P/H1/H2/H3`，因此两个表型相同但遗传身份不同的生物不能命中同一陈旧图片缓存。不能只用 `seed` 作为缓存键，因为相同 seed 在不同主题、模式、锁定特征或目录版本下可能产生不同结果。
+
+### 3.5 v0.9 原子骨架适配契约
+
+v0.9 不扩宽旧 `MonsterSpec` 或旧孵化记录。调用方必须先按版本元组选择独立入口：
+
+| 存储规格 | 精确版本字段 | 适配入口 |
+| --- | --- | --- |
+| v0.8 历史记录 | `schemaVersion=0.3.0`、`catalogVersion=0.8.0`、`rendererVersion=0.8.0` | `toIncubatorRecord`，继续走只读 v0.8 replay |
+| v0.9 新记录 | `schemaVersion=0.4.0`、`catalogVersion=0.9.0`、`generatorVersion=0.9.0` | `toIncubatorRecordV09` |
+| 混合、缺失、未知或同时携带 `rendererVersion` 的 v0.9 形状 | 不接受 | 返回失败的 `AdapterResult`，不返回部分记录 |
+
+早期 v0.9 设计稿和 Task 11 初稿曾把第三个字段写成 `rendererVersion`。已经审核冻结并由 generator、release loader 与 Creator 共同使用的实际合同是 `generatorVersion`；孵化器不得添加同义别名，也不得在读档时互相转换这两个字段。
+
+孵化器原始蛋输入仍使用已有的严格边界。以下是精确请求与归一化结果：
+
+```json
+{
+  "id": "egg-v09-001",
+  "theme": "deep_sea",
+  "seed": 42,
+  "risk": 1,
+  "mutationBonus": 1,
+  "archetype": "feline"
+}
+```
+
+```json
+{
+  "ok": true,
+  "value": {
+    "seed": "42",
+    "themeId": "deep-sea",
+    "speciesRigId": "feline-sit-v2"
+  }
+}
+```
+
+`toV09GenerationRequest` 的成功值恰好只有这三个字段。`deep_sea` 显式映射为 `deep-sea`，数字 seed 先转成字符串；`risk` 和 `mutationBonus` 只为兼容现有蛋输入 schema 而接受，不会变成 v0.9 的 mutation、aberration、结构覆盖、多头、鱼尾或独立肢体。非猫 archetype、未知字段、非有限数值和非法 seed 均失败关闭。
+
+`toIncubatorRecordV09(spec, resolvedCatalog)` 的成功记录使用以下精确形状；示例中的哈希和 ID 都必须替换为实际 active release 与实际生成结果，不能由调用方猜测：
+
+```json
+{
+  "ok": true,
+  "value": {
+    "seed": "adapter-v09-output",
+    "visualExtension": {
+      "schemaVersion": "0.4.0",
+      "catalogVersion": "0.9.0",
+      "generatorVersion": "0.9.0",
+      "releaseManifestSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "speciesRigId": "feline-sit-v2",
+      "skeletonFamilyId": "feline-sit-v2-core",
+      "assemblyTemplateId": "feline-sit-v2-core-template",
+      "skeletonSelection": {
+        "class": "base",
+        "candidateId": "feline-sit-v2-core",
+        "roll": 3
+      },
+      "visualSlots": {
+        "bodyColor": { "traitId": "body-color-example", "rarity": "common", "roll": 0 },
+        "surfacePattern": { "traitId": "surface-pattern-example", "rarity": "common", "roll": 0 },
+        "surfaceTexture": { "traitId": "surface-texture-example", "rarity": "common", "roll": 0 },
+        "forepawDetail": { "traitId": "forepaw-detail-example", "rarity": "common", "roll": 0 },
+        "hindpawDetail": { "traitId": "hindpaw-detail-example", "rarity": "common", "roll": 0 },
+        "tailSurface": { "traitId": "tail-surface-example", "rarity": "common", "roll": 0 },
+        "eyes": { "traitId": "eyes-example", "rarity": "common", "roll": 0 },
+        "mouthShape": { "traitId": "mouth-example", "rarity": "common", "roll": 0 },
+        "oralDetail": { "traitId": "oral-example", "rarity": "common", "roll": 0 },
+        "headAppendage": { "traitId": "head-appendage-example", "rarity": "common", "roll": 0 },
+        "extraAppendage": { "traitId": "extra-appendage-example", "rarity": "common", "roll": 0 },
+        "effect": { "traitId": "effect-example", "rarity": "common", "roll": 0 }
+      }
+    }
+  }
+}
+```
+
+适配器在成功前会校验：release manifest 的精确元组与内容身份、`speciesRig` 引用、骨架池 candidate/class、骨架家族、assembly template，以及十二个槽位中每个 `traitId/rarity` 对当前骨架与模板的唯一 sealed projection。关闭嘴只接受派生的普通 `oral-none`；张口嘴必须具有当前 `oralSocketClass` 的口腔投影。任何失败都返回 `{ "ok": false, "diagnostics": [...] }`，且结果中不存在 `value`。常见阻断 code 包括 `VERSION_TUPLE_MISMATCH`、`ADAPTER_SPEC_INVALID`、`RELEASE_MANIFEST_HASH_MISMATCH`、`RESOURCE_HASH_MISMATCH`、`SKELETON_PROJECTION_MISSING`、`ASSEMBLY_TEMPLATE_UNAPPROVED`、`TRAIT_SLOT_INCOMPATIBLE` 和 `ORAL_SOCKET_INCOMPATIBLE`。
+
+`releaseManifestSha256` 是 v0.9 记录的 release 身份。生产新孵化只能把 `active-release.json` 的哈希交给共享 release loader，再把得到的 `ResolvedV09Catalog` 传给适配器；不得扫描“最高版本”、按路径猜 manifest，或在 active 指针缺失/损坏时退回 candidate。内容资源使用 `sha256:<64 lowercase hex>` 的不可变 ID，记录只保存稳定身份，不保存本机路径或网络 URL。
+
+骨架重掷不是局部换皮：它推进 `skeletonSelection.roll`，重新选择完整 skeleton，并为新 skeleton 重新解析全部十二个 projection。持久化必须原子替换完整 `visualExtension`，不能保留旧骨架的某些 trait 对象。单槽重掷只推进该槽的 roll。适配器会深拷贝 `skeletonSelection` 和十二个 selection，调用方修改输出对象不会改变输入 spec。
+
+v0.8 兼容路径保持不变：旧记录仍保存 `rendererVersion`、14 个 `visualSlots`、可选 genome、Bundle/SpeciesRig 和 legacy 业务字段；不得补写 `generatorVersion`、`releaseManifestSha256`、v0.9 skeleton/template 或十二槽形状，也不得把旧记录送入 `toIncubatorRecordV09`。
 
 ## 4. 推荐适配层
 
@@ -639,6 +725,8 @@ v0.8 还记录 `archetypeId`、`anatomyBundleId` 与 `speciesRigId`。六个字�
 
 六个身份字段必须作为一个兼容性组合处理。孵化器不得在读档时直接覆写其中任一字段。
 
+v0.9 是独立合同：它使用 `schemaVersion`、`catalogVersion`、`generatorVersion`、`releaseManifestSha256`、`speciesRigId`、`skeletonFamilyId` 和 `assemblyTemplateId`，并保存完整 `skeletonSelection` 与十二个 `visualSlots`。这些字段必须整体比较、存储和恢复；这里没有 `rendererVersion` 别名。
+
 ### 8.2 兼容性表
 
 | `catalogVersion` | `rendererVersion` | 用途 | 加载行为 |
@@ -650,6 +738,8 @@ v0.8 还记录 `archetypeId`、`anatomyBundleId` 与 `speciesRigId`。六个字�
 | `0.5.0` | `0.5.0` | 旧记录恢复 | 调用 `loadCatalogV050`；仅使用单头和 `tail_none` / `tail_cat_long` / `tail_dog_long` |
 | `0.6.0` | `0.6.0` | 旧版猫科 Bundle 记录恢复 | 仅接受 `schemaVersion: '0.2.0'`、`archetypeId: 'feline'` 和目录内的 `anatomyBundleId` |
 | `0.8.0` | `0.8.0` | 新孵化默认；固定 SpeciesRig | 仅接受 `schemaVersion: '0.3.0'`、猫科 canonical Bundle 与 `speciesRigId: 'feline-sit-v1'` |
+
+v0.9 不复用上表的 legacy `rendererVersion` 列：它的精确组合是 `catalogVersion=0.9.0`、`generatorVersion=0.9.0`、`schemaVersion=0.4.0`，并且必须通过 active release manifest hash 解析。在 Task 12 原子激活之前，它不是默认新孵化版本。
 
 只支持同版本的精确组合。`0.3.0`、`0.4.0`、`0.5.0`、`0.6.0`、`0.8.0` 的目录与渲染器不得交叉使用；未注册的版本应进入 `UNSUPPORTED_VERSION`，不能静默回退。
 

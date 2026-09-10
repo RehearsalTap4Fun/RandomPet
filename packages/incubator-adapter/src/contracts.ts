@@ -1,8 +1,10 @@
 import type {
   AnimalArchetypeId,
   Diagnostic,
+  MonsterSpecV09,
   MonsterSpec,
   Rarity,
+  ThemeId,
 } from '@qmonster/generator-core'
 
 export type AdapterResult<T> =
@@ -36,4 +38,25 @@ export interface IncubatorCreatureRecord {
     | 'visualSlots'
     | 'genome'
   > & { collectionRarity: Rarity }
+}
+
+export interface IncubatorGenerationRequestV09 {
+  seed: string
+  themeId: ThemeId
+  speciesRigId: 'feline-sit-v2'
+}
+
+export interface IncubatorCreatureRecordV09 {
+  seed: string
+  visualExtension: Pick<
+    MonsterSpecV09,
+    | 'schemaVersion'
+    | 'catalogVersion'
+    | 'generatorVersion'
+    | 'speciesRigId'
+    | 'skeletonFamilyId'
+    | 'assemblyTemplateId'
+    | 'skeletonSelection'
+    | 'visualSlots'
+  > & { releaseManifestSha256: string }
 }
