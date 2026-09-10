@@ -23,6 +23,14 @@ const approvalSchema = z.strictObject({
   fixedOccluderMasksSha256: digestSchema, attachmentAllowlistSha256: digestSchema, compositionGraphSha256: digestSchema, overlaySha256: digestSchema,
   approvedBy: z.literal('project-owner'), approvedAt: z.iso.datetime({ offset: true }), approvalRevision: z.number().int().positive(), status: z.literal('approved'),
 })
+const activeAttachmentAllowlistSchema = z.strictObject({
+  schemaVersion: z.literal('qmonster-approved-attachment-allowlist-v1'),
+  entries: z.array(z.strictObject({
+    skeletonFamilyId: z.string().min(1), interfaceId: z.string().min(1),
+    shapeClass: z.enum(['ear-horn-small', 'ear-ornament', 'mane-small', 'collar']),
+    sealedArtifactSha256: digestSchema, traitVisualApprovalSha256: digestSchema,
+  })).min(1),
+})
 type ReviewBinding = Pick<AssemblyApprovalV1, 'skeletonFamilyId' | 'assemblyTemplateId' | 'assemblyTemplateSha256' | 'neutralMasterSha256' | 'materialMapSha256' | 'fixedOccluderMasksSha256' | 'compositionGraphSha256' | 'overlaySha256'> & { maskSetSha256: string; attachmentInterfacesSha256: string }
 type ReviewIndex = { report: PngResourceRef; families: ReviewBinding[] }
 export type CombinedTraitReview = { reportSha256: string; reviewIndexSha256: string; approvalPlanSha256: string }
@@ -55,14 +63,14 @@ function approvalEvidence(index: ReviewIndex, approvals: AssemblyApprovalV1[], a
 export function approvalBindingErrors(approvalsInput: unknown, evidence: unknown, allowlist: unknown, index: ReviewIndex, combinedTraitReview?: CombinedTraitReview): string[] {
   const parsed = z.array(approvalSchema).length(2).safeParse(approvalsInput)
   if (!parsed.success) return ['Assembly approvals must be two strict owner-approved records']
-  const parsedAllowlist = allowlist as ApprovedAttachmentAllowlistV1
-  const revision = parsed.data[0]!.approvalRevision
-  const expected = approvalsForReview(index, parsed.data[0]!.approvedAt, revision, parsedAllowlist)
+  const parsedAllowlist = activeAttachmentAllowlistSchema.safeParse(allowlist)
+  if (!parsedAllowlist.success) return ['Active revision-3 approval requires a strict nonempty approved attachment allowlist']
+  const expected = approvalsForReview(index, parsed.data[0]!.approvedAt, 3, parsedAllowlist.data)
   const errors: string[] = []
-  if (!parsed.data.every(item => item.approvalRevision === revision) || (revision === 3) !== (combinedTraitReview !== undefined)) errors.push('Assembly approval revision does not match its combined review evidence')
+  if (!parsed.data.every(item => item.approvalRevision === 3)) errors.push('Active assembly approval revision must be exactly 3')
+  if (combinedTraitReview === undefined) errors.push('Active revision-3 approval requires current combined trait-review evidence')
   if (!equal(parsed.data, expected)) errors.push('Assembly approval identity or timestamp differs from reviewed master bindings')
-  if (revision === 2 && !equal(allowlist, EMPTY_ATTACHMENT_ALLOWLIST)) errors.push('Revision-2 cannot approve unreviewed attachment artifacts')
-  if (!equal(evidence, approvalEvidence(index, expected, parsedAllowlist, combinedTraitReview))) errors.push('Approved review evidence no longer binds the complete mask/interface/report set')
+  if (!equal(evidence, approvalEvidence(index, expected, parsedAllowlist.data, combinedTraitReview))) errors.push('Approved review evidence no longer binds the complete mask/interface/report set')
   return errors
 }
 
@@ -79,8 +87,8 @@ export async function approveFelineMasters(input: { reportSha256: string; approv
   if (errors.length) throw new Error(errors.join('\n'))
   const index: ReviewIndex = JSON.parse(await readFile(INDEX, 'utf8'))
   if (index.report.sha256 !== input.reportSha256) throw new Error('Owner approval does not match this review PNG')
-  const approvalRevision = input.approvalRevision ?? 2
-  if ((approvalRevision === 3) !== (input.combinedTraitReview !== undefined)) throw new Error('Revision-3 approval requires exact combined trait-review evidence')
+  const approvalRevision = input.approvalRevision ?? 3
+  if (approvalRevision !== 3 || input.combinedTraitReview === undefined) throw new Error('Active approval requires exact revision 3 and combined trait-review evidence')
   if (input.combinedTraitReview !== undefined && !equal(input.combinedTraitReview, await currentCombinedTraitReview())) throw new Error('Combined trait-review evidence differs from current reviewed closure')
   const allowlist = JSON.parse(await readFile(`${ROOT}/approvals/attachment-allowlist.json`, 'utf8')) as ApprovedAttachmentAllowlistV1
   const approvals = approvalsForReview(index, input.approvedAt, approvalRevision, allowlist)
@@ -496,7 +504,7 @@ export async function validateFelineMasters(options: { requireApproval?: boolean
     const evidence = JSON.parse(await readFile(`${ROOT}/approvals/approved-master-review.json`, 'utf8'))
     const allowlist = JSON.parse(await readFile(`${ROOT}/approvals/attachment-allowlist.json`, 'utf8')) as ApprovedAttachmentAllowlistV1
     activeAttachmentAllowlist = allowlist
-    const combined = approvals[0]?.approvalRevision === 3 ? await currentCombinedTraitReview() : undefined
+    const combined = await currentCombinedTraitReview()
     errors.push(...approvalBindingErrors(approvals, evidence, allowlist, index, combined))
   } else if (options.requireApproval) errors.push('Explicit owner approval records are required')
   const diagnostics = await productionContractDiagnostics(families, templates, pngs, approvals, activeAttachmentAllowlist)
@@ -511,7 +519,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   const approvalFlag = process.argv.indexOf('--approve-at'), reviewFlag = process.argv.indexOf('--review-sha256')
   if (approvalFlag !== -1 || reviewFlag !== -1) {
     if (approvalFlag === -1 || reviewFlag === -1) throw new Error('Approval requires both --approve-at and --review-sha256')
-    await approveFelineMasters({ approvedAt: process.argv[approvalFlag + 1]!, reportSha256: process.argv[reviewFlag + 1]! })
+    await approveFelineMasters({ approvedAt: process.argv[approvalFlag + 1]!, reportSha256: process.argv[reviewFlag + 1]!, approvalRevision: 3, combinedTraitReview: await currentCombinedTraitReview() })
   }
   const errors = await validateFelineMasters()
   if (errors.length) { console.error(errors.join('\n')); process.exitCode = 1 } else console.log(await readApprovals() ? 'APPROVED: exact owner-approved feline master bindings verified.' : 'NEEDS_APPROVAL: two masters, deterministic masks/templates and one hash-bound review report prepared.')

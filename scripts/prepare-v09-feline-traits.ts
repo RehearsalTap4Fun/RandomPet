@@ -26,7 +26,7 @@ import {
   type V09TraitRarity,
   type V09TraitSlotId,
 } from '../packages/generator-core/src/v09-contracts.js'
-import { approveFelineMasters, MOUTH_SOCKET_PARENT_TRAIT_IDS, prepareFelineMasters, validateFelineMasters, type CombinedTraitReview } from './prepare-v09-feline-masters.js'
+import { approvalBindingErrors, approveFelineMasters, MOUTH_SOCKET_PARENT_TRAIT_IDS, prepareFelineMasters, validateFelineMasters, type CombinedTraitReview } from './prepare-v09-feline-masters.js'
 
 const SIZE = 2048
 const PIXELS = SIZE * SIZE
@@ -885,7 +885,13 @@ export type PreparedTraitSummary = {
   failures: string[]
 }
 
-export async function validatePreparedFelineTraits(options: { workspaceRoot?: string; deterministicRebuild?: boolean } = {}): Promise<PreparedTraitSummary> {
+export type Task8ApprovalSnapshot = {
+  assemblyApprovals: unknown
+  evidence: unknown
+  attachmentAllowlist: ApprovedAttachmentAllowlistV1
+}
+
+export async function validatePreparedFelineTraits(options: { workspaceRoot?: string; deterministicRebuild?: boolean; approvalSnapshot?: Task8ApprovalSnapshot } = {}): Promise<PreparedTraitSummary> {
   const workspaceRoot = resolve(options.workspaceRoot ?? process.cwd()), failures: string[] = []
   const check = (condition: unknown, message: string) => { if (!condition) failures.push(message) }
   const inventory = JSON.parse(await readFile(absolute(workspaceRoot, `${SOURCE_ROOT}/trait-inventory.json`), 'utf8'))
@@ -904,7 +910,7 @@ export async function validatePreparedFelineTraits(options: { workspaceRoot?: st
   try { await access(absolute(workspaceRoot, `${SOURCE_ROOT}/approvals/assembly-approvals.json`)); hasAssemblyApprovals = true }
   catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error }
   check(hasAssemblyApprovals === isApproved, isApproved ? 'Revision-3 assembly approvals are absent after combined owner review' : 'Revision-3 assembly approvals exist before combined owner review')
-  const allowlist = JSON.parse(await readFile(absolute(workspaceRoot, `${SOURCE_ROOT}/approvals/attachment-allowlist.json`), 'utf8'))
+  const allowlist = options.approvalSnapshot?.attachmentAllowlist ?? JSON.parse(await readFile(absolute(workspaceRoot, `${SOURCE_ROOT}/approvals/attachment-allowlist.json`), 'utf8'))
   check(allowlist.schemaVersion === 'qmonster-approved-attachment-allowlist-v1' && allowlist.entries.length === (isApproved ? 52 : 0), 'Active attachment allowlist does not match approval state')
   const approvalByArtifact = new Map<string, { approval: TraitVisualApprovalV1; sha256: string }>()
   if (isApproved) {
@@ -926,6 +932,14 @@ export async function validatePreparedFelineTraits(options: { workspaceRoot?: st
       ...candidate, traitVisualApprovalSha256: approvalByArtifact.get(`${candidate.skeletonFamilyId}:${candidate.sealedArtifactSha256}`)?.sha256,
     }))
     check(canonicalJsonSha256(allowlist.entries) === canonicalJsonSha256(expectedAllowlist), 'Active attachment allowlist differs from the exact approved candidates')
+    const masterReviewIndex = JSON.parse(await readFile(absolute(workspaceRoot, `${SOURCE_ROOT}/review/master-overlay-review.index.json`), 'utf8'))
+    const currentCombinedTraitReview: CombinedTraitReview = {
+      reportSha256: index.report.sha256, reviewIndexSha256: canonicalJsonSha256(index), approvalPlanSha256: canonicalJsonSha256(plan),
+    }
+    const assemblyApprovals = options.approvalSnapshot?.assemblyApprovals ?? JSON.parse(await readFile(absolute(workspaceRoot, `${SOURCE_ROOT}/approvals/assembly-approvals.json`), 'utf8'))
+    const evidence = options.approvalSnapshot?.evidence ?? JSON.parse(await readFile(absolute(workspaceRoot, `${SOURCE_ROOT}/approvals/approved-master-review.json`), 'utf8'))
+    const approvalGateErrors = approvalBindingErrors(assemblyApprovals, evidence, allowlist, masterReviewIndex, currentCombinedTraitReview)
+    check(approvalGateErrors.length === 0, `Revision-3 active approval gate failed: ${approvalGateErrors.join('; ')}`)
     const masterErrors = await validateFelineMasters({ requireApproval: true })
     check(masterErrors.length === 0, `Revision-3 master approval validation failed: ${masterErrors.join('; ')}`)
   }

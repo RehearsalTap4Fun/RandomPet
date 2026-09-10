@@ -114,7 +114,7 @@ describe('v0.9 feline masters approved combined revision-3 review', () => {
     expect(approvals.map((item: { approvalRevision: number; status: string; approvedBy: string }) => [item.approvalRevision, item.status, item.approvedBy])).toEqual([[2, 'approved', 'project-owner'], [2, 'approved', 'project-owner']])
     expect(evidence.reviewIndexSha256).toBe('ee010c378c183e879d5ea85d4b372bd1909c7e3b3013c2c6ec7efe842a897016')
     expect(evidence.report.sha256).toBe('c1da927ab6e23bd3ad55a7146ad9fd7c27690025a95dcd54198c6c8fbd58cbd7')
-    expect(approvalBindingErrors(approvals, evidence, allowlist, historicalIndex)).toEqual([])
+    expect(approvalBindingErrors(approvals, evidence, allowlist, historicalIndex).length).toBeGreaterThan(0)
     expect(approvalBindingErrors(approvals, evidence, allowlist, index).length).toBeGreaterThan(0)
     const superseded = await readJson('approval-history/revision-2/superseded.json')
     expect(superseded).toMatchObject({ status: 'superseded', supersededRevision: 2, nextRevision: 3 })
@@ -127,4 +127,14 @@ describe('v0.9 feline masters approved combined revision-3 review', () => {
       }
     }
   }, 120_000)
+  it('rejects empty allowlists and superseded records at the active revision-3 gate', async () => {
+    const readJson = async (path: string) => JSON.parse(await readFile(`asset-source/v0.9.0/feline/${path}`, 'utf8'))
+    const approvals = await readJson('approvals/assembly-approvals.json')
+    const evidence = await readJson('approvals/approved-master-review.json')
+    const index = await readJson('review/master-overlay-review.index.json')
+    const combined = evidence.combinedTraitReview
+    expect(approvalBindingErrors(approvals, evidence, { schemaVersion: 'qmonster-approved-attachment-allowlist-v1', entries: [] }, index, combined)).toContain('Active revision-3 approval requires a strict nonempty approved attachment allowlist')
+    const superseded = approvals.map((approval: Record<string, unknown>) => ({ ...approval, status: 'superseded' }))
+    expect(approvalBindingErrors(superseded, evidence, await readJson('approvals/attachment-allowlist.json'), index, combined)).toContain('Assembly approvals must be two strict owner-approved records')
+  })
 })

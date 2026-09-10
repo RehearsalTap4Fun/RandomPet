@@ -10,6 +10,7 @@ import {
   reportCopyMatches,
   validatePreparedFelineTraits,
 } from './prepare-v09-feline-traits.js'
+import { approvalBindingErrors } from './prepare-v09-feline-masters.js'
 
 const EXPECTED_IDS = {
   bodyColor: {
@@ -259,4 +260,22 @@ describe('v0.9 feline trait production', () => {
       await access(`asset-source/v0.9.0/feline/approval-history/${revision}/${name}`)
     }
   })
+
+  it.each([1, 2, 4])('rejects recomputed revision-%i active approval data without combined review evidence', async approvalRevision => {
+    const readJson = async (path: string) => JSON.parse(await readFile(path, 'utf8'))
+    const assemblies = await readJson('asset-source/v0.9.0/feline/approvals/assembly-approvals.json')
+    const evidence = await readJson('asset-source/v0.9.0/feline/approvals/approved-master-review.json')
+    const attachmentAllowlist = await readJson('asset-source/v0.9.0/feline/approvals/attachment-allowlist.json')
+    const masterReviewIndex = await readJson('asset-source/v0.9.0/feline/review/master-overlay-review.index.json')
+    const tamperedAssemblies = assemblies.map((approval: Record<string, unknown>) => ({ ...approval, approvalRevision }))
+    const tamperedEvidence = { ...evidence, approvalRevision, assemblyApprovalsSha256: canonicalJsonSha256(tamperedAssemblies) }
+    delete tamperedEvidence.combinedTraitReview
+    expect(approvalBindingErrors(tamperedAssemblies, tamperedEvidence, attachmentAllowlist, masterReviewIndex)).not.toEqual([])
+    const result = await validatePreparedFelineTraits({
+      workspaceRoot: process.cwd(),
+      deterministicRebuild: false,
+      approvalSnapshot: { assemblyApprovals: tamperedAssemblies, evidence: tamperedEvidence, attachmentAllowlist },
+    })
+    expect(result.failures.some(failure => failure.includes('Revision-3 active approval gate'))).toBe(true)
+  }, 180_000)
 })
