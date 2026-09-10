@@ -1,5 +1,7 @@
 import { canonicalJsonSha256, decodedPngSha256 } from '../../packages/asset-catalog/src/v09-content-identity.js'
-import { copyFile, lstat, mkdir, open, readdir, realpath } from 'node:fs/promises'
+import { randomUUID } from 'node:crypto'
+import type { Stats } from 'node:fs'
+import { lstat, mkdir, open, readdir, realpath, rename, rm, writeFile } from 'node:fs/promises'
 import { isAbsolute, join, relative, resolve } from 'node:path'
 import type { Plugin } from 'vite'
 
@@ -28,6 +30,26 @@ async function canonicalDirectory(root: string): Promise<string> {
   return realpath(root)
 }
 
+function sameFileState(left: Stats, right: Stats): boolean {
+  return left.dev === right.dev && left.ino === right.ino && left.size === right.size
+    && left.mtimeMs === right.mtimeMs && left.ctimeMs === right.ctimeMs
+}
+
+type StableReadStage = 'after-precheck' | 'after-open' | 'after-read'
+type StableReadHook = (stage: StableReadStage, hash: string) => void | Promise<void>
+let stableReadHook: StableReadHook | undefined
+
+export function __setV09ContentReadHookForTest(hook: StableReadHook | undefined): void {
+  stableReadHook = hook
+}
+
+async function verifyContentIdentity(bytes: Buffer, hash: string): Promise<void> {
+  const actual = bytes.subarray(0, PNG_SIGNATURE.length).equals(PNG_SIGNATURE)
+    ? await decodedPngSha256(bytes)
+    : canonicalJsonSha256(JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)) as unknown)
+  if (actual !== hash) return failure('CONTENT_RESOURCE_HASH_MISMATCH', 'Content resource body does not match its identity.')
+}
+
 export async function readVerifiedContentResource(root: string, hash: string): Promise<Buffer> {
   if (!CONTENT_HASH.test(hash)) return failure('CONTENT_RESOURCE_INVALID', 'Content resource ID must be one lowercase SHA-256 digest.')
   const canonicalRoot = await canonicalDirectory(root)
@@ -37,22 +59,29 @@ export async function readVerifiedContentResource(root: string, hash: string): P
     if (!direct.isFile() || direct.isSymbolicLink()) return failure('CONTENT_RESOURCE_OUTSIDE_ROOT', 'Content resource must be a direct file.')
     const firstRealPath = await realpath(candidate)
     if (!isContained(canonicalRoot, firstRealPath)) return failure('CONTENT_RESOURCE_OUTSIDE_ROOT', 'Content resource escaped its canonical root.')
+    await stableReadHook?.('after-precheck', hash)
     const handle = await open(firstRealPath, 'r')
     try {
       const before = await handle.stat()
       if (!before.isFile()) return failure('CONTENT_RESOURCE_OUTSIDE_ROOT', 'Opened content resource is not a file.')
+      if (!sameFileState(direct, before)) return failure('CONTENT_RESOURCE_CHANGED', 'Content resource identity changed before it was opened.')
+      await stableReadHook?.('after-open', hash)
       const bytes = await handle.readFile()
+      await stableReadHook?.('after-read', hash)
       const after = await handle.stat()
       const finalDirect = await lstat(candidate)
       const finalRealPath = await realpath(candidate)
       if (!finalDirect.isFile() || finalDirect.isSymbolicLink() || finalRealPath !== firstRealPath
-        || before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size || before.mtimeMs !== after.mtimeMs) {
+        || !sameFileState(before, after) || !sameFileState(direct, finalDirect)) {
         return failure('CONTENT_RESOURCE_CHANGED', 'Content resource changed while it was being read.')
       }
-      const actual = bytes.subarray(0, PNG_SIGNATURE.length).equals(PNG_SIGNATURE)
-        ? await decodedPngSha256(bytes)
-        : canonicalJsonSha256(JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)) as unknown)
-      if (actual !== hash) return failure('CONTENT_RESOURCE_HASH_MISMATCH', 'Content resource body does not match its identity.')
+      await verifyContentIdentity(bytes, hash)
+      const verifiedDirect = await lstat(candidate)
+      const verifiedRealPath = await realpath(candidate)
+      if (!verifiedDirect.isFile() || verifiedDirect.isSymbolicLink() || verifiedRealPath !== firstRealPath
+        || !sameFileState(direct, verifiedDirect)) {
+        return failure('CONTENT_RESOURCE_CHANGED', 'Content resource changed while its identity was being verified.')
+      }
       return bytes
     } finally {
       await handle.close()
@@ -64,17 +93,55 @@ export async function readVerifiedContentResource(root: string, hash: string): P
   }
 }
 
-async function copyContentStore(sourceRoot: string, outputRoot: string): Promise<void> {
-  const canonicalRoot = await canonicalDirectory(sourceRoot)
-  const output = join(outputRoot, 'v09-resources')
-  await mkdir(output, { recursive: true })
-  for (const hash of await readdir(sourceRoot)) {
-    if (!CONTENT_HASH.test(hash)) return failure('CONTENT_RESOURCE_INVALID', 'Content store contains a non-content filename.')
-    const source = join(sourceRoot, hash)
-    const entry = await lstat(source)
-    const canonicalSource = await realpath(source)
-    if (!entry.isFile() || entry.isSymbolicLink() || !isContained(canonicalRoot, canonicalSource)) return failure('CONTENT_RESOURCE_OUTSIDE_ROOT', 'Content store contains an indirect file.')
-    await copyFile(canonicalSource, join(output, hash))
+async function directDirectoryExists(path: string): Promise<boolean> {
+  try {
+    const entry = await lstat(path)
+    if (!entry.isDirectory() || entry.isSymbolicLink()) return failure('CONTENT_RESOURCE_OUTSIDE_ROOT', 'Published content store must be a direct directory.')
+    return true
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return false
+    throw error
+  }
+}
+
+export async function publishVerifiedContentStore(sourceRoot: string, outputRoot: string): Promise<void> {
+  await canonicalDirectory(sourceRoot)
+  await mkdir(outputRoot, { recursive: true })
+  const canonicalOutput = await canonicalDirectory(outputRoot)
+  const nonce = `${process.pid}-${randomUUID()}`
+  const staging = join(canonicalOutput, `.v09-resources-staging-${nonce}`)
+  const published = join(canonicalOutput, 'v09-resources')
+  const backup = join(canonicalOutput, `.v09-resources-backup-${nonce}`)
+  const hashes = (await readdir(sourceRoot)).sort()
+  if (hashes.some(hash => !CONTENT_HASH.test(hash))) return failure('CONTENT_RESOURCE_INVALID', 'Content store contains a non-content filename.')
+  await mkdir(staging)
+  try {
+    let nextIndex = 0
+    const publishNext = async (): Promise<void> => {
+      while (nextIndex < hashes.length) {
+        const index = nextIndex
+        nextIndex += 1
+        const hash = hashes[index]!
+        const bytes = await readVerifiedContentResource(sourceRoot, hash)
+        const partial = join(staging, `.${hash}.partial`)
+        await writeFile(partial, bytes, { flag: 'wx' })
+        await rename(partial, join(staging, hash))
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(4, hashes.length) }, publishNext))
+
+    const hadPublished = await directDirectoryExists(published)
+    if (hadPublished) await rename(published, backup)
+    try {
+      await rename(staging, published)
+    } catch (error) {
+      if (hadPublished) await rename(backup, published)
+      throw error
+    }
+    if (hadPublished) await rm(backup, { recursive: true, force: true })
+  } catch (error) {
+    await rm(staging, { recursive: true, force: true })
+    throw error
   }
 }
 
@@ -98,7 +165,7 @@ export function qmonsterContentResources(sourceRoot: string): Plugin {
     },
     async writeBundle(options) {
       if (options.dir === undefined) return failure('CONTENT_RESOURCE_INVALID', 'Vite output directory is required.')
-      await copyContentStore(sourceRoot, options.dir)
+      await publishVerifiedContentStore(sourceRoot, options.dir)
     },
   }
 }

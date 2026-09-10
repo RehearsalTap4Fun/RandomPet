@@ -231,7 +231,7 @@ export async function loadActiveProductionRelease(options: ProductionReleaseDocu
 
 export function bundledV09ResourceUrl(sha256: string): Promise<string> {
   if (!HASH.test(sha256)) return Promise.reject(new ProductionReleaseError('RESOURCE_HASH_MISMATCH', 'Invalid resource digest.'))
-  return Promise.resolve(`/v09-resources/${sha256}`)
+  return Promise.resolve(`${import.meta.env.BASE_URL}v09-resources/${sha256}`)
 }
 export async function bundledV09ResourceBytes(sha256: string): Promise<Uint8Array> {
   const response = await fetch(await bundledV09ResourceUrl(sha256)); if (!response.ok) return fail('RESOURCE_HASH_MISMATCH', `Resource request failed: ${response.status}`)

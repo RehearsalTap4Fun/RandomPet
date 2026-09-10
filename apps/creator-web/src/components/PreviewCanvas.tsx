@@ -118,8 +118,7 @@ export function resolveProductionV09ResourceUrl(sha256: string): Promise<string>
 
 interface ProductionV09ResolverOptions {
   loadResourceBytes?: (resourceId: string) => Promise<Uint8Array>
-  maxPngEntries?: number
-  maxJsonEntries?: number
+  maxCacheBytes?: number
 }
 
 export interface ProductionV09ResourceResolver extends V09ResourceResolver {
@@ -224,32 +223,50 @@ function cacheLimit(value: number | undefined, fallback: number): number {
   return value
 }
 
-function closeDrawable(drawable: CanvasImageSource): void {
-  const close = (drawable as { close?: unknown }).close
-  if (typeof close === 'function') close.call(drawable)
-}
-
 export function createProductionV09ResourceResolver(options: ProductionV09ResolverOptions = {}): ProductionV09ResourceResolver {
   const loadBytes = options.loadResourceBytes ?? (resourceId => bundledV09ResourceBytes(resourceId.slice('sha256:'.length)))
-  const maxPngEntries = cacheLimit(options.maxPngEntries, 32)
-  const maxJsonEntries = cacheLimit(options.maxJsonEntries, 256)
-  const pngCache = new Map<string, Promise<{ pixels: Uint8Array; drawable: CanvasImageSource }>>()
-  const jsonCache = new Map<string, Promise<{ sha256: string; value: unknown }>>()
-  const touch = <T,>(cache: Map<string, T>, key: string, value: T): void => { cache.delete(key); cache.set(key, value) }
-  const trimPngCache = (): void => {
-    while (pngCache.size > maxPngEntries) {
-      const oldest = pngCache.entries().next().value as [string, Promise<{ pixels: Uint8Array; drawable: CanvasImageSource }>] | undefined
-      if (oldest === undefined) return
-      pngCache.delete(oldest[0])
-      void oldest[1].then(value => closeDrawable(value.drawable), () => undefined)
-    }
+  const maxCacheBytes = cacheLimit(options.maxCacheBytes, 64 * 1024 * 1024)
+  const byteCache = new Map<string, Uint8Array>()
+  const pendingLoads = new Map<string, { lifecycle: number; promise: Promise<Uint8Array> }>()
+  let retainedBytes = 0
+  let lifecycle = 0
+  const cachedBytes = (resourceId: string): Uint8Array | undefined => {
+    const bytes = byteCache.get(resourceId)
+    if (bytes === undefined) return undefined
+    byteCache.delete(resourceId)
+    byteCache.set(resourceId, bytes)
+    return bytes
   }
-  const trimJsonCache = (): void => {
-    while (jsonCache.size > maxJsonEntries) {
-      const oldest = jsonCache.keys().next().value as string | undefined
-      if (oldest === undefined) return
-      jsonCache.delete(oldest)
+  const retainVerifiedBytes = (resourceId: string, bytes: Uint8Array, observedLifecycle: number): void => {
+    if (observedLifecycle !== lifecycle || bytes.byteLength > maxCacheBytes) return
+    const previous = byteCache.get(resourceId)
+    if (previous !== undefined) {
+      retainedBytes -= previous.byteLength
+      byteCache.delete(resourceId)
     }
+    while (retainedBytes + bytes.byteLength > maxCacheBytes) {
+      const oldest = byteCache.entries().next().value as [string, Uint8Array] | undefined
+      if (oldest === undefined) break
+      byteCache.delete(oldest[0])
+      retainedBytes -= oldest[1].byteLength
+    }
+    byteCache.set(resourceId, bytes)
+    retainedBytes += bytes.byteLength
+  }
+  const ownedBytes = async (resourceId: string): Promise<{ bytes: Uint8Array; lifecycle: number; cached: boolean }> => {
+    const existing = cachedBytes(resourceId)
+    if (existing !== undefined) return { bytes: existing, lifecycle, cached: true }
+    const observedLifecycle = lifecycle
+    let pending = pendingLoads.get(resourceId)
+    if (pending === undefined || pending.lifecycle !== observedLifecycle) {
+      const promise = loadBytes(resourceId).then(bytes => bytes.slice())
+      pending = { lifecycle: observedLifecycle, promise }
+      pendingLoads.set(resourceId, pending)
+      void promise.finally(() => {
+        if (pendingLoads.get(resourceId)?.promise === promise) pendingLoads.delete(resourceId)
+      }).catch(() => undefined)
+    }
+    return { bytes: await pending.promise, lifecycle: observedLifecycle, cached: false }
   }
   const validateIdentity = (ref: PngResourceRef | JsonResourceRef): void => {
     if (ref.resourceId !== `sha256:${ref.sha256}` || !V09_HASH.test(ref.sha256)) throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'Resource ID and digest do not agree.')
@@ -257,33 +274,36 @@ export function createProductionV09ResourceResolver(options: ProductionV09Resolv
   return {
     async resolvePng(ref) {
       validateIdentity(ref)
-      let pending = pngCache.get(ref.resourceId)
-      if (pending === undefined) {
-        pending = (async () => { const pixels = await decodeVerifiedPng(await loadBytes(ref.resourceId), ref.sha256); return { pixels, drawable: await createExactDrawable(pixels, 2048, 2048) } })().catch(error => { pngCache.delete(ref.resourceId); if (error instanceof V09RenderError) throw error; throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'PNG resource verification failed.', { cause: error }) })
-        pngCache.set(ref.resourceId, pending)
-        trimPngCache()
-      } else touch(pngCache, ref.resourceId, pending)
-      const verified = await pending
-      return { sha256: ref.sha256, width: 2048, height: 2048, pixels: verified.pixels, drawable: verified.drawable }
+      try {
+        const loaded = await ownedBytes(ref.resourceId)
+        const pixels = await decodeVerifiedPng(loaded.bytes, ref.sha256)
+        if (!loaded.cached) retainVerifiedBytes(ref.resourceId, loaded.bytes, loaded.lifecycle)
+        return { sha256: ref.sha256, width: 2048, height: 2048, pixels, drawable: await createExactDrawable(pixels, 2048, 2048) }
+      } catch (error) {
+        if (error instanceof V09RenderError) throw error
+        throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'PNG resource verification failed.', { cause: error })
+      }
     },
     async resolveJson(ref) {
       validateIdentity(ref)
-      let pending = jsonCache.get(ref.resourceId)
-      if (pending === undefined) {
-        pending = (async () => {
-          const text = new TextDecoder('utf-8', { fatal: true }).decode(await loadBytes(ref.resourceId)); const value = JSON.parse(text) as unknown
-          const sha256 = await browserCanonicalJsonSha256(value); if (sha256 !== ref.sha256) throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'Canonical JSON digest mismatch.')
-          return { sha256, value }
-        })().catch(error => { jsonCache.delete(ref.resourceId); if (error instanceof V09RenderError) throw error; throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'JSON resource verification failed.', { cause: error }) })
-        jsonCache.set(ref.resourceId, pending)
-        trimJsonCache()
-      } else touch(jsonCache, ref.resourceId, pending)
-      const verified = await pending; return { sha256: verified.sha256, value: structuredClone(verified.value) }
+      try {
+        const loaded = await ownedBytes(ref.resourceId)
+        const value = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(loaded.bytes)) as unknown
+        const sha256 = await browserCanonicalJsonSha256(value)
+        if (sha256 !== ref.sha256) throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'Canonical JSON digest mismatch.')
+        if (!loaded.cached) retainVerifiedBytes(ref.resourceId, loaded.bytes, loaded.lifecycle)
+        return { sha256, value }
+      } catch (error) {
+        if (error instanceof V09RenderError) throw error
+        throw new V09RenderError('RESOURCE_HASH_MISMATCH', 'JSON resource verification failed.', { cause: error })
+      }
     },
     createDrawable: createExactDrawable,
     dispose() {
-      for (const pending of pngCache.values()) void pending.then(value => closeDrawable(value.drawable), () => undefined)
-      pngCache.clear(); jsonCache.clear()
+      lifecycle += 1
+      byteCache.clear()
+      pendingLoads.clear()
+      retainedBytes = 0
     },
   }
 }

@@ -162,7 +162,7 @@ describe('PreviewCanvas', () => {
     await expect(tamperedResolver.resolvePng(ref)).rejects.toMatchObject({ code: 'RESOURCE_HASH_MISMATCH' })
   }, 30_000)
 
-  it('bounds the production PNG cache with LRU eviction and closes evicted ImageBitmaps', async () => {
+  it('keeps only verified bytes and returns fresh PNG pixels and drawables to every caller', async () => {
     installCanvasContexts()
     vi.stubGlobal('ImageData', class {
       public constructor(
@@ -178,25 +178,104 @@ describe('PreviewCanvas', () => {
       return drawable
     }))
     const release = await loadCandidateProductionRelease()
-    const family = release.catalog.skeletonFamilies[0]!
-    const refs = [family.neutralMaster, family.materialMap, Object.values(family.fixedOccluderMasks)[0]!] as const
+    const ref = release.catalog.skeletonFamilies[0]!.neutralMaster
+    const bytes = new Uint8Array(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'resources', 'by-sha256', ref.sha256,
+    )))
+    const loadResourceBytes = vi.fn(async () => bytes)
     const resolver = createProductionV09ResourceResolver({
-      maxPngEntries: 2,
-      loadResourceBytes: async resourceId => new Uint8Array(await readFile(join(
-        process.cwd(), 'packages', 'asset-catalog', 'resources', 'by-sha256', resourceId.slice('sha256:'.length),
-      ))),
+      maxCacheBytes: bytes.length + 1,
+      loadResourceBytes,
     })
 
-    await resolver.resolvePng(refs[0])
-    await resolver.resolvePng(refs[1])
-    await resolver.resolvePng(refs[0]) // refresh the first entry
-    await resolver.resolvePng(refs[2]) // evicts the second entry
-    expect(drawables[0]!.close).not.toHaveBeenCalled()
-    expect(drawables[1]!.close).toHaveBeenCalledTimes(1)
+    const first = await resolver.resolvePng(ref)
+    const originalFirstByte = first.pixels[0]!
+    first.pixels[0] = originalFirstByte ^ 0xff
+    ;(first.drawable as unknown as { close(): void }).close()
 
-    await resolver.resolvePng(refs[1])
-    expect(drawables).toHaveLength(4)
+    const second = await resolver.resolvePng(ref)
+    expect(loadResourceBytes).toHaveBeenCalledTimes(1)
+    expect(second.pixels[0]).toBe(originalFirstByte)
+    expect(second.pixels).not.toBe(first.pixels)
+    expect(second.drawable).not.toBe(first.drawable)
+    expect(drawables[0]!.close).toHaveBeenCalledTimes(1)
+    expect(drawables[1]!.close).not.toHaveBeenCalled()
+    resolver.dispose()
+    expect(drawables[1]!.close).not.toHaveBeenCalled()
   }, 60_000)
+
+  it('bounds verified resource bytes by size with LRU eviction and clears them on dispose', async () => {
+    const release = await loadCandidateProductionRelease()
+    const manifest = release.catalog.releaseManifest
+    const refs = [manifest.speciesRig, manifest.skeletonPool, manifest.compositionGraph] as const
+    const resourceBytes = new Map<string, Uint8Array>(await Promise.all(refs.map(async ref => [ref.resourceId, new Uint8Array(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'resources', 'by-sha256', ref.sha256,
+    )))] as const)))
+    const loads = new Map<string, number>()
+    const maxCacheBytes = [...resourceBytes.values()].map(bytes => bytes.length).sort((left, right) => right - left).slice(0, 2).reduce((sum, size) => sum + size, 0)
+    const resolver = createProductionV09ResourceResolver({
+      maxCacheBytes,
+      loadResourceBytes: async resourceId => {
+        loads.set(resourceId, (loads.get(resourceId) ?? 0) + 1)
+        return resourceBytes.get(resourceId)!.slice()
+      },
+    })
+
+    await resolver.resolveJson(refs[0])
+    await resolver.resolveJson(refs[1])
+    await resolver.resolveJson(refs[0]) // refresh the first resource bytes
+    await resolver.resolveJson(refs[2]) // evicts the second resource bytes
+    await resolver.resolveJson(refs[1])
+    expect(loads.get(refs[0].resourceId)).toBe(1)
+    expect(loads.get(refs[1].resourceId)).toBe(2)
+
+    resolver.dispose()
+    await resolver.resolveJson(refs[0])
+    expect(loads.get(refs[0].resourceId)).toBe(2)
+  }, 60_000)
+
+  it('returns a fresh verified JSON value even when an earlier caller mutates its result', async () => {
+    const release = await loadCandidateProductionRelease()
+    const ref = release.catalog.releaseManifest.speciesRig
+    const bytes = new Uint8Array(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'resources', 'by-sha256', ref.sha256,
+    )))
+    const loadResourceBytes = vi.fn(async () => bytes)
+    const resolver = createProductionV09ResourceResolver({ maxCacheBytes: bytes.length + 1, loadResourceBytes })
+
+    const first = await resolver.resolveJson(ref)
+    ;(first.value as Record<string, unknown>).schemaVersion = 'poisoned'
+    const second = await resolver.resolveJson(ref)
+
+    expect(loadResourceBytes).toHaveBeenCalledTimes(1)
+    expect((second.value as Record<string, unknown>).schemaVersion).not.toBe('poisoned')
+    expect(second.value).not.toBe(first.value)
+    resolver.dispose()
+    const [concurrent, concurrentPeer] = await Promise.all([resolver.resolveJson(ref), resolver.resolveJson(ref)])
+    expect(loadResourceBytes).toHaveBeenCalledTimes(2)
+    expect(concurrent.value).not.toBe(second.value)
+    expect(concurrentPeer.value).not.toBe(concurrent.value)
+    expect(concurrentPeer.value).toStrictEqual(concurrent.value)
+  })
+
+  it('does not let a load already in flight repopulate a disposed byte cache', async () => {
+    const release = await loadCandidateProductionRelease()
+    const ref = release.catalog.releaseManifest.speciesRig
+    const bytes = new Uint8Array(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'resources', 'by-sha256', ref.sha256,
+    )))
+    const firstLoad = deferred<Uint8Array>()
+    const loadResourceBytes = vi.fn(async () => loadResourceBytes.mock.calls.length === 1 ? firstLoad.promise : bytes)
+    const resolver = createProductionV09ResourceResolver({ maxCacheBytes: bytes.length + 1, loadResourceBytes })
+
+    const inFlight = resolver.resolveJson(ref)
+    resolver.dispose()
+    firstLoad.resolve(bytes)
+    await inFlight
+    await resolver.resolveJson(ref)
+
+    expect(loadResourceBytes).toHaveBeenCalledTimes(2)
+  })
 
   it('rejects a mixed v0.9 tuple before invoking either renderer', async () => {
     installCanvasContexts()
