@@ -46,7 +46,7 @@ describe('CreatorWorkbench', () => {
   it('exposes one whole-skeleton control and exactly twelve v0.9 appearance controls', async () => {
     installCanvasContexts()
     const user = userEvent.setup()
-    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
     const renderer: V09PreviewRenderer = vi.fn(async () => ({ trace: [] }))
     let observedSession: AnyCreatorSession | undefined
 

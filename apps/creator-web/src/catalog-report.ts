@@ -101,6 +101,7 @@ export interface V09ReportSkeleton {
   weight: 8 | 1
   poseId: string
   neutralMasterSha256: string
+  approvalState: 'approved'
 }
 
 export interface V09ReportTrait {
@@ -182,15 +183,21 @@ export function createCatalogReportModel(catalog: Catalog | ProductionV09Release
 
 function createV09CatalogReportModel(release: ProductionV09Release): V09CatalogReportModel {
   const familyById = new Map(release.catalog.skeletonFamilies.map(family => [family.skeletonFamilyId, family]))
+  const approvalByFamily = new Map(release.assemblies.map(approval => [approval.skeletonFamilyId, approval]))
   const skeletons = release.catalog.skeletonPool.candidates.map(candidate => {
     const family = familyById.get(candidate.skeletonFamilyId)
     if (family === undefined) throw new Error(`Missing v0.9 skeleton family ${candidate.skeletonFamilyId}.`)
+    const approval = approvalByFamily.get(family.skeletonFamilyId)
+    if (approval === undefined || approval.neutralMasterSha256 !== family.neutralMaster.sha256) {
+      throw new Error(`Missing exact v0.9 assembly approval ${candidate.skeletonFamilyId}.`)
+    }
     return {
       id: family.skeletonFamilyId,
       skeletonClass: candidate.skeletonClass,
       weight: candidate.weight,
       poseId: family.poseId,
       neutralMasterSha256: family.neutralMaster.sha256,
+      approvalState: approval.approvalState,
     }
   })
   const slots = V09_TRAIT_SLOT_IDS.map(slotId => {

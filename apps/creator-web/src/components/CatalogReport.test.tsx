@@ -20,16 +20,27 @@ afterEach(() => vi.restoreAllMocks())
 describe('CatalogReport', () => {
   it('shows the immutable v0.9 skeleton weights and inspectable sealed trait metadata', async () => {
     const user = userEvent.setup()
-    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
     const model = createCatalogReportModel(release)
 
-    render(<CatalogReport model={model} />)
+    render(<CatalogReport model={model} resolveV09ResourceUrl={async sha256 => `/resource/${sha256}`} />)
 
     expect(screen.getByRole('heading', { name: 'v0.9 原子骨架图鉴' })).toBeTruthy()
     expect(screen.getByText('feline-sit-v2-core · 权重 8')).toBeTruthy()
     expect(screen.getByText('feline-sit-v2-legendary-01 · 权重 1')).toBeTruthy()
     expect(screen.getByText(candidatePointer.releaseManifestSha256)).toBeTruthy()
     expect(screen.getByText('bodyColor · 8/4/1')).toBeTruthy()
+    const skeletonPool = screen.getByRole('region', { name: '完整骨架池' })
+    const skeletonCards = within(skeletonPool).getAllByRole('article', { name: /完整骨架/ })
+    expect(skeletonCards).toHaveLength(2)
+    for (const skeleton of model.skeletons) {
+      const card = within(skeletonPool).getByRole('article', { name: `${skeleton.id} 完整骨架` })
+      expect((await within(card).findByRole('img', { name: `${skeleton.id} 中性完整母版` })).getAttribute('src'))
+        .toBe(`/resource/${skeleton.neutralMasterSha256}`)
+      expect(within(card).getByText(`权重 ${skeleton.weight}`)).toBeTruthy()
+      expect(within(card).getByText('已批准')).toBeTruthy()
+      expect(within(card).getByText(skeleton.neutralMasterSha256)).toBeTruthy()
+    }
 
     await user.click(screen.getByRole('button', { name: 'headAppendage · 8/4/1' }))
     const firstCard = screen.getAllByRole('article', { name: /headAppendage trait/ })[0]!

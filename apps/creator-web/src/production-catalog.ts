@@ -14,7 +14,7 @@ export function loadLatestProductionCatalog(): Catalog {
 }
 
 /** Preview-only opt-in; production default selection never falls back to this candidate. */
-export function loadExplicitProductionRelease(pointer: unknown): ProductionV09Release {
+export function loadExplicitProductionRelease(pointer: unknown): Promise<ProductionV09Release> {
   return loadActiveProductionRelease({ pointer })
 }
 

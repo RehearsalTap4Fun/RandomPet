@@ -19,8 +19,8 @@ function reportFor(catalog: Catalog, archetypeId: string) {
 }
 
 describe('createCatalogReportModel', () => {
-  it('derives the v0.9 report from the immutable release inventory and sealed projections', () => {
-    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+  it('derives the v0.9 report from the immutable release inventory and sealed projections', async () => {
+    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
     const report = createCatalogReportModel(release)
 
     expect(report.kind).toBe('v09')

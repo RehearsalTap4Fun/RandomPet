@@ -320,6 +320,24 @@ function V09CatalogReport({
 
       <section className="catalog-report__section" aria-label="完整骨架池">
         <h2>完整骨架</h2>
+        <div className="catalog-report__cards">
+          {model.skeletons.map(skeleton => (
+            <article className="appearance-card" key={skeleton.id} aria-label={`${skeleton.id} 完整骨架`}>
+              <AppearanceImage
+                catalogVersion="0.9.0"
+                assetPath={skeleton.neutralMasterSha256}
+                alt={`${skeleton.id} 中性完整母版`}
+                resolveAssetUrl={async (_version, sha256) => resolveResourceUrl(sha256)}
+              />
+              <div className="appearance-card__content">
+                <h3>{skeleton.id}</h3>
+                <p>权重 {skeleton.weight}</p>
+                <p>{skeleton.approvalState === 'approved' ? '已批准' : skeleton.approvalState}</p>
+                <code>{skeleton.neutralMasterSha256}</code>
+              </div>
+            </article>
+          ))}
+        </div>
         <div className="catalog-report__slot-tabs">
           {model.skeletons.map(skeleton => (
             <button

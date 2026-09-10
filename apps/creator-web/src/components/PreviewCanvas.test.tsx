@@ -1,4 +1,6 @@
 import { createRef } from 'react'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
@@ -17,6 +19,7 @@ import {
   CatalogImageResolverCache,
   PreviewCanvas,
   catalogAssetKey,
+  createProductionV09ResourceResolver,
   previewFrameKey,
   resolveProductionAssetUrl,
   type PreviewRenderer,
@@ -45,6 +48,7 @@ function installCanvasContexts() {
         canvas: this,
         clearRect: vi.fn(),
         drawImage: vi.fn(),
+        putImageData: vi.fn(),
       } as unknown as CanvasRenderingContext2D
       contexts.set(this, context)
       createdContexts.push(context)
@@ -54,7 +58,10 @@ function installCanvasContexts() {
   return { contexts, createdContexts, spy }
 }
 
-afterEach(() => vi.restoreAllMocks())
+afterEach(() => {
+  vi.restoreAllMocks()
+  vi.unstubAllGlobals()
+})
 
 describe('CatalogImageResolverCache', () => {
   it('builds an exact versioned asset key without fallback', async () => {
@@ -94,19 +101,17 @@ describe('CatalogImageResolverCache', () => {
 })
 
 describe('PreviewCanvas', () => {
-  it('routes an exact v0.9 spec through the fixed renderer on a 2048 identity canvas', async () => {
+  it('routes an exact v0.9 spec through the fixed renderer and production resolver by default', async () => {
     const { createdContexts } = installCanvasContexts()
-    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
     const generated = generateMonsterV09({ seed: 'creator-preview-v09' }, release.catalog)
     expect(generated.blocked).toBe(false)
-    const resolver = {} as V09ResourceResolver
     const renderer: V09PreviewRenderer = vi.fn(async () => ({ trace: [...V09_COMPOSITION_NODE_IDS] }))
     const onDiagnosticsChange = vi.fn()
 
     render(<PreviewCanvas
       spec={generated.spec}
       catalog={release.catalog}
-      v09Resolver={resolver}
       v09Renderer={renderer}
       onDiagnosticsChange={onDiagnosticsChange}
     />)
@@ -116,7 +121,7 @@ describe('PreviewCanvas', () => {
     expect(context.canvas).toMatchObject({ width: 2048, height: 2048 })
     expect(spec).toStrictEqual(generated.spec)
     expect(catalog).toBe(release.catalog)
-    expect(usedResolver).toBe(resolver)
+    expect(usedResolver).toHaveProperty('resolvePng', expect.any(Function))
     expect(onDiagnosticsChange).toHaveBeenLastCalledWith([])
     await waitFor(() => expect(createdContexts.flatMap(context => (
       vi.mocked(context.drawImage).mock.calls
@@ -125,9 +130,42 @@ describe('PreviewCanvas', () => {
     ))).toHaveLength(2))
   })
 
+  it('verifies a real content-addressed PNG and rejects a resource digest mismatch', async () => {
+    installCanvasContexts()
+    vi.stubGlobal('ImageData', class {
+      public constructor(
+        public readonly data: Uint8ClampedArray,
+        public readonly width: number,
+        public readonly height: number,
+      ) {}
+    })
+    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
+    const ref = release.catalog.skeletonFamilies[0]!.neutralMaster
+    const bytes = new Uint8Array(await readFile(join(
+      process.cwd(), 'packages', 'asset-catalog', 'resources', 'by-sha256', ref.sha256,
+    )))
+    const resolver = createProductionV09ResourceResolver({
+      loadResourceBytes: async () => bytes,
+    })
+
+    await expect(resolver.resolvePng(ref)).resolves.toMatchObject({
+      sha256: ref.sha256,
+      width: 2048,
+      height: 2048,
+      pixels: expect.objectContaining({ byteLength: 2048 * 2048 * 4 }),
+    })
+
+    const tampered = bytes.slice()
+    tampered[tampered.length - 16] = tampered[tampered.length - 16]! ^ 1
+    const tamperedResolver = createProductionV09ResourceResolver({
+      loadResourceBytes: async () => tampered,
+    })
+    await expect(tamperedResolver.resolvePng(ref)).rejects.toMatchObject({ code: 'RESOURCE_HASH_MISMATCH' })
+  }, 30_000)
+
   it('rejects a mixed v0.9 tuple before invoking either renderer', async () => {
     installCanvasContexts()
-    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
     const generated = generateMonsterV09({ seed: 'creator-preview-mixed' }, release.catalog)
     const mixed = { ...generated.spec, generatorVersion: '0.8.0' } as unknown as typeof generated.spec
     const legacyRenderer: PreviewRenderer = vi.fn()
@@ -152,7 +190,7 @@ describe('PreviewCanvas', () => {
 
   it('rejects a valid v0.9 spec paired with a legacy catalog instead of falling back', async () => {
     installCanvasContexts()
-    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const release = await loadActiveProductionRelease({ pointer: candidatePointer })
     const generated = generateMonsterV09({ seed: 'creator-preview-wrong-catalog' }, release.catalog)
     const legacyCatalog = makeValidCatalogFixture()
     const legacyRenderer: PreviewRenderer = vi.fn()

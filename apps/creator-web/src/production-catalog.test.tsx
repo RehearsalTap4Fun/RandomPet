@@ -13,9 +13,9 @@ const parsedCatalog = parseCatalog(v06CatalogDocument)
 if (!parsedCatalog.ok) throw new Error('Expected the v0.6 production catalog to be valid.')
 
 describe('production catalog selection', () => {
-  it('keeps v0.8 active until an exact v0.9 pointer is explicitly supplied', () => {
+  it('keeps v0.8 active until an exact v0.9 pointer is explicitly supplied', async () => {
     expect(loadLatestProductionCatalog().version).toBe('0.8.0')
-    expect(loadExplicitProductionRelease(candidatePointer).manifestHash)
+    expect((await loadExplicitProductionRelease(candidatePointer)).manifestHash)
       .toBe(candidatePointer.releaseManifestSha256)
     expect(loadLatestProductionCatalog().version).toBe('0.8.0')
   })
