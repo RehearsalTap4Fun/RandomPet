@@ -12,7 +12,11 @@ import {
   type StructuralSlotId,
   type VisualPartDefinition,
   type VisualSlotId,
+  type V09TraitRarity,
+  type V09TraitSlotId,
 } from '@qmonster/generator-core'
+import { V09_TRAIT_SLOT_IDS } from '@qmonster/generator-core'
+import type { ProductionV09Release } from './v09-production-release.js'
 
 export const RARITY_ORDER = ['N', 'R', 'L'] as const satisfies readonly Rarity[]
 
@@ -81,7 +85,8 @@ export interface ArchetypeReport {
   bundles: readonly ReportBundle[]
 }
 
-export interface CatalogReportModel {
+export interface LegacyCatalogReportModel {
+  kind: 'legacy'
   catalog: Catalog
   catalogVersion: string
   tierWeights: Record<Rarity, number>
@@ -90,11 +95,66 @@ export interface CatalogReportModel {
   defaultArchetypeId: AnimalArchetypeId | null
 }
 
+export interface V09ReportSkeleton {
+  id: string
+  skeletonClass: 'base' | 'legendary'
+  weight: 8 | 1
+  poseId: string
+  neutralMasterSha256: string
+}
+
+export interface V09ReportTrait {
+  id: string
+  slotId: V09TraitSlotId
+  rarity: V09TraitRarity
+  skeletonFamilyId: string
+  fullContextPreviewSha256: string
+  sealedArtifactSha256: string
+  approvalState: 'approved'
+  interfaceId: string | null
+  shapeClass: string | null
+}
+
+export interface V09ReportSlot {
+  slotId: V09TraitSlotId
+  label: string
+  counts: Record<V09TraitRarity, number>
+  traits: readonly V09ReportTrait[]
+}
+
+export interface V09CatalogReportModel {
+  kind: 'v09'
+  catalogVersion: '0.9.0'
+  releaseManifestSha256: string
+  skeletons: readonly V09ReportSkeleton[]
+  slots: readonly V09ReportSlot[]
+}
+
+export type CatalogReportModel = LegacyCatalogReportModel | V09CatalogReportModel
+
+const V09_SLOT_LABEL: Record<V09TraitSlotId, string> = {
+  bodyColor: '全身配色',
+  surfacePattern: '全身图案',
+  surfaceTexture: '表面质感',
+  forepawDetail: '前爪细节',
+  hindpawDetail: '后爪细节',
+  tailSurface: '尾部表面',
+  eyes: '成对眼睛',
+  mouthShape: '嘴型',
+  oralDetail: '口腔细节',
+  headAppendage: '头部附属物',
+  extraAppendage: '额外附属物',
+  effect: '特效',
+}
+
 export function rarityLabel(rarity: Rarity): string {
   return RARITY_LABEL[rarity]
 }
 
-export function createCatalogReportModel(catalog: Catalog): CatalogReportModel {
+export function createCatalogReportModel(catalog: Catalog): LegacyCatalogReportModel
+export function createCatalogReportModel(release: ProductionV09Release): V09CatalogReportModel
+export function createCatalogReportModel(catalog: Catalog | ProductionV09Release): CatalogReportModel {
+  if ('manifestHash' in catalog) return createV09CatalogReportModel(catalog)
   const partsById = new Map(catalog.parts.map(part => [part.id, part]))
   const archetypeLabelById = new Map((catalog.archetypes ?? []).map(item => [item.id, item.displayName]))
   const bundlesByArchetype = new Map<AnimalArchetypeId, AnatomyBundleDefinition[]>()
@@ -110,12 +170,54 @@ export function createCatalogReportModel(catalog: Catalog): CatalogReportModel {
   ))
 
   return {
+    kind: 'legacy',
     catalog,
     catalogVersion: catalog.version,
     tierWeights: { ...(catalog.version === '0.8.0' ? PART_RARITY_WEIGHTS : RARITY_WEIGHTS) },
     tierWeightUnit: catalog.version === '0.8.0' ? '份' : '%',
     archetypes,
     defaultArchetypeId: archetypes.some(item => item.id === 'feline') ? 'feline' : archetypes[0]?.id ?? null,
+  }
+}
+
+function createV09CatalogReportModel(release: ProductionV09Release): V09CatalogReportModel {
+  const familyById = new Map(release.catalog.skeletonFamilies.map(family => [family.skeletonFamilyId, family]))
+  const skeletons = release.catalog.skeletonPool.candidates.map(candidate => {
+    const family = familyById.get(candidate.skeletonFamilyId)
+    if (family === undefined) throw new Error(`Missing v0.9 skeleton family ${candidate.skeletonFamilyId}.`)
+    return {
+      id: family.skeletonFamilyId,
+      skeletonClass: candidate.skeletonClass,
+      weight: candidate.weight,
+      poseId: family.poseId,
+      neutralMasterSha256: family.neutralMaster.sha256,
+    }
+  })
+  const slots = V09_TRAIT_SLOT_IDS.map(slotId => {
+    const traits = release.traits
+      .filter(record => record.artifact.slotId === slotId)
+      .map(record => ({
+        id: record.artifact.traitId,
+        slotId,
+        rarity: record.artifact.rarity,
+        skeletonFamilyId: record.artifact.skeletonFamilyId,
+        fullContextPreviewSha256: record.fullContextPreviewSha256,
+        sealedArtifactSha256: record.sealedArtifactSha256,
+        approvalState: record.approvalState,
+        interfaceId: record.artifact.kind === 'attachment' ? record.artifact.interfaceId : null,
+        shapeClass: record.artifact.kind === 'attachment' ? record.artifact.shapeClass : null,
+      }))
+    const semanticTraits = new Map(traits.map(trait => [`${trait.rarity}\u0000${trait.id}`, trait]))
+    const counts: Record<V09TraitRarity, number> = { common: 0, rare: 0, legendary: 0 }
+    for (const trait of semanticTraits.values()) counts[trait.rarity] += 1
+    return { slotId, label: V09_SLOT_LABEL[slotId], counts, traits }
+  })
+  return {
+    kind: 'v09',
+    catalogVersion: '0.9.0',
+    releaseManifestSha256: release.manifestHash,
+    skeletons,
+    slots,
   }
 }
 

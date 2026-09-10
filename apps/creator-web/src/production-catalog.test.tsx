@@ -1,12 +1,25 @@
 import { describe, expect, it } from 'vitest'
 import { parseCatalog } from '@qmonster/generator-core'
 import v06CatalogDocument from '../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
-import { loadLatestProductionCatalog, pickLatestCatalog, selectLatestValidCatalog } from './production-catalog.js'
+import candidatePointer from '../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
+import {
+  loadExplicitProductionRelease,
+  loadLatestProductionCatalog,
+  pickLatestCatalog,
+  selectLatestValidCatalog,
+} from './production-catalog.js'
 
 const parsedCatalog = parseCatalog(v06CatalogDocument)
 if (!parsedCatalog.ok) throw new Error('Expected the v0.6 production catalog to be valid.')
 
 describe('production catalog selection', () => {
+  it('keeps v0.8 active until an exact v0.9 pointer is explicitly supplied', () => {
+    expect(loadLatestProductionCatalog().version).toBe('0.8.0')
+    expect(loadExplicitProductionRelease(candidatePointer).manifestHash)
+      .toBe(candidatePointer.releaseManifestSha256)
+    expect(loadLatestProductionCatalog().version).toBe('0.8.0')
+  })
+
   it('loads v0.8 as the latest bundled production catalog', () => {
     expect(loadLatestProductionCatalog().version).toBe('0.8.0')
 

@@ -1,10 +1,21 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { generateMonster } from '@qmonster/generator-core'
+import {
+  V09_TRAIT_SLOT_IDS,
+  V09_VERSION_TUPLE,
+  generateMonster,
+  type MonsterSpecV09,
+  type V09GenerationResult,
+} from '@qmonster/generator-core'
 import {
   makeValidCatalogFixture,
   makeValidMonsterSpecFixture,
 } from '@qmonster/generator-core/test-fixtures'
-import { createCreatorSession, type CreatorSession } from './contracts.js'
+import {
+  createCreatorSession,
+  createV09CreatorSession,
+  type CreatorSession,
+  type V09CreatorSession,
+} from './contracts.js'
 import { refreshSessionValidity } from './session-diagnostics.js'
 import {
   CREATOR_SESSION_STORAGE_KEY,
@@ -39,6 +50,32 @@ function makeFreshSession(seed = 'fresh-seed'): CreatorSession {
     themeId: 'fungal',
     mode: 'normal',
   }, makeValidCatalogFixture()), { png: true, webp: false })
+}
+
+function makeV09Spec(seed = 'v09-fresh'): MonsterSpecV09 {
+  return {
+    ...V09_VERSION_TUPLE,
+    seed,
+    speciesRigId: 'feline-sit-v2',
+    skeletonFamilyId: 'feline-sit-v2-core',
+    assemblyTemplateId: 'feline-sit-v2-core-template',
+    skeletonSelection: { class: 'base', candidateId: 'feline-sit-v2-core', roll: 3 },
+    visualSlots: Object.fromEntries(V09_TRAIT_SLOT_IDS.map((slotId, index) => [
+      slotId,
+      {
+        traitId: slotId === 'oralDetail' ? 'oral-none' : `${slotId}-fixture`,
+        rarity: 'common',
+        roll: index + 1,
+      },
+    ])) as MonsterSpecV09['visualSlots'],
+  }
+}
+
+function makeV09Session(seed = 'v09-fresh'): V09CreatorSession {
+  const result: V09GenerationResult = {
+    spec: makeV09Spec(seed), diagnostics: [], blocked: false, affectedSlots: [...V09_TRAIT_SLOT_IDS],
+  }
+  return createV09CreatorSession(result, { png: true, webp: false }, 'e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21')
 }
 
 function blockingDiagnostic() {
@@ -92,6 +129,48 @@ afterEach(() => {
 })
 
 describe('creator session persistence', () => {
+  it('round-trips every v0.9 structure and trait identity without legacy coercion', async () => {
+    vi.useFakeTimers()
+    const storage = new MemoryStorage()
+    const session = makeV09Session('v09-round-trip')
+
+    const pending = saveSession(session, storage)
+    await vi.advanceTimersByTimeAsync(250)
+    expect(await pending).toEqual([])
+
+    const restored = loadSession(() => makeV09Session('fallback'), storage, {
+      schemaVersion: '0.4.0', catalogVersion: '0.9.0', rendererVersion: '0.9.0',
+    })
+    expect(restored.diagnostics).toEqual([])
+    expect(restored.session).toEqual(session)
+    expect(restored.session.spec).toMatchObject({
+      schemaVersion: '0.4.0',
+      catalogVersion: '0.9.0',
+      generatorVersion: '0.9.0',
+      speciesRigId: 'feline-sit-v2',
+      skeletonFamilyId: 'feline-sit-v2-core',
+      assemblyTemplateId: 'feline-sit-v2-core-template',
+      skeletonSelection: session.spec.skeletonSelection,
+      visualSlots: session.spec.visualSlots,
+    })
+  })
+
+  it('rejects a stored v0.9 spec with one legacy tuple member', () => {
+    const storage = new MemoryStorage()
+    const session = makeV09Session('v09-mixed')
+    const mixed = structuredClone(session) as unknown as Record<string, unknown>
+    ;(mixed.spec as Record<string, unknown>).generatorVersion = '0.8.0'
+    storage.values.set(CREATOR_SESSION_STORAGE_KEY, JSON.stringify({ schemaVersion: 2, session: mixed }))
+
+    const restored = loadSession(() => makeV09Session('fallback'), storage, {
+      schemaVersion: '0.4.0', catalogVersion: '0.9.0', rendererVersion: '0.9.0',
+    })
+    expect(restored.session.spec.seed).toBe('fallback')
+    expect(restored.diagnostics).toEqual([
+      expect.objectContaining({ code: 'SESSION_LOAD_FAILED' }),
+    ])
+  })
+
   it.each([
     ['catalog', '0.2.0', '0.1.0'],
     ['renderer', '0.1.0', '0.2.0'],

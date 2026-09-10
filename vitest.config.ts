@@ -59,7 +59,11 @@ export default defineConfig({
         test: {
           name: 'creator-jsdom',
           environment: 'jsdom',
-          include: ['apps/**/*.test.tsx', 'apps/creator-web/src/io/**/*.test.ts'],
+          include: [
+            'apps/**/*.test.tsx',
+            'apps/creator-web/src/io/**/*.test.ts',
+            'apps/creator-web/src/v09-production-release.test.ts',
+          ],
           setupFiles: ['apps/creator-web/src/test/setup.ts'],
         },
       },

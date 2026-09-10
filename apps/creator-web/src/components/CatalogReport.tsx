@@ -6,21 +6,26 @@ import {
   rarityLabel,
   type ArchetypeReport,
   type CatalogReportModel,
+  type LegacyCatalogReportModel,
   type ReportBundle,
   type ReportTrait,
+  type V09CatalogReportModel,
+  type V09ReportTrait,
 } from '../catalog-report.js'
 import { resolveCatalogReportAssetUrl } from '../catalog-report-assets.js'
 import { TraitPreviewCanvas } from './TraitPreviewCanvas.js'
-import type { PreviewRenderer } from './PreviewCanvas.js'
+import { resolveProductionV09ResourceUrl, type PreviewRenderer } from './PreviewCanvas.js'
 
 type RarityFilter = 'all' | Rarity
 type AssetUrlResolver = (catalogVersion: string, assetPath: string) => Promise<string>
+type V09ResourceUrlResolver = (sha256: string) => Promise<string>
 
 export interface CatalogReportProps {
   model: CatalogReportModel
   resolveAssetUrl?: AssetUrlResolver
   traitRenderer?: PreviewRenderer
   traitResolver?: ImageResolver
+  resolveV09ResourceUrl?: V09ResourceUrlResolver
 }
 
 const FILTER_LABEL: Record<RarityFilter, string> = {
@@ -35,7 +40,30 @@ export function CatalogReport({
   resolveAssetUrl = resolveCatalogReportAssetUrl,
   traitRenderer,
   traitResolver,
+  resolveV09ResourceUrl = resolveProductionV09ResourceUrl,
 }: CatalogReportProps) {
+  if (model.kind === 'v09') {
+    return <V09CatalogReport model={model} resolveResourceUrl={resolveV09ResourceUrl} />
+  }
+  return <LegacyCatalogReport
+    model={model}
+    resolveAssetUrl={resolveAssetUrl}
+    {...(traitRenderer === undefined ? {} : { traitRenderer })}
+    {...(traitResolver === undefined ? {} : { traitResolver })}
+  />
+}
+
+function LegacyCatalogReport({
+  model,
+  resolveAssetUrl,
+  traitRenderer,
+  traitResolver,
+}: {
+  model: LegacyCatalogReportModel
+  resolveAssetUrl: AssetUrlResolver
+  traitRenderer?: PreviewRenderer
+  traitResolver?: ImageResolver
+}) {
   const [selectedArchetypeId, setSelectedArchetypeId] = useState<AnimalArchetypeId | null>(model.defaultArchetypeId)
   const [rarityFilter, setRarityFilter] = useState<RarityFilter>('all')
   const [selectedSlotId, setSelectedSlotId] = useState<VisualSlotId>('bodyFrame')
@@ -237,7 +265,7 @@ function TraitCard({
 }: {
   trait: ReportTrait
   bundleId: string
-  model: CatalogReportModel
+  model: LegacyCatalogReportModel
   renderer?: PreviewRenderer
   resolver?: ImageResolver
 }) {
@@ -258,6 +286,108 @@ function TraitCard({
           <div><dt>区域</dt><dd>{trait.ownerRegionId ?? '—'}</dd></div>
           <div><dt>表达</dt><dd>{trait.expressionKind ?? '—'}</dd></div>
         </dl>
+      </div>
+    </article>
+  )
+}
+
+function V09CatalogReport({
+  model,
+  resolveResourceUrl,
+}: {
+  model: V09CatalogReportModel
+  resolveResourceUrl: V09ResourceUrlResolver
+}) {
+  const [selectedSkeletonId, setSelectedSkeletonId] = useState(model.skeletons[0]?.id ?? '')
+  const [selectedSlotId, setSelectedSlotId] = useState(model.slots[0]?.slotId ?? 'bodyColor')
+  const [rarityFilter, setRarityFilter] = useState<'all' | V09ReportTrait['rarity']>('all')
+  const selectedSlot = model.slots.find(slot => slot.slotId === selectedSlotId) ?? model.slots[0]
+  const traits = selectedSlot?.traits.filter(trait => (
+    trait.skeletonFamilyId === selectedSkeletonId
+    && (rarityFilter === 'all' || trait.rarity === rarityFilter)
+  )) ?? []
+
+  return (
+    <main className="catalog-report catalog-report--v09">
+      <header className="catalog-report__hero">
+        <div>
+          <p className="catalog-report__eyebrow">Q MONSTER · IMMUTABLE RELEASE</p>
+          <h1>v0.9 原子骨架图鉴</h1>
+          <p>从内容寻址 release inventory 实时读取；不使用手写 trait 清单。</p>
+          <code>{model.releaseManifestSha256}</code>
+        </div>
+      </header>
+
+      <section className="catalog-report__section" aria-label="完整骨架池">
+        <h2>完整骨架</h2>
+        <div className="catalog-report__slot-tabs">
+          {model.skeletons.map(skeleton => (
+            <button
+              key={skeleton.id}
+              type="button"
+              aria-pressed={selectedSkeletonId === skeleton.id}
+              onClick={() => setSelectedSkeletonId(skeleton.id)}
+            >
+              {skeleton.id} · 权重 {skeleton.weight}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="catalog-report__section" aria-label="v0.9 外观槽位">
+        <div className="catalog-report__slot-tabs">
+          {model.slots.map(slot => (
+            <button
+              key={slot.slotId}
+              type="button"
+              aria-pressed={selectedSlot?.slotId === slot.slotId}
+              onClick={() => {
+                setSelectedSlotId(slot.slotId)
+                setRarityFilter('all')
+              }}
+            >
+              {slot.slotId} · {slot.counts.common}/{slot.counts.rare}/{slot.counts.legendary}
+            </button>
+          ))}
+        </div>
+        <div className="catalog-report__filters" aria-label="按 v0.9 trait 稀有度筛选">
+          {(['all', 'common', 'rare', 'legendary'] as const).map(rarity => (
+            <button key={rarity} type="button" aria-pressed={rarityFilter === rarity} onClick={() => setRarityFilter(rarity)}>
+              {rarity === 'all' ? '全部' : rarity}
+            </button>
+          ))}
+        </div>
+        <div className="catalog-report__trait-grid">
+          {traits.map(trait => (
+            <V09TraitCard key={`${trait.skeletonFamilyId}:${trait.id}`} trait={trait} resolveResourceUrl={resolveResourceUrl} />
+          ))}
+        </div>
+      </section>
+    </main>
+  )
+}
+
+function V09TraitCard({
+  trait,
+  resolveResourceUrl,
+}: {
+  trait: V09ReportTrait
+  resolveResourceUrl: V09ResourceUrlResolver
+}) {
+  return (
+    <article className="trait-card" aria-label={`${trait.slotId} trait ${trait.id}`} data-rarity={trait.rarity}>
+      <AppearanceImage
+        catalogVersion="0.9.0"
+        assetPath={trait.fullContextPreviewSha256}
+        alt={`${trait.id} 完整上下文预览`}
+        resolveAssetUrl={async (_version, sha256) => resolveResourceUrl(sha256)}
+      />
+      <div className="trait-card__content">
+        <span>{trait.rarity} · 已批准</span>
+        <h3>{trait.id}</h3>
+        <code>{trait.sealedArtifactSha256}</code>
+        {trait.interfaceId !== null && <p>interface: {trait.interfaceId}</p>}
+        {trait.shapeClass !== null && <p>shapeClass: {trait.shapeClass}</p>}
       </div>
     </article>
   )

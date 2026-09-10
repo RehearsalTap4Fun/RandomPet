@@ -1,9 +1,18 @@
 import { createRef } from 'react'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { generateMonster, type Catalog, type Diagnostic, type MonsterSpec } from '@qmonster/generator-core'
+import {
+  V09_COMPOSITION_NODE_IDS,
+  generateMonster,
+  generateMonsterV09,
+  type Catalog,
+  type Diagnostic,
+  type MonsterSpec,
+} from '@qmonster/generator-core'
+import candidatePointer from '../../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
-import type { RenderResult } from '@qmonster/renderer-canvas'
+import type { RenderResult, V09ResourceResolver } from '@qmonster/renderer-canvas'
+import { loadActiveProductionRelease } from '../v09-production-release.js'
 import {
   CatalogImageResolverCache,
   PreviewCanvas,
@@ -11,6 +20,7 @@ import {
   previewFrameKey,
   resolveProductionAssetUrl,
   type PreviewRenderer,
+  type V09PreviewRenderer,
 } from './PreviewCanvas.js'
 
 function deferred<T>() {
@@ -25,6 +35,7 @@ function deferred<T>() {
 
 function installCanvasContexts() {
   const contexts = new WeakMap<HTMLCanvasElement, CanvasRenderingContext2D>()
+  const createdContexts: CanvasRenderingContext2D[] = []
   const spy = vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function (
     this: HTMLCanvasElement,
   ) {
@@ -36,10 +47,11 @@ function installCanvasContexts() {
         drawImage: vi.fn(),
       } as unknown as CanvasRenderingContext2D
       contexts.set(this, context)
+      createdContexts.push(context)
     }
     return context
   } as unknown as typeof HTMLCanvasElement.prototype.getContext)
-  return { contexts, spy }
+  return { contexts, createdContexts, spy }
 }
 
 afterEach(() => vi.restoreAllMocks())
@@ -82,6 +94,86 @@ describe('CatalogImageResolverCache', () => {
 })
 
 describe('PreviewCanvas', () => {
+  it('routes an exact v0.9 spec through the fixed renderer on a 2048 identity canvas', async () => {
+    const { createdContexts } = installCanvasContexts()
+    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const generated = generateMonsterV09({ seed: 'creator-preview-v09' }, release.catalog)
+    expect(generated.blocked).toBe(false)
+    const resolver = {} as V09ResourceResolver
+    const renderer: V09PreviewRenderer = vi.fn(async () => ({ trace: [...V09_COMPOSITION_NODE_IDS] }))
+    const onDiagnosticsChange = vi.fn()
+
+    render(<PreviewCanvas
+      spec={generated.spec}
+      catalog={release.catalog}
+      v09Resolver={resolver}
+      v09Renderer={renderer}
+      onDiagnosticsChange={onDiagnosticsChange}
+    />)
+
+    await waitFor(() => expect(renderer).toHaveBeenCalledTimes(1))
+    const [context, spec, catalog, usedResolver] = vi.mocked(renderer).mock.calls[0]!
+    expect(context.canvas).toMatchObject({ width: 2048, height: 2048 })
+    expect(spec).toStrictEqual(generated.spec)
+    expect(catalog).toBe(release.catalog)
+    expect(usedResolver).toBe(resolver)
+    expect(onDiagnosticsChange).toHaveBeenLastCalledWith([])
+    await waitFor(() => expect(createdContexts.flatMap(context => (
+      vi.mocked(context.drawImage).mock.calls
+    )).map(call => Array.from(call)).filter(call => (
+      call.length === 5 && call[3] === 1024 && call[4] === 1024
+    ))).toHaveLength(2))
+  })
+
+  it('rejects a mixed v0.9 tuple before invoking either renderer', async () => {
+    installCanvasContexts()
+    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const generated = generateMonsterV09({ seed: 'creator-preview-mixed' }, release.catalog)
+    const mixed = { ...generated.spec, generatorVersion: '0.8.0' } as unknown as typeof generated.spec
+    const legacyRenderer: PreviewRenderer = vi.fn()
+    const v09Renderer: V09PreviewRenderer = vi.fn()
+    const onDiagnosticsChange = vi.fn()
+
+    render(<PreviewCanvas
+      spec={mixed}
+      catalog={release.catalog}
+      renderer={legacyRenderer}
+      v09Renderer={v09Renderer}
+      v09Resolver={{} as V09ResourceResolver}
+      onDiagnosticsChange={onDiagnosticsChange}
+    />)
+
+    await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([
+      expect.objectContaining({ code: 'VERSION_TUPLE_MISMATCH' }),
+    ]))
+    expect(legacyRenderer).not.toHaveBeenCalled()
+    expect(v09Renderer).not.toHaveBeenCalled()
+  })
+
+  it('rejects a valid v0.9 spec paired with a legacy catalog instead of falling back', async () => {
+    installCanvasContexts()
+    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const generated = generateMonsterV09({ seed: 'creator-preview-wrong-catalog' }, release.catalog)
+    const legacyCatalog = makeValidCatalogFixture()
+    const legacyRenderer: PreviewRenderer = vi.fn()
+    const v09Renderer: V09PreviewRenderer = vi.fn()
+    const onDiagnosticsChange = vi.fn()
+
+    render(<PreviewCanvas
+      spec={generated.spec}
+      catalog={legacyCatalog}
+      renderer={legacyRenderer}
+      v09Renderer={v09Renderer}
+      onDiagnosticsChange={onDiagnosticsChange}
+    />)
+
+    await waitFor(() => expect(onDiagnosticsChange).toHaveBeenLastCalledWith([
+      expect.objectContaining({ code: 'VERSION_TUPLE_MISMATCH' }),
+    ]))
+    expect(legacyRenderer).not.toHaveBeenCalled()
+    expect(v09Renderer).not.toHaveBeenCalled()
+  })
+
   it('changes the render request key for catalog content and renderer identity', () => {
     const catalog = makeValidCatalogFixture()
     const spec = generateMonster({ seed: 'identity', themeId: 'fungal', mode: 'normal' }, catalog).spec

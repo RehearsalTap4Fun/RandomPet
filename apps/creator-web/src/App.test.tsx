@@ -1,10 +1,11 @@
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { generateMonster, type Catalog, type Diagnostic } from '@qmonster/generator-core'
+import { V09_TRAIT_SLOT_IDS, generateMonster, type Catalog, type Diagnostic } from '@qmonster/generator-core'
+import candidatePointer from '../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
 import { makeValidCatalogFixture } from '@qmonster/generator-core/test-fixtures'
 import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
-import { createCreatorSession, type CreatorSession } from './state/contracts.js'
+import { createCreatorSession, type AnyCreatorSession, type CreatorSession } from './state/contracts.js'
 import { refreshSessionValidity } from './state/session-diagnostics.js'
 import type { SessionStorage } from './state/persistence.js'
 import {
@@ -18,6 +19,8 @@ import {
   v05ProductionCatalog,
 } from './App.js'
 import type { PreviewRenderer } from './components/PreviewCanvas.js'
+import type { V09PreviewRenderer } from './components/PreviewCanvas.js'
+import { loadActiveProductionRelease } from './v09-production-release.js'
 
 function installCanvasContexts() {
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function (
@@ -40,6 +43,40 @@ function deferred<T>() {
 afterEach(() => vi.restoreAllMocks())
 
 describe('CreatorWorkbench', () => {
+  it('exposes one whole-skeleton control and exactly twelve v0.9 appearance controls', async () => {
+    installCanvasContexts()
+    const user = userEvent.setup()
+    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const renderer: V09PreviewRenderer = vi.fn(async () => ({ trace: [] }))
+    let observedSession: AnyCreatorSession | undefined
+
+    render(<App
+      v09Release={release}
+      v09Resolver={{} as import('@qmonster/renderer-canvas').V09ResourceResolver}
+      v09PreviewRenderer={renderer}
+      initialExportCapabilities={{ png: true, webp: true }}
+      onAnySessionChange={session => { observedSession = session }}
+    />)
+
+    expect(await screen.findByText('目录 v0.9.0')).toBeTruthy()
+    expect(screen.getByRole('group', { name: '完整骨架' })).toBeTruthy()
+    expect(screen.getAllByRole('group', { name: /外观槽位/ })).toHaveLength(V09_TRAIT_SLOT_IDS.length)
+    expect(screen.queryByText('躯干骨架')).toBeNull()
+    expect(screen.queryByText('头部轮廓')).toBeNull()
+    expect(screen.queryByText('前肢')).toBeNull()
+    expect(screen.queryByText('后肢')).toBeNull()
+    expect(screen.queryByText('尾巴')).toBeNull()
+
+    await waitFor(() => expect(observedSession?.spec.catalogVersion).toBe('0.9.0'))
+    const before = structuredClone(observedSession!)
+    await user.click(screen.getByRole('button', { name: '重掷完整骨架' }))
+    await waitFor(() => expect((observedSession?.spec as { skeletonSelection?: { roll: number } }).skeletonSelection?.roll).toBe(1))
+    expect(observedSession?.spec).not.toEqual(before.spec)
+
+    await user.click(screen.getByRole('checkbox', { name: '锁定完整骨架' }))
+    expect(screen.getByRole('button', { name: '重掷完整骨架' })).toBeDisabled()
+  })
+
   it('starts first-hatch with the exact v0.8 species-rig catalog', async () => {
     installCanvasContexts()
     vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation(callback => {

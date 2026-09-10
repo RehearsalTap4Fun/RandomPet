@@ -4,7 +4,10 @@ import {
   type GenerationRequest,
   type GenerationResult,
   type MonsterSpec,
+  type MonsterSpecV09,
   type ThemeId,
+  type V09GenerationResult,
+  type V09TraitSlotId,
   type VisualSlotId,
 } from '@qmonster/generator-core'
 import { refreshSessionValidity } from './session-diagnostics.js'
@@ -18,6 +21,24 @@ export interface CreatorSession {
   blocked: boolean
   exportCapabilities: { png: boolean; webp: boolean }
 }
+
+export type AnyMonsterSpec = MonsterSpec | MonsterSpecV09
+
+export interface V09CreatorSession {
+  spec: MonsterSpecV09
+  locks: {
+    skeleton: boolean
+    visualSlots: Record<V09TraitSlotId, boolean>
+  }
+  releaseManifestSha256: string
+  generationDiagnostics: Diagnostic[]
+  renderDiagnostics: Diagnostic[]
+  diagnostics: Diagnostic[]
+  blocked: boolean
+  exportCapabilities: { png: boolean; webp: boolean }
+}
+
+export type AnyCreatorSession = CreatorSession | V09CreatorSession
 
 export type CreatorAction =
   | { type: 'newCreature'; seed: string }
@@ -44,6 +65,26 @@ export function createCreatorSession(
     spec: generated.spec,
     locks: createUnlockedLocks(),
     generationDiagnostics: generated.diagnostics,
+    renderDiagnostics: [],
+    exportCapabilities: { ...exportCapabilities },
+  })
+}
+
+export function createV09CreatorSession(
+  generated: V09GenerationResult,
+  exportCapabilities: V09CreatorSession['exportCapabilities'] = { png: true, webp: true },
+  releaseManifestSha256: string,
+): V09CreatorSession {
+  return refreshSessionValidity({
+    spec: structuredClone(generated.spec),
+    locks: {
+      skeleton: false,
+      visualSlots: Object.fromEntries(
+        Object.keys(generated.spec.visualSlots).map(slotId => [slotId, false]),
+      ) as Record<V09TraitSlotId, boolean>,
+    },
+    releaseManifestSha256,
+    generationDiagnostics: generated.diagnostics.map(item => ({ ...item, path: [...item.path] })),
     renderDiagnostics: [],
     exportCapabilities: { ...exportCapabilities },
   })

@@ -1,10 +1,12 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { parseCatalog } from '@qmonster/generator-core'
 import productionCatalogDocument from '../../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
 import v08CatalogDocument from '../../../../packages/asset-catalog/catalog/v0.8.0/catalog.json'
+import candidatePointer from '../../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
 import { createCatalogReportModel } from '../catalog-report.js'
+import { loadActiveProductionRelease } from '../v09-production-release.js'
 import { CatalogReport } from './CatalogReport.js'
 import type { PreviewRenderer } from './PreviewCanvas.js'
 
@@ -16,6 +18,28 @@ if (!parsedV08Catalog.ok) throw new Error('Expected the v0.8 production catalog 
 afterEach(() => vi.restoreAllMocks())
 
 describe('CatalogReport', () => {
+  it('shows the immutable v0.9 skeleton weights and inspectable sealed trait metadata', async () => {
+    const user = userEvent.setup()
+    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const model = createCatalogReportModel(release)
+
+    render(<CatalogReport model={model} />)
+
+    expect(screen.getByRole('heading', { name: 'v0.9 原子骨架图鉴' })).toBeTruthy()
+    expect(screen.getByText('feline-sit-v2-core · 权重 8')).toBeTruthy()
+    expect(screen.getByText('feline-sit-v2-legendary-01 · 权重 1')).toBeTruthy()
+    expect(screen.getByText(candidatePointer.releaseManifestSha256)).toBeTruthy()
+    expect(screen.getByText('bodyColor · 8/4/1')).toBeTruthy()
+
+    await user.click(screen.getByRole('button', { name: 'headAppendage · 8/4/1' }))
+    const firstCard = screen.getAllByRole('article', { name: /headAppendage trait/ })[0]!
+    expect(within(firstCard).getByText(/已批准/)).toBeTruthy()
+    expect(within(firstCard).getByText(/interface:/)).toBeTruthy()
+    expect(within(firstCard).getByText(/shapeClass:/)).toBeTruthy()
+    expect(within(firstCard).getByText(/[a-f0-9]{64}/)).toBeTruthy()
+    expect(await within(firstCard).findByRole('img', { name: /完整上下文预览/ })).toBeTruthy()
+  })
+
   it('shows one 13-trait complete-specimen page per v0.8 slot', async () => {
     vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function (this: HTMLCanvasElement) {
       return { canvas: this, clearRect: vi.fn(), drawImage: vi.fn() } as unknown as CanvasRenderingContext2D

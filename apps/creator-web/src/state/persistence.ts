@@ -1,10 +1,15 @@
 import {
   parseMonsterSpec,
+  parseMonsterSpecV09,
+  V09_TRAIT_SLOT_IDS,
   VISUAL_SLOT_IDS,
   type Diagnostic,
+  type MonsterSpec,
+  type MonsterSpecV09,
+  type V09TraitSlotId,
   type VisualSlotId,
 } from '@qmonster/generator-core'
-import type { CreatorSession } from './contracts.js'
+import type { AnyCreatorSession, CreatorSession, V09CreatorSession } from './contracts.js'
 import {
   mergeSessionDiagnostics,
   refreshSessionValidity,
@@ -26,14 +31,16 @@ export interface SessionStorage {
   setItem(key: string, value: string): void
 }
 
-export interface LoadSessionResult {
-  session: CreatorSession
+export interface LoadSessionResult<T extends AnyCreatorSession = CreatorSession> {
+  session: T
   diagnostics: Diagnostic[]
 }
 
 export interface SessionTarget {
+  schemaVersion?: string
   catalogVersion: string
   rendererVersion: string
+  releaseManifestSha256?: string
 }
 
 interface PendingSave {
@@ -101,6 +108,18 @@ function parseLocks(value: unknown): Record<VisualSlotId, boolean> | null {
   ) as Record<VisualSlotId, boolean>
 }
 
+function parseV09Locks(value: unknown): V09CreatorSession['locks'] | null {
+  if (!isRecord(value) || typeof value.skeleton !== 'boolean' || !isRecord(value.visualSlots)) return null
+  const visualSlots = value.visualSlots
+  if (!V09_TRAIT_SLOT_IDS.every(slotId => typeof visualSlots[slotId] === 'boolean')) return null
+  return {
+    skeleton: value.skeleton,
+    visualSlots: Object.fromEntries(
+      V09_TRAIT_SLOT_IDS.map(slotId => [slotId, visualSlots[slotId]]),
+    ) as Record<V09TraitSlotId, boolean>,
+  }
+}
+
 function equalDiagnostics(left: readonly Diagnostic[], right: readonly Diagnostic[]): boolean {
   return left.length === right.length && left.every((diagnostic, index) => {
     const expected = right[index]!
@@ -112,33 +131,38 @@ function equalDiagnostics(left: readonly Diagnostic[], right: readonly Diagnosti
   })
 }
 
-function parseStoredSessionBase(value: Record<string, unknown>): Omit<
-  CreatorSession,
-  'generationDiagnostics' | 'renderDiagnostics' | 'diagnostics' | 'blocked'
-> | null {
-  const parsedSpec = parseMonsterSpec(value.spec)
-  if (!parsedSpec.ok || parsedSpec.value.schemaVersion !== MONSTER_SCHEMA_VERSION) return null
-  const locks = parseLocks(value.locks)
-  if (locks === null || !isRecord(value.exportCapabilities)) return null
+type StoredSessionBase =
+  | Omit<CreatorSession, 'generationDiagnostics' | 'renderDiagnostics' | 'diagnostics' | 'blocked'>
+  | Omit<V09CreatorSession, 'generationDiagnostics' | 'renderDiagnostics' | 'diagnostics' | 'blocked'>
+
+function parseStoredSessionBase(value: Record<string, unknown>): StoredSessionBase | null {
+  const parsedLegacySpec = parseMonsterSpec(value.spec)
+  const parsedV09Spec = parseMonsterSpecV09(value.spec)
+  if (!isRecord(value.exportCapabilities)) return null
   if (
     typeof value.exportCapabilities.png !== 'boolean'
     || typeof value.exportCapabilities.webp !== 'boolean'
   ) return null
-  return {
-    spec: parsedSpec.value,
-    locks,
-    exportCapabilities: {
-      png: value.exportCapabilities.png,
-      webp: value.exportCapabilities.webp,
-    },
+  const exportCapabilities = {
+    png: value.exportCapabilities.png,
+    webp: value.exportCapabilities.webp,
   }
+  if (parsedV09Spec.ok) {
+    const locks = parseV09Locks(value.locks)
+    if (locks === null || typeof value.releaseManifestSha256 !== 'string'
+      || !/^[a-f0-9]{64}$/u.test(value.releaseManifestSha256)) return null
+    return { spec: parsedV09Spec.value, locks, releaseManifestSha256: value.releaseManifestSha256, exportCapabilities }
+  }
+  if (!parsedLegacySpec.ok || parsedLegacySpec.value.schemaVersion !== MONSTER_SCHEMA_VERSION) return null
+  const locks = parseLocks(value.locks)
+  return locks === null ? null : { spec: parsedLegacySpec.value, locks, exportCapabilities }
 }
 
 function cloneDiagnostics(diagnostics: Diagnostic[]): Diagnostic[] {
   return diagnostics.map(item => ({ ...item, path: [...item.path] }))
 }
 
-function parseStoredSessionV1(value: unknown): CreatorSession | null {
+function parseStoredSessionV1(value: unknown): AnyCreatorSession | null {
   if (!isRecord(value)) return null
   if (!isBoundedDiagnosticArray(value.diagnostics)) return null
   const base = parseStoredSessionBase(value)
@@ -152,7 +176,7 @@ function parseStoredSessionV1(value: unknown): CreatorSession | null {
   })
 }
 
-function parseStoredSessionV2(value: unknown): CreatorSession | null {
+function parseStoredSessionV2(value: unknown): AnyCreatorSession | null {
   if (!isRecord(value)) return null
   const sourceBuckets = boundedDiagnosticSourceBuckets(
     value.generationDiagnostics,
@@ -186,20 +210,20 @@ function defaultStorage(): SessionStorage | undefined {
   }
 }
 
-function loadFailure(createFreshSession: () => CreatorSession, message: string): LoadSessionResult {
+function loadFailure<T extends AnyCreatorSession>(createFreshSession: () => T, message: string): LoadSessionResult<T> {
   return {
     session: createFreshSession(),
     diagnostics: [warning('SESSION_LOAD_FAILED', message)],
   }
 }
 
-export function loadSession(
-  createFreshSession: () => CreatorSession,
+export function loadSession<T extends AnyCreatorSession = CreatorSession>(
+  createFreshSession: () => T,
   storage: SessionStorage | undefined = defaultStorage(),
   target?: SessionTarget,
-): LoadSessionResult {
-  let preparedFreshSession: CreatorSession | undefined
-  const freshSession = (): CreatorSession => {
+): LoadSessionResult<T> {
+  let preparedFreshSession: T | undefined
+  const freshSession = (): T => {
     preparedFreshSession ??= createFreshSession()
     return preparedFreshSession
   }
@@ -227,17 +251,30 @@ export function loadSession(
     if (session === null) {
       return loadFailure(freshSession, 'The saved creator session is incomplete or invalid.')
     }
+    const freshSessionValue = freshSession()
+    const freshSpec = freshSessionValue.spec
     const expectedTarget = target ?? {
-      catalogVersion: freshSession().spec.catalogVersion,
-      rendererVersion: freshSession().spec.rendererVersion,
+      schemaVersion: freshSpec.schemaVersion,
+      catalogVersion: freshSpec.catalogVersion,
+      rendererVersion: 'rendererVersion' in freshSpec ? freshSpec.rendererVersion : freshSpec.generatorVersion,
+      ...('releaseManifestSha256' in freshSessionValue
+        ? { releaseManifestSha256: freshSessionValue.releaseManifestSha256 }
+        : {}),
     }
+    const sessionRendererVersion = 'rendererVersion' in session.spec
+      ? session.spec.rendererVersion
+      : session.spec.generatorVersion
     if (
-      session.spec.catalogVersion !== expectedTarget.catalogVersion
-      || session.spec.rendererVersion !== expectedTarget.rendererVersion
+      (expectedTarget.schemaVersion !== undefined && session.spec.schemaVersion !== expectedTarget.schemaVersion)
+      || session.spec.catalogVersion !== expectedTarget.catalogVersion
+      || sessionRendererVersion !== expectedTarget.rendererVersion
+      || (expectedTarget.releaseManifestSha256 !== undefined
+        && (!('releaseManifestSha256' in session)
+          || session.releaseManifestSha256 !== expectedTarget.releaseManifestSha256))
     ) {
       return loadFailure(freshSession, 'The saved creator session targets a different catalog or renderer.')
     }
-    return { session, diagnostics: [] }
+    return { session: session as T, diagnostics: [] }
   } catch {
     return loadFailure(freshSession, 'The saved creator session is not valid JSON.')
   }
@@ -248,7 +285,7 @@ function saveFailure(message: string): Diagnostic[] {
 }
 
 export function saveSession(
-  session: CreatorSession,
+  session: AnyCreatorSession,
   storage: SessionStorage | undefined = defaultStorage(),
 ): Promise<Diagnostic[]> {
   if (storage === undefined) {

@@ -1,4 +1,8 @@
 import { parseCatalog, type Catalog } from '@qmonster/generator-core'
+import {
+  loadActiveProductionRelease,
+  type ProductionV09Release,
+} from './v09-production-release.js'
 
 const productionCatalogDocuments = import.meta.glob<unknown>(
   '../../../packages/asset-catalog/catalog/v*/catalog.json',
@@ -7,6 +11,11 @@ const productionCatalogDocuments = import.meta.glob<unknown>(
 
 export function loadLatestProductionCatalog(): Catalog {
   return selectLatestValidCatalog(productionCatalogDocuments)
+}
+
+/** Preview-only opt-in; production default selection never falls back to this candidate. */
+export function loadExplicitProductionRelease(pointer: unknown): ProductionV09Release {
+  return loadActiveProductionRelease({ pointer })
 }
 
 export function selectLatestValidCatalog(documents: Readonly<Record<string, unknown>>): Catalog {

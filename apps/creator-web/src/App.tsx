@@ -2,11 +2,17 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { CatalogRegistry } from '@qmonster/asset-catalog/registry'
 import { detectExportCapabilities } from '@qmonster/renderer-canvas'
 import {
+  V09_TRAIT_SLOT_IDS,
+  generateMonsterV09,
   parseCatalog,
+  rerollV09Skeleton,
+  rerollV09Slot,
   VISUAL_SLOT_IDS,
   type Catalog,
   type Diagnostic,
+  type V09TraitSlotId,
 } from '@qmonster/generator-core'
+import type { V09ResourceResolver } from '@qmonster/renderer-canvas'
 import legacyProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.1.0/catalog.json'
 import v02ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.3.0/catalog.json'
@@ -15,20 +21,29 @@ import v05ProductionCatalogDocument from '../../../packages/asset-catalog/catalo
 import v06ProductionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
 import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.8.0/catalog.json'
 import { useCreator } from './hooks/useCreator.js'
-import type { CreatorAction, CreatorSession } from './state/contracts.js'
-import type { SessionStorage } from './state/persistence.js'
+import {
+  createV09CreatorSession,
+  type AnyCreatorSession,
+  type CreatorAction,
+  type CreatorSession,
+  type V09CreatorSession,
+} from './state/contracts.js'
+import { loadSession, saveSession, type SessionStorage } from './state/persistence.js'
+import { refreshSessionValidity } from './state/session-diagnostics.js'
 import { DiagnosticsPanel } from './components/DiagnosticsPanel.js'
 import { GeneratorControls } from './components/GeneratorControls.js'
 import {
   PreviewCanvas,
   previewFrameKey,
   type PreviewRenderer,
+  type V09PreviewRenderer,
 } from './components/PreviewCanvas.js'
 import { SlotPanel } from './components/SlotPanel.js'
 import { ExportControls } from './components/ExportControls.js'
 import type { ExportControlsProps } from './components/ExportControls.js'
 import { CompositionStatus } from './components/CompositionStatus.js'
 import { LegacySpecViewer } from './components/LegacySpecViewer.js'
+import type { ProductionV09Release } from './v09-production-release.js'
 
 const parsedProductionCatalog = parseCatalog(productionCatalogDocument)
 if (!parsedProductionCatalog.ok) {
@@ -232,20 +247,28 @@ export function CreatorWorkbench({
 
 interface AppProps {
   catalog?: Catalog
+  v09Release?: ProductionV09Release
+  v09Resolver?: V09ResourceResolver
+  v09PreviewRenderer?: V09PreviewRenderer
   initialExportCapabilities?: CreatorSession['exportCapabilities']
   parseSpecFile?: ExportControlsProps['parseSpecFile']
   storage?: SessionStorage
   previewRenderer?: PreviewRenderer
   onSessionChange?: (session: CreatorSession) => void
+  onAnySessionChange?: (session: AnyCreatorSession) => void
 }
 
 export function App({
   catalog = productionCatalog,
+  v09Release,
+  v09Resolver,
+  v09PreviewRenderer,
   initialExportCapabilities,
   parseSpecFile,
   storage,
   previewRenderer,
   onSessionChange,
+  onAnySessionChange,
 }: AppProps = {}) {
   const [exportCapabilities, setExportCapabilities] = useState<CreatorSession['exportCapabilities'] | null>(
     initialExportCapabilities ?? null,
@@ -268,6 +291,17 @@ export function App({
     return <p role="status">正在检测导出能力…</p>
   }
 
+  if (v09Release !== undefined) {
+    return <V09CreatorApp
+      release={v09Release}
+      exportCapabilities={exportCapabilities}
+      {...(storage === undefined ? {} : { storage })}
+      {...(v09Resolver === undefined ? {} : { resolver: v09Resolver })}
+      {...(v09PreviewRenderer === undefined ? {} : { previewRenderer: v09PreviewRenderer })}
+      {...(onAnySessionChange === undefined ? {} : { onSessionChange: onAnySessionChange })}
+    />
+  }
+
   return <InitializedCreatorApp
     initialCatalog={catalog}
     exportCapabilities={exportCapabilities}
@@ -276,6 +310,157 @@ export function App({
     {...(previewRenderer === undefined ? {} : { previewRenderer })}
     {...(onSessionChange === undefined ? {} : { onSessionChange })}
   />
+}
+
+const V09_SLOT_LABEL: Record<V09TraitSlotId, string> = {
+  bodyColor: '全身配色', surfacePattern: '全身图案', surfaceTexture: '表面质感',
+  forepawDetail: '前爪细节', hindpawDetail: '后爪细节', tailSurface: '尾部表面',
+  eyes: '成对眼睛', mouthShape: '嘴型', oralDetail: '口腔细节',
+  headAppendage: '头部附属物', extraAppendage: '额外附属物', effect: '特效',
+}
+
+function V09CreatorApp({
+  release,
+  exportCapabilities,
+  storage,
+  resolver,
+  previewRenderer,
+  onSessionChange,
+}: {
+  release: ProductionV09Release
+  exportCapabilities: V09CreatorSession['exportCapabilities']
+  storage?: SessionStorage
+  resolver?: V09ResourceResolver
+  previewRenderer?: V09PreviewRenderer
+  onSessionChange?: (session: AnyCreatorSession) => void
+}) {
+  const [seedInput, setSeedInput] = useState('qmonster-v0.9-first-hatch')
+  const [loaded] = useState(() => loadSession(
+    () => createV09CreatorSession(
+      generateMonsterV09({ seed: 'qmonster-v0.9-first-hatch' }, release.catalog),
+      exportCapabilities,
+      release.manifestHash,
+    ),
+    storage,
+    {
+      schemaVersion: '0.4.0', catalogVersion: '0.9.0', rendererVersion: '0.9.0',
+      releaseManifestSha256: release.manifestHash,
+    },
+  ))
+  const [session, setSession] = useState(loaded.session)
+  const [persistenceDiagnostics, setPersistenceDiagnostics] = useState<Diagnostic[]>(loaded.diagnostics)
+
+  useEffect(() => {
+    onSessionChange?.(session)
+  }, [onSessionChange, session])
+
+  useEffect(() => {
+    let active = true
+    void saveSession(session, storage).then(diagnostics => {
+      if (active) setPersistenceDiagnostics(diagnostics)
+    })
+    return () => { active = false }
+  }, [session, storage])
+
+  const applyGeneration = useCallback((result: ReturnType<typeof generateMonsterV09>) => {
+    setSession(current => refreshSessionValidity({
+      ...current,
+      spec: result.spec,
+      generationDiagnostics: result.diagnostics,
+      renderDiagnostics: [],
+    }))
+  }, [])
+  const setRenderDiagnostics = useCallback((diagnostics: Diagnostic[]) => {
+    setSession(current => refreshSessionValidity({ ...current, renderDiagnostics: diagnostics }))
+  }, [])
+  const diagnostics = [...session.diagnostics, ...persistenceDiagnostics]
+
+  return (
+    <div className="creator-app">
+      <header className="topbar">
+        <div className="brand-lockup">
+          <span className="brand-mark" aria-hidden="true">Q</span>
+          <div><p className="eyebrow">ATOMIC SKELETON LAB</p><h1>怪奇生物生成器</h1></div>
+          <span className="version-pill">v0.9</span>
+        </div>
+      </header>
+      <main className="workbench-grid">
+        <section className="generator-controls" aria-label="v0.9 生成控制">
+          <label>种子<input value={seedInput} onChange={event => setSeedInput(event.currentTarget.value)} /></label>
+          <button type="button" onClick={() => applyGeneration(generateMonsterV09({ seed: seedInput }, release.catalog))}>生成新生物</button>
+          <fieldset aria-label="完整骨架">
+            <legend>完整骨架</legend>
+            <p>{session.spec.skeletonFamilyId} · {session.spec.skeletonSelection.class}</p>
+            <label><input
+              type="checkbox"
+              aria-label="锁定完整骨架"
+              checked={session.locks.skeleton}
+              onChange={() => setSession(current => ({
+                ...current, locks: { ...current.locks, skeleton: !current.locks.skeleton },
+              }))}
+            />锁定</label>
+            <button
+              type="button"
+              disabled={session.locks.skeleton}
+              onClick={() => applyGeneration(rerollV09Skeleton({ spec: session.spec }, release.catalog))}
+            >重掷完整骨架</button>
+          </fieldset>
+        </section>
+
+        <section className="preview-column" aria-label="v0.9 实时预览">
+          <h2>实时预览</h2>
+          <PreviewCanvas
+            spec={session.spec}
+            catalog={release.catalog}
+            onDiagnosticsChange={setRenderDiagnostics}
+            {...(resolver === undefined ? {} : { v09Resolver: resolver })}
+            {...(previewRenderer === undefined ? {} : { v09Renderer: previewRenderer })}
+          />
+          <ul className="status-strip" aria-label="作品状态">
+            <li>槽位 12/12</li>
+            <li>目录 v0.9.0</li>
+            <li>骨架 {session.spec.skeletonSelection.class}</li>
+          </ul>
+          <DiagnosticsPanel diagnostics={diagnostics} />
+        </section>
+
+        <section className="slot-panel" aria-label="v0.9 外观控制">
+          {V09_TRAIT_SLOT_IDS.map(slotId => {
+            const selection = session.spec.visualSlots[slotId]
+            const sentinel = slotId === 'oralDetail' && selection.traitId === 'oral-none'
+            return (
+              <fieldset key={slotId} aria-label={`${slotId} 外观槽位`}>
+                <legend>{V09_SLOT_LABEL[slotId]}</legend>
+                <code>{selection.traitId}</code>
+                <span>{selection.rarity}</span>
+                <label><input
+                  type="checkbox"
+                  aria-label={`锁定 ${slotId}`}
+                  checked={session.locks.visualSlots[slotId]}
+                  disabled={sentinel}
+                  onChange={() => setSession(current => ({
+                    ...current,
+                    locks: {
+                      ...current.locks,
+                      visualSlots: {
+                        ...current.locks.visualSlots,
+                        [slotId]: !current.locks.visualSlots[slotId],
+                      },
+                    },
+                  }))}
+                />锁定</label>
+                <button
+                  type="button"
+                  disabled={session.locks.visualSlots[slotId] || sentinel}
+                  onClick={() => applyGeneration(rerollV09Slot({ spec: session.spec, slotId }, release.catalog))}
+                >重掷 {slotId}</button>
+              </fieldset>
+            )
+          })}
+        </section>
+      </main>
+    </div>
+  )
 }
 
 function InitializedCreatorApp({

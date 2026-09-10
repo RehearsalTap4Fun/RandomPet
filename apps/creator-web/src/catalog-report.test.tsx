@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest'
 import { parseCatalog, type Catalog } from '@qmonster/generator-core'
 import productionCatalogDocument from '../../../packages/asset-catalog/catalog/v0.6.0/catalog.json'
 import v08CatalogDocument from '../../../packages/asset-catalog/catalog/v0.8.0/catalog.json'
+import candidatePointer from '../../../packages/asset-catalog/releases/candidate-v0.9.0.json'
 import { createCatalogReportModel } from './catalog-report.js'
+import { loadActiveProductionRelease } from './v09-production-release.js'
 
 const parsedCatalog = parseCatalog(productionCatalogDocument)
 if (!parsedCatalog.ok) throw new Error('Expected the v0.6 production catalog to be valid.')
@@ -17,6 +19,31 @@ function reportFor(catalog: Catalog, archetypeId: string) {
 }
 
 describe('createCatalogReportModel', () => {
+  it('derives the v0.9 report from the immutable release inventory and sealed projections', () => {
+    const release = loadActiveProductionRelease({ pointer: candidatePointer })
+    const report = createCatalogReportModel(release)
+
+    expect(report.kind).toBe('v09')
+    if (report.kind !== 'v09') throw new Error('Expected the v0.9 report model.')
+    expect(report.releaseManifestSha256).toBe(candidatePointer.releaseManifestSha256)
+    expect(report.skeletons.map(item => ({ id: item.id, class: item.skeletonClass, weight: item.weight }))).toEqual([
+      { id: 'feline-sit-v2-core', class: 'base', weight: 8 },
+      { id: 'feline-sit-v2-legendary-01', class: 'legendary', weight: 1 },
+    ])
+    expect(report.slots).toHaveLength(12)
+    expect(report.slots.every(slot => (
+      slot.counts.common === 8 && slot.counts.rare === 4 && slot.counts.legendary === 1
+    ))).toBe(true)
+    const attachment = report.slots.find(slot => slot.slotId === 'headAppendage')?.traits[0]
+    expect(attachment).toMatchObject({
+      approvalState: 'approved',
+      interfaceId: expect.any(String),
+      shapeClass: expect.any(String),
+      sealedArtifactSha256: expect.stringMatching(/^[a-f0-9]{64}$/),
+      fullContextPreviewSha256: expect.stringMatching(/^[a-f0-9]{64}$/),
+    })
+  })
+
   it('derives exact 8:4:1 counts for every v0.8 feline part slot', () => {
     const feline = reportFor(parsedV08Catalog.value, 'feline')
 
