@@ -21,6 +21,12 @@ it('rebuilds legacy v0.3 evidence through the two-argument composition statistic
   const { manifest } = await buildTask9EvidenceManifest(process.cwd())
 
   expect(manifest.catalogVersion).toBe('0.3.0')
+  expect(manifest.task9Evidence?.dependencies.find(dependency => dependency.path === 'apps/creator-web/src/render-test.ts')?.sha256)
+    .toBe('2951ed7c40081e7f7f1da24436a9a95e1418feb5ac8c0ff2fb669e93a030b4ab')
+  expect(manifest.task9Evidence?.dependencies.find(dependency => dependency.path === 'packages/renderer-canvas/src/render.ts')?.sha256)
+    .toBe('75a1d4b1b997315a1098b8c115e155192f26e47fa7cd33bcf242a81c860d726a')
+  expect(manifest.task9Evidence?.dependencies.find(dependency => dependency.path === 'scripts/task8-stable-projection.ts')?.sha256)
+    .toBe('a5381f6d2fd30adb274e27043724dcc322cd23bbf10bb2aca68302f006f13c3e')
   expect(await readFile(statisticsPath)).toEqual(before)
 }, 60_000)
 
@@ -81,6 +87,34 @@ it('derives every canonical biped guide from the interface manifest and fails if
   )
   await import('node:fs/promises').then(({ rm }) => rm(join(guideRoot, expected[0]!)))
   await expect(collectCanonicalInterfaceGuideSeeds(root, manifest as any)).rejects.toThrow(expected[0])
+})
+
+it('binds a retired canonical guide through its tracked historical path', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'qmonster-task9-retired-guide-'))
+  const retiredRoot = join(root, 'asset-source', 'v0.3.0', 'guides', 'retired', 'head_round_dome')
+  await mkdir(retiredRoot, { recursive: true })
+  const expected = [
+    'head_round_dome-neck-plug-guide.png',
+    'head_round_dome-neck-plug-mask.png',
+  ]
+  for (const name of expected) await writeFile(join(retiredRoot, name), name)
+  const manifest = {
+    assets: [{
+      id: 'head_round_dome',
+      slotId: 'headShape',
+      variants: [{
+        rigId: 'biped',
+        connectors: [{ id: 'neck', role: 'plug' }],
+      }],
+    }],
+  }
+
+  await expect(collectCanonicalInterfaceGuideSeeds(root, manifest as any)).resolves.toEqual(
+    expected.map(name => ({
+      path: `asset-source/v0.3.0/guides/retired/head_round_dome/${name}`,
+      group: 'interface-guides',
+    })),
+  )
 })
 
 it('recursively collects sorted hash-bound paths from documents and directories', async () => {

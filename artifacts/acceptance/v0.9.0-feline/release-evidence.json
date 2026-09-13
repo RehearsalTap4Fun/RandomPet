@@ -1,0 +1,184 @@
+{
+  "activation": {
+    "activePointerCanonical": true,
+    "activePointerSha256": "1338f39ec97de57de03fb668d20c995f4a317a376b1c4d543f15604bf8121053",
+    "command": "npm run activate:v0.9",
+    "exitCode": 0
+  },
+  "artifacts": [
+    {
+      "path": "packages/asset-catalog/releases/active-release.json",
+      "sha256": "1338f39ec97de57de03fb668d20c995f4a317a376b1c4d543f15604bf8121053"
+    },
+    {
+      "path": "packages/asset-catalog/releases/candidate-v0.9.0.json",
+      "sha256": "87a0d7b7b150e95ef18646c7148d6b4fa847bcbaac1161878684878b63b37d2e"
+    },
+    {
+      "canonicalJsonSha256": "e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21",
+      "path": "packages/asset-catalog/releases/by-sha256/e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21.json",
+      "sha256": "e11528336f820b89d23d285a331da5acd2911443904c8ab768bd9ba68ee33a40"
+    },
+    {
+      "path": "artifacts/acceptance/v0.9.0-feline/preactivation-gate.json",
+      "sha256": "f4862627ad1dc3ea31a75a49b5c42cdf5dec83a0d48197c31fa03242141a68f0"
+    },
+    {
+      "path": "artifacts/acceptance/v0.9.0-feline/final-verification.json",
+      "sha256": "fdd059ef9244ffa450a45676eac0a4867ceb146cf8d58bfad57f18108d68b23d"
+    },
+    {
+      "path": "artifacts/acceptance/v0.9.0-feline/plan.json",
+      "sha256": "15b8fc935dec41925da059182a119e942bbefbfa997191fdec649b0d2f1a704d"
+    },
+    {
+      "path": "artifacts/acceptance/v0.9.0-feline/attempts/.claim-e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21.json",
+      "sha256": "0e14ae0ecc2a9f29c8de5b89ba16c7b95a2375fe8ef5e8b6da793c06ec8bd96d"
+    },
+    {
+      "canonicalJsonSha256": "9598dc7d32390547c982901f24c49a892dd0452b9a028e133597ad43fcb4c91b",
+      "path": "artifacts/acceptance/v0.9.0-feline/attempts/attempt-e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21/attempt.json",
+      "sha256": "9598dc7d32390547c982901f24c49a892dd0452b9a028e133597ad43fcb4c91b"
+    },
+    {
+      "path": "artifacts/acceptance/v0.9.0-feline/attempts/attempt-e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21/contact-sheet.png",
+      "sha256": "f3e2679e10195f974b154e4e0d284313bef89beff1253dda42f1c5d9d2670a67"
+    }
+  ],
+  "finalVerification": {
+    "browserBuildSha256": "ec67d0033ccae39ef3127c1a0a89e3ceb58f718bfa4a90e50b801382b8fb5cd4",
+    "codeSha256": "5f7eac08a1933018997ea160b8e432953bd14e1e696e6e24ddd657e8fcb2825b",
+    "command": "npm run verify-final:v0.9",
+    "exitCode": 0,
+    "receiptSha256": "fdd059ef9244ffa450a45676eac0a4867ceb146cf8d58bfad57f18108d68b23d",
+    "results": [
+      {
+        "command": "npm run typecheck",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/final-verification-logs/1.log",
+        "logSha256": "477dd40679cbbf93e8ba86e2a14eab4af5f35efa4061ff951ee8d2d4998b1018"
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/final-verification-logs/2.log",
+        "logSha256": "b6cf450732758cb2bf3605a0e6b1baeb5e9c5b17b02da6316e311a404d629701"
+      },
+      {
+        "command": "npm run catalog:validate",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/final-verification-logs/3.log",
+        "logSha256": "23c87991098a675a4308231e53e45631c96196a73021ca04b055678afa1d3be9"
+      },
+      {
+        "command": "npm run validate:v0.9.0 -w @qmonster/asset-catalog",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/final-verification-logs/4.log",
+        "logSha256": "5b7acff8bbd5b8548833bb4b5fea26f434139b633ab43527a222bcab1c8961c0"
+      },
+      {
+        "command": "npm run build",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/final-verification-logs/5.log",
+        "logSha256": "b10a0259a91a5b1fd4afe9b47f686aef3713b4522a52395521814056444c9fd8"
+      },
+      {
+        "command": "npx playwright test tests/render/v09-composition.spec.ts tests/render/v08-composition.spec.ts --project=chromium --workers=1",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/final-verification-logs/6.log",
+        "logSha256": "c363ac854cff17f74b866fee6310586ab1bbb14eb9119c6f8e5a70009a3368d4"
+      }
+    ]
+  },
+  "officialAttempt": {
+    "command": "npm run batch:v0.9:user-review",
+    "entries": 10,
+    "exitCode": 0,
+    "generationPolicy": {
+      "callsPerSeed": 1,
+      "rendersPerSeed": 1,
+      "replacements": 0,
+      "retries": 0,
+      "subjectiveFiltering": false
+    },
+    "identityTransforms": true,
+    "incubatorReleaseIdentity": true,
+    "manifestSha256": "9598dc7d32390547c982901f24c49a892dd0452b9a028e133597ad43fcb4c91b",
+    "traceNodesPerEntry": 21,
+    "uniqueSeeds": 10
+  },
+  "postactivation": [
+    {
+      "command": "npm run build && npm run test:production-smoke:prebuilt",
+      "exitCode": 0,
+      "summary": "3 passed; creator/catalog active identity and v0.8 replay verified"
+    },
+    {
+      "command": "npx playwright test tests/render/v09-composition.spec.ts tests/render/v08-composition.spec.ts --project=chromium --workers=1",
+      "exitCode": 0,
+      "summary": "3 passed"
+    },
+    {
+      "command": "npx playwright test tests/render/v09-acceptance.spec.ts --project=chromium --workers=1",
+      "exitCode": 0,
+      "summary": "1 passed; incubator identity and single seed consumption verified"
+    },
+    {
+      "command": "npm run validate:v0.9.0 -w @qmonster/asset-catalog",
+      "exitCode": 0,
+      "summary": "312 sealed traits and 2 skeleton families validated"
+    }
+  ],
+  "preactivation": {
+    "commands": [
+      {
+        "command": "npm run typecheck",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/gate-logs/1.log",
+        "logSha256": "477dd40679cbbf93e8ba86e2a14eab4af5f35efa4061ff951ee8d2d4998b1018"
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/gate-logs/2.log",
+        "logSha256": "142db9aa59baf16e1d8ce3973c422a56c595844eed1482e6dea17c6556b0e163"
+      },
+      {
+        "command": "npm run catalog:validate",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/gate-logs/3.log",
+        "logSha256": "23c87991098a675a4308231e53e45631c96196a73021ca04b055678afa1d3be9"
+      },
+      {
+        "command": "npm run validate:v0.9.0 -w @qmonster/asset-catalog",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/gate-logs/4.log",
+        "logSha256": "5b7acff8bbd5b8548833bb4b5fea26f434139b633ab43527a222bcab1c8961c0"
+      },
+      {
+        "command": "npm run build",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/gate-logs/5.log",
+        "logSha256": "59573a6379bcec27e4e771e151e896b2a8337fc6c20bab1ee867eace4a04a550"
+      },
+      {
+        "command": "npx playwright test tests/render/v09-composition.spec.ts tests/render/v08-composition.spec.ts --project=chromium --workers=1",
+        "exitCode": 0,
+        "log": "artifacts/acceptance/v0.9.0-feline/gate-logs/6.log",
+        "logSha256": "38e33b94d671926ba362bcab1cbee833ccbb2a3e5ebab6fa45e75738c774d49b"
+      }
+    ],
+    "receiptSha256": "f4862627ad1dc3ea31a75a49b5c42cdf5dec83a0d48197c31fa03242141a68f0"
+  },
+  "releaseManifestSha256": "e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21",
+  "schemaVersion": "qmonster-v09-release-evidence-v1",
+  "sourceHead": "c0c400f67f7c5697d0334eb2a271a3728ddaa743",
+  "verifyActive": {
+    "activePointerSha256": "1338f39ec97de57de03fb668d20c995f4a317a376b1c4d543f15604bf8121053",
+    "attemptSha256": "9598dc7d32390547c982901f24c49a892dd0452b9a028e133597ad43fcb4c91b",
+    "command": "npm run verify-active:v0.9",
+    "exitCode": 0,
+    "releaseManifestSha256": "e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21",
+    "writeMode": "read-only"
+  }
+}

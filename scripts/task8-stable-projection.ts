@@ -32,7 +32,7 @@ export const TASK8_APPROVED_RENDERER_BINDINGS = {
 // invalidate the historical projection rather than being silently replaced.
 const TASK8_APPROVED_CURRENT_RENDERER_SOURCE_SHA256: Readonly<Record<string, string>> = {
   'apps/creator-web/src/render-test.ts': '55abdd88428982ebdcc78d1b2c1c06dc28fc5e5f4882ed6a1568448770eed35b',
-  'packages/renderer-canvas/src/render.ts': 'ac2c6d919c2005dc9f709448fa478bf9a59db26dcdd0fef42c835b36270921bf',
+  'packages/renderer-canvas/src/render.ts': 'b98a57b484764d52fa8bdd2399a78629cd1967b93a6e8af95a80604b4e41f3b6',
   'packages/renderer-canvas/src/connector-metrics.ts': '7b908d0a4855807543a3ec50b0c4214aaee98008dce22cf6bb8f2c513ac83901',
   'scripts/render-limb-contact-sheets.ts': 'f41fdb4204c03f20b296ed79a2a27b361e2678a285d88f70a615cff0f60eefae',
 }
@@ -164,6 +164,11 @@ const TASK8_MARKER_REPLACEMENTS: Record<string, Record<string, string>> = {
     'render-test-v04-oral-detail-fixture': '',
   },
   'packages/renderer-canvas/src/render.ts': {
+    'renderer-v06-anatomy-bundle-import': '',
+    'renderer-v06-anatomy-bundle-renderer': '',
+    'renderer-v06-anatomy-bundle-route': '',
+    'renderer-v08-species-rig-import': '',
+    'renderer-v08-species-rig-route': '',
     'renderer-v04-composition-surface-fields': '',
     'renderer-v04-composition-surface-factory': "  const surfaces = [\n    factory(MASTER_SIZE, MASTER_SIZE, context),\n    factory(MASTER_SIZE, MASTER_SIZE, context),\n    factory(METRIC_SIZE, METRIC_SIZE, context),\n    factory(METRIC_SIZE, METRIC_SIZE, context),\n    factory(METRIC_SIZE, METRIC_SIZE, context),\n    factory(METRIC_SIZE, METRIC_SIZE, context),\n    factory(METRIC_SIZE, METRIC_SIZE, context),\n  ]\n  if (surfaces.some(surface => surface === null)) return null\n  const result: CompositionSurfaces = {\n    nodeLayer: surfaces[0]!,\n    bodyAlpha: surfaces[1]!,\n    eyesAlpha: surfaces[2]!,\n    mouthAlpha: surfaces[3]!,\n    outputAlpha: surfaces[4]!,\n    eyesOccluderAlpha: surfaces[5]!,\n    mouthOccluderAlpha: surfaces[6]!,\n  }\n",
     'renderer-v04-metric-diagnostic-slot': "  slotId: 'eyes' | 'mouthShape',\n",

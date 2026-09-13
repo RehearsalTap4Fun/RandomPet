@@ -81,7 +81,12 @@ describe('validateInterfaceSlice', () => {
       repositoryRoot: process.cwd(),
     })
 
-    expect(result.diagnostics.filter(item => item.code === 'INTERFACE_GUIDE_STALE')).toEqual([])
+    expect(result.diagnostics).toEqual([])
+    expect(result.diagnostics.filter(item => (
+      item.code === 'INTERFACE_GUIDE_INVALID'
+      || item.code === 'INTERFACE_GUIDE_DRIFT'
+      || item.code === 'INTERFACE_GUIDE_STALE'
+    ))).toEqual([])
   }, 20_000)
 
   it('validates manifest and deterministic guide inventory without requiring production art', async () => {

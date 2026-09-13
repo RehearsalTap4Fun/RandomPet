@@ -16,6 +16,7 @@ import {
   collectExpectedTask9EvidenceDependencies,
 } from '../packages/asset-catalog/src/task9-evidence-dependencies.js'
 import { readTrustedRepositoryFile } from '../packages/asset-catalog/src/trusted-repository-file.js'
+import { projectTask9EvidenceDependencies } from '../packages/asset-catalog/src/task9-versioned-dependency-projection.js'
 import { measureCompositionDistribution } from './composition-statistics.js'
 
 export { collectCanonicalInterfaceGuideSeeds, collectEvidenceDependencyClosure }
@@ -213,7 +214,7 @@ export async function buildTask9EvidenceManifest(repositoryRoot = process.cwd())
       schemaVersion: 'task9-production-evidence-v1',
       sourceEntryCount: sourceIndex.sources.length,
       dependencyCount: dependencies.length,
-      dependencies,
+      dependencies: projectTask9EvidenceDependencies(dependencies),
       compositionStatistics: {
         seedCount: statistics.seedCount,
         optionalNoneRates: statistics.optionalNoneRates,

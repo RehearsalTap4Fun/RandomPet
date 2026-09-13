@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { expect, test } from '@playwright/test'
 
-test('production bundle renders a ready creature and exports a real WebP', async ({ page }) => {
+test('active production bundle renders its exact version through the default resolver', async ({ page }) => {
   test.setTimeout(120_000)
   const pageErrors: Error[] = []
   const consoleErrors: string[] = []
@@ -31,10 +31,33 @@ test('production bundle renders a ready creature and exports a real WebP', async
   expect(consoleErrors).toEqual([])
   expect(failedRequests).toEqual([])
   await expect(page.getByRole('heading', { name: '怪奇生物生成器' })).toBeVisible()
+  const active = await readFile('packages/asset-catalog/releases/active-release.json', 'utf8').catch(error => {
+    if (error.code === 'ENOENT') return undefined
+    throw error
+  })
+  if (active !== undefined) {
+    const hash = JSON.parse(active).releaseManifestSha256
+    await expect(page.getByRole('region', { name: 'v0.9 外观控制' }).locator('fieldset')).toHaveCount(12)
+    await expect(page.getByRole('group', { name: '完整骨架', exact: true })).toBeVisible()
+    const preview = page.getByRole('img', { name: '生物预览' })
+    expect(await preview.evaluate(canvas => {
+      const element = canvas as HTMLCanvasElement
+      return element.getContext('2d')!.getImageData(0, 0, element.width, element.height).data.some((value, index) => index % 4 === 3 && value > 0)
+    })).toBe(true)
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('qmonster.creator.session.v1'))).toContain(hash)
+    await page.goto('/catalog-report.html')
+    await expect(page.getByRole('heading', { name: 'v0.9 原子骨架图鉴' })).toBeVisible({ timeout: 120_000 })
+    await expect(page.locator('header code')).toHaveText(hash)
+    await expect(page.getByRole('region', { name: 'v0.9 外观槽位' }).getByRole('button', { name: /8\/4\/1/u })).toHaveCount(12)
+    expect(pageErrors.map(error => error.message)).toEqual([])
+    expect(consoleErrors).toEqual([])
+    expect(failedRequests).toEqual([])
+    console.info(`Creator and catalog-report active identity: ${hash}`)
+    return
+  }
   // Exercise a deterministic production-safe structural path rather than
   // coupling the smoke test to whichever optional tail/extra parts a seed rolls.
-  await page.locator('#slot-control-tail').selectOption('tail_none')
-  await page.locator('#slot-control-extraAppendage').selectOption('extra_appendage_none')
+  // Legacy v0.8 has immutable trait pools, not the pre-v0.8 structural sentinel IDs.
   await expect(page.getByText('组合状态良好')).toBeVisible()
   const preview = page.getByRole('img', { name: '生物预览' })
   await expect(preview).toBeVisible()

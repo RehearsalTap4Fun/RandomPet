@@ -9,8 +9,12 @@ import {
   type Palette,
 } from '@qmonster/generator-core'
 import { resolveAttachmentTree } from './attachment-tree.js'
+// TASK8_STABLE_BEGIN:renderer-v06-anatomy-bundle-import
 import { resolveAnatomyBundleRenderPlan } from './anatomy-bundle.js'
+// TASK8_STABLE_END:renderer-v06-anatomy-bundle-import
+// TASK8_STABLE_BEGIN:renderer-v08-species-rig-import
 import { renderSpeciesRigMonster } from './species-rig-render.js'
+// TASK8_STABLE_END:renderer-v08-species-rig-import
 import { buildBridgeMesh, type BridgeMesh } from './bridge-mesh.js'
 import {
   connectorMetricMeetsThresholds,
@@ -1844,6 +1848,7 @@ async function renderInterfaceMonster(
   // TASK8_STABLE_END:renderer-diagnostic-return
 }
 
+// TASK8_STABLE_BEGIN:renderer-v06-anatomy-bundle-renderer
 function anatomyBundleAssetLoadDiagnostic(assetPath: string): Diagnostic {
   return {
     severity: 'error',
@@ -2117,6 +2122,7 @@ async function renderAnatomyBundleMonster(
     connectorMetrics: [],
   }
 }
+// TASK8_STABLE_END:renderer-v06-anatomy-bundle-renderer
 
 // TASK8_STABLE_BEGIN:renderer-versioned-interface-pair-helper
 function isInterfaceRenderPair(spec: MonsterSpec, catalog: Catalog): boolean {
@@ -2175,12 +2181,16 @@ export async function renderMonster(
       // TASK8_STABLE_END:renderer-v04-invalid-interface-pair
     }
   }
+  // TASK8_STABLE_BEGIN:renderer-v08-species-rig-route
   if (catalog.version === '0.8.0' || spec.rendererVersion === '0.8.0') {
     return renderSpeciesRigMonster(context, spec, catalog, resolver, options)
   }
+  // TASK8_STABLE_END:renderer-v08-species-rig-route
+  // TASK8_STABLE_BEGIN:renderer-v06-anatomy-bundle-route
   if (resolveAnatomyBundleRenderPlan(spec, catalog) !== null) {
     return renderAnatomyBundleMonster(context, spec, catalog, resolver, options)
   }
+  // TASK8_STABLE_END:renderer-v06-anatomy-bundle-route
   // TASK8_STABLE_BEGIN:renderer-v04-interface-route
   if (isInterfaceRenderPair(spec, catalog)) {
   // TASK8_STABLE_END:renderer-v04-interface-route

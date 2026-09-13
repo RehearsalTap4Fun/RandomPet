@@ -216,9 +216,10 @@ describe('v0.9 feline trait production', () => {
     expect(summary.reportSha256).toMatch(/^[a-f0-9]{64}$/)
   }, 600_000)
 
-  it('keeps the pending report and every sealed artifact inside controlled roots', async () => {
-    await access('artifacts/acceptance/v0.9.0-feline/trait-catalog-review.png')
+  it('keeps the tracked review report and every sealed artifact inside controlled roots', async () => {
     const plan = JSON.parse(await readFile('asset-source/v0.9.0/feline/trait-approval-plan.json', 'utf8'))
+    await access(plan.report.sourcePath)
+    await access(plan.report.assetPath)
     expect(plan.status).toBe('pending-owner-approval')
     expect(plan.entries).toHaveLength(312)
     expect(plan.revisedAssemblyApprovalRevision).toBe(3)

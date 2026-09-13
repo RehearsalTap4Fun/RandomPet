@@ -1,0 +1,374 @@
+
+> qmonster-creator@0.1.0 test
+> vitest run --project=packages-node --project=creator-state-node --project=creator-jsdom --testTimeout=30000 && vitest run --project=asset-production-heavy --project=interface-review-heavy --project=production-browser-v03 --testTimeout=30000 --maxWorkers=1
+
+
+ RUN  v4.1.11 C:/Project/QMonsterCreator/.worktrees/qmonster-v09-task12-clean
+
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+(node:50164) ExperimentalWarning: glob is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ Test Files  127 passed (127)
+      Tests  1285 passed | 4 skipped (1289)
+   Start at  07:40:23
+   Duration  39.45s (transform 46.99s, setup 7.29s, import 104.08s, tests 476.62s, environment 33.37s)
+
+
+ RUN  v4.1.11 C:/Project/QMonsterCreator/.worktrees/qmonster-v09-task12-clean
+
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.104.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.105.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.106.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.107.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.108.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.109.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.110.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.111.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.112.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.113.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.114.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.115.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.116.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.260.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.261.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.262.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.263.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.264.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.265.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.266.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.267.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.268.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.269.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.270.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.271.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.272.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+TRAIT_SCHEMA_INVALID runtimeResources.oralProjections.closed Invalid key in record
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.104.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.105.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.106.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.107.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.108.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.109.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.110.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.111.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.112.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.113.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.114.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.115.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.116.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.260.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.261.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.262.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.263.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.264.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.265.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.266.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.267.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.268.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.269.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.270.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.271.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.272.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-common-0 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-common-1 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-common-2 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-common-3 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-common-4 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-common-5 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-common-6 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-common-7 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-legendary-0 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-rare-0 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-rare-1 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-rare-2 Every semantic trait must project exactly once to both skeletons.
+SKELETON_PROJECTION_MISSING sealedTraits.oralDetail.oralDetail-rare-3 Every semantic trait must project exactly once to both skeletons.
+TRAIT_APPROVAL_MISSING traitApprovals.104 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.105 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.106 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.107 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.108 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.109 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.110 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.111 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.112 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.113 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.114 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.115 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.116 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.260 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.261 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.262 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.263 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.264 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.265 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.266 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.267 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.268 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.269 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.270 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.271 Orphan, duplicate or revoked trait approval.
+TRAIT_APPROVAL_MISSING traitApprovals.272 Orphan, duplicate or revoked trait approval.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.104.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.105.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.106.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.107.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.108.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.109.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.110.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.111.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.112.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.113.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.114.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.115.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.116.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.249 Mouth trait must belong to its declared socket registry; closed mouths require oral-none.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.260.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.261.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.262.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.263.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.264.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.265.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.266.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.267.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.268.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.269.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.270.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.271.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.272.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.93 Mouth trait must belong to its declared socket registry; closed mouths require oral-none.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.104.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.105.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.106.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.107.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.108.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.109.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.110.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.111.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.112.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.113.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.114.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.115.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.116.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.260.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.261.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.262.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.263.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.264.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.265.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.266.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.267.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.268.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.269.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.270.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.271.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+ORAL_SOCKET_INCOMPATIBLE sealedTraits.272.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
+RESOURCE_HASH_MISMATCH releasePointer Referenced file is missing: C:\Users\jiangzhenyu\AppData\Local\Temp\qmonster-v09-oral-missing-X9nyFE\resources\by-sha256\6d763a1bb9a334530ce657c20d502fe3d6d13df19f362f17ea77911744e5dc2c
+RESOURCE_HASH_MISMATCH resources.sha256:ca2196a9d32cc1ffc8e100e2c84553deea596098f2e7a5f0439e6e8ccf6cb00b.schemaVersion Invalid input: expected "qmonster-material-v1"
+RESOURCE_HASH_MISMATCH resources.sha256:115945ac7c5e518186d0dfff435e9ef0fa2ea7c36c8c2fcf76ab0e2b73ae3803.alphaPolicy Invalid input: expected "preserve-skeleton-alpha"
+RESOURCE_HASH_MISMATCH resources.sha256:1196bebebe10c4626eed37d22dc8b17cf9b46f470a66c733c575bdd85d4be41b.blendMode Invalid option: expected one of "replace-color"|"multiply"|"overlay"
+RESOURCE_HASH_MISMATCH resources.sha256:2f434d80737604a334e06886d0bb17aef0f3826c75aea576c24f0338895ab02d Unrecognized key: "extra"
+RESOURCE_HASH_MISMATCH resources.sha256:5976e7956ccaeb5fee19efc44d8caf73e247aecf77e92437a420c86c4a656e8b.alphaPolicy Invalid input: expected "preserve-skeleton-alpha"
+RESOURCE_HASH_MISMATCH resources.sha256:1a9637ad54c93dd52648adede640c5d5e9bf4cc2703244f072cc4032818f5a97.blendMode Invalid option: expected one of "replace-color"|"multiply"|"overlay"
+RESOURCE_HASH_MISMATCH resources.sha256:f32b79c411a92d5e2917ef06f2b646730dbb6f13ac86231e6607ae7c9dccb312.ownerMaterialId Too small: expected string to have >=1 characters
+SURFACE_OWNER_VIOLATION sealedTraits.0 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.1 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.10 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.11 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.12 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.13 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.14 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.15 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.156 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.157 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.158 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.159 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.16 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.160 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.161 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.162 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.163 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.164 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.165 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.166 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.167 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.168 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.169 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.17 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.170 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.171 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.172 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.173 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.174 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.175 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.176 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.177 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.178 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.179 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.18 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.180 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.181 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.182 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.183 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.184 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.185 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.186 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.187 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.188 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.189 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.19 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.190 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.191 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.192 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.193 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.194 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.195 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.196 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.197 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.198 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.199 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.2 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.20 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.200 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.201 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.202 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.203 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.204 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.205 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.206 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.207 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.208 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.209 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.21 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.210 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.211 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.212 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.213 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.214 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.215 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.216 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.217 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.218 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.219 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.22 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.220 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.221 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.222 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.223 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.224 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.225 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.226 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.227 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.228 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.229 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.23 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.230 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.231 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.232 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.233 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.24 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.25 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.26 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.27 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.28 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.29 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.3 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.30 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.31 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.32 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.33 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.34 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.35 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.36 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.37 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.38 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.39 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.4 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.40 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.41 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.42 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.43 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.44 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.45 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.46 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.47 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.48 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.49 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.5 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.50 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.51 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.52 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.53 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.54 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.55 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.56 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.57 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.58 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.59 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.6 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.60 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.61 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.62 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.63 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.64 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.65 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.66 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.67 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.68 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.69 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.7 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.70 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.71 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.72 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.73 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.74 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.75 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.76 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.77 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.8 Surface operation owner does not match the template-owned material.
+SURFACE_OWNER_VIOLATION sealedTraits.9 Surface operation owner does not match the template-owned material.
+RESOURCE_HASH_MISMATCH resources.sha256:01c0ae7addc53aa362ab70735b871634951833bb324512999eb8d9c31dadf77f A material operation requires colorMap or colorLut.
+RESOURCE_HASH_MISMATCH resources.sha256:156fcdf94d71918e11079ba018ddc71534092d884d1d8f7fe787c6e97c9ce470.colorLut Too small: expected array to have >=1024 items
+RELEASE_CANDIDATE_INVALID releasePointer Candidate array is not an ordinary bounded array.
+RESOURCE_HASH_MISMATCH releasePointer Resource identity mismatch: sha256:36b17fdf5a218e39f4cbb5a99c084c4f2f8bbc9bf906f4540b60a49d11200724
+RESOURCE_HASH_MISMATCH resources.sha256:db46c082d3d9558f4c5896c817f2c321b1c733d38e51af4944c6ef99b055a38c.colorMap Malformed content resource reference.
+RESOURCE_HASH_MISMATCH releasePointer Resource identity mismatch: sha256:55d53f10c88b7e58ae8ea5722a6c2de814704944910ba90ad9d3d2e39fa33169
+RESOURCE_HASH_MISMATCH releasePointer Referenced file is missing: C:\Users\jiangzhenyu\AppData\Local\Temp\qmonster-v09-cli-fFPGn2\resources\by-sha256\43a249d8e803abdc1021de9f75fa19e032e301c126362049012516b89faa6007
+RESOURCE_HASH_MISMATCH releasePointer Resource identity mismatch: sha256:f62ac5fdbba8aadf3c2e0c6ffb1906016eeb8a7d7abec7e4d6b347963f7ae8f6
+RESOURCE_HASH_MISMATCH releasePointer Resource identity mismatch: sha256:43a249d8e803abdc1021de9f75fa19e032e301c126362049012516b89faa6007
+RARITY_INVENTORY_MISMATCH traitInventory.eyes.common Expected frozen count 8; found 7.
+RARITY_INVENTORY_MISMATCH traitInventory.traits Expected exactly 156 independent semantic traits.
+TRAIT_APPROVAL_MISSING sealedTraits.bodyColor.bodyColor-common-0 Trait requires exactly one exact non-revoked visual approval.
+TRAIT_APPROVAL_MISSING traitApprovals.0 Orphan, duplicate or revoked trait approval.
+ATTACHMENT_HASH_NOT_APPROVED attachmentAllowlist.entries.0 Unrecognized key: "unexpected"
+
+ Test Files  19 passed (19)
+      Tests  324 passed | 1 skipped (325)
+   Start at  07:41:03
+   Duration  1801.08s (transform 1.27s, setup 0ms, import 6.25s, tests 1792.62s, environment 1ms)
+

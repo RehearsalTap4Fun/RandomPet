@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { resolve } from 'node:path'
 import { generateMonster, parseCatalog } from '@qmonster/generator-core'
-import type { CompositionMetrics } from '@qmonster/renderer-canvas'
+import {
+  CONNECTOR_PLUG_COVERAGE_MIN,
+  CONNECTOR_RECEIVER_COVERAGE_MIN,
+  type CompositionMetrics,
+} from '@qmonster/renderer-canvas'
 import productionCatalogDocument from '../packages/asset-catalog/catalog/v0.2.0/catalog.json'
 import v03ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.3.0/catalog.json'
 import v04ProductionCatalogDocument from '../packages/asset-catalog/catalog/v0.4.0/catalog.json'
@@ -233,8 +237,8 @@ describe('acceptance manifest', () => {
     ['render diagnostics', { renderDiagnostics: [{ severity: 'warning', code: 'TEST', path: [], message: 'warning' }] }],
     ['missing connector metrics', { connectorMetrics: null }],
     ['empty connector metrics', { connectorMetrics: [] }],
-    ['receiver connector under coverage', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], receiverCoverage: 0.619999 }] }],
-    ['plug connector under antialiasing margin', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], plugCoverage: 0.898999 }] }],
+    ['receiver connector under coverage', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], receiverCoverage: CONNECTOR_RECEIVER_COVERAGE_MIN - 0.000001 }] }],
+    ['plug connector under antialiasing margin', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], plugCoverage: CONNECTOR_PLUG_COVERAGE_MIN - 0.000001 }] }],
     ['disconnected structural alpha', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], largestComponentRatio: 0.989999 }] }],
     ['connector centerline gap over two pixels', { connectorMetrics: [{ ...makeValidRenderedAcceptanceEntry().connectorMetrics[0], centerlineGapPixels: 2.000001 }] }],
     ['missing exact asset resources', { resolvedAssetPaths: [] }],
@@ -279,8 +283,8 @@ describe('acceptance manifest', () => {
       },
       connectorMetrics: [{
         ...makeValidRenderedAcceptanceEntry().connectorMetrics[0],
-        receiverCoverage: 0.62,
-        plugCoverage: 0.899,
+        receiverCoverage: CONNECTOR_RECEIVER_COVERAGE_MIN,
+        plugCoverage: CONNECTOR_PLUG_COVERAGE_MIN,
       }],
     })).not.toThrow()
   })

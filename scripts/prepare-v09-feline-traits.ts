@@ -990,13 +990,15 @@ export async function validatePreparedFelineTraits(options: { workspaceRoot?: st
       : path.endsWith('.png') ? await decodedPngSha256(bytes) : canonicalJsonSha256(JSON.parse(bytes.toString('utf8')))
     check(actual === digest, `Resource hash mismatch: ${resourceId}`)
   }
-  const reportBytes = await readFile(absolute(workspaceRoot, REPORT_PATH))
+  // The content-addressed asset is the durable review copy in a clean checkout.
+  // The artifacts/acceptance copy is a disposable convenience output and may be ignored.
+  const reportBytes = await readFile(absolute(workspaceRoot, plan.report.assetPath))
   const reportRaw = await sharp(reportBytes).toColourspace('srgb').ensureAlpha().raw().toBuffer({ resolveWithObject: true })
   const reportSha256 = rawReportSha256(reportRaw.data, reportRaw.info.width, reportRaw.info.height)
   check(reportSha256 === plan.report.sha256 && byteSha256(reportBytes) === plan.report.byteSha256, 'Bulk report identity differs from the approval plan')
   const reportDescriptors = [plan.report, plan.diagnosticReports?.oralCompatibility, plan.diagnosticReports?.attachmentInterfaces].filter(Boolean)
   for (const descriptor of reportDescriptors) {
-    for (const path of [descriptor.acceptancePath, descriptor.sourcePath, descriptor.assetPath]) {
+    for (const path of [descriptor.sourcePath, descriptor.assetPath]) {
       try {
         const bytes = await readFile(absolute(workspaceRoot, path))
         check(await reportCopyMatches(bytes, descriptor), `Report copy is missing or tampered: ${path}`)
@@ -1022,7 +1024,7 @@ export async function validatePreparedFelineTraits(options: { workspaceRoot?: st
     absolute(workspaceRoot, `${SOURCE_ROOT}/approvals/approved-master-review.json`),
     ...(plan.scopedGitAddPaths as string[]).map(path => absolute(workspaceRoot, path)),
   ] : []
-  const closureFiles = [...new Set([...actualManifests, ...actualSources, ...actualAssets, absolute(workspaceRoot, `${SOURCE_ROOT}/trait-inventory.json`), absolute(workspaceRoot, `${SOURCE_ROOT}/attachment-allowlist-candidate.json`), absolute(workspaceRoot, REPORT_INDEX_PATH), ...reportDescriptors.flatMap(item => [absolute(workspaceRoot, item.sourcePath), absolute(workspaceRoot, item.acceptancePath)]), ...approvalClosureFiles])].sort()
+  const closureFiles = [...new Set([...actualManifests, ...actualSources, ...actualAssets, absolute(workspaceRoot, `${SOURCE_ROOT}/trait-inventory.json`), absolute(workspaceRoot, `${SOURCE_ROOT}/attachment-allowlist-candidate.json`), absolute(workspaceRoot, REPORT_INDEX_PATH), ...reportDescriptors.map(item => absolute(workspaceRoot, item.sourcePath)), ...approvalClosureFiles])].sort()
   const closure = []
   for (const path of closureFiles) closure.push([relative(workspaceRoot, path).replaceAll('\\', '/'), byteSha256(await readFile(path))])
   return {

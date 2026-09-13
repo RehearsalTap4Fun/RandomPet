@@ -15,6 +15,34 @@ export interface Task9DependencySeed { path: string; group: string }
 const EVIDENCE_MANIFEST_PATH = 'packages/asset-catalog/audit/v0.3.0/evidence-manifest.json'
 export const TASK9_TRACKED_DEPENDENCIES_PATH = 'packages/asset-catalog/audit/v0.3.0/task9-tracked-dependencies.json'
 
+const RETIRED_CANONICAL_INTERFACE_GUIDES: Readonly<Record<string, string>> = {
+  'head_round_dome-neck-plug-guide.png': 'retired/head_round_dome/head_round_dome-neck-plug-guide.png',
+  'head_round_dome-neck-plug-mask.png': 'retired/head_round_dome/head_round_dome-neck-plug-mask.png',
+}
+
+export async function resolveCanonicalInterfaceGuidePath(
+  repositoryRoot: string,
+  name: string,
+): Promise<{ path: string, retired: boolean }> {
+  const currentPath = `asset-source/v0.3.0/guides/${name}`
+  try {
+    await readTrustedRepositoryFile(repositoryRoot, currentPath)
+    return { path: currentPath, retired: false }
+  } catch (error) {
+    const retiredPath = RETIRED_CANONICAL_INTERFACE_GUIDES[name]
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT' || retiredPath === undefined) {
+      throw new Error(`Missing canonical interface guide dependency: ${currentPath}`)
+    }
+    const historicalPath = `asset-source/v0.3.0/guides/${retiredPath}`
+    try {
+      await readTrustedRepositoryFile(repositoryRoot, historicalPath)
+    } catch {
+      throw new Error(`Missing canonical interface guide dependency: ${historicalPath}`)
+    }
+    return { path: historicalPath, retired: true }
+  }
+}
+
 export const TASK9_EVIDENCE_SEED_FILES: readonly Task9DependencySeed[] = [
   ...['catalog.json', 'parts.json', 'semantic-traits.json', 'themes.json', 'rigs.json', 'modifiers.json']
     .map(name => ({ path: `packages/asset-catalog/catalog/v0.3.0/${name}`, group: 'catalog' })),
@@ -126,16 +154,12 @@ export async function collectCanonicalInterfaceGuideSeeds(
   repositoryRoot: string,
   manifest: InterfaceSourceManifest,
 ): Promise<Task9DependencySeed[]> {
-  const seeds = canonicalBipedGuideFiles(manifest).map(name => ({
-    path: `asset-source/v0.3.0/guides/${name}`,
-    group: 'interface-guides',
-  }))
-  for (const seed of seeds) {
-    try {
-      await readTrustedRepositoryFile(repositoryRoot, seed.path)
-    } catch {
-      throw new Error(`Missing canonical interface guide dependency: ${seed.path}`)
-    }
+  const seeds: Task9DependencySeed[] = []
+  for (const name of canonicalBipedGuideFiles(manifest)) {
+    seeds.push({
+      path: (await resolveCanonicalInterfaceGuidePath(repositoryRoot, name)).path,
+      group: 'interface-guides',
+    })
   }
   return seeds
 }

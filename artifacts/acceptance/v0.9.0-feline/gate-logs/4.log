@@ -1,0 +1,4 @@
+
+> @qmonster/asset-catalog@0.1.0 validate:v0.9.0
+> cd ../.. && tsx packages/asset-catalog/src/v09-cli.ts --release-pointer packages/asset-catalog/releases/candidate-v0.9.0.json
+

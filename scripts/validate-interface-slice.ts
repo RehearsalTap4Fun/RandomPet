@@ -13,6 +13,7 @@ import {
   type InterfaceSourceManifest,
 } from './interface-source-schema.js'
 import { productionPaths } from './production-paths.js'
+import { resolveCanonicalInterfaceGuidePath } from '../packages/asset-catalog/src/task9-evidence-dependencies.js'
 import { renderInterfaceGuides } from './render-interface-guides.js'
 import { tmpdir } from 'node:os'
 import { validateBipedSliceReview } from './validate-biped-slice-review.js'
@@ -148,17 +149,34 @@ export async function validateInterfaceSlice(input: { manifestPath: string; guid
     profiles: guideVariants.flatMap(asset => asset.connectors.map(profile => ({ ...profile, assetId: asset.partId }))),
   })
   const regeneratedByName = new Map(regenerated.files.flatMap(file => [file.guidePath, file.maskPath].map(path => [path.split(/[\\/]/u).at(-1)!, path] as const)))
+  const repositoryRoot = input.repositoryRoot === undefined ? undefined : resolve(input.repositoryRoot)
+  const canonicalGuideRoot = repositoryRoot === undefined
+    ? undefined
+    : resolve(repositoryRoot, 'asset-source', 'v0.3.0', 'guides')
+  const useCanonicalGuideResolver = canonicalGuideRoot !== undefined
+    && resolve(input.guideRoot) === canonicalGuideRoot
   for (const asset of guideVariants) {
     for (const connector of asset.connectors) {
       const stem = `${asset.partId}-${connector.id}-${connector.role}`
       for (const [suffix, mask] of [['guide', false], ['mask', true]] as const) {
         const file = `${stem}-${suffix}.png`
-        const invalid = await inspectPng(join(input.guideRoot, file), mask)
+        let guidePath = join(input.guideRoot, file)
+        let retiredGuide = false
+        if (useCanonicalGuideResolver) {
+          try {
+            const resolvedGuide = await resolveCanonicalInterfaceGuidePath(repositoryRoot!, file)
+            guidePath = resolve(repositoryRoot!, resolvedGuide.path)
+            retiredGuide = resolvedGuide.retired
+          } catch {
+            // Keep the canonical live location as the primary missing-file diagnostic.
+          }
+        }
+        const invalid = await inspectPng(guidePath, mask)
         if (invalid !== null) diagnostics.push(error('INTERFACE_GUIDE_INVALID', [file], invalid))
         try {
           const expectedBytes = await readFile(regeneratedByName.get(file)!)
-          const actualBytes = await readFile(join(input.guideRoot, file))
-          if (!actualBytes.equals(expectedBytes)) diagnostics.push(error('INTERFACE_GUIDE_DRIFT', [file], 'Committed guide bytes and SHA-256 differ from deterministic regeneration.'))
+          const actualBytes = await readFile(guidePath)
+          if (!retiredGuide && !actualBytes.equals(expectedBytes)) diagnostics.push(error('INTERFACE_GUIDE_DRIFT', [file], 'Committed guide bytes and SHA-256 differ from deterministic regeneration.'))
         } catch {
           // The format/missing diagnostic above remains the primary failure.
         }

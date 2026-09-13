@@ -1282,20 +1282,6 @@
         ]
       },
       {
-        "path": "asset-source/v0.3.0/guides/head_round_dome-neck-plug-guide.png",
-        "sha256": "2e2ccdc305ed2cd3b254f6d85a9f1ef2ef606107bf93b88d3b29b1f659a65f91",
-        "groups": [
-          "interface-guides"
-        ]
-      },
-      {
-        "path": "asset-source/v0.3.0/guides/head_round_dome-neck-plug-mask.png",
-        "sha256": "b3b9ee4acd39c4fbb9d2b1719e5fd9e94c9f8d2b8aa5ae26ae64e6c0d0060984",
-        "groups": [
-          "interface-guides"
-        ]
-      },
-      {
         "path": "asset-source/v0.3.0/guides/legs_mushroom-hipLeft-plug-guide.png",
         "sha256": "0b7559355f83718395dcbacbdf9a6b49c05b1bc4f59a747667673f9ae77e6b1c",
         "groups": [
@@ -1347,6 +1333,20 @@
       {
         "path": "asset-source/v0.3.0/guides/legs_webbed-hipRight-plug-mask.png",
         "sha256": "0a230bc7b44b6c8cab6237a7988ba6c384dfd30731c94de5862aa347b4e7337a",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/retired/head_round_dome/head_round_dome-neck-plug-guide.png",
+        "sha256": "d0a21b4d16fdfac40f25d73b65f8f1006a6f1c6d2ead7ceeff2ef2e25b1b998d",
+        "groups": [
+          "interface-guides"
+        ]
+      },
+      {
+        "path": "asset-source/v0.3.0/guides/retired/head_round_dome/head_round_dome-neck-plug-mask.png",
+        "sha256": "982bb9adf9f10eef1d3e4c1a8969d82a9c1639dda4799e15c0a6051525230fd4",
         "groups": [
           "interface-guides"
         ]

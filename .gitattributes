@@ -2,6 +2,19 @@
 packages/asset-catalog/review/v0.3.0/*.json -text
 packages/asset-catalog/review/v0.3.0/**/*.json -text
 packages/asset-catalog/source-index-v0.3.0.json -text
+# v0.4 overlay provenance hashes raw committed bytes and must not be CRLF-converted.
+asset-source/v0.4.0/interface-face-zone-overrides.json -text
+packages/asset-catalog/source-index-v0.4.0.json -text
+packages/asset-catalog/review/v0.4.0/*.json -text
+packages/asset-catalog/audit/v0.4.0/*.json -text
+packages/asset-catalog/review/v0.5.0/long-tail-review-record.json -text
+asset-source/v0.4.0/runtime-staging/parts/provenance.json -text
+asset-source/v0.5.0/prompts/long-tail-prompts.json -text
+asset-source/v0.6.0/prompts/feline-prompts.json -text
+packages/asset-catalog/audit/v0.3.0/task8-blob-joint-shoulder-selection-proof.json -text
+packages/asset-catalog/audit/v0.5.0/evidence-manifest.json -text
+packages/asset-catalog/catalog/v0.8.0/catalog.json -text
+packages/asset-catalog/source-index-v0.8.0.json -text
 asset-source/v0.3.0/production/processed-index.json -text
 asset-source/v0.3.0/generation/task8-limb-production.json -text
 asset-source/v0.3.0/prompts/task8-limb-prompts.json -text
@@ -13,6 +26,26 @@ packages/renderer-canvas/src/render.ts -text
 packages/renderer-canvas/src/types.ts -text
 packages/renderer-canvas/src/connector-metrics.ts -text
 scripts/task8-stable-projection.ts -text
+# Official v0.9 evidence hashes these JSON receipts, logs, pointers, and manifest as raw bytes.
+artifacts/acceptance/v0.9.0-feline/**/*.json -text
+artifacts/acceptance/v0.9.0-feline/**/*.log -text whitespace=-trailing-space
+packages/asset-catalog/releases/active-release.json -text whitespace=-trailing-space
+packages/asset-catalog/releases/candidate-v0.9.0.json -text whitespace=-trailing-space
+packages/asset-catalog/releases/by-sha256/e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21.json -text whitespace=-trailing-space
+# Task 9 evidence binds these source files byte-for-byte; keep LF stable on every host.
+packages/asset-catalog/src/bridge-render-review-provenance.ts -text
+packages/asset-catalog/src/cli.ts -text
+packages/asset-catalog/src/evidence-root.ts -text
+packages/asset-catalog/src/production-validation.ts -text
+packages/asset-catalog/src/source-rich-validation.ts -text
+packages/asset-catalog/src/task9-evidence-dependencies.ts -text
+packages/asset-catalog/src/trusted-repository-file.ts -text
+packages/generator-core/src/catalog-schema.ts -text
+scripts/amend-head-face-sockets.ts -text
+scripts/build-task9-evidence-manifest.ts -text
+scripts/prepare-tail-extra-assets.ts -text
+tests/render/production-composition.spec.ts -text
+vitest.coverage.config.ts -text
 asset-source/v0.3.0/generation/task9-review/receiver-guides/task9-receiver-guide-index.json -text
 asset-source/v0.3.0/interface-manifest.json -text
 asset-source/v0.3.0/prompts/structural-prompts.json -text

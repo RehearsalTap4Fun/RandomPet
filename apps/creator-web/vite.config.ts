@@ -17,6 +17,8 @@ export default defineConfig({
         synthetic: resolve(import.meta.dirname, 'render-test.html'),
         production: resolve(import.meta.dirname, 'production-render-test.html'),
         v09Preview: resolve(import.meta.dirname, 'v09-preview-test.html'),
+        v09Acceptance: resolve(import.meta.dirname, 'v09-user-review.html'),
+        legacyAcceptance: resolve(import.meta.dirname, 'acceptance-render.html'),
       },
     },
   },
