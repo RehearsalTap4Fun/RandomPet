@@ -4417,20 +4417,39 @@ dist/assets/src-Bkoogz8N.js                                                     
 dist/assets/PreviewCanvas-CVx9hrKq.js                                                       632.84 kB │ gzip:  57.79 kB
 dist/assets/catalog-CVdn_xdM.js                                                           1,291.25 kB │ gzip: 184.87 kB
 
-✓ built in 20.39s
+✓ built in 19.23s
 [plugin builtin:vite-reporter] 
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-[33m[PLUGIN_TIMINGS] [0mYour build spent 82% of 20.3s inside plugin hooks (16.6s).
+[33m[PLUGIN_TIMINGS] [0mYour build spent 86% of 19.2s inside plugin hooks (16.5s).
 Measured inside the callback, so queue time is excluded and time the callback itself awaited is not:
-  - qmonster-content-resources writeBundle (70%, 14.2s, 1 call)
-Those rows are 70% of the build; the rest of the 82% is below.
+  - qmonster-content-resources writeBundle (75%, 14.3s, 1 call)
+Those rows are 75% of the build; the rest of the 86% is below.
 Not measurable — 4 hooks whose calls overlap, so elapsed time covers work other calls were doing. Profile with `node --cpu-prof`:
   - vite:asset load (3242 calls)
   - vite:build-html transform (7 calls)
-  - vite:css-post renderChunk (3255 calls)
+  - vite:css transform (5 calls)
   … and 1 more
 See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
 
+
+> qmonster-creator@0.1.0 test:production-smoke:prebuilt
+> playwright test --config=playwright.production.config.ts --workers=1
+
+[WebServer] (node:54256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:7640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:14140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+(node:51364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Historical v0.8 replay PNG: 9bc20b5a768a0968dcd1c9cb3dc840b2294b4c928527437ad48a3380ade9114a
+·Single-frame ImageBitmap lifecycle: { created: 26, closed: 26, duplicateCloses: 0 }
+·Creator and catalog-report active identity: e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21
+·
+  3 passed (12.9s)

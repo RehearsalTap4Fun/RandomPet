@@ -4,24 +4,56 @@ import { join } from 'node:path'
 import { expect, it } from 'vitest'
 import { canonicalJsonSha256 } from '@qmonster/asset-catalog'
 import { V09_COMPOSITION_NODE_IDS } from '@qmonster/generator-core'
-import { buildV09AcceptancePlan, writeAcceptanceAttempt, replaceActivePointer, validateSealedAttemptForActivation, withPreactivationGateLock } from './generate-v09-user-review-batch.js'
+import { buildV09AcceptancePlan, normalizedSourceDigest, writeAcceptanceAttempt, replaceActivePointer, validateReplayComparison, validateSealedAttemptForActivation, withPreactivationGateLock } from './generate-v09-user-review-batch.js'
 
 const hash = 'a'.repeat(64)
 const plan = () => buildV09AcceptancePlan(hash, '2026-09-10T00:00:00.000Z')
 const gate = () => ({ codeSha256: 'b'.repeat(64), browserBuildSha256: 'c'.repeat(64), results: [] })
+const ref = (letter: string) => ({ resourceId: `sha256:${letter.repeat(64)}`, sha256: letter.repeat(64), mediaType: 'application/qmonster-manifest-v1+json' })
+const replayContract = () => ({
+  rendererBuildSha256: 'd'.repeat(64),
+  assemblyTemplates: [ref('1'), ref('2')],
+  assemblyApprovals: [{ sha256: '3'.repeat(64), approval: { status: 'approved' } }],
+  traitApprovals: [ref('4')],
+  entries: plan().seeds.map((seed, index) => ({
+    seed,
+    specFile: `${String(index + 1).padStart(3, '0')}.json`,
+    pngFile: `${String(index + 1).padStart(3, '0')}.png`,
+    specSha256: '5'.repeat(64),
+    pngSha256: '6'.repeat(64),
+    decodedPngSha256: '7'.repeat(64),
+    specDocument: { seed, catalogVersion: '0.9.0', generatorVersion: '0.9.0', schemaVersion: '0.4.0' },
+    trace: [...V09_COMPOSITION_NODE_IDS],
+    identityTransforms: true,
+    resourceIds: [`sha256:${'8'.repeat(64)}`],
+    incubator: { seed, visualExtension: { seed, catalogVersion: '0.9.0', generatorVersion: '0.9.0', schemaVersion: '0.4.0', releaseManifestSha256: hash } },
+  })),
+})
 const sealedAttempt = () => {
-  const frozenPlan = plan(), currentGate = gate()
+  const frozenPlan = plan(), currentGate = gate(), replay = replayContract()
   return {
     schemaVersion: 'qmonster-acceptance-attempt-v1', status: 'sealed', attemptId: `attempt-${hash}`,
     planSha256: canonicalJsonSha256(frozenPlan), releaseManifestSha256: hash,
     gateSha256: canonicalJsonSha256(currentGate), codeSha256: currentGate.codeSha256,
     browserBuildSha256: currentGate.browserBuildSha256,
+    rendererBuildSha256: replay.rendererBuildSha256,
+    assemblyTemplates: replay.assemblyTemplates,
+    assemblyApprovals: replay.assemblyApprovals,
+    traitApprovals: replay.traitApprovals,
     generationPolicy: { callsPerSeed: 1, rendersPerSeed: 1, retries: 0, replacements: 0, subjectiveFiltering: false },
-    entries: frozenPlan.seeds.map(seed => ({ seed, releaseManifestSha256: hash,
+    entries: frozenPlan.seeds.map((seed, index) => ({ seed, releaseManifestSha256: hash,
+      spec: replay.entries[index]!.specFile, specSha256: replay.entries[index]!.specSha256,
+      png: replay.entries[index]!.pngFile, pngSha256: replay.entries[index]!.pngSha256,
+      decodedPngSha256: replay.entries[index]!.decodedPngSha256,
       trace: [...V09_COMPOSITION_NODE_IDS], identityTransforms: true,
-      incubator: { seed, visualExtension: { releaseManifestSha256: hash } } })),
+      resourceIds: replay.entries[index]!.resourceIds,
+      incubator: replay.entries[index]!.incubator })),
   }
 }
+it('uses a host-independent LF projection for the rebuildable source manifest', () => {
+  expect(normalizedSourceDigest(Buffer.from('first\r\nsecond\r\n'))).toBe(normalizedSourceDigest(Buffer.from('first\nsecond\n')))
+  expect(normalizedSourceDigest(Buffer.from('first\nchanged\n'))).not.toBe(normalizedSourceDigest(Buffer.from('first\nsecond\n')))
+})
 it('freezes the prescribed ordered seeds and rejects an invalid release identity', () => {
   expect(plan().seeds).toEqual(['qmonster-v09-review-001', 'qmonster-v09-review-002', 'qmonster-v09-review-003', 'qmonster-v09-review-004', 'qmonster-v09-review-005', 'qmonster-v09-review-006', 'qmonster-v09-review-007', 'qmonster-v09-review-008', 'qmonster-v09-review-009', 'qmonster-v09-review-010'])
   expect(() => buildV09AcceptancePlan('../wrong')).toThrow()
@@ -29,7 +61,7 @@ it('freezes the prescribed ordered seeds and rejects an invalid release identity
 
 it('binds a sealed attempt to the exact frozen plan and current gate identities', () => {
   const frozenPlan = plan(), currentGate = gate(), attempt = sealedAttempt()
-  expect(() => validateSealedAttemptForActivation(attempt, frozenPlan, currentGate, hash)).not.toThrow()
+  expect(() => validateSealedAttemptForActivation(attempt, frozenPlan, currentGate, hash, replayContract())).not.toThrow()
   for (const mutate of [
     (value: any) => { value.gateSha256 = 'd'.repeat(64) },
     (value: any) => { value.codeSha256 = 'd'.repeat(64) },
@@ -42,11 +74,43 @@ it('binds a sealed attempt to the exact frozen plan and current gate identities'
   ]) {
     const changed = structuredClone(attempt)
     mutate(changed)
-    expect(() => validateSealedAttemptForActivation(changed, frozenPlan, currentGate, hash)).toThrow(/identity|contract/u)
+    expect(() => validateSealedAttemptForActivation(changed, frozenPlan, currentGate, hash, replayContract())).toThrow(/identity|contract/u)
   }
   const changedPlan = structuredClone(frozenPlan)
   changedPlan.seeds.reverse()
-  expect(() => validateSealedAttemptForActivation(attempt, changedPlan, currentGate, hash)).toThrow(/contract/u)
+  expect(() => validateSealedAttemptForActivation(attempt, changedPlan, currentGate, hash, replayContract())).toThrow(/contract/u)
+})
+
+it('rejects every reviewer-reproduced release, spec, resource and incubator mutation', () => {
+  const frozenPlan = plan(), currentGate = gate(), expected = replayContract(), attempt = sealedAttempt()
+  for (const mutate of [
+    (value: any) => { value.rendererBuildSha256 = '9'.repeat(64) },
+    (value: any) => { value.assemblyTemplates.reverse() },
+    (value: any) => { value.assemblyApprovals[0].sha256 = '9'.repeat(64) },
+    (value: any) => { value.traitApprovals[0].sha256 = '9'.repeat(64) },
+    (value: any) => { value.entries[0].resourceIds = [] },
+    (value: any) => { value.entries[0].specSha256 = '9'.repeat(64) },
+    (value: any) => { value.entries[0].spec = '010.json' },
+    (value: any) => { value.entries[0].incubator.visualExtension.catalogVersion = '0.8.0' },
+  ]) {
+    const changed = structuredClone(attempt)
+    mutate(changed)
+    expect(() => validateSealedAttemptForActivation(changed, frozenPlan, currentGate, hash, expected)).toThrow(/identity|contract/u)
+  }
+})
+
+it('compares deterministic verification replay without accepting spec or PNG drift', () => {
+  const expected = replayContract().entries[0]!
+  expect(() => validateReplayComparison(expected, structuredClone(expected))).not.toThrow()
+  for (const mutate of [
+    (value: any) => { value.specDocument.catalogVersion = '0.8.0' },
+    (value: any) => { value.pngSha256 = '9'.repeat(64) },
+    (value: any) => { value.decodedPngSha256 = '9'.repeat(64) },
+  ]) {
+    const changed = structuredClone(expected)
+    mutate(changed)
+    expect(() => validateReplayComparison(expected, changed)).toThrow(/replay/u)
+  }
 })
 
 it('publishes all ten outputs once and refuses a second attempt without invoking a seed', async () => {

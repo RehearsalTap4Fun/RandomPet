@@ -146,8 +146,22 @@ it('keeps final verification and active audit read-only and separate from one-sh
   expect(root.scripts['gate:v0.9']).toContain('--gate')
   expect(root.scripts['verify-final:v0.9']).toContain('--final-verify')
   expect(root.scripts['verify-active:v0.9']).toContain('--verify-active')
+  expect(root.scripts['verify-replay:v0.9']).toContain('--verify-replay')
+  expect(root.scripts['verify-postactivation:v0.9']).toContain('--postactivation-verify')
   expect(root.scripts['batch:v0.9:user-review']).not.toContain('--final-verify')
   expect(root.scripts['batch:v0.9:user-review']).not.toContain('--verify-active')
+})
+
+it('preserves the immutable v0.9 candidate and release manifest parent blobs', () => {
+  const expected = new Map([
+    ['packages/asset-catalog/releases/candidate-v0.9.0.json', '3acec5b6ef6f8b6ab0ff10bd5d83abdf4cc1c4a0ca36e931a2fe334f8ca63887'],
+    ['packages/asset-catalog/releases/by-sha256/e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21.json', 'f76ae2caafa322c5686c2336d9e40dab0c5dc735c972ffed7bd7d2974dc3e568'],
+  ])
+  const attributes = execFileSync('git', ['check-attr', '--stdin', 'text'], { encoding: 'utf8', input: `${[...expected.keys()].join('\n')}\n` }).trim().split(/\r?\n/)
+  for (const [index, [path, sha256]] of [...expected].entries()) {
+    expect(attributes[index]).toBe(`${path}: text: unspecified`)
+    expect(createHash('sha256').update(readFileSync(path)).digest('hex'), path).toBe(sha256)
+  }
 })
 
 it('keeps the sealed v0.8 release gate independent of its untracked authoring source', async () => {
@@ -226,7 +240,8 @@ it('keeps the hash-bound v0.9 release evidence byte-stable on every host', () =>
     ...evidence.artifacts.map(artifact => artifact.path).filter(path => path.endsWith('.json')),
     ...evidence.finalVerification.results.map(result => result.log),
     ...evidence.preactivation.commands.map(result => result.log),
-  ])].sort()
+  ])].filter(path => !path.startsWith('packages/asset-catalog/releases/by-sha256/')
+    && path !== 'packages/asset-catalog/releases/candidate-v0.9.0.json').sort()
   const attributes = execFileSync('git', ['check-attr', '--stdin', 'text'], {
     encoding: 'utf8',
     input: `${paths.join('\n')}\n`,

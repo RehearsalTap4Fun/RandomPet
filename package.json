@@ -23,6 +23,8 @@
     "batch:v0.8:user-review": "tsx scripts/generate-v08-user-review-batch.ts --catalog-version 0.8.0 --seed qmonster-v08-review --count 10 --output-directory artifacts/acceptance/v0.8.0-feline",
     "gate:v0.9": "tsx scripts/generate-v09-user-review-batch.ts --gate",
     "verify-final:v0.9": "tsx scripts/generate-v09-user-review-batch.ts --final-verify",
+    "verify-postactivation:v0.9": "tsx scripts/generate-v09-user-review-batch.ts --postactivation-verify",
+    "verify-replay:v0.9": "tsx scripts/generate-v09-user-review-batch.ts --verify-replay",
     "verify-active:v0.9": "tsx scripts/generate-v09-user-review-batch.ts --verify-active",
     "activate:v0.9": "tsx scripts/generate-v09-user-review-batch.ts --activate",
     "batch:v0.9:user-review": "tsx scripts/generate-v09-user-review-batch.ts --release-pointer packages/asset-catalog/releases/candidate-v0.9.0.json --plan artifacts/acceptance/v0.9.0-feline/plan.json --output-root artifacts/acceptance/v0.9.0-feline/attempts",

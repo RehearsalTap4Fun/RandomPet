@@ -6,13 +6,13 @@
  RUN  v4.1.11 C:/Project/QMonsterCreator/.worktrees/qmonster-v09-task12-clean
 
 Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
-(node:33864) ExperimentalWarning: glob is an experimental feature and might change at any time
+(node:38468) ExperimentalWarning: glob is an experimental feature and might change at any time
 (Use `node --trace-warnings ...` to show where the warning was created)
 
  Test Files  127 passed (127)
-      Tests  1289 passed | 4 skipped (1293)
-   Start at  10:30:58
-   Duration  40.40s (transform 37.86s, setup 8.69s, import 92.09s, tests 467.31s, environment 51.72s)
+      Tests  1293 passed | 4 skipped (1297)
+   Start at  13:48:20
+   Duration  42.13s (transform 42.76s, setup 37.97s, import 100.83s, tests 454.76s, environment 189.52s)
 
 
  RUN  v4.1.11 C:/Project/QMonsterCreator/.worktrees/qmonster-v09-task12-clean
@@ -188,7 +188,7 @@ ORAL_SOCKET_INCOMPATIBLE sealedTraits.269.runtimeResources.oralProjections Every
 ORAL_SOCKET_INCOMPATIBLE sealedTraits.270.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
 ORAL_SOCKET_INCOMPATIBLE sealedTraits.271.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
 ORAL_SOCKET_INCOMPATIBLE sealedTraits.272.runtimeResources.oralProjections Every oral projection must name a registered socket usable by an actual open mouth in this family/template; closed sentinels are not projections.
-RESOURCE_HASH_MISMATCH releasePointer Referenced file is missing: C:\Users\jiangzhenyu\AppData\Local\Temp\qmonster-v09-oral-missing-gbgLau\resources\by-sha256\6d763a1bb9a334530ce657c20d502fe3d6d13df19f362f17ea77911744e5dc2c
+RESOURCE_HASH_MISMATCH releasePointer Referenced file is missing: C:\Users\jiangzhenyu\AppData\Local\Temp\qmonster-v09-oral-missing-qi35Hf\resources\by-sha256\6d763a1bb9a334530ce657c20d502fe3d6d13df19f362f17ea77911744e5dc2c
 RESOURCE_HASH_MISMATCH resources.sha256:ca2196a9d32cc1ffc8e100e2c84553deea596098f2e7a5f0439e6e8ccf6cb00b.schemaVersion Invalid input: expected "qmonster-material-v1"
 RESOURCE_HASH_MISMATCH resources.sha256:115945ac7c5e518186d0dfff435e9ef0fa2ea7c36c8c2fcf76ab0e2b73ae3803.alphaPolicy Invalid input: expected "preserve-skeleton-alpha"
 RESOURCE_HASH_MISMATCH resources.sha256:1196bebebe10c4626eed37d22dc8b17cf9b46f470a66c733c575bdd85d4be41b.blendMode Invalid option: expected one of "replace-color"|"multiply"|"overlay"
@@ -358,7 +358,7 @@ RELEASE_CANDIDATE_INVALID releasePointer Candidate array is not an ordinary boun
 RESOURCE_HASH_MISMATCH releasePointer Resource identity mismatch: sha256:36b17fdf5a218e39f4cbb5a99c084c4f2f8bbc9bf906f4540b60a49d11200724
 RESOURCE_HASH_MISMATCH resources.sha256:db46c082d3d9558f4c5896c817f2c321b1c733d38e51af4944c6ef99b055a38c.colorMap Malformed content resource reference.
 RESOURCE_HASH_MISMATCH releasePointer Resource identity mismatch: sha256:55d53f10c88b7e58ae8ea5722a6c2de814704944910ba90ad9d3d2e39fa33169
-RESOURCE_HASH_MISMATCH releasePointer Referenced file is missing: C:\Users\jiangzhenyu\AppData\Local\Temp\qmonster-v09-cli-Rhb422\resources\by-sha256\43a249d8e803abdc1021de9f75fa19e032e301c126362049012516b89faa6007
+RESOURCE_HASH_MISMATCH releasePointer Referenced file is missing: C:\Users\jiangzhenyu\AppData\Local\Temp\qmonster-v09-cli-rrvYdV\resources\by-sha256\43a249d8e803abdc1021de9f75fa19e032e301c126362049012516b89faa6007
 RESOURCE_HASH_MISMATCH releasePointer Resource identity mismatch: sha256:f62ac5fdbba8aadf3c2e0c6ffb1906016eeb8a7d7abec7e4d6b347963f7ae8f6
 RESOURCE_HASH_MISMATCH releasePointer Resource identity mismatch: sha256:43a249d8e803abdc1021de9f75fa19e032e301c126362049012516b89faa6007
 RARITY_INVENTORY_MISMATCH traitInventory.eyes.common Expected frozen count 8; found 7.
@@ -369,6 +369,6 @@ ATTACHMENT_HASH_NOT_APPROVED attachmentAllowlist.entries.0 Unrecognized key: "un
 
  Test Files  19 passed (19)
       Tests  324 passed | 1 skipped (325)
-   Start at  10:31:38
-   Duration  1800.33s (transform 1.28s, setup 0ms, import 6.32s, tests 1791.78s, environment 1ms)
+   Start at  13:49:02
+   Duration  1803.55s (transform 1.77s, setup 0ms, import 10.45s, tests 1790.48s, environment 1ms)
 

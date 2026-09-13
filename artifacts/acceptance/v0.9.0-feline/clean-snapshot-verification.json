@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "qmonster-v09-clean-snapshot-verification-v1",
+  "verifiedAt": "2026-09-13T05:46:00.000Z",
+  "baseHead": "2b68b5c20dbca5b20ca9caace3111cef157711dc",
+  "method": [
+    "git ls-files enumerated the tracked closure",
+    "git cat-file/git show read index blobs without worktree newline conversion",
+    "git check-attr text verified newline policy",
+    "git write-tree captured the staged payload tree",
+    "git diff --cached --binary was SHA-256 hashed by Node",
+    "git diff --cached --check verified whitespace integrity",
+    "git status --short plus the explicit staged path allowlist excluded polluted logs and approved master overlays"
+  ],
+  "payloadExcludesThisReceipt": true,
+  "stagedPayloadTree": "a8529c1c40e6e328c21beb09caeab9b3ec99ea4a",
+  "stagedPayloadDiffSha256": "25212e6d7f53bc7f503aadaa42f6e67dd7b546da282e2b3258cac1fa34a177f4",
+  "sourceCodeManifestSha256": "8c8df79cf109f89f682b2fc68443ae8e50bb6d15796544cc6bde632bdca0d13e",
+  "releaseManifestCanonicalSha256": "e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21",
+  "releaseManifestIndexBlobSha256": "f76ae2caafa322c5686c2336d9e40dab0c5dc735c972ffed7bd7d2974dc3e568",
+  "candidatePointerIndexBlobSha256": "3acec5b6ef6f8b6ab0ff10bd5d83abdf4cc1c4a0ca36e931a2fe334f8ca63887",
+  "officialAttemptCanonicalSha256": "9598dc7d32390547c982901f24c49a892dd0452b9a028e133597ad43fcb4c91b",
+  "officialAttemptTreeSha256": "d0e12b75e05924fc4c4be8a4af45efc8aa710121bb63be969495c181a42a38ce",
+  "unstagedDiffEmpty": true,
+  "pollutedGateLogsStaged": false,
+  "approvedMasterOverlayStaged": false
+}
