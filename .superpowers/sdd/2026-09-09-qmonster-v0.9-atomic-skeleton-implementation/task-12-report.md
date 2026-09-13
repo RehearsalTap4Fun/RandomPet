@@ -23,7 +23,7 @@ The activation validator now rejects mutations to renderer build identity, assem
 
 ## Verification
 
-- Focused mutation/contract tests: 20 passed, exit 0.
+- Focused mutation/contract tests: 21 passed, exit 0.
 - Final six-command verification: all six exits 0; receipt raw SHA-256 `5662059d35f96776092af99acada8c945bd45e07083b7d8099a5c40d3ff45a9a`.
 - Postactivation verification: all four exits 0; receipt raw SHA-256 `ebd63d1ad05e5d6e545629fcfb7ae7e0555c65dcad712c9255f90d287eb22856`.
 - Read-only active verification: exit 0; release, attempt, active pointer, and deterministic replay receipt identities matched.

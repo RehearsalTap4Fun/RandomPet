@@ -248,6 +248,49 @@ it('keeps the hash-bound v0.9 release evidence byte-stable on every host', () =>
   }).trim().split(/\r?\n/)
   expect(attributes).toHaveLength(paths.length)
   for (const [index, path] of paths.entries()) expect(attributes[index]).toBe(`${path}: text: unset`)
+  const readJson = (path: string) => JSON.parse(readFileSync(path, 'utf8')) as any
+  const sha256 = (path: string) => createHash('sha256').update(readFileSync(path)).digest('hex')
+  const closureEvidence = evidence as any
+  const preactivation = readJson(`${evidenceRoot}/preactivation-gate.json`)
+  const finalVerification = readJson(`${evidenceRoot}/final-verification.json`)
+  const replay = readJson(`${evidenceRoot}/deterministic-replay-verification.json`)
+  const postactivation = readJson(`${evidenceRoot}/postactivation-verification.json`)
+  const commandProjection = (receipt: any) => receipt.results.map((result: any) => ({
+    command: result.command, exitCode: result.exitCode, log: result.log, logSha256: result.logSha256,
+  }))
+
+  for (const artifact of closureEvidence.artifacts) expect(artifact.sha256, artifact.path).toBe(sha256(artifact.path))
+  expect(new Map(closureEvidence.artifacts.map((artifact: any) => [artifact.path, artifact.sha256])).get(`${evidenceRoot}/clean-snapshot-verification.json`))
+    .toBe(sha256(`${evidenceRoot}/clean-snapshot-verification.json`))
+  expect(closureEvidence.preactivation).toMatchObject({
+    codeSha256: preactivation.codeSha256,
+    receiptSha256: sha256(`${evidenceRoot}/preactivation-gate.json`),
+    exitCodes: preactivation.results.map((result: any) => result.exitCode),
+    commands: commandProjection(preactivation),
+  })
+  expect(closureEvidence.finalVerification).toMatchObject({
+    codeSha256: finalVerification.codeSha256,
+    browserBuildSha256: finalVerification.browserBuildSha256,
+    receiptSha256: sha256(`${evidenceRoot}/final-verification.json`),
+    results: commandProjection(finalVerification),
+  })
+  expect(closureEvidence.deterministicReplayVerification).toMatchObject({
+    codeSha256: replay.codeSha256, mode: replay.mode, officialGeneration: replay.officialGeneration,
+    officialAttemptWrites: replay.officialAttemptWrites, temporaryOutputDestroyed: replay.temporaryOutputDestroyed,
+    renderCount: replay.renderCount, officialAttemptTreeSha256Before: replay.officialAttemptTreeSha256Before,
+    officialAttemptTreeSha256After: replay.officialAttemptTreeSha256After,
+    receiptSha256: sha256(`${evidenceRoot}/deterministic-replay-verification.json`),
+  })
+  expect(closureEvidence.postactivation).toMatchObject({
+    codeSha256: postactivation.codeSha256,
+    officialAttemptTreeSha256Before: postactivation.officialAttemptTreeSha256Before,
+    officialAttemptTreeSha256After: postactivation.officialAttemptTreeSha256After,
+    receiptSha256: sha256(`${evidenceRoot}/postactivation-verification.json`),
+    results: commandProjection(postactivation),
+  })
+  expect(closureEvidence.releaseManifestSha256).toBe(replay.releaseManifestSha256)
+  expect(closureEvidence.releaseManifestSha256).toBe(postactivation.releaseManifestSha256)
+  expect(closureEvidence.verifyActive.replayReceiptSha256).toBe(sha256(`${evidenceRoot}/deterministic-replay-verification.json`))
 })
 
 it('keeps the Task 9 technical gate separate from the exact v0.3 release approval', async () => {

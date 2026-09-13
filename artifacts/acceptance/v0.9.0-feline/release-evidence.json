@@ -7,8 +7,9 @@
     { "canonicalJsonSha256": "e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21", "path": "packages/asset-catalog/releases/by-sha256/e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21.json", "sha256": "f76ae2caafa322c5686c2336d9e40dab0c5dc735c972ffed7bd7d2974dc3e568" },
     { "path": "artifacts/acceptance/v0.9.0-feline/preactivation-gate.json", "sha256": "f4862627ad1dc3ea31a75a49b5c42cdf5dec83a0d48197c31fa03242141a68f0" },
     { "path": "artifacts/acceptance/v0.9.0-feline/final-verification.json", "sha256": "5662059d35f96776092af99acada8c945bd45e07083b7d8099a5c40d3ff45a9a" },
-    { "path": "artifacts/acceptance/v0.9.0-feline/deterministic-replay-verification.json", "sha256": "04625d545f8e18d877bb0c1703a74f4d26987a35d55e5354ba4fb75fc2e01c5f" },
+    { "path": "artifacts/acceptance/v0.9.0-feline/deterministic-replay-verification.json", "sha256": "c98ca1abe6dad63e084a6469d5893a7f43e371ec8120b32da393122f7c1cb14b" },
     { "path": "artifacts/acceptance/v0.9.0-feline/postactivation-verification.json", "sha256": "ebd63d1ad05e5d6e545629fcfb7ae7e0555c65dcad712c9255f90d287eb22856" },
+    { "path": "artifacts/acceptance/v0.9.0-feline/clean-snapshot-verification.json", "sha256": "eeaacec869609a742c79483ebaf719feb9b6105e1aec58794bea8880afa08f2a" },
     { "path": "artifacts/acceptance/v0.9.0-feline/plan.json", "sha256": "15b8fc935dec41925da059182a119e942bbefbfa997191fdec649b0d2f1a704d" },
     { "path": "artifacts/acceptance/v0.9.0-feline/attempts/.claim-e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21.json", "sha256": "0e14ae0ecc2a9f29c8de5b89ba16c7b95a2375fe8ef5e8b6da793c06ec8bd96d" },
     { "canonicalJsonSha256": "9598dc7d32390547c982901f24c49a892dd0452b9a028e133597ad43fcb4c91b", "path": "artifacts/acceptance/v0.9.0-feline/attempts/attempt-e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21/attempt.json", "sha256": "9598dc7d32390547c982901f24c49a892dd0452b9a028e133597ad43fcb4c91b" },
@@ -26,7 +27,7 @@
     "uniqueSeeds": 10
   },
   "preactivation": {
-    "codeSha256": "89d7d8e7fbdaf9e8c5c1ce0d80a32f0be3a8bc4403e85d5ee85da058c839637a",
+    "codeSha256": "89d7d8e763d6b86f6833dfe363eabf1b995fa34e07a9a61bfdcbd2480289637a",
     "receiptSha256": "f4862627ad1dc3ea31a75a49b5c42cdf5dec83a0d48197c31fa03242141a68f0",
     "exitCodes": [0, 0, 0, 0, 0, 0],
     "commands": [
@@ -54,7 +55,7 @@
     ]
   },
   "deterministicReplayVerification": {
-    "codeSha256": "8c8df79cf109f89f682b2fc68443ae8e50bb6d15796544cc6bde632bdca0d13e",
+    "codeSha256": "b5016a341237183fe33443b82c088c8976a50233b2d103b59b1b9b0b99ab3c29",
     "command": "npm run verify-replay:v0.9",
     "exitCode": 0,
     "mode": "verification-replay",
@@ -64,7 +65,7 @@
     "renderCount": 10,
     "officialAttemptTreeSha256Before": "d0e12b75e05924fc4c4be8a4af45efc8aa710121bb63be969495c181a42a38ce",
     "officialAttemptTreeSha256After": "d0e12b75e05924fc4c4be8a4af45efc8aa710121bb63be969495c181a42a38ce",
-    "receiptSha256": "04625d545f8e18d877bb0c1703a74f4d26987a35d55e5354ba4fb75fc2e01c5f"
+    "receiptSha256": "c98ca1abe6dad63e084a6469d5893a7f43e371ec8120b32da393122f7c1cb14b"
   },
   "postactivation": {
     "codeSha256": "8c8df79cf109f89f682b2fc68443ae8e50bb6d15796544cc6bde632bdca0d13e",
@@ -88,6 +89,6 @@
     "activePointerSha256": "1338f39ec97de57de03fb668d20c995f4a317a376b1c4d543f15604bf8121053",
     "releaseManifestSha256": "e9ec104f13c2fcc2559cfddb648f3e5af18daf910a890d4c3c7ed80aecb6fb21",
     "attemptSha256": "9598dc7d32390547c982901f24c49a892dd0452b9a028e133597ad43fcb4c91b",
-    "replayReceiptSha256": "04625d545f8e18d877bb0c1703a74f4d26987a35d55e5354ba4fb75fc2e01c5f"
+    "replayReceiptSha256": "c98ca1abe6dad63e084a6469d5893a7f43e371ec8120b32da393122f7c1cb14b"
   }
 }
