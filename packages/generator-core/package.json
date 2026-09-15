@@ -1,0 +1,12 @@
+{
+  "name": "@qmonster/generator-core",
+  "version": "0.10.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  }
+}

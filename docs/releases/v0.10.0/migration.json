@@ -1,0 +1,959 @@
+{
+  "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike",
+  "root": "C:/Project/QMonsterCreator",
+  "status": "completed",
+  "entries": [
+    {
+      "from": "packages/generator-core/src/feline-combination.ts",
+      "to": "packages/generator-core/src/feline-combination.ts",
+      "removeOriginal": true,
+      "sha256": "57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b",
+      "bytes": 7736,
+      "destinationSha256": "57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b"
+    },
+    {
+      "from": "packages/generator-core/src/feline-combination.test.ts",
+      "to": "packages/generator-core/src/feline-combination.test.ts",
+      "removeOriginal": true,
+      "sha256": "9bb205399d2dd359a51d8c21505e0302f1dfb12980675d54230f5d7a864c9fdb",
+      "bytes": 8824,
+      "destinationSha256": "f8a9b6dd47dce2e9bfa6ecc999f04cf41d5e9dcc1fa6767917fdef71105f02b7"
+    },
+    {
+      "from": "packages/asset-catalog/src/feline-combination-catalog.ts",
+      "to": "packages/asset-catalog/src/feline-combination-catalog.ts",
+      "removeOriginal": true,
+      "sha256": "9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8",
+      "bytes": 7918,
+      "destinationSha256": "9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8"
+    },
+    {
+      "from": "packages/asset-catalog/src/feline-combination-catalog.test.ts",
+      "to": "packages/asset-catalog/src/feline-combination-catalog.test.ts",
+      "removeOriginal": true,
+      "sha256": "2c4835a6035e60bed4d7d4f1fc8ba9916f3900d9901354e379e5f6f60d93e5a4",
+      "bytes": 7926,
+      "destinationSha256": "2c4835a6035e60bed4d7d4f1fc8ba9916f3900d9901354e379e5f6f60d93e5a4"
+    },
+    {
+      "from": "packages/renderer-canvas/src/feline-combination-render.ts",
+      "to": "packages/renderer-canvas/src/feline-combination-render.ts",
+      "removeOriginal": true,
+      "sha256": "9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01",
+      "bytes": 11941,
+      "destinationSha256": "9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01"
+    },
+    {
+      "from": "packages/renderer-canvas/src/feline-combination-render.test.ts",
+      "to": "packages/renderer-canvas/src/feline-combination-render.test.ts",
+      "removeOriginal": true,
+      "sha256": "b5cd07eecbb0405edc3740802c02733529aca9f38845f3a440a082a74caacfca",
+      "bytes": 12776,
+      "destinationSha256": "b5cd07eecbb0405edc3740802c02733529aca9f38845f3a440a082a74caacfca"
+    },
+    {
+      "from": "packages/renderer-canvas/src/feline-combination-registration.json",
+      "to": "packages/renderer-canvas/src/feline-combination-registration.json",
+      "removeOriginal": true,
+      "sha256": "cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771",
+      "bytes": 2966,
+      "destinationSha256": "cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771"
+    },
+    {
+      "from": "packages/generator-core/src/contracts.ts",
+      "to": "packages/generator-core/src/contracts.ts",
+      "removeOriginal": false,
+      "sha256": "0d8deebb3acc3f4b87b1d34c815b4946d803ef84230733c42a0524ab8935bb0b",
+      "bytes": 15218,
+      "destinationSha256": "f9a9bc7b14c31d16a0c7eee8de7c0212be983a6d9742936c52a77815a6d394e8"
+    },
+    {
+      "from": "packages/generator-core/src/prng.ts",
+      "to": "packages/generator-core/src/prng.ts",
+      "removeOriginal": false,
+      "sha256": "e02c2befa3cfb59ad208d0595217877cb138505cbfd57575057fe25555283910",
+      "bytes": 1863,
+      "destinationSha256": "4744758cd23c30336d7bd70b95589d9462883bdc8650021d09d54cb0b551eefe"
+    },
+    {
+      "from": "packages/renderer-canvas/src/export.ts",
+      "to": "packages/renderer-canvas/src/export.ts",
+      "removeOriginal": false,
+      "sha256": "9c582c4ba665e0dd9814d94dc31bdd247a2e84f8957dbd392894a9b4dcd7a457",
+      "bytes": 4097,
+      "destinationSha256": "9c582c4ba665e0dd9814d94dc31bdd247a2e84f8957dbd392894a9b4dcd7a457"
+    },
+    {
+      "from": "apps/creator-web/feline-combination-candidate.html",
+      "to": "apps/creator-web/index.html",
+      "removeOriginal": true,
+      "sha256": "36b7a87a34a1079d211ae32511af3cfbfe3800e84c04ad375c3b19a8385e92f9",
+      "bytes": 394,
+      "destinationSha256": "ebdb05c8b868cd985cc81967469570f152993bc83381e5431039651d7c22ef53"
+    },
+    {
+      "from": "apps/creator-web/src/feline-combination-candidate.tsx",
+      "to": "apps/creator-web/src/main.tsx",
+      "removeOriginal": true,
+      "sha256": "5a50938158b86ab7a1558fe6ebfeab3c70b8361f79a4b51ac4b47b36408fc229",
+      "bytes": 13309,
+      "destinationSha256": "f4af2c08287811232513f1665d427a65f7c28d07e47bef29153982568e1a46fb"
+    },
+    {
+      "from": "apps/creator-web/src/feline-combination-candidate.css",
+      "to": "apps/creator-web/src/styles.css",
+      "removeOriginal": true,
+      "sha256": "002b159bcee297088c5355ffe9efb94ba1365f4785a1d2940b98cc2a0e2fa25e",
+      "bytes": 7128,
+      "destinationSha256": "1008ea15c0d2b6404299bfaa7a14c581b0c2ef6142262c7a15704e086666a7a7"
+    },
+    {
+      "from": "docs/integration/qmonster-hatchery-integration.md",
+      "to": "docs/integration/qmonster-hatchery-integration.md",
+      "removeOriginal": true,
+      "sha256": "0843d9cebf421890fb5d687530b4af1786c140ffced26bc42a477089573ba6fc",
+      "bytes": 10747,
+      "destinationSha256": "cb318107e08fff1e407e0b85465fdf815b88ac224bba11246e8fb7384b8a5d63"
+    },
+    {
+      "from": "docs/integration/feline-combination-snapshot.json",
+      "to": "docs/integration/feline-combination-snapshot.json",
+      "removeOriginal": true,
+      "sha256": "c281518bd90d71b0210bcbf8b0d9d5e0483d0763ccada23865b6fb8e26d31344",
+      "bytes": 10362,
+      "destinationSha256": "7b25a8edba0bcdd8d019eca261cc565b931d25992f77e4c4bb0d386317b9c304"
+    },
+    {
+      "from": "docs/integration/examples/feline-hatchery.ts",
+      "to": "packages/incubator-adapter/src/feline-hatchery.ts",
+      "removeOriginal": true,
+      "sha256": "679a3d7df0c2f139af4a97e88defd6d2f8f27a53671f1b39539b5892191cce27",
+      "bytes": 4302,
+      "destinationSha256": "62db441e58eff92ba4a6b635ad1c771cc01fe1934cf34b075b96d42237f3823d"
+    },
+    {
+      "from": "docs/integration/examples/tsconfig.json",
+      "to": "docs/integration/examples/tsconfig.json",
+      "removeOriginal": true,
+      "sha256": "964fa5f97286e9dbaf62ef277a571740f02fa82e1bf6382c24b99df8d1d8cdee",
+      "bytes": 185,
+      "destinationSha256": "964fa5f97286e9dbaf62ef277a571740f02fa82e1bf6382c24b99df8d1d8cdee"
+    },
+    {
+      "from": "docs/art/feline-composition-guidelines.md",
+      "to": "docs/art/feline-composition-guidelines.md",
+      "removeOriginal": true,
+      "sha256": "dc7c42d6e8cdf29a6a7f3429e14ea6e54d29a8bff7350da9ab88bce6a1191f78",
+      "bytes": 2375,
+      "destinationSha256": "aa5b2f6823d892d0edc7408c4baf45265d8b8621ca982423de58550d9bab01da"
+    },
+    {
+      "from": "docs/integration/archive/qmonster-hatchery-integration-v1.6.md",
+      "to": "docs/integration/archive/qmonster-hatchery-integration-v1.6.md",
+      "removeOriginal": false,
+      "sha256": "fb44f16716c1a74d1f01f64a9b7d132c324369f01135ee60d57943f19643c1cb",
+      "bytes": 43025,
+      "destinationSha256": "fb44f16716c1a74d1f01f64a9b7d132c324369f01135ee60d57943f19643c1cb"
+    },
+    {
+      "from": "scripts/verify-feline-hatchery-example.mjs",
+      "to": "scripts/verify-feline-hatchery-example.mjs",
+      "removeOriginal": true,
+      "sha256": "3bebd3d9332b7777b47273650a80cf4ebd6edfed5fe8fed367582430adce9b05",
+      "bytes": 8281,
+      "destinationSha256": "1606e91a45c73bbfb0d8de8a1d3903976ddf0d7951f6908c8ff4cf50014efd8f"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/verify-workbench.mjs",
+      "to": "scripts/verify-workbench.mjs",
+      "removeOriginal": true,
+      "sha256": "537a02e4bc1781b92788452f0bd3b13f9839ba283241404dd215d534bea13330",
+      "bytes": 4180,
+      "destinationSha256": "6dc60d593be8b8a8031d678ce0f8ad55991d8a179d63c64ada7ac8c633d76e12"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/verify-import-race.mjs",
+      "to": "scripts/verify-import-race.mjs",
+      "removeOriginal": true,
+      "sha256": "f3ba7a30e7888f96fb6147880a4896a8edffb5461e1c81dd26a8c303b094bc54",
+      "bytes": 3829,
+      "destinationSha256": "523f9b48ba27f6a795677531244c946d23c1ce220c03157e14258cd671c2e591"
+    },
+    {
+      "from": "package-lock.json",
+      "to": "package-lock.json",
+      "removeOriginal": false,
+      "sha256": "03138945fe78b2fb370357cd981850749e19710d30df991a45787e54e0e829ae",
+      "bytes": 135961,
+      "destinationSha256": "aef17ee17674a51aa75c11e81669340b0b7a916b78cf4f8298e3835f2cd11ff0"
+    },
+    {
+      "from": "packages/asset-catalog/catalog/v0.10.0-candidate.1/catalog.json",
+      "to": "packages/asset-catalog/catalog/v0.10.0/catalog.json",
+      "removeOriginal": true,
+      "sha256": "196f78c117b39a37ed409181ba17725777d38a6035d6b1a0e4ec05be8bc54e6d",
+      "bytes": 26659,
+      "destinationSha256": "e8521aa263ed1d8e8788a977fcb560ecc8b0848e5136b31eb308d58c9b452bc0"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/orange-white-small-fangs.png",
+      "removeOriginal": true,
+      "sha256": "606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa",
+      "bytes": 1702061,
+      "destinationSha256": "606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/dragon-horns.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/dragon-horns.png",
+      "removeOriginal": true,
+      "sha256": "27c492b894c1e38302e69c1d47513a0d850ef0c674a849a43a098b433ac6b136",
+      "bytes": 128348,
+      "destinationSha256": "27c492b894c1e38302e69c1d47513a0d850ef0c674a849a43a098b433ac6b136"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-fin-ears.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png",
+      "removeOriginal": true,
+      "sha256": "d4263a899bea6a6842e6da9beabb8bb64bd904f741f5ae3f32c89a1da161c6aa",
+      "bytes": 509057,
+      "destinationSha256": "d4263a899bea6a6842e6da9beabb8bb64bd904f741f5ae3f32c89a1da161c6aa"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-tongue-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/tuxedo-tongue-tip.png",
+      "removeOriginal": true,
+      "sha256": "19567c758d37bbe1f14fa00f6cb40312f7970f5ed526023c025fc145a40c778c",
+      "bytes": 1649809,
+      "destinationSha256": "19567c758d37bbe1f14fa00f6cb40312f7970f5ed526023c025fc145a40c778c"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/small-wings.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/small-wings.png",
+      "removeOriginal": true,
+      "sha256": "df9779bac34a5d6d83f78e019dd3f5b8277e666444aedd0f610416964ca55435",
+      "bytes": 558087,
+      "destinationSha256": "df9779bac34a5d6d83f78e019dd3f5b8277e666444aedd0f610416964ca55435"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/antlers.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/antlers.png",
+      "removeOriginal": true,
+      "sha256": "5819b0efd6465dff82ea4e8bbde3492f95d9bb03223afff2e211518701712280",
+      "bytes": 531468,
+      "destinationSha256": "5819b0efd6465dff82ea4e8bbde3492f95d9bb03223afff2e211518701712280"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/orange-white-forked-tail-tip.png",
+      "removeOriginal": true,
+      "sha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213",
+      "bytes": 492322,
+      "destinationSha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-lion-mane.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/orange-white-small-lion-mane.png",
+      "removeOriginal": true,
+      "sha256": "6ae39a30e6c998f7d146ec0b823db4a227da47e17098869cbec5e15de35d95c9",
+      "bytes": 1776425,
+      "destinationSha256": "6ae39a30e6c998f7d146ec0b823db4a227da47e17098869cbec5e15de35d95c9"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-parted-mouth.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+      "removeOriginal": true,
+      "sha256": "c088207b175a4a2d96fc3e13d9b2c90e400712abe20562f4d972cd38d712dd2f",
+      "bytes": 1686240,
+      "destinationSha256": "c088207b175a4a2d96fc3e13d9b2c90e400712abe20562f4d972cd38d712dd2f"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-tongue-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/orange-white-tongue-tip.png",
+      "removeOriginal": true,
+      "sha256": "6143d0bc3760364697c18e5f75cf1f46b8eadccae76cf26b9d58ff6203b5086e",
+      "bytes": 1674072,
+      "destinationSha256": "6143d0bc3760364697c18e5f75cf1f46b8eadccae76cf26b9d58ff6203b5086e"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-parted-mouth.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/tuxedo-parted-mouth.png",
+      "removeOriginal": true,
+      "sha256": "2ce2b8b67df120f90f6a34d1a9950f3fe6073f5b22093a11384ab36d80347357",
+      "bytes": 1693078,
+      "destinationSha256": "2ce2b8b67df120f90f6a34d1a9950f3fe6073f5b22093a11384ab36d80347357"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-small-fangs.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/tuxedo-small-fangs.png",
+      "removeOriginal": true,
+      "sha256": "74f87d10f480a973d0dbd9ce3a8283e67696ddc572092768fad2eb0767b1fe8a",
+      "bytes": 1678157,
+      "destinationSha256": "74f87d10f480a973d0dbd9ce3a8283e67696ddc572092768fad2eb0767b1fe8a"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-small-lion-mane.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/tuxedo-small-lion-mane.png",
+      "removeOriginal": true,
+      "sha256": "30d5892dae7bc0c5c271844230d23f59790f2f4c7380838abb11adab2895e8fd",
+      "bytes": 1615440,
+      "destinationSha256": "30d5892dae7bc0c5c271844230d23f59790f2f4c7380838abb11adab2895e8fd"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-forked-tail-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/tuxedo-forked-tail-tip.png",
+      "removeOriginal": true,
+      "sha256": "522a0447096e7dd2158ca6baea7a25245dc68927541ec08674783d35de66a120",
+      "bytes": 496451,
+      "destinationSha256": "522a0447096e7dd2158ca6baea7a25245dc68927541ec08674783d35de66a120"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-fin-ears.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/tuxedo-fin-ears.png",
+      "removeOriginal": true,
+      "sha256": "278ea1c4ffa8e6d8e15b21038df962ab242f40171b173428b1ca6e88415e459b",
+      "bytes": 689960,
+      "destinationSha256": "278ea1c4ffa8e6d8e15b21038df962ab242f40171b173428b1ca6e88415e459b"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-parted-mouth.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/brown-tabby-parted-mouth.png",
+      "removeOriginal": true,
+      "sha256": "d47ebe738b439c3124d737291d884b2dc86091e73289471bad7644234bc321dc",
+      "bytes": 1938223,
+      "destinationSha256": "d47ebe738b439c3124d737291d884b2dc86091e73289471bad7644234bc321dc"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-small-fangs.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/brown-tabby-small-fangs.png",
+      "removeOriginal": true,
+      "sha256": "fbf61f5e1a8ddd090526961fc0843235ad5da62176e2417f7116489229453355",
+      "bytes": 1987442,
+      "destinationSha256": "fbf61f5e1a8ddd090526961fc0843235ad5da62176e2417f7116489229453355"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-tongue-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/brown-tabby-tongue-tip.png",
+      "removeOriginal": true,
+      "sha256": "b5f74e81a2dbe3170b8ac6c98f638837bc91ccc3c856e21fb21ef2d4a11ccb6c",
+      "bytes": 2093145,
+      "destinationSha256": "b5f74e81a2dbe3170b8ac6c98f638837bc91ccc3c856e21fb21ef2d4a11ccb6c"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-parted-mouth.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/calico-parted-mouth.png",
+      "removeOriginal": true,
+      "sha256": "b3baa96b9c602ed0ffc6c776fbdec0de2e56e300e507ec6aa5d9240655003aa1",
+      "bytes": 1796629,
+      "destinationSha256": "b3baa96b9c602ed0ffc6c776fbdec0de2e56e300e507ec6aa5d9240655003aa1"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-small-fangs.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/calico-small-fangs.png",
+      "removeOriginal": true,
+      "sha256": "391e72a3e1f079f3303a757182a0ac10b112f458e56a153ed015f2bc962ec2db",
+      "bytes": 1743029,
+      "destinationSha256": "391e72a3e1f079f3303a757182a0ac10b112f458e56a153ed015f2bc962ec2db"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-tongue-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/calico-tongue-tip.png",
+      "removeOriginal": true,
+      "sha256": "e67a6d2bed28e0bac3f949d57ca96db6f20a7b4439bf4f029f6f86f2249c5193",
+      "bytes": 1756655,
+      "destinationSha256": "e67a6d2bed28e0bac3f949d57ca96db6f20a7b4439bf4f029f6f86f2249c5193"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-parted-mouth.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/colorpoint-parted-mouth.png",
+      "removeOriginal": true,
+      "sha256": "8d9ae3d311024d95bc4cf53370772ae8147cc7da37258c15b79e4a9de77ec2fe",
+      "bytes": 1747013,
+      "destinationSha256": "8d9ae3d311024d95bc4cf53370772ae8147cc7da37258c15b79e4a9de77ec2fe"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-small-fangs.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/colorpoint-small-fangs.png",
+      "removeOriginal": true,
+      "sha256": "9cbe473cb5dccd124cc64aa0e80bef49325a04cbf2ec13d5788c5af57c76af28",
+      "bytes": 1756875,
+      "destinationSha256": "9cbe473cb5dccd124cc64aa0e80bef49325a04cbf2ec13d5788c5af57c76af28"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-tongue-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/colorpoint-tongue-tip.png",
+      "removeOriginal": true,
+      "sha256": "7ceac7eedc3a23bde5e95777704c1c7ff3929f44f07a09139d222bd9469404c9",
+      "bytes": 1756085,
+      "destinationSha256": "7ceac7eedc3a23bde5e95777704c1c7ff3929f44f07a09139d222bd9469404c9"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-small-fangs.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/rosetted-small-fangs.png",
+      "removeOriginal": true,
+      "sha256": "081cc95f4c8224ee089eb30290cceff4d1cdb65b6d6352906dcd387b7b3b5c9d",
+      "bytes": 1913366,
+      "destinationSha256": "081cc95f4c8224ee089eb30290cceff4d1cdb65b6d6352906dcd387b7b3b5c9d"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-tongue-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/rosetted-tongue-tip.png",
+      "removeOriginal": true,
+      "sha256": "687e99ed892c699534037579f87481baa65242fd973afc817bfabaa97bc3061b",
+      "bytes": 1957031,
+      "destinationSha256": "687e99ed892c699534037579f87481baa65242fd973afc817bfabaa97bc3061b"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-parted-mouth.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/rosetted-parted-mouth.png",
+      "removeOriginal": true,
+      "sha256": "2f8da46ef4d71c10c5e98cc80fe49ea2d48dfbda39801efd92fdec97fcc7dab1",
+      "bytes": 1812699,
+      "destinationSha256": "2f8da46ef4d71c10c5e98cc80fe49ea2d48dfbda39801efd92fdec97fcc7dab1"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-fin-ears.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/brown-tabby-fin-ears.png",
+      "removeOriginal": true,
+      "sha256": "289a1eaa08e467ca28942a77e470386f39e745dfc989c8462c163308eaccc815",
+      "bytes": 737083,
+      "destinationSha256": "289a1eaa08e467ca28942a77e470386f39e745dfc989c8462c163308eaccc815"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-small-lion-mane.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/brown-tabby-small-lion-mane.png",
+      "removeOriginal": true,
+      "sha256": "e2061df3714a12386ebe189f4397f3ccac0df67d347b765d1b76ba743f868583",
+      "bytes": 1862747,
+      "destinationSha256": "e2061df3714a12386ebe189f4397f3ccac0df67d347b765d1b76ba743f868583"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-forked-tail-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/brown-tabby-forked-tail-tip.png",
+      "removeOriginal": true,
+      "sha256": "35b4a8874f076124b408acdfa418980f9ebf5edaae4acd5bd2c1121e0571b6d0",
+      "bytes": 544894,
+      "destinationSha256": "35b4a8874f076124b408acdfa418980f9ebf5edaae4acd5bd2c1121e0571b6d0"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-fin-ears.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/calico-fin-ears.png",
+      "removeOriginal": true,
+      "sha256": "cc9223d5276aa04cb307ba5bff095eca7bb9e6dd2c9a98fdf7a74b8223e6ebe5",
+      "bytes": 510171,
+      "destinationSha256": "cc9223d5276aa04cb307ba5bff095eca7bb9e6dd2c9a98fdf7a74b8223e6ebe5"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-small-lion-mane.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/calico-small-lion-mane.png",
+      "removeOriginal": true,
+      "sha256": "1a42675aecb7904321851030a02d2bb00a47773d4e9b5711302b2c30ffaaaabf",
+      "bytes": 1640560,
+      "destinationSha256": "1a42675aecb7904321851030a02d2bb00a47773d4e9b5711302b2c30ffaaaabf"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-forked-tail-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/calico-forked-tail-tip.png",
+      "removeOriginal": true,
+      "sha256": "d8a98ff01c7469f5d448631a9ded930e45e7e3cf3236cc10b157ad7fa3f7f80f",
+      "bytes": 514372,
+      "destinationSha256": "d8a98ff01c7469f5d448631a9ded930e45e7e3cf3236cc10b157ad7fa3f7f80f"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-fin-ears.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/colorpoint-fin-ears.png",
+      "removeOriginal": true,
+      "sha256": "6b3b9be703424d0f4c1e55b813a3c7954398b9f35cd670f6151feef0605fc46d",
+      "bytes": 503132,
+      "destinationSha256": "6b3b9be703424d0f4c1e55b813a3c7954398b9f35cd670f6151feef0605fc46d"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-small-lion-mane.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/colorpoint-small-lion-mane.png",
+      "removeOriginal": true,
+      "sha256": "de22e02945b953d16ad7b979d6ed36f54a2efa9e1df58d1425e65c79cfd9bcea",
+      "bytes": 1611106,
+      "destinationSha256": "de22e02945b953d16ad7b979d6ed36f54a2efa9e1df58d1425e65c79cfd9bcea"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-forked-tail-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/colorpoint-forked-tail-tip.png",
+      "removeOriginal": true,
+      "sha256": "9abedf12a46b545858d221d37eac4a9cf0d25e707f3f92dc2cd9038600ef5ae2",
+      "bytes": 518427,
+      "destinationSha256": "9abedf12a46b545858d221d37eac4a9cf0d25e707f3f92dc2cd9038600ef5ae2"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-fin-ears.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/rosetted-fin-ears.png",
+      "removeOriginal": true,
+      "sha256": "3b9c731da2800d40caedb6545653d8883aaf81d2336064a16b0f50e6c276d5bc",
+      "bytes": 590244,
+      "destinationSha256": "3b9c731da2800d40caedb6545653d8883aaf81d2336064a16b0f50e6c276d5bc"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-small-lion-mane.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/rosetted-small-lion-mane.png",
+      "removeOriginal": true,
+      "sha256": "e267b06142fd950f15aa337548e3d68cd2cc692d244659b5f96dea143c925897",
+      "bytes": 1760163,
+      "destinationSha256": "e267b06142fd950f15aa337548e3d68cd2cc692d244659b5f96dea143c925897"
+    },
+    {
+      "from": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-forked-tail-tip.png",
+      "to": "packages/asset-catalog/assets/v0.10.0/rosetted-forked-tail-tip.png",
+      "removeOriginal": true,
+      "sha256": "7e1a89d6ded7c18eb2c0925bcd10134b8b65452faccee0d54cc3c68b1bbef4ea",
+      "bytes": 548722,
+      "destinationSha256": "7e1a89d6ded7c18eb2c0925bcd10134b8b65452faccee0d54cc3c68b1bbef4ea"
+    },
+    {
+      "from": "artifacts/design/coat-pattern-study/2026-09-15/02-orange-white.png",
+      "to": "docs/releases/v0.10.0/provenance/e3c03efeb48ffbcc264f64dbc05ad26e3b2203da9abe833536dcb51736600d42.png",
+      "removeOriginal": false,
+      "sha256": "e3c03efeb48ffbcc264f64dbc05ad26e3b2203da9abe833536dcb51736600d42",
+      "bytes": 1908436,
+      "destinationSha256": "e3c03efeb48ffbcc264f64dbc05ad26e3b2203da9abe833536dcb51736600d42"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/generations.json",
+      "to": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json",
+      "removeOriginal": false,
+      "sha256": "6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3",
+      "bytes": 28427,
+      "destinationSha256": "6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/orange-white-small-fangs.png",
+      "to": "docs/releases/v0.10.0/provenance/606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa.png",
+      "removeOriginal": false,
+      "sha256": "606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa",
+      "bytes": 1702061,
+      "destinationSha256": "606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-tongue-tip-ivory.png",
+      "to": "docs/releases/v0.10.0/provenance/6ff5dc736a1c9e40eee6ec9917d18bbc558ca3a1c65de38ff0a0b3157647ab08.png",
+      "removeOriginal": false,
+      "sha256": "6ff5dc736a1c9e40eee6ec9917d18bbc558ca3a1c65de38ff0a0b3157647ab08",
+      "bytes": 1917872,
+      "destinationSha256": "6ff5dc736a1c9e40eee6ec9917d18bbc558ca3a1c65de38ff0a0b3157647ab08"
+    },
+    {
+      "from": "artifacts/design/mutation-study/2026-09-15/05-small-wings.png",
+      "to": "docs/releases/v0.10.0/provenance/016146a15e7b8daab42590521fe13d249cd8687a93c739e1b11d10c8b24e3da9.png",
+      "removeOriginal": false,
+      "sha256": "016146a15e7b8daab42590521fe13d249cd8687a93c739e1b11d10c8b24e3da9",
+      "bytes": 1951980,
+      "destinationSha256": "016146a15e7b8daab42590521fe13d249cd8687a93c739e1b11d10c8b24e3da9"
+    },
+    {
+      "from": "artifacts/design/mutation-study/2026-09-15/02-antlers-v2.png",
+      "to": "docs/releases/v0.10.0/provenance/da761873d5c7fdaf98ac3e9abf6da7eec83eda527f557704fb0f2f6734328239.png",
+      "removeOriginal": false,
+      "sha256": "da761873d5c7fdaf98ac3e9abf6da7eec83eda527f557704fb0f2f6734328239",
+      "bytes": 1914884,
+      "destinationSha256": "da761873d5c7fdaf98ac3e9abf6da7eec83eda527f557704fb0f2f6734328239"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png",
+      "to": "docs/releases/v0.10.0/provenance/3a82e5788079916fa36b36cdfcb0966d41fdcf2ef8014da468b15d1de2930bae.png",
+      "removeOriginal": false,
+      "sha256": "3a82e5788079916fa36b36cdfcb0966d41fdcf2ef8014da468b15d1de2930bae",
+      "bytes": 1153696,
+      "destinationSha256": "3a82e5788079916fa36b36cdfcb0966d41fdcf2ef8014da468b15d1de2930bae"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/tail-repair/records.json",
+      "to": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json",
+      "removeOriginal": false,
+      "sha256": "d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309",
+      "bytes": 18277,
+      "destinationSha256": "d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/orange-white-small-lion-mane.png",
+      "to": "docs/releases/v0.10.0/provenance/7e86f77d682c81e783df3d46958b343702eef8947b1805d7fd8e59ebbbafaca6.png",
+      "removeOriginal": false,
+      "sha256": "7e86f77d682c81e783df3d46958b343702eef8947b1805d7fd8e59ebbbafaca6",
+      "bytes": 2314991,
+      "destinationSha256": "7e86f77d682c81e783df3d46958b343702eef8947b1805d7fd8e59ebbbafaca6"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth-ivory.png",
+      "to": "docs/releases/v0.10.0/provenance/6a22028f15c6faac6820ead955e793b7d1b70a1dc5d85858c2d5d75386aa0fba.png",
+      "removeOriginal": false,
+      "sha256": "6a22028f15c6faac6820ead955e793b7d1b70a1dc5d85858c2d5d75386aa0fba",
+      "bytes": 1853273,
+      "destinationSha256": "6a22028f15c6faac6820ead955e793b7d1b70a1dc5d85858c2d5d75386aa0fba"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/orange-white-tongue-tip-ivory.png",
+      "to": "docs/releases/v0.10.0/provenance/df0804f5c0631cc5c6786c39cffbf3ae0108243a5a8ca6dd605622c8c1ee1bad.png",
+      "removeOriginal": false,
+      "sha256": "df0804f5c0631cc5c6786c39cffbf3ae0108243a5a8ca6dd605622c8c1ee1bad",
+      "bytes": 1837018,
+      "destinationSha256": "df0804f5c0631cc5c6786c39cffbf3ae0108243a5a8ca6dd605622c8c1ee1bad"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-parted-mouth-ivory.png",
+      "to": "docs/releases/v0.10.0/provenance/2f023311eca53e83d86a00ffa5af08a5c58cad78cd072d8032f66e4298739116.png",
+      "removeOriginal": false,
+      "sha256": "2f023311eca53e83d86a00ffa5af08a5c58cad78cd072d8032f66e4298739116",
+      "bytes": 1865262,
+      "destinationSha256": "2f023311eca53e83d86a00ffa5af08a5c58cad78cd072d8032f66e4298739116"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs-ivory.png",
+      "to": "docs/releases/v0.10.0/provenance/6f6cbdbd5839c699a4b73a915459ab6756234284ec9caa4914be52f2c934363b.png",
+      "removeOriginal": false,
+      "sha256": "6f6cbdbd5839c699a4b73a915459ab6756234284ec9caa4914be52f2c934363b",
+      "bytes": 1856760,
+      "destinationSha256": "6f6cbdbd5839c699a4b73a915459ab6756234284ec9caa4914be52f2c934363b"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-lion-mane-ivory.png",
+      "to": "docs/releases/v0.10.0/provenance/5621673accf65d144703612bd81dcfc6ad12dd0616f1a8800425ad1b31d7099b.png",
+      "removeOriginal": false,
+      "sha256": "5621673accf65d144703612bd81dcfc6ad12dd0616f1a8800425ad1b31d7099b",
+      "bytes": 1884211,
+      "destinationSha256": "5621673accf65d144703612bd81dcfc6ad12dd0616f1a8800425ad1b31d7099b"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/tail-repair/tuxedo-color.png",
+      "to": "docs/releases/v0.10.0/provenance/d1e413f0cda6bcb5b10e6c654aa10662ae11393b06097e271db0eefe94bd1013.png",
+      "removeOriginal": false,
+      "sha256": "d1e413f0cda6bcb5b10e6c654aa10662ae11393b06097e271db0eefe94bd1013",
+      "bytes": 1423201,
+      "destinationSha256": "d1e413f0cda6bcb5b10e6c654aa10662ae11393b06097e271db0eefe94bd1013"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-fin-ears-ivory.png",
+      "to": "docs/releases/v0.10.0/provenance/088f951e1bcb13bb94157d112276319af84661c84445486c294ead80a25615f5.png",
+      "removeOriginal": false,
+      "sha256": "088f951e1bcb13bb94157d112276319af84661c84445486c294ead80a25615f5",
+      "bytes": 1180086,
+      "destinationSha256": "088f951e1bcb13bb94157d112276319af84661c84445486c294ead80a25615f5"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-parted-mouth-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/1cbd231d5b2ac7b8dd9c1940c7c0ead3d6f6bb3ab7d449552ae696faf82bd61c.png",
+      "removeOriginal": false,
+      "sha256": "1cbd231d5b2ac7b8dd9c1940c7c0ead3d6f6bb3ab7d449552ae696faf82bd61c",
+      "bytes": 2172913,
+      "destinationSha256": "1cbd231d5b2ac7b8dd9c1940c7c0ead3d6f6bb3ab7d449552ae696faf82bd61c"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json",
+      "to": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json",
+      "removeOriginal": false,
+      "sha256": "01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db",
+      "bytes": 45064,
+      "destinationSha256": "01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-small-fangs-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/8acb2ba4189cd415711b140ebea9f67c0177c03083ad05739998c0a57afd7e0c.png",
+      "removeOriginal": false,
+      "sha256": "8acb2ba4189cd415711b140ebea9f67c0177c03083ad05739998c0a57afd7e0c",
+      "bytes": 2172910,
+      "destinationSha256": "8acb2ba4189cd415711b140ebea9f67c0177c03083ad05739998c0a57afd7e0c"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-tongue-tip-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/7d81b94f4ecc1e23ee7a4609bcfdf2998d3fde53cfe61311f0f1a061db613e04.png",
+      "removeOriginal": false,
+      "sha256": "7d81b94f4ecc1e23ee7a4609bcfdf2998d3fde53cfe61311f0f1a061db613e04",
+      "bytes": 2156004,
+      "destinationSha256": "7d81b94f4ecc1e23ee7a4609bcfdf2998d3fde53cfe61311f0f1a061db613e04"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/calico-parted-mouth-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/5be0488a0967bcd03571d6b2de7328e2d9dd6f7c8bca706ebac80c69f379ac5f.png",
+      "removeOriginal": false,
+      "sha256": "5be0488a0967bcd03571d6b2de7328e2d9dd6f7c8bca706ebac80c69f379ac5f",
+      "bytes": 1907146,
+      "destinationSha256": "5be0488a0967bcd03571d6b2de7328e2d9dd6f7c8bca706ebac80c69f379ac5f"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/calico-small-fangs-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/860136ea5e9bb8443898a5b7ee0fb528e33702ee570687d84f4f50716a0bdc80.png",
+      "removeOriginal": false,
+      "sha256": "860136ea5e9bb8443898a5b7ee0fb528e33702ee570687d84f4f50716a0bdc80",
+      "bytes": 1902983,
+      "destinationSha256": "860136ea5e9bb8443898a5b7ee0fb528e33702ee570687d84f4f50716a0bdc80"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/calico-tongue-tip-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/81893e9acf7f02a48f220419c1285a8d69ce60551d08930b8710d6eac1244489.png",
+      "removeOriginal": false,
+      "sha256": "81893e9acf7f02a48f220419c1285a8d69ce60551d08930b8710d6eac1244489",
+      "bytes": 1884002,
+      "destinationSha256": "81893e9acf7f02a48f220419c1285a8d69ce60551d08930b8710d6eac1244489"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-parted-mouth-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/3d839c7e8e3ad0536423a87a88c09dde248f425b3724477a4e9acaf8f3813c02.png",
+      "removeOriginal": false,
+      "sha256": "3d839c7e8e3ad0536423a87a88c09dde248f425b3724477a4e9acaf8f3813c02",
+      "bytes": 1975516,
+      "destinationSha256": "3d839c7e8e3ad0536423a87a88c09dde248f425b3724477a4e9acaf8f3813c02"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-small-fangs-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/ad40948141094ecfb66d7ede05c4215b519e5b1b29683f0140a28b44cae0140d.png",
+      "removeOriginal": false,
+      "sha256": "ad40948141094ecfb66d7ede05c4215b519e5b1b29683f0140a28b44cae0140d",
+      "bytes": 1878420,
+      "destinationSha256": "ad40948141094ecfb66d7ede05c4215b519e5b1b29683f0140a28b44cae0140d"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-tongue-tip-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/94be7817de7e5ea0ce028e907f4dcd46fae5b7583a403f59e1962c6caeaf584a.png",
+      "removeOriginal": false,
+      "sha256": "94be7817de7e5ea0ce028e907f4dcd46fae5b7583a403f59e1962c6caeaf584a",
+      "bytes": 1927298,
+      "destinationSha256": "94be7817de7e5ea0ce028e907f4dcd46fae5b7583a403f59e1962c6caeaf584a"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-small-fangs-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/9110e6842f4452bf52c8d9eca0a800470b421ad7dfdae1f8a6c33434aee5aea8.png",
+      "removeOriginal": false,
+      "sha256": "9110e6842f4452bf52c8d9eca0a800470b421ad7dfdae1f8a6c33434aee5aea8",
+      "bytes": 2073284,
+      "destinationSha256": "9110e6842f4452bf52c8d9eca0a800470b421ad7dfdae1f8a6c33434aee5aea8"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-tongue-tip-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/9f8feb785d356e6f330bc67b4b58254c925b4a7c3bff74a6b80682b328d1a63f.png",
+      "removeOriginal": false,
+      "sha256": "9f8feb785d356e6f330bc67b4b58254c925b4a7c3bff74a6b80682b328d1a63f",
+      "bytes": 2059706,
+      "destinationSha256": "9f8feb785d356e6f330bc67b4b58254c925b4a7c3bff74a6b80682b328d1a63f"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-parted-mouth-ivory-01.png",
+      "to": "docs/releases/v0.10.0/provenance/42e8210d18f9abd05690a8f437b89a268934585340b09b4f4390a067c21d2d7a.png",
+      "removeOriginal": false,
+      "sha256": "42e8210d18f9abd05690a8f437b89a268934585340b09b4f4390a067c21d2d7a",
+      "bytes": 2046585,
+      "destinationSha256": "42e8210d18f9abd05690a8f437b89a268934585340b09b4f4390a067c21d2d7a"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-fin-ears-color.png",
+      "to": "docs/releases/v0.10.0/provenance/d8553786aff0c70f3add98c592ea47c35f2c869b1b50d70c474bf076df8404f3.png",
+      "removeOriginal": false,
+      "sha256": "d8553786aff0c70f3add98c592ea47c35f2c869b1b50d70c474bf076df8404f3",
+      "bytes": 1228591,
+      "destinationSha256": "d8553786aff0c70f3add98c592ea47c35f2c869b1b50d70c474bf076df8404f3"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json",
+      "to": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json",
+      "removeOriginal": false,
+      "sha256": "7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364",
+      "bytes": 39024,
+      "destinationSha256": "7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-small-lion-mane-color.png",
+      "to": "docs/releases/v0.10.0/provenance/c43e20654058832e03e194649640b47cf1db9fb6adb89342638538cf19b1b253.png",
+      "removeOriginal": false,
+      "sha256": "c43e20654058832e03e194649640b47cf1db9fb6adb89342638538cf19b1b253",
+      "bytes": 2006955,
+      "destinationSha256": "c43e20654058832e03e194649640b47cf1db9fb6adb89342638538cf19b1b253"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/tail-repair/brown-tabby-color.png",
+      "to": "docs/releases/v0.10.0/provenance/e6a834e5a9c0417728a53776edcb664fbab21d04734d35767aea5a8215823486.png",
+      "removeOriginal": false,
+      "sha256": "e6a834e5a9c0417728a53776edcb664fbab21d04734d35767aea5a8215823486",
+      "bytes": 1475875,
+      "destinationSha256": "e6a834e5a9c0417728a53776edcb664fbab21d04734d35767aea5a8215823486"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-fin-ears-color.png",
+      "to": "docs/releases/v0.10.0/provenance/449ecb12c197473514f572d53aac39f51ae4bf5db859c3e13b5ed5730eaea096.png",
+      "removeOriginal": false,
+      "sha256": "449ecb12c197473514f572d53aac39f51ae4bf5db859c3e13b5ed5730eaea096",
+      "bytes": 1122322,
+      "destinationSha256": "449ecb12c197473514f572d53aac39f51ae4bf5db859c3e13b5ed5730eaea096"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-small-lion-mane-color.png",
+      "to": "docs/releases/v0.10.0/provenance/6317b26f4d92ccdb0d1e9e03a9088343c4a7167c7044c2f1f927582bec11512a.png",
+      "removeOriginal": false,
+      "sha256": "6317b26f4d92ccdb0d1e9e03a9088343c4a7167c7044c2f1f927582bec11512a",
+      "bytes": 1963722,
+      "destinationSha256": "6317b26f4d92ccdb0d1e9e03a9088343c4a7167c7044c2f1f927582bec11512a"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/tail-repair/calico-color.png",
+      "to": "docs/releases/v0.10.0/provenance/2138e87231ecc3eed27174de3b9f76f8cc529503a57258b5015a78198370ff67.png",
+      "removeOriginal": false,
+      "sha256": "2138e87231ecc3eed27174de3b9f76f8cc529503a57258b5015a78198370ff67",
+      "bytes": 1429597,
+      "destinationSha256": "2138e87231ecc3eed27174de3b9f76f8cc529503a57258b5015a78198370ff67"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-fin-ears-color.png",
+      "to": "docs/releases/v0.10.0/provenance/15abef8c34a44a51b3f3b239616c26bbb0cb420af1666ae3f188897038f8892f.png",
+      "removeOriginal": false,
+      "sha256": "15abef8c34a44a51b3f3b239616c26bbb0cb420af1666ae3f188897038f8892f",
+      "bytes": 1134718,
+      "destinationSha256": "15abef8c34a44a51b3f3b239616c26bbb0cb420af1666ae3f188897038f8892f"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-recolor.png",
+      "to": "docs/releases/v0.10.0/provenance/bd550ce132163ee4d4e3546fdedfbd6b6cc74513fa44c9459ba970f02d607f1a.png",
+      "removeOriginal": false,
+      "sha256": "bd550ce132163ee4d4e3546fdedfbd6b6cc74513fa44c9459ba970f02d607f1a",
+      "bytes": 1991491,
+      "destinationSha256": "bd550ce132163ee4d4e3546fdedfbd6b6cc74513fa44c9459ba970f02d607f1a"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/tail-repair/colorpoint-color.png",
+      "to": "docs/releases/v0.10.0/provenance/a84b4ee7f9e8e26ff6e6685e7cd5e6391135c4cf216b5180ed0f766dab4c0157.png",
+      "removeOriginal": false,
+      "sha256": "a84b4ee7f9e8e26ff6e6685e7cd5e6391135c4cf216b5180ed0f766dab4c0157",
+      "bytes": 1423558,
+      "destinationSha256": "a84b4ee7f9e8e26ff6e6685e7cd5e6391135c4cf216b5180ed0f766dab4c0157"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-fin-ears-color.png",
+      "to": "docs/releases/v0.10.0/provenance/c0d1f59d4ce9a1c5f3af59d36cace82be8ae210081bf60c13f96401c356828bd.png",
+      "removeOriginal": false,
+      "sha256": "c0d1f59d4ce9a1c5f3af59d36cace82be8ae210081bf60c13f96401c356828bd",
+      "bytes": 1180681,
+      "destinationSha256": "c0d1f59d4ce9a1c5f3af59d36cace82be8ae210081bf60c13f96401c356828bd"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-small-lion-mane-color.png",
+      "to": "docs/releases/v0.10.0/provenance/f806fe4afb00a9350c8440aaafb1a1d28228cdaa77f0e5cb270de40a882ab0c6.png",
+      "removeOriginal": false,
+      "sha256": "f806fe4afb00a9350c8440aaafb1a1d28228cdaa77f0e5cb270de40a882ab0c6",
+      "bytes": 2002201,
+      "destinationSha256": "f806fe4afb00a9350c8440aaafb1a1d28228cdaa77f0e5cb270de40a882ab0c6"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/tail-repair/rosetted-color.png",
+      "to": "docs/releases/v0.10.0/provenance/3619580efd7bd21d491f11713e7d2d3d6a444fc6d0ef20a6897f65a0368c0ee5.png",
+      "removeOriginal": false,
+      "sha256": "3619580efd7bd21d491f11713e7d2d3d6a444fc6d0ef20a6897f65a0368c0ee5",
+      "bytes": 1479591,
+      "destinationSha256": "3619580efd7bd21d491f11713e7d2d3d6a444fc6d0ef20a6897f65a0368c0ee5"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/tail-repair/approval.json",
+      "to": "docs/releases/v0.10.0/provenance/5908891ab0bcc25dcaa7d03d8f370776ffd9f1d15bc9d1ae4f085f499e42ea83.json",
+      "removeOriginal": false,
+      "sha256": "5908891ab0bcc25dcaa7d03d8f370776ffd9f1d15bc9d1ae4f085f499e42ea83",
+      "bytes": 2703,
+      "destinationSha256": "5908891ab0bcc25dcaa7d03d8f370776ffd9f1d15bc9d1ae4f085f499e42ea83"
+    },
+    {
+      "from": "packages/generator-core/src/feline-combination.ts",
+      "to": "docs/releases/v0.10.0/provenance/57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b.ts",
+      "removeOriginal": false,
+      "sha256": "57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b",
+      "bytes": 7736,
+      "destinationSha256": "57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b"
+    },
+    {
+      "from": "packages/asset-catalog/src/feline-combination-catalog.ts",
+      "to": "docs/releases/v0.10.0/provenance/9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8.ts",
+      "removeOriginal": false,
+      "sha256": "9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8",
+      "bytes": 7918,
+      "destinationSha256": "9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8"
+    },
+    {
+      "from": "packages/renderer-canvas/src/feline-combination-render.ts",
+      "to": "docs/releases/v0.10.0/provenance/9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01.ts",
+      "removeOriginal": false,
+      "sha256": "9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01",
+      "bytes": 11941,
+      "destinationSha256": "9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01"
+    },
+    {
+      "from": "packages/renderer-canvas/src/feline-combination-registration.json",
+      "to": "docs/releases/v0.10.0/provenance/cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771.json",
+      "removeOriginal": false,
+      "sha256": "cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771",
+      "bytes": 2966,
+      "destinationSha256": "cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771"
+    },
+    {
+      "from": "packages/asset-catalog/catalog/v0.10.0-candidate.1/catalog.json",
+      "to": "docs/releases/v0.10.0/provenance/196f78c117b39a37ed409181ba17725777d38a6035d6b1a0e4ec05be8bc54e6d.json",
+      "removeOriginal": false,
+      "sha256": "196f78c117b39a37ed409181ba17725777d38a6035d6b1a0e4ec05be8bc54e6d",
+      "bytes": 26659,
+      "destinationSha256": "196f78c117b39a37ed409181ba17725777d38a6035d6b1a0e4ec05be8bc54e6d"
+    },
+    {
+      "from": "artifacts/design/combination-study/2026-09-15/render-verification.json",
+      "to": "docs/releases/v0.10.0/provenance/9715221f9ae0bdfcd3c962068066c3e9dcdc6beaee0d538a9a76574b48830878.json",
+      "removeOriginal": false,
+      "sha256": "9715221f9ae0bdfcd3c962068066c3e9dcdc6beaee0d538a9a76574b48830878",
+      "bytes": 1350610,
+      "destinationSha256": "9715221f9ae0bdfcd3c962068066c3e9dcdc6beaee0d538a9a76574b48830878"
+    }
+  ],
+  "provenance": {
+    "artifacts/design/coat-pattern-study/2026-09-15/02-orange-white.png": "docs/releases/v0.10.0/provenance/e3c03efeb48ffbcc264f64dbc05ad26e3b2203da9abe833536dcb51736600d42.png",
+    "artifacts/design/combination-study/2026-09-15/generations.json": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json",
+    "artifacts/design/combination-study/2026-09-15/sources/orange-white-small-fangs.png": "docs/releases/v0.10.0/provenance/606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa.png",
+    "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png": "docs/releases/v0.10.0/provenance/606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa.png",
+    "artifacts/design/combination-study/2026-09-15/sources/tuxedo-tongue-tip-ivory.png": "docs/releases/v0.10.0/provenance/6ff5dc736a1c9e40eee6ec9917d18bbc558ca3a1c65de38ff0a0b3157647ab08.png",
+    "artifacts/design/mutation-study/2026-09-15/05-small-wings.png": "docs/releases/v0.10.0/provenance/016146a15e7b8daab42590521fe13d249cd8687a93c739e1b11d10c8b24e3da9.png",
+    "artifacts/design/mutation-study/2026-09-15/02-antlers-v2.png": "docs/releases/v0.10.0/provenance/da761873d5c7fdaf98ac3e9abf6da7eec83eda527f557704fb0f2f6734328239.png",
+    "artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png": "docs/releases/v0.10.0/provenance/3a82e5788079916fa36b36cdfcb0966d41fdcf2ef8014da468b15d1de2930bae.png",
+    "artifacts/design/combination-study/2026-09-15/tail-repair/records.json": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json",
+    "artifacts/design/combination-study/2026-09-15/sources/orange-white-small-lion-mane.png": "docs/releases/v0.10.0/provenance/7e86f77d682c81e783df3d46958b343702eef8947b1805d7fd8e59ebbbafaca6.png",
+    "artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth-ivory.png": "docs/releases/v0.10.0/provenance/6a22028f15c6faac6820ead955e793b7d1b70a1dc5d85858c2d5d75386aa0fba.png",
+    "artifacts/design/combination-study/2026-09-15/sources/orange-white-tongue-tip-ivory.png": "docs/releases/v0.10.0/provenance/df0804f5c0631cc5c6786c39cffbf3ae0108243a5a8ca6dd605622c8c1ee1bad.png",
+    "artifacts/design/combination-study/2026-09-15/sources/tuxedo-parted-mouth-ivory.png": "docs/releases/v0.10.0/provenance/2f023311eca53e83d86a00ffa5af08a5c58cad78cd072d8032f66e4298739116.png",
+    "artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs-ivory.png": "docs/releases/v0.10.0/provenance/6f6cbdbd5839c699a4b73a915459ab6756234284ec9caa4914be52f2c934363b.png",
+    "artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-lion-mane-ivory.png": "docs/releases/v0.10.0/provenance/5621673accf65d144703612bd81dcfc6ad12dd0616f1a8800425ad1b31d7099b.png",
+    "artifacts/design/combination-study/2026-09-15/tail-repair/tuxedo-color.png": "docs/releases/v0.10.0/provenance/d1e413f0cda6bcb5b10e6c654aa10662ae11393b06097e271db0eefe94bd1013.png",
+    "artifacts/design/combination-study/2026-09-15/sources/tuxedo-fin-ears-ivory.png": "docs/releases/v0.10.0/provenance/088f951e1bcb13bb94157d112276319af84661c84445486c294ead80a25615f5.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-parted-mouth-ivory-01.png": "docs/releases/v0.10.0/provenance/1cbd231d5b2ac7b8dd9c1940c7c0ead3d6f6bb3ab7d449552ae696faf82bd61c.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/records.json": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-small-fangs-ivory-01.png": "docs/releases/v0.10.0/provenance/8acb2ba4189cd415711b140ebea9f67c0177c03083ad05739998c0a57afd7e0c.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-tongue-tip-ivory-01.png": "docs/releases/v0.10.0/provenance/7d81b94f4ecc1e23ee7a4609bcfdf2998d3fde53cfe61311f0f1a061db613e04.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/calico-parted-mouth-ivory-01.png": "docs/releases/v0.10.0/provenance/5be0488a0967bcd03571d6b2de7328e2d9dd6f7c8bca706ebac80c69f379ac5f.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/calico-small-fangs-ivory-01.png": "docs/releases/v0.10.0/provenance/860136ea5e9bb8443898a5b7ee0fb528e33702ee570687d84f4f50716a0bdc80.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/calico-tongue-tip-ivory-01.png": "docs/releases/v0.10.0/provenance/81893e9acf7f02a48f220419c1285a8d69ce60551d08930b8710d6eac1244489.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-parted-mouth-ivory-01.png": "docs/releases/v0.10.0/provenance/3d839c7e8e3ad0536423a87a88c09dde248f425b3724477a4e9acaf8f3813c02.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-small-fangs-ivory-01.png": "docs/releases/v0.10.0/provenance/ad40948141094ecfb66d7ede05c4215b519e5b1b29683f0140a28b44cae0140d.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-tongue-tip-ivory-01.png": "docs/releases/v0.10.0/provenance/94be7817de7e5ea0ce028e907f4dcd46fae5b7583a403f59e1962c6caeaf584a.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-small-fangs-ivory-01.png": "docs/releases/v0.10.0/provenance/9110e6842f4452bf52c8d9eca0a800470b421ad7dfdae1f8a6c33434aee5aea8.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-tongue-tip-ivory-01.png": "docs/releases/v0.10.0/provenance/9f8feb785d356e6f330bc67b4b58254c925b4a7c3bff74a6b80682b328d1a63f.png",
+    "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-parted-mouth-ivory-01.png": "docs/releases/v0.10.0/provenance/42e8210d18f9abd05690a8f437b89a268934585340b09b4f4390a067c21d2d7a.png",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-fin-ears-color.png": "docs/releases/v0.10.0/provenance/d8553786aff0c70f3add98c592ea47c35f2c869b1b50d70c474bf076df8404f3.png",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-small-lion-mane-color.png": "docs/releases/v0.10.0/provenance/c43e20654058832e03e194649640b47cf1db9fb6adb89342638538cf19b1b253.png",
+    "artifacts/design/combination-study/2026-09-15/tail-repair/brown-tabby-color.png": "docs/releases/v0.10.0/provenance/e6a834e5a9c0417728a53776edcb664fbab21d04734d35767aea5a8215823486.png",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-fin-ears-color.png": "docs/releases/v0.10.0/provenance/449ecb12c197473514f572d53aac39f51ae4bf5db859c3e13b5ed5730eaea096.png",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-small-lion-mane-color.png": "docs/releases/v0.10.0/provenance/6317b26f4d92ccdb0d1e9e03a9088343c4a7167c7044c2f1f927582bec11512a.png",
+    "artifacts/design/combination-study/2026-09-15/tail-repair/calico-color.png": "docs/releases/v0.10.0/provenance/2138e87231ecc3eed27174de3b9f76f8cc529503a57258b5015a78198370ff67.png",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-fin-ears-color.png": "docs/releases/v0.10.0/provenance/15abef8c34a44a51b3f3b239616c26bbb0cb420af1666ae3f188897038f8892f.png",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-recolor.png": "docs/releases/v0.10.0/provenance/bd550ce132163ee4d4e3546fdedfbd6b6cc74513fa44c9459ba970f02d607f1a.png",
+    "artifacts/design/combination-study/2026-09-15/tail-repair/colorpoint-color.png": "docs/releases/v0.10.0/provenance/a84b4ee7f9e8e26ff6e6685e7cd5e6391135c4cf216b5180ed0f766dab4c0157.png",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-fin-ears-color.png": "docs/releases/v0.10.0/provenance/c0d1f59d4ce9a1c5f3af59d36cace82be8ae210081bf60c13f96401c356828bd.png",
+    "artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-small-lion-mane-color.png": "docs/releases/v0.10.0/provenance/f806fe4afb00a9350c8440aaafb1a1d28228cdaa77f0e5cb270de40a882ab0c6.png",
+    "artifacts/design/combination-study/2026-09-15/tail-repair/rosetted-color.png": "docs/releases/v0.10.0/provenance/3619580efd7bd21d491f11713e7d2d3d6a444fc6d0ef20a6897f65a0368c0ee5.png",
+    "artifacts/design/combination-study/2026-09-15/tail-repair/approval.json": "docs/releases/v0.10.0/provenance/5908891ab0bcc25dcaa7d03d8f370776ffd9f1d15bc9d1ae4f085f499e42ea83.json",
+    "packages/generator-core/src/feline-combination.ts": "docs/releases/v0.10.0/provenance/57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b.ts",
+    "packages/asset-catalog/src/feline-combination-catalog.ts": "docs/releases/v0.10.0/provenance/9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8.ts",
+    "packages/renderer-canvas/src/feline-combination-render.ts": "docs/releases/v0.10.0/provenance/9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01.ts",
+    "packages/renderer-canvas/src/feline-combination-registration.json": "docs/releases/v0.10.0/provenance/cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771.json",
+    "packages/asset-catalog/catalog/v0.10.0-candidate.1/catalog.json": "docs/releases/v0.10.0/provenance/196f78c117b39a37ed409181ba17725777d38a6035d6b1a0e4ec05be8bc54e6d.json",
+    "artifacts/design/combination-study/2026-09-15/render-verification.json": "docs/releases/v0.10.0/provenance/9715221f9ae0bdfcd3c962068066c3e9dcdc6beaee0d538a9a76574b48830878.json"
+  },
+  "originalApproval": "docs/releases/v0.10.0/provenance/5908891ab0bcc25dcaa7d03d8f370776ffd9f1d15bc9d1ae4f085f499e42ea83.json",
+  "originalRenderReport": "docs/releases/v0.10.0/provenance/9715221f9ae0bdfcd3c962068066c3e9dcdc6beaee0d538a9a76574b48830878.json",
+  "completedAt": "2026-09-15T07:13:23.7177492Z",
+  "movedFileCount": 58
+}

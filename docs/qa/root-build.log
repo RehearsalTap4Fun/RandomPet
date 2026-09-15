@@ -1,0 +1,62 @@
+
+> qmonster-creator@0.10.0 build
+> npm run typecheck && npm run build -w @qmonster/creator-web && node scripts/build-hatchery.mjs
+
+
+> qmonster-creator@0.10.0 typecheck
+> tsc --noEmit
+
+
+> @qmonster/creator-web@0.10.0 build
+> vite build
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 140 modules transformed.
+rendering chunks...
+computing gzip size...
+../../dist/creator/index.html                                            0.46 kB │ gzip:  0.32 kB
+../../dist/creator/assets/dragon-horns-EWYayxuA.png                    128.34 kB
+../../dist/creator/assets/orange-white-forked-tail-tip-BlNUzoYE.png    492.32 kB
+../../dist/creator/assets/tuxedo-forked-tail-tip-DS3YOnZC.png          496.45 kB
+../../dist/creator/assets/colorpoint-fin-ears-i6vCnihz.png             503.13 kB
+../../dist/creator/assets/orange-white-fin-ears-Qwes84gS.png           509.05 kB
+../../dist/creator/assets/calico-fin-ears-UQBqqzxq.png                 510.17 kB
+../../dist/creator/assets/calico-forked-tail-tip-C4cPks6S.png          514.37 kB
+../../dist/creator/assets/colorpoint-forked-tail-tip-DVTW1MlH.png      518.42 kB
+../../dist/creator/assets/antlers-lqLL3VP-.png                         531.46 kB
+../../dist/creator/assets/brown-tabby-forked-tail-tip-BlU7OM4u.png     544.89 kB
+../../dist/creator/assets/rosetted-forked-tail-tip-Dm1381xi.png        548.72 kB
+../../dist/creator/assets/small-wings-BEnW4Fmg.png                     558.08 kB
+../../dist/creator/assets/rosetted-fin-ears-CGigoyaG.png               590.24 kB
+../../dist/creator/assets/tuxedo-fin-ears-C5BJ0845.png                 689.96 kB
+../../dist/creator/assets/brown-tabby-fin-ears-CCnFR0c4.png            737.08 kB
+../../dist/creator/assets/colorpoint-small-lion-mane-Ci07cfkk.png    1,611.10 kB
+../../dist/creator/assets/tuxedo-small-lion-mane-DdkvH4kT.png        1,615.44 kB
+../../dist/creator/assets/calico-small-lion-mane-BiEu08m9.png        1,640.56 kB
+../../dist/creator/assets/tuxedo-tongue-tip-CaDoaEX2.png             1,649.80 kB
+../../dist/creator/assets/orange-white-tongue-tip-Dix2_3xZ.png       1,674.07 kB
+../../dist/creator/assets/tuxedo-small-fangs-Cn-sTvUd.png            1,678.15 kB
+../../dist/creator/assets/orange-white-parted-mouth-DDBGhd_N.png     1,686.24 kB
+../../dist/creator/assets/tuxedo-parted-mouth-jaJnpbN6.png           1,693.07 kB
+../../dist/creator/assets/orange-white-small-fangs-BhQ-B3KH.png      1,702.06 kB
+../../dist/creator/assets/calico-small-fangs-BKPI-qP4.png            1,743.02 kB
+../../dist/creator/assets/colorpoint-parted-mouth-C7v06QcB.png       1,747.01 kB
+../../dist/creator/assets/colorpoint-tongue-tip-BPgrB8KX.png         1,756.08 kB
+../../dist/creator/assets/calico-tongue-tip-BUeDk9Xe.png             1,756.65 kB
+../../dist/creator/assets/colorpoint-small-fangs-BnAW1PjS.png        1,756.87 kB
+../../dist/creator/assets/rosetted-small-lion-mane-DoZe39YB.png      1,760.16 kB
+../../dist/creator/assets/orange-white-small-lion-mane-mFl352GB.png  1,776.42 kB
+../../dist/creator/assets/calico-parted-mouth-DPgfgxI1.png           1,796.62 kB
+../../dist/creator/assets/rosetted-parted-mouth-AQ88egM7.png         1,812.69 kB
+../../dist/creator/assets/brown-tabby-small-lion-mane-D2NW2HHM.png   1,862.74 kB
+../../dist/creator/assets/rosetted-small-fangs-B9Pv0a2Y.png          1,913.36 kB
+../../dist/creator/assets/brown-tabby-parted-mouth-CjljJRKi.png      1,938.22 kB
+../../dist/creator/assets/rosetted-tongue-tip-3wuJ-D-P.png           1,957.03 kB
+../../dist/creator/assets/brown-tabby-small-fangs-BBI7cCDq.png       1,987.44 kB
+../../dist/creator/assets/brown-tabby-tongue-tip-CTJA-xHr.png        2,093.14 kB
+../../dist/creator/assets/index-D-Xy-Sxn.css                             6.21 kB │ gzip:  2.00 kB
+../../dist/creator/assets/index-DHexU3fq.js                            308.67 kB │ gzip: 92.01 kB
+
+✓ built in 195ms
+Built dist/hatchery: qmonster.js, snapshot.json, catalog and 39 PNG resources.

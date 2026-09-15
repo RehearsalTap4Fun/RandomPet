@@ -1,0 +1,639 @@
+{
+  "schemaVersion": "feline-combination-catalog-v1",
+  "catalogVersion": "0.10.0-candidate.1",
+  "templateVersion": "feline-sit-v1",
+  "canvas": {
+    "width": 1254,
+    "height": 1254
+  },
+  "resources": {
+    "orange-white-small-fangs": {
+      "id": "orange-white-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-small-fangs.png",
+      "sha256": "606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/e3c03efeb48ffbcc264f64dbc05ad26e3b2203da9abe833536dcb51736600d42.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "dragon-horns": {
+      "id": "dragon-horns",
+      "path": "packages/asset-catalog/assets/v0.10.0/dragon-horns.png",
+      "sha256": "27c492b894c1e38302e69c1d47513a0d850ef0c674a849a43a098b433ac6b136",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "orange-white-fin-ears": {
+      "id": "orange-white-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png",
+      "sha256": "d4263a899bea6a6842e6da9beabb8bb64bd904f741f5ae3f32c89a1da161c6aa",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "tuxedo-tongue-tip": {
+      "id": "tuxedo-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/tuxedo-tongue-tip.png",
+      "sha256": "19567c758d37bbe1f14fa00f6cb40312f7970f5ed526023c025fc145a40c778c",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/6ff5dc736a1c9e40eee6ec9917d18bbc558ca3a1c65de38ff0a0b3157647ab08.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "small-wings": {
+      "id": "small-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/small-wings.png",
+      "sha256": "df9779bac34a5d6d83f78e019dd3f5b8277e666444aedd0f610416964ca55435",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/016146a15e7b8daab42590521fe13d249cd8687a93c739e1b11d10c8b24e3da9.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "antlers": {
+      "id": "antlers",
+      "path": "packages/asset-catalog/assets/v0.10.0/antlers.png",
+      "sha256": "5819b0efd6465dff82ea4e8bbde3492f95d9bb03223afff2e211518701712280",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/da761873d5c7fdaf98ac3e9abf6da7eec83eda527f557704fb0f2f6734328239.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "orange-white-forked-tail-tip": {
+      "id": "orange-white-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-forked-tail-tip.png",
+      "sha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/3a82e5788079916fa36b36cdfcb0966d41fdcf2ef8014da468b15d1de2930bae.png",
+        "prompt": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json"
+      }
+    },
+    "orange-white-small-lion-mane": {
+      "id": "orange-white-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-small-lion-mane.png",
+      "sha256": "6ae39a30e6c998f7d146ec0b823db4a227da47e17098869cbec5e15de35d95c9",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/7e86f77d682c81e783df3d46958b343702eef8947b1805d7fd8e59ebbbafaca6.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "orange-white-parted-mouth": {
+      "id": "orange-white-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+      "sha256": "c088207b175a4a2d96fc3e13d9b2c90e400712abe20562f4d972cd38d712dd2f",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/6a22028f15c6faac6820ead955e793b7d1b70a1dc5d85858c2d5d75386aa0fba.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "orange-white-tongue-tip": {
+      "id": "orange-white-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-tongue-tip.png",
+      "sha256": "6143d0bc3760364697c18e5f75cf1f46b8eadccae76cf26b9d58ff6203b5086e",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/df0804f5c0631cc5c6786c39cffbf3ae0108243a5a8ca6dd605622c8c1ee1bad.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "tuxedo-parted-mouth": {
+      "id": "tuxedo-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0/tuxedo-parted-mouth.png",
+      "sha256": "2ce2b8b67df120f90f6a34d1a9950f3fe6073f5b22093a11384ab36d80347357",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/2f023311eca53e83d86a00ffa5af08a5c58cad78cd072d8032f66e4298739116.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "tuxedo-small-fangs": {
+      "id": "tuxedo-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0/tuxedo-small-fangs.png",
+      "sha256": "74f87d10f480a973d0dbd9ce3a8283e67696ddc572092768fad2eb0767b1fe8a",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/6f6cbdbd5839c699a4b73a915459ab6756234284ec9caa4914be52f2c934363b.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "tuxedo-small-lion-mane": {
+      "id": "tuxedo-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0/tuxedo-small-lion-mane.png",
+      "sha256": "30d5892dae7bc0c5c271844230d23f59790f2f4c7380838abb11adab2895e8fd",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/5621673accf65d144703612bd81dcfc6ad12dd0616f1a8800425ad1b31d7099b.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "tuxedo-forked-tail-tip": {
+      "id": "tuxedo-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/tuxedo-forked-tail-tip.png",
+      "sha256": "522a0447096e7dd2158ca6baea7a25245dc68927541ec08674783d35de66a120",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/d1e413f0cda6bcb5b10e6c654aa10662ae11393b06097e271db0eefe94bd1013.png",
+        "prompt": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json"
+      }
+    },
+    "tuxedo-fin-ears": {
+      "id": "tuxedo-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0/tuxedo-fin-ears.png",
+      "sha256": "278ea1c4ffa8e6d8e15b21038df962ab242f40171b173428b1ca6e88415e459b",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/088f951e1bcb13bb94157d112276319af84661c84445486c294ead80a25615f5.png",
+        "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+      }
+    },
+    "brown-tabby-parted-mouth": {
+      "id": "brown-tabby-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0/brown-tabby-parted-mouth.png",
+      "sha256": "d47ebe738b439c3124d737291d884b2dc86091e73289471bad7644234bc321dc",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/1cbd231d5b2ac7b8dd9c1940c7c0ead3d6f6bb3ab7d449552ae696faf82bd61c.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "brown-tabby-small-fangs": {
+      "id": "brown-tabby-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0/brown-tabby-small-fangs.png",
+      "sha256": "fbf61f5e1a8ddd090526961fc0843235ad5da62176e2417f7116489229453355",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/8acb2ba4189cd415711b140ebea9f67c0177c03083ad05739998c0a57afd7e0c.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "brown-tabby-tongue-tip": {
+      "id": "brown-tabby-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/brown-tabby-tongue-tip.png",
+      "sha256": "b5f74e81a2dbe3170b8ac6c98f638837bc91ccc3c856e21fb21ef2d4a11ccb6c",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/7d81b94f4ecc1e23ee7a4609bcfdf2998d3fde53cfe61311f0f1a061db613e04.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "calico-parted-mouth": {
+      "id": "calico-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0/calico-parted-mouth.png",
+      "sha256": "b3baa96b9c602ed0ffc6c776fbdec0de2e56e300e507ec6aa5d9240655003aa1",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/5be0488a0967bcd03571d6b2de7328e2d9dd6f7c8bca706ebac80c69f379ac5f.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "calico-small-fangs": {
+      "id": "calico-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0/calico-small-fangs.png",
+      "sha256": "391e72a3e1f079f3303a757182a0ac10b112f458e56a153ed015f2bc962ec2db",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/860136ea5e9bb8443898a5b7ee0fb528e33702ee570687d84f4f50716a0bdc80.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "calico-tongue-tip": {
+      "id": "calico-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/calico-tongue-tip.png",
+      "sha256": "e67a6d2bed28e0bac3f949d57ca96db6f20a7b4439bf4f029f6f86f2249c5193",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/81893e9acf7f02a48f220419c1285a8d69ce60551d08930b8710d6eac1244489.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "colorpoint-parted-mouth": {
+      "id": "colorpoint-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0/colorpoint-parted-mouth.png",
+      "sha256": "8d9ae3d311024d95bc4cf53370772ae8147cc7da37258c15b79e4a9de77ec2fe",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/3d839c7e8e3ad0536423a87a88c09dde248f425b3724477a4e9acaf8f3813c02.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "colorpoint-small-fangs": {
+      "id": "colorpoint-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0/colorpoint-small-fangs.png",
+      "sha256": "9cbe473cb5dccd124cc64aa0e80bef49325a04cbf2ec13d5788c5af57c76af28",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/ad40948141094ecfb66d7ede05c4215b519e5b1b29683f0140a28b44cae0140d.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "colorpoint-tongue-tip": {
+      "id": "colorpoint-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/colorpoint-tongue-tip.png",
+      "sha256": "7ceac7eedc3a23bde5e95777704c1c7ff3929f44f07a09139d222bd9469404c9",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/94be7817de7e5ea0ce028e907f4dcd46fae5b7583a403f59e1962c6caeaf584a.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "rosetted-small-fangs": {
+      "id": "rosetted-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0/rosetted-small-fangs.png",
+      "sha256": "081cc95f4c8224ee089eb30290cceff4d1cdb65b6d6352906dcd387b7b3b5c9d",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/9110e6842f4452bf52c8d9eca0a800470b421ad7dfdae1f8a6c33434aee5aea8.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "rosetted-tongue-tip": {
+      "id": "rosetted-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/rosetted-tongue-tip.png",
+      "sha256": "687e99ed892c699534037579f87481baa65242fd973afc817bfabaa97bc3061b",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/9f8feb785d356e6f330bc67b4b58254c925b4a7c3bff74a6b80682b328d1a63f.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "rosetted-parted-mouth": {
+      "id": "rosetted-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0/rosetted-parted-mouth.png",
+      "sha256": "2f8da46ef4d71c10c5e98cc80fe49ea2d48dfbda39801efd92fdec97fcc7dab1",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/42e8210d18f9abd05690a8f437b89a268934585340b09b4f4390a067c21d2d7a.png",
+        "prompt": "docs/releases/v0.10.0/provenance/01ba42263aeb47e7f540ac6ed21035fa5f857e724891eed74663c502f0cf33db.json"
+      }
+    },
+    "brown-tabby-fin-ears": {
+      "id": "brown-tabby-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0/brown-tabby-fin-ears.png",
+      "sha256": "289a1eaa08e467ca28942a77e470386f39e745dfc989c8462c163308eaccc815",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/d8553786aff0c70f3add98c592ea47c35f2c869b1b50d70c474bf076df8404f3.png",
+        "prompt": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json"
+      }
+    },
+    "brown-tabby-small-lion-mane": {
+      "id": "brown-tabby-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0/brown-tabby-small-lion-mane.png",
+      "sha256": "e2061df3714a12386ebe189f4397f3ccac0df67d347b765d1b76ba743f868583",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/c43e20654058832e03e194649640b47cf1db9fb6adb89342638538cf19b1b253.png",
+        "prompt": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json"
+      }
+    },
+    "brown-tabby-forked-tail-tip": {
+      "id": "brown-tabby-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/brown-tabby-forked-tail-tip.png",
+      "sha256": "35b4a8874f076124b408acdfa418980f9ebf5edaae4acd5bd2c1121e0571b6d0",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/e6a834e5a9c0417728a53776edcb664fbab21d04734d35767aea5a8215823486.png",
+        "prompt": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json"
+      }
+    },
+    "calico-fin-ears": {
+      "id": "calico-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0/calico-fin-ears.png",
+      "sha256": "cc9223d5276aa04cb307ba5bff095eca7bb9e6dd2c9a98fdf7a74b8223e6ebe5",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/449ecb12c197473514f572d53aac39f51ae4bf5db859c3e13b5ed5730eaea096.png",
+        "prompt": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json"
+      }
+    },
+    "calico-small-lion-mane": {
+      "id": "calico-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0/calico-small-lion-mane.png",
+      "sha256": "1a42675aecb7904321851030a02d2bb00a47773d4e9b5711302b2c30ffaaaabf",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/6317b26f4d92ccdb0d1e9e03a9088343c4a7167c7044c2f1f927582bec11512a.png",
+        "prompt": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json"
+      }
+    },
+    "calico-forked-tail-tip": {
+      "id": "calico-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/calico-forked-tail-tip.png",
+      "sha256": "d8a98ff01c7469f5d448631a9ded930e45e7e3cf3236cc10b157ad7fa3f7f80f",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/2138e87231ecc3eed27174de3b9f76f8cc529503a57258b5015a78198370ff67.png",
+        "prompt": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json"
+      }
+    },
+    "colorpoint-fin-ears": {
+      "id": "colorpoint-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0/colorpoint-fin-ears.png",
+      "sha256": "6b3b9be703424d0f4c1e55b813a3c7954398b9f35cd670f6151feef0605fc46d",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/15abef8c34a44a51b3f3b239616c26bbb0cb420af1666ae3f188897038f8892f.png",
+        "prompt": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json"
+      }
+    },
+    "colorpoint-small-lion-mane": {
+      "id": "colorpoint-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0/colorpoint-small-lion-mane.png",
+      "sha256": "de22e02945b953d16ad7b979d6ed36f54a2efa9e1df58d1425e65c79cfd9bcea",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/bd550ce132163ee4d4e3546fdedfbd6b6cc74513fa44c9459ba970f02d607f1a.png",
+        "prompt": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json"
+      }
+    },
+    "colorpoint-forked-tail-tip": {
+      "id": "colorpoint-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/colorpoint-forked-tail-tip.png",
+      "sha256": "9abedf12a46b545858d221d37eac4a9cf0d25e707f3f92dc2cd9038600ef5ae2",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/a84b4ee7f9e8e26ff6e6685e7cd5e6391135c4cf216b5180ed0f766dab4c0157.png",
+        "prompt": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json"
+      }
+    },
+    "rosetted-fin-ears": {
+      "id": "rosetted-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0/rosetted-fin-ears.png",
+      "sha256": "3b9c731da2800d40caedb6545653d8883aaf81d2336064a16b0f50e6c276d5bc",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/c0d1f59d4ce9a1c5f3af59d36cace82be8ae210081bf60c13f96401c356828bd.png",
+        "prompt": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json"
+      }
+    },
+    "rosetted-small-lion-mane": {
+      "id": "rosetted-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0/rosetted-small-lion-mane.png",
+      "sha256": "e267b06142fd950f15aa337548e3d68cd2cc692d244659b5f96dea143c925897",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/f806fe4afb00a9350c8440aaafb1a1d28228cdaa77f0e5cb270de40a882ab0c6.png",
+        "prompt": "docs/releases/v0.10.0/provenance/7135a02f2e7184bfb0465a42d85caafbb3344b523ab3a1cbe9fc66de9e93f364.json"
+      }
+    },
+    "rosetted-forked-tail-tip": {
+      "id": "rosetted-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/rosetted-forked-tail-tip.png",
+      "sha256": "7e1a89d6ded7c18eb2c0925bcd10134b8b65452faccee0d54cc3c68b1bbef4ea",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "docs/releases/v0.10.0/provenance/3619580efd7bd21d491f11713e7d2d3d6a444fc6d0ef20a6897f65a0368c0ee5.png",
+        "prompt": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json"
+      }
+    }
+  },
+  "bodies": {
+    "orange-white": {
+      "small-fangs": "orange-white-small-fangs",
+      "parted-mouth": "orange-white-parted-mouth",
+      "tongue-tip": "orange-white-tongue-tip"
+    },
+    "tuxedo": {
+      "tongue-tip": "tuxedo-tongue-tip",
+      "parted-mouth": "tuxedo-parted-mouth",
+      "small-fangs": "tuxedo-small-fangs"
+    },
+    "brown-tabby": {
+      "parted-mouth": "brown-tabby-parted-mouth",
+      "small-fangs": "brown-tabby-small-fangs",
+      "tongue-tip": "brown-tabby-tongue-tip"
+    },
+    "calico": {
+      "parted-mouth": "calico-parted-mouth",
+      "small-fangs": "calico-small-fangs",
+      "tongue-tip": "calico-tongue-tip"
+    },
+    "colorpoint": {
+      "parted-mouth": "colorpoint-parted-mouth",
+      "small-fangs": "colorpoint-small-fangs",
+      "tongue-tip": "colorpoint-tongue-tip"
+    },
+    "rosetted": {
+      "small-fangs": "rosetted-small-fangs",
+      "tongue-tip": "rosetted-tongue-tip",
+      "parted-mouth": "rosetted-parted-mouth"
+    }
+  },
+  "mutations": {
+    "brown-tabby": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "brown-tabby-fin-ears",
+      "small-lion-mane": "brown-tabby-small-lion-mane",
+      "forked-tail-tip": "brown-tabby-forked-tail-tip"
+    },
+    "orange-white": {
+      "dragon-horns": "dragon-horns",
+      "fin-ears": "orange-white-fin-ears",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "forked-tail-tip": "orange-white-forked-tail-tip",
+      "small-lion-mane": "orange-white-small-lion-mane"
+    },
+    "tuxedo": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "small-lion-mane": "tuxedo-small-lion-mane",
+      "forked-tail-tip": "tuxedo-forked-tail-tip",
+      "fin-ears": "tuxedo-fin-ears"
+    },
+    "calico": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "calico-fin-ears",
+      "small-lion-mane": "calico-small-lion-mane",
+      "forked-tail-tip": "calico-forked-tail-tip"
+    },
+    "colorpoint": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "colorpoint-fin-ears",
+      "small-lion-mane": "colorpoint-small-lion-mane",
+      "forked-tail-tip": "colorpoint-forked-tail-tip"
+    },
+    "rosetted": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "rosetted-fin-ears",
+      "small-lion-mane": "rosetted-small-lion-mane",
+      "forked-tail-tip": "rosetted-forked-tail-tip"
+    }
+  }
+}

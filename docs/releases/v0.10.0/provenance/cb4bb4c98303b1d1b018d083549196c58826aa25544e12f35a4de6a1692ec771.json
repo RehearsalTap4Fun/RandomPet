@@ -1,0 +1,110 @@
+{
+  "brown-tabby-fin-ears": {
+    "scaleX": 0.892886345053148,
+    "scaleY": 0.8473282442748091,
+    "translateX": 71.4636140637776,
+    "translateY": -4.595419847328245
+  },
+  "orange-white-fin-ears": {
+    "scaleX": 1,
+    "scaleY": 1,
+    "translateX": 0,
+    "translateY": 0
+  },
+  "tuxedo-fin-ears": {
+    "scaleX": 0.9438202247191011,
+    "scaleY": 0.8851674641148325,
+    "translateX": 30.651685393258425,
+    "translateY": 7.023923444976077
+  },
+  "calico-fin-ears": {
+    "scaleX": 0.9936305732484076,
+    "scaleY": 0.9685863874345549,
+    "translateX": 2.5732484076433053,
+    "translateY": 6.764397905759168
+  },
+  "colorpoint-fin-ears": {
+    "scaleX": 0.986449864498645,
+    "scaleY": 0.9618717504332756,
+    "translateX": 8.15176151761517,
+    "translateY": 11.202772963604858
+  },
+  "rosetted-fin-ears": {
+    "scaleX": 0.9855595667870036,
+    "scaleY": 0.9635416666666666,
+    "translateX": 9.2129963898917,
+    "translateY": 9.135416666666671
+  },
+  "brown-tabby-small-lion-mane": {
+    "scaleX": 0.9755067567567568,
+    "scaleY": 0.9538188277087034,
+    "translateX": 20.930743243243242,
+    "translateY": 29.694493783303727
+  },
+  "orange-white-small-lion-mane": {
+    "scaleX": 1,
+    "scaleY": 1,
+    "translateX": 0,
+    "translateY": 0
+  },
+  "tuxedo-small-lion-mane": {
+    "scaleX": 0.9705882352941176,
+    "scaleY": 0.9555160142348754,
+    "translateX": 20.147058823529413,
+    "translateY": 26.692170818505346
+  },
+  "calico-small-lion-mane": {
+    "scaleX": 0.9763313609467456,
+    "scaleY": 0.9597855227882037,
+    "translateX": 19.923076923076927,
+    "translateY": 20.57908847184987
+  },
+  "colorpoint-small-lion-mane": {
+    "scaleX": 0.9771573604060914,
+    "scaleY": 0.9589285714285715,
+    "translateX": 15.982233502538072,
+    "translateY": 21.614285714285714
+  },
+  "rosetted-small-lion-mane": {
+    "scaleX": 0.9705882352941176,
+    "scaleY": 0.9589285714285715,
+    "translateX": 22.088235294117645,
+    "translateY": 25.450000000000003
+  },
+  "brown-tabby-forked-tail-tip": {
+    "scaleX": 0.9883040935672515,
+    "scaleY": 0.9917743830787309,
+    "translateX": 10.538011695906448,
+    "translateY": 7.722679200940092
+  },
+  "orange-white-forked-tail-tip": {
+    "scaleX": 1,
+    "scaleY": 1,
+    "translateX": 0,
+    "translateY": 0
+  },
+  "tuxedo-forked-tail-tip": {
+    "scaleX": 0.990234375,
+    "scaleY": 0.9917743830787309,
+    "translateX": 10.119140625,
+    "translateY": 6.730904817861358
+  },
+  "calico-forked-tail-tip": {
+    "scaleX": 0.990234375,
+    "scaleY": 0.9917743830787309,
+    "translateX": 9.12890625,
+    "translateY": 6.730904817861358
+  },
+  "colorpoint-forked-tail-tip": {
+    "scaleX": 0.9844660194174757,
+    "scaleY": 0.9871345029239766,
+    "translateX": 15.30873786407767,
+    "translateY": 12.219883040935656
+  },
+  "rosetted-forked-tail-tip": {
+    "scaleX": 0.9960707269155207,
+    "scaleY": 0.9964580873671782,
+    "translateX": 2.8762278978388167,
+    "translateY": 3.182998819362467
+  }
+}

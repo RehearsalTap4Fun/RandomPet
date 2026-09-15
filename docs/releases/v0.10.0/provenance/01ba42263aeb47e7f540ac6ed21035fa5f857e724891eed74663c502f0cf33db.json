@@ -1,0 +1,725 @@
+[
+  {
+    "id": "brown-tabby-parted-mouth-ivory-01",
+    "assetId": "brown-tabby-parted-mouth",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-parted-mouth.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/01-brown-tabby.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and parted-mouth expression. Image 2 is ONLY the brown-gray tabby COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the brown-gray tabby pattern in Image 2: warm brown-gray fur, deep brown narrow forehead and cheek stripes, striped legs and ringed tail, pale tan muzzle and chest. Keep every Image 1 body coordinate and scale, pose, face and parted-mouth mouth unchanged. Keep the intended slightly parted natural mouth, no visible fangs or tongue. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-parted-mouth-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-d991692b-b464-4723-b72a-0b8d2753a55f.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "brown-tabby-small-fangs-ivory-01",
+    "assetId": "brown-tabby-small-fangs",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/01-brown-tabby.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and small-fangs expression. Image 2 is ONLY the brown-gray tabby COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the brown-gray tabby pattern in Image 2: warm brown-gray fur, deep brown narrow forehead and cheek stripes, striped legs and ringed tail, pale tan muzzle and chest. Keep every Image 1 body coordinate and scale, pose, face and small-fangs mouth unchanged. Keep the intended two tiny upper fangs visible, no tongue. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-small-fangs-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-782a0e97-f217-4207-b5d6-ab0d749f7fbd.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "brown-tabby-tongue-tip-ivory-01",
+    "assetId": "brown-tabby-tongue-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-tongue-tip.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/01-brown-tabby.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and tongue-tip expression. Image 2 is ONLY the brown-gray tabby COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the brown-gray tabby pattern in Image 2: warm brown-gray fur, deep brown narrow forehead and cheek stripes, striped legs and ringed tail, pale tan muzzle and chest. Keep every Image 1 body coordinate and scale, pose, face and tongue-tip mouth unchanged. Keep the intended small tongue tip visible, no fangs. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-tongue-tip-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-f8070a41-f542-43da-bcfc-ff29d4f38890.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "brown-tabby-parted-mouth-alpha-01",
+    "assetId": "brown-tabby-parted-mouth",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-parted-mouth-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original 1254 square canvas placement. Remove only the solid ivory background; preserve the exact body, fur edge detail, whiskers, coat pattern, eyes, muzzle, expression, paws, single tail, and all coordinates. Do not redraw, crop, resize or recenter the cat. No checkerboard or background paint. Genuine alpha transparency.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-parted-mouth-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-ffe0463b-f71f-456e-8602-0b2d77c999bb.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.45811425766097136,
+      "opaqueFraction": 0.00013354395122211794,
+      "nearlyOpaqueFraction": 0.5087382258749672,
+      "bounds": {
+        "minX": 0,
+        "minY": 39,
+        "maxX": 1207,
+        "maxY": 1253
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-parted-mouth.png"
+  },
+  {
+    "id": "brown-tabby-small-fangs-alpha-01",
+    "assetId": "brown-tabby-small-fangs",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-small-fangs-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original 1254 square canvas placement. Remove only the solid ivory background; preserve the exact body, fur edge detail, whiskers, coat pattern, eyes, muzzle, expression, paws, single tail, and all coordinates. Do not redraw, crop, resize or recenter the cat. No checkerboard or background paint. Genuine alpha transparency.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-small-fangs-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-2b49cf72-c238-4ad7-9e15-90e1030103c8.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.463914516609052,
+      "opaqueFraction": 0.00015071388780781882,
+      "nearlyOpaqueFraction": 0.49871034698534067,
+      "bounds": {
+        "minX": 0,
+        "minY": 21,
+        "maxX": 1205,
+        "maxY": 1231
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-small-fangs.png"
+  },
+  {
+    "id": "brown-tabby-tongue-tip-alpha-01",
+    "assetId": "brown-tabby-tongue-tip",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-tongue-tip-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original 1254 square canvas placement. Remove only the solid ivory background; preserve the exact body, fur edge detail, whiskers, coat pattern, eyes, muzzle, expression, paws, single tail, and all coordinates. Do not redraw, crop, resize or recenter the cat. No checkerboard or background paint. Genuine alpha transparency.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-tongue-tip-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-012ab796-ec51-4fc5-9e11-24378ec5ffb3.png",
+    "status": "rejected-metadata",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "brown-tabby-tongue-tip-alpha-02",
+    "assetId": "brown-tabby-tongue-tip",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-tongue-tip-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-tongue-tip-alpha-02.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-002c7c5c-c5c9-4ede-b21c-d299a0495b68.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.4454085045875527,
+      "opaqueFraction": 0.00008457783577400803,
+      "nearlyOpaqueFraction": 0.515809696053967,
+      "bounds": {
+        "minX": 0,
+        "minY": 32,
+        "maxX": 1209,
+        "maxY": 1253
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-tongue-tip.png"
+  },
+  {
+    "id": "calico-parted-mouth-ivory-01",
+    "assetId": "calico-parted-mouth",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-parted-mouth.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/04-calico.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and parted-mouth expression. Image 2 is ONLY the calico COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: white base fur, asymmetrical orange patch over viewer-left forehead/ear and cheek, black patch over viewer-right forehead/ear and cheek, orange and black patches along flank and single tail; white muzzle, chest and paws. Keep every Image 1 body coordinate and scale, pose, face and parted-mouth mouth unchanged. Keep the intended slightly parted natural mouth, no visible fangs or tongue. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-parted-mouth-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-4b079d33-a3e9-4199-93dc-9bac59f661cd.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "calico-small-fangs-ivory-01",
+    "assetId": "calico-small-fangs",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/04-calico.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and small-fangs expression. Image 2 is ONLY the calico COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: white base fur, asymmetrical orange patch over viewer-left forehead/ear and cheek, black patch over viewer-right forehead/ear and cheek, orange and black patches along flank and single tail; white muzzle, chest and paws. Keep every Image 1 body coordinate and scale, pose, face and small-fangs mouth unchanged. Keep the intended two tiny upper fangs visible, no tongue. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-small-fangs-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-4d6c605a-9426-4f11-854f-96f7e7916ead.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "calico-parted-mouth-alpha-01",
+    "assetId": "calico-parted-mouth",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-parted-mouth-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-parted-mouth-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-4a20d5a8-1521-44f7-896b-ee9b17dc03a5.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.4437137682541863,
+      "opaqueFraction": 0.00014181095772634427,
+      "nearlyOpaqueFraction": 0.5214897654459477,
+      "bounds": {
+        "minX": 0,
+        "minY": 20,
+        "maxX": 1223,
+        "maxY": 1253
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/calico-parted-mouth.png"
+  },
+  {
+    "id": "calico-small-fangs-alpha-01",
+    "assetId": "calico-small-fangs",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-small-fangs-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-small-fangs-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-fc8168de-14f8-4759-905b-12112eecb3f4.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.4609701904463929,
+      "opaqueFraction": 0.00005023796260260627,
+      "nearlyOpaqueFraction": 0.5003402191138278,
+      "bounds": {
+        "minX": 0,
+        "minY": 21,
+        "maxX": 1227,
+        "maxY": 1253
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/calico-small-fangs.png"
+  },
+  {
+    "id": "calico-tongue-tip-ivory-01",
+    "assetId": "calico-tongue-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-tongue-tip.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/04-calico.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and tongue-tip expression. Image 2 is ONLY the calico COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: white base fur, asymmetrical orange patch over viewer-left forehead/ear and cheek, black patch over viewer-right forehead/ear and cheek, orange and black patches along flank and single tail; white muzzle, chest and paws. Keep every Image 1 body coordinate and scale, pose, face and tongue-tip mouth unchanged. Keep the intended small tongue tip visible, no fangs. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-tongue-tip-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-cd5a56a3-5e1c-4f45-9f94-525cbc476467.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "calico-tongue-tip-alpha-01",
+    "assetId": "calico-tongue-tip",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-tongue-tip-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/calico-tongue-tip-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-831321e3-f83b-4da0-98d4-d492b95e9182.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.45438202218610174,
+      "opaqueFraction": 0.00011319439675017616,
+      "nearlyOpaqueFraction": 0.5160882305808018,
+      "bounds": {
+        "minX": 59,
+        "minY": 39,
+        "maxX": 1208,
+        "maxY": 1235
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/calico-tongue-tip.png"
+  },
+  {
+    "id": "colorpoint-parted-mouth-ivory-01",
+    "assetId": "colorpoint-parted-mouth",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-parted-mouth.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/05-colorpoint.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and parted-mouth expression. Image 2 is ONLY the colorpoint COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: warm ivory cream torso and forehead with chocolate-brown color points: both ears, complete central muzzle and eye mask, all paw tips and single tail; natural gradual color transitions. Keep every Image 1 body coordinate and scale, pose, face and parted-mouth mouth unchanged. Keep the intended slightly parted natural mouth, no visible fangs or tongue. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-parted-mouth-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-95294e66-a342-480e-b81c-fc9972a6f05a.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "colorpoint-small-fangs-ivory-01",
+    "assetId": "colorpoint-small-fangs",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/05-colorpoint.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and small-fangs expression. Image 2 is ONLY the colorpoint COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: warm ivory cream torso and forehead with chocolate-brown color points: both ears, complete central muzzle and eye mask, all paw tips and single tail; natural gradual color transitions. Keep every Image 1 body coordinate and scale, pose, face and small-fangs mouth unchanged. Keep the intended two tiny upper fangs visible, no tongue. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-small-fangs-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-800c26c2-07a8-4c30-ab0d-8b7eacb339a4.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "colorpoint-parted-mouth-alpha-01",
+    "assetId": "colorpoint-parted-mouth",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-parted-mouth-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-parted-mouth-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-2fb045ff-aeec-4619-8f43-4219d47126be.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.4517206820153181,
+      "opaqueFraction": 0.00004769426829361354,
+      "nearlyOpaqueFraction": 0.5084463369530103,
+      "bounds": {
+        "minX": 119,
+        "minY": 45,
+        "maxX": 1211,
+        "maxY": 1235
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-parted-mouth.png"
+  },
+  {
+    "id": "colorpoint-small-fangs-alpha-01",
+    "assetId": "colorpoint-small-fangs",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-small-fangs-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-small-fangs-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-c5752770-bd9d-460c-96e2-da3c08865322.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.461195943316316,
+      "opaqueFraction": 0.00013417987479936612,
+      "nearlyOpaqueFraction": 0.49882226953493636,
+      "bounds": {
+        "minX": 0,
+        "minY": 39,
+        "maxX": 1207,
+        "maxY": 1253
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-small-fangs.png"
+  },
+  {
+    "id": "colorpoint-tongue-tip-ivory-01",
+    "assetId": "colorpoint-tongue-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-tongue-tip.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/05-colorpoint.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and tongue-tip expression. Image 2 is ONLY the colorpoint COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: warm ivory cream torso and forehead with chocolate-brown color points: both ears, complete central muzzle and eye mask, all paw tips and single tail; natural gradual color transitions. Keep every Image 1 body coordinate and scale, pose, face and tongue-tip mouth unchanged. Keep the intended small tongue tip visible, no fangs. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-tongue-tip-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-210bdcf4-f669-47d3-94a8-76fbc35497d2.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "colorpoint-tongue-tip-alpha-01",
+    "assetId": "colorpoint-tongue-tip",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-tongue-tip-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-tongue-tip-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-28556100-7d32-47a3-9ca1-56e8644ac6ca.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.4481779517664685,
+      "opaqueFraction": 0.0001379954162628552,
+      "nearlyOpaqueFraction": 0.5166077801434135,
+      "bounds": {
+        "minX": 0,
+        "minY": 39,
+        "maxX": 1209,
+        "maxY": 1253
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-tongue-tip.png"
+  },
+  {
+    "id": "rosetted-parted-mouth-ivory-01",
+    "assetId": "rosetted-parted-mouth",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-parted-mouth.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/06-rosetted.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and parted-mouth expression. Image 2 is ONLY the rosetted COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: warm golden-brown base with distinct dark brown leopard rosette spots over cheeks, flanks and legs, dark forehead markings and ringed tail, cream muzzle, chest and paws. Keep every Image 1 body coordinate and scale, pose, face and parted-mouth mouth unchanged. Keep the intended slightly parted natural mouth, no visible fangs or tongue. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-parted-mouth-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-dfc8f61e-d8e1-4367-bd7a-99f7ef8c7dc5.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "rosetted-small-fangs-ivory-01",
+    "assetId": "rosetted-small-fangs",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/06-rosetted.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and small-fangs expression. Image 2 is ONLY the rosetted COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: warm golden-brown base with distinct dark brown leopard rosette spots over cheeks, flanks and legs, dark forehead markings and ringed tail, cream muzzle, chest and paws. Keep every Image 1 body coordinate and scale, pose, face and small-fangs mouth unchanged. Keep the intended two tiny upper fangs visible, no tongue. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-small-fangs-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-dd989fe5-05c9-48d3-ab45-d6a70ace5717.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "rosetted-parted-mouth-alpha-01",
+    "assetId": "rosetted-parted-mouth",
+    "stage": "rejected-layout",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-parted-mouth-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "note": "Extraction moved face and upper silhouette upward visibly; retry from ivory source.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-parted-mouth-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-32885261-ce35-49c6-8140-75a9d18c76bb.png",
+    "status": "rejected-layout",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.4225260665074314,
+      "opaqueFraction": 0.0000686797463428035,
+      "nearlyOpaqueFraction": 0.5392733682836931,
+      "bounds": {
+        "minX": 0,
+        "minY": 27,
+        "maxX": 1233,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "rosetted-small-fangs-alpha-01",
+    "assetId": "rosetted-small-fangs",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-small-fangs-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-small-fangs-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-87fb127a-5eb0-4b9c-b436-4f360db383b8.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.4608913359228141,
+      "opaqueFraction": 0.00008712153008300075,
+      "nearlyOpaqueFraction": 0.49876694418371575,
+      "bounds": {
+        "minX": 0,
+        "minY": 19,
+        "maxX": 1223,
+        "maxY": 1253
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-small-fangs.png"
+  },
+  {
+    "id": "rosetted-tongue-tip-ivory-01",
+    "assetId": "rosetted-tongue-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-tongue-tip.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/06-rosetted.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Asset type: fixed-coordinate 1254x1254 full-body feline game sprite. Image 1 is the EDIT TARGET and owns the exact body silhouette, ears, single tail, paw placement, face, eyes, pink nose, muzzle and tongue-tip expression. Image 2 is ONLY the rosetted COAT COLOR/PATTERN reference, never the expression or shape. Change ONLY Image 1 fur coloring to the pattern in Image 2: warm golden-brown base with distinct dark brown leopard rosette spots over cheeks, flanks and legs, dark forehead markings and ringed tail, cream muzzle, chest and paws. Keep every Image 1 body coordinate and scale, pose, face and tongue-tip mouth unchanged. Keep the intended small tongue tip visible, no fangs. Set background to uniform solid ivory #f4f0e5, no transparency, no checkerboard, no ground shadow. No accessories, no mutations, no text. Canvas exactly1254x1254, do not crop, enlarge, recenter, move or reshape cat.",
+    "stage": "intermediate",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-tongue-tip-ivory-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-30fdbb0e-d1e1-4eaa-a907-986bd891c940.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "opaqueFraction": 1,
+      "nearlyOpaqueFraction": 1,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1253,
+        "maxY": 1253
+      }
+    }
+  },
+  {
+    "id": "rosetted-tongue-tip-alpha-01",
+    "assetId": "rosetted-tongue-tip",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-tongue-tip-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-tongue-tip-alpha-01.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-56472294-ef4c-48e5-a5cd-96e22f0a3dd3.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.4573079065650206,
+      "opaqueFraction": 0.00006995159349729987,
+      "nearlyOpaqueFraction": 0.5017176295821474,
+      "bounds": {
+        "minX": 0,
+        "minY": 19,
+        "maxX": 1204,
+        "maxY": 1235
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-tongue-tip.png"
+  },
+  {
+    "id": "rosetted-parted-mouth-alpha-02",
+    "assetId": "rosetted-parted-mouth",
+    "stage": "final",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-parted-mouth-ivory-01.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain the original1254squarecanvas placement EXACTLY. Only remove the ivory background. The nose, eyes, ear tips, paws and tail must remain in their exact original pixel locations. Do not zoom in, enlarge, shift, recenter, crop or redraw the cat; the cat silhouette and face are locked. The cat must have the same visible top/bottom/left/right margins as the supplied image.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-parted-mouth-alpha-02.png",
+    "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a318-7e2b-7723-9c9f-6aed606aac08\\exec-8e25a9fc-63dd-44f3-a412-4d8d919d1792.png",
+    "status": "pending",
+    "inspection": {
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "transparentFraction": 0.45641443393898695,
+      "opaqueFraction": 0.00008457783577400803,
+      "nearlyOpaqueFraction": 0.5052711705318101,
+      "bounds": {
+        "minX": 65,
+        "minY": 31,
+        "maxX": 1223,
+        "maxY": 1253
+      }
+    },
+    "assetPath": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-parted-mouth.png"
+  }
+]

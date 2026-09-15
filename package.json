@@ -1,0 +1,39 @@
+{
+  "name": "qmonster-creator",
+  "version": "0.10.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "npm run dev -w @qmonster/creator-web",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "npm run typecheck && npm run build -w @qmonster/creator-web && node scripts/build-hatchery.mjs",
+    "verify:integration": "node scripts/verify-feline-hatchery-example.mjs",
+    "verify:workbench": "node scripts/verify-workbench.mjs && node scripts/verify-import-race.mjs",
+    "verify:migration": "node scripts/verify-root-migration.mjs"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "22.20.1",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.1.0",
+    "sharp": "0.35.3",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2",
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
+  }
+}

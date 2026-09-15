@@ -1,0 +1,22 @@
+{
+  "runtimeRevision": "de35c6f2b58dc641e2d6594e3a8f888d2c2902fbd493e73e966611dc21284ec8",
+  "resourceHashes": 39,
+  "checks": [
+    "explicit cross-slot selections retained",
+    "JSON save/restore cache identity matches",
+    "export is 1254px with transparent background",
+    "JSON save/restore decoded pixels match",
+    "export metadata matches actual MIME",
+    "concurrent renders keep independent canvases",
+    "wrong catalog identity rejected",
+    "wrong runtime identity rejected",
+    "mixed legacy spec rejected",
+    "same-position mutations rejected",
+    "incorrect resource base rejected",
+    "missing resource blocks result",
+    "corrupt resource blocks result",
+    "modified catalog bytes rejected"
+  ],
+  "status": "passed",
+  "checkedAt": "2026-09-15T07:14:33.697Z"
+}

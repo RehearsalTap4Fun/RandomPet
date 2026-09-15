@@ -1,0 +1,31 @@
+{
+  "appUrl": "http://127.0.0.1:4184/",
+  "checkedAt": "2026-09-15T07:08:51.069Z",
+  "passed": true,
+  "checks": [
+    {
+      "mode": "newer-coat",
+      "passed": true,
+      "savedSeed": "qmonster-feline-01",
+      "savedCoat": "tuxedo"
+    },
+    {
+      "mode": "textarea-edit",
+      "passed": true,
+      "savedSeed": "qmonster-feline-01",
+      "savedCoat": "orange-white"
+    },
+    {
+      "mode": "pasted-apply",
+      "passed": true,
+      "savedSeed": "newer-pasted-spec",
+      "savedCoat": "tuxedo"
+    },
+    {
+      "mode": "uninterrupted-import",
+      "passed": true,
+      "savedSeed": "delayed-file",
+      "savedCoat": "orange-white"
+    }
+  ]
+}

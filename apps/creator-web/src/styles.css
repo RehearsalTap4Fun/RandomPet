@@ -1,0 +1,69 @@
+:root { font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif; color: #35352f; background: #f8f5ee; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input, textarea { font: inherit; }
+button, .feline-file-button { border: 1px solid #dddccf; background: #fffdf8; border-radius: 9px; padding: 8px 12px; color: inherit; cursor: pointer; transition: background .15s, border-color .15s; }
+button:hover, .feline-file-button:hover { background: #efeee4; border-color: #aeaf9d; }
+button:disabled { cursor: not-allowed; opacity: .45; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 3px solid #9eac77; outline-offset: 3px; }
+input, textarea { border: 1px solid #dddccf; border-radius: 8px; padding: 9px 11px; background: #fffdf8; color: #35352f; }
+.feline-workbench { max-width: 1440px; margin: 0 auto; padding: 0 48px 52px; }
+.feline-header { display: flex; justify-content: space-between; align-items: center; min-height: 96px; border-bottom: 1px solid #e6e1d6; gap: 15px; }
+.feline-brand { color: inherit; text-decoration: none; font-size: 21px; font-weight: 700; letter-spacing: 2px; }
+.feline-brand span { font-weight: 400; font-size: 12px; display: inline-block; margin-left: 14px; letter-spacing: 1px; color: #898779; }
+.feline-version-badge { color: #6e7850; background: #e9eddd; border-radius: 20px; padding: 7px 12px; font-size: 12px; }
+.feline-intro { padding: 35px 0 30px; }
+.feline-eyebrow { color: #8b9375; font-size: 10px; font-weight: 600; letter-spacing: 2.8px; margin: 0 0 9px; }
+h1 { font-size: clamp(26px, 3vw, 38px); font-weight: 600; letter-spacing: 1px; margin: 0; }
+.feline-intro > p:last-child { color: #838275; font-size: 13px; margin: 12px 0 0; }
+.feline-layout { display: grid; grid-template-columns: minmax(0, 1.24fr) minmax(350px, 1fr); align-items: start; gap: 36px; }
+.feline-preview-column { position: sticky; top: 24px; }
+.feline-stage { position: relative; border: 1px solid #e8e3d8; border-radius: 24px; overflow: hidden; aspect-ratio: 1; transition: background-color .15s; }
+.feline-stage-light { background: #f0ede5; }
+.feline-stage-dark { background: #292c31; }
+.feline-stage-checker { background-color: #fff; background-image: linear-gradient(45deg, #dcdedb 25%, transparent 25%), linear-gradient(-45deg, #dcdedb 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #dcdedb 75%), linear-gradient(-45deg, transparent 75%, #dcdedb 75%); background-size: 32px 32px; background-position: 0 0, 0 16px, 16px -16px, -16px 0; }
+.feline-stage canvas { display: block; width: 100%; height: 100%; }
+.feline-stage-message { position: absolute; inset: 0; display: grid; place-content: center; color: #828777; font-size: 14px; pointer-events: none; }
+.feline-stage-dark .feline-stage-message { color: #c1c8b9; }
+.feline-preview-tools { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.feline-preview-tools > span { color: #898b7c; font-size: 11px; flex: 1; }
+.feline-backgrounds { display: flex; gap: 7px; }
+.feline-swatch { padding: 0; width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #d2d2c8; }
+.feline-swatch[aria-pressed=true] { box-shadow: 0 0 0 2px #7f8a62; }
+.feline-swatch-light { background: #f0ede5; }
+.feline-swatch-dark { background: #292c31; }
+.feline-swatch-checker { background: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50% / 10px 10px; }
+.feline-primary { background: #707b54; border-color: #707b54; color: #fff; }
+.feline-primary:hover { background: #5c6942; border-color: #5c6942; }
+.feline-preview-note { color: #969587; font-size: 11px; margin-top: 13px; }
+.feline-controls { background: #fffdf8; border: 1px solid #e8e3d8; border-radius: 20px; padding: 24px; }
+.feline-seed-row > label { display: block; font-size: 12px; color: #838575; margin-bottom: 8px; }
+.feline-seed-row > div { display: flex; gap: 8px; }
+.feline-seed-row input { width: 0; flex: 1; font-size: 12px; }
+.feline-seed-row button { font-size: 12px; white-space: nowrap; }
+.feline-section-heading { display: flex; align-items: center; justify-content: space-between; margin-top: 27px; gap: 8px; }
+.feline-section-heading h2 { font-size: 18px; margin: 0; }
+.feline-section-heading button { font-size: 11px; background: transparent; border: none; color: #78805f; padding-right: 0; }
+.feline-slot { border: 0; border-top: 1px solid #ece9e0; padding: 15px 0 17px; margin: 18px 0 0; min-width: 0; position: relative; }
+.feline-slot legend { font-size: 13px; font-weight: 600; padding: 0 10px 0 0; }
+.feline-slot-actions { position: absolute; right: 0; top: -20px; display: flex; align-items: center; gap: 11px; background: #fffdf8; padding-left: 10px; }
+.feline-slot-actions label { font-size: 11px; color: #848778; display: flex; align-items: center; gap: 4px; }
+.feline-slot-actions input { accent-color: #78865b; width: 12px; height: 12px; }
+.feline-slot-actions button { font-size: 20px; padding: 0 5px; border: none; line-height: 1; color: #78805f; }
+.feline-options { display: flex; flex-wrap: wrap; gap: 7px; }
+.feline-options button { font-size: 12px; padding: 8px 11px; display: flex; align-items: center; gap: 5px; }
+.feline-options .is-selected { background: #e9edde; border-color: #9ba881; color: #4d6037; }
+.feline-options small { color: #9b9a8b; font-size: 9px; }
+.feline-control-note, .feline-footer-note { font-size: 11px; color: #8b8d7c; line-height: 1.9; margin: 4px 0 0; }
+.feline-footer-note { margin-top: 22px; text-align: center; }
+.feline-error { white-space: pre-wrap; overflow-wrap: anywhere; color: #a14e3f; background: #faf0e8; border: 1px solid #ecd7cb; border-radius: 10px; padding: 11px 13px; font-size: 12px; line-height: 1.7; }
+.feline-spec-tools { border-top: 1px solid #ece9e0; margin-top: 21px; padding-top: 16px; font-size: 12px; }
+.feline-spec-tools summary { cursor: pointer; color: #687452; }
+.feline-spec-tools p { color: #8b8d7c; font-size: 11px; }
+.feline-spec-buttons { display: flex; gap: 8px; margin-bottom: 15px; }
+.feline-file-button { display: inline-block; }
+.feline-file-button input { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; clip-path: inset(50%); overflow: hidden; }
+.feline-file-button:focus-within { outline: 3px solid #9eac77; outline-offset: 3px; }
+.feline-spec-tools textarea { display: block; width: 100%; margin: 8px 0; resize: vertical; font-family: ui-monospace, monospace; font-size: 11px; }
+@media (max-width: 1050px) { .feline-workbench { padding: 0 25px 35px; } .feline-layout { gap: 22px; grid-template-columns: minmax(0, 1fr) minmax(330px, 1fr); } .feline-controls { padding: 20px; } }
+@media (max-width: 760px) { .feline-workbench { padding: 0 18px 30px; } .feline-header { min-height: 76px; } .feline-brand { font-size: 16px; } .feline-brand span { display: none; } .feline-version-badge { font-size: 10px; padding: 6px 9px; } .feline-intro { padding: 28px 0 24px; } .feline-layout { grid-template-columns: 1fr; } .feline-preview-column { position: static; } .feline-controls { padding: 20px; } .feline-stage { border-radius: 19px; } }

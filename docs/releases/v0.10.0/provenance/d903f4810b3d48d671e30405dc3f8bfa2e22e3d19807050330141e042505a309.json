@@ -1,0 +1,188 @@
+[
+  {
+    "id": "orange-white-shape-checker",
+    "prompt": "Edit target image 1: orange-white seated kitten on transparent canvas. Supporting shape reference image 2: forked tail tip. Create ONLY a complete single furry forked cat TAIL sprite on a true transparent RGBA background, 1254x1254 canvas, for layering BEHIND the unchanged kitten of image 1. Tail MUST occupy the same right side coordinates as image 1: one rounded tail root at approximately (880,1080), curved sweeping right to (1080,850), stem rising to (1040,550), then split into TWO SHORT rounded fluffy prongs around (1010,430) and (1150,460). One continuous anatomically smooth tail from bottom root to fork, NOT a severed Y tip, no horizontal chopped edge, no kink, no changes of thickness at midshaft. The low root curls gently left behind the kitten's right haunch. Keep ALL of tail within x=850..1220 y=370..1135, leave rest transparent; full artwork not centered or enlarged. Orange ginger fur identical to image 1 tail, matching lighting, fine fur scale and shading, slight natural darker orange banding, no white patches, no extra parts, no kitten body/head/paws, no checkerboard painted background, no shadow/background. Image 2 is fork silhouette only; extend it into the FULL naturally curved tail matching image 1. Preserve actual transparent background.",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-parted-mouth.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/before/orange-white-forked-tail-tip.png"
+    ],
+    "status": "rejected",
+    "stage": "opaque-background",
+    "assetId": "orange-white-forked-tail-tip",
+    "generatedSource": "C:/Users/jiangzhenyu/.codex/generated_images/01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4/exec-0b7be8be-6e5a-4538-bcbe-6e69000408bd.png",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-shape-checker.png"
+  },
+  {
+    "id": "orange-white-checker-extract-1",
+    "prompt": "Remove the entire gray and white checkerboard background and make it REAL transparent alpha. Preserve the orange furry full forked tail exactly unchanged, every pixel position, scale and furry detail; keep the full 1254x1254 canvas. This is only background removal to a transparent PNG cutout. No checkerboard squares painted into output. No black or white solid background. Actual transparent RGBA.",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-shape-checker.png"
+    ],
+    "status": "rejected",
+    "stage": "opaque-background",
+    "assetId": "orange-white-forked-tail-tip",
+    "generatedSource": "C:/Users/jiangzhenyu/.codex/generated_images/01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4/exec-d8bcc1d6-ee1b-4db7-bef3-69aff7193ff7.png",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-checker-extract-1.png"
+  },
+  {
+    "id": "orange-white-checker-extract-2",
+    "prompt": "Use case: background-extraction. Extract the exact isolated tail onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-shape-checker.png"
+    ],
+    "status": "rejected",
+    "stage": "opaque-background",
+    "assetId": "orange-white-forked-tail-tip",
+    "generatedSource": "C:/Users/jiangzhenyu/.codex/generated_images/01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4/exec-8a6abbf7-0f12-4189-801d-75e62663c368.png",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-checker-extract-2.png"
+  },
+  {
+    "id": "orange-white-ivory",
+    "prompt": "Replace the checkerboard background with a perfectly flat solid pale ivory #f3efe4 background. Keep the exact orange full forked tail, same 1254x1254 canvas and coordinates. No checkers anywhere, no shadow. Only change background; do not move or redraw the tail.",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-shape-checker.png"
+    ],
+    "status": "intermediate",
+    "stage": "color",
+    "assetId": "orange-white-forked-tail-tip",
+    "generatedSource": "C:/Users/jiangzhenyu/.codex/generated_images/01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4/exec-8845507b-26f7-4a48-9a4a-12c999728958.png",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png"
+  },
+  {
+    "id": "orange-white-final",
+    "prompt": "Use case: background-extraction. Extract the exact isolated tail onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png"
+    ],
+    "status": "pending",
+    "stage": "final",
+    "assetId": "orange-white-forked-tail-tip",
+    "generatedSource": "C:/Users/jiangzhenyu/.codex/generated_images/01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4/exec-50135d7f-c16c-4650-8289-4e1bbda0e926.png",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-final.png"
+  },
+  {
+    "id": "brown-tabby-color",
+    "assetId": "brown-tabby-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET: a full curved forked tail, isolated on ivory background. Image 2 is ONLY a fur color/pattern reference; do not include its cat. Recolor ONLY tail fur in image 1 to cool taupe brown fur with dark charcoal-brown broad natural transverse tabby rings along the entire tail, matching cat reference tail. Preserve EXACT tail silhouette, width, full curved root, two short prongs, scale, positions, 1254x1254 framing, detailed fur and lighting. No severed tip, no horizontal seam, no missing root, no new objects, no cat body. Same plain ivory #f3efe4 background for extraction, no checkerboard, no cast shadow. Keep the whole tail one continuous natural fur surface from root to prongs. No vertical abrupt pattern changes.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-5209fb36-0dea-42fe-8c80-20e59c6603c6.png",
+    "status": "intermediate",
+    "stage": "color",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/brown-tabby-color.png"
+  },
+  {
+    "id": "tuxedo-color",
+    "assetId": "tuxedo-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET: a full curved forked tail, isolated on ivory background. Image 2 is ONLY a fur color/pattern reference; do not include its cat. Recolor ONLY tail fur in image 1 to solid charcoal black fur matching cat reference tail; no white patches. Preserve EXACT tail silhouette, width, full curved root, two short prongs, scale, positions, 1254x1254 framing, detailed fur and lighting. No severed tip, no horizontal seam, no missing root, no new objects, no cat body. Same plain ivory #f3efe4 background for extraction, no checkerboard, no cast shadow. Keep the whole tail one continuous natural fur surface from root to prongs. No vertical abrupt pattern changes.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-5b6571af-645e-4259-83dd-d7136c46d22d.png",
+    "status": "intermediate",
+    "stage": "color",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/tuxedo-color.png"
+  },
+  {
+    "id": "calico-color",
+    "assetId": "calico-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/calico-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET: a full curved forked tail, isolated on ivory background. Image 2 is ONLY a fur color/pattern reference; do not include its cat. Recolor ONLY tail fur in image 1 to large natural irregular black, orange ginger, and white patches extending seamlessly from root through forks; black and ginger fork ends; matching cat reference tail palette. Preserve EXACT tail silhouette, width, full curved root, two short prongs, scale, positions, 1254x1254 framing, detailed fur and lighting. No severed tip, no horizontal seam, no missing root, no new objects, no cat body. Same plain ivory #f3efe4 background for extraction, no checkerboard, no cast shadow. Keep the whole tail one continuous natural fur surface from root to prongs. No vertical abrupt pattern changes.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-e41ebbe6-254b-400d-8201-791ce22c169a.png",
+    "status": "intermediate",
+    "stage": "color",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/calico-color.png"
+  },
+  {
+    "id": "colorpoint-color",
+    "assetId": "colorpoint-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET: a full curved forked tail, isolated on ivory background. Image 2 is ONLY a fur color/pattern reference; do not include its cat. Recolor ONLY tail fur in image 1 to solid rich dark chocolate brown fur matching the cat reference tail, no cream patches. Preserve EXACT tail silhouette, width, full curved root, two short prongs, scale, positions, 1254x1254 framing, detailed fur and lighting. No severed tip, no horizontal seam, no missing root, no new objects, no cat body. Same plain ivory #f3efe4 background for extraction, no checkerboard, no cast shadow. Keep the whole tail one continuous natural fur surface from root to prongs. No vertical abrupt pattern changes.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-74237415-7496-4d91-87eb-40c25c4b8c9d.png",
+    "status": "intermediate",
+    "stage": "color",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/colorpoint-color.png"
+  },
+  {
+    "id": "rosetted-color",
+    "assetId": "rosetted-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET: a full curved forked tail, isolated on ivory background. Image 2 is ONLY a fur color/pattern reference; do not include its cat. Recolor ONLY tail fur in image 1 to golden tan fur with dark brown transverse tail rings across the WHOLE continuous tail, continuing naturally around both fork prongs; match the ringed tail of the reference cat, NOT leopard rosettes on the tail. Preserve EXACT tail silhouette, width, full curved root, two short prongs, scale, positions, 1254x1254 framing, detailed fur and lighting. No severed tip, no horizontal seam, no missing root, no new objects, no cat body. Same plain ivory #f3efe4 background for extraction, no checkerboard, no cast shadow. Keep the whole tail one continuous natural fur surface from root to prongs. No vertical abrupt pattern changes.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-865db34f-eb24-4750-a1ce-9b80aa3c60c5.png",
+    "status": "intermediate",
+    "stage": "color",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/rosetted-color.png"
+  },
+  {
+    "id": "brown-tabby-full-tail-final",
+    "assetId": "brown-tabby-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/brown-tabby-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact isolated full tail onto a transparent background. Remove only ivory background; retain all tail fur including white patches. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-48e80284-daa5-4013-902c-27dcdaca9a59.png",
+    "status": "pending",
+    "stage": "final",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/brown-tabby-final.png"
+  },
+  {
+    "id": "tuxedo-full-tail-final",
+    "assetId": "tuxedo-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/tuxedo-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact isolated full tail onto a transparent background. Remove only ivory background; retain all tail fur including white patches. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-25539a74-66a3-49ea-8e2c-bef4d6d7a8d2.png",
+    "status": "pending",
+    "stage": "final",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/tuxedo-final.png"
+  },
+  {
+    "id": "calico-full-tail-final",
+    "assetId": "calico-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/calico-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact isolated full tail onto a transparent background. Remove only ivory background; retain all tail fur including white patches. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-bef3f4ad-16a8-4d5c-a03c-8df0b9102424.png",
+    "status": "pending",
+    "stage": "final",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/calico-final.png"
+  },
+  {
+    "id": "colorpoint-full-tail-final",
+    "assetId": "colorpoint-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/colorpoint-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact isolated full tail onto a transparent background. Remove only ivory background; retain all tail fur. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-80ebca00-d472-4694-a14e-f6bafe3d1958.png",
+    "status": "pending",
+    "stage": "final",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/colorpoint-final.png"
+  },
+  {
+    "id": "rosetted-full-tail-final",
+    "assetId": "rosetted-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/rosetted-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact isolated full tail onto a transparent background. Remove only ivory background; retain all tail fur. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-9b7281ec-e39d-4430-a963-b1e46aa9de99.png",
+    "status": "pending",
+    "stage": "final",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/rosetted-final.png"
+  }
+]

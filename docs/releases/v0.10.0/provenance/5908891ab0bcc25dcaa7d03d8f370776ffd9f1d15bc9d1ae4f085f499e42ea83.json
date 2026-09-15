@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "qmonster-visual-composition-approval-v1",
+  "status": "approved",
+  "approvedAt": "2026-09-15T06:25:03.726Z",
+  "approvedBy": "user",
+  "userStatement": "可以了",
+  "scope": "Tail junction repair across six coats and three expressions, as presented in tail-repair/index.html",
+  "catalogVersion": "0.10.0-candidate.1",
+  "files": [
+    {
+      "id": "orange-white-forked-tail-tip",
+      "file": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png",
+      "sha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213"
+    },
+    {
+      "id": "brown-tabby-forked-tail-tip",
+      "file": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-forked-tail-tip.png",
+      "sha256": "35b4a8874f076124b408acdfa418980f9ebf5edaae4acd5bd2c1121e0571b6d0"
+    },
+    {
+      "id": "tuxedo-forked-tail-tip",
+      "file": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-forked-tail-tip.png",
+      "sha256": "522a0447096e7dd2158ca6baea7a25245dc68927541ec08674783d35de66a120"
+    },
+    {
+      "id": "calico-forked-tail-tip",
+      "file": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-forked-tail-tip.png",
+      "sha256": "d8a98ff01c7469f5d448631a9ded930e45e7e3cf3236cc10b157ad7fa3f7f80f"
+    },
+    {
+      "id": "colorpoint-forked-tail-tip",
+      "file": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-forked-tail-tip.png",
+      "sha256": "9abedf12a46b545858d221d37eac4a9cf0d25e707f3f92dc2cd9038600ef5ae2"
+    },
+    {
+      "id": "rosetted-forked-tail-tip",
+      "file": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-forked-tail-tip.png",
+      "sha256": "7e1a89d6ded7c18eb2c0925bcd10134b8b65452faccee0d54cc3c68b1bbef4ea"
+    }
+  ],
+  "sourceHashes": {
+    "packages/generator-core/src/feline-combination.ts": "57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b",
+    "packages/asset-catalog/src/feline-combination-catalog.ts": "9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8",
+    "packages/renderer-canvas/src/feline-combination-render.ts": "9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01",
+    "packages/renderer-canvas/src/feline-combination-registration.json": "cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771",
+    "packages/asset-catalog/catalog/v0.10.0-candidate.1/catalog.json": "196f78c117b39a37ed409181ba17725777d38a6035d6b1a0e4ec05be8bc54e6d"
+  },
+  "renderReport": {
+    "file": "artifacts/design/combination-study/2026-09-15/tail-repair/../render-verification.json",
+    "sha256": "9715221f9ae0bdfcd3c962068066c3e9dcdc6beaee0d538a9a76574b48830878"
+  },
+  "productionReleaseApproval": false
+}

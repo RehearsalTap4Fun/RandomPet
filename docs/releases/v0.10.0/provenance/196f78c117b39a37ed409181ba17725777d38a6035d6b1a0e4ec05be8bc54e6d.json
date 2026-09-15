@@ -1,0 +1,639 @@
+{
+  "schemaVersion": "feline-combination-catalog-v1",
+  "catalogVersion": "0.10.0-candidate.1",
+  "templateVersion": "feline-sit-v1",
+  "canvas": {
+    "width": 1254,
+    "height": 1254
+  },
+  "resources": {
+    "orange-white-small-fangs": {
+      "id": "orange-white-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "sha256": "606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/coat-pattern-study/2026-09-15/02-orange-white.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "dragon-horns": {
+      "id": "dragon-horns",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/dragon-horns.png",
+      "sha256": "27c492b894c1e38302e69c1d47513a0d850ef0c674a849a43a098b433ac6b136",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/orange-white-small-fangs.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "orange-white-fin-ears": {
+      "id": "orange-white-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-fin-ears.png",
+      "sha256": "d4263a899bea6a6842e6da9beabb8bb64bd904f741f5ae3f32c89a1da161c6aa",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "tuxedo-tongue-tip": {
+      "id": "tuxedo-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-tongue-tip.png",
+      "sha256": "19567c758d37bbe1f14fa00f6cb40312f7970f5ed526023c025fc145a40c778c",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-tongue-tip-ivory.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "small-wings": {
+      "id": "small-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/small-wings.png",
+      "sha256": "df9779bac34a5d6d83f78e019dd3f5b8277e666444aedd0f610416964ca55435",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/mutation-study/2026-09-15/05-small-wings.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "antlers": {
+      "id": "antlers",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/antlers.png",
+      "sha256": "5819b0efd6465dff82ea4e8bbde3492f95d9bb03223afff2e211518701712280",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/mutation-study/2026-09-15/02-antlers-v2.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "orange-white-forked-tail-tip": {
+      "id": "orange-white-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png",
+      "sha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/tail-repair/orange-white-ivory.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/tail-repair/records.json"
+      }
+    },
+    "orange-white-small-lion-mane": {
+      "id": "orange-white-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-lion-mane.png",
+      "sha256": "6ae39a30e6c998f7d146ec0b823db4a227da47e17098869cbec5e15de35d95c9",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/orange-white-small-lion-mane.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "orange-white-parted-mouth": {
+      "id": "orange-white-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-parted-mouth.png",
+      "sha256": "c088207b175a4a2d96fc3e13d9b2c90e400712abe20562f4d972cd38d712dd2f",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth-ivory.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "orange-white-tongue-tip": {
+      "id": "orange-white-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-tongue-tip.png",
+      "sha256": "6143d0bc3760364697c18e5f75cf1f46b8eadccae76cf26b9d58ff6203b5086e",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/orange-white-tongue-tip-ivory.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "tuxedo-parted-mouth": {
+      "id": "tuxedo-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-parted-mouth.png",
+      "sha256": "2ce2b8b67df120f90f6a34d1a9950f3fe6073f5b22093a11384ab36d80347357",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-parted-mouth-ivory.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "tuxedo-small-fangs": {
+      "id": "tuxedo-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-small-fangs.png",
+      "sha256": "74f87d10f480a973d0dbd9ce3a8283e67696ddc572092768fad2eb0767b1fe8a",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs-ivory.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "tuxedo-small-lion-mane": {
+      "id": "tuxedo-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-small-lion-mane.png",
+      "sha256": "30d5892dae7bc0c5c271844230d23f59790f2f4c7380838abb11adab2895e8fd",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-lion-mane-ivory.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "tuxedo-forked-tail-tip": {
+      "id": "tuxedo-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-forked-tail-tip.png",
+      "sha256": "522a0447096e7dd2158ca6baea7a25245dc68927541ec08674783d35de66a120",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/tail-repair/tuxedo-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/tail-repair/records.json"
+      }
+    },
+    "tuxedo-fin-ears": {
+      "id": "tuxedo-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-fin-ears.png",
+      "sha256": "278ea1c4ffa8e6d8e15b21038df962ab242f40171b173428b1ca6e88415e459b",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/sources/tuxedo-fin-ears-ivory.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/generations.json"
+      }
+    },
+    "brown-tabby-parted-mouth": {
+      "id": "brown-tabby-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-parted-mouth.png",
+      "sha256": "d47ebe738b439c3124d737291d884b2dc86091e73289471bad7644234bc321dc",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-parted-mouth-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "brown-tabby-small-fangs": {
+      "id": "brown-tabby-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-small-fangs.png",
+      "sha256": "fbf61f5e1a8ddd090526961fc0843235ad5da62176e2417f7116489229453355",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-small-fangs-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "brown-tabby-tongue-tip": {
+      "id": "brown-tabby-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-tongue-tip.png",
+      "sha256": "b5f74e81a2dbe3170b8ac6c98f638837bc91ccc3c856e21fb21ef2d4a11ccb6c",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/brown-tabby-tongue-tip-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "calico-parted-mouth": {
+      "id": "calico-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-parted-mouth.png",
+      "sha256": "b3baa96b9c602ed0ffc6c776fbdec0de2e56e300e507ec6aa5d9240655003aa1",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/calico-parted-mouth-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "calico-small-fangs": {
+      "id": "calico-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-small-fangs.png",
+      "sha256": "391e72a3e1f079f3303a757182a0ac10b112f458e56a153ed015f2bc962ec2db",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/calico-small-fangs-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "calico-tongue-tip": {
+      "id": "calico-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-tongue-tip.png",
+      "sha256": "e67a6d2bed28e0bac3f949d57ca96db6f20a7b4439bf4f029f6f86f2249c5193",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/calico-tongue-tip-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "colorpoint-parted-mouth": {
+      "id": "colorpoint-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-parted-mouth.png",
+      "sha256": "8d9ae3d311024d95bc4cf53370772ae8147cc7da37258c15b79e4a9de77ec2fe",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-parted-mouth-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "colorpoint-small-fangs": {
+      "id": "colorpoint-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-small-fangs.png",
+      "sha256": "9cbe473cb5dccd124cc64aa0e80bef49325a04cbf2ec13d5788c5af57c76af28",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-small-fangs-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "colorpoint-tongue-tip": {
+      "id": "colorpoint-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-tongue-tip.png",
+      "sha256": "7ceac7eedc3a23bde5e95777704c1c7ff3929f44f07a09139d222bd9469404c9",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/colorpoint-tongue-tip-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "rosetted-small-fangs": {
+      "id": "rosetted-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-small-fangs.png",
+      "sha256": "081cc95f4c8224ee089eb30290cceff4d1cdb65b6d6352906dcd387b7b3b5c9d",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-small-fangs-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "rosetted-tongue-tip": {
+      "id": "rosetted-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-tongue-tip.png",
+      "sha256": "687e99ed892c699534037579f87481baa65242fd973afc817bfabaa97bc3061b",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-tongue-tip-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "rosetted-parted-mouth": {
+      "id": "rosetted-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-parted-mouth.png",
+      "sha256": "2f8da46ef4d71c10c5e98cc80fe49ea2d48dfbda39801efd92fdec97fcc7dab1",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/body-expansion/rosetted-parted-mouth-ivory-01.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/body-expansion/records.json"
+      }
+    },
+    "brown-tabby-fin-ears": {
+      "id": "brown-tabby-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-fin-ears.png",
+      "sha256": "289a1eaa08e467ca28942a77e470386f39e745dfc989c8462c163308eaccc815",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-fin-ears-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json"
+      }
+    },
+    "brown-tabby-small-lion-mane": {
+      "id": "brown-tabby-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-small-lion-mane.png",
+      "sha256": "e2061df3714a12386ebe189f4397f3ccac0df67d347b765d1b76ba743f868583",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-small-lion-mane-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json"
+      }
+    },
+    "brown-tabby-forked-tail-tip": {
+      "id": "brown-tabby-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-forked-tail-tip.png",
+      "sha256": "35b4a8874f076124b408acdfa418980f9ebf5edaae4acd5bd2c1121e0571b6d0",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/tail-repair/brown-tabby-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/tail-repair/records.json"
+      }
+    },
+    "calico-fin-ears": {
+      "id": "calico-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-fin-ears.png",
+      "sha256": "cc9223d5276aa04cb307ba5bff095eca7bb9e6dd2c9a98fdf7a74b8223e6ebe5",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-fin-ears-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json"
+      }
+    },
+    "calico-small-lion-mane": {
+      "id": "calico-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-small-lion-mane.png",
+      "sha256": "1a42675aecb7904321851030a02d2bb00a47773d4e9b5711302b2c30ffaaaabf",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-small-lion-mane-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json"
+      }
+    },
+    "calico-forked-tail-tip": {
+      "id": "calico-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-forked-tail-tip.png",
+      "sha256": "d8a98ff01c7469f5d448631a9ded930e45e7e3cf3236cc10b157ad7fa3f7f80f",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/tail-repair/calico-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/tail-repair/records.json"
+      }
+    },
+    "colorpoint-fin-ears": {
+      "id": "colorpoint-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-fin-ears.png",
+      "sha256": "6b3b9be703424d0f4c1e55b813a3c7954398b9f35cd670f6151feef0605fc46d",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-fin-ears-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json"
+      }
+    },
+    "colorpoint-small-lion-mane": {
+      "id": "colorpoint-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-small-lion-mane.png",
+      "sha256": "de22e02945b953d16ad7b979d6ed36f54a2efa9e1df58d1425e65c79cfd9bcea",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-recolor.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json"
+      }
+    },
+    "colorpoint-forked-tail-tip": {
+      "id": "colorpoint-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-forked-tail-tip.png",
+      "sha256": "9abedf12a46b545858d221d37eac4a9cf0d25e707f3f92dc2cd9038600ef5ae2",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/tail-repair/colorpoint-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/tail-repair/records.json"
+      }
+    },
+    "rosetted-fin-ears": {
+      "id": "rosetted-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-fin-ears.png",
+      "sha256": "3b9c731da2800d40caedb6545653d8883aaf81d2336064a16b0f50e6c276d5bc",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-fin-ears-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json"
+      }
+    },
+    "rosetted-small-lion-mane": {
+      "id": "rosetted-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-small-lion-mane.png",
+      "sha256": "e267b06142fd950f15aa337548e3d68cd2cc692d244659b5f96dea143c925897",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-small-lion-mane-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/mutation-expansion/records.json"
+      }
+    },
+    "rosetted-forked-tail-tip": {
+      "id": "rosetted-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-forked-tail-tip.png",
+      "sha256": "7e1a89d6ded7c18eb2c0925bcd10134b8b65452faccee0d54cc3c68b1bbef4ea",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "pending",
+      "provenance": {
+        "reference": "artifacts/design/combination-study/2026-09-15/tail-repair/rosetted-color.png",
+        "prompt": "artifacts/design/combination-study/2026-09-15/tail-repair/records.json"
+      }
+    }
+  },
+  "bodies": {
+    "orange-white": {
+      "small-fangs": "orange-white-small-fangs",
+      "parted-mouth": "orange-white-parted-mouth",
+      "tongue-tip": "orange-white-tongue-tip"
+    },
+    "tuxedo": {
+      "tongue-tip": "tuxedo-tongue-tip",
+      "parted-mouth": "tuxedo-parted-mouth",
+      "small-fangs": "tuxedo-small-fangs"
+    },
+    "brown-tabby": {
+      "parted-mouth": "brown-tabby-parted-mouth",
+      "small-fangs": "brown-tabby-small-fangs",
+      "tongue-tip": "brown-tabby-tongue-tip"
+    },
+    "calico": {
+      "parted-mouth": "calico-parted-mouth",
+      "small-fangs": "calico-small-fangs",
+      "tongue-tip": "calico-tongue-tip"
+    },
+    "colorpoint": {
+      "parted-mouth": "colorpoint-parted-mouth",
+      "small-fangs": "colorpoint-small-fangs",
+      "tongue-tip": "colorpoint-tongue-tip"
+    },
+    "rosetted": {
+      "small-fangs": "rosetted-small-fangs",
+      "tongue-tip": "rosetted-tongue-tip",
+      "parted-mouth": "rosetted-parted-mouth"
+    }
+  },
+  "mutations": {
+    "brown-tabby": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "brown-tabby-fin-ears",
+      "small-lion-mane": "brown-tabby-small-lion-mane",
+      "forked-tail-tip": "brown-tabby-forked-tail-tip"
+    },
+    "orange-white": {
+      "dragon-horns": "dragon-horns",
+      "fin-ears": "orange-white-fin-ears",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "forked-tail-tip": "orange-white-forked-tail-tip",
+      "small-lion-mane": "orange-white-small-lion-mane"
+    },
+    "tuxedo": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "small-lion-mane": "tuxedo-small-lion-mane",
+      "forked-tail-tip": "tuxedo-forked-tail-tip",
+      "fin-ears": "tuxedo-fin-ears"
+    },
+    "calico": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "calico-fin-ears",
+      "small-lion-mane": "calico-small-lion-mane",
+      "forked-tail-tip": "calico-forked-tail-tip"
+    },
+    "colorpoint": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "colorpoint-fin-ears",
+      "small-lion-mane": "colorpoint-small-lion-mane",
+      "forked-tail-tip": "colorpoint-forked-tail-tip"
+    },
+    "rosetted": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "rosetted-fin-ears",
+      "small-lion-mane": "rosetted-small-lion-mane",
+      "forked-tail-tip": "rosetted-forked-tail-tip"
+    }
+  }
+}

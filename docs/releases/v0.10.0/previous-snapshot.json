@@ -1,0 +1,217 @@
+{
+  "schemaVersion": "qmonster-feline-integration-snapshot-v1",
+  "catalogVersion": "0.10.0-candidate.1",
+  "templateVersion": "feline-sit-v1",
+  "catalogFile": "packages/asset-catalog/catalog/v0.10.0-candidate.1/catalog.json",
+  "catalogSha256": "196f78c117b39a37ed409181ba17725777d38a6035d6b1a0e4ec05be8bc54e6d",
+  "runtimeRevision": "e7b46d6eb5f317e316ee3d78ad70d1570a1eeb51d48f84bbb11ac228a53a2f41",
+  "sourceHashes": {
+    "package-lock.json": "03138945fe78b2fb370357cd981850749e19710d30df991a45787e54e0e829ae",
+    "packages/asset-catalog/catalog/v0.10.0-candidate.1/catalog.json": "196f78c117b39a37ed409181ba17725777d38a6035d6b1a0e4ec05be8bc54e6d",
+    "packages/asset-catalog/src/feline-combination-catalog.ts": "9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8",
+    "packages/generator-core/src/feline-combination.ts": "57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b",
+    "packages/generator-core/src/prng.ts": "e02c2befa3cfb59ad208d0595217877cb138505cbfd57575057fe25555283910",
+    "packages/renderer-canvas/src/export.ts": "9c582c4ba665e0dd9814d94dc31bdd247a2e84f8957dbd392894a9b4dcd7a457",
+    "packages/renderer-canvas/src/feline-combination-registration.json": "cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771",
+    "packages/renderer-canvas/src/feline-combination-render.ts": "9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01"
+  },
+  "resources": [
+    {
+      "id": "orange-white-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "sha256": "606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa"
+    },
+    {
+      "id": "dragon-horns",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/dragon-horns.png",
+      "sha256": "27c492b894c1e38302e69c1d47513a0d850ef0c674a849a43a098b433ac6b136"
+    },
+    {
+      "id": "orange-white-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-fin-ears.png",
+      "sha256": "d4263a899bea6a6842e6da9beabb8bb64bd904f741f5ae3f32c89a1da161c6aa"
+    },
+    {
+      "id": "tuxedo-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-tongue-tip.png",
+      "sha256": "19567c758d37bbe1f14fa00f6cb40312f7970f5ed526023c025fc145a40c778c"
+    },
+    {
+      "id": "small-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/small-wings.png",
+      "sha256": "df9779bac34a5d6d83f78e019dd3f5b8277e666444aedd0f610416964ca55435"
+    },
+    {
+      "id": "antlers",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/antlers.png",
+      "sha256": "5819b0efd6465dff82ea4e8bbde3492f95d9bb03223afff2e211518701712280"
+    },
+    {
+      "id": "orange-white-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png",
+      "sha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213"
+    },
+    {
+      "id": "orange-white-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-lion-mane.png",
+      "sha256": "6ae39a30e6c998f7d146ec0b823db4a227da47e17098869cbec5e15de35d95c9"
+    },
+    {
+      "id": "orange-white-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-parted-mouth.png",
+      "sha256": "c088207b175a4a2d96fc3e13d9b2c90e400712abe20562f4d972cd38d712dd2f"
+    },
+    {
+      "id": "orange-white-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-tongue-tip.png",
+      "sha256": "6143d0bc3760364697c18e5f75cf1f46b8eadccae76cf26b9d58ff6203b5086e"
+    },
+    {
+      "id": "tuxedo-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-parted-mouth.png",
+      "sha256": "2ce2b8b67df120f90f6a34d1a9950f3fe6073f5b22093a11384ab36d80347357"
+    },
+    {
+      "id": "tuxedo-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-small-fangs.png",
+      "sha256": "74f87d10f480a973d0dbd9ce3a8283e67696ddc572092768fad2eb0767b1fe8a"
+    },
+    {
+      "id": "tuxedo-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-small-lion-mane.png",
+      "sha256": "30d5892dae7bc0c5c271844230d23f59790f2f4c7380838abb11adab2895e8fd"
+    },
+    {
+      "id": "tuxedo-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-forked-tail-tip.png",
+      "sha256": "522a0447096e7dd2158ca6baea7a25245dc68927541ec08674783d35de66a120"
+    },
+    {
+      "id": "tuxedo-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/tuxedo-fin-ears.png",
+      "sha256": "278ea1c4ffa8e6d8e15b21038df962ab242f40171b173428b1ca6e88415e459b"
+    },
+    {
+      "id": "brown-tabby-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-parted-mouth.png",
+      "sha256": "d47ebe738b439c3124d737291d884b2dc86091e73289471bad7644234bc321dc"
+    },
+    {
+      "id": "brown-tabby-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-small-fangs.png",
+      "sha256": "fbf61f5e1a8ddd090526961fc0843235ad5da62176e2417f7116489229453355"
+    },
+    {
+      "id": "brown-tabby-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-tongue-tip.png",
+      "sha256": "b5f74e81a2dbe3170b8ac6c98f638837bc91ccc3c856e21fb21ef2d4a11ccb6c"
+    },
+    {
+      "id": "calico-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-parted-mouth.png",
+      "sha256": "b3baa96b9c602ed0ffc6c776fbdec0de2e56e300e507ec6aa5d9240655003aa1"
+    },
+    {
+      "id": "calico-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-small-fangs.png",
+      "sha256": "391e72a3e1f079f3303a757182a0ac10b112f458e56a153ed015f2bc962ec2db"
+    },
+    {
+      "id": "calico-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-tongue-tip.png",
+      "sha256": "e67a6d2bed28e0bac3f949d57ca96db6f20a7b4439bf4f029f6f86f2249c5193"
+    },
+    {
+      "id": "colorpoint-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-parted-mouth.png",
+      "sha256": "8d9ae3d311024d95bc4cf53370772ae8147cc7da37258c15b79e4a9de77ec2fe"
+    },
+    {
+      "id": "colorpoint-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-small-fangs.png",
+      "sha256": "9cbe473cb5dccd124cc64aa0e80bef49325a04cbf2ec13d5788c5af57c76af28"
+    },
+    {
+      "id": "colorpoint-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-tongue-tip.png",
+      "sha256": "7ceac7eedc3a23bde5e95777704c1c7ff3929f44f07a09139d222bd9469404c9"
+    },
+    {
+      "id": "rosetted-small-fangs",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-small-fangs.png",
+      "sha256": "081cc95f4c8224ee089eb30290cceff4d1cdb65b6d6352906dcd387b7b3b5c9d"
+    },
+    {
+      "id": "rosetted-tongue-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-tongue-tip.png",
+      "sha256": "687e99ed892c699534037579f87481baa65242fd973afc817bfabaa97bc3061b"
+    },
+    {
+      "id": "rosetted-parted-mouth",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-parted-mouth.png",
+      "sha256": "2f8da46ef4d71c10c5e98cc80fe49ea2d48dfbda39801efd92fdec97fcc7dab1"
+    },
+    {
+      "id": "brown-tabby-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-fin-ears.png",
+      "sha256": "289a1eaa08e467ca28942a77e470386f39e745dfc989c8462c163308eaccc815"
+    },
+    {
+      "id": "brown-tabby-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-small-lion-mane.png",
+      "sha256": "e2061df3714a12386ebe189f4397f3ccac0df67d347b765d1b76ba743f868583"
+    },
+    {
+      "id": "brown-tabby-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-forked-tail-tip.png",
+      "sha256": "35b4a8874f076124b408acdfa418980f9ebf5edaae4acd5bd2c1121e0571b6d0"
+    },
+    {
+      "id": "calico-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-fin-ears.png",
+      "sha256": "cc9223d5276aa04cb307ba5bff095eca7bb9e6dd2c9a98fdf7a74b8223e6ebe5"
+    },
+    {
+      "id": "calico-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-small-lion-mane.png",
+      "sha256": "1a42675aecb7904321851030a02d2bb00a47773d4e9b5711302b2c30ffaaaabf"
+    },
+    {
+      "id": "calico-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/calico-forked-tail-tip.png",
+      "sha256": "d8a98ff01c7469f5d448631a9ded930e45e7e3cf3236cc10b157ad7fa3f7f80f"
+    },
+    {
+      "id": "colorpoint-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-fin-ears.png",
+      "sha256": "6b3b9be703424d0f4c1e55b813a3c7954398b9f35cd670f6151feef0605fc46d"
+    },
+    {
+      "id": "colorpoint-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-small-lion-mane.png",
+      "sha256": "de22e02945b953d16ad7b979d6ed36f54a2efa9e1df58d1425e65c79cfd9bcea"
+    },
+    {
+      "id": "colorpoint-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-forked-tail-tip.png",
+      "sha256": "9abedf12a46b545858d221d37eac4a9cf0d25e707f3f92dc2cd9038600ef5ae2"
+    },
+    {
+      "id": "rosetted-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-fin-ears.png",
+      "sha256": "3b9c731da2800d40caedb6545653d8883aaf81d2336064a16b0f50e6c276d5bc"
+    },
+    {
+      "id": "rosetted-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-small-lion-mane.png",
+      "sha256": "e267b06142fd950f15aa337548e3d68cd2cc692d244659b5f96dea143c925897"
+    },
+    {
+      "id": "rosetted-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-forked-tail-tip.png",
+      "sha256": "7e1a89d6ded7c18eb2c0925bcd10134b8b65452faccee0d54cc3c68b1bbef4ea"
+    }
+  ],
+  "visualEvidence": "artifacts/design/combination-study/2026-09-15/tail-repair/approval.json",
+  "activeReleaseChanged": false
+}

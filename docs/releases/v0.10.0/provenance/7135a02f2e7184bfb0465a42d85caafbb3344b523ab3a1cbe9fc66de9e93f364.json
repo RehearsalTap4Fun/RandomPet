@@ -1,0 +1,388 @@
+[
+  {
+    "id": "brown-tabby-fin-ears-color",
+    "assetId": "brown-tabby-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-fin-ears.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/01-brown-tabby.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated fin-ears game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match brown-tabby: cool taupe brown fur with charcoal brown tabby bands; chest center light beige not stark white. Only two isolated fin ears. Keep pink translucent membranes and ribs; recolor ONLY surrounding fur. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-fin-ears-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-small-lion-mane-color",
+    "assetId": "brown-tabby-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-lion-mane.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/01-brown-tabby.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated small-lion-mane game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match brown-tabby: cool taupe brown fur with charcoal brown tabby bands; chest center light beige not stark white. Only the isolated U-shaped fur mane bib with its empty head opening. Recolor side fur and chest center according to coat. Colorpoint mane is ivory cream, NOT dark brown. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-small-lion-mane-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-forked-tail-tip-color",
+    "assetId": "brown-tabby-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/01-brown-tabby.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated forked-tail-tip game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match brown-tabby: cool taupe brown fur with charcoal brown tabby bands; chest center light beige not stark white. Only the isolated forked tail tip at the exact right-side position. Colorpoint entire tail is chocolate brown; tabby and rosetted tail has dark bands; calico tail has black, orange and white patches. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-forked-tail-tip-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-fin-ears-extract",
+    "assetId": "brown-tabby-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-fin-ears-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract exact brown-tabby-fin-ears onto transparent background. Output RGBA PNG with transparent background. Keep framing. Preserve exact 1254 x 1254 canvas, every position, size, silhouette, fur color and texture. Remove ONLY ivory background including empty openings; keep ALL fur, no repositioning, no checkerboard pixels, no shadow. This is a game overlay not a new illustration.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-fin-ears-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-small-lion-mane-extract",
+    "assetId": "brown-tabby-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-small-lion-mane-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract exact brown-tabby-small-lion-mane onto transparent background. Output RGBA PNG with transparent background. Keep framing. Preserve exact 1254 x 1254 canvas, every position, size, silhouette, fur color and texture. Remove ONLY ivory background including empty openings; keep ALL fur, no repositioning, no checkerboard pixels, no shadow. This is a game overlay not a new illustration.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-small-lion-mane-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-forked-tail-tip-extract",
+    "assetId": "brown-tabby-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-forked-tail-tip-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract exact brown-tabby-forked-tail-tip onto transparent background. Output RGBA PNG with transparent background. Keep framing. Preserve exact 1254 x 1254 canvas, every position, size, silhouette, fur color and texture. Remove ONLY ivory background including empty openings; keep ALL fur, no repositioning, no checkerboard pixels, no shadow. This is a game overlay not a new illustration.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-forked-tail-tip-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-fin-ears-color",
+    "assetId": "calico-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-fin-ears.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/04-calico.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated fin-ears game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match calico: calico patches: viewer-left orange, viewer-right charcoal black; clean white chest center. Only two isolated fin ears. Keep pink translucent membranes and ribs; recolor ONLY surrounding fur. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-fin-ears-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-small-lion-mane-color",
+    "assetId": "calico-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-lion-mane.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/04-calico.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated small-lion-mane game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match calico: calico patches: viewer-left orange, viewer-right charcoal black; clean white chest center. Only the isolated U-shaped fur mane bib with its empty head opening. Recolor side fur and chest center according to coat. Colorpoint mane is ivory cream, NOT dark brown. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-small-lion-mane-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-forked-tail-tip-color",
+    "assetId": "calico-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/04-calico.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated forked-tail-tip game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match calico: calico patches: viewer-left orange, viewer-right charcoal black; clean white chest center. Only the isolated forked tail tip at the exact right-side position. Colorpoint entire tail is chocolate brown; tabby and rosetted tail has dark bands; calico tail has black, orange and white patches. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-forked-tail-tip-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-fin-ears-extract",
+    "assetId": "calico-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-fin-ears-color.png"
+    ],
+    "prompt": "Extract the exact calico-fin-ears onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-fin-ears-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-small-lion-mane-extract",
+    "assetId": "calico-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-small-lion-mane-color.png"
+    ],
+    "prompt": "Extract the exact calico-small-lion-mane onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-small-lion-mane-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-forked-tail-tip-extract",
+    "assetId": "calico-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-forked-tail-tip-color.png"
+    ],
+    "prompt": "Extract the exact calico-forked-tail-tip onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-forked-tail-tip-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-fin-ears-color",
+    "assetId": "colorpoint-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-fin-ears.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/05-colorpoint.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated fin-ears game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match colorpoint: warm ivory cream body and chest; chocolate brown extremities, ears and tail. Only two isolated fin ears. Keep pink translucent membranes and ribs; recolor ONLY surrounding fur. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-fin-ears-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-small-lion-mane-color",
+    "assetId": "colorpoint-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-lion-mane.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/05-colorpoint.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated small-lion-mane game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match colorpoint: warm ivory cream body and chest; chocolate brown extremities, ears and tail. Only the isolated U-shaped fur mane bib with its empty head opening. Recolor side fur and chest center according to coat. Colorpoint mane is ivory cream, NOT dark brown. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-forked-tail-tip-color",
+    "assetId": "colorpoint-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/05-colorpoint.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated forked-tail-tip game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match colorpoint: warm ivory cream body and chest; chocolate brown extremities, ears and tail. Only the isolated forked tail tip at the exact right-side position. Colorpoint entire tail is chocolate brown; tabby and rosetted tail has dark bands; calico tail has black, orange and white patches. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-forked-tail-tip-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-fin-ears-extract",
+    "assetId": "colorpoint-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-fin-ears-color.png"
+    ],
+    "prompt": "Extract the exact colorpoint-fin-ears onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Keep the whole two ears INCLUDING PINK MEMBRANES AND RIBS intact.Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-fin-ears-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-small-lion-mane-recolor",
+    "assetId": "colorpoint-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-color.png"
+    ],
+    "prompt": "Precise color correction only. Recolor ALL DARK BROWN FUR of this isolated mane to WARM IVORY CREAM, same warm pale cream as its center. The ENTIRE mane must now be ivory cream with natural fur shading. No dark brown side panels remain. Preserve every fur strand, silhouette, U-shaped opening, position, scale, and 1254 square framing. Keep plain ivory background. Do not make a cat or add anything.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-recolor.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-forked-tail-tip-extract",
+    "assetId": "colorpoint-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-forked-tail-tip-color.png"
+    ],
+    "prompt": "Extract the exact colorpoint-forked-tail-tip onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-forked-tail-tip-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-small-lion-mane-extract",
+    "assetId": "colorpoint-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-recolor.png"
+    ],
+    "prompt": "Extract the exact whole ivory cream fur mane onto transparent background. Output RGBA PNG with transparent background. Keep 1254 x 1254 framing and all current positions and scale. Preserve all the cream fur including fine outer strands and the whole chest bib; remove only the flat ivory background and the empty head opening. No recoloring, no dark side panels, no enlargement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-fin-ears-color",
+    "assetId": "rosetted-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-fin-ears.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/06-rosetted.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated fin-ears game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match rosetted: golden tan fur with dark brown spots and rosettes; chest center pale cream. Only two isolated fin ears. Keep pink translucent membranes and ribs; recolor ONLY surrounding fur. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-fin-ears-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-small-lion-mane-color",
+    "assetId": "rosetted-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-lion-mane.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/06-rosetted.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated small-lion-mane game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match rosetted: golden tan fur with dark brown spots and rosettes; chest center pale cream. Only the isolated U-shaped fur mane bib with its empty head opening. Recolor side fur and chest center according to coat. Colorpoint mane is ivory cream, NOT dark brown. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-small-lion-mane-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-fin-ears-extract",
+    "assetId": "rosetted-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-fin-ears-color.png"
+    ],
+    "prompt": "Extract the exact rosetted-fin-ears onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve exact object position and size and all fur colors. Keep whole two ears INCLUDING PINK MEMBRANES AND RIBS intact.Remove only ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-fin-ears-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-small-lion-mane-extract",
+    "assetId": "rosetted-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-small-lion-mane-color.png"
+    ],
+    "prompt": "Extract the exact rosetted-small-lion-mane onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve exact object position and size and all fur colors. Remove only ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-small-lion-mane-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-forked-tail-tip-color",
+    "assetId": "rosetted-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/06-rosetted.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, an isolated forked-tail-tip game overlay on a 1254 x 1254 square. Image 2 is ONLY a fur palette and markings reference; never include the cat. Change only orange fur color/marks in image 1 to match rosetted: golden tan fur with dark brown spots and rosettes; chest center pale cream. Only the isolated forked tail tip at the exact right-side position. Colorpoint entire tail is chocolate brown; tabby and rosetted tail has dark bands; calico tail has black, orange and white patches. Preserve EXACT silhouette, scale, position, framing, empty areas and fur strand detail of image 1; no redesign, no new objects, no head, body or full cat. Keep canvas 1254 x 1254. Put the edited isolated piece on a plain solid ivory #f4f0e5 background for subsequent extraction. No shadow, no checkerboard, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-forked-tail-tip-color.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-forked-tail-tip-extract",
+    "assetId": "rosetted-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-forked-tail-tip-color.png"
+    ],
+    "prompt": "Extract exact isolated golden rosetted forked tail tip onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve exact object position and size and all fur colors and dark markings. Remove only ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-forked-tail-tip-extract.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-fin-ears-final",
+    "assetId": "brown-tabby-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-fin-ears-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract exact brown-tabby-fin-ears onto transparent background. Output RGBA PNG with transparent background. Keep framing. Preserve exact 1254 x 1254 canvas, every position, size, silhouette, fur color and texture. Remove ONLY ivory background including empty openings; keep ALL fur, no repositioning, no checkerboard pixels, no shadow. This is a game overlay not a new illustration.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-small-lion-mane-final",
+    "assetId": "brown-tabby-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-small-lion-mane-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract exact brown-tabby-small-lion-mane onto transparent background. Output RGBA PNG with transparent background. Keep framing. Preserve exact 1254 x 1254 canvas, every position, size, silhouette, fur color and texture. Remove ONLY ivory background including empty openings; keep ALL fur, no repositioning, no checkerboard pixels, no shadow. This is a game overlay not a new illustration.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-forked-tail-tip-final",
+    "assetId": "brown-tabby-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/brown-tabby-forked-tail-tip-color.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract exact brown-tabby-forked-tail-tip onto transparent background. Output RGBA PNG with transparent background. Keep framing. Preserve exact 1254 x 1254 canvas, every position, size, silhouette, fur color and texture. Remove ONLY ivory background including empty openings; keep ALL fur, no repositioning, no checkerboard pixels, no shadow. This is a game overlay not a new illustration.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/before/brown-tabby-forked-tail-tip.png",
+    "status": "pending",
+    "previousSource": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/brown-tabby-forked-tail-tip.png"
+  },
+  {
+    "id": "calico-fin-ears-final",
+    "assetId": "calico-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-fin-ears-color.png"
+    ],
+    "prompt": "Extract the exact calico-fin-ears onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/calico-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-small-lion-mane-final",
+    "assetId": "calico-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-small-lion-mane-color.png"
+    ],
+    "prompt": "Extract the exact calico-small-lion-mane onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/calico-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-forked-tail-tip-final",
+    "assetId": "calico-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/calico-forked-tail-tip-color.png"
+    ],
+    "prompt": "Extract the exact calico-forked-tail-tip onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/before/calico-forked-tail-tip.png",
+    "status": "pending",
+    "previousSource": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/calico-forked-tail-tip.png"
+  },
+  {
+    "id": "colorpoint-fin-ears-final",
+    "assetId": "colorpoint-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-fin-ears-color.png"
+    ],
+    "prompt": "Extract the exact colorpoint-fin-ears onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Keep the whole two ears INCLUDING PINK MEMBRANES AND RIBS intact.Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-small-lion-mane-final",
+    "assetId": "colorpoint-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-small-lion-mane-recolor.png"
+    ],
+    "prompt": "Extract the exact whole ivory cream fur mane onto transparent background. Output RGBA PNG with transparent background. Keep 1254 x 1254 framing and all current positions and scale. Preserve all the cream fur including fine outer strands and the whole chest bib; remove only the flat ivory background and the empty head opening. No recoloring, no dark side panels, no enlargement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-forked-tail-tip-final",
+    "assetId": "colorpoint-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/colorpoint-forked-tail-tip-color.png"
+    ],
+    "prompt": "Extract the exact colorpoint-forked-tail-tip onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve the exact object position and size and all fur colors. Remove only the ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/before/colorpoint-forked-tail-tip.png",
+    "status": "pending",
+    "previousSource": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/colorpoint-forked-tail-tip.png"
+  },
+  {
+    "id": "rosetted-fin-ears-final",
+    "assetId": "rosetted-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-fin-ears-color.png"
+    ],
+    "prompt": "Extract the exact rosetted-fin-ears onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve exact object position and size and all fur colors. Keep whole two ears INCLUDING PINK MEMBRANES AND RIBS intact.Remove only ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-small-lion-mane-final",
+    "assetId": "rosetted-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-small-lion-mane-color.png"
+    ],
+    "prompt": "Extract the exact rosetted-small-lion-mane onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve exact object position and size and all fur colors. Remove only ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-forked-tail-tip-final",
+    "assetId": "rosetted-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/mutation-expansion/rosetted-forked-tail-tip-color.png"
+    ],
+    "prompt": "Extract exact isolated golden rosetted forked tail tip onto transparent background. Output RGBA PNG with transparent background. Keep the 1254 x 1254 canvas and framing, preserve exact object position and size and all fur colors and dark markings. Remove only ivory background; do not enlarge or center the object.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/tail-repair/before/rosetted-forked-tail-tip.png",
+    "status": "pending",
+    "previousSource": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/rosetted-forked-tail-tip.png"
+  }
+]

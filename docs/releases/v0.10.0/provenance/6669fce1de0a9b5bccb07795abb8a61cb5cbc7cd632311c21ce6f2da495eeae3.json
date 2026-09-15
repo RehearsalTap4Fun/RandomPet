@@ -1,0 +1,323 @@
+[
+  {
+    "id": "orange-white-small-fangs",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/02-orange-white.png"
+    ],
+    "prompt": "Extract the exact cat from this image onto a transparent background. Output genuine alpha transparency, a PNG cutout sprite. Keep the original cat, fur, whiskers, pose, mouth, colors, size and placement unchanged. The entire area outside the cat must be transparent (alpha 0), not painted gray squares or any other background.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-small-fangs.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-4a156527-1f53-4e24-b515-70cbe01f5395.png"
+  },
+  {
+    "id": "dragon-horns",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-small-fangs.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/mutation-study/2026-09-15/01-dragon-horns.png"
+    ],
+    "prompt": "Create a transparent PNG GAME OVERLAY LAYER. Image 1 is the exact target canvas/template; Image 2 shows the approved shape of two ivory dragon horns. Output ONLY the two ivory horns on a genuinely transparent background, everything else alpha zero. Place them precisely above the forehead of image 1 with roots at (450,205) and (660,210) on the 1254x1254 canvas, tips near (380,48) and (742,60). Match shape and soft 3D shading of image 2. Include just very short neutral root shadow, NO orange fur patch. No cat, no face, no ears, no background, no diagram, no text. Keep generous transparent empty canvas around the horns; do not enlarge the horns to fill the canvas. This exact fullcanvas layer will overlay image 1 without moving or scaling.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/dragon-horns.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-a8e3b848-2d90-4702-932f-f0fe0c5b4ce3.png"
+  },
+  {
+    "id": "tuxedo-small-fangs",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/03-tuxedo.png"
+    ],
+    "prompt": "Image1 is the exact edit target, transparent cat sprite. Image2 is ONLY the black-white coat pattern reference. Change ONLY orange fur of image1 into the black tuxedo coat of image2; preserve the exact silhouette, pose, position, nose/eye/ear/foot/tail coordinates, small two-fang expression and alpha transparency of image1. Leave the white muzzle/bib/paws white. No background, genuine transparent PNG, same1254square canvas. Do not enlarge or recenter. Whole sprite remains registered exactly with image1.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-dd0e31c5-ff85-4002-9dc5-a6c58c439b98.png"
+  },
+  {
+    "id": "orange-white-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/mutation-study/2026-09-15/03-fin-ears.png"
+    ],
+    "prompt": "Create a transparent PNG replacement GAME LAYER. Image1 is exact fullcanvas placement template, image2 is fin-ear design reference only. Draw ONLY the two fin ears, orange fur rims, pink membranes and a little fur at roots; all other pixels truly transparent, no cat/face/body/background. Match the location/scale of ears in image1 on the original1254square canvas: left ear outer region x210..478 y50..340; right x640..920 y75..370, fur roots smoothly terminate just above the eyes. Preserve wide transparent blank rest of canvas, do not center or enlarge these parts. These replace the original ears, make entire shape down to fuzzy root edges, no rectangular cut edges. Match approved soft furry3D style, no additional horns.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-fin-ears.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-e2e2f525-1c63-4083-9696-55cc4ae9fc80.png"
+  },
+  {
+    "id": "tuxedo-small-fangs-retry",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs.png"
+    ],
+    "prompt": "Remove the checkerboard background completely, output the exact cat with genuine alpha transparency (transparent background). Do not change or redraw the cat, keep exact original framing and1254square canvas. All pixels outside fur/whiskers must be transparent, not gray squares.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs-retry.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-a6f7d60d-b614-4a95-9ff2-a824255d2e86.png"
+  },
+  {
+    "id": "orange-white-parted-mouth",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png"
+    ],
+    "prompt": "Edit ONLY the mouth expression on this transparent PNG cat. Replace the two small fangs with a natural softly parted mouth, just a tiny dark opening between relaxed lips, no teeth and no tongue. Preserve whole original cat pixel registration, nose shape, white muzzle volume/fur, orange-white coat, eyes, ears, body, paws, tail and exact framing. Maintain genuinely transparent background. Output entire original1254square canvas with complete cat, no text.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-bd9495e0-1e4f-43b6-a2e8-072140622dcc.png"
+  },
+  {
+    "id": "tuxedo-tongue-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/03-tuxedo.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the cat onto a transparent background. Output RGBA PNG with transparent background.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-tongue-tip.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-d5950a0d-814d-4f9c-b36b-a1558dffe300.png"
+  },
+  {
+    "id": "small-wings",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/mutation-study/2026-09-15/05-small-wings.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract ONLY the pair of white feather wings onto a transparent background, remove the entire cat and everything else. Output RGBA PNG with transparent background. Keep wings in their exact original positions on same1254square canvas, no recentering. Complete the wing roots hidden by body, other than wings all pixels transparent.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/small-wings.png",
+    "assetId": "small-wings",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-18c8a0bf-e1e3-4325-9daa-b541ed10344a.png"
+  },
+  {
+    "id": "orange-white-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/mutation-study/2026-09-15/04-small-lion-mane.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract ONLY the fluffy small lion mane neck/chest fur overlay onto a transparent background. Include the orange hanging neck-side tufts and central white chest fur, but remove all head, face, muzzle, ears, body, feet, tail and background. Keep exact original placement on1254square canvas, no enlarging/recentering. Upper edge under cheeks soft naturally tapering fur, broad U shape starts about y550 below the mouth and ends about y900; mouth region remains transparent. Output RGBA PNG with transparent background.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-small-lion-mane.png",
+    "assetId": "orange-white-small-lion-mane",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-512e698a-0a71-4f8e-a1a3-e2424a576510.png"
+  },
+  {
+    "id": "antlers",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/mutation-study/2026-09-15/02-antlers-v2.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract ONLY the pair of small tan velvet antlers. Remove all cat, fur, ears, and background. Output RGBA PNG with transparent background. Leave antlers in original positions on original1254square canvas.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/antlers.png",
+    "assetId": "antlers",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-9e962922-76be-4364-bcdc-f2a37699c1ee.png"
+  },
+  {
+    "id": "orange-white-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/mutation-study/2026-09-15/06-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract ONLY the furry orange Y-shaped forked tail tip, including short joined stem down to y720. Remove cat, lower tail, background, all other parts. Output RGBA PNG with transparent background. Leave tail tip at original position on original1254square canvas on rightside, no recentering.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-forked-tail-tip.png",
+    "assetId": "orange-white-forked-tail-tip",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-6fc71b07-7564-48b4-be86-ae72c99b07a4.png"
+  },
+  {
+    "id": "orange-white-parted-mouth-alpha",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the cat onto a transparent background. Output RGBA PNG with transparent background.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth-alpha.png",
+    "assetId": "orange-white-parted-mouth",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-07c44547-7066-49f9-91fd-248e4eb15a14.png"
+  },
+  {
+    "id": "orange-white-small-lion-mane-alpha",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-small-lion-mane.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the mane onto a transparent background. Output RGBA PNG with transparent background.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-small-lion-mane-alpha.png",
+    "assetId": "orange-white-small-lion-mane",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-ce219954-859c-4343-a893-5c790a6cb54a.png"
+  },
+  {
+    "id": "orange-white-parted-mouth-ivory",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png"
+    ],
+    "prompt": "Edit the exact cat: change only the two-fang mouth into a naturally slightly parted mouth without teeth or tongue. Keep muzzle fur, nose, eyes, full body, pose, scale and position exactly unchanged. Put on flat solid ivory background #f4f0e5. Same squarecanvas and framing.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth-ivory.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-007c6a38-1ecd-45fc-b2ed-f95be81f108b.png"
+  },
+  {
+    "id": "orange-white-tongue-tip-ivory",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png"
+    ],
+    "prompt": "Edit the exact cat: change only the two-fang mouth into a cute tiny soft pink tongue tip peeking just below the upper lips, mouth mostly closed, no visible teeth. Keep muzzle fur, nose, eyes, full body, pose, scale and position exactly unchanged. Put on flat solid ivory background #f4f0e5. Same squarecanvas and framing.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-tongue-tip-ivory.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-1d52d4b3-054d-4dd8-8f59-df008e535458.png"
+  },
+  {
+    "id": "orange-white-parted-mouth-extracted",
+    "assetId": "orange-white-parted-mouth",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth-extracted.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-4bffdc4e-dc41-4e94-a51c-79115c47b76a.png"
+  },
+  {
+    "id": "orange-white-tongue-tip-extracted",
+    "assetId": "orange-white-tongue-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-tongue-tip-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-tongue-tip-extracted.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-a485759f-5c41-4a52-8e4c-3b8494a230fa.png"
+  },
+  {
+    "id": "tuxedo-parted-mouth-ivory",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-parted-mouth-ivory.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/03-tuxedo.png"
+    ],
+    "prompt": "Image1 exact edit target; image2 coat reference only. Change ONLY orange fur of image1 into charcoal black tuxedo fur like image2. Keep white muzzle/bib/paws white, exact existing mouth expression unchanged, eye positions, nose, pose, silhouette and all body feature coordinates unchanged. Solid flat ivory background #f4f0e5; same squarecanvas. Do not change mouth, do not reframe.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-parted-mouth-ivory.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-c7bf9a63-b42b-46e5-8289-8f9b230c63da.png"
+  },
+  {
+    "id": "tuxedo-parted-mouth-extracted",
+    "assetId": "tuxedo-parted-mouth",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-parted-mouth-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-parted-mouth-extracted.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-20c05392-eff8-42dc-96aa-09f3fadaaef3.png"
+  },
+  {
+    "id": "tuxedo-tongue-tip-ivory",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/orange-white-tongue-tip-ivory.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/03-tuxedo.png"
+    ],
+    "prompt": "Image1 exact edit target; image2 coat reference only. Change ONLY orange fur of image1 into charcoal black tuxedo fur like image2. Keep white muzzle/bib/paws white, exact existing mouth expression unchanged, eye positions, nose, pose, silhouette and all body feature coordinates unchanged. Solid flat ivory background #f4f0e5; same squarecanvas. Do not change mouth, do not reframe.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-tongue-tip-ivory.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-397fe044-439a-4bea-be95-ff976ab7e84b.png"
+  },
+  {
+    "id": "tuxedo-tongue-tip-extracted",
+    "assetId": "tuxedo-tongue-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-tongue-tip-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-tongue-tip-extracted.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-2674783b-9c13-4cab-9b43-389d12dbcae6.png"
+  },
+  {
+    "id": "tuxedo-small-fangs-ivory",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-fangs.png",
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/coat-pattern-study/2026-09-15/03-tuxedo.png"
+    ],
+    "prompt": "Image1 exact edit target; image2 coat reference only. Change ONLY orange fur of image1 into charcoal black tuxedo fur like image2. Keep white muzzle/bib/paws white, exact existing mouth expression unchanged, eye positions, nose, pose, silhouette and all body feature coordinates unchanged. Solid flat ivory background #f4f0e5; same squarecanvas. Do not change mouth, do not reframe.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs-ivory.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-819f760e-2872-438b-8964-5d56002e09f9.png"
+  },
+  {
+    "id": "tuxedo-small-fangs-extracted",
+    "assetId": "tuxedo-small-fangs",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact cat onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-fangs-extracted.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-c89966c0-549a-4668-8963-a8345d55ecbb.png"
+  },
+  {
+    "id": "tuxedo-fin-ears-ivory",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-fin-ears.png"
+    ],
+    "prompt": "Change ONLY the orange fur on this isolated game sprite layer to charcoal-black tuxedo fur. Keep pink ear membranes and white fur white if present. Preserve exact shape, every fur strand, size, spacing and position of the isolated parts. No cat, no other parts. Put on solid flat ivory background #f4f0e5. Same1254squarecanvas and framing.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-fin-ears-ivory.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-02088960-7149-448d-a0ba-65b81fa9c32e.png"
+  },
+  {
+    "id": "tuxedo-fin-ears-extracted",
+    "assetId": "tuxedo-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-fin-ears-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact isolated fur parts onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-fin-ears-extracted.png",
+    "status": "rejected",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-65aee553-81d6-40d8-8d53-ebc82eeff797.png"
+  },
+  {
+    "id": "tuxedo-small-lion-mane-ivory",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-small-lion-mane.png"
+    ],
+    "prompt": "Change ONLY the orange fur on this isolated game sprite layer to charcoal-black tuxedo fur. Keep pink ear membranes and white fur white if present. Preserve exact shape, every fur strand, size, spacing and position of the isolated parts. No cat, no other parts. Put on solid flat ivory background #f4f0e5. Same1254squarecanvas and framing.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-lion-mane-ivory.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-91e512d9-b57e-43a3-b390-f541281e470c.png"
+  },
+  {
+    "id": "tuxedo-small-lion-mane-extracted",
+    "assetId": "tuxedo-small-lion-mane",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-lion-mane-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact isolated fur parts onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-small-lion-mane-extracted.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-e56128de-ff46-4773-9924-b65c3993ec34.png"
+  },
+  {
+    "id": "tuxedo-forked-tail-tip-ivory",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/packages/asset-catalog/assets/v0.10.0-candidate.1/orange-white-forked-tail-tip.png"
+    ],
+    "prompt": "Change ONLY the orange fur on this isolated game sprite layer to charcoal-black tuxedo fur. Keep pink ear membranes and white fur white if present. Preserve exact shape, every fur strand, size, spacing and position of the isolated parts. No cat, no other parts. Put on solid flat ivory background #f4f0e5. Same1254squarecanvas and framing.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-forked-tail-tip-ivory.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-5575c998-cbff-41ec-98ed-f2d03777fb4b.png"
+  },
+  {
+    "id": "tuxedo-forked-tail-tip-extracted",
+    "assetId": "tuxedo-forked-tail-tip",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-forked-tail-tip-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the exact isolated fur parts onto a transparent background. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement, no recentering or scaling.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-forked-tail-tip-extracted.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-e03f51e7-54f3-4e71-bca3-d074ccc5af2e.png"
+  },
+  {
+    "id": "tuxedo-fin-ears-corrected",
+    "assetId": "tuxedo-fin-ears",
+    "inputs": [
+      "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-fin-ears-ivory.png"
+    ],
+    "prompt": "Use case: background-extraction. Extract the WHOLE TWO EARS INCLUDING PINK MEMBRANES AND STRUTS INTACT onto a transparent background. Remove ONLY ivory background. Pink ear membranes are solid parts of the ears and MUST remain opaque pink. Output RGBA PNG with transparent background. Retain original1254squarecanvas placement.",
+    "source": "C:/Project/QMonsterCreator/.worktrees/qmonster-material-spike/artifacts/design/combination-study/2026-09-15/sources/tuxedo-fin-ears-corrected.png",
+    "status": "pending",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-c9370867-fd73-4642-90be-159369299759.png"
+  }
+]

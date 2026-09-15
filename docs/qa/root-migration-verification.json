@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-09-15T07:08:46.576Z",
+  "resourceHashesPreserved": 39,
+  "approvalEvidencePreserved": true,
+  "dependenciesInRoot": true,
+  "combinationsCompared": 864,
+  "productionChecks": [
+    "Built Creator renders without any source/worktree access",
+    "Built hatchery SDK loads deployed catalog/assets and restores current JSON exactly",
+    "Previous integration envelope restores unchanged pixels and normalizes to the root snapshot"
+  ],
+  "errors": [],
+  "status": "passed"
+}
