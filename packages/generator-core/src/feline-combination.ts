@@ -6,11 +6,11 @@ export const COMBINATION_SLOTS = Object.freeze(['coat', 'expression', 'crown', '
 export const COMBINATION_OPTIONS = Object.freeze({
   coat: Object.freeze(['brown-tabby', 'orange-white', 'tuxedo', 'calico', 'colorpoint', 'rosetted'] as const),
   expression: Object.freeze(['parted-mouth', 'small-fangs', 'tongue-tip'] as const),
-  crown: Object.freeze(['none', 'dragon-horns', 'antlers'] as const),
+  crown: Object.freeze(['none', 'dragon-horns', 'antlers', 'halo'] as const),
   ears: Object.freeze(['none', 'fin-ears'] as const),
-  neck: Object.freeze(['none', 'small-lion-mane'] as const),
-  back: Object.freeze(['none', 'small-wings'] as const),
-  tailTip: Object.freeze(['none', 'forked-tail-tip'] as const),
+  neck: Object.freeze(['none', 'small-lion-mane', 'frill-neck'] as const),
+  back: Object.freeze(['none', 'small-wings', 'feathered-wings', 'dragon-wings'] as const),
+  tailTip: Object.freeze(['none', 'forked-tail-tip', 'flame-tail'] as const),
 })
 
 export type FelineCombinationSlot = typeof COMBINATION_SLOTS[number]

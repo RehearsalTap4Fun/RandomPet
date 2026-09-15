@@ -552,6 +552,76 @@
         "reference": "docs/releases/v0.10.0/provenance/3619580efd7bd21d491f11713e7d2d3d6a444fc6d0ef20a6897f65a0368c0ee5.png",
         "prompt": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json"
       }
+    },
+    "halo": {
+      "id": "halo",
+      "path": "packages/asset-catalog/assets/v0.10.0/halo.png",
+      "sha256": "de47f79ae4d22ad319f81dd11eacb9684005e04d15d7d20ebd1a0ede278ef264",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "approved",
+      "provenance": {
+        "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+        "prompt": "docs/art/mutation-batch1/generations.json"
+      }
+    },
+    "dragon-wings": {
+      "id": "dragon-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/dragon-wings.png",
+      "sha256": "b1a49eeef6c5775a96140a35b2b98482506a51de539fcace5e4a928f8b4a8312",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "approved",
+      "provenance": {
+        "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+        "prompt": "docs/art/mutation-batch1/generations.json"
+      }
+    },
+    "feathered-wings": {
+      "id": "feathered-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/feathered-wings.png",
+      "sha256": "286b0f30c6480dfe28e4b64c69797ddcd3cab3d38a2bf769ceb4e36f24a1567b",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "approved",
+      "provenance": {
+        "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+        "prompt": "docs/art/mutation-batch1/generations.json"
+      }
+    },
+    "frill-neck": {
+      "id": "frill-neck",
+      "path": "packages/asset-catalog/assets/v0.10.0/frill-neck.png",
+      "sha256": "49d291923c1b5654f15d5aed7dfb3bbf173728d2de0b687e8a81fcbb1545b917",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "approved",
+      "provenance": {
+        "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+        "prompt": "docs/art/mutation-batch1/generations.json"
+      }
+    },
+    "flame-tail": {
+      "id": "flame-tail",
+      "path": "packages/asset-catalog/assets/v0.10.0/flame-tail.png",
+      "sha256": "64db2ed9ab0acf776ef7709ec1e1b9ca44d7f926bd2d938ce6944bb3df80abdf",
+      "width": 1254,
+      "height": 1254,
+      "mediaType": "image/png",
+      "hasAlpha": true,
+      "review": "approved",
+      "provenance": {
+        "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+        "prompt": "docs/art/mutation-batch1/generations.json"
+      }
     }
   },
   "bodies": {
@@ -593,7 +663,12 @@
       "antlers": "antlers",
       "fin-ears": "brown-tabby-fin-ears",
       "small-lion-mane": "brown-tabby-small-lion-mane",
-      "forked-tail-tip": "brown-tabby-forked-tail-tip"
+      "forked-tail-tip": "brown-tabby-forked-tail-tip",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
     },
     "orange-white": {
       "dragon-horns": "dragon-horns",
@@ -601,7 +676,12 @@
       "small-wings": "small-wings",
       "antlers": "antlers",
       "forked-tail-tip": "orange-white-forked-tail-tip",
-      "small-lion-mane": "orange-white-small-lion-mane"
+      "small-lion-mane": "orange-white-small-lion-mane",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
     },
     "tuxedo": {
       "dragon-horns": "dragon-horns",
@@ -609,7 +689,12 @@
       "antlers": "antlers",
       "small-lion-mane": "tuxedo-small-lion-mane",
       "forked-tail-tip": "tuxedo-forked-tail-tip",
-      "fin-ears": "tuxedo-fin-ears"
+      "fin-ears": "tuxedo-fin-ears",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
     },
     "calico": {
       "dragon-horns": "dragon-horns",
@@ -617,7 +702,12 @@
       "antlers": "antlers",
       "fin-ears": "calico-fin-ears",
       "small-lion-mane": "calico-small-lion-mane",
-      "forked-tail-tip": "calico-forked-tail-tip"
+      "forked-tail-tip": "calico-forked-tail-tip",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
     },
     "colorpoint": {
       "dragon-horns": "dragon-horns",
@@ -625,7 +715,12 @@
       "antlers": "antlers",
       "fin-ears": "colorpoint-fin-ears",
       "small-lion-mane": "colorpoint-small-lion-mane",
-      "forked-tail-tip": "colorpoint-forked-tail-tip"
+      "forked-tail-tip": "colorpoint-forked-tail-tip",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
     },
     "rosetted": {
       "dragon-horns": "dragon-horns",
@@ -633,7 +728,12 @@
       "antlers": "antlers",
       "fin-ears": "rosetted-fin-ears",
       "small-lion-mane": "rosetted-small-lion-mane",
-      "forked-tail-tip": "rosetted-forked-tail-tip"
+      "forked-tail-tip": "rosetted-forked-tail-tip",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
     }
   }
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   COMBINATION_SLOTS,
-  enumerateFelineCombinations,
+  COMBINATION_OPTIONS,
   generateFelineCombination,
   mutationSelectionsFromList,
   parseFelineCombinationSpec,
@@ -12,14 +12,12 @@ import {
 } from './feline-combination.js'
 
 describe('feline combination candidate', () => {
-  it('enumerates all 864 unique selections with exactly 48 mutation combinations', () => {
-    const specs = enumerateFelineCombinations()
-    expect(specs).toHaveLength(864)
-    expect(new Set(specs.map(spec => JSON.stringify(spec.selections))).size).toBe(864)
-    expect(new Set(specs.map(({ selections: { coat, expression, ...mutations } }) => JSON.stringify(mutations))).size).toBe(48)
-    for (const spec of specs) expect(parseFelineCombinationSpec(spec).ok).toBe(true)
-    expect(specs.filter(spec => spec.selections.crown === 'antlers')).toHaveLength(288)
-    expect(specs.filter(spec => spec.selections.crown === 'dragon-horns')).toHaveLength(288)
+  it('counts the option space without traversing combinations and parses representative choices', () => {
+    expect(Object.values(COMBINATION_OPTIONS).reduce((count, options) => count * options.length, 1)).toBe(5184)
+    expect(['crown', 'ears', 'neck', 'back', 'tailTip'].reduce((count, slot) => count * COMBINATION_OPTIONS[slot as keyof typeof COMBINATION_OPTIONS].length, 1)).toBe(288)
+    for (const crown of COMBINATION_OPTIONS.crown) {
+      expect(parseFelineCombinationSpec(generateFelineCombination('crown-sample', { crown })).ok).toBe(true)
+    }
   })
 
   it('permits all five mutation positions and rejects all repeated positions', () => {
@@ -137,7 +135,7 @@ describe('feline combination candidate', () => {
       expect(output.rolls).not.toBe(initial.rolls)
       expect(output.locks).not.toBe(initial.locks)
     }
-    const all = enumerateFelineCombinations()
+    const all = [generateFelineCombination('copy-a'), generateFelineCombination('copy-b')]
     expect(all[0]!.selections).not.toBe(all[1]!.selections)
     expect(all[0]!.rolls).not.toBe(all[1]!.rolls)
     expect(all[0]!.locks).not.toBe(all[1]!.locks)

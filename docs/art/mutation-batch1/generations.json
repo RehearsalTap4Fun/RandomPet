@@ -1,0 +1,308 @@
+[
+  {
+    "id": "halo",
+    "assetId": "halo",
+    "slot": "crown",
+    "tier": "L",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement reference; do NOT draw the cat, its ears, fur, ground or shadow. Create ONLY a floating golden halo: one thin glowing ring seen in slight perspective (an ellipse), soft warm light bloom, no chain, no support, no sparkles outside the ring. Center the ring at about (560,45); it spans x=420..700 and y=15..85. The ring will be layered BEHIND the cat, so the ear tips (which reach about y=58) may overlap the ring; that is intended. Plush-toy render style with the same upper-left key light as image 1. Everything outside the ring and its soft glow must be true transparent RGBA (alpha 0), not gray squares or any background.",
+    "status": "rejected",
+    "tool": "image_gen",
+    "stage": "initial",
+    "source": "docs/art/mutation-batch1/sources/initial/halo.png",
+    "archive": "docs/art/mutation-batch1/sources/initial/halo.png",
+    "reason": "RGB checkerboard background, not true alpha",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-b5bcd227-9df6-410c-ba3b-a45726cf5600.png"
+  },
+  {
+    "id": "halo",
+    "assetId": "halo",
+    "slot": "crown",
+    "tier": "L",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. This is a game sprite production intermediate. Edit Image 1 only. Keep the exact asset design, silhouette, materials, colors and internal texture. Replace ALL checkerboard patterns, cat-shaped traces, grey mottling and cast shadows outside the named halo asset with uniform solid pure black #000000. This is deliberately an OPAQUE FLAT BACKGROUND for offline keying, not a transparent preview: DO NOT draw any squares, grid, paper, texture or lighting gradient in the background. The entire empty canvas must have exactly one flat background color. Preserve foreground fine edges and the warm glow fading smoothly into the pure black background. No cat, no text, no markings, no ground, no shadow. Output 1254x1254 square. Keep the component alone and the broad transparent-margin layout of Image 1; exact final placement will be handled offline.",
+    "status": "pending",
+    "tool": "image_gen",
+    "stage": "solid-background",
+    "source": "docs/art/mutation-batch1/sources/solid/halo.png",
+    "archive": "docs/art/mutation-batch1/sources/solid/halo.png",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-935c659b-621a-46a3-bd99-82238e018cb8.png"
+  },
+  {
+    "id": "dragon-wings",
+    "assetId": "dragon-wings",
+    "slot": "back",
+    "tier": "L",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement and silhouette reference; do NOT draw the cat. Image 2 is ONLY a color reference for the translucent pink-orange membrane used on the fin ears. Create ONLY a pair of LARGE dragon wings to be layered BEHIND the kitten: dark charcoal-brown plush wing fingers with translucent pink-orange membranes, soft fabric texture, no scales, no body. The wings emerge from behind the shoulders at about y=560, then spread up and outward: left wing tip near (60,180), right wing tip near (1200,150). The torso region x=330..1000, y=560..900 will be hidden by the cat, so the wing roots may be simple there. Each wing must read clearly OUTSIDE the cat silhouette (the cat occupies x=139..1204, y=58..1224 and is widest at the haunches near y=900..1100). Keep all wing pixels within x=20..1240, y=120..940. True transparent RGBA background elsewhere; no checkerboard, no ground, no shadow; same upper-left key light as image 1.",
+    "status": "rejected",
+    "tool": "image_gen",
+    "stage": "initial",
+    "source": "docs/art/mutation-batch1/sources/initial/dragon-wings.png",
+    "archive": "docs/art/mutation-batch1/sources/initial/dragon-wings.png",
+    "reason": "RGB checkerboard background, not true alpha",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-4190eac3-1fce-41c6-9f01-2b009df3bfc6.png"
+  },
+  {
+    "id": "dragon-wings",
+    "assetId": "dragon-wings",
+    "slot": "back",
+    "tier": "L",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png"
+    ],
+    "prompt": "Use case: precise-object-edit. This is a game sprite production intermediate. Edit Image 1 only. Keep the exact asset design, silhouette, materials, colors and internal texture. Replace ALL checkerboard patterns, cat-shaped traces, grey mottling and cast shadows outside the named dragon-wings asset with uniform solid chroma green #00FF00. This is deliberately an OPAQUE FLAT BACKGROUND for offline keying, not a transparent preview: DO NOT draw any squares, grid, paper, texture or lighting gradient in the background. The entire empty canvas must have exactly one flat background color. Preserve foreground fine edges and fine plush/feather edges, WITHOUT any green rim light or green color spill. No cat, no text, no markings, no ground, no shadow. Output 1254x1254 square. Keep the component alone and the broad transparent-margin layout of Image 1; exact final placement will be handled offline.",
+    "status": "pending",
+    "tool": "image_gen",
+    "stage": "solid-background",
+    "source": "docs/art/mutation-batch1/sources/solid/dragon-wings.png",
+    "archive": "docs/art/mutation-batch1/sources/solid/dragon-wings.png",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-8e46b7ad-f948-4578-8ff8-9d169560fb8d.png"
+  },
+  {
+    "id": "feathered-wings",
+    "assetId": "feathered-wings",
+    "slot": "back",
+    "tier": "R",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement and silhouette reference; do NOT draw the cat. Create ONLY a pair of soft cream-white feathered bird wings, clearly larger than the kitten's head, to be layered BEHIND the kitten. Wing roots sit behind the shoulders (the region x=330..1000, y=560..760 will be hidden by the cat). The wings rise above the shoulder line with layered primary and covert feathers, warm gray shading in the feather grooves, wing tips near (170,300) and (1090,290). Each wing must read clearly OUTSIDE the cat silhouette at thumbnail size. Keep all pixels within x=100..1160, y=250..880. True transparent RGBA background elsewhere; no checkerboard, no ground, no shadow; same upper-left key light as image 1.",
+    "status": "rejected",
+    "tool": "image_gen",
+    "stage": "initial",
+    "source": "docs/art/mutation-batch1/sources/initial/feathered-wings.png",
+    "archive": "docs/art/mutation-batch1/sources/initial/feathered-wings.png",
+    "reason": "RGB checkerboard background, not true alpha",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-ce2feb4d-8fe2-4373-a1a1-1f129ef0321d.png"
+  },
+  {
+    "id": "feathered-wings",
+    "assetId": "feathered-wings",
+    "slot": "back",
+    "tier": "R",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. This is a game sprite production intermediate. Edit Image 1 only. Keep the exact asset design, silhouette, materials, colors and internal texture. Replace ALL checkerboard patterns, cat-shaped traces, grey mottling and cast shadows outside the named feathered-wings asset with uniform solid chroma green #00FF00. This is deliberately an OPAQUE FLAT BACKGROUND for offline keying, not a transparent preview: DO NOT draw any squares, grid, paper, texture or lighting gradient in the background. The entire empty canvas must have exactly one flat background color. Preserve foreground fine edges and fine plush/feather edges, WITHOUT any green rim light or green color spill. No cat, no text, no markings, no ground, no shadow. Output 1254x1254 square. Keep the component alone and the broad transparent-margin layout of Image 1; exact final placement will be handled offline.",
+    "status": "pending",
+    "tool": "image_gen",
+    "stage": "solid-background",
+    "source": "docs/art/mutation-batch1/sources/solid/feathered-wings.png",
+    "archive": "docs/art/mutation-batch1/sources/solid/feathered-wings.png",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-903a235e-b963-4f25-93f4-ba1f7ebd3c66.png"
+  },
+  {
+    "id": "frill-neck",
+    "assetId": "frill-neck",
+    "slot": "neck",
+    "tier": "R",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement and silhouette reference; do NOT draw the cat. Image 2 is ONLY a color reference for the translucent pink-orange membrane and dark ribs used on the fin ears. Create ONLY a frilled-lizard style neck frill to be layered BEHIND the kitten's head: a wide semi-circular translucent pink-orange membrane with dark radiating ribs, fanned open behind the head and neck, spanning x=150..1000 and y=330..900. Its lower edge tucks behind the chest; its top edge reaches just below the ear tips. The center region covered by the head (about x=330..900, y=180..700) may be left blank. The frill must read clearly on both sides of the head at thumbnail size. Keep all pixels within x=140..1010, y=320..910. True transparent RGBA background elsewhere; no checkerboard, no ground, no shadow; same upper-left key light as image 1.",
+    "status": "rejected",
+    "tool": "image_gen",
+    "stage": "initial",
+    "source": "docs/art/mutation-batch1/sources/initial/frill-neck.png",
+    "archive": "docs/art/mutation-batch1/sources/initial/frill-neck.png",
+    "reason": "RGB checkerboard background, not true alpha",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-893a6c0a-777c-428b-bfd3-6f0c4fca5ee6.png"
+  },
+  {
+    "id": "frill-neck",
+    "assetId": "frill-neck",
+    "slot": "neck",
+    "tier": "R",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png"
+    ],
+    "prompt": "Use case: precise-object-edit. This is a game sprite production intermediate. Edit Image 1 only. Correct the frill to thin dark charcoal-brown radiating ribs and a narrow dark fabric edge; remove all orange fluffy fur trim. Preserve the pink-orange membrane and wide horseshoe fan shape. Replace ALL checkerboard patterns, cat-shaped traces, grey mottling and cast shadows outside the named frill-neck asset with uniform solid chroma green #00FF00. This is deliberately an OPAQUE FLAT BACKGROUND for offline keying, not a transparent preview: DO NOT draw any squares, grid, paper, texture or lighting gradient in the background. The entire empty canvas must have exactly one flat background color. Preserve foreground fine edges and fine plush/feather edges, WITHOUT any green rim light or green color spill. No cat, no text, no markings, no ground, no shadow. Output 1254x1254 square. Keep the component alone and the broad transparent-margin layout of Image 1; exact final placement will be handled offline.",
+    "status": "pending",
+    "tool": "image_gen",
+    "stage": "solid-background",
+    "source": "docs/art/mutation-batch1/sources/solid/frill-neck.png",
+    "archive": "docs/art/mutation-batch1/sources/solid/frill-neck.png",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-b1f52240-c3ad-4d91-84e5-386a2e90b5ca.png"
+  },
+  {
+    "id": "flame-tail",
+    "assetId": "flame-tail",
+    "slot": "tailTip",
+    "tier": "R",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/orange-white-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement reference; do NOT draw the cat. Image 2 is ONLY a shape and position reference: a complete replacement cat tail on the right side. Create ONLY a complete replacement tail made of fire, to be layered BEHIND the kitten: a tail-shaped plume of orange-gold flame with a glowing yellow core and soft red-orange edges, following the same path as the reference tail: one rounded root at about (900,1090) hidden behind the right haunch, sweeping right to (1090,860), rising to (1030,560), tip near (1000,400). One continuous flame tail from root to tip, no severed segments, no second tail. The renderer removes the original tail inside x=895..1254, y=350..1160, so the flame tail must fully cover that footprint where a tail would be, and nothing else. Keep all pixels within x=880..1235, y=380..1135; a subtle warm glow is allowed but must stay inside this box. True transparent RGBA background elsewhere; no checkerboard, no ground, no shadow.",
+    "status": "rejected",
+    "tool": "image_gen",
+    "stage": "initial",
+    "source": "docs/art/mutation-batch1/sources/initial/flame-tail.png",
+    "archive": "docs/art/mutation-batch1/sources/initial/flame-tail.png",
+    "reason": "RGB checkerboard background, not true alpha",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-06bc70bd-c855-45ce-8f4e-9cbb047089fb.png"
+  },
+  {
+    "id": "flame-tail",
+    "assetId": "flame-tail",
+    "slot": "tailTip",
+    "tier": "R",
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/orange-white-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: precise-object-edit. This is a game sprite production intermediate. Edit Image 1 only. Keep one continuous sweeping fire tail with one root. Make the upper end a single rising flame plume rather than two distinct forked cat-tail lobes. Replace ALL checkerboard patterns, cat-shaped traces, grey mottling and cast shadows outside the named flame-tail asset with uniform solid pure black #000000. This is deliberately an OPAQUE FLAT BACKGROUND for offline keying, not a transparent preview: DO NOT draw any squares, grid, paper, texture or lighting gradient in the background. The entire empty canvas must have exactly one flat background color. Preserve foreground fine edges and the warm glow fading smoothly into the pure black background. No cat, no text, no markings, no ground, no shadow. Output 1254x1254 square. Keep the component alone and the broad transparent-margin layout of Image 1; exact final placement will be handled offline.",
+    "status": "pending",
+    "tool": "image_gen",
+    "stage": "solid-background",
+    "source": "docs/art/mutation-batch1/sources/solid/flame-tail.png",
+    "archive": "docs/art/mutation-batch1/sources/solid/flame-tail.png",
+    "generatedSource": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a09ee4-3d4c-70c2-85aa-c0e0a17d0bb4\\exec-6144718a-33b2-4c1d-8e3e-5a9c271248ba.png"
+  },
+  {
+    "id": "halo",
+    "stage": "final",
+    "status": "approved",
+    "output": "packages/asset-catalog/assets/v0.10.0/halo.png",
+    "source": "docs/art/mutation-batch1/sources/solid/halo.png",
+    "sourceSha256": "bd9a5235a1e41f5868c03144306ac1832a25ce2a8189034d01637644ee245f61",
+    "sourceBounds": {
+      "left": 403,
+      "top": 8,
+      "width": 456,
+      "height": 163
+    },
+    "offlinePlacement": {
+      "background": "black",
+      "left": 420,
+      "top": 15,
+      "width": 280,
+      "height": 70
+    },
+    "sha256": "de47f79ae4d22ad319f81dd11eacb9684005e04d15d7d20ebd1a0ede278ef264",
+    "transparentPixels": 1556026,
+    "fractionalPixels": 15715,
+    "visiblePixels": 16490,
+    "processing": "User-authorized offline background keying and final-coordinate placement; no runtime registration.",
+    "approval": "docs/releases/v0.10.0/mutation-batch1/approval.json"
+  },
+  {
+    "id": "dragon-wings",
+    "stage": "final",
+    "status": "approved",
+    "output": "packages/asset-catalog/assets/v0.10.0/dragon-wings.png",
+    "source": "docs/art/mutation-batch1/sources/solid/dragon-wings.png",
+    "sourceSha256": "76ddee493a07fc2957e507de86dca798593fc82265c80163579d013d3dc42b15",
+    "sourceBounds": {
+      "left": 23,
+      "top": 155,
+      "width": 1208,
+      "height": 607
+    },
+    "offlinePlacement": {
+      "background": "green",
+      "left": 20,
+      "top": 120,
+      "width": 1220,
+      "height": 820
+    },
+    "sha256": "b1a49eeef6c5775a96140a35b2b98482506a51de539fcace5e4a928f8b4a8312",
+    "transparentPixels": 1175001,
+    "fractionalPixels": 12061,
+    "visiblePixels": 397515,
+    "processing": "User-authorized offline background keying and final-coordinate placement; no runtime registration.",
+    "approval": "docs/releases/v0.10.0/mutation-batch1/approval.json"
+  },
+  {
+    "id": "feathered-wings",
+    "stage": "final",
+    "status": "approved",
+    "output": "packages/asset-catalog/assets/v0.10.0/feathered-wings.png",
+    "source": "docs/art/mutation-batch1/sources/solid/feathered-wings.png",
+    "sourceSha256": "cb2d14293980b96378a3e4e04c6443821621de2430fca3bb62bb4b593255d7de",
+    "sourceBounds": {
+      "left": 74,
+      "top": 199,
+      "width": 1109,
+      "height": 815
+    },
+    "offlinePlacement": {
+      "background": "green",
+      "left": 100,
+      "top": 250,
+      "width": 1060,
+      "height": 630
+    },
+    "sha256": "286b0f30c6480dfe28e4b64c69797ddcd3cab3d38a2bf769ceb4e36f24a1567b",
+    "transparentPixels": 1253057,
+    "fractionalPixels": 24721,
+    "visiblePixels": 319459,
+    "processing": "User-authorized offline background keying and final-coordinate placement; no runtime registration.",
+    "approval": "docs/releases/v0.10.0/mutation-batch1/approval.json"
+  },
+  {
+    "id": "frill-neck",
+    "stage": "final",
+    "status": "approved",
+    "output": "packages/asset-catalog/assets/v0.10.0/frill-neck.png",
+    "source": "docs/art/mutation-batch1/sources/solid/frill-neck.png",
+    "sourceSha256": "260bb838b0521ecdaaab7f5083064abfea00aaec1179a1d35cb9e9a3a30b4f5c",
+    "sourceBounds": {
+      "left": 56,
+      "top": 261,
+      "width": 1142,
+      "height": 748
+    },
+    "offlinePlacement": {
+      "background": "green",
+      "left": 140,
+      "top": 320,
+      "width": 870,
+      "height": 590
+    },
+    "sha256": "49d291923c1b5654f15d5aed7dfb3bbf173728d2de0b687e8a81fcbb1545b917",
+    "transparentPixels": 1306265,
+    "fractionalPixels": 12135,
+    "visiblePixels": 266251,
+    "processing": "User-authorized offline background keying and final-coordinate placement; no runtime registration.",
+    "approval": "docs/releases/v0.10.0/mutation-batch1/approval.json"
+  },
+  {
+    "id": "flame-tail",
+    "stage": "final",
+    "status": "approved",
+    "output": "packages/asset-catalog/assets/v0.10.0/flame-tail.png",
+    "source": "docs/art/mutation-batch1/sources/solid/flame-tail.png",
+    "sourceSha256": "04713ec91a374cbbd010c1a7c1b659b50b50316f548b2c8a65926af95d738bb2",
+    "sourceBounds": {
+      "left": 696,
+      "top": 184,
+      "width": 503,
+      "height": 1026
+    },
+    "offlinePlacement": {
+      "background": "black",
+      "left": 880,
+      "top": 380,
+      "width": 355,
+      "height": 755
+    },
+    "sha256": "64db2ed9ab0acf776ef7709ec1e1b9ca44d7f926bd2d938ce6944bb3df80abdf",
+    "transparentPixels": 1414103,
+    "fractionalPixels": 149679,
+    "visiblePixels": 158413,
+    "processing": "User-authorized offline background keying and final-coordinate placement; no runtime registration.",
+    "approval": "docs/releases/v0.10.0/mutation-batch1/approval.json"
+  }
+]

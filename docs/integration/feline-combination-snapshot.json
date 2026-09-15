@@ -4,23 +4,26 @@
   "catalogVersion": "0.10.0-candidate.1",
   "templateVersion": "feline-sit-v1",
   "catalogFile": "packages/asset-catalog/catalog/v0.10.0/catalog.json",
-  "catalogSha256": "e8521aa263ed1d8e8788a977fcb560ecc8b0848e5136b31eb308d58c9b452bc0",
-  "runtimeRevision": "de35c6f2b58dc641e2d6594e3a8f888d2c2902fbd493e73e966611dc21284ec8",
+  "catalogSha256": "0335298cbb50ef888f4afa2bdf339c2133ddc7d0a40177f4f3a4cdd226635f22",
+  "runtimeRevision": "942d401f8013f4def2ff027d0839a34ad58a608774f532629d0845d318994cf4",
   "sourceHashes": {
+    "docs/releases/v0.10.0/mutation-batch1/approval.json": "a80116a9f24f037e97f0039b79ae0c318cff17ee2c75b9a7e019e10fd7d86b8f",
+    "docs/releases/v0.10.0/mutation-batch1/previous-snapshot.json": "7b25a8edba0bcdd8d019eca261cc565b931d25992f77e4c4bb0d386317b9c304",
+    "docs/releases/v0.10.0/mutation-batch1/review-snapshot.json": "82df2b8a18e1524e3ac1ca04935cc2a69a012728156c10679a00946289489565",
     "docs/releases/v0.10.0/previous-snapshot.json": "c281518bd90d71b0210bcbf8b0d9d5e0483d0763ccada23865b6fb8e26d31344",
     "package-lock.json": "aef17ee17674a51aa75c11e81669340b0b7a916b78cf4f8298e3835f2cd11ff0",
-    "packages/asset-catalog/catalog/v0.10.0/catalog.json": "e8521aa263ed1d8e8788a977fcb560ecc8b0848e5136b31eb308d58c9b452bc0",
-    "packages/asset-catalog/src/feline-combination-catalog.ts": "9fa9c16fd443462d8aae0156ce804bf147f38a4be4fbca4f27ee07d47e2a38f8",
+    "packages/asset-catalog/catalog/v0.10.0/catalog.json": "0335298cbb50ef888f4afa2bdf339c2133ddc7d0a40177f4f3a4cdd226635f22",
+    "packages/asset-catalog/src/feline-combination-catalog.ts": "3ee8313f7efe485dd27419ad3e97b32c50ee6aa8da6aa58f5f58a4f4befd1f5f",
     "packages/asset-catalog/src/index.ts": "32f600ba24e173b2e58eac3c3d2867456af66be757086046070a07b24c4d8ba5",
     "packages/generator-core/src/contracts.ts": "f9a9bc7b14c31d16a0c7eee8de7c0212be983a6d9742936c52a77815a6d394e8",
-    "packages/generator-core/src/feline-combination.ts": "57be9add0aecb1ca537856283059307195e7a14d59dca66c090562ab2c08d56b",
+    "packages/generator-core/src/feline-combination.ts": "4cf2970c0b1a4eee9dcbda20f7a481ff3abb84e51d0f6dfacc641d971dc3a5bd",
     "packages/generator-core/src/index.ts": "4b935527e915b19fdd45fa28ba2d7ac3dfd4863c6c376d13222701dcbc535665",
     "packages/generator-core/src/prng.ts": "4744758cd23c30336d7bd70b95589d9462883bdc8650021d09d54cb0b551eefe",
-    "packages/incubator-adapter/src/feline-hatchery.ts": "62db441e58eff92ba4a6b635ad1c771cc01fe1934cf34b075b96d42237f3823d",
+    "packages/incubator-adapter/src/feline-hatchery.ts": "6e5977c24e5aec5d1d514b726a67a51beb1a4c9a5ae8579fd5006e183657cf1e",
     "packages/incubator-adapter/src/index.ts": "d5c8541b9e67764ea5f1b882f7118344b0dbe8bfa6bf17187c6ed9848d377bcd",
     "packages/renderer-canvas/src/export.ts": "9c582c4ba665e0dd9814d94dc31bdd247a2e84f8957dbd392894a9b4dcd7a457",
     "packages/renderer-canvas/src/feline-combination-registration.json": "cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771",
-    "packages/renderer-canvas/src/feline-combination-render.ts": "9c73922a2a33d61b0c52526a15d1a74c4ee3d055d18066752ffb0d134d660d01",
+    "packages/renderer-canvas/src/feline-combination-render.ts": "c195fbe19a3ee4bd1e827cc6d1508e892a46e6e9cfd10ce722b7104aa93aabba",
     "packages/renderer-canvas/src/index.ts": "7c506ee25da54115ebd5c2c34282af726f90a8cf022f520ac674fba2e05802b5"
   },
   "resources": [
@@ -218,6 +221,31 @@
       "id": "rosetted-forked-tail-tip",
       "path": "packages/asset-catalog/assets/v0.10.0/rosetted-forked-tail-tip.png",
       "sha256": "7e1a89d6ded7c18eb2c0925bcd10134b8b65452faccee0d54cc3c68b1bbef4ea"
+    },
+    {
+      "id": "halo",
+      "path": "packages/asset-catalog/assets/v0.10.0/halo.png",
+      "sha256": "de47f79ae4d22ad319f81dd11eacb9684005e04d15d7d20ebd1a0ede278ef264"
+    },
+    {
+      "id": "dragon-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/dragon-wings.png",
+      "sha256": "b1a49eeef6c5775a96140a35b2b98482506a51de539fcace5e4a928f8b4a8312"
+    },
+    {
+      "id": "feathered-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/feathered-wings.png",
+      "sha256": "286b0f30c6480dfe28e4b64c69797ddcd3cab3d38a2bf769ceb4e36f24a1567b"
+    },
+    {
+      "id": "frill-neck",
+      "path": "packages/asset-catalog/assets/v0.10.0/frill-neck.png",
+      "sha256": "49d291923c1b5654f15d5aed7dfb3bbf173728d2de0b687e8a81fcbb1545b917"
+    },
+    {
+      "id": "flame-tail",
+      "path": "packages/asset-catalog/assets/v0.10.0/flame-tail.png",
+      "sha256": "64db2ed9ab0acf776ef7709ec1e1b9ca44d7f926bd2d938ce6944bb3df80abdf"
     }
   ],
   "migrationRecord": "docs/releases/v0.10.0/migration.json"

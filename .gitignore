@@ -6,3 +6,5 @@ coverage/
 .vite/
 *.local
 *.tsbuildinfo
+# Interrupted full-combination previews; excluded from the bounded review deliverable.
+docs/qa/mutation-batch1/renders/

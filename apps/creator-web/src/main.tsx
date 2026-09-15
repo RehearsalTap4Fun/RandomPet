@@ -20,6 +20,7 @@ const optionLabels: Record<string, string> = {
   'small-fangs': '两颗小牙', 'tongue-tip': '轻吐舌', none: '无异变',
   'dragon-horns': '小龙角', antlers: '鹿角', 'fin-ears': '鳍耳',
   'small-lion-mane': '小狮鬃', 'small-wings': '小翅膀', 'forked-tail-tip': '分叉尾尖',
+  halo: '光环', 'dragon-wings': '龙翼', 'feathered-wings': '羽翼', 'frill-neck': '伞蜥颈膜', 'flame-tail': '焰尾',
 }
 const assetUrls = import.meta.glob('../../../packages/asset-catalog/assets/v0.10.0/*.png', {
   query: '?url', import: 'default', eager: true,
@@ -194,7 +195,7 @@ function FelineWorkbench() {
           }} /></label></div>
           <label htmlFor="feline-import-json">也可粘贴规格 JSON</label><textarea id="feline-import-json" rows={5} value={importText} onChange={event => { importEpoch.current += 1; setImportText(event.target.value) }} placeholder="粘贴导出的完整规格…" spellCheck={false} /><button onClick={() => importSpec(importText)}>应用规格</button>
         </details>
-        <p className="feline-footer-note">6 种花纹 · 3 套表情 · 48 种异变组合<br />各位置独立抽取，同位置异变互斥。</p>
+        <p className="feline-footer-note">6 种花纹 · 3 套表情 · 288 种异变组合<br />各位置独立抽取，同位置异变互斥。</p>
       </section>
     </div>
   </main>

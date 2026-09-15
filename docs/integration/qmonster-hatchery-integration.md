@@ -1,21 +1,21 @@
 # QMonster × 孵化项目接入指南
 
-文档版本：3.0。更新日期：2026-09-15。工程根目录为 `C:/Project/QMonsterCreator`，所有运行、安装和构建操作从该目录开始。
+文档版本：3.1（异变批次 1）。更新日期：2026-09-15。工程根目录为 `C:/Project/QMonsterCreator`，所有运行、安装和构建操作从该目录开始。
 
 ## 工程与发布入口
 
-工作台入口为 `apps/creator-web/index.html`。运行 `npm ci`、`npm run dev` 后访问 `http://127.0.0.1:4184/`。当前实现支持 6 花纹 × 3 完整表情 × 48 异变组合，共 864 种。
+工作台入口为 `apps/creator-web/index.html`。运行 `npm ci`、`npm run dev` 后访问 `http://127.0.0.1:4184/`。当前组合空间为 6 花纹 × 3 完整表情 × 288 异变组合，共 5,184 种；本批只验证代表样本，未完成全空间视觉验收。
 
 `npm run build` 生成两个独立交付目录：
 
 | 目录 | 用途 |
 | --- | --- |
 | `dist/creator/` | 工作台网站，发布此目录即可运行 |
-| `dist/hatchery/` | 孵化 SDK：`qmonster.js`、`snapshot.json`、目录 JSON 和 39 张 PNG |
+| `dist/hatchery/` | 孵化 SDK：`qmonster.js`、`snapshot.json`、目录 JSON 和 44 张 PNG |
 
 源码包均为 private workspace 包，版本为 `0.10.0`。同仓库项目可直接 import `@qmonster/incubator-adapter`；独立孵化项目使用 `dist/hatchery/qmonster.js`，无需访问源码或工作树，也不需要旧素材库。
 
-目录采用正式命名 `packages/asset-catalog/catalog/v0.10.0/` 与 `assets/v0.10.0/`。**为保持已存规格和 seed 结果不变，线上的数据字段 `spec.catalogVersion` 暂保留原值 `0.10.0-candidate.1`**，`spec.schemaVersion` 保持 `feline-combination-v1`。这是协议兼容标识，与包版本、文件目录名分开管理；不要自行替换存档中的字符串。
+目录采用正式命名 `packages/asset-catalog/catalog/v0.10.0/` 与 `assets/v0.10.0/`。数据字段 `spec.catalogVersion` 保留 `0.10.0-candidate.1`，`spec.schemaVersion` 保持 `feline-combination-v1`。这是协议兼容标识，与包版本、文件目录名分开管理；不要自行替换存档中的字符串。**本批扩展枚举后，相同 seed 在新运行版本重新生成或重掷的结果可能变化；完整旧存档按 selections 恢复，不重新抽样。**
 
 本工程使用[精确快照](feline-combination-snapshot.json)选择资源与运行实现，不读取旧 v0.9 active 指针。历史素材的人工批准范围保持原记录；目录迁移不扩大批准范围。
 
@@ -66,11 +66,11 @@ import { createFelineHatchery, mutationSelectionsFromList } from '@qmonster/incu
 | --- | --- |
 | coat | brown-tabby / orange-white / tuxedo / calico / colorpoint / rosetted |
 | expression | parted-mouth / small-fangs / tongue-tip |
-| crown | none / dragon-horns / antlers |
+| crown | none / dragon-horns / antlers / halo |
 | ears | none / fin-ears |
-| neck | none / small-lion-mane |
-| back | none / small-wings |
-| tailTip | none / forked-tail-tip |
+| neck | none / small-lion-mane / frill-neck |
+| back | none / small-wings / feathered-wings / dragon-wings |
+| tailTip | none / forked-tail-tip / flame-tail |
 
 不同位置可同时出现。同位置只能选一项，`mutationSelectionsFromList(['dragon-horns','antlers'])` 会报冲突。`mutationSelectionsFromList([])` 明确返回五个异变位置均为 `none`。
 
@@ -91,7 +91,7 @@ interface StoredFelineVisual {
 
 `spec` 必须包含 schemaVersion、catalogVersion、seed、七个 selections、七个 rolls 和 locks。严格规格拒绝未知字段；蛋 ID、账户、hatchId 和时间等业务身份放在外层。不要只存 seed，也不要恢复时重新抽样。
 
-`hatchery.restore(savedVisual)` 校验身份与规格后按保存的选项重绘。当前版本同时识别[迁移前的精确快照](../releases/v0.10.0/previous-snapshot.json)：读取该快照的旧封装时保留 spec 和图像，返回当前根目录快照身份。此兼容只覆盖已验证的这一个快照，不接受任意历史 runtimeRevision。
+`hatchery.restore(savedVisual)` 校验身份与规格后按保存的选项重绘。当前版本同时识别[迁移前快照](../releases/v0.10.0/previous-snapshot.json)和[本批扩展前快照](../releases/v0.10.0/mutation-batch1/previous-snapshot.json)：读取这两个精确身份的旧封装时保留 spec，返回当前快照身份。此外接受[本批验收阶段快照](../releases/v0.10.0/mutation-batch1/review-snapshot.json)，保留验收时保存的新异变规格与图像。只接受这三个精确历史身份；迁移前或扩展前身份携带本批新异变会报错。本批抽查的旧样本像素一致，不代表再次遍历所有旧组合。
 
 `result.image` 包含 blob、实际 mime、width、height 与 cacheKey。缓存键绑定目录哈希、运行版本、尺寸、实际 MIME 和完整 spec 的 canonical JSON 哈希；对象键排序、数组顺序保留。图片属于派生缓存，Blob URL 用完撤销，不作为永久地址。业务负责原子保存、hatchId 幂等和过期请求处理。
 
@@ -103,6 +103,8 @@ interface StoredFelineVisual {
 - 重掷可能重复原结果。计数为非负安全整数，锁定位置不能重复。
 
 工作台和孵化端共用同一合成入口。1254×1254 透明画布、耳与尾部移除、根部遮挡、定位和毛边处理全部由模板负责，业务不得额外拼接嘴巴或尾尖。
+
+新增五件素材均已离线去底并定位至最终画布坐标，渲染器按异变 ID 使用恒等变换；六花纹各投影到同一张共享 PNG。现有按花纹登记的耳、狮鬃和分叉尾保持旧定位。光环/龙翼为 L，羽翼/颈膜/焰尾为 R 的分层由孵化器业务规则控制，SDK 不内置稀有度概率。本批五件资源已按用户“没问题，这一批通过”的确认标记为 `approved`；[批准记录](../releases/v0.10.0/mutation-batch1/approval.json)固定五张 PNG 的哈希，其他历史资源批准范围不变。
 
 ## 发布校验与错误处理
 
@@ -123,7 +125,9 @@ npm run build
 # 下列命令需要另一个终端已运行 npm run dev
 npm run verify:integration
 npm run verify:workbench
-npm run verify:migration
+npm run verify:mutations # 固定 18 个代表样本，不跑全组合
 ```
 
-迁移验证比较全部 864 个组合的原始 RGBA，与迁移前结果逐项一致；同时验证独立构建的工作台和 SDK、旧封装恢复及素材完整性。记录见[根目录迁移说明](../releases/v0.10.0/README.md)。本仓库提供可运行 SDK 与接入契约，外部孵化项目的业务代码和部署仍由接入方完成。
+此前根目录迁移曾验证原 864 个组合，历史记录见[根目录迁移说明](../releases/v0.10.0/README.md)。本批依用户要求仅跑 18 个代表样本（其中 6 个对照旧像素），另提供 36 张六花纹素材对照图；详见[批次验收记录](../qa/mutation-batch1/README.md)。历史 `verify:migration` 是全量迁移审计，不属于本批日常检查。
+
+孵化器接入方应运行其项目的 `npm run sync:hatchery`，同步完整 `dist/hatchery/` 后将 `src/qmonster/feline/sdk.ts` 的 `FELINE_RUNTIME_REVISION` 更新为本仓库 `snapshot.json` 的值，随后做少量孵化/存档恢复检查。本仓库已提供 SDK 与契约；外部项目同步和部署未在本次执行。

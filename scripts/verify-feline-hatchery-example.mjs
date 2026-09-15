@@ -10,6 +10,9 @@ const origin = process.env.QMONSTER_VERIFY_URL || 'http://127.0.0.1:4184'
 const digest = bytes => createHash('sha256').update(bytes).digest('hex')
 const read = file => fs.readFile(path.join(root, file))
 const snapshot = JSON.parse(await read('docs/integration/feline-combination-snapshot.json'))
+const preBatchSnapshot = JSON.parse(await read('docs/releases/v0.10.0/mutation-batch1/previous-snapshot.json'))
+const previousSnapshot = JSON.parse(await read('docs/releases/v0.10.0/previous-snapshot.json'))
+const reviewSnapshot = JSON.parse(await read('docs/releases/v0.10.0/mutation-batch1/review-snapshot.json'))
 for (const [file, hash] of Object.entries(snapshot.sourceHashes)) assert.equal(digest(await read(file)), hash, file)
 assert.equal(digest(JSON.stringify(Object.fromEntries(Object.entries(snapshot.sourceHashes).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)))), snapshot.runtimeRevision)
 for (const resource of snapshot.resources) assert.equal(digest(await read(resource.path)), resource.sha256, resource.id)
@@ -29,7 +32,7 @@ try {
     window.integrationApi = {createFelineHatchery, mutationSelectionsFromList};` })
   await page.waitForFunction(() => window.integrationApi)
   const config = { catalogUrl: origin + prefix + snapshot.catalogFile, resourceBaseUrl: origin + prefix }
-  report.checks = await page.evaluate(async config => {
+  report.checks = await page.evaluate(async ({ config, preBatchSnapshot, previousSnapshot, reviewSnapshot }) => {
     const { createFelineHatchery, mutationSelectionsFromList } = window.integrationApi
     const check = (condition, name) => { if (!condition) throw new Error(name); checks.push(name) }
     const checks = []
@@ -57,6 +60,24 @@ try {
     check(initialPixels.width === 1254 && initialPixels.height === 1254 && initialPixels.alpha === 0, 'export is 1254px with transparent background')
     check(initialPixels.hash === (await pixels(restored.image.blob)).hash, 'JSON save/restore decoded pixels match')
     check(first.image.mime === first.image.blob.type && /image\/(webp|png)/.test(first.image.mime), 'export metadata matches actual MIME')
+    for (const [label, identity] of [['pre-batch', preBatchSnapshot], ['pre-migration', previousSnapshot]]) {
+      const oldVisual = { ...window.integrationSaved, catalogSha256: identity.catalogSha256, runtimeRevision: identity.runtimeRevision }
+      const compatible = await hatchery.restore(oldVisual)
+      check(JSON.stringify(compatible.visual.spec) === JSON.stringify(first.visual.spec)
+        && (await pixels(compatible.image.blob)).hash === initialPixels.hash, label + ' snapshot keeps saved selections and pixels')
+      await rejects(() => hatchery.restore({ ...oldVisual, spec: { ...oldVisual.spec, selections: { ...oldVisual.spec.selections, crown: 'halo' } } }),
+        /not available/, label + ' identity rejects a newly introduced mutation')
+    }
+    const expanded = await hatchery.hatch('batch1-sdk', { coat: 'orange-white', expression: 'tongue-tip',
+      ...mutationSelectionsFromList(['halo', 'fin-ears', 'frill-neck', 'dragon-wings', 'flame-tail']) })
+    const expandedReplay = await hatchery.restore(JSON.parse(JSON.stringify(expanded.visual)))
+    const reviewedReplay = await hatchery.restore({ ...expanded.visual,
+      catalogSha256: reviewSnapshot.catalogSha256, runtimeRevision: reviewSnapshot.runtimeRevision })
+    check((await pixels(expanded.image.blob)).hash === (await pixels(reviewedReplay.image.blob)).hash
+      && JSON.stringify(expanded.visual.spec) === JSON.stringify(reviewedReplay.visual.spec),
+      'approved release restores review-stage new mutations without changing selections or pixels')
+    check((await pixels(expanded.image.blob)).hash === (await pixels(expandedReplay.image.blob)).hash,
+      'new cross-slot mutations save and replay identical pixels')
     const [concurrentA, concurrentB] = await Promise.all([
       hatchery.restore(window.integrationSaved),
       hatchery.hatch('integration-other', { coat: 'tuxedo', expression: 'tongue-tip', ...mutationSelectionsFromList([]) }),
@@ -69,7 +90,7 @@ try {
     await rejects(() => mutationSelectionsFromList(['dragon-horns', 'antlers']), /conflict|crown/i, 'same-position mutations rejected')
     await rejects(() => createFelineHatchery({ ...config, resourceBaseUrl: config.resourceBaseUrl.slice(0, -1) }), /must end with/, 'incorrect resource base rejected')
     return checks
-  }, config)
+  }, { config, preBatchSnapshot, previousSnapshot, reviewSnapshot })
   const targetResource = snapshot.resources.find(resource => resource.id === 'brown-tabby-small-fangs')
   assert.ok(targetResource)
   const resourceUrl = origin + prefix + targetResource.path
@@ -92,6 +113,19 @@ try {
   }, config)
   assert.match(catalogError || '', /snapshot hash mismatch/)
   report.checks.push('modified catalog bytes rejected')
+  const bundleChecks = await page.evaluate(async ({ origin, prefix }) => {
+    const base = origin + prefix + 'dist/hatchery/'
+    const { createFelineHatchery, mutationSelectionsFromList } = await import(base + 'qmonster.js')
+    const snapshot = await (await fetch(base + 'snapshot.json')).json()
+    const hatchery = await createFelineHatchery({ catalogUrl: base + snapshot.catalogFile, resourceBaseUrl: base })
+    const first = await hatchery.hatch('batch1-built-sdk', { coat: 'tuxedo', expression: 'parted-mouth',
+      ...mutationSelectionsFromList(['halo', 'frill-neck', 'feathered-wings', 'flame-tail']) })
+    const restored = await hatchery.restore(JSON.parse(JSON.stringify(first.visual)))
+    const hash = async blob => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', await blob.arrayBuffer()))).join(',')
+    if (await hash(first.image.blob) !== await hash(restored.image.blob)) throw new Error('Built SDK replay changed output')
+    return ['standalone built SDK loads its packaged catalog and new resources', 'standalone built SDK new-feature save/restore matches']
+  }, { origin, prefix })
+  report.checks.push(...bundleChecks)
 } finally { await browser.close() }
 report.status = 'passed'
 report.checkedAt = new Date().toISOString()

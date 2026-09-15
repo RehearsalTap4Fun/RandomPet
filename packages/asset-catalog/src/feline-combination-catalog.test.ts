@@ -33,19 +33,19 @@ describe('feline candidate catalog', () => {
     const partial = fixture()
     expect(parseFelineCombinationCatalog(partial).ok).toBe(true)
     const missing = auditFelineCombinationCatalog(partial)
-    expect(missing).toHaveLength(47)
+    expect(missing).toHaveLength(77)
     expect(missing.some(item => item.path.join('.') === 'bodies.orange-white.small-fangs')).toBe(true)
     expect(missing.some(item => item.path.join('.') === 'mutations.tuxedo.fin-ears')).toBe(true)
     partial.bodies = {}
     partial.mutations = {}
-    expect(auditFelineCombinationCatalog(partial)).toHaveLength(54)
+    expect(auditFelineCombinationCatalog(partial)).toHaveLength(84)
   })
 
-  it('accepts complete 18 body and 36 mutation references with shared resource IDs', () => {
+  it('accepts complete 18 body and 66 mutation references with shared resource IDs', () => {
     const catalog = fixture()
     for (const coat of COMBINATION_OPTIONS.coat) {
       catalog.bodies[coat] = { 'parted-mouth': 'body', 'small-fangs': 'body', 'tongue-tip': 'body' }
-      catalog.mutations[coat] = { ...catalog.mutations['orange-white'] }
+      catalog.mutations[coat] = { ...catalog.mutations['orange-white'], halo: 'horns', 'dragon-wings': 'wings', 'feathered-wings': 'wings', 'frill-neck': 'mane', 'flame-tail': 'tail' }
     }
     expect(auditFelineCombinationCatalog(catalog)).toEqual([])
   })

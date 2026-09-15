@@ -22,4 +22,4 @@ for (const file of [snapshot.catalogFile, ...snapshot.resources.map(resource => 
   await fs.copyFile(path.join(root, file), destination)
 }
 await fs.copyFile(path.join(root, 'docs/integration/feline-combination-snapshot.json'), path.join(output, 'snapshot.json'))
-console.log('Built dist/hatchery: qmonster.js, snapshot.json, catalog and 39 PNG resources.')
+console.log(`Built dist/hatchery: qmonster.js, snapshot.json, catalog and ${snapshot.resources.length} PNG resources.`)

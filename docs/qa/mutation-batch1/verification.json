@@ -1,0 +1,249 @@
+{
+  "scope": "representative-only",
+  "combinationSpace": 5184,
+  "expected": 18,
+  "rendered": 18,
+  "legacyMatched": 6,
+  "uniqueRgba": 18,
+  "samples": [
+    {
+      "index": 1,
+      "selections": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "485176aee443bb2b881642f222837ba7cb37d547b940b45076cde6bbddb76105"
+    },
+    {
+      "index": 2,
+      "selections": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "784e6e5ac57334f041c797a9fd3311dcf5eb4e9e5f5d0c54ec4d9d6611485610"
+    },
+    {
+      "index": 3,
+      "selections": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "ece37eedca32e2413b0e0fd4980f2484b466af167a02d00f1be18b6ff104f0a2"
+    },
+    {
+      "index": 4,
+      "selections": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "972b94e12bcf5cadabb748718bc6508751ca6c4d7516e00ae3fd035b79f4dbab"
+    },
+    {
+      "index": 5,
+      "selections": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "982b040063cf9a432481555e7fe84528d80e5c423f4744e85868e38b11c867f8"
+    },
+    {
+      "index": 6,
+      "selections": {
+        "coat": "tuxedo",
+        "expression": "parted-mouth",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "862a852c394b3565191c635f8b50f144b5328e0331b3545c5426bdaaa3637e7a"
+    },
+    {
+      "index": 7,
+      "selections": {
+        "coat": "tuxedo",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "f70f39f91a763532ed1dab61ff4e8612b5692d5bfedd6f4bfbf1c0a68bc41d82"
+    },
+    {
+      "index": 8,
+      "selections": {
+        "coat": "tuxedo",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "423751d43353120136a7ba95d91f8cae9773c9a71a245e1070af2691d5c197d8"
+    },
+    {
+      "index": 9,
+      "selections": {
+        "coat": "tuxedo",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "eb047ade9a88d08ae5ad192bee5f3eaa41c087b59b881c7f0d4a0be87b2c2660"
+    },
+    {
+      "index": 10,
+      "selections": {
+        "coat": "tuxedo",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "351fce182f95e9d264dc323be5ebee21a28fa0611ec3bae105146bf7c1454e23"
+    },
+    {
+      "index": 11,
+      "selections": {
+        "coat": "colorpoint",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "dragon-wings",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "90aeda413a9a1410a5ce8940fc89f320e150cdd6faaff91a858584f071f36152"
+    },
+    {
+      "index": 12,
+      "selections": {
+        "coat": "rosetted",
+        "expression": "tongue-tip",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "187ef20a311c858ac28de74a3d590bcee72ce25da87f897c7b492890984b0adc"
+    },
+    {
+      "index": 13,
+      "selections": {
+        "coat": "brown-tabby",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "599f987866bf706307c36a9db7bd7b489317fa85c9eaf5932d4cba7f92e07250"
+    },
+    {
+      "index": 14,
+      "selections": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "e9e93aee82d4c49ecbb0d33639c37c379bd122d8cc500659d7de38689db691f7"
+    },
+    {
+      "index": 15,
+      "selections": {
+        "coat": "tuxedo",
+        "expression": "tongue-tip",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "9d4591d4d82a0cd1c8fd760623f68e4c05ba90b31a0586c34a006c7af144c41f"
+    },
+    {
+      "index": 16,
+      "selections": {
+        "coat": "calico",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "87e98c8ec4bf9e8272fbe48895fca126db4241354530278003ba030bf7d8161c"
+    },
+    {
+      "index": 17,
+      "selections": {
+        "coat": "colorpoint",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "0f47627395056a5f7d448ab3d5bc1f8ac32c01be06c28796be324d86e798c7b6"
+    },
+    {
+      "index": 18,
+      "selections": {
+        "coat": "rosetted",
+        "expression": "tongue-tip",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "98ca42b9057b90bbf9df11be4c47bbe3700ff219ec1a896ce43c641321d144bf"
+    }
+  ],
+  "status": "passed",
+  "visualReview": "approved",
+  "approvalRecord": "docs/releases/v0.10.0/mutation-batch1/approval.json",
+  "checkedAt": "2026-09-15T13:04:32.212Z",
+  "catalogSha256": "0335298cbb50ef888f4afa2bdf339c2133ddc7d0a40177f4f3a4cdd226635f22"
+}

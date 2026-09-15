@@ -6,7 +6,8 @@ const digest = bytes => createHash('sha256').update(bytes).digest('hex')
 const catalogFile = 'packages/asset-catalog/catalog/v0.10.0/catalog.json'
 const catalogBytes = await fs.readFile(path.join(root, catalogFile))
 const catalog = JSON.parse(catalogBytes)
-const sources = [catalogFile, 'package-lock.json', 'docs/releases/v0.10.0/previous-snapshot.json']
+const sources = [catalogFile, 'package-lock.json', 'docs/releases/v0.10.0/previous-snapshot.json', 'docs/releases/v0.10.0/mutation-batch1/previous-snapshot.json']
+sources.push('docs/releases/v0.10.0/mutation-batch1/review-snapshot.json', 'docs/releases/v0.10.0/mutation-batch1/approval.json')
 for (const name of ['generator-core', 'asset-catalog', 'renderer-canvas', 'incubator-adapter']) {
   const directory = `packages/${name}/src`
   for (const file of await fs.readdir(path.join(root, directory))) {

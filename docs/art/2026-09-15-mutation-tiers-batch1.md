@@ -1,6 +1,6 @@
 # 小猫异变分层 · 批次 1 规格（孵化器 × QMonster v0.10）
 
-日期：2026-09-15。状态：孵化器侧规则 v2 已实现并可预演；RandomPet 侧待出图与目录扩展。
+日期：2026-09-15。状态：RandomPet 侧五件资源、枚举、目录投影及渲染器扩展已完成，五件新素材已于 2026-09-15 通过用户人工验收。按用户要求仅做小范围验证，见[验收记录](../qa/mutation-batch1/README.md)。下述孵化器规则为输入规格的记录，本次未执行外部项目同步。
 
 ## 1. 目标
 
@@ -45,7 +45,7 @@
 4. **frill-neck（R，neck）**：伞蜥式半圆颈膜，橙粉半透明膜 + 深色放射骨条，撑开在头颈后方，横跨 x 150–1000、y 330–900，下缘藏到胸后，上缘到耳尖下方。被头挡住的中心区（x 330–900 / y 180–700）可留空。
 5. **flame-tail（R，tailTip）**：整条火焰尾，橙金主体、黄色亮芯、红橙边缘，走原尾路径：尾根约 (900,1090) 藏在右后臀后，向右扫到 (1090,860)，上升到 (1030,560)，尾尖约 (1000,400)。整体限制在 x 880–1235、y 380–1135（必须盖满尾部清除多边形），允许轻微暖光但不出框。
 
-提示词草案见同目录 `feline-mutation-tiers-batch1-prompts.json`（沿用 v0.10 provenance 的格式：image 1 = 橘白微张嘴主体作定位参考）。
+提示词草案见同目录 `2026-09-15-mutation-tiers-batch1-prompts.json`（沿用 v0.10 provenance 的格式：image 1 = 橘白微张嘴主体作定位参考）。
 
 ## 4. RandomPet 侧改动清单（master / v0.10 代码）
 
@@ -54,7 +54,7 @@
 3. `packages/renderer-canvas/src/feline-combination-render.ts`：变换目前按位置写死（back→smallWings、neck→smallLionMane、tailTip→forkedTailTip，crown 已按 id 区分）。新 id 需要按 id 选变换，并对批次 1 全部使用恒等变换（按最终坐标制作）。`feline-combination-registration.json` 无需新增（非花纹绑定）。
 4. 目录 `catalog.json` 加 5 条 `resources` 与 6×5 条 `mutations[coat][id]`，`review: pending` 直到人工批准。
 5. 版本：`catalogVersion` / `schemaVersion` 字面量与快照由 RandomPet 侧决定；孵化器只钉 `runtimeRevision`。改动后 `node scripts/update-release-snapshot.mjs` → `npm run typecheck && npm test && npm run build` → 孵化器 `npm run sync:hatchery` 并更新 `src/qmonster/feline/sdk.ts` 的 `FELINE_RUNTIME_REVISION`。
-6. 验收：864 → 6×3×(3×2×2×3×2)=1296 组合全览；重点看羽翼/龙翼露出量、光环与耳的遮挡、焰尾对清除区的覆盖、颈膜与狮鬃互斥后的单独效果。
+6. 验收：组合空间扩展为 6×3×(4×2×3×4×3)=5184。依用户最新要求，不遍历全部组合：固定 18 个代表样本做渲染/回放（含 6 个旧像素对照），另提供六花纹各五件单体及一个叠加，共 36 张素材小样。重点看羽翼/龙翼露出量、光环与耳的遮挡、焰尾衔接和位置互斥。
 
 ## 5. 孵化器侧规则 v2（已实现，`src/qmonster/feline/rules.ts`）
 

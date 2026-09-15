@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "qmonster-art-approval-v1",
+  "status": "approved",
+  "approvedOn": "2026-09-15",
+  "approver": "user",
+  "statement": "没问题，这一批通过",
+  "scope": "Five batch-1 final RGBA assets and their reviewed six-coat examples; no claim of exhaustive combination testing.",
+  "reviewedRuntimeRevision": "3f8a7dc142aea4d9f075602f06c16f6ab194dfdf1bb9ecafb082d63ec4afb401",
+  "reviewedCatalogSha256": "90613a8aee337ed5367f2ab1f7c2e6d126d19415bb4acf51e30d00bbf6de6399",
+  "resources": [
+    {
+      "id": "halo",
+      "path": "packages/asset-catalog/assets/v0.10.0/halo.png",
+      "sha256": "de47f79ae4d22ad319f81dd11eacb9684005e04d15d7d20ebd1a0ede278ef264"
+    },
+    {
+      "id": "dragon-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/dragon-wings.png",
+      "sha256": "b1a49eeef6c5775a96140a35b2b98482506a51de539fcace5e4a928f8b4a8312"
+    },
+    {
+      "id": "feathered-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/feathered-wings.png",
+      "sha256": "286b0f30c6480dfe28e4b64c69797ddcd3cab3d38a2bf769ceb4e36f24a1567b"
+    },
+    {
+      "id": "frill-neck",
+      "path": "packages/asset-catalog/assets/v0.10.0/frill-neck.png",
+      "sha256": "49d291923c1b5654f15d5aed7dfb3bbf173728d2de0b687e8a81fcbb1545b917"
+    },
+    {
+      "id": "flame-tail",
+      "path": "packages/asset-catalog/assets/v0.10.0/flame-tail.png",
+      "sha256": "64db2ed9ab0acf776ef7709ec1e1b9ca44d7f926bd2d938ce6944bb3df80abdf"
+    }
+  ],
+  "evidence": [
+    "docs/qa/mutation-batch1/spot-check.html",
+    "docs/qa/mutation-batch1/verification.json"
+  ]
+}

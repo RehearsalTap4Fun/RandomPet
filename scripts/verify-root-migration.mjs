@@ -17,7 +17,8 @@ const previous = await json('docs/releases/v0.10.0/previous-snapshot.json')
 const approval = await json(migration.originalApproval)
 for (const resource of snapshot.resources) {
   assert.equal(hash(await read(resource.path)), resource.sha256, resource.id)
-  assert.equal(previous.resources.find(old => old.id === resource.id).sha256, resource.sha256)
+  const old = previous.resources.find(old => old.id === resource.id)
+  if (old) assert.equal(old.sha256, resource.sha256)
 }
 for (const file of Object.values(migration.provenance)) {
   assert.equal(hash(await read(file)), path.basename(file, path.extname(file)), file)

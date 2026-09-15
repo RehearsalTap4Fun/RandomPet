@@ -5,6 +5,8 @@ import { createFelineCombinationResourceResolver, renderFelineCombination } from
 import { exportCanvas, CanvasExportError } from '@qmonster/renderer-canvas'
 import snapshot from '../../../docs/integration/feline-combination-snapshot.json'
 import previousSnapshot from '../../../docs/releases/v0.10.0/previous-snapshot.json'
+import preBatchSnapshot from '../../../docs/releases/v0.10.0/mutation-batch1/previous-snapshot.json'
+import reviewSnapshot from '../../../docs/releases/v0.10.0/mutation-batch1/review-snapshot.json'
 
 export interface StoredFelineVisual {
   kind: 'qmonster-feline-combination'
@@ -43,9 +45,14 @@ export async function createFelineHatchery(config: { catalogUrl: string; resourc
   async function render(visual: StoredFelineVisual) {
     const current = visual?.catalogSha256 === snapshot.catalogSha256 && visual.runtimeRevision === snapshot.runtimeRevision
     const previous = visual?.catalogSha256 === previousSnapshot.catalogSha256 && visual.runtimeRevision === previousSnapshot.runtimeRevision
-    if (visual?.kind !== 'qmonster-feline-combination' || (!current && !previous)) throw new Error('RESTORE: unsupported visual snapshot')
+    const preBatch = visual?.catalogSha256 === preBatchSnapshot.catalogSha256 && visual.runtimeRevision === preBatchSnapshot.runtimeRevision
+    const reviewed = visual?.catalogSha256 === reviewSnapshot.catalogSha256 && visual.runtimeRevision === reviewSnapshot.runtimeRevision
+    if (visual?.kind !== 'qmonster-feline-combination' || (!current && !previous && !preBatch && !reviewed)) throw new Error('RESTORE: unsupported visual snapshot')
     const parsedSpec = parseFelineCombinationSpec(visual.spec)
     if (!parsedSpec.ok) throw new Error('SPEC: ' + JSON.stringify(parsedSpec.diagnostics))
+    if ((previous || preBatch) && Object.values(parsedSpec.value.selections).some(value => ['halo', 'dragon-wings', 'feathered-wings', 'frill-neck', 'flame-tail'].includes(value))) {
+      throw new Error('RESTORE: mutation was not available in the saved snapshot')
+    }
     const stored: StoredFelineVisual = { kind: visual.kind, spec: parsedSpec.value,
       catalogSha256: snapshot.catalogSha256, runtimeRevision: snapshot.runtimeRevision }
     // Each request owns a canvas: overlapping hatch requests cannot overwrite it.

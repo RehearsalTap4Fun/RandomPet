@@ -9,7 +9,7 @@ import {
   type ParseResult,
 } from '@qmonster/generator-core'
 
-export const FELINE_MUTATION_IDS = Object.freeze(['dragon-horns', 'antlers', 'fin-ears', 'small-lion-mane', 'small-wings', 'forked-tail-tip'] as const)
+export const FELINE_MUTATION_IDS = Object.freeze(['dragon-horns', 'antlers', 'fin-ears', 'small-lion-mane', 'small-wings', 'forked-tail-tip', 'halo', 'dragon-wings', 'feathered-wings', 'frill-neck', 'flame-tail'] as const)
 export type FelineMutationId = typeof FELINE_MUTATION_IDS[number]
 
 export interface FelineCombinationResource {

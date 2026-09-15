@@ -17,7 +17,8 @@
     "build": "npm run typecheck && npm run build -w @qmonster/creator-web && node scripts/build-hatchery.mjs",
     "verify:integration": "node scripts/verify-feline-hatchery-example.mjs",
     "verify:workbench": "node scripts/verify-workbench.mjs && node scripts/verify-import-race.mjs",
-    "verify:migration": "node scripts/verify-root-migration.mjs"
+    "verify:migration": "node scripts/verify-root-migration.mjs",
+    "verify:mutations": "node scripts/verify-mutation-batch1.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

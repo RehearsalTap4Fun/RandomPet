@@ -36,6 +36,22 @@ export const FELINE_COMBINATION_TEMPLATE_V1 = Object.freeze({
   smallWings: Object.freeze({ scaleX: 0.8, scaleY: 0.75, translateX: 75, translateY: 200 }),
   smallLionMane: Object.freeze({ scaleX: 0.72, scaleY: 0.38, translateX: 60, translateY: 470 }),
   forkedTailTip: Object.freeze({ scaleX: 0.69, scaleY: 0.875, translateX: 376, translateY: 97 }),
+  finalCoordinates: Object.freeze({ scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 }),
+})
+
+// Dispatch by the selected mutation, never by a resource filename or just its slot.
+const mutationTransforms: Readonly<Record<string, Readonly<Registration>>> = Object.freeze({
+  'dragon-horns': FELINE_COMBINATION_TEMPLATE_V1.dragonHorns,
+  antlers: FELINE_COMBINATION_TEMPLATE_V1.antlers,
+  'fin-ears': FELINE_COMBINATION_TEMPLATE_V1.finEars,
+  'small-wings': FELINE_COMBINATION_TEMPLATE_V1.smallWings,
+  'small-lion-mane': FELINE_COMBINATION_TEMPLATE_V1.smallLionMane,
+  'forked-tail-tip': FELINE_COMBINATION_TEMPLATE_V1.forkedTailTip,
+  halo: FELINE_COMBINATION_TEMPLATE_V1.finalCoordinates,
+  'dragon-wings': FELINE_COMBINATION_TEMPLATE_V1.finalCoordinates,
+  'feathered-wings': FELINE_COMBINATION_TEMPLATE_V1.finalCoordinates,
+  'frill-neck': FELINE_COMBINATION_TEMPLATE_V1.finalCoordinates,
+  'flame-tail': FELINE_COMBINATION_TEMPLATE_V1.finalCoordinates,
 })
 
 function exactKeys(value: object, keys: string): boolean {
@@ -182,14 +198,10 @@ export async function renderFelineCombination(
       validateDecoded(image, operation.resource)
       // The intact face/neck fur occludes the mane roots; no hard U-shaped muzzle seam.
       const target = operation.slot === 'back' || operation.slot === 'crown' || operation.slot === 'neck' || operation.slot === 'tailTip' ? frameContext : subjectContext
-      let transform: Readonly<Registration> | undefined = operation.slot === 'crown' && plan.spec.selections.crown === 'dragon-horns'
-        ? FELINE_COMBINATION_TEMPLATE_V1.dragonHorns
-        : operation.slot === 'crown' ? FELINE_COMBINATION_TEMPLATE_V1.antlers
-          : operation.slot === 'ears' ? FELINE_COMBINATION_TEMPLATE_V1.finEars
-            : operation.slot === 'back' ? FELINE_COMBINATION_TEMPLATE_V1.smallWings
-              : operation.slot === 'neck' ? FELINE_COMBINATION_TEMPLATE_V1.smallLionMane
-                : operation.slot === 'tailTip' ? FELINE_COMBINATION_TEMPLATE_V1.forkedTailTip : undefined
-      if (transform && (operation.slot === 'ears' || operation.slot === 'neck' || operation.slot === 'tailTip')) {
+      const mutation = operation.slot === 'body' ? undefined : plan.spec.selections[operation.slot]
+      let transform = mutation ? mutationTransforms[mutation] : undefined
+      if (mutation && !transform) throw new Error(`Missing mutation transform: ${mutation}.`)
+      if (transform && mutation && ['fin-ears', 'small-lion-mane', 'forked-tail-tip'].includes(mutation) && operation.slot !== 'body') {
         const authored = registrations[`${plan.spec.selections.coat}-${plan.spec.selections[operation.slot]}`]
         if (!authored) throw new Error(`Missing authored registration for ${plan.spec.selections.coat}-${plan.spec.selections[operation.slot]}.`)
         transform = {
