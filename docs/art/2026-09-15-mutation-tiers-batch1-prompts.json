@@ -1,0 +1,47 @@
+[
+  {
+    "id": "halo",
+    "assetId": "halo",
+    "slot": "crown",
+    "tier": "L",
+    "inputs": ["packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png"],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement reference; do NOT draw the cat, its ears, fur, ground or shadow. Create ONLY a floating golden halo: one thin glowing ring seen in slight perspective (an ellipse), soft warm light bloom, no chain, no support, no sparkles outside the ring. Center the ring at about (560,45); it spans x=420..700 and y=15..85. The ring will be layered BEHIND the cat, so the ear tips (which reach about y=58) may overlap the ring; that is intended. Plush-toy render style with the same upper-left key light as image 1. Everything outside the ring and its soft glow must be true transparent RGBA (alpha 0), not gray squares or any background.",
+    "status": "pending"
+  },
+  {
+    "id": "dragon-wings",
+    "assetId": "dragon-wings",
+    "slot": "back",
+    "tier": "L",
+    "inputs": ["packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png", "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png"],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement and silhouette reference; do NOT draw the cat. Image 2 is ONLY a color reference for the translucent pink-orange membrane used on the fin ears. Create ONLY a pair of LARGE dragon wings to be layered BEHIND the kitten: dark charcoal-brown plush wing fingers with translucent pink-orange membranes, soft fabric texture, no scales, no body. The wings emerge from behind the shoulders at about y=560, then spread up and outward: left wing tip near (60,180), right wing tip near (1200,150). The torso region x=330..1000, y=560..900 will be hidden by the cat, so the wing roots may be simple there. Each wing must read clearly OUTSIDE the cat silhouette (the cat occupies x=139..1204, y=58..1224 and is widest at the haunches near y=900..1100). Keep all wing pixels within x=20..1240, y=120..940. True transparent RGBA background elsewhere; no checkerboard, no ground, no shadow; same upper-left key light as image 1.",
+    "status": "pending"
+  },
+  {
+    "id": "feathered-wings",
+    "assetId": "feathered-wings",
+    "slot": "back",
+    "tier": "R",
+    "inputs": ["packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png"],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement and silhouette reference; do NOT draw the cat. Create ONLY a pair of soft cream-white feathered bird wings, clearly larger than the kitten's head, to be layered BEHIND the kitten. Wing roots sit behind the shoulders (the region x=330..1000, y=560..760 will be hidden by the cat). The wings rise above the shoulder line with layered primary and covert feathers, warm gray shading in the feather grooves, wing tips near (170,300) and (1090,290). Each wing must read clearly OUTSIDE the cat silhouette at thumbnail size. Keep all pixels within x=100..1160, y=250..880. True transparent RGBA background elsewhere; no checkerboard, no ground, no shadow; same upper-left key light as image 1.",
+    "status": "pending"
+  },
+  {
+    "id": "frill-neck",
+    "assetId": "frill-neck",
+    "slot": "neck",
+    "tier": "R",
+    "inputs": ["packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png", "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png"],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement and silhouette reference; do NOT draw the cat. Image 2 is ONLY a color reference for the translucent pink-orange membrane and dark ribs used on the fin ears. Create ONLY a frilled-lizard style neck frill to be layered BEHIND the kitten's head: a wide semi-circular translucent pink-orange membrane with dark radiating ribs, fanned open behind the head and neck, spanning x=150..1000 and y=330..900. Its lower edge tucks behind the chest; its top edge reaches just below the ear tips. The center region covered by the head (about x=330..900, y=180..700) may be left blank. The frill must read clearly on both sides of the head at thumbnail size. Keep all pixels within x=140..1010, y=320..910. True transparent RGBA background elsewhere; no checkerboard, no ground, no shadow; same upper-left key light as image 1.",
+    "status": "pending"
+  },
+  {
+    "id": "flame-tail",
+    "assetId": "flame-tail",
+    "slot": "tailTip",
+    "tier": "R",
+    "inputs": ["packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png", "packages/asset-catalog/assets/v0.10.0/orange-white-forked-tail-tip.png"],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 seated plush kitten used ONLY as a placement reference; do NOT draw the cat. Image 2 is ONLY a shape and position reference: a complete replacement cat tail on the right side. Create ONLY a complete replacement tail made of fire, to be layered BEHIND the kitten: a tail-shaped plume of orange-gold flame with a glowing yellow core and soft red-orange edges, following the same path as the reference tail: one rounded root at about (900,1090) hidden behind the right haunch, sweeping right to (1090,860), rising to (1030,560), tip near (1000,400). One continuous flame tail from root to tip, no severed segments, no second tail. The renderer removes the original tail inside x=895..1254, y=350..1160, so the flame tail must fully cover that footprint where a tail would be, and nothing else. Keep all pixels within x=880..1235, y=380..1135; a subtle warm glow is allowed but must stay inside this box. True transparent RGBA background elsewhere; no checkerboard, no ground, no shadow.",
+    "status": "pending"
+  }
+]
