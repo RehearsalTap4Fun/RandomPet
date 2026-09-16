@@ -1,0 +1,188 @@
+{
+  "schemaVersion": "pixel-stage2-approval-v1",
+  "status": "approved",
+  "userStatement": "验收通过",
+  "scope": "Second-stage ten pixel combinations shown in the pixel workbench: standard and shortleg-round bodies, small fangs, fin ears, foreground mane and tested stacks",
+  "reportPath": "docs/qa/flat-source-trial/stage2/report.json",
+  "reportSha256": "72a32ff5e299949ffb6433118686a3b28a8b45c4b4907b318dcf28da1a2062ee",
+  "profilePath": "docs/art/flat-source-trial/stage2/profiles.json",
+  "profileSha256": "bccaf5b4c671b69bd75387131065642fc224b3d14019ff86ed43ffe2f7589999",
+  "sourceAssets": {
+    "orange-white-fin-ears.png": "a70a6f4331824991047307019c0f58235c316e7b3c053ef898e1d44a93294733",
+    "orange-white-small-fangs.png": "297f6ccfa529b3430c83258211b341baa61ba3b6ad1e1c8868bf9f451b9d7d24",
+    "orange-white-small-lion-mane.png": "d36c28c094e6d51f754d906f9570a5e838d9803490e4649071f0cbf6990e0579",
+    "shortleg-round-orange-white-small-fangs.png": "591d5d2e7040847edfc9a9d2ac4737b5c054239da212bb584abedf41695a1e8c"
+  },
+  "previousCatalogSha256": {
+    "catalog.legacy-approved.json": "bfc6220890fb9a7f1fc36422b1603b32910f08d2b1b6eac0966e17512a7d8121",
+    "catalog.candidate.json": "309b07ac7613f0f677cbcd393fba66dcce9b983377a4c805dcacc3d9c9d736ed"
+  },
+  "samples": [
+    {
+      "id": "standard-base",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba"
+    },
+    {
+      "id": "standard-ears",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97"
+    },
+    {
+      "id": "standard-mane",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7"
+    },
+    {
+      "id": "standard-ears-mane",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b"
+    },
+    {
+      "id": "standard-stack",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "standard-small-fangs",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a"
+    },
+    {
+      "id": "shortleg-round-base",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41"
+    },
+    {
+      "id": "shortleg-round-ears",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "rgbaSha256": "d41fa50072c4536564818d65c42382b965fba17ce97336bdd7b48756e6c6e8a6"
+    },
+    {
+      "id": "shortleg-round-mane",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "rgbaSha256": "efc9138d9f17cdd9ce2046b72451c88582a95fb0d2e89ff956ce65fe18fca02e"
+    },
+    {
+      "id": "shortleg-round-ears-mane",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "rgbaSha256": "0901ac12deef0823bbec657e249b9bd2d01ecaf7743a84d322c626b2b78f4158"
+    },
+    {
+      "id": "shortleg-round-stack",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "rgbaSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    }
+  ],
+  "excludes": [
+    "unlisted combinations",
+    "other coats",
+    "Nutri runtime rollout",
+    "new artwork revisions"
+  ]
+}

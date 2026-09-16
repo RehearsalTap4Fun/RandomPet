@@ -1,0 +1,589 @@
+{
+  "status": "experimental-combination-review-pending",
+  "nutriCommit": "b7addf5914c18d8904103ba87576b196f3f75d9b",
+  "profileFile": "docs/art/flat-source-trial/stage2/profiles.json",
+  "profileSha256": "bccaf5b4c671b69bd75387131065642fc224b3d14019ff86ed43ffe2f7589999",
+  "scope": "2 bodies, orange-white coat only; 5 adapted combinations per body plus legacy geometry controls and parted-mouth expression control",
+  "productionCompatibility": "NOT DROP-IN: profile controls foreground mane target, face occlusion and shortleg tail clear. These are QA adapter overrides; Nutri tracked source is unchanged.",
+  "faceProtection": "All six mane-containing adapted samples retain the no-mane eyes/nose/mouth rectangle x16..36,y14..31 byte-for-byte; outside this rectangle visual checks cover cheek/chin boundaries",
+  "stage1SourcesUnchanged": true,
+  "layerChecks": [
+    {
+      "body": "standard",
+      "unchangedFallbackLayers": 38
+    },
+    {
+      "body": "standard",
+      "mouthRegionChangedPixels": 48
+    },
+    {
+      "body": "shortleg-round",
+      "unchangedFallbackLayers": 38
+    }
+  ],
+  "profiles": {
+    "standard": {
+      "body": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+      "bodySha256": "297f6ccfa529b3430c83258211b341baa61ba3b6ad1e1c8868bf9f451b9d7d24",
+      "clear": {
+        "ears": [
+          [
+            [
+              11.38,
+              1
+            ],
+            [
+              25.23,
+              1
+            ],
+            [
+              24.24,
+              10.39
+            ],
+            [
+              11.88,
+              15.34
+            ]
+          ],
+          [
+            [
+              31.9,
+              1
+            ],
+            [
+              47.48,
+              1
+            ],
+            [
+              45.5,
+              21.27
+            ],
+            [
+              33.63,
+              10.89
+            ]
+          ]
+        ],
+        "tailTip": [
+          [
+            45.25,
+            18.3
+          ],
+          [
+            63,
+            18.3
+          ],
+          [
+            63,
+            58.35
+          ],
+          [
+            46.98,
+            58.35
+          ],
+          [
+            47.87,
+            53.41
+          ],
+          [
+            48.32,
+            47.48
+          ],
+          [
+            48.46,
+            42.04
+          ],
+          [
+            47.33,
+            37.09
+          ],
+          [
+            45.25,
+            35.11
+          ]
+        ]
+      },
+      "layerHashes": {
+        "brown-tabby-parted-mouth": "27644ea9e22c2aa77c54a070bb8c633dc3c82ad1219424ef8d48b4f634b3d506",
+        "brown-tabby-small-fangs": "5fdf2d02bd5fbfb3b1672c749f634dea53cb7d06ddedc2af6cf6bbde02cd86c5",
+        "brown-tabby-tongue-tip": "5d2d7df9e7714075f8d64dd20c2c00d68a348a3e80379d7b9dacbd5e5f939b6a",
+        "dragon-horns": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+        "small-wings": "eda8f3e6be5ff73ca1b79a8e5577463a8bb3838c1816c9a7d7093ffa201ce7c9",
+        "antlers": "381defd8d9503ebf75cf7c84d650c03252f256e7bd07a000196f16c4726721e0",
+        "brown-tabby-fin-ears": "771dc1d65c483d55c999efc3f9154b159e0087b2683c5079d9f0f2e698c29854",
+        "brown-tabby-small-lion-mane": "9725c1fd37c13f5ae888b6388ea5c35c7e2e338120755763e3f991cedaed51a8",
+        "brown-tabby-forked-tail-tip": "c977ce43d6be0a75924bf7a05a604ebab26af6f8a635b413e5d62de67b4694fa",
+        "halo": "1cb824ad124bed66d326d02cded2932fa62e65e71965de9f16ab478dced16cae",
+        "dragon-wings": "bbd466da09004aa469867a4abe3d3e1503ca776ab6f0f1b858908860175e4636",
+        "feathered-wings": "5bcdf83e053ea6515bcebfe05747ddd9d1c3fe9ad5234b2a3af40e6878c4473a",
+        "frill-neck": "57b207d0e5be802b15c08e8972084b525a5bd8f08f99a1526a3251ed54c60d52",
+        "flame-tail": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+        "orange-white-parted-mouth": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+        "orange-white-small-fangs": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+        "orange-white-tongue-tip": "fcbca331ebdd43a5c375313288bcc20cb1fbbddca2d1c865b6ddb5c1dc48a3d7",
+        "orange-white-fin-ears": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+        "orange-white-forked-tail-tip": "2a462fd6054e7e16807dda1a47373157788f051015e564f5c12cb76d3220f86a",
+        "orange-white-small-lion-mane": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+        "tuxedo-parted-mouth": "2ccda67cde8991e5c257ebd2bf59a032ec4e084fdaa442533922553d11386302",
+        "tuxedo-small-fangs": "e271eef6770445aa804692182c5bd8b6eda363e0ccd5a8c97a177d07e9f5c440",
+        "tuxedo-tongue-tip": "1042b1ef500f1cbb6321eefe8bd26577617d469e1063fa665263a325449b66e7",
+        "tuxedo-small-lion-mane": "abc6e3b5c2c94ec2d13c4f6cbbaf581ba6d872c5678c531f80aba28fcb8b0fbb",
+        "tuxedo-forked-tail-tip": "f6790006742b4e1505bfdb40b852ff2072d2e7a3b8d026dc35377f03662eab2f",
+        "tuxedo-fin-ears": "6062b0ac13610772048f779d1ba502a72c93c3c4e00f181f60068932c2666871",
+        "calico-parted-mouth": "74c7663e581eeb0261ac5bf973705005941aef81129a38713ca77f89ec09176c",
+        "calico-small-fangs": "65d2603d3ead703bbdf4a3784e09df6f3ff467476d2e0a7d21c7ed63078880f8",
+        "calico-tongue-tip": "6d608d2d3a642b7a528e55ddd796dbaf96c964b3f13c8a551ad7eda2678e1ad4",
+        "calico-fin-ears": "14ae0df85abe186860ac2be749caa181d59eda59cb7ad75b86a95867d957c2a2",
+        "calico-small-lion-mane": "637ff0a9954c05e19d9a705b4cf2b68532cd7af2aaa90c5067d963cc0cede69b",
+        "calico-forked-tail-tip": "faca905117c9e868095eb8173ae4d8878f31c1279ba8c1bd0ff0378a055b1629",
+        "colorpoint-parted-mouth": "ec2a9e26b42205238280826b329220b3bc4591ac57cc54a6ef56ca4483def489",
+        "colorpoint-small-fangs": "78f9771d3276cd81aa31e004d532237eed4d21fba375f9ffac7d6089fea7ded1",
+        "colorpoint-tongue-tip": "79a23c79901486f098593ebd78be4c4194c74dc2e9a33f98346539b0a2cb5f26",
+        "colorpoint-fin-ears": "e439124259a69b70bccd0df090c550698b0067ce8531e6dc003b7c14d16c67b5",
+        "colorpoint-small-lion-mane": "8cfad8eaa992e1351333de74a22afe8c25c8f58e474e8270316ef6894c2dfb1d",
+        "colorpoint-forked-tail-tip": "894c945cb594098838f39eb119db07e462cebeb8810a7aeac01060f6b7ce051b",
+        "rosetted-parted-mouth": "8798bd2e72d1da466ec7afe525ff33d3fa14c7c33e203923b4e5cc41b43d24df",
+        "rosetted-small-fangs": "c7631562ac9e172ec329a10819f77688074c826fe65ae0727a3c8d94aece64e5",
+        "rosetted-tongue-tip": "50070a7ae49dc87f05ecf8747b6ce40f40649302148cdd090cca04a50130db94",
+        "rosetted-fin-ears": "72eef3c2c6d8eb510bb60e98345707801922d1a5f498de2e1867428add6ddd27",
+        "rosetted-small-lion-mane": "f7ec5ef7ca95d951c17fbf1909077cee6d7975480beaf9a530a8a4d724a5bb4a",
+        "rosetted-forked-tail-tip": "de9130cb8d6edbfbfe3147db364a3378ed7d0f4be66087008f24a806e60efd07"
+      }
+    },
+    "shortleg-round": {
+      "body": "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png",
+      "bodySha256": "591d5d2e7040847edfc9a9d2ac4737b5c054239da212bb584abedf41695a1e8c",
+      "clear": {
+        "ears": [
+          [
+            [
+              11.38,
+              1
+            ],
+            [
+              25.23,
+              1
+            ],
+            [
+              24.24,
+              10.39
+            ],
+            [
+              11.88,
+              15.34
+            ]
+          ],
+          [
+            [
+              31.9,
+              1
+            ],
+            [
+              47.48,
+              1
+            ],
+            [
+              45.5,
+              21.27
+            ],
+            [
+              33.63,
+              10.89
+            ]
+          ]
+        ],
+        "tailTip": [
+          [
+            45.250398724082935,
+            18.304625199362043
+          ],
+          [
+            63,
+            18.304625199362043
+          ],
+          [
+            63,
+            58.84688995215311
+          ],
+          [
+            49.65071770334928,
+            58.84688995215311
+          ],
+          [
+            49.89792663476874,
+            53.40829346092504
+          ],
+          [
+            50.54066985645933,
+            49.70015948963317
+          ],
+          [
+            50.54066985645933,
+            45.74481658692185
+          ],
+          [
+            49.5518341307815,
+            42.28389154704944
+          ],
+          [
+            48.16746411483253,
+            39.07017543859649
+          ],
+          [
+            46.48644338118022,
+            36.103668261563
+          ],
+          [
+            45.250398724082935,
+            33.1371610845295
+          ]
+        ]
+      },
+      "layerHashes": {
+        "brown-tabby-parted-mouth": "27644ea9e22c2aa77c54a070bb8c633dc3c82ad1219424ef8d48b4f634b3d506",
+        "brown-tabby-small-fangs": "5fdf2d02bd5fbfb3b1672c749f634dea53cb7d06ddedc2af6cf6bbde02cd86c5",
+        "brown-tabby-tongue-tip": "5d2d7df9e7714075f8d64dd20c2c00d68a348a3e80379d7b9dacbd5e5f939b6a",
+        "dragon-horns": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+        "small-wings": "eda8f3e6be5ff73ca1b79a8e5577463a8bb3838c1816c9a7d7093ffa201ce7c9",
+        "antlers": "381defd8d9503ebf75cf7c84d650c03252f256e7bd07a000196f16c4726721e0",
+        "brown-tabby-fin-ears": "771dc1d65c483d55c999efc3f9154b159e0087b2683c5079d9f0f2e698c29854",
+        "brown-tabby-small-lion-mane": "9725c1fd37c13f5ae888b6388ea5c35c7e2e338120755763e3f991cedaed51a8",
+        "brown-tabby-forked-tail-tip": "c977ce43d6be0a75924bf7a05a604ebab26af6f8a635b413e5d62de67b4694fa",
+        "halo": "1cb824ad124bed66d326d02cded2932fa62e65e71965de9f16ab478dced16cae",
+        "dragon-wings": "bbd466da09004aa469867a4abe3d3e1503ca776ab6f0f1b858908860175e4636",
+        "feathered-wings": "5bcdf83e053ea6515bcebfe05747ddd9d1c3fe9ad5234b2a3af40e6878c4473a",
+        "frill-neck": "57b207d0e5be802b15c08e8972084b525a5bd8f08f99a1526a3251ed54c60d52",
+        "flame-tail": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+        "orange-white-parted-mouth": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+        "orange-white-small-fangs": "99a3492a4188b39e905c1fa87343541006eefa9b041cb41834d8147387917db6",
+        "orange-white-tongue-tip": "fcbca331ebdd43a5c375313288bcc20cb1fbbddca2d1c865b6ddb5c1dc48a3d7",
+        "orange-white-fin-ears": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+        "orange-white-forked-tail-tip": "2a462fd6054e7e16807dda1a47373157788f051015e564f5c12cb76d3220f86a",
+        "orange-white-small-lion-mane": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+        "tuxedo-parted-mouth": "2ccda67cde8991e5c257ebd2bf59a032ec4e084fdaa442533922553d11386302",
+        "tuxedo-small-fangs": "e271eef6770445aa804692182c5bd8b6eda363e0ccd5a8c97a177d07e9f5c440",
+        "tuxedo-tongue-tip": "1042b1ef500f1cbb6321eefe8bd26577617d469e1063fa665263a325449b66e7",
+        "tuxedo-small-lion-mane": "abc6e3b5c2c94ec2d13c4f6cbbaf581ba6d872c5678c531f80aba28fcb8b0fbb",
+        "tuxedo-forked-tail-tip": "f6790006742b4e1505bfdb40b852ff2072d2e7a3b8d026dc35377f03662eab2f",
+        "tuxedo-fin-ears": "6062b0ac13610772048f779d1ba502a72c93c3c4e00f181f60068932c2666871",
+        "calico-parted-mouth": "74c7663e581eeb0261ac5bf973705005941aef81129a38713ca77f89ec09176c",
+        "calico-small-fangs": "65d2603d3ead703bbdf4a3784e09df6f3ff467476d2e0a7d21c7ed63078880f8",
+        "calico-tongue-tip": "6d608d2d3a642b7a528e55ddd796dbaf96c964b3f13c8a551ad7eda2678e1ad4",
+        "calico-fin-ears": "14ae0df85abe186860ac2be749caa181d59eda59cb7ad75b86a95867d957c2a2",
+        "calico-small-lion-mane": "637ff0a9954c05e19d9a705b4cf2b68532cd7af2aaa90c5067d963cc0cede69b",
+        "calico-forked-tail-tip": "faca905117c9e868095eb8173ae4d8878f31c1279ba8c1bd0ff0378a055b1629",
+        "colorpoint-parted-mouth": "ec2a9e26b42205238280826b329220b3bc4591ac57cc54a6ef56ca4483def489",
+        "colorpoint-small-fangs": "78f9771d3276cd81aa31e004d532237eed4d21fba375f9ffac7d6089fea7ded1",
+        "colorpoint-tongue-tip": "79a23c79901486f098593ebd78be4c4194c74dc2e9a33f98346539b0a2cb5f26",
+        "colorpoint-fin-ears": "e439124259a69b70bccd0df090c550698b0067ce8531e6dc003b7c14d16c67b5",
+        "colorpoint-small-lion-mane": "8cfad8eaa992e1351333de74a22afe8c25c8f58e474e8270316ef6894c2dfb1d",
+        "colorpoint-forked-tail-tip": "894c945cb594098838f39eb119db07e462cebeb8810a7aeac01060f6b7ce051b",
+        "rosetted-parted-mouth": "8798bd2e72d1da466ec7afe525ff33d3fa14c7c33e203923b4e5cc41b43d24df",
+        "rosetted-small-fangs": "c7631562ac9e172ec329a10819f77688074c826fe65ae0727a3c8d94aece64e5",
+        "rosetted-tongue-tip": "50070a7ae49dc87f05ecf8747b6ce40f40649302148cdd090cca04a50130db94",
+        "rosetted-fin-ears": "72eef3c2c6d8eb510bb60e98345707801922d1a5f498de2e1867428add6ddd27",
+        "rosetted-small-lion-mane": "f7ec5ef7ca95d951c17fbf1909077cee6d7975480beaf9a530a8a4d724a5bb4a",
+        "rosetted-forked-tail-tip": "de9130cb8d6edbfbfe3147db364a3378ed7d0f4be66087008f24a806e60efd07"
+      }
+    }
+  },
+  "samples": [
+    {
+      "body": "standard",
+      "id": "base",
+      "title": "基础／小尖牙",
+      "artProfile": "standard",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "152261b69c8bd376c9bf685973d2e7780192de527fc3dc0198714ac182a13951",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba",
+      "replayEqual": true
+    },
+    {
+      "body": "standard",
+      "id": "ears",
+      "title": "鳍耳替换",
+      "artProfile": "standard",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "a5371f884f03959c4bad037b5c0f7c788294d4db2b70692bd59711e035e6fa24",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97",
+      "replayEqual": true
+    },
+    {
+      "body": "standard",
+      "id": "mane",
+      "title": "前胸小狮鬃",
+      "artProfile": "standard",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "041f08da55c4fcaea858a028830139b44a39700ddaef5c2da7e93e48247195c4",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7",
+      "replayEqual": true
+    },
+    {
+      "body": "standard",
+      "id": "ears-mane",
+      "title": "鳍耳＋鬃毛",
+      "artProfile": "standard",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "3e0da377873b4d43883b57a93605ee0cba0368754ab16b0ba69726a6d976cc9a",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b",
+      "replayEqual": true
+    },
+    {
+      "body": "standard",
+      "id": "stack",
+      "title": "龙角＋鳍耳＋鬃毛＋焰尾",
+      "artProfile": "standard",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "c5aee10faa66e1f9b6ad15d0ba663f88406d5beb9d7f342776ddaff650822334",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a",
+      "replayEqual": true
+    },
+    {
+      "body": "standard",
+      "id": "mane-legacy",
+      "title": "同源图／Nutri 现有后层鬃毛",
+      "artProfile": "standard",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": false,
+      "pngSha256": "bceb5db53540c64d3cd9ef86cd61e60a0b340afa0ef82932655ba05504f0c5e1",
+      "rgbaSha256": "b886aad1e9a755794d1f8dd29d42847b28487325c690a6318b2421a9be92c357",
+      "replayEqual": true
+    },
+    {
+      "body": "standard",
+      "id": "stack-legacy",
+      "title": "同源图／Nutri 现有几何",
+      "artProfile": "standard",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "experimentalGeometry": false,
+      "pngSha256": "32c02033d9dc87b435f81fb885bdf87bb3e8a10d3dc88bc0ecf367225be8996b",
+      "rgbaSha256": "41beffa89792323d2cb3b759fe4c0242823a3ae30a3e785e0dac5f67737ec68c",
+      "replayEqual": true
+    },
+    {
+      "body": "standard",
+      "id": "parted-mouth",
+      "title": "微张嘴对照",
+      "artProfile": "standard",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "29ca141448d9b855ca86d632534dd33780a111c735ab141e5d2e3b32161e4b27",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e",
+      "replayEqual": true
+    },
+    {
+      "body": "shortleg-round",
+      "id": "base",
+      "title": "基础／小尖牙",
+      "artProfile": "shortleg-round",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "0e72b3270b234ee33945d72e255465446ce9bd05a7754da857d6745cec2cbf9f",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41",
+      "replayEqual": true
+    },
+    {
+      "body": "shortleg-round",
+      "id": "ears",
+      "title": "鳍耳替换",
+      "artProfile": "shortleg-round",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "a416e5e25619e4061cbe1e4b50e58513bcc2c10970b79127e0a626149b0b2726",
+      "rgbaSha256": "d41fa50072c4536564818d65c42382b965fba17ce97336bdd7b48756e6c6e8a6",
+      "replayEqual": true
+    },
+    {
+      "body": "shortleg-round",
+      "id": "mane",
+      "title": "前胸小狮鬃",
+      "artProfile": "shortleg-round",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "8224b1e873150da39806e129d30a219df769a458d7e82ab6c14ec8d703fe851a",
+      "rgbaSha256": "efc9138d9f17cdd9ce2046b72451c88582a95fb0d2e89ff956ce65fe18fca02e",
+      "replayEqual": true
+    },
+    {
+      "body": "shortleg-round",
+      "id": "ears-mane",
+      "title": "鳍耳＋鬃毛",
+      "artProfile": "shortleg-round",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "560453eb8287e63abee5eef7b9a94e6fdee71abfe562a037e073e0143a406321",
+      "rgbaSha256": "0901ac12deef0823bbec657e249b9bd2d01ecaf7743a84d322c626b2b78f4158",
+      "replayEqual": true
+    },
+    {
+      "body": "shortleg-round",
+      "id": "stack",
+      "title": "龙角＋鳍耳＋鬃毛＋焰尾",
+      "artProfile": "shortleg-round",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "experimentalGeometry": true,
+      "pngSha256": "f6d75be08e8efb90e26aff6dfedf40a39766325b7cef33d96698a8ac1e14ab16",
+      "rgbaSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2",
+      "replayEqual": true
+    },
+    {
+      "body": "shortleg-round",
+      "id": "mane-legacy",
+      "title": "同源图／Nutri 现有后层鬃毛",
+      "artProfile": "shortleg-round",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "experimentalGeometry": false,
+      "pngSha256": "5cd56e10d28edc0be6ae7cde5b478f44270cc88bba3d414c02182a732c5befa0",
+      "rgbaSha256": "66bbe5a70a65875b3f7a1a91bfc438fe094da6ec3059e437eda0aad993df0bfe",
+      "replayEqual": true
+    },
+    {
+      "body": "shortleg-round",
+      "id": "stack-legacy",
+      "title": "同源图／Nutri 现有几何",
+      "artProfile": "shortleg-round",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "experimentalGeometry": false,
+      "pngSha256": "267c6ef9aa105a84076cf1d668fe68ed0f53f7a97bc244ef8159c5cca76ebf67",
+      "rgbaSha256": "c5c1709bab0887d3c9835dea03f671954128af63295e924b21b8fca71607e8fb",
+      "replayEqual": true
+    }
+  ],
+  "sourceAssets": {
+    "orange-white-fin-ears.png": "a70a6f4331824991047307019c0f58235c316e7b3c053ef898e1d44a93294733",
+    "orange-white-small-fangs.png": "297f6ccfa529b3430c83258211b341baa61ba3b6ad1e1c8868bf9f451b9d7d24",
+    "orange-white-small-lion-mane.png": "d36c28c094e6d51f754d906f9570a5e838d9803490e4649071f0cbf6990e0579",
+    "shortleg-round-orange-white-small-fangs.png": "591d5d2e7040847edfc9a9d2ac4737b5c054239da212bb584abedf41695a1e8c"
+  },
+  "nutriSourceHashes": {
+    "scripts/pixelCat.ts": "4d06f51a0439ce9b66d098482260cad9da601c124a00442b2a1f77e6e2967f16",
+    "src/core/pixelize.ts": "06ec403f37eb9ad07af73e3299fb80cbdffbacec3017e56d69862077c18a8959",
+    "src/core/pixelcat.ts": "bebbef2cbe53baa78637fc44884a2550a4fb8ca73e77311317d057d646158c2e"
+  },
+  "reviewScriptSha256": "3e7d66f5f07d67b9ff8a5e72fdb5b8c3d20685ae0112f4ae4eb3aba1bb2346de"
+}

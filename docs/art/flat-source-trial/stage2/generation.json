@@ -1,0 +1,29 @@
+{
+  "tool": "built-in image_gen",
+  "status": "revised-consumer-combination-review-pending",
+  "scope": "4 source candidates: fin ears, mane, small fangs and shortleg body; no new coat/pattern",
+  "items": [
+    {
+      "id": "orange-white-fin-ears",
+      "prompt": "Use case: game overlay sprite style-transfer. Image 1 is STYLE reference only; DO NOT draw any cat. Image 2 is EDIT TARGET: pair of orange-rimmed pink fish-fin ears on empty1254x1254 canvas. Keep their exact positions and full coverage, left ear roughly x200..480 y65..325, right x625..905 y110..385. Draw ONLY two fin ears, no cat or head or eyes. Convert into bold flat cel shaded sticker shapes: orange outer rims #E98A3C with #B9612B shadow, opaque pink inner membrane #F2A9B4 with 2-3 thick dark-pink #C9645A radial ribs per ear. Distinct scalloped webbed ear silhouette must survive64px downsampling. Thick dark outline #2B2320 about15px. No fur/no translucency/no gradients/no soft lighting. Do not recenter or enlarge to fillcanvas. Solid uniform magenta #FF00FF elsewhere, including all central space. Output1254x1254. Ear bases should cover the full reference footprint to avoid gaps when original ears are erased.",
+      "path": "docs/art/flat-source-trial/stage2/solid/orange-white-fin-ears.png"
+    },
+    {
+      "id": "orange-white-small-lion-mane",
+      "prompt": "Use case: game overlay sprite style transfer. Image1 is STYLE reference only, DO NOT draw a cat. Image2 is edit target and exact PLACEMENT of a small lion mane collar on a1254x1254 otherwise-empty canvas. Draw ONLY this mane in flat cel shaded sticker style. Keep exact crescent/U silhouette, scale, low center and placement: outer bounds x90..945 y500..930, outer bottom point near(525,925), high outer ends near(245,505) and(780,505), concave inner top edge from(245,505) through(525,630) to(780,505). Entire central face area ABOVE that concave inner edge remains pure magenta, no face/head/eyes/body. Mane outer side tufts orange one shade darker than cat, base #C97A35, shadow #945026, central bib cream #F7F2E9 with shadow #CFC6D8. Few large angular tufts, bold dark #2B2320 outline around outer edge and inner crescent edge, no fur/no gradients/no soft highlights. Do not enlarge or recenter; leave all other pixels uniform solid magenta#FF00FF. This is a foreground collar worn over upper chest but UNDER the chin. Output exactly1254x1254.",
+      "path": "docs/art/flat-source-trial/stage2/solid/orange-white-small-lion-mane.png"
+    },
+    {
+      "id": "orange-white-small-fangs",
+      "prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET, an approved orange-white flat kitten on magenta. Preserve the ENTIRE image pixel-for-pixel outside the small mouth region. Change ONLY its dark open mouth to show TWO clearly separated small WHITE UPPER CANINE FANGS pointing down, one at each upper corner of the mouth. For64px readability each fang must have about22-28px white width and35-40px height in this1254x1254 source, separated by at least30px dark mouth. Keep mouth same center near(445,530), allow modest widening within x385..510 y510..565 to fit teeth. Keep nose, muzzle, eyes, head, ears, body, tail, all proportions and colours exactly unchanged. Friendly cute tiny vampire teeth, NOT buck teeth, NO tongue, no other modifications. Flat cel-shaded style, uniform solid #FF00FF background. Output1254x1254.",
+      "path": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png"
+    },
+    {
+      "id": "shortleg-round-orange-white-small-fangs",
+      "prompt": "Use case: style-transfer edit. Image1 is the EDIT TARGET: a short-legged round plush orange-white kitten. Image2 is ONLY the APPROVED FLAT STYLE reference. Repaint IMAGE1 to match image2's cel shaded sticker style. Preserve image1's short-legged squat rounded silhouette, broad low haunches, large head, small low front paws, single right-side tail, and positions of eyes/nose/mouth/ear tips. Do NOT copy image2's taller long-legged body. Keep full1254x1254 canvas and exact placement. Orange-white bicolor, orange #E98A3C with #B9612B shadow and #F5B571 highlight, cream-white #F7F2E9 and #CFC6D8 shadow. Bold clean dark #2B2320 outlines, simple large teal eyes #5FA8B8 with one white glint, pink nose #E88A98 and inner ears#F2A9B4. Friendly small parted mouth with TWO separated small upper white canine fangs, each at least25px wide and35px tall so they survive64px output. Flat solid hard-edged colour shapes only, no gradients/fur texture/whiskers/noise. Background EXACT solid uniform magenta#FF00FF everywhere outside kitten, no ground/no shadow/no text. Output1254x1254.",
+      "path": "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png"
+    }
+  ],
+  "revisions": "docs/art/flat-source-trial/stage2/revisions.json",
+  "initialSourceDirectory": "docs/art/flat-source-trial/stage2/attempts"
+}

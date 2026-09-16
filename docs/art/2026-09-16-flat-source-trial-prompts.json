@@ -9,7 +9,8 @@
     ],
     "prompt": "Use case: style-transfer edit. Image 1 is the EDIT TARGET: a seated front-facing kitten. Repaint Image 1 in the STYLE below while keeping EXACTLY the same silhouette, pose, proportions, head/ear/eye/nose/mouth positions, single tail position on the right and paw placement, so the result overlays Image 1 pixel-for-pixel in layout. Coat: orange-and-white bicolor: orange on the head top, back, tail and a saddle; white muzzle, chest, belly and paws. Palette: orange base #E98A3C, orange shadow #B9612B, orange highlight #F5B571; white base #F7F2E9, white shadow #CFC6D8. Iris colour #5FA8B8 teal. Expression: mouth slightly open in a relaxed, friendly way (a small dark open mouth shape, no teeth, no tongue). Simplify the fur into 2-3 flat shapes per region; no whiskers. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
     "output": "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
-    "status": "pending"
+    "status": "generated-review-pending",
+    "generationRecord": "docs/art/flat-source-trial/generation-batch0.json"
   },
   {
     "id": "dragon-horns",
@@ -24,7 +25,8 @@
     ],
     "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a pair of short curved dragon horns on the top of the head, bone-ivory #E8DCC4 with shadow #B8A98C. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
     "output": "docs/art/flat-source-trial/solid/dragon-horns.png",
-    "status": "pending"
+    "status": "generated-review-pending",
+    "generationRecord": "docs/art/flat-source-trial/generation-batch0.json"
   },
   {
     "id": "flame-tail",
@@ -39,7 +41,8 @@
     ],
     "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the whole tail replaced by a tail of flame following the original tail path: orange #F08A2A body, yellow core #FFD75A, red-orange edge #D9482A, drawn as flat flame shapes. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
     "output": "docs/art/flat-source-trial/solid/flame-tail.png",
-    "status": "pending"
+    "status": "generated-review-pending",
+    "generationRecord": "docs/art/flat-source-trial/generation-batch0.json"
   },
   {
     "id": "brown-tabby-parted-mouth",

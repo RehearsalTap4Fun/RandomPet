@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "files": {
+    "packages/asset-catalog/pixel/v1/catalog.approved.json": "694b9c7ce955c17b5ca48bd4ca4db0f6c555e1b31b01e80fab9e0bfa47588515",
+    "packages/asset-catalog/pixel/v1/catalog.candidate.json": "309b07ac7613f0f677cbcd393fba66dcce9b983377a4c805dcacc3d9c9d736ed",
+    "packages/asset-catalog/pixel/v1/catalog.legacy-approved.json": "bfc6220890fb9a7f1fc36422b1603b32910f08d2b1b6eac0966e17512a7d8121",
+    "packages/asset-catalog/pixel/v1/provenance.json": "8a2c3d096a66bffa45471bdfd85e664f4bc34b83a07476e749d3a2d87e069d38",
+    "dist/pixel-art/qmonster-pixel.js": "f4526a89b6b2bc6c1fa0c80e8ccdf7aabba02abeba4ecc79e88eda87d2747b0e"
+  }
+}

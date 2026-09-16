@@ -9,6 +9,7 @@ import { parseFelineCombinationCatalog, resolveFelineCombination } from '../../.
 import { createFelineCombinationResourceResolver, renderFelineCombination } from '../../../packages/renderer-canvas/src/feline-combination-render.js'
 import manifest from '../../../packages/asset-catalog/catalog/v0.10.0/catalog.json'
 import './styles.css'
+import { PixelWorkbench } from './pixel-workbench.js'
 
 const STORAGE_KEY = 'qmonster.feline-combination-candidate.v1'
 const slotLabels: Record<FelineCombinationSlot, string> = {
@@ -151,7 +152,7 @@ function FelineWorkbench() {
   return <main className="feline-workbench">
     <header className="feline-header">
       <a className="feline-brand" href="/">QMONSTER<span>怪奇生物</span></a>
-      <span className="feline-version-badge">小猫组合工坊</span>
+      <a className="feline-version-badge" href="/pixel">进入像素工坊 →</a>
     </header>
     <div className="feline-intro"><p className="feline-eyebrow">CAT CREATION STUDIO</p><h1>给小猫，一点奇妙。</h1><p>挑选花纹与表情，让不同位置的异变一起生长。</p></div>
     <div className="feline-layout">
@@ -203,4 +204,4 @@ function FelineWorkbench() {
 
 const root = document.getElementById('root')
 if (!root) throw new Error('Application root is missing.')
-createRoot(root).render(<FelineWorkbench />)
+createRoot(root).render(location.pathname === '/pixel' ? <PixelWorkbench /> : <FelineWorkbench />)

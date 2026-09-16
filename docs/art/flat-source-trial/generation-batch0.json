@@ -1,0 +1,43 @@
+{
+  "tool": "built-in image_gen",
+  "status": "approved-stage1-only",
+  "scope": "batch 0 only; no production catalog or SDK changes",
+  "userRequest": "按推荐顺序开动",
+  "sourceSpec": "docs/art/2026-09-16-flat-source-trial.md",
+  "plannedPromptSet": "docs/art/2026-09-16-flat-source-trial-prompts.json",
+  "attempts": [
+    {
+      "id": "orange-white-parted-mouth-v1",
+      "file": "docs/art/flat-source-trial/attempts/orange-white-parted-mouth-v1.png",
+      "prompt": "Unmodified first entry of plannedPromptSet",
+      "assessment": "Superseded: gradient shading and red tongue-like shape inside parted mouth."
+    },
+    {
+      "id": "orange-white-parted-mouth",
+      "file": "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the edit target. Correct ONLY the rendering style and inside of mouth. Preserve exact canvas size 1254x1254, silhouette, every feature position, outlines, pose and single tail path. Make this TRUE FLAT CEL SHADING: replace every smooth gradient with completely uniform solid fills; each orange region uses ONLY #E98A3C base, #B9612B shadow, #F5B571 highlight as hard-edged shapes; white uses ONLY #F7F2E9 base and #CFC6D8 shadow. No smooth shading, no texture, no lighting haze. Outline #2B2320, teal irises #5FA8B8, dark pupil #1B1B22 with one white glint. Make the inside of the small parted mouth one uniform dark #382020 shape with NO tongue, NO red or pink patch, NO teeth. Keep inner ears pink #F2A9B4 and pink nose #E88A98. Background EXACT uniform solid #FF00FF. Preserve all geometry, do not recenter or crop, do not add elements.",
+      "assessment": "Candidate: mouth corrected; residual shading and geometric drift require evaluation."
+    },
+    {
+      "id": "dragon-horns-v1",
+      "file": "docs/art/flat-source-trial/attempts/dragon-horns-v1.png",
+      "prompt": "Use case: game overlay sprite, style-transfer. Image 1 is STYLE reference only, do NOT draw any cat. Image 2 is the EXACT EDIT TARGET and coordinate reference: two horns on an otherwise empty 1254x1254 canvas. Repaint ONLY those two horns in flat cel-shaded sticker style, keeping the same horn silhouettes, root positions, scale and canvas placement as Image 2. Horn pair stays near top center: left horn roughly x390..530 y42..212, right horn x590..755 y62..220. Do NOT enlarge or recenter to fill canvas. Draw ONLY two horns, no ears, no head, no eyes, no cat. Bone ivory #E8DCC4 base with #B8A98C hard-edged shadow and dark #2B2320 outline about 15-20px; no texture, no soft gradients, no fur. Upper-left light represented by flat shapes only. The remaining entire canvas must be uniform solid magenta #FF00FF, no ground shadow, no text. Output exactly 1254x1254.",
+      "assessment": "Superseded: tips hidden behind ears at 64px."
+    },
+    {
+      "id": "flame-tail",
+      "file": "docs/art/flat-source-trial/solid/flame-tail.png",
+      "prompt": "Use case: game overlay sprite style transfer. Image 1 is STYLE reference only: flat cel-shaded kitten. DO NOT DRAW THE CAT. Image 2 is EDIT TARGET and EXACT PLACEMENT reference: one isolated flame tail on a 1254x1254 canvas, on the right side only. Repaint this flame tail into bold simplified cel-shaded sticker art. Keep the exact overall placement, scale and path of Image 2: rounded hidden root near (930,1060), curve right through (1110,880), rise to (1110,580), flame tip near (1120,390). Entire tail stays within x=880..1240 and y=380..1135. All other canvas area is empty solid magenta. Do not recenter or enlarge the tail, do not draw a cat, head, paws, eyes or any additional object. One continuous tail-shaped flame with a FEW large hard-edged flame lobes: orange #F08A2A body, yellow #FFD75A core and red-orange #D9482A outer edge, dark #2B2320 clean outline about 15px. Flat solid colors only, no gradients, no glow, no noise, no realistic fire filaments, no thin detached sparks. Background uniform solid #FF00FF, no ground or shadows or text. Output exactly 1254x1254.",
+      "assessment": "Candidate; final-coordinate source, identity transform required."
+    },
+    {
+      "id": "dragon-horns",
+      "file": "docs/art/flat-source-trial/solid/dragon-horns.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is EDIT TARGET: two ivory horns on magenta. Image 2 is ONLY a cat placement reference; DO NOT draw any cat. The current outward-curving horns are hidden behind the cat's ears. Correct their silhouette so the exposed tips stand upright IN THE GAP BETWEEN THE TWO EARS. Fixed canvas 1254x1254. Draw ONLY two short stout ivory dragon horns in upper central area: LEFT horn root center (495,205), tip (490,22), main shaft between x450 and540; RIGHT horn root center (640,205), tip (635,22), main shaft between x590 and685. Both horns point almost vertically upward with subtle inward curve, their roots broad and rounded. Leave all pixels outside x435..700,y12..235 uniform solid magenta #FF00FF. Do not position tips outward over the ears. The part above y145 must be wide and conspicuous at 64px: each ivory shaft about 55-70px wide. Match existing clean dark #2B2320 outline of ~15px and FLAT SOLID ivory #E8DCC4 base and #B8A98C shadow; no gradients, no texture, no glows. Keep huge empty magenta canvas elsewhere. No face, cat, ears, head, body, text or other objects. Output exactly1254x1254.",
+      "assessment": "Moved exposed shafts toward inter-ear gap to improve 64px recognition. Geometry intentionally differs from legacy placement; consumer validation required."
+    }
+  ],
+  "processingAuthorization": "User requested execution of the recommended pixelization trial using the documented solid-background and automatic-pixelization workflow. Earlier explicit local extraction permission retained.",
+  "consumerValidation": "Nutri b7addf5914c18d8904103ba87576b196f3f75d9b actual script and runtime; see docs/qa/flat-source-trial/consumer/report.json",
+  "approval": "docs/qa/flat-source-trial/consumer/approval.json"
+}

@@ -1,0 +1,87 @@
+{
+  "status": "approved",
+  "scope": "Stage 1 C column: orange-white parted-mouth body, revised horns and flame tail; four combinations",
+  "userStatement": "认可 C 列，进入第二阶段组合验证（推荐）",
+  "nutriCommit": "b7addf5914c18d8904103ba87576b196f3f75d9b",
+  "sourceAssets": {
+    "orange-white-parted-mouth": "56592a6969745be64644cb0d403cc8f614fd332c95959a8da0a3bcd7d80d3574",
+    "dragon-horns": "01473c6e5906767b67c5feeac0bfb136d620d41aa6f19dbdcc478f0003bd8b75",
+    "flame-tail": "8abe2f820d6d62440d363a4b9c6c32e0bc4d713f1f6eb966a98faba683e87528"
+  },
+  "samples": [
+    {
+      "mode": "flat",
+      "id": "base",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "pngSha256": "29ca141448d9b855ca86d632534dd33780a111c735ab141e5d2e3b32161e4b27",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e",
+      "replayEqual": true,
+      "opaqueColors": 55
+    },
+    {
+      "mode": "flat",
+      "id": "horns",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "pngSha256": "2d71b1d53be18ee04c2623623fe534dd1ec6c8eda9431217781d660d8573d501",
+      "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f",
+      "replayEqual": true,
+      "opaqueColors": 63
+    },
+    {
+      "mode": "flat",
+      "id": "flame",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "pngSha256": "0e11d26f891c3e8988c972415b04960ae43fe67be8208b7a6403d086aec1dcd2",
+      "rgbaSha256": "f8ab50c7139c18ec025e4352341bedaba0f8d1c75ad526b6c21e4334f919eec1",
+      "replayEqual": true,
+      "opaqueColors": 58
+    },
+    {
+      "mode": "flat",
+      "id": "both",
+      "spec": {
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "pngSha256": "2e5666c62b97af53279452ecb691974b0f6e922325ecfa11b6cc0fc9c95436c1",
+      "rgbaSha256": "516bcf19ee4da711bb30df9eb89a695ce53819676553c2880f848f68ad8aaf95",
+      "replayEqual": true,
+      "opaqueColors": 66
+    }
+  ],
+  "reportSha256": "575430c6f89903fde8e2bb14943fd7a55cc0282769a6d3925f972c9bccc56ef4",
+  "excludes": [
+    "stage 2",
+    "production rollout",
+    "other coats or expressions"
+  ]
+}

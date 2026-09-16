@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "pixel-body-art-study-v1",
+  "status": "experimental-not-production",
+  "canvas": 1254,
+  "pixelSize": 64,
+  "coat": "orange-white",
+  "expression": "small-fangs",
+  "profiles": [
+    {
+      "id": "standard",
+      "body": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+      "earTransform": {
+        "scaleX": 0.74,
+        "scaleY": 0.65,
+        "translateX": 65,
+        "translateY": 28
+      },
+      "maneTransform": {
+        "scaleX": 0.7,
+        "scaleY": 0.62,
+        "translateX": 90,
+        "translateY": 235
+      },
+      "faceOcclusion": [
+        [
+          100,
+          0
+        ],
+        [
+          950,
+          0
+        ],
+        [
+          950,
+          485
+        ],
+        [
+          875,
+          590
+        ],
+        [
+          790,
+          650
+        ],
+        [
+          680,
+          680
+        ],
+        [
+          530,
+          690
+        ],
+        [
+          380,
+          675
+        ],
+        [
+          250,
+          625
+        ],
+        [
+          145,
+          555
+        ]
+      ],
+      "tailRemoval": "legacy"
+    },
+    {
+      "id": "shortleg-round",
+      "body": "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png",
+      "earTransform": {
+        "scaleX": 0.74,
+        "scaleY": 0.65,
+        "translateX": 65,
+        "translateY": 28
+      },
+      "maneTransform": {
+        "scaleX": 0.75,
+        "scaleY": 0.62,
+        "translateX": 62,
+        "translateY": 242
+      },
+      "faceOcclusion": [
+        [
+          95,
+          0
+        ],
+        [
+          945,
+          0
+        ],
+        [
+          945,
+          470
+        ],
+        [
+          875,
+          585
+        ],
+        [
+          790,
+          650
+        ],
+        [
+          680,
+          690
+        ],
+        [
+          530,
+          700
+        ],
+        [
+          380,
+          685
+        ],
+        [
+          245,
+          635
+        ],
+        [
+          135,
+          555
+        ]
+      ],
+      "tailRemoval": "shortleg-body-study"
+    }
+  ]
+}

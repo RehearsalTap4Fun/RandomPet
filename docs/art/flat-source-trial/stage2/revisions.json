@@ -1,0 +1,29 @@
+{
+  "purpose": "Restore 64px feature recognition; not production art approval",
+  "items": [
+    {
+      "id": "orange-white-small-fangs",
+      "prompt": "Use case: precise-object-edit. EDIT TARGET image1. Preserve everything outside mouth region x350..550,y490..605 exactly. Redesign ONLY the mouth for legibility at64px: a larger simple dark open smile (#2B1717), roughly x360..540,y505..595 (180px wide90px tall). TWO clearly separated broad WHITE upper canine teeth, each45px wide and60px tall, hanging from upper corners into dark mouth: left at x375..420, right at x480..525, with a broad dark gap between. Teeth have broad flat tops and slightly pointed bottoms, NOT central buckteeth. This intentional exaggeration must survive low-resolution pixelization. No tongue, no gums, no other colour inside mouth. Do not alter nose/eyes/muzzle edges/pose/body/tail/colours/background. Keep1254x1254 and solid magenta background. Flat cel-shaded style.",
+      "previous": "docs/art/flat-source-trial/stage2/attempts/orange-white-small-fangs.png",
+      "current": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png"
+    },
+    {
+      "id": "orange-white-fin-ears",
+      "prompt": "Use case: precise-object-edit. Image1 is EDIT TARGET. Preserve its exact ear pair positions, broad footprint and magenta canvas. Simplify these two fish-fin ears for64px sprite readability. Use EXACTLY FOUR SOLID opaque foreground colours: dark brown #452822 for outline AND internal ribs, orange #E98A3C for thin outer rim, pink #F2A9B4 for membranes, and muted dark pink #C9645A for at most one shadow region per ear. NO other colors or highlights or gradients. Each ear has THREE distinct pointy fin tips projecting outward, separated by TWO DEEP concave scallops (60px depth in thissource), a fan shape like a fishfin, NOT a round mammal ear. Two thick dark-brown25px radial ribs join the narrow inner ear root to those outward tips. The pink web between ribs must have broad flat panels. Keep all other pixels solid #FF00FF, no body/face/cat/text. Output1254x1254. Do not resize or recenter the pair.",
+      "previous": "docs/art/flat-source-trial/stage2/attempts/orange-white-fin-ears.png",
+      "current": "docs/art/flat-source-trial/stage2/solid/orange-white-fin-ears.png"
+    },
+    {
+      "id": "orange-white-small-lion-mane",
+      "prompt": "Use case: precise-object-edit. Image1 is EDIT TARGET: isolated crescent lion mane collar on magenta. Preserve the exact canvas1254x1254, same silhouette and coordinates. Change ONLY internal color design: remove ALL WHITE/CREAM sections and replace entire collar with warm golden-orange mane. Use ONLY three solid colours plus dark outline: base medium golden orange #C98538, one deep shadow #845024, few large highlight shapes #E9AA53, outline #452822. The center bib must also be golden orange, not white, to contrast the cat's white chest when composed. Simplify to only6-8 large clean tuft group shapes across whole collar. No fine streaks, no repeated tiny pointed slivers, no gradients/fur/noise. Preserve the magenta inner opening above the concave upper edge; no head/body/face. Background exactly #FF00FF throughout remaining canvas. Output1254x1254.",
+      "previous": "docs/art/flat-source-trial/stage2/attempts/orange-white-small-lion-mane.png",
+      "current": "docs/art/flat-source-trial/stage2/solid/orange-white-small-lion-mane.png"
+    },
+    {
+      "id": "shortleg-round-orange-white-small-fangs",
+      "prompt": "Use case: precise-object-edit. Image1 is EDIT TARGET: squat short-legged kitten. Change ONLY mouth inside x310..600,y475..610. Make a friendly dark open grin #2B1717 with TWO white upper canine fangs matching Image2's exaggerated pixel-readable grin. Image2 is mouth reference only: do not copy its body. Teeth are separated by a broad dark gap, hanging from upper left and right corners, each approx45px wide and65px tall. NO tongue/no pink inside mouth. Preserve all Image1 geometry, eye/nose positions, ears, short legs, large haunches, white chest pattern, single tail, colors and outline EXACTLY. Do not alter any other part. Output1254x1254, same solid magenta#FF00FF background. This mouth must remain legible after64px downsampling.",
+      "previous": "docs/art/flat-source-trial/stage2/attempts/shortleg-round-orange-white-small-fangs.png",
+      "current": "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png"
+    }
+  ]
+}

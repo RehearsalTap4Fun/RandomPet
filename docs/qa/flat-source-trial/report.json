@@ -1,0 +1,134 @@
+{
+  "status": "local-preview-only-consumer-validation-pending",
+  "consumer": "nutri/scripts/pixelCat.ts not available",
+  "processing": {
+    "key": "magenta excess R/G and B/G > 65, square erosion radius 3",
+    "composition": "existing shared compositor, original tail removal polygon, final-coordinate parts with identity transform",
+    "resize": "1254 -> 192 (median 3) -> 64",
+    "quantize": "adaptive 24 colors including alpha, no dither",
+    "display": "nearest-neighbor integer scaling"
+  },
+  "sourceChecks": [
+    {
+      "id": "orange-white-parted-mouth",
+      "sourceSha256": "56592a6969745be64644cb0d403cc8f614fd332c95959a8da0a3bcd7d80d3574",
+      "alphaSha256": "b4a21cfc20718ed1a248b4ba0e2d4a3db62d0f2e58974a772dbf651326882182",
+      "oldSha256": "c088207b175a4a2d96fc3e13d9b2c90e400712abe20562f4d972cd38d712dd2f",
+      "flatBounds": {
+        "x0": 165,
+        "y0": 43,
+        "x1": 1208,
+        "y1": 1229,
+        "count": 849178
+      },
+      "plushBounds": {
+        "x0": 140,
+        "y0": 62,
+        "x1": 1200,
+        "y1": 1223,
+        "count": 816233
+      },
+      "silhouetteIoU": 0.9601741476229485
+    },
+    {
+      "id": "dragon-horns",
+      "sourceSha256": "01473c6e5906767b67c5feeac0bfb136d620d41aa6f19dbdcc478f0003bd8b75",
+      "alphaSha256": "1ca8e827176d7032d4ece97499753ab2e1b2f3eb169801c7c200867cb3511ee7",
+      "oldSha256": "631309984e53cf747d21e5e9bb9502551ca69b3fead746747b827fa3a969fae6",
+      "flatBounds": {
+        "x0": 463,
+        "y0": 25,
+        "x1": 789,
+        "y1": 267,
+        "count": 38335
+      },
+      "plushBounds": {
+        "x0": 391,
+        "y0": 44,
+        "x1": 752,
+        "y1": 214,
+        "count": 21173
+      },
+      "silhouetteIoU": 0.09562911956401664
+    },
+    {
+      "id": "flame-tail",
+      "sourceSha256": "8abe2f820d6d62440d363a4b9c6c32e0bc4d713f1f6eb966a98faba683e87528",
+      "alphaSha256": "aa997ba29d632b3909f42a4fbc10477a9bc8c1c60f5d7589ca2a32733181c588",
+      "oldSha256": "31308f7fb65e31ae80d90824c51bc006dd31bd2cafcca6e1dd03b61e2c6f0e15",
+      "flatBounds": {
+        "x0": 863,
+        "y0": 357,
+        "x1": 1241,
+        "y1": 1150,
+        "count": 168639
+      },
+      "plushBounds": {
+        "x0": 898,
+        "y0": 386,
+        "x1": 1230,
+        "y1": 1126,
+        "count": 123291
+      },
+      "silhouetteIoU": 0.7222602416462148
+    }
+  ],
+  "samples": [
+    {
+      "style": "plush",
+      "id": "base",
+      "label": "基础主体",
+      "sourceSha256": "f1543d0248d57a61e69adff60e6457299d96a00471a4cc8ad5c962498d221a3c",
+      "pixelSha256": "efda86c3d93b77590b2479029119993008790ac1c20005d4d510d6de6414e3e3"
+    },
+    {
+      "style": "plush",
+      "id": "horns",
+      "label": "龙角",
+      "sourceSha256": "758550b60652456181cdd52757f70de9a29d7cd2bc97e5850f29874dd2f045e9",
+      "pixelSha256": "f0044da3d181e7434c1addfb778b26b1abe7c4cbbbf34a656ec1b319f1f2193c"
+    },
+    {
+      "style": "plush",
+      "id": "flame",
+      "label": "焰尾",
+      "sourceSha256": "d51fa421865d2fb720bd52a33cefc2868703605949805a097199fec7c241c5f4",
+      "pixelSha256": "610c12c5dbace0ef545ce610656f80f4a981d5b574eb318642a18d3585cd88bb"
+    },
+    {
+      "style": "plush",
+      "id": "both",
+      "label": "龙角＋焰尾",
+      "sourceSha256": "ee6fa48ccaae27098e9167b38c5d90fe8422e2f87829162a1a6a469b9efcc42f",
+      "pixelSha256": "80f6bdc030c6f8fcbab0d3655329a6910fdcfb45f197fd53f8b0b5820005a5fd"
+    },
+    {
+      "style": "flat",
+      "id": "base",
+      "label": "基础主体",
+      "sourceSha256": "887beb957acac54b5d0c26103466d18e0c1e443747dfc56bd3ab3d7357dd84e1",
+      "pixelSha256": "422e507930dea54cef5e3338a8cc4d935b59113c4f126b09260bf2ec8dabc78a"
+    },
+    {
+      "style": "flat",
+      "id": "horns",
+      "label": "龙角",
+      "sourceSha256": "3d270ba10d187fdc9bd52823de0a10307da3594677ed0b77a6535d1316f6a64e",
+      "pixelSha256": "fde826560f7f8174773422b59534e84efae653e227ff3924fb2423f6ecb67527"
+    },
+    {
+      "style": "flat",
+      "id": "flame",
+      "label": "焰尾",
+      "sourceSha256": "579b81c29c218efa87706b074d94b106f8a85491e6600c93656b2a5e990a8f0c",
+      "pixelSha256": "1a7d85bbd363f8ed8c928d7bdef733a2295816f6c48ffcf20cd9c5f2b07b780b"
+    },
+    {
+      "style": "flat",
+      "id": "both",
+      "label": "龙角＋焰尾",
+      "sourceSha256": "2139e2eff5c80b1841b99b0ad66ed6fd5648abaa6f50a3da80a9a19b3642acb0",
+      "pixelSha256": "8e8abbeb2baef068ed3361b5e6512a86bd60f47aa3ffa27d362d5080dfc0930f"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "pixel-art-provenance-v1",
+  "nutriCommit": "b7addf5914c18d8904103ba87576b196f3f75d9b",
+  "upstreamCode": {
+    "scripts/pixelCat.ts": "4d06f51a0439ce9b66d098482260cad9da601c124a00442b2a1f77e6e2967f16",
+    "src/core/pixelize.ts": "06ec403f37eb9ad07af73e3299fb80cbdffbacec3017e56d69862077c18a8959",
+    "src/core/pixelcat.ts": "bebbef2cbe53baa78637fc44884a2550a4fb8ca73e77311317d057d646158c2e"
+  },
+  "files": {
+    "docs/qa/flat-source-trial/consumer/report.json": "575430c6f89903fde8e2bb14943fd7a55cc0282769a6d3925f972c9bccc56ef4",
+    "docs/art/flat-source-trial/stage2/profiles.json": "bccaf5b4c671b69bd75387131065642fc224b3d14019ff86ed43ffe2f7589999",
+    "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png": "56592a6969745be64644cb0d403cc8f614fd332c95959a8da0a3bcd7d80d3574",
+    "docs/art/flat-source-trial/solid/dragon-horns.png": "01473c6e5906767b67c5feeac0bfb136d620d41aa6f19dbdcc478f0003bd8b75",
+    "docs/art/flat-source-trial/solid/flame-tail.png": "8abe2f820d6d62440d363a4b9c6c32e0bc4d713f1f6eb966a98faba683e87528",
+    "docs/art/flat-source-trial/stage2/solid/orange-white-fin-ears.png": "a70a6f4331824991047307019c0f58235c316e7b3c053ef898e1d44a93294733",
+    "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png": "297f6ccfa529b3430c83258211b341baa61ba3b6ad1e1c8868bf9f451b9d7d24",
+    "docs/art/flat-source-trial/stage2/solid/orange-white-small-lion-mane.png": "d36c28c094e6d51f754d906f9570a5e838d9803490e4649071f0cbf6990e0579",
+    "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png": "591d5d2e7040847edfc9a9d2ac4737b5c054239da212bb584abedf41695a1e8c",
+    "scripts/review-pixel-stage2.mjs": "3e7d66f5f07d67b9ff8a5e72fdb5b8c3d20685ae0112f4ae4eb3aba1bb2346de",
+    "docs/qa/flat-source-trial/consumer/flat/orange-white-parted-mouth.png": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+    "docs/qa/flat-source-trial/consumer/flat/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/consumer/flat/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/qa/flat-source-trial/consumer/approval.json": "d847d119e6eeab3c3a4b9feea871ada02a32ac60a7ca9f0a3c83e27a4bd60a0d",
+    "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+    "docs/qa/flat-source-trial/stage2/layers/standard/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage2/layers/standard/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-fin-ears.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-lion-mane.png": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/orange-white-small-fangs.png": "99a3492a4188b39e905c1fa87343541006eefa9b041cb41834d8147387917db6",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/orange-white-fin-ears.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/orange-white-small-lion-mane.png": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+    "docs/qa/flat-source-trial/stage2/report.json": "72a32ff5e299949ffb6433118686a3b28a8b45c4b4907b318dcf28da1a2062ee",
+    "docs/qa/flat-source-trial/stage2/approval.json": "de8da5adec84763e4abb57ccce3841cf834ceba8a7d2b67e16a73aacae1f7786"
+  }
+}

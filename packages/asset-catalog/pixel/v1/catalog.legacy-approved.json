@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "pixel-art-catalog-v1",
+  "styleId": "pixel-flat",
+  "artVersion": "1.0.0",
+  "rendererVersion": "pixel-rgba-v1",
+  "size": 64,
+  "resources": {
+    "layer-c68b7f3b61d5650f": {
+      "path": "assets/layer-c68b7f3b61d5650f.png",
+      "sha256": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+      "width": 64,
+      "height": 64
+    },
+    "layer-892032f0a47bbdf4": {
+      "path": "assets/layer-892032f0a47bbdf4.png",
+      "sha256": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+      "width": 64,
+      "height": 64
+    },
+    "layer-bd1ab44533f33a3a": {
+      "path": "assets/layer-bd1ab44533f33a3a.png",
+      "sha256": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+      "width": 64,
+      "height": 64
+    }
+  },
+  "profiles": [
+    {
+      "id": "standard-parted-mouth",
+      "body": "standard",
+      "coat": "orange-white",
+      "expression": "parted-mouth",
+      "steps": [
+        {
+          "slot": "back",
+          "target": "frame",
+          "resources": {},
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "crown",
+          "target": "frame",
+          "resources": {
+            "dragon-horns": "layer-892032f0a47bbdf4"
+          },
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "body",
+          "target": "subject",
+          "resources": {
+            "parted-mouth": "layer-c68b7f3b61d5650f"
+          },
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "ears",
+          "target": "subject",
+          "resources": {},
+          "clear": [
+            [
+              [
+                11.38,
+                1
+              ],
+              [
+                25.23,
+                1
+              ],
+              [
+                24.24,
+                10.39
+              ],
+              [
+                11.88,
+                15.34
+              ]
+            ],
+            [
+              [
+                31.9,
+                1
+              ],
+              [
+                47.48,
+                1
+              ],
+              [
+                45.5,
+                21.27
+              ],
+              [
+                33.63,
+                10.89
+              ]
+            ]
+          ],
+          "occlusion": []
+        },
+        {
+          "slot": "tailTip",
+          "target": "frame",
+          "resources": {
+            "flame-tail": "layer-bd1ab44533f33a3a"
+          },
+          "clear": [
+            [
+              [
+                45.25,
+                18.3
+              ],
+              [
+                63,
+                18.3
+              ],
+              [
+                63,
+                58.35
+              ],
+              [
+                46.98,
+                58.35
+              ],
+              [
+                47.87,
+                53.41
+              ],
+              [
+                48.32,
+                47.48
+              ],
+              [
+                48.46,
+                42.04
+              ],
+              [
+                47.33,
+                37.09
+              ],
+              [
+                45.25,
+                35.11
+              ]
+            ]
+          ],
+          "occlusion": []
+        },
+        {
+          "slot": "neck",
+          "target": "subject",
+          "resources": {},
+          "clear": [],
+          "occlusion": []
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "id": "approved-base",
+      "label": "标准体型 · 微张嘴",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-parted-mouth",
+      "review": "approved",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e"
+    },
+    {
+      "id": "approved-horns",
+      "label": "标准体型 · 小龙角",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-parted-mouth",
+      "review": "approved",
+      "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f"
+    },
+    {
+      "id": "approved-flame",
+      "label": "标准体型 · 焰尾",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "standard-parted-mouth",
+      "review": "approved",
+      "rgbaSha256": "f8ab50c7139c18ec025e4352341bedaba0f8d1c75ad526b6c21e4334f919eec1"
+    },
+    {
+      "id": "approved-both",
+      "label": "标准体型 · 龙角＋焰尾",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "standard-parted-mouth",
+      "review": "approved",
+      "rgbaSha256": "516bcf19ee4da711bb30df9eb89a695ce53819676553c2880f848f68ad8aaf95"
+    }
+  ],
+  "generatable": [
+    "approved-base",
+    "approved-horns",
+    "approved-flame",
+    "approved-both"
+  ],
+  "evidence": {
+    "docs/qa/flat-source-trial/consumer/approval.json": "d847d119e6eeab3c3a4b9feea871ada02a32ac60a7ca9f0a3c83e27a4bd60a0d"
+  },
+  "revision": "df5895159b54ef5cff7333c46352a06eae1fdd39aab3c62f4351032c96def58e"
+}

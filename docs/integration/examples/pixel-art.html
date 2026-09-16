@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>QMonster 像素包 · 独立接入示例</title>
+<style>body{font:16px system-ui;background:#f4f0e8;color:#35352f;max-width:850px;margin:40px auto;padding:0 20px}canvas{width:256px;height:256px;image-rendering:pixelated;background:#292c31;border-radius:16px;display:block;margin:24px 0}select,button{font:inherit;padding:8px;margin:4px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}#error{color:#ac3f2e}</style>
+<h1>独立像素资源包</h1><p>本页只读取同目录 SDK、目录与 PNG，可整体复制到任意静态站点。</p>
+<label>范围 <select id="bundle"><option value="approved">已验收包 1.1.0 · 14 个组合</option><option value="legacy-approved">历史首批 1.0.0</option><option value="candidate">历史候选快照（验收前）</option></select></label>
+<label>组合 <select id="sample"></select></label><canvas id="cat" width="64" height="64" aria-label="像素小猫"></canvas>
+<p id="status" role="status">载入中…</p><button id="save" disabled>导出 128px PNG</button><p id="error" role="alert"></p><pre id="appearance"></pre>
+<script type="module">
+import { loadPixelArt, pixelCanvas, savePixelAppearance } from './qmonster-pixel.js'
+const bundle = document.querySelector('#bundle'), select = document.querySelector('#sample'), canvas = document.querySelector('#cat'), status = document.querySelector('#status'), save = document.querySelector('#save'), error = document.querySelector('#error')
+let loaded, pixels, epoch = 0
+function render() {
+  save.disabled = true
+  const sample = loaded.catalog.coverage.find(c => c.id === select.value)
+  pixels = loaded.render(sample.phenotype)
+  canvas.getContext('2d').putImageData(new ImageData(pixels, 64, 64), 0, 0)
+  status.textContent = sample.review === 'approved' ? '已验收' : '候选组合 · 待验收'
+  document.querySelector('#appearance').textContent = JSON.stringify(savePixelAppearance(sample.phenotype, loaded.catalog), null, 2)
+  save.disabled = false
+}
+async function load() {
+  const current = ++epoch, base = new URL(`./${bundle.value}/`, location.href)
+  save.disabled = true; select.disabled = true; pixels = null
+  canvas.getContext('2d').clearRect(0, 0, 64, 64); error.textContent = ''; status.textContent = '载入中…'
+  try {
+    const response = await fetch(new URL('catalog.json', base))
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const next = await loadPixelArt(await response.json(), r => new URL(r.path, base).href)
+    if (current !== epoch) return
+    loaded = next; select.replaceChildren(...loaded.catalog.coverage.map(c => new Option(c.label, c.id)))
+    select.disabled = false; render()
+  } catch (e) { if (current === epoch) { error.textContent = String(e); status.textContent = '载入失败' } }
+}
+bundle.onchange = load; select.onchange = render
+save.onclick = () => {
+  if (!pixels || save.disabled) return
+  pixelCanvas(pixels, 2).toBlob(blob => {
+    const url = URL.createObjectURL(blob), a = document.createElement('a')
+    a.href = url; a.download = 'pixel-cat-128.png'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }, 'image/png')
+}
+load()
+</script></html>

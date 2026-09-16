@@ -1,0 +1,834 @@
+{
+  "schemaVersion": "pixel-art-catalog-v1",
+  "styleId": "pixel-flat",
+  "artVersion": "1.1.0",
+  "rendererVersion": "pixel-rgba-v1",
+  "size": 64,
+  "resources": {
+    "layer-c68b7f3b61d5650f": {
+      "path": "assets/layer-c68b7f3b61d5650f.png",
+      "sha256": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+      "width": 64,
+      "height": 64
+    },
+    "layer-892032f0a47bbdf4": {
+      "path": "assets/layer-892032f0a47bbdf4.png",
+      "sha256": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+      "width": 64,
+      "height": 64
+    },
+    "layer-bd1ab44533f33a3a": {
+      "path": "assets/layer-bd1ab44533f33a3a.png",
+      "sha256": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+      "width": 64,
+      "height": 64
+    },
+    "layer-fec0335aee4cb501": {
+      "path": "assets/layer-fec0335aee4cb501.png",
+      "sha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+      "width": 64,
+      "height": 64
+    },
+    "layer-6d8134b5c93d11f7": {
+      "path": "assets/layer-6d8134b5c93d11f7.png",
+      "sha256": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+      "width": 64,
+      "height": 64
+    },
+    "layer-0dc4c49bf437b30a": {
+      "path": "assets/layer-0dc4c49bf437b30a.png",
+      "sha256": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+      "width": 64,
+      "height": 64
+    },
+    "layer-99a3492a4188b39e": {
+      "path": "assets/layer-99a3492a4188b39e.png",
+      "sha256": "99a3492a4188b39e905c1fa87343541006eefa9b041cb41834d8147387917db6",
+      "width": 64,
+      "height": 64
+    },
+    "layer-4441d1f37a59c04b": {
+      "path": "assets/layer-4441d1f37a59c04b.png",
+      "sha256": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+      "width": 64,
+      "height": 64
+    }
+  },
+  "profiles": [
+    {
+      "id": "standard-parted-mouth",
+      "body": "standard",
+      "coat": "orange-white",
+      "expression": "parted-mouth",
+      "steps": [
+        {
+          "slot": "back",
+          "target": "frame",
+          "resources": {},
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "crown",
+          "target": "frame",
+          "resources": {
+            "dragon-horns": "layer-892032f0a47bbdf4"
+          },
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "body",
+          "target": "subject",
+          "resources": {
+            "parted-mouth": "layer-c68b7f3b61d5650f"
+          },
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "ears",
+          "target": "subject",
+          "resources": {},
+          "clear": [
+            [
+              [
+                11.38,
+                1
+              ],
+              [
+                25.23,
+                1
+              ],
+              [
+                24.24,
+                10.39
+              ],
+              [
+                11.88,
+                15.34
+              ]
+            ],
+            [
+              [
+                31.9,
+                1
+              ],
+              [
+                47.48,
+                1
+              ],
+              [
+                45.5,
+                21.27
+              ],
+              [
+                33.63,
+                10.89
+              ]
+            ]
+          ],
+          "occlusion": []
+        },
+        {
+          "slot": "tailTip",
+          "target": "frame",
+          "resources": {
+            "flame-tail": "layer-bd1ab44533f33a3a"
+          },
+          "clear": [
+            [
+              [
+                45.25,
+                18.3
+              ],
+              [
+                63,
+                18.3
+              ],
+              [
+                63,
+                58.35
+              ],
+              [
+                46.98,
+                58.35
+              ],
+              [
+                47.87,
+                53.41
+              ],
+              [
+                48.32,
+                47.48
+              ],
+              [
+                48.46,
+                42.04
+              ],
+              [
+                47.33,
+                37.09
+              ],
+              [
+                45.25,
+                35.11
+              ]
+            ]
+          ],
+          "occlusion": []
+        },
+        {
+          "slot": "neck",
+          "target": "subject",
+          "resources": {},
+          "clear": [],
+          "occlusion": []
+        }
+      ]
+    },
+    {
+      "id": "standard-small-fangs",
+      "body": "standard",
+      "coat": "orange-white",
+      "expression": "small-fangs",
+      "steps": [
+        {
+          "slot": "back",
+          "target": "frame",
+          "resources": {},
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "crown",
+          "target": "frame",
+          "resources": {
+            "dragon-horns": "layer-892032f0a47bbdf4"
+          },
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "body",
+          "target": "subject",
+          "resources": {
+            "small-fangs": "layer-fec0335aee4cb501"
+          },
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "ears",
+          "target": "subject",
+          "resources": {
+            "fin-ears": "layer-6d8134b5c93d11f7"
+          },
+          "clear": [
+            [
+              [
+                11.38,
+                1
+              ],
+              [
+                25.23,
+                1
+              ],
+              [
+                24.24,
+                10.39
+              ],
+              [
+                11.88,
+                15.34
+              ]
+            ],
+            [
+              [
+                31.9,
+                1
+              ],
+              [
+                47.48,
+                1
+              ],
+              [
+                45.5,
+                21.27
+              ],
+              [
+                33.63,
+                10.89
+              ]
+            ]
+          ],
+          "occlusion": []
+        },
+        {
+          "slot": "tailTip",
+          "target": "frame",
+          "resources": {
+            "flame-tail": "layer-bd1ab44533f33a3a"
+          },
+          "clear": [
+            [
+              [
+                45.25,
+                18.3
+              ],
+              [
+                63,
+                18.3
+              ],
+              [
+                63,
+                58.35
+              ],
+              [
+                46.98,
+                58.35
+              ],
+              [
+                47.87,
+                53.41
+              ],
+              [
+                48.32,
+                47.48
+              ],
+              [
+                48.46,
+                42.04
+              ],
+              [
+                47.33,
+                37.09
+              ],
+              [
+                45.25,
+                35.11
+              ]
+            ]
+          ],
+          "occlusion": []
+        },
+        {
+          "slot": "neck",
+          "target": "subject",
+          "resources": {
+            "small-lion-mane": "layer-0dc4c49bf437b30a"
+          },
+          "clear": [],
+          "occlusion": [
+            [
+              [
+                5.944178628389155,
+                1
+              ],
+              [
+                47.96969696969697,
+                1
+              ],
+              [
+                47.96969696969697,
+                24.9792663476874
+              ],
+              [
+                44.261562998405104,
+                30.170653907496014
+              ],
+              [
+                40.059011164274324,
+                33.1371610845295
+              ],
+              [
+                34.620414673046255,
+                34.620414673046255
+              ],
+              [
+                27.20414673046252,
+                35.11483253588517
+              ],
+              [
+                19.78787878787879,
+                34.3732057416268
+              ],
+              [
+                13.360446570972886,
+                31.901116427432218
+              ],
+              [
+                8.169059011164276,
+                28.440191387559807
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shortleg-round-small-fangs",
+      "body": "shortleg-round",
+      "coat": "orange-white",
+      "expression": "small-fangs",
+      "steps": [
+        {
+          "slot": "back",
+          "target": "frame",
+          "resources": {},
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "crown",
+          "target": "frame",
+          "resources": {
+            "dragon-horns": "layer-892032f0a47bbdf4"
+          },
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "body",
+          "target": "subject",
+          "resources": {
+            "small-fangs": "layer-99a3492a4188b39e"
+          },
+          "clear": [],
+          "occlusion": []
+        },
+        {
+          "slot": "ears",
+          "target": "subject",
+          "resources": {
+            "fin-ears": "layer-6d8134b5c93d11f7"
+          },
+          "clear": [
+            [
+              [
+                11.38,
+                1
+              ],
+              [
+                25.23,
+                1
+              ],
+              [
+                24.24,
+                10.39
+              ],
+              [
+                11.88,
+                15.34
+              ]
+            ],
+            [
+              [
+                31.9,
+                1
+              ],
+              [
+                47.48,
+                1
+              ],
+              [
+                45.5,
+                21.27
+              ],
+              [
+                33.63,
+                10.89
+              ]
+            ]
+          ],
+          "occlusion": []
+        },
+        {
+          "slot": "tailTip",
+          "target": "frame",
+          "resources": {
+            "flame-tail": "layer-bd1ab44533f33a3a"
+          },
+          "clear": [
+            [
+              [
+                45.250398724082935,
+                18.304625199362043
+              ],
+              [
+                63,
+                18.304625199362043
+              ],
+              [
+                63,
+                58.84688995215311
+              ],
+              [
+                49.65071770334928,
+                58.84688995215311
+              ],
+              [
+                49.89792663476874,
+                53.40829346092504
+              ],
+              [
+                50.54066985645933,
+                49.70015948963317
+              ],
+              [
+                50.54066985645933,
+                45.74481658692185
+              ],
+              [
+                49.5518341307815,
+                42.28389154704944
+              ],
+              [
+                48.16746411483253,
+                39.07017543859649
+              ],
+              [
+                46.48644338118022,
+                36.103668261563
+              ],
+              [
+                45.250398724082935,
+                33.1371610845295
+              ]
+            ]
+          ],
+          "occlusion": []
+        },
+        {
+          "slot": "neck",
+          "target": "subject",
+          "resources": {
+            "small-lion-mane": "layer-4441d1f37a59c04b"
+          },
+          "clear": [],
+          "occlusion": [
+            [
+              [
+                5.696969696969697,
+                1
+              ],
+              [
+                47.72248803827751,
+                1
+              ],
+              [
+                47.72248803827751,
+                24.237639553429027
+              ],
+              [
+                44.261562998405104,
+                29.923444976076556
+              ],
+              [
+                40.059011164274324,
+                33.1371610845295
+              ],
+              [
+                34.620414673046255,
+                35.11483253588517
+              ],
+              [
+                27.20414673046252,
+                35.609250398724086
+              ],
+              [
+                19.78787878787879,
+                34.86762360446571
+              ],
+              [
+                13.113237639553429,
+                32.39553429027113
+              ],
+              [
+                7.6746411483253585,
+                28.440191387559807
+              ]
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "id": "approved-base",
+      "label": "标准体型 · 微张嘴",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-parted-mouth",
+      "review": "approved",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e"
+    },
+    {
+      "id": "approved-horns",
+      "label": "标准体型 · 小龙角",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-parted-mouth",
+      "review": "approved",
+      "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f"
+    },
+    {
+      "id": "approved-flame",
+      "label": "标准体型 · 焰尾",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "standard-parted-mouth",
+      "review": "approved",
+      "rgbaSha256": "f8ab50c7139c18ec025e4352341bedaba0f8d1c75ad526b6c21e4334f919eec1"
+    },
+    {
+      "id": "approved-both",
+      "label": "标准体型 · 龙角＋焰尾",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "standard-parted-mouth",
+      "review": "approved",
+      "rgbaSha256": "516bcf19ee4da711bb30df9eb89a695ce53819676553c2880f848f68ad8aaf95"
+    },
+    {
+      "id": "standard-base",
+      "label": "标准体型 · 基础／小尖牙",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba"
+    },
+    {
+      "id": "standard-ears",
+      "label": "标准体型 · 鳍耳替换",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97"
+    },
+    {
+      "id": "standard-mane",
+      "label": "标准体型 · 前胸小狮鬃",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7"
+    },
+    {
+      "id": "standard-ears-mane",
+      "label": "标准体型 · 鳍耳＋鬃毛",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b"
+    },
+    {
+      "id": "standard-stack",
+      "label": "标准体型 · 龙角＋鳍耳＋鬃毛＋焰尾",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "standard",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "standard-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a"
+    },
+    {
+      "id": "shortleg-round-base",
+      "label": "短腿体型 · 基础／小尖牙",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41"
+    },
+    {
+      "id": "shortleg-round-ears",
+      "label": "短腿体型 · 鳍耳替换",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "d41fa50072c4536564818d65c42382b965fba17ce97336bdd7b48756e6c6e8a6"
+    },
+    {
+      "id": "shortleg-round-mane",
+      "label": "短腿体型 · 前胸小狮鬃",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "efc9138d9f17cdd9ce2046b72451c88582a95fb0d2e89ff956ce65fe18fca02e"
+    },
+    {
+      "id": "shortleg-round-ears-mane",
+      "label": "短腿体型 · 鳍耳＋鬃毛",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "0901ac12deef0823bbec657e249b9bd2d01ecaf7743a84d322c626b2b78f4158"
+    },
+    {
+      "id": "shortleg-round-stack",
+      "label": "短腿体型 · 龙角＋鳍耳＋鬃毛＋焰尾",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v1",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "shortleg-round-small-fangs",
+      "review": "approved",
+      "rgbaSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    }
+  ],
+  "generatable": [
+    "approved-base",
+    "approved-horns",
+    "approved-flame",
+    "approved-both",
+    "standard-base",
+    "standard-ears",
+    "standard-mane",
+    "standard-ears-mane",
+    "standard-stack",
+    "shortleg-round-base",
+    "shortleg-round-ears",
+    "shortleg-round-mane",
+    "shortleg-round-ears-mane",
+    "shortleg-round-stack"
+  ],
+  "evidence": {
+    "docs/qa/flat-source-trial/consumer/approval.json": "d847d119e6eeab3c3a4b9feea871ada02a32ac60a7ca9f0a3c83e27a4bd60a0d",
+    "docs/qa/flat-source-trial/stage2/report.json": "72a32ff5e299949ffb6433118686a3b28a8b45c4b4907b318dcf28da1a2062ee",
+    "docs/art/flat-source-trial/stage2/profiles.json": "bccaf5b4c671b69bd75387131065642fc224b3d14019ff86ed43ffe2f7589999",
+    "docs/qa/flat-source-trial/stage2/approval.json": "de8da5adec84763e4abb57ccce3841cf834ceba8a7d2b67e16a73aacae1f7786"
+  },
+  "revision": "5d2b92c990ef571d71ee5820e76eb99880988bc57e70d581542e7fd593bceff4"
+}

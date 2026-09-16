@@ -1,0 +1,20 @@
+.pixel-workbench nav { display: flex; gap: 16px; font-size: 13px; }
+.pixel-workbench nav a { color: #777e65; text-decoration: none; }
+.pixel-workbench nav span { font-weight: 700; }
+.pixel-stage { display: grid; place-items: center; min-height: 300px; }
+.pixel-stage canvas { width: 256px; height: 256px; image-rendering: pixelated; }
+.pixel-title { font-size: 19px; margin: 24px 0 10px; }
+.pixel-review { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 12px; margin: 0 0 18px; background: #f3e7cf; color: #85672c; }
+.pixel-review.approved { background: #e9edde; color: #4d6037; }
+.pixel-export { display: flex; flex-wrap: wrap; gap: 8px; font-size: 12px; }
+.pixel-bundle { display: grid; gap: 10px; font-size: 13px; font-weight: 600; }
+.pixel-bundle select { padding: 10px; border: 1px solid #dddccf; border-radius: 8px; background: #fffdf8; color: inherit; font: inherit; }
+.pixel-filter { display: flex; justify-content: space-between; margin: 20px 0; font-size: 12px; color: #838575; gap: 10px; }
+.pixel-filter label { display: flex; align-items: center; gap: 5px; }
+.pixel-samples { display: grid; gap: 7px; }
+.pixel-samples button { display: flex; justify-content: space-between; gap: 12px; align-items: center; text-align: left; }
+.pixel-samples button[aria-pressed=true] { background: #e9edde; border-color: #9ba881; }
+.pixel-samples strong { font-size: 12px; font-weight: 500; }
+.pixel-samples small { font-size: 10px; white-space: nowrap; color: #838575; }
+@media(min-width: 1200px) { .pixel-stage canvas { width: 384px; height: 384px; } }
+@media(max-width: 350px) { .pixel-stage canvas { width: 192px; height: 192px; } }
