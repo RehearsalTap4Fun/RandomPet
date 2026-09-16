@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "pixel-body-eye-source-invariants-v1",
+  "coordinateSystem": "1254x1254 source pixels; rectangles inclusive; visual landmarks approximate",
+  "inspection": "Both stage2 edit targets were viewed with view_image before generation. Selected slender round raw output was also viewed before its eye edit.",
+  "standard": {
+    "editTarget": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+    "faceCenter": [450, 451],
+    "eyeBounds": [[280, 300, 420, 420], [515, 300, 710, 430]],
+    "earTips": [[290, 43], [881, 89]],
+    "paws": [[280, 1100], [392, 1150], [585, 1160], [817, 1130]],
+    "tail": "One curled tail on viewer right, bounds approximately x910..1215 y405..1140",
+    "outline": "Dark near-black continuous outer outline, approximately 8-12 source pixels; thinner interior lines",
+    "mustPreserve": "All geometry, markings, nose and two-fang mouth outside the two eye rectangles"
+  },
+  "shortleg-round": {
+    "editTarget": "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png",
+    "faceCenter": [450, 455],
+    "eyeBounds": [[280, 300, 425, 425], [515, 300, 710, 435]],
+    "earTips": [[290, 44], [881, 91]],
+    "paws": [[240, 1100], [425, 1140], [615, 1140], [888, 1120]],
+    "tail": "One curled tail on viewer right, bounds approximately x913..1230 y405..1115",
+    "outline": "Dark near-black continuous outer outline, approximately 8-12 source pixels; thinner interior lines",
+    "mustPreserve": "Squat body, broad low haunches, short forelegs, low paws, all markings, nose and two-fang mouth outside eye rectangles"
+  },
+  "slender-tall": {
+    "roundSource": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png",
+    "faceCenter": [480, 418],
+    "eyeBounds": [[330, 285, 455, 390], [535, 285, 710, 400]],
+    "earTips": [[324, 29], [873, 48]],
+    "paws": [[376, 1125], [471, 1160], [609, 1160], [748, 1135]],
+    "tail": "One curled tail on viewer right, bounds approximately x823..1098 y501..1120",
+    "outline": "Dark near-black continuous outer outline, approximately 8-12 source pixels; thinner interior lines",
+    "mustPreserveForEyeEdit": "Exact slender seated silhouette, long separated front legs, narrow haunches, enlarged ears, all four paws, coat, face and tail"
+  },
+  "background": "Final sources require solid exact #FF00FF. All generated raw outputs needed chroma background normalization; all other RGBA bytes were preserved.",
+  "visualReview": "Four source candidates retain orange-white coat, pink nose, two separated fangs, four paws and one right tail. Sleepy eyes have lowered almond openings, teal iris, pupil and one white highlight per eye. Slender body is visibly narrower with longer forelegs and relatively larger ears. No cropped ears, merged front legs, missing paws or duplicated tail. Simple 64px preview inspected; production palette/face survival is Task 3."
+}

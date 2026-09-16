@@ -1,0 +1,21 @@
+[
+  {
+    "id": "orange-white-small-fangs",
+    "size": "1254×1254",
+    "background": "#ff00ff",
+    "ambiguousPct": 0.05,
+    "colors": 8017,
+    "iou": 0.999,
+    "centroidOffset": [
+      0,
+      0
+    ],
+    "bbox": [
+      144,
+      43,
+      1226,
+      1210
+    ],
+    "issues": []
+  }
+]

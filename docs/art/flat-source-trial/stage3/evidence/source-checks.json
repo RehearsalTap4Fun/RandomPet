@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "pixel-body-eye-source-check-v1",
+  "status": "passed-source-checks-art-review-pending",
+  "nutriCommit": "385bdfae615547c509da331efeeaacd96f94e463",
+  "nutriModuleHashes": {
+    "scripts/pixelCat.ts": "beca70ffb4c18b8d2f62bfc53593da7727537abaf8c52da3a365b4105c64aedd",
+    "src/core/pixelize.ts": "9ef5a12a635654da66fe8620a7fa1ce71b7d2010eb5d6063feb1652e0926dc12",
+    "src/core/pixelcat.ts": "751404a95bdc39864ceb4ba00ce9123f09802b40532e5b980ed8097ced2fb65a",
+    "src/core/rng.ts": "842df598a90150dabb061cf6c5ca372f5a952057f3bfe649b8eda402b48bc11a",
+    "src/assets/pixelcat/manifest.json": "9192cd58fa289aad571e02efe1349cec9064908f3e789c7796b95bbc36a720d2"
+  },
+  "nutriTrackedFilesUnchanged": true,
+  "nativeIdentifierLimitation": "Unmodified checker does not know v2 identifiers. Canonical rejection captured; mapped runs use same-body stage2 keyed references in QMonster scratch and preserve original Nutri code.",
+  "preview": "source-comparison.png is a simple source downsample for visual inspection, not the production pixel pipeline (Task 3). Order: standard round, shortleg round, standard sleepy / shortleg sleepy, slender round, slender sleepy.",
+  "results": [
+    {
+      "id": "orange-white-sleepy-almond-small-fangs-standard",
+      "sha256": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "corners": [
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ]
+      ],
+      "rawSha256": "ffab6f1d2f00af4f1a4fc2a57ec1c77e353f12b9429b1d44a3f555c91d8248d9",
+      "onlyBackgroundNormalized": true,
+      "colors6Bit": 8289,
+      "ambiguousPct": 0.0609214787003757,
+      "mask": {
+        "count": 859846,
+        "centroid": [
+          646.1258527689843,
+          673.2488317675491
+        ],
+        "bbox": [
+          164,
+          41,
+          1209,
+          1231
+        ]
+      },
+      "comparison": {
+        "reference": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+        "eyeExclusionRectangles": [
+          [
+            270,
+            295,
+            435,
+            435
+          ],
+          [
+            510,
+            295,
+            720,
+            435
+          ]
+        ],
+        "outsideEyeSilhouetteIoU": 0.9986551509577556,
+        "centroidDelta64px": 0.011525456347681332,
+        "outsideEyeForegroundRgbRmse": 4.883952697371845,
+        "outsideEyeForegroundPixelsChangedOver12": 19014,
+        "outsideEyeForegroundPixels": 805697
+      }
+    },
+    {
+      "id": "orange-white-sleepy-almond-small-fangs-shortleg-round",
+      "sha256": "ba1e40164ba0a1dd3b9631acfc182cda58b26a6f4b732e9cf8c38585b5a7a252",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "corners": [
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ]
+      ],
+      "rawSha256": "c67c201061c7ce55339c8f54279dc9fc13d529cb9ab053b6f98cb742d244c084",
+      "onlyBackgroundNormalized": true,
+      "colors6Bit": 8017,
+      "ambiguousPct": 0.05144621739937781,
+      "mask": {
+        "count": 931428,
+        "centroid": [
+          634.5697316378722,
+          683.2022958296293
+        ],
+        "bbox": [
+          144,
+          43,
+          1226,
+          1210
+        ]
+      },
+      "comparison": {
+        "reference": "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png",
+        "eyeExclusionRectangles": [
+          [
+            270,
+            295,
+            435,
+            440
+          ],
+          [
+            510,
+            295,
+            720,
+            440
+          ]
+        ],
+        "outsideEyeSilhouetteIoU": 0.9992949318377066,
+        "centroidDelta64px": 0.008096883008652337,
+        "outsideEyeForegroundRgbRmse": 5.943303652814451,
+        "outsideEyeForegroundPixelsChangedOver12": 54160,
+        "outsideEyeForegroundPixels": 875893
+      }
+    },
+    {
+      "id": "orange-white-round-small-fangs-slender-tall",
+      "sha256": "6b7fa7244fcaa159a2bcd2a55c14413c1572ed789f22513a3da8aa986e39e6c7",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "corners": [
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ]
+      ],
+      "rawSha256": "01e3ce1d7490f293bc48411bf19591a0fdcbee607ae1a7d90c7541a6f455c5ea",
+      "onlyBackgroundNormalized": true,
+      "colors6Bit": 8535,
+      "ambiguousPct": 0.054053504066095354,
+      "mask": {
+        "count": 639267,
+        "centroid": [
+          633.8334858517646,
+          643.5440637480114
+        ],
+        "bbox": [
+          242,
+          27,
+          1094,
+          1225
+        ]
+      }
+    },
+    {
+      "id": "orange-white-sleepy-almond-small-fangs-slender-tall",
+      "sha256": "4f310383fce5cdd6ab9ba37dde7e6120acce3f301f3085b4ad97a228c7207acb",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "corners": [
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ],
+        [
+          255,
+          0,
+          255,
+          255
+        ]
+      ],
+      "rawSha256": "281e240240c1bc5b602ea7c5705aed2993f1dfcfc86e87966f203af9b41e3c1f",
+      "onlyBackgroundNormalized": true,
+      "colors6Bit": 8434,
+      "ambiguousPct": 0.053926319350645714,
+      "mask": {
+        "count": 639418,
+        "centroid": [
+          633.8943023186711,
+          643.4511039726751
+        ],
+        "bbox": [
+          242,
+          27,
+          1094,
+          1226
+        ]
+      },
+      "comparison": {
+        "reference": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png",
+        "eyeExclusionRectangles": [
+          [
+            320,
+            280,
+            465,
+            410
+          ],
+          [
+            530,
+            280,
+            715,
+            410
+          ]
+        ],
+        "outsideEyeSilhouetteIoU": 0.9988242220325024,
+        "centroidDelta64px": 0.005492304309175701,
+        "outsideEyeForegroundRgbRmse": 5.715840525549855,
+        "outsideEyeForegroundPixelsChangedOver12": 19812,
+        "outsideEyeForegroundPixels": 595500
+      }
+    }
+  ],
+  "aliasReports": [
+    {
+      "body": "standard",
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+      "alias": "orange-white-small-fangs",
+      "reference": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+      "referenceProcessing": "Nutri keyBackgroundRgba threshold 90 erode 3",
+      "report": [
+        {
+          "id": "orange-white-small-fangs",
+          "size": "1254×1254",
+          "background": "#ff00ff",
+          "ambiguousPct": 0.06,
+          "colors": 8289,
+          "iou": 0.999,
+          "centroidOffset": [
+            0,
+            0
+          ],
+          "bbox": [
+            164,
+            41,
+            1209,
+            1231
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "body": "shortleg-round",
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png",
+      "alias": "orange-white-small-fangs",
+      "reference": "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png",
+      "referenceProcessing": "Nutri keyBackgroundRgba threshold 90 erode 3",
+      "report": [
+        {
+          "id": "orange-white-small-fangs",
+          "size": "1254×1254",
+          "background": "#ff00ff",
+          "ambiguousPct": 0.05,
+          "colors": 8017,
+          "iou": 0.999,
+          "centroidOffset": [
+            0,
+            0
+          ],
+          "bbox": [
+            144,
+            43,
+            1226,
+            1210
+          ],
+          "issues": []
+        }
+      ]
+    }
+  ]
+}
