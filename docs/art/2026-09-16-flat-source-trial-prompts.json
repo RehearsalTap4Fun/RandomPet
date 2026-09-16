@@ -1,0 +1,625 @@
+[
+  {
+    "id": "orange-white-parted-mouth",
+    "assetId": "orange-white-parted-mouth",
+    "kind": "body",
+    "batch": 0,
+    "inputs": [
+      "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png"
+    ],
+    "prompt": "Use case: style-transfer edit. Image 1 is the EDIT TARGET: a seated front-facing kitten. Repaint Image 1 in the STYLE below while keeping EXACTLY the same silhouette, pose, proportions, head/ear/eye/nose/mouth positions, single tail position on the right and paw placement, so the result overlays Image 1 pixel-for-pixel in layout. Coat: orange-and-white bicolor: orange on the head top, back, tail and a saddle; white muzzle, chest, belly and paws. Palette: orange base #E98A3C, orange shadow #B9612B, orange highlight #F5B571; white base #F7F2E9, white shadow #CFC6D8. Iris colour #5FA8B8 teal. Expression: mouth slightly open in a relaxed, friendly way (a small dark open mouth shape, no teeth, no tongue). Simplify the fur into 2-3 flat shapes per region; no whiskers. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+    "status": "pending"
+  },
+  {
+    "id": "dragon-horns",
+    "assetId": "dragon-horns",
+    "kind": "part",
+    "slot": "crown",
+    "tier": "N",
+    "batch": 0,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/dragon-horns.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a pair of short curved dragon horns on the top of the head, bone-ivory #E8DCC4 with shadow #B8A98C. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/dragon-horns.png",
+    "status": "pending"
+  },
+  {
+    "id": "flame-tail",
+    "assetId": "flame-tail",
+    "kind": "part",
+    "slot": "tailTip",
+    "tier": "R",
+    "batch": 0,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/flame-tail.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the whole tail replaced by a tail of flame following the original tail path: orange #F08A2A body, yellow core #FFD75A, red-orange edge #D9482A, drawn as flat flame shapes. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/flame-tail.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-parted-mouth",
+    "assetId": "brown-tabby-parted-mouth",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/brown-tabby-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: brown tabby: warm brown-grey fur with bold dark mackerel stripes on the forehead (M mark), cheeks, back, legs and ringed tail; lighter muzzle and chest. Palette: fur base #B08A62, fur shadow #7E5E40, fur highlight #D6B58E; stripes #5E4330; muzzle/chest #E9D9C3. Iris colour #7FB069 green. Expression: mouth slightly open in a relaxed, friendly way (a small dark open mouth shape, no teeth, no tongue). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/brown-tabby-parted-mouth.png",
+    "status": "pending"
+  },
+  {
+    "id": "tuxedo-parted-mouth",
+    "assetId": "tuxedo-parted-mouth",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/tuxedo-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: tuxedo: black head top, back, tail and outer legs; white muzzle blaze, chin, chest, belly and all four paws. Palette: black base #2A2A33, black shadow #15151B, black highlight #4A4A5A; white base #F7F2E9, white shadow #CFC6D8. Iris colour #E0B24A amber. Expression: mouth slightly open in a relaxed, friendly way (a small dark open mouth shape, no teeth, no tongue). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/tuxedo-parted-mouth.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-parted-mouth",
+    "assetId": "calico-parted-mouth",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/calico-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: calico: mostly white with large clean patches of orange and black on the head, back and ringed tail. Palette: white base #F7F2E9, white shadow #CFC6D8; orange #E98A3C, orange shadow #B9612B; black #2A2A33, black shadow #15151B. Iris colour #5FA8B8 teal. Expression: mouth slightly open in a relaxed, friendly way (a small dark open mouth shape, no teeth, no tongue). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/calico-parted-mouth.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-parted-mouth",
+    "assetId": "colorpoint-parted-mouth",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/colorpoint-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: colorpoint (Siamese-like): cream body with dark seal-brown mask on the face, dark ears, dark paws and dark tail. Palette: cream base #F1E4D2, cream shadow #CDB9A4, cream highlight #FBF3E8; points #4A3128, points shadow #2E1C16. Iris colour #4F86D8 blue. Expression: mouth slightly open in a relaxed, friendly way (a small dark open mouth shape, no teeth, no tongue). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/colorpoint-parted-mouth.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-parted-mouth",
+    "assetId": "rosetted-parted-mouth",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/rosetted-parted-mouth.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: rosetted (Bengal-like): golden-tan fur covered in dark rosette spots on the body and legs, ringed tail; pale muzzle and belly. Palette: fur base #D9A45A, fur shadow #A87436, fur highlight #EFC98A; rosettes #4A3220; muzzle/belly #F3E4C8. Iris colour #C7A24A gold. Expression: mouth slightly open in a relaxed, friendly way (a small dark open mouth shape, no teeth, no tongue). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/rosetted-parted-mouth.png",
+    "status": "pending"
+  },
+  {
+    "id": "orange-white-small-fangs",
+    "assetId": "orange-white-small-fangs",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/orange-white-small-fangs.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: orange-and-white bicolor: orange on the head top, back, tail and a saddle; white muzzle, chest, belly and paws. Palette: orange base #E98A3C, orange shadow #B9612B, orange highlight #F5B571; white base #F7F2E9, white shadow #CFC6D8. Iris colour #5FA8B8 teal. Expression: mouth slightly open showing two tiny white fangs at the top. Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/orange-white-small-fangs.png",
+    "status": "pending"
+  },
+  {
+    "id": "orange-white-tongue-tip",
+    "assetId": "orange-white-tongue-tip",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/orange-white-tongue-tip.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: orange-and-white bicolor: orange on the head top, back, tail and a saddle; white muzzle, chest, belly and paws. Palette: orange base #E98A3C, orange shadow #B9612B, orange highlight #F5B571; white base #F7F2E9, white shadow #CFC6D8. Iris colour #5FA8B8 teal. Expression: mouth closed with the pink tip of the tongue poking out (blep). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/orange-white-tongue-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-small-fangs",
+    "assetId": "brown-tabby-small-fangs",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/brown-tabby-small-fangs.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: brown tabby: warm brown-grey fur with bold dark mackerel stripes on the forehead (M mark), cheeks, back, legs and ringed tail; lighter muzzle and chest. Palette: fur base #B08A62, fur shadow #7E5E40, fur highlight #D6B58E; stripes #5E4330; muzzle/chest #E9D9C3. Iris colour #7FB069 green. Expression: mouth slightly open showing two tiny white fangs at the top. Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/brown-tabby-small-fangs.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-tongue-tip",
+    "assetId": "brown-tabby-tongue-tip",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/brown-tabby-tongue-tip.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: brown tabby: warm brown-grey fur with bold dark mackerel stripes on the forehead (M mark), cheeks, back, legs and ringed tail; lighter muzzle and chest. Palette: fur base #B08A62, fur shadow #7E5E40, fur highlight #D6B58E; stripes #5E4330; muzzle/chest #E9D9C3. Iris colour #7FB069 green. Expression: mouth closed with the pink tip of the tongue poking out (blep). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/brown-tabby-tongue-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "tuxedo-small-fangs",
+    "assetId": "tuxedo-small-fangs",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/tuxedo-small-fangs.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: tuxedo: black head top, back, tail and outer legs; white muzzle blaze, chin, chest, belly and all four paws. Palette: black base #2A2A33, black shadow #15151B, black highlight #4A4A5A; white base #F7F2E9, white shadow #CFC6D8. Iris colour #E0B24A amber. Expression: mouth slightly open showing two tiny white fangs at the top. Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/tuxedo-small-fangs.png",
+    "status": "pending"
+  },
+  {
+    "id": "tuxedo-tongue-tip",
+    "assetId": "tuxedo-tongue-tip",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/tuxedo-tongue-tip.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: tuxedo: black head top, back, tail and outer legs; white muzzle blaze, chin, chest, belly and all four paws. Palette: black base #2A2A33, black shadow #15151B, black highlight #4A4A5A; white base #F7F2E9, white shadow #CFC6D8. Iris colour #E0B24A amber. Expression: mouth closed with the pink tip of the tongue poking out (blep). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/tuxedo-tongue-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-small-fangs",
+    "assetId": "calico-small-fangs",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/calico-small-fangs.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: calico: mostly white with large clean patches of orange and black on the head, back and ringed tail. Palette: white base #F7F2E9, white shadow #CFC6D8; orange #E98A3C, orange shadow #B9612B; black #2A2A33, black shadow #15151B. Iris colour #5FA8B8 teal. Expression: mouth slightly open showing two tiny white fangs at the top. Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/calico-small-fangs.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-tongue-tip",
+    "assetId": "calico-tongue-tip",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/calico-tongue-tip.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: calico: mostly white with large clean patches of orange and black on the head, back and ringed tail. Palette: white base #F7F2E9, white shadow #CFC6D8; orange #E98A3C, orange shadow #B9612B; black #2A2A33, black shadow #15151B. Iris colour #5FA8B8 teal. Expression: mouth closed with the pink tip of the tongue poking out (blep). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/calico-tongue-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-small-fangs",
+    "assetId": "colorpoint-small-fangs",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/colorpoint-small-fangs.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: colorpoint (Siamese-like): cream body with dark seal-brown mask on the face, dark ears, dark paws and dark tail. Palette: cream base #F1E4D2, cream shadow #CDB9A4, cream highlight #FBF3E8; points #4A3128, points shadow #2E1C16. Iris colour #4F86D8 blue. Expression: mouth slightly open showing two tiny white fangs at the top. Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/colorpoint-small-fangs.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-tongue-tip",
+    "assetId": "colorpoint-tongue-tip",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/colorpoint-tongue-tip.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: colorpoint (Siamese-like): cream body with dark seal-brown mask on the face, dark ears, dark paws and dark tail. Palette: cream base #F1E4D2, cream shadow #CDB9A4, cream highlight #FBF3E8; points #4A3128, points shadow #2E1C16. Iris colour #4F86D8 blue. Expression: mouth closed with the pink tip of the tongue poking out (blep). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/colorpoint-tongue-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-small-fangs",
+    "assetId": "rosetted-small-fangs",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/rosetted-small-fangs.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: rosetted (Bengal-like): golden-tan fur covered in dark rosette spots on the body and legs, ringed tail; pale muzzle and belly. Palette: fur base #D9A45A, fur shadow #A87436, fur highlight #EFC98A; rosettes #4A3220; muzzle/belly #F3E4C8. Iris colour #C7A24A gold. Expression: mouth slightly open showing two tiny white fangs at the top. Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/rosetted-small-fangs.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-tongue-tip",
+    "assetId": "rosetted-tongue-tip",
+    "kind": "body",
+    "batch": 1,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "packages/asset-catalog/assets/v0.10.0/rosetted-tongue-tip.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a flat cel-shaded kitten; keep EXACTLY its silhouette, pose, outline weight, eye/nose/mouth positions, tail and paws. Image 2 is ONLY a reference for the coat pattern layout and the expression. Change the coat to: rosetted (Bengal-like): golden-tan fur covered in dark rosette spots on the body and legs, ringed tail; pale muzzle and belly. Palette: fur base #D9A45A, fur shadow #A87436, fur highlight #EFC98A; rosettes #4A3220; muzzle/belly #F3E4C8. Iris colour #C7A24A gold. Expression: mouth closed with the pink tip of the tongue poking out (blep). Do not change anything else. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/rosetted-tongue-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "antlers",
+    "assetId": "antlers",
+    "kind": "part",
+    "slot": "crown",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/antlers.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a pair of small deer antlers on the top of the head, warm brown #9C7A55 with shadow #6E5238. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/antlers.png",
+    "status": "pending"
+  },
+  {
+    "id": "halo",
+    "assetId": "halo",
+    "kind": "part",
+    "slot": "crown",
+    "tier": "L",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/halo.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: one floating golden halo ring above the head, gold #F2C24E with shadow #C9962A and a thin pale-yellow inner glow band #FBE7A6 (flat band, not a gradient). Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/halo.png",
+    "status": "pending"
+  },
+  {
+    "id": "small-wings",
+    "assetId": "small-wings",
+    "kind": "part",
+    "slot": "back",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/small-wings.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a pair of small white feathered wings behind the shoulders, white #F7F2E9 with shadow #CFC6D8, drawn clearly larger than in Image 2 so they stick out visibly beyond the body silhouette. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/small-wings.png",
+    "status": "pending"
+  },
+  {
+    "id": "feathered-wings",
+    "assetId": "feathered-wings",
+    "kind": "part",
+    "slot": "back",
+    "tier": "R",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/feathered-wings.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a pair of large cream feathered bird wings rising well above the shoulder line, cream #F4EAD8 with shadow #CDB9A4 and simple layered feather rows. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/feathered-wings.png",
+    "status": "pending"
+  },
+  {
+    "id": "dragon-wings",
+    "assetId": "dragon-wings",
+    "kind": "part",
+    "slot": "back",
+    "tier": "L",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/dragon-wings.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a pair of large dragon wings spread high above the head: dark charcoal-brown bone frame #3A2A24 and flat pink-orange membrane #F08A7A with shadow #C9645A. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/dragon-wings.png",
+    "status": "pending"
+  },
+  {
+    "id": "frill-neck",
+    "assetId": "frill-neck",
+    "kind": "part",
+    "slot": "neck",
+    "tier": "R",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/frill-neck.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a frilled-lizard style half-circle neck frill fanned open behind the head and neck, pink-orange membrane #F08A7A with dark radial ribs #3A2A24. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/frill-neck.png",
+    "status": "pending"
+  },
+  {
+    "id": "orange-white-fin-ears",
+    "assetId": "orange-white-fin-ears",
+    "kind": "part",
+    "slot": "ears",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/orange-white-fin-ears.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the ears replaced by a pair of translucent-looking fish-fin ears: pink membrane #F2A9B4 with darker rays #C9645A, drawn as flat shapes covering at least the whole area where Image 2 has pixels. The part belongs to a orange-and-white bicolor: orange on the head top, back, tail and a saddle; white muzzle, chest, belly and paws cat; palette orange base #E98A3C, orange shadow #B9612B, orange highlight #F5B571; white base #F7F2E9, white shadow #CFC6D8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/orange-white-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-fin-ears",
+    "assetId": "brown-tabby-fin-ears",
+    "kind": "part",
+    "slot": "ears",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/brown-tabby-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/brown-tabby-fin-ears.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the ears replaced by a pair of translucent-looking fish-fin ears: pink membrane #F2A9B4 with darker rays #C9645A, drawn as flat shapes covering at least the whole area where Image 2 has pixels. The part belongs to a brown tabby: warm brown-grey fur with bold dark mackerel stripes on the forehead (M mark), cheeks, back, legs and ringed tail; lighter muzzle and chest cat; palette fur base #B08A62, fur shadow #7E5E40, fur highlight #D6B58E; stripes #5E4330; muzzle/chest #E9D9C3. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/brown-tabby-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "tuxedo-fin-ears",
+    "assetId": "tuxedo-fin-ears",
+    "kind": "part",
+    "slot": "ears",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/tuxedo-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/tuxedo-fin-ears.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the ears replaced by a pair of translucent-looking fish-fin ears: pink membrane #F2A9B4 with darker rays #C9645A, drawn as flat shapes covering at least the whole area where Image 2 has pixels. The part belongs to a tuxedo: black head top, back, tail and outer legs; white muzzle blaze, chin, chest, belly and all four paws cat; palette black base #2A2A33, black shadow #15151B, black highlight #4A4A5A; white base #F7F2E9, white shadow #CFC6D8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/tuxedo-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-fin-ears",
+    "assetId": "calico-fin-ears",
+    "kind": "part",
+    "slot": "ears",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/calico-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/calico-fin-ears.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the ears replaced by a pair of translucent-looking fish-fin ears: pink membrane #F2A9B4 with darker rays #C9645A, drawn as flat shapes covering at least the whole area where Image 2 has pixels. The part belongs to a calico: mostly white with large clean patches of orange and black on the head, back and ringed tail cat; palette white base #F7F2E9, white shadow #CFC6D8; orange #E98A3C, orange shadow #B9612B; black #2A2A33, black shadow #15151B. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/calico-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-fin-ears",
+    "assetId": "colorpoint-fin-ears",
+    "kind": "part",
+    "slot": "ears",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/colorpoint-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/colorpoint-fin-ears.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the ears replaced by a pair of translucent-looking fish-fin ears: pink membrane #F2A9B4 with darker rays #C9645A, drawn as flat shapes covering at least the whole area where Image 2 has pixels. The part belongs to a colorpoint (Siamese-like): cream body with dark seal-brown mask on the face, dark ears, dark paws and dark tail cat; palette cream base #F1E4D2, cream shadow #CDB9A4, cream highlight #FBF3E8; points #4A3128, points shadow #2E1C16. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/colorpoint-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-fin-ears",
+    "assetId": "rosetted-fin-ears",
+    "kind": "part",
+    "slot": "ears",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/rosetted-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/rosetted-fin-ears.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the ears replaced by a pair of translucent-looking fish-fin ears: pink membrane #F2A9B4 with darker rays #C9645A, drawn as flat shapes covering at least the whole area where Image 2 has pixels. The part belongs to a rosetted (Bengal-like): golden-tan fur covered in dark rosette spots on the body and legs, ringed tail; pale muzzle and belly cat; palette fur base #D9A45A, fur shadow #A87436, fur highlight #EFC98A; rosettes #4A3220; muzzle/belly #F3E4C8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/rosetted-fin-ears.png",
+    "status": "pending"
+  },
+  {
+    "id": "orange-white-small-lion-mane",
+    "assetId": "orange-white-small-lion-mane",
+    "kind": "part",
+    "slot": "neck",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/orange-white-small-lion-mane.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a short lion mane collar around the neck, in the same coat colours as the body but one step darker, with a simple tufted outline. The part belongs to a orange-and-white bicolor: orange on the head top, back, tail and a saddle; white muzzle, chest, belly and paws cat; palette orange base #E98A3C, orange shadow #B9612B, orange highlight #F5B571; white base #F7F2E9, white shadow #CFC6D8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/orange-white-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-small-lion-mane",
+    "assetId": "brown-tabby-small-lion-mane",
+    "kind": "part",
+    "slot": "neck",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/brown-tabby-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/brown-tabby-small-lion-mane.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a short lion mane collar around the neck, in the same coat colours as the body but one step darker, with a simple tufted outline. The part belongs to a brown tabby: warm brown-grey fur with bold dark mackerel stripes on the forehead (M mark), cheeks, back, legs and ringed tail; lighter muzzle and chest cat; palette fur base #B08A62, fur shadow #7E5E40, fur highlight #D6B58E; stripes #5E4330; muzzle/chest #E9D9C3. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/brown-tabby-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "tuxedo-small-lion-mane",
+    "assetId": "tuxedo-small-lion-mane",
+    "kind": "part",
+    "slot": "neck",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/tuxedo-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/tuxedo-small-lion-mane.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a short lion mane collar around the neck, in the same coat colours as the body but one step darker, with a simple tufted outline. The part belongs to a tuxedo: black head top, back, tail and outer legs; white muzzle blaze, chin, chest, belly and all four paws cat; palette black base #2A2A33, black shadow #15151B, black highlight #4A4A5A; white base #F7F2E9, white shadow #CFC6D8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/tuxedo-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-small-lion-mane",
+    "assetId": "calico-small-lion-mane",
+    "kind": "part",
+    "slot": "neck",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/calico-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/calico-small-lion-mane.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a short lion mane collar around the neck, in the same coat colours as the body but one step darker, with a simple tufted outline. The part belongs to a calico: mostly white with large clean patches of orange and black on the head, back and ringed tail cat; palette white base #F7F2E9, white shadow #CFC6D8; orange #E98A3C, orange shadow #B9612B; black #2A2A33, black shadow #15151B. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/calico-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-small-lion-mane",
+    "assetId": "colorpoint-small-lion-mane",
+    "kind": "part",
+    "slot": "neck",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/colorpoint-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/colorpoint-small-lion-mane.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a short lion mane collar around the neck, in the same coat colours as the body but one step darker, with a simple tufted outline. The part belongs to a colorpoint (Siamese-like): cream body with dark seal-brown mask on the face, dark ears, dark paws and dark tail cat; palette cream base #F1E4D2, cream shadow #CDB9A4, cream highlight #FBF3E8; points #4A3128, points shadow #2E1C16. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/colorpoint-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-small-lion-mane",
+    "assetId": "rosetted-small-lion-mane",
+    "kind": "part",
+    "slot": "neck",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/rosetted-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/rosetted-small-lion-mane.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: a short lion mane collar around the neck, in the same coat colours as the body but one step darker, with a simple tufted outline. The part belongs to a rosetted (Bengal-like): golden-tan fur covered in dark rosette spots on the body and legs, ringed tail; pale muzzle and belly cat; palette fur base #D9A45A, fur shadow #A87436, fur highlight #EFC98A; rosettes #4A3220; muzzle/belly #F3E4C8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/rosetted-small-lion-mane.png",
+    "status": "pending"
+  },
+  {
+    "id": "orange-white-forked-tail-tip",
+    "assetId": "orange-white-forked-tail-tip",
+    "kind": "part",
+    "slot": "tailTip",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/orange-white-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the whole tail replaced by a tail that splits into two short forks at the tip, in the same coat colours and pattern as the body; it must fully cover the area where Image 2 has pixels; the root is hidden behind the haunch. The part belongs to a orange-and-white bicolor: orange on the head top, back, tail and a saddle; white muzzle, chest, belly and paws cat; palette orange base #E98A3C, orange shadow #B9612B, orange highlight #F5B571; white base #F7F2E9, white shadow #CFC6D8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/orange-white-forked-tail-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "brown-tabby-forked-tail-tip",
+    "assetId": "brown-tabby-forked-tail-tip",
+    "kind": "part",
+    "slot": "tailTip",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/brown-tabby-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/brown-tabby-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the whole tail replaced by a tail that splits into two short forks at the tip, in the same coat colours and pattern as the body; it must fully cover the area where Image 2 has pixels; the root is hidden behind the haunch. The part belongs to a brown tabby: warm brown-grey fur with bold dark mackerel stripes on the forehead (M mark), cheeks, back, legs and ringed tail; lighter muzzle and chest cat; palette fur base #B08A62, fur shadow #7E5E40, fur highlight #D6B58E; stripes #5E4330; muzzle/chest #E9D9C3. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/brown-tabby-forked-tail-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "tuxedo-forked-tail-tip",
+    "assetId": "tuxedo-forked-tail-tip",
+    "kind": "part",
+    "slot": "tailTip",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/tuxedo-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/tuxedo-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the whole tail replaced by a tail that splits into two short forks at the tip, in the same coat colours and pattern as the body; it must fully cover the area where Image 2 has pixels; the root is hidden behind the haunch. The part belongs to a tuxedo: black head top, back, tail and outer legs; white muzzle blaze, chin, chest, belly and all four paws cat; palette black base #2A2A33, black shadow #15151B, black highlight #4A4A5A; white base #F7F2E9, white shadow #CFC6D8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/tuxedo-forked-tail-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "calico-forked-tail-tip",
+    "assetId": "calico-forked-tail-tip",
+    "kind": "part",
+    "slot": "tailTip",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/calico-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/calico-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the whole tail replaced by a tail that splits into two short forks at the tip, in the same coat colours and pattern as the body; it must fully cover the area where Image 2 has pixels; the root is hidden behind the haunch. The part belongs to a calico: mostly white with large clean patches of orange and black on the head, back and ringed tail cat; palette white base #F7F2E9, white shadow #CFC6D8; orange #E98A3C, orange shadow #B9612B; black #2A2A33, black shadow #15151B. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/calico-forked-tail-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "colorpoint-forked-tail-tip",
+    "assetId": "colorpoint-forked-tail-tip",
+    "kind": "part",
+    "slot": "tailTip",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/colorpoint-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/colorpoint-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the whole tail replaced by a tail that splits into two short forks at the tip, in the same coat colours and pattern as the body; it must fully cover the area where Image 2 has pixels; the root is hidden behind the haunch. The part belongs to a colorpoint (Siamese-like): cream body with dark seal-brown mask on the face, dark ears, dark paws and dark tail cat; palette cream base #F1E4D2, cream shadow #CDB9A4, cream highlight #FBF3E8; points #4A3128, points shadow #2E1C16. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/colorpoint-forked-tail-tip.png",
+    "status": "pending"
+  },
+  {
+    "id": "rosetted-forked-tail-tip",
+    "assetId": "rosetted-forked-tail-tip",
+    "kind": "part",
+    "slot": "tailTip",
+    "tier": "N",
+    "batch": 2,
+    "inputs": [
+      "docs/art/flat-source-trial/solid/rosetted-parted-mouth.png",
+      "docs/art/flat-source-trial/reference/rosetted-forked-tail-tip.png"
+    ],
+    "prompt": "Use case: game overlay sprite. Image 1 is a 1254x1254 flat cel-shaded seated kitten used ONLY as a placement and silhouette reference; do NOT draw the cat, its fur, ears, tail, ground or shadow. Image 2 shows the exact position, scale and rough shape of the part to draw (it is the old plush version; ignore its style). Draw ONLY this part, at the same position and scale as Image 2: the whole tail replaced by a tail that splits into two short forks at the tip, in the same coat colours and pattern as the body; it must fully cover the area where Image 2 has pixels; the root is hidden behind the haunch. The part belongs to a rosetted (Bengal-like): golden-tan fur covered in dark rosette spots on the body and legs, ringed tail; pale muzzle and belly cat; palette fur base #D9A45A, fur shadow #A87436, fur highlight #EFC98A; rosettes #4A3220; muzzle/belly #F3E4C8. Parts of it that would be hidden behind the cat's body may be left out, but everything that sticks out beyond the body silhouette must be drawn fully. No second set of organs. STYLE (mandatory): flat cel-shaded vector sticker illustration. Every material uses exactly one base colour, one shadow tone and at most one highlight tone as hard-edged flat shapes; no gradients, no fur texture, no soft brushes, no blur, no noise, no photoreal lighting. Bold clean dark outlines (colour #2B2320) about 1/60 of the image width, with slightly thinner inner lines separating body parts. Light comes from the top-left. Large simple readable eyes with a dark pupil #1B1B22 and one white highlight; pink nose #E88A98; pink inner ears #F2A9B4. Background: solid flat magenta #FF00FF filling the whole canvas, no ground, no shadow on the ground, no vignette, nothing else. Output exactly 1254x1254.",
+    "output": "docs/art/flat-source-trial/solid/rosetted-forked-tail-tip.png",
+    "status": "pending"
+  }
+]
