@@ -1,28 +1,18 @@
 import { z } from 'zod'
+import { canonicalJson } from '../../generator-core/src/canonical-json.js'
 import { felinePhenotypeV2Schema, phenotypeKeyV2, type FelinePhenotypeV2 } from '../../generator-core/src/feline-phenotype-v2.js'
 import { traitIdSchema as id } from '../../generator-core/src/feline-phenotype.js'
-import type { PixelArtPlan, PixelOperation, PixelPolygon, PixelResource } from './pixel-art-catalog.js'
+import { pixelArtResourceSchema, pixelArtSha256Schema, pixelArtStepSchema, type PixelArtPlan, type PixelOperation, type PixelResource } from './pixel-art-catalog.js'
 
-const sha = z.string().regex(/^[a-f0-9]{64}$/)
-const point = z.tuple([z.number().finite().min(0).max(64), z.number().finite().min(0).max(64)])
-const polygon = z.array(point).min(3).max(64)
-const slots = ['back', 'crown', 'body', 'ears', 'tailTip', 'neck'] as const
-const resource = z.strictObject({
-  path: z.string().regex(/^assets\/[a-z0-9._-]+\.png$/), sha256: sha, width: z.literal(64), height: z.literal(64),
-})
-const step = z.strictObject({
-  slot: z.enum(slots), target: z.enum(['frame', 'subject']), resources: z.record(id, id),
-  clear: z.array(polygon), occlusion: z.array(polygon),
-})
-const profileV2 = z.strictObject({ id, body: id, coat: id, eyes: id, expression: id, steps: z.array(step).length(6) })
+const profileV2 = z.strictObject({ id, body: id, coat: id, eyes: id, expression: id, steps: z.array(pixelArtStepSchema).length(6) })
 const coverageV2 = z.strictObject({
   id, label: z.string().min(1).max(200), phenotype: felinePhenotypeV2Schema, profileId: id,
-  review: z.enum(['approved', 'pending']), rgbaSha256: sha,
+  review: z.enum(['approved', 'pending']), rgbaSha256: pixelArtSha256Schema,
 })
 const pixelArtCatalogV2Schema = z.strictObject({
-  schemaVersion: z.literal('pixel-art-catalog-v2'), styleId: z.literal('pixel-flat'), artVersion: id, revision: sha,
-  rendererVersion: z.literal('pixel-rgba-v1'), size: z.literal(64), resources: z.record(id, resource),
-  profiles: z.array(profileV2).min(1), coverage: z.array(coverageV2).min(1), generatable: z.array(id), evidence: z.record(z.string(), sha),
+  schemaVersion: z.literal('pixel-art-catalog-v2'), styleId: z.literal('pixel-flat'), artVersion: id, revision: pixelArtSha256Schema,
+  rendererVersion: z.literal('pixel-rgba-v1'), size: z.literal(64), resources: z.record(id, pixelArtResourceSchema),
+  profiles: z.array(profileV2).min(1), coverage: z.array(coverageV2).min(1), generatable: z.array(id), evidence: z.record(z.string(), pixelArtSha256Schema),
 })
 export type PixelArtCatalogV2 = z.infer<typeof pixelArtCatalogV2Schema>
 
@@ -65,7 +55,7 @@ export function requirePixelArtCatalogV2(input: unknown): PixelArtCatalogV2 {
 }
 
 export function pixelArtKeyV2(phenotype: FelinePhenotypeV2, catalog: Pick<PixelArtCatalogV2, 'styleId' | 'artVersion' | 'revision'>): string {
-  return JSON.stringify([catalog.styleId, catalog.artVersion, catalog.revision, phenotypeKeyV2(phenotype)])
+  return canonicalJson([catalog.styleId, catalog.artVersion, catalog.revision, phenotypeKeyV2(phenotype)])
 }
 
 export function resolvePixelArtV2(input: FelinePhenotypeV2, inputCatalog: PixelArtCatalogV2): PixelArtPlan {
@@ -80,8 +70,8 @@ export function resolvePixelArtV2(input: FelinePhenotypeV2, inputCatalog: PixelA
     const selected = step.slot === 'body' ? phenotype.expression : phenotype[step.slot]
     if (selected === 'none') continue
     const resourceId = step.resources[selected]!
-    if (step.clear.length) operations.push({ kind: 'clear', polygons: step.clear as PixelPolygon[] })
-    operations.push({ kind: 'draw', resource: resourceId, target: step.target, occlusion: step.occlusion as PixelPolygon[] })
+    if (step.clear.length) operations.push({ kind: 'clear', polygons: step.clear })
+    operations.push({ kind: 'draw', resource: resourceId, target: step.target, occlusion: step.occlusion })
     resources[resourceId] = catalog.resources[resourceId]!
   }
   return { size: 64, operations, resources, key: pixelArtKeyV2(phenotype, catalog), review: covered.review }
@@ -94,7 +84,7 @@ export function generatablePixelPhenotypesV2(input: PixelArtCatalogV2): FelinePh
 
 const appearanceV2Schema = z.strictObject({
   schemaVersion: z.literal('feline-appearance-v2'), phenotype: felinePhenotypeV2Schema,
-  art: z.strictObject({ styleId: z.literal('pixel-flat'), artVersion: id, revision: sha }),
+  art: z.strictObject({ styleId: z.literal('pixel-flat'), artVersion: id, revision: pixelArtSha256Schema }),
 })
 export type PixelAppearanceV2 = z.infer<typeof appearanceV2Schema>
 

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { canonicalJson } from './canonical-json.js'
 import type { ParseResult } from './contracts.js'
 import { felinePhenotypeSchema, phenotypeFromLegacy, traitIdSchema } from './feline-phenotype.js'
 
@@ -36,5 +37,5 @@ export function phenotypeV2FromLegacy(input: unknown): FelinePhenotypeV2 {
 
 export function phenotypeKeyV2(input: FelinePhenotypeV2): string {
   const phenotype = felinePhenotypeV2Schema.parse(input)
-  return JSON.stringify(PHENOTYPE_TRAITS_V2.map(key => phenotype[key]))
+  return canonicalJson(PHENOTYPE_TRAITS_V2.map(key => phenotype[key]))
 }
