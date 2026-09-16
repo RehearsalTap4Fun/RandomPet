@@ -1,5 +1,8 @@
 import { parseFelineCombinationSpec } from '@qmonster/generator-core'
 import type { FelineCombinationOperation, FelineCombinationRenderPlan } from '@qmonster/asset-catalog'
+import { composeFelineLayers, validateDecoded, type FelineCanvasLayer } from './feline-canvas-compositor.js'
+import type { FelineCombinationCanvas, FelineCombinationResourceResolver, FelineCombinationRenderOptions } from './feline-canvas-compositor.js'
+export type { FelineCombinationCanvas, FelineCombinationResourceResolver, FelineCombinationRenderOptions } from './feline-canvas-compositor.js'
 import authoredRegistrations from './feline-combination-registration.json' with { type: 'json' }
 
 type Registration = { scaleX: number; scaleY: number; translateX: number; translateY: number }
@@ -7,14 +10,7 @@ const registrations: Readonly<Record<string, Readonly<Registration>>> = Object.f
   Object.entries(authoredRegistrations).map(([id, value]) => [id, Object.freeze(value)]),
 ))
 
-export type FelineCombinationCanvas = HTMLCanvasElement | OffscreenCanvas
-type Context = CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
 type Resource = Extract<FelineCombinationOperation, { kind: 'draw' }>['resource']
-/** Return fresh decoded sources. The renderer closes close()-capable sources after use. */
-export type FelineCombinationResourceResolver = (resource: Resource) => Promise<CanvasImageSource>
-export interface FelineCombinationRenderOptions {
-  createCanvas?: (width: number, height: number) => FelineCombinationCanvas
-}
 
 const point = (x: number, y: number) => Object.freeze([x, y] as const)
 /** Pilot geometry only: these registrations and removal regions have not passed art review. */
@@ -91,35 +87,6 @@ function validatePlan(plan: FelineCombinationRenderPlan): void {
   }
 }
 
-function context(canvas: FelineCombinationCanvas): Context {
-  const result = canvas.getContext('2d') as Context | null
-  if (!result) throw new Error('Canvas 2D context is unavailable.')
-  return result
-}
-
-function reset(canvas: FelineCombinationCanvas): void {
-  // Reassigning dimensions also removes prior clipping, transforms and compositing state.
-  canvas.width = 1254
-  canvas.height = 1254
-}
-
-function defaultCanvas(width: number, height: number): FelineCombinationCanvas {
-  if (typeof OffscreenCanvas !== 'undefined') return new OffscreenCanvas(width, height)
-  if (typeof document !== 'undefined') return Object.assign(document.createElement('canvas'), { width, height })
-  throw new Error('No canvas factory is available.')
-}
-
-function validateDecoded(source: CanvasImageSource, resource: Resource): void {
-  if (!source || typeof source !== 'object') throw new Error(`Failed to decode feline resource ${resource.id}.`)
-  const dimensions = source as unknown as Record<string, unknown>
-  // Natural dimensions take precedence over HTML image display width/height.
-  const width = dimensions.naturalWidth ?? dimensions.videoWidth ?? dimensions.displayWidth ?? dimensions.width
-  const height = dimensions.naturalHeight ?? dimensions.videoHeight ?? dimensions.displayHeight ?? dimensions.height
-  if (dimensions.complete === false || width !== resource.width || height !== resource.height) {
-    throw new Error(`Decoded dimensions mismatch for feline resource ${resource.id}: ${String(width)}x${String(height)}.`)
-  }
-}
-
 /** Browser loader. URL mapping changes delivery only; the declared SHA-256 pins the bytes. */
 export function createFelineCombinationResourceResolver(
   resolveUrl: (resource: Resource) => string = resource => resource.path,
@@ -152,52 +119,21 @@ export function createFelineCombinationResourceResolver(
   }
 }
 
-function clearSubject(ctx: Context, region: 'ears' | 'tailTip'): void {
-  ctx.save()
-  ctx.globalCompositeOperation = 'destination-out'
-  // A tiny fixed feather preserves a fur edge at the haunch occlusion boundary.
-  if (region === 'tailTip') ctx.filter = 'blur(2px)'
-  ctx.fillStyle = '#000'
-  for (const polygon of region === 'tailTip' ? [FELINE_COMBINATION_TEMPLATE_V1.tailTip] : FELINE_COMBINATION_TEMPLATE_V1.ears) {
-    ctx.beginPath()
-    ctx.moveTo(...polygon[0]!)
-    for (const vertex of polygon.slice(1)) ctx.lineTo(...vertex)
-    ctx.closePath()
-    ctx.fill()
-  }
-  ctx.restore()
-}
-
-/** Compose one validated candidate plan. Failures leave the output transparent, never partly drawn. */
+/** Compose one validated legacy plan with its original immutable geometry. */
 export async function renderFelineCombination(
   canvas: FelineCombinationCanvas,
   inputPlan: FelineCombinationRenderPlan,
   resolver: FelineCombinationResourceResolver,
   options: FelineCombinationRenderOptions = {},
 ): Promise<void> {
-  reset(canvas)
-  const acquired = new Set<CanvasImageSource>()
-  try {
-    // Detach before the first async boundary even if a caller supplies an unfrozen plan.
+  return composeFelineLayers(canvas, () => {
     const plan = structuredClone(inputPlan)
     validatePlan(plan)
-    const createCanvas = options.createCanvas ?? defaultCanvas
-    const frame = createCanvas(1254, 1254)
-    const subject = createCanvas(1254, 1254)
-    if (frame === subject || frame === canvas || subject === canvas) throw new Error('Canvas factory must return distinct isolated surfaces.')
-    reset(frame); reset(subject)
-    const frameContext = context(frame)
-    const subjectContext = context(subject)
-    for (const operation of plan.operations) {
-      if (operation.kind === 'clear') {
-        clearSubject(subjectContext, operation.region)
-        continue
+    return plan.operations.map((operation): FelineCanvasLayer => {
+      if (operation.kind === 'clear') return {
+        kind: 'clear', feather: operation.region === 'tailTip',
+        polygons: operation.region === 'tailTip' ? [FELINE_COMBINATION_TEMPLATE_V1.tailTip] : FELINE_COMBINATION_TEMPLATE_V1.ears,
       }
-      const image = await resolver(operation.resource)
-      if (image) acquired.add(image)
-      validateDecoded(image, operation.resource)
-      // The intact face/neck fur occludes the mane roots; no hard U-shaped muzzle seam.
-      const target = operation.slot === 'back' || operation.slot === 'crown' || operation.slot === 'neck' || operation.slot === 'tailTip' ? frameContext : subjectContext
       const mutation = operation.slot === 'body' ? undefined : plan.spec.selections[operation.slot]
       let transform = mutation ? mutationTransforms[mutation] : undefined
       if (mutation && !transform) throw new Error(`Missing mutation transform: ${mutation}.`)
@@ -210,22 +146,10 @@ export async function renderFelineCombination(
           translateY: transform.translateY + transform.scaleY * authored.translateY,
         }
       }
-      // The replacement is a continuous whole tail. Its root is hidden by the body;
-      // no crossfade can repair mismatched mid-shaft silhouettes or coat markings.
-      target.save()
-      if (transform) target.setTransform(transform.scaleX, 0, 0, transform.scaleY, transform.translateX, transform.translateY)
-      target.drawImage(image, 0, 0)
-      target.restore()
-    }
-    frameContext.drawImage(subject, 0, 0)
-    context(canvas).drawImage(frame, 0, 0)
-  } catch (error) {
-    reset(canvas)
-    throw error
-  } finally {
-    for (const image of acquired) {
-      const disposable = image as CanvasImageSource & { close?: () => void }
-      disposable.close?.()
-    }
-  }
+      return { kind: 'draw', resource: operation.resource,
+        surface: ['back', 'crown', 'neck', 'tailTip'].includes(operation.slot) ? 'frame' : 'subject',
+        ...(transform ? { transform } : {}),
+      }
+    })
+  }, resolver, options)
 }

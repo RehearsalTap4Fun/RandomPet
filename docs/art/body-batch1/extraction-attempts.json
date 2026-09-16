@@ -1,0 +1,14 @@
+[
+  {
+    "stage": "direct-transparent-request",
+    "tool": "image_gen",
+    "prompt": "Use case: background-extraction.\nImage 1 is the approved short-legged round-bodied kitten and the exact edit target.\nExtract this EXACT kitten onto a genuinely transparent PNG background with real alpha. Remove only the pale background and ground shadow. Keep every part of the kitten: same exact squat pear-round body, short legs and four paws, face and teal eyes, two upper fangs, orange-white coat, ears, complete curved orange tail and individual fine fur and whiskers. Preserve original 1254x1254 framing, subject scale and exact coordinates. Do not redraw, reposition, change colors, lengthen legs or change the face. No cast shadow, floor, checkerboard pixels, solid color background, text or watermark. Alpha transparency outside the kitten, softly antialiased edges. Return a single transparent cutout PNG, not a mockup.",
+    "source": "C:/Users/jiangzhenyu/.codex/generated_images/01a0a432-7460-7f03-8554-57a27d1aff5c/exec-1b3cd891-5831-4a04-bb93-dd0415d9d477.png",
+    "status": "rejected-no-alpha",
+    "width": 1254,
+    "height": 1254,
+    "channels": 3,
+    "hasAlpha": false,
+    "note": "Baked checkerboard, never use as runtime PNG."
+  }
+]

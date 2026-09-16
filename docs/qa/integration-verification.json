@@ -1,5 +1,5 @@
 {
-  "runtimeRevision": "942d401f8013f4def2ff027d0839a34ad58a608774f532629d0845d318994cf4",
+  "runtimeRevision": "8bbd51e8cf08d9a725f708550055dfda87e8cb8b862b6276bd9d77f9b0105116",
   "resourceHashes": 44,
   "checks": [
     "explicit cross-slot selections retained",
@@ -11,6 +11,8 @@
     "pre-batch identity rejects a newly introduced mutation",
     "pre-migration snapshot keeps saved selections and pixels",
     "pre-migration identity rejects a newly introduced mutation",
+    "pre-body-refactor snapshot restores approved mutations without changing selections or pixels",
+    "pre-mane-fix runtime restores legacy creature pixels unchanged",
     "approved release restores review-stage new mutations without changing selections or pixels",
     "new cross-slot mutations save and replay identical pixels",
     "concurrent renders keep independent canvases",
@@ -26,5 +28,5 @@
     "standalone built SDK new-feature save/restore matches"
   ],
   "status": "passed",
-  "checkedAt": "2026-09-15T13:04:32.987Z"
+  "checkedAt": "2026-09-16T02:06:44.258Z"
 }

@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "feline-body-art-profile-v1",
+  "id": "shortleg-round-v1",
+  "phenotype": {
+    "body": "shortleg-round",
+    "coat": "orange-white",
+    "expression": "small-fangs"
+  },
+  "canvas": {
+    "width": 1254,
+    "height": 1254
+  },
+  "body": {
+    "id": "shortleg-round-orange-white-small-fangs",
+    "path": "docs/art/body-batch1/shortleg-round-body.png",
+    "sha256": "8c86c7525d99d61234a63c77b4b32f37e9eb182e8811887b36089ba531dbf059",
+    "width": 1254,
+    "height": 1254,
+    "mediaType": "image/png",
+    "hasAlpha": true,
+    "review": "pending",
+    "provenance": {
+      "reference": "docs/art/body-batch1/shortleg-round-orange-white-small-fangs-v1.png",
+      "prompt": "docs/art/body-batch1/green-generation.json"
+    }
+  },
+  "mutations": {
+    "dragon-horns": {
+      "resource": {
+        "id": "dragon-horns",
+        "path": "packages/asset-catalog/assets/v0.10.0/dragon-horns.png",
+        "sha256": "27c492b894c1e38302e69c1d47513a0d850ef0c674a849a43a098b433ac6b136",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "pending",
+        "provenance": {
+          "reference": "docs/releases/v0.10.0/provenance/606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa.png",
+          "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+        }
+      },
+      "transform": {
+        "scaleX": 0.68,
+        "scaleY": 0.68,
+        "translateX": 137,
+        "translateY": -24
+      }
+    },
+    "antlers": {
+      "resource": {
+        "id": "antlers",
+        "path": "packages/asset-catalog/assets/v0.10.0/antlers.png",
+        "sha256": "5819b0efd6465dff82ea4e8bbde3492f95d9bb03223afff2e211518701712280",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "pending",
+        "provenance": {
+          "reference": "docs/releases/v0.10.0/provenance/da761873d5c7fdaf98ac3e9abf6da7eec83eda527f557704fb0f2f6734328239.png",
+          "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+        }
+      },
+      "transform": {
+        "scaleX": 0.39,
+        "scaleY": 0.39,
+        "translateX": 310,
+        "translateY": -90
+      }
+    },
+    "halo": {
+      "resource": {
+        "id": "halo",
+        "path": "packages/asset-catalog/assets/v0.10.0/halo.png",
+        "sha256": "de47f79ae4d22ad319f81dd11eacb9684005e04d15d7d20ebd1a0ede278ef264",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "approved",
+        "provenance": {
+          "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+          "prompt": "docs/art/mutation-batch1/generations.json"
+        }
+      },
+      "transform": {
+        "scaleX": 1,
+        "scaleY": 1,
+        "translateX": 0,
+        "translateY": 0
+      }
+    },
+    "fin-ears": {
+      "resource": {
+        "id": "orange-white-fin-ears",
+        "path": "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png",
+        "sha256": "d4263a899bea6a6842e6da9beabb8bb64bd904f741f5ae3f32c89a1da161c6aa",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "pending",
+        "provenance": {
+          "reference": "docs/releases/v0.10.0/provenance/606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa.png",
+          "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+        }
+      },
+      "transform": {
+        "scaleX": 0.63,
+        "scaleY": 0.55,
+        "translateX": 150,
+        "translateY": 20
+      }
+    },
+    "small-lion-mane": {
+      "resource": {
+        "id": "orange-white-small-lion-mane",
+        "path": "packages/asset-catalog/assets/v0.10.0/orange-white-small-lion-mane.png",
+        "sha256": "6ae39a30e6c998f7d146ec0b823db4a227da47e17098869cbec5e15de35d95c9",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "pending",
+        "provenance": {
+          "reference": "docs/releases/v0.10.0/provenance/7e86f77d682c81e783df3d46958b343702eef8947b1805d7fd8e59ebbbafaca6.png",
+          "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+        }
+      },
+      "transform": {
+        "scaleX": 0.82,
+        "scaleY": 0.38,
+        "translateX": 0,
+        "translateY": 455
+      }
+    },
+    "frill-neck": {
+      "resource": {
+        "id": "frill-neck",
+        "path": "packages/asset-catalog/assets/v0.10.0/frill-neck.png",
+        "sha256": "49d291923c1b5654f15d5aed7dfb3bbf173728d2de0b687e8a81fcbb1545b917",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "approved",
+        "provenance": {
+          "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+          "prompt": "docs/art/mutation-batch1/generations.json"
+        }
+      },
+      "transform": {
+        "scaleX": 1,
+        "scaleY": 1,
+        "translateX": 0,
+        "translateY": -5
+      }
+    },
+    "small-wings": {
+      "resource": {
+        "id": "small-wings",
+        "path": "packages/asset-catalog/assets/v0.10.0/small-wings.png",
+        "sha256": "df9779bac34a5d6d83f78e019dd3f5b8277e666444aedd0f610416964ca55435",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "pending",
+        "provenance": {
+          "reference": "docs/releases/v0.10.0/provenance/016146a15e7b8daab42590521fe13d249cd8687a93c739e1b11d10c8b24e3da9.png",
+          "prompt": "docs/releases/v0.10.0/provenance/6669fce1de0a9b5bccb07795abb8a61cb5cbc7cd632311c21ce6f2da495eeae3.json"
+        }
+      },
+      "transform": {
+        "scaleX": 0.86,
+        "scaleY": 0.73,
+        "translateX": 40,
+        "translateY": 185
+      }
+    },
+    "feathered-wings": {
+      "resource": {
+        "id": "feathered-wings",
+        "path": "packages/asset-catalog/assets/v0.10.0/feathered-wings.png",
+        "sha256": "286b0f30c6480dfe28e4b64c69797ddcd3cab3d38a2bf769ceb4e36f24a1567b",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "approved",
+        "provenance": {
+          "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+          "prompt": "docs/art/mutation-batch1/generations.json"
+        }
+      },
+      "transform": {
+        "scaleX": 1,
+        "scaleY": 1,
+        "translateX": 0,
+        "translateY": -20
+      }
+    },
+    "dragon-wings": {
+      "resource": {
+        "id": "dragon-wings",
+        "path": "packages/asset-catalog/assets/v0.10.0/dragon-wings.png",
+        "sha256": "b1a49eeef6c5775a96140a35b2b98482506a51de539fcace5e4a928f8b4a8312",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "approved",
+        "provenance": {
+          "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+          "prompt": "docs/art/mutation-batch1/generations.json"
+        }
+      },
+      "transform": {
+        "scaleX": 1,
+        "scaleY": 1,
+        "translateX": 0,
+        "translateY": -5
+      }
+    },
+    "forked-tail-tip": {
+      "resource": {
+        "id": "orange-white-forked-tail-tip",
+        "path": "packages/asset-catalog/assets/v0.10.0/orange-white-forked-tail-tip.png",
+        "sha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "pending",
+        "provenance": {
+          "reference": "docs/releases/v0.10.0/provenance/3a82e5788079916fa36b36cdfcb0966d41fdcf2ef8014da468b15d1de2930bae.png",
+          "prompt": "docs/releases/v0.10.0/provenance/d903f4810b3d48d671e30405dc3f8bfa2e22e3d19807050330141e042505a309.json"
+        }
+      },
+      "transform": {
+        "scaleX": 0.69,
+        "scaleY": 0.82,
+        "translateX": 380,
+        "translateY": 120
+      }
+    },
+    "flame-tail": {
+      "resource": {
+        "id": "flame-tail",
+        "path": "packages/asset-catalog/assets/v0.10.0/flame-tail.png",
+        "sha256": "64db2ed9ab0acf776ef7709ec1e1b9ca44d7f926bd2d938ce6944bb3df80abdf",
+        "width": 1254,
+        "height": 1254,
+        "mediaType": "image/png",
+        "hasAlpha": true,
+        "review": "approved",
+        "provenance": {
+          "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-parted-mouth.png",
+          "prompt": "docs/art/mutation-batch1/generations.json"
+        }
+      },
+      "transform": {
+        "scaleX": 0.94,
+        "scaleY": 0.9,
+        "translateX": 65,
+        "translateY": 40
+      }
+    }
+  },
+  "removal": {
+    "ears": [
+      [
+        [
+          210,
+          0
+        ],
+        [
+          490,
+          0
+        ],
+        [
+          470,
+          190
+        ],
+        [
+          220,
+          290
+        ]
+      ],
+      [
+        [
+          625,
+          0
+        ],
+        [
+          940,
+          0
+        ],
+        [
+          900,
+          410
+        ],
+        [
+          660,
+          200
+        ]
+      ]
+    ],
+    "tailTip": [
+      [
+        [
+          895,
+          350
+        ],
+        [
+          1254,
+          350
+        ],
+        [
+          1254,
+          1170
+        ],
+        [
+          984,
+          1170
+        ],
+        [
+          989,
+          1060
+        ],
+        [
+          1002,
+          985
+        ],
+        [
+          1002,
+          905
+        ],
+        [
+          982,
+          835
+        ],
+        [
+          954,
+          770
+        ],
+        [
+          920,
+          710
+        ],
+        [
+          895,
+          650
+        ]
+      ]
+    ]
+  }
+}

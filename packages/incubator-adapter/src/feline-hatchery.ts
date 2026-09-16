@@ -7,6 +7,8 @@ import snapshot from '../../../docs/integration/feline-combination-snapshot.json
 import previousSnapshot from '../../../docs/releases/v0.10.0/previous-snapshot.json'
 import preBatchSnapshot from '../../../docs/releases/v0.10.0/mutation-batch1/previous-snapshot.json'
 import reviewSnapshot from '../../../docs/releases/v0.10.0/mutation-batch1/review-snapshot.json'
+import preBodySnapshot from '../../../docs/releases/v0.10.0/body-batch1/previous-snapshot.json'
+import preManeSnapshot from '../../../docs/releases/v0.10.0/body-batch1/mane-fix-previous-snapshot.json'
 
 export interface StoredFelineVisual {
   kind: 'qmonster-feline-combination'
@@ -47,7 +49,9 @@ export async function createFelineHatchery(config: { catalogUrl: string; resourc
     const previous = visual?.catalogSha256 === previousSnapshot.catalogSha256 && visual.runtimeRevision === previousSnapshot.runtimeRevision
     const preBatch = visual?.catalogSha256 === preBatchSnapshot.catalogSha256 && visual.runtimeRevision === preBatchSnapshot.runtimeRevision
     const reviewed = visual?.catalogSha256 === reviewSnapshot.catalogSha256 && visual.runtimeRevision === reviewSnapshot.runtimeRevision
-    if (visual?.kind !== 'qmonster-feline-combination' || (!current && !previous && !preBatch && !reviewed)) throw new Error('RESTORE: unsupported visual snapshot')
+    const preBody = visual?.catalogSha256 === preBodySnapshot.catalogSha256 && visual.runtimeRevision === preBodySnapshot.runtimeRevision
+    const preMane = visual?.catalogSha256 === preManeSnapshot.catalogSha256 && visual.runtimeRevision === preManeSnapshot.runtimeRevision
+    if (visual?.kind !== 'qmonster-feline-combination' || (!current && !previous && !preBatch && !reviewed && !preBody && !preMane)) throw new Error('RESTORE: unsupported visual snapshot')
     const parsedSpec = parseFelineCombinationSpec(visual.spec)
     if (!parsedSpec.ok) throw new Error('SPEC: ' + JSON.stringify(parsedSpec.diagnostics))
     if ((previous || preBatch) && Object.values(parsedSpec.value.selections).some(value => ['halo', 'dragon-wings', 'feathered-wings', 'frill-neck', 'flame-tail'].includes(value))) {
