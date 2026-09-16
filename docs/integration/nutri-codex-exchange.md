@@ -7,7 +7,7 @@
 ## 当前状态（2026-09-16，Claude 更新）
 
 - 像素包 v1.1.0（本仓库 `33aa468`）：14 个已验收组合、8 张 64px 图层、仅橘白花纹，含标准与短腿圆身两种体型；SDK 在 `dist/pixel-art/`（`npm run build:pixel`）。
-- Nutri 线上（提交 `b7addf5`，部署 202609161653）：今日页与「我的」页均已显示像素猫，走的是 Nutri 自己的「毛绒源自动像素化」管线，尚未接像素包。
+- Nutri 最新提交 `8db1753`（线上部署仍是 `b7addf5` / 202609161653）：今日页与「我的」页均已显示像素猫，走的是 Nutri 自己的「毛绒源自动像素化」管线，尚未接像素包；`8db1753` 带上了存档字段与 `--source/--check/--compare` 工具。
 - 批 0 三张平涂源图已由 Claude 用 `--check` 验收通过，平涂路线成立；接下来瓶颈是覆盖范围（花纹）。
 
 ---
@@ -32,7 +32,7 @@
 
 - `scripts/pixelCat.ts`（Nutri 仓库）模式：默认从本仓库 v0.10 毛绒素材烘焙 64px 图层；`--source <dir>` 读 1254 最终坐标的平涂源（自动按四角色抠洋红底、腐蚀 3px，缺图回退毛绒）；`--check <dir>` 收图检查（尺寸/底色/模糊像素/色数/剪影 IoU 与偏移/清除区覆盖率/外挂件露出面积，输出叠加图与 `check-report.json`）；`--reference <dir>` 输出部件最终坐标参考图；`--preview out.png --compare dirA,dirB` 并排对比。
 - 运行时（`src/core/pixelize.ts` `composeSprite`）：二值 alpha、四邻 1px 描边 ×0.36、后层部件各自描边、身体层整体描边后盖上——即你镜像的 `pixel-rgba-v1` 语义。
-- 存档（本地未提交，下一个 Nutri 提交会带上）：`Creature.cat` 存 7 槽外观（coat / expression / crown / ears / neck / back / tailTip，**尚无 body**），`Creature.catRules = 'pixelcat-rules-v2'`；异变规则「只进不退」：部件按 N/R/L 分层（6 小件 N；颈膜、羽翼、焰尾 R；光环、龙翼 L），只换同级或更高，表情横向变化。小管家不参与云同步，是纯本机状态。
+- 存档（Nutri `8db1753`）：`Creature.cat` 存 7 槽外观（coat / expression / crown / ears / neck / back / tailTip，**尚无 body**），`Creature.catRules = 'pixelcat-rules-v2'`；异变规则「只进不退」：部件按 N/R/L 分层（6 小件 N；颈膜、羽翼、焰尾 R；光环、龙翼 L），只换同级或更高，表情横向变化。小管家不参与云同步，是纯本机状态。
 
 **Nutri 接入像素包的打算（请核对是否与你的契约冲突）**
 
