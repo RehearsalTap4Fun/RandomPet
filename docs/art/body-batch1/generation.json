@@ -1,0 +1,30 @@
+{
+  "id": "shortleg-round-orange-white-small-fangs-v1",
+  "stage": "base-shape-preview",
+  "status": "approved",
+  "tool": "image_gen",
+  "reference": "packages/asset-catalog/assets/v0.10.0/orange-white-small-fangs.png",
+  "prompt": "Use case: precise-object-edit.\nAsset type: a single base-body SHAPE REVIEW PREVIEW for the QMonsterCreator modular creature project, not a finished runtime sprite.\nImage 1 is the edit target and the exact reference for the kitten's identity, orange-and-white coat distribution, face, eyes, two tiny upper fangs, fluffy fur quality, studio light and front-facing sitting pose.\nPrimary request: create ONE new short-legged, round-bodied variant of THIS SAME kitten. The new body type must be clearly distinguishable from the reference at thumbnail size. Anatomically redesign the torso, haunches and legs; do not simply compress or scale the entire image.\nShape changes: make the torso compact and pear-round, broaden the belly and haunches approximately 15–20% relative to the same head width, and shorten the exposed front legs approximately 40–45% relative to the reference. The two short front forelegs are still clearly separate and end in two white rounded paws resting on the ground. Retain natural visible rear paws at the outer sides, with no extra paws. Keep the chest naturally connected to the muzzle, preserve a visible white bib and a round white lower chest, and avoid a long vertical white column between the chin and paws. Lower the center of gravity and create a squat plush silhouette, while retaining a real seated-cat anatomy rather than a ball with feet. Keep the face and head proportions close to the reference; do not achieve the effect just by making the head huge. Do not slim the cheeks or change the eye shape.\nInvariants: same glossy teal/blue-green eyes, same small salmon-pink nose, same white blaze, white muzzle, white chest and paws, orange fur elsewhere; exactly two small pointed upper fangs in a gentle slightly open mouth; same orange triangular ears and naturally curved orange tail on the viewer's right emerging from behind the haunch. Preserve the soft directional upper-left light and detailed groomed fur. The kitten is friendly and looks straight toward the viewer.\nComposition: full body and complete tail visible in a square canvas with comfortable margins, front-facing sitting position, all paw bottoms on the same baseline. Do not stretch the new shorter cat upward to fill the old cat's height.\nBackground: a completely plain uniform very pale warm gray #F3F0E9 for art review, with no checkerboard, no scenery, no horizon line, no dramatic cast shadow. This preview deliberately has an opaque background.\nAvoid: horns, halo, wings, mane, frill, fin ears, forked tail, flame tail, collars, clothing, props, text, watermark, extra animals, separate comparison panels, changes to coat pattern or facial expression.\nOutput: one high-quality square image of the new short-legged round-bodied kitten only.",
+  "referenceSha256": "606f878da242de4f7b58eaae19835249e6e315734645b75b30d1e783c21db4aa",
+  "createdAt": "2026-09-16T01:35:23.748Z",
+  "bodyReview": "approved",
+  "plannedCombinationSamples": 16,
+  "output": "docs/art/body-batch1/shortleg-round-orange-white-small-fangs-v1.png",
+  "outputSha256": "51ff35e17774817179a0920c2bd4463e835ddbcb7e0f233a067bc923c1616a6c",
+  "sourceOutput": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0a432-7460-7f03-8554-57a27d1aff5c\\exec-31873404-9d3e-4f10-b065-c8f0b50fc859.png",
+  "visualReview": "User approved the 16-sample body pilot after the mane layer correction.",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "pngColorType": 2,
+  "bodyApproval": {
+    "userReply": "1",
+    "scope": "Base shape only; proceed with 16 sample pilot",
+    "sha256": "51ff35e17774817179a0920c2bd4463e835ddbcb7e0f233a067bc923c1616a6c"
+  },
+  "combinationReview": "approved",
+  "delivery": "docs/qa/body-batch1/index.html",
+  "report": "docs/qa/body-batch1/report.json",
+  "approvalRecord": "docs/releases/v0.10.0/body-batch1/approval.json"
+}

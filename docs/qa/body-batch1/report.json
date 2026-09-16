@@ -1,0 +1,565 @@
+{
+  "scope": "16 body study samples and 18 representative legacy regressions; not exhaustive combinations",
+  "status": "approved",
+  "profileSha256": "276e77c8647a09d8510c5a4d1fbc0920ac244f7c5dd631e7c69a90dcd95f731b",
+  "sourceHashes": {
+    "packages/renderer-canvas/src/feline-canvas-compositor.ts": "994efbdb8a28a7ad3398bd44a01f18b3088792fdc0d648a93b178dd0fe5a1948",
+    "packages/renderer-canvas/src/feline-combination-render.ts": "51f0a899f46414cfe693dd1b0da90f520729de935bda12e569dbcfc5e76c5c59",
+    "packages/renderer-canvas/src/feline-body-study.ts": "fd7afa328b5f3c4f668260e080e35ae752c11ab39827b7d654e0a444ebb7d974",
+    "scripts/prepare-body-batch1.mjs": "e7ad4e65b42bccaa6aaca0cb5582a813bfa02486087dc628ce9fa1ba2666bf75",
+    "scripts/review-body-batch1.mjs": "b5c59ab43dbbea90949d66487520b48bf08b7d74bedcaa8b46ba4e8c572c5c59"
+  },
+  "resourceChecks": [
+    {
+      "id": "shortleg-round-orange-white-small-fangs",
+      "sha256": "8c86c7525d99d61234a63c77b4b32f37e9eb182e8811887b36089ba531dbf059",
+      "transparent": 718226,
+      "fractional": 30800,
+      "visible": 854290
+    },
+    {
+      "id": "dragon-horns",
+      "sha256": "27c492b894c1e38302e69c1d47513a0d850ef0c674a849a43a098b433ac6b136",
+      "transparent": 1518791,
+      "fractional": 53450,
+      "visible": 53725
+    },
+    {
+      "id": "antlers",
+      "sha256": "5819b0efd6465dff82ea4e8bbde3492f95d9bb03223afff2e211518701712280",
+      "transparent": 1379292,
+      "fractional": 193214,
+      "visible": 193224
+    },
+    {
+      "id": "halo",
+      "sha256": "de47f79ae4d22ad319f81dd11eacb9684005e04d15d7d20ebd1a0ede278ef264",
+      "transparent": 1556026,
+      "fractional": 15715,
+      "visible": 16490
+    },
+    {
+      "id": "orange-white-fin-ears",
+      "sha256": "d4263a899bea6a6842e6da9beabb8bb64bd904f741f5ae3f32c89a1da161c6aa",
+      "transparent": 1349767,
+      "fractional": 222749,
+      "visible": 222749
+    },
+    {
+      "id": "orange-white-small-lion-mane",
+      "sha256": "6ae39a30e6c998f7d146ec0b823db4a227da47e17098869cbec5e15de35d95c9",
+      "transparent": 779605,
+      "fractional": 792911,
+      "visible": 792911
+    },
+    {
+      "id": "frill-neck",
+      "sha256": "49d291923c1b5654f15d5aed7dfb3bbf173728d2de0b687e8a81fcbb1545b917",
+      "transparent": 1306265,
+      "fractional": 12135,
+      "visible": 266251
+    },
+    {
+      "id": "small-wings",
+      "sha256": "df9779bac34a5d6d83f78e019dd3f5b8277e666444aedd0f610416964ca55435",
+      "transparent": 1284839,
+      "fractional": 287580,
+      "visible": 287677
+    },
+    {
+      "id": "feathered-wings",
+      "sha256": "286b0f30c6480dfe28e4b64c69797ddcd3cab3d38a2bf769ceb4e36f24a1567b",
+      "transparent": 1253057,
+      "fractional": 24721,
+      "visible": 319459
+    },
+    {
+      "id": "dragon-wings",
+      "sha256": "b1a49eeef6c5775a96140a35b2b98482506a51de539fcace5e4a928f8b4a8312",
+      "transparent": 1175001,
+      "fractional": 12061,
+      "visible": 397515
+    },
+    {
+      "id": "orange-white-forked-tail-tip",
+      "sha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213",
+      "transparent": 1355670,
+      "fractional": 216834,
+      "visible": 216846
+    },
+    {
+      "id": "flame-tail",
+      "sha256": "64db2ed9ab0acf776ef7709ec1e1b9ca44d7f926bd2d938ce6944bb3df80abdf",
+      "transparent": 1414103,
+      "fractional": 149679,
+      "visible": 158413
+    }
+  ],
+  "samples": [
+    {
+      "index": 1,
+      "label": "基础主体",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": []
+      },
+      "rgbaSha256": "0a02815b173037a87fa26dfbcdb14a45342bc39ff6df5af3d6694d041a00adaf",
+      "replayEqual": true,
+      "visiblePixels": 854290,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 2,
+      "label": "小龙角",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "dragon-horns"
+        ]
+      },
+      "rgbaSha256": "75fe5c085ce640409b0852d9195ba2fc8c7e7fa1e4d07e23dde4a16cc1b47003",
+      "replayEqual": true,
+      "visiblePixels": 870885,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 3,
+      "label": "鹿角",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "antlers"
+        ]
+      },
+      "rgbaSha256": "3f554be1606b6cdb7d69fa0e701c3c1cd21bfd1a9cd54c4ea5ec8fbfd6d878c0",
+      "replayEqual": true,
+      "visiblePixels": 872691,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 4,
+      "label": "光环",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "halo"
+        ]
+      },
+      "rgbaSha256": "00a3e24c2cd0f2d7571157b272ab814104ed2c4e26d834cf1e3e697ae57818e2",
+      "replayEqual": true,
+      "visiblePixels": 870780,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 5,
+      "label": "鳍耳",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "fin-ears"
+        ]
+      },
+      "rgbaSha256": "20538d24dcc95e7a3d5d39eec4245477fefcc177300dc2845883d88d45632056",
+      "replayEqual": true,
+      "visiblePixels": 845126,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 6,
+      "label": "小狮鬃",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "small-lion-mane"
+        ]
+      },
+      "rgbaSha256": "5c78d1d9e88b6c79bf3ff68b6c36c5c50b3b2882ea93605e849f56820b9d5975",
+      "replayEqual": true,
+      "visiblePixels": 880387,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 7,
+      "label": "伞蜥颈膜",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "frill-neck"
+        ]
+      },
+      "rgbaSha256": "7d766f403176c49f3c12e538291f4344d0efb06bc4acecad9018c4b008670ecc",
+      "replayEqual": true,
+      "visiblePixels": 891493,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 8,
+      "label": "小翅膀",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "small-wings"
+        ]
+      },
+      "rgbaSha256": "d06dd905110dda029eb5b2be3b96ffae6c448e58c37b3b6373ba49159d229577",
+      "replayEqual": true,
+      "visiblePixels": 892819,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 9,
+      "label": "羽翼",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "feathered-wings"
+        ]
+      },
+      "rgbaSha256": "52ec94da092b3a0c8330464295139be90e95e870d0b43bd318288b4559cfd895",
+      "replayEqual": true,
+      "visiblePixels": 928239,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 10,
+      "label": "龙翼",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "dragon-wings"
+        ]
+      },
+      "rgbaSha256": "e624968658e58b91a8aedc33de41994f3f04fe01ff694080fe7d324c3d6bd116",
+      "replayEqual": true,
+      "visiblePixels": 1010979,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 11,
+      "label": "分叉尾",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "forked-tail-tip"
+        ]
+      },
+      "rgbaSha256": "f457c333d2a1ef716d14ae7d38b21d1e8be4b3fdc781815087ebfbde91a2fa1a",
+      "replayEqual": true,
+      "visiblePixels": 840188,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 12,
+      "label": "火焰尾",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "flame-tail"
+        ]
+      },
+      "rgbaSha256": "3995eda222d5c1e848a4e2fee8e31b90291249400e9b5a6a52219a8b4e7329d9",
+      "replayEqual": true,
+      "visiblePixels": 852961,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 13,
+      "label": "小龙角＋鳍耳",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "dragon-horns",
+          "fin-ears"
+        ]
+      },
+      "rgbaSha256": "843ff8ff683d215e7a97122744db8133af7671e4ae068e283473b4c3c59c7070",
+      "replayEqual": true,
+      "visiblePixels": 862306,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 14,
+      "label": "伞蜥颈膜＋龙翼",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "frill-neck",
+          "dragon-wings"
+        ]
+      },
+      "rgbaSha256": "3bd732414bc43c116884797b017b1eea92e10866908a3eee0c11fa25a8bbde06",
+      "replayEqual": true,
+      "visiblePixels": 1012355,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 15,
+      "label": "羽翼＋火焰尾",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "feathered-wings",
+          "flame-tail"
+        ]
+      },
+      "rgbaSha256": "48c8a75cd6c321c383903952727b18fc58cf94e614682130b0e0c80f3bcbbb7c",
+      "replayEqual": true,
+      "visiblePixels": 945713,
+      "canvasEdgePixels": 0
+    },
+    {
+      "index": 16,
+      "label": "五部位叠加",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "antlers",
+          "fin-ears",
+          "small-lion-mane",
+          "small-wings",
+          "forked-tail-tip"
+        ]
+      },
+      "rgbaSha256": "7c5e008c5a8bded6892cc60b6df5d994fe543beaf1b5dcf57135e81fbe5a1720",
+      "replayEqual": true,
+      "visiblePixels": 908334,
+      "canvasEdgePixels": 0
+    }
+  ],
+  "legacy": [
+    {
+      "coat": "orange-white",
+      "variant": "base",
+      "baselineIndex": 145,
+      "rgbaSha256": "975c31a47565a487e38f9496925bdf7159224ba9c107aaec2d9a8d8223545a30",
+      "equal": true
+    },
+    {
+      "coat": "orange-white",
+      "variant": "ears-tail",
+      "baselineIndex": 154,
+      "rgbaSha256": "097cd4975673c6fb89bb72132cb05222009f8f2eabcd146edf3065649560783c",
+      "equal": true
+    },
+    {
+      "coat": "orange-white",
+      "variant": "stack",
+      "baselineIndex": 183,
+      "rgbaSha256": "6804253fbbcce172825158c137919f11cac379a698f0a25663cb7b18ab012f58",
+      "equal": true
+    },
+    {
+      "coat": "tuxedo",
+      "variant": "base",
+      "baselineIndex": 289,
+      "rgbaSha256": "c809d9f39df5601b7449a7aa798c84573359bf3221056d646cacf10c0640afe8",
+      "equal": true
+    },
+    {
+      "coat": "tuxedo",
+      "variant": "ears-tail",
+      "baselineIndex": 298,
+      "rgbaSha256": "23f5e0a7201478f8dbb351fe78b9c13dded4c1c4fed3f0364f5ecc7e1ce3f668",
+      "equal": true
+    },
+    {
+      "coat": "tuxedo",
+      "variant": "stack",
+      "baselineIndex": 327,
+      "rgbaSha256": "d93297a382f0a223319350d6fbdf65077abb68e3b5fef6b1773a0fea46380980",
+      "equal": true
+    },
+    {
+      "coat": "brown-tabby",
+      "variant": "base",
+      "baselineIndex": 1,
+      "rgbaSha256": "26334c2e966987a8b4db835955574a68184eb00083cc63a2c77211f2d16bbc46",
+      "equal": true
+    },
+    {
+      "coat": "brown-tabby",
+      "variant": "ears-tail",
+      "baselineIndex": 10,
+      "rgbaSha256": "e1cb1f276fe5e38f3dbc456984a9453bf7e676a71c9e7796974542026094f736",
+      "equal": true
+    },
+    {
+      "coat": "brown-tabby",
+      "variant": "stack",
+      "baselineIndex": 39,
+      "rgbaSha256": "a6bc64fa2925c98cfd2654d629b3fe598c753457d28194edbbe0393717880eb5",
+      "equal": true
+    },
+    {
+      "coat": "calico",
+      "variant": "base",
+      "baselineIndex": 433,
+      "rgbaSha256": "3c68aa14359eac1d8cf221faac9bdfae7b63bd800c648fd5150301109d8d81b2",
+      "equal": true
+    },
+    {
+      "coat": "calico",
+      "variant": "ears-tail",
+      "baselineIndex": 442,
+      "rgbaSha256": "f62f162c43f769bf21bb6cb255d04eeca863619c7300587065e89b687d489d93",
+      "equal": true
+    },
+    {
+      "coat": "calico",
+      "variant": "stack",
+      "baselineIndex": 471,
+      "rgbaSha256": "2de925e7319bed8265e484c64ed67c9dee563436e8b7e8ec099e95b86625e7d2",
+      "equal": true
+    },
+    {
+      "coat": "colorpoint",
+      "variant": "base",
+      "baselineIndex": 577,
+      "rgbaSha256": "0c9118ba5f1fc92708ac91d8f70947d597950e76058f9869480fca0b8d3b5c2d",
+      "equal": true
+    },
+    {
+      "coat": "colorpoint",
+      "variant": "ears-tail",
+      "baselineIndex": 586,
+      "rgbaSha256": "17755d9579b73c26d222de1954ad087d48da41a2eaeabd8fd3ad2f746b1db5a9",
+      "equal": true
+    },
+    {
+      "coat": "colorpoint",
+      "variant": "stack",
+      "baselineIndex": 615,
+      "rgbaSha256": "f1ac20e4fd1def5744b669d598803b14a47cffce718c341efb734152e36a149e",
+      "equal": true
+    },
+    {
+      "coat": "rosetted",
+      "variant": "base",
+      "baselineIndex": 721,
+      "rgbaSha256": "2d07a8596161f0c71cbc2dc4bda15592e590e2234afe3a649a7944855de7e676",
+      "equal": true
+    },
+    {
+      "coat": "rosetted",
+      "variant": "ears-tail",
+      "baselineIndex": 730,
+      "rgbaSha256": "4a60f7597a724e8523dab1351485511ae1cf925d35060576cf378bcacca74433",
+      "equal": true
+    },
+    {
+      "coat": "rosetted",
+      "variant": "stack",
+      "baselineIndex": 759,
+      "rgbaSha256": "0da4fd7d8be42d90e16264168dfaa5d9634ea7ba2b57db0ee8f341c702bf9b93",
+      "equal": true
+    }
+  ],
+  "maneFix": {
+    "changedSamples": [
+      6,
+      16
+    ],
+    "facePixelsPreserved": [
+      6,
+      16
+    ],
+    "scope": "Foreground mane with face occlusion; legacy body art unchanged."
+  },
+  "approvalRecord": "docs/releases/v0.10.0/body-batch1/approval.json"
+}

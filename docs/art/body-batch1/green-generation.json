@@ -1,0 +1,8 @@
+{
+  "tool": "image_gen",
+  "prompt": "Use case: precise-object-edit.\nImage 1 is the approved short-legged round-bodied orange-white kitten. Change ONLY its pale background to perfectly uniform saturated chroma green #00FF00, RGB(0,255,0). No ground shadow. Preserve the kitten's exact silhouette, all 4 paws, short legs and wide body, face, eye colors, fangs, ears, complete tail, fur detail and white whiskers, original scale and original 1254x1254 coordinates. Keep all kitten pixels and its orange-white coloring visually identical. This is a technical green-screen intermediate for background extraction. No green reflections/spill on fur, no gradients or backdrop texture. Do not introduce checkerboards or transparency. Single kitten, opaque pure green background everywhere outside the kitten.",
+  "reference": "docs/art/body-batch1/shortleg-round-orange-white-small-fangs-v1.png",
+  "output": "docs/art/body-batch1/shortleg-round-green.png",
+  "stage": "green-screen-intermediate",
+  "userApprovedLocalExtraction": true
+}

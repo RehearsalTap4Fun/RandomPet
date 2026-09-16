@@ -1,0 +1,385 @@
+{
+  "schemaVersion": "qmonster-art-approval-v1",
+  "status": "approved",
+  "approvedOn": "2026-09-16",
+  "approver": "user",
+  "statement": "ok，通过",
+  "scope": "Short-legged round orange-white small-fangs body and the exact 16 reviewed samples after the mane foreground/face-occlusion fix. Approval does not cover other coat/expression combinations or production rollout.",
+  "profileFile": "docs/art/body-batch1/profile.json",
+  "profileSha256": "276e77c8647a09d8510c5a4d1fbc0920ac244f7c5dd631e7c69a90dcd95f731b",
+  "reviewedRuntimeRevision": "8bbd51e8cf08d9a725f708550055dfda87e8cb8b862b6276bd9d77f9b0105116",
+  "sourceHashes": {
+    "packages/renderer-canvas/src/feline-canvas-compositor.ts": "994efbdb8a28a7ad3398bd44a01f18b3088792fdc0d648a93b178dd0fe5a1948",
+    "packages/renderer-canvas/src/feline-combination-render.ts": "51f0a899f46414cfe693dd1b0da90f520729de935bda12e569dbcfc5e76c5c59",
+    "packages/renderer-canvas/src/feline-body-study.ts": "fd7afa328b5f3c4f668260e080e35ae752c11ab39827b7d654e0a444ebb7d974",
+    "scripts/prepare-body-batch1.mjs": "e7ad4e65b42bccaa6aaca0cb5582a813bfa02486087dc628ce9fa1ba2666bf75",
+    "scripts/review-body-batch1.mjs": "b5c59ab43dbbea90949d66487520b48bf08b7d74bedcaa8b46ba4e8c572c5c59"
+  },
+  "resources": [
+    {
+      "id": "shortleg-round-orange-white-small-fangs",
+      "path": "docs/art/body-batch1/shortleg-round-body.png",
+      "sha256": "8c86c7525d99d61234a63c77b4b32f37e9eb182e8811887b36089ba531dbf059"
+    },
+    {
+      "id": "dragon-horns",
+      "path": "packages/asset-catalog/assets/v0.10.0/dragon-horns.png",
+      "sha256": "27c492b894c1e38302e69c1d47513a0d850ef0c674a849a43a098b433ac6b136"
+    },
+    {
+      "id": "antlers",
+      "path": "packages/asset-catalog/assets/v0.10.0/antlers.png",
+      "sha256": "5819b0efd6465dff82ea4e8bbde3492f95d9bb03223afff2e211518701712280"
+    },
+    {
+      "id": "halo",
+      "path": "packages/asset-catalog/assets/v0.10.0/halo.png",
+      "sha256": "de47f79ae4d22ad319f81dd11eacb9684005e04d15d7d20ebd1a0ede278ef264"
+    },
+    {
+      "id": "orange-white-fin-ears",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-fin-ears.png",
+      "sha256": "d4263a899bea6a6842e6da9beabb8bb64bd904f741f5ae3f32c89a1da161c6aa"
+    },
+    {
+      "id": "orange-white-small-lion-mane",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-small-lion-mane.png",
+      "sha256": "6ae39a30e6c998f7d146ec0b823db4a227da47e17098869cbec5e15de35d95c9"
+    },
+    {
+      "id": "frill-neck",
+      "path": "packages/asset-catalog/assets/v0.10.0/frill-neck.png",
+      "sha256": "49d291923c1b5654f15d5aed7dfb3bbf173728d2de0b687e8a81fcbb1545b917"
+    },
+    {
+      "id": "small-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/small-wings.png",
+      "sha256": "df9779bac34a5d6d83f78e019dd3f5b8277e666444aedd0f610416964ca55435"
+    },
+    {
+      "id": "feathered-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/feathered-wings.png",
+      "sha256": "286b0f30c6480dfe28e4b64c69797ddcd3cab3d38a2bf769ceb4e36f24a1567b"
+    },
+    {
+      "id": "dragon-wings",
+      "path": "packages/asset-catalog/assets/v0.10.0/dragon-wings.png",
+      "sha256": "b1a49eeef6c5775a96140a35b2b98482506a51de539fcace5e4a928f8b4a8312"
+    },
+    {
+      "id": "orange-white-forked-tail-tip",
+      "path": "packages/asset-catalog/assets/v0.10.0/orange-white-forked-tail-tip.png",
+      "sha256": "2eb1b979ce941fc0fb19ea2bee4e16533276223ebaf9d6e9441e15fd0da44213"
+    },
+    {
+      "id": "flame-tail",
+      "path": "packages/asset-catalog/assets/v0.10.0/flame-tail.png",
+      "sha256": "64db2ed9ab0acf776ef7709ec1e1b9ca44d7f926bd2d938ce6944bb3df80abdf"
+    }
+  ],
+  "samples": [
+    {
+      "index": 1,
+      "label": "基础主体",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": []
+      },
+      "rgbaSha256": "0a02815b173037a87fa26dfbcdb14a45342bc39ff6df5af3d6694d041a00adaf",
+      "pngSha256": "f34d86305911b207823aaec73cf2afbbb820a71ff3d159f1ac12cf3687a0932e"
+    },
+    {
+      "index": 2,
+      "label": "小龙角",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "dragon-horns"
+        ]
+      },
+      "rgbaSha256": "75fe5c085ce640409b0852d9195ba2fc8c7e7fa1e4d07e23dde4a16cc1b47003",
+      "pngSha256": "38cb85aa7af0f8468bab8d94ca677acb4c3b943a2281204fad3224f11ea75212"
+    },
+    {
+      "index": 3,
+      "label": "鹿角",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "antlers"
+        ]
+      },
+      "rgbaSha256": "3f554be1606b6cdb7d69fa0e701c3c1cd21bfd1a9cd54c4ea5ec8fbfd6d878c0",
+      "pngSha256": "d1b889a525fb22058425443bf9c2e25c4988cd71785f43c2dea4cb6748d5bab6"
+    },
+    {
+      "index": 4,
+      "label": "光环",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "halo"
+        ]
+      },
+      "rgbaSha256": "00a3e24c2cd0f2d7571157b272ab814104ed2c4e26d834cf1e3e697ae57818e2",
+      "pngSha256": "68acf730502fb01b071fad8f3761444bef1b5e9b2719d5e0009ecf15c0b6e875"
+    },
+    {
+      "index": 5,
+      "label": "鳍耳",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "fin-ears"
+        ]
+      },
+      "rgbaSha256": "20538d24dcc95e7a3d5d39eec4245477fefcc177300dc2845883d88d45632056",
+      "pngSha256": "9d2d2c814ffe63fa6bdf2741ecc3f3fd12cdcc673fd76b0437040db39822edfa"
+    },
+    {
+      "index": 6,
+      "label": "小狮鬃",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "small-lion-mane"
+        ]
+      },
+      "rgbaSha256": "5c78d1d9e88b6c79bf3ff68b6c36c5c50b3b2882ea93605e849f56820b9d5975",
+      "pngSha256": "db4c42b49fb36e09282a3ebe5880f0b4fff74448bb79a2f8374a9cff66cf06c4"
+    },
+    {
+      "index": 7,
+      "label": "伞蜥颈膜",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "frill-neck"
+        ]
+      },
+      "rgbaSha256": "7d766f403176c49f3c12e538291f4344d0efb06bc4acecad9018c4b008670ecc",
+      "pngSha256": "00e3a7cfe4a80bec8c2e930c348c91b86a911ceed8b4e9975af6a854213baeeb"
+    },
+    {
+      "index": 8,
+      "label": "小翅膀",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "small-wings"
+        ]
+      },
+      "rgbaSha256": "d06dd905110dda029eb5b2be3b96ffae6c448e58c37b3b6373ba49159d229577",
+      "pngSha256": "4b2133a04231515fba0df7765fa4c84a51e637ee148f1c56892646fc7a76e57f"
+    },
+    {
+      "index": 9,
+      "label": "羽翼",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "feathered-wings"
+        ]
+      },
+      "rgbaSha256": "52ec94da092b3a0c8330464295139be90e95e870d0b43bd318288b4559cfd895",
+      "pngSha256": "8283b0f65c0ba5f1521e070a234b93843674d2b9eda3d8fb1f2bbbd8fc950d0e"
+    },
+    {
+      "index": 10,
+      "label": "龙翼",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "dragon-wings"
+        ]
+      },
+      "rgbaSha256": "e624968658e58b91a8aedc33de41994f3f04fe01ff694080fe7d324c3d6bd116",
+      "pngSha256": "6cfcfc3f2d28b3353ef2aedacabc0e509b7790de6c60bdad0b497e5bfdefc6a3"
+    },
+    {
+      "index": 11,
+      "label": "分叉尾",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "forked-tail-tip"
+        ]
+      },
+      "rgbaSha256": "f457c333d2a1ef716d14ae7d38b21d1e8be4b3fdc781815087ebfbde91a2fa1a",
+      "pngSha256": "acce7cae26328b3079ee4c16e8141180ac100ce194ef366252afaa380357798c"
+    },
+    {
+      "index": 12,
+      "label": "火焰尾",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "flame-tail"
+        ]
+      },
+      "rgbaSha256": "3995eda222d5c1e848a4e2fee8e31b90291249400e9b5a6a52219a8b4e7329d9",
+      "pngSha256": "f27302bb3ab067fd5784a3eb0231f762100361adcfd7207f6a65f25f09d68b13"
+    },
+    {
+      "index": 13,
+      "label": "小龙角＋鳍耳",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "dragon-horns",
+          "fin-ears"
+        ]
+      },
+      "rgbaSha256": "843ff8ff683d215e7a97122744db8133af7671e4ae068e283473b4c3c59c7070",
+      "pngSha256": "568a63189354a2b16010a0c156e9ee10509533ed9587f90d7b01cde162529ce5"
+    },
+    {
+      "index": 14,
+      "label": "伞蜥颈膜＋龙翼",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "frill-neck",
+          "dragon-wings"
+        ]
+      },
+      "rgbaSha256": "3bd732414bc43c116884797b017b1eea92e10866908a3eee0c11fa25a8bbde06",
+      "pngSha256": "c42a17bb5709d883f73a40a508b7704dc6bef5e7c9fa328e1e3d97d8d59dd30c"
+    },
+    {
+      "index": 15,
+      "label": "羽翼＋火焰尾",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "feathered-wings",
+          "flame-tail"
+        ]
+      },
+      "rgbaSha256": "48c8a75cd6c321c383903952727b18fc58cf94e614682130b0e0c80f3bcbbb7c",
+      "pngSha256": "c41078abea12c1fd057e5fc90ecb52495a92c6d55fd27bd4c41671dd0670ca3b"
+    },
+    {
+      "index": 16,
+      "label": "五部位叠加",
+      "spec": {
+        "schemaVersion": "feline-body-study-v1",
+        "profileId": "shortleg-round-v1",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "expression": "small-fangs"
+        },
+        "mutations": [
+          "antlers",
+          "fin-ears",
+          "small-lion-mane",
+          "small-wings",
+          "forked-tail-tip"
+        ]
+      },
+      "rgbaSha256": "7c5e008c5a8bded6892cc60b6df5d994fe543beaf1b5dcf57135e81fbe5a1720",
+      "pngSha256": "cee9f3738f11fbbd3e99941776a18a21c787178cf96a0940a55919535a5f6d71"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/releases/v0.10.0/body-batch1/review-report.json",
+      "sha256": "33be874f86c5cb7a566ff4a8c1970e604e1a85fe16461632fd18c9647a0bea9a"
+    },
+    {
+      "path": "docs/qa/body-batch1/mane-fix/comparison.png",
+      "sha256": "9c7763fee0a7de05aaf77b29ed557311f575f496f94cebcd456050a32946f1fd"
+    }
+  ]
+}

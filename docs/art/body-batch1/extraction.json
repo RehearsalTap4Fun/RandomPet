@@ -1,0 +1,17 @@
+{
+  "source": "docs/art/body-batch1/shortleg-round-green.png",
+  "output": "docs/art/body-batch1/shortleg-round-body.png",
+  "sourceSha256": "07725f3bcaee831a43a598a00c01185ac9993e9610a6be4058d9f597bb9b0558",
+  "sha256": "8c86c7525d99d61234a63c77b4b32f37e9eb182e8811887b36089ba531dbf059",
+  "width": 1254,
+  "height": 1254,
+  "transparentPixels": 718226,
+  "fractionalPixels": 30800,
+  "opaquePixels": 823490,
+  "authorization": "User explicitly approved pure green background plus local extraction on 2026-09-16.",
+  "processing": "Green unmixing with local clean-fur color estimation at the boundary and fractional alpha; no scaling, positioning or anatomical edits.",
+  "visualReview": "assistant-reviewed-light-dark-and-native",
+  "userArtReview": "approved",
+  "reviewNotes": "Extracted body accepted within the exact 16-sample pilot approved by the user; approval is scoped by resource and profile hashes.",
+  "approvalRecord": "docs/releases/v0.10.0/body-batch1/approval.json"
+}
