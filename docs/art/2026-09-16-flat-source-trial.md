@@ -55,6 +55,17 @@ npm run pixelcat -- --source ../RandomPet-master/docs/art/flat-source-trial/soli
 npm run pixelcat -- --preview /tmp/pixelcat-flat.png
 ```
 
+## 自动检查（每来一批先跑这个）
+
+```
+cd nutri
+npm run pixelcat -- --check ../RandomPet-master/docs/art/flat-source-trial/solid
+```
+
+逐张报告：尺寸、底色是否洋红、与底色相近的模糊像素比例（渐变/暗角/软边）、色数（>2500 视为不够平涂）、剪影与毛绒版的重合率与质心偏移（主体要求重合 ≥0.92、偏移 ≤10px）、换耳换尾件相对官方同名件的清除区覆盖率（<0.97 且缺口 ≥2 个 64px 像素报错）、外挂件露出身体轮廓外的面积（<12 个 64px 像素报错，<30 提示偏小）。每张输出一张剪影叠加图到 `../check/<id>.png`（蓝=毛绒参考独有、红=来图独有、灰=重合），并写 `check-report.json`。
+
+两套生成结果并排对比：`npm run pixelcat -- --preview out.png --compare <目录A>,<目录B>`（目录为各自 `--out` 的产物）。
+
 ## 验收清单（看预览图）
 
 - 64px 下眼、鼻、嘴一眼可辨；六种花纹在 64px 下能区分（虎斑与豹点是难点）。
