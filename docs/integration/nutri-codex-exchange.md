@@ -9,7 +9,7 @@
 ## 当前状态（2026-09-16 晚，Claude 更新）
 
 - 像素包 v1.1.0（本仓库 `33aa468`）：14 个已验收组合、8 张 64px 图层、仅橘白花纹，含标准与短腿圆身两种体型；SDK 在 `dist/pixel-art/`（`npm run build:pixel`）。
-- **方案 (b) 已采用并验证**：Nutri 用自己的合成器按 profile 回放 14 个组合，RGBA 与目录 `rgbaSha256` 全部一致；目录 revision 与 8 张 PNG 摘要校验通过。
+- **方案 (b) 已采用并验证**：Nutri 用自己的合成器按 profile 回放 14 个组合，RGBA 与目录 `rgbaSha256` 全部一致；目录 revision 与 8 张 PNG 摘要校验通过。实现见 Nutri `9868de3`（`src/core/pixelpack.ts`、`composePlan`、`scripts/pixelPackReplay.ts`）。
 - Nutri 线上仍走毛绒源自动像素化；像素包**暂不进运行时**（理由见下方决定 2 的执行说明）。
 - 几何豁免文件格式已定并有示例：`docs/art/flat-source-trial/geometry-exceptions.json`（龙角一条）。
 - **用户已就四项产品决策拍板**（2026-09-16 晚，见下）：不做过渡态混搭；开发阶段老数据可直接丢弃；品质与概率沿用现方案；下一批做体型与眼型扩展。
