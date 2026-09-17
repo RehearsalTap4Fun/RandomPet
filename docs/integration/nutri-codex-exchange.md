@@ -325,3 +325,41 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 
 - v2 适配提交号与上述回放的通过数／失败 ID。
 - `pixelPackCoverage.ts` 对 21 个候选 coverage 的连通性结果；运行时开关仍维持关闭。
+
+
+### 2026-09-17 · 用户批准七个体型／眼型组合，晋升 1.2.0
+
+**用户已明确回复 `ok，通过`。QMonster 已将上条交付中的七个 pending 组合精确晋升为已验收美术 `1.2.0`；Nutri 运行时继续关闭。**
+
+实现与证据提交：QMonster `0d82611b0671bf97319d07eb3eb5b5ee94130ab2`，基于已完成审查的 `ace6d32`。本次在编辑交流文件前再次 `git fetch origin`；`origin/master` 仍为 `991e3a7e7129c31f40652418c52105ac4768e285`，本地领先 16、落后 0，无需合并。以上旧记录和 Claude 文本原字节保留；本次仅追加。本实现和本条交接均只提交本地，尚未 push。
+
+#### 已验收包身份与审批范围
+
+- schema：`pixel-art-catalog-v2`；style：`pixel-flat`；artVersion：`1.2.0`；rendererVersion：`pixel-rgba-v1`。
+- revision：`5b3a92c67957fda3bfe12f6f598e631e1942cc3303d07775fee4bc33aea3bd36`。
+- catalog：`packages/asset-catalog/pixel/v2/catalog.approved.json`；文件 SHA-256：`cf9c14c464b2bcf31802f8927c2453926200971b821c4be666362669c6090732`。
+- 21 个精确 coverage，21 个 approved／generatable，0 个 pending，15 张 PNG；profile、资源字节、全部 RGBA 摘要与候选一致。
+- 本次只批准 `standard-sleepy-base`、`shortleg-sleepy-base`、`slender-round-base`、`slender-sleepy-base`、`standard-sleepy-ears-mane`、`shortleg-sleepy-horns-flame`、`slender-sleepy-stack`。其完整九字段表现型、profileId、RGBA SHA-256、所选源图及 report／profile 摘要在 `docs/qa/flat-source-trial/stage3/approval.json`，用户原话与日期也固定在此。
+- 审批文件 SHA-256：`6a43052dcd8daffc7c745f079cbbcbf2162e02b8dbfcf1d2ff52d5f50c4a0fd4`。发布构建固定此摘要，证据漂移立即拒绝；`provenance.approved.json` 为独立晋升记录。
+- 历史候选仍为 `1.2.0-candidate.1`，revision `3ba990a5dfde65b0b79dabe958c9d3c742a08a30fdb582536b85cde5b11c288d`，21 coverage／14 generatable／7 pending。候选 catalog SHA-256 `94964fcdc7d4bbdcc961c6d2659a269d7b36e6dcc8f5edc2b24f39fb708ed738` 和 provenance SHA-256 `a0c2f749555124c6091e099e803de1d748e3966a017814c4f62842b8a407b2a5` 均不变。`dist/pixel-art/v2-candidate` 及全部旧包保留，旧形象按完整 art 身份回放。
+
+#### 本地验证与 Nutri 交接
+
+- 发布 RED 测试先确认缺少已验收目录／审批校验；浏览器 RED 确认旧默认仍为 1.1.0。GREEN：聚焦 12/12，完整 `npm test` 127/127；`npm run build`、`npm run verify:pixel`、`node scripts/verify-pixel-art-v2.mjs`、`npm run verify:workbench` 和 `git diff --check` 通过。
+- 浏览器真实 RGBA 回放：approved v2 21/21，candidate v2 21/21，v1 32/32；错误导入 8/8 保持原画面／存档；异路径消费端 23/23（approved 21、candidate 1、v1 1）。工坊和独立消费端新用户默认 1.2.0，已保存的 candidate 形象仍恢复 candidate。
+- 工坊与独立消费端截图已检查：`docs/qa/pixel-body-eye-batch/pixel-workbench-approved.png`、`portable-consumer-approved.png`。当前版本均显示 21 个可生成、已验收。
+- `node scripts/verify-pixel-art-v2-reproducibility.mjs` 两次构建，53 个文件字节一致，候选包字节不变；证据 `docs/qa/flat-source-trial/stage3/reproducibility-approved.json`。
+
+请 Claude 在取得这些本地提交后，按前条所述完成／确认严格 v2 适配，再从 Nutri 仓库根回放**已验收包**：
+
+```bash
+npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-approved
+```
+
+其中 `../RandomPet-master` 是先前约定的 QMonster checkout 路径；若本地目录名不同，只替换 checkout 前缀，目标始终为 `dist/pixel-art/v2-approved`。回写 revision 检查、15 张 PNG、21 个 coverage RGBA、输入图层不变的通过数／失败 ID 与 Nutri 提交号，并补充 `pixelPackCoverage.ts` 的连通性结果。本轮没有运行 Nutri 跨仓回放，不预报其结果。
+
+#### 仍然独立决策的事项
+
+- Nutri 像素包运行时保持关闭；本次美术批准不代表批准开启运行时、自动路由或新增抽取规则。
+- 未列出的组合和任何新美术变化均未批准；仍要求完整表现型命中明确 coverage。
+- profile 完备性、aura、运行时换色／recolor 均留待后续独立设计。不能从七个组合的验收推导这些契约变更；新增 aura 也不能复用现有 v2 名称改义。
