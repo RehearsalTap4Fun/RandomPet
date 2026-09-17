@@ -40,7 +40,7 @@
 - Consumes: existing `FelinePhenotype`, `PixelArtPlan`, `PixelOperation`, `PixelResource`, `canonicalJson` and legacy adapter.
 - Produces: `FelinePhenotypeV2`, `parseFelinePhenotypeV2`, `phenotypeV2FromV1`, `phenotypeV2FromLegacy`, `phenotypeKeyV2`, `PixelArtCatalogV2`, `requirePixelArtCatalogV2`, `resolvePixelArtV2`, `pixelArtKeyV2`, `savePixelAppearanceV2`, `restorePixelAppearanceV2`, `generatablePixelPhenotypesV2`.
 
-- [ ] **Step 1: Write failing phenotype v2 tests**
+- [x] **Step 1: Write failing phenotype v2 tests**
 
 Use hand-written expected data:
 
@@ -53,13 +53,13 @@ expect(phenotypeKeyV2(sleepy)).toBe('["standard","orange-white","sleepy-almond",
 expect(parseFelinePhenotypeV2({ ...sleepy, png: 'cat.png' }).ok).toBe(false)
 ```
 
-- [ ] **Step 2: Run the phenotype test and confirm RED**
+- [x] **Step 2: Run the phenotype test and confirm RED**
 
 Run `npx vitest run packages/generator-core/src/feline-phenotype-v2.test.ts`.
 
 Expected: FAIL because the v2 module and exports do not exist.
 
-- [ ] **Step 3: Implement the strict v2 phenotype**
+- [x] **Step 3: Implement the strict v2 phenotype**
 
 ```ts
 export const PHENOTYPE_TRAITS_V2 = [
@@ -75,7 +75,7 @@ export const felinePhenotypeV2Schema = z.strictObject({
 
 `phenotypeV2FromV1` parses v1, copies all traits and inserts `eyes: 'round'`. `phenotypeV2FromLegacy` calls the existing legacy adapter and then `phenotypeV2FromV1`; it never samples traits.
 
-- [ ] **Step 4: Write failing catalog v2 tests**
+- [x] **Step 4: Write failing catalog v2 tests**
 
 Build a literal one-profile fixture selected by `standard/orange-white/sleepy-almond/small-fangs`. Assert exact operation output, duplicate selector rejection, unsupported eye rejection, v2 appearance save/restore, and v1 appearance rejection:
 
@@ -87,13 +87,13 @@ expect(savePixelAppearanceV2(phenotype, catalog).schemaVersion).toBe('feline-app
 expect(() => restorePixelAppearanceV2(v1Appearance, catalog)).toThrow()
 ```
 
-- [ ] **Step 5: Run the catalog test and confirm RED**
+- [x] **Step 5: Run the catalog test and confirm RED**
 
 Run `npx vitest run packages/asset-catalog/src/pixel-art-catalog-v2.test.ts`.
 
 Expected: FAIL because v2 catalog APIs do not exist.
 
-- [ ] **Step 6: Implement the parallel v2 catalog**
+- [x] **Step 6: Implement the parallel v2 catalog**
 
 Reuse v1 resource, point, polygon and step validation without widening. Define:
 
@@ -106,7 +106,7 @@ const profileV2 = z.strictObject({
 
 Set schema literals to `pixel-art-catalog-v2`, `feline-phenotype-v2`, and `feline-appearance-v2`. Profile uniqueness and coverage matching use `[body, coat, eyes, expression]`. Return the existing `PixelArtPlan`, so composition code remains unchanged.
 
-- [ ] **Step 7: Run focused GREEN verification**
+- [x] **Step 7: Run focused GREEN verification**
 
 ```powershell
 npx vitest run packages/generator-core/src/feline-phenotype-v2.test.ts packages/asset-catalog/src/pixel-art-catalog-v2.test.ts
@@ -115,7 +115,7 @@ npm run typecheck
 
 Expected: both test files pass and TypeScript exits 0.
 
-- [ ] **Step 8: Commit the contracts**
+- [x] **Step 8: Commit the contracts**
 
 ```powershell
 git add packages/generator-core/src/feline-phenotype-v2.ts packages/generator-core/src/feline-phenotype-v2.test.ts packages/generator-core/src/index.ts packages/asset-catalog/src/pixel-art-catalog-v2.ts packages/asset-catalog/src/pixel-art-catalog-v2.test.ts packages/asset-catalog/src/index.ts packages/incubator-adapter/src/pixel-art-sdk.ts
@@ -137,11 +137,11 @@ git commit -m "feat: add eye-aware feline phenotype and pixel catalog v2"
 - Consumes: stage2 standard and shortleg 1254px bodies; built-in image generation edit workflow.
 - Produces: four selected 1254px solid-magenta sources and exact prompt/provenance records.
 
-- [ ] **Step 1: Inspect both local edit targets**
+- [x] **Step 1: Inspect both local edit targets**
 
 Use `view_image` on the stage2 standard and shortleg body PNGs. Record face center, eye bounds, ear tips, paws, tail, outline weight and background as edit invariants.
 
-- [ ] **Step 2: Generate standard sleepy-almond**
+- [x] **Step 2: Generate standard sleepy-almond**
 
 Use one built-in image generation call with the standard body as edit target:
 
@@ -153,11 +153,11 @@ Preserve everything outside the two eye regions: exact silhouette, head, ears, o
 
 If non-eye regions drift or eyes collapse to lines, save the result under `attempts/` and issue one targeted correction.
 
-- [ ] **Step 3: Generate shortleg sleepy-almond**
+- [x] **Step 3: Generate shortleg sleepy-almond**
 
 Use one call with the shortleg body as edit target and the same eye definition. Explicitly preserve squat body, broad low haunches, small low paws, face, mouth, tail and background.
 
-- [ ] **Step 4: Generate slender-tall round-eye**
+- [x] **Step 4: Generate slender-tall round-eye**
 
 Use one call with the standard body as edit target/reference:
 
@@ -169,19 +169,19 @@ Preserve orange-white palette and marking layout, large round teal eyes, nose an
 
 Reject outputs with merged legs, missing paws, duplicate tail, cropped ears or face drift.
 
-- [ ] **Step 5: Generate slender-tall sleepy-almond**
+- [x] **Step 5: Generate slender-tall sleepy-almond**
 
 Load the selected slender round image with `view_image`, then make one eye-only edit using Step 2's eye definition. Repeat that silhouette, body, ears, coat, mouth, tail, coordinates and background stay unchanged.
 
-- [ ] **Step 6: Save finals and provenance**
+- [x] **Step 6: Save finals and provenance**
 
 Copy each selected built-in output into its exact `solid/` path. Write `generation.json` with schema `pixel-body-eye-generation-v1`, tool, edit target, exact prompt, final path and lowercase SHA-256 for all four items. Write only real retries to `revisions.json`; use `{"items":[]}` if no retry occurred.
 
-- [ ] **Step 7: Run source checks**
+- [x] **Step 7: Run source checks**
 
 Use Sharp to assert 1254×1254, four corners exactly `#FF00FF`, and hashes equal `generation.json`. Run Nutri `--check` for the two same-body eye edits. Compare slender round vs slender sleepy outside recorded eye rectangles; require silhouette IoU ≥ 0.98 and centroid delta ≤ 1 source-scaled pixel at 64px.
 
-- [ ] **Step 8: Commit source candidates**
+- [x] **Step 8: Commit source candidates**
 
 ```powershell
 git add docs/art/flat-source-trial/stage3
@@ -204,19 +204,19 @@ git commit -m "art: add slender body and sleepy eye source candidates"
 - Consumes: four sources, v1.1.0 mutation layers, Nutri flat pixelizer at or after `9868de3`.
 - Produces: four 64px body layers, three profile families, seven candidate RGBA hashes and gallery.
 
-- [ ] **Step 1: Create profile data and failing validation**
+- [x] **Step 1: Create profile data and failing validation**
 
 Create three profile entries in order `standard`, `shortleg-round`, `slender-tall`. The script first asserts each has canvas 1254, pixelSize 64, two ear-clear polygons, a tail polygon and a face occlusion polygon. Run `node scripts/review-pixel-stage3.mjs`; expect FAIL before all body mappings exist.
 
-- [ ] **Step 2: Pixelize with approved Nutri semantics**
+- [x] **Step 2: Pixelize with approved Nutri semantics**
 
 Compile the referenced Nutri pixelizer with `NUTRI_DIR` override. Use key threshold 90, erosion 3, flat median/palette settings, transparent one-pixel border, 64px output and binary alpha. Missing any of the four named sources is fatal; no plush fallback.
 
-- [ ] **Step 3: Calibrate slender geometry**
+- [x] **Step 3: Calibrate slender geometry**
 
 Measure the selected slender body and set independent ear transform, mane transform, ear clear, tail clear and face occlusion. Standard/shortleg may begin from verified geometry but must be rechecked. Save before/after composites. Do not publish placeholder coordinates copied from another body.
 
-- [ ] **Step 4: Render the exact seven cases**
+- [x] **Step 4: Render the exact seven cases**
 
 Render these IDs with full v2 phenotype and `review: pending`:
 
@@ -232,15 +232,15 @@ slender-sleepy-stack
 
 Save 64px PNG and 128px/256px nearest-neighbor previews. Store PNG/RGBA SHA-256, profileId and full phenotype.
 
-- [ ] **Step 5: Assert image behavior**
+- [x] **Step 5: Assert image behavior**
 
 Assert 64×64, binary alpha, deterministic replay and unchanged inputs. Require eye-only variants to match body alpha outside recorded eye rectangles. Mane samples must preserve the same eyes/nose/mouth pixels as no-mane samples. Replacement parts must clear old ears/tail and retain opaque pixels outside the body silhouette.
 
-- [ ] **Step 6: Build and inspect gallery**
+- [x] **Step 6: Build and inspect gallery**
 
 Show the seven candidates plus existing standard/shortleg round controls at 64/128/256px, with deep/light background toggle. Include comparisons for standard round→sleepy, shortleg round→sleepy, slender round→sleepy and the three body silhouettes. Capture `browser-preview.png`; verify all images load and inspect eyes, teeth, paws, tail and layer order.
 
-- [ ] **Step 7: Commit QA candidate**
+- [x] **Step 7: Commit QA candidate**
 
 ```powershell
 git add scripts/review-pixel-stage3.mjs docs/art/flat-source-trial/stage3/profiles.json docs/qa/flat-source-trial/stage3
@@ -262,7 +262,7 @@ git commit -m "test(art): validate body and eye pixel combinations"
 - Consumes: approved v1.1.0 catalog and stage3 report/profile.
 - Produces: v2 candidate with 21 coverage entries and 14 generatable entries.
 
-- [ ] **Step 1: Write failing release tests**
+- [x] **Step 1: Write failing release tests**
 
 ```ts
 expect(catalog.schemaVersion).toBe('pixel-art-catalog-v2')
@@ -277,13 +277,13 @@ expect(catalog.coverage.filter(c => c.review === 'pending').map(c => c.id)).toEq
 
 For every ported entry, assert v2 phenotype equals v1 plus `eyes: round` and rendered RGBA hash equals the v1 hash.
 
-- [ ] **Step 2: Run release test and confirm RED**
+- [x] **Step 2: Run release test and confirm RED**
 
 Run `npx vitest run packages/asset-catalog/src/pixel-art-catalog-v2-release.test.ts`.
 
 Expected: FAIL because the v2 candidate file is absent.
 
-- [ ] **Step 3: Implement v2 build**
+- [x] **Step 3: Implement v2 build**
 
 ```js
 const migrated = v1.coverage.map(entry => ({
@@ -297,7 +297,7 @@ const generatable = migrated.map(entry => entry.id)
 
 Port used v1 profiles with `eyes: round`; add stage3 profiles. Deduplicate PNGs by SHA-256. Pin v1 revision, stage3 source/profile/report/script hashes. Compute revision from canonical JSON without revision and validate using `requirePixelArtCatalogV2`.
 
-- [ ] **Step 4: Integrate build commands**
+- [x] **Step 4: Integrate build commands**
 
 ```json
 {
@@ -308,7 +308,7 @@ Port used v1 profiles with `eyes: round`; add stage3 profiles. Deduplicate PNGs 
 
 Copy v2 candidate to `dist/pixel-art/v2-candidate/`; leave current v1 output directories unchanged.
 
-- [ ] **Step 5: Run replay and reproducibility tests**
+- [x] **Step 5: Run replay and reproducibility tests**
 
 ```powershell
 npm run build:pixel
@@ -317,7 +317,7 @@ npx vitest run packages/asset-catalog/src/pixel-art-catalog-v2-release.test.ts p
 
 Hash catalog, provenance and assets; rebuild and assert byte-identical output. Save hashes to `docs/qa/flat-source-trial/stage3/reproducibility.json`.
 
-- [ ] **Step 6: Commit candidate pack**
+- [x] **Step 6: Commit candidate pack**
 
 ```powershell
 git add scripts/build-pixel-art-v2.mjs package.json packages/asset-catalog/pixel/v2 packages/asset-catalog/src/pixel-art-catalog-v2-release.test.ts packages/renderer-canvas/src/pixel-art-render.test.ts docs/qa/flat-source-trial/stage3/reproducibility.json
@@ -339,11 +339,11 @@ git commit -m "feat: build eye-aware pixel art candidate 1.2.0"
 - Consumes: v1 and v2 bundle APIs.
 - Produces: one workbench that keeps v1 replay while exposing v2 candidates and v2 appearance export.
 
-- [ ] **Step 1: Normalize bundle differences without casting v1 to v2**
+- [x] **Step 1: Normalize bundle differences without casting v1 to v2**
 
 Create an internal `WorkbenchBundle` with `coverage`, `generatableCount`, `render`, `save`, `restore` and `key`. Each v1/v2 adapter calls its matching parser and functions.
 
-- [ ] **Step 2: Add v2 candidate and labels**
+- [x] **Step 2: Add v2 candidate and labels**
 
 Display `候选包 1.2.0 · 21 个组合`. Add:
 
@@ -354,15 +354,15 @@ const eyeLabels = { round: '圆眼', 'sleepy-almond': '半眯杏仁眼' }
 
 Keep seven entries visibly pending and excluded from the generatable count.
 
-- [ ] **Step 3: Dispatch appearance import by schema**
+- [x] **Step 3: Dispatch appearance import by schema**
 
 Use v2 restore for `feline-appearance-v2`, matching v1 restore for `feline-appearance-v1`, and `phenotypeV2FromLegacy` for legacy combination specs. Reject unknown versions and unsupported exact combinations without changing the canvas.
 
-- [ ] **Step 4: Write browser verification**
+- [x] **Step 4: Write browser verification**
 
 `verify-pixel-art-v2.mjs` clicks all 21 v2 entries and compares native canvas RGBA; exports slender sleepy stack at 64/128px; reloads an appearance-v2; proves a v1 appearance still replays; rejects wrong revision and unsupported eyes; runs the relocated consumer with one v1 and one v2 sample; captures screenshots and JSON report.
 
-- [ ] **Step 5: Run browser and legacy regressions**
+- [x] **Step 5: Run browser and legacy regressions**
 
 ```powershell
 npm run build
@@ -372,7 +372,7 @@ npm run verify:workbench
 
 Expected: 21/21 v2 browser replays and unchanged v1/plush workbench behavior.
 
-- [ ] **Step 6: Commit UI and evidence**
+- [x] **Step 6: Commit UI and evidence**
 
 ```powershell
 git add apps/creator-web/src/pixel-workbench.tsx apps/creator-web/src/pixel-workbench.css docs/integration/examples/pixel-art.html scripts/verify-pixel-art-v2.mjs docs/qa/pixel-body-eye-batch
@@ -391,11 +391,11 @@ git commit -m "feat(web): review body and eye pixel candidates"
 - Consumes: final v2 revision, counts, hashes and verification output.
 - Produces: production record, Claude handoff and user review entry; no 1.2.0 approval before user review.
 
-- [ ] **Step 1: Document v2 contract and art results**
+- [x] **Step 1: Document v2 contract and art results**
 
 Record mandatory eyes, v1→v2 round migration, four-part profile selector, 21/14/7 counts, revision, resource count, unsupported behavior and unchanged renderer. Stage3 README records all four prompts, retries, hashes, profile decisions and automated results; it states that technical replay is not art approval.
 
-- [ ] **Step 2: Run final verification**
+- [x] **Step 2: Run final verification**
 
 ```powershell
 npm test
@@ -407,20 +407,27 @@ git diff --check
 
 Expected: tests, build and both browser suites pass with no whitespace errors.
 
-- [ ] **Step 3: Update and directly push exchange-file handoff**
+- [x] **Step 3: Update the exchange-file handoff locally**
 
-Append QMonster commit, v2 version/revision, coverage/resource counts, unchanged renderer, seven pending IDs and Nutri replay command. State runtime remains disabled. Fetch first, preserve Claude text, then commit and push this exchange update under the user's standing authorization.
+Append QMonster commit, v2 version/revision, coverage/resource counts, unchanged renderer, seven pending IDs and Nutri replay command. State runtime remains disabled. Fetch first and preserve Claude text. The execution ledger and controller instruction supersede the original direct-push wording: commit locally, but do not push because publishing the exchange commit would also publish all candidate parent commits.
 
-- [ ] **Step 4: Present gallery for explicit art review**
+- [x] **Step 4: Present gallery for explicit art review**
 
 Open `/pixel` with v2 candidate selected and provide the QA link. Ask only whether seven pending combinations pass or need targeted corrections. Do not create approved 1.2.0 before an explicit answer.
 
-- [ ] **Step 5: Commit remaining docs and checked plan**
+- [x] **Step 5: Commit remaining docs and checked plan**
 
 ```powershell
 git add docs/integration/pixel-art.md docs/art/flat-source-trial/stage3/README.md docs/superpowers/plans/2026-09-16-pixel-body-eye-batch.md
 git commit -m "docs: document pixel body and eye candidate"
 ```
+
+### Task 6 execution record
+
+- Fresh verification on 2026-09-17: `npm test` passed 13 files / 123 tests; `npm run build` passed with v2 21 coverage / 14 generatable / 15 layers; `npm run verify:pixel` passed 14 browser replays and 3 downloads; `node scripts/verify-pixel-art-v2.mjs` passed 21 v2 replays, 32 v1 replays, 8 negative imports and 2 portable samples; `git diff --check` passed.
+- Fetched `origin/master` at `991e3a7`, then merged it locally as `75ef04a` without conflicts. Both remote Claude exchange commits and all local candidate commits are preserved; no push was performed.
+- Review entry: `http://127.0.0.1:4184/pixel`, candidate `1.2.0-candidate.1` selected with `slender-sleepy-stack` visible. The pre-existing server process was preserved.
+- The seven new entries remain `review: pending`; this plan does not claim user art approval or create `1.2.0`.
 
 ## Self-Review Record
 

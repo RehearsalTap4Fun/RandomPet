@@ -1,4 +1,4 @@
-# 像素美术包接入契约 v1
+# 像素美术包接入契约 v1 / v2
 
 ## 本轮交付
 
@@ -6,17 +6,20 @@
 
 | 包 | 美术版本 | 覆盖组合 | 可用于生成 | PNG 图层 | 使用范围 |
 |---|---|---:|---:|---:|---|
+| v2-candidate | 1.2.0-candidate.1 | 21 | 14 | 15 | 14 个 v1 已验收组合迁移为圆眼；7 个体型／眼型组合待美术验收 |
 | approved | 1.1.0 | 14 | 14 | 8 | 当前已验收包：首批 4 个与第二阶段 10 个组合 |
 | legacy-approved | 1.0.0 | 4 | 4 | 3 | 保留首批版本，供旧存档回放 |
 | candidate | 1.1.0-candidate.1 | 14 | 4 | 8 | 保留验收前快照及其原有验收状态，供旧存档回放 |
 
 用户明确回复“验收通过”，第二阶段 10 个组合已全部通过，记录见 `docs/qa/flat-source-trial/stage2/approval.json`。当前 14 个组合全部进入生成白名单。覆盖集合是明确列出的组合，不是把资源数相乘后的理论组合数；未覆盖组合仍报错。验收仅提升状态及生成范围，图片、profile 和 RGBA 结果保持不变。历史候选包保留原始字节，当前状态以 1.1.0 为准。
 
+v2 候选目录为 `pixel-art-catalog-v2`，revision 为 `3ba990a5dfde65b0b79dabe958c9d3c742a08a30fdb582536b85cde5b11c288d`。其中 14 个迁移条目保持 v1.1.0 的 RGBA 摘要并可生成；7 个新条目仍为 `review: pending`，不在 `generatable`。`1.2.0-candidate.1` 通过技术回放不等于美术验收，只有用户明确通过后才能另行产出 `1.2.0`。
+
 ## 分层与数据流
 
 ```mermaid
 flowchart LR
-  G[旧生成器／未来基因规则] --> P[表现型：体型、花纹、表情、异化 ID]
+  G[旧生成器／未来基因规则] --> P[表现型：体型、花纹、眼型、表情、异化 ID]
   P --> A[按风格、美术版本选择资源与 profile]
   A --> C[覆盖校验与合成计划]
   C --> R[共享 RGBA 渲染器]
@@ -28,15 +31,20 @@ flowchart LR
 - `feline-phenotype-v1` 只含语义 ID。无图片路径、图层坐标、随机种子、基因或美术版本。
 - `phenotypeFromLegacy(save)` 校验旧规格后复制已解析的 selections，并补 `body: standard`。不重跑 RNG，不修改旧保存数据。旧 rolls、locks、seed 继续由旧规格持有；导出的像素形象不是可逆的完整旧生成器存档。
 - `pixel-art-catalog-v1` 管理美术资源。profile 由 body、coat、expression 选中，steps 声明部件顺序、前后层、替换清除区和部件自身的遮挡区。
+- `feline-phenotype-v2` 将 `eyes` 作为必填语义字段；固定字段顺序为 `body, coat, eyes, expression, crown, ears, neck, back, tailTip`。眼型与嘴部表情相互独立，表现型仍不保存图片路径、坐标、遮罩、种子或美术版本。
+- `phenotypeV2FromV1` 对已经解析的 v1 表现型确定性补 `eyes: round`，其余八个字段原样复制，不重新运行随机生成器。v1 key、目录、存档和 revision 继续由 v1 API 回放；迁移结果是新的 v2 表现型，不能冒充原 v1 存档。
+- `pixel-art-catalog-v2` 的 profile 由 `body + coat + eyes + expression` 四项唯一选择。当前眼型烘焙在完整主体 PNG 中；运行时没有擦旧眼或叠眼睛贴片。
 - PNG 已经像素化并定位到统一 64×64 画布。源图的缩放／平移在生产步骤烘焙；运行时使用 64px 坐标的多边形，避免消费端重复套用源图几何。
 - `coverage` 表达可渲染且有回放证据的确切组合；`review` 表达美术验收状态；`generatable` 是独立白名单，并要求所有成员已验收。生成器应读取该白名单，不从候选覆盖集合随机抽取。
 - 本轮没有加入育种算法、新随机权重或 Nutri 成长规则。
 
 ## 版本与回放
 
-形象存档为 `feline-appearance-v1`，包含 `phenotype` 与 `art: {styleId, artVersion, revision}`。revision 为去除 revision 字段后的目录规范 JSON 的 SHA-256，覆盖 profile、图层摘要、覆盖集合、验收状态和生成白名单。
+形象存档分别为 `feline-appearance-v1` 和 `feline-appearance-v2`，均包含对应版本的 `phenotype` 与 `art: {styleId, artVersion, revision}`。revision 为去除 revision 字段后的目录规范 JSON 的 SHA-256，覆盖 profile、图层摘要、覆盖集合、验收状态和生成白名单。v1 与 v2 解析器严格区分 schema；缺少 `eyes` 的 v1 数据不能直接按 v2 解析。
 
-`restorePixelAppearance` 必须匹配完整美术标识；不自动迁移或忽略 revision。`pixelArtKey` 包含风格、版本、revision、体型和全部性状，供消费端缓存使用。发布新包后应保留旧包以支持旧形象回放。`rendererVersion: pixel-rgba-v1` 固定本代的合成语义；改变算法需新渲染版本及回放验证。
+`restorePixelAppearance` / `restorePixelAppearanceV2` 必须匹配完整美术标识；不自动迁移或忽略 revision。`pixelArtKeyV2` 包含风格、版本、revision 和九个表现型字段，供消费端缓存使用。发布新包后应保留旧包以支持旧形象回放。v2 仍返回既有 `PixelArtPlan`，`rendererVersion: pixel-rgba-v1` 与合成顺序、clear、occlusion、描边及透明语义均未改变；改变算法需新渲染版本及回放验证。
+
+`resolvePixelArtV2` 只接受目录 `coverage` 中的完整九字段组合。眼型、体型或异化组合未登记时会明确抛出 `Unsupported pixel combination`，不会借用其他眼型主体、推导自由组合或混用毛绒资源。`generatablePixelPhenotypesV2` 只返回已批准白名单；pending 条目仅供候选审阅和确定性回放。
 
 ## 构建与运行
 
@@ -60,6 +68,8 @@ legacy-approved/catalog.json  首批 1.0.0
 legacy-approved/assets/  3 张 PNG
 candidate/catalog.json   历史候选快照
 candidate/assets/        8 张 PNG
+v2-candidate/catalog.json 体型／眼型候选包 1.2.0-candidate.1
+v2-candidate/assets/     15 张去重 PNG
 provenance.json           源图、验证记录和上游代码摘要
 ```
 
@@ -89,6 +99,8 @@ const cacheKey = pixelArtKey(restored, art.catalog)
 
 `loadPixelArt` 校验目录 revision、PNG 字节摘要、解码尺寸和二值 alpha，失败则拒绝载入。`art.render` 使用其内部已验证的目录和像素，返回新数组，不修改原图层。
 
+v2 消费端使用 `loadPixelArtV2`、`savePixelAppearanceV2`、`restorePixelAppearanceV2`、`generatablePixelPhenotypesV2` 和 `pixelArtKeyV2`。浏览器示例会按目录 schema 分派 v1 / v2 API，不能把两代类型互相强转。
+
 Node 或已有纹理解码器可使用底层 `resolvePixelArt`、`composePixelArt`；调用方应先校验目录和资源，不能将不受信任的 JSON 当作合成计划直接传入。
 
 后续 Nutri 正式接入需处理：
@@ -112,5 +124,8 @@ Node 或已有纹理解码器可使用底层 `resolvePixelArt`、`composePixelAr
 - `packages/renderer-canvas/src/pixel-art-render.test.ts`：与先前独立验收报告中的 14 个 RGBA 摘要逐一比对，检查输入图层不被修改。
 - `packages/asset-catalog/pixel/v1/provenance.json`：源图／QA 文件摘要与 Nutri 上游代码版本。
 - 验收后增加提升范围与历史目录兼容测试，共 110 项单元测试；浏览器报告另记录历史候选 JSON 的回放检查。
+- `docs/qa/flat-source-trial/stage3/report.json`：3 套体型几何、7 个 pending 候选、2 个圆眼对照、clear／occlusion 检查、14 个 v1 RGBA 回放及输入不变证据。
+- `docs/qa/pixel-body-eye-batch/report.json`：浏览器真实画布回放 v2 21/21、v1 32/32、8 个失败导入保持原画面、2 个异路径消费端样本，以及 v2 形象保存／恢复和 PNG 导出。
+- `packages/asset-catalog/pixel/v2/provenance.json`：候选目录的源文件固定摘要、生产脚本和 Nutri 上游版本。
 
-当前只包含橘白花纹和已列出的组合。美术的长期扩展方向已确定；其他花纹、更多眼型和未验证的自由组合继续按小批次补齐。
+当前只包含橘白花纹和已列出的组合。7 个新组合仍等待用户美术验收，Nutri 运行时继续关闭。其他花纹、更多眼型和未验证的自由组合继续按小批次补齐。
