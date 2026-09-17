@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-17",
+  "tool": "cua_repl / Chrome",
+  "mainGallery": {
+    "path": "index.html",
+    "loadedImages": 42,
+    "totalImages": 42,
+    "darkScreenshot": "browser-preview.png",
+    "lightScreenshot": "browser-preview-light.png",
+    "backgroundToggleVerified": true
+  },
+  "lightCandidates": {
+    "path": "light-review.html",
+    "loadedImages": 14,
+    "totalImages": 14,
+    "screenshot": "browser-light-candidates.png"
+  },
+  "visualInspection": {
+    "eyes": "All three sleepy variants visibly differ from round; pupils and highlights remain readable at enlarged preview and eyes remain separate from nose.",
+    "teeth": "Two separated white fang points remain visible in the dark mouth.",
+    "paws": "All four paws remain present; slender forelegs stay long and separated.",
+    "tail": "One tail in each base; flame replaces the original tail and connects behind the haunch.",
+    "layerOrder": "Horns behind head; fin ears replace pointed ears; foreground mane surrounds chest without changing protected facial pixels; flame behind body."
+  },
+  "notes": [
+    "Chrome full-page capture intermittently timed out; a full dark capture succeeded, and compact light candidate page provided a successful screenshot of all seven cases.",
+    "No browser viewport overrides were used. Temporary tab closed and loopback HTTP server stopped after inspection."
+  ],
+  "artifactHashes": {
+    "docs/qa/flat-source-trial/stage3/browser-light-candidates.png": "d0ae643f257663e3e7f3c91d64cca9f97d4faa12354cf3033f559b1b2d22be8d",
+    "docs/qa/flat-source-trial/stage3/browser-preview-light.png": "b7123f25f9156112616b4cc761c9847def22329866e315045fe4197434f28fbf",
+    "docs/qa/flat-source-trial/stage3/browser-preview.png": "b28b8c0e5a52e304a99d0610eabe692607c551169e16d9f86e1be59a933072aa",
+    "docs/qa/flat-source-trial/stage3/index.html": "556c96912b40160f1621d4574ee7fd638d20426d27a0879cc82805e549b07849",
+    "docs/qa/flat-source-trial/stage3/light-review.html": "9b979027f22630d3011fb1999817ffafad5f4e615188c311f55e241d0d1ee2f5"
+  }
+}

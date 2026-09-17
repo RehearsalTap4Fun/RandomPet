@@ -1,0 +1,622 @@
+{
+  "schemaVersion": "pixel-body-eye-study-v1",
+  "review": "pending",
+  "profiles": [
+    {
+      "id": "standard",
+      "earTransform": {
+        "scaleX": 0.74,
+        "scaleY": 0.65,
+        "translateX": 65,
+        "translateY": 28
+      },
+      "maneTransform": {
+        "scaleX": 0.7,
+        "scaleY": 0.62,
+        "translateX": 90,
+        "translateY": 235
+      },
+      "faceOcclusion": [
+        [
+          100,
+          0
+        ],
+        [
+          950,
+          0
+        ],
+        [
+          950,
+          485
+        ],
+        [
+          875,
+          590
+        ],
+        [
+          790,
+          650
+        ],
+        [
+          680,
+          680
+        ],
+        [
+          530,
+          690
+        ],
+        [
+          380,
+          675
+        ],
+        [
+          250,
+          625
+        ],
+        [
+          145,
+          555
+        ]
+      ],
+      "canvas": 1254,
+      "pixelSize": 64,
+      "bodies": {
+        "sleepy-almond": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png"
+      },
+      "earClear": [
+        [
+          [
+            210,
+            0
+          ],
+          [
+            490,
+            0
+          ],
+          [
+            470,
+            190
+          ],
+          [
+            220,
+            290
+          ]
+        ],
+        [
+          [
+            625,
+            0
+          ],
+          [
+            940,
+            0
+          ],
+          [
+            900,
+            410
+          ],
+          [
+            660,
+            200
+          ]
+        ]
+      ],
+      "tailClear": [
+        [
+          895,
+          350
+        ],
+        [
+          1254,
+          350
+        ],
+        [
+          1254,
+          1160
+        ],
+        [
+          930,
+          1160
+        ],
+        [
+          948,
+          1060
+        ],
+        [
+          957,
+          940
+        ],
+        [
+          960,
+          830
+        ],
+        [
+          937,
+          730
+        ],
+        [
+          895,
+          690
+        ]
+      ],
+      "eyeRectangles": [
+        [
+          14,
+          15,
+          23,
+          23
+        ],
+        [
+          25,
+          15,
+          38,
+          24
+        ]
+      ],
+      "faceRectangle": [
+        16,
+        14,
+        36,
+        31
+      ],
+      "measurements": {
+        "sourceEarTips": [
+          [
+            290,
+            43
+          ],
+          [
+            881,
+            89
+          ]
+        ],
+        "sourceFaceCenter": [
+          450,
+          451
+        ],
+        "sourcePaws": [
+          [
+            280,
+            1100
+          ],
+          [
+            392,
+            1150
+          ],
+          [
+            585,
+            1160
+          ],
+          [
+            817,
+            1130
+          ]
+        ],
+        "note": "Rechecked selected sleepy source against approved round: same native silhouette after authorized alpha-only correction; existing mutation geometry retains the full face.",
+        "calibrationStatus": "candidate-checked"
+      },
+      "geometryUnits": "1254px source canvas; eye/face rectangles and tailTranslation are native 64px coordinates"
+    },
+    {
+      "id": "shortleg-round",
+      "earTransform": {
+        "scaleX": 0.74,
+        "scaleY": 0.65,
+        "translateX": 65,
+        "translateY": 28
+      },
+      "maneTransform": {
+        "scaleX": 0.75,
+        "scaleY": 0.62,
+        "translateX": 62,
+        "translateY": 242
+      },
+      "faceOcclusion": [
+        [
+          95,
+          0
+        ],
+        [
+          945,
+          0
+        ],
+        [
+          945,
+          470
+        ],
+        [
+          875,
+          585
+        ],
+        [
+          790,
+          650
+        ],
+        [
+          680,
+          690
+        ],
+        [
+          530,
+          700
+        ],
+        [
+          380,
+          685
+        ],
+        [
+          245,
+          635
+        ],
+        [
+          135,
+          555
+        ]
+      ],
+      "canvas": 1254,
+      "pixelSize": 64,
+      "bodies": {
+        "sleepy-almond": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png"
+      },
+      "earClear": [
+        [
+          [
+            210,
+            0
+          ],
+          [
+            490,
+            0
+          ],
+          [
+            470,
+            190
+          ],
+          [
+            220,
+            290
+          ]
+        ],
+        [
+          [
+            625,
+            0
+          ],
+          [
+            940,
+            0
+          ],
+          [
+            900,
+            410
+          ],
+          [
+            660,
+            200
+          ]
+        ]
+      ],
+      "tailClear": [
+        [
+          895,
+          350
+        ],
+        [
+          1254,
+          350
+        ],
+        [
+          1254,
+          1170
+        ],
+        [
+          984,
+          1170
+        ],
+        [
+          989,
+          1060
+        ],
+        [
+          1002,
+          985
+        ],
+        [
+          1002,
+          905
+        ],
+        [
+          982,
+          835
+        ],
+        [
+          954,
+          770
+        ],
+        [
+          920,
+          710
+        ],
+        [
+          895,
+          650
+        ]
+      ],
+      "eyeRectangles": [
+        [
+          14,
+          15,
+          23,
+          23
+        ],
+        [
+          25,
+          15,
+          38,
+          24
+        ]
+      ],
+      "faceRectangle": [
+        16,
+        14,
+        36,
+        31
+      ],
+      "measurements": {
+        "sourceEarTips": [
+          [
+            290,
+            44
+          ],
+          [
+            881,
+            91
+          ]
+        ],
+        "sourceFaceCenter": [
+          450,
+          455
+        ],
+        "sourcePaws": [
+          [
+            240,
+            1100
+          ],
+          [
+            425,
+            1140
+          ],
+          [
+            615,
+            1140
+          ],
+          [
+            888,
+            1120
+          ]
+        ],
+        "note": "Rechecked selected sleepy source against approved round: same native silhouette after authorized alpha-only correction; existing mutation geometry retains the full face.",
+        "calibrationStatus": "candidate-checked"
+      },
+      "geometryUnits": "1254px source canvas; eye/face rectangles and tailTranslation are native 64px coordinates"
+    },
+    {
+      "id": "slender-tall",
+      "canvas": 1254,
+      "pixelSize": 64,
+      "bodies": {
+        "sleepy-almond": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png",
+        "round": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png"
+      },
+      "earTransform": {
+        "scaleX": 0.69,
+        "scaleY": 0.69,
+        "translateX": 119,
+        "translateY": 8
+      },
+      "maneTransform": {
+        "scaleX": 0.59,
+        "scaleY": 0.56,
+        "translateX": 203,
+        "translateY": 203
+      },
+      "earClear": [
+        [
+          [
+            265,
+            0
+          ],
+          [
+            520,
+            0
+          ],
+          [
+            510,
+            165
+          ],
+          [
+            275,
+            330
+          ]
+        ],
+        [
+          [
+            630,
+            0
+          ],
+          [
+            930,
+            0
+          ],
+          [
+            880,
+            420
+          ],
+          [
+            795,
+            365
+          ],
+          [
+            640,
+            175
+          ]
+        ]
+      ],
+      "tailClear": [
+        [
+          835,
+          475
+        ],
+        [
+          1254,
+          475
+        ],
+        [
+          1254,
+          1160
+        ],
+        [
+          795,
+          1160
+        ],
+        [
+          810,
+          1100
+        ],
+        [
+          845,
+          1030
+        ],
+        [
+          850,
+          940
+        ],
+        [
+          865,
+          855
+        ],
+        [
+          830,
+          750
+        ],
+        [
+          815,
+          640
+        ]
+      ],
+      "faceOcclusion": [
+        [
+          210,
+          0
+        ],
+        [
+          915,
+          0
+        ],
+        [
+          915,
+          410
+        ],
+        [
+          815,
+          510
+        ],
+        [
+          730,
+          565
+        ],
+        [
+          640,
+          595
+        ],
+        [
+          510,
+          608
+        ],
+        [
+          400,
+          590
+        ],
+        [
+          305,
+          535
+        ],
+        [
+          240,
+          480
+        ]
+      ],
+      "eyeRectangles": [
+        [
+          16,
+          14,
+          25,
+          23
+        ],
+        [
+          26,
+          14,
+          38,
+          23
+        ]
+      ],
+      "faceRectangle": [
+        17,
+        15,
+        36,
+        27
+      ],
+      "measurements": {
+        "sourceEarTips": [
+          [
+            324,
+            29
+          ],
+          [
+            873,
+            48
+          ]
+        ],
+        "sourceFaceCenter": [
+          480,
+          418
+        ],
+        "sourceChin": [
+          535,
+          595
+        ],
+        "sourcePaws": [
+          [
+            376,
+            1125
+          ],
+          [
+            471,
+            1160
+          ],
+          [
+            609,
+            1160
+          ],
+          [
+            748,
+            1135
+          ]
+        ],
+        "sourceTailBounds": [
+          823,
+          501,
+          1098,
+          1120
+        ],
+        "note": "Measured independently from selected slender round source, not copied from a standard body.",
+        "calibrationStatus": "candidate-checked"
+      },
+      "tailTranslation": [
+        -4,
+        0
+      ],
+      "geometryUnits": "1254px source canvas; eye/face rectangles and tailTranslation are native 64px coordinates"
+    }
+  ]
+}

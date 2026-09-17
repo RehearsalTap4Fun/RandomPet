@@ -1,0 +1,1283 @@
+{
+  "schemaVersion": "pixel-stage3-qa-v1",
+  "status": "candidate-review-pending",
+  "rendererVersion": "pixel-rgba-v1",
+  "nutriCommit": "385bdfae615547c509da331efeeaacd96f94e463",
+  "nutriDirectory": "C:\\Project\\QMonsterCreator\\.worktrees\\nutri-pixel-reference",
+  "nutriSourceHashes": {
+    "scripts/pixelCat.ts": "beca70ffb4c18b8d2f62bfc53593da7727537abaf8c52da3a365b4105c64aedd",
+    "src/core/pixelize.ts": "9ef5a12a635654da66fe8620a7fa1ce71b7d2010eb5d6063feb1652e0926dc12",
+    "src/core/pixelcat.ts": "751404a95bdc39864ceb4ba00ce9123f09802b40532e5b980ed8097ced2fb65a",
+    "src/core/rng.ts": "842df598a90150dabb061cf6c5ca372f5a952057f3bfe649b8eda402b48bc11a",
+    "src/assets/pixelcat/manifest.json": "9192cd58fa289aad571e02efe1349cec9064908f3e789c7796b95bbc36a720d2"
+  },
+  "nutriTrackedFilesUnchanged": true,
+  "profileFile": "docs/art/flat-source-trial/stage3/profiles.json",
+  "profileSha256": "6bb62db46be2effe03d27ab0ebbf04a527d8080fe3e4a741bbae43e632e88000",
+  "sourceAssets": {
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png": "ba1e40164ba0a1dd3b9631acfc182cda58b26a6f4b732e9cf8c38585b5a7a252",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png": "6b7fa7244fcaa159a2bcd2a55c14413c1572ed789f22513a3da8aa986e39e6c7",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png": "4f310383fce5cdd6ab9ba37dde7e6120acce3f301f3085b4ad97a228c7207acb"
+  },
+  "inputHashes": {
+    "docs/art/flat-source-trial/stage3/profiles.json": "6bb62db46be2effe03d27ab0ebbf04a527d8080fe3e4a741bbae43e632e88000",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png": "ba1e40164ba0a1dd3b9631acfc182cda58b26a6f4b732e9cf8c38585b5a7a252",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png": "6b7fa7244fcaa159a2bcd2a55c14413c1572ed789f22513a3da8aa986e39e6c7",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png": "4f310383fce5cdd6ab9ba37dde7e6120acce3f301f3085b4ad97a228c7207acb",
+    "docs/art/flat-source-trial/stage3/generation.json": "63f0db9400398c0bb03bad466b4a2440fbdf31fe6f1f3a5c754aae2706c42864",
+    "docs/art/flat-source-trial/stage3/revisions.json": "7668ffeb8e55770649efc793a169f216183c64e065451a859d6913be1255275c",
+    "packages/asset-catalog/pixel/v1/catalog.approved.json": "694b9c7ce955c17b5ca48bd4ca4db0f6c555e1b31b01e80fab9e0bfa47588515",
+    "packages/asset-catalog/pixel/v1/assets/layer-c68b7f3b61d5650f.png": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+    "packages/asset-catalog/pixel/v1/assets/layer-892032f0a47bbdf4.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "packages/asset-catalog/pixel/v1/assets/layer-bd1ab44533f33a3a.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "packages/asset-catalog/pixel/v1/assets/layer-fec0335aee4cb501.png": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+    "packages/asset-catalog/pixel/v1/assets/layer-6d8134b5c93d11f7.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "packages/asset-catalog/pixel/v1/assets/layer-0dc4c49bf437b30a.png": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+    "packages/asset-catalog/pixel/v1/assets/layer-99a3492a4188b39e.png": "99a3492a4188b39e905c1fa87343541006eefa9b041cb41834d8147387917db6",
+    "packages/asset-catalog/pixel/v1/assets/layer-4441d1f37a59c04b.png": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+    "docs/qa/flat-source-trial/stage2/report.json": "72a32ff5e299949ffb6433118686a3b28a8b45c4b4907b318dcf28da1a2062ee",
+    "docs/art/flat-source-trial/stage2/profiles.json": "bccaf5b4c671b69bd75387131065642fc224b3d14019ff86ed43ffe2f7589999",
+    "docs/qa/flat-source-trial/stage2/layers/standard/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-fin-ears.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-lion-mane.png": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+    "docs/qa/flat-source-trial/stage2/layers/standard/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/orange-white-fin-ears.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/orange-white-small-lion-mane.png": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/art/flat-source-trial/stage2/solid/orange-white-fin-ears.png": "a70a6f4331824991047307019c0f58235c316e7b3c053ef898e1d44a93294733",
+    "docs/art/flat-source-trial/stage2/solid/orange-white-small-lion-mane.png": "d36c28c094e6d51f754d906f9570a5e838d9803490e4649071f0cbf6990e0579"
+  },
+  "normalization": [
+    {
+      "body": "standard",
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+      "eyeRectangles": [
+        [
+          14,
+          15,
+          23,
+          23
+        ],
+        [
+          25,
+          15,
+          38,
+          24
+        ]
+      ],
+      "baselineRgbaSha256": "94b153509062f1b08a40688f2ee0a43ea819e7d1ec7d2593d298d42bfb74975a",
+      "beforePngSha256": "ec72886d509a992fab85d366d5fa730fdf0228d8112a480dab58d10a2e1f706e",
+      "beforeRgbaSha256": "30dae317ad82ad0252af6876a5d370833951eb72e75932a945616bf41f5b4f23",
+      "beforeMismatches": [
+        [
+          43,
+          21,
+          255,
+          0
+        ],
+        [
+          56,
+          32,
+          255,
+          0
+        ],
+        [
+          13,
+          49,
+          255,
+          0
+        ]
+      ],
+      "afterMismatches": [],
+      "rgbBytesPreserved": true,
+      "insideEyeAlphaPreserved": true,
+      "pngSha256": "deeba5734233692e03a377eddcbd8cc20a299283eb3df17df059327a0896cc58",
+      "rgbaSha256": "2d1672ff93d56328c891db9127dd8b9a1338eaba081125cc6e2c5c37108c4b01"
+    },
+    {
+      "body": "shortleg-round",
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png",
+      "eyeRectangles": [
+        [
+          14,
+          15,
+          23,
+          23
+        ],
+        [
+          25,
+          15,
+          38,
+          24
+        ]
+      ],
+      "baselineRgbaSha256": "f1cd50fe6f0a2eaf7f2c2eac2e4d5293eef69a16a1676609bd9a28e5b8b89518",
+      "beforePngSha256": "cd2e5548c7f45e0776a63d1178e443ba2a0e46afc3d5ee472f5ceb39da0e0656",
+      "beforeRgbaSha256": "637aac0d617f01e980dfcbcc4ade5009652e472595c64302cd0e7e23c5a01254",
+      "beforeMismatches": [],
+      "afterMismatches": [],
+      "rgbBytesPreserved": true,
+      "insideEyeAlphaPreserved": true,
+      "pngSha256": "eed43e314ab2e856c0bdf39afd1fa09f6e7e08eeb844d6fb5770bdf8df18c017",
+      "rgbaSha256": "637aac0d617f01e980dfcbcc4ade5009652e472595c64302cd0e7e23c5a01254"
+    },
+    {
+      "body": "slender-tall",
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png",
+      "eyeRectangles": [
+        [
+          16,
+          14,
+          25,
+          23
+        ],
+        [
+          26,
+          14,
+          38,
+          23
+        ]
+      ],
+      "baselineRgbaSha256": "1f5d93ad2d9f70da853ec51c7128cac7c05c10c0634532cb21095149a8a0244c",
+      "beforePngSha256": "d35e4dfbf0325abc8be4ee645c1b8cf8e29a7af9c24c3712f06c004e5fba54cf",
+      "beforeRgbaSha256": "5fd9131b197f3edd4ac9308291d90c6a1d7cc57c2ab67cc64d4e03ac0975441f",
+      "beforeMismatches": [
+        [
+          39,
+          42,
+          255,
+          0
+        ]
+      ],
+      "afterMismatches": [],
+      "rgbBytesPreserved": true,
+      "insideEyeAlphaPreserved": true,
+      "pngSha256": "189e6d6ebb01e538e996b3e695cb00fd567d21a8c3420c0435d501c923190c6e",
+      "rgbaSha256": "8dc34144e1b6b5a93f57d5a9a93f06d45e642c9311920eb0eccc448ef6b7be7a"
+    }
+  ],
+  "settings": {
+    "size": 64,
+    "threshold": 90,
+    "erosion": 3,
+    "flat": true,
+    "bodyPalette": 12,
+    "partPalette": 6,
+    "dither": 0,
+    "border": 1
+  },
+  "profiles": {
+    "standard": {
+      "bodyId": "orange-white-sleepy-almond-small-fangs-standard",
+      "clear": {
+        "ears": [
+          [
+            [
+              11.382775119617225,
+              1
+            ],
+            [
+              25.226475279106857,
+              1
+            ],
+            [
+              24.237639553429027,
+              10.393939393939394
+            ],
+            [
+              11.87719298245614,
+              15.33811802232855
+            ]
+          ],
+          [
+            [
+              31.901116427432218,
+              1
+            ],
+            [
+              47.47527910685805,
+              1
+            ],
+            [
+              45.49760765550239,
+              21.271132376395535
+            ],
+            [
+              33.63157894736842,
+              10.88835725677831
+            ]
+          ]
+        ],
+        "tailTip": [
+          [
+            45.250398724082935,
+            18.304625199362043
+          ],
+          [
+            63,
+            18.304625199362043
+          ],
+          [
+            63,
+            58.3524720893142
+          ],
+          [
+            46.98086124401914,
+            58.3524720893142
+          ],
+          [
+            47.87081339712919,
+            53.40829346092504
+          ],
+          [
+            48.31578947368421,
+            47.47527910685805
+          ],
+          [
+            48.464114832535884,
+            42.036682615629985
+          ],
+          [
+            47.32695374800638,
+            37.09250398724083
+          ],
+          [
+            45.250398724082935,
+            35.11483253588517
+          ]
+        ]
+      },
+      "faceOcclusion": [
+        [
+          5.944178628389155,
+          1
+        ],
+        [
+          47.96969696969697,
+          1
+        ],
+        [
+          47.96969696969697,
+          24.9792663476874
+        ],
+        [
+          44.261562998405104,
+          30.170653907496014
+        ],
+        [
+          40.059011164274324,
+          33.1371610845295
+        ],
+        [
+          34.620414673046255,
+          34.620414673046255
+        ],
+        [
+          27.20414673046252,
+          35.11483253588517
+        ],
+        [
+          19.78787878787879,
+          34.3732057416268
+        ],
+        [
+          13.360446570972886,
+          31.901116427432218
+        ],
+        [
+          8.169059011164276,
+          28.440191387559807
+        ]
+      ],
+      "layers": {
+        "orange-white-sleepy-almond-small-fangs-standard": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/standard/orange-white-sleepy-almond-small-fangs-standard.png",
+          "pngSha256": "deeba5734233692e03a377eddcbd8cc20a299283eb3df17df059327a0896cc58",
+          "rgbaSha256": "2d1672ff93d56328c891db9127dd8b9a1338eaba081125cc6e2c5c37108c4b01"
+        },
+        "dragon-horns": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/standard/dragon-horns.png",
+          "pngSha256": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+          "rgbaSha256": "972f15369d25c420b22b4caa36a3d34f715df54cee2a83b54f370fdffd3991d3"
+        },
+        "orange-white-fin-ears": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/standard/orange-white-fin-ears.png",
+          "pngSha256": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+          "rgbaSha256": "e18be0665eb2f078bd6a5cd3d16d56cb871cc21b91933c2038dcd03bf2ff8935"
+        },
+        "orange-white-small-lion-mane": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/standard/orange-white-small-lion-mane.png",
+          "pngSha256": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+          "rgbaSha256": "384f83dd73cdbd4f0ee781188438495d715db50928b1cb9c2c3b1289c521ff2a"
+        },
+        "flame-tail": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/standard/flame-tail.png",
+          "pngSha256": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+          "rgbaSha256": "9f695c6d3199dcb1e847542cd19429a00c106073a7908ca2e14f86bd52e5d326"
+        }
+      },
+      "geometrySource": "docs/art/flat-source-trial/stage3/profiles.json",
+      "nativeSilhouette": {
+        "opaquePixels": 2099,
+        "bounds": [
+          9,
+          3,
+          60,
+          61
+        ],
+        "rowRuns": {
+          "10": [
+            [
+              13,
+              45
+            ]
+          ],
+          "22": [
+            [
+              9,
+              43
+            ],
+            [
+              50,
+              58
+            ]
+          ],
+          "32": [
+            [
+              15,
+              39
+            ],
+            [
+              47,
+              55
+            ]
+          ],
+          "40": [
+            [
+              15,
+              44
+            ],
+            [
+              49,
+              58
+            ]
+          ],
+          "48": [
+            [
+              14,
+              57
+            ]
+          ],
+          "56": [
+            [
+              11,
+              49
+            ]
+          ],
+          "60": [
+            [
+              17,
+              35
+            ]
+          ]
+        }
+      }
+    },
+    "shortleg-round": {
+      "bodyId": "orange-white-sleepy-almond-small-fangs-shortleg-round",
+      "clear": {
+        "ears": [
+          [
+            [
+              11.382775119617225,
+              1
+            ],
+            [
+              25.226475279106857,
+              1
+            ],
+            [
+              24.237639553429027,
+              10.393939393939394
+            ],
+            [
+              11.87719298245614,
+              15.33811802232855
+            ]
+          ],
+          [
+            [
+              31.901116427432218,
+              1
+            ],
+            [
+              47.47527910685805,
+              1
+            ],
+            [
+              45.49760765550239,
+              21.271132376395535
+            ],
+            [
+              33.63157894736842,
+              10.88835725677831
+            ]
+          ]
+        ],
+        "tailTip": [
+          [
+            45.250398724082935,
+            18.304625199362043
+          ],
+          [
+            63,
+            18.304625199362043
+          ],
+          [
+            63,
+            58.84688995215311
+          ],
+          [
+            49.65071770334928,
+            58.84688995215311
+          ],
+          [
+            49.89792663476874,
+            53.40829346092504
+          ],
+          [
+            50.54066985645933,
+            49.70015948963317
+          ],
+          [
+            50.54066985645933,
+            45.74481658692185
+          ],
+          [
+            49.5518341307815,
+            42.28389154704944
+          ],
+          [
+            48.16746411483253,
+            39.07017543859649
+          ],
+          [
+            46.48644338118022,
+            36.103668261563
+          ],
+          [
+            45.250398724082935,
+            33.1371610845295
+          ]
+        ]
+      },
+      "faceOcclusion": [
+        [
+          5.696969696969697,
+          1
+        ],
+        [
+          47.72248803827751,
+          1
+        ],
+        [
+          47.72248803827751,
+          24.237639553429027
+        ],
+        [
+          44.261562998405104,
+          29.923444976076556
+        ],
+        [
+          40.059011164274324,
+          33.1371610845295
+        ],
+        [
+          34.620414673046255,
+          35.11483253588517
+        ],
+        [
+          27.20414673046252,
+          35.609250398724086
+        ],
+        [
+          19.78787878787879,
+          34.86762360446571
+        ],
+        [
+          13.113237639553429,
+          32.39553429027113
+        ],
+        [
+          7.6746411483253585,
+          28.440191387559807
+        ]
+      ],
+      "layers": {
+        "orange-white-sleepy-almond-small-fangs-shortleg-round": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/shortleg-round/orange-white-sleepy-almond-small-fangs-shortleg-round.png",
+          "pngSha256": "eed43e314ab2e856c0bdf39afd1fa09f6e7e08eeb844d6fb5770bdf8df18c017",
+          "rgbaSha256": "637aac0d617f01e980dfcbcc4ade5009652e472595c64302cd0e7e23c5a01254"
+        },
+        "dragon-horns": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/shortleg-round/dragon-horns.png",
+          "pngSha256": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+          "rgbaSha256": "972f15369d25c420b22b4caa36a3d34f715df54cee2a83b54f370fdffd3991d3"
+        },
+        "orange-white-fin-ears": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/shortleg-round/orange-white-fin-ears.png",
+          "pngSha256": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+          "rgbaSha256": "e18be0665eb2f078bd6a5cd3d16d56cb871cc21b91933c2038dcd03bf2ff8935"
+        },
+        "orange-white-small-lion-mane": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/shortleg-round/orange-white-small-lion-mane.png",
+          "pngSha256": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+          "rgbaSha256": "a0ef10ce51fddc0460089a28a3411ba853d60e79b6feb2851c39d33ffaf7a8e3"
+        },
+        "flame-tail": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/shortleg-round/flame-tail.png",
+          "pngSha256": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+          "rgbaSha256": "9f695c6d3199dcb1e847542cd19429a00c106073a7908ca2e14f86bd52e5d326"
+        }
+      },
+      "geometrySource": "docs/art/flat-source-trial/stage3/profiles.json",
+      "nativeSilhouette": {
+        "opaquePixels": 2272,
+        "bounds": [
+          8,
+          3,
+          61,
+          60
+        ],
+        "rowRuns": {
+          "10": [
+            [
+              13,
+              45
+            ]
+          ],
+          "22": [
+            [
+              9,
+              43
+            ],
+            [
+              51,
+              58
+            ]
+          ],
+          "32": [
+            [
+              13,
+              41
+            ],
+            [
+              47,
+              56
+            ]
+          ],
+          "40": [
+            [
+              9,
+              48
+            ],
+            [
+              50,
+              59
+            ]
+          ],
+          "48": [
+            [
+              9,
+              58
+            ]
+          ],
+          "56": [
+            [
+              8,
+              49
+            ]
+          ],
+          "60": [
+            [
+              28,
+              35
+            ]
+          ]
+        }
+      }
+    },
+    "slender-tall": {
+      "bodyId": "orange-white-sleepy-almond-small-fangs-slender-tall",
+      "clear": {
+        "ears": [
+          [
+            [
+              14.10207336523126,
+              1
+            ],
+            [
+              26.709728867623603,
+              1
+            ],
+            [
+              26.215311004784688,
+              9.157894736842104
+            ],
+            [
+              14.596491228070175,
+              17.31578947368421
+            ]
+          ],
+          [
+            [
+              32.14832535885168,
+              1
+            ],
+            [
+              46.98086124401914,
+              1
+            ],
+            [
+              44.50877192982456,
+              21.76555023923445
+            ],
+            [
+              40.30622009569378,
+              19.046251993620416
+            ],
+            [
+              32.642743221690594,
+              9.652312599681022
+            ]
+          ]
+        ],
+        "tailTip": [
+          [
+            42.28389154704944,
+            24.484848484848484
+          ],
+          [
+            63,
+            24.484848484848484
+          ],
+          [
+            63,
+            58.3524720893142
+          ],
+          [
+            40.30622009569378,
+            58.3524720893142
+          ],
+          [
+            41.047846889952154,
+            55.3859649122807
+          ],
+          [
+            42.77830940988836,
+            51.92503987240829
+          ],
+          [
+            43.025518341307816,
+            47.47527910685805
+          ],
+          [
+            43.76714513556619,
+            43.27272727272727
+          ],
+          [
+            42.036682615629985,
+            38.08133971291866
+          ],
+          [
+            41.29505582137161,
+            32.642743221690594
+          ]
+        ]
+      },
+      "faceOcclusion": [
+        [
+          11.382775119617225,
+          1
+        ],
+        [
+          46.239234449760765,
+          1
+        ],
+        [
+          46.239234449760765,
+          21.271132376395535
+        ],
+        [
+          41.29505582137161,
+          26.215311004784688
+        ],
+        [
+          37.09250398724083,
+          28.934609250398726
+        ],
+        [
+          32.642743221690594,
+          30.41786283891547
+        ],
+        [
+          26.215311004784688,
+          31.060606060606062
+        ],
+        [
+          20.77671451355662,
+          30.170653907496014
+        ],
+        [
+          16.079744816586924,
+          27.451355661881976
+        ],
+        [
+          12.866028708133971,
+          24.732057416267942
+        ]
+      ],
+      "layers": {
+        "orange-white-round-small-fangs-slender-tall": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/slender-tall/orange-white-round-small-fangs-slender-tall.png",
+          "pngSha256": "3ea7d5f9d24e6ed2a0bb507f84a315c4509f51ce2b08d331ad898220f5cfaaef",
+          "rgbaSha256": "1f5d93ad2d9f70da853ec51c7128cac7c05c10c0634532cb21095149a8a0244c"
+        },
+        "orange-white-sleepy-almond-small-fangs-slender-tall": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/slender-tall/orange-white-sleepy-almond-small-fangs-slender-tall.png",
+          "pngSha256": "189e6d6ebb01e538e996b3e695cb00fd567d21a8c3420c0435d501c923190c6e",
+          "rgbaSha256": "8dc34144e1b6b5a93f57d5a9a93f06d45e642c9311920eb0eccc448ef6b7be7a"
+        },
+        "dragon-horns": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/slender-tall/dragon-horns.png",
+          "pngSha256": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+          "rgbaSha256": "972f15369d25c420b22b4caa36a3d34f715df54cee2a83b54f370fdffd3991d3"
+        },
+        "orange-white-fin-ears": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/slender-tall/orange-white-fin-ears.png",
+          "pngSha256": "ad5eaf902a730023480515e60ac75138b31c7e6674884c5cc6c3f079985a3a16",
+          "rgbaSha256": "bee53e14d64494eac13754a6a172582fc4bd95c61337b96beffd6b7990259049"
+        },
+        "orange-white-small-lion-mane": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/slender-tall/orange-white-small-lion-mane.png",
+          "pngSha256": "cede70e77fa121d1776b0eaa7f96a1a3f7501a823b5704d89e9a0b6afe134e08",
+          "rgbaSha256": "4b1692ec28f3ccc3b5d154ecdcf9f2213e75f9fd74bb07f2c2f2413006738cff"
+        },
+        "flame-tail": {
+          "path": "docs/qa/flat-source-trial/stage3/layers/slender-tall/flame-tail.png",
+          "pngSha256": "f43b645bd12e6f688287cce8f0293f83e149c3e9ba67855cee5f0cfe0f9a32b3",
+          "rgbaSha256": "cd80808421491e419ba02cbc116a8e896535e9670ac2d1c16e10966bad6cc23d"
+        }
+      },
+      "geometrySource": "docs/art/flat-source-trial/stage3/profiles.json",
+      "nativeSilhouette": {
+        "opaquePixels": 1557,
+        "bounds": [
+          13,
+          2,
+          54,
+          61
+        ],
+        "rowRuns": {
+          "10": [
+            [
+              15,
+              44
+            ]
+          ],
+          "22": [
+            [
+              13,
+              41
+            ]
+          ],
+          "32": [
+            [
+              20,
+              35
+            ],
+            [
+              42,
+              54
+            ]
+          ],
+          "40": [
+            [
+              21,
+              37
+            ],
+            [
+              45,
+              52
+            ]
+          ],
+          "48": [
+            [
+              19,
+              51
+            ]
+          ],
+          "56": [
+            [
+              16,
+              42
+            ]
+          ],
+          "60": [
+            [
+              21,
+              34
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "samples": [
+    {
+      "id": "standard-sleepy-base",
+      "profileId": "standard-sleepy-almond-small-fangs",
+      "profileFamily": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "pngSha256": "b77dd184b5fbfe1eefd7c1756b52309e0a10337aaff14c62b448555a219cee66",
+      "rgbaSha256": "556b39c1b2448b6a243f343f461d52d81c21935c1077355a8a20b7a6ff704621",
+      "previews": {
+        "64": {
+          "path": "samples/standard-sleepy-base.png",
+          "pngSha256": "b77dd184b5fbfe1eefd7c1756b52309e0a10337aaff14c62b448555a219cee66"
+        },
+        "128": {
+          "path": "samples/standard-sleepy-base-128.png",
+          "pngSha256": "3fb7bf5e7770074a65a1d39ee2696d052d7fa1f336fd5558480ba6f9d1e7cd4e"
+        },
+        "256": {
+          "path": "samples/standard-sleepy-base-256.png",
+          "pngSha256": "fe48ec88e500fa55d9b601b0ca1dc4f07d9b32d771eb0ff6ede916d535ef8363"
+        }
+      },
+      "replayEqual": true
+    },
+    {
+      "id": "shortleg-sleepy-base",
+      "profileId": "shortleg-round-sleepy-almond-small-fangs",
+      "profileFamily": "shortleg-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "pngSha256": "f749291dfcfab7caca7389e80dbcfad58c678feb102dc8145aa79d285dea791d",
+      "rgbaSha256": "a730c2f2be05047d2d9ea41f4199727117f46a4f69b2f508a0b9479a168d722f",
+      "previews": {
+        "64": {
+          "path": "samples/shortleg-sleepy-base.png",
+          "pngSha256": "f749291dfcfab7caca7389e80dbcfad58c678feb102dc8145aa79d285dea791d"
+        },
+        "128": {
+          "path": "samples/shortleg-sleepy-base-128.png",
+          "pngSha256": "eac73268577caaec46c5eabdcdb365296cfdecb0d08a9fba37e7744f67e9963e"
+        },
+        "256": {
+          "path": "samples/shortleg-sleepy-base-256.png",
+          "pngSha256": "0db0d5bc873065d28c7e8da8390876505653cfc90c73f41fbe9be65abe69e908"
+        }
+      },
+      "replayEqual": true
+    },
+    {
+      "id": "slender-round-base",
+      "profileId": "slender-tall-round-small-fangs",
+      "profileFamily": "slender-tall",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "pngSha256": "4e8d68042728e4c5ab78c0aba62aefe52065684ceec108a61f59b6ec1064bc4f",
+      "rgbaSha256": "638ffd978a07995d5029dad25c9316d20973a35819c381bcc09ed828b8eeb644",
+      "previews": {
+        "64": {
+          "path": "samples/slender-round-base.png",
+          "pngSha256": "4e8d68042728e4c5ab78c0aba62aefe52065684ceec108a61f59b6ec1064bc4f"
+        },
+        "128": {
+          "path": "samples/slender-round-base-128.png",
+          "pngSha256": "336b23d3924cb9a1065d7e5064b63170cc5bfb2ec022c7a20f04b0fdf8411463"
+        },
+        "256": {
+          "path": "samples/slender-round-base-256.png",
+          "pngSha256": "5987a23a5b37b7ac5520da2f4252a3134b8df02a59ae2ca287ede4bd5f5261d5"
+        }
+      },
+      "replayEqual": true
+    },
+    {
+      "id": "slender-sleepy-base",
+      "profileId": "slender-tall-sleepy-almond-small-fangs",
+      "profileFamily": "slender-tall",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "pngSha256": "9d567f058c58c6f5331b5eca4c419e0fdcfcbc8d8a940ab29a77cbbad2433522",
+      "rgbaSha256": "a16d11e10d083fe231fd904f902d457c47dc091843753eb4d946b9fd3e8b726a",
+      "previews": {
+        "64": {
+          "path": "samples/slender-sleepy-base.png",
+          "pngSha256": "9d567f058c58c6f5331b5eca4c419e0fdcfcbc8d8a940ab29a77cbbad2433522"
+        },
+        "128": {
+          "path": "samples/slender-sleepy-base-128.png",
+          "pngSha256": "44ec2d6af74b98c4cb620f452e5235aa999c1a875481624071641197148ccc14"
+        },
+        "256": {
+          "path": "samples/slender-sleepy-base-256.png",
+          "pngSha256": "7dfa5d286dba0d848f63367232590483c3277ac1f385a3cfb0feb03671a3b1b8"
+        }
+      },
+      "replayEqual": true
+    },
+    {
+      "id": "standard-sleepy-ears-mane",
+      "profileId": "standard-sleepy-almond-small-fangs",
+      "profileFamily": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "pngSha256": "fae2b5889cc1d7f3541651799ced8130a9d8e648faacc67bcc3461207db5f795",
+      "rgbaSha256": "34df77e1906dc565c7bd829edaca9034c068e7210f7297eb96dc778b66793d28",
+      "previews": {
+        "64": {
+          "path": "samples/standard-sleepy-ears-mane.png",
+          "pngSha256": "fae2b5889cc1d7f3541651799ced8130a9d8e648faacc67bcc3461207db5f795"
+        },
+        "128": {
+          "path": "samples/standard-sleepy-ears-mane-128.png",
+          "pngSha256": "08f3ad5beceb604344cad8b5cd87112ae09ba6d43958b879da647b3f6a6df83f"
+        },
+        "256": {
+          "path": "samples/standard-sleepy-ears-mane-256.png",
+          "pngSha256": "a6251b4b60428e62def534b53a73944eaecfa0e64f333d0764479a8d5e319094"
+        }
+      },
+      "replayEqual": true
+    },
+    {
+      "id": "shortleg-sleepy-horns-flame",
+      "profileId": "shortleg-round-sleepy-almond-small-fangs",
+      "profileFamily": "shortleg-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "pngSha256": "7ae68a260f4d375e44636cf8c3ad1382e4efcd80c8c2bad8bbf1a0c194fac642",
+      "rgbaSha256": "8907df3732922d25e93b790ce0ecb912d798477acce0e8b77a9f2ebec9749b14",
+      "previews": {
+        "64": {
+          "path": "samples/shortleg-sleepy-horns-flame.png",
+          "pngSha256": "7ae68a260f4d375e44636cf8c3ad1382e4efcd80c8c2bad8bbf1a0c194fac642"
+        },
+        "128": {
+          "path": "samples/shortleg-sleepy-horns-flame-128.png",
+          "pngSha256": "43591f855996cba27313d493b514d378c9036958c88e0d6563e8d24adefafee2"
+        },
+        "256": {
+          "path": "samples/shortleg-sleepy-horns-flame-256.png",
+          "pngSha256": "4f04bb469439c70281b5b8ad0bcdecdccf076889a218d5ff20357ad467d71ea3"
+        }
+      },
+      "replayEqual": true
+    },
+    {
+      "id": "slender-sleepy-stack",
+      "profileId": "slender-tall-sleepy-almond-small-fangs",
+      "profileFamily": "slender-tall",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "pngSha256": "76ea799765035b4356319dca81a89dceb7ca2399a841e662a25219defaa2994c",
+      "rgbaSha256": "fd83683e19ee4098a72705fd13bfe7109dbf6428cbaf19db4e3c04e3cf5ad898",
+      "previews": {
+        "64": {
+          "path": "samples/slender-sleepy-stack.png",
+          "pngSha256": "76ea799765035b4356319dca81a89dceb7ca2399a841e662a25219defaa2994c"
+        },
+        "128": {
+          "path": "samples/slender-sleepy-stack-128.png",
+          "pngSha256": "304842a852db096f8d4541e91cda87d20e75e102190ee2470de7b07167718cb2"
+        },
+        "256": {
+          "path": "samples/slender-sleepy-stack-256.png",
+          "pngSha256": "470023ce2e0555738c9beca02a08f3da3f1830ff5684d9cd7a8a3c856d1c11e4"
+        }
+      },
+      "replayEqual": true
+    }
+  ],
+  "controls": [
+    {
+      "id": "standard-round-control",
+      "profileId": "standard-round-small-fangs",
+      "profileFamily": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "approved",
+      "pngSha256": "152261b69c8bd376c9bf685973d2e7780192de527fc3dc0198714ac182a13951",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba",
+      "previews": {
+        "64": {
+          "path": "samples/standard-round-control.png",
+          "pngSha256": "152261b69c8bd376c9bf685973d2e7780192de527fc3dc0198714ac182a13951"
+        },
+        "128": {
+          "path": "samples/standard-round-control-128.png",
+          "pngSha256": "ae128603d1bfaa9368e04e001e7e134aa0f548f4759a2c032e1e4d244116e4b5"
+        },
+        "256": {
+          "path": "samples/standard-round-control-256.png",
+          "pngSha256": "8011305e327b53be6a49cf47bebd4af1889cd0052150de2d177f2b5b570c490c"
+        }
+      },
+      "replayEqual": true
+    },
+    {
+      "id": "shortleg-round-round-control",
+      "profileId": "shortleg-round-round-small-fangs",
+      "profileFamily": "shortleg-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "approved",
+      "pngSha256": "0e72b3270b234ee33945d72e255465446ce9bd05a7754da857d6745cec2cbf9f",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41",
+      "previews": {
+        "64": {
+          "path": "samples/shortleg-round-round-control.png",
+          "pngSha256": "0e72b3270b234ee33945d72e255465446ce9bd05a7754da857d6745cec2cbf9f"
+        },
+        "128": {
+          "path": "samples/shortleg-round-round-control-128.png",
+          "pngSha256": "e0f61d065cff400330b4fba3378058e3da57ac6418922ed7e663e956036b5d37"
+        },
+        "256": {
+          "path": "samples/shortleg-round-round-control-256.png",
+          "pngSha256": "9542e1105209198798c440ffead923b95fd7f2ba57591ebf8900ac9df991a9d1"
+        }
+      },
+      "replayEqual": true
+    }
+  ],
+  "calibration": [
+    {
+      "id": "slender-before-geometry",
+      "profileId": "slender-tall-sleepy-almond-small-fangs",
+      "profileFamily": "slender-tall",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "pngSha256": "66e2854e5092431bc655c46799a33daab945c925769af931aed1a15054952593",
+      "rgbaSha256": "c01d3d91a5e8ffb13bc14727271a1a70a1d779e612892703d9fc39b26cc86491",
+      "previews": {
+        "64": {
+          "path": "samples/slender-before-geometry.png",
+          "pngSha256": "66e2854e5092431bc655c46799a33daab945c925769af931aed1a15054952593"
+        },
+        "128": {
+          "path": "samples/slender-before-geometry-128.png",
+          "pngSha256": "23b76ae7b4f0cd8bcdbb3090b94712bba4e7eae6311e878844a98fd60d928d8a"
+        },
+        "256": {
+          "path": "samples/slender-before-geometry-256.png",
+          "pngSha256": "9b13602b2aee738c9ddf69df61af5517ed3b54d778a07f06babb9c4b6edeb77e"
+        }
+      },
+      "replayEqual": true
+    },
+    {
+      "id": "slender-after-geometry",
+      "profileId": "slender-tall-sleepy-almond-small-fangs",
+      "profileFamily": "slender-tall",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "pngSha256": "76ea799765035b4356319dca81a89dceb7ca2399a841e662a25219defaa2994c",
+      "rgbaSha256": "fd83683e19ee4098a72705fd13bfe7109dbf6428cbaf19db4e3c04e3cf5ad898",
+      "previews": {
+        "64": {
+          "path": "samples/slender-after-geometry.png",
+          "pngSha256": "76ea799765035b4356319dca81a89dceb7ca2399a841e662a25219defaa2994c"
+        },
+        "128": {
+          "path": "samples/slender-after-geometry-128.png",
+          "pngSha256": "304842a852db096f8d4541e91cda87d20e75e102190ee2470de7b07167718cb2"
+        },
+        "256": {
+          "path": "samples/slender-after-geometry-256.png",
+          "pngSha256": "470023ce2e0555738c9beca02a08f3da3f1830ff5684d9cd7a8a3c856d1c11e4"
+        }
+      },
+      "replayEqual": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "standard-sleepy-ears-mane",
+      "faceRectangle": [
+        16,
+        14,
+        36,
+        31
+      ],
+      "faceBytesUnchanged": true
+    },
+    {
+      "id": "standard-sleepy-ears-mane",
+      "slot": "ears",
+      "removedOpaquePixels": 199,
+      "opaqueOutsideClearedBody": 142,
+      "opaqueOutsideOriginalBody": 9
+    },
+    {
+      "id": "shortleg-sleepy-horns-flame",
+      "slot": "tailTip",
+      "removedOpaquePixels": 343,
+      "opaqueOutsideClearedBody": 358,
+      "opaqueOutsideOriginalBody": 88
+    },
+    {
+      "id": "slender-sleepy-stack",
+      "faceRectangle": [
+        17,
+        15,
+        36,
+        27
+      ],
+      "faceBytesUnchanged": true
+    },
+    {
+      "id": "slender-sleepy-stack",
+      "slot": "ears",
+      "removedOpaquePixels": 220,
+      "opaqueOutsideClearedBody": 165,
+      "opaqueOutsideOriginalBody": 8
+    },
+    {
+      "id": "slender-sleepy-stack",
+      "slot": "tailTip",
+      "removedOpaquePixels": 262,
+      "opaqueOutsideClearedBody": 403,
+      "opaqueOutsideOriginalBody": 201
+    }
+  ],
+  "legacyReplayCount": 14,
+  "inputsUnchanged": true,
+  "reviewScriptSha256": "68a6fb469317dc46d4ebe5c3a42d1e4073faf73c6f5710badafea656a7a99e8a"
+}

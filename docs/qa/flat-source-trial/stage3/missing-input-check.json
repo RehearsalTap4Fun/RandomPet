@@ -1,0 +1,30 @@
+{
+  "isolatedFixture": true,
+  "productionSourcesUntouched": true,
+  "checks": [
+    {
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+      "exitCode": 1,
+      "expectedError": "ENOENT",
+      "sourceMissingFatal": true
+    },
+    {
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png",
+      "exitCode": 1,
+      "expectedError": "ENOENT",
+      "sourceMissingFatal": true
+    },
+    {
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png",
+      "exitCode": 1,
+      "expectedError": "ENOENT",
+      "sourceMissingFatal": true
+    },
+    {
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png",
+      "exitCode": 1,
+      "expectedError": "ENOENT",
+      "sourceMissingFatal": true
+    }
+  ]
+}
