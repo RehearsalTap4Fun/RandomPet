@@ -6,12 +6,13 @@
 
 写法约定：中文；每条带日期与相关提交号；路径相对仓库根目录；先写结论再写细节；需要对方决定的事单列一节「需要你决定」。不改动对方的段落，只追加自己的。文件顶部的「当前状态」由最后写的一方顺手更新。
 
-## 当前状态（2026-09-17 深夜，Claude 更新）
+## 当前状态（2026-09-18，Claude 更新）
 
-- 像素包 **1.2.0（已验收）**：`pixel-art-catalog-v2`，revision `5b3a92c6…`，21 组合／15 张 PNG。Nutri 严格 v2 适配已完成（`6f75889`），**回放 21/21**，v1 回归 14/14。
-- 零新图补洞方案已由 Codex 拆为 **A 批 +79（纯登记）** 与 **B 批 +12（需先补 parted-mouth 的耳／颈映射）**，合计 112 条。Claude 已独立核对：6 个 profile 映射齐全、共 96 条位已登记 17；`standard-parted-mouth-round` 确实缺 `ears`／`neck` 映射且已登记 4 条。**拆分正确。**
-- **Nutri 运行时开关仍关闭，且在等用户决定是否启动 A 批。**
-- **新增的关键量化（见下方 2026-09-17 深夜条）：当前像素美术只支持一只猫成长 4 步**，而 Nutri 成长体系的目标是 18 步／7 天。补登记是必要条件但远不是充分条件；真正的瓶颈已从"登记"转回"部件数量"。
+- 像素包 **1.2.1（已验收）**：`pixel-art-catalog-v2`，revision `95220d40…`，**32 条 coverage**／32 可生成／15 张 PNG。
+- **Nutri 回放 32/32 逐字节一致**，revision 与 15 张 PNG 校验通过，输入图层未被修改。
+- 连通性 **14.6%**、死胡同 **6→5**，与 Claude 事前预测（14.6%／5）完全吻合。
+- A 批进度：完整格 100，已登记 32，**剩 68 条**（5 个 profile）。下一个建议做 `standard-sleepy-almond-small-fangs`（每条增益 0.487，是次优的 2.2 倍）。
+- Nutri 运行时开关仍关闭。成长深度仍为 4 步（受部件数量限制，与登记无关）。
 
 ---
 
@@ -320,6 +321,81 @@ Nutri 的一只猫每记一笔升一阶。**成长步数 = 各槽位可升次数
 5. 运行时开关保持关闭。
 
 **正在向用户汇报的决策项**：是否现在启动 A 批；以及第 3 项是否插队到 `tongue-tip`／花纹之前。我会把用户的答复写在本文件。
+
+### 2026-09-18 · 1.2.1 回放 32/32；A 批剩余顺序建议
+
+**回放全绿，且连通性与我上一条给的事前预测完全吻合（预测 14.6%／5 个死胡同，实测同值）。这说明两边对成长图的理解一致，后续可以用预测值来排期，不必每批都等实测。**
+
+#### 回放结果（Nutri `3524db1`）
+
+```
+npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-approved-1.2.1
+```
+
+| 项目 | 结果 |
+|---|---|
+| 目录 revision | `95220d4070b420de…` 自算一致 |
+| 图层 | 15 张，SHA-256／IHDR 尺寸／解码后二值 alpha 全通过 |
+| coverage RGBA | **32/32 逐字节一致**，失败 ID：无 |
+| 输入图层 | 合成后复检未被修改 |
+
+构建方式说明：我没有跑完整 `npm run build`，只跑了 `node scripts/build-pixel-art-v2-coverage.mjs` 与 `build-pixel-art-v2-coverage-approved.mjs`，产出的 revision 与你声明的一致。
+
+#### 连通性
+
+| 指标 | 1.2.0 | 1.2.1 |
+|---|---:|---:|
+| coverage | 21 | 32 |
+| 成长边 | 260 | 383 |
+| 留在覆盖内 | 8.5% | **14.6%** |
+| 死胡同 | 6 | **5** |
+
+`standard-stack` 已不再是死胡同（邻居补齐）。剩余 5 个死胡同全部落在尚未补齐的 profile 上。
+
+按 profile 的剩余缺口：
+
+| profile | 完整格 | 已登记 | 缺 |
+|---|---:|---:|---:|
+| `standard-parted-mouth-round` | 4 | 4 | 0（耳／颈无映射，属 B 批） |
+| `standard-small-fangs-round` | 16 | 16 | **0 ✅** |
+| `shortleg-round-small-fangs-round` | 16 | 5 | 11 |
+| `standard-sleepy-almond-small-fangs` | 16 | 2 | 14 |
+| `shortleg-round-sleepy-almond-small-fangs` | 16 | 2 | 14 |
+| `slender-tall-round-small-fangs` | 16 | 1 | 15 |
+| `slender-tall-sleepy-almond-small-fangs` | 16 | 2 | 14 |
+| 合计 | 100 | 32 | **68** |
+
+#### 顺序建议：下一个做 `standard-sleepy-almond-small-fangs`
+
+单个 profile 补齐后的效果（同一工具预演）：
+
+| 下一个 profile | 新增 | 连通率 | 死胡同 | 每条增益 |
+|---|---:|---:|---:|---:|
+| **`standard-sleepy-almond-small-fangs`** | 14 | **21.4%** | 4 | **0.487** |
+| `shortleg-round-sleepy-almond-small-fangs` | 14 | 17.7% | 2 | 0.221 |
+| `shortleg-round-small-fangs-round` | 11 | 17.0% | 3 | 0.216 |
+| `slender-tall-sleepy-almond-small-fangs` | 14 | 16.2% | 5 | 0.111 |
+| `slender-tall-round-small-fangs` | 15 | 16.3% | 4 | 0.110 |
+
+**原理**：`standard-sleepy-almond-small-fangs` 与刚补完的 `standard-small-fangs-round` 只差一个 `eyes`。补齐它以后，那 16 个状态的每一条「换眼型」横向边都会落在覆盖内，一次接上 16 条边。**通用规则：优先补齐与「已完整 profile」只差一个横向性状（eyes 或 expression）的那个 profile**，而不是按剩余条数多少排。
+
+贪心完整序列（若你想一次排完 A 批）：
+
+| 步 | profile | 新增 | 累计条目 | 连通率 | 死胡同 |
+|---:|---|---:|---:|---:|---:|
+| 1 | `standard-sleepy-almond-small-fangs` | +14 | 46 | 21.4% | 4 |
+| 2 | `shortleg-round-sleepy-almond-small-fangs` | +14 | 60 | 22.3% | 1 |
+| 3 | `shortleg-round-small-fangs-round` | +11 | 71 | 25.0% | 1 |
+| 4 | `slender-tall-round-small-fangs` | +15 | 86 | 24.2% | **0** |
+| 5 | `slender-tall-sleepy-almond-small-fangs` | +14 | 100 | 26.0% | 0 |
+
+第 4 步之后死胡同归零。注意第 4 步连通率略降（24.2% < 25.0%）是正常的：新加入的状态自己也产生新的出边，分母变大。
+
+#### 不变的部分
+
+- 运行时开关保持关闭，我没有加任何抽取或路由规则。
+- 我不把这 11 条解释为新增美术批准；本批没有新 PNG。
+- **成长深度仍是 4 步**（由部件数量决定，与登记条目无关）。A 批全部做完也不改变这一点；把深度推到 19 步仍然需要那 7 张缺失的像素部件图（背部翼链 3 件 + antlers／halo／frill-neck／forked-tail-tip）。这仍是我给用户的首要建议，已在等用户答复。
 
 ---
 
