@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import { expect, it } from 'vitest'
 import sharp from 'sharp'
 import { canonicalJson } from '../../generator-core/src/canonical-json.js'
@@ -12,6 +13,26 @@ const qa = 'docs/qa/pixel-standard-small-fangs-approved/'
 const sha = (bytes: string | Uint8Array | Uint8ClampedArray) => createHash('sha256').update(bytes).digest('hex')
 const json = (file: string) => JSON.parse(readFileSync(file, 'utf8'))
 const ids = ['horns', 'flame', 'horns-flame', 'horns-ears', 'horns-mane', 'ears-flame', 'mane-flame', 'horns-ears-mane', 'horns-ears-flame', 'horns-mane-flame', 'ears-mane-flame'].map(s => `standard-${s}`)
+
+it('rechecks the historical candidate without broadening or rewriting its approved evidence', async () => {
+  const reportPath = 'docs/qa/pixel-standard-small-fangs-coverage/reproducibility.json'
+  const before = readFileSync(reportPath), approvedBefore = readFileSync(release + 'catalog.approved.json')
+  expect(Object.keys(JSON.parse(before.toString()).files)).toHaveLength(175)
+  try {
+    execFileSync(process.execPath, ['scripts/verify-pixel-art-v2-coverage-reproducibility.mjs'], { stdio: 'pipe' })
+    expect(readFileSync(reportPath), 'candidate evidence must remain byte-identical after later releases exist').toEqual(before)
+    expect(readFileSync(release + 'catalog.approved.json')).toEqual(approvedBefore)
+    // @ts-expect-error Build-time JavaScript validator has no declaration file.
+    const { validateCoverageApproval } = await import('../../../scripts/pixel-art-v2-coverage-approval.mjs')
+    await expect(validateCoverageApproval(readFileSync(qa + 'approval.json'), {
+      candidate: json(base + 'catalog.candidate.json'), candidateBytes: readFileSync(base + 'catalog.candidate.json'),
+      provenanceBytes: readFileSync(base + 'provenance.json'), read: (file: string) => readFileSync(file),
+    })).resolves.toBeDefined()
+  } finally {
+    // Keep the immutable evidence intact even when exercising the pre-fix failure.
+    if (!readFileSync(reportPath).equals(before)) writeFileSync(reportPath, before)
+  }
+}, 30000)
 
 it('publishes immutable 1.2.1 with exactly the eleven approved rows and identical art', async () => {
   expect(existsSync(release + 'catalog.approved.json'), 'approved 1.2.1 must exist').toBe(true)

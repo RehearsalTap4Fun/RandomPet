@@ -60,7 +60,7 @@ npm run verify:pixel
 npm run dev
 ```
 
-工坊和独立消费端对新用户默认选择 1.2.1。已有 v1／v2-candidate／v2 1.2.0 形象按完整 art identity 恢复，候选存档不会自动升级。
+工坊和当前独立消费页 `approved-1.2.1.html` 对新用户默认选择 1.2.1。历史 `index.html` 保留原字节和 1.2.0 默认值，不包含 1.2.1 选项。已有 v1／v2-candidate／v2 1.2.0 形象按完整 art identity 恢复，候选存档不会自动升级。
 
 工坊入口：`http://127.0.0.1:4184/pixel`。旧毛绒入口仍为 `/`，浏览器保存键分别管理。
 
@@ -68,7 +68,7 @@ npm run dev
 
 ```text
 qmonster-pixel.js         独立浏览器 ESM SDK
-index.html               可直接运行的消费端示例
+index.html               历史消费端示例，默认 1.2.0
 approved-1.2.1.html      当前正式 1.2.1 的独立消费端示例
 v2-approved-1.2.1/catalog.json 当前已验收包 1.2.1
 v2-approved-1.2.1/provenance.json 独立晋升 provenance，固定本批 approval.json
@@ -87,7 +87,7 @@ v2-candidate/assets/     15 张去重 PNG
 provenance.json           源图、验证记录和上游代码摘要
 ```
 
-通过 HTTP 服务访问 `index.html`；不要使用 file://。SDK 无 Nutri 仓库、本地绝对路径或 QMonsterCreator 源码依赖。构建依赖当前项目已有的 Node 工具链、已记录的源图和 QA 产物，不需要 Nutri checkout。
+通过 HTTP 服务访问 `approved-1.2.1.html` 使用当前正式包；历史回放可访问 `index.html`。不要使用 file://。SDK 无 Nutri 仓库、本地绝对路径或 QMonsterCreator 源码依赖。构建依赖当前项目已有的 Node 工具链、已记录的源图和 QA 产物，不需要 Nutri checkout。
 
 ## Nutri 接入样例
 
