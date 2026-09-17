@@ -1,0 +1,87 @@
+{
+  "status": "passed",
+  "producedRetries": 5,
+  "serviceErrorsWithoutImage": 1,
+  "selectedRetries": 0,
+  "checked": [
+    {
+      "body": "standard",
+      "attempt": 1,
+      "rawSha256": "5626b560e700464919e7aa2376c15ac310848aff645e0d8fbe3e4dc267fa5ae7",
+      "normalizedSha256": "e393ab2d28f9261d2add44dd412546616f2d2a484dc781d3a3d883fce023df88",
+      "sourceChecksPassed": true,
+      "productionAlphaPassed": false,
+      "selected": false
+    },
+    {
+      "body": "standard",
+      "attempt": 2,
+      "rawSha256": "1e67c77fd499bd98deb32c48d7907a2a4d993883829833ba4bebdd4148584674",
+      "normalizedSha256": "a52fca22f060da102e740ba21b9bb5403ae0882575b07c48c628222ea932efba",
+      "sourceChecksPassed": true,
+      "productionAlphaPassed": false,
+      "selected": false
+    },
+    {
+      "body": "standard",
+      "attempt": 3,
+      "rawSha256": "10ce6700006b230011149a1c9728fd05fc5e0fe93bc6fb0167c33f8cdfaa5bca",
+      "normalizedSha256": "ee0fc42b23a9a54798067b05c585b1d8a16d9433e222097df87f8934a863b32e",
+      "sourceChecksPassed": true,
+      "productionAlphaPassed": false,
+      "selected": false
+    },
+    {
+      "body": "slender-tall",
+      "attempt": 1,
+      "rawSha256": "c0d08efb3e4e61920e0cce25b2af8d46218ed55322277f38365dc49b8915ce54",
+      "normalizedSha256": "7e5878f7f4677293f19c3ff733b4dfe45c621c9340aaf6a911589f77c7b14cff",
+      "sourceChecksPassed": true,
+      "productionAlphaPassed": false,
+      "selected": false
+    },
+    {
+      "body": "standard",
+      "attempt": 4,
+      "rawSha256": "92e3097a5b4787e48ffc7fc6251eb70ee11ef35085b59f5d251dfeef4bb07e9e",
+      "normalizedSha256": "8a56f9cbcfe63328e803235a55c10fdae7e9c64cd99c4aa451b6df2282b8dc98",
+      "sourceChecksPassed": true,
+      "productionAlphaPassed": false,
+      "selected": false
+    }
+  ],
+  "selected": [
+    {
+      "id": "orange-white-sleepy-almond-small-fangs-standard",
+      "sha256": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+      "byteIdenticalTo": "571b3f4"
+    },
+    {
+      "id": "orange-white-sleepy-almond-small-fangs-shortleg-round",
+      "sha256": "ba1e40164ba0a1dd3b9631acfc182cda58b26a6f4b732e9cf8c38585b5a7a252",
+      "byteIdenticalTo": "571b3f4"
+    },
+    {
+      "id": "orange-white-round-small-fangs-slender-tall",
+      "sha256": "6b7fa7244fcaa159a2bcd2a55c14413c1572ed789f22513a3da8aa986e39e6c7",
+      "byteIdenticalTo": "571b3f4"
+    },
+    {
+      "id": "orange-white-sleepy-almond-small-fangs-slender-tall",
+      "sha256": "4f310383fce5cdd6ab9ba37dde7e6120acce3f301f3085b4ad97a228c7207acb",
+      "byteIdenticalTo": "571b3f4"
+    }
+  ],
+  "downstreamAlphaAuthorization": {
+    "authorizedBy": "user",
+    "date": "2026-09-17",
+    "owner": "Task 3",
+    "operation": "At 64x64 only, copy alpha outside the existing eye rectangles from the same-body round baseline.",
+    "preserve": [
+      "RGB bytes",
+      "alpha inside eye rectangles",
+      "1254x1254 sources"
+    ],
+    "appliedByTask2": false
+  }
+}

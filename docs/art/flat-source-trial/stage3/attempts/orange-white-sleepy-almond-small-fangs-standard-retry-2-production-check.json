@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "pixel-body-eye-production-alpha-v1",
+  "method": "Unchanged Nutri 385bdfae pixelate/loadFlatSource; 64px, flat=true, colors=12; fixed Task 3 eye rectangles; no foreground correction",
+  "results": [
+    {
+      "body": "standard",
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+      "sourceSha256": "a52fca22f060da102e740ba21b9bb5403ae0882575b07c48c628222ea932efba",
+      "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
+      "eyeRectangles": [
+        [
+          14,
+          15,
+          23,
+          23
+        ],
+        [
+          25,
+          15,
+          38,
+          24
+        ]
+      ],
+      "outsideEyeAlphaMismatches": [
+        [
+          13,
+          49,
+          255,
+          0
+        ]
+      ],
+      "exactAlphaPass": false,
+      "productionPngSha256": "db5b8d52751556a1d5ad3369a04b3fdee1a5e93704225bef5b41cfd313afc529",
+      "productionRgbaSha256": "d606f9bbd41c9b46c0c6aa9cbc271b365c7ccc80fa235e540c15ef20e1fc49a0",
+      "baselinePngSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791"
+    },
+    {
+      "body": "shortleg-round",
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png",
+      "sourceSha256": "ba1e40164ba0a1dd3b9631acfc182cda58b26a6f4b732e9cf8c38585b5a7a252",
+      "baseline": "docs/qa/flat-source-trial/stage2/layers/shortleg-round/orange-white-small-fangs.png",
+      "eyeRectangles": [
+        [
+          14,
+          15,
+          23,
+          23
+        ],
+        [
+          25,
+          15,
+          38,
+          24
+        ]
+      ],
+      "outsideEyeAlphaMismatches": [],
+      "exactAlphaPass": true,
+      "productionPngSha256": "cd2e5548c7f45e0776a63d1178e443ba2a0e46afc3d5ee472f5ceb39da0e0656",
+      "productionRgbaSha256": "637aac0d617f01e980dfcbcc4ade5009652e472595c64302cd0e7e23c5a01254",
+      "baselinePngSha256": "99a3492a4188b39e905c1fa87343541006eefa9b041cb41834d8147387917db6"
+    },
+    {
+      "body": "slender-tall",
+      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png",
+      "sourceSha256": "4f310383fce5cdd6ab9ba37dde7e6120acce3f301f3085b4ad97a228c7207acb",
+      "baseline": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png",
+      "eyeRectangles": [
+        [
+          16,
+          14,
+          25,
+          23
+        ],
+        [
+          26,
+          14,
+          38,
+          23
+        ]
+      ],
+      "outsideEyeAlphaMismatches": [
+        [
+          39,
+          42,
+          255,
+          0
+        ]
+      ],
+      "exactAlphaPass": false,
+      "productionPngSha256": "d35e4dfbf0325abc8be4ee645c1b8cf8e29a7af9c24c3712f06c004e5fba54cf",
+      "productionRgbaSha256": "5fd9131b197f3edd4ac9308291d90c6a1d7cc57c2ab67cc64d4e03ac0975441f",
+      "baselinePngSha256": "3ea7d5f9d24e6ed2a0bb507f84a315c4509f51ce2b08d331ad898220f5cfaaef"
+    }
+  ]
+}

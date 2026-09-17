@@ -30,6 +30,6 @@ for (const item of generation.items) {
   for(let i=0;i<data.length;i+=4) if(Math.hypot(original[i]-255,original[i+1],original[i+2]-255)>=90 && !original.subarray(i,i+4).equals(data.subarray(i,i+4))) throw Error('Foreground modified')
 }
 generation.revisions = 'docs/art/flat-source-trial/stage3/revisions.json'
-generation.notes = ['Four distinct built-in calls; no generation retry. Raw attempts retain original output metadata. Only authorized deterministic background normalization was applied.','source-candidates-review-pending: final approval belongs to later full pixel/combination review.']
+// Preserve current revision/production-gate notes; preparation does not imply approval.
 await fs.writeFile(file,JSON.stringify(generation,null,2)+'\n')
 console.log('Prepared four 1254px sources; preserved non-background pixels byte-for-byte.')

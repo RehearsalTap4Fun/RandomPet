@@ -1,0 +1,83 @@
+{
+  "status": "passed-source-checks-art-review-pending",
+  "sources": 4,
+  "comparisons": [
+    {
+      "reference": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+      "eyeExclusionRectangles": [
+        [
+          270,
+          295,
+          435,
+          435
+        ],
+        [
+          510,
+          295,
+          720,
+          435
+        ]
+      ],
+      "outsideEyeSilhouetteIoU": 0.9986551509577556,
+      "centroidDelta64px": 0.011525456347681332,
+      "outsideEyeForegroundRgbRmse": 4.883952697371845,
+      "outsideEyeForegroundPixelsChangedOver12": 19014,
+      "outsideEyeForegroundPixels": 805697
+    },
+    {
+      "reference": "docs/art/flat-source-trial/stage2/solid/shortleg-round-orange-white-small-fangs.png",
+      "eyeExclusionRectangles": [
+        [
+          270,
+          295,
+          435,
+          440
+        ],
+        [
+          510,
+          295,
+          720,
+          440
+        ]
+      ],
+      "outsideEyeSilhouetteIoU": 0.9992949318377066,
+      "centroidDelta64px": 0.008096883008652337,
+      "outsideEyeForegroundRgbRmse": 5.943303652814451,
+      "outsideEyeForegroundPixelsChangedOver12": 54160,
+      "outsideEyeForegroundPixels": 875893
+    },
+    {
+      "reference": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png",
+      "eyeExclusionRectangles": [
+        [
+          320,
+          280,
+          465,
+          410
+        ],
+        [
+          530,
+          280,
+          715,
+          410
+        ]
+      ],
+      "outsideEyeSilhouetteIoU": 0.9983345101900134,
+      "centroidDelta64px": 0.015598094161107827,
+      "outsideEyeForegroundRgbRmse": 6.78828962343661,
+      "outsideEyeForegroundPixelsChangedOver12": 24877,
+      "outsideEyeForegroundPixels": 595228
+    }
+  ],
+  "nutriMappedChecks": [
+    {
+      "body": "standard",
+      "issues": []
+    },
+    {
+      "body": "shortleg-round",
+      "issues": []
+    }
+  ],
+  "nutriTrackedFilesUnchanged": true
+}

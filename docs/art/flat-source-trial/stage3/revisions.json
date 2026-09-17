@@ -1,1 +1,438 @@
-{"items":[]}
+{
+  "items": [
+    {
+      "body": "standard",
+      "attempt": 1,
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact EDIT TARGET: approved 1254x1254 orange-white standard kitten. Perform a LOCAL EYE-ONLY EDIT, preserving the original image everywhere else pixel-for-pixel. Edit only inside x280..420,y300..420 and x515..700,y300..430: convert the round eyes to calm half-lidded horizontal almond eyes with slightly lowered upper eyelids, visible teal irises and dark pupils, exactly one white highlight per eye, and openings at least 55px high for 64px readability. CRITICAL PRODUCTION REQUIREMENT: the sprite is downsampled through a fixed pipeline to 64px, and its binary alpha silhouette outside the recorded eye regions must be EXACTLY IDENTICAL to the original. Lock every outer edge pixel, including antialiasing, dark outline, ear tips, cheek sides, paws, leg gaps and right-side tail curve. Preserve original coordinates, original outlines, body proportions, markings, nose, white muzzle, two separated fangs and mouth. Do not recreate or redraw any non-eye content. Do not move a contour by even one source pixel. Keep the exact 1254x1254 canvas and uniform #FF00FF background. No new eyebrows, shadows, gradients, texture, objects or text.",
+      "editTarget": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+      "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-0aab83c6-1132-4873-bc71-af5f0ba98e42.png",
+      "id": "orange-white-sleepy-almond-small-fangs-standard",
+      "previousSelection": {
+        "id": "orange-white-sleepy-almond-small-fangs-standard",
+        "body": "standard",
+        "eyes": "sleepy-almond",
+        "tool": "image_gen.imagegen",
+        "prompt": "Use case: precise-object-edit. Asset type: 1254x1254 game sprite production source. Input image 1 is the EDIT TARGET, the standard orange-white kitten. Change ONLY the two eyes from large round eyes to calm half-lidded almond eyes, within left eye rectangle x280..420 y300..420 and right eye rectangle x515..700 y300..430. Each eye has a horizontal almond opening, gently lowered upper eyelid, visible teal iris, dark pupil and exactly one white highlight. Keep both eyes open enough to survive 64px downsampling, with at least 55px opening height. Preserve EVERYTHING outside the two eye regions pixel-for-pixel: exact silhouette, head, ears, orange-white markings, nose, exaggerated two-small-fang mouth, paws, tail, colors, outlines and coordinates. Do not resize, shift or redraw the cat. Uniform exact solid #FF00FF background. No eyebrows, mouth change, extra marks, gradient, texture, shadow or text. Output exactly 1254x1254.",
+        "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-be6f2fad-d8c4-48b6-9f26-76b3d933027b.png",
+        "editTarget": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+        "path": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "sha256": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+        "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-raw.png",
+        "rawSha256": "ffab6f1d2f00af4f1a4fc2a57ec1c77e353f12b9429b1d44a3f555c91d8248d9",
+        "processing": {
+          "operation": "chroma-background-normalization",
+          "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+          "changedPixels": 698061,
+          "foregroundPreserved": true,
+          "resize": false
+        }
+      },
+      "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-1-raw.png",
+      "rawSha256": "5626b560e700464919e7aa2376c15ac310848aff645e0d8fbe3e4dc267fa5ae7",
+      "normalizedAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-1-solid.png",
+      "normalizedSha256": "e393ab2d28f9261d2add44dd412546616f2d2a484dc781d3a3d883fce023df88",
+      "processing": {
+        "operation": "chroma-background-normalization",
+        "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+        "changedPixels": 697898,
+        "foregroundPreserved": true,
+        "resize": false
+      },
+      "sourceChecksPassed": true,
+      "productionAlpha": {
+        "body": "standard",
+        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "sourceSha256": "e393ab2d28f9261d2add44dd412546616f2d2a484dc781d3a3d883fce023df88",
+        "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
+        "eyeRectangles": [
+          [
+            14,
+            15,
+            23,
+            23
+          ],
+          [
+            25,
+            15,
+            38,
+            24
+          ]
+        ],
+        "outsideEyeAlphaMismatches": [
+          [
+            43,
+            29,
+            255,
+            0
+          ],
+          [
+            56,
+            32,
+            255,
+            0
+          ],
+          [
+            13,
+            48,
+            255,
+            0
+          ],
+          [
+            13,
+            49,
+            255,
+            0
+          ]
+        ],
+        "exactAlphaPass": false,
+        "productionPngSha256": "712c133a03d5409c17bbd7d7048182a99eb9253012458a2d63d24ebfc4848e7e",
+        "productionRgbaSha256": "a674745a93dd7d72af4efab8fcdc6c4f951814eb7ca6b884a05a0777ebead3da",
+        "baselinePngSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791"
+      },
+      "selected": false
+    },
+    {
+      "body": "standard",
+      "attempt": 2,
+      "prompt": "Use case: precise-object-edit. This is a tiny localized inpainting task on image 1, NOT a redraw. Original canvas 1254x1254. Keep the complete original image exactly unchanged except two small eye interiors: left x280-420,y300-420 and right x515-700,y300-430. Close the upper halves of the round eyes with gently lowered lids to form calm horizontal sleepy almond eyes, keeping visible teal iris, black pupil and exactly one white glint in each. Eye openings remain at least 55 pixels high. Copy all original pixels outside those eye rectangles, especially every edge and the entire silhouette; retain every original dark outline and its anti-aliasing, paws, cheeks, ears, body, tail, mouth, nose and white fangs. Do not move, smooth, clean up, thicken or redraw any outline. Exact outside-eye shape is crucial: our fixed 64x64 sprite conversion must yield identical binary alpha outside the eyes. Original colors and original placement. Uniform solid #FF00FF empty background. No other edits. Output exactly 1254x1254.",
+      "editTarget": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+      "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-3643fe76-6843-4a56-9594-8b477b287fe4.png",
+      "id": "orange-white-sleepy-almond-small-fangs-standard",
+      "previousSelection": {
+        "id": "orange-white-sleepy-almond-small-fangs-standard",
+        "body": "standard",
+        "eyes": "sleepy-almond",
+        "tool": "image_gen.imagegen",
+        "prompt": "Use case: precise-object-edit. Asset type: 1254x1254 game sprite production source. Input image 1 is the EDIT TARGET, the standard orange-white kitten. Change ONLY the two eyes from large round eyes to calm half-lidded almond eyes, within left eye rectangle x280..420 y300..420 and right eye rectangle x515..700 y300..430. Each eye has a horizontal almond opening, gently lowered upper eyelid, visible teal iris, dark pupil and exactly one white highlight. Keep both eyes open enough to survive 64px downsampling, with at least 55px opening height. Preserve EVERYTHING outside the two eye regions pixel-for-pixel: exact silhouette, head, ears, orange-white markings, nose, exaggerated two-small-fang mouth, paws, tail, colors, outlines and coordinates. Do not resize, shift or redraw the cat. Uniform exact solid #FF00FF background. No eyebrows, mouth change, extra marks, gradient, texture, shadow or text. Output exactly 1254x1254.",
+        "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-be6f2fad-d8c4-48b6-9f26-76b3d933027b.png",
+        "editTarget": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+        "path": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "sha256": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+        "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-raw.png",
+        "rawSha256": "ffab6f1d2f00af4f1a4fc2a57ec1c77e353f12b9429b1d44a3f555c91d8248d9",
+        "processing": {
+          "operation": "chroma-background-normalization",
+          "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+          "changedPixels": 698061,
+          "foregroundPreserved": true,
+          "resize": false
+        }
+      },
+      "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-2-raw.png",
+      "rawSha256": "1e67c77fd499bd98deb32c48d7907a2a4d993883829833ba4bebdd4148584674",
+      "normalizedAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-2-solid.png",
+      "normalizedSha256": "a52fca22f060da102e740ba21b9bb5403ae0882575b07c48c628222ea932efba",
+      "processing": {
+        "operation": "chroma-background-normalization",
+        "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+        "changedPixels": 698100,
+        "foregroundPreserved": true,
+        "resize": false
+      },
+      "sourceChecksPassed": true,
+      "productionAlpha": {
+        "body": "standard",
+        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "sourceSha256": "a52fca22f060da102e740ba21b9bb5403ae0882575b07c48c628222ea932efba",
+        "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
+        "eyeRectangles": [
+          [
+            14,
+            15,
+            23,
+            23
+          ],
+          [
+            25,
+            15,
+            38,
+            24
+          ]
+        ],
+        "outsideEyeAlphaMismatches": [
+          [
+            13,
+            49,
+            255,
+            0
+          ]
+        ],
+        "exactAlphaPass": false,
+        "productionPngSha256": "db5b8d52751556a1d5ad3369a04b3fdee1a5e93704225bef5b41cfd313afc529",
+        "productionRgbaSha256": "d606f9bbd41c9b46c0c6aa9cbc271b365c7ccc80fa235e540c15ef20e1fc49a0",
+        "baselinePngSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791"
+      },
+      "selected": false
+    },
+    {
+      "body": "standard",
+      "attempt": 3,
+      "prompt": "Use case: precise-object-edit. Make only a tiny local eye edit in Image 1, at its ORIGINAL 1254x1254 size. In left eye x280..420 y300..420 and right eye x515..700 y300..430, lower the upper eyelids into calm horizontal almond-shaped sleepy eyes. Keep at least 55px eye opening height, visible teal iris and dark pupil and exactly one white highlight per eye. NO eyebrows or added skin creases. Nothing outside those two eye rectangles may change: pixel-perfect preservation of the background, outer silhouette, dark contour thickness and antialiasing, ears, head, muzzle, nose, two white fangs, mouth, chest, all four paws and one right tail. Especially preserve the original contour on the left haunch at source x240..290,y940..1000; do not expand or smooth it. Do not regenerate, restyle, redraw, reposition or rescale any non-eye pixel. The original and output must have EXACT identical alpha silhouette after fixed 64px game-sprite downsampling outside the eyes. Solid uniform #FF00FF background, no shadows/text/texture. Output1254x1254.",
+      "editTarget": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+      "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-ef67322b-c0c7-4a6d-b63c-34907962ddb0.png",
+      "id": "orange-white-sleepy-almond-small-fangs-standard",
+      "previousSelection": {
+        "id": "orange-white-sleepy-almond-small-fangs-standard",
+        "body": "standard",
+        "eyes": "sleepy-almond",
+        "tool": "image_gen.imagegen",
+        "prompt": "Use case: precise-object-edit. Asset type: 1254x1254 game sprite production source. Input image 1 is the EDIT TARGET, the standard orange-white kitten. Change ONLY the two eyes from large round eyes to calm half-lidded almond eyes, within left eye rectangle x280..420 y300..420 and right eye rectangle x515..700 y300..430. Each eye has a horizontal almond opening, gently lowered upper eyelid, visible teal iris, dark pupil and exactly one white highlight. Keep both eyes open enough to survive 64px downsampling, with at least 55px opening height. Preserve EVERYTHING outside the two eye regions pixel-for-pixel: exact silhouette, head, ears, orange-white markings, nose, exaggerated two-small-fang mouth, paws, tail, colors, outlines and coordinates. Do not resize, shift or redraw the cat. Uniform exact solid #FF00FF background. No eyebrows, mouth change, extra marks, gradient, texture, shadow or text. Output exactly 1254x1254.",
+        "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-be6f2fad-d8c4-48b6-9f26-76b3d933027b.png",
+        "editTarget": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+        "path": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "sha256": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+        "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-raw.png",
+        "rawSha256": "ffab6f1d2f00af4f1a4fc2a57ec1c77e353f12b9429b1d44a3f555c91d8248d9",
+        "processing": {
+          "operation": "chroma-background-normalization",
+          "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+          "changedPixels": 698061,
+          "foregroundPreserved": true,
+          "resize": false
+        }
+      },
+      "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-3-raw.png",
+      "rawSha256": "10ce6700006b230011149a1c9728fd05fc5e0fe93bc6fb0167c33f8cdfaa5bca",
+      "normalizedAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-3-solid.png",
+      "normalizedSha256": "ee0fc42b23a9a54798067b05c585b1d8a16d9433e222097df87f8934a863b32e",
+      "processing": {
+        "operation": "chroma-background-normalization",
+        "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+        "changedPixels": 698002,
+        "foregroundPreserved": true,
+        "resize": false
+      },
+      "sourceChecksPassed": true,
+      "productionAlpha": {
+        "body": "standard",
+        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "sourceSha256": "ee0fc42b23a9a54798067b05c585b1d8a16d9433e222097df87f8934a863b32e",
+        "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
+        "eyeRectangles": [
+          [
+            14,
+            15,
+            23,
+            23
+          ],
+          [
+            25,
+            15,
+            38,
+            24
+          ]
+        ],
+        "outsideEyeAlphaMismatches": [
+          [
+            13,
+            49,
+            255,
+            0
+          ]
+        ],
+        "exactAlphaPass": false,
+        "productionPngSha256": "30530c907c6484b7d22a6cf57b0eb30b7c9d22cff22f0a7f46e864bc1f2c4d08",
+        "productionRgbaSha256": "5247edfee8a79187ff0d3ce1f24b77b84dc87bdbef0892c23dffff9b97c56b17",
+        "baselinePngSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791"
+      },
+      "selected": false
+    },
+    {
+      "body": "slender-tall",
+      "attempt": 1,
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact EDIT TARGET: approved 1254x1254 orange-white slender-tall kitten. Perform a LOCAL EYE-ONLY EDIT, preserving the original image everywhere else pixel-for-pixel. Edit only inside left x330..455,y285..390 and right x535..695,y285..400: convert the round eyes to calm half-lidded horizontal almond eyes with slightly lowered upper eyelids, visible teal irises and dark pupils, exactly one white highlight per eye, and openings at least 55px high for 64px readability. NO eyebrows or additional skin folds. CRITICAL PRODUCTION REQUIREMENT: the sprite is downsampled through a fixed pipeline to 64px, and its binary alpha silhouette outside the recorded eye regions must be EXACTLY IDENTICAL to the original. Lock every outer edge pixel, including antialiasing, dark outline, ear tips, cheek sides, paws, long leg gaps and right-side tail curve. Preserve original coordinates, slim seated body proportions, original outlines, markings, nose, white muzzle, two separated fangs and mouth. Do not recreate, smooth or redraw any non-eye content. Do not move a contour by even one source pixel. Keep the exact 1254x1254 canvas and original uniform #FF00FF background. No new shadows, gradients, texture, objects or text.",
+      "editTarget": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png",
+      "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-fb084a6e-ccdc-4604-9ee7-c2652ea1f471.png",
+      "id": "orange-white-sleepy-almond-small-fangs-slender-tall",
+      "previousSelection": {
+        "id": "orange-white-sleepy-almond-small-fangs-slender-tall",
+        "body": "slender-tall",
+        "eyes": "sleepy-almond",
+        "tool": "image_gen.imagegen",
+        "prompt": "Use case: precise-object-edit. Asset type: 1254x1254 game sprite production source. Input image 1 is the EDIT TARGET, the selected slender-tall orange-white round-eye kitten. Change ONLY the two eyes from large round eyes to calm half-lidded almond eyes, within left eye rectangle x330..455 y285..390 and right eye rectangle x535..695 y285..400. Each eye has a horizontal almond opening, gently lowered upper eyelid, visible teal iris, dark pupil and exactly one white highlight. Keep both eyes open enough to survive 64px downsampling, with at least 55px opening height. Preserve EVERYTHING outside the two eye regions pixel-for-pixel: exact slender seated silhouette, long separate front legs, narrow haunches, four paws, head, enlarged ears, orange-white markings, nose, exaggerated two-small-fang mouth, single right-side tail, colors, outlines and coordinates. Do not resize, shift or redraw the cat. Uniform exact solid #FF00FF background. No eyebrows, mouth change, extra marks, gradient, texture, shadow or text. Output exactly 1254x1254.",
+        "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-f4b048fb-e8b9-4043-badf-bacd1fb28e56.png",
+        "editTarget": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-3f34db1d-6a76-45d9-93e7-2b6681d6d89f.png",
+        "path": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png",
+        "sha256": "4f310383fce5cdd6ab9ba37dde7e6120acce3f301f3085b4ad97a228c7207acb",
+        "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-slender-tall-raw.png",
+        "rawSha256": "281e240240c1bc5b602ea7c5705aed2993f1dfcfc86e87966f203af9b41e3c1f",
+        "processing": {
+          "operation": "chroma-background-normalization",
+          "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+          "changedPixels": 919066,
+          "foregroundPreserved": true,
+          "resize": false
+        }
+      },
+      "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-slender-tall-retry-1-raw.png",
+      "rawSha256": "c0d08efb3e4e61920e0cce25b2af8d46218ed55322277f38365dc49b8915ce54",
+      "normalizedAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-slender-tall-retry-1-solid.png",
+      "normalizedSha256": "7e5878f7f4677293f19c3ff733b4dfe45c621c9340aaf6a911589f77c7b14cff",
+      "processing": {
+        "operation": "chroma-background-normalization",
+        "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+        "changedPixels": 919304,
+        "foregroundPreserved": true,
+        "resize": false
+      },
+      "sourceChecksPassed": true,
+      "productionAlpha": {
+        "body": "slender-tall",
+        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png",
+        "sourceSha256": "7e5878f7f4677293f19c3ff733b4dfe45c621c9340aaf6a911589f77c7b14cff",
+        "baseline": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png",
+        "eyeRectangles": [
+          [
+            16,
+            14,
+            25,
+            23
+          ],
+          [
+            26,
+            14,
+            38,
+            23
+          ]
+        ],
+        "outsideEyeAlphaMismatches": [
+          [
+            39,
+            42,
+            255,
+            0
+          ]
+        ],
+        "exactAlphaPass": false,
+        "productionPngSha256": "dbe93e76e88b6c851fb36185c55ae51836e0bc209a30ecc9ee9d58b0c59be2b0",
+        "productionRgbaSha256": "3e247ef569808e3a8fc1ed4ee18ac3e774597acd042ff09ab2cc0949b7ecf9b8",
+        "baselinePngSha256": "3ea7d5f9d24e6ed2a0bb507f84a315c4509f51ce2b08d331ad898220f5cfaaef"
+      },
+      "selected": false
+    },
+    {
+      "body": "standard",
+      "attempt": 4,
+      "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a sleepy almond-eye kitten on magenta. Image 2 is the ORIGINAL GEOMETRY REFERENCE only. Make one extremely small contour correction on image 1: restore the exact image-2 lower-left haunch silhouette near source x240..275,y955..995. The fixed 64px conversion currently leaves one extra opaque pixel at native (13,49) where image 2 is transparent. Remove that tiny outward contour speck by matching image 2's exact contour in this local region. Do NOT change either sleepy eye: preserve image 1 eyes, white glints and eyelids exactly. Preserve all other image-1 pixels, outlines, antialiasing, body, face, orange-white markings, mouth with two fangs, four paws, ears and one right tail. Do not copy the round eyes from image 2. Do not redraw or rescale the kitten. Maintain exact 1254x1254 size and #FF00FF background. Only restore that very small lower-left silhouette discrepancy; no additional changes.",
+      "editTarget": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-3-solid.png",
+      "references": [
+        "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png"
+      ],
+      "tool": "image_gen.imagegen",
+      "status": "tool-error-no-image",
+      "error": "HTTP 403 Forbidden: Unable to load site. Please try again later.",
+      "selected": false
+    },
+    {
+      "body": "standard",
+      "attempt": 4,
+      "prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET, a sleepy almond-eye kitten on magenta. Image 2 is the ORIGINAL GEOMETRY REFERENCE only. Make one extremely small contour correction on image 1: restore the exact image-2 lower-left haunch silhouette near source x240..275,y955..995. The fixed 64px conversion currently leaves one extra opaque pixel at native (13,49) where image 2 is transparent. Remove that tiny outward contour speck by matching image 2's exact contour in this local region. Do NOT change either sleepy eye: preserve image 1 eyes, white glints and eyelids exactly. Preserve all other image-1 pixels, outlines, antialiasing, body, face, orange-white markings, mouth with two fangs, four paws, ears and one right tail. Do not copy the round eyes from image 2. Do not redraw or rescale the kitten. Maintain exact 1254x1254 size and #FF00FF background. Only restore that very small lower-left silhouette discrepancy; no additional changes.",
+      "editTarget": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-3-solid.png",
+      "references": [
+        "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png"
+      ],
+      "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-a6c6afb4-65b0-4c93-9a36-69b30f8d69ee.png",
+      "id": "orange-white-sleepy-almond-small-fangs-standard",
+      "previousSelection": {
+        "id": "orange-white-sleepy-almond-small-fangs-standard",
+        "body": "standard",
+        "eyes": "sleepy-almond",
+        "tool": "image_gen.imagegen",
+        "prompt": "Use case: precise-object-edit. Asset type: 1254x1254 game sprite production source. Input image 1 is the EDIT TARGET, the standard orange-white kitten. Change ONLY the two eyes from large round eyes to calm half-lidded almond eyes, within left eye rectangle x280..420 y300..420 and right eye rectangle x515..700 y300..430. Each eye has a horizontal almond opening, gently lowered upper eyelid, visible teal iris, dark pupil and exactly one white highlight. Keep both eyes open enough to survive 64px downsampling, with at least 55px opening height. Preserve EVERYTHING outside the two eye regions pixel-for-pixel: exact silhouette, head, ears, orange-white markings, nose, exaggerated two-small-fang mouth, paws, tail, colors, outlines and coordinates. Do not resize, shift or redraw the cat. Uniform exact solid #FF00FF background. No eyebrows, mouth change, extra marks, gradient, texture, shadow or text. Output exactly 1254x1254.",
+        "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0aa56-42e7-7d63-b2a6-dd98fae4d1e2/exec-be6f2fad-d8c4-48b6-9f26-76b3d933027b.png",
+        "editTarget": "docs/art/flat-source-trial/stage2/solid/orange-white-small-fangs.png",
+        "path": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "sha256": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+        "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-raw.png",
+        "rawSha256": "ffab6f1d2f00af4f1a4fc2a57ec1c77e353f12b9429b1d44a3f555c91d8248d9",
+        "processing": {
+          "operation": "chroma-background-normalization",
+          "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+          "changedPixels": 698061,
+          "foregroundPreserved": true,
+          "resize": false
+        }
+      },
+      "rawAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-4-raw.png",
+      "rawSha256": "92e3097a5b4787e48ffc7fc6251eb70ee11ef35085b59f5d251dfeef4bb07e9e",
+      "normalizedAttempt": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-4-solid.png",
+      "normalizedSha256": "8a56f9cbcfe63328e803235a55c10fdae7e9c64cd99c4aa451b6df2282b8dc98",
+      "processing": {
+        "operation": "chroma-background-normalization",
+        "rule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF; all other RGBA bytes unchanged",
+        "changedPixels": 697900,
+        "foregroundPreserved": true,
+        "resize": false
+      },
+      "sourceChecksPassed": true,
+      "productionAlpha": {
+        "body": "standard",
+        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "sourceSha256": "8a56f9cbcfe63328e803235a55c10fdae7e9c64cd99c4aa451b6df2282b8dc98",
+        "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
+        "eyeRectangles": [
+          [
+            14,
+            15,
+            23,
+            23
+          ],
+          [
+            25,
+            15,
+            38,
+            24
+          ]
+        ],
+        "outsideEyeAlphaMismatches": [
+          [
+            43,
+            21,
+            255,
+            0
+          ],
+          [
+            13,
+            31,
+            0,
+            255
+          ],
+          [
+            56,
+            32,
+            255,
+            0
+          ],
+          [
+            13,
+            49,
+            255,
+            0
+          ]
+        ],
+        "exactAlphaPass": false,
+        "productionPngSha256": "6579857ad4a644b6ed25b481569b4b48b693f11650d144d23e62aa9d1f54f474",
+        "productionRgbaSha256": "3d7013ca9b47fb00abeb0519120a39149dc7226faa7f8e2c2e83fe5274f2b121",
+        "baselinePngSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791"
+      },
+      "selected": false
+    }
+  ],
+  "notes": [
+    "Five produced retries (four standard, one slender) passed source checks but failed exact production outside-eye alpha. No retry was selected. All attempts and one transient HTTP 403 without an image are retained in revisions.json.",
+    "The original four final 1254px sources remain selected and byte-identical to commit 571b3f4.",
+    "On 2026-09-17 the user authorized Task 3 to normalize only 64px alpha outside the existing eye rectangles from the same-body round baseline, preserving all RGB, eye-region alpha and 1254px sources. This Task 2 history does not apply that normalization or assert final art approval."
+  ],
+  "downstreamAlphaAuthorization": {
+    "authorizedBy": "user",
+    "date": "2026-09-17",
+    "owner": "Task 3",
+    "operation": "At 64x64 only, copy alpha outside the existing eye rectangles from the same-body round baseline.",
+    "preserve": [
+      "RGB bytes",
+      "alpha inside eye rectangles",
+      "1254x1254 sources"
+    ],
+    "appliedByTask2": false
+  }
+}

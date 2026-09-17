@@ -85,7 +85,20 @@
   ],
   "revisions": "docs/art/flat-source-trial/stage3/revisions.json",
   "notes": [
-    "Four distinct built-in calls; no generation retry. Raw attempts retain original output metadata. Only authorized deterministic background normalization was applied.",
-    "source-candidates-review-pending: final approval belongs to later full pixel/combination review."
-  ]
+    "Five produced retries (four standard, one slender) passed source checks but failed exact production outside-eye alpha. No retry was selected. All attempts and one transient HTTP 403 without an image are retained in revisions.json.",
+    "The original four final 1254px sources remain selected and byte-identical to commit 571b3f4.",
+    "On 2026-09-17 the user authorized Task 3 to normalize only 64px alpha outside the existing eye rectangles from the same-body round baseline, preserving all RGB, eye-region alpha and 1254px sources. This Task 2 history does not apply that normalization or assert final art approval."
+  ],
+  "downstreamAlphaAuthorization": {
+    "authorizedBy": "user",
+    "date": "2026-09-17",
+    "owner": "Task 3",
+    "operation": "At 64x64 only, copy alpha outside the existing eye rectangles from the same-body round baseline.",
+    "preserve": [
+      "RGB bytes",
+      "alpha inside eye rectangles",
+      "1254x1254 sources"
+    ],
+    "appliedByTask2": false
+  }
 }
