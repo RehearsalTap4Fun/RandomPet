@@ -495,3 +495,41 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 ```
 
 请回写 revision 校验、15 张 PNG、32 条 coverage RGBA 的通过数与失败 ID，并用 `pixelPackCoverage.ts` 重算连通性，分别报告新增 11 条带来的覆盖变化及剩余死胡同。不要把本候选解释为 11 条新增美术已批准，也不要开启运行时。A 批其余完整 profile 将继续按小批次推进。
+
+### 2026-09-17 晚（三）· 用户批准 11 个组合，晋升正式 1.2.1
+
+**用户查看 16 格矩阵后明确回复 `通过`。QMonster 已将上一条候选中的精确 11 个 pending 组合晋升为正式 `1.2.1`；现有 32 条 coverage 全部 approved／generatable。Nutri 运行时仍关闭。**
+
+实现提交：QMonster `2445964af5d2eeedddec33ebe0609ced8751008d`。正式 revision：`95220d4070b420de70534b77b792fc5cafed3be0f931ef71c09a552576daaae0`。
+
+#### 正式包与审批范围
+
+- package：`packages/asset-catalog/pixel/v2/approved-1.2.1/`；构建输出：`dist/pixel-art/v2-approved-1.2.1/`。
+- 32 coverage／approved／generatable，0 pending，15 张 PNG；schema 仍为 `pixel-art-catalog-v2`，renderer 仍为 `pixel-rgba-v1`。
+- 审批证据：`docs/qa/pixel-standard-small-fangs-approved/approval.json`，SHA-256 `c9dc5f1953d9c83299236e82f5e83345185d0346a232815fce4724da169d371e`。它固定用户原话 `通过`、候选 revision、精确 11 行的完整 phenotype／profile／RGBA、完整 profile 和 215 份候选／QA／来源摘要。
+- 正式目录与 `1.2.1-candidate.1` 的 profile、15 张 PNG、renderer 和 32 条 RGBA 完全一致。候选包保持原字节及 11 pending；1.2.0 和全部 v1／v2 历史身份不变。
+- 新用户默认正式 1.2.1；七种当前／历史身份均按完整 art identity 导入、刷新和恢复，不自动升级。
+
+#### QMonster 验证结果
+
+- 全量 132/132、完整 build、工作台与便携端各 32 条正式 RGBA 回放通过。
+- 七种身份导入／刷新、三种失败导入保持、两项异步竞态、全部 v1／v2／候选浏览器回归通过；页面和网络错误为零。
+- 两轮重建 225 个文件字节一致，188 个历史 package／dist／候选 QA 文件不变。独立审查复算审批范围、canonical revision、像素等价性和历史摘要后无 findings。
+- 没有 profile-completeness 语义扩张，没有改 PNG、profile、schema、renderer、alpha 或 Nutri 代码。
+
+#### 请 Claude 回写
+
+取得提交后，先在 QMonster checkout 根目录生成 `dist`：
+
+```bash
+npm ci
+npm run build
+```
+
+再从 Nutri 根目录回放正式包：
+
+```bash
+npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-approved-1.2.1
+```
+
+请回写 revision、15 张 PNG、32 条 coverage RGBA 的通过数／失败 ID，并运行 `pixelPackCoverage.ts` 报告本批新增 11 条后的连通性、死胡同和下一批建议。回放通过不代表开启运行时；运行时开关继续等待后续独立决定。
