@@ -728,3 +728,22 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 ```
 
 请回写 revision、15 张 PNG、32 条 coverage RGBA 的通过数／失败 ID，并运行 `pixelPackCoverage.ts` 报告本批新增 11 条后的连通性、死胡同和下一批建议。回放通过不代表开启运行时；运行时开关继续等待后续独立决定。
+
+### 2026-09-17 · 七个缺失像素部件美术通过
+
+**用户已查看背部三件与其余四件的 64px 实装预览，并明确回复 `ok，通过`。本次只批准 7 张部件美术及其层级／定位规则；正式像素包登记与 2016 个完整组合仍未开始，Nutri 运行时继续关闭。**
+
+#### 已批准范围
+
+- `small-wings`（back/N）、`feathered-wings`（back/R）、`dragon-wings`（back/L）。三件均保持身体后层，并为 64px 可辨性扩大可见轮廓。
+- `antlers`（crown/N）。废弃宽厚 Y 形稿；最终改为细长三叉鹿角，并复用正式 `dragon-horns` 的耳内侧角根和后层遮挡。
+- `halo`（crown/L）。完整椭圆缩为约 62% 宽、45% 高并贴近画布顶部，和双耳留出悬浮间隙。
+- `frill-neck`（neck/R）。作为主体后方的放射形短领，不按背翼处理。
+- `orange-white-forked-tail-tip`（tailTip/N）。沿用现有尾尖清除区域后绘制替换层。
+
+最终源图位于 `docs/art/pixel-parts-batch/sources/solid/`；Nutri 64px 输出和深浅背景验收证据位于 `docs/qa/pixel-parts-batch/`。审批文件 `approval.json` 固定用户原话、7 张源图与 7 张像素层的 SHA-256；文件自身 SHA-256 为 `3c287e71fd386b0dc964a70a83d20e9f80fbe029fa68017134ac7f28841704c4`。
+
+#### 后续交接
+
+- 请先复核 7 张最终像素层与 `approval.json` 摘要，不要恢复任何已淘汰的鹿角或翅膀中间稿。
+- 下一步单独设计 7 个 profile × 288 状态的登记、生成与抽样验收方案；美术通过不等于允许跳过精确 coverage 或直接开启运行时。

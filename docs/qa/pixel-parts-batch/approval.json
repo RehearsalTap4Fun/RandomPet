@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "pixel-parts-batch-approval-v1",
+  "approvedAt": "2026-09-17",
+  "decision": "ok，通过",
+  "scope": [
+    {
+      "id": "small-wings",
+      "slot": "back",
+      "rarity": "N",
+      "source": "docs/art/pixel-parts-batch/sources/solid/small-wings.png",
+      "sourceSha256": "e1dd8ff8e6311cecb0f9123f68141298e7037c023922712205c78385703faf78",
+      "pixelLayer": "docs/qa/pixel-parts-batch/layers/small-wings.png",
+      "pixelSha256": "a9633de63f4acf170ad45c233e349bc3322409f367f7de947c280fdcfbcc06eb"
+    },
+    {
+      "id": "feathered-wings",
+      "slot": "back",
+      "rarity": "R",
+      "source": "docs/art/pixel-parts-batch/sources/solid/feathered-wings.png",
+      "sourceSha256": "e61d02591da088901d3387763429c7db54646003a832a4e100048db79d06564e",
+      "pixelLayer": "docs/qa/pixel-parts-batch/layers/feathered-wings.png",
+      "pixelSha256": "00db017bd6155a11d7e1716e92f7cbeb0e1d9f6fbc2be4c88ec197a7309cf135"
+    },
+    {
+      "id": "dragon-wings",
+      "slot": "back",
+      "rarity": "L",
+      "source": "docs/art/pixel-parts-batch/sources/solid/dragon-wings.png",
+      "sourceSha256": "3444b0c19dcc33c576fdedb7cad96a4c6fdfccd1bb4d1290f755343d8eaee8f6",
+      "pixelLayer": "docs/qa/pixel-parts-batch/layers/dragon-wings.png",
+      "pixelSha256": "22e5180e5f07027ef2826d4425d7e3d06e922cdc743d359acdda4e3fdade225b"
+    },
+    {
+      "id": "antlers",
+      "slot": "crown",
+      "rarity": "N",
+      "source": "docs/art/pixel-parts-batch/sources/solid/antlers.png",
+      "sourceSha256": "925f4a72b7f94fdbee19ce4634ae152835949bdd2fb49ee3c0cd811e337d50b4",
+      "pixelLayer": "docs/qa/pixel-parts-batch/layers/antlers.png",
+      "pixelSha256": "84bf0ee56a2eef86389921bad6a0c821648e286218f51eeaa8b936bb52ae5327"
+    },
+    {
+      "id": "halo",
+      "slot": "crown",
+      "rarity": "L",
+      "source": "docs/art/pixel-parts-batch/sources/solid/halo.png",
+      "sourceSha256": "b786f7394a6943e5009aadea90602fe1d0273a86c1bfbac84cb9361130c1e9c0",
+      "pixelLayer": "docs/qa/pixel-parts-batch/layers/halo.png",
+      "pixelSha256": "95540cb48509fe277898f05d94c401442a4b1a8aec8a3394765e5dd4874a3d8d"
+    },
+    {
+      "id": "frill-neck",
+      "slot": "neck",
+      "rarity": "R",
+      "source": "docs/art/pixel-parts-batch/sources/solid/frill-neck.png",
+      "sourceSha256": "71b6840bb9d9c232e34b686d405c3ca3f2c993652c5ccc06f9b1da807aace76a",
+      "pixelLayer": "docs/qa/pixel-parts-batch/layers/frill-neck.png",
+      "pixelSha256": "5bded66bade6e39d054b60c917902033eda4c450c1169a09cb19bdc2d2f70d9a"
+    },
+    {
+      "id": "orange-white-forked-tail-tip",
+      "slot": "tailTip",
+      "rarity": "N",
+      "source": "docs/art/pixel-parts-batch/sources/solid/orange-white-forked-tail-tip.png",
+      "sourceSha256": "dd1b5d6e804ee580b94be030c4d826917153b461a41e261028eb1df02b0d714f",
+      "pixelLayer": "docs/qa/pixel-parts-batch/layers/orange-white-forked-tail-tip.png",
+      "pixelSha256": "b722c7e7100cf6d031a0d0cb56d046a6e340226ab64ff979b15637c64136aa24"
+    }
+  ],
+  "pipeline": {
+    "implementation": "Nutri scripts/.codex-pixelCat.mjs",
+    "size": 64,
+    "outputCount": 44,
+    "flatLayerCount": 7
+  },
+  "artDecisions": {
+    "wings": "Enlarged for readable exposure behind the body; back-layer order preserved.",
+    "antlers": "Rebuilt as slender three-tine deer antlers and registered from the approved dragon-horns inner-ear anchors on the rear crown layer.",
+    "halo": "Reduced to 62% width and 45% height, then top-anchored to preserve a visible floating gap.",
+    "frill-neck": "Short radial neck frill behind the subject, distinct from back wings.",
+    "forked-tail-tip": "Orange-white replacement uses the existing tail clear polygon."
+  },
+  "evidence": {
+    "backChain": "docs/qa/pixel-parts-batch/back-chain-preview.png",
+    "frontChain": "docs/qa/pixel-parts-batch/front-chain-preview.png",
+    "nutriManifest": "docs/qa/pixel-parts-batch/layers/manifest.json"
+  },
+  "state": "art-approved-registration-pending",
+  "runtime": "disabled"
+}
