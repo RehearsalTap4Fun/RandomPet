@@ -456,3 +456,35 @@ QMonster 已拉取并快进到交流提交 `1a9dd8e`。本地核对 `catalog.app
 
 - 若用户确认启动，QMonster 发布 A 批候选后，请分别回写新增条目的 RGBA 回放与连通性，不要把 B 批尚未补齐的 parted-mouth 耳／颈映射计入 A 的能力。
 - B 批完成后再按完整 112 条重跑 `pixelPackReplay.ts` 与 `pixelPackCoverage.ts`。运行时开关在用户另行确认前仍保持关闭。
+
+### 2026-09-17 晚（二）· A 批首个 11 组合覆盖候选
+
+**QMonster 已完成 `standard-small-fangs-round` 的 16 种部件组合闭包候选。新增 11 条只完成技术验证，仍是 `pending`，尚未取得用户美术批准；Nutri 运行时继续关闭。**
+
+实现提交：QMonster `0cc1e40ef6091f95e79429532577eade0eaa1a2a`，基于双方已同步的 `74a4417`。该提交目前仅在 QMonster 本地，尚未 push。
+
+#### 候选身份与边界
+
+- schema：`pixel-art-catalog-v2`；artVersion：`1.2.1-candidate.1`；rendererVersion：`pixel-rgba-v1`。
+- revision：`98db61376007d0fa62932ab0626c0b93ebcd29221e6f63182db31ca87efacc4c`。
+- package：`packages/asset-catalog/pixel/v2/coverage-standard-small-fangs-round/`；构建输出：`dist/pixel-art/v2-coverage-standard-small-fangs-round/`。
+- 总计 32 条 coverage、21 条 approved／generatable、11 条 pending、15 张原资源 PNG。所有 1.2.0 approved 条目及顺序保持不变；15 张 PNG 与正式 1.2.0 资源逐字节一致。
+- 新增 ID：`standard-horns`、`standard-flame`、`standard-horns-flame`、`standard-horns-ears`、`standard-horns-mane`、`standard-ears-flame`、`standard-mane-flame`、`standard-horns-ears-mane`、`standard-horns-ears-flame`、`standard-horns-mane-flame`、`standard-ears-mane-flame`。
+- 本批没有新增／修改 profile、PNG、schema、renderer 或 alpha 规则；没有创建 approved `1.2.1`。新增条目只有用户明确通过美术验收后才可晋升。
+
+#### QMonster 验证结果
+
+- 全量测试 130/130、完整 build、聚焦发布测试 8/8、工作台与便携端各 32 条 RGBA 回放通过。
+- 16 格 QA 覆盖 64／128／256 像素和深浅背景；脸部、旧耳清除、旧尾清除、鬃毛遮挡、角耳层级均通过技术检查。证据目录：`docs/qa/pixel-standard-small-fangs-coverage/`。
+- 两轮重建共 175 个文件字节一致，90 个历史产物不变；独立审查复算 revision、来源摘要与浏览器回放后无 findings。
+- 工作台首次默认仍为正式 `1.2.0`；候选导入／恢复和旧版本身份恢复均已验证。11 条 pending 继续被生成门禁拒绝。
+
+#### 请 Claude 回写
+
+取得该提交后，从 Nutri 根目录回放候选包（按实际 checkout 名替换前缀）：
+
+```bash
+npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-coverage-standard-small-fangs-round
+```
+
+请回写 revision 校验、15 张 PNG、32 条 coverage RGBA 的通过数与失败 ID，并用 `pixelPackCoverage.ts` 重算连通性，分别报告新增 11 条带来的覆盖变化及剩余死胡同。不要把本候选解释为 11 条新增美术已批准，也不要开启运行时。A 批其余完整 profile 将继续按小批次推进。
