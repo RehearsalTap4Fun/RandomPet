@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import sharp from 'sharp'
@@ -58,4 +58,26 @@ describe('portable pixel renderer', () => {
     const corrupt = new Uint8Array(bytes); corrupt[corrupt.length - 1]! ^= 1
     await expect(api.verifyPixelPng(corrupt, resource)).rejects.toThrow(/SHA-256/)
   })
+  it('keeps v1/v2 catalog verification separate and rejects changed v2 revisions', async () => {
+    const v1 = JSON.parse(await readFile(new URL('catalog.approved.json', root), 'utf8'))
+    const v2 = JSON.parse(await readFile(new URL('catalog.candidate.json', v2Root), 'utf8'))
+    await expect(api.verifyPixelCatalog(v1)).resolves.toEqual(v1)
+    await expect(api.verifyPixelCatalogV2(v2)).resolves.toEqual(v2)
+    await expect(api.verifyPixelCatalogV2(v1)).rejects.toThrow()
+    await expect(api.verifyPixelCatalog(v2)).rejects.toThrow()
+    await expect(api.verifyPixelCatalogV2({ ...v2, revision: '0'.repeat(64) })).rejects.toThrow(/revision/)
+  })
+  it('both browser loaders reject corrupt PNG bytes before decoding', async () => {
+    const decode = vi.fn()
+    vi.stubGlobal('createImageBitmap', decode)
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(new Uint8Array([1, 2, 3]))))
+    try {
+      const v1 = JSON.parse(await readFile(new URL('catalog.approved.json', root), 'utf8'))
+      const v2 = JSON.parse(await readFile(new URL('catalog.candidate.json', v2Root), 'utf8'))
+      await expect(api.loadPixelArt(v1, resource => resource.path)).rejects.toThrow(/SHA-256/)
+      await expect(api.loadPixelArtV2(v2, resource => resource.path)).rejects.toThrow(/SHA-256/)
+      expect(decode).not.toHaveBeenCalled()
+    } finally { vi.unstubAllGlobals() }
+  })
+
 })

@@ -92,6 +92,8 @@ try {
   const legacy = { schemaVersion: 'feline-combination-v1', catalogVersion: '0.10.0-candidate.1', seed: 'pixel-legacy-import', selections,
     rolls: Object.fromEntries(Object.keys(selections).map(k => [k, 0])), locks: [] }
   await editor.fill(JSON.stringify(legacy)); await apply.click()
+  // Legacy specs now migrate to v2, which may load its assets for the first time.
+  await page.waitForFunction(() => ![...document.querySelectorAll('button')].find(b => b.textContent === '导出 64px PNG')?.disabled)
   assert.equal(await canvasHash(), first.rgbaSha256, 'Legacy resolved traits not preserved')
   await editor.fill(JSON.stringify({ ...legacy, selections: { ...selections, coat: 'calico' } })); await apply.click()
   assert.match(await page.getByRole('alert').innerText(), /Unsupported/)

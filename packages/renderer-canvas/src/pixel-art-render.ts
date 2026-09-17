@@ -1,4 +1,6 @@
 import { canonicalJson, requirePixelArtCatalog, resolvePixelArt, type PixelArtPlan, type PixelPolygon, type PixelResource } from '../../asset-catalog/src/pixel-art-catalog.js'
+import { requirePixelArtCatalogV2, resolvePixelArtV2 } from '../../asset-catalog/src/pixel-art-catalog-v2.js'
+import type { FelinePhenotypeV2 } from '../../generator-core/src/feline-phenotype-v2.js'
 import type { FelinePhenotype } from '../../generator-core/src/feline-phenotype.js'
 
 type Pixels = Uint8ClampedArray
@@ -78,11 +80,9 @@ export async function verifyPixelPng(bytes: Uint8Array, resource: PixelResource)
   if (view.getUint32(16) !== resource.width || view.getUint32(20) !== resource.height) throw new Error('Invalid PNG dimensions.')
 }
 
-/** Browser loader. Every layer is hash-checked before decode; no implicit fallback. */
-export async function loadPixelArt(input: unknown, resourceUrl: (resource: PixelResource) => string) {
-  const catalog = await verifyPixelCatalog(input)
+async function loadPixelLayers(resources: Record<string, PixelResource>, resourceUrl: (resource: PixelResource) => string) {
   const layers: Record<string, Pixels> = {}
-  await Promise.all(Object.entries(catalog.resources).map(async ([id, resource]) => {
+  await Promise.all(Object.entries(resources).map(async ([id, resource]) => {
     const response = await fetch(resourceUrl(resource))
     if (!response.ok) throw new Error(`HTTP ${response.status}: ${resource.path}`)
     const bytes = new Uint8Array(await response.arrayBuffer())
@@ -98,8 +98,29 @@ export async function loadPixelArt(input: unknown, resourceUrl: (resource: Pixel
       for (let i = 3; i < layers[id].length; i += 4) if (layers[id][i] !== 0 && layers[id][i] !== 255) throw new Error(`Invalid binary alpha: ${id}`)
     } finally { bitmap.close() }
   }))
+  return layers
+}
+
+/** Browser loader. Every layer is hash-checked before decode; no implicit fallback. */
+export async function loadPixelArt(input: unknown, resourceUrl: (resource: PixelResource) => string) {
+  const catalog = await verifyPixelCatalog(input)
+  const layers = await loadPixelLayers(catalog.resources, resourceUrl)
   // Keep the verified catalog/layers private; exposed metadata is a detached copy.
   return { catalog: structuredClone(catalog), render: (phenotype: FelinePhenotype) => composePixelArt(resolvePixelArt(phenotype, catalog), layers) }
+}
+
+/** Additive v2 loader; never interprets a v1 catalog as v2. */
+export async function verifyPixelCatalogV2(input: unknown) {
+  const catalog = requirePixelArtCatalogV2(input)
+  const { revision, ...content } = catalog
+  if (await digest(new TextEncoder().encode(canonicalJson(content))) !== revision) throw new Error('Pixel catalog revision mismatch.')
+  return catalog
+}
+
+export async function loadPixelArtV2(input: unknown, resourceUrl: (resource: PixelResource) => string) {
+  const catalog = await verifyPixelCatalogV2(input)
+  const layers = await loadPixelLayers(catalog.resources, resourceUrl)
+  return { catalog: structuredClone(catalog), render: (phenotype: FelinePhenotypeV2) => composePixelArt(resolvePixelArtV2(phenotype, catalog), layers) }
 }
 
 /** Use the same native pixels for display and transparent integer-scale downloads. */

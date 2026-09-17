@@ -18,3 +18,7 @@
 .pixel-samples small { font-size: 10px; white-space: nowrap; color: #838575; }
 @media(min-width: 1200px) { .pixel-stage canvas { width: 384px; height: 384px; } }
 @media(max-width: 350px) { .pixel-stage canvas { width: 192px; height: 192px; } }
+
+.pixel-traits { font-size: 13px; color: #777e65; margin: 0 0 12px; }
+.pixel-candidate-note { font-size: 12px; line-height: 1.6; color: #85672c; background: #f3e7cf; border-radius: 8px; padding: 12px; }
+.pixel-samples button[data-review=pending] small { color: #85672c; }
