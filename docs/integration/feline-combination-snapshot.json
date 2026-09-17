@@ -5,7 +5,7 @@
   "templateVersion": "feline-sit-v1",
   "catalogFile": "packages/asset-catalog/catalog/v0.10.0/catalog.json",
   "catalogSha256": "0335298cbb50ef888f4afa2bdf339c2133ddc7d0a40177f4f3a4cdd226635f22",
-  "runtimeRevision": "a418f2e2e6f8db44f7dc5f0f4e4da302092fc56781fcaf552e27cbf3e17b8ac9",
+  "runtimeRevision": "fdd60cdc07eab862584ab6dcabfdc6ef007693bdf71056aa09a33c5ff158af6f",
   "sourceHashes": {
     "docs/releases/v0.10.0/body-batch1/mane-fix-previous-snapshot.json": "0304b16a81574dd33deb36d1cc7aa18ecdfebf7e02dbc7f267d268d74490eda5",
     "docs/releases/v0.10.0/body-batch1/previous-snapshot.json": "ed33d98b958b6be0e069bc3eae68adbe2e6ee07b3476983d2a57a59a0914fbb7",
@@ -15,20 +15,21 @@
     "docs/releases/v0.10.0/previous-snapshot.json": "c281518bd90d71b0210bcbf8b0d9d5e0483d0763ccada23865b6fb8e26d31344",
     "package-lock.json": "aef17ee17674a51aa75c11e81669340b0b7a916b78cf4f8298e3835f2cd11ff0",
     "packages/asset-catalog/catalog/v0.10.0/catalog.json": "0335298cbb50ef888f4afa2bdf339c2133ddc7d0a40177f4f3a4cdd226635f22",
-    "packages/asset-catalog/src/feline-combination-catalog.ts": "3ee8313f7efe485dd27419ad3e97b32c50ee6aa8da6aa58f5f58a4f4befd1f5f",
+    "packages/asset-catalog/src/feline-combination-catalog.ts": "c4eba2e53ec0bcdde297394de291a76a78aaede8374ec4a4a0fdb2e29d6e055f",
     "packages/asset-catalog/src/index.ts": "fe3a97d69b9170fa605e2cba9cc5939fa692ad46e9f434bd9b0854291153f7eb",
     "packages/generator-core/src/contracts.ts": "f9a9bc7b14c31d16a0c7eee8de7c0212be983a6d9742936c52a77815a6d394e8",
     "packages/generator-core/src/feline-combination.ts": "4cf2970c0b1a4eee9dcbda20f7a481ff3abb84e51d0f6dfacc641d971dc3a5bd",
     "packages/generator-core/src/index.ts": "b6324491c1a82e16468fcd38b4482e742dd9ac9903778034eb3a83e7f03fa58f",
     "packages/generator-core/src/prng.ts": "4744758cd23c30336d7bd70b95589d9462883bdc8650021d09d54cb0b551eefe",
-    "packages/incubator-adapter/src/feline-hatchery.ts": "8e7bab8c4768cb0ecfc64f60b8d44ae92ef25607a7cdf524bad504884acf49b2",
-    "packages/incubator-adapter/src/index.ts": "d5c8541b9e67764ea5f1b882f7118344b0dbe8bfa6bf17187c6ed9848d377bcd",
+    "packages/incubator-adapter/src/feline-hatchery.ts": "a6b8c94d6e2861f9bf5bc2917cfc139fc3100fe04452d34af57853f9fb29c21f",
+    "packages/incubator-adapter/src/index.ts": "de783668c2fa8b013e645eb6658b4aee0c9d614eb06148a7e07020633f122cea",
     "packages/renderer-canvas/src/export.ts": "9c582c4ba665e0dd9814d94dc31bdd247a2e84f8957dbd392894a9b4dcd7a457",
     "packages/renderer-canvas/src/feline-body-study.ts": "fd7afa328b5f3c4f668260e080e35ae752c11ab39827b7d654e0a444ebb7d974",
     "packages/renderer-canvas/src/feline-canvas-compositor.ts": "994efbdb8a28a7ad3398bd44a01f18b3088792fdc0d648a93b178dd0fe5a1948",
     "packages/renderer-canvas/src/feline-combination-registration.json": "cb4bb4c98303b1d1b018d083549196c58826aa25544e12f35a4de6a1692ec771",
-    "packages/renderer-canvas/src/feline-combination-render.ts": "51f0a899f46414cfe693dd1b0da90f520729de935bda12e569dbcfc5e76c5c59",
-    "packages/renderer-canvas/src/index.ts": "1c88d086933d9300c73bc28540b0f68d1ae267bd767cefd5249808b4937e7c61"
+    "packages/renderer-canvas/src/feline-combination-render.ts": "4fa24bc898371038d0c0863daf7430a7146477bd3a37ab8afe2928f754362b78",
+    "packages/renderer-canvas/src/index.ts": "1c88d086933d9300c73bc28540b0f68d1ae267bd767cefd5249808b4937e7c61",
+    "scripts/build-hatchery.mjs": "9f75c8dfd5ea661f38fe2bc48af4c9a4e133fbd0538b85168a8c1b0411a23c2d"
   },
   "resources": [
     {

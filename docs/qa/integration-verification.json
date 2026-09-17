@@ -1,6 +1,28 @@
 {
-  "runtimeRevision": "8bbd51e8cf08d9a725f708550055dfda87e8cb8b862b6276bd9d77f9b0105116",
+  "runtimeRevision": "fdd60cdc07eab862584ab6dcabfdc6ef007693bdf71056aa09a33c5ff158af6f",
   "resourceHashes": 44,
+  "bundleVerification": {
+    "localInputs": [
+      "packages/asset-catalog/src/feline-combination-catalog.ts",
+      "packages/generator-core/src/feline-combination.ts",
+      "packages/generator-core/src/prng.ts",
+      "packages/incubator-adapter/src/feline-hatchery.ts",
+      "packages/incubator-adapter/src/index.ts",
+      "packages/renderer-canvas/src/export.ts",
+      "packages/renderer-canvas/src/feline-canvas-compositor.ts",
+      "packages/renderer-canvas/src/feline-combination-registration.json",
+      "packages/renderer-canvas/src/feline-combination-render.ts"
+    ],
+    "bundleSha256": "50ac151efa88dab558362831eb119c8ae2283f2a3c84124ec2d06d5d8a895650",
+    "checks": [
+      "all local runtime inputs pinned",
+      "pixel schemas excluded",
+      "legacy exports preserved",
+      "unpinned transitive dependency rejected",
+      "repeated builds byte-identical",
+      "packaged SDK matches verified build"
+    ]
+  },
   "checks": [
     "explicit cross-slot selections retained",
     "JSON save/restore cache identity matches",
@@ -28,5 +50,5 @@
     "standalone built SDK new-feature save/restore matches"
   ],
   "status": "passed",
-  "checkedAt": "2026-09-16T02:06:44.258Z"
+  "checkedAt": "2026-09-17T02:47:27.156Z"
 }

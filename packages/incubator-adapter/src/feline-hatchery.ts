@@ -1,8 +1,9 @@
 // Browser-side hatchery integration using the pinned release snapshot.
-import { generateFelineCombination, parseFelineCombinationSpec, type FelineCombinationSelections, type FelineCombinationSpec } from '@qmonster/generator-core'
-import { parseFelineCombinationCatalog, auditFelineCombinationCatalog, resolveFelineCombination } from '@qmonster/asset-catalog'
-import { createFelineCombinationResourceResolver, renderFelineCombination } from '@qmonster/renderer-canvas'
-import { exportCanvas, CanvasExportError } from '@qmonster/renderer-canvas'
+// Keep the legacy runtime independent of pixel schema exports in the package barrels.
+import { generateFelineCombination, parseFelineCombinationSpec, type FelineCombinationSelections, type FelineCombinationSpec } from '../../generator-core/src/feline-combination.js'
+import { parseFelineCombinationCatalog, auditFelineCombinationCatalog, resolveFelineCombination } from '../../asset-catalog/src/feline-combination-catalog.js'
+import { createFelineCombinationResourceResolver, renderFelineCombination } from '../../renderer-canvas/src/feline-combination-render.js'
+import { exportCanvas, CanvasExportError } from '../../renderer-canvas/src/export.js'
 import snapshot from '../../../docs/integration/feline-combination-snapshot.json'
 import previousSnapshot from '../../../docs/releases/v0.10.0/previous-snapshot.json'
 import preBatchSnapshot from '../../../docs/releases/v0.10.0/mutation-batch1/previous-snapshot.json'

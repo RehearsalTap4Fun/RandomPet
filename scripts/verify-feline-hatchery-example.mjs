@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import assert from 'node:assert/strict'
+import { verifyHatcheryBundle } from './verify-hatchery-bundle.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
 const prefix = '/@fs/' + root.replaceAll('\\', '/') + '/'
@@ -23,7 +24,8 @@ for (const resource of Object.values(catalog.resources)) {
   await fs.access(path.join(root, resource.provenance.reference))
   await fs.access(path.join(root, resource.provenance.prompt))
 }
-const report = { runtimeRevision: snapshot.runtimeRevision, resourceHashes: snapshot.resources.length, checks: [] }
+const report = { runtimeRevision: snapshot.runtimeRevision, resourceHashes: snapshot.resources.length,
+  bundleVerification: await verifyHatcheryBundle(), checks: [] }
 const browser = await chromium.launch({ headless: true })
 try {
   const page = await browser.newPage()

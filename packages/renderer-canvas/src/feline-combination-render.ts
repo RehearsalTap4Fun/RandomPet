@@ -1,4 +1,4 @@
-import { parseFelineCombinationSpec } from '@qmonster/generator-core'
+import { parseFelineCombinationSpec } from '../../generator-core/src/feline-combination.js'
 import type { FelineCombinationOperation, FelineCombinationRenderPlan } from '@qmonster/asset-catalog'
 import { composeFelineLayers, validateDecoded, type FelineCanvasLayer } from './feline-canvas-compositor.js'
 import type { FelineCombinationCanvas, FelineCombinationResourceResolver, FelineCombinationRenderOptions } from './feline-canvas-compositor.js'

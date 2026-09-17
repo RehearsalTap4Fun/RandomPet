@@ -2,12 +2,11 @@ import { z } from 'zod'
 import {
   COMBINATION_OPTIONS,
   parseFelineCombinationSpec,
-  type Diagnostic,
   type FelineCombinationSelections,
   type FelineCombinationSpec,
   type FelineMutationSelections,
-  type ParseResult,
-} from '@qmonster/generator-core'
+} from '../../generator-core/src/feline-combination.js'
+import type { Diagnostic, ParseResult } from '../../generator-core/src/contracts.js'
 
 export const FELINE_MUTATION_IDS = Object.freeze(['dragon-horns', 'antlers', 'fin-ears', 'small-lion-mane', 'small-wings', 'forked-tail-tip', 'halo', 'dragon-wings', 'feathered-wings', 'frill-neck', 'flame-tail'] as const)
 export type FelineMutationId = typeof FELINE_MUTATION_IDS[number]
