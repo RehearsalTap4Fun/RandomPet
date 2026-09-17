@@ -1,6 +1,20 @@
 # 体型与眼型像素候选 QA
 
-七个候选均为 **pending**；本阶段不写发布目录，不进入生成白名单。
+## 2026-09-17 验收与晋升
+
+用户明确回复 **`ok，通过`**，仅批准本页列出的七个体型／眼型组合。[approval.json](approval.json) 固定用户原话、日期、完整表现型、profile、RGBA 摘要、源图与 QA 文件摘要。已产出 `1.2.0`：21 个 coverage 全部 approved，21 个可生成，15 张 PNG，renderer 保持 `pixel-rgba-v1`。
+
+已验收 revision：`5b3a92c67957fda3bfe12f6f598e631e1942cc3303d07775fee4bc33aea3bd36`。工坊与独立消费端首次打开默认选择 1.2.0；历史候选仍保留 14 generatable／7 pending 及原始目录、provenance、PNG 字节。
+
+- [晋升后两次复现证据](reproducibility-approved.json)：`node scripts/verify-pixel-art-v2-reproducibility.mjs`。
+- [浏览器报告](../../pixel-body-eye-batch/report.json)：已验收 21/21、候选 21/21、v1 32/32、错误导入 8/8、独立消费端 23/23。
+- [工坊截图](../../pixel-body-eye-batch/pixel-workbench-approved.png) · [独立消费端截图](../../pixel-body-eye-batch/portable-consumer-approved.png)。
+
+Nutri 运行时继续关闭；未列组合、新美术、profile 完备性、aura 和换色不在本次审批范围，须独立设计。
+
+## 以下为验收前生产与审阅记录
+
+七个候选在本阶段原始报告中均为 **pending**；保留当时状态和字节，当前验收以独立 approval.json 与 1.2.0 目录为准。
 
 - [完整画廊](index.html)：64／128／256px、三档轮廓、三组圆眼→半眯眼和校准前后对照。
 - [浅色底概览](light-review.html) · [深色浏览器截图](browser-preview.png) · [浅色候选截图](browser-light-candidates.png)

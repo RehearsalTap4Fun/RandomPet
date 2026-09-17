@@ -31,9 +31,9 @@ describe('pixel art v2 candidate release', () => {
     expect(catalog.generatable).toEqual(catalog.coverage.slice(0, 14).map(coverage => coverage.id))
   })
 
-  it('ports every approved v1 appearance to round eyes without changing rendered RGBA bytes', async () => {
+  it.each(['candidate', 'approved'])('ports every approved v1 appearance to %s round eyes without changing rendered RGBA bytes', async name => {
     const v1 = requirePixelArtCatalog(JSON.parse(await readFile(new URL('catalog.approved.json', v1Root), 'utf8')))
-    const v2 = requirePixelArtCatalogV2(JSON.parse(await readFile(new URL('catalog.candidate.json', v2Root), 'utf8')))
+    const v2 = requirePixelArtCatalogV2(JSON.parse(await readFile(new URL(`catalog.${name}.json`, v2Root), 'utf8')))
     const layers: Record<string, Uint8ClampedArray> = {}
     for (const [id, resource] of Object.entries(v2.resources)) {
       layers[id] = new Uint8ClampedArray(await sharp(await readFile(new URL(resource.path, v2Root))).ensureAlpha().raw().toBuffer())

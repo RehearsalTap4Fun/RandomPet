@@ -2,7 +2,7 @@
 <html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>QMonster 像素包 · 独立接入示例</title>
 <style>body{font:16px system-ui;background:#f4f0e8;color:#35352f;max-width:850px;margin:40px auto;padding:0 20px}canvas{width:256px;height:256px;image-rendering:pixelated;background:#292c31;border-radius:16px;display:block;margin:24px 0}select,button{font:inherit;padding:8px;margin:4px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}#error{color:#ac3f2e}</style>
 <h1>独立像素资源包</h1><p>本页只读取同目录 SDK、目录与 PNG，可整体复制到任意静态站点。</p>
-<label>范围 <select id="bundle"><option value="approved">已验收包 1.1.0 · 14 个组合</option><option value="legacy-approved">历史首批 1.0.0</option><option value="candidate">历史候选快照（验收前）</option><option value="v2-candidate">候选包 1.2.0 · 21 个组合（7 个待验收）</option></select></label>
+<label>范围 <select id="bundle"><option value="v2-approved">已验收包 1.2.0 · 21 个组合</option><option value="approved">历史已验收包 1.1.0 · 14 个组合</option><option value="legacy-approved">历史首批 1.0.0</option><option value="candidate">历史候选快照（验收前）</option><option value="v2-candidate">候选包 1.2.0 · 21 个组合（7 个待验收）</option></select></label>
 <label>组合 <select id="sample"></select></label><canvas id="cat" width="64" height="64" aria-label="像素小猫"></canvas>
 <p id="status" role="status">载入中…</p><button id="save" disabled>导出 128px PNG</button><p id="error" role="alert"></p><pre id="appearance"></pre>
 <script type="module">

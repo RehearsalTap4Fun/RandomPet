@@ -5,6 +5,7 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { build } from 'esbuild'
 import sharp from 'sharp'
+import { approvalPath, validateApproval } from './pixel-art-v2-approval.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
 const out = path.join(root, 'packages/asset-catalog/pixel/v2')
@@ -82,7 +83,11 @@ await pin(stage3ScriptPath, stage3.reviewScriptSha256)
 for (const [file, expected] of Object.entries(stage3.sourceAssets)) await pin(file, expected)
 for (const [file, expected] of Object.entries(stage3.inputHashes)) await pin(file, expected)
 
-await fs.rm(out, { recursive: true, force: true })
+// Retained candidate artifacts must never be replaced with different bytes.
+async function retain(file, bytes) {
+  try { assert.ok((await fs.readFile(file)).equals(Buffer.from(bytes)), `Retained artifact changed: ${file}`) }
+  catch (error) { if (error.code !== 'ENOENT') throw error; await fs.writeFile(file, bytes) }
+}
 await fs.mkdir(path.join(out, 'assets'), { recursive: true })
 const resources = {}
 const copiedByHash = new Map()
@@ -98,7 +103,7 @@ async function resource(file, expected) {
   if (copiedByHash.has(actual)) return copiedByHash.get(actual)
   const id = `layer-${actual.slice(0, 16)}`
   const relative = `assets/${id}.png`
-  await fs.writeFile(path.join(out, relative), bytes)
+  await retain(path.join(out, relative), bytes)
   resources[id] = { path: relative, sha256: actual, width: 64, height: 64 }
   copiedByHash.set(actual, id)
   return id
@@ -195,12 +200,34 @@ const data = {
 const catalog = { ...data, revision: sha(canonicalJson(data)) }
 requirePixelArtCatalogV2(catalog)
 
-await fs.writeFile(path.join(out, 'catalog.candidate.json'), serialized(catalog))
-await fs.writeFile(path.join(out, 'provenance.json'), serialized(provenance))
-await fs.rm(dist, { recursive: true, force: true })
+const approvalBytes = await fs.readFile(path.join(root, approvalPath))
+const validated = await validateApproval(approvalBytes, { candidate: catalog, candidateBytes: Buffer.from(serialized(catalog)), provenanceBytes: Buffer.from(serialized(provenance)), stage3, read: file => fs.readFile(path.join(root, file)) })
+await retain(path.join(out, 'catalog.candidate.json'), serialized(catalog))
+await retain(path.join(out, 'provenance.json'), serialized(provenance))
+// Preserve the historical portable candidate byte-for-byte as well.
 await fs.mkdir(path.join(dist, 'assets'), { recursive: true })
-await fs.copyFile(path.join(out, 'catalog.candidate.json'), path.join(dist, 'catalog.json'))
-await fs.copyFile(path.join(out, 'provenance.json'), path.join(dist, 'provenance.json'))
-for (const entry of Object.values(catalog.resources)) await fs.copyFile(path.join(out, entry.path), path.join(dist, entry.path))
+await retain(path.join(dist, 'catalog.json'), serialized(catalog))
+await retain(path.join(dist, 'provenance.json'), serialized(provenance))
+for (const entry of Object.values(catalog.resources)) await retain(path.join(dist, entry.path), await fs.readFile(path.join(out, entry.path)))
 
 console.log(`Pixel art v2: candidate ${catalog.coverage.length} combinations / ${catalog.generatable.length} generatable / ${Object.keys(catalog.resources).length} layers.`)
+
+const approvedData = { ...data, artVersion: '1.2.0',
+  coverage: coverage.map(entry => ({ ...entry, review: 'approved' })),
+  generatable: coverage.map(entry => entry.id),
+  evidence: { ...data.evidence, [approvalPath]: validated.sha256 },
+}
+const approved = { ...approvedData, revision: sha(canonicalJson(approvedData)) }
+requirePixelArtCatalogV2(approved)
+const approvedProvenance = { ...provenance,
+  approval: { path: approvalPath, sha256: validated.sha256, candidate: validated.approval.candidate },
+  files: { ...provenance.files, [approvalPath]: validated.sha256 },
+}
+await fs.writeFile(path.join(out, 'catalog.approved.json'), serialized(approved))
+await fs.writeFile(path.join(out, 'provenance.approved.json'), serialized(approvedProvenance))
+const approvedDist = path.join(root, 'dist/pixel-art/v2-approved')
+await fs.mkdir(path.join(approvedDist, 'assets'), { recursive: true })
+await fs.writeFile(path.join(approvedDist, 'catalog.json'), serialized(approved))
+await fs.writeFile(path.join(approvedDist, 'provenance.json'), serialized(approvedProvenance))
+for (const entry of Object.values(approved.resources)) await fs.copyFile(path.join(out, entry.path), path.join(approvedDist, entry.path))
+console.log(`Pixel art v2: approved ${approved.coverage.length} combinations / ${approved.generatable.length} generatable / revision ${approved.revision}.`)

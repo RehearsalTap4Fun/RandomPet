@@ -2,9 +2,120 @@
   "status": "passed",
   "candidateVersion": "1.2.0-candidate.1",
   "candidateRevision": "3ba990a5dfde65b0b79dabe958c9d3c742a08a30fdb582536b85cde5b11c288d",
+  "approvedVersion": "1.2.0",
+  "approvedRevision": "5b3a92c67957fda3bfe12f6f598e631e1942cc3303d07775fee4bc33aea3bd36",
   "coverageCount": 21,
-  "generatableCount": 14,
-  "pendingCount": 7,
+  "generatableCount": 21,
+  "pendingCount": 0,
+  "candidateGeneratableCount": 14,
+  "candidatePendingCount": 7,
+  "approvedBrowserReplays": [
+    {
+      "id": "approved-base",
+      "review": "approved",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e"
+    },
+    {
+      "id": "approved-horns",
+      "review": "approved",
+      "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f"
+    },
+    {
+      "id": "approved-flame",
+      "review": "approved",
+      "rgbaSha256": "f8ab50c7139c18ec025e4352341bedaba0f8d1c75ad526b6c21e4334f919eec1"
+    },
+    {
+      "id": "approved-both",
+      "review": "approved",
+      "rgbaSha256": "516bcf19ee4da711bb30df9eb89a695ce53819676553c2880f848f68ad8aaf95"
+    },
+    {
+      "id": "standard-base",
+      "review": "approved",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba"
+    },
+    {
+      "id": "standard-ears",
+      "review": "approved",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97"
+    },
+    {
+      "id": "standard-mane",
+      "review": "approved",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7"
+    },
+    {
+      "id": "standard-ears-mane",
+      "review": "approved",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b"
+    },
+    {
+      "id": "standard-stack",
+      "review": "approved",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a"
+    },
+    {
+      "id": "shortleg-round-base",
+      "review": "approved",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41"
+    },
+    {
+      "id": "shortleg-round-ears",
+      "review": "approved",
+      "rgbaSha256": "d41fa50072c4536564818d65c42382b965fba17ce97336bdd7b48756e6c6e8a6"
+    },
+    {
+      "id": "shortleg-round-mane",
+      "review": "approved",
+      "rgbaSha256": "efc9138d9f17cdd9ce2046b72451c88582a95fb0d2e89ff956ce65fe18fca02e"
+    },
+    {
+      "id": "shortleg-round-ears-mane",
+      "review": "approved",
+      "rgbaSha256": "0901ac12deef0823bbec657e249b9bd2d01ecaf7743a84d322c626b2b78f4158"
+    },
+    {
+      "id": "shortleg-round-stack",
+      "review": "approved",
+      "rgbaSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    },
+    {
+      "id": "standard-sleepy-base",
+      "review": "approved",
+      "rgbaSha256": "556b39c1b2448b6a243f343f461d52d81c21935c1077355a8a20b7a6ff704621"
+    },
+    {
+      "id": "shortleg-sleepy-base",
+      "review": "approved",
+      "rgbaSha256": "a730c2f2be05047d2d9ea41f4199727117f46a4f69b2f508a0b9479a168d722f"
+    },
+    {
+      "id": "slender-round-base",
+      "review": "approved",
+      "rgbaSha256": "638ffd978a07995d5029dad25c9316d20973a35819c381bcc09ed828b8eeb644"
+    },
+    {
+      "id": "slender-sleepy-base",
+      "review": "approved",
+      "rgbaSha256": "a16d11e10d083fe231fd904f902d457c47dc091843753eb4d946b9fd3e8b726a"
+    },
+    {
+      "id": "standard-sleepy-ears-mane",
+      "review": "approved",
+      "rgbaSha256": "34df77e1906dc565c7bd829edaca9034c068e7210f7297eb96dc778b66793d28"
+    },
+    {
+      "id": "shortleg-sleepy-horns-flame",
+      "review": "approved",
+      "rgbaSha256": "8907df3732922d25e93b790ce0ecb912d798477acce0e8b77a9f2ebec9749b14"
+    },
+    {
+      "id": "slender-sleepy-stack",
+      "review": "approved",
+      "rgbaSha256": "fd83683e19ee4098a72705fd13bfe7109dbf6428cbaf19db4e3c04e3cf5ad898"
+    }
+  ],
   "browserReplays": [
     {
       "id": "approved-base",
@@ -362,6 +473,132 @@
   ],
   "portableSamples": [
     {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "approved-base",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "approved-horns",
+      "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "approved-flame",
+      "rgbaSha256": "f8ab50c7139c18ec025e4352341bedaba0f8d1c75ad526b6c21e4334f919eec1"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "approved-both",
+      "rgbaSha256": "516bcf19ee4da711bb30df9eb89a695ce53819676553c2880f848f68ad8aaf95"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "standard-base",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "standard-ears",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "standard-mane",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "standard-ears-mane",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "standard-stack",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "shortleg-round-base",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "shortleg-round-ears",
+      "rgbaSha256": "d41fa50072c4536564818d65c42382b965fba17ce97336bdd7b48756e6c6e8a6"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "shortleg-round-mane",
+      "rgbaSha256": "efc9138d9f17cdd9ce2046b72451c88582a95fb0d2e89ff956ce65fe18fca02e"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "shortleg-round-ears-mane",
+      "rgbaSha256": "0901ac12deef0823bbec657e249b9bd2d01ecaf7743a84d322c626b2b78f4158"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "shortleg-round-stack",
+      "rgbaSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "standard-sleepy-base",
+      "rgbaSha256": "556b39c1b2448b6a243f343f461d52d81c21935c1077355a8a20b7a6ff704621"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "shortleg-sleepy-base",
+      "rgbaSha256": "a730c2f2be05047d2d9ea41f4199727117f46a4f69b2f508a0b9479a168d722f"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "slender-round-base",
+      "rgbaSha256": "638ffd978a07995d5029dad25c9316d20973a35819c381bcc09ed828b8eeb644"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "slender-sleepy-base",
+      "rgbaSha256": "a16d11e10d083fe231fd904f902d457c47dc091843753eb4d946b9fd3e8b726a"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "standard-sleepy-ears-mane",
+      "rgbaSha256": "34df77e1906dc565c7bd829edaca9034c068e7210f7297eb96dc778b66793d28"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "shortleg-sleepy-horns-flame",
+      "rgbaSha256": "8907df3732922d25e93b790ce0ecb912d798477acce0e8b77a9f2ebec9749b14"
+    },
+    {
+      "bundle": "v2-approved",
+      "schema": "feline-appearance-v2",
+      "id": "slender-sleepy-stack",
+      "rgbaSha256": "fd83683e19ee4098a72705fd13bfe7109dbf6428cbaf19db4e3c04e3cf5ad898"
+    },
+    {
       "schema": "feline-appearance-v1",
       "id": "approved-base",
       "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e"
@@ -372,9 +609,11 @@
       "rgbaSha256": "fd83683e19ee4098a72705fd13bfe7109dbf6428cbaf19db4e3c04e3cf5ad898"
     }
   ],
+  "approvedSavedAppearanceReload": true,
   "pendingFilter": true,
   "savedAppearanceReload": true,
   "appearanceV2Import": true,
+  "approvedAppearanceV2Import": true,
   "appearanceV1ImportAndReload": true,
   "legacyStorageReplay": true,
   "legacyImportPreservesTraits": true,

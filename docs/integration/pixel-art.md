@@ -6,14 +6,15 @@
 
 | 包 | 美术版本 | 覆盖组合 | 可用于生成 | PNG 图层 | 使用范围 |
 |---|---|---:|---:|---:|---|
-| v2-candidate | 1.2.0-candidate.1 | 21 | 14 | 15 | 14 个 v1 已验收组合迁移为圆眼；7 个体型／眼型组合待美术验收 |
-| approved | 1.1.0 | 14 | 14 | 8 | 当前已验收包：首批 4 个与第二阶段 10 个组合 |
+| v2-approved | 1.2.0 | 21 | 21 | 15 | 当前已验收包；原七个待验收组合已于 2026-09-17 批准 |
+| v2-candidate | 1.2.0-candidate.1 | 21 | 14 | 15 | 14 个 v1 已验收组合迁移为圆眼；7 个体型／眼型组合保留当时 pending 状态 |
+| approved | 1.1.0 | 14 | 14 | 8 | 历史已验收包：首批 4 个与第二阶段 10 个组合 |
 | legacy-approved | 1.0.0 | 4 | 4 | 3 | 保留首批版本，供旧存档回放 |
 | candidate | 1.1.0-candidate.1 | 14 | 4 | 8 | 保留验收前快照及其原有验收状态，供旧存档回放 |
 
-用户明确回复“验收通过”，第二阶段 10 个组合已全部通过，记录见 `docs/qa/flat-source-trial/stage2/approval.json`。当前 14 个组合全部进入生成白名单。覆盖集合是明确列出的组合，不是把资源数相乘后的理论组合数；未覆盖组合仍报错。验收仅提升状态及生成范围，图片、profile 和 RGBA 结果保持不变。历史候选包保留原始字节，当前状态以 1.1.0 为准。
+用户明确回复“验收通过”，第二阶段 10 个组合已全部通过，记录见 `docs/qa/flat-source-trial/stage2/approval.json`。当时 14 个组合全部进入生成白名单。覆盖集合是明确列出的组合，不是把资源数相乘后的理论组合数；未覆盖组合仍报错。验收仅提升状态及生成范围，图片、profile 和 RGBA 结果保持不变。历史候选包保留原始字节，该段记录 1.1.0 的历史验收；当前版本为下述 1.2.0。
 
-v2 候选目录为 `pixel-art-catalog-v2`，revision 为 `3ba990a5dfde65b0b79dabe958c9d3c742a08a30fdb582536b85cde5b11c288d`。其中 14 个迁移条目保持 v1.1.0 的 RGBA 摘要并可生成；7 个新条目仍为 `review: pending`，不在 `generatable`。`1.2.0-candidate.1` 通过技术回放不等于美术验收，只有用户明确通过后才能另行产出 `1.2.0`。
+v2 候选目录为 `pixel-art-catalog-v2`，revision 为 `3ba990a5dfde65b0b79dabe958c9d3c742a08a30fdb582536b85cde5b11c288d`。其中 14 个迁移条目保持 v1.1.0 的 RGBA 摘要并可生成；7 个新条目仍为 `review: pending`，不在 `generatable`。`1.2.0-candidate.1` 保留原审阅快照。2026-09-17 用户明确回复 `ok，通过`，已另行产出 `1.2.0`，revision 为 `5b3a92c67957fda3bfe12f6f598e631e1942cc3303d07775fee4bc33aea3bd36`。审批记录 `docs/qa/flat-source-trial/stage3/approval.json` 精确绑定七个样本及全部来源证据；1.2.0 的 21 个 coverage 均 approved 且进入 generatable，profile、资源、renderer 与所有 RGBA 摘要不变。
 
 ## 分层与数据流
 
@@ -55,6 +56,8 @@ npm run verify:pixel
 npm run dev
 ```
 
+工坊和独立消费端对新用户默认选择 1.2.0。已有 v1／v2-candidate 形象按完整 art identity 恢复，候选存档不会自动升级。
+
 工坊入口：`http://127.0.0.1:4184/pixel`。旧毛绒入口仍为 `/`，浏览器保存键分别管理。
 
 `dist/pixel-art/` 可以整体复制到一个静态站点：
@@ -62,7 +65,10 @@ npm run dev
 ```text
 qmonster-pixel.js         独立浏览器 ESM SDK
 index.html               可直接运行的消费端示例
-approved/catalog.json    当前已验收包 1.1.0
+v2-approved/catalog.json 当前已验收包 1.2.0
+v2-approved/provenance.json 独立晋升 provenance，固定 approval.json
+v2-approved/assets/      15 张去重 PNG
+approved/catalog.json    历史已验收包 1.1.0
 approved/assets/         8 张 PNG
 legacy-approved/catalog.json  首批 1.0.0
 legacy-approved/assets/  3 张 PNG
@@ -125,7 +131,10 @@ Node 或已有纹理解码器可使用底层 `resolvePixelArt`、`composePixelAr
 - `packages/asset-catalog/pixel/v1/provenance.json`：源图／QA 文件摘要与 Nutri 上游代码版本。
 - 验收后增加提升范围与历史目录兼容测试，共 110 项单元测试；浏览器报告另记录历史候选 JSON 的回放检查。
 - `docs/qa/flat-source-trial/stage3/report.json`：3 套体型几何、7 个 pending 候选、2 个圆眼对照、clear／occlusion 检查、14 个 v1 RGBA 回放及输入不变证据。
-- `docs/qa/pixel-body-eye-batch/report.json`：浏览器真实画布回放 v2 21/21、v1 32/32、8 个失败导入保持原画面、2 个异路径消费端样本，以及 v2 形象保存／恢复和 PNG 导出。
+- `docs/qa/pixel-body-eye-batch/report.json`：浏览器真实画布回放 approved v2 21/21、candidate v2 21/21、v1 32/32；8 个失败导入保持原画面；23 个异路径消费端样本（approved 21、candidate 1、v1 1）；两种 v2 身份独立保存／恢复。
 - `packages/asset-catalog/pixel/v2/provenance.json`：候选目录的源文件固定摘要、生产脚本和 Nutri 上游版本。
 
-当前只包含橘白花纹和已列出的组合。7 个新组合仍等待用户美术验收，Nutri 运行时继续关闭。其他花纹、更多眼型和未验证的自由组合继续按小批次补齐。
+- `docs/qa/flat-source-trial/stage3/reproducibility-approved.json`：两次构建全部输出字节相同，历史 candidate 原字节不变；命令 `node scripts/verify-pixel-art-v2-reproducibility.mjs`。
+- `packages/asset-catalog/pixel/v2/provenance.approved.json`：独立批准证据；原 `provenance.json` 始终保留候选身份。
+
+当前只包含橘白花纹和明确列出的 21 个已验收组合，Nutri 运行时继续关闭。其他花纹、更多眼型、profile 完备性、aura 和运行时换色属于后续独立设计，不从本次批准推导自由组合。

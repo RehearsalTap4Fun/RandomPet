@@ -26,8 +26,8 @@ describe('portable pixel renderer', () => {
     }
     expect(Object.fromEntries(Object.entries(layers).map(([id, bytes]) => [id, sha(bytes)]))).toEqual(before)
   })
-  it('replays all twenty-one eye-aware candidate RGBA hashes with the v1 renderer', async () => {
-    const catalog = requirePixelArtCatalogV2(JSON.parse(await readFile(new URL('catalog.candidate.json', v2Root), 'utf8')))
+  it.each(['candidate', 'approved'])('replays all twenty-one eye-aware %s RGBA hashes with the v1 renderer', async name => {
+    const catalog = requirePixelArtCatalogV2(JSON.parse(await readFile(new URL(`catalog.${name}.json`, v2Root), 'utf8')))
     const layers: Record<string, Uint8ClampedArray> = {}
     for (const [id, resource] of Object.entries(catalog.resources)) {
       layers[id] = new Uint8ClampedArray(await sharp(await readFile(new URL(resource.path, v2Root))).ensureAlpha().raw().toBuffer())

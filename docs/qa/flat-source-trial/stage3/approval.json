@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "pixel-art-approval-v2",
+  "userStatement": "ok，通过",
+  "date": "2026-09-17",
+  "scope": "Promote only the seven listed pending body/eye samples to artVersion 1.2.0; retain the fourteen previously approved samples.",
+  "approvedArtVersion": "1.2.0",
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/v2/catalog.candidate.json",
+    "schemaVersion": "pixel-art-catalog-v2",
+    "artVersion": "1.2.0-candidate.1",
+    "revision": "3ba990a5dfde65b0b79dabe958c9d3c742a08a30fdb582536b85cde5b11c288d",
+    "sha256": "94964fcdc7d4bbdcc961c6d2659a269d7b36e6dcc8f5edc2b24f39fb708ed738",
+    "provenancePath": "packages/asset-catalog/pixel/v2/provenance.json",
+    "provenanceSha256": "a0c2f749555124c6091e099e803de1d748e3966a017814c4f62842b8a407b2a5"
+  },
+  "report": {
+    "path": "docs/qa/flat-source-trial/stage3/report.json",
+    "sha256": "fe56022836fd0c3243cbdd0d0b7ffebcf8648f0c06941c727342c6cb9b4aaad8"
+  },
+  "profile": {
+    "path": "docs/art/flat-source-trial/stage3/profiles.json",
+    "sha256": "6bb62db46be2effe03d27ab0ebbf04a527d8080fe3e4a741bbae43e632e88000"
+  },
+  "sourceAssets": {
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png": "ba1e40164ba0a1dd3b9631acfc182cda58b26a6f4b732e9cf8c38585b5a7a252",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png": "6b7fa7244fcaa159a2bcd2a55c14413c1572ed789f22513a3da8aa986e39e6c7",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png": "4f310383fce5cdd6ab9ba37dde7e6120acce3f301f3085b4ad97a228c7207acb"
+  },
+  "samples": [
+    {
+      "id": "standard-sleepy-base",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-sleepy-almond-small-fangs",
+      "rgbaSha256": "556b39c1b2448b6a243f343f461d52d81c21935c1077355a8a20b7a6ff704621"
+    },
+    {
+      "id": "shortleg-sleepy-base",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-sleepy-almond-small-fangs",
+      "rgbaSha256": "a730c2f2be05047d2d9ea41f4199727117f46a4f69b2f508a0b9479a168d722f"
+    },
+    {
+      "id": "slender-round-base",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "slender-tall-round-small-fangs",
+      "rgbaSha256": "638ffd978a07995d5029dad25c9316d20973a35819c381bcc09ed828b8eeb644"
+    },
+    {
+      "id": "slender-sleepy-base",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "slender-tall-sleepy-almond-small-fangs",
+      "rgbaSha256": "a16d11e10d083fe231fd904f902d457c47dc091843753eb4d946b9fd3e8b726a"
+    },
+    {
+      "id": "standard-sleepy-ears-mane",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-sleepy-almond-small-fangs",
+      "rgbaSha256": "34df77e1906dc565c7bd829edaca9034c068e7210f7297eb96dc778b66793d28"
+    },
+    {
+      "id": "shortleg-sleepy-horns-flame",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "shortleg-round-sleepy-almond-small-fangs",
+      "rgbaSha256": "8907df3732922d25e93b790ce0ecb912d798477acce0e8b77a9f2ebec9749b14"
+    },
+    {
+      "id": "slender-sleepy-stack",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "profileId": "slender-tall-sleepy-almond-small-fangs",
+      "rgbaSha256": "fd83683e19ee4098a72705fd13bfe7109dbf6428cbaf19db4e3c04e3cf5ad898"
+    }
+  ],
+  "exclusions": [
+    "unlisted combinations",
+    "new art changes",
+    "Nutri runtime enablement",
+    "aura changes",
+    "recolor changes",
+    "profile-completeness changes"
+  ]
+}

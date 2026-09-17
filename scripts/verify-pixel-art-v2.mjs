@@ -9,6 +9,7 @@ import sharp from 'sharp'
 const root = path.resolve(import.meta.dirname, '..'), qa = path.join(root, 'docs/qa/pixel-body-eye-batch')
 await fs.mkdir(qa, { recursive: true })
 const candidate = JSON.parse(await fs.readFile(path.join(root, 'dist/pixel-art/v2-candidate/catalog.json'), 'utf8'))
+const current = JSON.parse(await fs.readFile(path.join(root, 'dist/pixel-art/v2-approved/catalog.json'), 'utf8'))
 const approved = JSON.parse(await fs.readFile(path.join(root, 'dist/pixel-art/approved/catalog.json'), 'utf8'))
 const sha = bytes => createHash('sha256').update(bytes).digest('hex')
 const errors = [], networkErrors = []
@@ -51,8 +52,11 @@ async function downloadAndCheck(button, size, expectedHash) {
 }
 const report = {
   status: 'running', candidateVersion: candidate.artVersion, candidateRevision: candidate.revision,
-  coverageCount: candidate.coverage.length, generatableCount: candidate.generatable.length,
-  pendingCount: candidate.coverage.filter(c => c.review === 'pending').length,
+  approvedVersion: current.artVersion, approvedRevision: current.revision,
+  coverageCount: current.coverage.length, generatableCount: current.generatable.length,
+  pendingCount: current.coverage.filter(c => c.review === 'pending').length,
+  candidateGeneratableCount: candidate.generatable.length, candidatePendingCount: candidate.coverage.filter(c => c.review === 'pending').length,
+  approvedBrowserReplays: [],
   browserReplays: [], v1Replays: [], downloads: [], negativeImports: [], portableSamples: [],
 }
 const ready = () => page.waitForFunction(() => [...document.querySelectorAll('button')].some(b => b.textContent === '导出 64px PNG' && !b.disabled))
@@ -83,10 +87,26 @@ async function reject(name, input, message) {
   report.negativeImports.push({ name, error, beforeRgbaSha256: before, afterRgbaSha256: after, canvasPreserved: true, statePreserved: true })
 }
 try {
-  assert.equal(report.coverageCount, 21); assert.equal(report.generatableCount, 14); assert.equal(report.pendingCount, 7)
+  assert.equal(report.coverageCount, 21); assert.equal(report.generatableCount, 21); assert.equal(report.pendingCount, 0)
   await page.goto(`${base}/pixel`); await ready()
   const bundle = page.getByRole('combobox', { name: '资源范围' })
-  assert.equal(await bundle.inputValue(), 'approved')
+  assert.equal(await bundle.inputValue(), 'v2-approved')
+  assert.match(await page.locator('.pixel-filter').innerText(), /21 个可生成组合/)
+  assert.equal(await page.locator('[data-review=pending]').count(), 0)
+  for (const sample of current.coverage) {
+    await page.locator(`[data-coverage-id="${sample.id}"]`).click(); await ready()
+    await checkCanvas(sample.rgbaSha256, `approved v2 browser: ${sample.id}`)
+    report.approvedBrowserReplays.push({ id: sample.id, review: sample.review, rgbaSha256: sample.rgbaSha256 })
+  }
+  const approvedSaved = JSON.parse((await state()).saved)
+  assert.equal(approvedSaved.art.artVersion, '1.2.0')
+  assert.equal(approvedSaved.art.revision, current.revision)
+  await fs.writeFile(path.join(qa, 'appearance-v2-approved.json'), JSON.stringify(approvedSaved, null, 2) + '\n')
+  await page.screenshot({ path: path.join(qa, 'pixel-workbench-approved.png'), fullPage: true })
+  await page.reload(); await ready()
+  assert.equal(await bundle.inputValue(), 'v2-approved')
+  await checkCanvas(current.coverage.at(-1).rgbaSha256, 'approved reload')
+  report.approvedSavedAppearanceReload = true
   await bundle.selectOption('v2-candidate'); await ready()
   assert.match(await bundle.locator('option:checked').innerText(), /候选包 1.2.0 · 21 个组合/)
   assert.match(await page.locator('.pixel-filter').innerText(), /14 个可生成组合/)
@@ -123,6 +143,11 @@ try {
   await apply(saved); await ready()
   await checkCanvas(stack.rgbaSha256, 'v2 explicit import')
   report.appearanceV2Import = true
+  assert.equal(await bundle.inputValue(), 'v2-candidate')
+  await apply(approvedSaved); await ready()
+  assert.equal(await bundle.inputValue(), 'v2-approved')
+  await checkCanvas(stack.rgbaSha256, 'approved explicit import')
+  report.approvedAppearanceV2Import = true
   await reject('wrong revision', { ...saved, art: { ...saved.art, revision: '0'.repeat(64) } }, /revision/)
   await reject('unsupported eyes', { ...saved, phenotype: { ...saved.phenotype, eyes: 'wide-open' } }, /Unsupported/)
   await reject('unsupported exact combination', { ...saved, phenotype: { ...saved.phenotype, expression: 'parted-mouth' } }, /Unsupported/)
@@ -177,6 +202,17 @@ try {
 
   await page.goto(`${base}/relocated/index.html`)
   await page.waitForFunction(() => !document.querySelector('#save').disabled)
+  assert.equal(await page.locator('#bundle').inputValue(), 'v2-approved')
+  assert.match(await page.locator('#status').innerText(), /21 个可生成组合/)
+  for (const sample of current.coverage) {
+    await page.selectOption('#sample', sample.id)
+    await checkCanvas(sample.rgbaSha256, `portable approved: ${sample.id}`, '#cat')
+    report.portableSamples.push({ bundle: 'v2-approved', schema: 'feline-appearance-v2', id: sample.id, rgbaSha256: sample.rgbaSha256 })
+  }
+  assert.deepEqual(JSON.parse(await page.locator('#appearance').innerText()), approvedSaved)
+  await page.screenshot({ path: path.join(qa, 'portable-consumer-approved.png'), fullPage: true })
+  await page.selectOption('#bundle', 'approved')
+  await page.waitForFunction(() => !document.querySelector('#save').disabled && document.querySelectorAll('#sample option').length === 14)
   await checkCanvas(first.rgbaSha256, 'portable v1', '#cat')
   assert.equal(JSON.parse(await page.locator('#appearance').innerText()).schemaVersion, 'feline-appearance-v1')
   report.portableSamples.push({ schema: 'feline-appearance-v1', id: first.id, rgbaSha256: first.rgbaSha256 })
@@ -210,5 +246,5 @@ try {
   report.pageErrors = errors; report.networkErrors = networkErrors
   await fs.writeFile(path.join(qa, 'report.json'), JSON.stringify(report, null, 2) + '\n')
   await browser.close(); await new Promise(resolve => server.close(resolve))
-  console.log(JSON.stringify({ status: report.status, v2Replays: report.browserReplays.length, v1Replays: report.v1Replays.length, negativeImports: report.negativeImports.length, portableSamples: report.portableSamples.length }))
+  console.log(JSON.stringify({ status: report.status, approvedV2Replays: report.approvedBrowserReplays.length, candidateV2Replays: report.browserReplays.length, v1Replays: report.v1Replays.length, negativeImports: report.negativeImports.length, portableSamples: report.portableSamples.length }))
 }

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "pixel-art-provenance-v2",
+  "upstream": {
+    "v1": {
+      "path": "packages/asset-catalog/pixel/v1/catalog.approved.json",
+      "artVersion": "1.1.0",
+      "revision": "5d2b92c990ef571d71ee5820e76eb99880988bc57e70d581542e7fd593bceff4",
+      "sha256": "694b9c7ce955c17b5ca48bd4ca4db0f6c555e1b31b01e80fab9e0bfa47588515"
+    },
+    "stage3": {
+      "reportPath": "docs/qa/flat-source-trial/stage3/report.json",
+      "reportSha256": "fe56022836fd0c3243cbdd0d0b7ffebcf8648f0c06941c727342c6cb9b4aaad8",
+      "nutriCommit": "385bdfae615547c509da331efeeaacd96f94e463",
+      "nutriSourceHashes": {
+        "scripts/pixelCat.ts": "beca70ffb4c18b8d2f62bfc53593da7727537abaf8c52da3a365b4105c64aedd",
+        "src/core/pixelize.ts": "9ef5a12a635654da66fe8620a7fa1ce71b7d2010eb5d6063feb1652e0926dc12",
+        "src/core/pixelcat.ts": "751404a95bdc39864ceb4ba00ce9123f09802b40532e5b980ed8097ced2fb65a",
+        "src/core/rng.ts": "842df598a90150dabb061cf6c5ca372f5a952057f3bfe649b8eda402b48bc11a",
+        "src/assets/pixelcat/manifest.json": "9192cd58fa289aad571e02efe1349cec9064908f3e789c7796b95bbc36a720d2"
+      },
+      "profilePath": "docs/art/flat-source-trial/stage3/profiles.json",
+      "profileSha256": "6bb62db46be2effe03d27ab0ebbf04a527d8080fe3e4a741bbae43e632e88000",
+      "reviewScriptPath": "scripts/review-pixel-stage3.mjs",
+      "reviewScriptSha256": "68a6fb469317dc46d4ebe5c3a42d1e4073faf73c6f5710badafea656a7a99e8a"
+    }
+  },
+  "files": {
+    "packages/asset-catalog/pixel/v1/catalog.approved.json": "694b9c7ce955c17b5ca48bd4ca4db0f6c555e1b31b01e80fab9e0bfa47588515",
+    "docs/qa/flat-source-trial/stage3/report.json": "fe56022836fd0c3243cbdd0d0b7ffebcf8648f0c06941c727342c6cb9b4aaad8",
+    "docs/art/flat-source-trial/stage3/profiles.json": "6bb62db46be2effe03d27ab0ebbf04a527d8080fe3e4a741bbae43e632e88000",
+    "scripts/review-pixel-stage3.mjs": "68a6fb469317dc46d4ebe5c3a42d1e4073faf73c6f5710badafea656a7a99e8a",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-shortleg-round.png": "ba1e40164ba0a1dd3b9631acfc182cda58b26a6f4b732e9cf8c38585b5a7a252",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png": "6b7fa7244fcaa159a2bcd2a55c14413c1572ed789f22513a3da8aa986e39e6c7",
+    "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png": "4f310383fce5cdd6ab9ba37dde7e6120acce3f301f3085b4ad97a228c7207acb",
+    "docs/art/flat-source-trial/stage3/generation.json": "63f0db9400398c0bb03bad466b4a2440fbdf31fe6f1f3a5c754aae2706c42864",
+    "docs/art/flat-source-trial/stage3/revisions.json": "7668ffeb8e55770649efc793a169f216183c64e065451a859d6913be1255275c",
+    "packages/asset-catalog/pixel/v1/assets/layer-c68b7f3b61d5650f.png": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+    "packages/asset-catalog/pixel/v1/assets/layer-892032f0a47bbdf4.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "packages/asset-catalog/pixel/v1/assets/layer-bd1ab44533f33a3a.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "packages/asset-catalog/pixel/v1/assets/layer-fec0335aee4cb501.png": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+    "packages/asset-catalog/pixel/v1/assets/layer-6d8134b5c93d11f7.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "packages/asset-catalog/pixel/v1/assets/layer-0dc4c49bf437b30a.png": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+    "packages/asset-catalog/pixel/v1/assets/layer-99a3492a4188b39e.png": "99a3492a4188b39e905c1fa87343541006eefa9b041cb41834d8147387917db6",
+    "packages/asset-catalog/pixel/v1/assets/layer-4441d1f37a59c04b.png": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+    "docs/qa/flat-source-trial/stage2/report.json": "72a32ff5e299949ffb6433118686a3b28a8b45c4b4907b318dcf28da1a2062ee",
+    "docs/art/flat-source-trial/stage2/profiles.json": "bccaf5b4c671b69bd75387131065642fc224b3d14019ff86ed43ffe2f7589999",
+    "docs/qa/flat-source-trial/stage2/layers/standard/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-fin-ears.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-lion-mane.png": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+    "docs/qa/flat-source-trial/stage2/layers/standard/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/orange-white-fin-ears.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/orange-white-small-lion-mane.png": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+    "docs/qa/flat-source-trial/stage2/layers/shortleg-round/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/art/flat-source-trial/stage2/solid/orange-white-fin-ears.png": "a70a6f4331824991047307019c0f58235c316e7b3c053ef898e1d44a93294733",
+    "docs/art/flat-source-trial/stage2/solid/orange-white-small-lion-mane.png": "d36c28c094e6d51f754d906f9570a5e838d9803490e4649071f0cbf6990e0579",
+    "docs/qa/flat-source-trial/stage3/layers/standard/orange-white-sleepy-almond-small-fangs-standard.png": "deeba5734233692e03a377eddcbd8cc20a299283eb3df17df059327a0896cc58",
+    "docs/qa/flat-source-trial/stage3/layers/standard/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage3/layers/standard/orange-white-fin-ears.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "docs/qa/flat-source-trial/stage3/layers/standard/orange-white-small-lion-mane.png": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+    "docs/qa/flat-source-trial/stage3/layers/standard/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/qa/flat-source-trial/stage3/layers/shortleg-round/orange-white-sleepy-almond-small-fangs-shortleg-round.png": "eed43e314ab2e856c0bdf39afd1fa09f6e7e08eeb844d6fb5770bdf8df18c017",
+    "docs/qa/flat-source-trial/stage3/layers/shortleg-round/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage3/layers/shortleg-round/orange-white-fin-ears.png": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+    "docs/qa/flat-source-trial/stage3/layers/shortleg-round/orange-white-small-lion-mane.png": "4441d1f37a59c04b8db5d47e4521faa1a15a33848d69a7da897e3ebd1e6c24f2",
+    "docs/qa/flat-source-trial/stage3/layers/shortleg-round/flame-tail.png": "bd1ab44533f33a3adf1ad827305b5d566f8490af2c339f87bca60de605568ea1",
+    "docs/qa/flat-source-trial/stage3/layers/slender-tall/orange-white-round-small-fangs-slender-tall.png": "3ea7d5f9d24e6ed2a0bb507f84a315c4509f51ce2b08d331ad898220f5cfaaef",
+    "docs/qa/flat-source-trial/stage3/layers/slender-tall/orange-white-sleepy-almond-small-fangs-slender-tall.png": "189e6d6ebb01e538e996b3e695cb00fd567d21a8c3420c0435d501c923190c6e",
+    "docs/qa/flat-source-trial/stage3/layers/slender-tall/dragon-horns.png": "892032f0a47bbdf4117a2204c725133df3ed86f3bdbfae7db9ca475261a63c77",
+    "docs/qa/flat-source-trial/stage3/layers/slender-tall/orange-white-fin-ears.png": "ad5eaf902a730023480515e60ac75138b31c7e6674884c5cc6c3f079985a3a16",
+    "docs/qa/flat-source-trial/stage3/layers/slender-tall/orange-white-small-lion-mane.png": "cede70e77fa121d1776b0eaa7f96a1a3f7501a823b5704d89e9a0b6afe134e08",
+    "docs/qa/flat-source-trial/stage3/layers/slender-tall/flame-tail.png": "f43b645bd12e6f688287cce8f0293f83e149c3e9ba67855cee5f0cfe0f9a32b3",
+    "docs/qa/flat-source-trial/stage3/approval.json": "6a43052dcd8daffc7c745f079cbbcbf2162e02b8dbfcf1d2ff52d5f50c4a0fd4"
+  },
+  "approval": {
+    "path": "docs/qa/flat-source-trial/stage3/approval.json",
+    "sha256": "6a43052dcd8daffc7c745f079cbbcbf2162e02b8dbfcf1d2ff52d5f50c4a0fd4",
+    "candidate": {
+      "path": "packages/asset-catalog/pixel/v2/catalog.candidate.json",
+      "schemaVersion": "pixel-art-catalog-v2",
+      "artVersion": "1.2.0-candidate.1",
+      "revision": "3ba990a5dfde65b0b79dabe958c9d3c742a08a30fdb582536b85cde5b11c288d",
+      "sha256": "94964fcdc7d4bbdcc961c6d2659a269d7b36e6dcc8f5edc2b24f39fb708ed738",
+      "provenancePath": "packages/asset-catalog/pixel/v2/provenance.json",
+      "provenanceSha256": "a0c2f749555124c6091e099e803de1d748e3966a017814c4f62842b8a407b2a5"
+    }
+  }
+}

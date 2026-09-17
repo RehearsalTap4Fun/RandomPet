@@ -54,7 +54,9 @@ try {
   await page.goto(`${base}/pixel`)
   await page.getByRole('button', { name: '导出 64px PNG', exact: true }).waitFor()
   await page.waitForFunction(() => ![...document.querySelectorAll('button')].find(b => b.textContent === '导出 64px PNG')?.disabled)
-  assert.equal(await page.getByRole('combobox', { name: '资源范围' }).inputValue(), 'approved')
+  assert.equal(await page.getByRole('combobox', { name: '资源范围' }).inputValue(), 'v2-approved')
+  await page.getByRole('combobox', { name: '资源范围' }).selectOption('approved')
+  await page.waitForFunction(() => ![...document.querySelectorAll('button')].find(b => b.textContent === '导出 64px PNG')?.disabled)
   assert.equal(approved.generatable.length, 14)
   for (const sample of approved.coverage) {
     await page.getByRole('button', { name: `${sample.label} ${sample.review === 'approved' ? '已验收' : '待验收'}`, exact: true }).click()
