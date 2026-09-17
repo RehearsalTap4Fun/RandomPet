@@ -806,3 +806,39 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 
 - 请先复核 7 张最终像素层与 `approval.json` 摘要，不要恢复任何已淘汰的鹿角或翅膀中间稿。
 - 下一步单独设计 7 个 profile × 288 状态的登记、生成与抽样验收方案；美术通过不等于允许跳过精确 coverage 或直接开启运行时。
+
+### 2026-09-17 晚（四）· v3 全量登记候选与尾巴统一锚点
+
+**QMonster 已完成 7 个 profile × 288 状态的 v3 登记候选，并按用户最终决定将所有独立尾巴的非透明左边界统一为 `x=40`。用户查看标准、短腿、细长三种体型分别搭配火焰尾／分叉尾的六格页面后回复「这样看就没什么问题了」。Nutri 运行时继续关闭。**
+
+实现提交：QMonster `e92f49a`，基于双方同步的 `8ee9deb`。提交前 `git fetch origin` 显示本地与 `origin/master` 均为 `8ee9deb`，领先／落后均为 0。
+
+#### 候选身份与契约
+
+- schema：`pixel-art-catalog-v3`；artVersion：`1.3.0-candidate.1`；renderer：`pixel-rgba-v1`。
+- package：`packages/asset-catalog/pixel/v3/parts-coverage-1.3.0/`。
+- revision：`e2e18cb39bcbcb53aabb714289f19669bbae616188fb240e246487b186be5796`。
+- catalog SHA-256：`ff55650dba997817d349e7c6da82bcf8cd8155b214c81a9c24fd6d2ef799841e`；provenance SHA-256：`3f8cf3fbed84b2a47ab7d12227fc875b74ce28090cff10c67b4d0e3e4ee03382`。
+- 7 profile × 288 = 2,016 条精确 coverage，22 张资源。当前 20 条保持 approved／generatable，1,996 条 pending。
+- v3 只增加单个性状对槽位渲染层级的覆盖能力，用于让 `small-lion-mane` 保持主体前层、`frill-neck` 使用主体后层；没有改变 renderer 合成语义。
+
+#### 尾巴锚点调整
+
+- 分叉尾资源整体左移 4 像素，非透明 bbox 从 `[44, 20, 61, 57]` 变为 `[40, 20, 57, 57]`；新 PNG SHA-256 为 `28f0a9fba22b4bae35ebf8c2ca1693d183fe5138f1d5b67e5756a0fa7f45ee1b`。
+- v3 的所有 profile 均改用左边界为 `x=40` 的已发布火焰尾资源。v1/v2 发布包和历史资源字节不变。
+- 构建器现在以 `x=40` 校验所有新增 `tailTip` 图层；未来尾巴偏离该锚点会立即失败。
+- 因标准／短腿体型的火焰尾输出发生位置变化，12 条原 v2 approved coverage 在 v3 中精确降为 pending；细长体型火焰尾及其他未变化组合继续保持 approved。没有用旧 RGBA 哈希冒充新输出。
+- 七图审批文件随注册决定更新，SHA-256 为 `fefb863ef0678b0eca17fe7ca614ae3987673fcdca9959914bdfde430eedf6e3`。
+
+#### QA 与验证
+
+- 独立尾巴图层对比：`docs/qa/pixel-tail-layers/index.html`。
+- 三体型 × 两尾巴六格验收：`docs/qa/pixel-tail-body-comparison/index.html`；6/6 资源锚点均为 `x=40`。
+- 34 格部件抽样与完整登记回放：`docs/qa/pixel-parts-coverage/index.html`；2,016/2,016 RGBA 回放通过。
+- 全量测试 134/134、`npm run typecheck`、`npm run build:pixel`、`git diff --check` 通过。
+
+#### 请 Claude 后续注意
+
+- 该包仍是 candidate，运行时不得开启；不要把 1,996 条 pending 当作已批准生成集合。
+- 若要在 Nutri 做跨仓回放，请严格区分 `pixel-art-catalog-v3` 与 v1/v2，并报告 revision、22 张 PNG、2,016 条 coverage 的通过数／失败 ID。v3 适配与运行时启用仍需另行决定。
+- 后续新增尾巴统一使用 `x=40` 左边界；不要恢复标准／短腿的历史 `x=44` 注册位置，也不要恢复已撤销的“细长后腿覆盖层”试验。
