@@ -11,6 +11,7 @@ import candidateInput from '../../../packages/asset-catalog/pixel/v1/catalog.can
 import legacyApprovedInput from '../../../packages/asset-catalog/pixel/v1/catalog.legacy-approved.json'
 import v2CandidateInput from '../../../packages/asset-catalog/pixel/v2/catalog.candidate.json'
 import v2ApprovedInput from '../../../packages/asset-catalog/pixel/v2/catalog.approved.json'
+import coverageInput from '../../../packages/asset-catalog/pixel/v2/coverage-standard-small-fangs-round/catalog.candidate.json'
 import './pixel-workbench.css'
 
 type WorkbenchCoverage = { id: string; label: string; review: 'approved' | 'pending'; body: string; eyes: string }
@@ -79,7 +80,7 @@ function v2Bundle(input: unknown): WorkbenchBundle {
     key: id => pixelArtKeyV2(entry(id).phenotype, catalog),
   }
 }
-const bundles = { approved: v1Bundle(approvedInput), candidate: v1Bundle(candidateInput), 'legacy-approved': v1Bundle(legacyApprovedInput), 'v2-candidate': v2Bundle(v2CandidateInput), 'v2-approved': v2Bundle(v2ApprovedInput) }
+const bundles = { approved: v1Bundle(approvedInput), candidate: v1Bundle(candidateInput), 'legacy-approved': v1Bundle(legacyApprovedInput), 'v2-candidate': v2Bundle(v2CandidateInput), 'v2-approved': v2Bundle(v2ApprovedInput), 'v2-coverage-standard-small-fangs-round': v2Bundle(coverageInput) }
 type BundleName = keyof typeof bundles
 const bundleNames = Object.keys(bundles) as BundleName[]
 const bodyLabels: Record<string, string> = { standard: '标准体型', 'shortleg-round': '短腿圆身', 'slender-tall': '修长高挑' }
@@ -179,9 +180,10 @@ export function PixelWorkbench() {
         {(loadError) && <p role="alert" className="feline-error">{loadError}</p>}
       </section>
       <section className="feline-controls" aria-label="像素组合选择">
-        <label className="pixel-bundle">资源范围<select aria-label="资源范围" value={bundleName} onChange={e => { const name = e.target.value as BundleName; persist(bundles[name].coverage.some(c => c.id === selection) ? selection : bundles[name].coverage[0]!.id, name) }}><option value="v2-approved">已验收包 1.2.0 · {bundles['v2-approved'].coverage.length} 个组合</option><option value="approved">历史已验收包 1.1.0 · {bundles.approved.coverage.length} 个组合</option><option value="legacy-approved">历史首批 1.0.0 · {bundles['legacy-approved'].coverage.length} 个组合</option><option value="candidate">历史候选快照 · {bundles.candidate.coverage.length} 个组合</option><option value="v2-candidate">候选包 1.2.0 · {bundles['v2-candidate'].coverage.length} 个组合</option></select></label>
+        <label className="pixel-bundle">资源范围<select aria-label="资源范围" value={bundleName} onChange={e => { const name = e.target.value as BundleName; persist(bundles[name].coverage.some(c => c.id === selection) ? selection : bundles[name].coverage[0]!.id, name) }}><option value="v2-approved">已验收包 1.2.0 · {bundles['v2-approved'].coverage.length} 个组合</option><option value="v2-coverage-standard-small-fangs-round">覆盖候选 1.2.1 · 32 个组合（11 个待验收）</option><option value="approved">历史已验收包 1.1.0 · {bundles.approved.coverage.length} 个组合</option><option value="legacy-approved">历史首批 1.0.0 · {bundles['legacy-approved'].coverage.length} 个组合</option><option value="candidate">历史候选快照 · {bundles.candidate.coverage.length} 个组合</option><option value="v2-candidate">候选包 1.2.0 · {bundles['v2-candidate'].coverage.length} 个组合</option></select></label>
+        {bundleName === 'v2-coverage-standard-small-fangs-round' && <p className="pixel-candidate-note">{bundle.artVersion} · 标准圆眼小尖牙新增 11 个待验收组合；21 个已验收组合可生成。</p>}
         {bundleName === 'v2-candidate' && <p className="pixel-candidate-note">历史版本 {bundle.artVersion} · 保留当时 7 个待验收组合；当前验收结果请切换至 1.2.0。</p>}
-        {bundleName !== 'v2-approved' && bundleName !== 'v2-candidate' && <p className="feline-preview-note">正在还原历史版本及当时的验收状态。当前 1.2.0 已通过全部 21 个组合，可在上方切换。</p>}
+        {bundleName !== 'v2-approved' && bundleName !== 'v2-candidate' && bundleName !== 'v2-coverage-standard-small-fangs-round' && <p className="feline-preview-note">正在还原历史版本及当时的验收状态。当前 1.2.0 已通过全部 21 个组合，可在上方切换。</p>}
         <div className="pixel-filter"><label><input type="checkbox" checked={onlyApproved} onChange={e => setOnlyApproved(e.target.checked)} />仅显示已验收</label><span>{bundle.generatableCount} 个可生成组合</span></div>
         <div className="pixel-samples" role="group" aria-label="组合样例">{bundle.coverage.filter(c => !onlyApproved || c.review === 'approved').map(c => <button key={c.id} data-coverage-id={c.id} data-review={c.review} aria-pressed={selection === c.id} onClick={() => persist(c.id)}><strong>{c.label}</strong><small>{c.review === 'approved' ? '已验收' : '待验收'}</small></button>)}</div>
         <details className="feline-spec-tools"><summary>恢复形象 / 导入旧规格</summary><p>粘贴形象 JSON 或旧毛绒规格。保留已确定的性状；当前资源未覆盖的组合会提示原因。</p><textarea aria-label="导入形象 JSON" rows={7} value={importText} onChange={e => setImportText(e.target.value)} spellCheck={false}/><button onClick={importAppearance}>应用形象</button></details>

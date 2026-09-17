@@ -1,0 +1,310 @@
+{
+  "schemaVersion": "pixel-coverage-browser-qa-v1",
+  "status": "passed",
+  "artVersion": "1.2.1-candidate.1",
+  "revision": "98db61376007d0fa62932ab0626c0b93ebcd29221e6f63182db31ca87efacc4c",
+  "workbench": [
+    {
+      "id": "approved-base",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e",
+      "review": "approved"
+    },
+    {
+      "id": "approved-horns",
+      "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f",
+      "review": "approved"
+    },
+    {
+      "id": "approved-flame",
+      "rgbaSha256": "f8ab50c7139c18ec025e4352341bedaba0f8d1c75ad526b6c21e4334f919eec1",
+      "review": "approved"
+    },
+    {
+      "id": "approved-both",
+      "rgbaSha256": "516bcf19ee4da711bb30df9eb89a695ce53819676553c2880f848f68ad8aaf95",
+      "review": "approved"
+    },
+    {
+      "id": "standard-base",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba",
+      "review": "approved"
+    },
+    {
+      "id": "standard-ears",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97",
+      "review": "approved"
+    },
+    {
+      "id": "standard-mane",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7",
+      "review": "approved"
+    },
+    {
+      "id": "standard-ears-mane",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b",
+      "review": "approved"
+    },
+    {
+      "id": "standard-stack",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a",
+      "review": "approved"
+    },
+    {
+      "id": "shortleg-round-base",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41",
+      "review": "approved"
+    },
+    {
+      "id": "shortleg-round-ears",
+      "rgbaSha256": "d41fa50072c4536564818d65c42382b965fba17ce97336bdd7b48756e6c6e8a6",
+      "review": "approved"
+    },
+    {
+      "id": "shortleg-round-mane",
+      "rgbaSha256": "efc9138d9f17cdd9ce2046b72451c88582a95fb0d2e89ff956ce65fe18fca02e",
+      "review": "approved"
+    },
+    {
+      "id": "shortleg-round-ears-mane",
+      "rgbaSha256": "0901ac12deef0823bbec657e249b9bd2d01ecaf7743a84d322c626b2b78f4158",
+      "review": "approved"
+    },
+    {
+      "id": "shortleg-round-stack",
+      "rgbaSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2",
+      "review": "approved"
+    },
+    {
+      "id": "standard-sleepy-base",
+      "rgbaSha256": "556b39c1b2448b6a243f343f461d52d81c21935c1077355a8a20b7a6ff704621",
+      "review": "approved"
+    },
+    {
+      "id": "shortleg-sleepy-base",
+      "rgbaSha256": "a730c2f2be05047d2d9ea41f4199727117f46a4f69b2f508a0b9479a168d722f",
+      "review": "approved"
+    },
+    {
+      "id": "slender-round-base",
+      "rgbaSha256": "638ffd978a07995d5029dad25c9316d20973a35819c381bcc09ed828b8eeb644",
+      "review": "approved"
+    },
+    {
+      "id": "slender-sleepy-base",
+      "rgbaSha256": "a16d11e10d083fe231fd904f902d457c47dc091843753eb4d946b9fd3e8b726a",
+      "review": "approved"
+    },
+    {
+      "id": "standard-sleepy-ears-mane",
+      "rgbaSha256": "34df77e1906dc565c7bd829edaca9034c068e7210f7297eb96dc778b66793d28",
+      "review": "approved"
+    },
+    {
+      "id": "shortleg-sleepy-horns-flame",
+      "rgbaSha256": "8907df3732922d25e93b790ce0ecb912d798477acce0e8b77a9f2ebec9749b14",
+      "review": "approved"
+    },
+    {
+      "id": "slender-sleepy-stack",
+      "rgbaSha256": "fd83683e19ee4098a72705fd13bfe7109dbf6428cbaf19db4e3c04e3cf5ad898",
+      "review": "approved"
+    },
+    {
+      "id": "standard-horns",
+      "rgbaSha256": "aefa76d759fb9cdd046c5f93057f2e6daa7610e8b06cd9c4adca061da73ccdd2",
+      "review": "pending"
+    },
+    {
+      "id": "standard-flame",
+      "rgbaSha256": "462f36b892209b5fd5461c54e70233f089f65393132f84d98502ac9aed326255",
+      "review": "pending"
+    },
+    {
+      "id": "standard-horns-flame",
+      "rgbaSha256": "6a6d8729dc38c10d2dd0adb3ad108eccd215c28bfc4a42dcaa06784fedffb9d0",
+      "review": "pending"
+    },
+    {
+      "id": "standard-horns-ears",
+      "rgbaSha256": "38c5d8d31e88136584320618b08a1e7cabb61e0a3a4ace0c9b9f34bf3f0f466f",
+      "review": "pending"
+    },
+    {
+      "id": "standard-horns-mane",
+      "rgbaSha256": "17ba988cab38dd9baa4e37d43b3ee38b2c99ee84fce55e22bf32957f410e9217",
+      "review": "pending"
+    },
+    {
+      "id": "standard-ears-flame",
+      "rgbaSha256": "0fbaa78a69448968dc717e5f1b02c412de09b515f07c9bebd15325b1a5562987",
+      "review": "pending"
+    },
+    {
+      "id": "standard-mane-flame",
+      "rgbaSha256": "5dbf82f04d358a8d10a0334289074932ad7f6348fc6f6ea80e7c46ae84aea0af",
+      "review": "pending"
+    },
+    {
+      "id": "standard-horns-ears-mane",
+      "rgbaSha256": "2d251652d9d8ced50a32c1215aeda2f0a765bf42245fb7b47396f2c8e3803e11",
+      "review": "pending"
+    },
+    {
+      "id": "standard-horns-ears-flame",
+      "rgbaSha256": "5cb829ac9cf758cf347fc20afec84d3e8afc2f16f8333df87c65bf56c7b95874",
+      "review": "pending"
+    },
+    {
+      "id": "standard-horns-mane-flame",
+      "rgbaSha256": "394b63d063b0025dd4c90ffd533cef8b19eb0e573f14bef7ddbb914f6f16df4a",
+      "review": "pending"
+    },
+    {
+      "id": "standard-ears-mane-flame",
+      "rgbaSha256": "ca55c85f5aa57167a3d1f13e5e44bce90794959071c2f5f3e35d49fd3a9b0b23",
+      "review": "pending"
+    }
+  ],
+  "portable": [
+    {
+      "id": "approved-base",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e"
+    },
+    {
+      "id": "approved-horns",
+      "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f"
+    },
+    {
+      "id": "approved-flame",
+      "rgbaSha256": "f8ab50c7139c18ec025e4352341bedaba0f8d1c75ad526b6c21e4334f919eec1"
+    },
+    {
+      "id": "approved-both",
+      "rgbaSha256": "516bcf19ee4da711bb30df9eb89a695ce53819676553c2880f848f68ad8aaf95"
+    },
+    {
+      "id": "standard-base",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba"
+    },
+    {
+      "id": "standard-ears",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97"
+    },
+    {
+      "id": "standard-mane",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7"
+    },
+    {
+      "id": "standard-ears-mane",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b"
+    },
+    {
+      "id": "standard-stack",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a"
+    },
+    {
+      "id": "shortleg-round-base",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41"
+    },
+    {
+      "id": "shortleg-round-ears",
+      "rgbaSha256": "d41fa50072c4536564818d65c42382b965fba17ce97336bdd7b48756e6c6e8a6"
+    },
+    {
+      "id": "shortleg-round-mane",
+      "rgbaSha256": "efc9138d9f17cdd9ce2046b72451c88582a95fb0d2e89ff956ce65fe18fca02e"
+    },
+    {
+      "id": "shortleg-round-ears-mane",
+      "rgbaSha256": "0901ac12deef0823bbec657e249b9bd2d01ecaf7743a84d322c626b2b78f4158"
+    },
+    {
+      "id": "shortleg-round-stack",
+      "rgbaSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    },
+    {
+      "id": "standard-sleepy-base",
+      "rgbaSha256": "556b39c1b2448b6a243f343f461d52d81c21935c1077355a8a20b7a6ff704621"
+    },
+    {
+      "id": "shortleg-sleepy-base",
+      "rgbaSha256": "a730c2f2be05047d2d9ea41f4199727117f46a4f69b2f508a0b9479a168d722f"
+    },
+    {
+      "id": "slender-round-base",
+      "rgbaSha256": "638ffd978a07995d5029dad25c9316d20973a35819c381bcc09ed828b8eeb644"
+    },
+    {
+      "id": "slender-sleepy-base",
+      "rgbaSha256": "a16d11e10d083fe231fd904f902d457c47dc091843753eb4d946b9fd3e8b726a"
+    },
+    {
+      "id": "standard-sleepy-ears-mane",
+      "rgbaSha256": "34df77e1906dc565c7bd829edaca9034c068e7210f7297eb96dc778b66793d28"
+    },
+    {
+      "id": "shortleg-sleepy-horns-flame",
+      "rgbaSha256": "8907df3732922d25e93b790ce0ecb912d798477acce0e8b77a9f2ebec9749b14"
+    },
+    {
+      "id": "slender-sleepy-stack",
+      "rgbaSha256": "fd83683e19ee4098a72705fd13bfe7109dbf6428cbaf19db4e3c04e3cf5ad898"
+    },
+    {
+      "id": "standard-horns",
+      "rgbaSha256": "aefa76d759fb9cdd046c5f93057f2e6daa7610e8b06cd9c4adca061da73ccdd2"
+    },
+    {
+      "id": "standard-flame",
+      "rgbaSha256": "462f36b892209b5fd5461c54e70233f089f65393132f84d98502ac9aed326255"
+    },
+    {
+      "id": "standard-horns-flame",
+      "rgbaSha256": "6a6d8729dc38c10d2dd0adb3ad108eccd215c28bfc4a42dcaa06784fedffb9d0"
+    },
+    {
+      "id": "standard-horns-ears",
+      "rgbaSha256": "38c5d8d31e88136584320618b08a1e7cabb61e0a3a4ace0c9b9f34bf3f0f466f"
+    },
+    {
+      "id": "standard-horns-mane",
+      "rgbaSha256": "17ba988cab38dd9baa4e37d43b3ee38b2c99ee84fce55e22bf32957f410e9217"
+    },
+    {
+      "id": "standard-ears-flame",
+      "rgbaSha256": "0fbaa78a69448968dc717e5f1b02c412de09b515f07c9bebd15325b1a5562987"
+    },
+    {
+      "id": "standard-mane-flame",
+      "rgbaSha256": "5dbf82f04d358a8d10a0334289074932ad7f6348fc6f6ea80e7c46ae84aea0af"
+    },
+    {
+      "id": "standard-horns-ears-mane",
+      "rgbaSha256": "2d251652d9d8ced50a32c1215aeda2f0a765bf42245fb7b47396f2c8e3803e11"
+    },
+    {
+      "id": "standard-horns-ears-flame",
+      "rgbaSha256": "5cb829ac9cf758cf347fc20afec84d3e8afc2f16f8333df87c65bf56c7b95874"
+    },
+    {
+      "id": "standard-horns-mane-flame",
+      "rgbaSha256": "394b63d063b0025dd4c90ffd533cef8b19eb0e573f14bef7ddbb914f6f16df4a"
+    },
+    {
+      "id": "standard-ears-mane-flame",
+      "rgbaSha256": "ca55c85f5aa57167a3d1f13e5e44bce90794959071c2f5f3e35d49fd3a9b0b23"
+    }
+  ],
+  "raceChecks": [
+    "delayed PNG completions preserve latest approved selection and storage; export disabled while pending"
+  ],
+  "pageErrors": [],
+  "networkErrors": [],
+  "defaultApproved": true,
+  "importAndReload": true,
+  "approvedFilterCount": 21,
+  "galleryCells": 16,
+  "galleryImages": 96,
+  "verifierSha256": "4dbd2b667434cba64f081c05f9e5ad24a09d05b16c60d41896046dff82b5e60c",
+  "browserVersion": "151.0.7922.34"
+}

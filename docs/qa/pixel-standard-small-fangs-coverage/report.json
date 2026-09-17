@@ -1,0 +1,504 @@
+{
+  "schemaVersion": "pixel-coverage-qa-v1",
+  "status": "technical-replay-passed-art-review-pending",
+  "runtimeEnabled": false,
+  "catalog": {
+    "path": "packages/asset-catalog/pixel/v2/coverage-standard-small-fangs-round/catalog.candidate.json",
+    "sha256": "528c240b6c4595c5fba902c11c147a550fbd208a6d18400189bd4250e2ae6538",
+    "artVersion": "1.2.1-candidate.1",
+    "revision": "98db61376007d0fa62932ab0626c0b93ebcd29221e6f63182db31ca87efacc4c"
+  },
+  "rendererVersion": "pixel-rgba-v1",
+  "profileId": "standard-small-fangs-round",
+  "binaryOrder": [
+    "crown",
+    "ears",
+    "neck",
+    "tailTip"
+  ],
+  "faceRegion": {
+    "x": 16,
+    "y": 14,
+    "width": 21,
+    "height": 18
+  },
+  "coverageCount": 32,
+  "approvedCount": 21,
+  "pendingCount": 11,
+  "generatableCount": 21,
+  "resourceCount": 15,
+  "samples": [
+    {
+      "id": "standard-base",
+      "binary": "0000",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "approved",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba",
+      "checks": {
+        "faceReference": "standard-base",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true
+      }
+    },
+    {
+      "id": "standard-flame",
+      "binary": "0001",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "rgbaSha256": "462f36b892209b5fd5461c54e70233f089f65393132f84d98502ac9aed326255",
+      "checks": {
+        "faceReference": "standard-base",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "oldTailClearChangedPixels": 421
+      }
+    },
+    {
+      "id": "standard-mane",
+      "binary": "0010",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "approved",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7",
+      "checks": {
+        "faceReference": "standard-base",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "maneOcclusionChangedPixels": 79
+      }
+    },
+    {
+      "id": "standard-mane-flame",
+      "binary": "0011",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "rgbaSha256": "5dbf82f04d358a8d10a0334289074932ad7f6348fc6f6ea80e7c46ae84aea0af",
+      "checks": {
+        "faceReference": "standard-base",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "oldTailClearChangedPixels": 421,
+        "maneOcclusionChangedPixels": 79
+      }
+    },
+    {
+      "id": "standard-ears",
+      "binary": "0100",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "approved",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97",
+      "checks": {
+        "faceReference": "standard-ears",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "earsClearChangedPixels": 104
+      }
+    },
+    {
+      "id": "standard-ears-flame",
+      "binary": "0101",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "rgbaSha256": "0fbaa78a69448968dc717e5f1b02c412de09b515f07c9bebd15325b1a5562987",
+      "checks": {
+        "faceReference": "standard-ears",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "earsClearChangedPixels": 104,
+        "oldTailClearChangedPixels": 421
+      }
+    },
+    {
+      "id": "standard-ears-mane",
+      "binary": "0110",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "approved",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b",
+      "checks": {
+        "faceReference": "standard-ears",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "earsClearChangedPixels": 104,
+        "maneOcclusionChangedPixels": 79
+      }
+    },
+    {
+      "id": "standard-ears-mane-flame",
+      "binary": "0111",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "rgbaSha256": "ca55c85f5aa57167a3d1f13e5e44bce90794959071c2f5f3e35d49fd3a9b0b23",
+      "checks": {
+        "faceReference": "standard-ears",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "earsClearChangedPixels": 104,
+        "oldTailClearChangedPixels": 421,
+        "maneOcclusionChangedPixels": 79
+      }
+    },
+    {
+      "id": "standard-horns",
+      "binary": "1000",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "rgbaSha256": "aefa76d759fb9cdd046c5f93057f2e6daa7610e8b06cd9c4adca061da73ccdd2",
+      "checks": {
+        "faceReference": "standard-base",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true
+      }
+    },
+    {
+      "id": "standard-horns-flame",
+      "binary": "1001",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "rgbaSha256": "6a6d8729dc38c10d2dd0adb3ad108eccd215c28bfc4a42dcaa06784fedffb9d0",
+      "checks": {
+        "faceReference": "standard-base",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "oldTailClearChangedPixels": 421
+      }
+    },
+    {
+      "id": "standard-horns-mane",
+      "binary": "1010",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "rgbaSha256": "17ba988cab38dd9baa4e37d43b3ee38b2c99ee84fce55e22bf32957f410e9217",
+      "checks": {
+        "faceReference": "standard-base",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "maneOcclusionChangedPixels": 79
+      }
+    },
+    {
+      "id": "standard-horns-mane-flame",
+      "binary": "1011",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "rgbaSha256": "394b63d063b0025dd4c90ffd533cef8b19eb0e573f14bef7ddbb914f6f16df4a",
+      "checks": {
+        "faceReference": "standard-base",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "oldTailClearChangedPixels": 421,
+        "maneOcclusionChangedPixels": 79
+      }
+    },
+    {
+      "id": "standard-horns-ears",
+      "binary": "1100",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "rgbaSha256": "38c5d8d31e88136584320618b08a1e7cabb61e0a3a4ace0c9b9f34bf3f0f466f",
+      "checks": {
+        "faceReference": "standard-ears",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "earsClearChangedPixels": 104,
+        "hornsEarsOverlapPixels": 32,
+        "earForegroundPreserved": true
+      }
+    },
+    {
+      "id": "standard-horns-ears-flame",
+      "binary": "1101",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "pending",
+      "rgbaSha256": "5cb829ac9cf758cf347fc20afec84d3e8afc2f16f8333df87c65bf56c7b95874",
+      "checks": {
+        "faceReference": "standard-ears",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "earsClearChangedPixels": 104,
+        "oldTailClearChangedPixels": 421,
+        "hornsEarsOverlapPixels": 32,
+        "earForegroundPreserved": true
+      }
+    },
+    {
+      "id": "standard-horns-ears-mane",
+      "binary": "1110",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "review": "pending",
+      "rgbaSha256": "2d251652d9d8ced50a32c1215aeda2f0a765bf42245fb7b47396f2c8e3803e11",
+      "checks": {
+        "faceReference": "standard-ears",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "earsClearChangedPixels": 104,
+        "maneOcclusionChangedPixels": 79,
+        "hornsEarsOverlapPixels": 32,
+        "earForegroundPreserved": true
+      }
+    },
+    {
+      "id": "standard-stack",
+      "binary": "1111",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "review": "approved",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a",
+      "checks": {
+        "faceReference": "standard-ears",
+        "facePixelsUnchanged": true,
+        "binaryAlpha": true,
+        "deterministicReplay": true,
+        "earsClearChangedPixels": 104,
+        "oldTailClearChangedPixels": 421,
+        "maneOcclusionChangedPixels": 79,
+        "hornsEarsOverlapPixels": 32,
+        "earForegroundPreserved": true
+      }
+    }
+  ],
+  "files": {
+    "renders/standard-base-64.png": "152261b69c8bd376c9bf685973d2e7780192de527fc3dc0198714ac182a13951",
+    "renders/standard-base-128.png": "ae128603d1bfaa9368e04e001e7e134aa0f548f4759a2c032e1e4d244116e4b5",
+    "renders/standard-base-256.png": "8011305e327b53be6a49cf47bebd4af1889cd0052150de2d177f2b5b570c490c",
+    "renders/standard-flame-64.png": "6398c10cdca5aa9ec74c6b83c74e6ac3794b697d01c54a20e7ca6dd322c7aacc",
+    "renders/standard-flame-128.png": "d229505d0d559259784dc6ea4ff9e594e3ed91d7edf1ff3bbbdedb75cf42f923",
+    "renders/standard-flame-256.png": "f6cc7a9a0cfda0919660404662e89675d0173a27fed25a9aa9e2ed67a701f3c7",
+    "renders/standard-mane-64.png": "041f08da55c4fcaea858a028830139b44a39700ddaef5c2da7e93e48247195c4",
+    "renders/standard-mane-128.png": "786a7d1f5213809c9b10dda8fc3abda434f743baa54224f99e1ddbe2c86f26a8",
+    "renders/standard-mane-256.png": "f27b9ac544bd2512906cad439c25e17941dfc444cf645b015e79c6865c1aa150",
+    "renders/standard-mane-flame-64.png": "d793c31d505c8631ebe8c5d6b80c24ed096c421c0f1704b290512cfae473e398",
+    "renders/standard-mane-flame-128.png": "35c9121b0cb75143066822f51f133bc4564fc28a4581bfff246730692ed67cee",
+    "renders/standard-mane-flame-256.png": "90672100dfd072cd673b71e650b9a7a25f8851c60c235d87879c279293af4f30",
+    "renders/standard-ears-64.png": "a5371f884f03959c4bad037b5c0f7c788294d4db2b70692bd59711e035e6fa24",
+    "renders/standard-ears-128.png": "4b4354d92ff0a506604a14ca88ee72f30bbab5f845309357da1c3196c8883339",
+    "renders/standard-ears-256.png": "69fe52da7c35e2323410efff3e1cea5ed1f051d1e5a10c4993e612f672e2abe6",
+    "renders/standard-ears-flame-64.png": "d2c6adf8c0c17d66a58870a0230eb5659f148681467ca59ef362cbd868984e25",
+    "renders/standard-ears-flame-128.png": "3f1f57dc5369c80d96acaa385f18e4f9b2c507f856c263d8487a7f20c628fd83",
+    "renders/standard-ears-flame-256.png": "4f534ae998c0100f511b661e4e501c3790b51ead17a4ba423dc1f2fd29901d24",
+    "renders/standard-ears-mane-64.png": "3e0da377873b4d43883b57a93605ee0cba0368754ab16b0ba69726a6d976cc9a",
+    "renders/standard-ears-mane-128.png": "3e9cd3ad00acb9789688ff4a854a8186a3aa862278f6b4f98256e504512a9fcc",
+    "renders/standard-ears-mane-256.png": "52e5d8a172546ba212967276ab2eb52b71caa542257bb5ad0a25842ef928ad0b",
+    "renders/standard-ears-mane-flame-64.png": "ae9bd50cefa67e8597565edc8fa3b3aa27dc0ab5a2cfe8a9532a2e25d8ab5efb",
+    "renders/standard-ears-mane-flame-128.png": "8eaee993f1401efb43dfa60e7b9a95eb1dabd35d9f108a4b01a15a853da3bfb6",
+    "renders/standard-ears-mane-flame-256.png": "1b2fefeff2ffa87ef93e55687c3e5f175a0ceaee8ba2f863d1d14b5a670fd612",
+    "renders/standard-horns-64.png": "c41b090e372877574291cb6076c480764c9fc463794509e2bfc5d188f2ceb988",
+    "renders/standard-horns-128.png": "04348eb2ddad931bfd171958741b66276608fef5bc25a3ad358a8559026a181d",
+    "renders/standard-horns-256.png": "c8bfef442801b1b4b88337e747c29274e679b5894f8479e67e3b366a0af70a2c",
+    "renders/standard-horns-flame-64.png": "5e8382cf8c3cadeef1e27bf3c460042c2bfb91b6ea26b02fc85c877b72d21509",
+    "renders/standard-horns-flame-128.png": "d72626efb1566148190b66a45d0c8b6ee9758abfee99d45018cd8af8ea836bfb",
+    "renders/standard-horns-flame-256.png": "226f3fa16c93f25a625018431e5d998a0c52de19827d5625b3ed95002377f59b",
+    "renders/standard-horns-mane-64.png": "c9a607b98e4e4ee127779ec3911ba00df74ab9b39643a6ae81a68412d0e5f17d",
+    "renders/standard-horns-mane-128.png": "a1fce76df1e912a7fe9e6f93e6d943a6fe46414737657d9e44284b2b3672366d",
+    "renders/standard-horns-mane-256.png": "525dfd9b48d98ac537edb2ff297baa99f100e5e86f8a9673a1a690e2c63a6974",
+    "renders/standard-horns-mane-flame-64.png": "a5a46051bf4016a7d9923b136221dd37f5f4222cbf0051e6ca563ac76280f48f",
+    "renders/standard-horns-mane-flame-128.png": "0ab839bf949c8eb84ecced7ac885d2a55ace9a7f6ea30e6811e04e7b9d98d93a",
+    "renders/standard-horns-mane-flame-256.png": "5db6742b1663e619b4318806d531395b0a48ae8ca44587e6ea20f67d3945d0cc",
+    "renders/standard-horns-ears-64.png": "fc9be7e1e707c842bf0c3613a14a17e3daa837a8a2afbdfac8e61a3874e5564e",
+    "renders/standard-horns-ears-128.png": "1e8df7432568a8b78474e81fe5e9198a9e1a6065b9f49722cc1e5a8ef970b1f1",
+    "renders/standard-horns-ears-256.png": "e462f57523cec4797f754215acb7b994d44a912c6606fad602f979eece33b8d9",
+    "renders/standard-horns-ears-flame-64.png": "b9d868380ddac740b06e46eb0a70fced3f2054f810490b242879fe034b587475",
+    "renders/standard-horns-ears-flame-128.png": "aacc78ecb52f0736380336885f8d33cb885815fca959c8ced1214d8a04b45ee1",
+    "renders/standard-horns-ears-flame-256.png": "737748c3b597d2e8d579268cee59dd83c05caaf89e7b33677dea101c8ba5f4a5",
+    "renders/standard-horns-ears-mane-64.png": "f59b2998d4a0cd1ba864455a94f07a681ea68b87dc942ae87ebd7ccbc8b0249a",
+    "renders/standard-horns-ears-mane-128.png": "cf41dd1b9202437b29faf84774e27a215c00aeeb3e70130c1c49cedef17999fe",
+    "renders/standard-horns-ears-mane-256.png": "180823df185967493f18f3ff8c06b24d27e1176941093f93e42a1b322ae5445f",
+    "renders/standard-stack-64.png": "c5aee10faa66e1f9b6ad15d0ba663f88406d5beb9d7f342776ddaff650822334",
+    "renders/standard-stack-128.png": "f11c670eca1d3b95b42c4e2cd380d30c359d8abcfdc230cee8862426145152d6",
+    "renders/standard-stack-256.png": "3691be7f2269eec371254261a7b9a954be6fd918075929929fbc0a17c26e4d18",
+    "gallery.html": "c88583e7eaee4dcf161f850d3d4a5fc80e9b4502d02c893a5e3a25f85f427e02"
+  },
+  "evidence": {
+    "scripts/build-pixel-art-v2-coverage.mjs": "3eafc59182eee84c7af583c3f425829df65bd6b8a71ea7d0e44b64075cb1e68c",
+    "scripts/review-pixel-art-v2-coverage.mjs": "5fc88b4609ca7b1240fec8bb67db6c2650ff974fb794a724a8b269ba095be98c",
+    "packages/renderer-canvas/src/pixel-art-render.ts": "5a24d258888321812161d31c7c057345b5531334d5d27a1edf0b34b82de530c5"
+  }
+}

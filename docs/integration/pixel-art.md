@@ -6,6 +6,7 @@
 
 | 包 | 美术版本 | 覆盖组合 | 可用于生成 | PNG 图层 | 使用范围 |
 |---|---|---:|---:|---:|---|
+| v2-coverage-standard-small-fangs-round | 1.2.1-candidate.1 | 32 | 21 | 15 | 标准圆眼小尖牙补齐 16 格；新增 11 个保持 pending，等待美术验收 |
 | v2-approved | 1.2.0 | 21 | 21 | 15 | 当前已验收包；原七个待验收组合已于 2026-09-17 批准 |
 | v2-candidate | 1.2.0-candidate.1 | 21 | 14 | 15 | 14 个 v1 已验收组合迁移为圆眼；7 个体型／眼型组合保留当时 pending 状态 |
 | approved | 1.1.0 | 14 | 14 | 8 | 历史已验收包：首批 4 个与第二阶段 10 个组合 |
@@ -138,3 +139,28 @@ Node 或已有纹理解码器可使用底层 `resolvePixelArt`、`composePixelAr
 - `packages/asset-catalog/pixel/v2/provenance.approved.json`：独立批准证据；原 `provenance.json` 始终保留候选身份。
 
 当前只包含橘白花纹和明确列出的 21 个已验收组合，Nutri 运行时继续关闭。其他花纹、更多眼型、profile 完备性、aura 和运行时换色属于后续独立设计，不从本次批准推导自由组合。
+
+## 标准圆眼小尖牙覆盖候选 1.2.1-candidate.1
+
+本批只扩展 `standard-small-fangs-round` 的确切 coverage；龙角、鳍耳、小狮鬃、焰尾沿用现有图层与 profile。原 21 个条目的顺序、字段、approved 状态和生成白名单完整保留，新 11 个只用于审阅，不能进入生成。未列出的其他 profile 组合仍报错。
+
+- 目录：`packages/asset-catalog/pixel/v2/coverage-standard-small-fangs-round/catalog.candidate.json`。
+- 候选 revision：`98db61376007d0fa62932ab0626c0b93ebcd29221e6f63182db31ca87efacc4c`。
+- 基础包：approved `1.2.0`，revision `5b3a92c67957fda3bfe12f6f598e631e1942cc3303d07775fee4bc33aea3bd36`；候选 provenance 固定其文件摘要、原有证据及 renderer/schema 源文件。
+- 可移植产物：`dist/pixel-art/v2-coverage-standard-small-fangs-round/`；新增便携示例 `dist/pixel-art/coverage.html` 可选择全部旧版本及此候选，首次默认仍为 approved 1.2.0。历史 `index.html` 和 SDK 保持字节不变。
+- 工作台同样以 approved 1.2.0 为首次默认；新候选可手动选择、导出和按完整版本身份恢复。候选保存不会隐式升级。
+- 完整 16 格 QA：[gallery.html](../qa/pixel-standard-small-fangs-coverage/gallery.html)，每格含 64/128/256px 的深浅背景；[report.json](../qa/pixel-standard-small-fangs-coverage/report.json) 记录逐项 RGBA、面部保护、耳/尾清除、鬃毛遮挡与角耳前后层检查；[browser-report.json](../qa/pixel-standard-small-fangs-coverage/browser-report.json) 记录工作台/便携回放与延迟解码竞态。
+- [baseline.json](../qa/pixel-standard-small-fangs-coverage/baseline.json) 固定 90 个已有包及 dist 文件，[reproducibility.json](../qa/pixel-standard-small-fangs-coverage/reproducibility.json) 证明两轮重建 175 个包/QA 文件字节一致。
+
+新增 ID 按目录追加顺序：`standard-horns`、`standard-flame`、`standard-horns-flame`、`standard-horns-ears`、`standard-horns-mane`、`standard-ears-flame`、`standard-mane-flame`、`standard-horns-ears-mane`、`standard-horns-ears-flame`、`standard-horns-mane-flame`、`standard-ears-mane-flame`。
+
+复核命令：
+
+```powershell
+npm run build
+node scripts/review-pixel-art-v2-coverage.mjs
+node scripts/verify-pixel-art-v2-coverage.mjs
+node scripts/verify-pixel-art-v2-coverage-reproducibility.mjs
+```
+
+技术回放通过不代表美术验收。当前没有 approved 1.2.1，Nutri runtime 继续关闭；候选交换交接需在本地审查通过后由主任务追加。
