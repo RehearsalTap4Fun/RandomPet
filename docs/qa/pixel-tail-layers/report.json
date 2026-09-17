@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "pixel-tail-layer-comparison-v1",
+  "rows": [
+    {
+      "id": "default-tail-round",
+      "label": "默认尾巴擦除足迹 · 圆眼体型",
+      "note": "从一体式身体 PNG 中按当前 tailTip clear 多边形提取；可见擦除范围同时包含少量臀部／右后腿像素。",
+      "pixels": 262,
+      "bbox": [
+        41,
+        26,
+        54,
+        57
+      ]
+    },
+    {
+      "id": "default-tail-sleepy",
+      "label": "默认尾巴擦除足迹 · 困倦眼体型",
+      "note": "从一体式身体 PNG 中按当前 tailTip clear 多边形提取；可见擦除范围同时包含少量臀部／右后腿像素。",
+      "pixels": 262,
+      "bbox": [
+        41,
+        26,
+        54,
+        57
+      ]
+    },
+    {
+      "id": "flame-tail",
+      "label": "火焰尾 · flame-tail",
+      "note": "v2 已发布独立尾巴层；实际绘制在 frame，并由渲染器添加 1px 外轮廓。",
+      "pixels": 418,
+      "bbox": [
+        40,
+        19,
+        57,
+        57
+      ]
+    },
+    {
+      "id": "forked-tail-tip",
+      "label": "分叉尾尖 · forked-tail-tip",
+      "note": "本批已通过美术验收的独立尾巴层；实际绘制在 frame，并使用同一尾巴擦除区域。",
+      "pixels": 379,
+      "bbox": [
+        40,
+        20,
+        57,
+        57
+      ]
+    }
+  ]
+}

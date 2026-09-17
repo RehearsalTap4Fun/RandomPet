@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "pixel-tail-body-comparison-v1",
+  "tailLeftAnchor": 40,
+  "rows": [
+    {
+      "bodyLabel": "标准体型",
+      "profileId": "standard-small-fangs-round",
+      "tailLabel": "火焰尾",
+      "tailTip": "flame-tail",
+      "anchor": 40,
+      "review": "pending",
+      "file": "samples/01.png",
+      "crop": "samples/01-contact.png"
+    },
+    {
+      "bodyLabel": "标准体型",
+      "profileId": "standard-small-fangs-round",
+      "tailLabel": "分叉尾",
+      "tailTip": "forked-tail-tip",
+      "anchor": 40,
+      "review": "pending",
+      "file": "samples/02.png",
+      "crop": "samples/02-contact.png"
+    },
+    {
+      "bodyLabel": "短腿体型",
+      "profileId": "shortleg-round-small-fangs-round",
+      "tailLabel": "火焰尾",
+      "tailTip": "flame-tail",
+      "anchor": 40,
+      "review": "pending",
+      "file": "samples/03.png",
+      "crop": "samples/03-contact.png"
+    },
+    {
+      "bodyLabel": "短腿体型",
+      "profileId": "shortleg-round-small-fangs-round",
+      "tailLabel": "分叉尾",
+      "tailTip": "forked-tail-tip",
+      "anchor": 40,
+      "review": "pending",
+      "file": "samples/04.png",
+      "crop": "samples/04-contact.png"
+    },
+    {
+      "bodyLabel": "细长体型",
+      "profileId": "slender-tall-round-small-fangs",
+      "tailLabel": "火焰尾",
+      "tailTip": "flame-tail",
+      "anchor": 40,
+      "review": "pending",
+      "file": "samples/05.png",
+      "crop": "samples/05-contact.png"
+    },
+    {
+      "bodyLabel": "细长体型",
+      "profileId": "slender-tall-round-small-fangs",
+      "tailLabel": "分叉尾",
+      "tailTip": "forked-tail-tip",
+      "anchor": 40,
+      "review": "pending",
+      "file": "samples/06.png",
+      "crop": "samples/06-contact.png"
+    }
+  ]
+}

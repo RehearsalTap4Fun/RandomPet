@@ -64,7 +64,7 @@
       "source": "docs/art/pixel-parts-batch/sources/solid/orange-white-forked-tail-tip.png",
       "sourceSha256": "dd1b5d6e804ee580b94be030c4d826917153b461a41e261028eb1df02b0d714f",
       "pixelLayer": "docs/qa/pixel-parts-batch/layers/orange-white-forked-tail-tip.png",
-      "pixelSha256": "b722c7e7100cf6d031a0d0cb56d046a6e340226ab64ff979b15637c64136aa24"
+      "pixelSha256": "28f0a9fba22b4bae35ebf8c2ca1693d183fe5138f1d5b67e5756a0fa7f45ee1b"
     }
   ],
   "pipeline": {
@@ -78,13 +78,15 @@
     "antlers": "Rebuilt as slender three-tine deer antlers and registered from the approved dragon-horns inner-ear anchors on the rear crown layer.",
     "halo": "Reduced to 62% width and 45% height, then top-anchored to preserve a visible floating gap.",
     "frill-neck": "Short radial neck frill behind the subject, distinct from back wings.",
-    "forked-tail-tip": "Orange-white replacement uses the existing tail clear polygon."
+    "forked-tail-tip": "Orange-white replacement uses the existing tail clear polygon and opaque left anchor x=40."
   },
   "evidence": {
     "backChain": "docs/qa/pixel-parts-batch/back-chain-preview.png",
     "frontChain": "docs/qa/pixel-parts-batch/front-chain-preview.png",
+    "tailBodyComparison": "docs/qa/pixel-tail-body-comparison/index.html",
     "nutriManifest": "docs/qa/pixel-parts-batch/layers/manifest.json"
   },
+  "registrationDecision": "All standalone tail layers use opaque left anchor x=40; forked-tail-tip shifted 4 px left.",
   "state": "art-approved-registration-pending",
   "runtime": "disabled"
 }
