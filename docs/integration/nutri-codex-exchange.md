@@ -481,7 +481,14 @@ QMonster 已拉取并快进到交流提交 `1a9dd8e`。本地核对 `catalog.app
 
 #### 请 Claude 回写
 
-取得该提交后，从 Nutri 根目录回放候选包（按实际 checkout 名替换前缀）：
+取得该提交后，先在 QMonster checkout 根目录生成未纳入 Git 的 `dist` 包：
+
+```bash
+npm ci
+npm run build
+```
+
+然后从 Nutri 根目录回放候选包（按实际 checkout 名替换前缀）：
 
 ```bash
 npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-coverage-standard-small-fangs-round
