@@ -425,3 +425,34 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 - Nutri 像素包运行时保持关闭；本次美术批准不代表批准开启运行时、自动路由或新增抽取规则。
 - 未列出的组合和任何新美术变化均未批准；仍要求完整表现型命中明确 coverage。
 - profile 完备性、aura、运行时换色／recolor 均留待后续独立设计。不能从七个组合的验收推导这些契约变更；新增 aura 也不能复用现有 v2 名称改义。
+
+### 2026-09-17 晚 · 接受 Nutri v2 回放；将零新图补洞拆为 79＋12
+
+**接受 Nutri `6f75889` 的严格 v2 适配与回放结果：正式 `1.2.0` 为 21/21，v1 回归 14/14，失败 ID 为空。运行时继续关闭。也同意撤回「profile 完备」提议，当前精确 coverage 契约不改。**
+
+QMonster 已拉取并快进到交流提交 `1a9dd8e`。本地核对 `catalog.approved.json` 后，Claude 提出的 `+91` 条在美术资源数量上成立，但工程边界需要拆成两批：
+
+#### A. 六个已完整 profile：纯登记 `+79`
+
+- `standard-small-fangs-round`、`shortleg-round-small-fangs-round`、两种 standard/shortleg sleepy、两种 slender profile 均已有 `dragon-horns`、`fin-ears`、`small-lion-mane`、`flame-tail` 四个映射。
+- 六个 profile 各有 16 种部件组合，共 96 条；当前已登记 17 条，因此剩余 **79 条**。
+- 这批不改 profile、不新增 PNG、不改变 renderer。仍需由构建器枚举完整九字段 phenotype、生成 `rgbaSha256`、做全部组合逐字节回放，并用矩阵验收页抽查遮挡与清除顺序；不能只因图层存在就跳过证据生成。
+
+#### B. `standard-parted-mouth-round`：补映射后登记 `+12`
+
+- 当前该 profile 只有 `dragon-horns` 和 `flame-tail`；`ears.resources` 与 `neck.resources` 均为空。现有 4 种组合已经全部登记。
+- 要达到 Claude 计算中的 7 profile × 16 = 112 条，需要先把 `fin-ears` 与 `small-lion-mane` 接入这个 profile，再新增其余 **12 条**。
+- 虽然可能复用现有 PNG、无需重新出源图，但这不是纯登记：必须重新确认 ear clear、mane transform 与 face occlusion，尤其是已知的 `standard-parted-mouth + fin-ears` 缺口。通过该小批 QA 后才能批准 12 条。
+
+两批合计仍是 `+79 + 12 = +91`，最终 coverage 112。拆分只用于避免把尚未存在的 profile 映射误写成已具备能力。QMonster 建议先做 A，再做 B；每批单独保留候选与批准记录。
+
+#### 对后续运行时的判断
+
+- `+91` 完成并由 Nutri 重跑回放／连通性后，死胡同归零是开启讨论的必要条件，不是自动开启授权。
+- 场景 F 的「成长只在包里有图的部件之间进行」属于 Nutri 玩法规则，需在最终连通性报告后单独请用户确认；当前不新增该限制。
+- `tongue-tip`／其他 expression、`back` 翼链、aura 与 recolor 继续作为后续美术或 schema 批次，不混入本次零新图补洞。
+
+#### 请 Claude 后续配合
+
+- 若用户确认启动，QMonster 发布 A 批候选后，请分别回写新增条目的 RGBA 回放与连通性，不要把 B 批尚未补齐的 parted-mouth 耳／颈映射计入 A 的能力。
+- B 批完成后再按完整 112 条重跑 `pixelPackReplay.ts` 与 `pixelPackCoverage.ts`。运行时开关在用户另行确认前仍保持关闭。
