@@ -6,7 +6,7 @@ import { createHash } from 'node:crypto'
 import { chromium } from '@playwright/test'
 import sharp from 'sharp'
 
-const root = path.resolve(import.meta.dirname, '..'), qa = path.join(root, 'docs/qa/pixel-production')
+const root = path.resolve(import.meta.dirname, '..'), qa = path.join(root, 'docs/qa/pixel-standard-small-fangs-approved/regressions/v1')
 await fs.mkdir(qa, { recursive: true })
 const candidate = JSON.parse(await fs.readFile(path.join(root, 'dist/pixel-art/candidate/catalog.json'), 'utf8'))
 const approved = JSON.parse(await fs.readFile(path.join(root, 'dist/pixel-art/approved/catalog.json'), 'utf8'))
@@ -54,7 +54,7 @@ try {
   await page.goto(`${base}/pixel`)
   await page.getByRole('button', { name: '导出 64px PNG', exact: true }).waitFor()
   await page.waitForFunction(() => ![...document.querySelectorAll('button')].find(b => b.textContent === '导出 64px PNG')?.disabled)
-  assert.equal(await page.getByRole('combobox', { name: '资源范围' }).inputValue(), 'v2-approved')
+  assert.equal(await page.getByRole('combobox', { name: '资源范围' }).inputValue(), 'v2-approved-1.2.1')
   await page.getByRole('combobox', { name: '资源范围' }).selectOption('approved')
   await page.waitForFunction(() => ![...document.querySelectorAll('button')].find(b => b.textContent === '导出 64px PNG')?.disabled)
   assert.equal(approved.generatable.length, 14)

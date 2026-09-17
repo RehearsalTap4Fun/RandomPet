@@ -6,7 +6,7 @@ import { createHash } from 'node:crypto'
 import { chromium } from '@playwright/test'
 import sharp from 'sharp'
 
-const root = path.resolve(import.meta.dirname, '..'), qa = path.join(root, 'docs/qa/pixel-body-eye-batch')
+const root = path.resolve(import.meta.dirname, '..'), qa = path.join(root, 'docs/qa/pixel-standard-small-fangs-approved/regressions/v2')
 await fs.mkdir(qa, { recursive: true })
 const candidate = JSON.parse(await fs.readFile(path.join(root, 'dist/pixel-art/v2-candidate/catalog.json'), 'utf8'))
 const current = JSON.parse(await fs.readFile(path.join(root, 'dist/pixel-art/v2-approved/catalog.json'), 'utf8'))
@@ -90,7 +90,8 @@ try {
   assert.equal(report.coverageCount, 21); assert.equal(report.generatableCount, 21); assert.equal(report.pendingCount, 0)
   await page.goto(`${base}/pixel`); await ready()
   const bundle = page.getByRole('combobox', { name: '资源范围' })
-  assert.equal(await bundle.inputValue(), 'v2-approved')
+  assert.equal(await bundle.inputValue(), 'v2-approved-1.2.1')
+  await bundle.selectOption('v2-approved'); await ready()
   assert.match(await page.locator('.pixel-filter').innerText(), /21 个可生成组合/)
   assert.equal(await page.locator('[data-review=pending]').count(), 0)
   for (const sample of current.coverage) {

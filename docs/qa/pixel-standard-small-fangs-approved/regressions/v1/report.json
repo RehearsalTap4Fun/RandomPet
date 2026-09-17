@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "approvedCombinations": 14,
+  "historicalCandidateCombinations": 14,
+  "generatableCombinations": 14,
+  "approvedRevision": "5d2b92c990ef571d71ee5820e76eb99880988bc57e70d581542e7fd593bceff4",
+  "candidateRevision": "d929778c6dc3de5a888e108f48a796b249847617310d1415e27629ac8ff773b2",
+  "historicalCandidateSaveReplays": true,
+  "browserReplays": [
+    {
+      "sample": "approved-base",
+      "rgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e"
+    },
+    {
+      "sample": "approved-horns",
+      "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f"
+    },
+    {
+      "sample": "approved-flame",
+      "rgbaSha256": "f8ab50c7139c18ec025e4352341bedaba0f8d1c75ad526b6c21e4334f919eec1"
+    },
+    {
+      "sample": "approved-both",
+      "rgbaSha256": "516bcf19ee4da711bb30df9eb89a695ce53819676553c2880f848f68ad8aaf95"
+    },
+    {
+      "sample": "standard-base",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba"
+    },
+    {
+      "sample": "standard-ears",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97"
+    },
+    {
+      "sample": "standard-mane",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7"
+    },
+    {
+      "sample": "standard-ears-mane",
+      "rgbaSha256": "2da2c3af5f3c92a9b447cdbd8ed3134e762aab187914ad0b91bb64ffbe0ab94b"
+    },
+    {
+      "sample": "standard-stack",
+      "rgbaSha256": "7a22d3120a4796566a5b1cf0289d112798aa8a8814acf87e865383787d81e71a"
+    },
+    {
+      "sample": "shortleg-round-base",
+      "rgbaSha256": "f8f636dbed212f6a8813373a3016409105bab502870793bfc509de74742bca41"
+    },
+    {
+      "sample": "shortleg-round-ears",
+      "rgbaSha256": "d41fa50072c4536564818d65c42382b965fba17ce97336bdd7b48756e6c6e8a6"
+    },
+    {
+      "sample": "shortleg-round-mane",
+      "rgbaSha256": "efc9138d9f17cdd9ce2046b72451c88582a95fb0d2e89ff956ce65fe18fca02e"
+    },
+    {
+      "sample": "shortleg-round-ears-mane",
+      "rgbaSha256": "0901ac12deef0823bbec657e249b9bd2d01ecaf7743a84d322c626b2b78f4158"
+    },
+    {
+      "sample": "shortleg-round-stack",
+      "rgbaSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    }
+  ],
+  "downloads": [
+    {
+      "filename": "qmonster-pixel-shortleg-round-stack-64.png",
+      "size": 64,
+      "sha256": "9d9647a2e08b10800ee3142d5999e4c5009d7045ffff2b599b3fa567f4500024",
+      "rgbaNativeSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    },
+    {
+      "filename": "qmonster-pixel-shortleg-round-stack-128.png",
+      "size": 128,
+      "sha256": "909c1255e83657b0f3215c45460bef96df0721d016a7c7c9f1b40f646e2c7470",
+      "rgbaNativeSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    },
+    {
+      "filename": "pixel-cat-128.png",
+      "size": 128,
+      "sha256": "909c1255e83657b0f3215c45460bef96df0721d016a7c7c9f1b40f646e2c7470",
+      "rgbaNativeSha256": "b631e19af6afe9364fd53bc15025605bd129c3483e73c45acf656c60eb2359f2"
+    }
+  ],
+  "savedAppearanceReload": true,
+  "legacyImportPreservesTraits": true,
+  "unsupportedImportRejected": true,
+  "revisionMismatchRejected": true,
+  "corruptedPngRejected": true,
+  "relocatedConsumer": true,
+  "legacyWorkbenchLoads": true,
+  "pageErrors": [],
+  "networkErrors": []
+}

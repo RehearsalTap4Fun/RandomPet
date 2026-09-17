@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "feline-appearance-v1",
+  "phenotype": {
+    "schemaVersion": "feline-phenotype-v1",
+    "body": "shortleg-round",
+    "coat": "orange-white",
+    "expression": "small-fangs",
+    "crown": "dragon-horns",
+    "ears": "fin-ears",
+    "neck": "small-lion-mane",
+    "back": "none",
+    "tailTip": "flame-tail"
+  },
+  "art": {
+    "styleId": "pixel-flat",
+    "artVersion": "1.1.0",
+    "revision": "5d2b92c990ef571d71ee5820e76eb99880988bc57e70d581542e7fd593bceff4"
+  }
+}

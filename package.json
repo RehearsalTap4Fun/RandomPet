@@ -15,7 +15,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "build": "npm run build:pixel && npm run typecheck && npm run build -w @qmonster/creator-web && node scripts/build-hatchery.mjs",
-    "build:pixel": "node scripts/build-pixel-art.mjs && node scripts/build-pixel-art-v2.mjs && node scripts/build-pixel-art-v2-coverage.mjs",
+    "build:pixel": "node scripts/build-pixel-art.mjs && node scripts/build-pixel-art-v2.mjs && node scripts/build-pixel-art-v2-coverage.mjs && node scripts/build-pixel-art-v2-coverage-approved.mjs",
     "verify:pixel": "node scripts/verify-pixel-art.mjs",
     "verify:integration": "node scripts/verify-feline-hatchery-example.mjs",
     "verify:workbench": "node scripts/verify-workbench.mjs && node scripts/verify-import-race.mjs",
