@@ -3,9 +3,11 @@ import { readFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import sharp from 'sharp'
 import { requirePixelArtCatalog, resolvePixelArt } from '../../asset-catalog/src/pixel-art-catalog.js'
+import { requirePixelArtCatalogV2, resolvePixelArtV2 } from '../../asset-catalog/src/pixel-art-catalog-v2.js'
 import * as api from './pixel-art-render.js'
 
 const root = new URL('../../asset-catalog/pixel/v1/', import.meta.url)
+const v2Root = new URL('../../asset-catalog/pixel/v2/', import.meta.url)
 const sha = (bytes: Uint8ClampedArray) => createHash('sha256').update(bytes).digest('hex')
 
 describe('portable pixel renderer', () => {
@@ -23,6 +25,18 @@ describe('portable pixel renderer', () => {
       for (let i = 3; i < pixels.length; i += 4) expect([0, 255]).toContain(pixels[i])
     }
     expect(Object.fromEntries(Object.entries(layers).map(([id, bytes]) => [id, sha(bytes)]))).toEqual(before)
+  })
+  it('replays all twenty-one eye-aware candidate RGBA hashes with the v1 renderer', async () => {
+    const catalog = requirePixelArtCatalogV2(JSON.parse(await readFile(new URL('catalog.candidate.json', v2Root), 'utf8')))
+    const layers: Record<string, Uint8ClampedArray> = {}
+    for (const [id, resource] of Object.entries(catalog.resources)) {
+      layers[id] = new Uint8ClampedArray(await sharp(await readFile(new URL(resource.path, v2Root))).ensureAlpha().raw().toBuffer())
+    }
+    expect(catalog.rendererVersion).toBe('pixel-rgba-v1')
+    expect(catalog.coverage).toHaveLength(21)
+    for (const sample of catalog.coverage) {
+      expect(sha(api.composePixelArt(resolvePixelArtV2(sample.phenotype, catalog), layers)), sample.id).toBe(sample.rgbaSha256)
+    }
   })
   it('fails closed on missing pixels, wrong dimensions and nonbinary alpha', async () => {
     const catalog = requirePixelArtCatalog(JSON.parse(await readFile(new URL('catalog.approved.json', root), 'utf8')))
