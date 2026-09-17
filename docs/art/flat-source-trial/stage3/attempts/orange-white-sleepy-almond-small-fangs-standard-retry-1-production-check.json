@@ -4,7 +4,7 @@
   "results": [
     {
       "body": "standard",
-      "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+      "source": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-1-solid.png",
       "sourceSha256": "e393ab2d28f9261d2add44dd412546616f2d2a484dc781d3a3d883fce023df88",
       "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
       "eyeRectangles": [

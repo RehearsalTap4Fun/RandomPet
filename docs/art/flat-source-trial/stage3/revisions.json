@@ -41,7 +41,7 @@
       "sourceChecksPassed": true,
       "productionAlpha": {
         "body": "standard",
-        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "source": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-1-solid.png",
         "sourceSha256": "e393ab2d28f9261d2add44dd412546616f2d2a484dc781d3a3d883fce023df88",
         "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
         "eyeRectangles": [
@@ -132,7 +132,7 @@
       "sourceChecksPassed": true,
       "productionAlpha": {
         "body": "standard",
-        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "source": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-2-solid.png",
         "sourceSha256": "a52fca22f060da102e740ba21b9bb5403ae0882575b07c48c628222ea932efba",
         "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
         "eyeRectangles": [
@@ -205,7 +205,7 @@
       "sourceChecksPassed": true,
       "productionAlpha": {
         "body": "standard",
-        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "source": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-3-solid.png",
         "sourceSha256": "ee0fc42b23a9a54798067b05c585b1d8a16d9433e222097df87f8934a863b32e",
         "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
         "eyeRectangles": [
@@ -278,7 +278,7 @@
       "sourceChecksPassed": true,
       "productionAlpha": {
         "body": "slender-tall",
-        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-slender-tall.png",
+        "source": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-slender-tall-retry-1-solid.png",
         "sourceSha256": "7e5878f7f4677293f19c3ff733b4dfe45c621c9340aaf6a911589f77c7b14cff",
         "baseline": "docs/art/flat-source-trial/stage3/solid/orange-white-round-small-fangs-slender-tall.png",
         "eyeRectangles": [
@@ -367,7 +367,7 @@
       "sourceChecksPassed": true,
       "productionAlpha": {
         "body": "standard",
-        "source": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+        "source": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-4-solid.png",
         "sourceSha256": "8a56f9cbcfe63328e803235a55c10fdae7e9c64cd99c4aa451b6df2282b8dc98",
         "baseline": "docs/qa/flat-source-trial/stage2/layers/standard/orange-white-small-fangs.png",
         "eyeRectangles": [

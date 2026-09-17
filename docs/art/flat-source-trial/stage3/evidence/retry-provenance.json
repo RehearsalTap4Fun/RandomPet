@@ -3,12 +3,15 @@
   "producedRetries": 5,
   "serviceErrorsWithoutImage": 1,
   "selectedRetries": 0,
+  "productionSourcePathHashRegression": "original-selected-path-with-retry-hash-rejected",
   "checked": [
     {
       "body": "standard",
       "attempt": 1,
       "rawSha256": "5626b560e700464919e7aa2376c15ac310848aff645e0d8fbe3e4dc267fa5ae7",
       "normalizedSha256": "e393ab2d28f9261d2add44dd412546616f2d2a484dc781d3a3d883fce023df88",
+      "productionSource": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-1-solid.png",
+      "productionSourceHashMatches": true,
       "sourceChecksPassed": true,
       "productionAlphaPassed": false,
       "selected": false
@@ -18,6 +21,8 @@
       "attempt": 2,
       "rawSha256": "1e67c77fd499bd98deb32c48d7907a2a4d993883829833ba4bebdd4148584674",
       "normalizedSha256": "a52fca22f060da102e740ba21b9bb5403ae0882575b07c48c628222ea932efba",
+      "productionSource": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-2-solid.png",
+      "productionSourceHashMatches": true,
       "sourceChecksPassed": true,
       "productionAlphaPassed": false,
       "selected": false
@@ -27,6 +32,8 @@
       "attempt": 3,
       "rawSha256": "10ce6700006b230011149a1c9728fd05fc5e0fe93bc6fb0167c33f8cdfaa5bca",
       "normalizedSha256": "ee0fc42b23a9a54798067b05c585b1d8a16d9433e222097df87f8934a863b32e",
+      "productionSource": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-3-solid.png",
+      "productionSourceHashMatches": true,
       "sourceChecksPassed": true,
       "productionAlphaPassed": false,
       "selected": false
@@ -36,6 +43,8 @@
       "attempt": 1,
       "rawSha256": "c0d08efb3e4e61920e0cce25b2af8d46218ed55322277f38365dc49b8915ce54",
       "normalizedSha256": "7e5878f7f4677293f19c3ff733b4dfe45c621c9340aaf6a911589f77c7b14cff",
+      "productionSource": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-slender-tall-retry-1-solid.png",
+      "productionSourceHashMatches": true,
       "sourceChecksPassed": true,
       "productionAlphaPassed": false,
       "selected": false
@@ -45,6 +54,8 @@
       "attempt": 4,
       "rawSha256": "92e3097a5b4787e48ffc7fc6251eb70ee11ef35085b59f5d251dfeef4bb07e9e",
       "normalizedSha256": "8a56f9cbcfe63328e803235a55c10fdae7e9c64cd99c4aa451b6df2282b8dc98",
+      "productionSource": "docs/art/flat-source-trial/stage3/attempts/orange-white-sleepy-almond-small-fangs-standard-retry-4-solid.png",
+      "productionSourceHashMatches": true,
       "sourceChecksPassed": true,
       "productionAlphaPassed": false,
       "selected": false
