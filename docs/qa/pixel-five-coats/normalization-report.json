@@ -1,0 +1,732 @@
+{
+  "schemaVersion": "pixel-five-coats-normalization-v1",
+  "method": "historical Nutri RGB projected onto approved 1.3.1 alpha masks",
+  "invariant": "RGB and coat pattern may change; alpha, canvas, anchor, clear, occlusion and layer order remain unchanged",
+  "entries": [
+    {
+      "coat": "brown-tabby",
+      "kind": "parted-mouth",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/brown-tabby-parted-mouth.png",
+      "sourceSha256": "27644ea9e22c2aa77c54a070bb8c633dc3c82ad1219424ef8d48b4f634b3d506",
+      "templateId": "layer-c68b7f3b61d5650f",
+      "templateSha256": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+      "outputPath": "docs/qa/pixel-five-coats/layers/brown-tabby-parted-mouth.png",
+      "outputSha256": "cb8ad098038cc0de1c8fed45dbb1ccfd11c7a774b61dbcdcbd9114435c07202d",
+      "sourceBox": {
+        "left": 10,
+        "top": 4,
+        "right": 59,
+        "bottom": 61,
+        "width": 50,
+        "height": 58,
+        "pixels": 2003
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2098
+      },
+      "alphaSha256": "f6e0b4c73b554c16a55e9213880bd0565b326717204aacba76a875aea8a29716"
+    },
+    {
+      "coat": "brown-tabby",
+      "kind": "small-fangs",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/brown-tabby-small-fangs.png",
+      "sourceSha256": "5fdf2d02bd5fbfb3b1672c749f634dea53cb7d06ddedc2af6cf6bbde02cd86c5",
+      "templateId": "layer-fec0335aee4cb501",
+      "templateSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+      "outputPath": "docs/qa/pixel-five-coats/layers/brown-tabby-small-fangs.png",
+      "outputSha256": "21c2c2e0bec315f39a5bf4bd5381559eeee50dbb992e085da21bf4742cc01885",
+      "sourceBox": {
+        "left": 10,
+        "top": 4,
+        "right": 59,
+        "bottom": 61,
+        "width": 50,
+        "height": 58,
+        "pixels": 1981
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2099
+      },
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "brown-tabby",
+      "kind": "fin-ears",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/brown-tabby-fin-ears.png",
+      "sourceSha256": "771dc1d65c483d55c999efc3f9154b159e0087b2683c5079d9f0f2e698c29854",
+      "templateId": "layer-6d8134b5c93d11f7",
+      "templateSha256": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+      "outputPath": "docs/qa/pixel-five-coats/layers/brown-tabby-fin-ears.png",
+      "outputSha256": "7e714c16e7dc96afad06c3c627c1f0e34a2d717bcf5a0e059c596bcb88dad3af",
+      "sourceBox": {
+        "left": 12,
+        "top": 5,
+        "right": 44,
+        "bottom": 18,
+        "width": 33,
+        "height": 14,
+        "pixels": 173
+      },
+      "templateBox": {
+        "left": 11,
+        "top": 4,
+        "right": 43,
+        "bottom": 19,
+        "width": 33,
+        "height": 16,
+        "pixels": 191
+      },
+      "alphaSha256": "5fe1d2f4ffd483b0c02c51310725e8f9966119155d869f547e7242f55f66fbe5"
+    },
+    {
+      "coat": "brown-tabby",
+      "kind": "small-lion-mane",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/brown-tabby-small-lion-mane.png",
+      "sourceSha256": "9725c1fd37c13f5ae888b6388ea5c35c7e2e338120755763e3f991cedaed51a8",
+      "templateId": "layer-0dc4c49bf437b30a",
+      "templateSha256": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+      "outputPath": "docs/qa/pixel-five-coats/layers/brown-tabby-small-lion-mane.png",
+      "outputSha256": "9705184c23b9027b8a3e2d9f6a34cf176d10d4bf2757c400fd3f0f95aba1c362",
+      "sourceBox": {
+        "left": 8,
+        "top": 27,
+        "right": 45,
+        "bottom": 45,
+        "width": 38,
+        "height": 19,
+        "pixels": 462
+      },
+      "templateBox": {
+        "left": 10,
+        "top": 29,
+        "right": 43,
+        "bottom": 43,
+        "width": 34,
+        "height": 15,
+        "pixels": 318
+      },
+      "alphaSha256": "9c5d4f546d4e55b9c0aa73bee9eae2ae34d0a144c70a54dd68d48450c7a4a284"
+    },
+    {
+      "coat": "brown-tabby",
+      "kind": "forked-tail-tip",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/brown-tabby-forked-tail-tip.png",
+      "sourceSha256": "c977ce43d6be0a75924bf7a05a604ebab26af6f8a635b413e5d62de67b4694fa",
+      "templateId": "layer-28f0a9fba22b4bae",
+      "templateSha256": "28f0a9fba22b4bae35ebf8c2ca1693d183fe5138f1d5b67e5756a0fa7f45ee1b",
+      "outputPath": "docs/qa/pixel-five-coats/layers/brown-tabby-forked-tail-tip.png",
+      "outputSha256": "ed3a87f6e6dbbe7122b727daf777950ec8d3bd92826eb1cfb125914e1c9dc97e",
+      "sourceBox": {
+        "left": 45,
+        "top": 20,
+        "right": 61,
+        "bottom": 56,
+        "width": 17,
+        "height": 37,
+        "pixels": 299
+      },
+      "templateBox": {
+        "left": 40,
+        "top": 20,
+        "right": 57,
+        "bottom": 57,
+        "width": 18,
+        "height": 38,
+        "pixels": 379
+      },
+      "alphaSha256": "4aea4006a9c6c2e0f56798df49c0bb7f760497c568818353b6b16c593774ba4d"
+    },
+    {
+      "coat": "tuxedo",
+      "kind": "parted-mouth",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/tuxedo-parted-mouth.png",
+      "sourceSha256": "2ccda67cde8991e5c257ebd2bf59a032ec4e084fdaa442533922553d11386302",
+      "templateId": "layer-c68b7f3b61d5650f",
+      "templateSha256": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+      "outputPath": "docs/qa/pixel-five-coats/layers/tuxedo-parted-mouth.png",
+      "outputSha256": "6dd2d6e77471af03ccc95d19fcd29a54f6856785a89e781d39092793585884f3",
+      "sourceBox": {
+        "left": 9,
+        "top": 4,
+        "right": 59,
+        "bottom": 61,
+        "width": 51,
+        "height": 58,
+        "pixels": 2021
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2098
+      },
+      "alphaSha256": "f6e0b4c73b554c16a55e9213880bd0565b326717204aacba76a875aea8a29716"
+    },
+    {
+      "coat": "tuxedo",
+      "kind": "small-fangs",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/tuxedo-small-fangs.png",
+      "sourceSha256": "e271eef6770445aa804692182c5bd8b6eda363e0ccd5a8c97a177d07e9f5c440",
+      "templateId": "layer-fec0335aee4cb501",
+      "templateSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+      "outputPath": "docs/qa/pixel-five-coats/layers/tuxedo-small-fangs.png",
+      "outputSha256": "ca7e6b84a29268b164721068dccc21b77cdbff181c6c1ba14198d686639bca44",
+      "sourceBox": {
+        "left": 10,
+        "top": 4,
+        "right": 59,
+        "bottom": 61,
+        "width": 50,
+        "height": 58,
+        "pixels": 1988
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2099
+      },
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "tuxedo",
+      "kind": "fin-ears",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/tuxedo-fin-ears.png",
+      "sourceSha256": "6062b0ac13610772048f779d1ba502a72c93c3c4e00f181f60068932c2666871",
+      "templateId": "layer-6d8134b5c93d11f7",
+      "templateSha256": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+      "outputPath": "docs/qa/pixel-five-coats/layers/tuxedo-fin-ears.png",
+      "outputSha256": "a29af10c838a30dcb0560c334756958db9e6283b19eea417fd25adb27d687316",
+      "sourceBox": {
+        "left": 12,
+        "top": 5,
+        "right": 44,
+        "bottom": 18,
+        "width": 33,
+        "height": 14,
+        "pixels": 172
+      },
+      "templateBox": {
+        "left": 11,
+        "top": 4,
+        "right": 43,
+        "bottom": 19,
+        "width": 33,
+        "height": 16,
+        "pixels": 191
+      },
+      "alphaSha256": "5fe1d2f4ffd483b0c02c51310725e8f9966119155d869f547e7242f55f66fbe5"
+    },
+    {
+      "coat": "tuxedo",
+      "kind": "small-lion-mane",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/tuxedo-small-lion-mane.png",
+      "sourceSha256": "abc6e3b5c2c94ec2d13c4f6cbbaf581ba6d872c5678c531f80aba28fcb8b0fbb",
+      "templateId": "layer-0dc4c49bf437b30a",
+      "templateSha256": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+      "outputPath": "docs/qa/pixel-five-coats/layers/tuxedo-small-lion-mane.png",
+      "outputSha256": "f44fe44a608c50ba1d03d0605285008efda495ec23731ff3b5badad7758c9103",
+      "sourceBox": {
+        "left": 8,
+        "top": 27,
+        "right": 45,
+        "bottom": 45,
+        "width": 38,
+        "height": 19,
+        "pixels": 462
+      },
+      "templateBox": {
+        "left": 10,
+        "top": 29,
+        "right": 43,
+        "bottom": 43,
+        "width": 34,
+        "height": 15,
+        "pixels": 318
+      },
+      "alphaSha256": "9c5d4f546d4e55b9c0aa73bee9eae2ae34d0a144c70a54dd68d48450c7a4a284"
+    },
+    {
+      "coat": "tuxedo",
+      "kind": "forked-tail-tip",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/tuxedo-forked-tail-tip.png",
+      "sourceSha256": "f6790006742b4e1505bfdb40b852ff2072d2e7a3b8d026dc35377f03662eab2f",
+      "templateId": "layer-28f0a9fba22b4bae",
+      "templateSha256": "28f0a9fba22b4bae35ebf8c2ca1693d183fe5138f1d5b67e5756a0fa7f45ee1b",
+      "outputPath": "docs/qa/pixel-five-coats/layers/tuxedo-forked-tail-tip.png",
+      "outputSha256": "da2820c570724624861bd7b3e653bc622f680da66571cf2926084660a5153b2b",
+      "sourceBox": {
+        "left": 45,
+        "top": 20,
+        "right": 61,
+        "bottom": 56,
+        "width": 17,
+        "height": 37,
+        "pixels": 302
+      },
+      "templateBox": {
+        "left": 40,
+        "top": 20,
+        "right": 57,
+        "bottom": 57,
+        "width": 18,
+        "height": 38,
+        "pixels": 379
+      },
+      "alphaSha256": "4aea4006a9c6c2e0f56798df49c0bb7f760497c568818353b6b16c593774ba4d"
+    },
+    {
+      "coat": "calico",
+      "kind": "parted-mouth",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/calico-parted-mouth.png",
+      "sourceSha256": "74c7663e581eeb0261ac5bf973705005941aef81129a38713ca77f89ec09176c",
+      "templateId": "layer-c68b7f3b61d5650f",
+      "templateSha256": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+      "outputPath": "docs/qa/pixel-five-coats/layers/calico-parted-mouth.png",
+      "outputSha256": "ef8bb6edec1d15439f003f7fd03ccd535931364a68c791d16e773ece56eb0e1a",
+      "sourceBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2053
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2098
+      },
+      "alphaSha256": "f6e0b4c73b554c16a55e9213880bd0565b326717204aacba76a875aea8a29716"
+    },
+    {
+      "coat": "calico",
+      "kind": "small-fangs",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/calico-small-fangs.png",
+      "sourceSha256": "65d2603d3ead703bbdf4a3784e09df6f3ff467476d2e0a7d21c7ed63078880f8",
+      "templateId": "layer-fec0335aee4cb501",
+      "templateSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+      "outputPath": "docs/qa/pixel-five-coats/layers/calico-small-fangs.png",
+      "outputSha256": "2dcb1971f5439589a9d3a92194100072cc789e29904b7224ebd84d64c9467f61",
+      "sourceBox": {
+        "left": 10,
+        "top": 4,
+        "right": 59,
+        "bottom": 60,
+        "width": 50,
+        "height": 57,
+        "pixels": 1983
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2099
+      },
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "calico",
+      "kind": "fin-ears",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/calico-fin-ears.png",
+      "sourceSha256": "14ae0df85abe186860ac2be749caa181d59eda59cb7ad75b86a95867d957c2a2",
+      "templateId": "layer-6d8134b5c93d11f7",
+      "templateSha256": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+      "outputPath": "docs/qa/pixel-five-coats/layers/calico-fin-ears.png",
+      "outputSha256": "096351544c2988c00722fb2fedfa874ff868c044ab859412b2cd0bb4da98c921",
+      "sourceBox": {
+        "left": 12,
+        "top": 5,
+        "right": 44,
+        "bottom": 18,
+        "width": 33,
+        "height": 14,
+        "pixels": 163
+      },
+      "templateBox": {
+        "left": 11,
+        "top": 4,
+        "right": 43,
+        "bottom": 19,
+        "width": 33,
+        "height": 16,
+        "pixels": 191
+      },
+      "alphaSha256": "5fe1d2f4ffd483b0c02c51310725e8f9966119155d869f547e7242f55f66fbe5"
+    },
+    {
+      "coat": "calico",
+      "kind": "small-lion-mane",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/calico-small-lion-mane.png",
+      "sourceSha256": "637ff0a9954c05e19d9a705b4cf2b68532cd7af2aaa90c5067d963cc0cede69b",
+      "templateId": "layer-0dc4c49bf437b30a",
+      "templateSha256": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+      "outputPath": "docs/qa/pixel-five-coats/layers/calico-small-lion-mane.png",
+      "outputSha256": "3489c422e93d7f7ade92cd383ad5a81dc8846042b8a7a96a84eb530256dd3149",
+      "sourceBox": {
+        "left": 8,
+        "top": 27,
+        "right": 45,
+        "bottom": 45,
+        "width": 38,
+        "height": 19,
+        "pixels": 461
+      },
+      "templateBox": {
+        "left": 10,
+        "top": 29,
+        "right": 43,
+        "bottom": 43,
+        "width": 34,
+        "height": 15,
+        "pixels": 318
+      },
+      "alphaSha256": "9c5d4f546d4e55b9c0aa73bee9eae2ae34d0a144c70a54dd68d48450c7a4a284"
+    },
+    {
+      "coat": "calico",
+      "kind": "forked-tail-tip",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/calico-forked-tail-tip.png",
+      "sourceSha256": "faca905117c9e868095eb8173ae4d8878f31c1279ba8c1bd0ff0378a055b1629",
+      "templateId": "layer-28f0a9fba22b4bae",
+      "templateSha256": "28f0a9fba22b4bae35ebf8c2ca1693d183fe5138f1d5b67e5756a0fa7f45ee1b",
+      "outputPath": "docs/qa/pixel-five-coats/layers/calico-forked-tail-tip.png",
+      "outputSha256": "317bd5989f3d9e302723ce96e514a0b1c341fcc961ec1870281ff1b660f19628",
+      "sourceBox": {
+        "left": 45,
+        "top": 20,
+        "right": 61,
+        "bottom": 56,
+        "width": 17,
+        "height": 37,
+        "pixels": 302
+      },
+      "templateBox": {
+        "left": 40,
+        "top": 20,
+        "right": 57,
+        "bottom": 57,
+        "width": 18,
+        "height": 38,
+        "pixels": 379
+      },
+      "alphaSha256": "4aea4006a9c6c2e0f56798df49c0bb7f760497c568818353b6b16c593774ba4d"
+    },
+    {
+      "coat": "colorpoint",
+      "kind": "parted-mouth",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/colorpoint-parted-mouth.png",
+      "sourceSha256": "ec2a9e26b42205238280826b329220b3bc4591ac57cc54a6ef56ca4483def489",
+      "templateId": "layer-c68b7f3b61d5650f",
+      "templateSha256": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+      "outputPath": "docs/qa/pixel-five-coats/layers/colorpoint-parted-mouth.png",
+      "outputSha256": "742afec5ccf6b8cefc9a01bda03b0dc24c073b2bef9596c48e225aab1ec9029d",
+      "sourceBox": {
+        "left": 9,
+        "top": 4,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 58,
+        "pixels": 2019
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2098
+      },
+      "alphaSha256": "f6e0b4c73b554c16a55e9213880bd0565b326717204aacba76a875aea8a29716"
+    },
+    {
+      "coat": "colorpoint",
+      "kind": "small-fangs",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/colorpoint-small-fangs.png",
+      "sourceSha256": "78f9771d3276cd81aa31e004d532237eed4d21fba375f9ffac7d6089fea7ded1",
+      "templateId": "layer-fec0335aee4cb501",
+      "templateSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+      "outputPath": "docs/qa/pixel-five-coats/layers/colorpoint-small-fangs.png",
+      "outputSha256": "f8c93e622b23670f9bed45185c3be0fcef50e561b5eaf4970cbd05583fdb5aae",
+      "sourceBox": {
+        "left": 10,
+        "top": 4,
+        "right": 59,
+        "bottom": 60,
+        "width": 50,
+        "height": 57,
+        "pixels": 1986
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2099
+      },
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "colorpoint",
+      "kind": "fin-ears",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/colorpoint-fin-ears.png",
+      "sourceSha256": "e439124259a69b70bccd0df090c550698b0067ce8531e6dc003b7c14d16c67b5",
+      "templateId": "layer-6d8134b5c93d11f7",
+      "templateSha256": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+      "outputPath": "docs/qa/pixel-five-coats/layers/colorpoint-fin-ears.png",
+      "outputSha256": "4d3f070180d2b1dacfaacae524ceecddb702590d34366faac14fa4ff87b3e93f",
+      "sourceBox": {
+        "left": 12,
+        "top": 5,
+        "right": 44,
+        "bottom": 18,
+        "width": 33,
+        "height": 14,
+        "pixels": 165
+      },
+      "templateBox": {
+        "left": 11,
+        "top": 4,
+        "right": 43,
+        "bottom": 19,
+        "width": 33,
+        "height": 16,
+        "pixels": 191
+      },
+      "alphaSha256": "5fe1d2f4ffd483b0c02c51310725e8f9966119155d869f547e7242f55f66fbe5"
+    },
+    {
+      "coat": "colorpoint",
+      "kind": "small-lion-mane",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/colorpoint-small-lion-mane.png",
+      "sourceSha256": "8cfad8eaa992e1351333de74a22afe8c25c8f58e474e8270316ef6894c2dfb1d",
+      "templateId": "layer-0dc4c49bf437b30a",
+      "templateSha256": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+      "outputPath": "docs/qa/pixel-five-coats/layers/colorpoint-small-lion-mane.png",
+      "outputSha256": "3ea3fe08a4019532ea73461a723e17e95f83b8248f7ae852f3aa48eab8844a57",
+      "sourceBox": {
+        "left": 8,
+        "top": 27,
+        "right": 45,
+        "bottom": 45,
+        "width": 38,
+        "height": 19,
+        "pixels": 461
+      },
+      "templateBox": {
+        "left": 10,
+        "top": 29,
+        "right": 43,
+        "bottom": 43,
+        "width": 34,
+        "height": 15,
+        "pixels": 318
+      },
+      "alphaSha256": "9c5d4f546d4e55b9c0aa73bee9eae2ae34d0a144c70a54dd68d48450c7a4a284"
+    },
+    {
+      "coat": "colorpoint",
+      "kind": "forked-tail-tip",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/colorpoint-forked-tail-tip.png",
+      "sourceSha256": "894c945cb594098838f39eb119db07e462cebeb8810a7aeac01060f6b7ce051b",
+      "templateId": "layer-28f0a9fba22b4bae",
+      "templateSha256": "28f0a9fba22b4bae35ebf8c2ca1693d183fe5138f1d5b67e5756a0fa7f45ee1b",
+      "outputPath": "docs/qa/pixel-five-coats/layers/colorpoint-forked-tail-tip.png",
+      "outputSha256": "894649a6f618c8bd6aa720ea75197b1a691369f0086f1841b32fc887eb83dc8c",
+      "sourceBox": {
+        "left": 45,
+        "top": 20,
+        "right": 61,
+        "bottom": 56,
+        "width": 17,
+        "height": 37,
+        "pixels": 300
+      },
+      "templateBox": {
+        "left": 40,
+        "top": 20,
+        "right": 57,
+        "bottom": 57,
+        "width": 18,
+        "height": 38,
+        "pixels": 379
+      },
+      "alphaSha256": "4aea4006a9c6c2e0f56798df49c0bb7f760497c568818353b6b16c593774ba4d"
+    },
+    {
+      "coat": "rosetted",
+      "kind": "parted-mouth",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/rosetted-parted-mouth.png",
+      "sourceSha256": "8798bd2e72d1da466ec7afe525ff33d3fa14c7c33e203923b4e5cc41b43d24df",
+      "templateId": "layer-c68b7f3b61d5650f",
+      "templateSha256": "c68b7f3b61d5650f51436a4beee6c47af3f1b30a06a5c3b6d2d412e7bd0ebc96",
+      "outputPath": "docs/qa/pixel-five-coats/layers/rosetted-parted-mouth.png",
+      "outputSha256": "6772e7fa7dfd8a743707d0b61368fd368ac8c6f82bbb6b3930cb923be78e9c09",
+      "sourceBox": {
+        "left": 9,
+        "top": 4,
+        "right": 59,
+        "bottom": 61,
+        "width": 51,
+        "height": 58,
+        "pixels": 1998
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2098
+      },
+      "alphaSha256": "f6e0b4c73b554c16a55e9213880bd0565b326717204aacba76a875aea8a29716"
+    },
+    {
+      "coat": "rosetted",
+      "kind": "small-fangs",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/rosetted-small-fangs.png",
+      "sourceSha256": "c7631562ac9e172ec329a10819f77688074c826fe65ae0727a3c8d94aece64e5",
+      "templateId": "layer-fec0335aee4cb501",
+      "templateSha256": "fec0335aee4cb501aecfa9b986bd849420775461cf335b2958842aefe9d5b791",
+      "outputPath": "docs/qa/pixel-five-coats/layers/rosetted-small-fangs.png",
+      "outputSha256": "80a7dff6e39f1fc9217351c3f1e796ae7b4881fed8a8f916a87f13e9b648d2c0",
+      "sourceBox": {
+        "left": 10,
+        "top": 4,
+        "right": 59,
+        "bottom": 60,
+        "width": 50,
+        "height": 57,
+        "pixels": 1976
+      },
+      "templateBox": {
+        "left": 9,
+        "top": 3,
+        "right": 60,
+        "bottom": 61,
+        "width": 52,
+        "height": 59,
+        "pixels": 2099
+      },
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "rosetted",
+      "kind": "fin-ears",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/rosetted-fin-ears.png",
+      "sourceSha256": "72eef3c2c6d8eb510bb60e98345707801922d1a5f498de2e1867428add6ddd27",
+      "templateId": "layer-6d8134b5c93d11f7",
+      "templateSha256": "6d8134b5c93d11f7c0a9bf8c6730cdbfd448fd215680dbcf86fae37d27e3fcec",
+      "outputPath": "docs/qa/pixel-five-coats/layers/rosetted-fin-ears.png",
+      "outputSha256": "3a5a1e3db99f4d229087287c365dcaab87cc89e6d93220e30595189f82213b82",
+      "sourceBox": {
+        "left": 12,
+        "top": 5,
+        "right": 44,
+        "bottom": 18,
+        "width": 33,
+        "height": 14,
+        "pixels": 166
+      },
+      "templateBox": {
+        "left": 11,
+        "top": 4,
+        "right": 43,
+        "bottom": 19,
+        "width": 33,
+        "height": 16,
+        "pixels": 191
+      },
+      "alphaSha256": "5fe1d2f4ffd483b0c02c51310725e8f9966119155d869f547e7242f55f66fbe5"
+    },
+    {
+      "coat": "rosetted",
+      "kind": "small-lion-mane",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/rosetted-small-lion-mane.png",
+      "sourceSha256": "f7ec5ef7ca95d951c17fbf1909077cee6d7975480beaf9a530a8a4d724a5bb4a",
+      "templateId": "layer-0dc4c49bf437b30a",
+      "templateSha256": "0dc4c49bf437b30a9437e09e655dfac25b78d34d3c7ba5babb5d2fe8cce50936",
+      "outputPath": "docs/qa/pixel-five-coats/layers/rosetted-small-lion-mane.png",
+      "outputSha256": "e9cf51f2859a39ba50b946b8a2dc068c250084c566d9f673a5d3ea7e8cb7fbbb",
+      "sourceBox": {
+        "left": 8,
+        "top": 27,
+        "right": 45,
+        "bottom": 45,
+        "width": 38,
+        "height": 19,
+        "pixels": 458
+      },
+      "templateBox": {
+        "left": 10,
+        "top": 29,
+        "right": 43,
+        "bottom": 43,
+        "width": 34,
+        "height": 15,
+        "pixels": 318
+      },
+      "alphaSha256": "9c5d4f546d4e55b9c0aa73bee9eae2ae34d0a144c70a54dd68d48450c7a4a284"
+    },
+    {
+      "coat": "rosetted",
+      "kind": "forked-tail-tip",
+      "sourcePath": "docs/qa/flat-source-trial/consumer/flat/rosetted-forked-tail-tip.png",
+      "sourceSha256": "de9130cb8d6edbfbfe3147db364a3378ed7d0f4be66087008f24a806e60efd07",
+      "templateId": "layer-28f0a9fba22b4bae",
+      "templateSha256": "28f0a9fba22b4bae35ebf8c2ca1693d183fe5138f1d5b67e5756a0fa7f45ee1b",
+      "outputPath": "docs/qa/pixel-five-coats/layers/rosetted-forked-tail-tip.png",
+      "outputSha256": "6246afa45e1d3861244d0b7daa5db9bc5d8a5724fc546d44454fae4f4681157e",
+      "sourceBox": {
+        "left": 45,
+        "top": 20,
+        "right": 61,
+        "bottom": 56,
+        "width": 17,
+        "height": 37,
+        "pixels": 298
+      },
+      "templateBox": {
+        "left": 40,
+        "top": 20,
+        "right": 57,
+        "bottom": 57,
+        "width": 18,
+        "height": 38,
+        "pixels": 379
+      },
+      "alphaSha256": "4aea4006a9c6c2e0f56798df49c0bb7f760497c568818353b6b16c593774ba4d"
+    }
+  ]
+}

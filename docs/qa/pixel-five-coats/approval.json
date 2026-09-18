@@ -1,0 +1,391 @@
+{
+  "schemaVersion": "pixel-art-v3-five-coats-sampled-approval-v1",
+  "userStatement": "验收通过",
+  "date": "2026-09-18",
+  "approvedArtVersion": "1.4.0",
+  "runtimeEnabled": false,
+  "method": "15-cell deterministic stratified sample approves the five-coat 2880-row candidate",
+  "scope": {
+    "coats": [
+      "brown-tabby",
+      "tuxedo",
+      "calico",
+      "colorpoint",
+      "rosetted"
+    ],
+    "body": "standard",
+    "eyes": [
+      "round"
+    ],
+    "expressions": [
+      "parted-mouth",
+      "small-fangs"
+    ],
+    "addedProfiles": 10,
+    "addedCoverage": 2880,
+    "addedResources": 25,
+    "interpretation": "Three sampled combinations per coat approve the full recolor-only island; alpha masks, anchors and layer rules remain inherited from 1.3.1."
+  },
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/v3/five-coats-1.4.0/catalog.candidate.json",
+    "schemaVersion": "pixel-art-catalog-v3",
+    "artVersion": "1.4.0-candidate.1",
+    "revision": "cc847b7e74acc5c10c7f5a081e2b0738caa1d05e41fbba12e5fc58e8840931f0",
+    "sha256": "f8b362c8e27ca565b6cd47014cb6b09d6f25356a390518f7276e39e88e3b6612",
+    "provenancePath": "packages/asset-catalog/pixel/v3/five-coats-1.4.0/provenance.json",
+    "provenanceSha256": "35d04750f40ff9525b555918e0d3ff460aed25e129c8b3e8429900a603aee8ae"
+  },
+  "samples": [
+    {
+      "coat": "brown-tabby",
+      "coverageId": "five-coats-p2-s067",
+      "profileId": "standard-brown-tabby-small-fangs-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "brown-tabby",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "file": "samples/01-brown-tabby.png",
+      "pngSha256": "39c95ad6f5731e26d25bda0d7d970b0a4453a1c90c28fee344f7ba871b9316e7",
+      "rgbaSha256": "05a31979367744f11a1dded8234bff9cba6cc481b338e9ad11331b94a9c932b1"
+    },
+    {
+      "coat": "brown-tabby",
+      "coverageId": "five-coats-p2-s136",
+      "profileId": "standard-brown-tabby-small-fangs-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "brown-tabby",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "file": "samples/02-brown-tabby.png",
+      "pngSha256": "2d102c0000130e52df713021d2b51ff6f109c6165a7c5ac299b2603ca89f3587",
+      "rgbaSha256": "c4ec89a6b36ea8dd5a4d2c4f2f6b7372d6145e10fd526ac49ee7ee38ba2e5f1c"
+    },
+    {
+      "coat": "brown-tabby",
+      "coverageId": "five-coats-p1-s132",
+      "profileId": "standard-brown-tabby-parted-mouth-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "brown-tabby",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/03-brown-tabby.png",
+      "pngSha256": "5a344e2c1209519fb10303316dbdfe39ad21e213bcf5665af97d32edafaaa905",
+      "rgbaSha256": "65b266e025787418135b66f14fb954ea020db6c9e25a5faa159667b303cbbe6b"
+    },
+    {
+      "coat": "tuxedo",
+      "coverageId": "five-coats-p4-s155",
+      "profileId": "standard-tuxedo-small-fangs-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "tuxedo",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/04-tuxedo.png",
+      "pngSha256": "6d5f2658571f41ac3750462245cbeb3bbf052c145a8d657599fd8b3ebc0c53e6",
+      "rgbaSha256": "464d2fa03bb98555b1bb6c0b87c0737988719d6f0675e47192b2d63aa8e990c4"
+    },
+    {
+      "coat": "tuxedo",
+      "coverageId": "five-coats-p3-s168",
+      "profileId": "standard-tuxedo-parted-mouth-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "tuxedo",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/05-tuxedo.png",
+      "pngSha256": "82e34030132b279f5fc2951e9d6acda32c52baa91f90f370ca3037ff5ac75c2a",
+      "rgbaSha256": "ce5e3c5631384319d95880cccbc464cf43c9637c48eddd73a0e78129ff877523"
+    },
+    {
+      "coat": "tuxedo",
+      "coverageId": "five-coats-p3-s193",
+      "profileId": "standard-tuxedo-parted-mouth-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "tuxedo",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "file": "samples/06-tuxedo.png",
+      "pngSha256": "edd83789bcc0a0dbd36879b99af3b355d53f9fa805a8ab928c90659db0cb0c10",
+      "rgbaSha256": "8f9916299c43522602b9b66f0d98605eab13d6fba46f35399aa92c04bfe5a1a4"
+    },
+    {
+      "coat": "calico",
+      "coverageId": "five-coats-p6-s065",
+      "profileId": "standard-calico-small-fangs-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "calico",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/07-calico.png",
+      "pngSha256": "f5c5bb771fa7d5eafe7348e86264c9e371c2807bd2dca07cb2ca78fbe090126c",
+      "rgbaSha256": "f1a3342cce1b72df8b237193024c917e738f226a3ac3042fdc3aef231cb5e765"
+    },
+    {
+      "coat": "calico",
+      "coverageId": "five-coats-p6-s287",
+      "profileId": "standard-calico-small-fangs-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "calico",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "dragon-wings",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/08-calico.png",
+      "pngSha256": "b89fe5f6cded97e3f4e20f45b83a7c9cde60e7a03f82b203a6c34670e31331fb",
+      "rgbaSha256": "1e0f12a29c1716b64ac144447ed7fbb03b0b36c4b37f3ca55c89dafa66538d9a"
+    },
+    {
+      "coat": "calico",
+      "coverageId": "five-coats-p5-s096",
+      "profileId": "standard-calico-parted-mouth-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "calico",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/09-calico.png",
+      "pngSha256": "d603aae67a2f2d585f06a59e73901a8019ffcd0d149e2fde68620595ae04878f",
+      "rgbaSha256": "f0f9f723f0668789d72370f1745fd325921f235fb46e26b5c21df15a83a31bbd"
+    },
+    {
+      "coat": "colorpoint",
+      "coverageId": "five-coats-p8-s014",
+      "profileId": "standard-colorpoint-small-fangs-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "colorpoint",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/10-colorpoint.png",
+      "pngSha256": "ecbb019ef9cb33f07a8b535b9959fe98342de81b2e7503c90403a8d9a021decd",
+      "rgbaSha256": "e65a8d37616aa479dddc4cb25a0ea38021a0665e08d563c5b3e20d25a6171cf8"
+    },
+    {
+      "coat": "colorpoint",
+      "coverageId": "five-coats-p8-s036",
+      "profileId": "standard-colorpoint-small-fangs-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "colorpoint",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/11-colorpoint.png",
+      "pngSha256": "2050e3df7c9d0525a65b3ac35f1138ce56a509b64c88b82f2675b22ce9a1e3bd",
+      "rgbaSha256": "06337097c7332e9601252544d24f255c635b479a61d6caa6a9b5d6e5c50ef0c7"
+    },
+    {
+      "coat": "colorpoint",
+      "coverageId": "five-coats-p7-s072",
+      "profileId": "standard-colorpoint-parted-mouth-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "colorpoint",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/12-colorpoint.png",
+      "pngSha256": "37ef3d2a024eeaffd809f30e1937d2f26a1306b86af040f483bc368845583190",
+      "rgbaSha256": "f03f90193335098451b63929b76d76331bde26201492f088c4939f71cc72ed3e"
+    },
+    {
+      "coat": "rosetted",
+      "coverageId": "five-coats-p9-s182",
+      "profileId": "standard-rosetted-parted-mouth-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "rosetted",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/13-rosetted.png",
+      "pngSha256": "777a8bc04d243be0b3f08800dd1d9f5be180f3b010d179bca28de02041741a54",
+      "rgbaSha256": "e21f97f9f8f21be29f66efedb5c54808878fc899d68d3732b8a79bb5866d5f04"
+    },
+    {
+      "coat": "rosetted",
+      "coverageId": "five-coats-p9-s183",
+      "profileId": "standard-rosetted-parted-mouth-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "rosetted",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/14-rosetted.png",
+      "pngSha256": "bac321a13cedc9aab3e87b0f1a2ef8f32cd45e8d8d1fe59b36468c1ae0b84721",
+      "rgbaSha256": "d2e1479a7d5aecf8df003a5ab504de4b1d999156ece97e7c5d417947fcdb4e11"
+    },
+    {
+      "coat": "rosetted",
+      "coverageId": "five-coats-p10-s129",
+      "profileId": "standard-rosetted-small-fangs-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "rosetted",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "feathered-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/15-rosetted.png",
+      "pngSha256": "6a2a180a88a3a77d8141e9a554a2d74b3325a4a18f45c5081ce8e2cdc960dbbc",
+      "rgbaSha256": "2132b39d6d5606edfed15809ee4b90e0f040b4a66fde98f501de74b2f4d009ad"
+    }
+  ],
+  "evidence": {
+    "docs/qa/pixel-five-coats/report.json": "a236577e84109c905db64ecb175d1437826669fbb32968e3beeda9a18c1554cd",
+    "docs/qa/pixel-five-coats/index.html": "4d9d4ddd831a573215a8ee782d04ae0a78fdb781da5781fee9ce6cc7748e73dc",
+    "docs/qa/pixel-five-coats/README.md": "a127c9228faf3b4b7c961d122a339f52a0338ca5926697ee26b22a93fa35f5f0",
+    "docs/qa/pixel-five-coats/normalization-report.json": "9e358cfb870718c87a6e948cda9a73cc98a33841eebc67dba1feee2ca26e4a8d",
+    "docs/qa/pixel-five-coats/samples/01-brown-tabby.png": "39c95ad6f5731e26d25bda0d7d970b0a4453a1c90c28fee344f7ba871b9316e7",
+    "docs/qa/pixel-five-coats/samples/02-brown-tabby.png": "2d102c0000130e52df713021d2b51ff6f109c6165a7c5ac299b2603ca89f3587",
+    "docs/qa/pixel-five-coats/samples/03-brown-tabby.png": "5a344e2c1209519fb10303316dbdfe39ad21e213bcf5665af97d32edafaaa905",
+    "docs/qa/pixel-five-coats/samples/04-tuxedo.png": "6d5f2658571f41ac3750462245cbeb3bbf052c145a8d657599fd8b3ebc0c53e6",
+    "docs/qa/pixel-five-coats/samples/05-tuxedo.png": "82e34030132b279f5fc2951e9d6acda32c52baa91f90f370ca3037ff5ac75c2a",
+    "docs/qa/pixel-five-coats/samples/06-tuxedo.png": "edd83789bcc0a0dbd36879b99af3b355d53f9fa805a8ab928c90659db0cb0c10",
+    "docs/qa/pixel-five-coats/samples/07-calico.png": "f5c5bb771fa7d5eafe7348e86264c9e371c2807bd2dca07cb2ca78fbe090126c",
+    "docs/qa/pixel-five-coats/samples/08-calico.png": "b89fe5f6cded97e3f4e20f45b83a7c9cde60e7a03f82b203a6c34670e31331fb",
+    "docs/qa/pixel-five-coats/samples/09-calico.png": "d603aae67a2f2d585f06a59e73901a8019ffcd0d149e2fde68620595ae04878f",
+    "docs/qa/pixel-five-coats/samples/10-colorpoint.png": "ecbb019ef9cb33f07a8b535b9959fe98342de81b2e7503c90403a8d9a021decd",
+    "docs/qa/pixel-five-coats/samples/11-colorpoint.png": "2050e3df7c9d0525a65b3ac35f1138ce56a509b64c88b82f2675b22ce9a1e3bd",
+    "docs/qa/pixel-five-coats/samples/12-colorpoint.png": "37ef3d2a024eeaffd809f30e1937d2f26a1306b86af040f483bc368845583190",
+    "docs/qa/pixel-five-coats/samples/13-rosetted.png": "777a8bc04d243be0b3f08800dd1d9f5be180f3b010d179bca28de02041741a54",
+    "docs/qa/pixel-five-coats/samples/14-rosetted.png": "bac321a13cedc9aab3e87b0f1a2ef8f32cd45e8d8d1fe59b36468c1ae0b84721",
+    "docs/qa/pixel-five-coats/samples/15-rosetted.png": "6a2a180a88a3a77d8141e9a554a2d74b3325a4a18f45c5081ce8e2cdc960dbbc",
+    "docs/qa/pixel-five-coats/layers/brown-tabby-fin-ears.png": "7e714c16e7dc96afad06c3c627c1f0e34a2d717bcf5a0e059c596bcb88dad3af",
+    "docs/qa/pixel-five-coats/layers/brown-tabby-forked-tail-tip.png": "ed3a87f6e6dbbe7122b727daf777950ec8d3bd92826eb1cfb125914e1c9dc97e",
+    "docs/qa/pixel-five-coats/layers/brown-tabby-parted-mouth.png": "cb8ad098038cc0de1c8fed45dbb1ccfd11c7a774b61dbcdcbd9114435c07202d",
+    "docs/qa/pixel-five-coats/layers/brown-tabby-small-fangs.png": "21c2c2e0bec315f39a5bf4bd5381559eeee50dbb992e085da21bf4742cc01885",
+    "docs/qa/pixel-five-coats/layers/brown-tabby-small-lion-mane.png": "9705184c23b9027b8a3e2d9f6a34cf176d10d4bf2757c400fd3f0f95aba1c362",
+    "docs/qa/pixel-five-coats/layers/calico-fin-ears.png": "096351544c2988c00722fb2fedfa874ff868c044ab859412b2cd0bb4da98c921",
+    "docs/qa/pixel-five-coats/layers/calico-forked-tail-tip.png": "317bd5989f3d9e302723ce96e514a0b1c341fcc961ec1870281ff1b660f19628",
+    "docs/qa/pixel-five-coats/layers/calico-parted-mouth.png": "ef8bb6edec1d15439f003f7fd03ccd535931364a68c791d16e773ece56eb0e1a",
+    "docs/qa/pixel-five-coats/layers/calico-small-fangs.png": "2dcb1971f5439589a9d3a92194100072cc789e29904b7224ebd84d64c9467f61",
+    "docs/qa/pixel-five-coats/layers/calico-small-lion-mane.png": "3489c422e93d7f7ade92cd383ad5a81dc8846042b8a7a96a84eb530256dd3149",
+    "docs/qa/pixel-five-coats/layers/colorpoint-fin-ears.png": "4d3f070180d2b1dacfaacae524ceecddb702590d34366faac14fa4ff87b3e93f",
+    "docs/qa/pixel-five-coats/layers/colorpoint-forked-tail-tip.png": "894649a6f618c8bd6aa720ea75197b1a691369f0086f1841b32fc887eb83dc8c",
+    "docs/qa/pixel-five-coats/layers/colorpoint-parted-mouth.png": "742afec5ccf6b8cefc9a01bda03b0dc24c073b2bef9596c48e225aab1ec9029d",
+    "docs/qa/pixel-five-coats/layers/colorpoint-small-fangs.png": "f8c93e622b23670f9bed45185c3be0fcef50e561b5eaf4970cbd05583fdb5aae",
+    "docs/qa/pixel-five-coats/layers/colorpoint-small-lion-mane.png": "3ea3fe08a4019532ea73461a723e17e95f83b8248f7ae852f3aa48eab8844a57",
+    "docs/qa/pixel-five-coats/layers/rosetted-fin-ears.png": "3a5a1e3db99f4d229087287c365dcaab87cc89e6d93220e30595189f82213b82",
+    "docs/qa/pixel-five-coats/layers/rosetted-forked-tail-tip.png": "6246afa45e1d3861244d0b7daa5db9bc5d8a5724fc546d44454fae4f4681157e",
+    "docs/qa/pixel-five-coats/layers/rosetted-parted-mouth.png": "6772e7fa7dfd8a743707d0b61368fd368ac8c6f82bbb6b3930cb923be78e9c09",
+    "docs/qa/pixel-five-coats/layers/rosetted-small-fangs.png": "80a7dff6e39f1fc9217351c3f1e796ae7b4881fed8a8f916a87f13e9b648d2c0",
+    "docs/qa/pixel-five-coats/layers/rosetted-small-lion-mane.png": "e9cf51f2859a39ba50b946b8a2dc068c250084c566d9f673a5d3ea7e8cb7fbbb",
+    "docs/qa/pixel-five-coats/layers/tuxedo-fin-ears.png": "a29af10c838a30dcb0560c334756958db9e6283b19eea417fd25adb27d687316",
+    "docs/qa/pixel-five-coats/layers/tuxedo-forked-tail-tip.png": "da2820c570724624861bd7b3e653bc622f680da66571cf2926084660a5153b2b",
+    "docs/qa/pixel-five-coats/layers/tuxedo-parted-mouth.png": "6dd2d6e77471af03ccc95d19fcd29a54f6856785a89e781d39092793585884f3",
+    "docs/qa/pixel-five-coats/layers/tuxedo-small-fangs.png": "ca7e6b84a29268b164721068dccc21b77cdbff181c6c1ba14198d686639bca44",
+    "docs/qa/pixel-five-coats/layers/tuxedo-small-lion-mane.png": "f44fe44a608c50ba1d03d0605285008efda495ec23731ff3b5badad7758c9103"
+  },
+  "exclusions": [
+    "No sleepy-almond profiles are included for the five new coats.",
+    "No changes to approved 1.3.1 resources, renderer, phenotype schema, clear regions, occlusion or layer order.",
+    "Runtime integration and enablement remain disabled."
+  ]
+}
