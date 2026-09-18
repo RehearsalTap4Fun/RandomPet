@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "pixel-art-v3-profile-gap-approval-v1",
+  "userStatement": "只改了面部和其他组合都不会有衔接问题，直接通过",
+  "date": "2026-09-18",
+  "approvedArtVersion": "1.3.1",
+  "runtimeEnabled": false,
+  "scope": {
+    "profileId": "standard-sleepy-almond-parted-mouth",
+    "addedProfiles": 1,
+    "addedCoverage": 288,
+    "interpretation": "The new face profile is approved; existing part layering is reused without separate seam review."
+  },
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/v3/profile-gap-1.3.1/catalog.candidate.json",
+    "schemaVersion": "pixel-art-catalog-v3",
+    "artVersion": "1.3.1-candidate.1",
+    "revision": "55f14fcc725ab7dc00024e1756bfe7d543ea7e2979014d573081e8aa13e4ef26",
+    "sha256": "fc7b465ca066284d16e64a964a404ab4f4776f983bafbd013c9e2a7ded39e2c8",
+    "provenancePath": "packages/asset-catalog/pixel/v3/profile-gap-1.3.1/provenance.json",
+    "provenanceSha256": "b62de251322218afbbf1a2cb625a0158a7c571988687e4168e924a29cabdcbb6"
+  },
+  "samples": [
+    {
+      "id": "gap-base",
+      "label": "无部件",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "37de35070fc8d5701a30c9dc88e77b0055ea1b5acca60db22abdf941534b6031",
+      "file": "samples/01-base.png"
+    },
+    {
+      "id": "gap-antlers-fin-ears",
+      "label": "鹿角＋鳍耳",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "b7e39b3dc8ad91c7a07e7d2eece3bd851c62ae6ef06a897fe9f70e884155cc75",
+      "file": "samples/02-antlers-fin-ears.png"
+    },
+    {
+      "id": "gap-halo-fin-ears",
+      "label": "光环＋鳍耳",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "halo",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "2fea127198c78d0c951ddffa823664e6b1cc21ace5795bffcb4045d46f7d856b",
+      "file": "samples/03-halo-fin-ears.png"
+    },
+    {
+      "id": "gap-mane-small-wings-flame",
+      "label": "小狮鬃＋小翅膀＋火焰尾",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "small-wings",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "24abb49ac16d9e63e5f060317593889dd998e9791d0815a99c53120355fdcdbc",
+      "file": "samples/04-mane-small-wings-flame.png"
+    },
+    {
+      "id": "gap-frill-dragon-wings-forked",
+      "label": "颈膜＋龙翼＋分叉尾",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "e72c73f250160309a6062e089ad0f24dd4d0d44016532d2644a2172c5e26a407",
+      "file": "samples/05-frill-dragon-wings-forked.png"
+    },
+    {
+      "id": "gap-horns-feathered",
+      "label": "龙角＋羽翼",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "rgbaSha256": "a91dcc0e697ab3d60467bff341318cdb193b75937483b85b4a47e3fd23ea027f",
+      "file": "samples/06-horns-feathered.png"
+    }
+  ],
+  "evidence": {
+    "docs/art/pixel-profile-gap/generation.json": "12d1ac22ed7ff85f8291b178a34c448437746d1c36a25066758561b83220533d",
+    "docs/art/pixel-profile-gap/solid/orange-white-standard-sleepy-almond-parted-mouth.png": "94a625a1bc854d289879928264f88d2662b87a4bfef72a264da5f6f3e190c08d",
+    "docs/qa/pixel-profile-gap/orange-white-standard-sleepy-almond-parted-mouth-64.png": "10d12c620bc4520ffeb331edd6adef8079d08b829f7ab8ed2bbda431004478c2",
+    "docs/qa/pixel-profile-gap/report.json": "4f8f2c63d28c728ce9273c7293803a3ee53171567e6c7f2637542b63415340a4",
+    "docs/qa/pixel-profile-gap/index.html": "98b01bac156413b05fad9781af1db0346607d307c7deb5b52458f83746004241",
+    "docs/qa/pixel-profile-gap/nutri-manifest.json": "069518fc9f7526fd47fba649aec95bc501002fabdca95fb28e28a20234df0a0d",
+    "docs/qa/pixel-profile-gap/samples/01-base.png": "725845b62fb8842ea9a1d72912a3416ff703d3f0625fcc8abe44cfa9b124570c",
+    "docs/qa/pixel-profile-gap/samples/02-antlers-fin-ears.png": "e6b9c3d35a730b9946e4d4d3679e3ab1b46cabe4ba209b3c2a5e52d0384f7a7e",
+    "docs/qa/pixel-profile-gap/samples/03-halo-fin-ears.png": "9cae94be872593bd981ca867c21685feff89500d868a6fc510d2f7665b2d439e",
+    "docs/qa/pixel-profile-gap/samples/04-mane-small-wings-flame.png": "d2a1807235534377abd48142506bb5aa4dfab848020281e5ed3f0ee99a1df008",
+    "docs/qa/pixel-profile-gap/samples/05-frill-dragon-wings-forked.png": "2a62aa97cf216554b679f2ceb60919377b983c335e269b9564ea11705a979835",
+    "docs/qa/pixel-profile-gap/samples/06-horns-feathered.png": "dab20bf042c5af821ab72e0e2dca72694a59a5f324230b8b6271aa9fa1ae9214",
+    "docs/qa/pixel-profile-gap/samples/01-base-256.png": "5d3e268cf1f71303aee8804c644eeec1bfceb721853833fa3ecce874aa85c957",
+    "docs/qa/pixel-profile-gap/samples/02-antlers-fin-ears-256.png": "6271867366a5c0b34a53b28ac5b6c56fc75744ddb8b3622ea4a6b3b66002b24e",
+    "docs/qa/pixel-profile-gap/samples/03-halo-fin-ears-256.png": "a54ed772194b4c7319150ac01458f999f64bd66c03a94752dad86361db7de204",
+    "docs/qa/pixel-profile-gap/samples/04-mane-small-wings-flame-256.png": "c3374925e9cd160edf0e3bbde0b7e9ed1cff9f1181f55ac079c4a5c18df0b4f1",
+    "docs/qa/pixel-profile-gap/samples/05-frill-dragon-wings-forked-256.png": "4aba28545764d58e4d0e1887777d026f123670cd56c3cb514a87566e84b1b28b",
+    "docs/qa/pixel-profile-gap/samples/06-horns-feathered-256.png": "da5a1e513adfa33f7cdf497daa5162dcf6b73ea174e1aebbf7c52b6f453442f6"
+  },
+  "exclusions": [
+    "No changes to the 1.3.0 package, existing resources, renderer, phenotype schema or layer rules.",
+    "Runtime integration and enablement remain disabled.",
+    "No other body, coat, eye or expression profile is approved by this record."
+  ]
+}

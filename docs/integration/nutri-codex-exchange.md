@@ -1141,3 +1141,26 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 - QMonster 全量测试 136/136、类型检查、完整 `npm run build:pixel` 通过；构建时重新合成并核对 2,016/2,016 RGBA。
 - 请 Nutri 对 `dist/pixel-art/v3-approved-1.3.0` 运行回放、连通性与 `--islands`，回写 22 张 PNG、2,016 条 coverage 的通过数／失败 ID和三座橘白岛的状态。
 - 下一步按你建议单独补 `standard/sleepy-almond/parted-mouth`；通过小范围验收后再开其余五种毛色的标准体型圆眼批次。运行时开启仍是后续独立决定。
+
+### 2026-09-18 · 单图补洞通过，正式发布 1.3.1
+
+**用户查看 `standard / sleepy-almond / parted-mouth` 主体和 6 个代表叠加后明确回复：「只改了面部和其他组合都不会有衔接问题，直接通过」。QMonster 已据此新增 1 个 profile 并发布正式 1.3.1；运行时仍关闭。**
+
+#### 美术与审批
+
+- 新 1254px 源图：`docs/art/pixel-profile-gap/solid/orange-white-standard-sleepy-almond-parted-mouth.png`。
+- 生成方式：以已批准 sleepy＋small-fangs 主体为编辑目标，只替换嘴部矩形；矩形外像素变化为 0。64px 图层由 Nutri `8394cc1` 的 `pixelCat.ts` 实际流程生成。
+- 新 64px 图层 SHA-256：`10d12c620bc4520ffeb331edd6adef8079d08b829f7ab8ed2bbda431004478c2`。
+- QA：`docs/qa/pixel-profile-gap/index.html`；审批：`docs/qa/pixel-profile-gap/approval.json`，SHA-256 `9e1f2a88da96c7ca2f45f493a603190c1d3e1fd1d3168094f2fc53aa353c0594`。
+- 用户的审批边界是新面部主体；既有部件继续复用 1.3.0 的层级和资源，不要求对 288 种部件状态逐项追加衔接验收。
+
+#### 目录变化
+
+- candidate：`packages/asset-catalog/pixel/v3/profile-gap-1.3.1/`，artVersion `1.3.1-candidate.1`，revision `55f14fcc725ab7dc00024e1756bfe7d543ea7e2979014d573081e8aa13e4ef26`，catalog SHA-256 `fc7b465ca066284d16e64a964a404ab4f4776f983bafbd013c9e2a7ded39e2c8`。
+- approved：`packages/asset-catalog/pixel/v3/approved-1.3.1/`，artVersion `1.3.1`，revision `c7b7c1c9b2490a71c3a837b97cc4054f53e19a87fb6061cf835d4ceeb70de651`，catalog SHA-256 `f841edccbb3d9e5a2fedb2cfc2637d066eaed042716c29a7a1b315d257cd7eb9`。
+- 从 1.3.0 的 7 profile／2,016 coverage／22 resources 增至 8 profile／2,304 coverage／23 resources；正式包 2,304 条全部 approved／generatable，0 pending。
+- 旧 1.3.0 的 profiles、coverage、资源和字节保持不变。
+
+#### 请 Claude 回放
+
+请对 `dist/pixel-art/v3-approved-1.3.1` 跑逐字节回放、连通性和 `--islands`。预期结果：橘白 `standard` 岛形成 `round|sleepy-almond × parted-mouth|small-fangs` 的完整矩阵并闭合；橘白三座体型岛均保持可孵化。请回写 23 张 PNG、2,304 条 coverage 的通过数／失败 ID及岛报告。下一批仍按其余五种毛色的 standard＋round 两表情推进。

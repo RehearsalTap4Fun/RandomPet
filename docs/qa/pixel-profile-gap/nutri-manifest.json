@@ -1,0 +1,230 @@
+{
+  "source": {
+    "runtimeRevision": "fdd60cdc07eab862584ab6dcabfdc6ef007693bdf71056aa09a33c5ff158af6f",
+    "catalogVersion": "0.10.0-candidate.1",
+    "templateVersion": "feline-sit-v1",
+    "flatSource": "C:\\Project\\QMonsterCreator\\node_modules\\.cache\\pixel-profile-gap\\source",
+    "flatLayers": [
+      "orange-white-small-fangs"
+    ]
+  },
+  "size": 64,
+  "scale": 2,
+  "coats": [
+    "brown-tabby",
+    "orange-white",
+    "tuxedo",
+    "calico",
+    "colorpoint",
+    "rosetted"
+  ],
+  "expressions": [
+    "parted-mouth",
+    "small-fangs",
+    "tongue-tip"
+  ],
+  "layers": {
+    "brown-tabby-parted-mouth": "brown-tabby-parted-mouth.png",
+    "brown-tabby-small-fangs": "brown-tabby-small-fangs.png",
+    "brown-tabby-tongue-tip": "brown-tabby-tongue-tip.png",
+    "dragon-horns": "dragon-horns.png",
+    "small-wings": "small-wings.png",
+    "antlers": "antlers.png",
+    "brown-tabby-fin-ears": "brown-tabby-fin-ears.png",
+    "brown-tabby-small-lion-mane": "brown-tabby-small-lion-mane.png",
+    "brown-tabby-forked-tail-tip": "brown-tabby-forked-tail-tip.png",
+    "halo": "halo.png",
+    "dragon-wings": "dragon-wings.png",
+    "feathered-wings": "feathered-wings.png",
+    "frill-neck": "frill-neck.png",
+    "flame-tail": "flame-tail.png",
+    "orange-white-parted-mouth": "orange-white-parted-mouth.png",
+    "orange-white-small-fangs": "orange-white-small-fangs.png",
+    "orange-white-tongue-tip": "orange-white-tongue-tip.png",
+    "orange-white-fin-ears": "orange-white-fin-ears.png",
+    "orange-white-forked-tail-tip": "orange-white-forked-tail-tip.png",
+    "orange-white-small-lion-mane": "orange-white-small-lion-mane.png",
+    "tuxedo-parted-mouth": "tuxedo-parted-mouth.png",
+    "tuxedo-small-fangs": "tuxedo-small-fangs.png",
+    "tuxedo-tongue-tip": "tuxedo-tongue-tip.png",
+    "tuxedo-small-lion-mane": "tuxedo-small-lion-mane.png",
+    "tuxedo-forked-tail-tip": "tuxedo-forked-tail-tip.png",
+    "tuxedo-fin-ears": "tuxedo-fin-ears.png",
+    "calico-parted-mouth": "calico-parted-mouth.png",
+    "calico-small-fangs": "calico-small-fangs.png",
+    "calico-tongue-tip": "calico-tongue-tip.png",
+    "calico-fin-ears": "calico-fin-ears.png",
+    "calico-small-lion-mane": "calico-small-lion-mane.png",
+    "calico-forked-tail-tip": "calico-forked-tail-tip.png",
+    "colorpoint-parted-mouth": "colorpoint-parted-mouth.png",
+    "colorpoint-small-fangs": "colorpoint-small-fangs.png",
+    "colorpoint-tongue-tip": "colorpoint-tongue-tip.png",
+    "colorpoint-fin-ears": "colorpoint-fin-ears.png",
+    "colorpoint-small-lion-mane": "colorpoint-small-lion-mane.png",
+    "colorpoint-forked-tail-tip": "colorpoint-forked-tail-tip.png",
+    "rosetted-parted-mouth": "rosetted-parted-mouth.png",
+    "rosetted-small-fangs": "rosetted-small-fangs.png",
+    "rosetted-tongue-tip": "rosetted-tongue-tip.png",
+    "rosetted-fin-ears": "rosetted-fin-ears.png",
+    "rosetted-small-lion-mane": "rosetted-small-lion-mane.png",
+    "rosetted-forked-tail-tip": "rosetted-forked-tail-tip.png"
+  },
+  "mutations": {
+    "brown-tabby": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "brown-tabby-fin-ears",
+      "small-lion-mane": "brown-tabby-small-lion-mane",
+      "forked-tail-tip": "brown-tabby-forked-tail-tip",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
+    },
+    "orange-white": {
+      "dragon-horns": "dragon-horns",
+      "fin-ears": "orange-white-fin-ears",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "forked-tail-tip": "orange-white-forked-tail-tip",
+      "small-lion-mane": "orange-white-small-lion-mane",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
+    },
+    "tuxedo": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "small-lion-mane": "tuxedo-small-lion-mane",
+      "forked-tail-tip": "tuxedo-forked-tail-tip",
+      "fin-ears": "tuxedo-fin-ears",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
+    },
+    "calico": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "calico-fin-ears",
+      "small-lion-mane": "calico-small-lion-mane",
+      "forked-tail-tip": "calico-forked-tail-tip",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
+    },
+    "colorpoint": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "colorpoint-fin-ears",
+      "small-lion-mane": "colorpoint-small-lion-mane",
+      "forked-tail-tip": "colorpoint-forked-tail-tip",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
+    },
+    "rosetted": {
+      "dragon-horns": "dragon-horns",
+      "small-wings": "small-wings",
+      "antlers": "antlers",
+      "fin-ears": "rosetted-fin-ears",
+      "small-lion-mane": "rosetted-small-lion-mane",
+      "forked-tail-tip": "rosetted-forked-tail-tip",
+      "halo": "halo",
+      "dragon-wings": "dragon-wings",
+      "feathered-wings": "feathered-wings",
+      "frill-neck": "frill-neck",
+      "flame-tail": "flame-tail"
+    }
+  },
+  "clear": {
+    "ears": [
+      [
+        [
+          11.38,
+          1
+        ],
+        [
+          25.23,
+          1
+        ],
+        [
+          24.24,
+          10.39
+        ],
+        [
+          11.88,
+          15.34
+        ]
+      ],
+      [
+        [
+          31.9,
+          1
+        ],
+        [
+          47.48,
+          1
+        ],
+        [
+          45.5,
+          21.27
+        ],
+        [
+          33.63,
+          10.89
+        ]
+      ]
+    ],
+    "tailTip": [
+      [
+        45.25,
+        18.3
+      ],
+      [
+        63,
+        18.3
+      ],
+      [
+        63,
+        58.35
+      ],
+      [
+        46.98,
+        58.35
+      ],
+      [
+        47.87,
+        53.41
+      ],
+      [
+        48.32,
+        47.48
+      ],
+      [
+        48.46,
+        42.04
+      ],
+      [
+        47.33,
+        37.09
+      ],
+      [
+        45.25,
+        35.11
+      ]
+    ]
+  }
+}

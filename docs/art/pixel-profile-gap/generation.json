@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "pixel-profile-gap-generation-v1",
+  "status": "source-candidate-art-review-pending",
+  "tool": "image_gen.imagegen",
+  "id": "orange-white-standard-sleepy-almond-parted-mouth",
+  "phenotype": {
+    "body": "standard",
+    "coat": "orange-white",
+    "eyes": "sleepy-almond",
+    "expression": "parted-mouth"
+  },
+  "prompt": "Use case: precise-object-edit. Asset type: 1254x1254 game sprite production source. Image 1 is the exact EDIT TARGET: the approved orange-white standard kitten with sleepy almond eyes and two large fangs. Image 2 is a MOUTH-SHAPE REFERENCE only: the same standard kitten with a small parted mouth. Change ONLY the mouth region of Image 1, approximately x310..610 y430..590, replacing the wide dark open mouth and both large white fangs with the small subtle parted-mouth opening from Image 2. Preserve Image 1 sleepy almond eyes exactly, including eyelids, teal irises, pupils and highlights. Preserve every pixel and contour outside the mouth region as closely as possible: exact 1254x1254 canvas, position, body silhouette, head, ears, nose, cheeks, orange-white markings, chest, paws, tail, outlines, antialiasing and uniform solid #FF00FF background. Do not copy Image 2 round eyes. Do not resize, shift, restyle, smooth or redraw the cat. No teeth or fangs, no tongue, no smile change beyond the small parted mouth, no new marks, shadows, texture, objects or text. Output exactly one 1254x1254 image.",
+  "editTarget": {
+    "path": "docs/art/flat-source-trial/stage3/solid/orange-white-sleepy-almond-small-fangs-standard.png",
+    "sha256": "cb7f7f07ddbfa59897eb9cc90190aeaec4ddca8391450b6eecc2873bda509bde"
+  },
+  "reference": {
+    "path": "docs/art/flat-source-trial/solid/orange-white-parted-mouth.png",
+    "sha256": "56592a6969745be64644cb0d403cc8f614fd332c95959a8da0a3bcd7d80d3574",
+    "role": "mouth-shape-reference-only"
+  },
+  "rawAttempt": {
+    "path": "docs/art/pixel-profile-gap/attempts/orange-white-standard-sleepy-almond-parted-mouth-raw.png",
+    "sha256": "210bd9b19c78a9c6c36602054a965283f4069a0cfa09d6f1873be614ccc089c9"
+  },
+  "selectedSource": {
+    "path": "docs/art/pixel-profile-gap/solid/orange-white-standard-sleepy-almond-parted-mouth.png",
+    "sha256": "94a625a1bc854d289879928264f88d2662b87a4bfef72a264da5f6f3e190c08d"
+  },
+  "processing": {
+    "operation": "bounded-mouth-composite-plus-chroma-normalization",
+    "editRectangleInclusive": [
+      310,
+      430,
+      610,
+      590
+    ],
+    "outsideRectanglePixelChanges": 0,
+    "insideRectanglePixelChanges": 47573,
+    "backgroundRule": "Euclidean RGB distance from #FF00FF < 90 becomes exact #FF00FF",
+    "normalizedPixels": 0,
+    "resize": false
+  },
+  "runtimeEnabled": false
+}
