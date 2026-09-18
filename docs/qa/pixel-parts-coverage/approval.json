@@ -1,0 +1,674 @@
+{
+  "schemaVersion": "pixel-art-v3-sampled-approval-v1",
+  "userStatement": "抽样过了就行，其他的默认不需要验收了",
+  "date": "2026-09-19",
+  "approvedArtVersion": "1.3.0",
+  "runtimeEnabled": false,
+  "method": "34-cell risk-based sample approves the full 2016-row candidate",
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/v3/parts-coverage-1.3.0/catalog.candidate.json",
+    "schemaVersion": "pixel-art-catalog-v3",
+    "artVersion": "1.3.0-candidate.1",
+    "revision": "e2e18cb39bcbcb53aabb714289f19669bbae616188fb240e246487b186be5796",
+    "sha256": "ff55650dba997817d349e7c6da82bcf8cd8155b214c81a9c24fd6d2ef799841e",
+    "provenancePath": "packages/asset-catalog/pixel/v3/parts-coverage-1.3.0/provenance.json",
+    "provenanceSha256": "3f8cf3fbed84b2a47ab7d12227fc875b74ce28090cff10c67b4d0e3e4ee03382"
+  },
+  "samples": [
+    {
+      "coverageId": "standard-base",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba",
+      "file": "samples/01.png"
+    },
+    {
+      "coverageId": "parts-p2-s004",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "859ea2eca0f4872613966fb4e21e61712f7fbd71615acb6195a39ee7ef7f09f4",
+      "file": "samples/02.png"
+    },
+    {
+      "coverageId": "parts-p2-s007",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "1b8022215d6278abf75a4fc0cfb6c5dc8969a6d4b2a3f23e4a592a22113ffd43",
+      "file": "samples/03.png"
+    },
+    {
+      "coverageId": "parts-p2-s010",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "eeda5e4d6ac550b6ae7696c66958ad74a5a71eb233206e5e52bf091e2610e9d3",
+      "file": "samples/04.png"
+    },
+    {
+      "coverageId": "standard-mane",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "96a2d5ed65298422b9446a99c39665794d5c262e48ff9525b9410ffa385617f7",
+      "file": "samples/05.png"
+    },
+    {
+      "coverageId": "parts-p2-s016",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "cba2c7b38e212cece67d76fefb5c418b9924549d03f6e7a7abf0d7ea5265fd1d",
+      "file": "samples/06.png"
+    },
+    {
+      "coverageId": "parts-p2-s019",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "b9a3892c3350459854f8bfd0c598bf0893f3a1e535d85bd1f24af6981b4fb621",
+      "file": "samples/07.png"
+    },
+    {
+      "coverageId": "parts-p2-s022",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "dragon-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "10dc7510ca1f676530fbf2412908c3f270eb5849db39451888fbefe7bb539eea",
+      "file": "samples/08.png"
+    },
+    {
+      "coverageId": "parts-p2-s025",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "95b7b04243bb5e57668ef5908f8a1e6039f924d4b5b73a742472c3cfce01832a",
+      "file": "samples/09.png"
+    },
+    {
+      "coverageId": "parts-p2-s028",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "2e6c15b26fe17dbeaa465782d7036a6d69480f228d7d7ee93641f69383e40bb7",
+      "file": "samples/10.png"
+    },
+    {
+      "coverageId": "parts-p2-s031",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "7551b2a11c94c26d0240dc44574693dc4645eb18d8c11d2f4a926c162bb01161",
+      "file": "samples/11.png"
+    },
+    {
+      "coverageId": "parts-p2-s034",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "dragon-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "89504622f5c7f8538800a1221dfd7a4dd1fb9da45858fbeaab0520c559bdeb80",
+      "file": "samples/12.png"
+    },
+    {
+      "coverageId": "standard-base",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "43a0a38a949ffb53a0fcc8b1a2842849eedb6a80756b34a21bad9b995f9bf4ba",
+      "file": "samples/13.png"
+    },
+    {
+      "coverageId": "standard-ears",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "fb77c1ac8ac27d791279735426cbbfbdbc3fd8950a73b51d1abe7a17b6548c97",
+      "file": "samples/14.png"
+    },
+    {
+      "coverageId": "standard-horns",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "aefa76d759fb9cdd046c5f93057f2e6daa7610e8b06cd9c4adca061da73ccdd2",
+      "file": "samples/15.png"
+    },
+    {
+      "coverageId": "standard-horns-ears",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "38c5d8d31e88136584320618b08a1e7cabb61e0a3a4ace0c9b9f34bf3f0f466f",
+      "file": "samples/16.png"
+    },
+    {
+      "coverageId": "parts-p2-s145",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "e43b31a3eddcf7d0c9822935f72c301ef5905f9bfa87df70d0f28fd6e744a65e",
+      "file": "samples/17.png"
+    },
+    {
+      "coverageId": "parts-p2-s181",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "1e7c77a547ebdbe947d2b3e2a125d391044e8ecc773d35cc7c9467cc15b6195d",
+      "file": "samples/18.png"
+    },
+    {
+      "coverageId": "parts-p2-s217",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "153fd4b2f2fadc4e1ef92e29f83a257d447cd5499bde9d31aeab72e7f9fb30d5",
+      "file": "samples/19.png"
+    },
+    {
+      "coverageId": "parts-p2-s253",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "561d76cd44fee248d25655bb9a4f1838ce65fcb80a209de45f092c76f6b34c53",
+      "file": "samples/20.png"
+    },
+    {
+      "coverageId": "parts-p1-s208",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-parted-mouth-round",
+      "rgbaSha256": "170b35f921d364bd43630c13013d9d278bd7f1f54ef64007b43f17a4d04f8d47",
+      "file": "samples/21.png"
+    },
+    {
+      "coverageId": "parts-p1-s228",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "profileId": "standard-parted-mouth-round",
+      "rgbaSha256": "01effed6f49b43ae645ba7d97e6179c48e50fb46237f2d1007868e1e3eddabe8",
+      "file": "samples/22.png"
+    },
+    {
+      "coverageId": "parts-p2-s208",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "6c76b291de44629df628a49b6a9ddb6b241d016d35b7e180814be91e32993f8e",
+      "file": "samples/23.png"
+    },
+    {
+      "coverageId": "parts-p2-s228",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "profileId": "standard-small-fangs-round",
+      "rgbaSha256": "615eec70fb5996e9e088412179ad1b3a52208b550430024fa607f91786f4f3e8",
+      "file": "samples/24.png"
+    },
+    {
+      "coverageId": "parts-p3-s208",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-small-fangs-round",
+      "rgbaSha256": "399bf266d26cbe20ea87837fa7f9a06d39b9faf4fff6099d3b651275187e3be1",
+      "file": "samples/25.png"
+    },
+    {
+      "coverageId": "parts-p3-s228",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "profileId": "shortleg-round-small-fangs-round",
+      "rgbaSha256": "abe528a2d44d4d9e95b25133e77130f066ec8687f9f3ce28ac229132e6093d25",
+      "file": "samples/26.png"
+    },
+    {
+      "coverageId": "parts-p4-s208",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "standard-sleepy-almond-small-fangs",
+      "rgbaSha256": "b7144302ea6d2b8e0c00badfbe457e0deb1761a939328f29faa6f6fe77ad8b16",
+      "file": "samples/27.png"
+    },
+    {
+      "coverageId": "parts-p4-s228",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "profileId": "standard-sleepy-almond-small-fangs",
+      "rgbaSha256": "36317f6a818c4c293510833608243d2dabef491da9ec01b7e680b33c57a328f1",
+      "file": "samples/28.png"
+    },
+    {
+      "coverageId": "parts-p5-s208",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "shortleg-round-sleepy-almond-small-fangs",
+      "rgbaSha256": "dbd623e774165a7d4c1600682b7f7c3fee6bc7eb62e0b980fce4b6699a1d076a",
+      "file": "samples/29.png"
+    },
+    {
+      "coverageId": "parts-p5-s228",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "profileId": "shortleg-round-sleepy-almond-small-fangs",
+      "rgbaSha256": "097b531a77a4310abce28a25c1caec76a4015216ca3d7da0eaf14362a3cf21b6",
+      "file": "samples/30.png"
+    },
+    {
+      "coverageId": "parts-p6-s208",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "slender-tall-round-small-fangs",
+      "rgbaSha256": "f2d2a80adedf4c88aea1edd89e7c057e04ac577231b7811775c9ff5142117058",
+      "file": "samples/31.png"
+    },
+    {
+      "coverageId": "parts-p6-s228",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "profileId": "slender-tall-round-small-fangs",
+      "rgbaSha256": "5202d297e91b3a2725b33d05aea5913a05c3148e08a19d3696fb39a665f215e9",
+      "file": "samples/32.png"
+    },
+    {
+      "coverageId": "parts-p7-s208",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "small-wings",
+        "tailTip": "none"
+      },
+      "profileId": "slender-tall-sleepy-almond-small-fangs",
+      "rgbaSha256": "cc4563a7f5de4bc138092141005ffb71f8ff284031450e498534968b649267c5",
+      "file": "samples/33.png"
+    },
+    {
+      "coverageId": "parts-p7-s228",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "profileId": "slender-tall-sleepy-almond-small-fangs",
+      "rgbaSha256": "3daa040d7e63601d2ac8fcf2e4bc56399c54d9cb420c7be08ff94811a299a8fb",
+      "file": "samples/34.png"
+    }
+  ],
+  "evidence": {
+    "docs/qa/pixel-parts-coverage/report.json": "c95cccf7f20c0df86f1f446cab6304499671138f30f9eee2a67708887f0ae129",
+    "docs/qa/pixel-parts-coverage/sampling-sheet-shown-to-user.png": "159901a093cf49aabc387901b967657a814d530c676a97829804886bb0a70a8e",
+    "docs/qa/pixel-parts-coverage/samples/01.png": "76cd2ec47cc60f896458a2a745bec1e713679fe063084dc72b80ed05831b61d8",
+    "docs/qa/pixel-parts-coverage/samples/02.png": "49bab170e743db070e8d6517cd72c40f542b39e8cec37874cd68c8b6714986f1",
+    "docs/qa/pixel-parts-coverage/samples/03.png": "f2c92de0d31c84ede70564018bafd0fe8c358394092d3986b23a34168aea7d70",
+    "docs/qa/pixel-parts-coverage/samples/04.png": "53e8d6963e4a377b88feba4ee5ffb26aacbf078ad0624718426c6c494e951fdc",
+    "docs/qa/pixel-parts-coverage/samples/05.png": "6d94279469768c3e3200d67245256d9d204b6b15f8aa981a0fad7afbf47b5eb6",
+    "docs/qa/pixel-parts-coverage/samples/06.png": "730f0860f0b603c9a3ce0332f4fe4d8cec1d7848b0cdcb8725777f7755cde8e1",
+    "docs/qa/pixel-parts-coverage/samples/07.png": "02998344a9689b60307415214a3f67c6e92e15f4567be0995a0f8b779cdb9bcb",
+    "docs/qa/pixel-parts-coverage/samples/08.png": "739f9eccc947a400b1662e0c3edb68c1a15f08302b4ed31824e62166b0cde5eb",
+    "docs/qa/pixel-parts-coverage/samples/09.png": "bcc24e9db31e04f28afd53b5f7d6df932a030a71edc5565dc4b8e098bccbc746",
+    "docs/qa/pixel-parts-coverage/samples/10.png": "e25c070bdeb2aafea4e245913d07b14dba637cf903bced1747cf061431088beb",
+    "docs/qa/pixel-parts-coverage/samples/11.png": "fe1c765e1ecd84d3b3f032335348b59b51b62b2a0fffe50a3fe0f2ad71a11322",
+    "docs/qa/pixel-parts-coverage/samples/12.png": "c95e9f3a74e4afbe1a4e2b1034fdde2c82d1343e37d5ec9627edba54a54153a5",
+    "docs/qa/pixel-parts-coverage/samples/13.png": "76cd2ec47cc60f896458a2a745bec1e713679fe063084dc72b80ed05831b61d8",
+    "docs/qa/pixel-parts-coverage/samples/14.png": "0d3ff55cb2d0aa672f0e4b6495007ee153518106f5ed034ac2f6a25b7a86df49",
+    "docs/qa/pixel-parts-coverage/samples/15.png": "11abed2cdb1c03dc67468cc767988b2f919c417113740b3d041e84c0f70116b7",
+    "docs/qa/pixel-parts-coverage/samples/16.png": "fde0e77187246ba93b310c796d7fead0ac620453ba63a8062275858b52b67c5b",
+    "docs/qa/pixel-parts-coverage/samples/17.png": "1f718b4145ec04f0e25c32720ec9c2c8e579ca71ea26fbf2084149f71336f0af",
+    "docs/qa/pixel-parts-coverage/samples/18.png": "0064cd0c4f989bca2a2243667383d93fbd76fb751fae8c073607f57e98693ab9",
+    "docs/qa/pixel-parts-coverage/samples/19.png": "d5bc57076e81ee6420be9786804bcb0497d769330bad1a16aa7e1183d96e1a09",
+    "docs/qa/pixel-parts-coverage/samples/20.png": "d97feb7533eb4716390e053278257a8b088b22653923d41b0e75191f5e67b710",
+    "docs/qa/pixel-parts-coverage/samples/21.png": "d4d42b2320b9f9a802abe3ce417afed3b72d9a6c84d5e86cfb4ad3fd1546500a",
+    "docs/qa/pixel-parts-coverage/samples/22.png": "58764cbd976089275e2ca7d74209c509676bbbf00d6e4a6d28bd90d768fabe86",
+    "docs/qa/pixel-parts-coverage/samples/23.png": "1d36f3812372029c94f830c54735e89b7d6e0a81e9af984f9fbdb61872a57fae",
+    "docs/qa/pixel-parts-coverage/samples/24.png": "a1fbaee22750be531a46580d89b70cf6c3979d63111c2b996a23d25ff0a51560",
+    "docs/qa/pixel-parts-coverage/samples/25.png": "a09a79b033c6f4bf39959cb1d9cbc734875f522c79905508a242924bc417a1b4",
+    "docs/qa/pixel-parts-coverage/samples/26.png": "4d6c36d69e6980c446e6a0b91069b0d9031ae4b11f9f609fde9eac127dceea4d",
+    "docs/qa/pixel-parts-coverage/samples/27.png": "fe9d4013e29b27896e8e47fe7daff5defe7dd3048452fad497c67b86bc12862b",
+    "docs/qa/pixel-parts-coverage/samples/28.png": "257307261de0a71a6f60f89c55cb28dc430ff4e23d6ca9f9074a3bfce241957d",
+    "docs/qa/pixel-parts-coverage/samples/29.png": "473a58ae8f5241868d92db49ee9f60939e92a89f447d8fda27932787818b0295",
+    "docs/qa/pixel-parts-coverage/samples/30.png": "ca41f1415e02c950e263b308bee226165903d424f55119b2027512abe6a6c811",
+    "docs/qa/pixel-parts-coverage/samples/31.png": "f1d9bf51662fc1bfe3eed9676fb19e9b043127b40748159f77396890d21fe5dc",
+    "docs/qa/pixel-parts-coverage/samples/32.png": "c0321a9ee4603b3c6b04bd5f43b7171eea8526fdd8687cb48598f077789b8938",
+    "docs/qa/pixel-parts-coverage/samples/33.png": "19bf54fd8e5e6712a3827b7aacefe961f01c289ceff18dd62ce909d7e596731c",
+    "docs/qa/pixel-parts-coverage/samples/34.png": "9bd721555bcf1c07cdd92fa2a847d7dfc02e24d46ce5884a5907974fdac62ce7"
+  },
+  "exclusions": [
+    "No new profile, resource, PNG, geometry, renderer or phenotype schema is included in this promotion.",
+    "Runtime integration and enablement remain disabled.",
+    "The 2016 rows are approved by the recorded 34-cell sample, not by individual visual inspection."
+  ]
+}

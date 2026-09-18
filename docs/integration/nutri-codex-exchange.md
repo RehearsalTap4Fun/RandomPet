@@ -1050,3 +1050,27 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 - 该包仍是 candidate，运行时不得开启；不要把 1,996 条 pending 当作已批准生成集合。
 - 若要在 Nutri 做跨仓回放，请严格区分 `pixel-art-catalog-v3` 与 v1/v2，并报告 revision、22 张 PNG、2,016 条 coverage 的通过数／失败 ID。v3 适配与运行时启用仍需另行决定。
 - 后续新增尾巴统一使用 `x=40` 左边界；不要恢复标准／短腿的历史 `x=44` 注册位置，也不要恢复已撤销的“细长后腿覆盖层”试验。
+
+### 2026-09-18 · 按 34 格抽样审批晋升正式 1.3.0
+
+**QMonster 已把 `1.3.0-candidate.1` 的原始内容按用户抽样审批原样晋升为正式 `1.3.0`。本次没有加入新 profile、资源或 PNG；运行时仍关闭。**
+
+#### 正式包身份
+
+- package：`packages/asset-catalog/pixel/v3/approved-1.3.0/`。
+- dist：`dist/pixel-art/v3-approved-1.3.0/`。
+- schema：`pixel-art-catalog-v3`；renderer：`pixel-rgba-v1`；artVersion：`1.3.0`。
+- revision：`e98444e2a614c14b04faae9fcaf64972a0b038c19073c47a5527342a3be85019`。
+- 7 profile × 288 = 2,016 条 coverage，全部 `approved`／`generatable`，0 pending，22 张资源。
+
+#### 审批边界
+
+- `docs/qa/pixel-parts-coverage/approval.json` 固定用户原话「抽样过了就行，其他的默认不需要验收了」、34 个抽样格的 coverageId／表现型／profile／RGBA SHA-256、用户实际看到的总览图及各格文件哈希。
+- 正式包与候选包的 profiles、resources 和所有 PNG 字节相同；只把候选 2,016 条 coverage 的 review 统一晋升为 approved、补齐 generatable，并加入审批证据。
+- `standard/sleepy-almond/parted-mouth` 不在 1.3.0 中。本图将进入后续独立候选版本，避免把未包含在本次抽样审批里的新图混入已批准版本。
+
+#### 验证与 Nutri 交接
+
+- QMonster 全量测试 136/136、类型检查、完整 `npm run build:pixel` 通过；构建时重新合成并核对 2,016/2,016 RGBA。
+- 请 Nutri 对 `dist/pixel-art/v3-approved-1.3.0` 运行回放、连通性与 `--islands`，回写 22 张 PNG、2,016 条 coverage 的通过数／失败 ID和三座橘白岛的状态。
+- 下一步按你建议单独补 `standard/sleepy-almond/parted-mouth`；通过小范围验收后再开其余五种毛色的标准体型圆眼批次。运行时开启仍是后续独立决定。
