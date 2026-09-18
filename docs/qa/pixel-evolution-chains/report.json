@@ -1,0 +1,321 @@
+{
+  "schemaVersion": "pixel-evolution-chain-review-v1",
+  "status": "art-approved-registration-pending",
+  "baseCatalog": "packages/asset-catalog/pixel/v3/approved-1.5.0/catalog.approved.json",
+  "candidates": [
+    {
+      "id": "crystal-horns",
+      "name": "晶角",
+      "slot": "crown",
+      "rarity": "R",
+      "file": "crystal-horns.png",
+      "target": "frame",
+      "sha256": "96e80d94ce44b43e9b40ae6f786d5247afbc3e646476dfb3ebc9763baf0b482f"
+    },
+    {
+      "id": "feathered-ears",
+      "name": "羽翅耳",
+      "slot": "ears",
+      "rarity": "R",
+      "file": "feathered-ears.png",
+      "target": "subject",
+      "sha256": "b8599db7223c494e9bede783ee049296a81629e46dfe9c2eb0f3e668bcf97453"
+    },
+    {
+      "id": "celestial-ears",
+      "name": "星辉翼耳",
+      "slot": "ears",
+      "rarity": "L",
+      "file": "celestial-ears.png",
+      "target": "subject",
+      "sha256": "9a61effe2db6f724e8e7dd4dc929461362d7b0621625cc25f26acd5e35aa6e63"
+    },
+    {
+      "id": "sunburst-ruff",
+      "name": "日冕颈饰",
+      "slot": "neck",
+      "rarity": "L",
+      "file": "sunburst-ruff.png",
+      "target": "frame",
+      "sha256": "49211aec9f922266735d4195ef054d075ed693e632e775800a937cbe36d30f50"
+    },
+    {
+      "id": "phoenix-tail",
+      "name": "凤凰尾",
+      "slot": "tailTip",
+      "rarity": "L",
+      "file": "phoenix-tail.png",
+      "target": "frame",
+      "sha256": "d0140b3cf1df9851f0657b2b1fceb24e13eeb2be13dde5b619904b46d046436f"
+    }
+  ],
+  "invariants": {
+    "canvas": [
+      64,
+      64
+    ],
+    "rendererVersion": "pixel-rgba-v1",
+    "coatBound": false,
+    "phoenixTailOpaqueLeft": 40
+  },
+  "sampling": {
+    "total": 15,
+    "rows": [
+      {
+        "label": "额顶 N · 龙角",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "dragon-horns",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/01.png",
+        "pngSha256": "7fccdd7a4c2d9e3c5d082311c79a969ac5fa7325f181ad97d8087904fb9be1e9",
+        "rgbaSha256": "3af9b796f6768a713d207799df2c21536f37f26b3f0dce2d3c4b84950f35ee4f"
+      },
+      {
+        "label": "额顶 R · 晶角",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "crystal-horns",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/02.png",
+        "pngSha256": "a19489658562a11dfdf085717367cf7d0a751975eea2052522ef539c94ea66e3",
+        "rgbaSha256": "4a834e0139257c30d936cd224e15bcb13c18f9cdc6551f8558bcac7ffd15b4dd"
+      },
+      {
+        "label": "额顶 L · 光环",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "halo",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/03.png",
+        "pngSha256": "d3040cd378badbcdbdec3d1636cca014b8173bcd3280f997dae5daa2d549ed9e",
+        "rgbaSha256": "f1a37acc8cf7a3e7f6a36842f20746eb60561bd27bf32532692c137c29fa101c"
+      },
+      {
+        "label": "耳部 N · 鳍耳",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "fin-ears",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/04.png",
+        "pngSha256": "791a239126fd731d03b0dd3b7b673cd16bcaf0e1379d18f4687b3e22bcce8d80",
+        "rgbaSha256": "80ed4da5fd24e84ff847ab123d6ab909544173c25c51033147e2b1c659dc9a10"
+      },
+      {
+        "label": "耳部 R · 羽翅耳",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "feathered-ears",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/05.png",
+        "pngSha256": "dfae2a19fae5ce31e76e6a09fbc1d4144d443d152194e84fbd95657985129f2e",
+        "rgbaSha256": "71d1c499be6eb09c453c71f95127a05cc52989110405931c043f0fe2ef0194cb"
+      },
+      {
+        "label": "耳部 L · 星辉翼耳",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "celestial-ears",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/06.png",
+        "pngSha256": "4cc8dd3fb56d58981da71ae182b38ae900c85edfa611b75b34553cf192664cc3",
+        "rgbaSha256": "f957093d3b1b642f62c34252a58c9d6801993c714af02235229e493a3ced5213"
+      },
+      {
+        "label": "颈部 N · 小狮鬃",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "small-lion-mane",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/07.png",
+        "pngSha256": "60edeea2a6df763da327634355e5e8a90c1cc52eab2df5a724fd10e13a6f2da6",
+        "rgbaSha256": "e44afad3260be63605b64ee522b1344dd8b496de6e870ca2b6ce737a76eb759b"
+      },
+      {
+        "label": "颈部 R · 颈膜",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "frill-neck",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/08.png",
+        "pngSha256": "bdf82a3716694df8477fb6660ba00fa5cdab0f801757ddff37c1e3e94f6a75c2",
+        "rgbaSha256": "eb7a9dc03ebfdc3b9a672b96444fe3b19956405f1e4ac7dde7d89e2ce9bbda9a"
+      },
+      {
+        "label": "颈部 L · 日冕颈饰",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "sunburst-ruff",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "file": "samples/09.png",
+        "pngSha256": "e9eb829b1e7ba93ed2b1dd8f9a7934eefbacfac4c6a9257608a6a6c5609c1c2f",
+        "rgbaSha256": "f963aff57c841d7fb27fdae8efaabcecba6b90011c697949005f85d606578634"
+      },
+      {
+        "label": "尾端 N · 分叉尾",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "forked-tail-tip"
+        },
+        "file": "samples/10.png",
+        "pngSha256": "28e3c5b1e3bc2e25c5fdce0b4badc5ab7b39784222672e4ed6b6b30a881fc7b9",
+        "rgbaSha256": "17c11dc5a993d1ea2b919891f3f550f2a8e454eddebd3ed1ad3cdbaed972af69"
+      },
+      {
+        "label": "尾端 R · 焰尾",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "flame-tail"
+        },
+        "file": "samples/11.png",
+        "pngSha256": "d96377e4b6cdf43fdcc0075d0b805e576e2dcab01da00751539083e2ae3e052e",
+        "rgbaSha256": "6e5011c22bbab82bd3605e5bc0c2c1a4fcf612f84e51936f915a61ca48c0737e"
+      },
+      {
+        "label": "尾端 L · 凤凰尾",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "phoenix-tail"
+        },
+        "file": "samples/12.png",
+        "pngSha256": "ab65807f3b080b4ee8c4643e6c05edc0ff8a4f0ad67eccd0d5bfbaecfa4762d8",
+        "rgbaSha256": "a0899f0d166ad7b2f5f68b1938d08c5d09025986fae75a1e5153e3ddfeeec06c"
+      },
+      {
+        "label": "标准体型 · 新部件满配",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "crystal-horns",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "feathered-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "file": "samples/13.png",
+        "pngSha256": "6659e198742d8ed87940839a49efd7ba02d004d945e34d2efed227378e716146",
+        "rgbaSha256": "2cb6abf63fae192e655002c625fe55648b96e7ed80895df273ce179038b14603"
+      },
+      {
+        "label": "短腿体型 · 新部件满配",
+        "phenotype": {
+          "body": "shortleg-round",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "small-fangs",
+          "crown": "crystal-horns",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "feathered-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "file": "samples/14.png",
+        "pngSha256": "1b03af6824c9dd0a3fc825f5df47c4cf48115d8619a8c79f10f4f71d4b911d21",
+        "rgbaSha256": "700cfd102eef125f6d3cd5e9e94dae4d1fee99381c9c3d4dab8b5310d678412c"
+      },
+      {
+        "label": "细长体型 · 新部件满配",
+        "phenotype": {
+          "body": "slender-tall",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "small-fangs",
+          "crown": "crystal-horns",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "feathered-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "file": "samples/15.png",
+        "pngSha256": "67c104786f4722cebcfaad7ba6adc81ea7761e7cc826f4cb58e8d892d284b7fb",
+        "rgbaSha256": "0c28fc915c7aff8562b4b16315ce156fc124f43c682d88b6676e9c843a6c51e7"
+      }
+    ]
+  }
+}
