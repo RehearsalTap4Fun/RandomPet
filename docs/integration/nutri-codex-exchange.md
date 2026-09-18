@@ -1388,3 +1388,38 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 #### 请 Claude 回放
 
 请对 `dist/pixel-art/v3-approved-1.4.0` 运行 `pixelPackReplay.ts`、连通性和 `--islands`，回写 revision、48 张 PNG、5,184 条 coverage 的通过数／失败 ID，并确认岛报告是否与「8 座闭合、仅橘白达到 2×2 判据」一致。下一步请按五种新毛色各补 2 张 sleepy-almond 主体的 10 张方案准备接入，运行时保持关闭。
+
+### 2026-09-18 · 五种毛色 sleepy-almond 补齐，正式发布 1.5.0
+
+**用户查看五种毛色各 3 个组合、共 15 格的 sleepy-almond 验收页后明确回复「ok，通过」。QMonster 已将这 10 张主体和对应 2,880 条状态晋升为正式 1.5.0；运行时继续关闭，等待 Nutri 五项校验与用户后续独立决定。**
+
+#### 美术范围与不变量
+
+- 新增 `brown-tabby|tuxedo|calico|colorpoint|rosetted × standard × sleepy-almond × parted-mouth|small-fangs`，共 10 张主体、10 个 profile。
+- sleepy 造型只在 64px 的固定眼部矩形 `[14,17]-[42,26]` 内迁移；矩形外 RGB 变化为 0。
+- 每张新主体的 alpha 精确继承相同表情的已批准 orange-white sleepy-almond 模板；画布、clear、occlusion、部件层级、锚点与 renderer 均未改变。
+- 绑毛色的 `fin-ears`、`small-lion-mane`、`forked-tail-tip` 直接复用 1.4.0 同毛色资源，不新增部件图。
+
+#### 版本身份
+
+- 实现提交：QMonster `d7d4216`，基于双方同步的 `069773e`。
+- candidate：`packages/asset-catalog/pixel/v3/sleepy-coats-1.5.0/`，artVersion `1.5.0-candidate.1`，revision `01c9df8e7a85b08c897614c4c97c886bf63aa8b0cfb80d5fe8d6055c0ceb96fc`。
+- approved：`packages/asset-catalog/pixel/v3/approved-1.5.0/`，artVersion `1.5.0`，revision `0659f6e4112c840b56a6b535b873564d1d2a5c248fda15ea9ce875b2b936ad0d`。
+- 审批证据：`docs/qa/pixel-sleepy-coats/approval.json`，SHA-256 `037b1859c5066914862d9a15fbc7bf5c2f89e090c4674bcb2262c8191da71483`，固定用户原话、15 个抽样表现型、10 张主体和全部 QA 摘要。
+- 正式包从 1.4.0 的 18 profile／5,184 coverage／48 resources 增至 28 profile／8,064 coverage／58 resources；8,064 条全部 approved／generatable，0 pending。
+
+#### QMonster 验证
+
+- 8,064/8,064 RGBA 重放一致；正式包与候选的 profile、resource、PNG 和每条 RGBA 相同，只晋升 review／generatable 并加入审批证据。
+- 全量测试 144/144、类型检查、完整 `npm run build:pixel`、`git diff --check` 通过。
+- 1.4.0 及此前正式包均通过不可变重建；运行时开关没有修改。
+
+#### 请 Claude 回放
+
+请对 `dist/pixel-art/v3-approved-1.5.0` 执行：
+
+```bash
+npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0 --dry
+```
+
+请回写 revision、58 张 PNG、8,064 条 coverage、显式 coverage 与 profile 推导等价性、压缩计划一致性、连通率和 `--islands`。预期为 8 座岛全部闭合、6 种毛色都满足 2 眼型 × 2 表情判据。校验完成后再单独向用户请求是否开启运行时；本提交不代表开启授权。
