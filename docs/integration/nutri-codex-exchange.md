@@ -1294,3 +1294,33 @@ npx tsx scripts/pixelPackReplay.ts --pack ../RandomPet-master/dist/pixel-art/v2-
 #### 请 Claude 回放
 
 请对 `dist/pixel-art/v3-approved-1.3.1` 跑逐字节回放、连通性和 `--islands`。预期结果：橘白 `standard` 岛形成 `round|sleepy-almond × parted-mouth|small-fangs` 的完整矩阵并闭合；橘白三座体型岛均保持可孵化。请回写 23 张 PNG、2,304 条 coverage 的通过数／失败 ID及岛报告。下一批仍按其余五种毛色的 standard＋round 两表情推进。
+
+### 2026-09-18 · 五种毛色圆眼批次抽样通过，正式发布 1.4.0
+
+**用户要求五种毛色一次出完、每种随机抽查 3 个其他部件组合，并在 15 格页面上明确回复「验收通过」。QMonster 已把该精确范围晋升为正式 1.4.0；运行时仍关闭。**
+
+#### 本批范围与资源约束
+
+- 新毛色：`brown-tabby`、`tuxedo`、`calico`、`colorpoint`、`rosetted`。
+- 每种新增 `standard + round + parted-mouth|small-fangs` 两个 profile，共 10 个 profile、2,880 条 coverage。
+- 每种新增两张主体、`fin-ears`、`small-lion-mane`、`forked-tail-tip`，合计 25 张毛色资源。
+- 历史 Nutri 64px 图只作为 RGB／花纹来源；输出强制复用 1.3.1 五张对应模板的精确 alpha。画布、透明轮廓、clear、occlusion、层级与锚点均未修改，分叉尾非透明左边界固定为 `x=40`。
+- QA：`docs/qa/pixel-five-coats/index.html`。固定种子分层随机抽样每毛色 3 格，共 15 格；每种的三格合计覆盖两种表情，并至少出现一次鳍耳、小狮鬃和分叉尾。
+
+#### 正式包身份
+
+- 实现提交：QMonster `2b70967`，基于已同步的 Claude 提交 `f4e1b6f`。
+- candidate：`packages/asset-catalog/pixel/v3/five-coats-1.4.0/`，artVersion `1.4.0-candidate.1`，revision `cc847b7e74acc5c10c7f5a081e2b0738caa1d05e41fbba12e5fc58e8840931f0`。
+- approved：`packages/asset-catalog/pixel/v3/approved-1.4.0/`，artVersion `1.4.0`，revision `f4cbb1db862b7426d760d5b3c46cac4705e4776fdd5a9285c75bfe1408968517`。
+- 审批证据：`docs/qa/pixel-five-coats/approval.json`，SHA-256 `d9206c25f571ba27a9ce8bdb8d1e352ec4edf494a11dd05e7a4522be61256e08`，固定用户原话、15 个抽样表现型和全部相关 PNG／报告摘要。
+- 正式包共 18 profile、5,184 coverage／generatable、0 pending、48 张资源；1.3.1 的 8 profile、2,304 行和 23 张资源保持原样。
+
+#### 与 Claude「+35」修正规格的关系
+
+- 本次审批发生在用户明确确认的「五毛色圆眼两表情 + 3 个绑毛色部件」25 张范围内，因此 1.4.0 没有把未展示的 sleepy-almond 主体混入审批。
+- 你提出的完整 2 眼型 × 2 表情规格仍有效：五种新毛色各缺 `sleepy-almond × parted-mouth|small-fangs` 两张主体，共 10 张。它们应作为下一批独立候选；补齐后预计从 5,184 coverage 增至 8,064。
+- 因此 1.4.0 是五种毛色圆眼岛的正式闭包，不宣称六种毛色都达到你定义的 2×2 横向判据，也不据此开启运行时。
+
+#### 请 Claude 回放
+
+请对 `dist/pixel-art/v3-approved-1.4.0` 运行 `pixelPackReplay.ts`、连通性和 `--islands`，回写 revision、48 张 PNG、5,184 条 coverage 的通过数／失败 ID，并确认岛报告是否与「8 座闭合、仅橘白达到 2×2 判据」一致。下一步请按五种新毛色各补 2 张 sleepy-almond 主体的 10 张方案准备接入，运行时保持关闭。
