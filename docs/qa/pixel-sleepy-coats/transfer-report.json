@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "pixel-sleepy-coats-transfer-v1",
+  "method": "approved sleepy-almond eye shape mapped through each approved round-eye coat palette inside a bounded eye patch",
+  "invariant": "RGB outside the eye patch is unchanged; alpha exactly matches the approved orange-white sleepy-almond expression template",
+  "eyePatch": {
+    "left": 14,
+    "top": 17,
+    "right": 42,
+    "bottom": 26
+  },
+  "entries": [
+    {
+      "coat": "brown-tabby",
+      "expression": "parted-mouth",
+      "roundOrangeId": "layer-c68b7f3b61d5650f",
+      "sleepyOrangeId": "layer-10d12c620bc4520f",
+      "coatRoundId": "layer-cb8ad098038cc0de",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/brown-tabby-sleepy-almond-parted-mouth.png",
+      "outputSha256": "2974f4ca15da4ac3c2f13b7661460e5b8b4af4ca1c7905e978b578f603dea21f",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "4cc923fd032429b889eae92922dd2e555ed4ec331ba14d202ca23be4cf8cb01b"
+    },
+    {
+      "coat": "brown-tabby",
+      "expression": "small-fangs",
+      "roundOrangeId": "layer-fec0335aee4cb501",
+      "sleepyOrangeId": "layer-deeba5734233692e",
+      "coatRoundId": "layer-21c2c2e0bec315f3",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/brown-tabby-sleepy-almond-small-fangs.png",
+      "outputSha256": "5661da1cecba0929d2379e37f345796c41833a752d8f0fe64751978835c87843",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "tuxedo",
+      "expression": "parted-mouth",
+      "roundOrangeId": "layer-c68b7f3b61d5650f",
+      "sleepyOrangeId": "layer-10d12c620bc4520f",
+      "coatRoundId": "layer-6dd2d6e77471af03",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/tuxedo-sleepy-almond-parted-mouth.png",
+      "outputSha256": "84e22b2b4fb1c9d798e2b989bfd9a0c6083568053e36f51559ba32f686fc8312",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "4cc923fd032429b889eae92922dd2e555ed4ec331ba14d202ca23be4cf8cb01b"
+    },
+    {
+      "coat": "tuxedo",
+      "expression": "small-fangs",
+      "roundOrangeId": "layer-fec0335aee4cb501",
+      "sleepyOrangeId": "layer-deeba5734233692e",
+      "coatRoundId": "layer-ca7e6b84a29268b1",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/tuxedo-sleepy-almond-small-fangs.png",
+      "outputSha256": "24caec0dbb23a07c15139c247e5c6d8491d4f4a3903ab9e3240b85d32410400a",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "calico",
+      "expression": "parted-mouth",
+      "roundOrangeId": "layer-c68b7f3b61d5650f",
+      "sleepyOrangeId": "layer-10d12c620bc4520f",
+      "coatRoundId": "layer-ef8bb6edec1d1543",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/calico-sleepy-almond-parted-mouth.png",
+      "outputSha256": "14594c832b639de67f19f42ca8ae395564ad98086d85f1351ed6f7c4b6310ac2",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "4cc923fd032429b889eae92922dd2e555ed4ec331ba14d202ca23be4cf8cb01b"
+    },
+    {
+      "coat": "calico",
+      "expression": "small-fangs",
+      "roundOrangeId": "layer-fec0335aee4cb501",
+      "sleepyOrangeId": "layer-deeba5734233692e",
+      "coatRoundId": "layer-2dcb1971f5439589",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/calico-sleepy-almond-small-fangs.png",
+      "outputSha256": "342d87b0752a317dab07ea10552ea8cc0264c05d1c5a0479608ea511e827774d",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "colorpoint",
+      "expression": "parted-mouth",
+      "roundOrangeId": "layer-c68b7f3b61d5650f",
+      "sleepyOrangeId": "layer-10d12c620bc4520f",
+      "coatRoundId": "layer-742afec5ccf6b8ce",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/colorpoint-sleepy-almond-parted-mouth.png",
+      "outputSha256": "2a3301c3bfe82d03870689835aab41422c324895948bf4961708e4b1479077bb",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "4cc923fd032429b889eae92922dd2e555ed4ec331ba14d202ca23be4cf8cb01b"
+    },
+    {
+      "coat": "colorpoint",
+      "expression": "small-fangs",
+      "roundOrangeId": "layer-fec0335aee4cb501",
+      "sleepyOrangeId": "layer-deeba5734233692e",
+      "coatRoundId": "layer-f8c93e622b23670f",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/colorpoint-sleepy-almond-small-fangs.png",
+      "outputSha256": "5aaa674e192a211b73c33141917d8c5d8ffd43536f679463a94cc8dd3f9f16e7",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    },
+    {
+      "coat": "rosetted",
+      "expression": "parted-mouth",
+      "roundOrangeId": "layer-c68b7f3b61d5650f",
+      "sleepyOrangeId": "layer-10d12c620bc4520f",
+      "coatRoundId": "layer-6772e7fa7dfd8a74",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/rosetted-sleepy-almond-parted-mouth.png",
+      "outputSha256": "b088b28668f5485c5f53a528fddea41b91c9e223bbfcb1c8a615dc6c9f23fed4",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "4cc923fd032429b889eae92922dd2e555ed4ec331ba14d202ca23be4cf8cb01b"
+    },
+    {
+      "coat": "rosetted",
+      "expression": "small-fangs",
+      "roundOrangeId": "layer-fec0335aee4cb501",
+      "sleepyOrangeId": "layer-deeba5734233692e",
+      "coatRoundId": "layer-80a7dff6e39f1fc9",
+      "outputPath": "docs/qa/pixel-sleepy-coats/layers/rosetted-sleepy-almond-small-fangs.png",
+      "outputSha256": "0f7393eab903d8ec4bb484e0f08f1f46d74ed3c45f1bf05549fccc127f31007b",
+      "eyePatch": {
+        "left": 14,
+        "top": 17,
+        "right": 42,
+        "bottom": 26
+      },
+      "patchPixels": 290,
+      "outsideRgbChanges": 0,
+      "alphaSha256": "3d5c2cf25799cc435e5050ef5a0f33c2c5d7cf27b3fa09d4c15965755524a825"
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "schemaVersion": "pixel-art-v3-sleepy-coats-sampled-approval-v1",
+  "userStatement": "ok，通过",
+  "date": "2026-09-18",
+  "approvedArtVersion": "1.5.0",
+  "runtimeEnabled": false,
+  "method": "15-cell deterministic stratified sample approves the ten-body sleepy-almond 2880-row candidate",
+  "scope": {
+    "coats": [
+      "brown-tabby",
+      "tuxedo",
+      "calico",
+      "colorpoint",
+      "rosetted"
+    ],
+    "body": "standard",
+    "eyes": [
+      "sleepy-almond"
+    ],
+    "expressions": [
+      "parted-mouth",
+      "small-fangs"
+    ],
+    "addedProfiles": 10,
+    "addedCoverage": 2880,
+    "addedResources": 10,
+    "interpretation": "Three sampled combinations per coat approve both sleepy-almond expressions; RGB outside the bounded eye patch remains unchanged and alpha inherits approved sleepy templates."
+  },
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/v3/sleepy-coats-1.5.0/catalog.candidate.json",
+    "schemaVersion": "pixel-art-catalog-v3",
+    "artVersion": "1.5.0-candidate.1",
+    "revision": "01c9df8e7a85b08c897614c4c97c886bf63aa8b0cfb80d5fe8d6055c0ceb96fc",
+    "sha256": "fd5feb6852bdd966e919a06743410b6550ac75d8837ae4d93a2106c84b997d21",
+    "provenancePath": "packages/asset-catalog/pixel/v3/sleepy-coats-1.5.0/provenance.json",
+    "provenanceSha256": "00aceddbbe6d2b094c81cfe39aacfba5d5463fb24c32ac4f00d9fd5a0534a7b1"
+  },
+  "samples": [
+    {
+      "coat": "brown-tabby",
+      "coverageId": "sleepy-coats-p2-s182",
+      "profileId": "standard-brown-tabby-sleepy-almond-small-fangs",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "brown-tabby",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/01-brown-tabby.png",
+      "pngSha256": "72322340aab74ddd5c3f29531df4a2a71a2c8d725c6644bf2f3343987310da4a",
+      "rgbaSha256": "322680adfdfa433b9944a1226cfec5ded990d5e4e2808e6a05f40a6def7657ce"
+    },
+    {
+      "coat": "brown-tabby",
+      "coverageId": "sleepy-coats-p2-s249",
+      "profileId": "standard-brown-tabby-sleepy-almond-small-fangs",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "brown-tabby",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "feathered-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/02-brown-tabby.png",
+      "pngSha256": "99029b348a6e225a3587af54dff8d1926efcde832ac97c0cc83771e34c282baf",
+      "rgbaSha256": "46171fdd85e53eeef4e5e0cea867877e774e66d08a1c923b70be392cbf7d14b1"
+    },
+    {
+      "coat": "brown-tabby",
+      "coverageId": "sleepy-coats-p1-s050",
+      "profileId": "standard-brown-tabby-sleepy-almond-parted-mouth",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "brown-tabby",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/03-brown-tabby.png",
+      "pngSha256": "d40da1b1717b34c3efcc12a61adf025cffe718231d488a2d2891006b6470a97e",
+      "rgbaSha256": "f90fddd20e78fe684e62a813066c314b2d5806225944b667beabb50165dfd368"
+    },
+    {
+      "coat": "tuxedo",
+      "coverageId": "sleepy-coats-p4-s049",
+      "profileId": "standard-tuxedo-sleepy-almond-small-fangs",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "tuxedo",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "file": "samples/04-tuxedo.png",
+      "pngSha256": "4d285c7014bff676762a1b50fd7ef61556ac464504adcd4edf4b54042d9a4819",
+      "rgbaSha256": "2516d8147b4d51b75b6268e368d7329fd3d3467f70cf03b7dde44020859dc769"
+    },
+    {
+      "coat": "tuxedo",
+      "coverageId": "sleepy-coats-p4-s050",
+      "profileId": "standard-tuxedo-sleepy-almond-small-fangs",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "tuxedo",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "none",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/05-tuxedo.png",
+      "pngSha256": "1f9b5db769d9e4a5ab14cd99ae72087ae1bb12b8d4ea0ea3115ae3dc4c69efeb",
+      "rgbaSha256": "0aaf753a946ffff07bc41657513f3a0fba9eb3b51c1cc52029b7b6348da1f7d3"
+    },
+    {
+      "coat": "tuxedo",
+      "coverageId": "sleepy-coats-p3-s129",
+      "profileId": "standard-tuxedo-sleepy-almond-parted-mouth",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "tuxedo",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "feathered-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/06-tuxedo.png",
+      "pngSha256": "a241d36380ae526e7b87b4fc12663dc5bf18345f6eb6f0407dcb7f132f0ae69e",
+      "rgbaSha256": "83214279152614c1c5bc874f53fc8e38e71cf5c8719f45c42ec9eaaf5a3365dc"
+    },
+    {
+      "coat": "calico",
+      "coverageId": "sleepy-coats-p6-s171",
+      "profileId": "standard-calico-sleepy-almond-small-fangs",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "calico",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/07-calico.png",
+      "pngSha256": "34e1c07a4597c62e6a1522b5ce57c186985a64e7867e2c57882657c3099cf082",
+      "rgbaSha256": "cde84ba48475d30cfb42b87fc4fcc61cb6386123f311c73bc6f193d2c66eff3f"
+    },
+    {
+      "coat": "calico",
+      "coverageId": "sleepy-coats-p5-s236",
+      "profileId": "standard-calico-sleepy-almond-parted-mouth",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "calico",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/08-calico.png",
+      "pngSha256": "cedb5667f5ffb1bc0fbad2c57786897289a3fec64f4edcfb0c2e5b9134f07f96",
+      "rgbaSha256": "845220be54f4d1e2be63d12b127f409ee75a23dafe7561e12217c4f7378fbabc"
+    },
+    {
+      "coat": "calico",
+      "coverageId": "sleepy-coats-p5-s215",
+      "profileId": "standard-calico-sleepy-almond-parted-mouth",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "calico",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "dragon-wings",
+        "tailTip": "flame-tail"
+      },
+      "file": "samples/09-calico.png",
+      "pngSha256": "100e8fed2835ed2d3c35f1c099ebd3d714ea8d25733c2b1e3217c5715ad4dcf5",
+      "rgbaSha256": "3a4b06130284eb28dd803aab215bae03c5765f70163867b21e161dcfe480d24f"
+    },
+    {
+      "coat": "colorpoint",
+      "coverageId": "sleepy-coats-p8-s222",
+      "profileId": "standard-colorpoint-sleepy-almond-small-fangs",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "colorpoint",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "none",
+        "neck": "none",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/10-colorpoint.png",
+      "pngSha256": "5801b72903a4fc3d5c66f25431a2746565fffb63e6062c1a961fb60c5a77ce5b",
+      "rgbaSha256": "cdd61469231dc999314939fd384c2c8e1661e144bf8bc09b27e29458acff04a9"
+    },
+    {
+      "coat": "colorpoint",
+      "coverageId": "sleepy-coats-p7-s171",
+      "profileId": "standard-colorpoint-sleepy-almond-parted-mouth",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "colorpoint",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "frill-neck",
+        "back": "none",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/11-colorpoint.png",
+      "pngSha256": "e93fe94d2fedaf72a3926fb099efbb96ecadc06304080bf045d387fe761c0a54",
+      "rgbaSha256": "befeb142171c189fec9f673d182668b2e816f418c347b1cb9377213e0b5637fb"
+    },
+    {
+      "coat": "colorpoint",
+      "coverageId": "sleepy-coats-p8-s126",
+      "profileId": "standard-colorpoint-sleepy-almond-small-fangs",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "colorpoint",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/12-colorpoint.png",
+      "pngSha256": "69fb6e1c2839d5cd93753322c0cb3028cdc1b4717ca915bcc832d0943da73abd",
+      "rgbaSha256": "082e9e06a8a9a96f6f8a45ec61461e2ae207197bf0b79fc50fe6fdea4beeaf07"
+    },
+    {
+      "coat": "rosetted",
+      "coverageId": "sleepy-coats-p10-s067",
+      "profileId": "standard-rosetted-sleepy-almond-small-fangs",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "rosetted",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "file": "samples/13-rosetted.png",
+      "pngSha256": "1c6d687dace6ad706c6b21c3fa4aadfbdfbd68707565bb5f09c5299d8537a496",
+      "rgbaSha256": "5c77026289bd474383a34bb361215b624ad90b042d6c9d32d313ecb37cba1e03"
+    },
+    {
+      "coat": "rosetted",
+      "coverageId": "sleepy-coats-p9-s163",
+      "profileId": "standard-rosetted-sleepy-almond-parted-mouth",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "rosetted",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "none",
+        "neck": "small-lion-mane",
+        "back": "feathered-wings",
+        "tailTip": "none"
+      },
+      "file": "samples/14-rosetted.png",
+      "pngSha256": "18306b8af8f398831ecbfd35f2a0664c700fd23480e2919dc9be3e2c8546e539",
+      "rgbaSha256": "ef8a4f576874812e838bbe4d9935e6ee379ec453f9af4aaaa660de2611e666c6"
+    },
+    {
+      "coat": "rosetted",
+      "coverageId": "sleepy-coats-p9-s129",
+      "profileId": "standard-rosetted-sleepy-almond-parted-mouth",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "rosetted",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "feathered-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "file": "samples/15-rosetted.png",
+      "pngSha256": "6ef69790a38d114d4fe9fc94da89586aab838edd032ff05153f4b2971267874d",
+      "rgbaSha256": "893c2b059578f85eebb4dc4cf9abc11b4e4d6937e0a9b44e878cbcb83ab9f25e"
+    }
+  ],
+  "evidence": {
+    "docs/qa/pixel-sleepy-coats/report.json": "faee59675ed27118b48bd340d615c11f673c8ee526a02e7e1c600b09e40ae764",
+    "docs/qa/pixel-sleepy-coats/index.html": "40e23f76b39cab11f04a0ba6bc6b1e66b9a113936f82d2b47b86da4471e030ee",
+    "docs/qa/pixel-sleepy-coats/README.md": "64ba9308b322dbef737cc37df7e3a17571c83eba99eb67724bb079fdf3dd49cb",
+    "docs/qa/pixel-sleepy-coats/transfer-report.json": "20ef02745239126a1d4e69da0329a83cf6e3efbf73e28ef73706486a7a1d6af3",
+    "docs/qa/pixel-sleepy-coats/samples/01-brown-tabby.png": "72322340aab74ddd5c3f29531df4a2a71a2c8d725c6644bf2f3343987310da4a",
+    "docs/qa/pixel-sleepy-coats/samples/02-brown-tabby.png": "99029b348a6e225a3587af54dff8d1926efcde832ac97c0cc83771e34c282baf",
+    "docs/qa/pixel-sleepy-coats/samples/03-brown-tabby.png": "d40da1b1717b34c3efcc12a61adf025cffe718231d488a2d2891006b6470a97e",
+    "docs/qa/pixel-sleepy-coats/samples/04-tuxedo.png": "4d285c7014bff676762a1b50fd7ef61556ac464504adcd4edf4b54042d9a4819",
+    "docs/qa/pixel-sleepy-coats/samples/05-tuxedo.png": "1f9b5db769d9e4a5ab14cd99ae72087ae1bb12b8d4ea0ea3115ae3dc4c69efeb",
+    "docs/qa/pixel-sleepy-coats/samples/06-tuxedo.png": "a241d36380ae526e7b87b4fc12663dc5bf18345f6eb6f0407dcb7f132f0ae69e",
+    "docs/qa/pixel-sleepy-coats/samples/07-calico.png": "34e1c07a4597c62e6a1522b5ce57c186985a64e7867e2c57882657c3099cf082",
+    "docs/qa/pixel-sleepy-coats/samples/08-calico.png": "cedb5667f5ffb1bc0fbad2c57786897289a3fec64f4edcfb0c2e5b9134f07f96",
+    "docs/qa/pixel-sleepy-coats/samples/09-calico.png": "100e8fed2835ed2d3c35f1c099ebd3d714ea8d25733c2b1e3217c5715ad4dcf5",
+    "docs/qa/pixel-sleepy-coats/samples/10-colorpoint.png": "5801b72903a4fc3d5c66f25431a2746565fffb63e6062c1a961fb60c5a77ce5b",
+    "docs/qa/pixel-sleepy-coats/samples/11-colorpoint.png": "e93fe94d2fedaf72a3926fb099efbb96ecadc06304080bf045d387fe761c0a54",
+    "docs/qa/pixel-sleepy-coats/samples/12-colorpoint.png": "69fb6e1c2839d5cd93753322c0cb3028cdc1b4717ca915bcc832d0943da73abd",
+    "docs/qa/pixel-sleepy-coats/samples/13-rosetted.png": "1c6d687dace6ad706c6b21c3fa4aadfbdfbd68707565bb5f09c5299d8537a496",
+    "docs/qa/pixel-sleepy-coats/samples/14-rosetted.png": "18306b8af8f398831ecbfd35f2a0664c700fd23480e2919dc9be3e2c8546e539",
+    "docs/qa/pixel-sleepy-coats/samples/15-rosetted.png": "6ef69790a38d114d4fe9fc94da89586aab838edd032ff05153f4b2971267874d",
+    "docs/qa/pixel-sleepy-coats/layers/brown-tabby-sleepy-almond-parted-mouth.png": "2974f4ca15da4ac3c2f13b7661460e5b8b4af4ca1c7905e978b578f603dea21f",
+    "docs/qa/pixel-sleepy-coats/layers/brown-tabby-sleepy-almond-small-fangs.png": "5661da1cecba0929d2379e37f345796c41833a752d8f0fe64751978835c87843",
+    "docs/qa/pixel-sleepy-coats/layers/calico-sleepy-almond-parted-mouth.png": "14594c832b639de67f19f42ca8ae395564ad98086d85f1351ed6f7c4b6310ac2",
+    "docs/qa/pixel-sleepy-coats/layers/calico-sleepy-almond-small-fangs.png": "342d87b0752a317dab07ea10552ea8cc0264c05d1c5a0479608ea511e827774d",
+    "docs/qa/pixel-sleepy-coats/layers/colorpoint-sleepy-almond-parted-mouth.png": "2a3301c3bfe82d03870689835aab41422c324895948bf4961708e4b1479077bb",
+    "docs/qa/pixel-sleepy-coats/layers/colorpoint-sleepy-almond-small-fangs.png": "5aaa674e192a211b73c33141917d8c5d8ffd43536f679463a94cc8dd3f9f16e7",
+    "docs/qa/pixel-sleepy-coats/layers/rosetted-sleepy-almond-parted-mouth.png": "b088b28668f5485c5f53a528fddea41b91c9e223bbfcb1c8a615dc6c9f23fed4",
+    "docs/qa/pixel-sleepy-coats/layers/rosetted-sleepy-almond-small-fangs.png": "0f7393eab903d8ec4bb484e0f08f1f46d74ed3c45f1bf05549fccc127f31007b",
+    "docs/qa/pixel-sleepy-coats/layers/tuxedo-sleepy-almond-parted-mouth.png": "84e22b2b4fb1c9d798e2b989bfd9a0c6083568053e36f51559ba32f686fc8312",
+    "docs/qa/pixel-sleepy-coats/layers/tuxedo-sleepy-almond-small-fangs.png": "24caec0dbb23a07c15139c247e5c6d8491d4f4a3903ab9e3240b85d32410400a"
+  },
+  "exclusions": [
+    "No changes to approved 1.4.0 resources, renderer, phenotype schema, clear regions, occlusion or layer order.",
+    "No shortleg-round or slender-tall profiles are added for the five new coats.",
+    "Runtime integration and enablement remain disabled."
+  ]
+}
