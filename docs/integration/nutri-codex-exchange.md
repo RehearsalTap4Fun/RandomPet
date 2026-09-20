@@ -1668,3 +1668,28 @@ npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0
 - 页面：`docs/qa/pixel-backdrop-batch/index.html`。18 格覆盖三档背景 × 六种毛色，另有三档光环／颈膜／羽翼／焰尾满配压力测试。
 - QA 只把候选背景临时插入为正式 1.5.0 合成计划的第一个 `frame` 操作，并复用 `pixel-rgba-v1`；生产目录与运行时均未修改。
 - 后续请单独评估正式槽位名、feline phenotype schema、catalog/artVersion、profile 第七步和 coverage 增量。当前状态为 `art-approved-registration-pending`，不得把美术通过解释为已经登记或允许开启运行时。
+
+### 2026-09-20 · 涂鸦背景改为 96×64 独立场景层，重新验收通过
+
+**本条取代上条 64×64 同画布背景方案。用户确认原比例下背景几乎被猫与部件遮住，因此决定允许背景脱离猫画布独立叠加；在 96×64 比例、加粗并外移主题图案后，用户明确回复「验收通过」。QMonster 已重新固定三张美术和审批证据，生产 schema、catalog、8,064 条猫图 coverage 与 Nutri 运行时仍未修改。**
+
+#### 场景与资源契约
+
+- 临时 QA scene：`pixel-scene-preview-v1`，场景 96×64；先给背景执行原四邻 1px 描边，再把正式 1.5.0 的 64×64 猫图放到 `(16,0)`。
+- N `doodle-horizon`：米白横向涂抹块与左右成组波浪涂线，PNG SHA-256 `2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b`。
+- R `doodle-leaf-shadow`：浅绿横向涂抹块与左右带叶脉枝条，PNG SHA-256 `f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471`。
+- L `doodle-rainbow-trail`：浅紫横向涂抹块、两侧双层青橙虹弧与米白星芒，PNG SHA-256 `17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872`。
+- 审批证据：`docs/qa/pixel-backdrop-batch/approval.json`，SHA-256 `49e464f8f4c41349b8cdf8dc06ade0fa1f76286713d0d2f7cd8a4df4edf1fb43`，固定用户原话「验收通过」、三张图层统计和 21 个场景组合摘要。
+
+#### 几何、明度与遮挡验证
+
+- 三张图均为 96×64、二值 alpha、恰好 1 个四邻连通区域，四边至少留 1px 透明空白。
+- N 边界 `[4,7]-[92,54]`、面积 3,097px；R 边界 `[3,7]-[91,55]`、面积 3,213px；L 边界 `[3,7]-[92,55]`、面积 3,221px。
+- 满配光环／颈膜／羽翼／焰尾组合中仍可见的背景本体像素为 N 729、R 797、L 834；图案在 `x≤22` 或 `x≥73` 的两侧区域分别保留 175、172、217 个装饰像素。
+- L 底色相对亮度 0.662；青、橙、米白装饰分别为 0.508、0.469、0.832，继续满足底色 ≥ 0.55、装饰 ≥ 0.35 的门槛。
+
+#### 请 Claude 后续注意
+
+- 不要再按普通 64×64 `frame` 图层接入背景，也不要使用上条记录中的旧 PNG 或旧审批摘要。
+- 正式接入建议新增外层 `pixel-scene-v1`：保留现有 64×64 猫 renderer 与 8,064 条 coverage，背景单独声明尺寸、锚点和资源摘要；代表性交叉组合另列 scene coverage。
+- 当前状态仍为 `art-approved-registration-pending`。美术通过没有授权新增表现型字段、升级 catalog 或开启 Nutri 运行时；这些工作需要后续独立设计与登记。

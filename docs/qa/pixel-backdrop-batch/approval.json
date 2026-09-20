@@ -1,21 +1,23 @@
 {
   "schemaVersion": "pixel-backdrop-approval-v1",
   "approvedAt": "2026-09-20",
-  "decision": "ok",
+  "decision": "验收通过",
   "scope": [
     {
       "id": "doodle-horizon",
       "rarity": "N",
       "file": "layers/doodle-horizon.png",
-      "sha256": "d628f164ea5860ae52ef1314f45b65b33d7fdce3f9a6e8512208c721bf218635",
+      "sha256": "2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b",
       "stats": {
+        "width": 96,
+        "height": 64,
         "bounds": {
-          "left": 2,
-          "top": 9,
-          "right": 62,
-          "bottom": 53
+          "left": 4,
+          "top": 7,
+          "right": 92,
+          "bottom": 54
         },
-        "opaquePixels": 1928,
+        "opaquePixels": 3097,
         "components": 1,
         "edgeClear": true,
         "alphaValues": [
@@ -40,15 +42,17 @@
       "id": "doodle-leaf-shadow",
       "rarity": "R",
       "file": "layers/doodle-leaf-shadow.png",
-      "sha256": "a68b7774f294e50fdc9f7848987bee4aec44474ed7bbbdda4e297a1030facf7e",
+      "sha256": "f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471",
       "stats": {
+        "width": 96,
+        "height": 64,
         "bounds": {
-          "left": 2,
-          "top": 9,
-          "right": 62,
-          "bottom": 53
+          "left": 3,
+          "top": 7,
+          "right": 91,
+          "bottom": 55
         },
-        "opaquePixels": 1996,
+        "opaquePixels": 3213,
         "components": 1,
         "edgeClear": true,
         "alphaValues": [
@@ -73,15 +77,17 @@
       "id": "doodle-rainbow-trail",
       "rarity": "L",
       "file": "layers/doodle-rainbow-trail.png",
-      "sha256": "dbae1af4d358bdd6849922f1270b3a48a8d7d26f9a0657bae64a26113bb8bdef",
+      "sha256": "17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872",
       "stats": {
+        "width": 96,
+        "height": 64,
         "bounds": {
-          "left": 1,
-          "top": 8,
-          "right": 62,
-          "bottom": 54
+          "left": 3,
+          "top": 7,
+          "right": 92,
+          "bottom": 55
         },
-        "opaquePixels": 2175,
+        "opaquePixels": 3221,
         "components": 1,
         "edgeClear": true,
         "alphaValues": [
@@ -126,8 +132,9 @@
         },
         "profileId": "standard-parted-mouth-round",
         "file": "samples/01.png",
-        "pngSha256": "798c5f86fd6e875096bec628f1f883909640873384cfc8f69486ca3c9690c59c",
-        "rgbaSha256": "4056eba40fd60c04685d60b466aeb464e871cd7a19bbe839aa4a82e07a8fbc68"
+        "pngSha256": "162f4d549919b2359656535abae9ccf93b777937f7ca6d8ddfec9702747008b4",
+        "rgbaSha256": "09683758fe97611beaaa47e217a070426b3d115663740d63c0d2870970cf68a4",
+        "visibleBackdropPixels": 1148
       },
       {
         "section": "N",
@@ -146,8 +153,9 @@
         },
         "profileId": "standard-brown-tabby-parted-mouth-round",
         "file": "samples/02.png",
-        "pngSha256": "b16f2cc7a6db8e12c29a13152db903939c751e45b6b4e6b52148623c10b1c90e",
-        "rgbaSha256": "206a7c17319b2349efb7e20b8e0a9f21b355e561257985295c1773d73a03a3fb"
+        "pngSha256": "4d69728383e3459aef7aebd4b7892db918ccf0a5cf9518c376f7e74858424ffe",
+        "rgbaSha256": "a6c6f8f5fe919e738178ec4603ab212f376c32b9a4155fa507f65fb82857bdfc",
+        "visibleBackdropPixels": 1148
       },
       {
         "section": "N",
@@ -166,8 +174,9 @@
         },
         "profileId": "standard-tuxedo-parted-mouth-round",
         "file": "samples/03.png",
-        "pngSha256": "70543e14e55292104305747afd1827430d1e2eaa2b2a822cb9c4ac3ba1558b94",
-        "rgbaSha256": "4c5f70d75fda83efc866b7603c585d33d5336513c2f987c8b6dcae3e4a8e7da3"
+        "pngSha256": "b15578ea811900d5cc01b7f3b433b35ce480a7b43ee3212062aa6a739c6caa2b",
+        "rgbaSha256": "0ae35ce27af5dc8c2e58f38382b7936de6713926a723f6934cdeb46ea5f23ddb",
+        "visibleBackdropPixels": 1148
       },
       {
         "section": "N",
@@ -186,8 +195,9 @@
         },
         "profileId": "standard-calico-parted-mouth-round",
         "file": "samples/04.png",
-        "pngSha256": "6ea6370ab833f851a264056a662ceb6df837c148cf98a89cc912dcc7fe68a48e",
-        "rgbaSha256": "de0fa20d0b247dd99c67b584a8008e53659e786e5ba717ec1fe1194afb39abdc"
+        "pngSha256": "157d7e6428a068a7675c9c78ec65defd6007d013bdcc0270e68c156e37e911c0",
+        "rgbaSha256": "a4fea3f5c968c29979bce34a239cb6df0d7ab095b9feca821d7405be2a64ccca",
+        "visibleBackdropPixels": 1148
       },
       {
         "section": "N",
@@ -206,8 +216,9 @@
         },
         "profileId": "standard-colorpoint-parted-mouth-round",
         "file": "samples/05.png",
-        "pngSha256": "2f09f86a22da03bba2f8e9515c86b888d02ae0dcfb22765b86d16752d18497df",
-        "rgbaSha256": "527aea7a9e3a6213d14e2cd4ffc992a0b86a3b03491cb1fa356e6436b783487b"
+        "pngSha256": "7370a3a441d6760521dc1a6bb7959413fe8ec4eb2a5a8d52434a3bcce3c14cc3",
+        "rgbaSha256": "fbb30891cf7a3feeb77baa1f51efc5182c1ca3834201e3c35c3864ec4021c99a",
+        "visibleBackdropPixels": 1148
       },
       {
         "section": "N",
@@ -226,8 +237,9 @@
         },
         "profileId": "standard-rosetted-parted-mouth-round",
         "file": "samples/06.png",
-        "pngSha256": "0add2324b0630850a8f7d20ffce46b988dc7152dbc057767b9207f823a038d6a",
-        "rgbaSha256": "b08afc392ede78d83699a78d49f62189b4abadd57a8857ddceb005b49ce48d56"
+        "pngSha256": "b54c0e08419b037e31dda4a9e95eac1c2b90a7110fef5a771c1c3448096c8865",
+        "rgbaSha256": "062dea2b728bd76d98e706980531fa12eef331f947bf5b16e41134012ab40203",
+        "visibleBackdropPixels": 1148
       },
       {
         "section": "R",
@@ -246,8 +258,9 @@
         },
         "profileId": "standard-parted-mouth-round",
         "file": "samples/07.png",
-        "pngSha256": "e9064267dd6847255cf35ad53330087803c6e4e58b31c84469b86fa3462c4e20",
-        "rgbaSha256": "5c6943e4d871be2326340f6b71c38c8308d051fcee9636f8dc815b22e3a70e4d"
+        "pngSha256": "e646774389099b14c2ebb32d8c190aac9bfa6761d4f24899d58a717fb0ec6556",
+        "rgbaSha256": "282ff4aae47237f87480e8f799766311b7865b4ec0363ce8ed48adb1d27e5bfa",
+        "visibleBackdropPixels": 1215
       },
       {
         "section": "R",
@@ -266,8 +279,9 @@
         },
         "profileId": "standard-brown-tabby-parted-mouth-round",
         "file": "samples/08.png",
-        "pngSha256": "51c7f520536ff2dd65e0a9040d41fe04af3e32ae32c9e7fb4d1f649c99126bce",
-        "rgbaSha256": "92a8541af435aad26c70dd8db87dfc2fb4e6215f345652a6fdde6f79dbac80b8"
+        "pngSha256": "60f1a035a6eab3f49152dca265891f4926244271124f901509cb81642bc182a8",
+        "rgbaSha256": "7b570af54641adf0f06eed893d9f61d48e6dec9317c2590f270a85ce0f1b3681",
+        "visibleBackdropPixels": 1215
       },
       {
         "section": "R",
@@ -286,8 +300,9 @@
         },
         "profileId": "standard-tuxedo-parted-mouth-round",
         "file": "samples/09.png",
-        "pngSha256": "5a76986bca5f44b159d08aab752e3c97dbd1d28e66e5b690babdcb39d0ee9d1e",
-        "rgbaSha256": "5ece68833ef34a3893752c3d71802cb3f9bcfa38f763a9e97aa54cb14de39160"
+        "pngSha256": "a828011038f7228dc8ae072b0bd3cf9bb9e342fc6c8322019361f51178669a71",
+        "rgbaSha256": "2e1e571913ae36707398d889ef9bdf396299d9f68b94cedbfca6950fdf22baf4",
+        "visibleBackdropPixels": 1215
       },
       {
         "section": "R",
@@ -306,8 +321,9 @@
         },
         "profileId": "standard-calico-parted-mouth-round",
         "file": "samples/10.png",
-        "pngSha256": "bc4f385e4115ae9de50f43b8a02877ed4a75ffebe27f8ec84e5ab403bc6190dc",
-        "rgbaSha256": "04775084884b2cae958a22fad948033bef67e4a6c919d0d8cf3cebf1d87d01e0"
+        "pngSha256": "2120bd7b273557bb719ca0c0a4a2e7e2dfc1035e45bc9a23cf074025b170b884",
+        "rgbaSha256": "3ebc6224892c349f4c47b02f0b4543d65349c60d9b4e86d18814e340af2348be",
+        "visibleBackdropPixels": 1215
       },
       {
         "section": "R",
@@ -326,8 +342,9 @@
         },
         "profileId": "standard-colorpoint-parted-mouth-round",
         "file": "samples/11.png",
-        "pngSha256": "103a9da137400813a15552fbc496b55e8588e9df28f1860da2855b6f82cac27a",
-        "rgbaSha256": "884e96ba3d0e9f220500a549dcdd1780af464021252ed94893cfee25f5f7111d"
+        "pngSha256": "e290fb7e23c9b691bfc2d15d34787b9a52c356f401527a8dc48143323439b589",
+        "rgbaSha256": "9fa058866df1db51068d6bb1c3e748e5a753df6efb585efa9e49a39efd8d7579",
+        "visibleBackdropPixels": 1215
       },
       {
         "section": "R",
@@ -346,8 +363,9 @@
         },
         "profileId": "standard-rosetted-parted-mouth-round",
         "file": "samples/12.png",
-        "pngSha256": "1f7c67f82533a16148447b440ebae22aed215583ecfbce6139e6ba8fb9612f91",
-        "rgbaSha256": "cbd2625f06c29a3f3c8faad9c40f928110ddc49c014a52b11e9cd14cf39d042b"
+        "pngSha256": "28ff90399142e68ade111ceb554443d605e407a049fc7f5e36a875753e65e485",
+        "rgbaSha256": "a3170e327c17f76ce5fdba373cc4ba450eb1e62f0a07eb46a40f944d89032a90",
+        "visibleBackdropPixels": 1215
       },
       {
         "section": "L",
@@ -366,8 +384,9 @@
         },
         "profileId": "standard-parted-mouth-round",
         "file": "samples/13.png",
-        "pngSha256": "28258d00588c5f2dfa8669709ea2a0ae2b4566fa2cd4cb3a30b20e44ce8810fc",
-        "rgbaSha256": "86e657cb25a3077ab3b21788c8a783ed0ddad90091d1bf7bf9e6a76b3dbdc57a"
+        "pngSha256": "0ce0b56e930b7cae0b4c2d874d73addc8de329f000ae8d1a075f4d36e130c582",
+        "rgbaSha256": "6f60501886bd2a640aa9d01358fa362b785ae437134e51a72f7237792be974ce",
+        "visibleBackdropPixels": 1234
       },
       {
         "section": "L",
@@ -386,8 +405,9 @@
         },
         "profileId": "standard-brown-tabby-parted-mouth-round",
         "file": "samples/14.png",
-        "pngSha256": "6089e17a6faca96f2ce67881b02c2dc939c0071ca54d5bfd6b871116e3bd0ee5",
-        "rgbaSha256": "06e7f524ae28e7a9bf59f6c72f616e0b2b60a31905577f0a88528bfcd5b044a4"
+        "pngSha256": "494c112251190011fec01e7bfa66a4bd189f5b7ce3b4d31d1e3e9b52b98e5b2d",
+        "rgbaSha256": "0ccd727f5d83b7366d96e0d361a6151eaeb1eeab8b83faaf9d01a02bf959f940",
+        "visibleBackdropPixels": 1234
       },
       {
         "section": "L",
@@ -406,8 +426,9 @@
         },
         "profileId": "standard-tuxedo-parted-mouth-round",
         "file": "samples/15.png",
-        "pngSha256": "2df10bdc308540dc8d282fab621f8e4c5fa982faae0369cccc67c0124b168242",
-        "rgbaSha256": "237ede4998d7c038fb5573dd83605149229a128a308fc30db648ed402956e938"
+        "pngSha256": "7132703430af5cf51679ad608a8ad0ef3b510d21f52eb56575a1b627ae90e119",
+        "rgbaSha256": "686efe7bdbde7335321666e7ecba6ad0a939761ce1aabbf77179373d5594f48f",
+        "visibleBackdropPixels": 1234
       },
       {
         "section": "L",
@@ -426,8 +447,9 @@
         },
         "profileId": "standard-calico-parted-mouth-round",
         "file": "samples/16.png",
-        "pngSha256": "efe6b75de73afe0be97d3bd7719dde328a385ccabd4d4ceba1c299f9f4090051",
-        "rgbaSha256": "d1d3dd3ec19b5fb9672a454316279dc2aa726439a2c09165a5f40fee16016b04"
+        "pngSha256": "93518d9d35f4cccd19890307b2ca943f4c3e0d14a829e966e57938ec66f85fee",
+        "rgbaSha256": "76d0ab3640b88d69f7f5267d35c763e389fa3ddc5903fa1b2ee491ca210d58b9",
+        "visibleBackdropPixels": 1234
       },
       {
         "section": "L",
@@ -446,8 +468,9 @@
         },
         "profileId": "standard-colorpoint-parted-mouth-round",
         "file": "samples/17.png",
-        "pngSha256": "2baa65db69745a4a05adab1699924677c8f456352870c62643069dd79c39e52f",
-        "rgbaSha256": "77654ff00f6372e208860c70bf2bb86a9c154ac8b93dfebc276c5746ddbe6de9"
+        "pngSha256": "1362a93d7558a54f4fb06f490b6efad130611e0114533990487c67acee903418",
+        "rgbaSha256": "17d6784339a46b3a496c19d1269c637951dc4173863d7c7e7401263d40b93351",
+        "visibleBackdropPixels": 1234
       },
       {
         "section": "L",
@@ -466,8 +489,9 @@
         },
         "profileId": "standard-rosetted-parted-mouth-round",
         "file": "samples/18.png",
-        "pngSha256": "e56a36cab6931c696d38331e4d20bb1a35d4c5868190759898f4b28e5a4df45c",
-        "rgbaSha256": "9c1078a33af4f5e2e01079a4c1bfdef56e16830d2ef108a87f888c07c7acf814"
+        "pngSha256": "e1786067b1d4e1ac7a1cb7e8f56a46783b09ae23708285c420d6bfbafb1df701",
+        "rgbaSha256": "5028f8d4be1fac89d896cab68e0dde69b77fb4c3ca18bdab7516d683102d902f",
+        "visibleBackdropPixels": 1234
       },
       {
         "section": "full-stack",
@@ -486,8 +510,9 @@
         },
         "profileId": "standard-parted-mouth-round",
         "file": "samples/19.png",
-        "pngSha256": "e719bb8c810c740919b20042aebd995495c149d637a6a05a099da2d325a30fc8",
-        "rgbaSha256": "94dbe6450aa0a65473736b3f2b0e0c0791beb8e18815f90fe607cd60cbdacc3d"
+        "pngSha256": "564921504d00b5f04537470ec398a2d8f0adf0805434b654fc3a980bec334038",
+        "rgbaSha256": "7aae7adabd3f4c1e2befef6960d2c5a27fa125d9379c180ecd17d2295bf1c0b8",
+        "visibleBackdropPixels": 729
       },
       {
         "section": "full-stack",
@@ -506,8 +531,9 @@
         },
         "profileId": "standard-parted-mouth-round",
         "file": "samples/20.png",
-        "pngSha256": "66ac3302459145e199043e995b35c4a425cb243f64cbbee1011afeac4f73de00",
-        "rgbaSha256": "8c0c133381c0fbe71d862809ece641c8ba1ad0e85e1a944cc7460de087345be9"
+        "pngSha256": "6e202bd7a5065330943f58e0d4e42f7e817bc85284f7fe057ac3f491dd48a37c",
+        "rgbaSha256": "5708da6619273b07989639470f65af9854f0105c61c66a78a4ca0ae9b700c8af",
+        "visibleBackdropPixels": 797
       },
       {
         "section": "full-stack",
@@ -526,8 +552,9 @@
         },
         "profileId": "standard-parted-mouth-round",
         "file": "samples/21.png",
-        "pngSha256": "b1fee5a7894f1618d96d771279d06605d98c123f2cc5a4c7f78dc2ac7a2a0523",
-        "rgbaSha256": "63252290c71d180d9a81e304c6146c4d4ba3b02a8e39fd50c5697c0bab7b145b"
+        "pngSha256": "abdb132bca3d7d6f6958cb40344c1a8b0686b463958a854486cd0d482174fa13",
+        "rgbaSha256": "ce28cf19c71a31e015a71775eae053ddd902c0057a89aa6d62e197f9bcf9ea08",
+        "visibleBackdropPixels": 834
       }
     ]
   },

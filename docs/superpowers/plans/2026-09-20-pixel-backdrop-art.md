@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Generate three deterministic 64×64 irregular doodle backdrops and a 21-sample review page without changing the production phenotype, catalog, coverage, or renderer.
+**Goal:** Generate three deterministic 96×64 irregular doodle backdrops and a 21-sample separate-layer review page without changing the production phenotype, catalog, coverage, or 64×64 cat renderer.
 
-**Architecture:** A small reusable art module owns deterministic raster generation and constraint analysis. A build entry point writes three PNG layers, while a separate QA entry point temporarily prepends each layer as the first `frame` operation to plans resolved from approved catalog 1.5.0. The temporary backdrop operation exists only in QA and does not alter production schemas.
+**Architecture:** A small reusable art module owns deterministic 96×64 backdrop generation and constraint analysis. The QA entry point first renders the approved 1.5.0 cat unchanged at 64×64, then centers it at `(16,0)` over the separately outlined backdrop. The temporary scene wrapper exists only in QA and does not alter production schemas.
 
 **Tech Stack:** Node.js ESM, `sharp`, `esbuild`, `node:test`, approved pixel catalog v3, `pixel-rgba-v1` through `composePixelArt`.
 
@@ -12,13 +12,17 @@
 
 **Reference amendment (2026-09-20):** The user supplied an EtherCats example after the initial mound implementation. The accepted direction is now a wide irregular paint smear built from overlapping rounded horizontal bands. It should remain visible above the head and beside the body, with the cat covering its center. This amendment supersedes the earlier scanline mound coordinates and area figures in the implementation sketch below; the current executable tests define the exact silhouette contract.
 
+**Visibility amendment (2026-09-20):** After reviewing the first approved smear, the user asked for more backdrop to extend beyond the body parts, then accepted the recommended EtherCats-ratio compromise. The revised candidate uses `y=5..54`, keeps at least 220 opaque pixels in the crown zone and 180 in the outer-side zones, avoids extending toward the feet, and returns to art-review-pending until accepted.
+
+**Separate-layer amendment (2026-09-20):** The current `pixel-rgba-v1`, v3 catalog, QMonster loader/export, and Nutri web/miniprogram consumers all require 64×64 layers. The user authorized a separately overlaid backdrop instead of further clipping inside that canvas. The candidate backdrop is therefore 96×64, the unchanged cat is centered at x=16, and the executable implementation below supersedes earlier 64×64 backdrop snippets.
+
 ## Global Constraints
 
-- Produce exactly three 64×64 PNG layers with binary alpha.
+- Produce exactly three 96×64 PNG layers with binary alpha.
 - Every layer has exactly one four-neighbor-connected opaque component.
-- Every canvas edge keeps at least one transparent pixel; the brush silhouette occupies roughly `y=8..54` and does not form a floor beneath the feet.
+- Every canvas edge keeps at least one transparent pixel; the brush silhouette occupies roughly `x=3..92`, `y=7..55`.
 - The silhouette is wider than it is tall, with rounded pixel shoulders rather than straight triangular ramps.
-- Each layer contains 1,900–2,450 opaque pixels and keeps all four corners transparent.
+- Each layer contains 3,000–3,350 opaque pixels and keeps all four corners transparent.
 - L base relative luminance is at least 0.55; every L decoration color is at least 0.35.
 - Decorations recolor pixels inside the opaque base and never create detached alpha islands.
 - The QA matrix contains 3 backdrops × 6 coats plus 3 full-stack samples, exactly 21 outputs.
@@ -69,7 +73,7 @@ test('approved definitions satisfy every backdrop invariant', () => {
     const pixels = renderBackdrop(definition)
     const stats = validateBackdrop(definition, pixels)
     assert.equal(stats.components, 1)
-    assert.ok(stats.opaquePixels >= 1900 && stats.opaquePixels <= 2450)
+    assert.ok(stats.opaquePixels >= 3000 && stats.opaquePixels <= 3350)
     assert.deepEqual(stats.alphaValues, [0, 255])
   }
 })
@@ -248,7 +252,7 @@ export function validateBackdrop(definition, pixels) {
   assert.deepEqual(stats.alphaValues, [0, 255], `${definition.id}: alpha must be binary`)
   assert.equal(stats.components, 1, `${definition.id}: expected one component`)
   assert.ok(stats.edgeClear, `${definition.id}: opaque pixels touch a forbidden edge`)
-  assert.ok(stats.opaquePixels >= 1900 && stats.opaquePixels <= 2450, `${definition.id}: area ${stats.opaquePixels}`)
+  assert.ok(stats.opaquePixels >= 3000 && stats.opaquePixels <= 3350, `${definition.id}: area ${stats.opaquePixels}`)
   if (definition.rarity === 'L') {
     assert.ok(relativeLuminance(definition.base) >= 0.55, `${definition.id}: dark base`)
     for (const color of definition.decorations) assert.ok(relativeLuminance(color) >= 0.35, `${definition.id}: dark decoration ${color}`)
@@ -267,7 +271,7 @@ Run:
 node --test scripts/pixel-backdrop-art.test.mjs
 ```
 
-Expected after the reference amendment: 7 tests PASS, including visible upper-side decorations, wide brush proportions, and rounded brush shoulders. If an ellipse-band silhouette misses the 1,900–2,450 area, adjust only its band centers and radii; do not relax the range.
+Expected after the separate-layer amendment: 8 tests PASS, including visible upper-side decorations, wide brush proportions, rounded brush shoulders, and minimum crown/outer-side exposure. If an ellipse-band silhouette misses the 3,000–3,350 area, adjust only its band centers and radii; do not relax the range.
 
 - [ ] **Step 5: Review the task diff**
 
@@ -451,7 +455,7 @@ node scripts/review-pixel-backdrop-art.mjs
 
 Expected: `QA: wrote 21 samples to docs/qa/pixel-backdrop-batch/index.html`.
 
-The HTML must group cards into N, R, L coat sections plus a full-stack section. Each card shows a 192px nearest-neighbor preview and a native 64px image. Include a deep/light page-background toggle and state clearly that the candidates are not registered in a production catalog.
+The HTML must group cards into N, R, L coat sections plus a full-stack section. Each card shows a 288×192 nearest-neighbor preview and a native 96×64 scene. Include a deep/light page-background toggle and state clearly that the candidates are not registered in a production catalog.
 
 - [ ] **Step 4: Inspect the complete QA output**
 
