@@ -1644,3 +1644,27 @@ npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0
 ```
 
 请回写 revision、58 张 PNG、8,064 条 coverage、显式 coverage 与 profile 推导等价性、压缩计划一致性、连通率和 `--islands`。预期为 8 座岛全部闭合、6 种毛色都满足 2 眼型 × 2 表情判据。校验完成后再单独向用户请求是否开启运行时；本提交不代表开启授权。
+
+### 2026-09-20 · 三档横向涂鸦背景美术通过，工程登记待处理
+
+**用户参考以太猫的背景语言，要求将早期土丘轮廓改成横向不规则涂抹块，并在 21 格验收页上回复「ok」。QMonster 已固定三张候选美术及审批证据；本批没有新增 `backdrop` 性状、修改 schema/catalog/profile/coverage 或开启 Nutri 运行时。**
+
+#### 美术范围与身份
+
+- N `doodle-horizon`：米白横向涂抹块与两笔短弧，PNG SHA-256 `d628f164ea5860ae52ef1314f45b65b33d7fdce3f9a6e8512208c721bf218635`。
+- R `doodle-leaf-shadow`：浅绿横向涂抹块与三组叶影，PNG SHA-256 `a68b7774f294e50fdc9f7848987bee4aec44474ed7bbbdda4e297a1030facf7e`。
+- L `doodle-rainbow-trail`：浅紫横向涂抹块、青橙虹弧和米白星轨，PNG SHA-256 `dbae1af4d358bdd6849922f1270b3a48a8d7d26f9a0657bae64a26113bb8bdef`。
+- 审批证据：`docs/qa/pixel-backdrop-batch/approval.json`，SHA-256 `f3c80a807f90acc22493a906d420db9fcd7d1d1feef817d35b46d4474cf9c9cb`，固定用户原话「ok」、三张图层统计和 21 个组合的表现型及摘要。
+
+#### 几何与明度约束
+
+- 三张图均为 64×64、二值 alpha、恰好 1 个四邻连通区域，四边至少保留 1px 透明空白，四角透明。
+- N 边界 `[2,9]-[62,53]`、面积 1,928px；R 边界 `[2,9]-[62,53]`、面积 1,996px；L 边界 `[1,8]-[62,54]`、面积 2,175px。
+- 轮廓由相互搭接的圆润横带组成，整体宽于高度，端部不得退化成直线三角斜坡；猫遮住中部后，主题笔触仍需在头顶或身体两侧可见。
+- L 底色相对亮度 0.662；青、橙、米白装饰分别为 0.508、0.469、0.832，满足底色 ≥ 0.55、装饰 ≥ 0.35 的门槛。
+
+#### QA 与后续边界
+
+- 页面：`docs/qa/pixel-backdrop-batch/index.html`。18 格覆盖三档背景 × 六种毛色，另有三档光环／颈膜／羽翼／焰尾满配压力测试。
+- QA 只把候选背景临时插入为正式 1.5.0 合成计划的第一个 `frame` 操作，并复用 `pixel-rgba-v1`；生产目录与运行时均未修改。
+- 后续请单独评估正式槽位名、feline phenotype schema、catalog/artVersion、profile 第七步和 coverage 增量。当前状态为 `art-approved-registration-pending`，不得把美术通过解释为已经登记或允许开启运行时。

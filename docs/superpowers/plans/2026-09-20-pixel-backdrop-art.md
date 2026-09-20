@@ -10,12 +10,15 @@
 
 **Spec:** `docs/superpowers/specs/2026-09-20-pixel-backdrop-art-design.md`
 
+**Reference amendment (2026-09-20):** The user supplied an EtherCats example after the initial mound implementation. The accepted direction is now a wide irregular paint smear built from overlapping rounded horizontal bands. It should remain visible above the head and beside the body, with the cat covering its center. This amendment supersedes the earlier scanline mound coordinates and area figures in the implementation sketch below; the current executable tests define the exact silhouette contract.
+
 ## Global Constraints
 
 - Produce exactly three 64×64 PNG layers with binary alpha.
 - Every layer has exactly one four-neighbor-connected opaque component.
-- Every canvas edge keeps at least one transparent pixel; maximum opaque `y` is 59.
-- Each layer contains 2,400–2,850 opaque pixels and keeps all four corners transparent.
+- Every canvas edge keeps at least one transparent pixel; the brush silhouette occupies roughly `y=8..54` and does not form a floor beneath the feet.
+- The silhouette is wider than it is tall, with rounded pixel shoulders rather than straight triangular ramps.
+- Each layer contains 1,900–2,450 opaque pixels and keeps all four corners transparent.
 - L base relative luminance is at least 0.55; every L decoration color is at least 0.35.
 - Decorations recolor pixels inside the opaque base and never create detached alpha islands.
 - The QA matrix contains 3 backdrops × 6 coats plus 3 full-stack samples, exactly 21 outputs.
@@ -66,7 +69,7 @@ test('approved definitions satisfy every backdrop invariant', () => {
     const pixels = renderBackdrop(definition)
     const stats = validateBackdrop(definition, pixels)
     assert.equal(stats.components, 1)
-    assert.ok(stats.opaquePixels >= 2400 && stats.opaquePixels <= 2850)
+    assert.ok(stats.opaquePixels >= 1900 && stats.opaquePixels <= 2450)
     assert.deepEqual(stats.alphaValues, [0, 255])
   }
 })
@@ -245,7 +248,7 @@ export function validateBackdrop(definition, pixels) {
   assert.deepEqual(stats.alphaValues, [0, 255], `${definition.id}: alpha must be binary`)
   assert.equal(stats.components, 1, `${definition.id}: expected one component`)
   assert.ok(stats.edgeClear, `${definition.id}: opaque pixels touch a forbidden edge`)
-  assert.ok(stats.opaquePixels >= 2400 && stats.opaquePixels <= 2850, `${definition.id}: area ${stats.opaquePixels}`)
+  assert.ok(stats.opaquePixels >= 1900 && stats.opaquePixels <= 2450, `${definition.id}: area ${stats.opaquePixels}`)
   if (definition.rarity === 'L') {
     assert.ok(relativeLuminance(definition.base) >= 0.55, `${definition.id}: dark base`)
     for (const color of definition.decorations) assert.ok(relativeLuminance(color) >= 0.35, `${definition.id}: dark decoration ${color}`)
@@ -264,7 +267,7 @@ Run:
 node --test scripts/pixel-backdrop-art.test.mjs
 ```
 
-Expected: 4 tests PASS. If the scanline formula misses the 2,400–2,850 area, adjust only the shape `width` and `top` constants; do not relax the range.
+Expected after the reference amendment: 7 tests PASS, including visible upper-side decorations, wide brush proportions, and rounded brush shoulders. If an ellipse-band silhouette misses the 1,900–2,450 area, adjust only its band centers and radii; do not relax the range.
 
 - [ ] **Step 5: Review the task diff**
 

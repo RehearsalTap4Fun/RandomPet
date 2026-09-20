@@ -1,0 +1,541 @@
+{
+  "schemaVersion": "pixel-backdrop-review-v1",
+  "status": "art-approved-registration-pending",
+  "baseCatalog": "packages/asset-catalog/pixel/v3/approved-1.5.0/catalog.approved.json",
+  "baseCatalogSha256": "d19f7ccb38c0bf9f96a3593e187392446a3dfa291825712e302fda5880c5514d",
+  "rendererVersion": "pixel-rgba-v1",
+  "productionSchemaChanged": false,
+  "candidates": [
+    {
+      "id": "doodle-horizon",
+      "name": "随手地平线",
+      "rarity": "N",
+      "file": "layers/doodle-horizon.png",
+      "sha256": "d628f164ea5860ae52ef1314f45b65b33d7fdce3f9a6e8512208c721bf218635",
+      "stats": {
+        "bounds": {
+          "left": 2,
+          "top": 9,
+          "right": 62,
+          "bottom": 53
+        },
+        "opaquePixels": 1928,
+        "components": 1,
+        "edgeClear": true,
+        "alphaValues": [
+          0,
+          255
+        ],
+        "palette": [
+          "#cbbfae",
+          "#e6b981",
+          "#eee7d7"
+        ],
+        "luminance": {
+          "base": 0.8023526730226268,
+          "decorations": [
+            0.5301410599348846,
+            0.5310589708632719
+          ]
+        }
+      }
+    },
+    {
+      "id": "doodle-leaf-shadow",
+      "name": "叶影涂鸦",
+      "rarity": "R",
+      "file": "layers/doodle-leaf-shadow.png",
+      "sha256": "a68b7774f294e50fdc9f7848987bee4aec44474ed7bbbdda4e297a1030facf7e",
+      "stats": {
+        "bounds": {
+          "left": 2,
+          "top": 9,
+          "right": 62,
+          "bottom": 53
+        },
+        "opaquePixels": 1996,
+        "components": 1,
+        "edgeClear": true,
+        "alphaValues": [
+          0,
+          255
+        ],
+        "palette": [
+          "#91ba91",
+          "#cde4cb",
+          "#f4eedc"
+        ],
+        "luminance": {
+          "base": 0.7277773780142371,
+          "decorations": [
+            0.43181887308563377,
+            0.8554947497425783
+          ]
+        }
+      }
+    },
+    {
+      "id": "doodle-rainbow-trail",
+      "name": "虹弧星轨",
+      "rarity": "L",
+      "file": "layers/doodle-rainbow-trail.png",
+      "sha256": "dbae1af4d358bdd6849922f1270b3a48a8d7d26f9a0657bae64a26113bb8bdef",
+      "stats": {
+        "bounds": {
+          "left": 1,
+          "top": 8,
+          "right": 62,
+          "bottom": 54
+        },
+        "opaquePixels": 2175,
+        "components": 1,
+        "edgeClear": true,
+        "alphaValues": [
+          0,
+          255
+        ],
+        "palette": [
+          "#78cad0",
+          "#dccff1",
+          "#f0a66d",
+          "#f4ebd0"
+        ],
+        "luminance": {
+          "base": 0.6619216473889936,
+          "decorations": [
+            0.5078819564608256,
+            0.46901828109233185,
+            0.8320382467889831
+          ]
+        }
+      }
+    }
+  ],
+  "sampling": {
+    "total": 21,
+    "coatMatrix": 18,
+    "fullStack": 3,
+    "rows": [
+      {
+        "section": "N",
+        "label": "N · 随手地平线 · orange-white",
+        "backdropId": "doodle-horizon",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-parted-mouth-round",
+        "file": "samples/01.png",
+        "pngSha256": "798c5f86fd6e875096bec628f1f883909640873384cfc8f69486ca3c9690c59c",
+        "rgbaSha256": "4056eba40fd60c04685d60b466aeb464e871cd7a19bbe839aa4a82e07a8fbc68"
+      },
+      {
+        "section": "N",
+        "label": "N · 随手地平线 · brown-tabby",
+        "backdropId": "doodle-horizon",
+        "phenotype": {
+          "body": "standard",
+          "coat": "brown-tabby",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-brown-tabby-parted-mouth-round",
+        "file": "samples/02.png",
+        "pngSha256": "b16f2cc7a6db8e12c29a13152db903939c751e45b6b4e6b52148623c10b1c90e",
+        "rgbaSha256": "206a7c17319b2349efb7e20b8e0a9f21b355e561257985295c1773d73a03a3fb"
+      },
+      {
+        "section": "N",
+        "label": "N · 随手地平线 · tuxedo",
+        "backdropId": "doodle-horizon",
+        "phenotype": {
+          "body": "standard",
+          "coat": "tuxedo",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-tuxedo-parted-mouth-round",
+        "file": "samples/03.png",
+        "pngSha256": "70543e14e55292104305747afd1827430d1e2eaa2b2a822cb9c4ac3ba1558b94",
+        "rgbaSha256": "4c5f70d75fda83efc866b7603c585d33d5336513c2f987c8b6dcae3e4a8e7da3"
+      },
+      {
+        "section": "N",
+        "label": "N · 随手地平线 · calico",
+        "backdropId": "doodle-horizon",
+        "phenotype": {
+          "body": "standard",
+          "coat": "calico",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-calico-parted-mouth-round",
+        "file": "samples/04.png",
+        "pngSha256": "6ea6370ab833f851a264056a662ceb6df837c148cf98a89cc912dcc7fe68a48e",
+        "rgbaSha256": "de0fa20d0b247dd99c67b584a8008e53659e786e5ba717ec1fe1194afb39abdc"
+      },
+      {
+        "section": "N",
+        "label": "N · 随手地平线 · colorpoint",
+        "backdropId": "doodle-horizon",
+        "phenotype": {
+          "body": "standard",
+          "coat": "colorpoint",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-colorpoint-parted-mouth-round",
+        "file": "samples/05.png",
+        "pngSha256": "2f09f86a22da03bba2f8e9515c86b888d02ae0dcfb22765b86d16752d18497df",
+        "rgbaSha256": "527aea7a9e3a6213d14e2cd4ffc992a0b86a3b03491cb1fa356e6436b783487b"
+      },
+      {
+        "section": "N",
+        "label": "N · 随手地平线 · rosetted",
+        "backdropId": "doodle-horizon",
+        "phenotype": {
+          "body": "standard",
+          "coat": "rosetted",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-rosetted-parted-mouth-round",
+        "file": "samples/06.png",
+        "pngSha256": "0add2324b0630850a8f7d20ffce46b988dc7152dbc057767b9207f823a038d6a",
+        "rgbaSha256": "b08afc392ede78d83699a78d49f62189b4abadd57a8857ddceb005b49ce48d56"
+      },
+      {
+        "section": "R",
+        "label": "R · 叶影涂鸦 · orange-white",
+        "backdropId": "doodle-leaf-shadow",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-parted-mouth-round",
+        "file": "samples/07.png",
+        "pngSha256": "e9064267dd6847255cf35ad53330087803c6e4e58b31c84469b86fa3462c4e20",
+        "rgbaSha256": "5c6943e4d871be2326340f6b71c38c8308d051fcee9636f8dc815b22e3a70e4d"
+      },
+      {
+        "section": "R",
+        "label": "R · 叶影涂鸦 · brown-tabby",
+        "backdropId": "doodle-leaf-shadow",
+        "phenotype": {
+          "body": "standard",
+          "coat": "brown-tabby",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-brown-tabby-parted-mouth-round",
+        "file": "samples/08.png",
+        "pngSha256": "51c7f520536ff2dd65e0a9040d41fe04af3e32ae32c9e7fb4d1f649c99126bce",
+        "rgbaSha256": "92a8541af435aad26c70dd8db87dfc2fb4e6215f345652a6fdde6f79dbac80b8"
+      },
+      {
+        "section": "R",
+        "label": "R · 叶影涂鸦 · tuxedo",
+        "backdropId": "doodle-leaf-shadow",
+        "phenotype": {
+          "body": "standard",
+          "coat": "tuxedo",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-tuxedo-parted-mouth-round",
+        "file": "samples/09.png",
+        "pngSha256": "5a76986bca5f44b159d08aab752e3c97dbd1d28e66e5b690babdcb39d0ee9d1e",
+        "rgbaSha256": "5ece68833ef34a3893752c3d71802cb3f9bcfa38f763a9e97aa54cb14de39160"
+      },
+      {
+        "section": "R",
+        "label": "R · 叶影涂鸦 · calico",
+        "backdropId": "doodle-leaf-shadow",
+        "phenotype": {
+          "body": "standard",
+          "coat": "calico",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-calico-parted-mouth-round",
+        "file": "samples/10.png",
+        "pngSha256": "bc4f385e4115ae9de50f43b8a02877ed4a75ffebe27f8ec84e5ab403bc6190dc",
+        "rgbaSha256": "04775084884b2cae958a22fad948033bef67e4a6c919d0d8cf3cebf1d87d01e0"
+      },
+      {
+        "section": "R",
+        "label": "R · 叶影涂鸦 · colorpoint",
+        "backdropId": "doodle-leaf-shadow",
+        "phenotype": {
+          "body": "standard",
+          "coat": "colorpoint",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-colorpoint-parted-mouth-round",
+        "file": "samples/11.png",
+        "pngSha256": "103a9da137400813a15552fbc496b55e8588e9df28f1860da2855b6f82cac27a",
+        "rgbaSha256": "884e96ba3d0e9f220500a549dcdd1780af464021252ed94893cfee25f5f7111d"
+      },
+      {
+        "section": "R",
+        "label": "R · 叶影涂鸦 · rosetted",
+        "backdropId": "doodle-leaf-shadow",
+        "phenotype": {
+          "body": "standard",
+          "coat": "rosetted",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-rosetted-parted-mouth-round",
+        "file": "samples/12.png",
+        "pngSha256": "1f7c67f82533a16148447b440ebae22aed215583ecfbce6139e6ba8fb9612f91",
+        "rgbaSha256": "cbd2625f06c29a3f3c8faad9c40f928110ddc49c014a52b11e9cd14cf39d042b"
+      },
+      {
+        "section": "L",
+        "label": "L · 虹弧星轨 · orange-white",
+        "backdropId": "doodle-rainbow-trail",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-parted-mouth-round",
+        "file": "samples/13.png",
+        "pngSha256": "28258d00588c5f2dfa8669709ea2a0ae2b4566fa2cd4cb3a30b20e44ce8810fc",
+        "rgbaSha256": "86e657cb25a3077ab3b21788c8a783ed0ddad90091d1bf7bf9e6a76b3dbdc57a"
+      },
+      {
+        "section": "L",
+        "label": "L · 虹弧星轨 · brown-tabby",
+        "backdropId": "doodle-rainbow-trail",
+        "phenotype": {
+          "body": "standard",
+          "coat": "brown-tabby",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-brown-tabby-parted-mouth-round",
+        "file": "samples/14.png",
+        "pngSha256": "6089e17a6faca96f2ce67881b02c2dc939c0071ca54d5bfd6b871116e3bd0ee5",
+        "rgbaSha256": "06e7f524ae28e7a9bf59f6c72f616e0b2b60a31905577f0a88528bfcd5b044a4"
+      },
+      {
+        "section": "L",
+        "label": "L · 虹弧星轨 · tuxedo",
+        "backdropId": "doodle-rainbow-trail",
+        "phenotype": {
+          "body": "standard",
+          "coat": "tuxedo",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-tuxedo-parted-mouth-round",
+        "file": "samples/15.png",
+        "pngSha256": "2df10bdc308540dc8d282fab621f8e4c5fa982faae0369cccc67c0124b168242",
+        "rgbaSha256": "237ede4998d7c038fb5573dd83605149229a128a308fc30db648ed402956e938"
+      },
+      {
+        "section": "L",
+        "label": "L · 虹弧星轨 · calico",
+        "backdropId": "doodle-rainbow-trail",
+        "phenotype": {
+          "body": "standard",
+          "coat": "calico",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-calico-parted-mouth-round",
+        "file": "samples/16.png",
+        "pngSha256": "efe6b75de73afe0be97d3bd7719dde328a385ccabd4d4ceba1c299f9f4090051",
+        "rgbaSha256": "d1d3dd3ec19b5fb9672a454316279dc2aa726439a2c09165a5f40fee16016b04"
+      },
+      {
+        "section": "L",
+        "label": "L · 虹弧星轨 · colorpoint",
+        "backdropId": "doodle-rainbow-trail",
+        "phenotype": {
+          "body": "standard",
+          "coat": "colorpoint",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-colorpoint-parted-mouth-round",
+        "file": "samples/17.png",
+        "pngSha256": "2baa65db69745a4a05adab1699924677c8f456352870c62643069dd79c39e52f",
+        "rgbaSha256": "77654ff00f6372e208860c70bf2bb86a9c154ac8b93dfebc276c5746ddbe6de9"
+      },
+      {
+        "section": "L",
+        "label": "L · 虹弧星轨 · rosetted",
+        "backdropId": "doodle-rainbow-trail",
+        "phenotype": {
+          "body": "standard",
+          "coat": "rosetted",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "none",
+          "ears": "none",
+          "neck": "none",
+          "back": "none",
+          "tailTip": "none"
+        },
+        "profileId": "standard-rosetted-parted-mouth-round",
+        "file": "samples/18.png",
+        "pngSha256": "e56a36cab6931c696d38331e4d20bb1a35d4c5868190759898f4b28e5a4df45c",
+        "rgbaSha256": "9c1078a33af4f5e2e01079a4c1bfdef56e16830d2ef108a87f888c07c7acf814"
+      },
+      {
+        "section": "full-stack",
+        "label": "N · 随手地平线 · 满配压力测试",
+        "backdropId": "doodle-horizon",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "halo",
+          "ears": "none",
+          "neck": "frill-neck",
+          "back": "feathered-wings",
+          "tailTip": "flame-tail"
+        },
+        "profileId": "standard-parted-mouth-round",
+        "file": "samples/19.png",
+        "pngSha256": "e719bb8c810c740919b20042aebd995495c149d637a6a05a099da2d325a30fc8",
+        "rgbaSha256": "94dbe6450aa0a65473736b3f2b0e0c0791beb8e18815f90fe607cd60cbdacc3d"
+      },
+      {
+        "section": "full-stack",
+        "label": "R · 叶影涂鸦 · 满配压力测试",
+        "backdropId": "doodle-leaf-shadow",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "halo",
+          "ears": "none",
+          "neck": "frill-neck",
+          "back": "feathered-wings",
+          "tailTip": "flame-tail"
+        },
+        "profileId": "standard-parted-mouth-round",
+        "file": "samples/20.png",
+        "pngSha256": "66ac3302459145e199043e995b35c4a425cb243f64cbbee1011afeac4f73de00",
+        "rgbaSha256": "8c0c133381c0fbe71d862809ece641c8ba1ad0e85e1a944cc7460de087345be9"
+      },
+      {
+        "section": "full-stack",
+        "label": "L · 虹弧星轨 · 满配压力测试",
+        "backdropId": "doodle-rainbow-trail",
+        "phenotype": {
+          "body": "standard",
+          "coat": "orange-white",
+          "eyes": "round",
+          "expression": "parted-mouth",
+          "crown": "halo",
+          "ears": "none",
+          "neck": "frill-neck",
+          "back": "feathered-wings",
+          "tailTip": "flame-tail"
+        },
+        "profileId": "standard-parted-mouth-round",
+        "file": "samples/21.png",
+        "pngSha256": "b1fee5a7894f1618d96d771279d06605d98c123f2cc5a4c7f78dc2ac7a2a0523",
+        "rgbaSha256": "63252290c71d180d9a81e304c6146c4d4ba3b02a8e39fd50c5697c0bab7b145b"
+      }
+    ]
+  }
+}
