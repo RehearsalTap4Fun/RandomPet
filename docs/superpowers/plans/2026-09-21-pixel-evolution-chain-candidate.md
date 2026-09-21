@@ -121,3 +121,23 @@ Record the implementation commit, candidate identity, the exact 13-sample scope,
 - [x] **Step 4: Commit and push the exchange update**
 
 Fetch first, preserve any concurrent remote exchange update, then push both commits to `origin/master`.
+
+### Task 4: Promote the replayed candidate to formal 1.6.0
+
+**Files:**
+- Create: `docs/qa/pixel-evolution-chain-registration/approval.json`
+- Create: `scripts/pixel-art-v3-evolution-chains-approval.mjs`
+- Create: `scripts/build-pixel-art-v3-evolution-chains-approved.mjs`
+- Create: `packages/asset-catalog/pixel/v3/approved-1.6.0/**`
+- Modify: `packages/asset-catalog/src/pixel-art-v3-evolution-chains.test.ts`
+- Modify: `package.json`
+- Modify: `docs/integration/nutri-codex-exchange.md`
+
+**Interfaces:**
+- Consumes: candidate revision `abe1961…`, QMonster 13-sample report, Claude/Nutri replay commit `b5dd350`, and the user's statement `回放通过了`.
+- Produces: immutable formal `1.6.0` with 8,077 approved/generatable rows and `runtimeEnabled: false`.
+
+- [x] **Step 1: Write and run the failing promotion test**
+- [x] **Step 2: Pin approval evidence and implement the immutable release builder**
+- [x] **Step 3: Build twice, verify deterministic output, and run the full test suite**
+- [ ] **Step 4: Commit, notify Claude, and push to `origin/master`**

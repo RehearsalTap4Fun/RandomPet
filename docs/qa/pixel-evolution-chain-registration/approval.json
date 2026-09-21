@@ -1,0 +1,329 @@
+{
+  "schemaVersion": "pixel-art-v3-evolution-chains-sampled-approval-v1",
+  "userStatement": "回放通过了",
+  "date": "2026-09-21",
+  "approvedArtVersion": "1.6.0",
+  "runtimeEnabled": false,
+  "scope": {
+    "baseCoverage": 8064,
+    "sampledCoverage": 13,
+    "theoreticalCoverage": 35840,
+    "interpretation": "Promote the 13 replayed pending rows and preserve the 8,064 approved base rows; do not enumerate the theoretical Cartesian product."
+  },
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/v3/evolution-chains-1.6.0/catalog.candidate.json",
+    "schemaVersion": "pixel-art-catalog-v3",
+    "artVersion": "1.6.0-candidate.1",
+    "revision": "abe1961efcfa45d94f826adfbb93be0c88db1cba7caf6238ecfefa73c73b7166",
+    "sha256": "1ddbc525237e15f7949831385e36c42aebc72447367de2ffc0b01b1fc3ee7203",
+    "provenancePath": "packages/asset-catalog/pixel/v3/evolution-chains-1.6.0/provenance.json",
+    "provenanceSha256": "be075c33b90fd5372e17a1fccffe7dbca254b10b82a879ee61f7a195ec2a43c4"
+  },
+  "consumerReplay": {
+    "sourceExchangeCommit": "aeb8b581d9dd4f3d2038f6ef0fcf640e1f1254e9",
+    "nutriCommit": "b5dd350",
+    "replayed": 8077,
+    "matched": 8077,
+    "sampled": 13,
+    "oldCoverageUnchanged": 8064,
+    "oldResourcesUnchanged": 58,
+    "oldStepsUnchanged": 168,
+    "profileMappings": 140,
+    "sunburstBodyMasks": 3
+  },
+  "samples": [
+    {
+      "coverageId": "evolution-chains-s01",
+      "label": "晶角单件",
+      "coat": "orange-white",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "crystal-horns",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "file": "samples/01.png",
+      "pngSha256": "a19489658562a11dfdf085717367cf7d0a751975eea2052522ef539c94ea66e3",
+      "rgbaSha256": "4a834e0139257c30d936cd224e15bcb13c18f9cdc6551f8558bcac7ffd15b4dd"
+    },
+    {
+      "coverageId": "evolution-chains-s02",
+      "label": "羽翅耳单件",
+      "coat": "orange-white",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "feathered-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "file": "samples/02.png",
+      "pngSha256": "dfae2a19fae5ce31e76e6a09fbc1d4144d443d152194e84fbd95657985129f2e",
+      "rgbaSha256": "71d1c499be6eb09c453c71f95127a05cc52989110405931c043f0fe2ef0194cb"
+    },
+    {
+      "coverageId": "evolution-chains-s03",
+      "label": "星辉翼耳单件",
+      "coat": "orange-white",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "celestial-ears",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "file": "samples/03.png",
+      "pngSha256": "4cc8dd3fb56d58981da71ae182b38ae900c85edfa611b75b34553cf192664cc3",
+      "rgbaSha256": "f957093d3b1b642f62c34252a58c9d6801993c714af02235229e493a3ced5213"
+    },
+    {
+      "coverageId": "evolution-chains-s04",
+      "label": "日冕颈饰单件",
+      "coat": "orange-white",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "sunburst-ruff",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "file": "samples/04.png",
+      "pngSha256": "12a4344f33d98572096a3a7a60f66bb0c13f0286d6634645ddd3cb96b96aa450",
+      "rgbaSha256": "0f54fa1601d730a88eac64b0c6bb46e3e070ea601dbcd624a83f85409a589866"
+    },
+    {
+      "coverageId": "evolution-chains-s05",
+      "label": "凤凰尾单件",
+      "coat": "orange-white",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/05.png",
+      "pngSha256": "ab65807f3b080b4ee8c4643e6c05edc0ff8a4f0ad67eccd0d5bfbaecfa4762d8",
+      "rgbaSha256": "a0899f0d166ad7b2f5f68b1938d08c5d09025986fae75a1e5153e3ddfeeec06c"
+    },
+    {
+      "coverageId": "evolution-chains-s06",
+      "label": "橘白标准满配",
+      "coat": "orange-white",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "feathered-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/06.png",
+      "pngSha256": "d2a3065076d4fe456a6ec3fd42d69989d4c03872b91de8cbf93bdd1e6debcb59",
+      "rgbaSha256": "4bc90a2d5d3744092e86cd2173402c2c9e3e69cb5afd3fd70b96cced20bec13b"
+    },
+    {
+      "coverageId": "evolution-chains-s07",
+      "label": "橘白短腿满配",
+      "coat": "orange-white",
+      "body": "shortleg-round",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "feathered-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/07.png",
+      "pngSha256": "9681cd91dc9e031af9dcf2acd7ec0da3bc0f5397a53bb294aaa0f18186edf4f8",
+      "rgbaSha256": "0fc58ac5f3844538c8256bb053b2276ff8417dabbb1c3e10085b3380ee6e2527"
+    },
+    {
+      "coverageId": "evolution-chains-s08",
+      "label": "橘白细长满配",
+      "coat": "orange-white",
+      "body": "slender-tall",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "feathered-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/08.png",
+      "pngSha256": "7ddbb0806553c277d5e4746048a8b414d36da6b220e8edee75ac5d7ea870389e",
+      "rgbaSha256": "fbbda99a3d8a31844442489138426fd0f7d8ef80160a19f5c1b0e332d94e0de1"
+    },
+    {
+      "coverageId": "evolution-chains-s09",
+      "label": "棕虎斑满配",
+      "coat": "brown-tabby",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "brown-tabby",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "feathered-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/09.png",
+      "pngSha256": "b264dea53411117f44c5f95cdda84265ce21f4f65859e707154aa6544bf77ff8",
+      "rgbaSha256": "1f9917f8158a19ff3cd35679c48a0517010c8a86b4ba22a8651bd342c3d020d4"
+    },
+    {
+      "coverageId": "evolution-chains-s10",
+      "label": "燕尾服满配",
+      "coat": "tuxedo",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "tuxedo",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "feathered-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/10.png",
+      "pngSha256": "77dab72760f4707914ca451c089cc8b95b08e1e2b95ff8a905f587304bdf5415",
+      "rgbaSha256": "671560aec86cec03bff28ecfb2f834380a216ede9f0c1235a2b43deacdd397e4"
+    },
+    {
+      "coverageId": "evolution-chains-s11",
+      "label": "三花满配",
+      "coat": "calico",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "calico",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "feathered-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/11.png",
+      "pngSha256": "4cab5dcf4bb9d6e3e29e1bad36baf08a2124a292086fe6ac9084f5d6d5ab72a4",
+      "rgbaSha256": "234c99e2f9f1977bf9c5c8f8f714bc99c3a368113f72cea59204b07f3d9dd924"
+    },
+    {
+      "coverageId": "evolution-chains-s12",
+      "label": "重点色满配",
+      "coat": "colorpoint",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "colorpoint",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "feathered-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/12.png",
+      "pngSha256": "48771c04c58feaf5d4fc1b3e8a2557a95350679ee87075ea97c89da7a41cc5c5",
+      "rgbaSha256": "ca4de021f153347501a7dcc5c9228234bb7970c60d4aba8ea45ccf479c53f23e"
+    },
+    {
+      "coverageId": "evolution-chains-s13",
+      "label": "金豹点满配",
+      "coat": "rosetted",
+      "body": "standard",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "rosetted",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "feathered-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "file": "samples/13.png",
+      "pngSha256": "6927694c4c0bba71cab87eeb8e6eb089f28c68f642a7cc10536de314f71e7ab1",
+      "rgbaSha256": "5bee5a125f8f45417575bf25b4d61d61d14c4f59c327744566efe2355f214bee"
+    }
+  ],
+  "evidence": {
+    "packages/asset-catalog/pixel/v3/evolution-chains-1.6.0/catalog.candidate.json": "1ddbc525237e15f7949831385e36c42aebc72447367de2ffc0b01b1fc3ee7203",
+    "packages/asset-catalog/pixel/v3/evolution-chains-1.6.0/provenance.json": "be075c33b90fd5372e17a1fccffe7dbca254b10b82a879ee61f7a195ec2a43c4",
+    "docs/qa/pixel-evolution-chain-registration/report.json": "6956a61cd6cb84ef8f0b8a7ea6691fc982d7321aff33ee0821799e3be22200ff",
+    "docs/qa/pixel-evolution-chain-registration/index.html": "1b5033ad3a38c23ef89bbaf8cdbab0fda385fc601a47adabbbd416ae3da7d560",
+    "docs/qa/pixel-evolution-chains/approval.json": "b15ace24424464cc58ec0eca4531d3a3961e71d81ace6daf85c9a1ea18bc9693",
+    "docs/qa/pixel-evolution-chain-registration/samples/01.png": "a19489658562a11dfdf085717367cf7d0a751975eea2052522ef539c94ea66e3",
+    "docs/qa/pixel-evolution-chain-registration/samples/02.png": "dfae2a19fae5ce31e76e6a09fbc1d4144d443d152194e84fbd95657985129f2e",
+    "docs/qa/pixel-evolution-chain-registration/samples/03.png": "4cc8dd3fb56d58981da71ae182b38ae900c85edfa611b75b34553cf192664cc3",
+    "docs/qa/pixel-evolution-chain-registration/samples/04.png": "12a4344f33d98572096a3a7a60f66bb0c13f0286d6634645ddd3cb96b96aa450",
+    "docs/qa/pixel-evolution-chain-registration/samples/05.png": "ab65807f3b080b4ee8c4643e6c05edc0ff8a4f0ad67eccd0d5bfbaecfa4762d8",
+    "docs/qa/pixel-evolution-chain-registration/samples/06.png": "d2a3065076d4fe456a6ec3fd42d69989d4c03872b91de8cbf93bdd1e6debcb59",
+    "docs/qa/pixel-evolution-chain-registration/samples/07.png": "9681cd91dc9e031af9dcf2acd7ec0da3bc0f5397a53bb294aaa0f18186edf4f8",
+    "docs/qa/pixel-evolution-chain-registration/samples/08.png": "7ddbb0806553c277d5e4746048a8b414d36da6b220e8edee75ac5d7ea870389e",
+    "docs/qa/pixel-evolution-chain-registration/samples/09.png": "b264dea53411117f44c5f95cdda84265ce21f4f65859e707154aa6544bf77ff8",
+    "docs/qa/pixel-evolution-chain-registration/samples/10.png": "77dab72760f4707914ca451c089cc8b95b08e1e2b95ff8a905f587304bdf5415",
+    "docs/qa/pixel-evolution-chain-registration/samples/11.png": "4cab5dcf4bb9d6e3e29e1bad36baf08a2124a292086fe6ac9084f5d6d5ab72a4",
+    "docs/qa/pixel-evolution-chain-registration/samples/12.png": "48771c04c58feaf5d4fc1b3e8a2557a95350679ee87075ea97c89da7a41cc5c5",
+    "docs/qa/pixel-evolution-chain-registration/samples/13.png": "6927694c4c0bba71cab87eeb8e6eb089f28c68f642a7cc10536de314f71e7ab1"
+  }
+}

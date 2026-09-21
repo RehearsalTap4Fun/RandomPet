@@ -1,11 +1,13 @@
 import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+import { canonicalJson } from '../../generator-core/src/canonical-json.js'
 import { phenotypeKeyV2 } from '../../generator-core/src/feline-phenotype-v2.js'
 import { requirePixelArtCatalogV3 } from './pixel-art-catalog-v3.js'
 
 const baseRoot = 'packages/asset-catalog/pixel/v3/approved-1.5.0/'
 const candidateRoot = 'packages/asset-catalog/pixel/v3/evolution-chains-1.6.0/'
+const releaseRoot = 'packages/asset-catalog/pixel/v3/approved-1.6.0/'
 const approvalPath = 'docs/qa/pixel-evolution-chains/approval.json'
 const qaRoot = 'docs/qa/pixel-evolution-chain-registration/'
 const sha = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex')
@@ -121,5 +123,42 @@ describe('pixel evolution-chain 1.6.0 candidate', () => {
       expect(row.rgbaSha256).toBe(coverage?.rgbaSha256)
       expect(row.phenotype).toEqual(coverage?.phenotype)
     }
+  })
+
+  it('promotes the replayed candidate to immutable 1.6.0 without enabling runtime', async () => {
+    expect(existsSync(qaRoot + 'approval.json'), 'promotion approval must exist').toBe(true)
+    expect(existsSync(releaseRoot + 'catalog.approved.json'), 'approved 1.6.0 must exist').toBe(true)
+    const candidate = requirePixelArtCatalogV3(json(candidateRoot + 'catalog.candidate.json'))
+    const approved = requirePixelArtCatalogV3(json(releaseRoot + 'catalog.approved.json'))
+    const approval = json(qaRoot + 'approval.json')
+    const provenance = json(releaseRoot + 'provenance.json')
+
+    expect(approval.userStatement).toBe('回放通过了')
+    expect(approval.approvedArtVersion).toBe('1.6.0')
+    expect(approval.runtimeEnabled).toBe(false)
+    expect(approval.consumerReplay).toMatchObject({ nutriCommit: 'b5dd350', replayed: 8_077, matched: 8_077, sampled: 13 })
+    expect(approved.artVersion).toBe('1.6.0')
+    expect(approved.profiles).toEqual(candidate.profiles)
+    expect(approved.resources).toEqual(candidate.resources)
+    expect(approved.coverage).toEqual(candidate.coverage.map(row => ({ ...row, review: 'approved' })))
+    expect(approved.generatable).toEqual(approved.coverage.map(row => row.id))
+    expect(approved.coverage).toHaveLength(8_077)
+    expect(approved.evidence[qaRoot + 'approval.json']).toBe(sha(readFileSync(qaRoot + 'approval.json')))
+    expect(provenance).toMatchObject({ status: 'approved', runtimeEnabled: false, promotedCoverage: 13,
+      registration: { profiles: 28, coverage: 8_077, approved: 8_077, pending: 0, generatable: 8_077, resources: 63 } })
+    const { revision, ...content } = approved
+    expect(revision).toBe(sha(Buffer.from(canonicalJson(content))))
+    for (const [id, resource] of Object.entries(candidate.resources)) {
+      expect(readFileSync(releaseRoot + resource.path), id).toEqual(readFileSync(candidateRoot + resource.path))
+    }
+    // @ts-expect-error Build-time JavaScript validator has no declaration file.
+    const { validateEvolutionChainsPromotionApproval } = await import('../../../scripts/pixel-art-v3-evolution-chains-approval.mjs')
+    await expect(validateEvolutionChainsPromotionApproval(readFileSync(qaRoot + 'approval.json'), {
+      candidate,
+      candidateBytes: readFileSync(candidateRoot + 'catalog.candidate.json'),
+      provenanceBytes: readFileSync(candidateRoot + 'provenance.json'),
+      report: json(qaRoot + 'report.json'),
+      read: (file: string) => readFileSync(file),
+    })).resolves.toBeDefined()
   })
 })
