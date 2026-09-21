@@ -36,8 +36,284 @@
       "slot": "neck",
       "rarity": "L",
       "file": "sunburst-ruff.png",
-      "target": "frame",
-      "sha256": "49211aec9f922266735d4195ef054d075ed693e632e775800a937cbe36d30f50"
+      "target": "subject",
+      "occlusionByBody": {
+        "standard": [
+          [
+            [
+              13,
+              7
+            ],
+            [
+              46,
+              7
+            ],
+            [
+              46,
+              16
+            ],
+            [
+              45,
+              20
+            ],
+            [
+              44,
+              24
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              37,
+              29.5
+            ],
+            [
+              36,
+              30.5
+            ],
+            [
+              35,
+              31.5
+            ],
+            [
+              33,
+              32.5
+            ],
+            [
+              39,
+              33.5
+            ],
+            [
+              35,
+              36
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              19,
+              34.5
+            ],
+            [
+              18,
+              33.5
+            ],
+            [
+              21,
+              32.5
+            ],
+            [
+              19,
+              31.5
+            ],
+            [
+              17,
+              30.5
+            ],
+            [
+              16,
+              29.5
+            ],
+            [
+              9,
+              27
+            ],
+            [
+              9,
+              24
+            ],
+            [
+              10,
+              20
+            ],
+            [
+              12,
+              17
+            ]
+          ]
+        ],
+        "shortleg-round": [
+          [
+            [
+              13,
+              7
+            ],
+            [
+              46,
+              7
+            ],
+            [
+              46,
+              16
+            ],
+            [
+              45,
+              20
+            ],
+            [
+              44,
+              24
+            ],
+            [
+              44,
+              27
+            ],
+            [
+              42,
+              31.5
+            ],
+            [
+              41,
+              32.5
+            ],
+            [
+              39,
+              33.5
+            ],
+            [
+              36,
+              34.5
+            ],
+            [
+              29,
+              35
+            ],
+            [
+              26,
+              35
+            ],
+            [
+              19,
+              34.5
+            ],
+            [
+              16,
+              33.5
+            ],
+            [
+              13,
+              32.5
+            ],
+            [
+              12,
+              31.5
+            ],
+            [
+              9,
+              27
+            ],
+            [
+              9,
+              24
+            ],
+            [
+              10,
+              20
+            ],
+            [
+              12,
+              17
+            ]
+          ],
+          [
+            [
+              26,
+              35
+            ],
+            [
+              29,
+              35
+            ],
+            [
+              29,
+              36
+            ],
+            [
+              26,
+              36
+            ]
+          ]
+        ],
+        "slender-tall": [
+          [
+            [
+              15,
+              7
+            ],
+            [
+              45,
+              7
+            ],
+            [
+              45,
+              15
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              42,
+              23
+            ],
+            [
+              40,
+              27.5
+            ],
+            [
+              38,
+              28.5
+            ],
+            [
+              35,
+              29.5
+            ],
+            [
+              32,
+              30.5
+            ],
+            [
+              38,
+              36
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              23,
+              30.5
+            ],
+            [
+              20,
+              29.5
+            ],
+            [
+              18,
+              28.5
+            ],
+            [
+              15,
+              27.5
+            ],
+            [
+              13,
+              23
+            ],
+            [
+              14,
+              18
+            ],
+            [
+              15,
+              15
+            ]
+          ]
+        ]
+      },
+      "sha256": "f33b58e6e8fa23e5c61ec227f2545dba91408b16296ed066da0f57ba6a97d954"
     },
     {
       "id": "phoenix-tail",
@@ -56,7 +332,12 @@
     ],
     "rendererVersion": "pixel-rgba-v1",
     "coatBound": false,
-    "phoenixTailOpaqueLeft": 40
+    "phoenixTailOpaqueLeft": 40,
+    "sunburstNeckInterface": "small-lion-mane",
+    "sunburstPlacementOffset": [
+      -2,
+      -1
+    ]
   },
   "sampling": {
     "total": 15,
@@ -211,8 +492,8 @@
           "tailTip": "none"
         },
         "file": "samples/09.png",
-        "pngSha256": "e9eb829b1e7ba93ed2b1dd8f9a7934eefbacfac4c6a9257608a6a6c5609c1c2f",
-        "rgbaSha256": "f963aff57c841d7fb27fdae8efaabcecba6b90011c697949005f85d606578634"
+        "pngSha256": "12a4344f33d98572096a3a7a60f66bb0c13f0286d6634645ddd3cb96b96aa450",
+        "rgbaSha256": "0f54fa1601d730a88eac64b0c6bb46e3e070ea601dbcd624a83f85409a589866"
       },
       {
         "label": "尾端 N · 分叉尾",
@@ -279,8 +560,8 @@
           "tailTip": "phoenix-tail"
         },
         "file": "samples/13.png",
-        "pngSha256": "6659e198742d8ed87940839a49efd7ba02d004d945e34d2efed227378e716146",
-        "rgbaSha256": "2cb6abf63fae192e655002c625fe55648b96e7ed80895df273ce179038b14603"
+        "pngSha256": "d2a3065076d4fe456a6ec3fd42d69989d4c03872b91de8cbf93bdd1e6debcb59",
+        "rgbaSha256": "4bc90a2d5d3744092e86cd2173402c2c9e3e69cb5afd3fd70b96cced20bec13b"
       },
       {
         "label": "短腿体型 · 新部件满配",
@@ -296,8 +577,8 @@
           "tailTip": "phoenix-tail"
         },
         "file": "samples/14.png",
-        "pngSha256": "1b03af6824c9dd0a3fc825f5df47c4cf48115d8619a8c79f10f4f71d4b911d21",
-        "rgbaSha256": "700cfd102eef125f6d3cd5e9e94dae4d1fee99381c9c3d4dab8b5310d678412c"
+        "pngSha256": "9681cd91dc9e031af9dcf2acd7ec0da3bc0f5397a53bb294aaa0f18186edf4f8",
+        "rgbaSha256": "0fc58ac5f3844538c8256bb053b2276ff8417dabbb1c3e10085b3380ee6e2527"
       },
       {
         "label": "细长体型 · 新部件满配",
@@ -313,8 +594,8 @@
           "tailTip": "phoenix-tail"
         },
         "file": "samples/15.png",
-        "pngSha256": "67c104786f4722cebcfaad7ba6adc81ea7761e7cc826f4cb58e8d892d284b7fb",
-        "rgbaSha256": "0c28fc915c7aff8562b4b16315ce156fc124f43c682d88b6676e9c843a6c51e7"
+        "pngSha256": "7ddbb0806553c277d5e4746048a8b414d36da6b220e8edee75ac5d7ea870389e",
+        "rgbaSha256": "fbbda99a3d8a31844442489138426fd0f7d8ef80160a19f5c1b0e332d94e0de1"
       }
     ]
   }

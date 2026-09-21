@@ -11,13 +11,37 @@ const assets = [
   { id: 'crystal-horns', source: 'crystal-horns.png', box: { left: 17, top: 0, width: 30, height: 15 }, palette: ['#8c4618', '#d3771d', '#f2b632', '#54bfd0', '#a5edf2', '#efffff'] },
   { id: 'feathered-ears', source: 'feathered-ears.png', box: { left: 10, top: 4, width: 38, height: 16 }, earBoundaries: true, palette: ['#d9584f', '#f27b6d', '#f2ab7f', '#ffe0b2', '#fff4d8', '#ffffff'] },
   { id: 'celestial-ears', source: 'celestial-ears.png', box: { left: 9, top: 3, width: 40, height: 16 }, earBoundaries: true, palette: ['#8878c9', '#b5a6e8', '#d9d0fa', '#ffffff', '#e6b840', '#79d6ea'] },
-  { id: 'sunburst-ruff', source: 'sunburst-ruff.png', box: { left: 6, top: 16, width: 52, height: 32 }, palette: ['#bd3435', '#e84b44', '#f36b4e', '#f39b3f', '#f8c248', '#ffe29a'] },
+  { id: 'sunburst-ruff', source: 'sunburst-ruff.png', box: { left: 4, top: 15, width: 52, height: 32 }, palette: ['#bd3435', '#e84b44', '#f36b4e', '#f39b3f', '#f8c248', '#ffe29a'] },
   { id: 'phoenix-tail', source: 'phoenix-tail.png', box: { left: 40, top: 10, width: 23, height: 49 }, palette: ['#c92e28', '#e9492c', '#f46a25', '#f59220', '#f8bd32', '#fff0a0'] },
 ]
 
 const rgb = hex => {
   const value = Number.parseInt(hex.slice(1), 16)
   return [(value >> 16) & 255, (value >> 8) & 255, value & 255]
+}
+
+function completeSunburstNeckRing(pixels) {
+  // The face occlusion cuts this continuous band back to the already-approved
+  // small-lion-mane neck interface for each body. Keeping the source continuous
+  // avoids a transparent seam when a body's mask opens farther inward.
+  for (let y = 26; y <= 35; y++) {
+    const runs = []
+    let start = -1
+    for (let x = 0; x <= 64; x++) {
+      const opaque = x < 64 && pixels[(y * 64 + x) * 4 + 3]
+      if (opaque && start < 0) start = x
+      if (!opaque && start >= 0) { runs.push([start, x - 1]); start = -1 }
+    }
+    assert.equal(runs.length, 2, `sunburst-ruff row ${y} must have two neck-ring sides`)
+    const leftEnd = runs[0][1]
+    const rightStart = runs[1][0]
+    const leftColor = Buffer.from(pixels.subarray((y * 64 + leftEnd) * 4, (y * 64 + leftEnd) * 4 + 4))
+    const rightColor = Buffer.from(pixels.subarray((y * 64 + rightStart) * 4, (y * 64 + rightStart) * 4 + 4))
+    const midpoint = (leftEnd + rightStart) / 2
+    for (let x = leftEnd + 1; x < rightStart; x++) {
+      pixels.set(x < midpoint ? leftColor : rightColor, (y * 64 + x) * 4)
+    }
+  }
 }
 
 const earRootBoundary = {
@@ -112,6 +136,7 @@ for (const asset of assets) {
     }
     canvas = shifted
   }
+  if (asset.id === 'sunburst-ruff') completeSunburstNeckRing(canvas)
   const layer = await sharp(canvas, { raw: { width: 64, height: 64, channels: 4 } })
     .png({ palette: true, colours: 16, dither: 0 })
     .toBuffer()

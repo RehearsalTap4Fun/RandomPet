@@ -20,11 +20,34 @@ await build({ absWorkingDir: root, entryPoints: { sdk: 'packages/incubator-adapt
 const { requirePixelArtCatalogV3, composePixelArt } = await import(pathToFileURL(path.join(temp, 'sdk.js')).href)
 const catalog = requirePixelArtCatalogV3(JSON.parse(await read(catalogPath)))
 
+const SUNBURST_OCCLUSION_BY_BODY = {
+  // Each mask hugs the face silhouette in its upper half, then follows the
+  // already-approved small-lion-mane inner tips where the face meets the neck.
+  standard: [[
+    [13, 7], [46, 7], [46, 16], [45, 20], [44, 24], [43, 27],
+    [37, 29.5], [36, 30.5], [35, 31.5], [33, 32.5], [39, 33.5], [35, 36],
+    [18, 36], [19, 34.5], [18, 33.5], [21, 32.5], [19, 31.5], [17, 30.5], [16, 29.5],
+    [9, 27], [9, 24], [10, 20], [12, 17],
+  ]],
+  'shortleg-round': [[
+    [13, 7], [46, 7], [46, 16], [45, 20], [44, 24], [44, 27],
+    [42, 31.5], [41, 32.5], [39, 33.5], [36, 34.5], [29, 35],
+    [26, 35], [19, 34.5], [16, 33.5], [13, 32.5], [12, 31.5],
+    [9, 27], [9, 24], [10, 20], [12, 17],
+  ], [[26, 35], [29, 35], [29, 36], [26, 36]]],
+  'slender-tall': [[
+    [15, 7], [45, 7], [45, 15], [43, 18], [42, 23], [40, 27.5],
+    [38, 28.5], [35, 29.5], [32, 30.5], [38, 36],
+    [19, 36], [23, 30.5], [20, 29.5], [18, 28.5], [15, 27.5],
+    [13, 23], [14, 18], [15, 15],
+  ]],
+}
+
 const candidates = [
   { id: 'crystal-horns', name: '晶角', slot: 'crown', rarity: 'R', file: 'crystal-horns.png', target: 'frame' },
   { id: 'feathered-ears', name: '羽翅耳', slot: 'ears', rarity: 'R', file: 'feathered-ears.png', target: 'subject' },
   { id: 'celestial-ears', name: '星辉翼耳', slot: 'ears', rarity: 'L', file: 'celestial-ears.png', target: 'subject' },
-  { id: 'sunburst-ruff', name: '日冕颈饰', slot: 'neck', rarity: 'L', file: 'sunburst-ruff.png', target: 'frame' },
+  { id: 'sunburst-ruff', name: '日冕颈饰', slot: 'neck', rarity: 'L', file: 'sunburst-ruff.png', target: 'subject', occlusionByBody: SUNBURST_OCCLUSION_BY_BODY },
   { id: 'phoenix-tail', name: '凤凰尾', slot: 'tailTip', rarity: 'L', file: 'phoenix-tail.png', target: 'frame' },
 ]
 
@@ -49,9 +72,14 @@ for (const profile of profiles.values()) {
   for (const candidate of candidates) {
     const step = profile.steps.find(item => item.slot === candidate.slot)
     step.resources[candidate.id] = candidate.resourceId
-    if (candidate.target !== step.target) {
+    const candidateOcclusion = candidate.occlusionByBody?.[profile.body] ?? []
+    if (candidate.target !== step.target || candidateOcclusion.length) {
       step.variants ??= {}
-      step.variants[candidate.id] = { target: candidate.target, clear: candidate.slot === 'tailTip' || candidate.slot === 'ears' ? step.clear : [], occlusion: [] }
+      step.variants[candidate.id] = {
+        target: candidate.target,
+        clear: candidate.slot === 'tailTip' || candidate.slot === 'ears' ? step.clear : [],
+        occlusion: candidateOcclusion,
+      }
     }
   }
 }
@@ -115,11 +143,11 @@ for (const [index, sample] of samples.entries()) {
 }
 
 const card = sample => `<article><div class="pixels"><img src="${sample.file}?v=${sample.pngSha256.slice(0, 12)}" alt="${sample.label}"><img class="native" src="${sample.file}?v=${sample.pngSha256.slice(0, 12)}" alt="${sample.label} 64px"></div><b>${sample.label}</b><small>${Object.entries(sample.phenotype).filter(([, value]) => value !== 'none').map(([key, value]) => `${key}=${value}`).join(' · ')}</small></article>`
-const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>五条进化链补阶 · 美术验收</title><style>*{box-sizing:border-box}body{margin:0;background:#f1ede2;color:#26342d;font:15px/1.5 system-ui}header{position:sticky;top:0;z-index:2;padding:18px 28px;background:#fffef9ef;backdrop-filter:blur(10px);border-bottom:1px solid #d8d1c2}h1{font-size:24px;margin:0 0 6px}header p{margin:4px 0;color:#5b685f}button{font:inherit;padding:7px 12px}main{max-width:1280px;margin:auto;padding:24px}.grid{display:grid;grid-template-columns:repeat(3,minmax(250px,1fr));gap:14px}article{background:#fffef9;border:1px solid #d8d1c2;border-radius:10px;padding:12px}.pixels{display:flex;align-items:end;justify-content:center;gap:14px;min-height:216px;background:#f7f4ec;padding:8px}.pixels img{width:192px;height:192px;image-rendering:pixelated}.pixels .native{width:64px;height:64px}b,small{display:block;margin-top:8px}small{color:#68756d;font:12px/1.4 ui-monospace,monospace;overflow-wrap:anywhere}body.dark{background:#162028;color:#edf1ed}body.dark header,body.dark article{background:#202b31;border-color:#405058}body.dark .pixels{background:#172128}body.dark header p,body.dark small{color:#b8c4bd}@media(max-width:800px){.grid{grid-template-columns:1fr}.pixels img{width:160px;height:160px}}</style><header><h1>五条进化链补阶 · 15 格验收</h1><p>前 12 格逐链比较 N／R／L；后 3 格检查标准、短腿、细长体型的满配衔接。候选资源尚未登记进正式像素包。</p><p>新增部件全部不绑毛色；凤凰尾左边界固定 x=40。左侧 ×3，右侧 64px。 <button onclick="document.body.classList.toggle('dark')">深／浅背景</button></p></header><main><div class="grid">${samples.map(card).join('')}</div></main></html>`
+const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>五条进化链补阶 · 美术验收</title><style>*{box-sizing:border-box}body{margin:0;background:#f1ede2;color:#26342d;font:15px/1.5 system-ui}header{position:sticky;top:0;z-index:2;padding:18px 28px;background:#fffef9ef;backdrop-filter:blur(10px);border-bottom:1px solid #d8d1c2}h1{font-size:24px;margin:0 0 6px}header p{margin:4px 0;color:#5b685f}button{font:inherit;padding:7px 12px}main{max-width:1280px;margin:auto;padding:24px}.grid{display:grid;grid-template-columns:repeat(3,minmax(250px,1fr));gap:14px}article{background:#fffef9;border:1px solid #d8d1c2;border-radius:10px;padding:12px}.pixels{display:flex;align-items:end;justify-content:center;gap:14px;min-height:216px;background:#f7f4ec;padding:8px}.pixels img{width:192px;height:192px;image-rendering:pixelated}.pixels .native{width:64px;height:64px}b,small{display:block;margin-top:8px}small{color:#68756d;font:12px/1.4 ui-monospace,monospace;overflow-wrap:anywhere}body.dark{background:#162028;color:#edf1ed}body.dark header,body.dark article{background:#202b31;border-color:#405058}body.dark .pixels{background:#172128}body.dark header p,body.dark small{color:#b8c4bd}@media(max-width:800px){.grid{grid-template-columns:1fr}.pixels img{width:160px;height:160px}}</style><header><h1>五条进化链补阶 · 15 格验收</h1><p>用户已通过当前版本。日冕颈饰采用 subject + 脸部遮罩，颈部接口沿用各体型已通过的小狮鬃边界，视觉中心左移 2px、上移 1px。</p><p>新增部件全部不绑毛色；凤凰尾左边界固定 x=40。左侧 ×3，右侧 64px。 <button onclick="document.body.classList.toggle('dark')">深／浅背景</button></p></header><main><div class="grid">${samples.map(card).join('')}</div></main></html>`
 await fs.writeFile(path.join(qaRoot, 'index.html'), html)
 const report = {
   schemaVersion: 'pixel-evolution-chain-review-v1', status: 'art-approved-registration-pending', baseCatalog: catalogPath,
-  candidates: candidates.map(({ resourceId, ...candidate }) => candidate), invariants: { canvas: [64, 64], rendererVersion: catalog.rendererVersion, coatBound: false, phoenixTailOpaqueLeft: 40 },
+  candidates: candidates.map(({ resourceId, ...candidate }) => candidate), invariants: { canvas: [64, 64], rendererVersion: catalog.rendererVersion, coatBound: false, phoenixTailOpaqueLeft: 40, sunburstNeckInterface: 'small-lion-mane', sunburstPlacementOffset: [-2, -1] },
   sampling: { total: samples.length, rows: samples },
 }
 await fs.writeFile(path.join(qaRoot, 'report.json'), JSON.stringify(report, null, 2) + '\n')
