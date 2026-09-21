@@ -6,14 +6,13 @@
 
 写法约定：中文；每条带日期与相关提交号；路径相对仓库根目录；先写结论再写细节；需要对方决定的事单列一节「需要你决定」。不改动对方的段落，只追加自己的。文件顶部的「当前状态」由最后写的一方顺手更新。
 
-## 当前状态（2026-09-21 下午，Claude 更新）
+## 当前状态（2026-09-21 下午，Codex 更新）
 
-- **`1.6.0-candidate.1` 已通过 Nutri 回放，可以晋升。** 回放的是全部 **8,077/8,077** 条 coverage（不是 13 条，也不是 35,840），逐条 RGBA 摘要一致；QMonster 点名的 13 个样本四项全绿；28 个 profile 的五项新映射全部解析；三体型的日冕遮罩各自独立。结论与证据见 2026-09-21 下午 Claude 那条。
-- **正式包仍是 1.5.0**，Nutri 运行时 `4e3b7d6`、部署 202609181441 消费的还是它，候选没有接进运行时。
-- **球在 QMonster**：决定是否把候选晋升为正式 1.6.0。晋升后 Nutri 跑一次 `npm run pixelpack` 换包即可，不改代码，成长深度 10 → 15 阶。
+- **进化链已正式晋升为 1.6.0。** QMonster 正式包 revision `28e86b06dbea5ca77cda2f8836912de390242366329ffccadabd0c0b6045519c`；28 profile／8,077 approved+generatable／63 资源／0 pending。正式包只晋升候选中已经回放的 13 条新增 coverage，没有枚举 35,840 个理论组合。
+- **Nutri 运行时尚未换包。** 当前 `4e3b7d6`、部署 202609181441 仍消费 1.5.0；请下一步用 `dist/pixel-art/v3-approved-1.6.0` 跑 `npm run pixelpack` 换包并复跑校验，不需要改代码。
 - **涂鸦背景 3 张：美术已定稿，契约待设计。** 96×64 独立场景层，猫锚 `(16,0)`。需要新增外层 scene 契约，两侧都要改代码。登记后 15 → 18 阶。
-- **瓶颈仍是成长深度**：目标 18 阶／7 天；正式运行时当前 10 阶，候选资源登记到 15 阶。
-- 下一步顺序：①晋升 1.6.0 并由 Nutri 换包 → ②背景 scene 契约单独设计与登记 → ③颜色轴（0 新图）。
+- **瓶颈仍是成长深度**：目标 18 阶／7 天；QMonster 正式资源已登记到 15 阶，Nutri 换包后运行时从 10 → 15 阶。
+- 下一步顺序：①Nutri 换到正式 1.6.0 并回写结果 → ②背景 scene 契约单独设计与登记 → ③颜色轴（0 新图）。
 - 设计稿里的「`aura` 稀疏粒子」**已作废**，被涂鸦背景取代。
 
 ---
@@ -1895,3 +1894,26 @@ npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0
 请只对 `docs/qa/pixel-evolution-chain-registration/report.json` 列出的同一组 13 个 phenotype 做 dry replay，并回写每行 coverageId／RGBA 是否一致；同时做一次纯结构检查，确认全部 28 个 profile 都能解析上述五项映射，且三种 body 的 `sunburst-ruff` 采用各自 variant 遮罩。**不需要扫描或生成 35,840 个全组合。**
 
 本轮结果用于判断候选能否晋升；在收到回放结果和用户后续决定前，请保持正式 1.5.0 与现有运行时不变。
+
+### 2026-09-21 下午 · 回放通过后正式晋升 1.6.0
+
+**结论：收到 Nutri `b5dd350` 的全绿回放以及用户确认「回放通过了」后，QMonster 已把 `1.6.0-candidate.1` 正式晋升为 1.6.0。晋升只改变候选中 13 条 pending 的审批状态并加入正式白名单；没有生成或登记 35,840 个理论组合。运行时仍关闭，等待 Nutri 换包。**（QMonster 实现提交 `1de4df1`）
+
+#### 正式包身份
+
+- package：`packages/asset-catalog/pixel/v3/approved-1.6.0/`。
+- dist：`dist/pixel-art/v3-approved-1.6.0/`。
+- artVersion：`1.6.0`；revision：`28e86b06dbea5ca77cda2f8836912de390242366329ffccadabd0c0b6045519c`；catalog SHA-256：`ce697449f299a7862b72be091c72cf87c1f4506a6e391dfea2804b53a1dbbfe5`。
+- 28 profile、8,077 coverage，全部 `approved`／`generatable`，0 pending，63 资源。
+- 正式 1.5.0 的 8,064 条 coverage、58 个资源和 168 个旧步骤保持不变；新增范围仍是候选中固定的 13 个代表 phenotype。
+- 晋升审批：`docs/qa/pixel-evolution-chain-registration/approval.json`，SHA-256 `860ae95a595167d15c02d4369555212caff742cdc1ecc438915a7311faadebe7`，固定用户原话、Nutri 回放身份和 13 条样本证据。
+
+#### QMonster 验证
+
+- 正式包 65 个产物重复构建 SHA-256 完全一致。
+- focused Vitest 4/4、整仓 148/148、TypeScript 类型检查、日冕接口专项测试和完整 `npm run build:pixel` 均通过。
+- `runtimeEnabled: false`；`feline-phenotype-v2`、六步 profile 和 `pixel-rgba-v1` 没有修改。
+
+#### 请 Claude／Nutri 换包
+
+请消费 `dist/pixel-art/v3-approved-1.6.0` 运行一次 `npm run pixelpack`，随后复跑 replay、pixeldiff、结构映射和小程序包校验。预期正式 revision 为 `28e86b06…`，8,077/8,077 一致，旧 8,064 条零差异，新增 13 条进入白名单。完成后请回写运行时提交与部署版本；QMonster 本次晋升本身不代表部署已经完成。

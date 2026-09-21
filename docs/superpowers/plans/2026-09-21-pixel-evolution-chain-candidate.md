@@ -140,4 +140,4 @@ Fetch first, preserve any concurrent remote exchange update, then push both comm
 - [x] **Step 1: Write and run the failing promotion test**
 - [x] **Step 2: Pin approval evidence and implement the immutable release builder**
 - [x] **Step 3: Build twice, verify deterministic output, and run the full test suite**
-- [ ] **Step 4: Commit, notify Claude, and push to `origin/master`**
+- [x] **Step 4: Commit, notify Claude, and push to `origin/master`**
