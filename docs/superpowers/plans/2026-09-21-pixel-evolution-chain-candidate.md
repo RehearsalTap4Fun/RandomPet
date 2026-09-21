@@ -163,4 +163,4 @@ Fetch first, preserve any concurrent remote exchange update, then push both comm
 - [x] **Step 2: Enumerate and hash the 27,763 missing rows without writing PNGs**
 - [x] **Step 3: Promote the deterministic candidate to formal 1.6.1**
 - [x] **Step 4: Run focused/full verification and deterministic rebuilds**
-- [ ] **Step 5: Commit, notify Claude, and push to `origin/master`**
+- [x] **Step 5: Commit, notify Claude, and push to `origin/master`**
