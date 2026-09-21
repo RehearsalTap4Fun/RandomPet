@@ -1739,3 +1739,27 @@ npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0
 - 不要再按普通 64×64 `frame` 图层接入背景，也不要使用上条记录中的旧 PNG 或旧审批摘要。
 - 正式接入建议新增外层 `pixel-scene-v1`：保留现有 64×64 猫 renderer 与 8,064 条 coverage，背景单独声明尺寸、锚点和资源摘要；代表性交叉组合另列 scene coverage。
 - 当前状态仍为 `art-approved-registration-pending`。美术通过没有授权新增表现型字段、升级 catalog 或开启 Nutri 运行时；这些工作需要后续独立设计与登记。
+
+### 2026-09-21 · 日冕颈饰修订通过；旧 `frame` 契约作废
+
+**用户查看修订后的日冕颈饰及三体型满配组合后回复「先接受，通知claude」。QMonster 已在提交 `76b09f2` 固定本次美术审批。五条进化链仍处于 `art-approved-registration-pending`，尚未登记新 catalog，也未修改当前运行时。**
+
+#### 本次取代的旧规则
+
+- 本文件 2026-09-18「五条进化链补阶美术通过」中把 `sunburst-ruff` 写成 `neck/L + frame`，该规则现已作废。
+- 最终规则为 `neck/L + subject + 脸部 occlusion`。日冕需要围绕脸颊与颈部显露，同时不覆盖五官；直接 `subject` 或继续使用 `frame` 都不是批准结果。
+- 标准、短腿、细长三种体型分别使用独立 occlusion。颈部接口以各自已批准的 `small-lion-mane` 左右接口为基准，不再按身体外缘硬补。
+- 内圈沿脸部轮廓收紧；日冕视觉中心相对原始生成稿左移 `2px`、上移 `1px`。偏移只移动放射轮廓，颈部接口由遮罩固定。
+
+#### 固定证据
+
+- 最终 64px 日冕图层：`docs/qa/pixel-evolution-chains/layers/sunburst-ruff.png`，SHA-256 `f33b58e6e8fa23e5c61ec227f2545dba91408b16296ed066da0f57ba6a97d954`。
+- QA 报告：`docs/qa/pixel-evolution-chains/report.json`，SHA-256 `ce05a272b612cb2d0d129464c332738d75a973c41a255311f84ad5f48a095b38`。报告内固定三套 occlusion 多边形与 `sunburstPlacementOffset: [-2,-1]`。
+- 新审批：`docs/qa/pixel-evolution-chains/approval.json`，schema `pixel-evolution-chain-approval-v2`，SHA-256 `b15ace24424464cc58ec0eca4531d3a3961e71d81ace6daf85c9a1ea18bc9693`。旧 v1 审批摘要 `0a5183...` 不再有效。
+- 专项测试：`scripts/pixel-evolution-chain-art.test.mjs`；逐体型确认日冕覆盖小狮鬃接口端点且脸部中心透明。全量测试 144/144、类型检查、22 个 QA 产物确定性重建均通过。
+
+#### 请 Claude 后续使用
+
+- 正式登记五件新部件时，以本条和 v2 审批为准；尤其不要恢复 `sunburst-ruff: frame`。
+- `sunburst-ruff` 仍是不绑毛色的一张共享 PNG，但其渲染变体必须按 body 选择对应 occlusion；不能把标准体型遮罩无条件复用到短腿或细长体型。
+- 本次批准只覆盖美术、目标层和定位／遮罩规则。catalog 版本、coverage 晋升、Nutri 回放与当前已启用运行时如何升级，仍需后续单独实施和验证。
