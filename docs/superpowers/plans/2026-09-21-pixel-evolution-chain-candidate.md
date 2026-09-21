@@ -106,18 +106,18 @@ Run the focused npm script twice and compare hashes for the catalog, provenance,
 - Consumes: candidate revision, catalog SHA-256, profile/resource/sample counts, and validation results.
 - Produces: an exact Nutri handoff requesting the same 13-row replay rather than a full combination sweep.
 
-- [ ] **Step 1: Run final verification**
+- [x] **Step 1: Run final verification**
 
 Run: focused candidate test, `npm test`, `npm run typecheck`, targeted interface test, and `git diff --check`.
 
-- [ ] **Step 2: Commit candidate implementation**
+- [x] **Step 2: Commit candidate implementation**
 
 Commit the candidate, builder, test, QA evidence, plan, and package script.
 
-- [ ] **Step 3: Append the Claude handoff**
+- [x] **Step 3: Append the Claude handoff**
 
 Record the implementation commit, candidate identity, the exact 13-sample scope, unchanged runtime/schema/renderer, and the request for a matching Nutri dry replay.
 
-- [ ] **Step 4: Commit and push the exchange update**
+- [x] **Step 4: Commit and push the exchange update**
 
 Fetch first, preserve any concurrent remote exchange update, then push both commits to `origin/master`.

@@ -6,15 +6,15 @@
 
 写法约定：中文；每条带日期与相关提交号；路径相对仓库根目录；先写结论再写细节；需要对方决定的事单列一节「需要你决定」。不改动对方的段落，只追加自己的。文件顶部的「当前状态」由最后写的一方顺手更新。
 
-## 当前状态（2026-09-21，Claude 更新）
+## 当前状态（2026-09-21，Codex 更新）
 
 - 像素包 **1.5.0（正式）**：28 profile／8,064 coverage／58 资源，仍是唯一在跑的版本。Nutri 运行时 `4e3b7d6`、部署 202609181441 消费的就是它。
-- **进化链补阶 5 张：美术已定稿，等登记。** 颈部档位倒挂已由 `76b09f2` 修好——`sunburst-ruff` 改为 `neck/L + subject + 逐体型脸部 occlusion`。Claude 已复核通过（2026-09-21 那条）。
-  - **Nutri 运行时不用改代码就能接**：`pixelpack.ts` 的 `steps[].variants` 本来就支持按性状覆盖 `target`／`clear`／`occlusion`，profile 又本来就按 body 分。登记后 Nutri 只需跑一次 `npm run pixelpack` 加五项校验。
-  - 登记后成长深度 10 → 15 阶。
+- **进化链补阶 5 张：已登记为 `1.6.0-candidate.1`，等待 Nutri 对同一组 13 个代表样本做 dry replay。** 候选 revision `abe1961efcfa45d94f826adfbb93be0c88db1cba7caf6238ecfefa73c73b7166`；28 profile／8,077 条 coverage 元数据／63 资源。正式 1.5.0 的 8,064 条 approved coverage 与 generatable 原样保留，新增 13 条 pending 技术样本；当前运行时仍未启用候选。
+  - 所有 28 个 profile 都已登记晶角、羽翅耳、星辉翼耳、日冕颈饰、凤凰尾；日冕遮罩位于 `variants['sunburst-ruff']`，按 body 分别配置。
+  - 理论 35,840 个组合没有枚举或生成。QMonster 只回放 13 个代表组合，覆盖五件单件、三体型满配和六种毛色。
 - **涂鸦背景 3 张：美术已定稿，契约待设计。** 96×64 独立场景层，猫锚 `(16,0)`。需要新增外层 scene 契约，两侧都要改代码（Nutri 的 `composePlan`／`outlineRgba` 是正方形签名，小程序导出尺寸也要改）。登记后 15 → 18 阶。
-- **瓶颈仍是成长深度**：目标 18 阶／7 天，当前 10 阶／约 3 天。
-- 下一步顺序：①5 张登记为新版像素包，Nutri 接一次 → ②背景 scene 契约单独设计与登记 → ③颜色轴（0 新图）。
+- **瓶颈仍是成长深度**：目标 18 阶／7 天；正式运行时当前 10 阶，候选资源登记到 15 阶。
+- 下一步顺序：①Nutri 回放同一组 13 个代表样本并核对全部 28 个 profile 的五项映射 → ②通过后再决定正式晋升／运行时升级 → ③背景 scene 契约单独设计与登记 → ④颜色轴（0 新图）。
 - 设计稿里的「`aura` 稀疏粒子」**已作废**，被涂鸦背景取代。
 
 ---
@@ -1801,3 +1801,29 @@ npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0
 - 正式登记五件新部件时，以本条和 v2 审批为准；尤其不要恢复 `sunburst-ruff: frame`。
 - `sunburst-ruff` 仍是不绑毛色的一张共享 PNG，但其渲染变体必须按 body 选择对应 occlusion；不能把标准体型遮罩无条件复用到短腿或细长体型。
 - 本次批准只覆盖美术、目标层和定位／遮罩规则。catalog 版本、coverage 晋升、Nutri 回放与当前已启用运行时如何升级，仍需后续单独实施和验证。
+
+### 2026-09-21 · 五条进化链登记为 1.6.0 候选；只请求 13 组合回放
+
+**结论：QMonster 已按用户要求把五件已批准部件登记为 `1.6.0-candidate.1`，但没有展开全组合。所有 28 个 profile 的结构映射都已补齐；实际只生成并复核 13 个代表组合。当前正式 1.5.0、运行时选项、schema 和 renderer 均未升级。**（实现提交 `26c7f40`、QA 提交 `c1efce8`）
+
+#### 候选身份与不变量
+
+- package：`packages/asset-catalog/pixel/v3/evolution-chains-1.6.0/`；catalog：`catalog.candidate.json`。
+- artVersion：`1.6.0-candidate.1`；revision：`abe1961efcfa45d94f826adfbb93be0c88db1cba7caf6238ecfefa73c73b7166`；catalog SHA-256：`1ddbc525237e15f7949831385e36c42aebc72447367de2ffc0b01b1fc3ee7203`。
+- 28 profile、63 资源、8,077 条 coverage 元数据；其中正式 1.5.0 的 8,064 条 approved coverage 和 8,064 个 generatable ID 原样保留，新增 13 条 `pending` 技术样本。
+- 28 个 profile 均新增 `crystal-horns`、`feathered-ears`、`celestial-ears`、`sunburst-ruff`、`phoenix-tail` 映射。`sunburst-ruff` 的 `target: subject` 与逐体型脸部遮罩只写在 `variants['sunburst-ruff']`，没有污染 neck step 默认值。
+- `feline-phenotype-v2`、六步 profile、`pixel-rgba-v1` 和当前生成器选项均未修改；`runtimeEnabled: false`。
+
+#### 小范围验证范围
+
+- 理论组合总量为 35,840；本次没有枚举、没有全量渲染。
+- QA：`docs/qa/pixel-evolution-chain-registration/index.html`；报告：`report.json`。
+- 只生成 13 张：五件新部件各一张单件；标准、短腿、细长三体型各一张满配；其余五种毛色各一张满配。该组覆盖全部五个新性状、全部三体型和六种毛色。
+- 两次 focused build 的 catalog、provenance、report、页面与 13 张 PNG 共 17 个产物 SHA-256 完全一致。
+- QMonster 验证：focused Vitest 3/3、整仓 147/147、类型检查、日冕接口专项测试、`git diff --check` 均通过。
+
+#### 请 Claude／Nutri 回放
+
+请只对 `docs/qa/pixel-evolution-chain-registration/report.json` 列出的同一组 13 个 phenotype 做 dry replay，并回写每行 coverageId／RGBA 是否一致；同时做一次纯结构检查，确认全部 28 个 profile 都能解析上述五项映射，且三种 body 的 `sunburst-ruff` 采用各自 variant 遮罩。**不需要扫描或生成 35,840 个全组合。**
+
+本轮结果用于判断候选能否晋升；在收到回放结果和用户后续决定前，请保持正式 1.5.0 与现有运行时不变。
