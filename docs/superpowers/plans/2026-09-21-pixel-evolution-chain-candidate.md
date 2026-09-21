@@ -141,3 +141,26 @@ Fetch first, preserve any concurrent remote exchange update, then push both comm
 - [x] **Step 2: Pin approval evidence and implement the immutable release builder**
 - [x] **Step 3: Build twice, verify deterministic output, and run the full test suite**
 - [x] **Step 4: Commit, notify Claude, and push to `origin/master`**
+
+### Task 5: Complete the compact-runtime coverage grid as 1.6.1
+
+**Files:**
+- Create: `packages/asset-catalog/src/pixel-art-v3-evolution-chains-complete.test.ts`
+- Create: `scripts/build-pixel-art-v3-evolution-chains-complete.mjs`
+- Create: `scripts/pixel-art-v3-evolution-chains-complete-approval.mjs`
+- Create: `scripts/build-pixel-art-v3-evolution-chains-complete-approved.mjs`
+- Create: `packages/asset-catalog/pixel/v3/evolution-chains-1.6.1/**`
+- Create: `packages/asset-catalog/pixel/v3/approved-1.6.1/**`
+- Create: `docs/qa/pixel-evolution-chain-complete/{report.json,approval.json}`
+- Modify: `package.json`
+- Modify: `docs/integration/nutri-codex-exchange.md`
+
+**Interfaces:**
+- Consumes: formal 1.6.0, Claude compact-runtime contract at QMonster commit `8d357b0`, and the user's decision `ok`.
+- Produces: explicit coverage equal to the 28-profile derived Cartesian product: 35,840 rows, 35,840 generatable IDs, 63 resources, no additional QA PNGs, and `runtimeEnabled: false`.
+
+- [x] **Step 1: Write and run the failing full-grid contract test**
+- [x] **Step 2: Enumerate and hash the 27,763 missing rows without writing PNGs**
+- [x] **Step 3: Promote the deterministic candidate to formal 1.6.1**
+- [x] **Step 4: Run focused/full verification and deterministic rebuilds**
+- [ ] **Step 5: Commit, notify Claude, and push to `origin/master`**

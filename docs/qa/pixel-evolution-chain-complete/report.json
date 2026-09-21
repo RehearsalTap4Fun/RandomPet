@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "pixel-evolution-chain-complete-report-v1",
+  "status": "mechanical-coverage-complete",
+  "compactRuntimeContract": {
+    "sourceExchangeCommit": "8d357b08af26e23254997609892cced0a780e45c",
+    "profileProduct": 1280,
+    "profiles": 28
+  },
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/v3/evolution-chains-1.6.1/catalog.candidate.json",
+    "artVersion": "1.6.1-candidate.1",
+    "revision": "d46db417f96e2821810d98d96c698607e78866a48a22b59746c71ee4a6629422",
+    "sha256": "1a0033e593fad76f0bc04b59119a5a6d49444a71cdec200173a3f05a230d84f3"
+  },
+  "explicitCoverage": 35840,
+  "derivedCoverage": 35840,
+  "reusedCoverage": 8077,
+  "generatedDigests": 27763,
+  "resources": 63,
+  "renderedPngs": 0,
+  "reviewSamples": 13,
+  "reviewSampleReport": {
+    "path": "docs/qa/pixel-evolution-chain-registration/report.json",
+    "sha256": "6956a61cd6cb84ef8f0b8a7ea6691fc982d7321aff33ee0821799e3be22200ff"
+  },
+  "profileCounts": {
+    "standard-parted-mouth-round": 1280,
+    "standard-small-fangs-round": 1280,
+    "shortleg-round-small-fangs-round": 1280,
+    "standard-sleepy-almond-small-fangs": 1280,
+    "shortleg-round-sleepy-almond-small-fangs": 1280,
+    "slender-tall-round-small-fangs": 1280,
+    "slender-tall-sleepy-almond-small-fangs": 1280,
+    "standard-sleepy-almond-parted-mouth": 1280,
+    "standard-brown-tabby-parted-mouth-round": 1280,
+    "standard-brown-tabby-small-fangs-round": 1280,
+    "standard-tuxedo-parted-mouth-round": 1280,
+    "standard-tuxedo-small-fangs-round": 1280,
+    "standard-calico-parted-mouth-round": 1280,
+    "standard-calico-small-fangs-round": 1280,
+    "standard-colorpoint-parted-mouth-round": 1280,
+    "standard-colorpoint-small-fangs-round": 1280,
+    "standard-rosetted-parted-mouth-round": 1280,
+    "standard-rosetted-small-fangs-round": 1280,
+    "standard-brown-tabby-sleepy-almond-parted-mouth": 1280,
+    "standard-brown-tabby-sleepy-almond-small-fangs": 1280,
+    "standard-tuxedo-sleepy-almond-parted-mouth": 1280,
+    "standard-tuxedo-sleepy-almond-small-fangs": 1280,
+    "standard-calico-sleepy-almond-parted-mouth": 1280,
+    "standard-calico-sleepy-almond-small-fangs": 1280,
+    "standard-colorpoint-sleepy-almond-parted-mouth": 1280,
+    "standard-colorpoint-sleepy-almond-small-fangs": 1280,
+    "standard-rosetted-sleepy-almond-parted-mouth": 1280,
+    "standard-rosetted-sleepy-almond-small-fangs": 1280
+  }
+}
