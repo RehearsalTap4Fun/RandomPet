@@ -81,19 +81,19 @@ Expected: PASS with `28 profiles / 8077 coverage / 13 sampled pending / 63 resou
 - Consumes: the 13 pending rows and rendered RGBA produced by Task 1.
 - Produces: a focused evidence page and a repeatable npm build entry; no full Cartesian render.
 
-- [ ] **Step 1: Extend the failing test for QA evidence and sampling coverage**
+- [x] **Step 1: Extend the failing test for QA evidence and sampling coverage**
 
 Assert exactly 13 PNGs, all six coats, all three bodies, every new trait, three full-stack body samples, matching PNG/RGBA hashes, and `validationMode: representative-samples`.
 
-- [ ] **Step 2: Run the focused test and verify RED**
+- [x] **Step 2: Run the focused test and verify RED**
 
 Expected: FAIL because QA evidence is absent.
 
-- [ ] **Step 3: Generate the report, page, samples, and npm script**
+- [x] **Step 3: Generate the report, page, samples, and npm script**
 
 Add `build:pixel-evolution-chains` that runs only this candidate builder. The main `build:pixel` may call the new builder after existing immutable builds, but this task's verification command must use the focused script.
 
-- [ ] **Step 4: Verify GREEN and deterministic rebuild**
+- [x] **Step 4: Verify GREEN and deterministic rebuild**
 
 Run the focused npm script twice and compare hashes for the catalog, provenance, report, page, and 13 PNGs.
 

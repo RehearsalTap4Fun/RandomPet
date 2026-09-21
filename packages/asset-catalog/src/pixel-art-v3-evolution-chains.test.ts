@@ -7,6 +7,7 @@ import { requirePixelArtCatalogV3 } from './pixel-art-catalog-v3.js'
 const baseRoot = 'packages/asset-catalog/pixel/v3/approved-1.5.0/'
 const candidateRoot = 'packages/asset-catalog/pixel/v3/evolution-chains-1.6.0/'
 const approvalPath = 'docs/qa/pixel-evolution-chains/approval.json'
+const qaRoot = 'docs/qa/pixel-evolution-chain-registration/'
 const sha = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex')
 const json = (file: string) => JSON.parse(readFileSync(file, 'utf8'))
 
@@ -94,6 +95,31 @@ describe('pixel evolution-chain 1.6.0 candidate', () => {
     for (const resource of Object.values(candidate.resources)) {
       const bytes = readFileSync(candidateRoot + resource.path)
       expect(sha(bytes), resource.path).toBe(resource.sha256)
+    }
+  })
+
+  it('publishes exactly 13 representative rendered samples', () => {
+    expect(existsSync(qaRoot + 'report.json'), 'registration report must exist').toBe(true)
+    expect(existsSync(qaRoot + 'index.html'), 'registration review page must exist').toBe(true)
+    const candidate = requirePixelArtCatalogV3(json(candidateRoot + 'catalog.candidate.json'))
+    const report = json(qaRoot + 'report.json')
+    const pending = candidate.coverage.filter(row => row.review === 'pending')
+    expect(report.schemaVersion).toBe('pixel-evolution-chain-registration-review-v1')
+    expect(report.status).toBe('technical-sample-passed')
+    expect(report.validationMode).toBe('representative-samples')
+    expect(report.candidate.revision).toBe(candidate.revision)
+    expect(report.sampling).toEqual({ total: 13, theoreticalCoverage: 35_840, generated: 13, rows: report.sampling.rows })
+    expect(report.sampling.rows).toHaveLength(13)
+    expect(report.sampling.rows.map((row: { coverageId: string }) => row.coverageId)).toEqual(pending.map(row => row.id))
+    expect(new Set(report.sampling.rows.map((row: { coat: string }) => row.coat))).toEqual(new Set(['orange-white', 'brown-tabby', 'tuxedo', 'calico', 'colorpoint', 'rosetted']))
+    expect(new Set(report.sampling.rows.map((row: { body: string }) => row.body))).toEqual(new Set(['standard', 'shortleg-round', 'slender-tall']))
+    for (const row of report.sampling.rows) {
+      const file = qaRoot + row.file
+      expect(existsSync(file), file).toBe(true)
+      expect(sha(readFileSync(file)), row.file).toBe(row.pngSha256)
+      const coverage = pending.find(item => item.id === row.coverageId)
+      expect(row.rgbaSha256).toBe(coverage?.rgbaSha256)
+      expect(row.phenotype).toEqual(coverage?.phenotype)
     }
   })
 })
