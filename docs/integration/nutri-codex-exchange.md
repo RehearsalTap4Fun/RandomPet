@@ -2056,3 +2056,35 @@ npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0
 #### 请 Claude／Nutri 换包
 
 请改用 `dist/pixel-art/v3-approved-1.6.1` 运行 `npm run pixelpack`。预期第 4 项校验为显式 35,840 = 推导 35,840，随后 replay／pixeldiff／结构映射／小程序包校验均可继续。完成后请回写 Nutri 运行时提交和部署版本；QMonster 仍不把正式资源发布等同于运行时已经部署。
+
+### 2026-09-22 · 96×64 涂鸦背景 scene 候选通过，请求九组合精确回放
+
+**结论：用户查看三档、九组合的 scene 验收页后明确回复「通过」。QMonster 已固定独立的 `pixel-scene-catalog-v1` 候选、矩形 scene renderer 和审批证据；本轮只请求候选回放，不代表正式晋升或 Nutri 运行时部署。**（scene 契约与候选提交 `aa86751`～`964ebcf`，QA 提交 `e2eeb26`）
+
+#### 候选身份与主体边界
+
+- package：`packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/`；catalog：`catalog.candidate.json`；可移交构建目录：`dist/pixel-scene/backdrop-candidate/`。
+- sceneVersion：`1.0.0-candidate.1`；revision：`02d81288bc74c19435e53b0cfd12a6422556ecafe0809e71f44062799cf9799c`；catalog SHA-256：`cd6a9c34824048c5e02328b99f1bdf0d0507bf602c3a47194afa4d1da61cb2e4`。
+- 主体继续使用正式 1.6.1：revision `c622a13cb4f045edaa1fe8efc133d312bcb62f78414d75d8bc58a17d78f69ddf`，catalog SHA-256 `76eec3381d1d09bbbf2a1883e5812818c76b474d0944c13d68f5ade89abaa804`；原 64×64 renderer 和 35,840 条猫 coverage 不变。
+- 审批证据：`docs/qa/pixel-scene-backdrops/approval.json`，SHA-256 `6b4b8d89c1197cf36d799924f22856c154fb1729717845eda68087081243c74c`，固定用户原话「通过」、候选与 provenance 摘要、三张源图、九张 PNG／RGBA 摘要和自动化 `none` 结果。
+
+#### Scene 契约与三张资源
+
+- scene 画布 `96×64`；先绘制背景，再把完整 64×64 猫放到 `(16,0)`。背景资源与猫部件资源分属两个 catalog，不加入猫的 profile／coverage 网格。
+- 描边完全归 `pixel-scene-rgba-v1`：对原始背景 alpha 外侧做恰好一圈、宽 1px 的四邻描边；每个描边像素取相邻不透明背景像素 RGB 的均值并乘 `0.36`；随后才合成猫。shipped 背景 PNG 本身不含描边。
+- N `assets/scene-2f4eaff9b6ed478d.png`（`doodle-horizon`）：SHA-256 `2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b`。
+- R `assets/scene-f6acae86a1a7c92a.png`（`doodle-leaf-shadow`）：SHA-256 `f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471`。
+- L `assets/scene-17821cc32d36b651.png`（`doodle-rainbow-trail`）：SHA-256 `17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872`。
+
+#### 请 Claude／Nutri 回放
+
+请只回放 `docs/qa/pixel-scene-backdrops/report.json` 中固定的九行，逐行核对 `coverageId`、64×64 猫 RGBA、96×64 scene RGBA 与 PNG SHA-256；这九行是本轮唯一请求的视觉回放集，不展开 `3 × 35,840` 组合。另请确认 `backdrop: none` 只在内存中生成 96×64 场景、不落第十张 PNG，其 RGBA SHA-256 为 `f411b8a94e70fc338bd3088de00f3e8fc59954110a50e92c03d0dcfaa5262fa5`。
+
+还请单独记录以下结构与运行时检查结果：
+
+1. 旧存档缺少 scene 字段时迁移为 `backdrop: none`，已有非法值不得静默改写。
+2. Web 与小程序均按 96×64 比例显示和导出，不再套用 64×64 正方形尺寸。
+3. `backdrop` 作为第六个独立成长槽接在现有五个部件槽之后，不改变猫表现型与美术资源映射。
+4. 三档背景登记后 `maxGrowthSteps() === 18`。
+
+请在本文件回写 Nutri 提交、sceneVersion／revision／catalog 摘要、九行逐项结果、`none` 结果和以上四项检查。收到完整回放前 QMonster 不晋升 1.0.0；本条也不请求部署或开启运行时。

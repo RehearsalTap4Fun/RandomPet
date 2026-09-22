@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "pixel-scene-backdrop-approval-v1",
+  "approvedAt": "2026-09-22",
+  "userStatement": "通过",
+  "scope": {
+    "sceneVersion": "1.0.0-candidate.1",
+    "backdrops": 3,
+    "samples": 9,
+    "canvas": [
+      96,
+      64
+    ],
+    "subjectAnchor": [
+      16,
+      0
+    ],
+    "interpretation": "Approve the separate scene contract and the exact nine representative outputs; do not expand the cat coverage grid."
+  },
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/catalog.candidate.json",
+    "version": "1.0.0-candidate.1",
+    "revision": "02d81288bc74c19435e53b0cfd12a6422556ecafe0809e71f44062799cf9799c",
+    "catalogSha256": "cd6a9c34824048c5e02328b99f1bdf0d0507bf602c3a47194afa4d1da61cb2e4",
+    "provenancePath": "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/provenance.candidate.json",
+    "provenanceSha256": "44c18861640eda7101741b288179d84d6b37f660d12b1fe6f184aad52d608afd"
+  },
+  "evidence": {
+    "report": {
+      "path": "docs/qa/pixel-scene-backdrops/report.json",
+      "sha256": "0153a9cbd27a8e64526b2b85316179856017fb0beddb7401e3a56f2fbc495722"
+    },
+    "page": {
+      "path": "docs/qa/pixel-scene-backdrops/index.html",
+      "sha256": "1e790b48bb231cd0fc433b0f56d0e82fbc5131d1735baf86ad89e38a44c34693"
+    },
+    "sources": [
+      {
+        "path": "docs/qa/pixel-backdrop-batch/layers/doodle-horizon.png",
+        "sha256": "2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b"
+      },
+      {
+        "path": "docs/qa/pixel-backdrop-batch/layers/doodle-leaf-shadow.png",
+        "sha256": "f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471"
+      },
+      {
+        "path": "docs/qa/pixel-backdrop-batch/layers/doodle-rainbow-trail.png",
+        "sha256": "17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872"
+      }
+    ],
+    "samples": [
+      {
+        "id": "01",
+        "path": "docs/qa/pixel-scene-backdrops/samples/01.png",
+        "pngSha256": "162f4d549919b2359656535abae9ccf93b777937f7ca6d8ddfec9702747008b4",
+        "sceneRgbaSha256": "09683758fe97611beaaa47e217a070426b3d115663740d63c0d2870970cf68a4"
+      },
+      {
+        "id": "02",
+        "path": "docs/qa/pixel-scene-backdrops/samples/02.png",
+        "pngSha256": "830ee35a9e477b0199a160624ae5ec1a18ae5917954eae74de6edebb0e5f29e8",
+        "sceneRgbaSha256": "cfd87b9220ed42efa3a3a8918bad98bef3298d5ccdb674cf8d2279df7ac32c86"
+      },
+      {
+        "id": "03",
+        "path": "docs/qa/pixel-scene-backdrops/samples/03.png",
+        "pngSha256": "bee45323a66941aa91773edcfb275ed7c2b244d625c285d8e57a419d2dbc9a43",
+        "sceneRgbaSha256": "1b82cb05e7b006c87a62851198a7fc09be7054b84eafa389ba1e0173c13d876b"
+      },
+      {
+        "id": "04",
+        "path": "docs/qa/pixel-scene-backdrops/samples/04.png",
+        "pngSha256": "19ae3d7157c87d164bfa98807b9dde2aa60fc48e9cc3552bbb8d203a3a297c24",
+        "sceneRgbaSha256": "a012bf0c4179236880be84e38ba6d082ebfdfbbcb4b1b993c66e77db458ddf8b"
+      },
+      {
+        "id": "05",
+        "path": "docs/qa/pixel-scene-backdrops/samples/05.png",
+        "pngSha256": "5408fe28417c4e69a5ede7b37e2ef9d735dfd0c37cedb730c355377d1c9807bb",
+        "sceneRgbaSha256": "7e251ae97df6fa7c9aee6c294cd0faf53357c66d234381e95297584d72a5d192"
+      },
+      {
+        "id": "06",
+        "path": "docs/qa/pixel-scene-backdrops/samples/06.png",
+        "pngSha256": "ead2c4f74c2d8d12948c0f10ef8c2fe07f68294bc61a7bffcfb4e74546e9a341",
+        "sceneRgbaSha256": "e391932381bc2601e1422ea52d0b36fc811bc1603887ed148f2ebc73cd7388bf"
+      },
+      {
+        "id": "07",
+        "path": "docs/qa/pixel-scene-backdrops/samples/07.png",
+        "pngSha256": "93518d9d35f4cccd19890307b2ca943f4c3e0d14a829e966e57938ec66f85fee",
+        "sceneRgbaSha256": "76d0ab3640b88d69f7f5267d35c763e389fa3ddc5903fa1b2ee491ca210d58b9"
+      },
+      {
+        "id": "08",
+        "path": "docs/qa/pixel-scene-backdrops/samples/08.png",
+        "pngSha256": "2e9a5c4ec51b41b1b3c7a0f91f73c8b49dda23b4f4215212e26ff3e6863a9ad5",
+        "sceneRgbaSha256": "bd9500ba47e7719183f2130dff125f40e9920fe17035025500cdf5ee8495332f"
+      },
+      {
+        "id": "09",
+        "path": "docs/qa/pixel-scene-backdrops/samples/09.png",
+        "pngSha256": "00514659a07fbff71d93ad45595359188b18f9f0c8f9406fb9bdff975e789e3f",
+        "sceneRgbaSha256": "5982982fb7008ce00bf5115687807d4acac1299d0295c9dbf4b625907f262a65"
+      }
+    ],
+    "noneCase": {
+      "sourceSample": "01",
+      "outputWritten": false,
+      "width": 96,
+      "height": 64,
+      "sceneRgbaSha256": "f411b8a94e70fc338bd3088de00f3e8fc59954110a50e92c03d0dcfaa5262fa5"
+    }
+  }
+}
