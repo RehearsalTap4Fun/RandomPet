@@ -5,14 +5,39 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { canonicalJson } from '../../generator-core/src/canonical-json.js'
-import { requirePixelArtCatalogV3 } from './pixel-art-catalog-v3.js'
+import { phenotypeKeyV2 } from '../../generator-core/src/feline-phenotype-v2.js'
+import { composePixelArt } from '../../renderer-canvas/src/pixel-art-render.js'
+import { composePixelScene } from '../../renderer-canvas/src/pixel-scene-render.js'
+import sharp from 'sharp'
+import type { PixelArtPlan } from './pixel-art-catalog.js'
+import { requirePixelArtCatalogV3, type PixelArtCatalogV3 } from './pixel-art-catalog-v3.js'
 import { requirePixelSceneCatalogV1 } from './pixel-scene-catalog.js'
 
 const sceneRoot = 'packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/'
 const catRoot = 'packages/asset-catalog/pixel/v3/approved-1.6.1/'
-const sha = (bytes: string | Uint8Array) => createHash('sha256').update(bytes).digest('hex')
+const qaRoot = 'docs/qa/pixel-scene-backdrops/'
+const sha = (bytes: string | Uint8Array | Uint8ClampedArray) => createHash('sha256')
+  .update(typeof bytes === 'string' ? bytes : Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength)).digest('hex')
 const json = (file: string) => JSON.parse(readFileSync(file, 'utf8'))
 const temporary: string[] = []
+
+function planForValidatedCatalog(catalog: PixelArtCatalogV3, phenotype: any): PixelArtPlan {
+  const coverage = catalog.coverage.find(row => phenotypeKeyV2(row.phenotype) === phenotypeKeyV2(phenotype))
+  if (!coverage) throw new Error(`Missing coverage: ${phenotypeKeyV2(phenotype)}`)
+  const profile = catalog.profiles.find(item => item.id === coverage.profileId)!
+  const operations: any[] = []
+  const resources: Record<string, any> = {}
+  for (const step of profile.steps) {
+    const selected = step.slot === 'body' ? phenotype.expression : phenotype[step.slot]
+    if (selected === 'none') continue
+    const resourceId = step.resources[selected]!
+    const rendering = step.variants?.[selected] ?? step
+    if (rendering.clear.length) operations.push({ kind: 'clear', polygons: rendering.clear })
+    operations.push({ kind: 'draw', resource: resourceId, target: rendering.target, occlusion: rendering.occlusion })
+    resources[resourceId] = catalog.resources[resourceId]!
+  }
+  return { size: 64, operations, resources, key: coverage.id, review: coverage.review }
+}
 
 afterEach(async () => {
   await Promise.all(temporary.splice(0).map(directory => rm(directory, { recursive: true, force: true })))
@@ -71,5 +96,98 @@ describe('pixel scene backdrop candidate release', () => {
     temporary.push(directory)
     await writeFile(path.join(directory, 'artifact.bin'), Buffer.from('old'))
     await expect(writeImmutableOutputs(new Map([['artifact.bin', Buffer.from('new')]]), directory)).rejects.toThrow(/immutable/i)
+  })
+
+  it('records exactly nine replayable representative scenes and one in-memory none case', async () => {
+    expect(existsSync(qaRoot + 'report.json')).toBe(true)
+    const report = json(qaRoot + 'report.json')
+    const scene = requirePixelSceneCatalogV1(json(sceneRoot + 'catalog.candidate.json'))
+    const cat = requirePixelArtCatalogV3(json(catRoot + 'catalog.approved.json'))
+    const expected = [
+      ['doodle-horizon', 'standard', 'orange-white', 'round', 'parted-mouth', 'none', 'none', 'none', 'none', 'none'],
+      ['doodle-horizon', 'shortleg-round', 'orange-white', 'round', 'small-fangs', 'antlers', 'fin-ears', 'small-lion-mane', 'small-wings', 'forked-tail-tip'],
+      ['doodle-horizon', 'standard', 'tuxedo', 'sleepy-almond', 'parted-mouth', 'crystal-horns', 'feathered-ears', 'sunburst-ruff', 'dragon-wings', 'phoenix-tail'],
+      ['doodle-leaf-shadow', 'standard', 'brown-tabby', 'sleepy-almond', 'small-fangs', 'none', 'none', 'none', 'none', 'none'],
+      ['doodle-leaf-shadow', 'slender-tall', 'orange-white', 'sleepy-almond', 'small-fangs', 'halo', 'celestial-ears', 'frill-neck', 'feathered-wings', 'flame-tail'],
+      ['doodle-leaf-shadow', 'standard', 'colorpoint', 'round', 'small-fangs', 'dragon-horns', 'fin-ears', 'small-lion-mane', 'small-wings', 'forked-tail-tip'],
+      ['doodle-rainbow-trail', 'standard', 'calico', 'round', 'parted-mouth', 'none', 'none', 'none', 'none', 'none'],
+      ['doodle-rainbow-trail', 'standard', 'rosetted', 'sleepy-almond', 'small-fangs', 'crystal-horns', 'celestial-ears', 'sunburst-ruff', 'dragon-wings', 'phoenix-tail'],
+      ['doodle-rainbow-trail', 'standard', 'orange-white', 'round', 'parted-mouth', 'antlers', 'feathered-ears', 'frill-neck', 'feathered-wings', 'flame-tail'],
+    ]
+    expect(report.status).toBe('candidate-visual-review')
+    expect(report.runtimeEnabled).toBe(false)
+    expect(report.scene).toMatchObject({ version: scene.sceneVersion, revision: scene.revision, rendererVersion: 'pixel-scene-rgba-v1' })
+    expect(report.subject).toMatchObject({ artVersion: cat.artVersion, revision: cat.revision, rendererVersion: 'pixel-rgba-v1' })
+    expect(report.samples).toHaveLength(9)
+    expect(report.samples.map((sample: any) => [
+      sample.backdrop,
+      sample.phenotype.body,
+      sample.phenotype.coat,
+      sample.phenotype.eyes,
+      sample.phenotype.expression,
+      sample.phenotype.crown,
+      sample.phenotype.ears,
+      sample.phenotype.neck,
+      sample.phenotype.back,
+      sample.phenotype.tailTip,
+    ])).toEqual(expected)
+    expect(new Set(report.samples.map((sample: any) => sample.backdrop)).size).toBe(3)
+    expect(new Set(report.samples.map((sample: any) => sample.phenotype.body))).toEqual(new Set(['standard', 'shortleg-round', 'slender-tall']))
+    expect(new Set(report.samples.map((sample: any) => sample.phenotype.coat))).toEqual(new Set(['orange-white', 'brown-tabby', 'tuxedo', 'calico', 'colorpoint', 'rosetted']))
+    expect(new Set(report.samples.map((sample: any) => canonicalJson([sample.backdrop, sample.phenotype]))).size).toBe(9)
+    for (const backdrop of scene.growth.order) {
+      const rows = report.samples.filter((sample: any) => sample.backdrop === backdrop)
+      expect(rows).toHaveLength(3)
+      expect(rows.some((sample: any) => ['crown', 'ears', 'neck', 'back', 'tailTip'].every(slot => sample.phenotype[slot] === 'none'))).toBe(true)
+      expect(rows.some((sample: any) => ['crown', 'ears', 'neck', 'back', 'tailTip'].every(slot => sample.phenotype[slot] !== 'none'))).toBe(true)
+    }
+
+    const plans: Array<ReturnType<typeof planForValidatedCatalog>> = report.samples
+      .map((sample: any) => planForValidatedCatalog(cat, sample.phenotype))
+    const requiredCatResources = new Set<string>(plans.flatMap((plan: ReturnType<typeof planForValidatedCatalog>) =>
+      plan.operations.flatMap((operation: any) =>
+      operation.kind === 'draw' ? [operation.resource] : [],
+      )))
+    const catLayers: Record<string, Uint8ClampedArray> = {}
+    await Promise.all([...requiredCatResources].map(async id => {
+      const resource = cat.resources[id]!
+      catLayers[id] = new Uint8ClampedArray(await sharp(readFileSync(catRoot + resource.path)).ensureAlpha().raw().toBuffer())
+    }))
+    const sceneLayers: Record<string, Uint8ClampedArray> = {}
+    await Promise.all(Object.entries(scene.resources).map(async ([id, resource]) => {
+      sceneLayers[id] = new Uint8ClampedArray(await sharp(readFileSync(sceneRoot + resource.path)).ensureAlpha().raw().toBuffer())
+    }))
+    const subjectMeta = {
+      schemaVersion: cat.schemaVersion, rendererVersion: cat.rendererVersion, size: cat.size,
+      artVersion: cat.artVersion, revision: cat.revision,
+    }
+    let firstCat: Uint8ClampedArray | undefined
+    for (const [index, sample] of report.samples.entries()) {
+      const row = cat.coverage.find(item => phenotypeKeyV2(item.phenotype) === phenotypeKeyV2(sample.phenotype))
+      expect(row?.id).toBe(sample.coverageId)
+      const catPixels = composePixelArt(plans[index]!, catLayers)
+      const scenePixels = composePixelScene(
+        { schemaVersion: 'pixel-scene-state-v1', backdrop: sample.backdrop }, scene, subjectMeta, catPixels, sceneLayers,
+      )
+      if (!firstCat) firstCat = catPixels
+      expect(sha(catPixels)).toBe(sample.catRgbaSha256)
+      expect(sha(scenePixels)).toBe(sample.sceneRgbaSha256)
+      const pngBytes = readFileSync(sample.file)
+      expect(sha(pngBytes)).toBe(sample.pngSha256)
+      const image = sharp(pngBytes)
+      expect(await image.metadata()).toMatchObject({ width: 96, height: 64 })
+      expect(sha(await image.ensureAlpha().raw().toBuffer())).toBe(sample.sceneRgbaSha256)
+    }
+    expect(existsSync(qaRoot + 'samples/10.png')).toBe(false)
+    const none = composePixelScene(
+      { schemaVersion: 'pixel-scene-state-v1', backdrop: 'none' }, scene, subjectMeta, firstCat!, sceneLayers,
+    )
+    const manual = new Uint8ClampedArray(96 * 64 * 4)
+    for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
+      const source = (y * 64 + x) * 4
+      if (firstCat![source + 3]) manual.set(firstCat!.subarray(source, source + 4), (y * 96 + x + 16) * 4)
+    }
+    expect(none).toEqual(manual)
+    expect(sha(none)).toBe(report.noneCase.sceneRgbaSha256)
   })
 })

@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "pixel-scene-backdrop-review-v1",
+  "status": "candidate-visual-review",
+  "runtimeEnabled": false,
+  "scene": {
+    "path": "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/catalog.candidate.json",
+    "version": "1.0.0-candidate.1",
+    "revision": "02d81288bc74c19435e53b0cfd12a6422556ecafe0809e71f44062799cf9799c",
+    "catalogSha256": "cd6a9c34824048c5e02328b99f1bdf0d0507bf602c3a47194afa4d1da61cb2e4",
+    "rendererVersion": "pixel-scene-rgba-v1",
+    "canvas": {
+      "width": 96,
+      "height": 64
+    },
+    "subjectAnchor": {
+      "x": 16,
+      "y": 0
+    },
+    "outline": {
+      "owner": "scene-renderer",
+      "neighborhood": "four",
+      "width": 1,
+      "color": "adjacent-mean-darken",
+      "factor": 0.36
+    },
+    "growthOrder": [
+      "doodle-horizon",
+      "doodle-leaf-shadow",
+      "doodle-rainbow-trail"
+    ]
+  },
+  "subject": {
+    "path": "packages/asset-catalog/pixel/v3/approved-1.6.1/catalog.approved.json",
+    "artVersion": "1.6.1",
+    "revision": "c622a13cb4f045edaa1fe8efc133d312bcb62f78414d75d8bc58a17d78f69ddf",
+    "catalogSha256": "76eec3381d1d09bbbf2a1883e5812818c76b474d0944c13d68f5ade89abaa804",
+    "rendererVersion": "pixel-rgba-v1",
+    "size": 64
+  },
+  "samples": [
+    {
+      "id": "01",
+      "backdrop": "doodle-horizon",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "coverageId": "approved-base",
+      "catRgbaSha256": "ac70eda975f52a870de10f22089767857f12242a4a57ba27ad4a0fe69e49a96e",
+      "sceneRgbaSha256": "09683758fe97611beaaa47e217a070426b3d115663740d63c0d2870970cf68a4",
+      "pngSha256": "162f4d549919b2359656535abae9ccf93b777937f7ca6d8ddfec9702747008b4",
+      "file": "docs/qa/pixel-scene-backdrops/samples/01.png",
+      "visibleBackdropPixels": 1148
+    },
+    {
+      "id": "02",
+      "backdrop": "doodle-horizon",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "shortleg-round",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "antlers",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "coverageId": "parts-p3-s198",
+      "catRgbaSha256": "4317c9ff758f709586f955318be1d91342785805f438d54f3057cbb7fe0dd708",
+      "sceneRgbaSha256": "cfd87b9220ed42efa3a3a8918bad98bef3298d5ccdb674cf8d2279df7ac32c86",
+      "pngSha256": "830ee35a9e477b0199a160624ae5ec1a18ae5917954eae74de6edebb0e5f29e8",
+      "file": "docs/qa/pixel-scene-backdrops/samples/02.png",
+      "visibleBackdropPixels": 907
+    },
+    {
+      "id": "03",
+      "backdrop": "doodle-horizon",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "tuxedo",
+        "eyes": "sleepy-almond",
+        "expression": "parted-mouth",
+        "crown": "crystal-horns",
+        "ears": "feathered-ears",
+        "neck": "sunburst-ruff",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "coverageId": "evolution-chains-f7b148e8897b994c74de",
+      "catRgbaSha256": "fa86b7b167eae3c5bbb3efcaa78af2195f1a1cecbd48ec26762e7c4004ee3589",
+      "sceneRgbaSha256": "1b82cb05e7b006c87a62851198a7fc09be7054b84eafa389ba1e0173c13d876b",
+      "pngSha256": "bee45323a66941aa91773edcfb275ed7c2b244d625c285d8e57a419d2dbc9a43",
+      "file": "docs/qa/pixel-scene-backdrops/samples/03.png",
+      "visibleBackdropPixels": 664
+    },
+    {
+      "id": "04",
+      "backdrop": "doodle-leaf-shadow",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "brown-tabby",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "coverageId": "sleepy-coats-p2-s001",
+      "catRgbaSha256": "374fbfef9a1b0cbc41c6aa4d59513e6c5eb48a2ad282c80d9946465c9f6e3913",
+      "sceneRgbaSha256": "a012bf0c4179236880be84e38ba6d082ebfdfbbcb4b1b993c66e77db458ddf8b",
+      "pngSha256": "19ae3d7157c87d164bfa98807b9dde2aa60fc48e9cc3552bbb8d203a3a297c24",
+      "file": "docs/qa/pixel-scene-backdrops/samples/04.png",
+      "visibleBackdropPixels": 1215
+    },
+    {
+      "id": "05",
+      "backdrop": "doodle-leaf-shadow",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "slender-tall",
+        "coat": "orange-white",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "halo",
+        "ears": "celestial-ears",
+        "neck": "frill-neck",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail"
+      },
+      "coverageId": "evolution-chains-92045d87d297baa5f283",
+      "catRgbaSha256": "34f3c136360f9dea3621da53dda16d6b21e94812137be35d374e1615daf33ce0",
+      "sceneRgbaSha256": "7e251ae97df6fa7c9aee6c294cd0faf53357c66d234381e95297584d72a5d192",
+      "pngSha256": "5408fe28417c4e69a5ede7b37e2ef9d735dfd0c37cedb730c355377d1c9807bb",
+      "file": "docs/qa/pixel-scene-backdrops/samples/05.png",
+      "visibleBackdropPixels": 834
+    },
+    {
+      "id": "06",
+      "backdrop": "doodle-leaf-shadow",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "colorpoint",
+        "eyes": "round",
+        "expression": "small-fangs",
+        "crown": "dragon-horns",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip"
+      },
+      "coverageId": "five-coats-p8-s126",
+      "catRgbaSha256": "1546c59f83428a73d81660daa79b6aeb9b81f767bbb3bb3460df60df7519dee9",
+      "sceneRgbaSha256": "e391932381bc2601e1422ea52d0b36fc811bc1603887ed148f2ebc73cd7388bf",
+      "pngSha256": "ead2c4f74c2d8d12948c0f10ef8c2fe07f68294bc61a7bffcfb4e74546e9a341",
+      "file": "docs/qa/pixel-scene-backdrops/samples/06.png",
+      "visibleBackdropPixels": 1049
+    },
+    {
+      "id": "07",
+      "backdrop": "doodle-rainbow-trail",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "calico",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "none",
+        "ears": "none",
+        "neck": "none",
+        "back": "none",
+        "tailTip": "none"
+      },
+      "coverageId": "five-coats-p5-s001",
+      "catRgbaSha256": "ddcc8996d7cec5b1b51e962ac05018a0d4a41ae157877c6dceac0fc0592d45d5",
+      "sceneRgbaSha256": "76d0ab3640b88d69f7f5267d35c763e389fa3ddc5903fa1b2ee491ca210d58b9",
+      "pngSha256": "93518d9d35f4cccd19890307b2ca943f4c3e0d14a829e966e57938ec66f85fee",
+      "file": "docs/qa/pixel-scene-backdrops/samples/07.png",
+      "visibleBackdropPixels": 1234
+    },
+    {
+      "id": "08",
+      "backdrop": "doodle-rainbow-trail",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "rosetted",
+        "eyes": "sleepy-almond",
+        "expression": "small-fangs",
+        "crown": "crystal-horns",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail"
+      },
+      "coverageId": "evolution-chains-005ba00c043a84b36664",
+      "catRgbaSha256": "fa793cc6e52f1f5771d042480216d5e5d130e8182c9f4a415be84f8c7c0e1a77",
+      "sceneRgbaSha256": "bd9500ba47e7719183f2130dff125f40e9920fe17035025500cdf5ee8495332f",
+      "pngSha256": "2e9a5c4ec51b41b1b3c7a0f91f73c8b49dda23b4f4215212e26ff3e6863a9ad5",
+      "file": "docs/qa/pixel-scene-backdrops/samples/08.png",
+      "visibleBackdropPixels": 743
+    },
+    {
+      "id": "09",
+      "backdrop": "doodle-rainbow-trail",
+      "phenotype": {
+        "schemaVersion": "feline-phenotype-v2",
+        "body": "standard",
+        "coat": "orange-white",
+        "eyes": "round",
+        "expression": "parted-mouth",
+        "crown": "antlers",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail"
+      },
+      "coverageId": "evolution-chains-0093f17e4d523ef0d4ec",
+      "catRgbaSha256": "4545cb05add217759d7c2d7e519c85dfab832b1974a7cc1110cd4fde54436844",
+      "sceneRgbaSha256": "5982982fb7008ce00bf5115687807d4acac1299d0295c9dbf4b625907f262a65",
+      "pngSha256": "00514659a07fbff71d93ad45595359188b18f9f0c8f9406fb9bdff975e789e3f",
+      "file": "docs/qa/pixel-scene-backdrops/samples/09.png",
+      "visibleBackdropPixels": 865
+    }
+  ],
+  "noneCase": {
+    "sourceSample": "01",
+    "outputWritten": false,
+    "width": 96,
+    "height": 64,
+    "sceneRgbaSha256": "f411b8a94e70fc338bd3088de00f3e8fc59954110a50e92c03d0dcfaa5262fa5"
+  }
+}
