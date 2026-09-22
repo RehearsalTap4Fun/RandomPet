@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "pixel-scene-catalog-v1",
+  "sceneVersion": "1.0.0-candidate.1",
+  "revision": "02d81288bc74c19435e53b0cfd12a6422556ecafe0809e71f44062799cf9799c",
+  "rendererVersion": "pixel-scene-rgba-v1",
+  "canvas": {
+    "width": 96,
+    "height": 64
+  },
+  "subject": {
+    "schemaVersion": "feline-phenotype-v2",
+    "catalogSchemaVersion": "pixel-art-catalog-v3",
+    "rendererVersion": "pixel-rgba-v1",
+    "width": 64,
+    "height": 64,
+    "anchor": {
+      "x": 16,
+      "y": 0
+    }
+  },
+  "outline": {
+    "owner": "scene-renderer",
+    "neighborhood": "four",
+    "width": 1,
+    "color": "adjacent-mean-darken",
+    "factor": 0.36
+  },
+  "resources": {
+    "scene-2f4eaff9b6ed478d": {
+      "path": "assets/scene-2f4eaff9b6ed478d.png",
+      "sha256": "2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b",
+      "width": 96,
+      "height": 64
+    },
+    "scene-f6acae86a1a7c92a": {
+      "path": "assets/scene-f6acae86a1a7c92a.png",
+      "sha256": "f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471",
+      "width": 96,
+      "height": 64
+    },
+    "scene-17821cc32d36b651": {
+      "path": "assets/scene-17821cc32d36b651.png",
+      "sha256": "17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872",
+      "width": 96,
+      "height": 64
+    }
+  },
+  "backdrops": {
+    "doodle-horizon": {
+      "resourceId": "scene-2f4eaff9b6ed478d",
+      "rarity": "N",
+      "growthRank": 1,
+      "review": "pending"
+    },
+    "doodle-leaf-shadow": {
+      "resourceId": "scene-f6acae86a1a7c92a",
+      "rarity": "R",
+      "growthRank": 2,
+      "review": "pending"
+    },
+    "doodle-rainbow-trail": {
+      "resourceId": "scene-17821cc32d36b651",
+      "rarity": "L",
+      "growthRank": 3,
+      "review": "pending"
+    }
+  },
+  "growth": {
+    "slot": "backdrop",
+    "order": [
+      "doodle-horizon",
+      "doodle-leaf-shadow",
+      "doodle-rainbow-trail"
+    ]
+  },
+  "validatedSubject": {
+    "artVersion": "1.6.1",
+    "revision": "c622a13cb4f045edaa1fe8efc133d312bcb62f78414d75d8bc58a17d78f69ddf"
+  },
+  "generatable": [],
+  "evidence": {
+    "docs/qa/pixel-backdrop-batch/approval.json": "49e464f8f4c41349b8cdf8dc06ade0fa1f76286713d0d2f7cd8a4df4edf1fb43",
+    "packages/asset-catalog/pixel/v3/approved-1.6.1/catalog.approved.json": "76eec3381d1d09bbbf2a1883e5812818c76b474d0944c13d68f5ade89abaa804",
+    "docs/superpowers/specs/2026-09-22-pixel-scene-backdrop-design.md": "dcd7f108eb4fb4fc823583f1519a2b5a012a5e5e7fb54b2fce22036aee187559",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-horizon.png": "2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-leaf-shadow.png": "f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-rainbow-trail.png": "17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "pixel-scene-backdrop-candidate-provenance-v1",
+  "status": "candidate-visual-validation",
+  "runtimeEnabled": false,
+  "validationMode": "representative-scene-samples",
+  "sourceApproval": {
+    "path": "docs/qa/pixel-backdrop-batch/approval.json",
+    "sha256": "49e464f8f4c41349b8cdf8dc06ade0fa1f76286713d0d2f7cd8a4df4edf1fb43"
+  },
+  "subject": {
+    "path": "packages/asset-catalog/pixel/v3/approved-1.6.1/catalog.approved.json",
+    "schemaVersion": "pixel-art-catalog-v3",
+    "artVersion": "1.6.1",
+    "revision": "c622a13cb4f045edaa1fe8efc133d312bcb62f78414d75d8bc58a17d78f69ddf",
+    "rendererVersion": "pixel-rgba-v1",
+    "size": 64,
+    "sha256": "76eec3381d1d09bbbf2a1883e5812818c76b474d0944c13d68f5ade89abaa804",
+    "coverage": 35840,
+    "resources": 63
+  },
+  "scene": {
+    "packagePath": "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0",
+    "sceneVersion": "1.0.0-candidate.1",
+    "revision": "02d81288bc74c19435e53b0cfd12a6422556ecafe0809e71f44062799cf9799c",
+    "sha256": "cd6a9c34824048c5e02328b99f1bdf0d0507bf602c3a47194afa4d1da61cb2e4",
+    "rendererVersion": "pixel-scene-rgba-v1",
+    "resources": 3,
+    "backdrops": 3,
+    "generatable": 0
+  },
+  "backdrops": [
+    {
+      "id": "doodle-horizon",
+      "rarity": "N",
+      "growthRank": 1,
+      "source": "docs/qa/pixel-backdrop-batch/layers/doodle-horizon.png",
+      "sha256": "2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b"
+    },
+    {
+      "id": "doodle-leaf-shadow",
+      "rarity": "R",
+      "growthRank": 2,
+      "source": "docs/qa/pixel-backdrop-batch/layers/doodle-leaf-shadow.png",
+      "sha256": "f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471"
+    },
+    {
+      "id": "doodle-rainbow-trail",
+      "rarity": "L",
+      "growthRank": 3,
+      "source": "docs/qa/pixel-backdrop-batch/layers/doodle-rainbow-trail.png",
+      "sha256": "17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872"
+    }
+  ],
+  "files": {
+    "docs/qa/pixel-backdrop-batch/approval.json": "49e464f8f4c41349b8cdf8dc06ade0fa1f76286713d0d2f7cd8a4df4edf1fb43",
+    "packages/asset-catalog/pixel/v3/approved-1.6.1/catalog.approved.json": "76eec3381d1d09bbbf2a1883e5812818c76b474d0944c13d68f5ade89abaa804",
+    "docs/superpowers/specs/2026-09-22-pixel-scene-backdrop-design.md": "dcd7f108eb4fb4fc823583f1519a2b5a012a5e5e7fb54b2fce22036aee187559",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-horizon.png": "2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-leaf-shadow.png": "f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-rainbow-trail.png": "17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872"
+  }
+}
