@@ -3,7 +3,7 @@ import {
   phenotypeV2FromLegacy, phenotypeKeyV2, phenotypeKey,
   requirePixelArtCatalog, requirePixelArtCatalogV2,
   restorePixelAppearance, restorePixelAppearanceV2, savePixelAppearance, savePixelAppearanceV2,
-  pixelArtKey, pixelArtKeyV2, resolvePixelArtV2, loadPixelArt, loadPixelArtV2, pixelCanvas,
+  pixelArtKey, pixelArtKeyV2, loadPixelArt, loadPixelArtV2, pixelCanvas,
   type PixelResource,
 } from '../../../packages/incubator-adapter/src/pixel-art-sdk.js'
 import approvedInput from '../../../packages/asset-catalog/pixel/v1/catalog.approved.json'
@@ -14,18 +14,9 @@ import v2ApprovedInput from '../../../packages/asset-catalog/pixel/v2/catalog.ap
 import coverageInput from '../../../packages/asset-catalog/pixel/v2/coverage-standard-small-fangs-round/catalog.candidate.json'
 import coverageApprovedInput from '../../../packages/asset-catalog/pixel/v2/approved-1.2.1/catalog.approved.json'
 import './pixel-workbench.css'
+import { loadLatestBundle } from './pixel-workbench-v3.js'
+import { traitSlots, traitLabels, valueLabels, type WorkbenchBundle } from './pixel-workbench-bundle.js'
 
-type WorkbenchCoverage = { id: string; label: string; review: 'approved' | 'pending'; body: string; eyes: string }
-type WorkbenchBundle = {
-  schemaVersion: 'feline-appearance-v1' | 'feline-appearance-v2'
-  artVersion: string
-  coverage: WorkbenchCoverage[]
-  generatableCount: number
-  render: (id: string) => Promise<Uint8ClampedArray>
-  save: (id: string) => unknown
-  restore: (input: unknown) => string
-  key: (id: string) => string
-}
 const urls = import.meta.glob('../../../packages/asset-catalog/pixel/*/assets/*.png', { query: '?url', import: 'default', eager: true }) as Record<string, string>
 const resourceUrl = (version: 'v1' | 'v2') => (resource: PixelResource) => {
   const url = urls[`../../../packages/asset-catalog/pixel/${version}/${resource.path}`]
@@ -56,7 +47,6 @@ function v1Bundle(input: unknown): WorkbenchBundle {
     key: id => pixelArtKey(entry(id).phenotype, catalog),
   }
 }
-const v2Catalog = requirePixelArtCatalogV2(v2ApprovedInput)
 function v2Bundle(input: unknown): WorkbenchBundle {
   const catalog = requirePixelArtCatalogV2(input)
   let loaded: ReturnType<typeof loadPixelArtV2> | undefined
@@ -81,31 +71,32 @@ function v2Bundle(input: unknown): WorkbenchBundle {
     key: id => pixelArtKeyV2(entry(id).phenotype, catalog),
   }
 }
-const bundles = { approved: v1Bundle(approvedInput), candidate: v1Bundle(candidateInput), 'legacy-approved': v1Bundle(legacyApprovedInput), 'v2-candidate': v2Bundle(v2CandidateInput), 'v2-approved': v2Bundle(v2ApprovedInput), 'v2-coverage-standard-small-fangs-round': v2Bundle(coverageInput), 'v2-approved-1.2.1': v2Bundle(coverageApprovedInput) }
-type BundleName = keyof typeof bundles
-const bundleNames = Object.keys(bundles) as BundleName[]
+const historicalBundles = { approved: v1Bundle(approvedInput), candidate: v1Bundle(candidateInput), 'legacy-approved': v1Bundle(legacyApprovedInput), 'v2-candidate': v2Bundle(v2CandidateInput), 'v2-approved': v2Bundle(v2ApprovedInput), 'v2-coverage-standard-small-fangs-round': v2Bundle(coverageInput), 'v2-approved-1.2.1': v2Bundle(coverageApprovedInput) }
+type BundleName = keyof typeof historicalBundles | 'v3-approved-1.6.1'
+type Bundles = Record<BundleName, WorkbenchBundle>
 const bodyLabels: Record<string, string> = { standard: '标准体型', 'shortleg-round': '短腿圆身', 'slender-tall': '修长高挑' }
 const eyeLabels: Record<string, string> = { round: '圆眼', 'sleepy-almond': '半眯杏仁眼' }
 const STORAGE_KEY = 'qmonster.pixel-appearance.v2'
-function importedState(input: unknown): { bundle: BundleName; id: string } {
+function importedState(input: unknown, bundles: Bundles): { bundle: BundleName; id: string } {
   if (!input || typeof input !== 'object' || !('schemaVersion' in input)) throw new Error('缺少形象 schemaVersion。')
   if (input.schemaVersion === 'feline-combination-v1') {
     const phenotype = phenotypeV2FromLegacy(input)
-    resolvePixelArtV2(phenotype, v2Catalog)
-    return { bundle: 'v2-approved', id: v2Catalog.coverage.find(c => phenotypeKeyV2(c.phenotype) === phenotypeKeyV2(phenotype))!.id }
+    const bundle = bundles['v3-approved-1.6.1']
+    const saved = bundle.save(bundle.coverage[0]!.id) as { art: unknown }
+    return { bundle: 'v3-approved-1.6.1', id: bundle.restore({ schemaVersion: 'feline-appearance-v2', phenotype, art: saved.art }) }
   }
   if (input.schemaVersion !== 'feline-appearance-v1' && input.schemaVersion !== 'feline-appearance-v2') throw new Error(`不支持的形象版本：${input.schemaVersion}`)
   const artVersion = 'art' in input && input.art && typeof input.art === 'object' && 'artVersion' in input.art ? input.art.artVersion : undefined
-  const name = bundleNames.find(name => bundles[name].schemaVersion === input.schemaVersion && bundles[name].artVersion === artVersion)
+  const name = (Object.keys(bundles) as BundleName[]).find(name => bundles[name].schemaVersion === input.schemaVersion && bundles[name].artVersion === artVersion)
   if (!name) throw new Error('当前未载入此美术版本。')
   return { bundle: name, id: bundles[name].restore(input) }
 }
-function initialState() {
+function initialState(bundles: Bundles) {
   try {
     const text = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem('qmonster.pixel-appearance.v1')
-    if (text) return { ...importedState(JSON.parse(text)), warning: '' }
-  } catch (error) { return { bundle: 'v2-approved-1.2.1' as const, id: 'approved-base', warning: String(error) } }
-  return { bundle: 'v2-approved-1.2.1' as const, id: 'approved-base', warning: '' }
+    if (text) return { ...importedState(JSON.parse(text), bundles), warning: '' }
+  } catch (error) { return { bundle: 'v3-approved-1.6.1' as const, id: bundles['v3-approved-1.6.1'].coverage[0]!.id, warning: String(error) } }
+  return { bundle: 'v3-approved-1.6.1' as const, id: bundles['v3-approved-1.6.1'].coverage[0]!.id, warning: '' }
 }
 
 function download(blob: Blob, name: string) {
@@ -115,7 +106,23 @@ function download(blob: Blob, name: string) {
 }
 
 export function PixelWorkbench() {
-  const [initial] = useState(initialState)
+  const [bundles, setBundles] = useState<Bundles | null>(null)
+  const [error, setError] = useState('')
+  const [attempt, setAttempt] = useState(0)
+  useEffect(() => {
+    let cancelled = false
+    setError('')
+    void loadLatestBundle().then(latest => {
+      if (!cancelled) setBundles({ ...historicalBundles, 'v3-approved-1.6.1': latest })
+    }).catch(error => { if (!cancelled) setError(String(error)) })
+    return () => { cancelled = true }
+  }, [attempt])
+  if (!bundles) return <main className="feline-workbench pixel-workbench"><h1>像素工坊</h1>{error ? <><p role="alert">{error}</p><button onClick={() => setAttempt(value => value + 1)}>重试加载</button></> : <p role="status">正在载入正式素材目录…</p>}</main>
+  return <ReadyPixelWorkbench bundles={bundles} />
+}
+
+function ReadyPixelWorkbench({ bundles }: { bundles: Bundles }) {
+  const [initial] = useState(() => initialState(bundles))
   const [bundleName, setBundleName] = useState<BundleName>(initial.bundle)
   const [selection, setSelection] = useState(initial.id)
   const [result, setResult] = useState<{ key: string; pixels: Uint8ClampedArray } | null>(null)
@@ -124,6 +131,7 @@ export function PixelWorkbench() {
   const [importText, setImportText] = useState('')
   const [background, setBackground] = useState<'light' | 'dark' | 'checker'>('dark')
   const [onlyApproved, setOnlyApproved] = useState(false)
+  const [attempt, setAttempt] = useState(0)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const bundle = bundles[bundleName]
   const current = bundle.coverage.find(c => c.id === selection)!
@@ -137,7 +145,7 @@ export function PixelWorkbench() {
       if (!cancelled) setResult({ key: renderKey, pixels })
     }).catch(error => { if (!cancelled) setLoadError(String(error)) })
     return () => { cancelled = true }
-  }, [bundle, selection, renderKey])
+  }, [bundle, selection, renderKey, attempt])
 
   useEffect(() => {
     const context = canvasRef.current?.getContext('2d')
@@ -153,7 +161,7 @@ export function PixelWorkbench() {
   }
   function importAppearance() {
     try {
-      const next = importedState(JSON.parse(importText))
+      const next = importedState(JSON.parse(importText), bundles)
       persist(next.id, next.bundle); setOnlyApproved(false)
     } catch (error) { setActionError(`导入未应用：${String(error)}`) }
   }
@@ -178,18 +186,23 @@ export function PixelWorkbench() {
         <h2 className="pixel-title">{current.label}</h2><p className="pixel-traits">{bodyLabels[current.body] ?? current.body} · {eyeLabels[current.eyes] ?? current.eyes}</p><p className={`pixel-review ${current.review}`}>{current.review === 'approved' ? '已验收 · 可用于生成' : '候选组合 · 待美术验收'}</p>
         <div className="pixel-export"><button disabled={!pixels} onClick={() => exportPng(1)}>导出 64px PNG</button><button className="feline-primary" disabled={!pixels} onClick={() => exportPng(2)}>导出 128px PNG</button><button disabled={!pixels} onClick={() => download(new Blob([JSON.stringify(bundle.save(current.id), null, 2)], { type: 'application/json' }), `qmonster-pixel-${current.id}.json`)}>保存形象 JSON</button></div>
         <p className="feline-preview-note">PNG 保留透明背景。形象 JSON 同时记录性状和美术版本，便于还原。</p>
-        {(loadError) && <p role="alert" className="feline-error">{loadError}</p>}
+        {loadError && <div><p role="alert" className="feline-error">{loadError}</p><button onClick={() => setAttempt(value => value + 1)}>重试加载</button></div>}
       </section>
       <section className="feline-controls" aria-label="像素组合选择">
-        <label className="pixel-bundle">资源范围<select aria-label="资源范围" value={bundleName} onChange={e => { const name = e.target.value as BundleName; persist(bundles[name].coverage.some(c => c.id === selection) ? selection : bundles[name].coverage[0]!.id, name) }}><option value="v2-approved-1.2.1">已验收包 1.2.1 · 32 个组合</option><option value="v2-approved">历史已验收包 1.2.0 · {bundles['v2-approved'].coverage.length} 个组合</option><option value="v2-coverage-standard-small-fangs-round">覆盖候选 1.2.1 · 32 个组合（11 个待验收）</option><option value="approved">历史已验收包 1.1.0 · {bundles.approved.coverage.length} 个组合</option><option value="legacy-approved">历史首批 1.0.0 · {bundles['legacy-approved'].coverage.length} 个组合</option><option value="candidate">历史候选快照 · {bundles.candidate.coverage.length} 个组合</option><option value="v2-candidate">候选包 1.2.0 · {bundles['v2-candidate'].coverage.length} 个组合</option></select></label>
+        <label className="pixel-bundle">资源范围<select aria-label="资源范围" value={bundleName} onChange={e => { const name = e.target.value as BundleName; persist(bundles[name].coverage.some(c => c.id === selection) ? selection : bundles[name].coverage[0]!.id, name) }}><option value="v3-approved-1.6.1">正式包 1.6.1 · 35,840 个组合</option><option value="v2-approved-1.2.1">历史已验收包 1.2.1 · 32 个组合</option><option value="v2-approved">历史已验收包 1.2.0 · {bundles['v2-approved'].coverage.length} 个组合</option><option value="v2-coverage-standard-small-fangs-round">覆盖候选 1.2.1 · 32 个组合（11 个待验收）</option><option value="approved">历史已验收包 1.1.0 · {bundles.approved.coverage.length} 个组合</option><option value="legacy-approved">历史首批 1.0.0 · {bundles['legacy-approved'].coverage.length} 个组合</option><option value="candidate">历史候选快照 · {bundles.candidate.coverage.length} 个组合</option><option value="v2-candidate">候选包 1.2.0 · {bundles['v2-candidate'].coverage.length} 个组合</option></select></label>
         {bundleName === 'v2-coverage-standard-small-fangs-round' && <p className="pixel-candidate-note">{bundle.artVersion} · 标准圆眼小尖牙新增 11 个待验收组合；21 个已验收组合可生成。</p>}
         {bundleName === 'v2-candidate' && <p className="pixel-candidate-note">历史版本 {bundle.artVersion} · 保留当时 7 个待验收组合；当前验收结果请切换至 1.2.0。</p>}
-        {bundleName !== 'v2-approved-1.2.1' && bundleName !== 'v2-approved' && bundleName !== 'v2-candidate' && bundleName !== 'v2-coverage-standard-small-fangs-round' && <p className="feline-preview-note">正在还原历史版本及当时的验收状态。当前 1.2.1 已通过全部 32 个组合，可在上方切换。</p>}
-        <div className="pixel-filter"><label><input type="checkbox" checked={onlyApproved} onChange={e => setOnlyApproved(e.target.checked)} />仅显示已验收</label><span>{bundle.generatableCount} 个可生成组合</span></div>
-        <div className="pixel-samples" role="group" aria-label="组合样例">{bundle.coverage.filter(c => !onlyApproved || c.review === 'approved').map(c => <button key={c.id} data-coverage-id={c.id} data-review={c.review} aria-pressed={selection === c.id} onClick={() => persist(c.id)}><strong>{c.label}</strong><small>{c.review === 'approved' ? '已验收' : '待验收'}</small></button>)}</div>
+        {bundleName !== 'v3-approved-1.6.1' && bundleName !== 'v2-approved-1.2.1' && bundleName !== 'v2-approved' && bundleName !== 'v2-candidate' && bundleName !== 'v2-coverage-standard-small-fangs-round' && <p className="feline-preview-note">正在还原历史版本及当时的验收状态。当前正式包为 1.6.1，可在上方切换。</p>}
+        <div className="pixel-filter">{!bundle.traits && <label><input type="checkbox" checked={onlyApproved} onChange={e => setOnlyApproved(e.target.checked)} />仅显示已验收</label>}<span>{bundle.generatableCount} 个可生成组合</span></div>
+        {bundle.traits ? <div className="pixel-trait-controls">
+          <p className="feline-preview-note">选项来自正式素材覆盖。更换体型或毛色后，依赖选项会调整为可用值，其余兼容选择保留。</p>
+          {traitSlots.map(slot => <label key={slot}>{traitLabels[slot]}<select aria-label={traitLabels[slot]} value={bundle.traits!.value(selection, slot)} onChange={event => persist(bundle.traits!.select(selection, slot, event.target.value))}>
+            {bundle.traits!.options(selection, slot).map(value => <option key={value} value={value}>{valueLabels[value] ?? value}</option>)}
+          </select></label>)}
+        </div> : <div className="pixel-samples" role="group" aria-label="组合样例">{bundle.coverage.filter(c => !onlyApproved || c.review === 'approved').map(c => <button key={c.id} data-coverage-id={c.id} data-review={c.review} aria-pressed={selection === c.id} onClick={() => persist(c.id)}><strong>{c.label}</strong><small>{c.review === 'approved' ? '已验收' : '待验收'}</small></button>)}</div>}
         <details className="feline-spec-tools"><summary>恢复形象 / 导入旧规格</summary><p>粘贴形象 JSON 或旧毛绒规格。保留已确定的性状；当前资源未覆盖的组合会提示原因。</p><textarea aria-label="导入形象 JSON" rows={7} value={importText} onChange={e => setImportText(e.target.value)} spellCheck={false}/><button onClick={importAppearance}>应用形象</button></details>
         {actionError && <p role="alert" className="feline-error">{actionError}</p>}
-        <p className="feline-footer-note">当前仅有橘白双色；新体型与部件按批次验收后加入。<br/>毛绒版保留现有规模，后续资源以像素版为主。</p>
+        <p className="feline-footer-note">正式包含 6 种毛色、28 套基础形象；短腿与修长体型的毛色和表情以可用选项为准。<br/>毛绒版保留现有规模，后续资源以像素版为主。</p>
       </section>
     </div>
   </main>

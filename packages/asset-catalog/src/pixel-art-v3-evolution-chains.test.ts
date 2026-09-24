@@ -4,6 +4,9 @@ import { describe, expect, it } from 'vitest'
 import { canonicalJson } from '../../generator-core/src/canonical-json.js'
 import { phenotypeKeyV2 } from '../../generator-core/src/feline-phenotype-v2.js'
 import { requirePixelArtCatalogV3 } from './pixel-art-catalog-v3.js'
+import { resolvePixelArtV3 } from './pixel-art-catalog-v3.js'
+import { composePixelArt } from '../../renderer-canvas/src/pixel-art-render.js'
+import sharp from 'sharp'
 
 const baseRoot = 'packages/asset-catalog/pixel/v3/approved-1.5.0/'
 const candidateRoot = 'packages/asset-catalog/pixel/v3/evolution-chains-1.6.0/'
@@ -100,7 +103,7 @@ describe('pixel evolution-chain 1.6.0 candidate', () => {
     }
   })
 
-  it('publishes exactly 13 representative rendered samples', () => {
+  it('replays exactly 13 approved representative samples with the current resolver and renderer', async () => {
     expect(existsSync(qaRoot + 'report.json'), 'registration report must exist').toBe(true)
     expect(existsSync(qaRoot + 'index.html'), 'registration review page must exist').toBe(true)
     const candidate = requirePixelArtCatalogV3(json(candidateRoot + 'catalog.candidate.json'))
@@ -115,6 +118,10 @@ describe('pixel evolution-chain 1.6.0 candidate', () => {
     expect(report.sampling.rows.map((row: { coverageId: string }) => row.coverageId)).toEqual(pending.map(row => row.id))
     expect(new Set(report.sampling.rows.map((row: { coat: string }) => row.coat))).toEqual(new Set(['orange-white', 'brown-tabby', 'tuxedo', 'calico', 'colorpoint', 'rosetted']))
     expect(new Set(report.sampling.rows.map((row: { body: string }) => row.body))).toEqual(new Set(['standard', 'shortleg-round', 'slender-tall']))
+    const layers: Record<string, Uint8ClampedArray> = {}
+    for (const [id, resource] of Object.entries(candidate.resources)) {
+      layers[id] = new Uint8ClampedArray(await sharp(readFileSync(candidateRoot + resource.path)).ensureAlpha().raw().toBuffer())
+    }
     for (const row of report.sampling.rows) {
       const file = qaRoot + row.file
       expect(existsSync(file), file).toBe(true)
@@ -122,6 +129,7 @@ describe('pixel evolution-chain 1.6.0 candidate', () => {
       const coverage = pending.find(item => item.id === row.coverageId)
       expect(row.rgbaSha256).toBe(coverage?.rgbaSha256)
       expect(row.phenotype).toEqual(coverage?.phenotype)
+      expect(sha(Buffer.from(composePixelArt(resolvePixelArtV3(row.phenotype, candidate), layers))), row.coverageId).toBe(row.rgbaSha256)
     }
   })
 
