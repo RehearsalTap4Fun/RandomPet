@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "pixel-scene-backdrop-approved-provenance-v1",
+  "status": "approved",
+  "runtimeEnabled": false,
+  "validationMode": "representative-scene-samples",
+  "candidate": {
+    "path": "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/catalog.candidate.json",
+    "sceneVersion": "1.0.0-candidate.1",
+    "revision": "02d81288bc74c19435e53b0cfd12a6422556ecafe0809e71f44062799cf9799c",
+    "sha256": "cd6a9c34824048c5e02328b99f1bdf0d0507bf602c3a47194afa4d1da61cb2e4",
+    "provenancePath": "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/provenance.candidate.json",
+    "provenanceSha256": "44c18861640eda7101741b288179d84d6b37f660d12b1fe6f184aad52d608afd"
+  },
+  "approval": {
+    "path": "docs/qa/pixel-scene-backdrops/approval.json",
+    "sha256": "6b4b8d89c1197cf36d799924f22856c154fb1729717845eda68087081243c74c",
+    "statement": "通过"
+  },
+  "replay": {
+    "path": "docs/qa/pixel-scene-backdrops/nutri-replay.json",
+    "sha256": "c7332ab974bfe624b164006260fdce8207f83eea58c9930be9461698839b4af5",
+    "repository": "Nutri",
+    "commit": "01e5f0b",
+    "sceneRevision": "02d81288bc74c19435e53b0cfd12a6422556ecafe0809e71f44062799cf9799c",
+    "subjectRevision": "c622a13cb4f045edaa1fe8efc133d312bcb62f78414d75d8bc58a17d78f69ddf",
+    "samplesPassed": 9,
+    "samplesFailed": 0,
+    "nonePassed": true,
+    "migrationPassed": true,
+    "webRectangularExportPassed": true,
+    "miniProgramRectangularExportPassed": true,
+    "maxGrowthSteps": 18
+  },
+  "approved": {
+    "packagePath": "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0",
+    "sceneVersion": "1.0.0",
+    "revision": "4f5de7104e0ba59a301489b75eee237a74d91a956e0f9fd5a3ba59124480830c",
+    "sha256": "c8eada420d3f99c1d8e4fefa22e6cf721fee854255722ee474486b38e3021b24",
+    "rendererVersion": "pixel-scene-rgba-v1",
+    "resources": 3,
+    "backdrops": 3,
+    "generatable": 3
+  },
+  "backdrops": [
+    {
+      "id": "doodle-horizon",
+      "rarity": "N",
+      "growthRank": 1,
+      "source": "docs/qa/pixel-backdrop-batch/layers/doodle-horizon.png",
+      "sha256": "2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b"
+    },
+    {
+      "id": "doodle-leaf-shadow",
+      "rarity": "R",
+      "growthRank": 2,
+      "source": "docs/qa/pixel-backdrop-batch/layers/doodle-leaf-shadow.png",
+      "sha256": "f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471"
+    },
+    {
+      "id": "doodle-rainbow-trail",
+      "rarity": "L",
+      "growthRank": 3,
+      "source": "docs/qa/pixel-backdrop-batch/layers/doodle-rainbow-trail.png",
+      "sha256": "17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872"
+    }
+  ],
+  "files": {
+    "docs/qa/pixel-backdrop-batch/approval.json": "49e464f8f4c41349b8cdf8dc06ade0fa1f76286713d0d2f7cd8a4df4edf1fb43",
+    "packages/asset-catalog/pixel/v3/approved-1.6.1/catalog.approved.json": "76eec3381d1d09bbbf2a1883e5812818c76b474d0944c13d68f5ade89abaa804",
+    "docs/superpowers/specs/2026-09-22-pixel-scene-backdrop-design.md": "dcd7f108eb4fb4fc823583f1519a2b5a012a5e5e7fb54b2fce22036aee187559",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-horizon.png": "2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-leaf-shadow.png": "f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471",
+    "docs/qa/pixel-backdrop-batch/layers/doodle-rainbow-trail.png": "17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872",
+    "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/catalog.candidate.json": "cd6a9c34824048c5e02328b99f1bdf0d0507bf602c3a47194afa4d1da61cb2e4",
+    "packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/provenance.candidate.json": "44c18861640eda7101741b288179d84d6b37f660d12b1fe6f184aad52d608afd",
+    "docs/qa/pixel-scene-backdrops/report.json": "0153a9cbd27a8e64526b2b85316179856017fb0beddb7401e3a56f2fbc495722",
+    "docs/qa/pixel-scene-backdrops/index.html": "1e790b48bb231cd0fc433b0f56d0e82fbc5131d1735baf86ad89e38a44c34693",
+    "docs/qa/pixel-scene-backdrops/approval.json": "6b4b8d89c1197cf36d799924f22856c154fb1729717845eda68087081243c74c",
+    "docs/qa/pixel-scene-backdrops/nutri-replay.json": "c7332ab974bfe624b164006260fdce8207f83eea58c9930be9461698839b4af5",
+    "docs/qa/pixel-scene-backdrops/samples/01.png": "162f4d549919b2359656535abae9ccf93b777937f7ca6d8ddfec9702747008b4",
+    "docs/qa/pixel-scene-backdrops/samples/02.png": "830ee35a9e477b0199a160624ae5ec1a18ae5917954eae74de6edebb0e5f29e8",
+    "docs/qa/pixel-scene-backdrops/samples/03.png": "bee45323a66941aa91773edcfb275ed7c2b244d625c285d8e57a419d2dbc9a43",
+    "docs/qa/pixel-scene-backdrops/samples/04.png": "19ae3d7157c87d164bfa98807b9dde2aa60fc48e9cc3552bbb8d203a3a297c24",
+    "docs/qa/pixel-scene-backdrops/samples/05.png": "5408fe28417c4e69a5ede7b37e2ef9d735dfd0c37cedb730c355377d1c9807bb",
+    "docs/qa/pixel-scene-backdrops/samples/06.png": "ead2c4f74c2d8d12948c0f10ef8c2fe07f68294bc61a7bffcfb4e74546e9a341",
+    "docs/qa/pixel-scene-backdrops/samples/07.png": "93518d9d35f4cccd19890307b2ca943f4c3e0d14a829e966e57938ec66f85fee",
+    "docs/qa/pixel-scene-backdrops/samples/08.png": "2e9a5c4ec51b41b1b3c7a0f91f73c8b49dda23b4f4215212e26ff3e6863a9ad5",
+    "docs/qa/pixel-scene-backdrops/samples/09.png": "00514659a07fbff71d93ad45595359188b18f9f0c8f9406fb9bdff975e789e3f"
+  }
+}

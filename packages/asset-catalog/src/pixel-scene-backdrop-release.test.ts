@@ -14,6 +14,7 @@ import { requirePixelArtCatalogV3, type PixelArtCatalogV3 } from './pixel-art-ca
 import { requirePixelSceneCatalogV1 } from './pixel-scene-catalog.js'
 
 const sceneRoot = 'packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/'
+const approvedDistRoot = 'dist/pixel-scene/backdrop-approved-1.0.0/'
 const catRoot = 'packages/asset-catalog/pixel/v3/approved-1.6.1/'
 const qaRoot = 'docs/qa/pixel-scene-backdrops/'
 const sha = (bytes: string | Uint8Array | Uint8ClampedArray) => createHash('sha256')
@@ -189,5 +190,72 @@ describe('pixel scene backdrop candidate release', () => {
     }
     expect(none).toEqual(manual)
     expect(sha(none)).toBe(report.noneCase.sceneRgbaSha256)
+  })
+})
+
+describe('pixel scene backdrop formal release', () => {
+  it('promotes only review state, generatable order, version, revision, and evidence', () => {
+    expect(existsSync(sceneRoot + 'catalog.approved.json')).toBe(true)
+    expect(existsSync(sceneRoot + 'provenance.approved.json')).toBe(true)
+    const candidate = requirePixelSceneCatalogV1(json(sceneRoot + 'catalog.candidate.json'))
+    const approvedBytes = readFileSync(sceneRoot + 'catalog.approved.json')
+    const approved = requirePixelSceneCatalogV1(JSON.parse(approvedBytes.toString()))
+    const provenance = json(sceneRoot + 'provenance.approved.json')
+    const expectedBackdrops = Object.fromEntries(Object.entries(candidate.backdrops)
+      .map(([id, entry]) => [id, { ...entry, review: 'approved' }]))
+
+    expect(approved.sceneVersion).toBe('1.0.0')
+    expect(approved.resources).toEqual(candidate.resources)
+    expect(approved.backdrops).toEqual(expectedBackdrops)
+    expect(approved.growth).toEqual(candidate.growth)
+    expect(approved.generatable).toEqual(candidate.growth.order)
+    expect(approved.validatedSubject).toEqual(candidate.validatedSubject)
+    expect(approved.canvas).toEqual(candidate.canvas)
+    expect(approved.subject).toEqual(candidate.subject)
+    expect(approved.outline).toEqual(candidate.outline)
+    const { revision, ...content } = approved
+    expect(revision).toBe(sha(canonicalJson(content)))
+    expect(provenance).toMatchObject({
+      status: 'approved', runtimeEnabled: false,
+      replay: { samplesPassed: 9, samplesFailed: 0, nonePassed: true },
+      approved: { sceneVersion: '1.0.0', revision, sha256: sha(approvedBytes) },
+    })
+    for (const resource of Object.values(approved.resources)) {
+      const packageBytes = readFileSync(sceneRoot + resource.path)
+      expect(readFileSync(approvedDistRoot + resource.path)).toEqual(packageBytes)
+      expect(sha(packageBytes)).toBe(resource.sha256)
+    }
+  })
+
+  it('pins independent user approval and Nutri replay evidence', async () => {
+    // @ts-expect-error Build-time JavaScript helper has no declaration file.
+    const { validatePixelSceneBackdropApproval } = await import('../../../scripts/pixel-scene-backdrops-approval.mjs')
+    const approvalBytes = readFileSync(qaRoot + 'approval.json')
+    const replayBytes = readFileSync(qaRoot + 'nutri-replay.json')
+    const candidateBytes = readFileSync(sceneRoot + 'catalog.candidate.json')
+    const provenanceBytes = readFileSync(sceneRoot + 'provenance.candidate.json')
+    const candidate = requirePixelSceneCatalogV1(JSON.parse(candidateBytes.toString()))
+    const report = json(qaRoot + 'report.json')
+    const context = {
+      candidate, candidateBytes, provenanceBytes, report,
+      read: async (file: string) => readFileSync(file),
+    }
+    await expect(validatePixelSceneBackdropApproval(approvalBytes, replayBytes, context)).resolves.toBeDefined()
+
+    const changedApproval = JSON.parse(approvalBytes.toString())
+    changedApproval.userStatement = 'ok'
+    await expect(validatePixelSceneBackdropApproval(Buffer.from(JSON.stringify(changedApproval)), replayBytes, context)).rejects.toThrow(/approval/i)
+    await expect(validatePixelSceneBackdropApproval(approvalBytes, replayBytes, {
+      ...context, candidateBytes: Buffer.from('drift'),
+    })).rejects.toThrow(/candidate|approval/i)
+    await expect(validatePixelSceneBackdropApproval(approvalBytes, replayBytes, {
+      ...context, read: async (file: string) => file === qaRoot + 'report.json' ? Buffer.from('drift') : readFileSync(file),
+    })).rejects.toThrow(/evidence/i)
+    await expect(validatePixelSceneBackdropApproval(approvalBytes, replayBytes, {
+      ...context, read: async (file: string) => file === qaRoot + 'samples/01.png' ? Buffer.from('drift') : readFileSync(file),
+    })).rejects.toThrow(/evidence/i)
+    const changedReplay = JSON.parse(replayBytes.toString())
+    changedReplay.commit = 'deadbee'
+    await expect(validatePixelSceneBackdropApproval(approvalBytes, Buffer.from(JSON.stringify(changedReplay)), context)).rejects.toThrow(/replay/i)
   })
 })

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "pixel-scene-backdrop-nutri-replay-v1",
+  "reportedAt": "2026-09-24",
+  "sourceExchangePath": "docs/integration/nutri-codex-exchange.md",
+  "sourceExchangeCommit": "2a836451045cbf08d64cf4ff159e8ac23468f4e6",
+  "repository": "Nutri",
+  "commit": "01e5f0b",
+  "sceneVersion": "1.0.0-candidate.1",
+  "sceneRevision": "02d81288bc74c19435e53b0cfd12a6422556ecafe0809e71f44062799cf9799c",
+  "subjectArtVersion": "1.6.1",
+  "subjectRevision": "c622a13cb4f045edaa1fe8efc133d312bcb62f78414d75d8bc58a17d78f69ddf",
+  "samplesPassed": 9,
+  "samplesFailed": 0,
+  "nonePassed": true,
+  "migrationPassed": true,
+  "webRectangularExportPassed": true,
+  "miniProgramRectangularExportPassed": true,
+  "independentGrowthSlotPassed": true,
+  "maxGrowthSteps": 18,
+  "runtimeIntegrated": true,
+  "runtimeDeployed": false,
+  "samples": [
+    { "id": "01", "coverageId": "approved-base", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true },
+    { "id": "02", "coverageId": "parts-p3-s198", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true },
+    { "id": "03", "coverageId": "evolution-chains-f7b148e8897b994c74de", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true },
+    { "id": "04", "coverageId": "sleepy-coats-p2-s001", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true },
+    { "id": "05", "coverageId": "evolution-chains-92045d87d297baa5f283", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true },
+    { "id": "06", "coverageId": "five-coats-p8-s126", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true },
+    { "id": "07", "coverageId": "five-coats-p5-s001", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true },
+    { "id": "08", "coverageId": "evolution-chains-005ba00c043a84b36664", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true },
+    { "id": "09", "coverageId": "evolution-chains-0093f17e4d523ef0d4ec", "catRgbaPassed": true, "sceneRgbaPassed": true, "pngPassed": true }
+  ]
+}

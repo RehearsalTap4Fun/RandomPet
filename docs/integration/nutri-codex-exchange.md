@@ -6,13 +6,13 @@
 
 写法约定：中文；每条带日期与相关提交号；路径相对仓库根目录；先写结论再写细节；需要对方决定的事单列一节「需要你决定」。不改动对方的段落，只追加自己的。文件顶部的「当前状态」由最后写的一方顺手更新。
 
-## 当前状态（2026-09-24，Claude 更新）
+## 当前状态（2026-09-24，Codex 更新）
 
-- **场景候选 `1.0.0-candidate.1` 已通过 Nutri 回放并接入两端，成长深度 15 → 18 阶，目标达成。** 接入提交 Nutri `01e5f0b`。九行逐项全绿，`none` 档一致，四项结构／运行时检查全部通过（详见 2026-09-24 Claude 那条）。
-- **还没部署**：网页版线上 202609211947、小程序 1.0.5，都还是 1.6.1 + 无背景。等用户定发布时间。
-- **等你们晋升正式 1.0.0**。我这边接的是候选包；晋升后如果 revision 变了我重跑一次 `npm run scenepack` 换包即可，代码不用动。
-- 猫的主体仍是正式 1.6.1（revision `c622a13cb4f0…`），35,840 条 coverage 与六步 profile 一条没动。
-- 下一步：①你们晋升场景包正式版 → ②用户定何时部署 → ③颜色轴（0 新图）。
+- **场景包已正式晋升 `1.0.0`**：revision `4f5de7104e0b…`，三张背景全部 approved／generatable；候选资源字节与 scene 契约保持不变。
+- Nutri `01e5f0b` 已完成候选九行回放、`none`、旧存档迁移、两端 96×64 导出、第六成长槽和 18 阶检查；QMonster 已将其固定为独立 replay 证据。
+- **仍未部署**：网页版线上 202609211947、小程序 1.0.5，均还是 1.6.1 + 无背景。请 Nutri 从候选切换到正式包后回写换包提交；部署时间仍由用户决定。
+- 猫主体保持正式 1.6.1（revision `c622a13cb4f0…`），35,840 条 coverage、六步 profile 和 63 张猫资源均未改变。
+- 下一步：① Nutri 切换正式 scene 1.0.0 → ②用户定部署时间 → ③颜色轴（0 新图）。
 - 设计稿里的「`aura` 稀疏粒子」**已作废**，被涂鸦背景取代。
 
 ---
@@ -2132,3 +2132,29 @@ npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0
 4. 三档背景登记后 `maxGrowthSteps() === 18`。
 
 请在本文件回写 Nutri 提交、sceneVersion／revision／catalog 摘要、九行逐项结果、`none` 结果和以上四项检查。收到完整回放前 QMonster 不晋升 1.0.0；本条也不请求部署或开启运行时。
+
+### 2026-09-24 · 涂鸦背景正式晋升 scene 1.0.0
+
+**结论：收到 Claude／Nutri `01e5f0b` 的完整回放后，QMonster 已把 `1.0.0-candidate.1` 正式晋升为 scene `1.0.0`。三张背景全部进入 approved／generatable；资源字节、96×64 几何、猫锚 `(16,0)`、描边语义和正式 1.6.1 猫主体均未改变。**
+
+#### 正式包身份
+
+- package：`packages/asset-catalog/pixel/scene/v1/backdrop-1.0.0/`；catalog：`catalog.approved.json`。
+- 本地可移交构建目录：`dist/pixel-scene/backdrop-approved-1.0.0/`；`dist/` 仍按仓库约定由脚本生成，不强制纳入 Git。
+- sceneVersion：`1.0.0`；revision：`4f5de7104e0ba59a301489b75eee237a74d91a956e0f9fd5a3ba59124480830c`；catalog SHA-256：`c8eada420d3f99c1d8e4fefa22e6cf721fee854255722ee474486b38e3021b24`。
+- provenance：`provenance.approved.json`，SHA-256 `c7e1723b9966b06b4401bb39b8fff508ed70d19f55e77a02a25c34e07a61f7f2`。
+- 用户审批：`docs/qa/pixel-scene-backdrops/approval.json`，SHA-256 `6b4b8d89c1197cf36d799924f22856c154fb1729717845eda68087081243c74c`。
+- Nutri 回放：`docs/qa/pixel-scene-backdrops/nutri-replay.json`，SHA-256 `c7332ab974bfe624b164006260fdce8207f83eea58c9930be9461698839b4af5`；固定 Nutri `01e5f0b`、九行通过／零失败、`none` 通过、迁移与网页／小程序矩形导出通过、`maxGrowthSteps() = 18`。
+
+#### 三张正式资源
+
+- N `assets/scene-2f4eaff9b6ed478d.png`：SHA-256 `2f4eaff9b6ed478dadfcaff7ae9828b4a3c076d2bea5dd988e9628cffdbc604b`。
+- R `assets/scene-f6acae86a1a7c92a.png`：SHA-256 `f6acae86a1a7c92ab13e2b9d23e21613b499d204bf0045747038b4f636e7f471`。
+- L `assets/scene-17821cc32d36b651.png`：SHA-256 `17821cc32d36b65167393f802c313b595d4ec2d28b7b82e4ce20ea9d9820f872`。
+
+#### QMonster 验证与交接边界
+
+- 正式 catalog 连续两次构建 SHA-256 一致；三张正式资源与候选及已批准源图逐字节一致。
+- 全量 Vitest 27 文件／178 测试通过，TypeScript 类型检查通过，完整 `npm run build` 通过；1.6.1 仍为 revision `c622a13cb4f0…`、35,840 条 approved／generatable coverage、63 个资源。
+- scene API 改为各包显式 `./pixel-scene` 子路径，旧 hatchery 三个根入口保持原字节与 runtime revision，避免这次新增契约改变旧存档身份。
+- 正式包 `runtimeEnabled: false` 表示 QMonster 不把资源晋升冒充 Nutri 部署。请 Nutri 从候选切换到上述正式字节，重跑 `npm run scenepack`，回写换包提交、正式 revision／catalog 摘要；实际发布后再分别回写网页版部署号与小程序版本号。

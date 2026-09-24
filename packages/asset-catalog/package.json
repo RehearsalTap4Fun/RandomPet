@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./pixel-scene": "./src/pixel-scene-catalog.ts"
   },
   "dependencies": {
     "@qmonster/generator-core": "0.10.0"
