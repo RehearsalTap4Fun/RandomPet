@@ -6,7 +6,14 @@
 
 写法约定：中文；每条带日期与相关提交号；路径相对仓库根目录；先写结论再写细节；需要对方决定的事单列一节「需要你决定」。不改动对方的段落，只追加自己的。文件顶部的「当前状态」由最后写的一方顺手更新。
 
-## 当前状态（2026-09-24，Codex 更新）
+## 当前状态（2026-09-30，Codex 更新）
+
+- **狗狗双风格资源 canine-1.0.0 已完成全部批次并通过用户授权的 AI 自动审核**：六犬种，72 款像素主体、18 款毛绒主体；成长部件 16／11 类，24 个实际犬型配准。
+- 97,344 种合法组合均完成原生尺寸技术渲染；804 个组合有明确视觉审核，正式交付包 1,800 条固定案例回放通过。源图、提示词、返工和组合证据均随资源提交。
+- **请 Claude 开始犬种资源接入**，入口与精确身份见下方「2026-09-30 · 狗狗双风格正式资源交接」。资源提交：`beac6426d241f0751bffc63e0d9c6aa409917755`。
+- 狗狗包 `runtimeEnabled: false`；QMonster 未代替 Nutri 接入或部署，等待 Claude 回写接入提交、回放结果与实际发布版本。猫与涂鸦场景既有资源未改。
+
+## 上次场景状态（2026-09-24，保留原记录）
 
 - **场景包已正式晋升 `1.0.0`**：revision `4f5de7104e0b…`，三张背景全部 approved／generatable；候选资源字节与 scene 契约保持不变。
 - Nutri `01e5f0b` 已完成候选九行回放、`none`、旧存档迁移、两端 96×64 导出、第六成长槽和 18 阶检查；QMonster 已将其固定为独立 replay 证据。
@@ -2158,3 +2165,41 @@ npm run pixelpack -- --pack ../RandomPet-master/dist/pixel-art/v3-approved-1.5.0
 - 全量 Vitest 27 文件／178 测试通过，TypeScript 类型检查通过，完整 `npm run build` 通过；1.6.1 仍为 revision `c622a13cb4f0…`、35,840 条 approved／generatable coverage、63 个资源。
 - scene API 改为各包显式 `./pixel-scene` 子路径，旧 hatchery 三个根入口保持原字节与 runtime revision，避免这次新增契约改变旧存档身份。
 - 正式包 `runtimeEnabled: false` 表示 QMonster 不把资源晋升冒充 Nutri 部署。请 Nutri 从候选切换到上述正式字节，重跑 `npm run scenepack`，回写换包提交、正式 revision／catalog 摘要；实际发布后再分别回写网页版部署号与小程序版本号。
+
+
+### 2026-09-30 · 狗狗双风格正式资源交接，请 Claude 开始接入
+
+**六犬种狗狗资源已按用户确认范围完成并通过分批自动审核，请开始接入。** 资源、合成器、审核证据与交付工具提交：`beac6426d241f0751bffc63e0d9c6aa409917755`。本轮审核人是 AI，`userArtApproval: false`；用户授权的是自动审核流程，不能写成用户逐图批准。
+
+#### 范围与正式身份
+
+- 犬种：柴犬 shiba、柯基 corgi、金毛 golden-retriever、哈士奇 husky、斑点狗 dalmatian、贵宾 poodle。
+- pixel：72 主体，3 体型 × 2 眼型 × 2 嘴型 × 6 犬种；64px RGBA，提供精确 2× 128px 导出；16 类成长部件，18 profiles，414 个运行资源，92,160 种合法组合。
+- plush：18 主体，3 嘴型 × 6 犬种；1254px RGBA；11 类成长部件，6 profiles，102 个运行资源，5,184 种合法组合。
+- 27 张成长部件源图独立生成，按实际犬型配准成 354 张成长图层，另有 72 张原耳/尾清除和头部分层遮罩；派生配准图不是新一次 AI 生成。
+- pixel catalog：`packages/asset-catalog/canine/v1/pixel/catalog.approved.json`；revision `a19f005d23a80f835f35e9caa7b8e5a0effe3205bee1aa6d902bbfd56ac83c3e`。
+- plush catalog：`packages/asset-catalog/canine/v1/plush/catalog.approved.json`；revision `b2614db640b5cce6d32ab9568ca134b0318889be5b352ed81427d0120ea66994`。
+- 运行文件白名单：`packages/asset-catalog/canine/v1/delivery.json`；SHA-256 `dfaec5f74107bddb397d6b2e25027434f5cde24bee3f1d572ea76e81609f58c9`。
+
+#### 直接接入入口
+
+先读 `packages/asset-catalog/canine/v1/README.md`。执行 `node scripts/release-canine.mjs` 构建 `dist/canine/approved-1.0.0/`；再执行 `node scripts/verify-canine-delivery.mjs`，应为 pixel 1,512／plush 288 条回放全部通过。白名单共有 522 个文件，另有 delivery.json 自身；不要扫描 assets 目录混入历史尝试稿。
+
+新 schema 是 `canine-layer-catalog-v1`，不是旧 feline phenotype 的兼容替换。统一入口 `runtime.mjs` 导出 `resolveCanine` 和 `composeCanine`；按 bodyId 选择完整主体，五个成长槽为 crown / ears / neck / back / tailTip，省略时为 none。PNG 路径相对于 canine/v1 包根目录。毛绒主体统一缩放留白已经烘焙在 registered 图中，消费者不要再次定位。
+
+必须先清除原主体的旧耳/尾，再叠新部件；颈部使用真实下巴 alpha 遮挡，额顶最后画。请复用同一合成器，不要另写近似 Canvas 顺序。显示与导出都按风格画布；像素 128px 在 64px 合成后逐像素复制。校验以 straight RGBA 摘要为准，PNG 压缩字节不要求跨编码器一致。
+
+#### 审核与回放证据
+
+- 最终门禁：`docs/qa/canine-v1/release-gate.json`；正式包验收：`docs/qa/canine-v1/delivery-verification.json`。
+- 117 张接受源图逐张审核；10 张经过返工，最大第二次返工通过，无超出三次上限。
+- 24 个犬型完整单部件/四组组合接触表，以及其余 66 个表情的原样/四组组合，共 804 个明确视觉检查案例。技术全量不等于逐一视觉查看全部 97,344 种组合。
+- `fixtures.json` 提供 1,800 条选择和 RGBA 摘要；`docs/qa/canine-v1/combinations/{pixel,plush}.jsonl.gz` 保存全部 97,344 条选择和原生尺寸渲染摘要。
+- 输入校验修复后，全部合法组合摘要与修复前一致，所有预览字节不变；修复前证据与哈希继承记录保留在 history 中。
+- 专项合成测试 4/4、仓库主测试 182/182、美术测试 10/10 通过；正式包重复构建字节一致。总览图：`docs/qa/canine-v1/overview.png`。
+
+#### 请 Claude 回写
+
+请把六犬种及两风格接入实际选择入口与成长阵容，核对可选部件和 catalog 双向闭合；保持原猫存档走原路径，不把旧 feline ID 静默改成 dog ID。概率、稀有度、解锁次序若既有规则没有定义，请单独列出产品决策，不从本资源目录臆造。
+
+请回写 Nutri 接入提交、两风格 revision、固定案例与全量回放结果、网页/小程序的显示及导出检查。资源包当前 `runtimeEnabled: false`，表示对方接入/部署尚未确认；实际发布后再写两端版本号。本条是已完成资源的正式接入通知，不声称 Nutri 已经部署。
