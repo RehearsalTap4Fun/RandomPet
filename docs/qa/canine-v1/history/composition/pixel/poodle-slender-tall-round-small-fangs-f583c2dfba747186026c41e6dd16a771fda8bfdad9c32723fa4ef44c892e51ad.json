@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "poodle-slender-tall-round-small-fangs",
+  "profile": "poodle-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs-contact.png",
+  "contactSha256": "a1761c27064c6b9e3776fb53b3807647fa35ea7a7b1684715106f934b13e50a9",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs"
+      },
+      "rgbaSha256": "66d80ef560a0648798208398965a3cd02fa42006642cb16ffb0e52d130304ca1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0dc0038db411c6ad6ef0ab4a6c9eb48553ec77860bc25757dd6865de621d0cec",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "7779a1ad9c47a175755944f18f4c3ea04c2ef91868a2a3f4ce38bbf4d24f88b4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b33a3f486d3c6ec13775ce8d3bc2289407546204d440601958adae3ace9e2257",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "a2170dfb42c8ba97be1c323b676e667036a16dea0f21a1093b73327fe35c00fd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9b1f20bd327b5546dbcc1e3f2b436055c23b1b1604f0693577d9105d3949c240",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "6129e5b3ea11fb4002b533d89a49e86d4f21a44830287ddae0abbfc5d35fb04e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8d5ac82b23252a7a8af67a870fb19f452353e0c7a4fe174df2c5244d11d9117f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "5399c16d22b076545318d386fd511b720a096a573e80eec256f92129cb4b24d1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "31fe42fda62dcb2c5e4e15199f6c8e77ec2acf6a9ac0dd2a61faa706150729e3",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "bccb4b9fa90cf60e621e244218af3dbff07cad17f794ce96f38f1335e469f8e2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9889fa535c570b94d2a62ceca8d1cf7365200abe26b2d7f586e1f1773f4e531e",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "f4f407173ecade09e523ab3a05e26e5164be8d2512a470d82029a0fc26915c87",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0e886b5177df95d2797079a4d152b0fa8d16d36f6fe638b501142991433ac597",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "1bdbc1f084c0dbffefcfb0b55c15df2ed39fe684dec4867c3bfd047d86944936",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "86c8e7b63bd9bdb550285fde2945d90e91fb119670527f3194fff2050254781b",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "76b8aa2d9d34b6aa01294dab164ab9ac35bf969954a19c1570588a4cd4f7cd6a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3c7285a92d10d56a0f66c64abd517a7bb1812b60d2cd0e7c1518c8035a67f18d",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "62a13417ef2ef4b12d73d72244c9eca46221c359ef07857f267ff8e6f44f4c54",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "705512bd06c3363faba8352988880805650e73310de2bf3edd9856f74c3bfbf2",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "08c4dabd0c546542126adbcf4bf153a9de64facdb72462dbcf8c79e940f8b145",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8316d70bbbff3a2e417d76a62299ce1d6bc7f735722531e73943059e87bf4966",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "fca95072197ea41d56dfaa5dec7864759dcbd1990dfeabaa311b1dba5a9f8e44",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "81ca71f3d630a618e38f88bd1f0197fdb2b9aa4666f0d3ed034f8761551be049",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "a437549f5e3ec4b2838900703a29651ba65ef993ec9d50075abc0b28eb3b9056",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8e93069ad0de2f62dcf45ed433c2051922ba554db1b9cd5b5364b9c5e3104686",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "d5218870cc4131da79414ce5d35e9587cc3cb965590629d3c838a643953b19f6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fc7d33d3c5d77dc9a8991f5b403522a6ecea6a890711d6ebaea5468f41751761",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "78116f29e237b3d166fdd244b554a84d6fc1c04c8d325bdbbc2c31a5c3fe8c47",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "089c98fd96ea8222511c1dbbd71a062aaf5d98e20e270a5b55bc78238caaa706",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "b701ba233a3e4ff96d045f8e4258afa542d13078d329d036637e7513307b7cfa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8b6cee63cb6ced2efa9218bb9c1e1b52e8f0c0b12a9e74844d967270c61ed645",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "f1b6642050507c5b0d383d1edf7fa424ff60931479109df5a5e450b35c7886ad",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1c138265a927a3298e6665edbd3b6008a2a4a7d7d4a4793ca62de8ca5e52076b",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "7120e48d0e6d7a5d978bc6a32e185626534486c233b12215281b96c964a7fec6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6eda46a7ad304ab00cb32260c82b482ef6f7307fda88ebeaaf4a25f49ed8b990",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "abc27a94f06613172502f6b56362f7cc0cb0df779d72798d092282ed07b4fe80",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9bbbc41af764615b8926d4ae8036c39ac6fca00f5b9e5f9d6e193082197308fa",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "67caeb493b7067c2fe2c949ab922642c14cd0100bbba369e74a613983fa66a21",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "81f44f5d3ce66216a01b0493e34f4788160dba9a87e76a8dbe58f5b1bb73ffc1",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "07220912ac85a11f60ae12c857658e4d90fb5587ec40ccfdf23375fe7f92e068",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "70d77950516de4292cbd259aa36de3cabb24029bba933f5295539f78ae3890c2",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "贵宾卷毛头冠保持；换耳后的两处残余暗像素已清除，耳遮罩不再截断尾球；小尖牙与半睁眼组合可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.258Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

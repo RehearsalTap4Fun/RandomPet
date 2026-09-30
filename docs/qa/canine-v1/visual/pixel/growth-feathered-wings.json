@@ -1,0 +1,11 @@
+{
+  "id": "growth-feathered-wings",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "成对长羽翼，五层宽羽与金色主翼骨连接完整，区别于小翼三瓣轮廓；中央透明，双背景无裁边和躯干残留。配准另审。",
+  "resourceSha256": "f0a0494d335bc5f9fbf72d40fc08fc1b217c8008dbcbe982b033d29938e3aaac",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-feathered-wings-review.png",
+  "evidenceSha256": "639cfed78c82ac2a97fe1d004c32b65693caff3cb3814961f416d855f2e2edfe",
+  "userArtApproval": false
+}

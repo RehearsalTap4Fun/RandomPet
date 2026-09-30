@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-standard-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-standard-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+  "rgbaSha256": "cf5c8bbee0b3b5f34f03824720b997594e1872bee5b5d6dc73a564e8d869d1bd",
+  "bounds": {
+    "left": 4,
+    "top": 6,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2205,
+    "transparent": 1891,
+    "fractional": 0,
+    "visible": 2205
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

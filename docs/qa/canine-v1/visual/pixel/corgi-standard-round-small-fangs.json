@@ -1,0 +1,11 @@
+{
+  "id": "corgi-standard-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Two bright separated fang clusters survive 64px reduction in dark mouth cavity, clearly distinct from parted mouth. Corgi ears, blaze, short tail and standard body retained; round eyes readable and both background previews clean.",
+  "resourceSha256": "1f8ea2a96cb2eca0d05a0dc98f7da4a6487cfc44fda74ac5eab0c0262d3ce84b",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-standard-round-small-fangs-review.png",
+  "evidenceSha256": "7265ecf0f7bb3c065ebbfd74d8ccb8b485acab93161164e28a73eeb86762d211",
+  "userArtApproval": false
+}

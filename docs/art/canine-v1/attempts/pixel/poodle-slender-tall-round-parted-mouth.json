@@ -1,0 +1,12 @@
+{
+  "id": "poodle-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-de9ba6ba-8fb8-4bb0-a032-0986204dd578.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/poodle-slender-tall-round-parted-mouth.png",
+  "rawSha256": "c411b9b905280ad0c90b80a932f7f7dedcdfd24d7abdfd0d2e8f2a5e00575497",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. ONE production dog sprite. Image 1 is EXACT identity/registration reference. Preserve the same breed, coat distribution, ears, nose, tail, head size, canvas placement and lighting. Keep the reference mouth shape exactly unchanged. Only change the explicitly requested eye/body/expression attributes. Subject: apricot toy poodle puppy, soft apricot curly coat, rounded curly topknot, drooping curly ears framing face, dark brown eyes, rounded dog muzzle and black nose, single small pompom tail on viewer right; recognizable poodle curls, no shaved show trim. Style: Crisp 64x64 logical-grid pixel game sprite, discrete large flat color clusters, 2-3 shades per material, brown single-pixel-equivalent outline, no soft gradients or texture. Output high-resolution square image of this logical pixel sprite. Body: Make SLENDER TALL body: visibly narrower torso, slimmer hips and much longer slim forelegs; lean elegant seated silhouette. Keep head identity and head/paw registration consistent; body must visibly differ from standard. Eyes: preserve the reference eyes exactly, including shape, glints and coordinates. Mouth: preserve reference mouth and teeth EXACTLY, pixel placement and shape unchanged. Front-facing sitting pose, whole dog within frame, eye line around y34%, paw baseline y95%, head center x44%, tail on viewer RIGHT. Keep transparent margins on every edge. Exactly one head, two ears, one tail and four correctly seated paws. No cat whiskers, no collar, no accessories, no text, no sprite sheet, no ground shadow, no floor. Genuine transparent alpha background. Preserve source alpha. Do not crop or recenter.\n",
+  "visualReview": "pending"
+}

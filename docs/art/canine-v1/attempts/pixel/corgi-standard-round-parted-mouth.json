@@ -1,0 +1,12 @@
+{
+  "id": "corgi-standard-round-parted-mouth",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-e799e489-5696-43d3-9e4e-63f4bae69f9b.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/corgi-standard-round-parted-mouth.png",
+  "rawSha256": "7966778b25b587946c33ddf34fe407dbb477f86b662b56f2a663ce0c003a578d",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: stylized-concept. ONE production dog sprite. Image 1 is STYLE/REGISTRATION reference ONLY. Replace the breed with the specified dog, with correct breed ears, coat and tail; do NOT keep Shiba anatomy. Subject: Pembroke Welsh corgi, golden tan and white coat, broad white forehead blaze, very large upright rounded-triangular ears, long low dog torso, black dog nose, cheerful broad muzzle, short fluffy tail on viewer right. Style: Crisp 64x64 logical-grid pixel game sprite, discrete large flat color clusters, 2-3 shades per material, brown single-pixel-equivalent outline, no soft gradients or texture. Output high-resolution square image of this logical pixel sprite. Body: Standard cute compact seated body proportions, oversized head, two forepaws and two seated haunches. Eyes: ROUND wide-open expressive eyes with a simple light glint. Mouth: Natural tiny parted mouth, dark interior. No teeth, no tongue. Front-facing sitting pose, whole dog within frame, eye line around y34%, paw baseline y95%, head center x44%, tail on viewer RIGHT. Keep transparent margins on every edge. Exactly one head, two ears, one tail and four correctly seated paws. No cat whiskers, no collar, no accessories, no text, no sprite sheet, no ground shadow, no floor. Genuine transparent alpha background. Preserve source alpha. Do not crop or recenter.\n",
+  "visualReview": "pending"
+}

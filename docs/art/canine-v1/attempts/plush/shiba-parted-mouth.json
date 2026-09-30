@@ -1,0 +1,12 @@
+{
+  "id": "shiba-parted-mouth",
+  "style": "plush",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:/Users/jiangzhenyu/.codex/generated_images/01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea/exec-76835d60-d7cd-42af-95ba-09a3e7ee3ec8.png",
+  "rawPath": "docs/art/canine-v1/raw/plush/shiba-parted-mouth.png",
+  "rawSha256": "c8ac6bd88a6717b1711231f2a13d3bbac659ab33539d43b2a01238813adb269c",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: stylized-concept. Create ONE full-body production game character: a cute SHIBA INU puppy in the exact premium 3D plush-fur toy rendering style and front-facing sitting composition of Image 1 (cat STYLE reference only). Dog anatomy must be unmistakable: rounded compact dog muzzle, shiny black rounded dog nose (never pink cat nose), tan orange coat with cream urajiro cheeks/chest/paws, small erect triangular ears, ONE curled fluffy Shiba tail on viewer RIGHT. Large expressive rounded glossy brown eyes, tiny natural parted mouth, NO tongue, NO visible teeth. Same adorable oversized head, soft detailed plush fur fibers, upper-left studio light, cuddly compact seated body. Pose front-facing with two forepaws and two seated hind paws. Use whole square transparent canvas with empty margins, ears around y6%, paw baseline94%, subject x10%-93%, head center x44%, tail on right. Preserve reference quality, fur density, visual volume and registration scale, but do not copy cat features. No whiskers, no collar, no accessory, no ground plane, no cast ground shadow, no words or labels, no sheet, no gradients in background. Genuine transparent alpha PNG. One dog only, square image.\n",
+  "visualReview": "pending"
+}

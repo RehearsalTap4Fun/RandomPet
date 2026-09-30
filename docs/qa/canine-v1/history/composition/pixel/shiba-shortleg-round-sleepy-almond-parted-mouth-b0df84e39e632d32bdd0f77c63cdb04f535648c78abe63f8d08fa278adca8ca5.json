@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+  "profile": "shiba-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "e8ba18f0ffb384f3d768200515b0c7d8ea9b7b21e093918b85d17f847dd6659a",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "7164c1428a515554e8b314a23813300f30acf350b8d134fb14a32b1f99ab5a37",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "efc0c4e0f71f97402795f9c5ea51674b24e8b07801883248069d99b7d0e78bdb",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "271d2f228d8320434e8bb885fc2e8bf519a4ccef20c0f0fca3ee43b2908f55fa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f7b584e503cebf08ac4d3abf5665127ae44f53f1089ebb911ffe280e11ac81fd",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "a18dab566b1029e91ccbfc6397087ec6d31808bb64c60eec717a5aa6493a835c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "488c13d09f90a6bb5c3f234f3f73f7c95617032baf09f5d034ce0d2c09b69579",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "26055d6a5d65920ac14930db50f2df2b529d7f86a9f375ae556dc8bd0a8b6924",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d8053863b6b9884b99d44437aab00c9d4794f4a0ad39f7e4fc3a9a60976e5729",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "de750c12867dfa317045f40924734568a9d36273e94da2df7d1d8ca5c1b77291",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d6116a83de9959254f4fb568c3e578b697b8f2e22a8375aed1307a6f3241736b",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "cf86712995b9fdefbeb8d6b2c3be37073e2be3b44b0adb32262b6b279b0a3a8a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9b9fddcff53c68e4709052fb9313cf9b5bd58b13d53c2c486f681de4a1004b4a",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "0c14dd1c3d8e82f4bd033aa213489d3a06f72fe11d50702d76eb61c74cd5080c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2ce90bed77aa447de515732671551820c841c7ef96cd70679f7a49f2019b480a",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "d17b36aaf6386a990b885ef19647a32557351083a6b8838e2063753fb9423661",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f95519f95518c1701ee4a6d9fb8adb23791a18988839024e8336a5746ac76ad4",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "32e9f2a5d40a37a75cd500245a4d50bf0e98c2473865349755437b803e0a551b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e987c3f82a232d7ef6ec343529e43c6e9350b1df78083afebfdff94d414cf3e9",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "c01308375842078578d25248487652416c3f4d3771a5fb660cd5ef2017394d11",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7917cff0d2f231f672a8c578e07097a1221a1a306e2f138f7516fd5e88ae7a68",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "b0084cabc8ba37b880a471bd05eabdcc0090fc07c03fa4cde7b260bcc8845c60",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "21aae55da5bdd1faaeea8c77707b672b7c788c7f3409142588178364a14b9183",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "78b83560609341d7dec788f5ad21aa3acb6d072b8d395a751628861e6d21ea18",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "09f56fcb55d6facd434a675eae4b72c297ddeefb0a6bc7933ebcb9606d4c67b1",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "7908d47b4e3ca52c7555c18d10fef12f361b5d85b6cf19185631bb78b5e1dc98",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6a3b5027fc9de8b7aa6577a7acd0bc6b812c270a4de4f4381805847f215f2c5f",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "2b0cedd6ddce27d4f9f676dddac59ac316459ec651cf0ab9a2d1d919649de670",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9cfa1d5360aee68d70627b5a8560c4a2b30acdb0c99746653a8152da945af8ea",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "606c5b5f5e4dffcee2577548db0cfcdc4d3d5f2750fb88b614d26065b1c8700a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6f96214e800addc653d9dcb7e1a27d1030f3d5348fddbb738b780dbc47833d80",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "ab3ba60e38686fd96caf7d5ae9d855febc37041e39cdcaa9a93a7eda7b83301f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "26cac98a15cbfd6eb6f70d241958ea6c74521223a70e460047d38a5c1a0993df",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "59f384d8b3c67507df8a837d4c6ca164118b2dab21744a0c8b2cc6efe0cc4db0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "99435501d2ca422e3dc50e3666c7461d7c71fa37eb9b488de5aaeb19adb42020",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "c2fdaf4e56d0cf0181f3e18b0ebce760cb4cada43dda8d9f9bd93cc511843cd3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "eaab6920e2c64a5aa9835ea6b3d8f6a1881efe66b518387cd035fa66b0397385",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "0e8d90f6e551fd8ffaecc26f665c302e75ba4e151d64c4a965bd570769f1f988",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6f5d1787b58a42f34479e06e9d8cf592cfc4c2963d3be8ac0c93c747db6da1d7",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "2abdc3c6cdb3560be0d08189923d68fbcd5e5b4b115d30864eaff144dc56dd0c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ee9103fabc8d1e7930e735a712fb8b269682ef07569effb24a896300ec8a39b2",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "203b80a5dbd70bbf6aec313499c7d8e80158e35f12c7737e32166111c87936f7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "34feac89da28716bf3fce7527b612757e9d359ff10b6f544f290c9a14347f9ec",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柴犬面罩与卷尾辨识保持；换尾无旧卷尾上缘，颈部在下巴之后，三体型与各表情组合无遮脸。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:29.207Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

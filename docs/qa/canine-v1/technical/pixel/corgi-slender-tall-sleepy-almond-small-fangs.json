@@ -1,0 +1,27 @@
+{
+  "id": "corgi-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-slender-tall-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "7134f41697a0c8240cf934e73862446666388f008205809ee5ff7154da816eb5",
+  "rgbaSha256": "ec1ff099f56c2d871b11c9a607f65d5af5dbe7cf5a15913a67cac11492dee6fb",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 54,
+    "bottom": 62,
+    "opaque": 1885,
+    "transparent": 2211,
+    "fractional": 0,
+    "visible": 1885
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

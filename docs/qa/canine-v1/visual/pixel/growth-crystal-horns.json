@@ -1,0 +1,11 @@
+{
+  "id": "growth-crystal-horns",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "双水晶角淡紫亮面与深紫基座区分清晰，连续角体无碎片，透明中缝完整；暖暗描边与主体协调。适配另审。",
+  "resourceSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-crystal-horns-review.png",
+  "evidenceSha256": "17152726817a294e91ee1288ad14a03db995ada8f7c7d0881f6c7e8e89a3af32",
+  "userArtApproval": false
+}

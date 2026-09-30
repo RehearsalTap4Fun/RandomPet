@@ -1,0 +1,27 @@
+{
+  "id": "growth-feathered-wings",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/growth-feathered-wings.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+  "rgbaSha256": "b54fa4bb26380aa42fa2bcf340b8125971b0bddbb41c6ab543adb70fb4ef0221",
+  "bounds": {
+    "left": 17,
+    "top": 172,
+    "right": 1237,
+    "bottom": 1078,
+    "opaque": 23,
+    "transparent": 912777,
+    "fractional": 659716,
+    "visible": 622046
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

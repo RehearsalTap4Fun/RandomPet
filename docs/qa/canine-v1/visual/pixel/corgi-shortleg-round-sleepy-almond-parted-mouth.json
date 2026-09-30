@@ -1,0 +1,11 @@
+{
+  "id": "corgi-shortleg-round-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy lowered lids remain distinct, original parted mouth and rounded shortleg silhouette retained. Corgi ears/blaze/short tail intact; face readable at 64px, clean light/dark edges with no clipping.",
+  "resourceSha256": "8d9d1230d341206e0ff6ef03fdf6b7ff05985641f907ae7922615fd602085d85",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-shortleg-round-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "4c0595026fd92dcbe67762c8e29e73ffc21bfa763e7fbe418a403191902b3ba1",
+  "userArtApproval": false
+}

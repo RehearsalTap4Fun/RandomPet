@@ -1,0 +1,11 @@
+{
+  "id": "growth-halo",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "单一金色椭圆环完整连续，内孔透出两种背景，亮面与暗面明确，无多余支架、粒子或底板。配准另审。",
+  "resourceSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-halo-review.png",
+  "evidenceSha256": "2b2954194a5e4f09cd77899bd36740a370d5d3c6163b84b4bc82d1fba5c8a10d",
+  "userArtApproval": false
+}

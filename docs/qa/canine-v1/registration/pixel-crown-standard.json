@@ -1,0 +1,341 @@
+{
+  "status": "pending-visual-review",
+  "records": [
+    {
+      "body": "shiba-standard-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+      "compositeSha256": "64e575fcf1e130675a5be2a9740cbe9b5ba74e89c8d2f5c5b8e635132b4bdf40",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-standard-dragon-horns.png"
+    },
+    {
+      "body": "shiba-standard-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+      "compositeSha256": "fad43634396f83a455c3f5687b52e4e6c660f68f4c12d58455a99f9cf47c781a",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-standard-antlers.png"
+    },
+    {
+      "body": "shiba-standard-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+      "compositeSha256": "37a54f2aeb6dd539d9e3195e092aa4a32a2b252cac094b03973b09190b6577ff",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-standard-halo.png"
+    },
+    {
+      "body": "shiba-standard-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+      "compositeSha256": "902fb69ba65001585ebb6fe01f66b9f532f07ca6971212dcd5ed37c1ea4a7a00",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-standard-crystal-horns.png"
+    },
+    {
+      "body": "corgi-standard-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+      "compositeSha256": "a4e3d97338ddf61e6cd3fbb5529dc3dadd35237867d6e201950488e144bd1b51",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-standard-dragon-horns.png"
+    },
+    {
+      "body": "corgi-standard-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+      "compositeSha256": "7f3cd9163e9cc2bc3e3c12771a6b733edcc4082964319d8af1863d257d978c4d",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-standard-antlers.png"
+    },
+    {
+      "body": "corgi-standard-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+      "compositeSha256": "99b3fe2db7adf3748689b9dfd643218173ca7396681fac331d4b3d0add68a151",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-standard-halo.png"
+    },
+    {
+      "body": "corgi-standard-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+      "compositeSha256": "9dddbb7961f77c58914d4d57b22e8bbce43b7ec2b7e4ad5b1dd7b9d558e88a23",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-standard-crystal-horns.png"
+    },
+    {
+      "body": "golden-retriever-standard-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+      "compositeSha256": "3275be87430e3819758230e40330147adff356db43e6b30c236157aa237b3387",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-standard-dragon-horns.png"
+    },
+    {
+      "body": "golden-retriever-standard-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+      "compositeSha256": "b25edd00653d5c2c4f6fde535dca40267732d76e98fb2257155c4b37af70055a",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-standard-antlers.png"
+    },
+    {
+      "body": "golden-retriever-standard-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+      "compositeSha256": "9850ad01dde8ae6701362e5e172fad5a8e53b1957e65a02c3be874e529f792a9",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-standard-halo.png"
+    },
+    {
+      "body": "golden-retriever-standard-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+      "compositeSha256": "fd3658a1bada31d1b82349b30d7e455dca9359187bc1c2029bae5a46abc8c4be",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-standard-crystal-horns.png"
+    },
+    {
+      "body": "husky-standard-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+      "compositeSha256": "2b9e0e47d854b8fedb0da34f164052544d2ff6bce20b105527c62495b6d3b4bd",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-standard-dragon-horns.png"
+    },
+    {
+      "body": "husky-standard-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+      "compositeSha256": "8540d8821d7e2b83e99d2a28a7a0d36210d63d648d64bd04940e6622e19d6c89",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-standard-antlers.png"
+    },
+    {
+      "body": "husky-standard-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+      "compositeSha256": "fce96eeb0bb6f47e7f594d16803d5b890529abb10d91fca29d1b8e44568023bd",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-standard-halo.png"
+    },
+    {
+      "body": "husky-standard-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+      "compositeSha256": "5e5d7e2eed8898b1e89704645b35eded0775e7cbb10193a0ec227b03ec9ba184",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-standard-crystal-horns.png"
+    },
+    {
+      "body": "dalmatian-standard-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb",
+      "compositeSha256": "58d8f5ae9894a22f08c951d6b3d6af016c313ed198a9150d1d9de71bb9bdb9f0",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-standard-dragon-horns.png"
+    },
+    {
+      "body": "dalmatian-standard-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb",
+      "compositeSha256": "ece32b296fd05ec5de183962455ca50bca572de7b4bb46a2a043b296cc0966e1",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-standard-antlers.png"
+    },
+    {
+      "body": "dalmatian-standard-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb",
+      "compositeSha256": "ecb6911fe2845b14be536439a85abaa2fb72b5f3f5b5a56e648372e31b8fa790",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-standard-halo.png"
+    },
+    {
+      "body": "dalmatian-standard-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb",
+      "compositeSha256": "72ec4584124be38915492795521d2a687ba5ae6658e73e2ea6529b070ca62e91",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-standard-crystal-horns.png"
+    },
+    {
+      "body": "poodle-standard-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+      "compositeSha256": "57c9cb151fd98968eef494c4618a9692660761b63f9bb0f66e533ab18e46eab8",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-standard-dragon-horns.png"
+    },
+    {
+      "body": "poodle-standard-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+      "compositeSha256": "ade97f774a3635927fb94bb7e059fdee4c327075a9527ffc1de51e91ea0761be",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-standard-antlers.png"
+    },
+    {
+      "body": "poodle-standard-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+      "compositeSha256": "6629c732048f4aee15640daa606ecc2c80cdd152b194aa73b8f64292b3887d71",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-standard-halo.png"
+    },
+    {
+      "body": "poodle-standard-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+      "compositeSha256": "45530bf8d14b5bd863d7362991ca864dad7eea50f62eaa7e404ffb68b0aca219",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-standard-crystal-horns.png"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "husky-tongue-tip",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Small pink tongue tip naturally emerges from mouth with no visible teeth; blue glossy eyes, grey-white mask and upright furry ears match family. Single bushy right tail and four paws intact, comfortable margins, clean fine fur edges on dark/light.",
+  "resourceSha256": "9ad90d8869cbc1bf195322c121e8ef88d741209ea6b5071fb182f581ce0a2c77",
+  "evidence": "docs/qa/canine-v1/visual/plush/husky-tongue-tip-review.png",
+  "evidenceSha256": "4580e75598d9995554168b42bab27fd2621f874a5e682d53c8112fb81bf53108",
+  "userArtApproval": false
+}

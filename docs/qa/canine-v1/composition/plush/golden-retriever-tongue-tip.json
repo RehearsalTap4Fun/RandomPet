@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "golden-retriever-tongue-tip",
+  "profile": "golden-retriever-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/golden-retriever-tongue-tip-contact.png",
+  "contactSha256": "41cdff0b07931b8dc2cdf7e65770a4cecae6b136591e758142ca66d9e189755a",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip"
+      },
+      "rgbaSha256": "2ab7878ff04268e25011d128c888efe83c5e3551d9f3c731cc57f6b070033863",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cfe6221cf0c4d601b5262df846ae29ac7ae6b6f7bbc58d2e92c01ec0db67e462"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "d5ceee21f385db01b87dd756d2636addf9051e1821562dedcc6360cda4004d1b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "abfaec317ac77e4e55fd3fb61e19d1f93f52d04fba14f50003698023153853b0"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "5c5b1284ee2f59195e0d7e09aa8df08758841195fc47c2b90b4af38ce7ad8e16",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2c9de5eadae9f256d1629652b8b983eaaa9cf528a5d0949e3edcc3708ec6ae9a"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "f579dcc01b10dc0b3876f1a2aa150ca1bf71885fb4dd4c24b2880bd8a01ec68d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "28f5190b893cf15e238026e1656831e229ee9f628014f6dcc4913d64a4ff86c3"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "87ec3322acc8b0f54ee73d958b856fc875886a1c76a7f6c807eab592ff52833e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7d45a0c20b10d5ffbf6098dfffee174d1862230a92a1a2adff5c5812b9cc4451"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "97e4dfbb1a7e8d50751d0b44d7ddd38e9704a50623ca8f2a334e7c11ccd8eb25",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7716898c5d926d4d3ab5b2e04c8a399dc3105f9a2ba78caeed4174d67a840742"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "478affba1a77aabc538c60ee4a2c1acbb8612631e8636ec3f5bcca70f1a2de0d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8de57ec66f89d3e627a6ee069cbc8a317b5ccfbce701dba7b82d15e02a9c5b70"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "e580771de42cb1b37a040a09826fa92beb2bd5b48fa9c704ac63d92cebaf7488",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d9bfbd50840fbe0b3cb988f7563318a401a2496090a50a76af8d072d7798b4e8"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "0d62a0e98b91f8834f5d1e942dca18050e97d5edd8b7d8479d38084e5c5f7090",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ee5e7b61741a247446fe63b767224f71daae09a0223712f95fd67d69ece90bbb"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "02efcb3697179730ea0498719b8a84914baa6450d2962874e587ed7481cfbd5b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "813a16bd0338ef00bb358bb5b5875c359d94d511eb2a8634ef1071487afdf985"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "3b5ef78019e453f38b41fb2e64ccff110f4c7363f7aac2c66000b19366dafc94",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b8bc3d0aa20dfc451712b96a6faec5cfb703b6a31610dd73ab34c23895d97c08"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "crown": "halo"
+      },
+      "rgbaSha256": "b8e67cfb85299285f0bea23d43165cdca5e90157722f54d79f653d279342d360",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "da6a324f9700768e187eba20ae14499927f6c644aa7ef4e1c1f917d0938f30f8"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "710b0231ae397b9aadb878ab16c231521352d168de3ea00c67c84b9aa2f4db29",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e19fe0943db5007e36ae8a1201575d22814d9826ca3e1788f1d542849484b0ed",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-tongue-tip--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "f808e5a8174eef4e82380ab194146f3af22817fef019013e201bf4dc911634ec",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e010bf90fb89aa4449ef774a05e47fe3a3473ca308089413399a27ad96f375de",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-tongue-tip--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "c655ceb5df36917840be4653423362f8e679c23cb852e0dcf8f83af34be771f7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "851791a7178c8c7fe2004622a22732bf4e1a47cc825989cbb59d6cda0b797947",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-tongue-tip--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "bdc3cef37d81dbb7603c842c7b5bd5407e3e78552f03bc06b2b6022742c33f2e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0abedf2e55c92f4d8a341e582930a29395a06bc7b936184afdd7dbc71fbdcc49",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-tongue-tip--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.784Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/plush/golden-retriever-tongue-tip-696e3ca21880f5b20dccc8f3380e70e575d7588c945236be14e957f1c565cd02.json",
+    "sha256": "696e3ca21880f5b20dccc8f3380e70e575d7588c945236be14e957f1c565cd02",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

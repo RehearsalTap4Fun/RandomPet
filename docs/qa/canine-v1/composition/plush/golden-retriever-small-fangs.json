@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "golden-retriever-small-fangs",
+  "profile": "golden-retriever-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/golden-retriever-small-fangs-contact.png",
+  "contactSha256": "a92f3254827e854e52099db6eba3aec6594aa67e8e1a5e0aad85d5d67daa5f07",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs"
+      },
+      "rgbaSha256": "b639fb7438ecf55c9cc12db9764e66661a76c1c00b0e21ed43acc298eda66425",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9cb289fcd886f56f1a52d5f794b56d07086ef93a65e2c92b35de23769434edae"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "53fa834d2f8452a6af8b5937c75a1aacd500c17a49d9ee254aa01b8335c9a7bf",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3e54a4ffbba93e6c283cf2137d3a00b98f16213f8a0a455a02f4e0ea6bf87756"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "0c5fe0e482c8953bfa824fbe91a5e04ca10462d31957820395f9bb6e48d67d75",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0680f23366d3c29c3e034c9b2f6f8f456a9632d9ded5f983b0f5c3fcfb8fee4e"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "b83b952f4b187faf6b6605615006b7acb5d218f9b63db26cc043af18e622caa2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4053a207156c7de7a7ab30d96a53ae63f1ac42fff1a52d6bf1a97ccbe685516a"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "14f8a26b06c94653b15413cbc8ad98e77baedb342338d24b721f8de6c4782aa4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c00401716cd09c1d6d7dd94d549348b9faa886244c18d5f6148bee5a690af6e9"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "3cff0561a2fbd36b341866ff598dfb7a11cd64674e74c6de1e5cee1a6c97bbf7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "943b32051d62123d68e99a57944e4601dfba3d266eb7c6c21b5324a3024f9fdc"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "0290befe899c16c8c985783b3e95295d84bd46fd2ee6fe42ec2ff9ba890084af",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "569fb6c0690e3c9f5426b3b539c1d55e62d6d707747cd1fdfd7e6d7fb005cf53"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "0ad34c82017950a179a08b3aca4164c3f433cb1da19e1754b24f22ff93aa0431",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "79095076507308bd693d3df7c908f2ea75411ffabed05bf08a078e43f39ba75a"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "e3c5dbe363dc8812afb4ec821fc218947609ba3349df180cd31f0e74cac8d3aa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6aaef9a4b24785fa5da35584b0bc7e7e9bb7e62a762e161f747c242e7a20bf2b"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "a64c92be307a30ab58be282cc827859a1dd1c8fae661dd50e64c148f745c1fa0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e2b142cab994db302534ce92c729870c541fb46198fe426417224ddefb625395"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "85b4581a9a1723da5b893071160c988804fbbebc3a062ed13c3cc382d8ceaf05",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1e2b55e6c34a754f357dc615e4dea6eb71b2fe04ec589587d688851d2615b5f7"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "b19d06c3d8cc86182afad60b7a85e95af507e069ce74fb898bf5f3701bf51834",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c4d4fa6323d63753a7e23f6c3cdc9cdeabf69b92511f02e68406e43f1e25111c"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "a84720768ea96c82f0a16ea714920a2c148baae03d02bb1825bf50adbbcd74c9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0e5a693bfa44c7a2c4af9c2361a3224e199dd2644cff7d893557ab201a0207ae",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "a09b4e68db71aaf219c681b69f7e0f6d45ba408b17ec7545d5bb89a93264950f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "27b3aad9b3980dea0a02816ea05a8f72407874fdc2633ec9a4e827e1348409fd",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "d1c927a2036bbce3b520265f16bfaa0714a288dc8072ee1503060361adbb9562",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b06c4b2ccb758d553f5a117ce2e1700cc2110dc2f5cc7e0d9561857f1c2eccae",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-small-fangs",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "d6bb861100e06473604af670141371384d5f3218d7a7b9cff16cf17628b561cd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2a5079bbe71fb9d4a8415a3369e41980d8ce2591c706b053fcd145d0ee121fa3",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.735Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/plush/golden-retriever-small-fangs-0342940decea041607e68cca4badad568df2b4d736e96ceab58ef70fada13629.json",
+    "sha256": "0342940decea041607e68cca4badad568df2b4d736e96ceab58ef70fada13629",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

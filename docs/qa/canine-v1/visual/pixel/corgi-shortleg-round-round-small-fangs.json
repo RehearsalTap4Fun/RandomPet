@@ -1,0 +1,11 @@
+{
+  "id": "corgi-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Accepted corgi fang mouth transferred cleanly to shortleg mother; two white fang clusters visible. Body proportions/white chest unchanged; all four paws, big ears and short tail clear; light/dark composites clean.",
+  "resourceSha256": "2d76f9507b3e464a34fa63bf581e6432360fa9ae906d29446159002475cd3158",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-shortleg-round-round-small-fangs-review.png",
+  "evidenceSha256": "2d9450a2751a0f7b587ac9a9d83a1bf2efd63de03e70661519662b9fa51080e3",
+  "userArtApproval": false
+}

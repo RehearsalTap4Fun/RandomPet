@@ -1,0 +1,11 @@
+{
+  "id": "poodle-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "双背景下卷毛垂耳、圆眼与浅口鼻清晰；短腿宽胸圆身区别于标准体型，四肢与尾球完整，嘴缝可辨，无裁切。",
+  "resourceSha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-shortleg-round-round-parted-mouth-review.png",
+  "evidenceSha256": "51c96a14d425a2e4fa006783a9e4b89a17cfe7184f4cf4c226bd1ba9c2fc7a87",
+  "userArtApproval": false
+}

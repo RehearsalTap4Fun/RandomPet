@@ -1,0 +1,28 @@
+{
+  "id": "shiba-standard-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-standard-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "f9c004db7900829c02a05038eeb022c9d4a14e39b882966d4b7a4764fc94a0c9",
+  "rgbaSha256": "8e3fec724b80148d126db0617cbb870434ebc1a7c649a6b29049a8f8efa25f5f",
+  "bounds": {
+    "left": 10,
+    "top": 3,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2176,
+    "transparent": 1920,
+    "fractional": 0,
+    "visible": 2176
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending",
+  "acceptedAttempt": "shiba-standard-round-small-fangs-r2"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy lowered almond lids retain brown irises and a relaxed expression; mouth remains tiny parted; short wide seated torso and thick forelegs retained. Both light/dark previews show intact ear/tail contours and clean transparency.",
+  "resourceSha256": "48fc5936295d3c0de30797601f5e23db4eee23e641ddbe95bc14d44ffbd119b0",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "24f01d655e3b93b2bb341801fa3efa15ba146eaca1663cd47d1119837e4bdcd5",
+  "userArtApproval": false
+}

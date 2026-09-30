@@ -1,0 +1,11 @@
+{
+  "id": "husky-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "Reject native export: blue iris colour disappears during 32-colour quantization, unlike required husky blue eyes. Body and two-fang smile pass. Rework eyes to larger saturated blue clusters while preserving round shape and slender body.",
+  "resourceSha256": "6770f7e0b1acffd9d4f58fd58708cac1ccf0b28943c2d6dbe3e2a43decb09372",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-round-small-fangs-review.png",
+  "evidenceSha256": "41ad8cbd35b541e0d1a3745f0fe0b5e89ae8e8d0b9d04d68ba5b44182dd36bb3",
+  "userArtApproval": false
+}

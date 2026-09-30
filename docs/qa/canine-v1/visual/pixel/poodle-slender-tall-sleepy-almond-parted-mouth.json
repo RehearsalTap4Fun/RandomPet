@@ -1,0 +1,11 @@
+{
+  "id": "poodle-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "半睁眼与微张嘴可辨，长腿窄胸形态稳定，杏色卷毛垂耳和尾球保留；深浅背景轮廓完整，脚底未裁切。",
+  "resourceSha256": "b6da3a8868ee1e6828e54eca0bc10f93d7c01b1fdb0ccb998cf18b24df729943",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-slender-tall-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "588178be2ed89e26ca24dd543e2e3f5a3a7b14871e37ba5347c6e9e9494ece74",
+  "userArtApproval": false
+}

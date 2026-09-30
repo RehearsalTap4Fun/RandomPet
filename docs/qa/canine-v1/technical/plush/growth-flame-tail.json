@@ -1,0 +1,27 @@
+{
+  "id": "growth-flame-tail",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/growth-flame-tail.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+  "rgbaSha256": "6dbb7e67b50ef95c6ad9ffeaea470b12c4996a1a61929b6fff591c78542ba8a4",
+  "bounds": {
+    "left": 101,
+    "top": 46,
+    "right": 1206,
+    "bottom": 1195,
+    "opaque": 31,
+    "transparent": 982749,
+    "fractional": 589736,
+    "visible": 557107
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

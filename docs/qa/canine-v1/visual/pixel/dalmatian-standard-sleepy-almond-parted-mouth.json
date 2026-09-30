@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Lowered amber almond eyes remain open and relaxed; tiny parted mouth retained. Major face/ear/body spots track standard mother, floppy ears and slim right tail intact. Four seated paws, transparent margins and clean light/dark contours.",
+  "resourceSha256": "ee6b246c341198ce9d4d1fb185bc398f7514329b2b8433e0b4fb1aa731d9f555",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "9a98c00b2fe6e46c2739b4216a80f33c6465f0fbbb91654e249143a5f05e1c89",
+  "userArtApproval": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "shiba-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-slender-tall-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "0d696903df10bf21484c0a0ba63e05893e10034bece3607175e5ce80c471bedf",
+  "rgbaSha256": "908f68cdc81568c2352257af0b99d2b92113e0e73fb8136adda8e8739b8c82a5",
+  "bounds": {
+    "left": 10,
+    "top": 3,
+    "right": 60,
+    "bottom": 62,
+    "opaque": 1958,
+    "transparent": 2138,
+    "fractional": 0,
+    "visible": 1958
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

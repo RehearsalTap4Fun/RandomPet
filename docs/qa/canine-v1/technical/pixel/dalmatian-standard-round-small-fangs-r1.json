@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-standard-round-small-fangs-r1",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-standard-round-small-fangs-r1.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "10e6f0d78e96e3e8b1ce2b1d47de9b75502153ebd76fc462eeb38bbee355cb3f",
+  "rgbaSha256": "8b6060dd1a0454e9de7977e7ecfc74a0b96103bebb9b5535272b89a7ba46fd1e",
+  "bounds": {
+    "left": 6,
+    "top": 7,
+    "right": 61,
+    "bottom": 61,
+    "opaque": 1962,
+    "transparent": 2134,
+    "fractional": 0,
+    "visible": 1962
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

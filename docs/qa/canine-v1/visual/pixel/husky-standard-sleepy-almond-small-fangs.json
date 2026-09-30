@@ -1,0 +1,11 @@
+{
+  "id": "husky-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy half-open blue eyes and two tooth highlights distinguish both requested attributes at native size. Standard body, erect ears and curled bushy tail retain safe framing; no extra organs or visible alpha artifacts.",
+  "resourceSha256": "6abd3f608975719dccfb86bb106f0d2f1dce8b63f2510fa850efb9a21e8d96eb",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-standard-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "25591133696019bfd8ef780420d9c43f460341d8c4eef58e7ec7ceb7c985d407",
+  "userArtApproval": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-small-fangs-r1",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Rework removes all extra incisors. Exactly two small upper ivory canine tips embedded under furry lip, dark space between, no tongue. Same golden plush identity, pose, four paws and single tail; clean fine alpha on light/dark backgrounds.",
+  "resourceSha256": "e56e257df773720ac3b429140255096904be054979604a946650a389f8bfaae7",
+  "evidence": "docs/qa/canine-v1/visual/plush/golden-retriever-small-fangs-r1-review.png",
+  "evidenceSha256": "a67bf001eea1d1a0c72a0a85d34fcabf9897cd1d849ae93c7d9350d7da1a0456",
+  "userArtApproval": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "poodle-tongue-tip",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "短粉舌尖从口鼻中央自然露出，未延伸为长舌；卷毛垂耳、四爪和尾球与母版一致，深浅背景无明显硬边，留白完整。",
+  "resourceSha256": "93352f549a4d481461b93475fb0466969bc2528c31e49ac6f2c5c0c674df4e5a",
+  "evidence": "docs/qa/canine-v1/visual/plush/poodle-tongue-tip-review.png",
+  "evidenceSha256": "21aa37b87ec61e5918572edd2d841feba8a858bc8e4b8e9ed2584630217c1ad7",
+  "userArtApproval": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "growth-small-lion-mane",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/growth-small-lion-mane.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+  "rgbaSha256": "73b07b45846705fce2c07e42f1a27721c0f3aaf48a2534269c46379a69b3df6d",
+  "bounds": {
+    "left": 16,
+    "top": 190,
+    "right": 1239,
+    "bottom": 1114,
+    "opaque": 1,
+    "transparent": 844083,
+    "fractional": 728432,
+    "visible": 679628
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

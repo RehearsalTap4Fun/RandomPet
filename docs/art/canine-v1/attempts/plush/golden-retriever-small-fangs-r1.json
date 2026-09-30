@@ -1,0 +1,12 @@
+{
+  "id": "golden-retriever-small-fangs-r1",
+  "style": "plush",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-e6045de5-5d92-49fb-92f2-f0a321fb445a.png",
+  "rawPath": "docs/art/canine-v1/raw/plush/golden-retriever-small-fangs-r1.png",
+  "rawSha256": "09cb0e43152b0089a3ff0d6a3b1b145d7d47f1d4dd22d47413887421196d48d8",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. Edit ONLY mouth of this exact golden retriever plush. Preserve all other pixels/geometry: same golden fur, wide round brown glossy eyes, floppy ears, seated body and four paws, one feathered tail on viewer right, exact framing and illumination. Mouth: tiny relaxed dark mouth opening with EXACTLY TWO tiny ivory upper puppy canine fang tips, one on each side, pointing down. The middle between the fang tips is completely dark. ZERO incisors, ZERO lower teeth, ZERO rows of teeth, no tongue. Two teeth total, clearly separated and naturally embedded beneath the furry upper lip; small sweet subtle fangs rather than a broad grin. Keep mouth width close to the reference tiny mouth. Premium 3D plush fur. 1254x1254. Genuine transparent alpha background, preserve fine fur edge. No floor, shadow, text or accessories. Do not recenter, resize or crop.\n",
+  "visualReview": "pending"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "corgi-tongue-tip",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/corgi-tongue-tip.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "ceab6c2a9f32a37056ea2ce5752672cacd11d52cfccdf84ce3b09b77b69eda6e",
+  "rgbaSha256": "5aad22e097dfd20244bd0a7423a5baea0549d1015b7d2a82dedbe5f71420fedf",
+  "bounds": {
+    "left": 214,
+    "top": 22,
+    "right": 1172,
+    "bottom": 1239,
+    "opaque": 20,
+    "transparent": 747879,
+    "fractional": 824617,
+    "visible": 794998
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

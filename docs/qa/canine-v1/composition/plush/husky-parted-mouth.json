@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "husky-parted-mouth",
+  "profile": "husky-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/husky-parted-mouth-contact.png",
+  "contactSha256": "d65e3a2b239de3ff01879c0e5cd86e972cc95880dd0e0ef3d837b25b040403e7",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "husky-parted-mouth"
+      },
+      "rgbaSha256": "2c45a17e8d27465f2726f5768d7ca0a9cf0f77ed6925825507d80e472536a4b6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6bf8bab889180493c647f1d8fbb4b8c99909bc7e574c10a8748d782ec14a517b"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "347b6f50fef02c19a430325604a414b84a38ef65df33a93e80104d8714b3caf4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d31062385d369b25ec827a4017239def121eb4196bb9803a962641353fd88819"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "9bf28cf220a62fb37a0bda1b19d5f8080afa9f8399ad02057498e870979d2389",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a0c85f05242f71a0e13ca78e03e7d09aa8eb37c1b4ba6c86d12a1b2f130a0a9d"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "3356b674c20e3169a0c16e40170bacdc5cdf98142abb8861612554a6393e45af",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6baadf8505ab973b97a2ca8eaa37c84b0cddee088da8e78e66332398fb3a786e"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "0c17e5c220079813be1a29af07434f6a1797e532ec3edd87a26eecd4f016c3f1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0dc791af0cc2c6f481a614f951793b4d0664f2249b75e1d3c894d65f0f98f4c1"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "560e26ef832dc35fcd3720854346ab2bcdc03f9372a562f2a2d544e2fe0689d9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "db6d67c9bcc3121eaf08845f4a97dd10d3d7b106b295c8a3d129a6dbed690b78"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "4bdcb2618cd4b8e9d6bebc1d61855634c1c467d1d2f8dcec3bf5ed4250bfb201",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a81d31f86e149667ff24aafaaddf647ff746f0e15cec630e790c8d63079f2024"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "cc16d480f45b96001c284db062bffb1679445086bdb58e0ea5d2c0b2f4016b06",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d8ed0222cf08b224bae39f5d666acb4b07b78b9cf6f591797bf7a4c5094e7763"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "68700374c59bad1f7af0b55bf1d534b6efa25d3b857093097a77234547401761",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "59dfb386919c77b1ee30d19b4f930104fba801061584526898c1658ec5c60aa2"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "fb4c41c858ae2c97d676535c88039406d518fd2498502e8d4a966b786d83f77d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8e66ac40a3fbe19f5f08ce72fff6a46245ea774767baaf563b33e7c4a5cb0bd1"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "1a293a66e777fc4e978dcecf66393b8a0258d3f8fdc590e9a894a01bded1c65f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "00ef1af26e5be1c7a3b8eb0ca10d59129b6c3b40d9fa32bfe3e777a6ee81bdb9"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "5481be6c84e553ea2730d2ddb4b2e639b7345bafb3bd482b492e70d85e1fe3b1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "03d4a7d7c32d328838dd3fb079f120d54a252d20485fa11962a6df1b9773145f"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "e9b349241e0a84f8bdf0b9a024da071aa702301d1aad8d9bcba5f214036aa5ac",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0805e9a1cd8e64229bb0b1eecf5fc1d850109c08866c18d7ed5a37bf83b74396",
+      "path": "docs/qa/canine-v1/composition/plush/husky-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "6468043dc037877a10e5e192df6afc7ca15de57b1e3a75d957297bf6a7159b48",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c8673c30feb903d86fc8ba939d9eb8a5e2dcc4b2e6980f6250c2e804954dcda1",
+      "path": "docs/qa/canine-v1/composition/plush/husky-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "b6461e24453450fc0f1a16078ea44fad702ea8596443a046a78b5b7cb06119a7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "596b66023c3eefe03b32c4ed040c44df10f5eefbe9fe67ac5f7205827c89215d",
+      "path": "docs/qa/canine-v1/composition/plush/husky-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "husky-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "f8416be94b71d4bba28973dc3519b9bc181b7fbd92df4ac4056245edd68c4731",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ae6f497f10327b1d96b832f639fadf5aa10861e6939199ad30465c1e8a854ea8",
+      "path": "docs/qa/canine-v1/composition/plush/husky-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "哈士奇面罩与蓝眼保留；颈部下移到实际下巴后，原灰色卷尾已清除；各体型与表情未被成长部件遮挡。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:32.831Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "fin-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/plush/husky-parted-mouth-3f20c87ebe4ebb3953eec2da9f9121730df8f873122275fca359c44fc76ec2e6.json",
+    "sha256": "3f20c87ebe4ebb3953eec2da9f9121730df8f873122275fca359c44fc76ec2e6",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "husky-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-standard-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "55b9856c58ea5f21d2bca72ac1d0b1ffffc025e33f1679ab2d2655117b611b6c",
+  "rgbaSha256": "965edfc7aa88e01a8926b08de9d48782bc91f0bc13dce611a3821dee9c47aff8",
+  "bounds": {
+    "left": 14,
+    "top": 7,
+    "right": 58,
+    "bottom": 59,
+    "opaque": 1597,
+    "transparent": 2499,
+    "fractional": 0,
+    "visible": 1597
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

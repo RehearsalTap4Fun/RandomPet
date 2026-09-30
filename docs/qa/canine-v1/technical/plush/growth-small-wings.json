@@ -1,0 +1,27 @@
+{
+  "id": "growth-small-wings",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/growth-small-wings.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+  "rgbaSha256": "8adb19ff88b274d95fc08fc4b9ec6680c81d2431a00ec45b8a7386b3f40f34ad",
+  "bounds": {
+    "left": 45,
+    "top": 368,
+    "right": 1208,
+    "bottom": 920,
+    "opaque": 1,
+    "transparent": 1189731,
+    "fractional": 382784,
+    "visible": 355873
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

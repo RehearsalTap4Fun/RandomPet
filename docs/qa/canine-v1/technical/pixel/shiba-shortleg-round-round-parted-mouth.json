@@ -1,0 +1,27 @@
+{
+  "id": "shiba-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-shortleg-round-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+  "rgbaSha256": "cf861660434965ec81d2fcd8cac375acbdf6de5b7bbfbda087c7c68687960ffd",
+  "bounds": {
+    "left": 10,
+    "top": 3,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2217,
+    "transparent": 1879,
+    "fractional": 0,
+    "visible": 2217
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

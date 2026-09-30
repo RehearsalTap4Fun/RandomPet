@@ -1,0 +1,39 @@
+{
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "sha256": "3ff373f62570aaf7f2ad7f1d03ee12b4606dd862c212a76e5ac52c58561061da",
+  "reports": [
+    {
+      "id": "poodle-parted-mouth",
+      "contactSha256": "616bdd50451179d9270e7da2c4de654645a5ed9a5a724371cb34a99b5f727fd5",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "poodle-small-fangs",
+      "contactSha256": "856de1ebe9adc062d813af72b2a8c02fcf6af107f49fa6ae68bda9f4025c8b7c",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "poodle-tongue-tip",
+      "contactSha256": "c5a00f59300ce88a81a4f35ffc4c898193478011f2860414bfecefc60f1180f5",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

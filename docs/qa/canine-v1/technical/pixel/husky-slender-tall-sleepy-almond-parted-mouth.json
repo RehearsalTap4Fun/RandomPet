@@ -1,0 +1,27 @@
+{
+  "id": "husky-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-slender-tall-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "acb43e8dd4bea9021a2a20b73a076843bd874dbcca81e5d2a0c17002a5ff07fe",
+  "rgbaSha256": "3e54b62f5bd3349359eabce21225bccbfed6f6c7725d531c7f525b9e6080b559",
+  "bounds": {
+    "left": 14,
+    "top": 7,
+    "right": 58,
+    "bottom": 62,
+    "opaque": 1570,
+    "transparent": 2526,
+    "fractional": 0,
+    "visible": 1570
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

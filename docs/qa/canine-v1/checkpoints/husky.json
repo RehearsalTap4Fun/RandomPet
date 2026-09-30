@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "canine-production-checkpoint-v1",
+  "scope": "husky",
+  "status": "checkpoint-passed",
+  "goalComplete": false,
+  "bodyCounts": {
+    "planned": 90,
+    "reviewed": 60,
+    "verifiedHere": 15
+  },
+  "remainingBodies": 30,
+  "partsStatus": "not-yet-produced",
+  "claudeNotified": false,
+  "checks": [
+    "file-and-rgba-hashes",
+    "review-evidence-hashes",
+    "original-generation-provenance",
+    "real-alpha-and-size",
+    "unclipped-visible-content",
+    "distinct-variant-content",
+    "pixel-128-exact-nearest-neighbor",
+    "max-three-reworks"
+  ],
+  "rows": [
+    {
+      "style": "pixel",
+      "id": "husky-standard-round-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+      "acceptedAttempt": "husky-standard-round-parted-mouth-r1",
+      "sourceSha256": "ec418d35be4df57907fa2e0b7ec1763f19f56ab32486cc009d4f64313f6b834d",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-standard-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-standard-round-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "c51278314b59593e3ad2f3df20da7ea5a1d9c06691ee0debaf8e2e64cfa40af9",
+      "acceptedAttempt": "husky-standard-round-small-fangs",
+      "sourceSha256": "e5a62f00fdc3f486ca8787038db22702b86d7309ceb0a0d05c8745048bdfec5c",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-standard-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-standard-sleepy-almond-parted-mouth",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "55b9856c58ea5f21d2bca72ac1d0b1ffffc025e33f1679ab2d2655117b611b6c",
+      "acceptedAttempt": "husky-standard-sleepy-almond-parted-mouth",
+      "sourceSha256": "5a0d4626b6db1695c3e8e38bf00e697129217e301c37599563699dbf25f21e05",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-standard-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-standard-sleepy-almond-small-fangs",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "6abd3f608975719dccfb86bb106f0d2f1dce8b63f2510fa850efb9a21e8d96eb",
+      "acceptedAttempt": "husky-standard-sleepy-almond-small-fangs",
+      "sourceSha256": "155a98072dcac45cbc25c399474a35f1866fa3d18f17c96b8e7280af2dacaf7d",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-standard-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-shortleg-round-round-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+      "acceptedAttempt": "husky-shortleg-round-round-parted-mouth",
+      "sourceSha256": "6be0b2b387405a4115872d6e0123630bc82c816598f0e9ede6ff144242031b9c",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-shortleg-round-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-shortleg-round-round-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "d016505b310571b546374d02e4956c359f9d522659e00827e4c70ebed6eec73f",
+      "acceptedAttempt": "husky-shortleg-round-round-small-fangs",
+      "sourceSha256": "9017dd06e8d8b4ebfd315490f741c8d0052c109e9c458aa85b19f0fc8771b068",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-shortleg-round-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-shortleg-round-sleepy-almond-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "1acc07af00ade7818fd4da0562e4a73fcdd605e646ade0b04ffd85bb6824e84c",
+      "acceptedAttempt": "husky-shortleg-round-sleepy-almond-parted-mouth",
+      "sourceSha256": "7b27cb1bb266ecf3a972f9a1ab71fe2984c39f8d94b56ab6da5bd165d7860be7",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-shortleg-round-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-shortleg-round-sleepy-almond-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "2237a521362e22bfd35656820e2522e544f20a706a2ce1490661a62b17c4266d",
+      "acceptedAttempt": "husky-shortleg-round-sleepy-almond-small-fangs-r1",
+      "sourceSha256": "debd6318b0c53f1f532ed6287818ba17d3efbcf1797b4ea71138637166bc2161",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-shortleg-round-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-slender-tall-round-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+      "acceptedAttempt": "husky-slender-tall-round-parted-mouth",
+      "sourceSha256": "bc9e5aebc8047c7ec844ad7822f0846a2ea81fdfbb43c95c521cac10aa932248",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-slender-tall-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-slender-tall-round-small-fangs",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "abe930efd8adce8e721f5ea5e96c133a5d454713ee257ea521f53da18283f6a9",
+      "acceptedAttempt": "husky-slender-tall-round-small-fangs-r1",
+      "sourceSha256": "3e545ec817a6a430e788a7d89f5be29d6cdb8ab97a8be9252b862476b45ad5ae",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-slender-tall-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-slender-tall-sleepy-almond-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "acb43e8dd4bea9021a2a20b73a076843bd874dbcca81e5d2a0c17002a5ff07fe",
+      "acceptedAttempt": "husky-slender-tall-sleepy-almond-parted-mouth",
+      "sourceSha256": "e92f4b3aab20a67b4e72090706cc7806a4f465d57cf126c0aca38e14b34c81cb",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-slender-tall-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "husky-slender-tall-sleepy-almond-small-fangs",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "040448a7538bb1572e9a52ae4f730512ae576b26a66a0ed361345a62cd3bc7e1",
+      "acceptedAttempt": "husky-slender-tall-sleepy-almond-small-fangs",
+      "sourceSha256": "b87ffd5b87ce259719eed337aa333e829a37c5dfdd3b6bef77d2deccef87c9f2",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-slender-tall-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "husky-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "076a7a01912909a6cb6c1a9bf611074ba5c81587b6f8298d93feae4ed2a7c658",
+      "acceptedAttempt": "husky-parted-mouth-r1",
+      "sourceSha256": "e14cc12dcc3406d2250e073698bc1724e6bfb279e9e26454188027098c86273c",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/husky-parted-mouth.png"
+    },
+    {
+      "style": "plush",
+      "id": "husky-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "29a5e416547d22de56caf61922bec4b69d0ab9906e105d0c9faf20a988ccc32f",
+      "acceptedAttempt": "husky-small-fangs",
+      "sourceSha256": "1a377463c5c28643f1fe4d2c741ac6d496310b8f614f7c3bc0d538ce0a817b50",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/husky-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "husky-tongue-tip",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip",
+      "sha256": "9ad90d8869cbc1bf195322c121e8ef88d741209ea6b5071fb182f581ce0a2c77",
+      "acceptedAttempt": "husky-tongue-tip",
+      "sourceSha256": "a7d7bd395204912a5f0d50210a07132bdd854d59747042ec4ff0dc19c9d36dc9",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/husky-tongue-tip.png"
+    }
+  ]
+}

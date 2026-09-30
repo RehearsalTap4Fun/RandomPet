@@ -1,0 +1,11 @@
+{
+  "id": "growth-fin-ears",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "一对青绿鳍耳，三根深青骨架与浅色膜面可读，内侧浅绒耳根完整，透明中缝干净；左右需独立配准，替换遮罩另审。",
+  "resourceSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-fin-ears-review.png",
+  "evidenceSha256": "2f6dc985bd4b17f2a2b920789a37414df4950385f0301bd2984338717838d3bd",
+  "userArtApproval": false
+}

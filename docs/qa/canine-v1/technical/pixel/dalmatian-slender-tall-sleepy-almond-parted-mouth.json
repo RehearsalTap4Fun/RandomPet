@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-slender-tall-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "d018fc4b332c99ac3f611e97cb578acec773cd015c8f74fb6a4c4e1b993b7e09",
+  "rgbaSha256": "82a4a7584369fc98d519aa633ac603c8056df2a5c4c10721ff75eba3d298fb90",
+  "bounds": {
+    "left": 5,
+    "top": 7,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 1751,
+    "transparent": 2345,
+    "fractional": 0,
+    "visible": 1751
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

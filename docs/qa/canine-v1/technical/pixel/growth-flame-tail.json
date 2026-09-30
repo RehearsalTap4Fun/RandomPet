@@ -1,0 +1,27 @@
+{
+  "id": "growth-flame-tail",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-flame-tail.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "8d1a252b8790710d9665f736c678ef53957bce63434dbafcf9ab3bc161c0959d",
+  "rgbaSha256": "aafe4860dd83a5e779d3b422a09fba698767bf13e89a4fc9b70473e5a7c73cf3",
+  "bounds": {
+    "left": 8,
+    "top": 5,
+    "right": 61,
+    "bottom": 60,
+    "opaque": 1288,
+    "transparent": 2808,
+    "fractional": 0,
+    "visible": 1288
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "shiba-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Visibly broader rounded belly and seated haunches, short forelegs partially covered by deeper chest; distinct squat silhouette versus standard. Head/ears/tail identity and paw baseline retained, round eyes and parted mouth readable. Light/dark edges clean.",
+  "resourceSha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-shortleg-round-round-parted-mouth-review.png",
+  "evidenceSha256": "947bef955c3f13bdb18c9d6d9ca65ba8ea587b4c4a424fb5b09a33c3360fcac8",
+  "userArtApproval": false
+}

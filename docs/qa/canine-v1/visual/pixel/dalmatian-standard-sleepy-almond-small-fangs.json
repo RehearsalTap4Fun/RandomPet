@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Half-open amber eyes and two clearly separate pale fang clusters survive native64px; broad dark smile matches accepted fang reference. Dalmatian spot identity, floppy ears, standard body and thin right tail retained; no clipping or alpha artifacts.",
+  "resourceSha256": "16a06ac88f8533a8785a2e6e32c188748539369b5d612bba4b8906d2942f02cb",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "62b524cb92ce597ec3c8fea8a75ae3effb4acb512d98feba8e3f1fbd65230eaf",
+  "userArtApproval": false
+}

@@ -1,0 +1,39 @@
+{
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "sha256": "d26d3de62925a4de78783e02599336ca7c9f63102ff479420722b95943795e97",
+  "reports": [
+    {
+      "id": "husky-parted-mouth",
+      "contactSha256": "d65e3a2b239de3ff01879c0e5cd86e972cc95880dd0e0ef3d837b25b040403e7",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "husky-small-fangs",
+      "contactSha256": "e6e905496a78d9528f29da4fcb1a47176ee64f623f0a45dd9ab4d8dd687da662",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "husky-tongue-tip",
+      "contactSha256": "d083979f5eb3e3525856b2bd980581a74b31a9f334b2afb04989168cd02e5caf",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

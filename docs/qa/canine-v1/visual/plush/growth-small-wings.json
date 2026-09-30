@@ -1,0 +1,11 @@
+{
+  "id": "growth-small-wings",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "乳白短绒小翼成对完整，圆羽瓣与内侧翼根自然相连，透明中缝保留，深浅背景柔和边缘无底板。配准另审。",
+  "resourceSha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-small-wings-review.png",
+  "evidenceSha256": "4acf4a8823ad7d8f843f525e33c752b0f22ff7e924329ee4e4ec94103ef2af77",
+  "userArtApproval": false
+}

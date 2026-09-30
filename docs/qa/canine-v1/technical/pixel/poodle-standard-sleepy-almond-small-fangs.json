@@ -1,0 +1,27 @@
+{
+  "id": "poodle-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-standard-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "89e4fbe360c32b4a1c6f8098e08f82cdc90acd508c39be897118c029248d074c",
+  "rgbaSha256": "920ed64ccbf9b400b42dabdb608d31e2ebe1f6b1ddd35faa1f0fce5bb7c04c15",
+  "bounds": {
+    "left": 5,
+    "top": 4,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2191,
+    "transparent": 1905,
+    "fractional": 0,
+    "visible": 2191
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

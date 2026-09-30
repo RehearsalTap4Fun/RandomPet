@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "canine-delivery-replay-v1",
+  "decision": "pass",
+  "files": 522,
+  "deliverySha256": "dfaec5f74107bddb397d6b2e25027434f5cde24bee3f1d572ea76e81609f58c9",
+  "styles": {
+    "pixel": {
+      "revision": "a19f005d23a80f835f35e9caa7b8e5a0effe3205bee1aa6d902bbfd56ac83c3e",
+      "fixturesPassed": 1512,
+      "resources": 414
+    },
+    "plush": {
+      "revision": "b2614db640b5cce6d32ab9568ca134b0318889be5b352ed81427d0120ea66994",
+      "fixturesPassed": 288,
+      "resources": 102
+    }
+  }
+}

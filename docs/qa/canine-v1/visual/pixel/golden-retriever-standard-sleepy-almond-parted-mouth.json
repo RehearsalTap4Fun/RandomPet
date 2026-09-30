@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Both lowered lids and smaller visible irises read as sleepy at 64px; natural parted mouth retained without protruding tongue; floppy ears, four paws and single tail intact on light/dark.",
+  "resourceSha256": "9e29a2340c3d3c43d75bee91fb25e59c23ec46e855c987d06d91c0521f907f2f",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-standard-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "268226750920a56bd00c7480c29a878276bc17771cecde235a7e2ca571337b84",
+  "userArtApproval": false
+}

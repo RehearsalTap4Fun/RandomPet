@@ -1,0 +1,11 @@
+{
+  "id": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "半睁上眼睑与下方眼色块区别于圆眼；短腿圆身、卷毛垂耳及尾球保持，嘴缝可辨，深浅背景轮廓干净完整。",
+  "resourceSha256": "b555cb81429517e403bc223d54e4ef86ad63eb9f22d43297f9266c4bbeb0b312",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "5d909942643ce5de3da86a700691ffdefcac3b5a930496a29bfff840c5424a4f",
+  "userArtApproval": false
+}

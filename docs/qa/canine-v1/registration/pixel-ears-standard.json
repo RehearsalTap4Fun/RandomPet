@@ -1,0 +1,1595 @@
+{
+  "status": "pending-visual-review",
+  "records": [
+    {
+      "body": "shiba-standard-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "f5ab67b66422c460ec28159247f9e177245c2024ff489e69c7f0a498e87da029",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-standard-fin-ears.png"
+    },
+    {
+      "body": "shiba-standard-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "f0d9d760ab1bbdb517dd2f8ba4a4fa4b4809f4130061f255a184623a63c97e71",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-standard-feathered-ears.png"
+    },
+    {
+      "body": "shiba-standard-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "23b69a2ffd5ae6ea8f25f1b4bb21454e56ec5ce4c46d5da993a7b2eaaf7ce12a",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-standard-celestial-ears.png"
+    },
+    {
+      "body": "corgi-standard-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "2aa68110a438dcb73c5c7766d8827d76dbf250852e411d21f686ade9dcc7ab8b",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-standard-fin-ears.png"
+    },
+    {
+      "body": "corgi-standard-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "c814b03a49401448a13a4f0c9db9ff8273719d653e8de18b8ee384657aabaa03",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-standard-feathered-ears.png"
+    },
+    {
+      "body": "corgi-standard-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "7b6fef1d2cbba99b0a860c34e91480bb764c0cf4f39cf3307aedf788dcbb374c",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-standard-celestial-ears.png"
+    },
+    {
+      "body": "golden-retriever-standard-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              24
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              20,
+              34
+            ],
+            [
+              0,
+              36
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              29
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              42,
+              36
+            ],
+            [
+              40,
+              30
+            ],
+            [
+              41,
+              22
+            ],
+            [
+              40,
+              16
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 9,
+            "width": 16,
+            "height": 24
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 16,
+            "height": 24
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "5e4dcac9d77fcf7375dba25bc0410ed3d6582510c4f94487d2a675e2ad017ef9",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-standard-fin-ears.png"
+    },
+    {
+      "body": "golden-retriever-standard-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              24
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              20,
+              34
+            ],
+            [
+              0,
+              36
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              29
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              42,
+              36
+            ],
+            [
+              40,
+              30
+            ],
+            [
+              41,
+              22
+            ],
+            [
+              40,
+              16
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 9,
+            "width": 16,
+            "height": 24
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 16,
+            "height": 24
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "9e66454ebc4a6bc9c9b1afc321b27b47d2af53114487b548f08c5fbf8f8a1192",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-standard-feathered-ears.png"
+    },
+    {
+      "body": "golden-retriever-standard-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              24
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              20,
+              34
+            ],
+            [
+              0,
+              36
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              29
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              42,
+              36
+            ],
+            [
+              40,
+              30
+            ],
+            [
+              41,
+              22
+            ],
+            [
+              40,
+              16
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 9,
+            "width": 16,
+            "height": 24
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 16,
+            "height": 24
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "bc6853fa7afecb723c000673c1049db85817f8434d57252f50a6c0d2bbcd5e76",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-standard-celestial-ears.png"
+    },
+    {
+      "body": "husky-standard-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "e38694374410e973f58f40cc0b3aa48e3dafa03d7421ad9022715e45d43a8ac8",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-standard-fin-ears.png"
+    },
+    {
+      "body": "husky-standard-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "dd96748eae65bd63de97c2941f6ebfc0e7f1ade9c3eb4e82e4a8e3fbf2af87a8",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-standard-feathered-ears.png"
+    },
+    {
+      "body": "husky-standard-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "8ba6434cf2cbf97553b8a9827af47300e5b4c6e11efab67c0fb20f8f0b6a2643",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-standard-celestial-ears.png"
+    },
+    {
+      "body": "dalmatian-standard-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "fee620c6923d2901dcbecc278b124a5eedf1f6ad2332d4e56551399cbfdabc29",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-standard-fin-ears.png"
+    },
+    {
+      "body": "dalmatian-standard-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "685b8b002f8c6b9412496a3244e50c884d4042a0c799dfafb362571c5af23e74",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-standard-feathered-ears.png"
+    },
+    {
+      "body": "dalmatian-standard-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "f1ccaa9c2ca55aeda0d94645be3fe2fc26269302c44c3ab058e58e6838b526e6",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-standard-celestial-ears.png"
+    },
+    {
+      "body": "poodle-standard-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "44cede56a7ab27db0f7ac8b9f1182278553544fbece236276b61c0ff815d7918",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-standard-fin-ears.png"
+    },
+    {
+      "body": "poodle-standard-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "83db5ce37d312f7cfdbd7abe3b878ee99b4c96922ac12944e55aa434b0ebbe40",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-standard-feathered-ears.png"
+    },
+    {
+      "body": "poodle-standard-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "91849869f8c965338f80ce54f4b7b65080ffce06f9787ad51549bfefc75a6050",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-standard-celestial-ears.png"
+    }
+  ]
+}

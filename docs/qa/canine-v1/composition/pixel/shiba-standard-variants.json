@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "c1d5384a6e948aff2ae5660106118c412e77f34bef907de256635c4ef175861d",
+  "reports": [
+    {
+      "id": "shiba-standard-round-parted-mouth",
+      "contactSha256": "5453fc4d4a67690e0daa8eefbc003a1dcab8d151f632795d6c40fb4b744fd769",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "shiba-standard-round-small-fangs",
+      "contactSha256": "578934e2ef782b838c4f34f3fecfff47475bb0f2570841b1cb2d4b6265cd7b97",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "shiba-standard-sleepy-almond-parted-mouth",
+      "contactSha256": "a7eae04704160795ff0dc56b75fc5bb2a3ce61cdebf94e0a2fabfacedeb89d63",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "shiba-standard-sleepy-almond-small-fangs",
+      "contactSha256": "549c3e677646dc31362900b6bd6a0626a8ab8c7881518d10eea390b0b906b528",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

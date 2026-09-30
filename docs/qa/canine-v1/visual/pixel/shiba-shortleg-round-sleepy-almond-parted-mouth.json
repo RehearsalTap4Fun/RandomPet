@@ -1,0 +1,11 @@
+{
+  "id": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Half-closed almond eyes distinguish sleepy expression, parted mouth retained; rounded shortleg body matches its accepted mother, head/tail placement stable, no clipping or fringe in either background.",
+  "resourceSha256": "5ea1196264062f6e93a90955e3f364759814a618214f2aec3881a9b905ecf776",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "7c4d6976c7d4b37c8bf125e297622807111918ed204d672807be6c6584465b85",
+  "userArtApproval": false
+}

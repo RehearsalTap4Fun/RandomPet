@@ -1,0 +1,12 @@
+{
+  "id": "shiba-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Mouth copied from accepted standard r2, two separated ivory tips remain visible at 64px. Shortleg template belly/haunch width restored without further widening; same round eyes, ears and curled tail; clean light/dark composites.",
+  "resourceSha256": "047874a31c037bbb003c67679aa41e2e05a160b5a2158e0f52fa98f0ca7a873d",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-shortleg-round-round-small-fangs-r1-review.png",
+  "evidenceSha256": "6fc61a3463b52e9b92333a83606c912c2b8212625bd975e2aba3bc2335a783a8",
+  "userArtApproval": false,
+  "acceptedAttempt": "shiba-shortleg-round-round-small-fangs-r1"
+}

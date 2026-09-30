@@ -1,0 +1,27 @@
+{
+  "id": "corgi-shortleg-round-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-shortleg-round-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "8d9d1230d341206e0ff6ef03fdf6b7ff05985641f907ae7922615fd602085d85",
+  "rgbaSha256": "6bee643c3eb194a26226c6ac8961b2af36b3962a7a7676cd8c9a84624904d71e",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2242,
+    "transparent": 1854,
+    "fractional": 0,
+    "visible": 2242
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

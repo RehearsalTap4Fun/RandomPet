@@ -1,0 +1,11 @@
+{
+  "id": "corgi-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy lowered eyelids and two fang clusters distinguish both requested attributes at 64px; slender body/long legs match mother. Corgi blaze/ears/short tail intact, no cropping or background contamination in light/dark previews.",
+  "resourceSha256": "7134f41697a0c8240cf934e73862446666388f008205809ee5ff7154da816eb5",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-slender-tall-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "38e2d9ec2fa733a19337db8c5f19109eec3f6e470d97b31387612ca0fd40e966",
+  "userArtApproval": false
+}

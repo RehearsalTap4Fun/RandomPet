@@ -1,0 +1,11 @@
+{
+  "id": "growth-halo",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "金色椭圆光环连续，内孔真实透明，柔和高光与阴影清楚；双背景无不透明底板，无支架和粒子。配准另审。",
+  "resourceSha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-halo-review.png",
+  "evidenceSha256": "a9d036f569ff02aeb35a197f01fe3b559fc3d8e0a4c02796c209d75bffc88efc",
+  "userArtApproval": false
+}

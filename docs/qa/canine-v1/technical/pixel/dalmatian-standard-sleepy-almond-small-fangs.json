@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-standard-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "16a06ac88f8533a8785a2e6e32c188748539369b5d612bba4b8906d2942f02cb",
+  "rgbaSha256": "147cbfff8c30963eb17df3cb967601bedec4c9fa902980aad0b5e77d194f682d",
+  "bounds": {
+    "left": 5,
+    "top": 7,
+    "right": 61,
+    "bottom": 61,
+    "opaque": 1972,
+    "transparent": 2124,
+    "fractional": 0,
+    "visible": 1972
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

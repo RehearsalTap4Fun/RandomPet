@@ -1,0 +1,28 @@
+{
+  "id": "golden-retriever-small-fangs",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/golden-retriever-small-fangs.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "e56e257df773720ac3b429140255096904be054979604a946650a389f8bfaae7",
+  "rgbaSha256": "6fceb1b54141857c6c041e298ffc5444bb7f7fd565e337e98611d1b9c9ea3a0e",
+  "bounds": {
+    "left": 105,
+    "top": 67,
+    "right": 1237,
+    "bottom": 1224,
+    "opaque": 64,
+    "transparent": 665681,
+    "fractional": 906771,
+    "visible": 867298
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending",
+  "acceptedAttempt": "golden-retriever-small-fangs-r1"
+}

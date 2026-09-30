@@ -1,0 +1,11 @@
+{
+  "id": "corgi-parted-mouth",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Distinct corgi identity: large rounded upright ears, broad central white blaze, broad dog muzzle and short fluffy tail. Plush fur/lighting match approved style. Natural parted mouth with dark reddish interior, no protruding tongue or teeth; full anatomy and transparent edges retained.",
+  "resourceSha256": "ad3617c806310cb2477daddd776af8a420c34e9f7f815b3f65d4bc9d4cde7b80",
+  "evidence": "docs/qa/canine-v1/visual/plush/corgi-parted-mouth-review.png",
+  "evidenceSha256": "47a6b5ac81ddde03af5acd38a2e01612258c45a7202f390167145127fe04d9ae",
+  "userArtApproval": false
+}

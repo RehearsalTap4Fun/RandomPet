@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-standard-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "ee6b246c341198ce9d4d1fb185bc398f7514329b2b8433e0b4fb1aa731d9f555",
+  "rgbaSha256": "c48136c1604b911c7e8a2811985c405885a9c0580ec6118bb223740ed1e2fff3",
+  "bounds": {
+    "left": 6,
+    "top": 7,
+    "right": 61,
+    "bottom": 61,
+    "opaque": 1954,
+    "transparent": 2142,
+    "fractional": 0,
+    "visible": 1954
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

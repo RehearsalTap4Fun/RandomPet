@@ -1,0 +1,11 @@
+{
+  "id": "growth-frill-neck",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "右侧轮廓触及画布边界，技术 noClipping 失败；膜面较像分离宝石，需要增加透明留白并强化连续有机颈褶。",
+  "resourceSha256": "f93ae0d6b44a5aa8d83207f9fa31b86130a6d55eaa06650c9672bfaf54f6a209",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-frill-neck-review.png",
+  "evidenceSha256": "62dc90d16ef2f08423c256d35d4a053906242449dda1eeb57097e1ad2bdc05d5",
+  "userArtApproval": false
+}

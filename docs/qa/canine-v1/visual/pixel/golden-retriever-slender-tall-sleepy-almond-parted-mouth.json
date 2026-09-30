@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Lowered eyelids with brown iris pixels read sleepy rather than closed; natural mouth remains visible. Long forelegs, narrow hips and floppy ears match slender base; full single tail and four paws stay within transparent margins.",
+  "resourceSha256": "e45485f5f39d5503b58b3f2f367820e9b4947f85bc352497ebbde9d4089c9887",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "cf4d8b3f32101b256c023066c2006201940eac4e78d852488c90b3b7842ab7aa",
+  "userArtApproval": false
+}

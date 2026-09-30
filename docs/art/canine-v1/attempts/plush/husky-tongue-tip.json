@@ -1,0 +1,12 @@
+{
+  "id": "husky-tongue-tip",
+  "style": "plush",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-fe0c0d41-5d8b-480c-b560-4a1b48505fa6.png",
+  "rawPath": "docs/art/canine-v1/raw/plush/husky-tongue-tip.png",
+  "rawSha256": "a7d7bd395204912a5f0d50210a07132bdd854d59747042ec4ff0dc19c9d36dc9",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. ONE production dog sprite. Image 1 is EXACT identity/registration reference. Preserve the same breed, coat distribution, ears, nose, tail, head size, canvas placement and lighting.  Only change the explicitly requested eye/body/expression attributes. Subject: Siberian husky puppy, slate grey-black back and ears, white cheeks/chest/paws, symmetrical characteristic dark forehead cap and white face mask, erect ears, ice blue eyes, black nose, single bushy curved tail on viewer right. Style: Premium 3D plush toy character, detailed soft fur fibers, glossy expressive eyes, same upper-left studio illumination as reference, delicate fur edge on real transparency. Output 1254x1254 square. Body: KEEP EXACTLY the reference body silhouette, proportions, width, leg lengths and paws; already correct standard. Do not widen, slim, stretch or shorten it. Eyes: preserve the reference eyes exactly, including shape, glints and coordinates. Mouth: Natural small relaxed open mouth, with a short soft pink tongue tip emerging slightly. No visible teeth. Tongue integrates with 3D mouth anatomy, not a sticker. Front-facing sitting pose, whole dog within frame, eye line around y34%, paw baseline y95%, head center x44%, tail on viewer RIGHT. Keep transparent margins on every edge. Exactly one head, two ears, one tail and four correctly seated paws. No cat whiskers, no collar, no accessories, no text, no sprite sheet, no ground shadow, no floor. Genuine transparent alpha background. Preserve source alpha. Do not crop or recenter.\n",
+  "visualReview": "pending"
+}

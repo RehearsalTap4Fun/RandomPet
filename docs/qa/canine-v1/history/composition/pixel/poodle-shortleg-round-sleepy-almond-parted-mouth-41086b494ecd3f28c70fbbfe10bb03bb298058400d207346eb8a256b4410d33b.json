@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+  "profile": "poodle-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "35d59551ebdf11ce01d759f7b221bca686f6d3f91b85a015cd2658b9ee2fbce6",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "cc033df3333dbe5e827cb76e84b714e40c91e46b376745cc53e4ffc788cdfba8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1910b3d79ad70e75a9c81670187adc43914d74e976aeb2342b7b2f7634e66a8b",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "839be7bde61148d2794a076c1c4008da3c7eb00e3d4d37b22bc33fe83154a559",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "24fe89163fa6808fb8442e41b1fc4e4775627c5213fa70e572033efd0af2f545",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "29e3cfb2e48d8a91e7187ad742efe32d8ac36d305597d0aa7aad8b454d52a0d5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3175ba02b07a76899f8a2e7714751dbab6364240009401bdcce6f6039488e6e4",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "40b773efa70ea302d9118488b486bd9bfe19c22060666d862de3b88c3b8ad126",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "63924e842b62f38985bc43643c07b5ef706693cead2cb42e0dba930c8a9dea51",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "5cb59d5e417ea7b504ce62b6ad9c0efa18d53a3c8f56fafadf9372925d978da9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "82896be145a254414e5f1e1a3838450d2599102663ae4e7648de745c2224521e",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "b9897f7ac16e605ea4f54c054e9e8905b01faf9e0807b40ac6e48e18b98fe2db",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e4ff2d6f0a0f44379a73804d778e8c08c23bfff3d127bbcb86b9b3415fa5eecc",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "c8731913d2ff89324ea0db4f2399af37c1e6b293c86c62e76bbefc51908e7309",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fd14c65fa120c777cbb11c25361bb01ee8f762d3d7faf2d6de3c534994d30be8",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "594f7ff2cab417ce32ec01f18729eb0613b7f0a6cc571ec3de4b8cdd2f5bfcbc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b4e8e4ff9d996ecaa96b6a8946bf4305b0d0c8b5b9ca6788825188bbaeb3ef15",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "cf45c5d75ebfa50890ef0a6b8ee5be7e5a2d814ee87f8da7517315db417e31e9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fc354a50569d19e7380998c4ca300377e8907f26ad410e3a3dbc172a20382c93",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "dbbd63b8f7bc75b78d74224cfdf2ed544173b669445d94899b287ed3836a825d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0a3e13fa55fac1e7ab6fe14fa2cfdcd9b61641c052066331a3ec867605a40b0b",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "5c7bd25cc8596d51f270fd382197d1033d5b2b6e114ab749313cabdad481dac7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7b0e79fe600ed33f87a6674703f0861eca33565dca510fecda0453ca20e6090e",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "e07831d10a3a6a4fb5b8bc7055a7bed38e79e88fe3e099a5c38274af870bbee4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "782a77000a989a5d011f82d3e76a7c0aba653a874b60dd86a1f40f9b9729d5bd",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "baf14e4485b01e1ca2bece3c907d78e75a0066ce2d5e01f0eea8071252e81e5c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bad692ed66176002fce0460d70f3e924b096ed23a800b4dd2dc59ae7dceb944c",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "a71ca8af42d4f193d518e8ce083728c8c5429808302e9e2600d7d98cd8f367cb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c0b1e9d0abbbe23b19694d26a9dd24a4f68ba3c8d4e6a131a6ac1040c1936dcc",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "774771caa8fccbd4c7cb9314209eb9403f1d2a28d6280b6339d2e94c532b3eff",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d3d959053936b7509a6b1ac0e7bc736f34204f5e8c52f17fbfea057cc97c5674",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "ddc3853ace726ac4798ac4a318be78d311677898973abba97cbe56d75a7a7939",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0caf4f8599b52183eab966a8e6fa34e546665238fc02a51a9478fe0956828fdd",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "a84973f59e343b46cb0823e019c1c46afa43b532a579f23844dd66b8b4031f0a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1cba5b4d89e5f9974fe21c3acd1631399a2d918b9934d7f7ce932649e8fb276d",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "f0be8ea3f63a779c44bf48bcd04d08b4068e2351c11872b62ddd0776eb38d740",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cb596cad9b493f9667ed0f60e5c126bf37170f531ca2ec6442bda80db7322b6e",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "bdafb913c8ffd99025670d175424ea275fa56ccc47682e1a8a54c3bf6da5704b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "eacb538f4c889382915406b8e83898d36bc31890821ce072abc7cd035c70c5a0",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "8f04b2ff68e9b0ead65516612483ea60f3796f4faaf1478b2d3257a778dc86eb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b2195352303a3f906a78e017fe5f2635a48b0c209405fc2a2904ddc9b93755ba",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "17a07c1d83241ab4fe19f5267ee3069aafb796c5bdc7ab4ade90e3040aa64f0c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6642fec1d041a6019f958e709033dc5175509ec1e82c4d731ccc0edae2bdb2c0",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "贵宾卷毛头冠保持；换耳后的两处残余暗像素已清除，耳遮罩不再截断尾球；小尖牙与半睁眼组合可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.112Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

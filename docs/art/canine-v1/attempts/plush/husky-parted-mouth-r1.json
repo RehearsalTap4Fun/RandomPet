@@ -1,0 +1,12 @@
+{
+  "id": "husky-parted-mouth-r1",
+  "style": "plush",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-de70fde1-1317-4d47-a412-9d6d7712d3dd.png",
+  "rawPath": "docs/art/canine-v1/raw/plush/husky-parted-mouth-r1.png",
+  "rawSha256": "e14cc12dcc3406d2250e073698bc1724e6bfb279e9e26454188027098c86273c",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. Repair ONLY FRAMING of this exact 3D plush husky puppy. Current ears/paws nearly touch frame. Make ENTIRE dog about 87 percent current size and shift slightly left so complete dog, both ear tips, all four paws, every tail fur tip fit comfortably within a 1254x1254 canvas with MINIMUM 70 pixels genuine transparent padding on ALL four sides. No fur touches any canvas border. Preserve EXACT breed design and pose: grey-black back, white husky face mask and chest/paws, blue round glossy eyes, black nose, tiny natural parted mouth without visible teeth or protruding tongue, upright ears, four seated paws, one bushy curved tail on viewer right. Same premium plush fur, upper-left lighting, same body proportions, no redesign. Center full silhouette within safe margins. Real transparent alpha preserving fine fur, no floor, ground shadow, background, text or accessories.\n",
+  "visualReview": "pending"
+}

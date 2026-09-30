@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+  "profile": "dalmatian-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth-contact.png",
+  "contactSha256": "8551cb0805870c0dd7f3082244d89c0e0029d0f2dc1ec747013f6dec90eff675",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth"
+      },
+      "rgbaSha256": "120816cf5ebd4833934df15ce9d04663935b2b4192d2f64023aef9c84d08e100",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e960ead089b75a9e90eb76b74e003e49b9bc6316b4c6287147b604e6460f4fe0",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "4f092bac6b0c399feeb550f4f6c69a6f5c305d06496d85d300e83d2aaaa10500",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "257e3e83a40d2b362910887f6c7d0c1b6e7b9123ace9de5d2ed9e8a07076c93d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "95b437b5894c2d9fafbb91b67d1d49498669d67aae9ce06b2595f94cb542b1b8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b67d154bb8a7b6daacd769fbc8c3276d7862e9fc5bd2b179bb4f6f8646ebacca",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "2bf0818345f4fe9c7f823864e2a01bf8c6a1e452339e9fa8b38c936e1d163d75",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "71d00ee4f04a9d47f1ca89071c33997a5a349fb2141b7cc1c28b428c14b1254a",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "6c180e83f88c25eb34432ce5403a6334201ded254dd2f6ab40c734660b16b3cb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1829be19046ba341f84ca5138855dff85f8041e416363e684760f12c3b2fd4fb",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "8feb3b5e477c46d1061bebaf014f882fad8b0d425c007313a0b194a463552a9e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a729d3a1ead9d1fb4d7bb7d803c834cde3be7ed25bd9d16d0b31b028b231941b",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "b052ea2456e20298b2b99b1a0724cec78930f5fb9327411e11550847093ab292",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "70ffdae1abe34af36e718f701f898d40ee14c3c769872be2a9a3eb5662b33fce",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "84f443417353f389e51e43f4febe52088108152f500f6511943ee1478f3609f2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f54adccb6b29c68ad457fcfb07b8a6195ace1309031227eae60df15ab21abc3d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "a879720c16bf28e19a3f499be8325d9f5ae1a00e1cc479552e6f4c7fd98cf8d6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f5a1c82eafe94b85ef947d855da16bb34be7e897891cfd0e1bf1f4184e6a1094",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "db82857e1d08e7f7c54d5b2d124878b717b85b538dccc2c4a27e0553da819535",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9d5a6f6fd31e6821dabd77d7eb2697cd2f153bedadf1fb1f4a5844137362aee4",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "e8856f09c0172a0be471f5e7e98a321e5bc20ea40e28ed5ee90a45689fe6b6b8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c46b3b29853bcb647b0807956f94328c3369c8d07dfbef668d00e3d69e92a72b",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "6dfabd64e23de66c9895534ad47ba2e26dc78d63cdef89541c2652018b46cacb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e693173e17b2d03f98ddb71413ad380fc55a73d95c1fadac2ac213f68daae8c9",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "c8d6071765230e63ce1ecc0ac2d9d45c4d7b65ac3a8a9512440917fb452ce0af",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2e5f35f9f4f6ba0789456c9d10f17c1659fd3e4e4718cf89426ea075caed39b8",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "58020c19c5f9cb58cdb31361b28e32549592bdd96abfe2ef486ae891f18d04ce",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a47cac8a23c0bd9fc1e23b66577e4445b3c153affc30df577840aed7e1b4633d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "9fbc3d665b741db0159265af61dcb11b027909f9a27435609888742723ae4201",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ddfcab0a860008aba8c33bd5308fe4a1b358ffcfaa5db7706c35676074bf6e2a",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "9167309489af488da32a8153a2705f23c2dc9dc21fe4dd9a13d347490b5ebb62",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1e878e66179e4a43ba2f5417a3d42bef9ef8242e47578b57cb1ed576475839f0",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "f79b97bf7344cec246168b2b6c94b40b0d7e6eb66baf5c504d0aed10d86262ea",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "003ca37eea9715f8951444f0385eaee22dbe9195847b70e0eb2ca307fd5c1464",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "c4aebfbf2b2aff267def1045a586352f41a329384ae04c21dabec17bd6d4ec16",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5324304b28589d23bc29909ac6329f4aed0c36cf4dd4fa71838f398ba715cdd3",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "2b0d516b44f427f097ea7ea946c8f4c2452777342bbee35b0498056ab6f3bbc2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "39e63e028d276f19f188f03d82024d0afe3deec2e81e9adb533dac8bd50057a3",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "c5edb198fba8ec8dfb809f37078e22cf2f67102869ab10a5713afe0d7e2a4708",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "358d54eb4991f226d26fe7e7027638aa43e01825dff491acb334f3bb3ebcbe05",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "8bb9d8037f1fee0decf4a41751bf09109a5b55e1c57f07371f03b5e30e15c42f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5caea1eef028a96b8b5fe1a55965c7d9582f775241b1c011ef209c3783144a29",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "斑点毛色与各嘴型保持；垂耳替换边界完整，原细尾在换尾时清除，翅膀和颈部层次可辨。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:31.634Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/dalmatian-slender-tall-round-parted-mouth-d53204a0988f73742068c1b33233dafe3f4f0e38dcdbbb1a04a1b7a64b40c8b7.json",
+    "sha256": "d53204a0988f73742068c1b33233dafe3f4f0e38dcdbbb1a04a1b7a64b40c8b7",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

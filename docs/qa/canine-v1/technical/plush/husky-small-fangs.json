@@ -1,0 +1,27 @@
+{
+  "id": "husky-small-fangs",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/husky-small-fangs.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "29a5e416547d22de56caf61922bec4b69d0ab9906e105d0c9faf20a988ccc32f",
+  "rgbaSha256": "3575d2de321d74e82ceaedb9ba07152c8414b04ebf39f5a2d942cf765a188588",
+  "bounds": {
+    "left": 240,
+    "top": 100,
+    "right": 1126,
+    "bottom": 1171,
+    "opaque": 124,
+    "transparent": 903832,
+    "fractional": 668560,
+    "visible": 642827
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

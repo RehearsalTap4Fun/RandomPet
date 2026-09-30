@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-shortleg-round-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "c4f82942ed47daec91959b4a3bf230e3205cbe71d5c1a9407921126a5cf07fae",
+  "rgbaSha256": "6a3f475181128bb6da26000b3d6451c66db8d945cb2ecb74ef603e3c443911d2",
+  "bounds": {
+    "left": 5,
+    "top": 7,
+    "right": 61,
+    "bottom": 61,
+    "opaque": 2029,
+    "transparent": 2067,
+    "fractional": 0,
+    "visible": 2029
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "corgi-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-shortleg-round-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+  "rgbaSha256": "c5eaf12088cc3cc1a1bca84c626539f71057d640ccf4aa6d5663ae2fb1003018",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2232,
+    "transparent": 1864,
+    "fractional": 0,
+    "visible": 2232
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

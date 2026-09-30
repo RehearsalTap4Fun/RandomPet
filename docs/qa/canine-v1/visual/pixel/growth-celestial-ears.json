@@ -1,0 +1,11 @@
+{
+  "id": "growth-celestial-ears",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "成对蓝紫耳廓、浅蓝月牙内耳和淡紫根部完整，64px 色块仍可读，中心真实透明，无粒子或原耳残留。配准另审。",
+  "resourceSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-celestial-ears-review.png",
+  "evidenceSha256": "378950ba1a78042f145b8084322a0d2b758407a01876ffa256a818559c6e2fc5",
+  "userArtApproval": false
+}

@@ -1,0 +1,12 @@
+{
+  "id": "poodle-standard-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Rework64px has two clearly separated ivory fang clusters within enclosed dark mouth, no fusion with cream muzzle. Curly topknot, drooping curly ears, round brown eyes and pompom tail retained; four paws and clean alpha boundaries.",
+  "resourceSha256": "a6acad000899201f95d1bf63b86d07573704278445f3cd3677f6a86bada5bfa2",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-standard-round-small-fangs-r1-review.png",
+  "evidenceSha256": "ea52412378d82dde83b8c1cf32cf2672d6d6ba8b721a410c5c19a1d9d4a04e29",
+  "userArtApproval": false,
+  "acceptedAttempt": "poodle-standard-round-small-fangs-r1"
+}

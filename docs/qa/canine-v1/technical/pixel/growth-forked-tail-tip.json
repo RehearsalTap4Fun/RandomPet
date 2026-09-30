@@ -1,0 +1,27 @@
+{
+  "id": "growth-forked-tail-tip",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-forked-tail-tip.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "49a5bd2f075e1a1cf941c1987d4a2a8e5f7793ec61df1513cf5305ddb149034f",
+  "rgbaSha256": "33c165f728b1486ed85c47c37f8f89c3a0f2b0a22a2db87c5fd0db02551a2804",
+  "bounds": {
+    "left": 13,
+    "top": 6,
+    "right": 59,
+    "bottom": 61,
+    "opaque": 1250,
+    "transparent": 2846,
+    "fractional": 0,
+    "visible": 1250
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

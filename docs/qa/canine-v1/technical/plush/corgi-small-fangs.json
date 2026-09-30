@@ -1,0 +1,27 @@
+{
+  "id": "corgi-small-fangs",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/corgi-small-fangs.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "dafd38c79bda7fe391d4ebe2c43f6fa47cb7a8ccd0488cb7e62fdc59b7041cce",
+  "rgbaSha256": "1f306e182fd7bf8e9a137c862b3d99e51fc95803d8ecd0ed2f3caaae341817ec",
+  "bounds": {
+    "left": 213,
+    "top": 22,
+    "right": 1171,
+    "bottom": 1239,
+    "opaque": 19,
+    "transparent": 750565,
+    "fractional": 821932,
+    "visible": 794181
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

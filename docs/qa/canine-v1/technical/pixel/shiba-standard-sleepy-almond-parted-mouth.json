@@ -1,0 +1,27 @@
+{
+  "id": "shiba-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-standard-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "018a19ebcafbefe9818a368cd7fe6616909e36f5028b3143921d9cd2fbf469be",
+  "rgbaSha256": "8739bd909cf89569367e2bf0fbe93e16a425da124dc3ea126ace240fbce2674b",
+  "bounds": {
+    "left": 10,
+    "top": 3,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2173,
+    "transparent": 1923,
+    "fractional": 0,
+    "visible": 2173
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

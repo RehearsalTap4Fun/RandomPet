@@ -1,0 +1,27 @@
+{
+  "id": "growth-feathered-ears",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-feathered-ears.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+  "rgbaSha256": "feab8e6cd21f33b836d1206117dc19de326a7f9be51a1245496c296d26f5d2e6",
+  "bounds": {
+    "left": 3,
+    "top": 12,
+    "right": 61,
+    "bottom": 51,
+    "opaque": 1124,
+    "transparent": 2972,
+    "fractional": 0,
+    "visible": 1124
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "shiba-parted-mouth",
+  "profile": "shiba-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/shiba-parted-mouth-contact.png",
+  "contactSha256": "8c4fa895eace2f671d5d3c359a33da26b625a42556f662561d18500c38b19420",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "shiba-parted-mouth"
+      },
+      "rgbaSha256": "d2b70f2c7c6a92cffb9785f15eadb815c6904c8855f0f7b215e5b9f91f08f8b0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8450b262ed1e2533d7dc2291d668e216c69e333bb99bf1aa7941c2df0166d13a"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "d9ca62e63be3849619cc5736e48093f2d3296e498ec8520d00c17a6c9452eb17",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bf3428a961e9c374c3304d6d18b709b00deaf4eea502da6a485c76ba83a577ae"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "c9ed6ac71c13f6773791375c4c2c34ab55ed66c20aaafd03e860eda6e5efbe26",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fff6880417eef39e9c09a4d83085323971210b1fd7c4e8455204c90d02e3d52e"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "c5515a14ee02e8dd08cc4720afdca406f90007d5969f4535bcbe7bee0aa426c9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9155802003d4b29bb15b046085a243922d2ac060cef8e0a287d3fab54c17a081"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "9fe12b40c56eafd9e3279740877085f79f2a093b8e3456817ee76f102d85f337",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b410ef977b4bfd050eb8bc7291beb8f30b549b875be50a8ee8e3dcd62ed14c8a"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "6ff148ad6f9745b62df1b4031dbae503e8dac2f90a8d715ae95a124a46bae205",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0586f121d57af94a95f8cb819850680d9be06b735b88cb7ad697c0ff62ae34da"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "e189ef5436828b45099647f4bf8c28d6fd13b817af3c379a7d695d3238f8c881",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6961debae6057d8786e744b409f87b36acd9f3abe3cc44b12c8918e131aeea2e"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "1148611d3ac5a978737a6e25c4d7898e18d7789231d4d60f915d9621da749ca3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "864db8602985e0a44aafa7884639d830c4550be8f1c090bb90d7f51fe40588c5"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "fee2243cce7a9fa2d78cec56475bd4e6e0e7290114a3b441ff67a7ed866ee767",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a93b80ae952a38d12a0aed71fcb34a9d6791ba587c5a8ae7c73292e5163170fd"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "9860a5cfae8028230ae23a8506ffd215b056e8f312b5c1ff6ce9b88f98a93aa4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "da5ef533295206bafaae15b3dc46d35152ad6d7158da37a57842e6c7e1eb3864"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "b72ebfdfc2c61676ede4e128b9b2d351e5d5f0228e9a6de405763bab1db865de",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "93f498a980f462f7b4d272671040a12e997108a16e857101cb520463637b08b6"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "33e8931b7097ee59039892a9d5dd12afc768cb450c9865065d561a34f66d16e4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "60115fcb9b3c6a2161089f90c8a583a60cee1fc828223a195e8d11972442d333"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "21dd2b9232f439520463b33d11d3592da896820a29e86d6b0142b68b0ecb10b3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d58e8be148fed37e9ac14a7197aa9f51ced4639e2f0f5d1e62de75ec7d2b49a1",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "f420f98b108cfe0d47893315e5be4f78576ef180bc2bcce2c69d1753a50eac52",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ac01f07b370066d8acb871dbbe592a84fc0b90c166fa0c85b87e00fee0cd6afc",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "ed649913c8d54a14a4cafea18a99e05e1dd63c385f07e8452b32d37e738b7264",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6d4fdfc93a0b55c3cfc937083e608e64a342ea2a33a2281f32a6e822c0f1eb1f",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "shiba-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "f0377add06610d0621cbc5071f93839187e38ce77287f6f0001e34ec07ad1ef6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ee9a027ab76519f36a2d4806b0e2fe104a424ea6ddffb18c24a107c16b808752",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柴犬面罩与卷尾辨识保持；换尾无旧卷尾上缘，颈部在下巴之后，三体型与各表情组合无遮脸。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:32.408Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "fin-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/plush/shiba-parted-mouth-d2d25e75ae43e98034d7095a263cb6c17add775d97bd04e47e81a4f4ee53319c.json",
+    "sha256": "d2d25e75ae43e98034d7095a263cb6c17add775d97bd04e47e81a4f4ee53319c",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

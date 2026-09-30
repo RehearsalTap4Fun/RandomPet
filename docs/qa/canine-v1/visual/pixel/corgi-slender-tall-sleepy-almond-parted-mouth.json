@@ -1,0 +1,11 @@
+{
+  "id": "corgi-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Lowered sleepy eyelids and parted mouth clearly readable, slender body/long legs match mother. Corgi white blaze, oversized ears and short tail preserved; complete anatomy and transparent margins clean in both backgrounds.",
+  "resourceSha256": "00a411fe7f7d0410db02f54989dab8f3d3b1dd44f1157462f6ae30d3b15d6719",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-slender-tall-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "d24ed748cd6bcce5bab5da46603b6aaf8a76c63f3b3ac724c4630e50d1fee07a",
+  "userArtApproval": false
+}

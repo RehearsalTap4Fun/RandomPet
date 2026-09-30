@@ -1,0 +1,27 @@
+{
+  "id": "growth-fin-ears",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-fin-ears.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+  "rgbaSha256": "9175040b1c7da04a87d667712c155a595c67290f0b03a75c94ac3c0664abc777",
+  "bounds": {
+    "left": 2,
+    "top": 16,
+    "right": 62,
+    "bottom": 47,
+    "opaque": 983,
+    "transparent": 3113,
+    "fractional": 0,
+    "visible": 983
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

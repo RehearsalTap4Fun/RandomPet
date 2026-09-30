@@ -1,0 +1,27 @@
+{
+  "id": "shiba-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-slender-tall-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "545989983dfa7fe52eb5332de8c70948a5a34a10fbfbe1c66c3c6d1c53321ac8",
+  "rgbaSha256": "01e7092794730c051aa3bdf92da96a6e769826a72ebb262d5e65d2e65f60e41e",
+  "bounds": {
+    "left": 10,
+    "top": 3,
+    "right": 60,
+    "bottom": 62,
+    "opaque": 1963,
+    "transparent": 2133,
+    "fractional": 0,
+    "visible": 1963
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "growth-frill-neck-r1",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "左右边界已留出透明像素，无裁切；青绿扇片以浅色肋线连成完整 U 形轮廓，中央透明。造型较装饰化，须在犬体组合中继续确认颈褶表现。",
+  "resourceSha256": "65ccd9c606bbe2135ff2b665ee2887e2bc70a3ce04c55ee76b3ea66d604e681c",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-frill-neck-r1-review.png",
+  "evidenceSha256": "b4659828e88b30f40078da3fce279b581a0450f34e065c8e956cc0fc256a2e2f",
+  "userArtApproval": false
+}

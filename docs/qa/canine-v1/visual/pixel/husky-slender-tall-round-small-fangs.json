@@ -1,0 +1,12 @@
+{
+  "id": "husky-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Large blue iris clusters survive 64px quantization in both open round eyes. Two ivory fang highlights, slender long forelegs and grey-white mask retained. Four paws and one tail, clean margins and no alpha artifacts.",
+  "resourceSha256": "abe930efd8adce8e721f5ea5e96c133a5d454713ee257ea521f53da18283f6a9",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-round-small-fangs-r1-review.png",
+  "evidenceSha256": "6bfec5072f0c0ba824566c858f69d3d496aab8e3640a7a0dcfd12c02d54f09d9",
+  "userArtApproval": false,
+  "acceptedAttempt": "husky-slender-tall-round-small-fangs-r1"
+}

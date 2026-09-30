@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "01eecb1b566aa61e59fbb7d6f213b9c2d94800d369c6aa4d9ae97cb60bf8141b",
+  "reports": [
+    {
+      "id": "shiba-shortleg-round-round-parted-mouth",
+      "contactSha256": "b3facb8a14c2c9669c4298d158e4eba312fec0c942070e5355f88263195896d4",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "shiba-shortleg-round-round-small-fangs",
+      "contactSha256": "fea60a1f4c100722fdcff664914c63bfeb1f5157a20f6b84c8a892bf98f8e84a",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+      "contactSha256": "e8ba18f0ffb384f3d768200515b0c7d8ea9b7b21e093918b85d17f847dd6659a",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "shiba-shortleg-round-sleepy-almond-small-fangs",
+      "contactSha256": "c969e2c58a4ef45b113b0cc1295a0dadd7a5b45374b8d47c9a654cf06092028f",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

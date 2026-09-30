@@ -1,0 +1,11 @@
+{
+  "id": "husky-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Half-lowered eyes retain blue iris clusters and read relaxed sleepy, clearly narrower than round eyes; small parted mouth unchanged. Upright ears, white mask, four paws and one tail with corrected margins remain intact on both backgrounds.",
+  "resourceSha256": "55b9856c58ea5f21d2bca72ac1d0b1ffffc025e33f1679ab2d2655117b611b6c",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-standard-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "266e9d0964b7a0e0348d9e607385755f34af7e0ded2e9466c8ceb8e959e1a611",
+  "userArtApproval": false
+}

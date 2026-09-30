@@ -1,0 +1,11 @@
+{
+  "id": "poodle-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "半睁眼较圆眼收窄，两颗小尖牙在暗口腔中独立可辨；宽胸短腿、卷毛垂耳和尾球完整，双背景无裁切。",
+  "resourceSha256": "dd3dfdf87cab67dca3561a5a90158db15b61a1cc5a6d4a9e46a86e7106fa0202",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-shortleg-round-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "9ee91f4dcd12d3df09c23262d8e5b632a7b5d753d99dd314e1f326b13ace122f",
+  "userArtApproval": false
+}

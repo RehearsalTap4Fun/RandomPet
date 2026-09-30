@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "canine-production-checkpoint-v1",
+  "scope": "poodle",
+  "status": "checkpoint-passed",
+  "goalComplete": false,
+  "bodyCounts": {
+    "planned": 90,
+    "reviewed": 90,
+    "verifiedHere": 15
+  },
+  "remainingBodies": 0,
+  "partsStatus": "not-yet-produced",
+  "claudeNotified": false,
+  "checks": [
+    "file-and-rgba-hashes",
+    "review-evidence-hashes",
+    "original-generation-provenance",
+    "real-alpha-and-size",
+    "unclipped-visible-content",
+    "distinct-variant-content",
+    "pixel-128-exact-nearest-neighbor",
+    "max-three-reworks"
+  ],
+  "rows": [
+    {
+      "style": "pixel",
+      "id": "poodle-standard-round-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+      "acceptedAttempt": "poodle-standard-round-parted-mouth",
+      "sourceSha256": "62036dc2d662fedfd4a5fe9f7fa364746db2098006a245703dffef3d8e0ffa27",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-standard-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-standard-round-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "a6acad000899201f95d1bf63b86d07573704278445f3cd3677f6a86bada5bfa2",
+      "acceptedAttempt": "poodle-standard-round-small-fangs-r1",
+      "sourceSha256": "8b08410dad1923856381c45e6d5bb07f6e661960829f29ef315dd2897f09d576",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-standard-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-standard-sleepy-almond-parted-mouth",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "f369f76f8959e599f7efadf85dd84e913f5acf57135025ecceac3cf48703f366",
+      "acceptedAttempt": "poodle-standard-sleepy-almond-parted-mouth",
+      "sourceSha256": "c37f0147f6c7eb5dd160a3bce1cb64c92b16d6f9f4c346667c1bc2370be8df4e",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-standard-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-standard-sleepy-almond-small-fangs",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "89e4fbe360c32b4a1c6f8098e08f82cdc90acd508c39be897118c029248d074c",
+      "acceptedAttempt": "poodle-standard-sleepy-almond-small-fangs",
+      "sourceSha256": "5441698e2e2356f7c0cdb1887c1a9d5a9f717abddce482cc9e44d3e1ce801c7b",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-standard-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-shortleg-round-round-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+      "acceptedAttempt": "poodle-shortleg-round-round-parted-mouth",
+      "sourceSha256": "378a1e566c909efcd7a938fe7d5341981433748e5de559727cc0d059dfec03c9",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-shortleg-round-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-shortleg-round-round-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "97aa033e1ef512d677d1bc0223e22d4b0f8359827ce4cfa791890cd12c752fc8",
+      "acceptedAttempt": "poodle-shortleg-round-round-small-fangs",
+      "sourceSha256": "35efb0a235cb47a81e9560a2e11bd27bda78bf0103246194b1e561e97ba01ac1",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-shortleg-round-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "b555cb81429517e403bc223d54e4ef86ad63eb9f22d43297f9266c4bbeb0b312",
+      "acceptedAttempt": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+      "sourceSha256": "6260bed42f534171c7d6dc8ab2610517427fe1dc5c9255e767add22735a78bfb",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-shortleg-round-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-shortleg-round-sleepy-almond-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "dd3dfdf87cab67dca3561a5a90158db15b61a1cc5a6d4a9e46a86e7106fa0202",
+      "acceptedAttempt": "poodle-shortleg-round-sleepy-almond-small-fangs",
+      "sourceSha256": "5cdef7d78f578a5b03290e0acf371daa56d99a51593067e7bc1ada9d284b750d",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-shortleg-round-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-slender-tall-round-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+      "acceptedAttempt": "poodle-slender-tall-round-parted-mouth",
+      "sourceSha256": "c411b9b905280ad0c90b80a932f7f7dedcdfd24d7abdfd0d2e8f2a5e00575497",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-slender-tall-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-slender-tall-round-small-fangs",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "e66f7cdb8110bb5171debc12ab4fcbe855df329a73211c351a8049cc3f9a663e",
+      "acceptedAttempt": "poodle-slender-tall-round-small-fangs",
+      "sourceSha256": "ebfd302be92e225f1f1106a64fe9fc8f190e8062f195239c1ca5d99309dac03b",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-slender-tall-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-slender-tall-sleepy-almond-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "b6da3a8868ee1e6828e54eca0bc10f93d7c01b1fdb0ccb998cf18b24df729943",
+      "acceptedAttempt": "poodle-slender-tall-sleepy-almond-parted-mouth",
+      "sourceSha256": "aa4c3974b2e41a3c472d50bd9758f1bb55da04444c1414fb0bd67636a2154ebb",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-slender-tall-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "poodle-slender-tall-sleepy-almond-small-fangs",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "3cf5ac62c20aefd921b011f6b999604067a3015424f7efe574be671034f19abb",
+      "acceptedAttempt": "poodle-slender-tall-sleepy-almond-small-fangs",
+      "sourceSha256": "dcff25479f81f49038900e9efe48b55d68a268713fe8ade31431478a0d201432",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-slender-tall-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "poodle-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "59fc17c73e3c5fcee07b11eca57ffa8d88cfbf7a550c59ef025459e05a6dc48f",
+      "acceptedAttempt": "poodle-parted-mouth",
+      "sourceSha256": "230afbffb1e3f80bbb173f82eaca7072361650d0e8fd26e31c9663cba25c5ede",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/poodle-parted-mouth.png"
+    },
+    {
+      "style": "plush",
+      "id": "poodle-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "a73a850d543af6c4e24b41a4a532daa6118aa55e3061d641fd2cd5cb2117122f",
+      "acceptedAttempt": "poodle-small-fangs",
+      "sourceSha256": "f2379e951609babed7c350df6b9d71488bf14edc5fdf2051ccefd860164437d0",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/poodle-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "poodle-tongue-tip",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip",
+      "sha256": "93352f549a4d481461b93475fb0466969bc2528c31e49ac6f2c5c0c674df4e5a",
+      "acceptedAttempt": "poodle-tongue-tip",
+      "sourceSha256": "92ac34bb54d385a4e94aebe751f65e79b8b93be9433ad2366964dd576b66acc7",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/poodle-tongue-tip.png"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "shiba-shortleg-round-round-small-fangs-r1",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-5226f416-23ab-42d4-8fe0-2687b16c5f4e.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/shiba-shortleg-round-round-small-fangs-r1.png",
+  "rawSha256": "787f197c4c395eac9de15d915436fabcd67be9448b15a73540e295ed527d4c04",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. Image 1 is EXACT TARGET, the shortleg round Shiba. Image 2 is ONLY MOUTH REFERENCE, ignore its body. Replace ONLY Image 1's tiny parted mouth with the EXACT mouth from Image 2: large closed dark chocolate mouth cavity, TWO distinct separated white downward fangs, dark area above/beside/below both teeth. Copy its size and shape exactly; do NOT make a thinner curved smile. Teeth must not touch white muzzle. Keep every other part of Image 1 unchanged: its specific broader shortleg body outline, paws, belly, ears, nose, round eyes, coat colors, tail, placement and scale. Absolutely do not widen the body again or change any body contour. ONE dog in the same 1254x1254 registration, genuine transparent alpha, pixel-flat style same as sources, no accessories, no text, no ground shadow. The only intended change is the mouth. Final use 64x64 sprite, so TWO clearly separated white fang clusters must survive downsampling.\n",
+  "visualReview": "pending"
+}

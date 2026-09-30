@@ -1,0 +1,11 @@
+{
+  "id": "growth-feathered-wings",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "成对乳白金尖长羽翼，飞羽和覆羽层次完整、内侧翼根连续，透明中缝和双背景毛边自然，区别于小翼。配准另审。",
+  "resourceSha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-feathered-wings-review.png",
+  "evidenceSha256": "ff95b0e7a4be481cfe6d6c263bd9c382a1e7266af92c8cd06aa309421e857ffc",
+  "userArtApproval": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "shiba-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-standard-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "8e7e12b2e7c5652d3213ab3eb60cf8710981ac9e2fe2b0b1d6b949010e78d65c",
+  "rgbaSha256": "3b136180e6ce042fe36a1ce4a34444e8e19ad85c6106474941a096af5b6ed641",
+  "bounds": {
+    "left": 10,
+    "top": 3,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2187,
+    "transparent": 1909,
+    "fractional": 0,
+    "visible": 2187
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

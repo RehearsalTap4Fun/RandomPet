@@ -1,0 +1,11 @@
+{
+  "id": "shiba-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Accepted enclosed fang mouth transferred without changing slender torso, legs or tail. Native 64px teeth and round eyes readable, full anatomy inside transparent margins; light/dark composites consistent.",
+  "resourceSha256": "545989983dfa7fe52eb5332de8c70948a5a34a10fbfbe1c66c3c6d1c53321ac8",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-slender-tall-round-small-fangs-review.png",
+  "evidenceSha256": "08952c5c8dccda6994b8c1f00ae8a1eea36254d6c4283f9e1ba2ccb66fca29d8",
+  "userArtApproval": false
+}

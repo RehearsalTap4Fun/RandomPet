@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Two isolated ivory fang shapes survive64px against broad dark smile. Short broad torso and major spot map match shortleg reference, round amber eyes unchanged. Four paws and slender spotted right tail fully visible with transparent margins.",
+  "resourceSha256": "3097e5381da23d65bcb60e19be3ac73d511feac28989ddf8bcb316d40df778fa",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-shortleg-round-round-small-fangs-review.png",
+  "evidenceSha256": "066f746cc591fa0367db1b7eaf6528fcfd488f364d4efe74b904362e4fa2f975",
+  "userArtApproval": false
+}

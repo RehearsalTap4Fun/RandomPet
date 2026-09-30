@@ -1,0 +1,27 @@
+{
+  "id": "husky-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-standard-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "6abd3f608975719dccfb86bb106f0d2f1dce8b63f2510fa850efb9a21e8d96eb",
+  "rgbaSha256": "7882bd48e858cdb35a1f24069018d3d4ac60595f94351e91d34207ef50ffed41",
+  "bounds": {
+    "left": 14,
+    "top": 7,
+    "right": 58,
+    "bottom": 59,
+    "opaque": 1629,
+    "transparent": 2467,
+    "fractional": 0,
+    "visible": 1629
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

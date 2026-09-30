@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-tongue-tip",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Short pink tongue tip integrated naturally beneath white furry muzzle, no teeth. Amber eyes and major black spot layout stable; four seated paws and single long spotted tail complete. Fine transparent edges clean in light/dark previews.",
+  "resourceSha256": "d177f8907ebfd72f6995c404c73151ba8b6fc183abc59f6d5f192d2e984c424d",
+  "evidence": "docs/qa/canine-v1/visual/plush/dalmatian-tongue-tip-review.png",
+  "evidenceSha256": "79248b154757462b3984fb8085c36f7c475ce96633c3a8fdf948dbb09d5871ad",
+  "userArtApproval": false
+}

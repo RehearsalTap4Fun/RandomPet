@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "69afdb545ed67dc640272319bc4011089d876930096e25d1dfc5f5dc5885f750",
+  "reports": [
+    {
+      "id": "golden-retriever-standard-round-parted-mouth",
+      "contactSha256": "e28ef2713262861091fe99d7346270ea88d958cd74a3ce757a8e783ba64e1ea0",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "golden-retriever-standard-round-small-fangs",
+      "contactSha256": "bff9a2732c2d0ef60985122fc802c2ba801cd92e53d38b6c55eaca6d59b0eab2",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "golden-retriever-standard-sleepy-almond-parted-mouth",
+      "contactSha256": "d273e21f06f916aaaf03d892c6ea2fa9770e4f364e51f93dbdbff28be47b4239",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "golden-retriever-standard-sleepy-almond-small-fangs",
+      "contactSha256": "136f8a570022c9fddaf47d1d93ff01d969eb6f0721af047db2cb70df226d0617",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

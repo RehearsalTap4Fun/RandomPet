@@ -1,0 +1,11 @@
+{
+  "id": "growth-small-lion-mane",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "单片金色 U 形狮鬃，左右肩部与胸前毛簇连贯，中央及上方透明开口完整，双背景有清楚毛束层次，无脸部或身体残留。配准另审。",
+  "resourceSha256": "cc2a00ddfe5726426fba1e20f62f9d3d72668bd667d55420561c9f9ee0881a8f",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-small-lion-mane-review.png",
+  "evidenceSha256": "bd2b24b3bb312ce68074f725b445e6da2d53b781f6c9c0de41bca8737857b5cf",
+  "userArtApproval": false
+}

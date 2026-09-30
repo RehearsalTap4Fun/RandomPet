@@ -1,0 +1,11 @@
+{
+  "id": "husky-parted-mouth",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "Visual reject despite technical bbox pass: ear tip y5 and paws y1248 leave almost no margin on 1254 canvas; fine fur reaches boundaries. Rework composition to about 88 percent size with comfortable real transparent padding. Husky anatomy, blue eyes and natural mouth otherwise coherent.",
+  "resourceSha256": "80749adc9ff8d3b52fa13db2e24d34ecc8f3f7dfe0d20c063cc8644057eb80f3",
+  "evidence": "docs/qa/canine-v1/visual/plush/husky-parted-mouth-review.png",
+  "evidenceSha256": "d4cd07a62c374bc791eabd6e87d431bb883979ca202688bcf2756c6d79d54e97",
+  "userArtApproval": false
+}

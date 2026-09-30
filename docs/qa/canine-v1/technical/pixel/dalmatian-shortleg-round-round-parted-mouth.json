@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-shortleg-round-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+  "rgbaSha256": "806d5b88fd6e0c43be15236f48c1e2a5cc35f8de861d1361e9dfaf82f30999ef",
+  "bounds": {
+    "left": 6,
+    "top": 7,
+    "right": 61,
+    "bottom": 61,
+    "opaque": 2007,
+    "transparent": 2089,
+    "fractional": 0,
+    "visible": 2007
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

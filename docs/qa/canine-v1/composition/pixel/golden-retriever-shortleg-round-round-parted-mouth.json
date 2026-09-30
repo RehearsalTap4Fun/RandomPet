@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+  "profile": "golden-retriever-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth-contact.png",
+  "contactSha256": "d9f1a2ee766fd45905a0928463ff1e49c54f1dd4540902df1186286ef9ceff86",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth"
+      },
+      "rgbaSha256": "01262fc3e3c7b5d3e3951dcd53e00f735308faf77aa878ad9e6a57f6985888aa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "554c4bf59985650875a8a709cdbc8b2c555d4371be40ae97ef7e28dcdbf8aa8e",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "d6694433933c3bb11d9140beedc906c36cd94c0ba876e1c8702f66eb99e4a6b0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f81d1a094ad84c278970a0ab23a60094d5c6d64f5a6ed856c302b04a3004b495",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "e1d884483eba5da18f173a221c6a22762a46ce8d94bf6822a67bb86496138c07",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "704e5e68619c46aa808c87614f18987d98f93c765f1f93b82119d6eb28c8cb52",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "9ec39c90958acbd648553e403256e10d2aa2dc96d5a91b967039f08f7149c299",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a1a981afa30f85d08eacff56f3985368231265d6c06a41573083b5ca1aebb7cf",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "88125bfff950734e041591fc48e7f7925e0d16cd2af723f52b8258cc9efea091",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "030c2522ad4a0d34ac12674487405fe2ceadab1827dc97c510dc85485e289333",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "ff25434fde14e12a0c2691f8102236bed58089bfdd4faf54e238458b30fee6c6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3321e7718b5c3b9e2db6052e06816f36fc595eb4514f3645916082d5e3efcead",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "31273e70a96f304959f66a31c7de1a62f2ec96db145195a1508ec97970c4d3d3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7e3a1bcc5dc18aa21a6772264eedaaee6a477237adde91a15531604879eaf1ac",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "69512cc1ff9098ceff97934aef8fb6158b07684b0e2bc351541ef5988af16c1c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f5acaae5896d178dbc0f0d7b7d815d7de09aeb1f3bdf7353c988e9d6067e52a4",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "06efd4d6e42a4cf36a97e3f170012c343f7e64689b53ffec1a31340a250db6eb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8ecb25548d22fecbb01759c6e91adb8964770c22f0a6fd259c985164a5f0b069",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "5ffab6ca6ca1d4537418802b83f8cb74ae03b53e6616ce6c189e1f4662681ce9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f431d2bf12beae60306ff556803d4b08dd403a39cf4708e9309d7258fbf84afc",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "b7d939abde5b61fc795888afe8d1baff92a094f7922d8693666608cf5d6fc86d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b46f77f88a55b4d10b8bd5cd59f6dcb960dd604ed07e13bc4f4ba70cfd4be35b",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "624cf3db32967bba162224b062deb9700b7a57415344775460f9a09822b21b99",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "84d3401f5ae2160688eff528d52a21f529858d65922f64ecb4ccf0c53d0ead4d",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "f2a1e7d1fab89505612aa2bfa43207fd4cfd97de2738654441220f231739c367",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "231708371fdb11091e873a7c4c72b2342017b8b9be92beed164456f00d1670c4",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "0b257a8bcb6684e3b687bde9f7f678b1a965910792b2ff729102951c7284cfd5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4e4aae0fe196575acfa91591213fa322654716e1dfd15cae6b1a7b58c3781dca",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "2dbba67a57cfb03562aa57b25c03ea802759bdd1c68a2256a9f171fe21e02a5f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3d48b52caf0c4d13f507daae560ffba17298bb69939cf2db1182d5c9176df6d7",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "230fa30bf8fa76e6425bc444fe119bd655aef3801d14351d2622f3e0e10d3592",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7003b9801cbf7dc928c0b36956b6d7af612cd868059fe75ef8d4e8ea4916c46d",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "1136920f2e5602818bd2051066bc8ce40a461208eaa85949cf58152bbba1fbd8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a6880a96a6c785308c798c2049eea52aa1713c24860acba2ea77142c65ff0dc9",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "e9ed54f5f6de06d601461bf8b94fd879b254ff0d6c16553536887cd5a2841663",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "66ac9b5232a8643d292e3306d377beb75370205f24e2036f72d6ccfd68b3acbf",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "50373823d5c2f023977f4a679eb433569485e38c8734b9c004f401901f3c75ef",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "59a8d3dad10e1e7d10280fe1dc292d3cc1f2c390eee3e4bb7e76d34dfda4d247",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "44969a30e992966c7a01b47aadba61ed02d840432bf8efb1d481192e97e639c2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a81b000eff6c250825589bf2ae9817468376330f60f6e0f0cae7cb73d63a651d",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "a62a18ca663b1e3a5518874c96853e490eeca8d1d8eb9fcf7f996288c9e52fb6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f04bec5a4e6e7e46233f8a187f40d4f7081433d1bbbf83dc476d783e4f8235d1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:30.277Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth-9555d7f2ab98bc896ab4b2d07045bf0b6e61fdf4fd3080f01cbe8b54d4c59f49.json",
+    "sha256": "9555d7f2ab98bc896ab4b2d07045bf0b6e61fdf4fd3080f01cbe8b54d4c59f49",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

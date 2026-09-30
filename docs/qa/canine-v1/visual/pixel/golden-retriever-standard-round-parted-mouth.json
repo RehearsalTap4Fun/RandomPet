@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-standard-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Inspected normalized 64px on light/dark: clear floppy ears, golden cream coat, broad dog muzzle, tiny parted mouth and one feathery right tail; four seated paws, intact silhouette and transparent margins.",
+  "resourceSha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-standard-round-parted-mouth-review.png",
+  "evidenceSha256": "ef9268cc51c793c30ab6ba85d3fa92a18680ba7b56e9a67608bc335c8e15f5e2",
+  "userArtApproval": false
+}

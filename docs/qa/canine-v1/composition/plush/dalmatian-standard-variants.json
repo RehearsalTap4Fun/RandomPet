@@ -1,0 +1,39 @@
+{
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "sha256": "bc02f9ea47bc54d84e5e29af57825f202b9b9cd18db509f832086ce90b9621d4",
+  "reports": [
+    {
+      "id": "dalmatian-parted-mouth",
+      "contactSha256": "9470810e6036bf558e2790b921e04de9656ca9f33adbddb806e4338d839314e8",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "dalmatian-small-fangs",
+      "contactSha256": "8f13533cc008862d19c931890e61b416a50855ebb7c4ff86b417ed4b73f10f57",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "dalmatian-tongue-tip",
+      "contactSha256": "8ec24bf18ec626249419f7e610bee853f3153047d553f9810795fa39398c71a0",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

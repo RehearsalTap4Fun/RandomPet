@@ -1,0 +1,12 @@
+{
+  "id": "growth-antlers",
+  "style": "plush",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-a5a4310b-6de0-40c7-b0e0-c72dca605b42.png",
+  "rawPath": "docs/art/canine-v1/raw/plush/growth-antlers.png",
+  "rawSha256": "65e9a0f308069295d739a28b99c712395283da4ae39fdc4497885991324c7b98",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Create one independent transparent growth-part PNG for the canine asset collection. The reference dog is ONLY a rendering-style reference; DO NOT render the dog, head, face, eyes, ears or body unless the requested part explicitly is an ear.\nExactly TWO small warm beige deer antlers, each with one central stem and two short rounded branches, readable branching silhouette. Matching frontal pair with transparent gap; no head or connecting band.\nMatch reference premium soft 3D plush/fur game-asset style, soft upper-left studio lighting and gentle volume. Fine clean fur only where appropriate; horns and halo have soft ivory/gold surfaces. No cast shadow onto background.\nThe requested single component (or anatomical left/right pair) should occupy the central 75% of a square canvas, entirely visible with generous transparent margins. Treat a pair as one paired overlay with matching perspective, not a sprite sheet. Frontal view matching the reference puppy with a very slight three-quarter perspective. True transparent RGBA background, transparent gaps and holes, no text, labels, watermark, guides, floor, checkerboard, backing card or extra objects. Output only the requested antlers component. This will be registered separately to each canine profile.\n",
+  "visualReview": "pending"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Visibly narrow hips and long slim forelegs distinguish slender-tall; floppy retriever ears and single feather tail retained, tiny parted mouth without teeth. Head is slightly higher/smaller than standard: requires body-specific registration, not copied standard anchors. Intact margins and four paws.",
+  "resourceSha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-slender-tall-round-parted-mouth-review.png",
+  "evidenceSha256": "3f9306954919c656acdf76398b5ecac78ad40a939b91dabf211e09d21e532fcd",
+  "userArtApproval": false
+}

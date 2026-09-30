@@ -1,0 +1,11 @@
+{
+  "id": "husky-shortleg-round-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Relaxed half-lowered blue eyes remain open and readable, mouth is natural small parted without teeth. Broad squat torso, short legs, erect ears and bushy right tail retained. Alpha silhouette and paws intact on light/dark.",
+  "resourceSha256": "1acc07af00ade7818fd4da0562e4a73fcdd605e646ade0b04ffd85bb6824e84c",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-shortleg-round-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "2aaad85bf6d4031449edae2ecbf948d4fd07e55f93724052a58c4a027a45dc51",
+  "userArtApproval": false
+}

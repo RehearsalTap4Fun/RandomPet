@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "7bf1e0bdb2c5ace7367f324136321e5d705077ed389ec489f1cde065078695cf",
+  "reports": [
+    {
+      "id": "poodle-shortleg-round-round-parted-mouth",
+      "contactSha256": "4e778f82c94e1c6a58f7994bf52590d0c9657b86d9cf09b2be429c0adfcc1ce1",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "poodle-shortleg-round-round-small-fangs",
+      "contactSha256": "31286e0132ff406669897a12fade75c7a96b4d5d8d1ea995d88e4397aaed1c11",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+      "contactSha256": "35d59551ebdf11ce01d759f7b221bca686f6d3f91b85a015cd2658b9ee2fbce6",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "poodle-shortleg-round-sleepy-almond-small-fangs",
+      "contactSha256": "5a8c8a6794666feec3f27d8dfa96da13b45491003c389d53aec505484e6d826d",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

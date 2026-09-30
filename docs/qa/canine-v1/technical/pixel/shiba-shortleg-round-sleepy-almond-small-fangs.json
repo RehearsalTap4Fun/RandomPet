@@ -1,0 +1,27 @@
+{
+  "id": "shiba-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-shortleg-round-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "d43e448e580e333bf63f31db06a55877647270b901c7d420e80edbb72ac94768",
+  "rgbaSha256": "a8c883ddcbd6d1e0e50bcaee34871bf5888220496556f8cf92ca8d7b3e427910",
+  "bounds": {
+    "left": 10,
+    "top": 3,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2238,
+    "transparent": 1858,
+    "fractional": 0,
+    "visible": 2238
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

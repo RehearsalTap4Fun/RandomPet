@@ -1,0 +1,11 @@
+{
+  "id": "growth-phoenix-tail",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "连续金色尾轴连接红橙金羽片，羽毛分层与火焰尾明显区分，根部完整、无悬浮羽片或裁边。旧尾清除和配准另审。",
+  "resourceSha256": "26267439a16d42fa6a61b9f185c4a797a1de5d594ef25c047ed34fc1a2719df0",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-phoenix-tail-review.png",
+  "evidenceSha256": "ac2ed36de42171f99dfdce03762c941e4852034d6cf85a77a9e7d5e8e41c4097",
+  "userArtApproval": false
+}

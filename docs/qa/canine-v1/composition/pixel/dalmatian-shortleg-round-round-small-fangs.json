@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+  "profile": "dalmatian-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs-contact.png",
+  "contactSha256": "5702933c8e2d1160c8a4f21439da558da963fa01a6858d425446cc7e079ba7d2",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs"
+      },
+      "rgbaSha256": "05414023e57a71cd939431078725b46aa01f4060a9911003a0a3953bfed2ddb7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7dffa869e52ba5370799a25dcee006f18b469c0f9f939f2742da252e9c58b0be",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "01c090c85e3bab8a21ffd283e55110d7cd86de184e6a0be9a0a48008ac049795",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0ff5f9ef4635896ce0490e4a6c8a9cec4041db711960bedf1e077c6b35cab335",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "5ca627b737bc9c0dca280e6f05fe092b291a36ff1d06ab191f349ccba312abde",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "598b88f0393b97580c8b97edee05a2de982a4e2c0f066e72fe57910ce2cf7a8d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "4d705424279aa7a9a68a9363cb6620fb253d93e845a57f69dd19cde94088d9dc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "98f3f2a3feb721af5ac5f55c614d36082b59ea8eb977035022157e3afd35aeaf",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "5e03100c29eac167a758d8523487a28ab92f33371326db02cbafbb7229f548ba",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f01f5011acc4cd3865ff1959927704e7c9be127737e814113c5bdfd85be91dff",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "f5259b6497ede8168da521fac7f43cb9cb1f2964697177ff3a71d27446fb1074",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b9ac4c1985dd0e5141b97044842b5199aa981119f4191a0afd602bc4b15dc82d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "a3ff0c012e7f93fa8808fc5ee8b31f985510c2a38e54789bafd2d018846fd954",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b96142fe23f66f25d452dadfda8aa174882f316e0eed71dd1df40181a5932e8d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "223e1148819e7406edd4784107a143fab4333f996833544be156910e3a70c822",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9bf300ceecff82e62acddb922eabda3302523bf46bfe6fe7f6ceff5220132ebb",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "2e165377812d83dd1d4337dc94db41dc449bcfd51a7c431a5088caa67607c7d0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "29f42a40baa4df6a59347580e6583e29ff39d9bce0d82e35d5c49bcb5d6b1ea6",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "489cc1b226c523093024d36a4561775e6e53860ad3bde907798ba43c41af6dbc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3144413b1332934790ee15d9bddd8a375e0b2b10bf3c0fd856cbb9ea785a74f6",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "daa866995835f1ff3c8394b1aed63575246d150cc714c3cdca0a3b8a0ce5a597",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "874a07a19bbdc286be2fcebeb8a7a882a753b29d1d04248e0195560a289e8d46",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "c5893e15c02ce925b21543d8a22434e904ee838e8a4b146ca51317bf37110c21",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f2d1cc30ece6a8791ac31332a0a8951f687c35de3caea0072eb16a63e6569ee0",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "fe667f26f4d09db59baff5603882709a3390481bf92e873168b01ec9fe1a8e59",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "dd87ee239473145357457e54fa23ccb6a404d0719f789879421d7a29754e0f0d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "7ae110ddb8af577342dc4e89d3504ebd52ada8be39ab1be4bcab0cb538b9c364",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6e36bc31331688a87266649a95064dfeea1d14ea99e7696fa4bbfedffb645a56",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "e8da73c231e16aedb5317bd471c0876ff3e0fe1b14503b824fdbbd1423912be6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e243cf84a253b06ec295f4b9f48cc23cca9c154cc1f273299c5cc43fb4221148",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "5ae26d61cf5914644e056c469bb6420f53da055bf70dbc5bc9af076988c02eae",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "28877ad2959423764eb84b15fc9622fad4d397021a1be14dd6355fe65690ef1e",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "c14612851dff12da1b28d572030595b77e8b349314a6b35410d02e5fabdb52b2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5e9365d9e2344c5a4660854db5d4395734558de4e224785bd5638255e0f9cc39",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "c6bd7004a22e1762ff6686c3672362b2c7836a0612b351b97c1c45e45d402d28",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "282f2829474aef3dc09264d589a1bf7959ea6d32957bd213e6384a1a7e93fc0c",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "bcd7d54a963896cf79816ac01932045a6bf13d4e61f347c6d2ae0711716a5257",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0837a70c7ef54ecb2bef0a29647abab90d25100ecd949d46362476dd723fb577",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "fcf6a56aa8222c2142849298dd95f1afa4fbad0646fb4021247cc3eca66a4f9d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2c3d11682f2589a7c366c7e3a1d1be81bd82672d25dbdabecf877231c44e1652",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "ed1939f0e7324d4f896d436cadfd1cea5465e17841f9ce09084d1e1cb87a235e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "90cc7eb70159bb96b02433d4ff3245fcc13761a38d3d79483164511d1b15692d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "斑点毛色与各嘴型保持；垂耳替换边界完整，原细尾在换尾时清除，翅膀和颈部层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:31.490Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/dalmatian-shortleg-round-round-small-fangs-6152fa769aaccf6680f90db953c7f3a2e3496f842554a1639b4b0dd6e993f1d0.json",
+    "sha256": "6152fa769aaccf6680f90db953c7f3a2e3496f842554a1639b4b0dd6e993f1d0",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

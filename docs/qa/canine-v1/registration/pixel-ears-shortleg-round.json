@@ -1,0 +1,1595 @@
+{
+  "status": "pending-visual-review",
+  "records": [
+    {
+      "body": "shiba-shortleg-round-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "cd7c33c60b132a3a6b5db62a678cd014975f3a2327bdfc64155d3f008ebb19eb",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-shortleg-round-fin-ears.png"
+    },
+    {
+      "body": "shiba-shortleg-round-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "be7a7c608c0164322f6c26ba5bbe36a068963104b42682e989fbd3890a58d2b2",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-shortleg-round-feathered-ears.png"
+    },
+    {
+      "body": "shiba-shortleg-round-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "8ddfd29a14a0ca1c3ce1e4657822ca1db785be46ee6fa0ecbea66510d99cf148",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-shortleg-round-celestial-ears.png"
+    },
+    {
+      "body": "corgi-shortleg-round-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "5f267a425744c2e59ff3acde754276fd3d3ced0e5402e5a737db18eac7b995a7",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-shortleg-round-fin-ears.png"
+    },
+    {
+      "body": "corgi-shortleg-round-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "3dcc9c0b2a4eeebf0070ab9a932bfc20eb1b33c09a5d6a9b37f0755dfd720151",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-shortleg-round-feathered-ears.png"
+    },
+    {
+      "body": "corgi-shortleg-round-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "66f9096363a8a815afa95246e7a3ddae1ac10a6ece36c1fc1976fb9ce6859b73",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-shortleg-round-celestial-ears.png"
+    },
+    {
+      "body": "golden-retriever-shortleg-round-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              24
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              20,
+              34
+            ],
+            [
+              0,
+              36
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              29
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              42,
+              36
+            ],
+            [
+              40,
+              30
+            ],
+            [
+              41,
+              22
+            ],
+            [
+              40,
+              16
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 9,
+            "width": 16,
+            "height": 24
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 16,
+            "height": 24
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "8c07a572228ae116f29755947985e104105b9c1485c98ea6043d70d3875f7d2f",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-shortleg-round-fin-ears.png"
+    },
+    {
+      "body": "golden-retriever-shortleg-round-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              24
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              20,
+              34
+            ],
+            [
+              0,
+              36
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              29
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              42,
+              36
+            ],
+            [
+              40,
+              30
+            ],
+            [
+              41,
+              22
+            ],
+            [
+              40,
+              16
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 9,
+            "width": 16,
+            "height": 24
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 16,
+            "height": 24
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "46af07e12bbb7347a2c12061e3409434f94987b449253d7ea77f80088b9f0004",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-shortleg-round-feathered-ears.png"
+    },
+    {
+      "body": "golden-retriever-shortleg-round-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              24
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              20,
+              34
+            ],
+            [
+              0,
+              36
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              29
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              42,
+              36
+            ],
+            [
+              40,
+              30
+            ],
+            [
+              41,
+              22
+            ],
+            [
+              40,
+              16
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 9,
+            "width": 16,
+            "height": 24
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 16,
+            "height": 24
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "e1545f3a8113c6fdbc7d4a4e489e0624985239c09f474bb98b4709896338a2c0",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-shortleg-round-celestial-ears.png"
+    },
+    {
+      "body": "husky-shortleg-round-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "9ccf127f5881b91dd88a6ba8c7e14f564a43e76b21f0887da74447d78dc5a82c",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-shortleg-round-fin-ears.png"
+    },
+    {
+      "body": "husky-shortleg-round-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "9767ad802b857e15c4cd34f96a8307a6a4c593f1ddec966f13b4b5af2637bd6c",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-shortleg-round-feathered-ears.png"
+    },
+    {
+      "body": "husky-shortleg-round-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "cf03aeb4988c42d572304c3165cbe361a6703d6a3c809931ed272cb69bc6402a",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-shortleg-round-celestial-ears.png"
+    },
+    {
+      "body": "dalmatian-shortleg-round-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "5f49b57b1ce63d6665603e4e31191cb5b8bdc411f5b0fc7a1364a4862b7fe0a5",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-shortleg-round-fin-ears.png"
+    },
+    {
+      "body": "dalmatian-shortleg-round-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "3aa28002a946a3ca0d346a033cd42b79e958f93e441c6944fd853481c56f3ce4",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-shortleg-round-feathered-ears.png"
+    },
+    {
+      "body": "dalmatian-shortleg-round-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "97c6bb2c93096197c805cd66fbbb9f8cde650aefc3a770a2233908ae50997618",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-shortleg-round-celestial-ears.png"
+    },
+    {
+      "body": "poodle-shortleg-round-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "ed3c91cd0f267e71275bbd75d132fb50343bff3dba87415a1ab958e32d44da82",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-shortleg-round-fin-ears.png"
+    },
+    {
+      "body": "poodle-shortleg-round-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "8ee411a2cc02e51697f270c25c8a0a96163c65232d7619c780eb02dae9bafc06",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-shortleg-round-feathered-ears.png"
+    },
+    {
+      "body": "poodle-shortleg-round-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "deba1b2eec2b2e3ac9be52540c23dc9e6a37298c6e83728786dd65b9c8c829ce",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-shortleg-round-celestial-ears.png"
+    }
+  ]
+}

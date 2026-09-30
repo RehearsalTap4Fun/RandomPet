@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "corgi-slender-tall-round-small-fangs",
+  "profile": "corgi-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs-contact.png",
+  "contactSha256": "3757f283abd8546479e581509abc42c0b0d4ddf42a4a07750e5b3362c1272c82",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs"
+      },
+      "rgbaSha256": "9fe288103e8a8c8b6d12a5c63ab14414991b2c650c892e6f68f37f4a3c60423c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cbfc021ffc6b19357ab1e3ea3e6e6442d0ccbe59e14178f348e1d7947da3f376",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "7967cdb3eec02fd75fd1eddb4f86c673c4d4ee5554dad293e26ec12ea5bb515d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "182f6d9d704f00f001b666b4254f45dc31ecacd1103bd1bacddfcf90ef6f800a",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "abf45329cb40f3e3f1740dada28f864f8c97a5834f130cde2007c4b1d4d6dfad",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6f1c085a7d6d5fcc3deca5e6a80ddf48099cd4c1173f912137a41e86c7ff7b8c",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "e86d256e2a7724bca773ac9b744c94f01c705b53f69290cf07ef202880dddbb3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cf2cae7962f1fd3b16521b8d63ee0e2295ef7aa75fb3dea8bce07c4e710b4f78",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "2dcbafd031b47e457b26f22ae8e877aa44fb236be35da72e81bc55c42ac2b7b3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7ff69bc7ef23e2f9d374622674dbfa7b3f6ce6f55653a07239d57f74d3e7886c",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "d6eea39637330504d3045a0e48f3d9cec7480db2783d4f419908083e2d455b17",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d29dcd115edd79ba3d1af659a2bf72e21858c09e6b00b0a897e0bd53e3be5af7",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "a49bac162f6f6b2e64cea60d743e4719e00eedb857d32b6d6a42c8c7769322a9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "358dbba0756dd381620eea9b5b23ef4ac3dbac8f2acb5d2bd78d9b1428aad398",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "c7f500cc55e5741eea9ead77b63a96a6736501d35b71cc0350fd2abf939b3a0e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "352d7713dbd32ea09b056df457933b3117a008caa962b798b35e62a751de7ca5",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "e290b0890d1de42ace48e1a24ac07cf1ee45d808be1ef69ff56e38952826bdf7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e284e0b253bb3e93394572036d18dd9aa702a7b4842c5e6658ca90cd157030a5",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "c08ff1e704ec6b3cc8667ecea7c80135ffd67a0b70a462924311de7f668089ec",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1fa4ac3f84be791b493d0113cbca8f2de70389d5ecf36cc4871271772974c2b8",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "7c05388266df83c47a38ba06d1fae2015fddfca43cac0adba9d6ccd3ff3bd421",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "05317265ce01aea729a203ba069bcf41bfb3bc04f8c6f3bd9033a55682cdf42c",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "7b023aa911b574905c1982ed3f7c5612e6a26d31d8c914e402e1afa83111933c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3f9c93c078a3251b75e7834c1b6b9d917ab38ec8bb65d37fa6cf1a29443d38c0",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "6ac794d6678e083396e27b22e8805587c5edb6b88ce3f21414f669ed6b2ea62b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6cdee892781622f62af48a5a150c800753d7181974f28e39b42b505c2a457f9a",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "30461890a8f4021fe1efc96a3e54fbd44d1303de5687d33265f820ac6666397d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ca68703bfebb19e8a199c87f069ac2189da18b4ad8b056da8090b271e59d734d",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "7e7c386d7c3d5d7c2699d0d972fda0796cbfe31c96ad95664af3bbfbba6b11f2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "15d0fcf4c5aa1c5a833510b4c2ee3a929344a10a7dbbbeafd2a434e9a64a75be",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "848aada2dd9557ab9dc89e4071a69994c397a20c6753c5888babac99c3003bae",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a2e8c7f252712d85a3276f461b1fe035f56946db711da551035468eb40a8c337",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "a320c100e200c73657cf9d9a595f5345a20314a0fe2bd4db625d6bd130da9ea2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3749e7bdf709e1b99c43dc4dc82b8d99fbda4e7e745b8b27679b45a07ce8011b",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "025cb07e141486d6c4c40b6d97c8bd7b574b2bec91c3153539ef5b7e6158fd51",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f680f716f8b2804bb83ff6cb4fb6abe14a74fa3a4049efff7e0ced754828c008",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "b73d6dc6b1abd8f0a7b8965b21277c1fc041c1dbc5510c1a2abf7bfa097ee9c8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5700542efa56a63dea50067238de29ced67412d509de320fed1ec0c1be686f27",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "a1ff8e764b85b5dec06ac801cf00b61194202450c95d110c2c6888903e2e1774",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d1a74e35fd3d64e94b9f693df8a395d27c0f3dcbdd1feb4e1da2efd67417fa0f",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "corgi-slender-tall-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "e7279abbd1b8758479e308d1e73946a6aee7d70e6cd02786f6bfa94c22154583",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "55b3edba732b9ec0482cc61e4d876212e68dcaeb291b2181cb95204f48b3ee86",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柯基短腿与大耳基础轮廓可辨；换耳清除原耳根，额角已贴合额顶；颈部不遮嘴，所有表情清晰。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:29.933Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/corgi-slender-tall-round-small-fangs-40c3a6a61435e1b0f6242d870e1589182ce8d5089c3ad039837ca63a3a2e100d.json",
+    "sha256": "40c3a6a61435e1b0f6242d870e1589182ce8d5089c3ad039837ca63a3a2e100d",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

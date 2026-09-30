@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "2b2661b6e002ed8b7878b96d449f7135159322b4ef37afddbff02a8e74d4e107",
+  "reports": [
+    {
+      "id": "husky-shortleg-round-round-parted-mouth",
+      "contactSha256": "64a5640bef2a23139a22874d24c371ed9b074874bad1238d4360c56ce9ed1c66",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "husky-shortleg-round-round-small-fangs",
+      "contactSha256": "616239a244630e1df33f5f2dfdf1277cef5bff02fd58838127f4c6ae110526c1",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "husky-shortleg-round-sleepy-almond-parted-mouth",
+      "contactSha256": "d1e498f0f4995402f0022a8c7237d6ee7e6e92a0dc427ee3bca0a5f5f84179de",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "husky-shortleg-round-sleepy-almond-small-fangs",
+      "contactSha256": "5e284cf2f242b0554a0f075ab02bf2f3362467869406f9411b25f635b9791f5b",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

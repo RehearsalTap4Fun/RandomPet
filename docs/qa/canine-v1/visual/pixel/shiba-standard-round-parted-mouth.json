@@ -1,0 +1,11 @@
+{
+  "id": "shiba-standard-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Inspected native 64px result at 6x on light/dark backgrounds. Readable Shiba black nose, cream muzzle and curled tail; round eyes, tiny parted mouth; intact sitting anatomy and transparent margins; restrained pixel palette matches approved cat style. Independent canine registration required.",
+  "resourceSha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-standard-round-parted-mouth-review.png",
+  "evidenceSha256": "e5e2f3b42e3d7cff93f59ae33d5c701d65210bf2329e95c050ac17b1aeee08da",
+  "userArtApproval": false
+}

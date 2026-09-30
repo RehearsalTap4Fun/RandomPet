@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "a7fdf6a20ef75d2fd218ccea6cbc24c52848c576a7da87659b88879c2a5a8637",
+  "reports": [
+    {
+      "id": "golden-retriever-slender-tall-round-parted-mouth",
+      "contactSha256": "6ab4ec5eb83c73827a6c3251dc4bcb356af5d9d49d583a0485307a9cf846baf8",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "golden-retriever-slender-tall-round-small-fangs",
+      "contactSha256": "f02538b1864f2ef16b9ea48bb927c1c874d86436cebab6133b60d7d6a09489d6",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+      "contactSha256": "c7a77dbab42402bf58cbdd9a40a4c4131ebb5b7cdf5e2872b00259c9e747848c",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "golden-retriever-slender-tall-sleepy-almond-small-fangs",
+      "contactSha256": "b064e1e81c51c96992f8ebd9a1f4acdb10ad3cdfbf94eb8914530f1496e9fa90",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

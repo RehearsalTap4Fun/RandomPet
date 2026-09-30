@@ -1,0 +1,370 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "dalmatian-standard-round-parted-mouth",
+  "profile": "dalmatian-standard",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth-contact.png",
+  "contactSha256": "30af3c8f61a487b709079ad7a950ee3b71a809b8a5c44793c658c5bb3fbac157",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth"
+      },
+      "rgbaSha256": "bf12189c9c9d04bf111ba631e4455d6dfda9fbdc1d385669b0adcc0c01d1bb1d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a34b4e002758829cf281d37ff459279cc2a9f2e71d7d231e88fa50aa09720297",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "89fbc96a1a3d2de6a04324022b493cc600967c2c9b2bca621079b49a55725cbb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c79d4c8139b0570c1f261abcb7b51e5087cb66c096d4d91f369d5a6f6e317b8c",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "bd46f317f318e4dac669565aa6073b1d74ed059c3a9826da216cb3070bae539f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7ddfea0e7770b48bb8206ea88331b80c46213c097a10d7211c1c07ff6b70d276",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "3fc0fa0b9138ac8e14fa09c89527928648fe5b61c0805eeb00fdff9667388bf4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a7048de1e5bac4d6f803b7d0f094ce7b5f27a5db3bd7b458ce027a34d181a0e3",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "f5d7022f7290107ce4a68947c35d62b3321fecb985787fd39e4aa790d0284492",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "05db9396844565d5c9724e8234665ef10d55175524e950852b2321e1f4c15e70",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "06d115d1ef1bfefd48af9df68376b8153b48b427edf3549b5e50255f310e77f9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5bc166dfa2525e5406bd116cb35cd28abd38889321d41fb074bb45eb7d38e895",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "d8b01e1b527eac7a81fe7c16b22083cefe6613fe9f6e4efeb34fe88373060453",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bc2969a723e69728dbf4c02d031e1fe48178dcdf7d8cb27f928ac202305dab05",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "d64954b51d4a34f60d90d403d329462e90b2bd61c51b40232fe27f365ebca04d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c138bf088aa8ce02f90090ad87a71e6de919f6f1e33daed3209c3af1be2b4c69",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "1364921cfb3fda2b519c924012663559899c62096dffe35df29843edfbd7845a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8db7aba4e013de8aacd4167ed12f1155ec34592b38a54f7ed8cf66e244ee94c9",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "96d2625eb37b9907887b071cd31f4ddbcf98b586495001f0b7bd060c3c530726",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "dd2c1013898c5ba3cf1946eab6585a75739f26b77f70154da4a9ada8712cbb9a",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "1a9e713f5843e34439033adae669924b45b846a9dda138dd66d694321ebc0076",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d2c4a266b365cc04e2b7b11f10e829200d9c6d14f83ff284f7ca78686a616c7b",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "061077258761cd1f6587427ec8752a54fbdf5b1a43ffaca0af11a3d6373de770",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "906d5fd9cf40d55c5269fecf45a28f392ebbd04a7a57d7fa5c33ba1b54763be8",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "80baa59ecfc941a8c29b3e3c7193925ec44d96a7b24f0819746560c1abaaac68",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ef27ec812685d51625eaea71e8581a6ee9ff596e8745a5f1b2a405b8849fa040",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "7684aa4a3d1af69a382e60fcac148f38329aa441bd3d0a06cf502d87377290ad",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "58d8f5ae9894a22f08c951d6b3d6af016c313ed198a9150d1d9de71bb9bdb9f0",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "fed1186e0a0ea16ddefcb90249a3ea8c7ef478352c500d80f7fd53f477337464",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ece32b296fd05ec5de183962455ca50bca572de7b4bb46a2a043b296cc0966e1",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "32f7ba0934bb0b8d684747581828dc5d84cd7f7b99514d5109270dc46f68ea61",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ecb6911fe2845b14be536439a85abaa2fb72b5f3f5b5a56e648372e31b8fa790",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "fc41467f6527ad9d0a6870668c00429cbf3b4e73573b65913a1432ceade9b835",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "72ec4584124be38915492795521d2a687ba5ae6658e73e2ea6529b070ca62e91",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "05aad4f0fd3b2a826c3c54ac5f6a725a72c5af57041956869fb709cad1e18d36",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d2e9a1f5c8d838a52912964acbaf20332536e43fee3176d6aad98ba8b6e4e3a3",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "388808d5eeb207d82092a5a72566409dfa40b25ef349983478dc8cac3caefebb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6b6fa7820ecf09048211e25c4acfe7cafc1b9915a1cd4a1fad5cbbfe2ed7a531",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "69cd470938fee1b9f39cb216de9e5676b2fb896866059255b438b221d8b1d3cb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6d8338627ba769cbb7d2c7f2e1382e82f2d4be439901f6e4c0eebb39c4dff266",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "dalmatian-standard-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "9e8bbfb945c38902d0bb366b86965764230413421a852776e8fae14aef15eddd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0c0660ce5a73e7c422496370a7d4b4d15a233ce6a7bf029f74a68df7a62c1f19",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "斑点毛色与各嘴型保持；垂耳替换边界完整，原细尾在换尾时清除，翅膀和颈部层次可辨。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:31.247Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

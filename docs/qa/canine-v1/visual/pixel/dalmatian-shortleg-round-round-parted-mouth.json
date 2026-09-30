@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Broader round belly and haunches with thicker shorter forelegs distinguish shortleg body while head size is stable. Major black spots remain coherent, amber round eyes and tiny parted mouth readable, four paws and single slender tail intact; clean alpha margins.",
+  "resourceSha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-shortleg-round-round-parted-mouth-review.png",
+  "evidenceSha256": "64d62b069c9567e26fc45a1fad797949ba9be26cc1210e6ad702b03e8e219412",
+  "userArtApproval": false
+}

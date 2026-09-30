@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-slender-tall-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "7449389c9f13cce460034ac8a859dc8215bbadadd627f3c105cccdbab5c76101",
+  "rgbaSha256": "cffed270d84289fc4f65482d186b9db06a49d2f4f5fafcbd38f30f2b9155d885",
+  "bounds": {
+    "left": 7,
+    "top": 4,
+    "right": 59,
+    "bottom": 62,
+    "opaque": 1904,
+    "transparent": 2192,
+    "fractional": 0,
+    "visible": 1904
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

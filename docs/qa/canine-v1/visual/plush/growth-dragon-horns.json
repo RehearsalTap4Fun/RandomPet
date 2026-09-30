@@ -1,0 +1,11 @@
+{
+  "id": "growth-dragon-horns",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "一对乳白金色短龙角，螺旋起伏和柔软表面清楚、两尖完整；透明中心及双背景边缘正常，无头部或底座残留。配准另审。",
+  "resourceSha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-dragon-horns-review.png",
+  "evidenceSha256": "5b3934010a7559c1a6c1c3baf283e93b3d904a1d2e2e09f76db9d4dd5cd0d6cc",
+  "userArtApproval": false
+}

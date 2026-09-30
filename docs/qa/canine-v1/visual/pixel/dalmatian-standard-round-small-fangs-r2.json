@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-standard-round-small-fangs-r2",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Actual64px mouth now has two clearly separated pale fang clusters enclosed by dark smile; both isolated from white cheek. Broader smile remains friendly, no tongue. Dalmatian spot map, amber round eyes, standard torso and tail preserved; clean alpha margins.",
+  "resourceSha256": "4bbe882ee15ced560f38761b03d618abb1be83f17a53af082b97125e07a6bd37",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-round-small-fangs-r2-review.png",
+  "evidenceSha256": "347e6b871b2966079110ad08b2fbb11af44377d2dd8d3375c45c3bbdbbe70802",
+  "userArtApproval": false
+}

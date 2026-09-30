@@ -1,0 +1,11 @@
+{
+  "id": "growth-dragon-wings",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "双翼深青绒骨与浅青膜面连接完整，三片膜面与圆润翼尖清晰，左右翼根连续，双背景透明边缘正常。配准另审。",
+  "resourceSha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-dragon-wings-review.png",
+  "evidenceSha256": "ed4e5cbe916a50159b806dd9343a220a420a93a4353151a5b74bf9837b2ca8ff",
+  "userArtApproval": false
+}

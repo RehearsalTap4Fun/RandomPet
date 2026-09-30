@@ -1,0 +1,87 @@
+
+> qmonster-creator@0.10.0 test
+> vitest run && npm run test:art
+
+
+ RUN  v4.1.11 C:/Project/QMonsterCreator
+
+
+ Test Files  28 passed (28)
+      Tests  182 passed (182)
+   Start at  22:37:10
+   Duration  15.94s (transform 6.18s, setup 0ms, import 31.12s, tests 75.66s, environment 8ms)
+
+
+> qmonster-creator@0.10.0 test:art
+> node --test scripts/pixel-backdrop-art.test.mjs scripts/pixel-evolution-chain-art.test.mjs
+
+TAP version 13
+# Subtest: candidate definitions satisfy every backdrop invariant
+ok 1 - candidate definitions satisfy every backdrop invariant
+  ---
+  duration_ms: 17.4369
+  type: 'test'
+  ...
+# Subtest: edge contact and a detached island are rejected
+ok 2 - edge contact and a detached island are rejected
+  ---
+  duration_ms: 7.2506
+  type: 'test'
+  ...
+# Subtest: legendary palette meets explicit luminance floors
+ok 3 - legendary palette meets explicit luminance floors
+  ---
+  duration_ms: 0.149
+  type: 'test'
+  ...
+# Subtest: decorations never alter the alpha mask
+ok 4 - decorations never alter the alpha mask
+  ---
+  duration_ms: 8.8467
+  type: 'test'
+  ...
+# Subtest: themes keep decoration pixels in the upper side regions visible around a cat
+ok 5 - themes keep decoration pixels in the upper side regions visible around a cat
+  ---
+  duration_ms: 2.3132
+  type: 'test'
+  ...
+# Subtest: each motif keeps a readable footprint in the exposed side panels
+ok 6 - each motif keeps a readable footprint in the exposed side panels
+  ---
+  duration_ms: 4.875
+  type: 'test'
+  ...
+# Subtest: silhouettes read as wide brush backdrops behind the cat instead of tall badges
+ok 7 - silhouettes read as wide brush backdrops behind the cat instead of tall badges
+  ---
+  duration_ms: 8.4364
+  type: 'test'
+  ...
+# Subtest: brush ends use rounded pixel shoulders instead of straight triangular ramps
+ok 8 - brush ends use rounded pixel shoulders instead of straight triangular ramps
+  ---
+  duration_ms: 1.6855
+  type: 'test'
+  ...
+# Subtest: backdrops keep a broad exposed crown and outer-side area around full-stack parts
+ok 9 - backdrops keep a broad exposed crown and outer-side area around full-stack parts
+  ---
+  duration_ms: 2.0279
+  type: 'test'
+  ...
+# Subtest: sunburst ruff uses the approved small-lion-mane neck interface
+ok 10 - sunburst ruff uses the approved small-lion-mane neck interface
+  ---
+  duration_ms: 88.3826
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 229.5672

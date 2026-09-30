@@ -1,0 +1,11 @@
+{
+  "id": "growth-frill-neck",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "青绿扇形颈褶的圆润膜片、乳白骨架与上方开口完整，绒面层次清晰，双背景中心透明且无硬底板。配准另审。",
+  "resourceSha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-frill-neck-review.png",
+  "evidenceSha256": "dab3de9d2cc47f2fef8d8436aa0203a1f22a14555cba927c804bd1f03129e954",
+  "userArtApproval": false
+}

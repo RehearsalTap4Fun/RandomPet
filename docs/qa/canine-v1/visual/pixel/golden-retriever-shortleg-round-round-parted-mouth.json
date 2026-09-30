@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Broader low haunches and shortened thick forelegs distinguish shortleg-round from standard; golden face and floppy ears preserved, natural parted mouth readable, single feathered tail and four paws, no edge clipping.",
+  "resourceSha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-shortleg-round-round-parted-mouth-review.png",
+  "evidenceSha256": "aad9d53bac2fc0b93f9023f984b5e9782a69191c3bcbda4b217790f832ba476d",
+  "userArtApproval": false
+}

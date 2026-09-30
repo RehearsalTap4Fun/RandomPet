@@ -1,0 +1,39 @@
+{
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "sha256": "6d2b79e2241a9dddc3b52b58807778fada8ea4fe706f6d0758a8dcb0cc478291",
+  "reports": [
+    {
+      "id": "golden-retriever-parted-mouth",
+      "contactSha256": "6f5c038e0b0730ce94c64c5e58723e996ed3dc34d0bfd66841ca67bd9485a97f",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "golden-retriever-small-fangs",
+      "contactSha256": "a92f3254827e854e52099db6eba3aec6594aa67e8e1a5e0aad85d5d67daa5f07",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "golden-retriever-tongue-tip",
+      "contactSha256": "41cdff0b07931b8dc2cdf7e65770a4cecae6b136591e758142ca66d9e189755a",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

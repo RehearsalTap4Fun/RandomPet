@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "corgi-shortleg-round-round-parted-mouth",
+  "profile": "corgi-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth-contact.png",
+  "contactSha256": "8dcb6f0e9be47d28a586b1870ce001d7ac89406dfdcc6b6e3b9baeab2a92564c",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth"
+      },
+      "rgbaSha256": "374b1578834c4caa92d079fc86c2c074bce134348030dbabe1967550bc216a80",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3ca7e38f2221df13d827e29ee5cb02fafae6631b95bce8d1b25a5bbb399e0831",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "fcb16d5436e8bbf0513e17d93fe02808a597311bbff4ba9a1bdf7b13b6e84721",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a37b50f84009f8d2105efb36dbdcaa9eae655aad411943cd1d050d1d78b35115",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "76dd45dda1b50461a129c1a2aa0587caac8533bf32b2f509c58e112cfeb98250",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ab034840d9a598bc4679bea35dc5518256eeb136f2e9649417491d1374e6920f",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "d00ba8db59dbf1becb8d77d23a52c9f3ed785258f6a8732b524846a5932f3c88",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "17a6591474cd53ad8feb2fa8ad2407683f120d34e761adb2f2ed5df0cdb2c1eb",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "55e46ce7ee4a0d433dd5e7beae108b414b5083e2efcab6188ab7bfc179f6367b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "36d0b41621af31811cb7d8fd68038a9cde011c452ceb3afe979dd68ad4adffdc",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "49577d6fa981ebfdeb62d03def55ccc2012ad8a2a669150c631043d261c4e227",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "55e14c0d229302349dacaf8848fdbfc758ff9577b92190e524e09f66376554e1",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "633150ce3588b7c9dcf6bf2e9e144426c94d05f8547b3b967e9944d39ab454b9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d6d4f25ee728268e28befff6487c910f5fe02e11ab64c97c64145267bd4591c5",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "556ceae12c53a892128e7ed7993b42ac205d5248f326859eb6608206019d8fa6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8465d13a19532392c8112399be7c661eac2643aa6a69edf1a8452ab85d3a53f4",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "c8eeb6a71ab1850198067a1ca827723ca9443e4020fd3fc15fd224f57da1a1a8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2f564862b4da303e60958581aaf10dff6d38d49676cd7956b463547c27a0b9d6",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "1e06b8d0ed6fa3cb946e1a37573ec0c36cec05a44182eb6dea5e113477a6fc48",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "48dafc1b2c096b72e9d3e24897929ea0ee43abdae47b50078b49ce0daa5669f9",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "ba8e812c6d455636c200f413b492ea6aba62dbe43f0e4403000dc41d505fe1f4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "179b3ef1a8319a411675fae6e8a4488017b930d7713648c026bc64ff2eccea94",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "7db077b6343347a676b11cbb427781e0130fc019cb434373282345d75bec3407",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "727b5fb467761cf43853e5cca97ab4ab8e59fb69b307ed43ef01e546a7fbb14f",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "57a6d674f5691307b1cc0656ca92bdbc2581958fd0ce81ad564b0d52d4f2372d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f3ed10415355adf99c7b765d9222a963e67e7f2dfa01093c08967d2114bdb93f",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "93ee75731ca23070d843ddabc3c936a749bb06da24a0709e097935e39cbb8ed6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "444a6e6b5ac2c185747822e44fc917d6f9b5efc3a2fb4299d6640789e65fd457",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "592ce3a7215c44049329860bbb219be163ac6004d45d881a3441a35b534a3bef",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c725c7ded6add17823fb435d2838205a62ef6b7f3154c7db07cc62faf0af7049",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "ed678295290a1acdd9fd158245be0cfdf755563c873bcdf5a0f8c3c91d2b6f90",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "179ee2217b1b38a45a9b360ac3acdd5353cbb89b3218a84ff7f6fb2b93c58b6c",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "d2d45799b54097b1b52abba2e817e19697f899c9ce887bcad92d81b6c76d6bfe",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "774b3ddcac541c1cc974bb872cdff9139ca3ac776bd85856559054f203b347c7",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "a6263e0c5520c6f4497f9914b8f026a78f359af6399262499b465100c36d92ab",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3f087d89ff03eb75ffe5da4357857991f684cc4369da3bcea187ac4d03c7c5bd",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "9e7b38b20f1c8f8529866b3d5079cff4d2b62a27413f9de7bac6e2f554b573f0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "72e338363625ca55f735d96e2b361eb8ac1ab6f66a88c4f71b90cd6d12b4c640",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "7cbf9f4ce5b47fea7b8d2a16267f96556a3b0de7775af496a14cde1ef01500c3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ecd07dca56132a1095b9edde56ff30801c25b99fe9ccb34d0bdaea0051591478",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "corgi-shortleg-round-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "519ce9942ed162fbcec69187b93231bcccf310c5d4bcc02d3ef5f5e743aae979",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fd6cb3fbe9900dced57cf396c37bb1a01c56f22238d3be5b8a0f7cd7ed1a499d",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柯基短腿与大耳基础轮廓可辨；换耳清除原耳根，额角已贴合额顶；颈部不遮嘴，所有表情清晰。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:29.691Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/corgi-shortleg-round-round-parted-mouth-6da370864b8ff2069bff57741412af5a8e72b0188233a1bc6aebae0ea1d06870.json",
+    "sha256": "6da370864b8ff2069bff57741412af5a8e72b0188233a1bc6aebae0ea1d06870",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

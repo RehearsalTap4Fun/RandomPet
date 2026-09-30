@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "poodle-parted-mouth",
+  "profile": "poodle-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/poodle-parted-mouth-contact.png",
+  "contactSha256": "616bdd50451179d9270e7da2c4de654645a5ed9a5a724371cb34a99b5f727fd5",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "poodle-parted-mouth"
+      },
+      "rgbaSha256": "18e8def8589e3d4d1e121716e88d4c369ad6cf9d1a7e0686e6beca58ecab87fb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e7abe7a6d059a05cf79f9a0dfc0e954ab2c67360c45199a6c9277502296758db"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "4fa47fa55e403d10c955ff928739ec9b53c8b05d5b307286bb2d956a8df2ad47",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4bcaf42c5bbe3e950bb9135894cde3a251202056a768a5d3f0d66d0daa5d6942"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "59edcf8668ebc8fb5b9676ff5a8a0965969b3fda06caa61e3c57a0e0f5649604",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9da1512df5ed71c19aa7a14debd5d3d4ac79738935a40fe8c7ec39111050552b"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "967956ccafd9209004b80be3ec6a92984025b08a7560b943001a32ec41064735",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5bd12b04c39737b71fd0a2919ed67462648c2d5e7f4de90720faf03a6320e28f"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "4ab784be9b9207eca8a6d43b9188d6b8d29e656c1631ef1f68bb28d771fe9051",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b76d6f613a155143b61e12f396ad4fa22c2d4f2a950963ad535366631656b8fb"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "1d28efb47e63f1eaf9c9333be415aff8adc106228b67e6c1cf29ff534d10f8ae",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d77043298f92dc47c80d6b7c1bc5a84e5a4cb8c4a6c8474528c1f62fb7d62cd1"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "2d9ed35f8b897aad21cb1c23f6089d0259663fe3012f4d4f85661c1a748dcdb4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "862e78eec061918321c6907367bdcbc871f3c32ee0b8ba261e9d5b69adb6d141"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "8790003518d66fc36f5d1e1cf41e2441ea80ed5f0f21544afddfcd9448aee6db",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6f97e0ce0bfda47b1a8708e92c067a0709335f7460b68a912afe1c78a290173c"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "edaf63cec5f3aba91b6d7957f904a35dcf26a89c965f328199a5b30f526875a1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bbf8cf81a25fd0c397073f4f81a27aa5f2f14be6db9b3dab3c4e449971ad9eca"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "1035770b60132d0b1efa716671ab7f451baccbe7fe8407682d8f2e58098becfb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "85fb7f09f9a2ca06d3a048af897fc7df25eaa5676a8fa06396f433ae1bcbe265"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "c65b0c39a85fd36c921cc730cc8c1a626043183233d00545a276700584247111",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "97543975ba8a2dec9859a3d4b801fbdae4c7ef9b16c387980553527fe02e8f19"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "c1bf6c58295b80cad9d5d454c652de023de5b6e73052c29dc64660ba5cd8701f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "53fa319dd6024a51a8fc1cabeadb8c03736bb967e87d2b3f34403eded56a822e"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "fa894e09fcee849f7b9b084f092200e69d033caf4c6699439479fa2095a923b2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1d922fc3ab8288bf6fc6b05ab020b3ec9f2e43a1dbddf5c678c709a2c22e3e04",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "72f31aa59217dbca40bbff45e811f985b8d8803d630ee2ecbe3025672b1bd05a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6e05a33978cd70c3aa03b6563e13384a68e69a8ab9c67c083fe4a566e1b16e3b",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "c54223e2c9cb437d06a4489ec6700057931dc83cd2b00c08971944fa6425b9ac",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6cf6615b4a28f66edf55dd7d4554222cc9f7baa856c20fd853bc9eff4c352378",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "poodle-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "8e78650e251e8432fe7bdd075a6ef0218d8a7823683254d254338208ecd443ef",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ff4825bf36adc13007cb54799fc86a8e1e2550c264333a4a4653bd146b2d7e8b",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "贵宾卷毛头冠保持；换耳后的两处残余暗像素已清除，耳遮罩不再截断尾球；小尖牙与半睁眼组合可辨。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:33.113Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "fin-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/plush/poodle-parted-mouth-db7133ceda8846d7d62063ed6eb2ff082e2f6586db6279a57cbb69b8c64538c5.json",
+    "sha256": "db7133ceda8846d7d62063ed6eb2ff082e2f6586db6279a57cbb69b8c64538c5",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

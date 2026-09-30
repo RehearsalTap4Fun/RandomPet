@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Two separated tooth shapes remain enclosed in dark smile at64px. Long slim legs and narrow chest match slender reference, round amber eyes and spot distribution remain recognizable; four paws, one spotted tail, clean alpha margins.",
+  "resourceSha256": "e03c9cc5a31137b309b228ef9450558b0d11bee36490b3c31500c9a05b55b781",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-slender-tall-round-small-fangs-review.png",
+  "evidenceSha256": "61ac1d910f7eec6bbb95dba842e5c62332cc80097e6da365e9ddc2bad9f30363",
+  "userArtApproval": false
+}

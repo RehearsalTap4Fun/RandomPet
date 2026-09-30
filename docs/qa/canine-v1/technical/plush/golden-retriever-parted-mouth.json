@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-parted-mouth",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/golden-retriever-parted-mouth.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "2f7537876bde6ff05a0dbfb0478cd5e9c93857117186264c47c7bc3cb31459ea",
+  "rgbaSha256": "0017fbb316501a9abe4bbdc604f27e0df223070d396f6845406556319ff7a388",
+  "bounds": {
+    "left": 107,
+    "top": 72,
+    "right": 1237,
+    "bottom": 1223,
+    "opaque": 52,
+    "transparent": 655081,
+    "fractional": 917383,
+    "visible": 851696
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

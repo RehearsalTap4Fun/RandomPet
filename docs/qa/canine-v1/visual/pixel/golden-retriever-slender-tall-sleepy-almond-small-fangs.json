@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Half-lowered brown eyes and two separated tooth highlights remain visible against dark mouth; lean silhouette, long forelegs and feathered right tail match slender family. No extra limbs, clipping or background artifacts in light/dark previews.",
+  "resourceSha256": "7449389c9f13cce460034ac8a859dc8215bbadadd627f3c105cccdbab5c76101",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-slender-tall-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "55d10cf6eb5bbe88f6bc88bcdce01fa167c49cc250265a01dcb1021e55d4d38c",
+  "userArtApproval": false
+}

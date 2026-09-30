@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+  "profile": "dalmatian-standard",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "90e851a8a3c9a8b7c5a826fa8802b601ce4172738d0c36f4cd2a7fd52efc0639",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "2f310bb0e4acbc8863f87ea8d4afe084e643b878d69fd8543ca6357bbadd0e23",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1354224a7825f40aa1314421dfb95545d37df78e8b3b4618b6d8ee9a13d76420",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "5aaf7cf7cb60126bc675d0d884b32db623960c85e4328063dc32da5524506d56",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9e3c0580ed29315a5f8ac4edea5062dbca21c9bc54c5fbbebf5def23c218028e",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "98374bf179bf60d32dfb931a6eaa76db2f1cf704681ad2306ee7d7a7eb352f23",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "05d74ff69a7faa4a83ba76015de8bbe8bfa7af6edb9a7f3511e04f5e19842de1",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "949264eb71c504b306850bdb3ae30c002dd34cca88db26afdbe5ef1abfc21240",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "13066190fd92d0007c9756671e70fab2011ef8cf11407835dd2e1c6e9c682d08",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "aa23ccf19cb4be736a8873b22c1f6bd7c6bd509e8a456242652ac770fc64b984",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "76766ce5db6da16c4ec4de31bacc170729d181348c2a9085bb72c295a7a43260",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "573c0208b77aebbaab1930887be1eda15d09137308fd7197091fd69fb5beaa3d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4343cbada10281ffc7ae60fd3a2808a90d4529d10a4fb07b328649b0597dda9b",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "81dfa5f9dbbfd0c76425683f6c6d5b330a7234980961ceeaac4b2b5f092e7123",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "41749f1d704fd366761067cfae908acc1e16d5058f42c7573cc9292f6acff2aa",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "d571f543114c6a2a97eb92702fdafe5cd0e52501d4e1f67ed86f55a53795a4ec",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "22ac233371457d18199c9cce387de303ff91f29fd59a5faf178ed5b2df23a378",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "5ca008c58c6d02a7ea8a9bb751fa0dfa8f1c4f14893483f2cd0401e2b979130f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b4d7fc846608abc1ead44d1829163be89fbbe24721407e3f14ad047555e52380",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "ca0986a80777a3a0e88d7bf313916f2f2e40b818caaa657e192dc798773a5795",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ba2a4ff9a38ae8dec28b8533133d35449e2de36b3bc2144bbce3a244c779f33f",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "77983952be7114d8fd707c76ca0a484adf7dc83a457104b849dc827bed92cdf4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5941e34466a9015a9f64272e69e3615d1ecb586cb7d6cb368610c813b98d1014",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "0483f1d35c9a73fd0227eba3dd539b7e06a89c3a9734c02ffbd8c3eaa5eef1ee",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "47d6c6724459d0d29ecda1de6d357165d70780c2f57300ad71f0911cbd133764",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "86673b80d99db49d5a79756577204a24206f3b82e176bc71d025615ea581b449",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8d2b5bb2c41465955fe1581e647273d7915abd0229a6cbf06b159b5730d0d1f3",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "e39d5e0750ec938f3ede928bce71a0354ed773099ced4e5bf8dba1b28d04a36c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "16e8a54f5b5910b94659dcedb105f58483a7dd118b5fd897815c6b7535ece6a3",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "2eaa8a30548e1c589f2f1199309f00d7974150af614058d69dc8915e67504346",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0e9f0178d904da72e2cf4efd35f7b24fb802cdf1ca60b5f436b305752827778f",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "e14b9892046fc36f114fe420a67d22dd6e022e87d7d612b51a1f99d3aea5d66c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3c9e089529474794beae3a12ab35c92a63a15413e669bf5a0dfacf633f46bc3c",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "fa5eb9c03f14a9b844ea7d50023d370f55b68d60c5f2231fe4e24d5a3d704d50",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "51a736b3a06564fe33cc59f5efa76134608910f7f0302a17988afe15d52c6b24",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "14316c15de4d40fed3c5bd215100071d622a91469de038d01dfd1e779bdd47c7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "322f08c2ff7f0b94d2b4fbf2826ab2b00c24b1878f47cd4ec2b5d5d62c743b2b",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "863e41c02c799145520fc7d6657d1261088316da6588294ac668f88dc8c15f42",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9226b9d55bad5b59a6755fc2ec4a89fcd2cbfc7ca4a1c67aa7ed92acb4743a8f",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "6b3f8019ec923f6bf7e9c124ca371181ee3f5765bfe6f9247ae39f1f16b6ce8f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e9218b2814250817ecce5a41a1b788386a29fec44df643bb1a7dfba6999ee7ea",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "48dfc038a1df83f325641ccbf7b3c2ff018ea00b83600eb7e8504c640ac895f9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e4927107e8f9050351b6ecccbc52e3acb293dc4ee078da214295ed6ac9fa6c07",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "斑点毛色与各嘴型保持；垂耳替换边界完整，原细尾在换尾时清除，翅膀和颈部层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:31.344Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

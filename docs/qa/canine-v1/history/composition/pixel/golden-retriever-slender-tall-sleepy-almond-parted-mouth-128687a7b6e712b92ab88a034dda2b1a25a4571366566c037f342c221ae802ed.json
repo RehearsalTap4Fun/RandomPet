@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+  "profile": "golden-retriever-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "c7a77dbab42402bf58cbdd9a40a4c4131ebb5b7cdf5e2872b00259c9e747848c",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "f2df94206f6f4c686029b1b27f05c0cecb1314be31537a7568dbb2730da589b7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9d1b7f9b8c029d294896551a932a72100afcabc0693f112d7c05b9ad34226df1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "f523df123a80c675a505c80839ea096182d306b2a497115fd68f1c0864a2dac1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "27679f6e6f44318f186ee23ad330e84ae07c31901a1ce3c408aa106aa3c34636",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "55bb134077dcf5be9403a1e7ac4c25d1e8998eefc9fc11ca32de6505efd49fc1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b96621b709d0979f916e1761caf3dba7a28d13f0530ad122db0c47606ad2f63f",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "9968f462709114966a4b5f3ffe6eb61ba5c9ebc93e3329ef1a34d28bac7ae449",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2ecede6b36e4a7ca0cfe78dda3a3ffab29592dee930069b73e784f0947e262b6",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "8ff0fbd81cfc80c7023028e6241af554c2a56eaf13c223793222307befa53789",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "913745e69d589fda59bff01a8da274fc4f5ab056566fc4abea1014f38e4305ce",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "a66d147512dd1c252a469e3450a1dc0734e7b20eba9934515f08a2c207d3bfd2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "88365be296c0b412eefefcd47bcba569154c2c0c8c6234b9437dd8b53b6e28a5",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "322ea3f297eefc6796e6679848efad0a84a342e5fcffb46c2120445ffacc5fad",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6a86463a494931f2a5d48bd3c4e4764e2f04f9904229ccfdadcc87cb7a6900c5",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "954fb6c967ac62ddcfe12849c4088c3515a71f6e130673c1b4d27917be1d0d17",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5e93a02ac6ed5642b5f551a5dba6a36137c361ba61487311a8ce3ab6b65f3dd7",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "ecae344270204a115df03b9ee0cdba4addd9ef81d65254693b2167bd4528c28b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9225b86de0b9ca6aa3327bf487437fdd0e30946233d47793e43af35fa129674d",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "30089df391917a39dbbb6db7b55bceab9786d8f96fe15b0b2f933bea45c6ef77",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9e41aa58a94717b555fc17412c6857201a4c1a25c58d5537fcc609769b59e8dd",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "e61b2c3121664ebbf6ff97a46ea8fa5e13982e53f66087e7833fb0242fc35178",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7eabeb8a65fadca359e679f5a52dca429f545595063f3b180dcf9321c6ff0aff",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "f695edff1156b685e73d79e5c014c56e4c77cef3c3c768614b2786906940db5b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8797104a6965b72790ed48b3e48be5b5a53d276a28ba9dea2cbbc065504e6284",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "7673692bca2904de999804174a42542f6e77983570a7797e8a5ec052911ba0be",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "536224039fa868cc0d1ee634cede732d6d21551a57907bd9f515e565699660c7",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "d054adf53b5c5a33951d053c4e2e7a90384f992fe49de3fdbac4c9e2c47dc940",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "62d9ae0393d84a8b57c3559387da8e4a8d8a2610f1a70c9c239806d32d139529",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "dc75a7379f55d66a648e1d3978cf318718263e137c1f6bf358302854d9083bb2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2e9a6e7ed950e3a380d36d4345190e1e30911b1d055ea71bded1eafdcf1469e6",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "c00a6ad8ea969af11b35c59091d4e67fc24bd925b2cf0f18c706a41c302de0f9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8c3b00b160b3b283b5b050dc243a29fecb3c3edf555818df0b80a892fe732f0c",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "345d3ed9ba872dbbe9c18bc9e920a4a3079e9faac860dcaa09e92ad3e8f27c90",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "57c26cd289f12f601a00c58861b5f3e8ae1d2f045903290b3267f41dbb76019d",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "8a637afe0386391d19f824d5c90eab12aa9754402801440bd9776cf22211cce6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9ade0621082c1a3cbd80c6a7d53066749535f6e94c019c4e16ff49336f10ff30",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "9446555cf482eaa06c9d87985df9db53c36b6835761129edc01a9c854d8c3397",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "34ad357c7c9084e513514099cbed53fd780f6c0d8a10b96ae153277f4d450a2c",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "5fa20b2b3c6c32c34742bf39e3df9bf40d5a71d2169da81910668f469cbddcbb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "075c21cb8b65a9b100a8b1f13c65b61c2ec07e57ea9fc6eab157b4bd9cd27275",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "e1c8ac5427a5ed0ae1c58c0e87c23ff9a86d5316be1d69a7cef955a8b911aec2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0891af085abc91c4315094ceaf1ca91ea0bd8eb6411b7f24b1d00d26fbb35c54",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.567Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

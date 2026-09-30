@@ -1,0 +1,27 @@
+{
+  "id": "husky-parted-mouth",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/husky-parted-mouth.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "80749adc9ff8d3b52fa13db2e24d34ecc8f3f7dfe0d20c063cc8644057eb80f3",
+  "rgbaSha256": "0cb0e32afd9e8fdfa53cc168ed2023b2be7370aa195f53693f46896055acf46a",
+  "bounds": {
+    "left": 211,
+    "top": 5,
+    "right": 1236,
+    "bottom": 1248,
+    "opaque": 9,
+    "transparent": 657519,
+    "fractional": 914988,
+    "visible": 865322
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

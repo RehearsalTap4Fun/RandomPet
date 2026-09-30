@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Narrow tall torso and long legs match slender reference; dark smile retains two pale teeth at 64px, round eyes and retriever floppy ears intact. Four seated paws, single tail, clean light/dark edges; use slender-specific registration.",
+  "resourceSha256": "d4571dec6556a5307b9af03166d8e188cf6c21e58b35a2e0cac1e61441ad3ebd",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-slender-tall-round-small-fangs-review.png",
+  "evidenceSha256": "cf73081dc0ea6b138f69868df246fa5789b8529ffe3bab363c4b3a86d05fd42c",
+  "userArtApproval": false
+}

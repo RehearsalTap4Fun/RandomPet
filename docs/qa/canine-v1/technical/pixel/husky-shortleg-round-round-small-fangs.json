@@ -1,0 +1,27 @@
+{
+  "id": "husky-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-shortleg-round-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "d016505b310571b546374d02e4956c359f9d522659e00827e4c70ebed6eec73f",
+  "rgbaSha256": "4b7695df702a7879c724f38b7af8313f17464c5d360a181c16e95318adc56af1",
+  "bounds": {
+    "left": 13,
+    "top": 7,
+    "right": 58,
+    "bottom": 59,
+    "opaque": 1692,
+    "transparent": 2404,
+    "fractional": 0,
+    "visible": 1692
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

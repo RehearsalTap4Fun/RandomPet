@@ -1,0 +1,370 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "poodle-slender-tall-round-parted-mouth",
+  "profile": "poodle-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth-contact.png",
+  "contactSha256": "92b954adb9b7607ac7d6ac1c73ca27a672952d10dd4b1d22870ecbc0d3e8777e",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth"
+      },
+      "rgbaSha256": "0ac6a23b970ce0c4a073b5059ce1bcdb84b388b1e6ace506c7b91a8aad419d81",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3748c44ca1cdfa6481dd249a5c76fc28f7bae0b6a77fc7dd69deb165ff1acc3a",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "5195e1f025e82d5d6f7a82542359fa0b77d96b72a83b6974c5b3b37a701b0c03",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9c32f16aa8403548e42b52b137caeaefa1f30b7d0e8ff31e0113ab05a90b5edd",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "59a22075f3a42971b3bc47d0a41e0ff2b9182ac6776f814d55a18b2d86e50ad3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "20f41ce107be810af1447e27bc0e77bc2e8802f6a4f1bc06f6bb1d479cc1f6de",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "d7a4ad03d35ca012b686cb6a83ee1f29f18a806ce101239aceefc980c971486b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "902da95e43a7ec2f573718a0008f406d17c5dbae57efe98d88b76b9fd3f64744",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "4a73951219ae7e53adebc039b4752b43fc266da6b77715bc5b19363f37cdb1b1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3d2ac6230185b149b8b94194392566524bc14c486d8ac5825eead5fb41648035",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "cc2b272265a06906e30533422d2f3e3772a798ada662199344e1aaa31288c947",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "08699d60f9cc47633ff1968c403074f6cf0069bc990ab6785ceabe991971d4f2",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "71fd973040040a9dca2591efacf5fe611f0e22dc6cc00470a1e2e588f994d7f0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "20ba6df182564bad52de53cf00dc508fb864e3dc1c9fefc06cb964b9ac4b2098",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "6e25ba84a19cba090d2898df7cce5ef564f5c0c5e90d639c576093d789834f75",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "71f8eea901a44c7f645ef1a551cb154c5c1b60838136cf08845bdf5248eff137",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "4ad3566544f7f4c26981711027b11d23b1a336d5a30d5a2c05f1f0ea6fbc5e1f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "41b1c8d37f14799816e7934167cf35b5efe0e80f0d23459be627d46e2595aa82",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "7a419f5e4a9c35a972b28ff8b597c779dcfd2f5c67cad54c3d85807b38898b3c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "21dd92b5e0a844f7a484791d190bb24007a71ceef2222bdafd3c7611b5fc160f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "4a0282fcd5d1295386790712e7df847a09a7d23fa869362de83bca5050bb8151",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ddebc4905093fad70af38f7e33ac869f6a8337570e51088e9ef74a0711c10e36",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "affb7b06fe993b984cc93556a07443fad06abd68654c14cb39613ba77923fcac",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3aca5c8935d806b874f2ec69c1a1bd1efc29d5f4a114fcd71c4277bcd4a117f8",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "fb4caaa1e4a918bcae0e9e87d283d9169733849e02063ee510b8725119b2681e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7aa18e919ce87ce42eaa48a70901142917a5166843427c6d2523beb4418aa72f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "2084e82b54c13b7887b86f39ea4da6e285e6407ae6715b7defb6a85c83aaa2f3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "68de0514a161abfd7ecee24d89ace111acf0044ce89378a4d5fd3de169075c36",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "8aec79fe771cbee85064361a2d53c721539ff7068eec1e589ab5362894bc3003",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3debbcf6ec71d3685b9f6bdf4472bb9a322870893a7be3c2ec6dc3187c773d04",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "d31dcd73020db0d7726d5e3695a479a00efe7c19738ed95d3b4de64eb78e75ee",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1c3e6b065bdc426e47b1688e12a4f851774553fe8b8eec40463c4d0c57c08d7a",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "9a62f249710a52aa35d98dee2d8cfb2efb8bf6696301d9c79a34befdf678f0f6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2124a309ab3296676180f5575662fd0f09c8b24dc3aeca00d5213ca8eaee7939",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "b3401a07b6c969cf89c1d4a2abc3935c007b465191d2205c8bb6cbdbb02a432c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f5e3d5308c973e6178d6da99242f25700d2bea1306dfb815861b07021173b366",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "c6c6a1cb058f634f1af87c6231619fa8325e5ee1b5d26d1e207ed0f7454e6bbd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bbb16705c18520b7f587a0dd91dd1fe01f206963c30e7b8b85108d8f86703653",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "8ce68ec50a571e8b376dcecf394547fef32d3d7cc5c89c1d65a8ba77b9cdfa8f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7b7b7b325a44ae772880a9c8df9c77fadfe29b51e63b9f728fab246af06cce1b",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "poodle-slender-tall-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "8db8bef2bc864436f0457d5a47ce3ed39f8a8609a6f63d4373f281075e746e72",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "64c3477d9724cd55149e5e55ad78e1d7ad5f7150f9c744eaf5f3abe859512726",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "贵宾卷毛头冠保持；换耳后的两处残余暗像素已清除，耳遮罩不再截断尾球；小尖牙与半睁眼组合可辨。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:32.209Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

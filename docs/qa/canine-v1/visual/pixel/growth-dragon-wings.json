@@ -1,0 +1,11 @@
+{
+  "id": "growth-dragon-wings",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "青绿翼骨连接三片浅青膜面，左右翼根连续、外轮廓完整，形态区别于羽翼；透明中缝与双背景轮廓通过。配准另审。",
+  "resourceSha256": "c6f3e35997d7729ebaf06ddea7e7b054a0a04dabac4f1bd5752f3d69039c0e06",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-dragon-wings-review.png",
+  "evidenceSha256": "4ac198d8f385023ce2898288535bf7910f756352c9cf1bd6b374f32d11072291",
+  "userArtApproval": false
+}

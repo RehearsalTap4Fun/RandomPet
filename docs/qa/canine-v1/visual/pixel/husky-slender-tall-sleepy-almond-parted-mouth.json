@@ -1,0 +1,11 @@
+{
+  "id": "husky-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy half-open eyes retain blue iris pixels after 32-colour export, unlike rejected predecessor in other expression. Natural small mouth, slim long legs, white mask and single tail retained. Four paws and transparent borders intact on both backgrounds.",
+  "resourceSha256": "acb43e8dd4bea9021a2a20b73a076843bd874dbcca81e5d2a0c17002a5ff07fe",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "83794860ec2d95e83b736f9bbd3d3c315a33328b2189d297341076bf0a175e8f",
+  "userArtApproval": false
+}

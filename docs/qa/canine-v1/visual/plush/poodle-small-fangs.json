@@ -1,0 +1,11 @@
+{
+  "id": "poodle-small-fangs",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "仅两颗上犬齿露出，未生成整排门牙；卷毛方向、垂耳、坐姿与母版一致，双背景毛边自然、四肢和尾球完整。",
+  "resourceSha256": "a73a850d543af6c4e24b41a4a532daa6118aa55e3061d641fd2cd5cb2117122f",
+  "evidence": "docs/qa/canine-v1/visual/plush/poodle-small-fangs-review.png",
+  "evidenceSha256": "85b1e94be1a146e0ba97cfcf4b85612bdc434c0562756f1974daae813bbbe15a",
+  "userArtApproval": false
+}

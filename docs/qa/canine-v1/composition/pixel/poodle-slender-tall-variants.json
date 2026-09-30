@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "c50d84ff5a9f8e81b63aa57228ae2e757d91d93a5d5a664e912e579d4e9afde7",
+  "reports": [
+    {
+      "id": "poodle-slender-tall-round-parted-mouth",
+      "contactSha256": "92b954adb9b7607ac7d6ac1c73ca27a672952d10dd4b1d22870ecbc0d3e8777e",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "poodle-slender-tall-round-small-fangs",
+      "contactSha256": "a1761c27064c6b9e3776fb53b3807647fa35ea7a7b1684715106f934b13e50a9",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "poodle-slender-tall-sleepy-almond-parted-mouth",
+      "contactSha256": "654cc8344c11788246cf75286188a2119a15450549e952f1da9e8a998794c990",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "poodle-slender-tall-sleepy-almond-small-fangs",
+      "contactSha256": "9e07b5d9c5def0b32fc9f72f018ba82551162cb9386da9d156422ad0684ba3f7",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

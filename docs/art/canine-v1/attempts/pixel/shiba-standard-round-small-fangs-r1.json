@@ -1,0 +1,12 @@
+{
+  "id": "shiba-standard-round-small-fangs-r1",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-3092a660-29d3-4ba4-aad2-de7957753b16.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/shiba-standard-round-small-fangs-r1.png",
+  "rawSha256": "d1b9e44ce37a494219e6420f8cc09b49772b92d51caf9423a17461b250e515f3",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. Edit target Image 1. The two canine teeth disappear when reduced to 64x64! Repair ONLY mouth and teeth for small game sprite legibility. Make a DARK OPEN MOUTH 7 logical pixels wide by 4 logical pixels tall (approximately 138x78 real pixels on this 1254x1254 image), directly underneath the existing black nose. Inside it, TWO IVORY FANGS, each a bold 2 by 2 logical-pixel block (40x40 real pixels), on the upper left and upper right of the mouth, separated by 2 dark logical pixels. Teeth must be chunky clearly visible cream squares with little points, not thin slivers. No tongue, no red patch. Smile remains cute and friendly. Preserve all other head/body pixels, eye shape and positions, ears, legs, curled tail, orange/cream coat, same 1254 square registration and genuine transparent alpha. Match pixel style; no text, no sheet. This is an expression variant of the exact same dog. Render the teeth at the requested generous size, NOT anatomically realistic tiny teeth.\n",
+  "visualReview": "pending"
+}

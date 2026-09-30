@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-tongue-tip",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/dalmatian-tongue-tip.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "d177f8907ebfd72f6995c404c73151ba8b6fc183abc59f6d5f192d2e984c424d",
+  "rgbaSha256": "26b3e9e34377720cbcd7f645542c4501df6f87598d2e4898bbad906ed2afe8ef",
+  "bounds": {
+    "left": 79,
+    "top": 62,
+    "right": 1236,
+    "bottom": 1228,
+    "opaque": 42,
+    "transparent": 755223,
+    "fractional": 817251,
+    "visible": 780943
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

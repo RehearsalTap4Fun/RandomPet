@@ -1,0 +1,11 @@
+{
+  "id": "poodle-standard-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Apricot curly topknot, drooping curly ears and single pompom tail distinguish poodle from golden retriever at64px. Brown round eyes and tiny natural mouth readable; four seated paws, discrete fur clusters and intact transparent margins on both backgrounds.",
+  "resourceSha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-standard-round-parted-mouth-review.png",
+  "evidenceSha256": "9e4f5e724d0b07c9b8eb7c06b139924e79ea7c44e6008c54de04d6a23d6759ec",
+  "userArtApproval": false
+}

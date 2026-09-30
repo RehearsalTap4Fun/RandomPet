@@ -1,0 +1,27 @@
+{
+  "id": "poodle-tongue-tip",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/poodle-tongue-tip.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "93352f549a4d481461b93475fb0466969bc2528c31e49ac6f2c5c0c674df4e5a",
+  "rgbaSha256": "327efab65af088f18935450b1752156f4228f32fd8b1d4aafa3433fb28b2b0f6",
+  "bounds": {
+    "left": 72,
+    "top": 33,
+    "right": 1179,
+    "bottom": 1223,
+    "opaque": 31,
+    "transparent": 673136,
+    "fractional": 899349,
+    "visible": 875254
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

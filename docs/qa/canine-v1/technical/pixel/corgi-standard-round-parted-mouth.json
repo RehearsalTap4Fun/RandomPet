@@ -1,0 +1,27 @@
+{
+  "id": "corgi-standard-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-standard-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+  "rgbaSha256": "5f52c5f08f2418cfe91661f96fc08a9ceb9cfeed0314ecace17da84f9924f496",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2158,
+    "transparent": 1938,
+    "fractional": 0,
+    "visible": 2158
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

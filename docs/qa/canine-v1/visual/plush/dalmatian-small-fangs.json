@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-small-fangs",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Exactly two tiny upper fang tips naturally embedded below plush muzzle, no extra teeth or tongue. Face/ear/body spots match mother and amber eyes stay round. Four seated paws and one slim spotted tail intact; fine fur edges clean on light/dark with real alpha.",
+  "resourceSha256": "84487a9498958193d846ceb51f3364d55a505b7b0e84fc82ebbfb32bd06ef9c4",
+  "evidence": "docs/qa/canine-v1/visual/plush/dalmatian-small-fangs-review.png",
+  "evidenceSha256": "0aea5987dd0a569bbc59ef6c548c1a1a2efe1ed0111c0992c14fadd0923fa95f",
+  "userArtApproval": false
+}

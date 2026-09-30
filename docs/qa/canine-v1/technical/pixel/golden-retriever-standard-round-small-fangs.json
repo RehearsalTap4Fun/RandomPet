@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-standard-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-standard-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "aa7d6b374a31c7ce67cc91ab850c3c77b430d575e07e25dbd511da301f9065cd",
+  "rgbaSha256": "fa344a04dbbf8d2a75aa8aa51fc552902fc8b737daaa4637c07daa1ab649a474",
+  "bounds": {
+    "left": 4,
+    "top": 6,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2212,
+    "transparent": 1884,
+    "fractional": 0,
+    "visible": 2212
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-0079e10c-e892-4038-898a-4543deda8fc2.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth.png",
+  "rawSha256": "abc3b467b4f0067e18452f40318b867032f489bea898d0aaccffb7cb25c66e1b",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. ONE production dog sprite. Image 1 is EXACT identity/registration reference. Preserve the same breed, coat distribution, ears, nose, tail, head size, canvas placement and lighting. Keep the reference mouth shape exactly unchanged. Only change the explicitly requested eye/body/expression attributes. Subject: golden retriever puppy, warm golden cream coat all over, floppy pendant ears, broad rounded retriever muzzle and black dog nose, gently wavy soft fur, single long feathery tail on viewer right. Style: Crisp 64x64 logical-grid pixel game sprite, discrete large flat color clusters, 2-3 shades per material, brown single-pixel-equivalent outline, no soft gradients or texture. Output high-resolution square image of this logical pixel sprite. Body: KEEP EXACTLY the reference body silhouette, proportions, width, leg lengths and paws; already correct slender-tall. Do not widen, slim, stretch or shorten it. Eyes: SLEEPY ALMOND EYES: both eyelids lowered into clear half-closed almond shapes, relaxed sleepy expression, irises still visible, not fully closed and not angry; clearly distinct from round eyes. Mouth: preserve reference mouth and teeth EXACTLY, pixel placement and shape unchanged. Front-facing sitting pose, whole dog within frame, eye line around y34%, paw baseline y95%, head center x44%, tail on viewer RIGHT. Keep transparent margins on every edge. Exactly one head, two ears, one tail and four correctly seated paws. No cat whiskers, no collar, no accessories, no text, no sprite sheet, no ground shadow, no floor. Genuine transparent alpha background. Preserve source alpha. Do not crop or recenter.\n",
+  "visualReview": "pending"
+}

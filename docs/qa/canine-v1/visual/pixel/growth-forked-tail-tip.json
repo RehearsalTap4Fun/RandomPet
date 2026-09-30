@@ -1,0 +1,11 @@
+{
+  "id": "growth-forked-tail-tip",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "一根连续弯曲尾干连接恰好两个蓬松尾尖，分叉间透明，根部与毛束完整，深浅背景无断段和散落碎片。配准及旧尾清除另审。",
+  "resourceSha256": "49a5bd2f075e1a1cf941c1987d4a2a8e5f7793ec61df1513cf5305ddb149034f",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-forked-tail-tip-review.png",
+  "evidenceSha256": "8d1bbd390fa402d8d63d28cc7109a3365d96f2933175c9c8844d1c895425b7ba",
+  "userArtApproval": false
+}

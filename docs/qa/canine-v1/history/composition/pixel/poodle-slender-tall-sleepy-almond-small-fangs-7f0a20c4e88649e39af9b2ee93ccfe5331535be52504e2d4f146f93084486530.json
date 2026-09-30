@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+  "profile": "poodle-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "9e07b5d9c5def0b32fc9f72f018ba82551162cb9386da9d156422ad0684ba3f7",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "954a7da36ccabf7c8915d3ba02677fd3393f516313405a59cefbc2dc544eba16",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e2029aa99771139864d3306ee71e1720d0080c961fc356ecc84b150dc74acda1",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "6dea09ff114456a7d1b3c3c15a337195a666934bccb464cd8ec7ca0332595a83",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "63c38c6f463990d736766e4e10c32ac0bd897ad68ecb883dd7bc0e848faab293",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "8840fe8b809e995aa5d928a963905c36a3e742b39436c031bbb3dd8e244850c3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4f91f50c0d2e81d77f29ecf55aaf8fd5f95e608ba88b0e99e8d28d97db30f815",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "52aae961b91b70e9c1b7dbd7b79853671da16621ce236e3a3d07dbc773fb4385",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6fedf5e19df2f42d890afb184d477408b51dbda6a1c8d70eb23b325ca6248391",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "802c30b1d5bb758f86bbd6f2c067c14503844a0cc450fc126c59e3e054c4f8c1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a919f368efcc1528dc2cf63a33f02687c88807277460922255a41e6030a222bc",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "15a1fed101c94a02f34089333354728e74763311af24b69992e02ef62e0388ec",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0e040bcb8b49f34169ed2854cc3f5a9db7cf6b0d8ec233e1fdb483a52abda7b0",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "779289f44166fd669c88190c664478c6646cbaee186c9ad018da0b9c3344ba57",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "73ebc30ba7e149f6e8353e052a0772271083e15b7ed9da0c0d4720b429a8d8a2",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "de8442bc736d6870923859943c69e58f8883b33e7c50420d6ca15e4cab60076d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b8a9c1a5480fc374388fae19f101d54604ed1c6e24f2b6a17fa6aa3c5c136948",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "cd02152dc2ce5629f20a93a18ade5a7acf0ec745483f2b45a23a57139affa074",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7e33dd0d84ea6e5975ac0e970f2e8f13dc35e3424249b1cb8f6dc3931152b42f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "479f1e68f41da399de5382c178014899b325ffbe07931e1e66a441e4cde0e2a2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "884b6b328790363d2ad0bf5f7c42493a4a3110e950edd963b6bccd891b3c23cf",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "64623db135878ad84851993cfc2b1b6d7b0a0bb87fc85c85ae84ea0d887e484f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "468d6c26afbe6d171c2f197248c15b661e849b49a8ded5d237857da1537a5bd9",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "ed541a7ca06d18561b0f9ead8426aa4493dcf22cf25d20be344873db6bd28f6c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9557cae16cf0326f70b309c6b8f6a6b2bf15749dfd7ce06cd8ebe8a039ca85c2",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "c0cf51218678e4e23e6c06a8051b6eae5b22b93e1e9b779059c3ce6627638e1d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "813769c0067bed8b3b55a4dcdaa4a5edec687909711e6cd478d56f5bb293dbf0",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "c2aa5acfbc3ccd785acd7ca19f99d7e5fa00c9d5df8f725eb6639f09b4ef8a9e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0ddf40fd58693d78ccdb2760b8059c87749d73ec70e3391d56bfb4734f6c79f8",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "dbd8bcc6a5447ac74d6ddc02b2f495598fd6bc63101866684d29cf76ec688baa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8e83bea292a4e4f503a4da436aa2e156de814dc08a561b4ed59f566e83fcdd26",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "f0f1df4c894d748b00d422c6074107f6931932f464210a3e3f124544182f9e6d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "30d03101577487622af52257d146f0be2a1c9fee8859869f35fcc1427584fd72",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "a802d5d007ccbd402dbc61f3559ca9ea47e6ce825c49f2fe321d34e3dfafe969",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "95d5c4f248f854a21ea695b413e8c336bf37f5c754063bd11b968c27b614e5f4",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "f5733868c4d0ba1dfd369a5340aa40ede625c5f4b59c186472e1f3dce7627530",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "264b37976b02389a154a81cd667d1c7cf14af1c729f2d086a5d24e6b2321109b",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "1ce975113ad4def69f71a9405641ca3d741312ece69d7206f06e1567ab368d5a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "edcce13bd9a5c8ceacbb6807059a0e67382a248adb9e1b31b7b8c5c44a7b6e6e",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "c9b66bbdf3bb3315575b46b5bf9725ec02d7dfdef72d00e5d6ee2d5012e5ec6f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6a27a51044842bf7826b4bb9265673141637a7697496bb5057771dbf62c59751",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "97d77fc542db4e956e157481ff4569335bd50565aa249721682b9b2fadac383e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f7e1f4f40d254640189f3b3fa30c8d7ee84b17a36c69c730a945ff70b74bb1a0",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "贵宾卷毛头冠保持；换耳后的两处残余暗像素已清除，耳遮罩不再截断尾球；小尖牙与半睁眼组合可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.357Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

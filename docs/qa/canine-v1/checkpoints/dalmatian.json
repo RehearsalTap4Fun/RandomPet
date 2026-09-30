@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "canine-production-checkpoint-v1",
+  "scope": "dalmatian",
+  "status": "checkpoint-passed",
+  "goalComplete": false,
+  "bodyCounts": {
+    "planned": 90,
+    "reviewed": 75,
+    "verifiedHere": 15
+  },
+  "remainingBodies": 15,
+  "partsStatus": "not-yet-produced",
+  "claudeNotified": false,
+  "checks": [
+    "file-and-rgba-hashes",
+    "review-evidence-hashes",
+    "original-generation-provenance",
+    "real-alpha-and-size",
+    "unclipped-visible-content",
+    "distinct-variant-content",
+    "pixel-128-exact-nearest-neighbor",
+    "max-three-reworks"
+  ],
+  "rows": [
+    {
+      "style": "pixel",
+      "id": "dalmatian-standard-round-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb",
+      "acceptedAttempt": "dalmatian-standard-round-parted-mouth",
+      "sourceSha256": "3051252e8d705d2802e78c099866f58742ee0695f86d066cace5ca5a60382511",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-standard-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-standard-round-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "4bbe882ee15ced560f38761b03d618abb1be83f17a53af082b97125e07a6bd37",
+      "acceptedAttempt": "dalmatian-standard-round-small-fangs-r2",
+      "sourceSha256": "f83f0f2419ff377267331a85a9c4af4b9da0b109b52affcfdf42be7d209b98a9",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-standard-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-standard-sleepy-almond-parted-mouth",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "ee6b246c341198ce9d4d1fb185bc398f7514329b2b8433e0b4fb1aa731d9f555",
+      "acceptedAttempt": "dalmatian-standard-sleepy-almond-parted-mouth",
+      "sourceSha256": "3c5e2d56639f97f21bb425f028bbd22a5039e2859f353d63c21f3d534ef1b41e",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-standard-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-standard-sleepy-almond-small-fangs",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "16a06ac88f8533a8785a2e6e32c188748539369b5d612bba4b8906d2942f02cb",
+      "acceptedAttempt": "dalmatian-standard-sleepy-almond-small-fangs",
+      "sourceSha256": "703c611e2ca464ecea00f90e1545923aae923651f7a9f0a52ad7a50d11586431",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-standard-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-shortleg-round-round-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+      "acceptedAttempt": "dalmatian-shortleg-round-round-parted-mouth",
+      "sourceSha256": "bb215b879be91690927efe989700ff62be510a888053996eae6267dc6b5cfb9e",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-shortleg-round-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-shortleg-round-round-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "3097e5381da23d65bcb60e19be3ac73d511feac28989ddf8bcb316d40df778fa",
+      "acceptedAttempt": "dalmatian-shortleg-round-round-small-fangs",
+      "sourceSha256": "0e819de6c901711a75dbce7dbd1c2ecb471cb480cdfa79399d750af5aa7bbfb8",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-shortleg-round-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-shortleg-round-sleepy-almond-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "8e63c65fd54528adc0699f9a92ef56bb08fd7e036ae655e6a3d39911e2ada95d",
+      "acceptedAttempt": "dalmatian-shortleg-round-sleepy-almond-parted-mouth",
+      "sourceSha256": "a886382beb4eaa0c0366f99d4a54938f6babfcd57ecedb33a494c75dadd49546",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-shortleg-round-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "c4f82942ed47daec91959b4a3bf230e3205cbe71d5c1a9407921126a5cf07fae",
+      "acceptedAttempt": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+      "sourceSha256": "05949bcf56af0abe79a0c2c14c04e012a444d37542b5977b43ca231ce259b644",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-shortleg-round-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-slender-tall-round-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+      "acceptedAttempt": "dalmatian-slender-tall-round-parted-mouth",
+      "sourceSha256": "313406971e9b31a563a248c23f49e87ee454a95fa42ef7fdc5bd100988a4a9a5",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-slender-tall-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-slender-tall-round-small-fangs",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "e03c9cc5a31137b309b228ef9450558b0d11bee36490b3c31500c9a05b55b781",
+      "acceptedAttempt": "dalmatian-slender-tall-round-small-fangs",
+      "sourceSha256": "22d0540f70f64efe11f368725d0fd40a48c760244fe911e4635ff25f12022d62",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-slender-tall-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-slender-tall-sleepy-almond-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "d018fc4b332c99ac3f611e97cb578acec773cd015c8f74fb6a4c4e1b993b7e09",
+      "acceptedAttempt": "dalmatian-slender-tall-sleepy-almond-parted-mouth",
+      "sourceSha256": "2d867dbd6d1412706ba1f97181b24b2dcebdb354b0ea9844d663c5ad0fd3350d",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-slender-tall-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "dalmatian-slender-tall-sleepy-almond-small-fangs",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "0494474c8bf606ce15efcb591a2232d209789c10937d36a42f32f67617556953",
+      "acceptedAttempt": "dalmatian-slender-tall-sleepy-almond-small-fangs",
+      "sourceSha256": "9146586d05c8b954dc875f7ab6d1f7a98b23767a35ec498a0cdccca03d2c750a",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-slender-tall-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "dalmatian-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "7df26f36bebf5eadd132fda4e274f194dc1dc9ab7e8e3991ffe8462dea370b2e",
+      "acceptedAttempt": "dalmatian-parted-mouth",
+      "sourceSha256": "08a03a47b0f08c65157792557b98afad7c74f2e7efac694d386ac571727feb32",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/dalmatian-parted-mouth.png"
+    },
+    {
+      "style": "plush",
+      "id": "dalmatian-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "84487a9498958193d846ceb51f3364d55a505b7b0e84fc82ebbfb32bd06ef9c4",
+      "acceptedAttempt": "dalmatian-small-fangs",
+      "sourceSha256": "89a5fdd98634d8607b648ebb898d5f934c1a41aed5ee9a68460392db650fd295",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/dalmatian-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "dalmatian-tongue-tip",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip",
+      "sha256": "d177f8907ebfd72f6995c404c73151ba8b6fc183abc59f6d5f192d2e984c424d",
+      "acceptedAttempt": "dalmatian-tongue-tip",
+      "sourceSha256": "56be71959bc0048451b23949d678d11f1d8faf9127cbc32ec9597124e35e3d2e",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/dalmatian-tongue-tip.png"
+    }
+  ]
+}

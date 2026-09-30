@@ -1,0 +1,11 @@
+{
+  "id": "shiba-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy almond eyelids and two cream tooth tips are readable at 64px; mouth follows accepted r2 reference, same standard body/coat/tail and clean margins on both backgrounds.",
+  "resourceSha256": "8e7e12b2e7c5652d3213ab3eb60cf8710981ac9e2fe2b0b1d6b949010e78d65c",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-standard-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "db3f0ef2058d54d7822538bfd03974402411732758b008cd509953a27de760ce",
+  "userArtApproval": false
+}

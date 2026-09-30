@@ -1,0 +1,27 @@
+{
+  "id": "growth-halo",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-halo.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+  "rgbaSha256": "41ef2333e173137fdeaf4a72029dba3cf798c05a333d072e13d700e984401bc7",
+  "bounds": {
+    "left": 5,
+    "top": 20,
+    "right": 58,
+    "bottom": 45,
+    "opaque": 742,
+    "transparent": 3354,
+    "fractional": 0,
+    "visible": 742
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

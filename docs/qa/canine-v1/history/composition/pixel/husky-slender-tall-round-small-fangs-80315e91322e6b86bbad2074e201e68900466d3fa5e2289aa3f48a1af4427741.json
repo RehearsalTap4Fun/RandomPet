@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "husky-slender-tall-round-small-fangs",
+  "profile": "husky-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs-contact.png",
+  "contactSha256": "447ee02695a0c4b9089d88b9b49d8b55308012a5ab9f7a8a363cb368f4cc7f5f",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs"
+      },
+      "rgbaSha256": "35d04361bbed10273a7d7fbfecf54174644111748f2994e98efc5aefaa70985f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "02cc144e5cc448a88d2da2cced0504c653b4f3ec12a469b97f2bb1fcc240a8ef",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "b6179a342224282cd5ea283d69466705ce8924100dc33e1dc84ec288da72e492",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "dec3a53efbeb9aa2f9f49c4c11b50a29a2f73525b19f2b50461024444b1de6dd",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "bb04c877ac8dfce088c192b16621fc39e93d03029697e1c1df1cf3eafc763e95",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d2eb786109efdbe5a1b47269d2d767eec982c217c452aa2d664eb3d39088975e",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "407b71d786e6e1f6876a82036467e618ffeee2c27e3f44766a2eb073a3ec47d4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ebc1372874c42fedf1ba39cda935b448f1ef79d9f4b81cf343f2c5ea65893ee3",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "76e31526646bea31d5b75066e284a1a745eb6156ba076129b67937b25d6d1440",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "60253720c07985a5dd607fad8e6ecebebbc43a65cb785fb7b7a7266cbf8cab52",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "ce70cb7a75495e88c1b6ec5767335954622c4192cdc439bb6b4fd060f3b2919d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bd67b3288aee1c51dee9d0d51b526b13d549367b321e59e8b2be810386a3444f",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "cf20de23164c0bf2941ab7d5d6da1344305955610fb4d2600c6bef7b2bbae720",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8fc07a44e9ff589aa299cd9ab5f12a05250fc2b8d206ec53a15df2ff95bd6e74",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "70a4bbe8e9a4c23d3d2c507e6e1b297d9167ed0fd5aacb41a5728c71f6128364",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "741f3961fbf6d10ef4c2d4d2123b80f49e39665714bc2810d48bc519f8fc1009",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "2b867c2042980bc3265f99dada4ba1e35ca9a278356dad22c2c8b217af110f4b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ed9192740c80c0ff25861dbda0dacc9131a049c7f1151e63d1a38ad89118cad4",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "b5fe96fc8f97003f9f2a387e4d419ffc9c631ff5cb0bd875e20f001360f4fc15",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2eb6c79178e106faa8a7401befebe7cde404901d9d221d01185eef3b738f9f3b",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "7bc9ca887b335c5aa761ce7bfa8aacf7af1940dedbdff9999c713f6246066cd2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1e5d8a92dda0cce7fa0c5206f54e81bf09dcdd41614664930b7e31727785105f",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "9ddd3b4961b1cffb4f79ec95a919b288eae042ad62f8e22d4e7378201c1d8285",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d5afc64293d892f1f5ebe0c6ee16529aa3e7b6369b0cff548bdba8f20610f4a8",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "257d8b367a26b63d0d2c6247ba729e4684b57b75eb8c513322971884b80b30ca",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d420cd2a50424c513ee471bebf13f4c1e380884813111227cef2cd7c9939dc63",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "eb762965f8ec68732d6712e6208a87247b395150373e16a9bf89ced0d86945d5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "47573dc3780deba4befa0df4d0804a7b6bd28807d7f15bfd1b8785fb5190845c",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "d7404ab25fd5dff077352a7c23bbe1a648226d37d0733aa6351751c8aad2042c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a3c81a4ce9f61605e0c0809d75c6839cee406433fcac62bd3e9710c2495b97cd",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "4a27cdcc656e703050c78ed262e6351b950a1a87e2fc98cea59626f18b6d8bca",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b0452724f986969150e33bd355997f7512624fdc9fa73cc7ae35858ecfb3d1c0",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "95f542b3ad813ea9acfe59bbf45207ebb2fcc8c1ca76e6832033b5db653d1dfb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "331903e576fe582bfd4f2ecdd55cca3f3adb7a5f91320fd1c4ad07f0eb82609f",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "4ebd1fea5414319cae3a2ebf10afb8e575332f5454c1ca718c4a8b424db396e7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cc366783d5998850889baccb9b08d032dcdd9f239d14846034488dcb4bee7460",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "109ce4f2389b68759b1d8d52da60f1967dd28d5324ddf862fc10199c80ff04fe",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "882be1f97708549e277b562080c529540a8008a9046162d0d242831f5815d5d7",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "c895a317be941fac1b71766ab7faac42f2a49f00b201d914b467ab18675d71a9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7aec885e6a9dba70f03204e3d3f199e2d3e9d86e780ca5f746a4bdbabf46a07e",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "husky-slender-tall-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "633a0d40fcf64b410ddde2d0f4b081daf6e91c41ada2ec93ef6b9be607fa516f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "35a28e4c5f20d9f2705f49104f02f822cccd18c6bcee24a4d004427016c7cd9f",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "哈士奇面罩与蓝眼保留；颈部下移到实际下巴后，原灰色卷尾已清除；各体型与表情未被成长部件遮挡。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:31.094Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "cfffa53d54fbc06b79cffaf36fd419e238724cba900b65fb1d31de7338a467f6",
+  "reports": [
+    {
+      "id": "husky-standard-round-parted-mouth",
+      "contactSha256": "ad88891854c099734f13a65415781c317f371a9ee85a1c80cf407646d5f5ce0a",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "husky-standard-round-small-fangs",
+      "contactSha256": "0ee7718c6d465752bc2a0837810cc46d88d8d3ae85f6e4132fc63f5ee14e33ae",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "husky-standard-sleepy-almond-parted-mouth",
+      "contactSha256": "3da1d3a61d644321a9c9885b22c1e54fe3c9eeb05dcb0a4c1c41116a8fcf44b2",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "husky-standard-sleepy-almond-small-fangs",
+      "contactSha256": "4551eb3096ba0b18b4ce00d730624b1d727d1b609e8e4eb64b53e79a16f11de4",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

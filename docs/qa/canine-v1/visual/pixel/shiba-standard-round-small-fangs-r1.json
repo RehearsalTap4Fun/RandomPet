@@ -1,0 +1,11 @@
+{
+  "id": "shiba-standard-round-small-fangs-r1",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "At 64px the left tooth joins cream muzzle and loses dark separation; inspected enlarged native mouth crop. Need closed dark mouth cavity with two isolated fang clusters and a dark rim.",
+  "resourceSha256": "2fef8946d514dd3b7611c7505c8705e332807c72d6efcd696fa8e486747f8d69",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-standard-round-small-fangs-r1-review.png",
+  "evidenceSha256": "d16bc791a29e35367d3cf192c7f1b8c068a095899c96a9932396016250124892",
+  "userArtApproval": false
+}

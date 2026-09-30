@@ -1,0 +1,11 @@
+{
+  "id": "husky-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Two pale fang tips read within dark smiling mouth; squat wide belly and shortened legs unchanged from shortleg base. Round blue eyes and grey-white mask retained; four paws and one tail with intact margins on light/dark.",
+  "resourceSha256": "d016505b310571b546374d02e4956c359f9d522659e00827e4c70ebed6eec73f",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-shortleg-round-round-small-fangs-review.png",
+  "evidenceSha256": "6aa6deca6cd4cfd83b6c1d53aca4a2dd2f23f7f347a5e096779a18d898bc3cd5",
+  "userArtApproval": false
+}

@@ -1,0 +1,12 @@
+{
+  "id": "growth-small-wings",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-6b58ae44-9bfa-41fb-ac15-367e86a0bbcc.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/growth-small-wings.png",
+  "rawSha256": "6cdaf0a71f05c92f8d489dfbd14fb82a1f30f1e212b9215b033b1b0f76abf359",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Create one independent transparent growth-part PNG for the canine asset collection. The reference dog is ONLY a rendering-style reference; DO NOT render the dog, head, face, eyes, ears or body unless the requested part explicitly is an ear.\nExactly TWO small soft rounded ivory downy wings, frontal symmetrical pair spreading outward and gently upward, three simple rounded feather lobes per wing. Attachment roots point inward and downward, transparent gap, no body.\nMatch reference pixel-art material and warm outlines. Deliberate chunky square pixel clusters designed for 64px game assets; no anti-aliasing, no smooth vector curves, no fine noise. Limited palette. Large simplified details remain legible after small-scale placement.\nThe requested single component (or anatomical left/right pair) should occupy the central 75% of a square canvas, entirely visible with generous transparent margins. Treat a pair as one paired overlay with matching perspective, not a sprite sheet. Frontal view matching the reference puppy with a very slight three-quarter perspective. True transparent RGBA background, transparent gaps and holes, no text, labels, watermark, guides, floor, checkerboard, backing card or extra objects. Output only the requested small-wings component. This will be registered separately to each canine profile.\n",
+  "visualReview": "pending"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "poodle-standard-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "Reject native64px: one pale fang merges with cream muzzle and mouth lacks two isolated teeth. Rework a wider enclosed dark cavity with robust rim and separated ivory tips. Curly poodle identity/body otherwise correct.",
+  "resourceSha256": "fd7afba4259de78ee6e141142fa4e80aaf5bf3a02d6814b72e6bf71ba051246e",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-standard-round-small-fangs-review.png",
+  "evidenceSha256": "11510d437bb06c9c3f994771c3f969fbf6c73fdc23765b6578773be789ac322a",
+  "userArtApproval": false
+}

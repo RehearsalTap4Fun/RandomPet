@@ -1,0 +1,27 @@
+{
+  "id": "corgi-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-shortleg-round-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "2d76f9507b3e464a34fa63bf581e6432360fa9ae906d29446159002475cd3158",
+  "rgbaSha256": "6967eead802288ee86783ecbf952a6ed794b67226244fc1da3fe0a848b36a5b2",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2234,
+    "transparent": 1862,
+    "fractional": 0,
+    "visible": 2234
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

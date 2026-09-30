@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-slender-tall-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+  "rgbaSha256": "7c356c0a252cbdea3961440ddbbb527d95f25846cefd9e4fea4ff9d351de82a9",
+  "bounds": {
+    "left": 6,
+    "top": 7,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 1725,
+    "transparent": 2371,
+    "fractional": 0,
+    "visible": 1725
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+  "profile": "corgi-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "004ba91f252cd73e9fc2e310eb7357362f4c3b49a58210f420f91a4236a450d5",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "55de8b316aae883fa9553d107a735402fbee8fb5b70fac00c7966b1ec73f0a21",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9cf14dac019b00d52414e54d9027660899f006ec537bcfc701f2da092d8e5965",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "4a1593d3f714ac22034a89e0f3d65443b2dab01e3125d874ec15b0be8bbedf37",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f9cec30f23af593294f5b934651c8b55b7e1a07c47cf0769c23110cef6594f4b",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "2ed2cb6e7d235bb4114ec268c50e9f79c5335b6f28a241e1e53402e07a1fb66d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7a264b9d912de297da88b5c22c833e155bcf23ff566e641107f74c61428bacbb",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "3958a29c7080a033318e57c0456974f2424e25bbb51b72a332bd8254da4ae6bd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "90e4e338157ef870d2661a0ee6d4bcd7ebf6325f88e2fb4a052bd40f711855da",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "298eeac90d454391273f057b81cd27888396ea28623729046092266ac6eb38ed",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5567eb53793e6337af958d6cb1b507e1d65dd70dccc8111a314808be291846a2",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "676dec864150fb716c4f145e5d5f91aca4a76a478249f752458c55daf51b248d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "56467963e9d68f8603f1978c4918a5a7c2436602f211b43d2325fc66e0936e7d",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "f0851778aa419919f68cd07d3a11814f8ab9258667774645179b57bc1ca2dd06",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f577d5e51e7f97432235c112ac4c6ad99af30282d43debfe5428e788173a5d12",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "ac819c77dfb5f9116c43cd40e59c0c89e8675b7b987f302bb126928a1ee84701",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0b590312f936eb7b764992384d3e06ffa4ec52559337b573f4cf8e9c2460f3d9",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "9a0a98b26d756623e2b0f0b765f1d0ac191ed4ec34b1a98331e74da8e8566684",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fbc6b4cad6ab79637fd240809ac5156332837e40e6af34a08c7003adc9553333",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "5f153705b5c25d909be5d9ea9a699aef2445c0e65786f9187f4551e67be06ed4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8f56a65af1c29fa6f89ef5fac17d1859864ee42c28bdba869be6fe142552400d",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "b9d9cff987e6d71f2fef823e438a49f2027d362e1ade259d81f01a1895b167ec",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d068a64067471cf7648ea68bf96a4153428a69d1a5923d537021bc4424f2a034",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "234d7e36d169252f4f8b647136cb506fe8a6ff2d678c87fe77a6f2755eda17e9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1ad1752fac82aa2c3332fb6205da481d5248637c1ecef546fe1a61078e042b60",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "21bf7d4ffa9e5acfaf79980e901061cde60ac9e6ac6111bf830434180e810ea0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2b60779aa6d347b273375c91af4ce22e1c7494516bdaa734008b4390d141fb00",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "d8a7d13b16279cdbac980a18cfe13098fb1f946a5230b41c3957c5a3f8c45f2b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1ed4b8b3158337e95d3f254118bcfc326bc864ead56d72743283cccb4ce9e4f8",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "742f4b9fd79003c69f5c48494501436188e5198f6546d3a3494122966a5e765a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "64c6941f863ab3e33d451ff9996e7aa572e85eff5ada726d4e40abae63994b5a",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "470f034f1beec3cd626a16c55c18c56e8e94232a3176562de0d21b39281c1352",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2da916960ab2e294fc97078259ec23bc587e7f92ec9281bd7fdffca028d3f302",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "59e28a0b9b7f82ca415f25efa2be7fd3edc2c31ba5dc3a02b4d0145c0c0029d3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f54c0c478e2367e72522234b8f85af216cd564efc76707c4632fdefd6ee2de8f",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "2f347a8f99a5028e193b1de0d9afe36f6c8258af4271b1d399ffa74d891430ed",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "922f653508227501e0522ed2e60fb29cab46e6a4ca1167582f8b808334563ac2",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "bc87db6115a78aebe2fb5d34c6875c42f547b8b5fe6a7ed84140a3ce3f73a7de",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b612b1268a55b1706f81754bb634d7727f6fcf98315df2d263c2e76275519288",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "6f1121834c3f1bc544cf839683959a58a7dfbe0f9b03df16a92dfb861700ac9b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f7caf7618cbd7f888c4a5b081fae0a6e878d9395ad7e67de968bb79f7d2b5d10",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "cf25dcd4276d3d246dbd408ea4d976a95e5b2ca66c6379cf7d6d18658af0ec42",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "54e60ef8384be275c027b1f6b57a02ba8ea49c7e7bdebcbf0efc5339126fdab3",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柯基短腿与大耳基础轮廓可辨；换耳清除原耳根，额角已贴合额顶；颈部不遮嘴，所有表情清晰。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.034Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

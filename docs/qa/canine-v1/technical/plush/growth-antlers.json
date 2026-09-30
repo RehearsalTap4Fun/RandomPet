@@ -1,0 +1,27 @@
+{
+  "id": "growth-antlers",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/growth-antlers.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+  "rgbaSha256": "041e64600ad00cd02f1b59ea9d47b79b9991e7038a5d54c066b2ab63c92c713c",
+  "bounds": {
+    "left": 73,
+    "top": 264,
+    "right": 1181,
+    "bottom": 957,
+    "opaque": 9,
+    "transparent": 1238415,
+    "fractional": 334092,
+    "visible": 294152
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

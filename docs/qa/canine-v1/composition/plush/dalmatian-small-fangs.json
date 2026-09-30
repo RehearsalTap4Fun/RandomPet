@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "dalmatian-small-fangs",
+  "profile": "dalmatian-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/dalmatian-small-fangs-contact.png",
+  "contactSha256": "8f13533cc008862d19c931890e61b416a50855ebb7c4ff86b417ed4b73f10f57",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs"
+      },
+      "rgbaSha256": "f4643070dbbbfc933f65cae1293548ca052bef9409f059e57b2c638f52b7de77",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "06d8f2c06a3821f4719f5d01b98651a4d2d2b9883f909a6c8137bf22970db785"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "bf69c91902a9ca33d02f337b409347f8b72ccec4fc522ff0761838853ecb2b83",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "013f88afc92d50df401593a57d0103f9d98ce5bb002cfaef26ddd90866c0c7d4"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "25fff1d0df575adb935fd0b39361d80b51b70c1068df73df378ac2974fa067e4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "996343b4165c68cceeedddb2de5b116b7d073daab04f436630e85498b2815ce3"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "7f9f6345b6a803e2f3a0c86f31a0137d72794a8eae1a5d76497cc5b086eea6b8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f16f1febb1c54e9e30afaafe34ccdf9a47558367e0d43454a4d42f1108dfc059"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "ed4d818494508f90d5e693dd6fd34360abfac4c250b81073440408040cee16a9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "aa2d96c1e674cef2f8e1df900cb0b4cb34ffca241689bd98c25be774b74fe76b"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "f4752759a7d134e62d7d7dad9ab8a8d8a84ca4d115af9e3ee6b211a56a62413d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c50a3e913be89241f39750b29d04d1637af3ceec3909e5afdd0f9638029c2789"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "955e65fe55b431ece0e384101fbdf2a730ef91d29c3e3d185fe108ad9b38b4fc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4e29865c660314fe4221965060307e0b9c55452d1b1ca36deb144565765a217a"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "0fa9375312383a2e0675d4c221c3a611cf30ca9ed4d46f3ec60286331cc8d1f6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "520abf7cfee67c9c65e02de5f6dffad93c2460044d57cd32f50bdd7f15b9361e"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "ca45d1d8a6a5ccfc62744ee5bf635d8621a53a8317256abb49851c351cbcd431",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "76a5537a296a3892abbfb3d9d36da4dfb1b1066ff369df2034c2237c4f368207"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "a865639c2c25d2a62b5488f7d6f24e143a60c536c2459af6ca472c079e2bd93a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f6b8736898a1d92381c8eb3dd28786f39851647330b1b6377b23cc5d8bf2d06c"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "82c3cfa68e899226eb10f72b0ee6f8665cf9be84a4279da99ebd644080339a6b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8e2e5e8b7cf2f3560ff5bdf1acff3abc6285413dc62e95300de7906fbb312a1c"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "98ff7f7ff8d1f136dfafa6ea2a153792884d9cf74478351c7d2fff7026d60783",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fee39bca401bfc675a5ad67de4c38a821fadc88f6b1d31851dd44d32f630afa5"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "6e15e71de46dc2c838829dde5f7ff2d2e7b79bbfcdbc3771f45bb06d83b8aa1c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "aa17da8ea3f5cb36c9e16f80b234b97840d7ee7860fbdb72eb8e2b288bffbda7",
+      "path": "docs/qa/canine-v1/composition/plush/dalmatian-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "59fd2a722b0da6fc563f84a8555cf2f5a7b1cfef5ff09dd470c06128c6f23e33",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "50f7d18ec8d9ae0febc2a7c53cc3eaee058c2fb65a71e62c38acf023ccc03bdb",
+      "path": "docs/qa/canine-v1/composition/plush/dalmatian-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "8d6f9d340f92676713d8620e0da171db2721fc4fa0999ebb092346c05bdd76f3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a7e1c85d1304811aa4a863ebc59e6127738da725c5a2b036e5645c5be9a7e2cc",
+      "path": "docs/qa/canine-v1/composition/plush/dalmatian-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "dalmatian-small-fangs",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "fbcc8879efec5cd5fb493de13cc93fce9c0aeeefd1c292865b99d785982d716e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cb952c12cef12d78d99a1698a9a0d9d71865541af7a21d8e8eb149f09befa3a6",
+      "path": "docs/qa/canine-v1/composition/plush/dalmatian-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "斑点毛色与各嘴型保持；垂耳替换边界完整，原细尾在换尾时清除，翅膀和颈部层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:33.019Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/plush/dalmatian-small-fangs-afddeed2db6d6526f54cc136b8fd239bd4b415d4e7f8602ecd747a653c033972.json",
+    "sha256": "afddeed2db6d6526f54cc136b8fd239bd4b415d4e7f8602ecd747a653c033972",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "corgi-standard-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-standard-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "1f8ea2a96cb2eca0d05a0dc98f7da4a6487cfc44fda74ac5eab0c0262d3ce84b",
+  "rgbaSha256": "eab613e7585e26322c99357e5626e8c26bf8e4342830c514f451886294eca42a",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2160,
+    "transparent": 1936,
+    "fractional": 0,
+    "visible": 2160
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

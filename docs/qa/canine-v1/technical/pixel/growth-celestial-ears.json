@@ -1,0 +1,27 @@
+{
+  "id": "growth-celestial-ears",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-celestial-ears.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+  "rgbaSha256": "fbad53b5eceae7e695e0673acdf4dcd80a0a3618c1e18d56dc20c3056c59a816",
+  "bounds": {
+    "left": 3,
+    "top": 14,
+    "right": 61,
+    "bottom": 50,
+    "opaque": 1141,
+    "transparent": 2955,
+    "fractional": 0,
+    "visible": 1141
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

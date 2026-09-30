@@ -1,0 +1,11 @@
+{
+  "id": "shiba-standard-round-small-fangs-r2",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Inspected full sprite on light/dark backgrounds, native-pixel mouth closeup and resampling comparisons. Two separated cream fang clusters now sit against enlarged dark cavity, distinguishing toothy smile from parted mouth. Nearest-neighbor retains eye glints better than lanczos/cubic. Same Shiba identity and sitting silhouette.",
+  "resourceSha256": "f9c004db7900829c02a05038eeb022c9d4a14e39b882966d4b7a4764fc94a0c9",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-standard-round-small-fangs-r2-review.png",
+  "evidenceSha256": "6deea5558ead7182b85c6974590811284fec7eae2ca74c4de65792150236eef0",
+  "userArtApproval": false
+}

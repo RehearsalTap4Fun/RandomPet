@@ -1,0 +1,11 @@
+{
+  "id": "corgi-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Wider rounded belly/haunches and short forelegs distinguish round body from standard. Corgi ears/blaze/muzzle/short tail retained; round eyes and parted mouth legible; no clipped anatomy or fringe on light/dark backgrounds.",
+  "resourceSha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-shortleg-round-round-parted-mouth-review.png",
+  "evidenceSha256": "afcbd04acac9e6f40f6d07671ee1583dfdbe1ea86efb261066c0c235d642e403",
+  "userArtApproval": false
+}

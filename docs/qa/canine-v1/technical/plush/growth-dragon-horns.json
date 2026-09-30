@@ -1,0 +1,27 @@
+{
+  "id": "growth-dragon-horns",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/growth-dragon-horns.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+  "rgbaSha256": "160275b4aa839d70a0ce8c2eda9771745e752e2e35595a0fa782f7b0f0713c5c",
+  "bounds": {
+    "left": 56,
+    "top": 251,
+    "right": 1206,
+    "bottom": 966,
+    "opaque": 190,
+    "transparent": 1224624,
+    "fractional": 347702,
+    "visible": 325160
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

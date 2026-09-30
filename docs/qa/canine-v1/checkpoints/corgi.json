@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "canine-production-checkpoint-v1",
+  "scope": "corgi",
+  "status": "checkpoint-passed",
+  "goalComplete": false,
+  "bodyCounts": {
+    "planned": 90,
+    "reviewed": 30,
+    "verifiedHere": 15
+  },
+  "remainingBodies": 60,
+  "partsStatus": "not-yet-produced",
+  "claudeNotified": false,
+  "checks": [
+    "file-and-rgba-hashes",
+    "review-evidence-hashes",
+    "original-generation-provenance",
+    "real-alpha-and-size",
+    "unclipped-visible-content",
+    "distinct-variant-content",
+    "pixel-128-exact-nearest-neighbor",
+    "max-three-reworks"
+  ],
+  "rows": [
+    {
+      "style": "pixel",
+      "id": "corgi-standard-round-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+      "acceptedAttempt": "corgi-standard-round-parted-mouth",
+      "sourceSha256": "7966778b25b587946c33ddf34fe407dbb477f86b662b56f2a663ce0c003a578d",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-standard-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-standard-round-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "1f8ea2a96cb2eca0d05a0dc98f7da4a6487cfc44fda74ac5eab0c0262d3ce84b",
+      "acceptedAttempt": "corgi-standard-round-small-fangs",
+      "sourceSha256": "1b75762c495d24dbcfcd62405e275bff31c799dc2a5d91466d140e4ca02c6994",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-standard-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-standard-sleepy-almond-parted-mouth",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "d62e6dffc092b635c2ebe0db4622c87f587d160cbf0fe923e25a6c9d4fd72b5d",
+      "acceptedAttempt": "corgi-standard-sleepy-almond-parted-mouth",
+      "sourceSha256": "31ec67a8b5576f022ad894ed248295767f2372dec084c0717170bbfc521f3aad",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-standard-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-standard-sleepy-almond-small-fangs",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "c12551f85a5aafb9b91baad13f1badf9fac07ba13281596579426287c123649c",
+      "acceptedAttempt": "corgi-standard-sleepy-almond-small-fangs",
+      "sourceSha256": "9a608b17c43b1a968ddbf00976303f40347f08d17d1d9a9ac097b0ea3b1400d0",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-standard-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-shortleg-round-round-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+      "acceptedAttempt": "corgi-shortleg-round-round-parted-mouth",
+      "sourceSha256": "f16d49261d88e7fff7ca2d13f7edbcf274cfbd7ad7bc7add62165f18c2c11d7d",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-shortleg-round-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-shortleg-round-round-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "2d76f9507b3e464a34fa63bf581e6432360fa9ae906d29446159002475cd3158",
+      "acceptedAttempt": "corgi-shortleg-round-round-small-fangs",
+      "sourceSha256": "c554a505be7a8466e49c00591efd7205d31c6ebdbeb8d64563473a3fae64c329",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-shortleg-round-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-shortleg-round-sleepy-almond-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "8d9d1230d341206e0ff6ef03fdf6b7ff05985641f907ae7922615fd602085d85",
+      "acceptedAttempt": "corgi-shortleg-round-sleepy-almond-parted-mouth",
+      "sourceSha256": "b22a51eaa39b884d41bec14b1b55954c4d38890682a8e1bcb5be0f0265bb6947",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-shortleg-round-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-shortleg-round-sleepy-almond-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "4594cd063792f53754ffcf4cad3dc708ad89061c8e58f780ce455e5c0d0754c5",
+      "acceptedAttempt": "corgi-shortleg-round-sleepy-almond-small-fangs",
+      "sourceSha256": "14aa2aa75bfdcfea30220ded083550e20af13d3b9c335b8fb137fbdbab20db0f",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-shortleg-round-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-slender-tall-round-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+      "acceptedAttempt": "corgi-slender-tall-round-parted-mouth",
+      "sourceSha256": "88103710b147ba683a1f4d819ff045f3732c75ddc8e89777ca71fecec23463b1",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-slender-tall-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-slender-tall-round-small-fangs",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "d77490a7206013b17a0d89adc362d2ceed7b8f38fa60cb2a9ca43adca8a13685",
+      "acceptedAttempt": "corgi-slender-tall-round-small-fangs",
+      "sourceSha256": "7617c2fca5416411cf88c22790120aa79c2a8183aeeb6c98fcd62919c56c8c07",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-slender-tall-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-slender-tall-sleepy-almond-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "00a411fe7f7d0410db02f54989dab8f3d3b1dd44f1157462f6ae30d3b15d6719",
+      "acceptedAttempt": "corgi-slender-tall-sleepy-almond-parted-mouth",
+      "sourceSha256": "287774192fa18f5fcea72701060fe61958bdc1f6fb827ad247f3c00c59e6c2fa",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-slender-tall-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "corgi-slender-tall-sleepy-almond-small-fangs",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "7134f41697a0c8240cf934e73862446666388f008205809ee5ff7154da816eb5",
+      "acceptedAttempt": "corgi-slender-tall-sleepy-almond-small-fangs",
+      "sourceSha256": "c3ba8ea10976558ba5861cfefd0e241311ed0b7262857f89d9efab65f26ecb28",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-slender-tall-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "corgi-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "ad3617c806310cb2477daddd776af8a420c34e9f7f815b3f65d4bc9d4cde7b80",
+      "acceptedAttempt": "corgi-parted-mouth",
+      "sourceSha256": "a0ab38430d41feba63a98bc5f10685e01271beff312c632afee1617f8cab8270",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/corgi-parted-mouth.png"
+    },
+    {
+      "style": "plush",
+      "id": "corgi-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "dafd38c79bda7fe391d4ebe2c43f6fa47cb7a8ccd0488cb7e62fdc59b7041cce",
+      "acceptedAttempt": "corgi-small-fangs",
+      "sourceSha256": "7bd4a3c862160201c47180ab0500f79083d5f69e5687c9514469a630ec21d2e8",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/corgi-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "corgi-tongue-tip",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip",
+      "sha256": "ceab6c2a9f32a37056ea2ce5752672cacd11d52cfccdf84ce3b09b77b69eda6e",
+      "acceptedAttempt": "corgi-tongue-tip",
+      "sourceSha256": "22ee8f8eafc0e2c6e70aa39cf4924dde9e31789ed2e7283aeba6b1ff54cf8e0c",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/corgi-tongue-tip.png"
+    }
+  ]
+}

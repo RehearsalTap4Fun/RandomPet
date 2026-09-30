@@ -1,0 +1,27 @@
+{
+  "id": "corgi-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-slender-tall-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "d77490a7206013b17a0d89adc362d2ceed7b8f38fa60cb2a9ca43adca8a13685",
+  "rgbaSha256": "f8330d5eefc5962ae9d8016bdf6c93a5a06c4829e8644f58741245ba1cf1a078",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 54,
+    "bottom": 62,
+    "opaque": 1881,
+    "transparent": 2215,
+    "fractional": 0,
+    "visible": 1881
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

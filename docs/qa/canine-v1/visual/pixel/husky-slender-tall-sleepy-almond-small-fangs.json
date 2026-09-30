@@ -1,0 +1,11 @@
+{
+  "id": "husky-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Both sleepy eyes retain obvious blue after native quantization, two fang highlights visible in dark mouth. Slender long forelegs and narrow waist remain correct; no extra organs or clipping and clean light/dark alpha silhouette.",
+  "resourceSha256": "040448a7538bb1572e9a52ae4f730512ae576b26a66a0ed361345a62cd3bc7e1",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "1c011fa49274db78039022564dc09f5fd277e9b478765ba790cf8577a0abde40",
+  "userArtApproval": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "corgi-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Distinct lowered almond eyelids remain legible at 64px, with original parted mouth and corgi forehead blaze. Standard body, large ears and short tail unchanged; transparent margins and light/dark outlines clean.",
+  "resourceSha256": "d62e6dffc092b635c2ebe0db4622c87f587d160cbf0fe923e25a6c9d4fd72b5d",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-standard-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "50945badc791b4ea6be6cd367611d9daa17ce5d0388218a509050aea1cca4e99",
+  "userArtApproval": false
+}

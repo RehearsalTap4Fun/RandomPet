@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-slender-tall-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "d4571dec6556a5307b9af03166d8e188cf6c21e58b35a2e0cac1e61441ad3ebd",
+  "rgbaSha256": "a32ae03f69dbe657058ec4c9e89df5493f548cd59b7e7e6e00f3f0d668ede4cb",
+  "bounds": {
+    "left": 7,
+    "top": 4,
+    "right": 59,
+    "bottom": 62,
+    "opaque": 1895,
+    "transparent": 2201,
+    "fractional": 0,
+    "visible": 1895
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

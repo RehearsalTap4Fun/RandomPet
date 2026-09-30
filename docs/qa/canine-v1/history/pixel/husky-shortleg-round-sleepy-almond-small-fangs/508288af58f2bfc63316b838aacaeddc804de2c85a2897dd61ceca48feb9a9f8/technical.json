@@ -1,0 +1,27 @@
+{
+  "id": "husky-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-shortleg-round-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "508288af58f2bfc63316b838aacaeddc804de2c85a2897dd61ceca48feb9a9f8",
+  "rgbaSha256": "8e37519f7f7afdac2281aa82a820097197c160c77724d51511a88b33fa695ef1",
+  "bounds": {
+    "left": 13,
+    "top": 7,
+    "right": 58,
+    "bottom": 59,
+    "opaque": 1692,
+    "transparent": 2404,
+    "fractional": 0,
+    "visible": 1692
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

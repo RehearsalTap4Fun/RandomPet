@@ -1,0 +1,11 @@
+{
+  "id": "poodle-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Lowered brown almond eyes retain sleepy look; both ivory tooth clusters clearly separated inside broad dark mouth. Standard body, curly topknot/ears and pompom tail stay coherent, four paws and transparent borders intact on light/dark.",
+  "resourceSha256": "89e4fbe360c32b4a1c6f8098e08f82cdc90acd508c39be897118c029248d074c",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-standard-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "7e29071d9b3ee3e5f9d7eb82c606d2f66001b5481bde3788abe4b90ddec52968",
+  "userArtApproval": false
+}

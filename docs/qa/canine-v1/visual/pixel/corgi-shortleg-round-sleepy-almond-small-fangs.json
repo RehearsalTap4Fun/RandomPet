@@ -1,0 +1,11 @@
+{
+  "id": "corgi-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy eyes and two cream fang clusters distinct in dark cavity at 64px. Rounded squat torso and corgi ears/blaze/tail retained; complete paws and clean alpha silhouette on light/dark backgrounds.",
+  "resourceSha256": "4594cd063792f53754ffcf4cad3dc708ad89061c8e58f780ce455e5c0d0754c5",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-shortleg-round-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "838c458d8a8be18b95196cb20fdecef9381a6d4a3b663aaa07450fd4b035290d",
+  "userArtApproval": false
+}

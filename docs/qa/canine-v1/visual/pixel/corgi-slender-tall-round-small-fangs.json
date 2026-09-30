@@ -1,0 +1,11 @@
+{
+  "id": "corgi-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Two separated cream fang clusters in dark mouth, round eyes preserved; slender torso and long forelegs follow accepted mother, with intact corgi blaze/ears/short tail. Full silhouette inside canvas, clean light/dark edges.",
+  "resourceSha256": "d77490a7206013b17a0d89adc362d2ceed7b8f38fa60cb2a9ca43adca8a13685",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-slender-tall-round-small-fangs-review.png",
+  "evidenceSha256": "1c54627a84cb25f33790a7b6b894533e0010568cf94a28e8444e62cb79868340",
+  "userArtApproval": false
+}

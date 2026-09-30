@@ -1,0 +1,27 @@
+{
+  "id": "poodle-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-shortleg-round-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "97aa033e1ef512d677d1bc0223e22d4b0f8359827ce4cfa791890cd12c752fc8",
+  "rgbaSha256": "be5db2d23062d35c52fdaa22b07803e8e5599785e13fc468dc5e6efc319bfbab",
+  "bounds": {
+    "left": 5,
+    "top": 4,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2276,
+    "transparent": 1820,
+    "fractional": 0,
+    "visible": 2276
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

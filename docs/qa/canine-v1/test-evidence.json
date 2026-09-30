@@ -1,0 +1,29 @@
+{
+  "commands": [
+    {
+      "command": "node --test scripts/canine-runtime.test.mjs",
+      "passed": 4,
+      "failed": 0
+    },
+    {
+      "command": "npm test",
+      "vitestPassed": 182,
+      "artTestsPassed": 10,
+      "failed": 0,
+      "log": "docs/qa/canine-v1/repository-tests.log",
+      "logSha256": "b23c75f982e5d9f0d63ff151dcc4dd63ecad3d33a0339c2e325ce90a8eb958c0"
+    }
+  ],
+  "sourceGeneration": {
+    "accepted": 117,
+    "reworkedAssets": 10,
+    "maxAcceptedRework": 2
+  },
+  "gateNegativeCheck": {
+    "rejectedStalePlushExhaustiveReport": true,
+    "staleRevision": "a69705c1d615236a542f6385fac17222da37d931551999246f48118b66549dde",
+    "currentRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+    "reason": "Release gate refused promotion while the new-runtime plush verification was still pending."
+  },
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "shiba-standard-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-standard-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+  "rgbaSha256": "a3db42fe16aa882cedb96ab0009aae2f0ca33127ee78bd4e8ab008cb50f5ef15",
+  "bounds": {
+    "left": 10,
+    "top": 3,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2153,
+    "transparent": 1943,
+    "fractional": 0,
+    "visible": 2153
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

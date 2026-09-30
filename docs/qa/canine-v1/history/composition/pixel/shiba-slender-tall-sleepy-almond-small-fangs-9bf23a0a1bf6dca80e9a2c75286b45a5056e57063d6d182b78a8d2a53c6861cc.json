@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+  "profile": "shiba-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "d7265edbf37cc88c7da18cf25ed909b884ce6c4fd78819881bcec39ab6ad7c2c",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "25026052d0496e126dae8750c06db1067ca63a6b690898271ac69eb152d17230",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9ad6671b0d52fcab2dc2da3751b623418918e92fc35e676f9b82512872bad56e",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "58c1efb4ce146e359200bec2d10a573e2761d4526d162bacc6992952354647a0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0c47cf9ba75db549cb0e301f45e37a57572c277d232f70d3509d997b5e6d3583",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "9384bfcfbe27d98a7ab20aa771ff1a59a759a7b762493d21948337f2157cea15",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5f63fcb7dbc96a24fce4982ca17442e1a36478767dd9ff0331b9767bf10b28e5",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "f3fa20061e9df0fd98b3a8d8720c77c931eb7a411c6d38f22a2d74a7d032a5bc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "71fd9ae64bf6b2c7d75acff2d20eff8607e17d307640ac1add9c746bc7f71102",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "b62902bf8b04f510431da1b5f181f8adaf23531fc4c91a3b21132f184c7f016f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "864e7d211597454d5d1452b8a5de3a8f4e31f8ed9ebfd864cb9637e6f9f5fef9",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "a030b21336a9d8834c7bafe3d8254a07face1ee70f2c872ad1b4bd448ed0e326",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d7ebf3182cf550b6ab6746693a97da269f1403857b3f1dd88558b09f1f14d12d",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "6f3cd8938f347cce03110d0e39e89077116a6018c0a7c7a520f59b8ee87ffae1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7f6d74da0829e9e909c681d33ced7c16d6628acde5b680611dc2e41c3ba78939",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "befbebdbff66eba395d814c180a3c04b0258055105c3e8d67e6f7f36f36b34d4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "68284a578b6c515214f042d2282b226c0fc3951fc7c5d24284bc0c5c8b01466d",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "91808b8e15a659944168f14eddfe4cca5f7058fd483b742994bb50d746a00fed",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "39ff9bedb4597ba104d0359b7b7cf23d74ddc4fd330365cc6fa40e80617135e2",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "33ea48e980f83ed8e3032d40a76ea93f701e19703128a98f914f66497ead791a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ccbb1ec33dd96cb341a0ed43c230138421590272652037f27f0a460fb9b035b7",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "9d169dfc3099ecd0927fbcd76779058c29ec28a0dc6ba26697488c4cecc28bd3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ad3841b56d55644fcb18fdbfe5ec862615f9ae08c99180b66a8d802893584c4b",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "f7752dbae3f7c083522896f41ea5d27622a18dc86505e21815f71e7358fa07a9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "20b0987e2a40e314e1b4e99ec1d968df98363ccde3bd0f83e9be7e9d60f0d220",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "dd7a683ae51e5c0c739ad69ac715fdbd9996369640f86d544d1579c94f09a339",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "78bdce3eab836713f15917131f8118e4d45a7f6c2fe3a3f9110fd49667be6aab",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "bd5ad39c221a96c8263b1548606d1dfff57e028bf8471f6fb7b9aab02b04e169",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8d3d0d0b9cf9cca276111e5f6790a351420cc2b6ada8e93c8beceadc1cc5b09f",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "7ccef682a28bb1d239b81487d581b1084a021e5328f681e68239cdce93594176",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "05631f047d8d18fd057ca819a6c11ecada96034f8ae398e38532d2203ea80e5c",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "4fdadd3ccefeb2060d966c9240860747eb6eb06a60331ffa2ec8f07fc8289bfb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8062df6a90b9324763f23f2b8b4ee18b2f15d3f8e81728c7723db5d2dfd5a979",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "8b1e37104aa49614f7edc92794a3b71bb3cb0f9f0c3c6ddfe46d52f91cf8dfc3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0b6ddeb0447aa05a9786d7be7c97ed6c76d61ddb716e6e735df6c2adc96d6f0f",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "17a81c08b9778de51e3b596e9a4dec9baff8daac0fe223c8e4850ce5bf093a42",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "328702928ac9a7f8e872d74d6ebb4dece052ee037f65713d5a7a7bf078dad7ff",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "6d75b1100bb596ee4f13d891a40006e15ad9fc47f2dc96ef3cb375c1b64c84b1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "34eb88938cd70b947d83b6348bcd693b624bfb202efb1d60e83dcf3b348d0072",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "fbb7aacea041612cb1516bb0c7e9a3c18b872cae4ab93938bbecc0cd9ffb0bf4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5ba432a36178f3436afce2e21f1d5d4385575931d6092e5ebb9d72aa2d82b275",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "70eadd19f62d3f9506c2b49af062596124208972b8429c4e9072507696e3ae04",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "618fffd272ac35f4f8c3ce235d3c1b0d652a19026857bdec0de0fa3739490e72",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柴犬面罩与卷尾辨识保持；换尾无旧卷尾上缘，颈部在下巴之后，三体型与各表情组合无遮脸。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:29.452Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

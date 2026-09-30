@@ -1,0 +1,11 @@
+{
+  "id": "husky-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Long thin forelegs and narrow waist distinguish slender-tall. Head mask, blue round eyes and tiny parted mouth retained; four paws and one bushy tail. Paw baseline lower at y62 but not clipped: require actual slender-body anchors. Light/dark alpha clean.",
+  "resourceSha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-round-parted-mouth-review.png",
+  "evidenceSha256": "69c2e937b41b651995ae2ffb51e149e0a1f6f2b2e9d8684b061b33bd0e1fdbe8",
+  "userArtApproval": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-standard-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "e0e8cd4b153acf814c28255ae2534fb5a70bbe3609fdb101fe7ce26f281261e2",
+  "rgbaSha256": "19922f393c5a7618a96a13dc796df8f470045e9d0a76586311ab3a6828f70e85",
+  "bounds": {
+    "left": 4,
+    "top": 6,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2217,
+    "transparent": 1879,
+    "fractional": 0,
+    "visible": 2217
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

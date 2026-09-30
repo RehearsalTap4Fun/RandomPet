@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Short broad haunches and thick short forelegs match own body reference; two pale fang clusters remain distinguishable in dark mouth at 64px, round eyes and breed identity retained, clean transparent borders.",
+  "resourceSha256": "b908500b990465699eb8f3b8b75e1cc3310eccbab6fcd05ae8822240ca4f21a2",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-shortleg-round-round-small-fangs-review.png",
+  "evidenceSha256": "433b64f46dd428b9cd21a2faa66d4607102ff69caee4f46a2f0e5701d0768da3",
+  "userArtApproval": false
+}

@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+  "profile": "husky-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "5e284cf2f242b0554a0f075ab02bf2f3362467869406f9411b25f635b9791f5b",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "2cd34b5ca530384bf6ff317338217203aaf206e63a01cfaa6c28fb2cfdabfb02",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "25b2a198e1930f819e58dd571dbdef4abdca2233f288969656ddd9a642d5b5d9",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "032135fe077dfa24bc6b8afb4c617b62fb0180f551871bc95a661207854ffaaf",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ad77dae66fcf46931c9467dc504c6a72a7ed7c7a2917898fedc8f48afef12588",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "459e5ead6ec5c598d52034af7743ded0fb493d16f04e3f8bd7f799bb468fdea9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "77e55f840bf3c513764f834a43ed4cc198887edebb5d5ddd07df45ab14396ff3",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "799b0e4b68ab1c867e4f97fd5b7903ee5304ec558c8cc1bc3508093a0b6fe80f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d17dc1ff0cfc4f18f5fcec1c487d57b9b45a4f7c00c727c51244c38a8ad9369a",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "a4731cacb90d2116ace192a548d2ca651e23e616c4039093f233af60ec5f43d6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2a2283ac9194bf43a13047c45c586a2bba0555b541b0b19aa12a9ee3dd199aa2",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "a73f1de72b7c11ceefc4c62ee122278b933655ba557ed299737c98e6768076dd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f828a4124d5e4d4f9f6750b97069d6d81fa090706d7420f0477bff2b147f4ace",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "0978208797ba6b9a71640d931177737a4db77a7d1a017d8419194e7d4064f76c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "08199fb63d5bc58970d5c822f074507c7ab6f1754cedce592207ef8bdc415399",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "eeba86b60a3784c4ef35b3d41ffdaf1864398590f7cf3eefc4cdd4bc8cca5250",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c373cf758d63922836ca430cd0a879bbf4c605d55cf4a9b73983b2f32553c609",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "bd72752a999a08915f703bb262ce13477a5d08c20d9fb623b7c556e9caf8ab3e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0f4e40cc1f01fbe08f79819de1a684d4671e5c9437baf70cd7585b73a1a6ebf1",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "f51628cb8e176c554e82530d4c9d55673b772b887a4c3411d3f1b4e031ea047e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "769a4e6a147c4f79538b8d7803b01bc4dd76d5a44f11fffe7dc7e72ef157fe43",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "5ecd71882851a5102712f8090467561223e396b5f6909f7d05babeeba86c5235",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b4a948ec4afeaa593ec48a5b13a57513c482b9eaccd75ee274f5eaa4a568fb6a",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "2eed435528d2fdb78073ab4c56953b99d11e36e4af3abbb233101e53b20d723c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2dbc32f79102e0b4e99cd26822ac5c577c54bc6f637cc9da2b609fd53f39a81c",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "fd91239fc04ca95cd8dfdeaddf5484c6da25f6c3e13cf6b9ba2fff05b6c70783",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6673911171ecc078755cf7ad0651c2ee6e31359962390bba428522164615900f",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "b2aadf0718ecf0aeeb4f1954c61371177d7e015a8eb2b87f73f91e6e0832fbc7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d8748a28df10717c2f6aa023058d3d13b959879ec01464791294247bb1abaadb",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "3e9c2536b2d68690d06213a278d9149a83eed1be630a24a7cd6466b0f6689d25",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a9c6b691b02f87b29e93246996fd46fbdfaed5e2891bc942198b072a414ff691",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "214ae009ca2dc55664a0fe59ce691db04953975678c0cfb782ff4f921793c153",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ef1ba2f611433e965049c0df53ec3bd912f42b3f2ab11d97300537ea6c5c908d",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "5e5fbd1043046402dd873f4a0b294b32c473b62e4977bd97f2025800bd46100b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e439d2502d150a7a938988615d9dddc875084ebf68a733a0c50c5b874e00317b",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "954780720b941fae0d69d0bb709124ae092a1d432b22156acc2209a976d47910",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d02f8eece9f7d954f4fb064eb92870ff024f320d0ef418307909f370e79ff8f2",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "fa1829945c6fb2fdbbff67f12aaaf28dffd8466f4214568227be7e39bd5f2fbd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e5dab2dd532433fd6c3a17782dd24798fc52cea990e8152eb7216e5a1035a051",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "f3261419bdc290964eb44a4b7e906e4201117895e721baf56bebc0e3b4a7fd5e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9f66e93f8def7909e35973efb80e75914f374fb8464c3aeb9d8d75ea48ed9714",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "0c7ee2feba6d8c897bddc3e9da9e4e01dffbce16a3faa34ef97718372f715492",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f562254b655b73025ded841e0b3249861ae5583b2d0fe3daa4a657471d3b0531",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "哈士奇面罩与蓝眼保留；颈部下移到实际下巴后，原灰色卷尾已清除；各体型与表情未被成长部件遮挡。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.996Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs-6178deddbe0bc922b4f53cf10d92b6a41eccbc5f457b315ffd37fc61540701f1.json",
+    "sha256": "6178deddbe0bc922b4f53cf10d92b6a41eccbc5f457b315ffd37fc61540701f1",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

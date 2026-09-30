@@ -1,0 +1,27 @@
+{
+  "id": "corgi-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-slender-tall-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "00a411fe7f7d0410db02f54989dab8f3d3b1dd44f1157462f6ae30d3b15d6719",
+  "rgbaSha256": "a557fe453b59090b1c3a14dbca0b6ae6aaad70a90fe95f07590c195ceebc30f2",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 54,
+    "bottom": 62,
+    "opaque": 1883,
+    "transparent": 2213,
+    "fractional": 0,
+    "visible": 1883
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

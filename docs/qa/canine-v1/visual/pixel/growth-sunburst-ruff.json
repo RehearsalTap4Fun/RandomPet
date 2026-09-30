@@ -1,0 +1,11 @@
+{
+  "id": "growth-sunburst-ruff",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "完整 U 形日芒鬃，金橙外缘与乳白放射毛束分明，中央透明且下缘完整；无首饰五金或散落粒子。配准另审。",
+  "resourceSha256": "530a8aab203fe113926effba9541283b9db283d8ebdaa335629e1271009657b1",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-sunburst-ruff-review.png",
+  "evidenceSha256": "48980de6c7c9e399b4051e85b7c4a7b4ec7f0487b272df6285e782705a92d7cd",
+  "userArtApproval": false
+}

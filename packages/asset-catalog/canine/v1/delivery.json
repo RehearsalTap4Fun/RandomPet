@@ -1,0 +1,2095 @@
+{
+  "artVersion": "canine-1.0.0",
+  "runtimeEnabled": false,
+  "gateSha256": "b5bed54c5aa27d5d9063146f1f38fba8ffd69952702820dc4318623d16f3d8f1",
+  "files": [
+    {
+      "path": "pixel/registered/mask-shiba-standard-ears.png",
+      "sha256": "2d757e74f5e20ccf6b9edf863bbf34612be8e09085186662039ed0e6e4d663aa"
+    },
+    {
+      "path": "pixel/registered/mask-shiba-standard-tailTip.png",
+      "sha256": "d1831c93f95c06e9d33ed456e77d0a748fe2229b7e5d222156a83c845c15b2b6"
+    },
+    {
+      "path": "pixel/registered/mask-shiba-standard-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-fin-ears.png",
+      "sha256": "95dfca97fb0bbe4fb21a75f744009dd8c9ef9119067961d1a4e5d35d89b91ff2"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-feathered-ears.png",
+      "sha256": "06b6a2872342936c60432fbbffc74eacbb37a0929bb4bfb46eb12f72b911e789"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-celestial-ears.png",
+      "sha256": "7be88571310cea6275eb3a67d82e6b8cd40b1c213591636fbab9f78dcc4c922e"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-small-lion-mane.png",
+      "sha256": "6beacb0bcc6b8fdd12e7d5a9054bb894bdec05bb6e6df5d0cdf9a1c5cda8f5ac"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-frill-neck.png",
+      "sha256": "9c2f4f5af91360d624e46c8083f86ea96bfbdd4817e0fa276a61eb73cada6266"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-sunburst-ruff.png",
+      "sha256": "310fbf37c79eb6dd9683c7bf94d71bac9cc5881a408bd1961b027fa4a76fe443"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-shiba-standard-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-shiba-shortleg-round-ears.png",
+      "sha256": "2d757e74f5e20ccf6b9edf863bbf34612be8e09085186662039ed0e6e4d663aa"
+    },
+    {
+      "path": "pixel/registered/mask-shiba-shortleg-round-tailTip.png",
+      "sha256": "d1831c93f95c06e9d33ed456e77d0a748fe2229b7e5d222156a83c845c15b2b6"
+    },
+    {
+      "path": "pixel/registered/mask-shiba-shortleg-round-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-fin-ears.png",
+      "sha256": "95dfca97fb0bbe4fb21a75f744009dd8c9ef9119067961d1a4e5d35d89b91ff2"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-feathered-ears.png",
+      "sha256": "06b6a2872342936c60432fbbffc74eacbb37a0929bb4bfb46eb12f72b911e789"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-celestial-ears.png",
+      "sha256": "7be88571310cea6275eb3a67d82e6b8cd40b1c213591636fbab9f78dcc4c922e"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-small-lion-mane.png",
+      "sha256": "676af98864f7c725e2f561bf3889a0584797974e7e4d2dd540b493d6e98546f8"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-frill-neck.png",
+      "sha256": "1b04ac23d4a0c193050040b06b1b35b0f29248a6118026014345af3b02fd536f"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-sunburst-ruff.png",
+      "sha256": "07c223c9c9342b783b2542c80ccf426d59ab74f2f57ff3f4e0855cbbccb7ee95"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-shiba-shortleg-round-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-shiba-slender-tall-ears.png",
+      "sha256": "2d757e74f5e20ccf6b9edf863bbf34612be8e09085186662039ed0e6e4d663aa"
+    },
+    {
+      "path": "pixel/registered/mask-shiba-slender-tall-tailTip.png",
+      "sha256": "d1831c93f95c06e9d33ed456e77d0a748fe2229b7e5d222156a83c845c15b2b6"
+    },
+    {
+      "path": "pixel/registered/mask-shiba-slender-tall-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-fin-ears.png",
+      "sha256": "95dfca97fb0bbe4fb21a75f744009dd8c9ef9119067961d1a4e5d35d89b91ff2"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-feathered-ears.png",
+      "sha256": "06b6a2872342936c60432fbbffc74eacbb37a0929bb4bfb46eb12f72b911e789"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-celestial-ears.png",
+      "sha256": "7be88571310cea6275eb3a67d82e6b8cd40b1c213591636fbab9f78dcc4c922e"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-small-lion-mane.png",
+      "sha256": "c37e46e2266ddd949712b51a62fe993d6f21ed2300cf462340e543640a4a1214"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-frill-neck.png",
+      "sha256": "23383ee0b0910494190f6dfeab600da71d22e50e2ca5dcc5764d1930866c68e3"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-sunburst-ruff.png",
+      "sha256": "b067659e8fd71ee92d0abb46d213aad6df88cc1a581204831af19cc4427e495a"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-forked-tail-tip.png",
+      "sha256": "6abd2f8bac34a65ce25922d3714ae7bb2986bc09d1ff16e80a1effa012d15c2d"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-flame-tail.png",
+      "sha256": "1727adfcc65daa7dccdf59ee4ac0a1828e329e43543451c2f7c670176b5272c4"
+    },
+    {
+      "path": "pixel/registered/part-shiba-slender-tall-phoenix-tail.png",
+      "sha256": "6cc3f74863bf1edb7881bac31c34c848993795f2447c6a4502642877531bb582"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-standard-ears.png",
+      "sha256": "e4ef11c05dc5b5669bac415b98842e0f0eb5eb412dd664d70c786018ee342ee0"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-standard-tailTip.png",
+      "sha256": "21d651b524103141c7f82231dfc636a7997c24345243cfcb11a1a1cc96b4126e"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-standard-head.png",
+      "sha256": "3f934f35c116438e0256761b65ac5f4da65c3add84bc97d191473faaa2327098"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-fin-ears.png",
+      "sha256": "98babbddea117dd97321cf992f95339906b937e0c6a2cea31614fe04176279d6"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-feathered-ears.png",
+      "sha256": "b4078c161ae17b304baf3ee372e2fc452149bd7c60b03664f983be954ca94c68"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-celestial-ears.png",
+      "sha256": "a6089aae474dec66c7aea5fe914d6ccb7a51dfef35cead0ac0fae16dc1a49264"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-small-lion-mane.png",
+      "sha256": "71fff0986d01876ff37928f1fda1919baa9b9645ccf089edb93e1e096d4c3c0d"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-frill-neck.png",
+      "sha256": "0469ea3a4a07838b0ee65438246e89c42af70c524f9a139e4c530864e2c6ac80"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-sunburst-ruff.png",
+      "sha256": "08c3dd7ddc698945161c06be878c8382ace83425b21dee388f232083ee50e673"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-corgi-standard-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-shortleg-round-ears.png",
+      "sha256": "e4ef11c05dc5b5669bac415b98842e0f0eb5eb412dd664d70c786018ee342ee0"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-shortleg-round-tailTip.png",
+      "sha256": "e023ad974e60c55b7127e45befb6f256e96ba2cb740da26a15c1aaa8701de8ad"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-shortleg-round-head.png",
+      "sha256": "3f934f35c116438e0256761b65ac5f4da65c3add84bc97d191473faaa2327098"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-fin-ears.png",
+      "sha256": "98babbddea117dd97321cf992f95339906b937e0c6a2cea31614fe04176279d6"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-feathered-ears.png",
+      "sha256": "b4078c161ae17b304baf3ee372e2fc452149bd7c60b03664f983be954ca94c68"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-celestial-ears.png",
+      "sha256": "a6089aae474dec66c7aea5fe914d6ccb7a51dfef35cead0ac0fae16dc1a49264"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-small-lion-mane.png",
+      "sha256": "7513e53e8a08dca1a15128f5d09d014a41c8326291fabccd5bc5ca4107a1be24"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-frill-neck.png",
+      "sha256": "f085fcc8d5a89e67f575bf22f2c92b40852f0d58ca096967c6e5fd6ddf3fecd7"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-sunburst-ruff.png",
+      "sha256": "8816cb1d2abf12a2a4f7a85367f1e637146dbe54ede05ce2e3aa6ce4995542df"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-corgi-shortleg-round-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-slender-tall-ears.png",
+      "sha256": "e4ef11c05dc5b5669bac415b98842e0f0eb5eb412dd664d70c786018ee342ee0"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-slender-tall-tailTip.png",
+      "sha256": "d3563fe4a7adb3ad6f4f9773da91cc9ac23e060b5e34e1ca56ad285cc2674aac"
+    },
+    {
+      "path": "pixel/registered/mask-corgi-slender-tall-head.png",
+      "sha256": "3f934f35c116438e0256761b65ac5f4da65c3add84bc97d191473faaa2327098"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-fin-ears.png",
+      "sha256": "98babbddea117dd97321cf992f95339906b937e0c6a2cea31614fe04176279d6"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-feathered-ears.png",
+      "sha256": "b4078c161ae17b304baf3ee372e2fc452149bd7c60b03664f983be954ca94c68"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-celestial-ears.png",
+      "sha256": "a6089aae474dec66c7aea5fe914d6ccb7a51dfef35cead0ac0fae16dc1a49264"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-small-lion-mane.png",
+      "sha256": "81186446e3628b72313f6a5f1d79cf4ac332f50091d79191da387f0b87e6e8f1"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-frill-neck.png",
+      "sha256": "c0cb7aa1d5b7c12ba6cd57a1c37bc1fbcee1625bdb5d3871201c5af2e70160c2"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-sunburst-ruff.png",
+      "sha256": "ee2794a9ced148e543fd4341014870579ab1c38907b0e09a89e0ee170af39b21"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-forked-tail-tip.png",
+      "sha256": "6abd2f8bac34a65ce25922d3714ae7bb2986bc09d1ff16e80a1effa012d15c2d"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-flame-tail.png",
+      "sha256": "1727adfcc65daa7dccdf59ee4ac0a1828e329e43543451c2f7c670176b5272c4"
+    },
+    {
+      "path": "pixel/registered/part-corgi-slender-tall-phoenix-tail.png",
+      "sha256": "6cc3f74863bf1edb7881bac31c34c848993795f2447c6a4502642877531bb582"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-standard-ears.png",
+      "sha256": "ec6a55a22966944b8086baa0e289f712efcd95c00d64121775dba78a4bb7f180"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-standard-tailTip.png",
+      "sha256": "21d651b524103141c7f82231dfc636a7997c24345243cfcb11a1a1cc96b4126e"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-standard-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-fin-ears.png",
+      "sha256": "6d2cb96e8f6ba8d7e42ba23cd93d529dc99802d02a25f2454be4214fb6a068c2"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-feathered-ears.png",
+      "sha256": "98cdced555951ba49e8aabe6b50c152e43996e7f127873fee25d3122f3e1c062"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-celestial-ears.png",
+      "sha256": "ee019d678ed2b18dc60dc778eb5090865813b86f513d19ad18eec58496085d87"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-small-lion-mane.png",
+      "sha256": "6beacb0bcc6b8fdd12e7d5a9054bb894bdec05bb6e6df5d0cdf9a1c5cda8f5ac"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-frill-neck.png",
+      "sha256": "9c2f4f5af91360d624e46c8083f86ea96bfbdd4817e0fa276a61eb73cada6266"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-sunburst-ruff.png",
+      "sha256": "310fbf37c79eb6dd9683c7bf94d71bac9cc5881a408bd1961b027fa4a76fe443"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-standard-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-shortleg-round-ears.png",
+      "sha256": "ec6a55a22966944b8086baa0e289f712efcd95c00d64121775dba78a4bb7f180"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-shortleg-round-tailTip.png",
+      "sha256": "e023ad974e60c55b7127e45befb6f256e96ba2cb740da26a15c1aaa8701de8ad"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-shortleg-round-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-fin-ears.png",
+      "sha256": "6d2cb96e8f6ba8d7e42ba23cd93d529dc99802d02a25f2454be4214fb6a068c2"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-feathered-ears.png",
+      "sha256": "98cdced555951ba49e8aabe6b50c152e43996e7f127873fee25d3122f3e1c062"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-celestial-ears.png",
+      "sha256": "ee019d678ed2b18dc60dc778eb5090865813b86f513d19ad18eec58496085d87"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-small-lion-mane.png",
+      "sha256": "676af98864f7c725e2f561bf3889a0584797974e7e4d2dd540b493d6e98546f8"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-frill-neck.png",
+      "sha256": "1b04ac23d4a0c193050040b06b1b35b0f29248a6118026014345af3b02fd536f"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-sunburst-ruff.png",
+      "sha256": "07c223c9c9342b783b2542c80ccf426d59ab74f2f57ff3f4e0855cbbccb7ee95"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-shortleg-round-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-slender-tall-ears.png",
+      "sha256": "e1f25c7daeca16dadf9d1cbf0633a6c790760cf960777184ff23dc2ab22c2a11"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-slender-tall-tailTip.png",
+      "sha256": "d3563fe4a7adb3ad6f4f9773da91cc9ac23e060b5e34e1ca56ad285cc2674aac"
+    },
+    {
+      "path": "pixel/registered/mask-golden-retriever-slender-tall-head.png",
+      "sha256": "b79979f56f873555041915f853e61cd873c76baa34c510f34fb65083621e6214"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-fin-ears.png",
+      "sha256": "67c83470ea1f21ca78743713186c0f72c6e6b1660784ec025517acbca50530e3"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-feathered-ears.png",
+      "sha256": "18f283306c1db1e7b8e5cf0482b20b74c0e47927f014fb81358af4ba4d179270"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-celestial-ears.png",
+      "sha256": "649f5486f588012d87cefd416658763ba931bb6561cd2714f6c7204b75d2d14e"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-small-lion-mane.png",
+      "sha256": "c94fad71d023427d16735ca541a9f8205b89769c2f503aa29f34faf7c112810b"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-frill-neck.png",
+      "sha256": "099253c22905fc83aec5374ab8eda57af6283c7ac9684c2982a5144799176def"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-sunburst-ruff.png",
+      "sha256": "4f5eaa23723086d82df8641a11e18f2bb397aed68107e98128692ad10ac03ead"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-forked-tail-tip.png",
+      "sha256": "6abd2f8bac34a65ce25922d3714ae7bb2986bc09d1ff16e80a1effa012d15c2d"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-flame-tail.png",
+      "sha256": "1727adfcc65daa7dccdf59ee4ac0a1828e329e43543451c2f7c670176b5272c4"
+    },
+    {
+      "path": "pixel/registered/part-golden-retriever-slender-tall-phoenix-tail.png",
+      "sha256": "6cc3f74863bf1edb7881bac31c34c848993795f2447c6a4502642877531bb582"
+    },
+    {
+      "path": "pixel/registered/mask-husky-standard-ears.png",
+      "sha256": "af3a8382dc32670ee68e4a34a0c681a9cad74cf00bd8bb151fea450da1d33174"
+    },
+    {
+      "path": "pixel/registered/mask-husky-standard-tailTip.png",
+      "sha256": "296d55c34d802974f6ddf0bffe4964094a5de519e5bd7ca25343619b129102f3"
+    },
+    {
+      "path": "pixel/registered/mask-husky-standard-head.png",
+      "sha256": "3f934f35c116438e0256761b65ac5f4da65c3add84bc97d191473faaa2327098"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-fin-ears.png",
+      "sha256": "8b4e2e907f519173ec2d010ac0ae47ebd42a3d6ced860395b65b8a558956077f"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-feathered-ears.png",
+      "sha256": "189f39259b137ff8271452a305948e8eebbc1a6be8e7c3e6172ab535c2a7a854"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-celestial-ears.png",
+      "sha256": "a15b52e3283ec93692caf547f105b1df1ce99dfc8566d665af824f79b9753ae5"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-small-lion-mane.png",
+      "sha256": "71fff0986d01876ff37928f1fda1919baa9b9645ccf089edb93e1e096d4c3c0d"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-frill-neck.png",
+      "sha256": "0469ea3a4a07838b0ee65438246e89c42af70c524f9a139e4c530864e2c6ac80"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-sunburst-ruff.png",
+      "sha256": "08c3dd7ddc698945161c06be878c8382ace83425b21dee388f232083ee50e673"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-husky-standard-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-husky-shortleg-round-ears.png",
+      "sha256": "af3a8382dc32670ee68e4a34a0c681a9cad74cf00bd8bb151fea450da1d33174"
+    },
+    {
+      "path": "pixel/registered/mask-husky-shortleg-round-tailTip.png",
+      "sha256": "d284f64441a4f4b1144813cccc65cd4bd5385c1a3da33adfff853339f0809f15"
+    },
+    {
+      "path": "pixel/registered/mask-husky-shortleg-round-head.png",
+      "sha256": "3f934f35c116438e0256761b65ac5f4da65c3add84bc97d191473faaa2327098"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-fin-ears.png",
+      "sha256": "8b4e2e907f519173ec2d010ac0ae47ebd42a3d6ced860395b65b8a558956077f"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-feathered-ears.png",
+      "sha256": "189f39259b137ff8271452a305948e8eebbc1a6be8e7c3e6172ab535c2a7a854"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-celestial-ears.png",
+      "sha256": "a15b52e3283ec93692caf547f105b1df1ce99dfc8566d665af824f79b9753ae5"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-small-lion-mane.png",
+      "sha256": "7513e53e8a08dca1a15128f5d09d014a41c8326291fabccd5bc5ca4107a1be24"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-frill-neck.png",
+      "sha256": "f085fcc8d5a89e67f575bf22f2c92b40852f0d58ca096967c6e5fd6ddf3fecd7"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-sunburst-ruff.png",
+      "sha256": "8816cb1d2abf12a2a4f7a85367f1e637146dbe54ede05ce2e3aa6ce4995542df"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-husky-shortleg-round-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-husky-slender-tall-ears.png",
+      "sha256": "af3a8382dc32670ee68e4a34a0c681a9cad74cf00bd8bb151fea450da1d33174"
+    },
+    {
+      "path": "pixel/registered/mask-husky-slender-tall-tailTip.png",
+      "sha256": "e534af3d70e650ca823f44add9f4b5b3ba0685d10f7d1a91c2dff70f83b53167"
+    },
+    {
+      "path": "pixel/registered/mask-husky-slender-tall-head.png",
+      "sha256": "3f934f35c116438e0256761b65ac5f4da65c3add84bc97d191473faaa2327098"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-fin-ears.png",
+      "sha256": "8b4e2e907f519173ec2d010ac0ae47ebd42a3d6ced860395b65b8a558956077f"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-feathered-ears.png",
+      "sha256": "189f39259b137ff8271452a305948e8eebbc1a6be8e7c3e6172ab535c2a7a854"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-celestial-ears.png",
+      "sha256": "a15b52e3283ec93692caf547f105b1df1ce99dfc8566d665af824f79b9753ae5"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-small-lion-mane.png",
+      "sha256": "81186446e3628b72313f6a5f1d79cf4ac332f50091d79191da387f0b87e6e8f1"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-frill-neck.png",
+      "sha256": "c0cb7aa1d5b7c12ba6cd57a1c37bc1fbcee1625bdb5d3871201c5af2e70160c2"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-sunburst-ruff.png",
+      "sha256": "ee2794a9ced148e543fd4341014870579ab1c38907b0e09a89e0ee170af39b21"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-forked-tail-tip.png",
+      "sha256": "6abd2f8bac34a65ce25922d3714ae7bb2986bc09d1ff16e80a1effa012d15c2d"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-flame-tail.png",
+      "sha256": "1727adfcc65daa7dccdf59ee4ac0a1828e329e43543451c2f7c670176b5272c4"
+    },
+    {
+      "path": "pixel/registered/part-husky-slender-tall-phoenix-tail.png",
+      "sha256": "6cc3f74863bf1edb7881bac31c34c848993795f2447c6a4502642877531bb582"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-standard-ears.png",
+      "sha256": "2004a85106ee3c2dd9ca7163c25034eaeb5f7bf6cd620eddb3b279273f1f15b2"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-standard-tailTip.png",
+      "sha256": "21d651b524103141c7f82231dfc636a7997c24345243cfcb11a1a1cc96b4126e"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-standard-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-fin-ears.png",
+      "sha256": "fd848a1e58675d91e983731366270adbb3558c0c363f0c736e85589bcff7d16c"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-feathered-ears.png",
+      "sha256": "b9b10f77a1a8fd43b5d97a3eeae5e788ad8eab14e8f45397868a3768a9b0ffeb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-celestial-ears.png",
+      "sha256": "ddfff16f4d899c4ffec725534d179fef899ff1492162b1e197c89d1494174a1a"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-small-lion-mane.png",
+      "sha256": "6beacb0bcc6b8fdd12e7d5a9054bb894bdec05bb6e6df5d0cdf9a1c5cda8f5ac"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-frill-neck.png",
+      "sha256": "9c2f4f5af91360d624e46c8083f86ea96bfbdd4817e0fa276a61eb73cada6266"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-sunburst-ruff.png",
+      "sha256": "310fbf37c79eb6dd9683c7bf94d71bac9cc5881a408bd1961b027fa4a76fe443"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-standard-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-shortleg-round-ears.png",
+      "sha256": "2004a85106ee3c2dd9ca7163c25034eaeb5f7bf6cd620eddb3b279273f1f15b2"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-shortleg-round-tailTip.png",
+      "sha256": "e023ad974e60c55b7127e45befb6f256e96ba2cb740da26a15c1aaa8701de8ad"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-shortleg-round-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-fin-ears.png",
+      "sha256": "fd848a1e58675d91e983731366270adbb3558c0c363f0c736e85589bcff7d16c"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-feathered-ears.png",
+      "sha256": "b9b10f77a1a8fd43b5d97a3eeae5e788ad8eab14e8f45397868a3768a9b0ffeb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-celestial-ears.png",
+      "sha256": "ddfff16f4d899c4ffec725534d179fef899ff1492162b1e197c89d1494174a1a"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-small-lion-mane.png",
+      "sha256": "676af98864f7c725e2f561bf3889a0584797974e7e4d2dd540b493d6e98546f8"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-frill-neck.png",
+      "sha256": "1b04ac23d4a0c193050040b06b1b35b0f29248a6118026014345af3b02fd536f"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-sunburst-ruff.png",
+      "sha256": "07c223c9c9342b783b2542c80ccf426d59ab74f2f57ff3f4e0855cbbccb7ee95"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-shortleg-round-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-slender-tall-ears.png",
+      "sha256": "2004a85106ee3c2dd9ca7163c25034eaeb5f7bf6cd620eddb3b279273f1f15b2"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-slender-tall-tailTip.png",
+      "sha256": "d3563fe4a7adb3ad6f4f9773da91cc9ac23e060b5e34e1ca56ad285cc2674aac"
+    },
+    {
+      "path": "pixel/registered/mask-dalmatian-slender-tall-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-fin-ears.png",
+      "sha256": "fd848a1e58675d91e983731366270adbb3558c0c363f0c736e85589bcff7d16c"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-feathered-ears.png",
+      "sha256": "b9b10f77a1a8fd43b5d97a3eeae5e788ad8eab14e8f45397868a3768a9b0ffeb"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-celestial-ears.png",
+      "sha256": "ddfff16f4d899c4ffec725534d179fef899ff1492162b1e197c89d1494174a1a"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-small-lion-mane.png",
+      "sha256": "c37e46e2266ddd949712b51a62fe993d6f21ed2300cf462340e543640a4a1214"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-frill-neck.png",
+      "sha256": "23383ee0b0910494190f6dfeab600da71d22e50e2ca5dcc5764d1930866c68e3"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-sunburst-ruff.png",
+      "sha256": "b067659e8fd71ee92d0abb46d213aad6df88cc1a581204831af19cc4427e495a"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-forked-tail-tip.png",
+      "sha256": "6abd2f8bac34a65ce25922d3714ae7bb2986bc09d1ff16e80a1effa012d15c2d"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-flame-tail.png",
+      "sha256": "1727adfcc65daa7dccdf59ee4ac0a1828e329e43543451c2f7c670176b5272c4"
+    },
+    {
+      "path": "pixel/registered/part-dalmatian-slender-tall-phoenix-tail.png",
+      "sha256": "6cc3f74863bf1edb7881bac31c34c848993795f2447c6a4502642877531bb582"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-standard-ears.png",
+      "sha256": "8e66b308546eb5fcaa81c81e0cb0ca251aefc49e3c3abed64f678e02b6f3b4fe"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-standard-tailTip.png",
+      "sha256": "28cd97d4caf0e1f9a9a30aefe81f261f5810874f0990ae04929121aa291e5d35"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-standard-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-fin-ears.png",
+      "sha256": "24ca1558d71ed8dc66a06d849f69d1a3863a49fdb3b8c358beee5905b1273b3b"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-feathered-ears.png",
+      "sha256": "c1db56d193d7eb829038f7a7694d68a5ad495880190c2fb0cf36ebd737be96e0"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-celestial-ears.png",
+      "sha256": "3cbcba533bcdcb7aee67a6a8d54c9886addc181dde24b84192aece63fd8051fb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-small-lion-mane.png",
+      "sha256": "6beacb0bcc6b8fdd12e7d5a9054bb894bdec05bb6e6df5d0cdf9a1c5cda8f5ac"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-frill-neck.png",
+      "sha256": "9c2f4f5af91360d624e46c8083f86ea96bfbdd4817e0fa276a61eb73cada6266"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-sunburst-ruff.png",
+      "sha256": "310fbf37c79eb6dd9683c7bf94d71bac9cc5881a408bd1961b027fa4a76fe443"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-poodle-standard-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-shortleg-round-ears.png",
+      "sha256": "8e66b308546eb5fcaa81c81e0cb0ca251aefc49e3c3abed64f678e02b6f3b4fe"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-shortleg-round-tailTip.png",
+      "sha256": "28cd97d4caf0e1f9a9a30aefe81f261f5810874f0990ae04929121aa291e5d35"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-shortleg-round-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-fin-ears.png",
+      "sha256": "24ca1558d71ed8dc66a06d849f69d1a3863a49fdb3b8c358beee5905b1273b3b"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-feathered-ears.png",
+      "sha256": "c1db56d193d7eb829038f7a7694d68a5ad495880190c2fb0cf36ebd737be96e0"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-celestial-ears.png",
+      "sha256": "3cbcba533bcdcb7aee67a6a8d54c9886addc181dde24b84192aece63fd8051fb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-small-lion-mane.png",
+      "sha256": "676af98864f7c725e2f561bf3889a0584797974e7e4d2dd540b493d6e98546f8"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-frill-neck.png",
+      "sha256": "1b04ac23d4a0c193050040b06b1b35b0f29248a6118026014345af3b02fd536f"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-sunburst-ruff.png",
+      "sha256": "07c223c9c9342b783b2542c80ccf426d59ab74f2f57ff3f4e0855cbbccb7ee95"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-forked-tail-tip.png",
+      "sha256": "e8a6bf53f75095e9cfef47ec32a45c9ec566371462480dd4338ed124ce30386a"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-flame-tail.png",
+      "sha256": "7a33f03e7fb292d3d820b95425151fc305f04d67eab989aebfdc8711c8e51bd0"
+    },
+    {
+      "path": "pixel/registered/part-poodle-shortleg-round-phoenix-tail.png",
+      "sha256": "846f5b46c3c653841445dc93b77c85ba3aa78ed9c1788a2a898b2cebe08f36d4"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-slender-tall-ears.png",
+      "sha256": "8e66b308546eb5fcaa81c81e0cb0ca251aefc49e3c3abed64f678e02b6f3b4fe"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-slender-tall-tailTip.png",
+      "sha256": "28cd97d4caf0e1f9a9a30aefe81f261f5810874f0990ae04929121aa291e5d35"
+    },
+    {
+      "path": "pixel/registered/mask-poodle-slender-tall-head.png",
+      "sha256": "e2fba74a996acf98cff505ff477bfc91c8009fbae6113f65219bdc356bdd40b7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-dragon-horns.png",
+      "sha256": "592d3853043943025e9e9bb30929a61300c89d3669e4ec19813b62c4ccbe6bbb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-antlers.png",
+      "sha256": "310e95054f7634d52cb8793992f97002ca8e37f58053ff6a4d5bf780b60551d7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-halo.png",
+      "sha256": "ee6801cbc3c9b23e6dee22fce5148e2847a7b9599db2571f357494bd16d33afb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-crystal-horns.png",
+      "sha256": "dbca66db68502e4787b7ad58de7d825472fe3c4ce2f24203bf95a06c599ee9c7"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-fin-ears.png",
+      "sha256": "24ca1558d71ed8dc66a06d849f69d1a3863a49fdb3b8c358beee5905b1273b3b"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-feathered-ears.png",
+      "sha256": "c1db56d193d7eb829038f7a7694d68a5ad495880190c2fb0cf36ebd737be96e0"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-celestial-ears.png",
+      "sha256": "3cbcba533bcdcb7aee67a6a8d54c9886addc181dde24b84192aece63fd8051fb"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-small-lion-mane.png",
+      "sha256": "c37e46e2266ddd949712b51a62fe993d6f21ed2300cf462340e543640a4a1214"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-frill-neck.png",
+      "sha256": "23383ee0b0910494190f6dfeab600da71d22e50e2ca5dcc5764d1930866c68e3"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-sunburst-ruff.png",
+      "sha256": "b067659e8fd71ee92d0abb46d213aad6df88cc1a581204831af19cc4427e495a"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-small-wings.png",
+      "sha256": "906a2b56034d79eda8cdd2d1b3073462638a737c7c8a833e270cb73de72c6643"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-feathered-wings.png",
+      "sha256": "7d38191b211cf6ac2c79d1838d5dcea21f04461a3eca4a125b51eed8ed95563c"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-dragon-wings.png",
+      "sha256": "ee94400b05b3e76507665583fb88f93d8886c7d415f9354862ff4fd1a07237d3"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-forked-tail-tip.png",
+      "sha256": "6abd2f8bac34a65ce25922d3714ae7bb2986bc09d1ff16e80a1effa012d15c2d"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-flame-tail.png",
+      "sha256": "1727adfcc65daa7dccdf59ee4ac0a1828e329e43543451c2f7c670176b5272c4"
+    },
+    {
+      "path": "pixel/registered/part-poodle-slender-tall-phoenix-tail.png",
+      "sha256": "6cc3f74863bf1edb7881bac31c34c848993795f2447c6a4502642877531bb582"
+    },
+    {
+      "path": "pixel/registered/body-shiba-standard-round-parted-mouth.png",
+      "sha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d"
+    },
+    {
+      "path": "pixel/registered/body-shiba-standard-round-small-fangs.png",
+      "sha256": "f9c004db7900829c02a05038eeb022c9d4a14e39b882966d4b7a4764fc94a0c9"
+    },
+    {
+      "path": "pixel/registered/body-shiba-standard-sleepy-almond-parted-mouth.png",
+      "sha256": "018a19ebcafbefe9818a368cd7fe6616909e36f5028b3143921d9cd2fbf469be"
+    },
+    {
+      "path": "pixel/registered/body-shiba-standard-sleepy-almond-small-fangs.png",
+      "sha256": "8e7e12b2e7c5652d3213ab3eb60cf8710981ac9e2fe2b0b1d6b949010e78d65c"
+    },
+    {
+      "path": "pixel/registered/body-shiba-shortleg-round-round-parted-mouth.png",
+      "sha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c"
+    },
+    {
+      "path": "pixel/registered/body-shiba-shortleg-round-round-small-fangs.png",
+      "sha256": "047874a31c037bbb003c67679aa41e2e05a160b5a2158e0f52fa98f0ca7a873d"
+    },
+    {
+      "path": "pixel/registered/body-shiba-shortleg-round-sleepy-almond-parted-mouth.png",
+      "sha256": "5ea1196264062f6e93a90955e3f364759814a618214f2aec3881a9b905ecf776"
+    },
+    {
+      "path": "pixel/registered/body-shiba-shortleg-round-sleepy-almond-small-fangs.png",
+      "sha256": "d43e448e580e333bf63f31db06a55877647270b901c7d420e80edbb72ac94768"
+    },
+    {
+      "path": "pixel/registered/body-shiba-slender-tall-round-parted-mouth.png",
+      "sha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30"
+    },
+    {
+      "path": "pixel/registered/body-shiba-slender-tall-round-small-fangs.png",
+      "sha256": "545989983dfa7fe52eb5332de8c70948a5a34a10fbfbe1c66c3c6d1c53321ac8"
+    },
+    {
+      "path": "pixel/registered/body-shiba-slender-tall-sleepy-almond-parted-mouth.png",
+      "sha256": "0d696903df10bf21484c0a0ba63e05893e10034bece3607175e5ce80c471bedf"
+    },
+    {
+      "path": "pixel/registered/body-shiba-slender-tall-sleepy-almond-small-fangs.png",
+      "sha256": "ce7261c8ea1ee3d5022edaedb25723fe1cbfbd3326e7e9e8d0dbfa3645f9cc6d"
+    },
+    {
+      "path": "pixel/registered/body-corgi-standard-round-parted-mouth.png",
+      "sha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397"
+    },
+    {
+      "path": "pixel/registered/body-corgi-standard-round-small-fangs.png",
+      "sha256": "1f8ea2a96cb2eca0d05a0dc98f7da4a6487cfc44fda74ac5eab0c0262d3ce84b"
+    },
+    {
+      "path": "pixel/registered/body-corgi-standard-sleepy-almond-parted-mouth.png",
+      "sha256": "d62e6dffc092b635c2ebe0db4622c87f587d160cbf0fe923e25a6c9d4fd72b5d"
+    },
+    {
+      "path": "pixel/registered/body-corgi-standard-sleepy-almond-small-fangs.png",
+      "sha256": "c12551f85a5aafb9b91baad13f1badf9fac07ba13281596579426287c123649c"
+    },
+    {
+      "path": "pixel/registered/body-corgi-shortleg-round-round-parted-mouth.png",
+      "sha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9"
+    },
+    {
+      "path": "pixel/registered/body-corgi-shortleg-round-round-small-fangs.png",
+      "sha256": "2d76f9507b3e464a34fa63bf581e6432360fa9ae906d29446159002475cd3158"
+    },
+    {
+      "path": "pixel/registered/body-corgi-shortleg-round-sleepy-almond-parted-mouth.png",
+      "sha256": "8d9d1230d341206e0ff6ef03fdf6b7ff05985641f907ae7922615fd602085d85"
+    },
+    {
+      "path": "pixel/registered/body-corgi-shortleg-round-sleepy-almond-small-fangs.png",
+      "sha256": "4594cd063792f53754ffcf4cad3dc708ad89061c8e58f780ce455e5c0d0754c5"
+    },
+    {
+      "path": "pixel/registered/body-corgi-slender-tall-round-parted-mouth.png",
+      "sha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e"
+    },
+    {
+      "path": "pixel/registered/body-corgi-slender-tall-round-small-fangs.png",
+      "sha256": "d77490a7206013b17a0d89adc362d2ceed7b8f38fa60cb2a9ca43adca8a13685"
+    },
+    {
+      "path": "pixel/registered/body-corgi-slender-tall-sleepy-almond-parted-mouth.png",
+      "sha256": "00a411fe7f7d0410db02f54989dab8f3d3b1dd44f1157462f6ae30d3b15d6719"
+    },
+    {
+      "path": "pixel/registered/body-corgi-slender-tall-sleepy-almond-small-fangs.png",
+      "sha256": "7134f41697a0c8240cf934e73862446666388f008205809ee5ff7154da816eb5"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-standard-round-parted-mouth.png",
+      "sha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-standard-round-small-fangs.png",
+      "sha256": "aa7d6b374a31c7ce67cc91ab850c3c77b430d575e07e25dbd511da301f9065cd"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-standard-sleepy-almond-parted-mouth.png",
+      "sha256": "9e29a2340c3d3c43d75bee91fb25e59c23ec46e855c987d06d91c0521f907f2f"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-standard-sleepy-almond-small-fangs.png",
+      "sha256": "e0e8cd4b153acf814c28255ae2534fb5a70bbe3609fdb101fe7ce26f281261e2"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-shortleg-round-round-parted-mouth.png",
+      "sha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-shortleg-round-round-small-fangs.png",
+      "sha256": "b908500b990465699eb8f3b8b75e1cc3310eccbab6fcd05ae8822240ca4f21a2"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-shortleg-round-sleepy-almond-parted-mouth.png",
+      "sha256": "48fc5936295d3c0de30797601f5e23db4eee23e641ddbe95bc14d44ffbd119b0"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-shortleg-round-sleepy-almond-small-fangs.png",
+      "sha256": "c13f850e9ddb299c6ac5bee69c903e0a8029d8af5bd96626d751ce9a364a03a5"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-slender-tall-round-parted-mouth.png",
+      "sha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-slender-tall-round-small-fangs.png",
+      "sha256": "d4571dec6556a5307b9af03166d8e188cf6c21e58b35a2e0cac1e61441ad3ebd"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-slender-tall-sleepy-almond-parted-mouth.png",
+      "sha256": "e45485f5f39d5503b58b3f2f367820e9b4947f85bc352497ebbde9d4089c9887"
+    },
+    {
+      "path": "pixel/registered/body-golden-retriever-slender-tall-sleepy-almond-small-fangs.png",
+      "sha256": "7449389c9f13cce460034ac8a859dc8215bbadadd627f3c105cccdbab5c76101"
+    },
+    {
+      "path": "pixel/registered/body-husky-standard-round-parted-mouth.png",
+      "sha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24"
+    },
+    {
+      "path": "pixel/registered/body-husky-standard-round-small-fangs.png",
+      "sha256": "c51278314b59593e3ad2f3df20da7ea5a1d9c06691ee0debaf8e2e64cfa40af9"
+    },
+    {
+      "path": "pixel/registered/body-husky-standard-sleepy-almond-parted-mouth.png",
+      "sha256": "55b9856c58ea5f21d2bca72ac1d0b1ffffc025e33f1679ab2d2655117b611b6c"
+    },
+    {
+      "path": "pixel/registered/body-husky-standard-sleepy-almond-small-fangs.png",
+      "sha256": "6abd3f608975719dccfb86bb106f0d2f1dce8b63f2510fa850efb9a21e8d96eb"
+    },
+    {
+      "path": "pixel/registered/body-husky-shortleg-round-round-parted-mouth.png",
+      "sha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9"
+    },
+    {
+      "path": "pixel/registered/body-husky-shortleg-round-round-small-fangs.png",
+      "sha256": "d016505b310571b546374d02e4956c359f9d522659e00827e4c70ebed6eec73f"
+    },
+    {
+      "path": "pixel/registered/body-husky-shortleg-round-sleepy-almond-parted-mouth.png",
+      "sha256": "1acc07af00ade7818fd4da0562e4a73fcdd605e646ade0b04ffd85bb6824e84c"
+    },
+    {
+      "path": "pixel/registered/body-husky-shortleg-round-sleepy-almond-small-fangs.png",
+      "sha256": "2237a521362e22bfd35656820e2522e544f20a706a2ce1490661a62b17c4266d"
+    },
+    {
+      "path": "pixel/registered/body-husky-slender-tall-round-parted-mouth.png",
+      "sha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe"
+    },
+    {
+      "path": "pixel/registered/body-husky-slender-tall-round-small-fangs.png",
+      "sha256": "abe930efd8adce8e721f5ea5e96c133a5d454713ee257ea521f53da18283f6a9"
+    },
+    {
+      "path": "pixel/registered/body-husky-slender-tall-sleepy-almond-parted-mouth.png",
+      "sha256": "acb43e8dd4bea9021a2a20b73a076843bd874dbcca81e5d2a0c17002a5ff07fe"
+    },
+    {
+      "path": "pixel/registered/body-husky-slender-tall-sleepy-almond-small-fangs.png",
+      "sha256": "040448a7538bb1572e9a52ae4f730512ae576b26a66a0ed361345a62cd3bc7e1"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-standard-round-parted-mouth.png",
+      "sha256": "8a53520486fc8c9f7a84c22070acb39136442a51273cbdc7ef00d216ed77bfbb"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-standard-round-small-fangs.png",
+      "sha256": "4bbe882ee15ced560f38761b03d618abb1be83f17a53af082b97125e07a6bd37"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-standard-sleepy-almond-parted-mouth.png",
+      "sha256": "ee6b246c341198ce9d4d1fb185bc398f7514329b2b8433e0b4fb1aa731d9f555"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-standard-sleepy-almond-small-fangs.png",
+      "sha256": "16a06ac88f8533a8785a2e6e32c188748539369b5d612bba4b8906d2942f02cb"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-shortleg-round-round-parted-mouth.png",
+      "sha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-shortleg-round-round-small-fangs.png",
+      "sha256": "3097e5381da23d65bcb60e19be3ac73d511feac28989ddf8bcb316d40df778fa"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-shortleg-round-sleepy-almond-parted-mouth.png",
+      "sha256": "8e63c65fd54528adc0699f9a92ef56bb08fd7e036ae655e6a3d39911e2ada95d"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-shortleg-round-sleepy-almond-small-fangs.png",
+      "sha256": "c4f82942ed47daec91959b4a3bf230e3205cbe71d5c1a9407921126a5cf07fae"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-slender-tall-round-parted-mouth.png",
+      "sha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-slender-tall-round-small-fangs.png",
+      "sha256": "e03c9cc5a31137b309b228ef9450558b0d11bee36490b3c31500c9a05b55b781"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-slender-tall-sleepy-almond-parted-mouth.png",
+      "sha256": "d018fc4b332c99ac3f611e97cb578acec773cd015c8f74fb6a4c4e1b993b7e09"
+    },
+    {
+      "path": "pixel/registered/body-dalmatian-slender-tall-sleepy-almond-small-fangs.png",
+      "sha256": "0494474c8bf606ce15efcb591a2232d209789c10937d36a42f32f67617556953"
+    },
+    {
+      "path": "pixel/registered/body-poodle-standard-round-parted-mouth.png",
+      "sha256": "d0a2b3b3ed337e0a347acb26c139450a743ce643244ac8b9b0914de871a0ea25"
+    },
+    {
+      "path": "pixel/registered/body-poodle-standard-round-small-fangs.png",
+      "sha256": "a6acad000899201f95d1bf63b86d07573704278445f3cd3677f6a86bada5bfa2"
+    },
+    {
+      "path": "pixel/registered/body-poodle-standard-sleepy-almond-parted-mouth.png",
+      "sha256": "f369f76f8959e599f7efadf85dd84e913f5acf57135025ecceac3cf48703f366"
+    },
+    {
+      "path": "pixel/registered/body-poodle-standard-sleepy-almond-small-fangs.png",
+      "sha256": "89e4fbe360c32b4a1c6f8098e08f82cdc90acd508c39be897118c029248d074c"
+    },
+    {
+      "path": "pixel/registered/body-poodle-shortleg-round-round-parted-mouth.png",
+      "sha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54"
+    },
+    {
+      "path": "pixel/registered/body-poodle-shortleg-round-round-small-fangs.png",
+      "sha256": "97aa033e1ef512d677d1bc0223e22d4b0f8359827ce4cfa791890cd12c752fc8"
+    },
+    {
+      "path": "pixel/registered/body-poodle-shortleg-round-sleepy-almond-parted-mouth.png",
+      "sha256": "b555cb81429517e403bc223d54e4ef86ad63eb9f22d43297f9266c4bbeb0b312"
+    },
+    {
+      "path": "pixel/registered/body-poodle-shortleg-round-sleepy-almond-small-fangs.png",
+      "sha256": "dd3dfdf87cab67dca3561a5a90158db15b61a1cc5a6d4a9e46a86e7106fa0202"
+    },
+    {
+      "path": "pixel/registered/body-poodle-slender-tall-round-parted-mouth.png",
+      "sha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205"
+    },
+    {
+      "path": "pixel/registered/body-poodle-slender-tall-round-small-fangs.png",
+      "sha256": "e66f7cdb8110bb5171debc12ab4fcbe855df329a73211c351a8049cc3f9a663e"
+    },
+    {
+      "path": "pixel/registered/body-poodle-slender-tall-sleepy-almond-parted-mouth.png",
+      "sha256": "b6da3a8868ee1e6828e54eca0bc10f93d7c01b1fdb0ccb998cf18b24df729943"
+    },
+    {
+      "path": "pixel/registered/body-poodle-slender-tall-sleepy-almond-small-fangs.png",
+      "sha256": "3cf5ac62c20aefd921b011f6b999604067a3015424f7efe574be671034f19abb"
+    },
+    {
+      "path": "pixel/catalog.approved.json",
+      "sha256": "181d08ea2fd4ed780cba683c7b5201fdc178db2e12a9d271fb886703af4e2aed"
+    },
+    {
+      "path": "plush/registered/mask-shiba-standard-ears.png",
+      "sha256": "3239a4e38c80f5beca57ef8e668eb993312f57ac9df7ce42714e756a245b27f4"
+    },
+    {
+      "path": "plush/registered/mask-shiba-standard-tailTip.png",
+      "sha256": "ba61e6508e6d2070b69204eadf949d5aba4fb7c43f46f91dee563ea57a85343c"
+    },
+    {
+      "path": "plush/registered/mask-shiba-standard-head.png",
+      "sha256": "0d3d0020681f7ce953c73625a41dfe5afbcef9753af8881c39b32c5cd2c4bd1a"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-dragon-horns.png",
+      "sha256": "1c698d2fae3400e87dc0b0ff81e83532d6a135e69c8732d718aecadae5aec308"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-antlers.png",
+      "sha256": "7707a3e06a19220616915576af6cc492b0c13587a7f82e8569c9242ae0c2f6bd"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-fin-ears.png",
+      "sha256": "1a4100c507c94dc98c62d560fb032b4096fdab7060492cb061408f399998e3b5"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-small-lion-mane.png",
+      "sha256": "aa29aa11782ce2d1b5017c2762032c71525e1438848f1f29698eda25aaa9af49"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-frill-neck.png",
+      "sha256": "34070a1975b35ccb856fca212eacea606c263cfcc23acb2094c173a0c3bceb27"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334"
+    },
+    {
+      "path": "plush/registered/part-shiba-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796"
+    },
+    {
+      "path": "plush/registered/mask-corgi-standard-ears.png",
+      "sha256": "057a28893a582f93746c57dd15ab62374c5bdf9682c331f64db38b12a0e8bc1d"
+    },
+    {
+      "path": "plush/registered/mask-corgi-standard-tailTip.png",
+      "sha256": "d055a1ce7482e79f34527330d8dc6e05af33648e8cc22319de2fbf0f6e833a68"
+    },
+    {
+      "path": "plush/registered/mask-corgi-standard-head.png",
+      "sha256": "6c6d01ceb14fdfd490b28fcaba2d6fb3876f6ad31351859c117fabff51ac02a9"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-dragon-horns.png",
+      "sha256": "d6df5ffd47ffb578366cf2d276512f1f6c07b69e91001e483ecffa9cda82ef50"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-antlers.png",
+      "sha256": "67152abe16b2c3ed5ed880ab03a605cfdc3fd5de5aa8c51907c90f0c9c2b9fff"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-fin-ears.png",
+      "sha256": "880d57805c22d0bce0017e5197554af89c4eb03e7c3251571713cd17939ef5f3"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-small-lion-mane.png",
+      "sha256": "146f5c153bb64f01dcb7a1e46b9abd08e85705e5c52e5fc744c923ec1e7d8db0"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-frill-neck.png",
+      "sha256": "3e3cfa25e2e34a2aaeaeae689f7003f334c04b7c6733cae922050912ae016bee"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334"
+    },
+    {
+      "path": "plush/registered/part-corgi-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796"
+    },
+    {
+      "path": "plush/registered/mask-golden-retriever-standard-ears.png",
+      "sha256": "375da8796d21203bd64eb3484e4df96f61fd9bc092dea2f120b18e33147ad11a"
+    },
+    {
+      "path": "plush/registered/mask-golden-retriever-standard-tailTip.png",
+      "sha256": "6d9dfb9d103657213e940b4109d52e45d381ecc47b5498daad959c1ceaf97642"
+    },
+    {
+      "path": "plush/registered/mask-golden-retriever-standard-head.png",
+      "sha256": "0d3d0020681f7ce953c73625a41dfe5afbcef9753af8881c39b32c5cd2c4bd1a"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-dragon-horns.png",
+      "sha256": "1c698d2fae3400e87dc0b0ff81e83532d6a135e69c8732d718aecadae5aec308"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-antlers.png",
+      "sha256": "7707a3e06a19220616915576af6cc492b0c13587a7f82e8569c9242ae0c2f6bd"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-fin-ears.png",
+      "sha256": "ae969e639af2f9f6aa485995f9e4e6e0620b379aa6f56b7301cc3fc6a4e4203f"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-small-lion-mane.png",
+      "sha256": "aa29aa11782ce2d1b5017c2762032c71525e1438848f1f29698eda25aaa9af49"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-frill-neck.png",
+      "sha256": "34070a1975b35ccb856fca212eacea606c263cfcc23acb2094c173a0c3bceb27"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334"
+    },
+    {
+      "path": "plush/registered/part-golden-retriever-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796"
+    },
+    {
+      "path": "plush/registered/mask-husky-standard-ears.png",
+      "sha256": "11ed5ba40156967ec0ed5e63bd06ae5483368657b649069f3738d9a5ef2aa196"
+    },
+    {
+      "path": "plush/registered/mask-husky-standard-tailTip.png",
+      "sha256": "7955195d8742d8ab2c632f6821d4a12620d75726ea679cc861ed96d039080946"
+    },
+    {
+      "path": "plush/registered/mask-husky-standard-head.png",
+      "sha256": "fceb95f1f723f18f3451ff7c0f026113b271ce2fd6645bc7a9c528896c5ac034"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-dragon-horns.png",
+      "sha256": "d6df5ffd47ffb578366cf2d276512f1f6c07b69e91001e483ecffa9cda82ef50"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-antlers.png",
+      "sha256": "67152abe16b2c3ed5ed880ab03a605cfdc3fd5de5aa8c51907c90f0c9c2b9fff"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-fin-ears.png",
+      "sha256": "76af05784736dfcb19b5ac675a5bd318c875c688585b30c97e6f823f39269c05"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-small-lion-mane.png",
+      "sha256": "9b7ad8e35198334552e2af01d4773baf077481c0c735c7e51a54fcb9a8cf6aa5"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-frill-neck.png",
+      "sha256": "0c445494c101365250803aa5f55ece246a98411166507a0849eb3bf88c90c087"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334"
+    },
+    {
+      "path": "plush/registered/part-husky-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796"
+    },
+    {
+      "path": "plush/registered/mask-dalmatian-standard-ears.png",
+      "sha256": "024fcde9d03d1b3ade58ecd87557007552a59dc0a3d2f454e81a5793bff29acd"
+    },
+    {
+      "path": "plush/registered/mask-dalmatian-standard-tailTip.png",
+      "sha256": "b1286031924386e151fc796ae4dc87d0d3d23552c299c8ca33f23ed0af5cb4d2"
+    },
+    {
+      "path": "plush/registered/mask-dalmatian-standard-head.png",
+      "sha256": "0d3d0020681f7ce953c73625a41dfe5afbcef9753af8881c39b32c5cd2c4bd1a"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-dragon-horns.png",
+      "sha256": "1c698d2fae3400e87dc0b0ff81e83532d6a135e69c8732d718aecadae5aec308"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-antlers.png",
+      "sha256": "7707a3e06a19220616915576af6cc492b0c13587a7f82e8569c9242ae0c2f6bd"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-fin-ears.png",
+      "sha256": "d451bcbad5132487e0e81eff612b9ad6d8cf7a6924b09b7f07e70f291f131711"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-small-lion-mane.png",
+      "sha256": "aa29aa11782ce2d1b5017c2762032c71525e1438848f1f29698eda25aaa9af49"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-frill-neck.png",
+      "sha256": "34070a1975b35ccb856fca212eacea606c263cfcc23acb2094c173a0c3bceb27"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334"
+    },
+    {
+      "path": "plush/registered/part-dalmatian-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796"
+    },
+    {
+      "path": "plush/registered/mask-poodle-standard-ears.png",
+      "sha256": "186fd818e77522a73746549f10038247b208dad1b8132950a041fc47710c00ba"
+    },
+    {
+      "path": "plush/registered/mask-poodle-standard-tailTip.png",
+      "sha256": "5a9f6d10d339db7f90e02a981ad288fb788a2420dc304856948e1847d37411c1"
+    },
+    {
+      "path": "plush/registered/mask-poodle-standard-head.png",
+      "sha256": "0d3d0020681f7ce953c73625a41dfe5afbcef9753af8881c39b32c5cd2c4bd1a"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-dragon-horns.png",
+      "sha256": "1c698d2fae3400e87dc0b0ff81e83532d6a135e69c8732d718aecadae5aec308"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-antlers.png",
+      "sha256": "7707a3e06a19220616915576af6cc492b0c13587a7f82e8569c9242ae0c2f6bd"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-fin-ears.png",
+      "sha256": "2a5203fb63530803165aa9abbee406abe5c7fac1d1ed697ce23404e718b5503b"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-small-lion-mane.png",
+      "sha256": "aa29aa11782ce2d1b5017c2762032c71525e1438848f1f29698eda25aaa9af49"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-frill-neck.png",
+      "sha256": "34070a1975b35ccb856fca212eacea606c263cfcc23acb2094c173a0c3bceb27"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334"
+    },
+    {
+      "path": "plush/registered/part-poodle-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796"
+    },
+    {
+      "path": "plush/registered/body-shiba-parted-mouth.png",
+      "sha256": "8450b262ed1e2533d7dc2291d668e216c69e333bb99bf1aa7941c2df0166d13a"
+    },
+    {
+      "path": "plush/registered/body-shiba-small-fangs.png",
+      "sha256": "4832341a2165b37df447b3795a95aca98f72242b7372093259008614bd3a0574"
+    },
+    {
+      "path": "plush/registered/body-shiba-tongue-tip.png",
+      "sha256": "4e299078c1681ac04ee471e9610ae1c42219a367dacd426e7743adfc82849d66"
+    },
+    {
+      "path": "plush/registered/body-corgi-parted-mouth.png",
+      "sha256": "ddbf10ece66a21fedc81844b7cdd8a79941934eabf71d27b8cf1db0563859dbf"
+    },
+    {
+      "path": "plush/registered/body-corgi-small-fangs.png",
+      "sha256": "141bfcb500cb7c59c0325ea6f2aa4873d082597e5ab972fa952f6dada06a7894"
+    },
+    {
+      "path": "plush/registered/body-corgi-tongue-tip.png",
+      "sha256": "6de776acc57603a1c0f3454d293434b305d630a4a656121374ba7e84c4d0c27d"
+    },
+    {
+      "path": "plush/registered/body-golden-retriever-parted-mouth.png",
+      "sha256": "4faaaddd99c15ed7e0bc861a5327e238eb70dd20b892db994dec1dccf44b24d6"
+    },
+    {
+      "path": "plush/registered/body-golden-retriever-small-fangs.png",
+      "sha256": "9cb289fcd886f56f1a52d5f794b56d07086ef93a65e2c92b35de23769434edae"
+    },
+    {
+      "path": "plush/registered/body-golden-retriever-tongue-tip.png",
+      "sha256": "cfe6221cf0c4d601b5262df846ae29ac7ae6b6f7bbc58d2e92c01ec0db67e462"
+    },
+    {
+      "path": "plush/registered/body-husky-parted-mouth.png",
+      "sha256": "6bf8bab889180493c647f1d8fbb4b8c99909bc7e574c10a8748d782ec14a517b"
+    },
+    {
+      "path": "plush/registered/body-husky-small-fangs.png",
+      "sha256": "de3024b77e2b3517fa5785d8925f6c14272f167a5edaead8866c651baa38bd06"
+    },
+    {
+      "path": "plush/registered/body-husky-tongue-tip.png",
+      "sha256": "675ec0e9b629b40e549e12a40ff11a36c21a0cd034aa995d88a4098dd84f9aa2"
+    },
+    {
+      "path": "plush/registered/body-dalmatian-parted-mouth.png",
+      "sha256": "d0a78f0b8d51c3a675cf152cec6f51810be5e3b0234fd455b0c8b34d86cb88a5"
+    },
+    {
+      "path": "plush/registered/body-dalmatian-small-fangs.png",
+      "sha256": "06d8f2c06a3821f4719f5d01b98651a4d2d2b9883f909a6c8137bf22970db785"
+    },
+    {
+      "path": "plush/registered/body-dalmatian-tongue-tip.png",
+      "sha256": "3aaea96a0350140ffb62bf61b686df3b3a9e2644e48edaf7e53188c03a3c1e28"
+    },
+    {
+      "path": "plush/registered/body-poodle-parted-mouth.png",
+      "sha256": "e7abe7a6d059a05cf79f9a0dfc0e954ab2c67360c45199a6c9277502296758db"
+    },
+    {
+      "path": "plush/registered/body-poodle-small-fangs.png",
+      "sha256": "fbaa51dcf74dd6b89ccbb3bdf3d2709364dec2ce22d48aea2408d828093eaf88"
+    },
+    {
+      "path": "plush/registered/body-poodle-tongue-tip.png",
+      "sha256": "8e26d3998ed5b07e396ed6e39eb461b22c81722deb3d5d07c3d5de2057bc25e9"
+    },
+    {
+      "path": "plush/catalog.approved.json",
+      "sha256": "b6e02fca7d7b23847b722efe86708b73c805fedf0fd53b8bcd1223cf921ed3b0"
+    },
+    {
+      "path": "runtime.mjs",
+      "sha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3"
+    },
+    {
+      "path": "provenance.json",
+      "sha256": "65a3b742cb460fafda5fed6fbe80783b6f73b034d4bd86563e34258e96df2d93"
+    },
+    {
+      "path": "fixtures.json",
+      "sha256": "272520e9245f5c8dbcc5ed454dee9dffa5be4825f172da5937c541a7a4e3117d"
+    },
+    {
+      "path": "README.md",
+      "sha256": "a092bd4136175e1d62ce8d7e70c6d593bb67519f327993ed959cfb9bfbb18e8e"
+    }
+  ]
+}

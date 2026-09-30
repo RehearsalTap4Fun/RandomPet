@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy half-open amber eyes retain visible irises and relaxed look; tiny parted mouth unchanged. Narrow torso and long forelegs preserved with coherent spotted coat, four paws and full right tail. Alpha clean on both backgrounds, no clipping.",
+  "resourceSha256": "d018fc4b332c99ac3f611e97cb578acec773cd015c8f74fb6a4c4e1b993b7e09",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-slender-tall-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "3deafa1e303cdaa8dbcbcee0e90ef80fed06fcb4fd04bae33dd645bee93319a4",
+  "userArtApproval": false
+}

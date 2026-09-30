@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "b090ac08f0eba4d1dd50f39df3923b53ca1076ad8f95881133566e70b0157b69",
+  "reports": [
+    {
+      "id": "corgi-slender-tall-round-parted-mouth",
+      "contactSha256": "f4e3d0265487592b09b0f7cc25ee4ddf8e9fa583ff13b561085705187170b0ca",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-slender-tall-round-small-fangs",
+      "contactSha256": "3757f283abd8546479e581509abc42c0b0d4ddf42a4a07750e5b3362c1272c82",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-slender-tall-sleepy-almond-parted-mouth",
+      "contactSha256": "44f315805f323da5d4bdccc0620f235e25cf3ce3f193ada165f8a7a4685631c7",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-slender-tall-sleepy-almond-small-fangs",
+      "contactSha256": "004ba91f252cd73e9fc2e310eb7357362f4c3b49a58210f420f91a4236a450d5",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

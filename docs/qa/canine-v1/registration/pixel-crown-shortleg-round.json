@@ -1,0 +1,341 @@
+{
+  "status": "pending-visual-review",
+  "records": [
+    {
+      "body": "shiba-shortleg-round-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+      "compositeSha256": "05a89818665fb23df3de4afe1fd2761a812fbdfa61fb9ba087a28bdcf891c695",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-shortleg-round-dragon-horns.png"
+    },
+    {
+      "body": "shiba-shortleg-round-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+      "compositeSha256": "c7c48f91622371b1b7c5b25ff50130b00da9db7de2a39d44eeb299f2b29a2345",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-shortleg-round-antlers.png"
+    },
+    {
+      "body": "shiba-shortleg-round-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+      "compositeSha256": "2b56424721e8ba575b9461445e0ed239eafa18f59fddff477b6eecbd786dfddd",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-shortleg-round-halo.png"
+    },
+    {
+      "body": "shiba-shortleg-round-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+      "compositeSha256": "4ab18e29bffcb6a0ce51bc8eed26022b5813117229790fdc27473691444011f1",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-shortleg-round-crystal-horns.png"
+    },
+    {
+      "body": "corgi-shortleg-round-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+      "compositeSha256": "444a6e6b5ac2c185747822e44fc917d6f9b5efc3a2fb4299d6640789e65fd457",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-shortleg-round-dragon-horns.png"
+    },
+    {
+      "body": "corgi-shortleg-round-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+      "compositeSha256": "c725c7ded6add17823fb435d2838205a62ef6b7f3154c7db07cc62faf0af7049",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-shortleg-round-antlers.png"
+    },
+    {
+      "body": "corgi-shortleg-round-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+      "compositeSha256": "179ee2217b1b38a45a9b360ac3acdd5353cbb89b3218a84ff7f6fb2b93c58b6c",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-shortleg-round-halo.png"
+    },
+    {
+      "body": "corgi-shortleg-round-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "052b006a2e9a91d942aaeb9dc708c16d27af246862edb69f13e26a358c080fb9",
+      "compositeSha256": "774b3ddcac541c1cc974bb872cdff9139ca3ac776bd85856559054f203b347c7",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-shortleg-round-crystal-horns.png"
+    },
+    {
+      "body": "golden-retriever-shortleg-round-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+      "compositeSha256": "4e4aae0fe196575acfa91591213fa322654716e1dfd15cae6b1a7b58c3781dca",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-shortleg-round-dragon-horns.png"
+    },
+    {
+      "body": "golden-retriever-shortleg-round-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+      "compositeSha256": "3d48b52caf0c4d13f507daae560ffba17298bb69939cf2db1182d5c9176df6d7",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-shortleg-round-antlers.png"
+    },
+    {
+      "body": "golden-retriever-shortleg-round-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+      "compositeSha256": "7003b9801cbf7dc928c0b36956b6d7af612cd868059fe75ef8d4e8ea4916c46d",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-shortleg-round-halo.png"
+    },
+    {
+      "body": "golden-retriever-shortleg-round-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+      "compositeSha256": "a6880a96a6c785308c798c2049eea52aa1713c24860acba2ea77142c65ff0dc9",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-shortleg-round-crystal-horns.png"
+    },
+    {
+      "body": "husky-shortleg-round-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+      "compositeSha256": "246374ecbc246ad3cdd26f06e00ff617002e19a9d5cf859247437b60b0b4b991",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-shortleg-round-dragon-horns.png"
+    },
+    {
+      "body": "husky-shortleg-round-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+      "compositeSha256": "6aaa4d5741bc73cfca4e33ed0b9aa8da2754cf40cc82ba5ffec3364c972900ca",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-shortleg-round-antlers.png"
+    },
+    {
+      "body": "husky-shortleg-round-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+      "compositeSha256": "94ecfc14152a8e8501c5082743f7c723bea378b2e11556ae79bc3f54b9c711fc",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-shortleg-round-halo.png"
+    },
+    {
+      "body": "husky-shortleg-round-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+      "compositeSha256": "fe7ae0c87a0d1e21dbd60df97d48e940ef20a7d46b1d34599975a53132e341b7",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-shortleg-round-crystal-horns.png"
+    },
+    {
+      "body": "dalmatian-shortleg-round-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+      "compositeSha256": "b4b7c463e16a135d39a928c25dd69724ce7ddffeadc2da8c51c490fc47005cad",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-shortleg-round-dragon-horns.png"
+    },
+    {
+      "body": "dalmatian-shortleg-round-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+      "compositeSha256": "b40376a7d432fd9fea3b2719d11041ae5592d59179aaf87b27068c958512639a",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-shortleg-round-antlers.png"
+    },
+    {
+      "body": "dalmatian-shortleg-round-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+      "compositeSha256": "541f7ad27bb150b663759c63349f7cf341f4a4f16f846c9b4b1986e559cb6870",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-shortleg-round-halo.png"
+    },
+    {
+      "body": "dalmatian-shortleg-round-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "d5cafb930e1e9bccfec0f679f499d9ff54d792e29fbe9dbb97d1f908c84682ac",
+      "compositeSha256": "f5a04b63f95c58b7b38dea37a3599882d0dc4c59e20980ef17ba443124b1285a",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-shortleg-round-crystal-horns.png"
+    },
+    {
+      "body": "poodle-shortleg-round-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+      "compositeSha256": "39093c58a20fa40f3f13ac58136460ff687908ce66dfd282347fdf88e9daea08",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-shortleg-round-dragon-horns.png"
+    },
+    {
+      "body": "poodle-shortleg-round-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+      "compositeSha256": "f73a188454500efb52b6603a104efdec87c03a2c56e22a3828fcc5d7570987f6",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-shortleg-round-antlers.png"
+    },
+    {
+      "body": "poodle-shortleg-round-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+      "compositeSha256": "d5878f376b2456d4feee9dbe0c74b9b6b4fdcb00167a9ef8ca2010c264ddcdf6",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-shortleg-round-halo.png"
+    },
+    {
+      "body": "poodle-shortleg-round-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "0f542a7d704e1864e232f107984c5aec93025545ed6ebc43ef72a4d2ee5d2e54",
+      "compositeSha256": "c5c57732d96bf75f774fa158a93bc3d99c581fbe9b07a1126e783089687d2f72",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-shortleg-round-crystal-horns.png"
+    }
+  ]
+}

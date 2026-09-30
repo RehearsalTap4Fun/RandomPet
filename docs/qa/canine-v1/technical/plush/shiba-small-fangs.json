@@ -1,0 +1,27 @@
+{
+  "id": "shiba-small-fangs",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/shiba-small-fangs.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "c10e7aeb7fe1f3e4a1c5467051b7e47923ebdc825be4b1954a78e01326382b75",
+  "rgbaSha256": "9c1853dee5be5af364daacab32a8a2f908472705de9b3ea9d6968b33d4224adb",
+  "bounds": {
+    "left": 213,
+    "top": 28,
+    "right": 1219,
+    "bottom": 1223,
+    "opaque": 131,
+    "transparent": 724933,
+    "fractional": 847452,
+    "visible": 823034
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

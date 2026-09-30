@@ -1,0 +1,11 @@
+{
+  "id": "corgi-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy eye shape and distinct two-fang grin both retained at 64px; corgi white blaze, upright ears and short tail remain recognizable. Standard body stable, light/dark edges clean.",
+  "resourceSha256": "c12551f85a5aafb9b91baad13f1badf9fac07ba13281596579426287c123649c",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-standard-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "96e4893327c63aa8a1e58cb3a3d39c8659ea770ada22c18aa32059612b8f9596",
+  "userArtApproval": false
+}

@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "dfe4e11e4f1c67e0d9bfcb88a2c59320a3d0dfeffe369a46f983df122975dea9",
+  "reports": [
+    {
+      "id": "corgi-standard-round-parted-mouth",
+      "contactSha256": "cb30de4f0b32da91295843de838faffa0ed84b853df8f36e7dbafab151ccc12c",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-standard-round-small-fangs",
+      "contactSha256": "99232265890ee6b5843d7538366d7b6423d95b23d19282bcc26053df16f3a92d",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-standard-sleepy-almond-parted-mouth",
+      "contactSha256": "6e25d34da8ff5d3fd78c7b651c5f0011d5dfde8aa1d85f9eaa03d85be2a74601",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-standard-sleepy-almond-small-fangs",
+      "contactSha256": "fdd1c656b1f7994f82f2f0d2e81b763d230ac9774fb284901160932b562268ff",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

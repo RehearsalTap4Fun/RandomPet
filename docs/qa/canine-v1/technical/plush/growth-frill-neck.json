@@ -1,0 +1,27 @@
+{
+  "id": "growth-frill-neck",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/growth-frill-neck.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+  "rgbaSha256": "2c97a286c28a9193885c97dcf60b96e38c1566e9ecbf56dee0e8713831649ac9",
+  "bounds": {
+    "left": 7,
+    "top": 268,
+    "right": 1247,
+    "bottom": 1047,
+    "opaque": 14,
+    "transparent": 891011,
+    "fractional": 681491,
+    "visible": 647115
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

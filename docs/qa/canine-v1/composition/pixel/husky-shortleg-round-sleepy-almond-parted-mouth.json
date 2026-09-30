@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+  "profile": "husky-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "d1e498f0f4995402f0022a8c7237d6ee7e6e92a0dc427ee3bca0a5f5f84179de",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "e0284c79de0f516b27d3eae5eb9eb6f9798abea6763a058b08f75626faabc95a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "455ff326c9d3e51e9fb5bde1a57ac963e165f902b838c78125e29f7d382a1172",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "d0dc9f2e76373a7352b32f3150c582aecac6d11dd57da649988b12cda8d44ada",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f7735fa59254ae50b8134ba36fd24675918b487e48349adbfd0516d5922a7cc6",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "4207dff5a15c3322b4221a5df031732d8ac11864e03e3aebdb77c86f0bdb1c28",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8dd74bce8296389424d2fd31331af6299ee8544e5136a8564f2e712829b56874",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "2fa8f412b0d289fdf5f795dfbb76db7c8b362260b10b08921a4037fddd1988a1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "88f19b6288df28642e46005c916e9c3bdcb96db0390244394722968872ff1ee4",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "5864133a06d322bd544aaf1c55496fac22ba2cbe27f0bbd30ce425137f0de086",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "622425c414f426c0b13e94dd8939caee093923899422efd65dff144c4e7f6530",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "6641ed5f177ecf1f8669d952e01918974e5ad342696377efbec288066201bf4a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f1c744817816480a5784ee313080e76d461406af73d79794feff7ac4cf2aff13",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "3a5763cd0fcc2fd0b85c982bd94adcef1dd4b541dab092886f98802d2a1e6574",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8550d30f88c616cc28cbd6612e38c742e2baae591795c210fbfe1d6b02c454f8",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "509963e1b51c1a049933776c1f677e85d7fd4f9552573c1942f7a8855154ec3d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9f535204635d84385da3420a0a07d8478c5b6a70c1924b44c79175543ba39541",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "518b646197f4c44f5f09e79c7105b87f3b4506b5d907abdd8cbb33916bcae08f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "501117e33692056a89625511f8956dd8fc01afbe90439b8832c26f3b0c9df593",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "e881af8c087b28fb0e1f177507e62dda6ab7acc8e882ba2931532343fcb5eb4a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cbe7d1439c924901dd80dc4e6f2c354ea698acd95121e21894d8dfa4c613b89b",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "953de29f0e6890971c3ac1e59e6f7021e7a3be789573b32659ff56269560c0a6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "538e636bd35fc29f563bbb70ec44417e0e5369128303be38a242db939c5ef914",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "1531e49610cffed2aba55c94f0c20fbbb3d4fcc28f3faebfd8bae3b7402be691",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4a443329d309f32e5c7905a885f81ef3f350e4a761615a2fefb98bd3e9e927b6",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "e07d4528e9674572809d3d6e26275b8d68a9bcdd752d0ae7be7e58415600aaa0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "caca2f62e81a9739b8333ac52ec4e0e54312b79962e2ac8bbe29e032d2786272",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "5dee9ad85fa33220b0e1f7f48b119bb0f74bf9e3afb437aa29e6202cd25c34d6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "39d20886214c6df4aca2d2d3224eba1681c4bbd102266d31f882494b5f5694e0",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "3fad293c679800c63ad7613b5fcd0ec2dfa29717bc6f558f446a08ef33cf8422",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "df65984b3cfe819eb40da7add1ea2eb7613d460a7908519a398047cd4fdd4f2c",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "e8a480c6d6b6c47b4d4c1726817230c69743fcda102e4fcd86df0cc677d3a9bc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c59e1c42edba94c200747386dba774172fb0f406e4a93df1ee57db1799d062ec",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "fa60ebf3de0e0e8221f34eb492aa333f50fcb48fd36e069e66d9880e5fcae9f3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c219f0c11d5a6bb020b372db69d08266ae24ef8b6b211ab5b34961abedcd1988",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "cb84d1f7c5e99a1fa296f333bd42ab9f36713dc88d6b409cdc9d786ca4be3b25",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0f9ce6f53fe90afd31a64e5b667a4b71d40318cd8c08a593d202b53863f9cf80",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "4677c3655143fdd02e2af79e7b490c6d7ab4541f182b7dffa903978e44ac615c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "60d9e0e34dec6453aa7b4029e9913b649380fedf02e9b4e6ced8f16b750820bc",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "702b83e38b08d33837cd99ec99e42e4419b4e73aac3c3f4dfe453b4b735e131c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0f70f37c4159a7b672cf6c166d7fd20c7f254dfa5cf07058837a70cd0264718e",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "f4bd2d22fa7ffd840f3c3c9dd424953252402d1ecfa0735758963c599994bd78",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d124d1dc7709d5ad4058e2b16547e0259c9f173144ca7fc190ee1a875b47842d",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "哈士奇面罩与蓝眼保留；颈部下移到实际下巴后，原灰色卷尾已清除；各体型与表情未被成长部件遮挡。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.949Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth-daa3760c044002a9db93f5feb46790042363d1eba194233a5d22907827d1a06c.json",
+    "sha256": "daa3760c044002a9db93f5feb46790042363d1eba194233a5d22907827d1a06c",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

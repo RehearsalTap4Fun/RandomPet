@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-standard-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Lowered eyelids remain distinct from round-eye counterpart; two ivory teeth visible against brown smile, no tongue; standard legs and golden floppy-ear silhouette preserved, clean light/dark alpha composite.",
+  "resourceSha256": "e0e8cd4b153acf814c28255ae2534fb5a70bbe3609fdb101fe7ce26f281261e2",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-standard-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "00d1834a281c606efe2f8fec58288dfd9b3279f203edb57e4152f1927a467663",
+  "userArtApproval": false
+}

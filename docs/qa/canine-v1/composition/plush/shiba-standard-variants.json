@@ -1,0 +1,39 @@
+{
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "sha256": "2ad30bc61b5060a0dbaa2493c08258140732c378fb2d4f42b5864cc5000f1d83",
+  "reports": [
+    {
+      "id": "shiba-parted-mouth",
+      "contactSha256": "8c4fa895eace2f671d5d3c359a33da26b625a42556f662561d18500c38b19420",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "shiba-small-fangs",
+      "contactSha256": "87cfbd367895d3427b8a3b7dae2ac9f738febd96abe4ec6b73fe2770b06c96ea",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "shiba-tongue-tip",
+      "contactSha256": "b80978c67ba981bfe7e7d274fc89e1b96406d81bcc7cc4ee5a4c564be9004bda",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

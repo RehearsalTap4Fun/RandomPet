@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-shortleg-round-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-shortleg-round-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "b908500b990465699eb8f3b8b75e1cc3310eccbab6fcd05ae8822240ca4f21a2",
+  "rgbaSha256": "877bf0214e87e41e9949ed0322657c11c3a48c5435500b266ef62c7d0b9f9a41",
+  "bounds": {
+    "left": 4,
+    "top": 6,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2279,
+    "transparent": 1817,
+    "fractional": 0,
+    "visible": 2279
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

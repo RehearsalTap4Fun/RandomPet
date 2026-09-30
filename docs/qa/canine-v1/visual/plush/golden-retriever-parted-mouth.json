@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-parted-mouth",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Viewed full source and normalized light/dark: coherent golden retriever plush with pendant furry ears, broad black nose, natural small parted oral cavity without teeth/protruding tongue, four paws and single feather tail. Fine alpha fur edges clean in composites, no floor shadow.",
+  "resourceSha256": "2f7537876bde6ff05a0dbfb0478cd5e9c93857117186264c47c7bc3cb31459ea",
+  "evidence": "docs/qa/canine-v1/visual/plush/golden-retriever-parted-mouth-review.png",
+  "evidenceSha256": "ca38927a077026fcf2da901b771e6649ebe8011813fe33569fe76aa41319059c",
+  "userArtApproval": false
+}

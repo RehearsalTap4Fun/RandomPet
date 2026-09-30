@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-standard-round-small-fangs-r1",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "Second inspection at actual64px still fails: right tooth joins pale muzzle, left is a bar and right is not isolated. Raw enlarged image is insufficient evidence. Require substantially larger dark cavity and dark border around both teeth before accepting.",
+  "resourceSha256": "10e6f0d78e96e3e8b1ce2b1d47de9b75502153ebd76fc462eeb38bbee355cb3f",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-round-small-fangs-r1-review.png",
+  "evidenceSha256": "a4afbcec5aa0aec96ef386cea5a0a2212198553bb619be1acfc69bb637cd97b4",
+  "userArtApproval": false
+}

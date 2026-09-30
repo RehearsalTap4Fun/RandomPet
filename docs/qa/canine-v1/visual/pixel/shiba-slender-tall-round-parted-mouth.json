@@ -1,0 +1,11 @@
+{
+  "id": "shiba-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Slender torso, narrow hips and elongated forelegs visibly distinguish tall type from standard/shortleg. Same recognizable Shiba head and curled tail; round eyes and parted mouth clear, all paws retained inside transparent margins.",
+  "resourceSha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-slender-tall-round-parted-mouth-review.png",
+  "evidenceSha256": "e563af29b63465313ed015a1ec76c51911bbfa50ea147b494a32ecbf80a0139a",
+  "userArtApproval": false
+}

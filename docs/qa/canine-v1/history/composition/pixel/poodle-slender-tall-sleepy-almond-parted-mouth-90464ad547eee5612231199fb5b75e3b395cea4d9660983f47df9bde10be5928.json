@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+  "profile": "poodle-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "654cc8344c11788246cf75286188a2119a15450549e952f1da9e8a998794c990",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "3c2a663723b3d0187d321bcc9684876d67718a544123008f417425eda890adde",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ae8a788a17c17162214c04a3a16583e9e7e5ba9ca4756066093feb76b274d59b",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "2743318c4d528bc0354f2f3093d54e98f3ece0ffd07eb6360e719a4e6e23349b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b02aff5d4f49340972bb3a7d0eb5d3bec20b30b1ca82fdbcaf29d8197ce09d10",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "b6862cbfa10e47696a196a6b0dc7b0dc3a5eec683de1e63811d46339809c669b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2e78d2defbe063dff2095af771c7eb23751201a08f79fc929774214bf8373a4d",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "15b5fb92d018c7a9723525f2463523e09b0babdfae67c784ee4a069794d07f71",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d6f1f37238ea5ba6cf877857ad6d6b20d69ab64710f3474b8fda6b021c9b4cb9",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "ef7b5c9ea2fb7df9637642e19906a81edf3675593b80352b3a8fdc94b5f3c1ba",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "54a7b9ac6a24a3a4d649f61e68ddf130b9fac55fa5d3a5ee8d8aa7df856e6aa1",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "f13e7b5c9ea27154903251d9c95b03b8004946fe13edec663e5dafbacdb01381",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f97e76a122ae1d547baf361659e2454d6c91a3db7dece0d0ca7006bd46fd23ff",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "b1cc47d9abbe9edaf85953898411e6fe2f19519078b2adc5ce51079984cda735",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "29e05e99cd5e1d5ef3ced8dff75e579ffd5eb721781a09cbf406dcfff6f269ad",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "5580c55ffde215d501f38c508b535b07bbe75d5845506bbedfc7608a8595d6c9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ede4196756c72af9b095722e69b45ec5f988c17c4c7dd9a209181ed51a697f3f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "7430f6546396f6ea159a5f9c8d616262f17cb2f727fd73d340e2f3df62a699e5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "41c62564f70a885c7c15e00547ec044be25ae9a121bc61af4694eae298a3fcad",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "690afdeb59ccffef22a885c6b9aa8be1d44145e8bbf482a574f2970745211720",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "12c353ca71a7e94b94df5d3a5b9b55916f581f4415d8d1a301ad86882ceaf3c9",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "4d1d54e8cef0ce1bab3c0b3d3260c5650d86faed719ae77f89f1759b26b4fb3e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0d2fa86990e20f095131f9cce96269d9ee07ff4b46b60430fa5d20234710e112",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "a427b6e98f3ef01f3ff2db6bb276f6c7eaf74b5f8518446b24fe20629fb03be4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "be1a693059c5c66d60d0b174008d4f506f1a712c63645209bd99e6a54401331a",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "ee0501959d16d2cc636f415226f91f5cf74f128fbfc8da04ca4aa65ac8c398ea",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c2055ceaff4fd98063001b6f58151ac747756174d2eddf3f3d5a4c1a5b855711",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "deab00c7c7b0435ef359dc2833774d34c12d80a4d9f0beb4b37fa1353eada0a8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1d1bcec1ad96bcb1d0f39fa367112ae01a27a0ce3122df01cebb203480dfe797",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "b9001b2d6030cad5f9cd2537efc9680056467e4e4106d07f87b129f329b81836",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d54aed0a2b5eb14ffd18b43f9ff16815df3368ca21ec1994643f3517bad2191d",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "4bb1513b1afc9d9e41b4832ed617155ecf83fd0743e0e4600f8c41097daa0016",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0940f69a180436ddc2a0486cf3de3f95ebccf8c94bc71362026b86e74b5b9b98",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "8740cbfa148cda24939e31c8bb5d3db922704fcb19a10d2a2c20f7bbc2a5a1d1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "294453cc84e11e2fb02729a3df5d2ef041546c632110a9b3a226276b5a6d7284",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "07fbb7c93d3e07b713aa7c6ff5be98314c39f5a17f60642b24540f49463bc722",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c6d9ee274ab937a2b9beed799cf4d0466c3ecd7921ccb4e618f3ec8981c7bef4",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "786ddf4c7bdf9923732e7889f85562d3aee4a60f7b410aafa3b4257db87d9320",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8f779f3b9f8f2a999acbaa729ca4e232676a79d6d0b7c1ff57b1c90701a1e713",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "aec7c029c3fb12d84181184cd7cfd7bdcba29b1d21947d90ef1d10650fb42b0a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "60aa49737861cb888528bfc7a052f07a1487b4486e8cfd8c56c736a9a5298221",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "2bd096df4367360ace7466e3d668ea32da9b36c05c4241708eb08791e3d6ef58",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8ac0cdfbf29ec7f1cc7622f2f07830bfc82ee569d8ec0803f28bec3335f20868",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "贵宾卷毛头冠保持；换耳后的两处残余暗像素已清除，耳遮罩不再截断尾球；小尖牙与半睁眼组合可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.308Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-slender-tall-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "e03c9cc5a31137b309b228ef9450558b0d11bee36490b3c31500c9a05b55b781",
+  "rgbaSha256": "64115bd59944d85800d5938010115269b9c7ba66aefbabeb31da0d66f00c8c8f",
+  "bounds": {
+    "left": 5,
+    "top": 7,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 1753,
+    "transparent": 2343,
+    "fractional": 0,
+    "visible": 1753
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

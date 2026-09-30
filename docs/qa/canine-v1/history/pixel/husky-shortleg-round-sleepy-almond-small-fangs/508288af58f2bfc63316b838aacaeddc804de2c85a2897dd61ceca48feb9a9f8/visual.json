@@ -1,0 +1,11 @@
+{
+  "id": "husky-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "Reject native 64px result: 32-colour quantization eliminates blue iris colour in both tiny sleepy eyes. Source art is blue but deliverable reads brown-grey. Rework with larger saturated blue iris clusters while retaining sleepy lids, fang mouth and short body. Palette comparison evidence retained.",
+  "resourceSha256": "508288af58f2bfc63316b838aacaeddc804de2c85a2897dd61ceca48feb9a9f8",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-shortleg-round-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "a36d506cd86c72db2d2a178c0acb0844c26b2e79733571b237e072d720855514",
+  "userArtApproval": false
+}

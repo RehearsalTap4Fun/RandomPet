@@ -1,0 +1,2511 @@
+{
+  "schemaVersion": "canine-release-gate-v1",
+  "decision": "pass",
+  "assetProductionComplete": true,
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "userAuthorizedAutomaticReview": true,
+  "counts": {
+    "bodies": 90,
+    "pixelBodies": 72,
+    "plushBodies": 18,
+    "independentGrowthSources": 27,
+    "pixelGrowthTypes": 16,
+    "plushGrowthTypes": 11,
+    "profiles": 24,
+    "registeredGrowthLayers": 354,
+    "replacementAndHeadMasks": 72,
+    "registeredResources": 516,
+    "renderedLegalCombinations": 97344,
+    "reviewFixtures": 1800,
+    "visuallyInspectedCompositions": 804
+  },
+  "candidateRevisions": {
+    "pixel": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+    "plush": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c"
+  },
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "sourceEvidence": [
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-standard-round-parted-mouth.json",
+      "sha256": "b666bb1a614a7a665d3fa0510cd4f7cc6d272b6e9272eedb846bf8db519f5dec",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-standard-round-parted-mouth.json",
+        "sha256": "15a0cd780959d54d66d66ae08d1e901f80bb316f5f7e538d7275c77be9ef1ac4"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-standard-round-small-fangs.json",
+      "sha256": "5cf13cdd8b7d1c3afc70cfeb8a7cbd0c9f465f53804e1cdf66e874953cc97fa4",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-standard-round-small-fangs.json",
+        "sha256": "889bb6cf7fcac003c9f1ebfcc51d0de5b3d6fedb3415c9929dadea2d6fc7f499"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "6c74e23e96232aa2f9303dcfd0b448dd874c9ae7b82d4492581c52be8dfa47d7",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-standard-sleepy-almond-parted-mouth.json",
+        "sha256": "3eb6818e6f8726c2778aca3d28a4b2512e66f0d8d3c3604ffa56897e151de81f"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-standard-sleepy-almond-small-fangs.json",
+      "sha256": "167f8cd5c306910af1dcebc2a3657746dff04566e11b00fe9b0f82d61bf8f5e0",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-standard-sleepy-almond-small-fangs.json",
+        "sha256": "8c6c2dff4872f0caa2937d4afbf8d3f37be2583cd34a1006e549e5128bbc1612"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-shortleg-round-round-parted-mouth.json",
+      "sha256": "099478093850ab92173031e0ed1af5bfb37555a400ee6ec9179ee2e7b3929ace",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-shortleg-round-round-parted-mouth.json",
+        "sha256": "a414601e333f4a1d7fd1838e78136cc6b8c0b9736aa609afc99caf72a5417285"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-shortleg-round-round-small-fangs.json",
+      "sha256": "61aa51f992c174a77a265bd91ff1d9e89aafb9ce2b9ad1971471f453518ee90e",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-shortleg-round-round-small-fangs.json",
+        "sha256": "56e376796a1d1db679b622e2e71e68818c4b166379b5333c84ec3913cee9c190"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "e4c7e5368463ca5605b51e5e7e51755c0990dc8bc929fdcde0982e8c20a4f4b6",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth.json",
+        "sha256": "564705dc36e186792238f1c979f0da1dbaa18003b04ca72faf5c95c485ffd12d"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "0374528361a4c5e7af8bcd66c3180f5bea03e98cb9bebb4b905664b12966b9f2",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-shortleg-round-sleepy-almond-small-fangs.json",
+        "sha256": "b1e3baa9e0949c2673316de8a3bd90f22e754460a7f14c071f8083c5aefe15e7"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-slender-tall-round-parted-mouth.json",
+      "sha256": "507457c5b69dc58b1296cf5f961196827beaa9b22cdf6af10a6c97999f4ed04a",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-slender-tall-round-parted-mouth.json",
+        "sha256": "58e69cc419503fd4ce98c4e9b2410af66ac8a3c38e8c43c49a61fec5a64d26fb"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-slender-tall-round-small-fangs.json",
+      "sha256": "85edcc9ee3fd7ee9dd655f801dc82c447d949b098bd490cf3c42ca5ef0dd7b06",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-slender-tall-round-small-fangs.json",
+        "sha256": "5a38dcff1217bb108ab7a452a4cff962838fde0e1a0182dcfcedbc7a2b8eca45"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "59c5a35a59199ce5811cb1e176b3208297171457eb99a6a43946d26e73f91873",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-slender-tall-sleepy-almond-parted-mouth.json",
+        "sha256": "971198352a65f5187225cbb34ff70cb78c0a983cf87622578a700c5ff2ca4e63"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/shiba-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "63b561ae3896f36cd3d0eb274ad5f86ade03d25fbebd81a4913a29befc11a959",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/shiba-slender-tall-sleepy-almond-small-fangs.json",
+        "sha256": "8d0dfa7ca1589368fd2713aa4f98706553db524e4029391512018e52a6db03ff"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/shiba-parted-mouth.json",
+      "sha256": "954c6634c75acf722509468193f0515a6009fdc4249852993fa3b5387183a638",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/shiba-parted-mouth.json",
+        "sha256": "f234f75be0b6173565efa9a4aac227543f7647f19199be6488a3eb736e94c278"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/shiba-small-fangs.json",
+      "sha256": "1ce2e33d18d3ccc6ba3f12808d62a90d3fab77e0104e2eebb6bcf17746d2665b",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/shiba-small-fangs.json",
+        "sha256": "52d87d85fffe734602873a2abb60f85f73b363a167b908a13fec3128f26dd9ca"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/shiba-tongue-tip.json",
+      "sha256": "1e78a19901e29de331ac0fc5e4d1574136795532740f2bb278028fbacf925300",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/shiba-tongue-tip.json",
+        "sha256": "495484ef1f349eec21c0d4372e109109e87e4d836489d38430092b2a0208855f"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-standard-round-parted-mouth.json",
+      "sha256": "e966b3378142c2abc3a4bc2c60f75233e6974548c75b00a21f19f17070c1073e",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-standard-round-parted-mouth.json",
+        "sha256": "81dd98eaaaefc83ecd0024642a1852fa0bfb5d96ca748146fbdff35ee44e230b"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-standard-round-small-fangs.json",
+      "sha256": "a5232b8460387a639f99b6b3d39805bde7ea7515bbcb36732b7f0122ca33f127",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-standard-round-small-fangs.json",
+        "sha256": "27bfbf4825e564288ba291f77e1099d3595b457d78529b136468c88f16ec0919"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "76bc58fbc11b86622867adff120d9451b47b13d203d7635368ee82bdaa91e8c1",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-standard-sleepy-almond-parted-mouth.json",
+        "sha256": "2e9ac20385c3a079bb77687b97a09e9feabff6cb06cf5a0e34f717a4eb35827d"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-standard-sleepy-almond-small-fangs.json",
+      "sha256": "f59621c05e4cdc4353d09185e383b3ef218982683388f7e9eb54c917a647f2bc",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-standard-sleepy-almond-small-fangs.json",
+        "sha256": "09e068045441687cd917ecf4dcca9262a63046e1193de5ee9aaf5d725f63c7db"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-shortleg-round-round-parted-mouth.json",
+      "sha256": "f282855c90c9cf568cc2b9c379c4c733d283a01414a454c40eedb6c14cfc0d0a",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-shortleg-round-round-parted-mouth.json",
+        "sha256": "a034e8936fc9c6e2d8564ed1ff7beb618a9afd996f3b22c091d87edc633125f2"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-shortleg-round-round-small-fangs.json",
+      "sha256": "97752623c5b77692063956c28e4e9d60cd504b06b2503f704ddd8202c5c97131",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-shortleg-round-round-small-fangs.json",
+        "sha256": "5968a099e7597c966f599be33b4a6e419323a7265dffcee59d33796eb2e11ff0"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "e68676d5d0d6cc667b3194ba836a5f2587c643dd5c555219cf418c277bbbd6ac",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-shortleg-round-sleepy-almond-parted-mouth.json",
+        "sha256": "88560b033eef5cc54224519a3873e74d52eca6ca1cb662b5c5bb7562d74c8802"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "f6a4283887c59f36161dee480bcb62a612ce515ebfb6900807f31139227ed508",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-shortleg-round-sleepy-almond-small-fangs.json",
+        "sha256": "e9f03bac18f56e55dd69fcf2de6e30eb443e6358ac15ff54a85f2a7425a440b9"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-slender-tall-round-parted-mouth.json",
+      "sha256": "2418e317d2362087912124a03f971d685863e9630d6fe5c7ef60706c22f84a41",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-slender-tall-round-parted-mouth.json",
+        "sha256": "8be429e6178c1e2cf6b7f69f771f5ce278087d9c21fc94c1a6ca65e4155666b6"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-slender-tall-round-small-fangs.json",
+      "sha256": "31a37208492da83876ec0be9ae234ff4b1a72eeb7a01fc13a699d08c107c3fa0",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-slender-tall-round-small-fangs.json",
+        "sha256": "f89a21e7de425a18653dc656d87ca97768711fd5e3b711a4c5938b224eaa4719"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "6ea9b1757753174fe0d93d93a1333d34f077f87e7e7ec6f8b776214d07ee931d",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-slender-tall-sleepy-almond-parted-mouth.json",
+        "sha256": "8b404466b9730e9d62ca776dcf3ddf3228b1bc5e384b8e139839dd294764ce98"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/corgi-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "17e620a41f5c3c51802e72b4970d35ad001d86d6fd20dd4185515a5f06cb2064",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/corgi-slender-tall-sleepy-almond-small-fangs.json",
+        "sha256": "a21f9ea88595587d895f499a87331587cc7837f1226ff18a71454a7bb0b56c64"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/corgi-parted-mouth.json",
+      "sha256": "41c118b7eebf1e71a3e8093aab3b0bcbdabf2dfa960f6f589899cc60645ca616",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/corgi-parted-mouth.json",
+        "sha256": "ab86baa4f032aa93ceb4f38f42a77bfc6b7259ad1b5ce8b71681c75788560a6d"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/corgi-small-fangs.json",
+      "sha256": "ad6c7691d68e5354972f10131d98f1e3416c6479c1f18d6b3038828f95b28713",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/corgi-small-fangs.json",
+        "sha256": "eb4502aa032dd61cb96a7c324f34c61282cd037c58fd2339ce4f52cbb6152c05"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/corgi-tongue-tip.json",
+      "sha256": "25be3720ccbb9fb4983fa3af8f4f0a1d20779ef93490e50664b7f12d9d54254e",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/corgi-tongue-tip.json",
+        "sha256": "494f9270d74407a990c29b321c7ab039e454ceed0d092468f105d9cf609f4076"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-standard-round-parted-mouth.json",
+      "sha256": "0c196e6b034ac0299bffdda186645c964afc0018154262fa14fa165dba8e7070",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-standard-round-parted-mouth.json",
+        "sha256": "8a8bfbf7be3b07914d45fea752a388c75e10b6a20fa43aeba720dd11d295e973"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-standard-round-small-fangs.json",
+      "sha256": "13568b40a3baf5f805e8ca7c6a8841f8e09765c8dea1f656deb6e289b2ac4154",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-standard-round-small-fangs.json",
+        "sha256": "d81520c738273bd50a970382eac05e2e3fa83efbc3270b99da9827d001406b8b"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "e27e04ade2bc311039da7320b6f6bedec9dc5936efbb55b021efcd394690e012",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-standard-sleepy-almond-parted-mouth.json",
+        "sha256": "9d2e95b186071cea48292eeeb0f096a15ba99faebc6afb9ad1e35d5df6f5c740"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-standard-sleepy-almond-small-fangs.json",
+      "sha256": "606f9fcfbb68b1d7ff2bd8e038658a056de46dadcf64c97a7178b804ece6327a",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-standard-sleepy-almond-small-fangs.json",
+        "sha256": "8c11287dd6f0cd525adfed7ad4652e255f10d407988cc32c342cb724154c9783"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-shortleg-round-round-parted-mouth.json",
+      "sha256": "3ddbd5949ea85f0d2b87bffcbd22f4cd738e00082fd13aaf3444763fd958041c",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-shortleg-round-round-parted-mouth.json",
+        "sha256": "33a35f50ee2306106066f0a62e67e9ca2b7d4c3449adea71e656666a5c829158"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-shortleg-round-round-small-fangs.json",
+      "sha256": "da8edac3f6f2ec8849f21d777a6920dfae8533a9bb75a42d261b216ef67a8004",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-shortleg-round-round-small-fangs.json",
+        "sha256": "d9fe420de0298b010c3859890bc5a8bc2b83a5863ac418793e6cefbceac404cc"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "694b91547d6a18a8644f84c4966a1b09a65000b9cb1bd8ce8afaefb56dad1c7e",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth.json",
+        "sha256": "a4773b4b971d062ed293c13ed93df8834e33b469db756aae8ecd25343f2f7997"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "c3c8e739981a685d9b303ffd1022742dcf0bc4d9bc3b6a2021983c95df8816e6",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs.json",
+        "sha256": "7cbafb52c7e4e0b874d92dc5da28ab3d8e911cfe4399721af46f30d85f85e4cb"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-slender-tall-round-parted-mouth.json",
+      "sha256": "54adc6bacb7512ee8e1d9f3f7dd758c911523f2b6225207637e980607e0a8971",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-slender-tall-round-parted-mouth.json",
+        "sha256": "04887fe76e155c8f633acc4b49eb5edfb5d560d4f4c54da59bbe9c475fdc3ee6"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-slender-tall-round-small-fangs.json",
+      "sha256": "3303c3d7e4b17e017a6d3db24048b326118eb6b25bcaca686a37e4dc576bb835",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-slender-tall-round-small-fangs.json",
+        "sha256": "f26a099ab2dd1ab1f4937021da7ab4caf106749d0aa05ac469aae4a34a60dcf2"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "10225f2580c234209425e84f43719a94554a893ef7faf62f5856a2942aeb3421",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth.json",
+        "sha256": "eaf6a62d33f93fb2ba105fc4f878222d60a58b1603da200a47b9127091f9d848"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/golden-retriever-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "a41ae077fa37069d7d1fbfade8574a855a0c15c2c36a568d0ff3b6c24930dbd2",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/golden-retriever-slender-tall-sleepy-almond-small-fangs.json",
+        "sha256": "567ab6650e252fea066c6d39b7f0ef564ad054b076ca62b35813058a3b872be7"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/golden-retriever-parted-mouth.json",
+      "sha256": "0658d25c7735fb5e542cefa1c573dd82d28fbf8c0ef3ba2ccc84ebaa5b548728",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/golden-retriever-parted-mouth.json",
+        "sha256": "cd9d1b6b010735602a25d327f88866b0e1592a33446a6e186a973cd20e2597f3"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/golden-retriever-small-fangs.json",
+      "sha256": "159f30dc192cf4cab65a009a9518706cbeb1dcabd099bb95475d11d33282f31d",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/golden-retriever-small-fangs.json",
+        "sha256": "f1834c22eace12e4875d3456d24200b7287e5773ce40d0929e97d4f2e895dd4f"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/golden-retriever-tongue-tip.json",
+      "sha256": "53d833cac9791c702d3ac103fca7a6003654db561c254e90c3e0ec51468729d4",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/golden-retriever-tongue-tip.json",
+        "sha256": "1fa524edd089f84867af737c4fc18e0b9ac3a5a5e076a288829e37c42a15e937"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-standard-round-parted-mouth.json",
+      "sha256": "eef24b0a431a1818c63546b987e398c726a678a1c52231a3f76d242d3639cce9",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-standard-round-parted-mouth.json",
+        "sha256": "f20f448ae0dcb54aa766a74b40044596ce2e349797ae2be9e380125f7caed54b"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-standard-round-small-fangs.json",
+      "sha256": "6eb1f9d7f76c0dfd839ccca706e6db1d0cddb50f9857eb9b6ce6331e1a41a729",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-standard-round-small-fangs.json",
+        "sha256": "5f4ea7c224debdecaddd0b43578dd178f89469df87731d56dea79727b2646c5d"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "8755d02a3ca291a30bba20758d4c70257b0f608d7581c8b00971015d5f9197bc",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-standard-sleepy-almond-parted-mouth.json",
+        "sha256": "df759b16d9161856aa73e2d3d48fae95cba1d5e94ec199e0288759f6e0471fa6"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-standard-sleepy-almond-small-fangs.json",
+      "sha256": "03e893996ecbd03e28c302fb1b7d4cc89b076fe9b8c59eaea3adbaebc0a64bae",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-standard-sleepy-almond-small-fangs.json",
+        "sha256": "dffdd6529f015358ddde71771248fad19c9f7c97d9e45c67d066ea2aa434a60d"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-shortleg-round-round-parted-mouth.json",
+      "sha256": "42ea3b75de532abc3c838d0b03191da16cb3e2b84ea7db657ea125ec4ba3844b",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-shortleg-round-round-parted-mouth.json",
+        "sha256": "641d62e01a48a489e97363fd96d7357c104c4c349d2c335aa6833b303b47f441"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-shortleg-round-round-small-fangs.json",
+      "sha256": "4e1fbb0a40e88ea5af72a0f74d4c43c777a00793e548309c0864c5cfff379791",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-shortleg-round-round-small-fangs.json",
+        "sha256": "3482bc01d69aac7608a1016ca502d95519887197511ff8178d8cfb3bae709a99"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "9d3807b767796dec63a9be9045f19225928f6fb4991409db89411ce380104114",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-shortleg-round-sleepy-almond-parted-mouth.json",
+        "sha256": "42869087c87b5351936210e9ec60a99a4a75becd0c5ecd02b19f3cd8aaef6082"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "6136922afd584f07dd70c593bc44c06d61b8bccf65ca031e8b6f964fd827be7b",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-shortleg-round-sleepy-almond-small-fangs.json",
+        "sha256": "87a2c43e7ad022ec6c07b63e27a8230d4c584cbb7ad85a40ace14c77d865249b"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-round-parted-mouth.json",
+      "sha256": "0a992473cda21268fee5eef8927f5d7cbf0a66660d474bd246a5ef847a52989b",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-slender-tall-round-parted-mouth.json",
+        "sha256": "998efd8c283fba7e82c401e9916122e9d2d70a0e59acb07860ab03c105e9197a"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-round-small-fangs.json",
+      "sha256": "532ca1b98ad0fa8cfa0c1ca7088e4eda8220a898a9ae385fbce5cc2ed33125e8",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-slender-tall-round-small-fangs.json",
+        "sha256": "487de800518bf4b1bd12616d236160dae0f18e9f0d3bd8151283f3ef168a8dba"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "88387ddc8e3092677d7fdbb336a362944cc66bd70c8b4d79f6b3e187200fb319",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-slender-tall-sleepy-almond-parted-mouth.json",
+        "sha256": "ad00e646cc59f003072398fff527849b7a922faba7342b3aef5e59fa39fd6260"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/husky-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "12db1b2bfce2f4f313e0dada3ce8643e2696259b6bbc3d11b1c1ba8714136ab9",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/husky-slender-tall-sleepy-almond-small-fangs.json",
+        "sha256": "6ce678d6a63d8ec3a33d009e69f2b769dfba74708ef4824607d894d20a1328aa"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/husky-parted-mouth.json",
+      "sha256": "dbd416f52032abff9a046d96b5ba1b95cc606d1834ab6803d7193c0961857a18",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/husky-parted-mouth.json",
+        "sha256": "4884bf9d2b87a127891fdd54b84237ff291eef497737e0f3553a06a9db193fbf"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/husky-small-fangs.json",
+      "sha256": "764dfc96a4fb44f83082f0b33082f04adea48b9a28caf812489e6c24f6cc3e03",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/husky-small-fangs.json",
+        "sha256": "8bb082111c726c89a27879dea1ebd7dced7bc3c99114fb1bc0a05c5520dd34a4"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/husky-tongue-tip.json",
+      "sha256": "5d03fc0dea336aa8f773be0c0b1dc6fe77921f6a765da9710fdfcdfb4ce91fb3",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/husky-tongue-tip.json",
+        "sha256": "611d47e71d70b3f2c2409c96cf0fa97b0d2b0692235b6de8396c4cc57213eb12"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-round-parted-mouth.json",
+      "sha256": "fa1611b99e39cb28d1ac905c7cbbffa0e09964f9d6149dfafb8839cf9ecdc498",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-standard-round-parted-mouth.json",
+        "sha256": "57903a363a9c20e51e8499be6cba9d439b1f17b5d14dcd72617674f93aa52234"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-round-small-fangs.json",
+      "sha256": "8a096300b4a7289de9a1ed5284ac9ff2626df2f18597589f68cdab90a75bafe7",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-standard-round-small-fangs.json",
+        "sha256": "ebbcb10bb26eaac8c522ca573460c37290a19fd4befaf5d38db22ad513eb3952"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "5d60a9835590f825e804a3fc55ae2beb9a80df664abece1edb5d613146717337",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-standard-sleepy-almond-parted-mouth.json",
+        "sha256": "7f3b63c36dafa59832781728be68ed6a2e4850c558df1b717f7c0946fe4a4d09"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-sleepy-almond-small-fangs.json",
+      "sha256": "73a324310221bc87e62a222dec20ee397ca57393519b471582981096e5180e3c",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-standard-sleepy-almond-small-fangs.json",
+        "sha256": "4aa739c157e9e7cea25c577911d330409a6a9feee4c56097f22bae806cbd2ea5"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-shortleg-round-round-parted-mouth.json",
+      "sha256": "b97e7bfff3e18becc1e165fae30f44c4b423ba242012b666a737eae4935b4ddd",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-shortleg-round-round-parted-mouth.json",
+        "sha256": "d191732df48a0918f33f730097e7154c013166c75150a9e248f2804655a01716"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-shortleg-round-round-small-fangs.json",
+      "sha256": "9159e5f1b37c8a8a68bd598c18d4e59925a1f2b8f3248e9426d6fd5861cd3cf1",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-shortleg-round-round-small-fangs.json",
+        "sha256": "6f9d92ecf83434791fb4a8d4085c2d7f89490f150fe6bc80e8d0419669d63852"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "c3706383f37dfa924c84a8340bd471cd2f6eadcf891663a663553df22fc2c3ec",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-shortleg-round-sleepy-almond-parted-mouth.json",
+        "sha256": "b10fb7acea6dc9238a0055d37ed0b6fec4aa33f81362095d2f5e5acee755da64"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "122b4f1893ec05fda2c0a6c4c88653e246927b2f816d0a9d69096d59fb06efe4",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs.json",
+        "sha256": "7817f99edc948a2ffd9fbd7a8f2e2bcafa8bcff24198e305c8d97e4e150890b1"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-slender-tall-round-parted-mouth.json",
+      "sha256": "f2fc5489fd9f6f9a8d4feefc995bcd5a5b938c1ac6f47303c0d50ef35718c7b0",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-slender-tall-round-parted-mouth.json",
+        "sha256": "4f12008955350e5dc1f2bf6e03ba23beaa930c0e0ff2905131cfbbf3b5f86acd"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-slender-tall-round-small-fangs.json",
+      "sha256": "0466a1be5a6f6f77255af073b68f35cc86e8c69d589747e1596bdb151e1e275e",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-slender-tall-round-small-fangs.json",
+        "sha256": "5bd371781583e0e47ef5509fc3af6de6c64dd1d83b0d8169277d6de347f03430"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "00dab570b48ee9aa3e63b063a2adda4b6107f15938a365444bd2e2e02512ff1d",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-slender-tall-sleepy-almond-parted-mouth.json",
+        "sha256": "aae40e348e342030d1eceb13765c7cc7a793e56ce6261a9b97b0fd4fcb2bd546"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/dalmatian-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "c66a85fe50d2400a209d9c4efa7b3768bdf037575793b0c744f830b427ddd2d3",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/dalmatian-slender-tall-sleepy-almond-small-fangs.json",
+        "sha256": "57e38889c3aa645996891d98047ce905ad60c17796e29b8df29df72c1c11bf36"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/dalmatian-parted-mouth.json",
+      "sha256": "9f43ede56f5da4a311f4f9647ba16890d5aaa6f8d4704465f8ad35fca84d97a5",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/dalmatian-parted-mouth.json",
+        "sha256": "3315368fe7a61b3741b0c462ea14df5ff9bca1975b95f5f78764901fcd106528"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/dalmatian-small-fangs.json",
+      "sha256": "f265fc604b8f52bd4517827c492a9a1b8c6415a83835fa4f57d8238600a8244c",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/dalmatian-small-fangs.json",
+        "sha256": "1ca4da84359a6481fc22b0433be3900e03fce97ec67312bd237b33d181bd177a"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/dalmatian-tongue-tip.json",
+      "sha256": "539a5293924c5a38efdedaf30b8c963eda8fbfb1ba1cc710a5df27ca74fbf9a6",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/dalmatian-tongue-tip.json",
+        "sha256": "ab5af0e58150feefb1a67debf1cf7d2f9d7f63a26b5715852ccc71259540d545"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-standard-round-parted-mouth.json",
+      "sha256": "16509e231999c5277f701b741e6d4bee1e6c592237e05b9fb343aa714f17bb68",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-standard-round-parted-mouth.json",
+        "sha256": "4b938d58a05548060e1d98579b38a82f4947f2c7f7a2649a01508e93f10fda02"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-standard-round-small-fangs.json",
+      "sha256": "766c17a830fe276d98f4c8c38f887acbb0957c438e83de4a4fcb17453b385124",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-standard-round-small-fangs.json",
+        "sha256": "ee46a287def74a2fcff4bb4550dc6d16e79d3b7fba244baf3dbbd62eb76df57b"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "d82d2e7a3b4e6cfc0a37acd772be5cc8e5931c35031edda693c4165556ed3d02",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-standard-sleepy-almond-parted-mouth.json",
+        "sha256": "271ec490a676c5119d5ebe6715c78fe933b870b4a393a071caffced17e2fdd21"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-standard-sleepy-almond-small-fangs.json",
+      "sha256": "2cfffd4981bbae7e4a4dfc8bb0a46b8e4a448fd1cd104550229c744eb214faba",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-standard-sleepy-almond-small-fangs.json",
+        "sha256": "00e5b12167f6e472c6879c20cbe61ce0c5346c69559e40795128a773b25ded2a"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-shortleg-round-round-parted-mouth.json",
+      "sha256": "a5c862dc74ff06e40597812584c82b75175fb1fe656dcc572749e0271ccbca69",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-shortleg-round-round-parted-mouth.json",
+        "sha256": "90eea9d71fd28ec8e7014d387a270f08ec936488bdf0df3a78815b93ad43d4c3"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-shortleg-round-round-small-fangs.json",
+      "sha256": "535e73abc8e370cfa179011521490526f238bd13368aee19c4214b87b6b0a610",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-shortleg-round-round-small-fangs.json",
+        "sha256": "e0e55158a5495851fabdec52dacb220096816f2fb4ec8c11308dd47c12c63520"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "28c859b6174d92daf1268f4f8c5293152a2779f307273aecc695d79bb5e605b0",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth.json",
+        "sha256": "7f697c7e99c29065dc789a50ec59dc7858e1aed3bb2895d4a74fdcd417f56d74"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "29b2ce56e81634371c4442f6eadb4c460883ae61f3422d686720e8de5f1fba40",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-shortleg-round-sleepy-almond-small-fangs.json",
+        "sha256": "e8d9f13d2a74b96320afea01d8fd03211876950a3b87ad7e5238afe69e0f1dcf"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-slender-tall-round-parted-mouth.json",
+      "sha256": "1deff9608213ec5c1a93cb15e99aed1b7604a40d27b9abf7fceb85be6c2cff15",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-slender-tall-round-parted-mouth.json",
+        "sha256": "1a131f9844f37cd8a05576f1e5b4146bfce28b80346b074300cc367c4bcfcc84"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-slender-tall-round-small-fangs.json",
+      "sha256": "7c174d90449cf466ecf807970dd7c4629b0f38853d9b64acdfc276aa60357b4c",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-slender-tall-round-small-fangs.json",
+        "sha256": "e72838dd08c249435cdd71a326328f4baeedad22de4043dad82ada0834b37c28"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "717d6b80756ad6e49132a3b62f9245b0626a0ae231d90bc740904bcff5fae810",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-slender-tall-sleepy-almond-parted-mouth.json",
+        "sha256": "90679e6d5e8c84b98b0c5d83a799584609b7c1eaff2479146571213268ba2f6b"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/poodle-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "fe97073f2fb0c64c88234b523cbb845f9ed39cb58ed6fb5b6b2e7946eb165237",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/poodle-slender-tall-sleepy-almond-small-fangs.json",
+        "sha256": "2df473f1f980d4f18ccbd25c2bd2356cf5f09ec577332f43934350a4e926b83d"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/poodle-parted-mouth.json",
+      "sha256": "207c0c1a2f43310026714a9820faae0f82de5d75e72cb0555f5ad8063e40949e",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/poodle-parted-mouth.json",
+        "sha256": "10235ca94ee4c37efc89ac43e09ba6b83c08d441a34acbff12a8e6e0803bd977"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/poodle-small-fangs.json",
+      "sha256": "4b5d00359303ca9f132b79d32e675bb1609f89027d23c95ce5f886bc32675f11",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/poodle-small-fangs.json",
+        "sha256": "6aa1df836dba7769ca0b585027620a19d8fabd70f346c57f3039705fa7150af2"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/poodle-tongue-tip.json",
+      "sha256": "b765c6bd36aa557ab3060facf37e8f8526cb57c6109ce6788381d3d1401d2877",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/poodle-tongue-tip.json",
+        "sha256": "3b1280ea61b87ba19cec13d7d4ebbe3c992c76c6ebee98edceb41d4295c9c080"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-dragon-horns.json",
+      "sha256": "0a1d56b32cfbe685dcec593801e7ee14c10a5ff6945a2b2b4062edc71f03a4fc",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-dragon-horns.json",
+        "sha256": "684261ec504cda8209df29d3dc5174ac86dabbe59ab237f8e935ee18c27d9910"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-dragon-horns.json",
+      "sha256": "0e57b5924e2b478bc9ea28bf3db42389a1450c2bdd530e5f50d18236f3c2b8c1",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-dragon-horns.json",
+        "sha256": "9d629c5b9fd92429f85fa0556bd2c57f713381efacab34a02a369d60ac7d2bdd"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-antlers.json",
+      "sha256": "4dca4a5d2fd88ea8aec3f34624a3ba3223b92690e8cf36e4c646f96d68030338",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-antlers.json",
+        "sha256": "8236ff53f663fe1fd18039711dc50d6431bdde57d3aa7394dfac74066c875ac6"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-antlers.json",
+      "sha256": "ce0af3743fc5ed3c5ac9c38aff6609dcbd7f120f3f5ba66f5da4132fb917924e",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-antlers.json",
+        "sha256": "7c6db35e02fe7515351e4f4f9e4f3e407275be4833c0a079b0b4f63c40923f29"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-halo.json",
+      "sha256": "3d251d27ff49678ac052428668f804c9d2003874fa38d530ea366d6ab89c22c4",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-halo.json",
+        "sha256": "089f50f07c3b9d5d08197da7e3f7b01eae22632268c88e67a2868d2c592a88f8"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-halo.json",
+      "sha256": "b53895d5a7ff291004847705f917233016b69101b9c27aad01cf02f53560a774",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-halo.json",
+        "sha256": "fbe3daf39965bb0fde0635e6d7a1aa21de3dc466bcb9dc3c081f6e4b5a81bad5"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-crystal-horns.json",
+      "sha256": "9375f31bec25ecd498582a293dce3198c925cc246033ce643770bcc82903762c",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-crystal-horns.json",
+        "sha256": "412c4c6dd83cd7adcf35c06c30f813e6f22d216a1288353d48689f00ce1da0d5"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-fin-ears.json",
+      "sha256": "071c05f22373d45bc04d9aa5fd2d1d22cb285f8c9de81955f8da6fe5f40ffe44",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-fin-ears.json",
+        "sha256": "65ece3417162f0a534e869e7717c17c65048097ccde76d4a7a05b87aeb9d532a"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-fin-ears.json",
+      "sha256": "52e52970b272c9a369b26206c9dbf5b14c61dfdf9edfd8e00045beda4e47f7ad",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-fin-ears.json",
+        "sha256": "8ecfa6f73d993c9b014d98b4efa0a64543b9735b2e078fc2358180fa3846f72a"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-feathered-ears.json",
+      "sha256": "23892d1b98bc2dcec8c7a71cdce7d98c6112fb7de2fccda65f6bebb8d4d1291a",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-feathered-ears.json",
+        "sha256": "e7575888d8d4c4aafe1337be0e9ae75087f8aa0201d16ef297db77572c3d3050"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-celestial-ears.json",
+      "sha256": "28cdf6dfaaab4e347eb07f6f10e7fe117b1830bbacfa5231e571e3c673db1813",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-celestial-ears.json",
+        "sha256": "8772ab8f30ead34ecdb421641df24ee08eb2f972d160643960a69d83a075646d"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-small-lion-mane.json",
+      "sha256": "90b9e3372c35e2cf8285d01032309a455a16fb347db18b48a6fab457d040c321",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-small-lion-mane.json",
+        "sha256": "aa13bbf459e582be085611d7cb97066f8ae7ef09d7a20527044d3467421ac24f"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-small-lion-mane.json",
+      "sha256": "9ba9326694422c0d778cc348e8d225d8fa6fe1a922c29d4a1efaf738256037e3",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-small-lion-mane.json",
+        "sha256": "f0c9bdcfdf452c228a9f746407bb908b0bd77ad05a230366430ed85c8c8a7191"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-frill-neck.json",
+      "sha256": "786f175bc36f2e15a405884211dd2249f5da7e0cce81b37ed99e7a3115a5ee5b",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-frill-neck.json",
+        "sha256": "000e64681bccce82a60acafc862d2b9a2c8c747317c779c14545df061b33c11e"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-frill-neck.json",
+      "sha256": "2a247c5662e66d7a0a608f996ffcf5e6abe7d441c949d961e648623e272dc31a",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-frill-neck.json",
+        "sha256": "c516911379407d89a2e4cec23c3883b6c6f7ed2fda4e4b377584db35d521bd5d"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-sunburst-ruff.json",
+      "sha256": "694cf57f23123f307af49faab77f0c55504c2724993b4665f70073ebe0f3a3fe",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-sunburst-ruff.json",
+        "sha256": "20f439a60fe7a033ca8dc2f326fe33672feb897ff62f14a1ce177a831bd7248e"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-small-wings.json",
+      "sha256": "aea96e8965f4f3a53bd46d0556c227b6ca64dc14a46290c35342f0ddf82855cd",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-small-wings.json",
+        "sha256": "91b0cffb89801af23ada6a2a846b4ef586f5579bd313d2e2ffbef8dc9158f5de"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-small-wings.json",
+      "sha256": "b3e56d7129bddfc64b5034fc8628d484cf9473f8a84e66219e1a7c0f9250228c",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-small-wings.json",
+        "sha256": "f572c0e3de0616c9683f40c1ff102d6989f89507bcf350b0733b7b835ea0ef59"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-feathered-wings.json",
+      "sha256": "a7ded23b8a66307ad00475c2ce7b0f8e8f20ec420ddd7cbb9a87f02064cc061f",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-feathered-wings.json",
+        "sha256": "009981d51bbfad0d0ea83463cbed77efdd4e9aeaae0d139b0fa925880c86fc9f"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-feathered-wings.json",
+      "sha256": "7b462258d3bc996247a61cbae86ceeb5594fbb332002286425a38aea2be6dea1",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-feathered-wings.json",
+        "sha256": "ff828e8b019c39b218f4fdc1d94b416701e3026241079d2f7095004beb544fa7"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-dragon-wings.json",
+      "sha256": "b8661d6115cfeee1b25d2dd2f8b9caadf0bb35e44e39ce5718ae6e2592d93e5b",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-dragon-wings.json",
+        "sha256": "790f64a656f49995b81753e8adbb3eccf4d38abe1cc085caa8d3c18459229047"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-dragon-wings.json",
+      "sha256": "579e9878c95fa294b8aadc73f5efb9b96260fdd1708c8c6d013789047ebfc2d8",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-dragon-wings.json",
+        "sha256": "102b7529e329b5cd3ca2bda5ddd944128fc836a3894d6f8236c31a15f0f7732f"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-forked-tail-tip.json",
+      "sha256": "7a7ab82192bf7aa280f36dc6c48a63477f44f065a67535ca6eac093c399d092b",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-forked-tail-tip.json",
+        "sha256": "ca49e71a39bdaeb70a1ae9a17c00b754b064f694b57780117a5e3fcb214993cb"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-forked-tail-tip.json",
+      "sha256": "f6eed67c63d24ba0810069e0078583841a788c6d655f6f603ad455ddc1da4fd4",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-forked-tail-tip.json",
+        "sha256": "1af44fc3621cd96fef1a3840f99c8765f49038ccf2b8ba15b4725fe379b6fa5f"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-flame-tail.json",
+      "sha256": "d8e39c2b8aa8c5613589c4adf7a9c440327c24d649bef4dd47b2fa377b4aa25a",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-flame-tail.json",
+        "sha256": "798ab52ac77e30137055452d85d4b83adb075f678281b1f2984e223085df469f"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/plush/growth-flame-tail.json",
+      "sha256": "570e2ce6750e4d0850eee41042d6adb6352faf45de0e12febb1c9b8f552dc37a",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/plush/growth-flame-tail.json",
+        "sha256": "bc963ff760f0e9167f142eb3f93a6dea36066c262b20b0e9ace411103554c7c3"
+      }
+    },
+    {
+      "path": "docs/qa/canine-v1/visual/pixel/growth-phoenix-tail.json",
+      "sha256": "7b932c2b6b4fe49e590c7140d19c651fd23bd6319e011a247c6ced230bd09259",
+      "technical": {
+        "path": "docs/qa/canine-v1/technical/pixel/growth-phoenix-tail.json",
+        "sha256": "496819b4c35c19298a0e1f268cd15bab4e6cfca1b81b65dd701efcc2c2a679aa"
+      }
+    }
+  ],
+  "compositionEvidence": [
+    {
+      "style": "pixel",
+      "bodyId": "shiba-standard-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-standard-round-parted-mouth.json",
+      "sha256": "60d0914d9ff340423307987518548e474f2dcf3a0dec2c39943b304716b474f9",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-standard-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-standard-round-small-fangs.json",
+      "sha256": "e9de72c1a74bfe295b7d4ecd2bc8168485b1a01c46ecca2b03f0a9526d113835",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-standard-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "2fbaddadfb61d098d1f96485503322353a80745dbf5df9f93a5a121a45206eaa",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-standard-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-standard-sleepy-almond-small-fangs.json",
+      "sha256": "8f5f308e8c4a9060b89ce49f2dc8a7f4a0a9fea842a4522a07a7de268811b6b3",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-shortleg-round-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth.json",
+      "sha256": "3c3e0b5d606f3294a3518c001071216f7721d51de7887e96a594c74d69b5b0e5",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-shortleg-round-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-small-fangs.json",
+      "sha256": "63dbb5adc3c3153922c5938e7108c2b32ca6e29d6d6b8f0e9cd23f406d2414cd",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "e400f9d9b5702aaa5f9f5d34609aa86a147e08e07daa9df3fccfe1a5f116b39e",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "968a1a261ea6253e8900c3e10229a5701204fdf1658a93be96c5710d97b9935e",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-slender-tall-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth.json",
+      "sha256": "fea8656a0955a88deffd36e3e1daa3e2674d99fcc347642fc7cf0f3d58927476",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-slender-tall-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-small-fangs.json",
+      "sha256": "4df8949cd0c34762a5e4f76af53e2806e033cbe604311fd8c04a14f90c2ed185",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-slender-tall-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "3fd39b1aed081aaf9bb89caf435f298d1e623daa77cd630993695dc3e564a522",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "shiba-slender-tall-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "39bb8ab85ebc91b71469ee76e79b0e6565eec0b543b4063187cf2798cc2f6b25",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-standard-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-standard-round-parted-mouth.json",
+      "sha256": "f1aa30a6da8e2d719996bb9d1a328e1cbe5b8b82e9deb3149cda272e18f8f7f1",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-standard-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-standard-round-small-fangs.json",
+      "sha256": "99ae57e6994b0bf10dca42f922c039e83052f439acd96e318167f4f2c87e4c87",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-standard-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "aa8295f4e4d483718e83f792991d5f8da2afafbe788743c72fe2df05dcc3b410",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-standard-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-standard-sleepy-almond-small-fangs.json",
+      "sha256": "5e0e12e3a43f326b7b78f316506b492654fa028513ed79ba56ed62ce72d8909e",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-shortleg-round-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-parted-mouth.json",
+      "sha256": "deecc0b715ceab7ab9204f97229d0c1a402a3e5dd7929afe68ac7d10a81316c1",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-shortleg-round-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-round-small-fangs.json",
+      "sha256": "af61d1a55479382ef63a4ad1e4e542f897ce6c3ec4e880faf3312d3c6a8da056",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-shortleg-round-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "f132081ec9c651bfc4017f630a56a38e42102e8795e70eb02e028dfe20675ed4",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-shortleg-round-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "f75f47723fcddb8b6daf702015bae4e2fdc97aa728cdade9c4e2400790c70af2",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-slender-tall-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-parted-mouth.json",
+      "sha256": "b3f33c974e913bc02e5e16148cf6ccb51193c8749567a54562c3f43999bfa638",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-slender-tall-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-round-small-fangs.json",
+      "sha256": "b7812728455f4a2fa49b644ac984166fcbaf2848a176270c6e857194854bce63",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-slender-tall-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "88b0b0db557a4e1309188526d3030eac18b07994a1a0a14cbb0420f96944314a",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "corgi-slender-tall-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/corgi-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "86ca19ce1cb08bd31f29914056e79d570ee6ce23e1e3cf6489ce2078e1e792b2",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-standard-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-round-parted-mouth.json",
+      "sha256": "7f0e35929dda0a9dedb4a5bade845a3339ef9e7b5bd893dc5df1c04b8eeb82ba",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-standard-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-round-small-fangs.json",
+      "sha256": "75831f46cc34ae946aa8d5fa754bf3874e5f50c2e67d4378bfd91007ce97a648",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "7d7052b421dc517a14af65b1736dbcfa2d43cf500c9ca29ca52e59347a8d8244",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-standard-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-small-fangs.json",
+      "sha256": "79c9274222a1c03b5cd5fe3de085c7bbc7aec1d67324e72de0527fe73818d7b9",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-parted-mouth.json",
+      "sha256": "0126b4b01d7d20712ef8f1a3c29741b2996db169529fc52d26b621acc86310a5",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs.json",
+      "sha256": "81c1357aaf6292d5a9d209659f95e46d406e086a9d88d1ffa1a8c3f67599f47c",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "6fbacbdad79a07ab9743e97c5377a562366b7e8e5827b6baaded5cdbfd731f3e",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "d47f95a8dfa79d3734154c4fc011f13b7cab78bed553a90ad3b029051c81bbb8",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth.json",
+      "sha256": "0d365ca590c0694a0f7c01201c0ef8a30e5ad3fc07531691e185fbc00af206de",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-slender-tall-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-small-fangs.json",
+      "sha256": "72a8c57d95c5bdfe27f57868a55ab12b96943a7e217670b58ebf39c20a383509",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "bcc04cc75f9fe3ed17b9e2aea22060702d6539c0791f64b2624e8cd569fe5597",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "golden-retriever-slender-tall-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "236a55b16d2b011a0b15bc00a2816ba334f94586c332d21ef20677e5c1eb638c",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-standard-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth.json",
+      "sha256": "96e437a63c6c7442d739f4e7812504f865ef8558bb8e0310748302cbafbc7b33",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-standard-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-small-fangs.json",
+      "sha256": "25e451023583078eb49c829f0341f835dcd24165ffdda91eddc40cc9d8e59395",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "394a3f2e740daca690fd71ff9a8c94c47da889801bc2146c9683eebb3902aa95",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-standard-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs.json",
+      "sha256": "1548fa2129e9c922d76931b66399904a3c4e16df41d68a75db3dc96cf9e7595f",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-shortleg-round-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-round-parted-mouth.json",
+      "sha256": "d1ad6f252612fa298042c1553a7478f1f04e224a74d46ff27c91483a6f1fe1c2",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-shortleg-round-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-round-small-fangs.json",
+      "sha256": "30c14c8c48e791c554281c35ce534acb99d74047ca207ea02a3e6df849e7ef26",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-shortleg-round-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "8693c2be9f32ef3f2783a70dec4584cb73a55318c2ee6f4243a03de664f9d3de",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-shortleg-round-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "f364d30a27e73b7b585905e9e68b80ae25af6e094c2cdbe7ba6a11787ef3f4a8",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-slender-tall-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-parted-mouth.json",
+      "sha256": "787c8ae04546f2508550493e11c8b10471806675d1854a0d87ec5a4c59267208",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-slender-tall-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-round-small-fangs.json",
+      "sha256": "9b0f071b40ccd81f1c63da6a9373cc0e491a0538514b3ff4e7fdcf4e52fa3d48",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-slender-tall-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "4014fcc1766b962ebe0d798d44920cb813802ee1c434c88aef7f47dde99bcb2a",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "husky-slender-tall-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "82dc7a3a7ab173dc4859baf7460ac5f0292b51cd220e443eda33cc5686276ba7",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-standard-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-parted-mouth.json",
+      "sha256": "391a8ae01bf35be5a86dfffe7ad09b29ea88438ab081a308cb5dd2de92200e53",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-standard-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-round-small-fangs.json",
+      "sha256": "636d1aab55059cdfa4c50dec08d9ba756bd3409aead5c42076b5e25309fbbc64",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-standard-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "49a84cb1c293e8eb747f3eb7e4f1cef6a3be9896756f0503b9108eab9b6f922a",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs.json",
+      "sha256": "084b92f9eef1517ac595805c854d02c82346b43fa23102f92591ad8cfb0798e6",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-shortleg-round-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-parted-mouth.json",
+      "sha256": "495c02149b06353a3d7166635515b66ba565fbe28f2142df1e8b2cd47ac91dfa",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-shortleg-round-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-round-small-fangs.json",
+      "sha256": "712617f5aac516311507fdbcb4890a7927e69298fddbe5d9c6697fec118dab92",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-shortleg-round-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "ac6b66f470a617b3a35350334bb5476b145a00f6d390ee6bdb84dbeec6582dc7",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "c0360796a84035bbe69c1dbc4963f70fca414bcbd86e5bc50aab02418be71811",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-parted-mouth.json",
+      "sha256": "4d1a1b50cc939ae93b5e5bbb6a384b3878e831741ada8b1776a97c907fa3df12",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-slender-tall-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-round-small-fangs.json",
+      "sha256": "f8120d85ee1d733bfafd37f09d6b8a8f611d672d2065e0bcbf6c2f6a3db07d04",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-slender-tall-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "6b7e5527e21abf6b8ded22275deb50b02d98f5fed0c8739125451959b8d990ad",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "dalmatian-slender-tall-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "9d6af35d1e9b290544ba241834a2b56bdd878410b091246a0b4ebd133735d1bf",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-standard-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-parted-mouth.json",
+      "sha256": "abf019028e7e9e392e3e836d8cd12fd8f0d6dc882851cad84858baabb0307cd1",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-standard-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs.json",
+      "sha256": "d273b8f6ea12691fd27297a940363efd06f8e826ffdc84bdf598930bb412eda7",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-standard-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-sleepy-almond-parted-mouth.json",
+      "sha256": "159c9c5dee8a2bf5690a0961c9b6a2cf8a608bde6e8a6344198578cfcb4a2360",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-standard-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-sleepy-almond-small-fangs.json",
+      "sha256": "e2c6e226bd1a39f0457c338bea9559f3cbecbb41690b228f2cc7b7bcb79365fe",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-shortleg-round-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-round-parted-mouth.json",
+      "sha256": "88c9502b409ffaacd8a6c7e404ad9afe9b03c52ec38ac4e860e4849661955f98",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-shortleg-round-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-round-small-fangs.json",
+      "sha256": "b2f7e6022fce01a8515f48292a2bf9f5508167e616852c7260c1ad22f9cf6689",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-shortleg-round-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-parted-mouth.json",
+      "sha256": "833ea40572b4b4e953039e4abb8b677317c7387d574ec35aaef9d5edff69d097",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-shortleg-round-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-shortleg-round-sleepy-almond-small-fangs.json",
+      "sha256": "9b4d79767be538046e19fe937fea3e4b4bc61e658d659d4a824245500d526b69",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-slender-tall-round-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-parted-mouth.json",
+      "sha256": "2173b44fe2eaf3dbf4b23f7d018c31cb2fa2d8cf491c93d944f9e4f341669a29",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "phoenix-tail",
+        "fin-ears",
+        "feathered-ears",
+        "celestial-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "sunburst-ruff",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "crystal-horns",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-slender-tall-round-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-round-small-fangs.json",
+      "sha256": "51c45a8d5a71b6fa638d0ae9612ccc03f2e803d9528920f5ed2a15311be3a1ed",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-slender-tall-sleepy-almond-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-parted-mouth.json",
+      "sha256": "40283aa3e25c64de05777de62df9224c74d10b2d0a09433520299d014f504dba",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "pixel",
+      "bodyId": "poodle-slender-tall-sleepy-almond-small-fangs",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-slender-tall-sleepy-almond-small-fangs.json",
+      "sha256": "91973a9dace1849cd2ed02fc7a66b2f8addd6b9b7419a251628af30cfc728bd1",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "shiba-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-parted-mouth.json",
+      "sha256": "cbb06e7c6e42b0c5e191979295c91271c1f8063f19dcc99023f7c25b81cbc300",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "fin-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "shiba-small-fangs",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-small-fangs.json",
+      "sha256": "6b6ab16b1aa0341b11b2de4ae8b262c14088e395cb421911ceab90e6019c427d",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "shiba-tongue-tip",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-tongue-tip.json",
+      "sha256": "33790933787d1ab7af4e69429a0af2d72575fba63a5f45a318c6278eb904c09a",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "corgi-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-parted-mouth.json",
+      "sha256": "5b247159d5af0c31e22c9e71b171d37ecdd075b80bf32b560e789a130f4535dd",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "fin-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "corgi-small-fangs",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-small-fangs.json",
+      "sha256": "35f621b6fb148af2f11c4abc470416b52bcc73da0989000826831ae741a5dff9",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "corgi-tongue-tip",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-tongue-tip.json",
+      "sha256": "c1e2eb5b40f0b2f7fcbf95fdb936269c492bd54c630eb41761ebe7783fc02b3b",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "golden-retriever-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-parted-mouth.json",
+      "sha256": "ff187f0d1c81f15ce88b1757699a9e1c3b50e9775a01fda31c85c48013d2bf40",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "fin-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "golden-retriever-small-fangs",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-small-fangs.json",
+      "sha256": "20d4d66443e7c81966d5e6a655f6f52b4b19639970561caafad0f0f61b7d53bd",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "golden-retriever-tongue-tip",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-tongue-tip.json",
+      "sha256": "c02be877b52d46a885d1888b59e4b4e618ea28033233d977e42ef8a45ec78014",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "husky-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/plush/husky-parted-mouth.json",
+      "sha256": "3733affe40413fedb2ec885c5af46a76c7919cf0a481016c707dc09937464378",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "fin-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "husky-small-fangs",
+      "path": "docs/qa/canine-v1/composition/plush/husky-small-fangs.json",
+      "sha256": "64b16ca22c1bf4dd202f3bf93cc2f7a5c136cf75dc22f5fec697a70c456a6efa",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "husky-tongue-tip",
+      "path": "docs/qa/canine-v1/composition/plush/husky-tongue-tip.json",
+      "sha256": "9a01fa4e2830fe0f1992ac511e90a1fca9ef2e9a57bc48daca8c7a51c84eef82",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "dalmatian-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/plush/dalmatian-parted-mouth.json",
+      "sha256": "ea51a30152fe5fe697d1ee70835c2722c3a88652a7660f0e339e7c0a97747abf",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "fin-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "dalmatian-small-fangs",
+      "path": "docs/qa/canine-v1/composition/plush/dalmatian-small-fangs.json",
+      "sha256": "a6e05e700b6524cc038436267482f0eeb244fce4efe4bf3ed500a5f5ad5b11e8",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "dalmatian-tongue-tip",
+      "path": "docs/qa/canine-v1/composition/plush/dalmatian-tongue-tip.json",
+      "sha256": "66adae22dfbe0e0ddff6c189f1b8c079df42877edc70b7900563c316d5ff07b4",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "poodle-parted-mouth",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-parted-mouth.json",
+      "sha256": "73e6dc918c3b3e4d73433e65d7aeb0e139e949798139b9e53f93f3995b759b96",
+      "visuallyInspectedCases": [
+        "none",
+        "small-wings",
+        "feathered-wings",
+        "dragon-wings",
+        "forked-tail-tip",
+        "flame-tail",
+        "fin-ears",
+        "small-lion-mane",
+        "frill-neck",
+        "dragon-horns",
+        "antlers",
+        "halo",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "poodle-small-fangs",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-small-fangs.json",
+      "sha256": "20ec73fc9c03a0de850476d9a26328dbd31e3d1c3a61dbd7139ea011e9599182",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "style": "plush",
+      "bodyId": "poodle-tongue-tip",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-tongue-tip.json",
+      "sha256": "d46797fdcd4de727b4725a75b96106e8328f5c2c8581958383c4cc15bb74a1ec",
+      "visuallyInspectedCases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ],
+  "exhaustiveEvidence": [
+    {
+      "style": "pixel",
+      "path": "docs/qa/canine-v1/combinations/pixel.json",
+      "sha256": "aca26e956425bd485fa46df32ee949b9cbb5afcd557a0f368225f266e5610814",
+      "combinations": 92160
+    },
+    {
+      "style": "plush",
+      "path": "docs/qa/canine-v1/combinations/plush.json",
+      "sha256": "de6c30b3b0dc83af6e036e45dbf349f4c3ab143008617a9031bb703ccf8a0758",
+      "combinations": 5184
+    }
+  ],
+  "consumerIntegration": {
+    "status": "awaiting-Claude-replay",
+    "runtimeEnabled": false
+  },
+  "visualCoverage": "24 breed/body profile sheets cover every single growth trait and four full combinations; remaining 66 expression variants cover none and four full combinations. Exhaustive technical render is separate from visual review."
+}

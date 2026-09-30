@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "32369a66830b8c160dfeb8d2d42eb8a53d15a791f17083721280f6f351a9b988",
+  "reports": [
+    {
+      "id": "corgi-shortleg-round-round-parted-mouth",
+      "contactSha256": "8dcb6f0e9be47d28a586b1870ce001d7ac89406dfdcc6b6e3b9baeab2a92564c",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-shortleg-round-round-small-fangs",
+      "contactSha256": "87b7ea6c6b2fd9c4bdceb3e58e5275b5b3721c1f6ebbebefd62aaaf5e8c26118",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-shortleg-round-sleepy-almond-parted-mouth",
+      "contactSha256": "5e873dabdd9f8ba0a3cd824593fede6aff3aa5735f0edf575dc16dedad24cda8",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-shortleg-round-sleepy-almond-small-fangs",
+      "contactSha256": "593f961023a4c46098056a1d166a483f64464b9899d5c85ea7bd24c24b3989f0",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

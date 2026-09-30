@@ -1,0 +1,11 @@
+{
+  "id": "growth-antlers",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "成对三叉鹿角，圆润分枝和短绒材质清楚，左右根部完整，双背景边缘自然，中心透明无额外器官。适配另审。",
+  "resourceSha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-antlers-review.png",
+  "evidenceSha256": "72a22133f03feedc9615f5ff47192dc32acbb53c71cf38fca2f1130fe7fdeb0e",
+  "userArtApproval": false
+}

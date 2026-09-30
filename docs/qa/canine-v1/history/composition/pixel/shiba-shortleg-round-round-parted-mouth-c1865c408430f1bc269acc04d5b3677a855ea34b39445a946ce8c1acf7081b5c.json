@@ -1,0 +1,370 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "shiba-shortleg-round-round-parted-mouth",
+  "profile": "shiba-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth-contact.png",
+  "contactSha256": "b3facb8a14c2c9669c4298d158e4eba312fec0c942070e5355f88263195896d4",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth"
+      },
+      "rgbaSha256": "4762401523104ad8f798944c86b11065df6cd71c2414060129d2b95aa3b85cef",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "04079a03e958b0019a109f6e4d363d24d02322526ac0910d70c5f5016262698f",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "9f32c60e5426439da2b0bc6fcd4557e29fd04bb07cae735a8c21e45abdf10196",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "81e66e27ba1be37b220907d08d23d62a5d59aa10c31e5ddc45f94b6e32ca5541",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "88790b015023e144426cdd180c4412464727a1600a82d39773e23d93012b0a7b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6027b7b4bb0b2e9ce098da7fec3fbce5a6dbf32acd246e9558d144af1899ca1f",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "153f800a82d28be6b1d66f26ff88f4602c215d7ad6900670c6bea676025b2761",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "26940a76f8a88c928e4bb805ada32b67a3419aa7dee134e05433105fb67a094a",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "1623869f19c08a9e8d7169f865f6176d0fb419169d997cad286e271c3e4a262e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e204f12b3a71b48acfd6a4f9a680533f22fe7c254efe13145b97ab9e62c04e9e",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "d23281dda5350198afc899596d1db2e2cbde65211ed2b95e989212bb157a5793",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f3f7367aa4365818b5094a18dd7dee627d5a5bab926246dfdb16ab0dad4929bd",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "0aa6739eee3772ea30bce71603d2673785564200f6b61e041374cc62ecf26383",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "840f3cc693b155e0449f74626415e460b984df21d0f53dd42a5c7d342c5f2232",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "74431989a543df4c3a64d5b12b26c1642bd32011ecb1e4d697ac3cc791a95285",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "caa28a531e472fa0847552395dccd5021a8d397bbc48c8aef776740483c9a6c8",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "c7682cc00f0a02faaba656d559790ff71bde21f23882c2a5d43d401c08a9664c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "402a7469822df72f054d38e4af73068dbb9e10c22b760d8512908d643d4b338b",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "0609fbafcb37ce9a8af60be0ceb6d3381b28b3aa1748edd74b35d962682f2142",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f67fb378c9ceedca2777de5e2024084acf169484bd9f1572880cf8cca5fbf1ea",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "31147a41b432a9bced5f0277af5f5662dd945bb0dc58b89021b83f33c26f566e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "477485d7cfc50d65a7097655a704347698a66c2ce39236a504fcc6f8eb5b808d",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "9906dfecd5bd22735e31d9e7c45094f0a0ae4833f2f1d74f267977c1f8bb9faa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7815d2cf61563205c338d19e01aee7df98b16cb9bfce7e50ba369a57c8d7d299",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "65819414239ddc9187a43b645393825b728e5ba082b7588aaeac550e7c53f040",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "42804f4aacd8311eab71db19a77f6dc9b98ab626a13b16ea351f34eda479f291",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "97a25de362f6e453988b0899ef2efed95704a4cad268123d04b79add09dfd2d7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "05a89818665fb23df3de4afe1fd2761a812fbdfa61fb9ba087a28bdcf891c695",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "6e04abbb60ea20c08971b54777b70cc5cc2af8bf7db5defa743ed93937aaacd4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c7c48f91622371b1b7c5b25ff50130b00da9db7de2a39d44eeb299f2b29a2345",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "f8801594a0662d3136d759fbf6c08fd40637aedd87b6d811de8afe5aada492f0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2b56424721e8ba575b9461445e0ed239eafa18f59fddff477b6eecbd786dfddd",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "32b2523429a81f3e85f68d8c6127fdd4d3ef83e7444493da7ed6f3380b77c47d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4ab18e29bffcb6a0ce51bc8eed26022b5813117229790fdc27473691444011f1",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "1842649f79fb9ac76baeb72b3c175f6f00d190a645cc4c170d1c3db259185927",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d48148d4cad8bb207cef0670a1cd776cf25b8da6f03626aa04a4c101def48eba",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "f0dafee3a397b46981a2eded461cd36a11df4756a5998b1245993651a221e2d6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8b041721a05eb67a74fb1450dd2a81b6e73636f149a8d6c4bd92c6cbd5ffd92d",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "b0d28fc8bd2e7d8175857b3ebcea573dd36055e7423e25296b0f056195ee8f75",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e278e9994e7a5eb496e0ff4bd8f10e1ccccae109ffdd3f2891384d488483ed31",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "5137302be1b22736865c1fce2ac6638cba8046bdab795bb0654fbb1fc330c0e2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "415fbd6041a89d0646961c99fbe5b565933a589543b2b230c8149b875c3b82f6",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柴犬面罩与卷尾辨识保持；换尾无旧卷尾上缘，颈部在下巴之后，三体型与各表情组合无遮脸。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:29.111Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

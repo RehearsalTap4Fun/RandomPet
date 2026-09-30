@@ -1,0 +1,27 @@
+{
+  "id": "husky-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-shortleg-round-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "c580487ceaf431609988fcd6c5dd81b301776676004eced8d7946de4d24e87c9",
+  "rgbaSha256": "75d9b1b44efde1906990840e7a4928ee15f9c211b3fe9053fd3003b30c5267c2",
+  "bounds": {
+    "left": 13,
+    "top": 7,
+    "right": 58,
+    "bottom": 59,
+    "opaque": 1681,
+    "transparent": 2415,
+    "fractional": 0,
+    "visible": 1681
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

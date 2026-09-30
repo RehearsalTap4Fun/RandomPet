@@ -1,0 +1,16 @@
+{
+  "reason": "Early seed prompts used legacy filenames; indexed copies come verbatim from their existing generation records.",
+  "total": 117,
+  "recovered": [
+    {
+      "path": "docs/art/canine-v1/prompts/pixel-shiba-standard-round-parted-mouth.txt",
+      "copiedVerbatimFrom": "docs/art/canine-v1/attempts/pixel/shiba-standard-round-parted-mouth.json",
+      "field": "prompt"
+    },
+    {
+      "path": "docs/art/canine-v1/prompts/plush-shiba-parted-mouth.txt",
+      "copiedVerbatimFrom": "docs/art/canine-v1/attempts/plush/shiba-parted-mouth.json",
+      "field": "prompt"
+    }
+  ]
+}

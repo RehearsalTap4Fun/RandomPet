@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "golden-retriever-parted-mouth",
+  "profile": "golden-retriever-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/golden-retriever-parted-mouth-contact.png",
+  "contactSha256": "6f5c038e0b0730ce94c64c5e58723e996ed3dc34d0bfd66841ca67bd9485a97f",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth"
+      },
+      "rgbaSha256": "bac1eea469ad508544d1133c08916ded9d87de56ebe0a56d673f173eb33e2525",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4faaaddd99c15ed7e0bc861a5327e238eb70dd20b892db994dec1dccf44b24d6"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "e7353672d72c573636c9f2d920dd512ad91e39a887912708c0128b996aa6d53a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ed69251192f23a50e64df5b4ef476603f00436981d83bb5883bd0925381a94d8"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "e741ff767253bb2431f7115059bbdb7076fcb99b30a7f659cea61ca9ce3739d9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "64f5fe624ad22f4a75e47a2337fe96684bc8a446a7d12c1a48ce0acd58245cae"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "f278a22e7e72c67b07d36f6ad1af548ea88738758433a604cba2938a513d3fdb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fe11796e7117f428f7af080097e27fa433c044a9b4779080409534d883708645"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "c694133de2451e89a90bbc6cecdaaa4d4f10c273d65f367a3d3bbedb1cf5e1e0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7acdfa3a5162bdffb0a281a64404714ca55d7cc980f66de0a274162509493c93"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "53907a82f9ed8d5f2f6c00d6dbcc24cccb4b7aee8265c915c6dcc3bce1c6c15d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5a550a1d5250dc1e094f1974fbdadbe98f649d73359c58553fccb3cfc8a7b2c7"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "f3279487177c2b2de097ca16a601d2fec5282ee5776c083f785d945767906b9e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c143bbd428cc5864053e50982ca59882c3c0701d1f6231208fb1cd7292bf951c"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "f6ba0e2d9d6fd90a32ab865d2b080c3005b2146ee2ff132a01504b770c9e5685",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "63f9b29590543765dfc51e776f5eb6c640cb165a5f3539ac092f5f5a0d8b0975"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "d54f627e12d7c26f2e28e6967fbcf40912b3dbeb86c22ddf58630f3908a913bb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "56d26160202b52202b2fc62a854f3abe5290c560e849f35246e420240b44a42c"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "ba77a3e28896bcf6c97b4b25ec03389e149c7b1b6a1c0598bb8193589868de3d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2139b9da4ef1b163d26cdc12927db5ff9a5ea497a22fbd3e01fdc38eaae66db4"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "a6d4723656002e849f5dadc1fb7fedb971a8c450a4e064c04f32536d7a7d6996",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7a78757c8b43407283023314f8870bd629279aa0a16cd189c223a66b483fb0bc"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "2115b3c1b65c973d6e9cd166c2e6148362887d5fb0d13484b754f8ac7ef22eb2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fc300e5416815b1536932a61b742125d35c49694fc6bc8db22258191e664f5f9"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "55ec473beedcc44f3d18b8ec6e8ee9b8027358305a84961febb2780bbd5aaa35",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e66efcc48987f85519763df8d21cdc0b142a597f7ef8d0de46355b221bb096c4",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "0edd2d43a89369285d9f857609052d671caaa1b1adf95014f05ea4065f117a73",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b27a78d96259ca23560e65993505620a71a743b96173f17b883370776ef1c829",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "12f5fd46c657b53430baf20411d56d240a273f34e7360018c0a04ba24dbcb25d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "daf6dacf482d26afedcc6fe3d76efd1b1b56b1119a6d42f56a59c57d2a3d51e8",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "cdc07b0cc02fceea5f95d435ce2cb7014ccf7836f8473c23681a689681e93d72",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "da40f7b7a5724265b74921a3d99af10e3bb2ec694a188bc43f0aa7f43024317a",
+      "path": "docs/qa/canine-v1/composition/plush/golden-retriever-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:32.688Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "fin-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/plush/golden-retriever-parted-mouth-092416b334b027022cb8eed2d9af7c8a0dc399e8f741c421134e3ebb6d11643e.json",
+    "sha256": "092416b334b027022cb8eed2d9af7c8a0dc399e8f741c421134e3ebb6d11643e",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

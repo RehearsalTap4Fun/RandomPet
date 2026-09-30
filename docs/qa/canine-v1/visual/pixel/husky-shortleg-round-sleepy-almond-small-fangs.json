@@ -1,0 +1,12 @@
+{
+  "id": "husky-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Rework succeeds: saturated blue iris clusters survive actual 64px 32-colour export in both eyes while lids remain half-lowered. Fang smile, short broad torso, four paws and one tail retained; safe margins and clean alpha. Original failed eye-colour result archived on promotion.",
+  "resourceSha256": "2237a521362e22bfd35656820e2522e544f20a706a2ce1490661a62b17c4266d",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-shortleg-round-sleepy-almond-small-fangs-r1-review.png",
+  "evidenceSha256": "ba781de91c21f0bf839616beb8fd1b83be7a92e007427bc4a9854a4ecd8a4794",
+  "userArtApproval": false,
+  "acceptedAttempt": "husky-shortleg-round-sleepy-almond-small-fangs-r1"
+}

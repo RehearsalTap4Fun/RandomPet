@@ -1,0 +1,11 @@
+{
+  "id": "corgi-standard-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Corgi clearly differentiated by oversized upright ears, central white blaze, broad dog muzzle and short tail rather than Shiba curl. Native 64px facial features readable, consistent pixel palette, complete seated anatomy with transparent margins on both backgrounds.",
+  "resourceSha256": "9be7d53c7876493083b32f27aaf1c49db4957e09ef25d97c575a8049e31d1397",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-standard-round-parted-mouth-review.png",
+  "evidenceSha256": "6f7b3f49480a0ad2b135af84e07f40f2dc718fcfbfcc81a6948bc73b3e2b920c",
+  "userArtApproval": false
+}

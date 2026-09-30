@@ -1,0 +1,27 @@
+{
+  "id": "growth-sunburst-ruff",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-sunburst-ruff.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "530a8aab203fe113926effba9541283b9db283d8ebdaa335629e1271009657b1",
+  "rgbaSha256": "8a8752579e437b2fe8fd86b47791912ec7057ad85aa1ea7e80cb14494e753623",
+  "bounds": {
+    "left": 3,
+    "top": 12,
+    "right": 61,
+    "bottom": 52,
+    "opaque": 1375,
+    "transparent": 2721,
+    "fractional": 0,
+    "visible": 1375
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

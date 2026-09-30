@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-small-fangs",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "Reject: smile contains a full row of incisors between side canines, reading as a toothy grin instead of the requested two tiny fangs. Body and alpha pass; rework mouth only to two isolated ivory fang tips, no additional teeth.",
+  "resourceSha256": "dabdf8a6f2f85a105942c6ec555a9bd0ff79f8d4851133b6f12c0fa6b512a5cd",
+  "evidence": "docs/qa/canine-v1/visual/plush/golden-retriever-small-fangs-review.png",
+  "evidenceSha256": "c1be70b0eb450465e11d8b3bac4c143a6942405f6bbfb6f8f7824d4acd648c26",
+  "userArtApproval": false
+}

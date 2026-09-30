@@ -1,0 +1,11 @@
+{
+  "id": "growth-flame-tail",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "金橙绒尾与红金火焰形尾尖连续，毛向从根部自然汇入火焰，轮廓完整，无散落火星，双背景透明边缘正常。旧尾清除及配准另审。",
+  "resourceSha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-flame-tail-review.png",
+  "evidenceSha256": "bbe4c7c0aca4afa9e4684355380585a8c29725c358f651a20349e846455cfbaf",
+  "userArtApproval": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-standard-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "Reject 64px deliverable: right ivory fang merges into white muzzle after downsampling, not two clearly isolated fang shapes. Rework larger enclosed dark mouth with robust rim separating both teeth from pale fur. Spot identity and body otherwise correct.",
+  "resourceSha256": "47605d45f8729b0540c0d6414851a286dbc6633b3d5d2186b481cd8a51701fda",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-standard-round-small-fangs-review.png",
+  "evidenceSha256": "70b100d8cfa58ad835466c303327eb9c95219ef872c2601bb2d047085e1fc7aa",
+  "userArtApproval": false
+}

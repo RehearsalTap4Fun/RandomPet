@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+  "profile": "golden-retriever-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "3f7795749bee96bef8cfdd529538c75cb99b2dad2e0039552da0e6e7232b6f0e",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "fd535b04f50c22c11c736a6a9ffd3c0a5d7a6f5acf666cf442457ab12499bc70",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9392f45682c42f4fe866a0c3331b6f30a87a8acc0542c59aee4e289aab2a13c4",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "f36f556228b672edc26723f58625e02af60f703d8812b4d5e5ad2a78f9d3fdf7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b8deeca125312c88b7fee2d283a32ce7b995a2a93f135923235e1fb3a5477463",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "f68e252733e7c1e0663a323642813c60faafaf2bc377ac5366cdb7371ff3bf48",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4a59070e18027307da2febe0e370666bdf313fed964127143f889c8cb37e2b2c",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "eae8d788a0046eadd1475c5ea5fe4d513b7f109845e9930d598948adc3c95d0f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7a13ffdf1a7546db1742757fe412d6bd6846ef7a3b5b7c686b287b4423a30099",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "c14107263e8001615ceaf6323e2a6f37326ce087b4f2a2cd6f5a9d6dc4b487fe",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bed748cc94f1b2867e6a2f49028a0f9426269d3ea45b8cabc68a10b91df445d6",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "b2bb293c8bd8bdf4fcb64ed11cc952ce8e4dc4a0bc362047fc5fbfe0e8ef5d53",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ec983137d24449f3dde66f0e5669e462656d55f397e46acd3a380600bec86716",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "cc9d8030590373f6ae7d2c3a329e36c06e79213bf98b46dd5277308c63f14008",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1e06fbf66a452cf379a7881c14945548c792fc4195a9b4ac1c91c3c057c5b2da",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "838d9eb756fb1f3922eab984ce0c2d393004529374b0d5174e63137658ee4b92",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "237090d107073419ca23f4b452e9a98ccada1b362f201dd38b545138f4c6b4ad",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "a875c01467bbe92e9c598fdecd7f9dab2fe4eee1060ca61689a789ae2ee1abd1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4dd5259d6e3de8ae6dc77f79c7069d74d98e2dc656efd2d482451a64e3a1171f",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "17f7369759024ba4df5fffde9d98e77fc13994cdbc34b3f86473a1b0680bec75",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "85f514052612a483ee9bc4026c1d349b1c2345ef98432ace8e2154ed93dcf0f1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "05d1ebc9b75c9c6ad68ffbfac5931c5518674f77ac46c43de0569b7d138b679c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3190334fe1d46b98f27f0d5abf964e47260f6e0ee9f85ae1b64ae01feb59543c",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "acfff75de50fcadcdc4c3ebf600651df1ee923a963d47b18eb88c1e948021929",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "15ee680fbf8ce7d56811223cf2abca6c72572323a5a6214d3552565a5036e643",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "90fbf149d7831b6d80546ccb005f4fc57e5d67eb5c745876546bfb0785215366",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "311932e25e130cd0d806a8d16540bee0e8715b7e5a983735622a7f9ad5829e99",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "c001129cabcfd51cf113bc365fa5c193bded605d8da937a9749394c775e40173",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "06c4a3c3af35329853cda13a85968f4560364dabe321d14d0538ab63e6d16ef1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "bbafdd6867f84eb4242a14a60d2633942c41f9c10e25256b405b86ddaf137131",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "85e4f901eba35ea97b3949d7abcc466aa4d66480dee594559487451d37c326ee",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "bcbd97169e61fb5cc01f3a10ed45b846f49c0ed527c249a6f7e7777d7ea39cf4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "43b332162100b88195cef6727f04297b70520711b0f0f87f8f8ae7e19fa4a95a",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "dd582a7fa71acba3117135d094d2dc042fcc314f9d6a043a4c4b7a4f7bdfc0c8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7412f4d04fdf791561a4c23f609dd59d7ad92d53f7b91f90801c7f608bb00f35",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "96331abc0887e1b0dd55e96831770abe9513bf29110da72d7d40fe8bb80aaa74",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7782cbd0f7845742c338cdbddda9a4a06e251a7210d7ad542007802ceed44493",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "22d2ab9e59c0bd4d93781f58e3ce35a969ac30b5feacc0dc0f21d4694c9e57c5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "241720dbd26415ca670c292b5459d018508a22cd9129d31be498d584559633c2",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "17d1d12c9fcd45ecfacc7a7df43b318472a92bd59e69f5a6c7480e11a8d1001f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b3b0a751623427f85f2feb4016b5c86b3a7d916448273bbe08c2793cb7642137",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "1334bbeef47906ff259e56a646297dcc26e88b5ca77ecabcfe8e24802c81efe6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bc2b56f3cd53d030a75e1792e5325043213c21c1448f7492f9b4baa2287de8d9",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.373Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-parted-mouth-4795488ab3edae46ea0ceea0887eb62aa0c50a2db8197da4527a9aba0442ef89.json",
+    "sha256": "4795488ab3edae46ea0ceea0887eb62aa0c50a2db8197da4527a9aba0442ef89",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

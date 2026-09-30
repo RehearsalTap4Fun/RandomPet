@@ -1,0 +1,27 @@
+{
+  "id": "husky-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-slender-tall-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+  "rgbaSha256": "cd0193df48aa7d57d4cb941af9a53dec31c97c3aa81dd167d1f6eef91e2ecbc7",
+  "bounds": {
+    "left": 14,
+    "top": 7,
+    "right": 58,
+    "bottom": 62,
+    "opaque": 1559,
+    "transparent": 2537,
+    "fractional": 0,
+    "visible": 1559
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

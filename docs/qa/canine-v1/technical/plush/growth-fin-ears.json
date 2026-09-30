@@ -1,0 +1,27 @@
+{
+  "id": "growth-fin-ears",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/growth-fin-ears.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+  "rgbaSha256": "9c5fca0a5f0e7da6ee85d1e2231f87b9ee94fdb960ff16c65efb5fd7b9760f6d",
+  "bounds": {
+    "left": 43,
+    "top": 284,
+    "right": 1218,
+    "bottom": 946,
+    "opaque": 219,
+    "transparent": 1216311,
+    "fractional": 355986,
+    "visible": 327159
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

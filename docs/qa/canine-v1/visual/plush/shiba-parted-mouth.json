@@ -1,0 +1,11 @@
+{
+  "id": "shiba-parted-mouth",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Inspected 1254px original and light/dark previews. Clear Shiba dog muzzle and curled tail, plush fur matching cat reference, round glossy eyes and natural parted mouth. Alpha 251-253 in solid fur is valid near-opaque source alpha, preserved; no visible background fringe at preview scale.",
+  "resourceSha256": "c80e8ec01a8f1962e4adf5e226cd96c97dc355971e3c75a2ed8fd4c0e2a4f5a7",
+  "evidence": "docs/qa/canine-v1/visual/plush/shiba-parted-mouth-review.png",
+  "evidenceSha256": "e5e2f3b42e3d7cff93f59ae33d5c701d65210bf2329e95c050ac17b1aeee08da",
+  "userArtApproval": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "shiba-tongue-tip",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/shiba-tongue-tip.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "e830351a4dadee8d4563eb27441f2e5742593c0c0b19899fac1642b41c86c77e",
+  "rgbaSha256": "797716556cfcb3d7acec889b705271c0f4d0e7003f3d1cd443e03abb8e35cb45",
+  "bounds": {
+    "left": 215,
+    "top": 29,
+    "right": 1219,
+    "bottom": 1222,
+    "opaque": 39,
+    "transparent": 726554,
+    "fractional": 845923,
+    "visible": 818017
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

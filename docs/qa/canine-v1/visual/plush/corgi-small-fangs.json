@@ -1,0 +1,11 @@
+{
+  "id": "corgi-small-fangs",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Two naturally embedded ivory puppy teeth distinguish expression; corgi blaze, oversized ears, fur, short tail and seated proportions unchanged. No protruding tongue, no clipped anatomy, clean light/dark edge.",
+  "resourceSha256": "dafd38c79bda7fe391d4ebe2c43f6fa47cb7a8ccd0488cb7e62fdc59b7041cce",
+  "evidence": "docs/qa/canine-v1/visual/plush/corgi-small-fangs-review.png",
+  "evidenceSha256": "5e3d66d7f09028d27dad569ea09df55301ba3d891d5f601e4bdbf68fafa173b9",
+  "userArtApproval": false
+}

@@ -1,0 +1,12 @@
+{
+  "id": "husky-parted-mouth",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Framing repair verified: ears start y102, paws end y1170 and tail x1122 on1254 canvas, comfortable transparent margins. Grey-white husky mask, blue glossy eyes, tiny natural parted mouth, four paws and single bushy tail remain coherent; fine fur alpha clean on light/dark.",
+  "resourceSha256": "076a7a01912909a6cb6c1a9bf611074ba5c81587b6f8298d93feae4ed2a7c658",
+  "evidence": "docs/qa/canine-v1/visual/plush/husky-parted-mouth-r1-review.png",
+  "evidenceSha256": "ee6921919a165b00e052a473bb378e5c0debc47d1cf63ff81f00baa55754e98a",
+  "userArtApproval": false,
+  "acceptedAttempt": "husky-parted-mouth-r1"
+}

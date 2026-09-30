@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "canine-production-checkpoint-v1",
+  "scope": "shiba",
+  "status": "checkpoint-passed",
+  "goalComplete": false,
+  "bodyCounts": {
+    "planned": 90,
+    "reviewed": 15,
+    "verifiedHere": 15
+  },
+  "remainingBodies": 75,
+  "partsStatus": "not-yet-produced",
+  "claudeNotified": false,
+  "checks": [
+    "file-and-rgba-hashes",
+    "review-evidence-hashes",
+    "original-generation-provenance",
+    "real-alpha-and-size",
+    "unclipped-visible-content",
+    "distinct-variant-content",
+    "pixel-128-exact-nearest-neighbor",
+    "max-three-reworks"
+  ],
+  "rows": [
+    {
+      "style": "pixel",
+      "id": "shiba-standard-round-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "70b94f22072e9c4066065ece129974bfe27f3adb120764ea653a23cf7a6d647d",
+      "acceptedAttempt": "shiba-standard-round-parted-mouth",
+      "sourceSha256": "a87b8e4044d1946fb454f42450a2ee30ef7dd3e2ec04ec772bf5ff99e0a0d600",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-standard-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-standard-round-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "f9c004db7900829c02a05038eeb022c9d4a14e39b882966d4b7a4764fc94a0c9",
+      "acceptedAttempt": "shiba-standard-round-small-fangs-r2",
+      "sourceSha256": "cb39e5adc2a454a49371a63674d4f4d953ed2fbac42dd2c4cbfc404f4798eb5e",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-standard-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-standard-sleepy-almond-parted-mouth",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "018a19ebcafbefe9818a368cd7fe6616909e36f5028b3143921d9cd2fbf469be",
+      "acceptedAttempt": "shiba-standard-sleepy-almond-parted-mouth",
+      "sourceSha256": "d8c908643a9039597ef7ebcd5731c818f32d0e546d2e0b15389bef384b645dee",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-standard-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-standard-sleepy-almond-small-fangs",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "8e7e12b2e7c5652d3213ab3eb60cf8710981ac9e2fe2b0b1d6b949010e78d65c",
+      "acceptedAttempt": "shiba-standard-sleepy-almond-small-fangs",
+      "sourceSha256": "85d9655238affb311a0132920bd28cbd36ea790c48eac7ace76bd258b926e4f1",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-standard-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-shortleg-round-round-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "885c58429abb17e6a4327c11befd393a9c0d165ba74060bcf5468ec04d978c0c",
+      "acceptedAttempt": "shiba-shortleg-round-round-parted-mouth",
+      "sourceSha256": "1902fdebdd76f25e26fca0d77deb020a744aeb74c4373e1a2fd719fa44a2650b",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-shortleg-round-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-shortleg-round-round-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "047874a31c037bbb003c67679aa41e2e05a160b5a2158e0f52fa98f0ca7a873d",
+      "acceptedAttempt": "shiba-shortleg-round-round-small-fangs-r1",
+      "sourceSha256": "787f197c4c395eac9de15d915436fabcd67be9448b15a73540e295ed527d4c04",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-shortleg-round-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "5ea1196264062f6e93a90955e3f364759814a618214f2aec3881a9b905ecf776",
+      "acceptedAttempt": "shiba-shortleg-round-sleepy-almond-parted-mouth",
+      "sourceSha256": "892443a9eeb9bf474e88c14e531ea4f458aa4fa8d8b2f34831cd1f3be07fee48",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-shortleg-round-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-shortleg-round-sleepy-almond-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "d43e448e580e333bf63f31db06a55877647270b901c7d420e80edbb72ac94768",
+      "acceptedAttempt": "shiba-shortleg-round-sleepy-almond-small-fangs",
+      "sourceSha256": "9db9f0357dfa9deecc1eca5abfc713a8af30d72fcb89bc91c7d9610a1486807e",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-shortleg-round-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-slender-tall-round-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+      "acceptedAttempt": "shiba-slender-tall-round-parted-mouth",
+      "sourceSha256": "d067a2348b462f93a58e30c4539e960d8f3dc2cb6814043b9982d6d8723eaf75",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-slender-tall-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-slender-tall-round-small-fangs",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "545989983dfa7fe52eb5332de8c70948a5a34a10fbfbe1c66c3c6d1c53321ac8",
+      "acceptedAttempt": "shiba-slender-tall-round-small-fangs",
+      "sourceSha256": "2c004436e9bef9bf3f8f11288b2c139513c0418f7d467804e598e0db1e7f786c",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-slender-tall-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-slender-tall-sleepy-almond-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "0d696903df10bf21484c0a0ba63e05893e10034bece3607175e5ce80c471bedf",
+      "acceptedAttempt": "shiba-slender-tall-sleepy-almond-parted-mouth",
+      "sourceSha256": "7314d83f4912151a4353e7ca00e400730a754d6de049a8cbc5959afb4d103992",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-slender-tall-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "shiba-slender-tall-sleepy-almond-small-fangs",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "ce7261c8ea1ee3d5022edaedb25723fe1cbfbd3326e7e9e8d0dbfa3645f9cc6d",
+      "acceptedAttempt": "shiba-slender-tall-sleepy-almond-small-fangs",
+      "sourceSha256": "5419ef4d3108e94640ab1e009eea36a81ba25a5b393f617bc9894f2a213b6a21",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/shiba-slender-tall-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "shiba-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "c80e8ec01a8f1962e4adf5e226cd96c97dc355971e3c75a2ed8fd4c0e2a4f5a7",
+      "acceptedAttempt": "shiba-parted-mouth",
+      "sourceSha256": "c8ac6bd88a6717b1711231f2a13d3bbac659ab33539d43b2a01238813adb269c",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/shiba-parted-mouth.png"
+    },
+    {
+      "style": "plush",
+      "id": "shiba-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "c10e7aeb7fe1f3e4a1c5467051b7e47923ebdc825be4b1954a78e01326382b75",
+      "acceptedAttempt": "shiba-small-fangs",
+      "sourceSha256": "1a56ca7ed1c07d2f682c04caa01313187cb760f5c09abd64583d2cc5491f37a8",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/shiba-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "shiba-tongue-tip",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip",
+      "sha256": "e830351a4dadee8d4563eb27441f2e5742593c0c0b19899fac1642b41c86c77e",
+      "acceptedAttempt": "shiba-tongue-tip",
+      "sourceSha256": "2a4d2dbf4b4dc7d4a6e30f59069818ae6b0981f1369a4581e71fd7c0c8820fa2",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/shiba-tongue-tip.png"
+    }
+  ]
+}

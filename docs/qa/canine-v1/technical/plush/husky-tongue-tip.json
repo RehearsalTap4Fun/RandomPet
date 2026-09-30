@@ -1,0 +1,27 @@
+{
+  "id": "husky-tongue-tip",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/husky-tongue-tip.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "9ad90d8869cbc1bf195322c121e8ef88d741209ea6b5071fb182f581ce0a2c77",
+  "rgbaSha256": "782006b253b67ea041219215b5157900fdaf56a30942160cc30c05410e16f9b4",
+  "bounds": {
+    "left": 242,
+    "top": 101,
+    "right": 1125,
+    "bottom": 1170,
+    "opaque": 56,
+    "transparent": 906487,
+    "fractional": 665973,
+    "visible": 638248
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

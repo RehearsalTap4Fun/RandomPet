@@ -1,0 +1,12 @@
+{
+  "id": "growth-sunburst-ruff",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-858e368a-1efe-4599-9a38-7c46e9cbe2b8.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/growth-sunburst-ruff.png",
+  "rawSha256": "c4e672c709e66a7da39a9d10125092c6b78778ce6842865215875cad1663346e",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Create one independent transparent growth-part PNG for the canine asset collection. The reference dog is ONLY a rendering-style reference; DO NOT render the dog, head, face, eyes, ears or body unless the requested part explicitly is an ear.\nONE golden sunburst neck ruff, U-shaped soft collar with seven broad rounded flame-like ivory/gold tufts, transparent center and open top for chin. No head, no face, no metallic jewelry or detached sparks.\nMatch reference pixel-art material and warm outlines. Deliberate chunky square pixel clusters designed for 64px game assets; no anti-aliasing, no smooth vector curves, no fine noise. Limited palette. Large simplified details remain legible after small-scale placement.\nThe requested single component (or anatomical left/right pair) should occupy the central 75% of a square canvas, entirely visible with generous transparent margins. Treat a pair as one paired overlay with matching perspective, not a sprite sheet. Frontal view matching the reference puppy with a very slight three-quarter perspective. True transparent RGBA background, transparent gaps and holes, no text, labels, watermark, guides, floor, checkerboard, backing card or extra objects. Output only the requested sunburst-ruff component. This will be registered separately to each canine profile.\n",
+  "visualReview": "pending"
+}

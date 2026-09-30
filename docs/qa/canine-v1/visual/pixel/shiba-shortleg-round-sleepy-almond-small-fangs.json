@@ -1,0 +1,11 @@
+{
+  "id": "shiba-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy eyelids and accepted enclosed toothy mouth both visible at native resolution. Rounded shortleg silhouette retained, no extra organs or cropping; colors and edges consistent on both backgrounds.",
+  "resourceSha256": "d43e448e580e333bf63f31db06a55877647270b901c7d420e80edbb72ac94768",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-shortleg-round-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "e9eec1eadd71cacbfd5320109273d33e48bb09ee1abe2b74f715ba72aaa0530a",
+  "userArtApproval": false
+}

@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "shiba-slender-tall-round-parted-mouth",
+  "profile": "shiba-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth-contact.png",
+  "contactSha256": "09df7c741f93ebc7e524f00ab90e1c6e1bf8a3341e93318122fab6a8d40d7e85",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth"
+      },
+      "rgbaSha256": "442efd4e95adf2b53f783895ade12866577f7e5b1d6969251108a98cbd9a23fa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0f31bc57f4d17dd8f0005b92a86a58d392361b33cb4e2c53465826967ca8b3d2",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "30874550d58cc95000e1fe7ed9d889328ce2e5e2f49504314eba942585d1799c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2be3ee36403ee2c9e64a3ebfe64be901f6261839ecdecf21b080631d210efa46",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "c6ceae123d842f97dfb516419ac6e694a73f909822418b070f81b3e9f65b65e2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "44eb3d501bbdce71dbb4b6c09ca550744f59c6b2f7912ec42bfe7dfbfc05786a",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "e617453726ab0383ba116d876c46cb5d226babdb699802af7aba24f0bc110695",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "090d88da059fed580e262e5f6be13b4e90e68a89acd40676706be1e63b2049de",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "1b3b7c213ed36537e2d7c3cd7a742ecf9a4d8cc3c72c29b7b0edf6387f655ef5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e5c0dacbece61421b9fede561e24225b868b4d4bb1474916bbcbca5c7c0133e8",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "6ea68616847c034dde08b3a3a7cc61784f6f578ba9e091b272e712b94435624e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1a31bfa7417c8c2d2b628516f444b89f421d28e9d5594a4ca336a0b9dd7cfbc8",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "2f33924377ce33757004d30d332352949619da4bdc01c261255c81dea588703e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f220d09aec7b60419cfedbdb30d909b574fa183ea68613682b1769f6d56c503b",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "c4f6697856774d294ae304780bbe053a757ebb6a263fa7c394a727929aacb820",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f6d0b99aba7f6c399d7faef34375671b2a75e7fb99815136e7fea5addf8fabfd",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "37edfaa8ce8c2529540343f927704f7fd03294257a2171c30fceadceaa6518b7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a96f442c8edd52f2ab57f0bb11a7ce31ac1a0c87aef2b26527bfc29f4e60fde2",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "9d642f805bd5cd4959185ca975ab59d8e434849f52634223fb2d152583d6d65d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f60342ec2a417248cbefd09e5950b1b32487080bed88de2da6f14ab99f646345",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "a7a3329131111f6802e410f8db7b6482047a8d61b535f2fca8f4096f9192b041",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "85653466f1955f18c2ac26d68f48df21b92186746e9c9854da2831bf4dc77351",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "05b05c7c11d33437aa78771c390d15e4097728f37fe9346b782afd4e22f00572",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "50c70d95092ec6680d91157fcb566a43296e006d4aa982ecc6d6ec97f5922989",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "ae718f6f889b0f726e79e6477e0db22e43d1076e7cb4eeaae18510947634d565",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "57cd3f6786b9318b03eaa276c9b11e687b812219f81b6149b6826a795511768b",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "059d2c29a4ad0401103e66ff7431cce04b718f124c1fe437cdf297114e06e8b3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "dcfc8fab70d14698b18c6a3bc5a61db7deed65c472964316e0aa44812006293f",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "77f3cd6fb53ee3b6ef5d228a381b1f3c2d54699e2fb2f369d29c6a52353bf7f9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "66c3a818cfbf27ccfb1795123719b688961368db1efc524183c89dae874d311d",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "97e460ceec29fd2a221563bd3e03a29d5802d6ff28231e66c047e1c79c9ec801",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fcdcd2d60f59a131e112a7d8a36c67c524aa2bedba15680613b39df661f03764",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "3fd8668aa521bd1a0753e7071c94fe209bdfdcbe5ab9f09d385c2325a9d6e1a9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fee7819661e2cbc65680c841641b22b8ed6b7c77f2dcf728409af56d459cb34d",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "d4b663c56875ad09266a0e927859947e7bd8228d0c64758b0284066fe826357d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d1b82348b5274cc66c2a593ad2be3ac5037885997919da90694ae4575280fc05",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "91536470e62fd1b7d58ac06f7bfe459a731ecebf19e059f5a8e316700c53c5c1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bc7e8e873dc126531193e5e4d6cbbf9d58e8b2f4c63efc2c3c7342fb36ee1b36",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "66aef058feb217791281fb9bc69dec090269cb60a3ee391d5c080b463ab46395",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7686139c85713692a3d411a4d69ce7668d2bf95bd5bebaba0dddb5f0b528f911",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "shiba-slender-tall-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "65d418d65a58c366f22cfbbce5211a57e69c63e37208579a9c1de8ae8227b9b9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "789bc4ba5d8443ea6c074544c5b344a0ee91682d4fc6841336f2e631a91b8768",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-slender-tall-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柴犬面罩与卷尾辨识保持；换尾无旧卷尾上缘，颈部在下巴之后，三体型与各表情组合无遮脸。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:29.305Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/shiba-slender-tall-round-parted-mouth-444de81b73f639cc7f3819b9b186f17f02a28e7c1769027532c44f40f1cd1c6f.json",
+    "sha256": "444de81b73f639cc7f3819b9b186f17f02a28e7c1769027532c44f40f1cd1c6f",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

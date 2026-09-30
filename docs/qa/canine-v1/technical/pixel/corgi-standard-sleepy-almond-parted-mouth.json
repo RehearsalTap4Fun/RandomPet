@@ -1,0 +1,27 @@
+{
+  "id": "corgi-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/corgi-standard-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "d62e6dffc092b635c2ebe0db4622c87f587d160cbf0fe923e25a6c9d4fd72b5d",
+  "rgbaSha256": "dcd12195ca0c176ad331f56cd0c57119b37d2a3747db5afc145f3983388026a9",
+  "bounds": {
+    "left": 9,
+    "top": 2,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2162,
+    "transparent": 1934,
+    "fractional": 0,
+    "visible": 2162
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

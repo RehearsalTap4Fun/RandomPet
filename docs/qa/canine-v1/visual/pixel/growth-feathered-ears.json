@@ -1,0 +1,11 @@
+{
+  "id": "growth-feathered-ears",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "两侧各三片乳白金尖羽毛，分层纹理和浅绒耳根可辨，轮廓连续，透明间隙完整；双背景无散落羽片。配准另审。",
+  "resourceSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-feathered-ears-review.png",
+  "evidenceSha256": "4e59fbbc5380774fc45f77ae8c6699347a691a8acd9a029aeff37764e981cd69",
+  "userArtApproval": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "poodle-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "修长窄胸与长腿保留；左右两颗牙在深色开口中可读，圆眼与垂耳完整，尾球边缘不触画布，双背景通过。",
+  "resourceSha256": "e66f7cdb8110bb5171debc12ab4fcbe855df329a73211c351a8049cc3f9a663e",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-slender-tall-round-small-fangs-review.png",
+  "evidenceSha256": "ddf012186a45efc92af756135fbd0e5f000625e71b8e8e90c3ff8e4df201fe03",
+  "userArtApproval": false
+}

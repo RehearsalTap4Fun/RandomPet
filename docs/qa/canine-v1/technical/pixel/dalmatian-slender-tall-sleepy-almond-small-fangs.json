@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/dalmatian-slender-tall-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "0494474c8bf606ce15efcb591a2232d209789c10937d36a42f32f67617556953",
+  "rgbaSha256": "e35a66403926461f25765a73eaa0b35d1b6c2ff80e86c13a2584e8ce276273bd",
+  "bounds": {
+    "left": 5,
+    "top": 7,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 1760,
+    "transparent": 2336,
+    "fractional": 0,
+    "visible": 1760
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

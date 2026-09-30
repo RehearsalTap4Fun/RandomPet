@@ -1,0 +1,12 @@
+{
+  "id": "shiba-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-ca660c86-b9b7-41dc-82d0-25bd0863d38e.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/shiba-slender-tall-round-small-fangs.png",
+  "rawSha256": "2c004436e9bef9bf3f8f11288b2c139513c0418f7d467804e598e0db1e7f786c",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. ONE production dog sprite. Image 1 is EXACT identity/registration reference. Preserve the same breed, coat distribution, ears, nose, tail, head size, canvas placement and lighting.  Only change the explicitly requested eye/body/expression attributes. Subject: Shiba Inu, tan-orange fur, cream urajiro cheeks/chest/paws, small erect triangular ears, compact broad dog muzzle, single tightly curled fluffy tail. Style: Crisp 64x64 logical-grid pixel game sprite, discrete large flat color clusters, 2-3 shades per material, brown single-pixel-equivalent outline, no soft gradients or texture. Output high-resolution square image of this logical pixel sprite. Body: KEEP EXACTLY the reference body silhouette, proportions, width, leg lengths and paws; already correct slender-tall. Do not widen, slim, stretch or shorten it. Eyes: preserve the reference eyes exactly, including shape, glints and coordinates. Mouth: Friendly toothy smile: a closed dark-brown mouth cavity about 10 logical pixels wide and 6 tall, with TWO widely separated ivory canine fangs inside, each 2 logical pixels wide and 3 long. Dark rim on top and sides separates teeth from cream muzzle. No tongue or red patch. Teeth must remain unmistakable at 64px. Front-facing sitting pose, whole dog within frame, eye line around y34%, paw baseline y95%, head center x44%, tail on viewer RIGHT. Keep transparent margins on every edge. Exactly one head, two ears, one tail and four correctly seated paws. No cat whiskers, no collar, no accessories, no text, no sprite sheet, no ground shadow, no floor. Genuine transparent alpha background. Preserve source alpha. Do not crop or recenter. Image 2 is MOUTH-ONLY reference: copy its exact enclosed dark mouth cavity and two separated ivory fang shapes at the same logical-pixel size. Do NOT copy Image 2 body, ears or pose. Image 1 exclusively controls all body geometry.\n",
+  "visualReview": "pending"
+}

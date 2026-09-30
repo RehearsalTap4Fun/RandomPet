@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Half-lowered amber eyes, two separated ivory teeth and broad squat body all read independently. Spot map and floppy ears coherent with reference, four paws and one thin tail preserved. No clipping or alpha artifacts in both composites.",
+  "resourceSha256": "c4f82942ed47daec91959b4a3bf230e3205cbe71d5c1a9407921126a5cf07fae",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "39f0ce61201bb92d8b9ec37e52944c323f671c7551a0151eb4968c171b6e7ca2",
+  "userArtApproval": false
+}

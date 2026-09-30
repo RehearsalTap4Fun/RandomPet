@@ -1,0 +1,11 @@
+{
+  "id": "corgi-tongue-tip",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Small pink tongue protrudes naturally and clearly differs from parted/teeth variants; no teeth. Corgi identity, fur, ear shape, white blaze, tail and sitting proportions retained, clean light/dark alpha edges.",
+  "resourceSha256": "ceab6c2a9f32a37056ea2ce5752672cacd11d52cfccdf84ce3b09b77b69eda6e",
+  "evidence": "docs/qa/canine-v1/visual/plush/corgi-tongue-tip-review.png",
+  "evidenceSha256": "e3e21bd05caf393e45179d07e2da2b751829cf20920136c3b5f766c92511ff46",
+  "userArtApproval": false
+}

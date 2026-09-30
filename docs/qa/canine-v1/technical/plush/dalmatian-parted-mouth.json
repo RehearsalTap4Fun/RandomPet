@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-parted-mouth",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/dalmatian-parted-mouth.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "7df26f36bebf5eadd132fda4e274f194dc1dc9ab7e8e3991ffe8462dea370b2e",
+  "rgbaSha256": "be8aa76ceac5014c505d9fcd9798119d0621f9b29d746e68a9facae23adeab9b",
+  "bounds": {
+    "left": 80,
+    "top": 62,
+    "right": 1234,
+    "bottom": 1225,
+    "opaque": 84,
+    "transparent": 754611,
+    "fractional": 817821,
+    "visible": 772920
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

@@ -1,0 +1,267 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "a69705c1d615236a542f6385fac17222da37d931551999246f48118b66549dde",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "poodle-tongue-tip",
+  "profile": "poodle-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/poodle-tongue-tip-contact.png",
+  "contactSha256": "c5a00f59300ce88a81a4f35ffc4c898193478011f2860414bfecefc60f1180f5",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "poodle-tongue-tip"
+      },
+      "rgbaSha256": "9fe5820594cc68bac3df479f7eb6da6c43f52a56494539538f805d89bab3ac86",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8e26d3998ed5b07e396ed6e39eb461b22c81722deb3d5d07c3d5de2057bc25e9"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "959e142a8f8a9bfaa72aa331a115829627c58f22d4e431b6f71dbdf2361986e7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2955337f605e821a3bea4ea68af6cf6aa35e2d77c50fbb1d145d1d155072e9e2"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "92904df0dfd8dee5aad8a138ba7e7935f7138c05653023e93d9f73c7ffe69688",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3106adc05ff2453f8700db0e1c8352a783423580d2d5c759386dcd8428b286e5"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "25401cab0910526ff9c3ee6b9fff125aa73fcd06fc4f5021ad57595d25bc74f6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "dfc2c66ded65734355ba11070b1c1e3eee1740ed5289cf463dff6d05163897e1"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "b83d7edbc3ca7a7a31bbebb8b16474ab171946e27a2904616e8dd8438d214f55",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7d102454eaff36ab4a3dc6a3702cdacc4464535d3088815b16f21651d25f6661"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "f86aa4376750a56266fb158a2857c02873efd37757c849092428a86e15ac3fd8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c7e59021df4850329029095ff07ef1319265eb8af5d1dd052243e15d0222f34a"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "fafd0bf3f8bbc71129e2d6224aa0a1d074f79441ae9c52c65a434fd90c24d21a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bd3ff77fb3a48dd3b4bddd35ebdf381e17ae010d8cbab542eb064f8c192707d0"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "bfef9ae68f7b9dbe58520f58f0c3a77a3c0cb5602f897f95c67e366a89f7a36a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5eee28b14258436529f437cf3fd575e24b394acad4286a409df4ec4773e5fb60"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "62d96f9793560b0e9a97c28b14c94dbc133686b600c74795b44b2b7110319b90",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3c8dc55c83ed346ae45c7d8297a4654e6010671a32e7f0f11359a1eace9e6f93"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "f7ae349bebf8da250df5f6dcf161c116b847974c0eb735db61b1809d4f83c789",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bc8bca7ee2db4acd1e91b087a698f968b95842902da3328d701c49a4cd5e5ff2"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "9c3622346d2616ef434feaeff6b0a3f9ba611a68dfac01148c318753f358eeee",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "31283643ddaca072efaa8cb2ac3507c7804b19fde02f58c84732f564b28652ca"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "crown": "halo"
+      },
+      "rgbaSha256": "728fd2a9348aee17ffab2f69422e11fca4a5bfb60938167f986ad0a023b9d361",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8a1a76b2008dcc6ad247e2993d5b014d46672676196836edf30e3877f150c2ff"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "74ad8ddd027cd1728e9d390f6448d236cde832fbccb1cbd1ffb9340c570f9fde",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "89f81cd36ef52aeda3c091c9d3786ddc2131b3e28855ead5345694782338e745",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-tongue-tip--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "ca9313f43c4fb39aede2328995550d114d7434abcb35ad200053a868677ea61b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5d760885d469d462d05d7854ab5626f1ac44b82ccae66d2a4470bfe03a649a7d",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-tongue-tip--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "8a08c31e5c7b0f710e456bcd2428febb466b11df8f6f1cb2b7e0983ed94d8668",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c2931e149ef03fd5a26d3044f3fbe9912768b149d75b6cbfb4eb8ce77d8d2006",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-tongue-tip--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "poodle-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "8c15c22ed15581d8c523d720e65081a7ecaf79b51de36c961bd14f6442a0b8bb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bf000a37071880ab027e5a8b49a62f6cddb18d6fe69dde91b7545531f6096f72",
+      "path": "docs/qa/canine-v1/composition/plush/poodle-tongue-tip--combined-4.png"
+    }
+  ],
+  "reviewNotes": "贵宾卷毛头冠保持；换耳后的两处残余暗像素已清除，耳遮罩不再截断尾球；小尖牙与半睁眼组合可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:33.207Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

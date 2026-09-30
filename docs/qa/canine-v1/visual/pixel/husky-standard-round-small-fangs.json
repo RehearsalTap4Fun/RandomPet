@@ -1,0 +1,11 @@
+{
+  "id": "husky-standard-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Two pale teeth remain visible in dark smile at 64px; blue iris pixels, husky mask and upright ears match approved reframed mother. Four seated paws and one bushy tail retained with safe margins, clean dark/light composites.",
+  "resourceSha256": "c51278314b59593e3ad2f3df20da7ea5a1d9c06691ee0debaf8e2e64cfa40af9",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-standard-round-small-fangs-review.png",
+  "evidenceSha256": "b73a4ecb6a27a0b434c667752d224f7be806e10ca8c36adba1161fa40f476160",
+  "userArtApproval": false
+}

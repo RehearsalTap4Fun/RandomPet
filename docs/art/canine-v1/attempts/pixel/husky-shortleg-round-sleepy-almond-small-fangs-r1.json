@@ -1,0 +1,12 @@
+{
+  "id": "husky-shortleg-round-sleepy-almond-small-fangs-r1",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-019346b9-b6a5-41da-9621-81942c78a381.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/husky-shortleg-round-sleepy-almond-small-fangs-r1.png",
+  "rawSha256": "debd6318b0c53f1f532ed6287818ba17d3efbcf1797b4ea71138637166bc2161",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. Edit ONLY the EYES of this exact husky puppy pixel sprite. Production deliverable will be resized to 64x64 and quantized to 32 colors; current blue irises vanish. Make BOTH sleepy half-open almond eyes clearly blue: each eye has one LARGE SOLID SATURATED CYAN-BLUE iris cluster (#168ADD) at least 3 logical pixels wide by 2 logical pixels high, below a dark horizontal lowered eyelid. A small dark pupil and at most one small white glint; NO tiny blue specks. Preserve HALF-CLOSED sleepy look, not round wide-open eyes, but make blue area much larger and unmistakable at 64px. Use exactly the same blue in both eyes, no blue gradient. Everything else unchanged: grey-white husky mask, erect ears, short-legged round wide body, four paws, one right bushy tail, dark smile with exactly two separated ivory fang tips and no tongue, exact framing with 4px clear edge margins. Crisp 64x64 logical pixel art enlarged to 1254 square, discrete flat pixel clusters, brown outline. Genuine transparent background; no shadow, text, accessories or scenery.\n",
+  "visualReview": "pending"
+}

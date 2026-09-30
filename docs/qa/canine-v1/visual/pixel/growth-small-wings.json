@@ -1,0 +1,11 @@
+{
+  "id": "growth-small-wings",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "一对乳白小翼，每侧三个圆润羽瓣和向内下方的翼根完整；中心透明、暖色描边清楚，无躯干残留。配准另审。",
+  "resourceSha256": "0dccb4440a1448c2213274ad593eb2a0c70b2296728386b673ef5bbc4410a0fb",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-small-wings-review.png",
+  "evidenceSha256": "67e1fec3b5b2cb8f59dafbb833be2997197efe0b9cee0bc04d5a2823014a46b8",
+  "userArtApproval": false
+}

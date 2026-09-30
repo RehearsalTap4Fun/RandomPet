@@ -1,0 +1,12 @@
+{
+  "id": "growth-feathered-ears",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-c5f734f7-1896-46dc-8236-ee1e80cd5b8f.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/growth-feathered-ears.png",
+  "rawSha256": "79489a4e8acbb3a0f7c1c26121d4ab954ba0336b074e087d2ed2dc9e46381f85",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Create one independent transparent growth-part PNG for the canine asset collection. The reference dog is ONLY a rendering-style reference; DO NOT render the dog, head, face, eyes, ears or body unless the requested part explicitly is an ear.\nExactly TWO fantasy feather replacement ears, outward upright fans of three broad ivory feathers with warm golden tips and soft cream root fur. Roots face inward, genuinely transparent gap, no head, no original ears.\nMatch reference pixel-art material and warm outlines. Deliberate chunky square pixel clusters designed for 64px game assets; no anti-aliasing, no smooth vector curves, no fine noise. Limited palette. Large simplified details remain legible after small-scale placement.\nThe requested single component (or anatomical left/right pair) should occupy the central 75% of a square canvas, entirely visible with generous transparent margins. Treat a pair as one paired overlay with matching perspective, not a sprite sheet. Frontal view matching the reference puppy with a very slight three-quarter perspective. True transparent RGBA background, transparent gaps and holes, no text, labels, watermark, guides, floor, checkerboard, backing card or extra objects. Output only the requested feathered-ears component. This will be registered separately to each canine profile.\n",
+  "visualReview": "pending"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "poodle-parted-mouth",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "杏色卷毛、蓬松顶毛、垂耳与尾球明确呈现贵宾；眼神和微张嘴自然，四肢完整，深浅背景无可见硬边，顶部脚底均留白。",
+  "resourceSha256": "59fc17c73e3c5fcee07b11eca57ffa8d88cfbf7a550c59ef025459e05a6dc48f",
+  "evidence": "docs/qa/canine-v1/visual/plush/poodle-parted-mouth-review.png",
+  "evidenceSha256": "16943e6777cae6ec0465c90d547ba50650c70d46dfafb1ad908139cdc5deb621",
+  "userArtApproval": false
+}

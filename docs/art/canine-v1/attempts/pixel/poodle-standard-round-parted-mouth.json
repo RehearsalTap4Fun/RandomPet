@@ -1,0 +1,12 @@
+{
+  "id": "poodle-standard-round-parted-mouth",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-c5f9e15e-1686-45e3-9d1d-29a7b3322ff8.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/poodle-standard-round-parted-mouth.png",
+  "rawSha256": "62036dc2d662fedfd4a5fe9f7fa364746db2098006a245703dffef3d8e0ffa27",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: stylized-concept. ONE production dog sprite. Image 1 is STYLE/REGISTRATION reference ONLY. Replace the breed with the specified dog, with correct breed ears, coat and tail; do NOT keep Shiba anatomy. Subject: apricot toy poodle puppy, soft apricot curly coat, rounded curly topknot, drooping curly ears framing face, dark brown eyes, rounded dog muzzle and black nose, single small pompom tail on viewer right; recognizable poodle curls, no shaved show trim. Style: Crisp 64x64 logical-grid pixel game sprite, discrete large flat color clusters, 2-3 shades per material, brown single-pixel-equivalent outline, no soft gradients or texture. Output high-resolution square image of this logical pixel sprite. Body: Standard cute compact seated body proportions, oversized head, two forepaws and two seated haunches. Eyes: ROUND wide-open expressive eyes with a simple light glint. Mouth: Natural tiny parted mouth, dark interior. No teeth, no tongue. Front-facing sitting pose, whole dog within frame, eye line around y34%, paw baseline y95%, head center x44%, tail on viewer RIGHT. Keep transparent margins on every edge. Exactly one head, two ears, one tail and four correctly seated paws. No cat whiskers, no collar, no accessories, no text, no sprite sheet, no ground shadow, no floor. Genuine transparent alpha background. Preserve source alpha. Do not crop or recenter.\n",
+  "visualReview": "pending"
+}

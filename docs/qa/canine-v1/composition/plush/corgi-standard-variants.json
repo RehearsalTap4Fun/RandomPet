@@ -1,0 +1,39 @@
+{
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "sha256": "607ae9137f10bbbc8560268732e1c791afa33864b8268d84e05d1a82abe222da",
+  "reports": [
+    {
+      "id": "corgi-parted-mouth",
+      "contactSha256": "52a83b3bcdba131d7c2d8d5c9317f2def08478cd7b617c2f781b089c928973cb",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-small-fangs",
+      "contactSha256": "4fdeb06a0c4a4b45d7b5449114654479008c34f600e27dfb15544e03f81d1edd",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "corgi-tongue-tip",
+      "contactSha256": "f0f2dd2bea8bee2b02ec6909fa13f07a3fa75e5d78e68b0cded4a7ed8fe096d7",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

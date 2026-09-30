@@ -1,0 +1,12 @@
+{
+  "id": "dalmatian-standard-round-small-fangs-r1",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-46b39e32-3388-49d3-b6fb-875986ec9f26.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/dalmatian-standard-round-small-fangs-r1.png",
+  "rawSha256": "fcd773877752da696d47e4d91b89685e150a346e52de490b76889b1d936ee135",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. Change ONLY MOUTH of this exact Dalmatian pixel puppy. At FINAL 64x64 output both fangs must be isolated and legible. Build a CLOSED dark brown oval smile cavity 12 logical pixels wide x7 high, under nose. Two widely separated ivory upper fang shapes inside: each 2x3 logical pixels, left at 1/4 and right at3/4 mouth width. CRITICAL: continuous dark brown rim at least TWO LOGICAL PIXELS thick across the top and both sides of the mouth separates teeth from all surrounding white muzzle fur; dark gap at least 3pixels between teeth. No tooth may touch white cheek/muzzle. Bottom mouth stays dark. Do not use a thin one-pixel rim or overly tiny mouth. No tongue, no additional teeth. Preserve exact round amber eyes, floppy spotted ears, black spots, standard seated body, four paws, one thin spotted tail on right, same framing and size. Crisp flat 64x64 logical pixel sprite enlarged to1254, no antialiasing or gradients. Real transparent background; no shadow, text or accessories.\n",
+  "visualReview": "pending"
+}

@@ -1,0 +1,50 @@
+{
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "sha256": "aa3138e57f463a9a5c5b1090d664cd38f6efd88eb05c254092688b4756d0b781",
+  "reports": [
+    {
+      "id": "dalmatian-standard-round-parted-mouth",
+      "contactSha256": "30af3c8f61a487b709079ad7a950ee3b71a809b8a5c44793c658c5bb3fbac157",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "dalmatian-standard-round-small-fangs",
+      "contactSha256": "5fdef537d9df8160bda090f636bd140dcdbb2c0aa0d3c02de073e7c9e21b29fc",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "dalmatian-standard-sleepy-almond-parted-mouth",
+      "contactSha256": "90e851a8a3c9a8b7c5a826fa8802b601ce4172738d0c36f4cd2a7fd52efc0639",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    },
+    {
+      "id": "dalmatian-standard-sleepy-almond-small-fangs",
+      "contactSha256": "84ac90b96fefa2a2d7cfae3a9384835620f286a2d598f316ce9b87931acf4eb0",
+      "cases": [
+        "none",
+        "combined-1",
+        "combined-2",
+        "combined-3",
+        "combined-4"
+      ]
+    }
+  ]
+}

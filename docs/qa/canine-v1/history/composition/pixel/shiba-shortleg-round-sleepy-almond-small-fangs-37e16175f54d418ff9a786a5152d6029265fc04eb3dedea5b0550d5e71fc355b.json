@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+  "profile": "shiba-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "c969e2c58a4ef45b113b0cc1295a0dadd7a5b45374b8d47c9a654cf06092028f",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "726b95484af74c92f853ee4f503f82624f3038a8544c2346566ff7da5dbe24a8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "79cb0df165b7cd20a39849386ce3447e85699f488af86a635da4a18322ad8667",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "4a362f1b07ed16be8655359f3d78543f7778026e9a7eafa9c5d1bd80411cd073",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f1d97e78796fed6812168ceaf88ac42f7a8787de04187a3cb21188c6176e586f",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "3d27c28c79d7052a0d418bc83199beb631b8f3d5a90e2671fc95a77783a6979a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9317da944a5b8bf9f1963fa4613b8a2b2e48c558f7b4d44209cd7f9a870f205c",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "99cc962904948840be7ac0d3286b3e936c040a77ee45ab29069d5ca9486700fd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3e408e6fa6dbd5fced614385dd21ee31d350c15f281eb6c414f496be482908f4",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "86e7fef3d84d3532c8a9920796ba92e738b37dfdc2a77183cdb4e3bc58555cd0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "490d261b93a27dc2b68659e963f30de302222bcfeb63e9bfdf62db94bc211f81",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "ab2041881145afe55041c53c56bd76e21cbfb7de660a4ff6fb3ec78d5a14a109",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "49d59a53daae12c9a0bef5e8a444fc0e6269a2a1f63125b7c01f0024c68993fb",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "fa74c2c3fb75c2d1be739c7e94115367204299df7304eb5dfb01fdde02b41e92",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "93f34a5a33c3dabfe8f6ca6334fd97711f4d09c2633ce1ca416ceb4214994762",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "a86b9fb616a7a9771c0526deb0188ec6893ef122abf1ee9d58cb429c57a243e4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "16f099ab580bf8fce8465cd0cc6c8e95bfee98691fae613470a78c61026f4c7b",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "b1a107ab0b3417ac01f4d29d3aaa3ce669c570d329146ea43dfc48fc2465755c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b79f1ecc8cb045424e5516e0cc8a6e54c964511c8080e364350d5b09f24eeb61",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "393aafab40cdc164a3a90114ca23c4e5fde6a67dfaa875354e8f6d754c88c926",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a022968c20ebcf600020017878d75c7d4faf3d42ab1334cf2055ebb7f626948d",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "df751417e94dd2a7d6c7aee089a024491028e43c3ea688047c393198b1e1dcbf",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "073bc179c6766508db0e5d0e5321519d9dfc99ee26c18f81b7efdd801425ad5e",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "7daa53aff3a44f5146378bd6963025c7a512679c25afe823c1745d7bdf8a3957",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e01aeb2e101b3315b7a37084fc8d9e38ba865fda28e096fbe06a972e0c9db629",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "bb27ad6bb25bb79449d5ad0f4791a6663c0b4833b6848f8d912b8fcc5ebe19ff",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "69835f64fb1d72fe99e36e5d247805d9d8cf6fbce0e5a99cc99df641edb26d00",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "8a25e3bb7db95a37a2cff4ba4cf77a7548cad00ebf1100999f758c84f516b698",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a792907f54e50698c30291ebb73c1ab0dd4afe28e627525b1e8aad8e28546f8e",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "38a1001eb24f92b8a6490b665f86dd73ab1b2e022f6087749766c916c3795650",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b68584b211f0451ff41c2c8ae920617f050786566680e99210f9342df8478ce8",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "ab0179393c7ab0e283f5e35df6665337e103c3504808f22aee2832260804ade0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7bf0ab437be72539e0c16f9c229634b0a15680782e28221172e4b60385863d03",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "9f907ee7b62005aa7e733063100701cc79ff20244265bc6d301d90ff2ffc08c2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3ba080d7df7af8ba5202446346dd76fe789a8ed807e925424e9fb843685d5cca",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "a1cb9959422c4264a1cbbad31ddb7ef37d8173dba396b0b6ac857cd9436d6e5c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5fcbbefa8216ef4a7c8c59ed822f40670584dc582b1f505f7058fd634020d4e5",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "f6dfe1a9f5e6cb8e42d9643fb629990056fa9caf82abcb01495848e229dfccd9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3650d5dcabf03cd5aa8d9d92a95ce3a2a0803bbacb5cdcb62001e2e3aa77d90f",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "2283160c809cd3adfe08452eec8a12f9782ee42513fa9f5277ef98b4c74802f0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9705d2d1fbe4b977553c76ad76bc52a3b1415b02a863da8ed59ec4bdec3e2f0e",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "shiba-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "6e16f527caec9c0f54aa4000b5d9ee63a6c7237ddc48729ee746fa4b1db23aa2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d31999e84901f0c6c6cac94ae2cec6a786b572c3ef2dfec49d277e720e7d7855",
+      "path": "docs/qa/canine-v1/composition/pixel/shiba-shortleg-round-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柴犬面罩与卷尾辨识保持；换尾无旧卷尾上缘，颈部在下巴之后，三体型与各表情组合无遮脸。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:29.255Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "corgi-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Clearly narrower tall torso and longer forelegs versus standard/shortleg while corgi large ears, blaze and short tail remain recognizable. Parted mouth and round eyes legible; all limbs and tail inside margins; clean light/dark alpha.",
+  "resourceSha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+  "evidence": "docs/qa/canine-v1/visual/pixel/corgi-slender-tall-round-parted-mouth-review.png",
+  "evidenceSha256": "5b706ad4f93029463ae0327da04aab615dfecf821293940b6d14ecd6244070f8",
+  "userArtApproval": false
+}

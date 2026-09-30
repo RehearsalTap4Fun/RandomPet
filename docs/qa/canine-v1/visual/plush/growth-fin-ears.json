@@ -1,0 +1,11 @@
+{
+  "id": "growth-fin-ears",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "双侧青绿鳍耳均有三条柔软骨架、浅青膜面及乳白绒根；根部连续，透明中缝完整，双背景边缘自然。原耳清除和配准另审。",
+  "resourceSha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-fin-ears-review.png",
+  "evidenceSha256": "6769932e2965f1061334058ca50afabd6d5a7a900c280194b942cf20b19f0824",
+  "userArtApproval": false
+}

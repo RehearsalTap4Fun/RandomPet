@@ -1,0 +1,11 @@
+{
+  "id": "husky-standard-round-parted-mouth-r1",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Framing repair passes: tail ends x58 and paws y59, clear alpha margin all sides. Husky erect ears, symmetric white mask and blue iris pixels remain recognizable at 64px. Tiny parted mouth, four paws, one bushy tail; no halo on either background.",
+  "resourceSha256": "fa5fcd681534ae1b16d3405e062877a377983506dbe8df7dc1a6b8ee9fd22d24",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-standard-round-parted-mouth-r1-review.png",
+  "evidenceSha256": "fa18d8b1a1a2c21a9f42b351618163ef8a303f7e4f3b93680ac85ac324e05ed6",
+  "userArtApproval": false
+}

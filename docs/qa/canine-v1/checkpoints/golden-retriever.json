@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "canine-production-checkpoint-v1",
+  "scope": "golden-retriever",
+  "status": "checkpoint-passed",
+  "goalComplete": false,
+  "bodyCounts": {
+    "planned": 90,
+    "reviewed": 45,
+    "verifiedHere": 15
+  },
+  "remainingBodies": 45,
+  "partsStatus": "not-yet-produced",
+  "claudeNotified": false,
+  "checks": [
+    "file-and-rgba-hashes",
+    "review-evidence-hashes",
+    "original-generation-provenance",
+    "real-alpha-and-size",
+    "unclipped-visible-content",
+    "distinct-variant-content",
+    "pixel-128-exact-nearest-neighbor",
+    "max-three-reworks"
+  ],
+  "rows": [
+    {
+      "style": "pixel",
+      "id": "golden-retriever-standard-round-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "f2af0e86e533bb1753b21566192aff8bfb3ad82b20106fbfe5b957e5ad21db40",
+      "acceptedAttempt": "golden-retriever-standard-round-parted-mouth",
+      "sourceSha256": "4cc667ee71ddf83f2dfc9d4e305a9db14aad282134f638b4d402d6add8d65590",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-standard-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-standard-round-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "aa7d6b374a31c7ce67cc91ab850c3c77b430d575e07e25dbd511da301f9065cd",
+      "acceptedAttempt": "golden-retriever-standard-round-small-fangs",
+      "sourceSha256": "72d24915ea26a13ca049bbbaa6bd40fa065095040984526e8de818d1eb997519",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-standard-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-standard-sleepy-almond-parted-mouth",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "9e29a2340c3d3c43d75bee91fb25e59c23ec46e855c987d06d91c0521f907f2f",
+      "acceptedAttempt": "golden-retriever-standard-sleepy-almond-parted-mouth",
+      "sourceSha256": "08e092e41fe1eda868908cf128b8e89ebde28b7941fc040ec6c05d2dc1c17ba1",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-standard-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-standard-sleepy-almond-small-fangs",
+      "body": "standard",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "e0e8cd4b153acf814c28255ae2534fb5a70bbe3609fdb101fe7ce26f281261e2",
+      "acceptedAttempt": "golden-retriever-standard-sleepy-almond-small-fangs",
+      "sourceSha256": "6e95c7e3d39f9a7ee63c987c70dba4544af53bbff019af68e084b65a3bde6af0",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-standard-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-shortleg-round-round-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "24c3a67944c388ca2d9915f5967ced7c9465e9236082ea21569792556081068e",
+      "acceptedAttempt": "golden-retriever-shortleg-round-round-parted-mouth",
+      "sourceSha256": "3a2186f08807fd8d87ce26a4b590f6ef6ffadb437a0fff28b0d98092ff5f3212",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-shortleg-round-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-shortleg-round-round-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "b908500b990465699eb8f3b8b75e1cc3310eccbab6fcd05ae8822240ca4f21a2",
+      "acceptedAttempt": "golden-retriever-shortleg-round-round-small-fangs",
+      "sourceSha256": "2354b0b7207f163b14f6bc9b75d5836d9e20ddfe829d98ef5755e85645b08506",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-shortleg-round-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "48fc5936295d3c0de30797601f5e23db4eee23e641ddbe95bc14d44ffbd119b0",
+      "acceptedAttempt": "golden-retriever-shortleg-round-sleepy-almond-parted-mouth",
+      "sourceSha256": "32d87df07f28ba7aec4e15be4849e6b50099961d1113de21ab0167b360cbcf57",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-shortleg-round-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+      "body": "shortleg-round",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "c13f850e9ddb299c6ac5bee69c903e0a8029d8af5bd96626d751ce9a364a03a5",
+      "acceptedAttempt": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+      "sourceSha256": "a2a893b6c16ba8462a73884713fbd7bccad227dcd718e4a1843de6cd789ae897",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-shortleg-round-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-slender-tall-round-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+      "acceptedAttempt": "golden-retriever-slender-tall-round-parted-mouth",
+      "sourceSha256": "8cea906da41e431363ffc993382872679c14b4f61da8b9dea2d9ac65e322c54e",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-slender-tall-round-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-slender-tall-round-small-fangs",
+      "body": "slender-tall",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "d4571dec6556a5307b9af03166d8e188cf6c21e58b35a2e0cac1e61441ad3ebd",
+      "acceptedAttempt": "golden-retriever-slender-tall-round-small-fangs",
+      "sourceSha256": "6963a9ba3ee64866eca08da116150ae134b9659c9e93b06eeb91810b738c0b08",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-slender-tall-round-small-fangs.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "parted-mouth",
+      "sha256": "e45485f5f39d5503b58b3f2f367820e9b4947f85bc352497ebbde9d4089c9887",
+      "acceptedAttempt": "golden-retriever-slender-tall-sleepy-almond-parted-mouth",
+      "sourceSha256": "abc3b467b4f0067e18452f40318b867032f489bea898d0aaccffb7cb25c66e1b",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-slender-tall-sleepy-almond-parted-mouth.png"
+    },
+    {
+      "style": "pixel",
+      "id": "golden-retriever-slender-tall-sleepy-almond-small-fangs",
+      "body": "slender-tall",
+      "eyes": "sleepy-almond",
+      "expression": "small-fangs",
+      "sha256": "7449389c9f13cce460034ac8a859dc8215bbadadd627f3c105cccdbab5c76101",
+      "acceptedAttempt": "golden-retriever-slender-tall-sleepy-almond-small-fangs",
+      "sourceSha256": "9f16cdb2156557c97b111fad7d188ac4f4d2cadf2c47673776b1d0f557864675",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-slender-tall-sleepy-almond-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "golden-retriever-parted-mouth",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth",
+      "sha256": "2f7537876bde6ff05a0dbfb0478cd5e9c93857117186264c47c7bc3cb31459ea",
+      "acceptedAttempt": "golden-retriever-parted-mouth",
+      "sourceSha256": "c618d3e46190992e919ccb97a7257010ce2da75965e56bb4a4ff3a61fb94ef66",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/golden-retriever-parted-mouth.png"
+    },
+    {
+      "style": "plush",
+      "id": "golden-retriever-small-fangs",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs",
+      "sha256": "e56e257df773720ac3b429140255096904be054979604a946650a389f8bfaae7",
+      "acceptedAttempt": "golden-retriever-small-fangs-r1",
+      "sourceSha256": "09cb0e43152b0089a3ff0d6a3b1b145d7d47f1d4dd22d47413887421196d48d8",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/golden-retriever-small-fangs.png"
+    },
+    {
+      "style": "plush",
+      "id": "golden-retriever-tongue-tip",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip",
+      "sha256": "24468c75e9d3d00db96fbd7721e206e87ecb8c957420472d8713d1f60a5b5b12",
+      "acceptedAttempt": "golden-retriever-tongue-tip",
+      "sourceSha256": "5417ef766e5302c8f20dab93664e1045676a342e136c7e9e6714499332135e42",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/golden-retriever-tongue-tip.png"
+    }
+  ]
+}

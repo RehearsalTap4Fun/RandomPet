@@ -1,0 +1,27 @@
+{
+  "id": "poodle-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-slender-tall-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "b6da3a8868ee1e6828e54eca0bc10f93d7c01b1fdb0ccb998cf18b24df729943",
+  "rgbaSha256": "3af736c8cbe1af5fb1cc1b755d10259b5826390875fa5b529d7807bfd55e01f0",
+  "bounds": {
+    "left": 5,
+    "top": 4,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 1974,
+    "transparent": 2122,
+    "fractional": 0,
+    "visible": 1974
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

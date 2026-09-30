@@ -1,0 +1,11 @@
+{
+  "id": "growth-dragon-horns",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "独立双角完整，乳白高光、金棕阴影与暖色描边符合像素主体；中间真实透明，深浅背景无底板和杂物。此记录只批准原部件，配准另审。",
+  "resourceSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-dragon-horns-review.png",
+  "evidenceSha256": "0a64edfb6478e4c80cd266df04b3216f6d3f506db8f4cb8c8b56f341487209b1",
+  "userArtApproval": false
+}

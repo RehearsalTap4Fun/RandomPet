@@ -1,0 +1,27 @@
+{
+  "id": "shiba-parted-mouth",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/shiba-parted-mouth.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "c80e8ec01a8f1962e4adf5e226cd96c97dc355971e3c75a2ed8fd4c0e2a4f5a7",
+  "rgbaSha256": "8f6cb94ffbb1a8b2516e6461f3df42e3e3d1e333a52a279260beeec82731a955",
+  "bounds": {
+    "left": 216,
+    "top": 31,
+    "right": 1214,
+    "bottom": 1221,
+    "opaque": 18,
+    "transparent": 722921,
+    "fractional": 849577,
+    "visible": 809402
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

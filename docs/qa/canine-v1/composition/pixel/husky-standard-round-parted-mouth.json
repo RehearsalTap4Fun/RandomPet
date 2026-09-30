@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "husky-standard-round-parted-mouth",
+  "profile": "husky-standard",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth-contact.png",
+  "contactSha256": "ad88891854c099734f13a65415781c317f371a9ee85a1c80cf407646d5f5ce0a",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth"
+      },
+      "rgbaSha256": "fde80d5bfb52db5cca72f929d5bd5abe4c5862a3dbbdd7a580f0c991fc5205c4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "50571c807953a2eb20482caf98a9f80fba956a815e1bf57cc2a2a8db41dedf82",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "2b0a6e7817ceffc8fa780e68451e577198b01acd75241e43217c4800607bae3a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "62c5e4288ee97ac823c71356747a4c9bec50058001e5ffe9c720cfc7477fdb9a",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "ed08d10b69613e96237a92b6e11b0384875ca77cc338ed96411553d9503a791e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "db848bbb6e5c6812f8c076124a19c417abac2d86255839a48e4db1540fa54a37",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "ad433df2d5075e61ddbf324440e848baff96e32e34b4a30c0186f26f4a898ac9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1feabce623e4d97233094e2c391fa6d9142df4f1951bd19188897f0f1e6a197e",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "da0a9852cfd0497a9b8657e09e6bd07d6cc7fdf718b7752f004a83929d59a0c5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ddb2b3015cb51959e6288ea50854435249be0a4bcab31d0d0107660f14945ed5",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "5f4080cf13fb683a26eef40e5f11a4ea7a9540156eee51bad74d81dc82c18fd1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d759cfb78b88811aa8991a8c36c59db0f733f58d170de1cf32ce045b6ebadd83",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "a1038872406af7c3dc300970d40a0cc0480c6ad703e992670c6c24c926e7bb2f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b36cc8c37bf068b39e64d27f37afaf6845369ff1cad80805bec9aee7d3b25171",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "52d1dd100b131847c7d0b3f303864158410cffacbcc1eedc4eb38f294ff19a55",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b3b081c9d71943fd49b7c2a4d9a334d1f8e4993ec381dbc6fa1bf2d685ba7eda",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "755db901320be4d53e0723f3c1c59553db99f8a82fc005d12ea3bccb5a80fc2f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "49efc0b10b3fc006ceee6c5ca76ffd8db94334b9791826d8ccec82ebffa2b8fa",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "176ffec8abea9c82f156f8667772da3b5990c4770a3f343e7b51c3aed2c38b14",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "97476de08a3bc940ac9f4cac5a92add10f8cc55c0ebe860e04cca51b36ad65e8",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "03a3719d3fcc122a729ee24ffc87cdd881765bbc930ddc82af933e1512bbe16a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a1a65ed480616df30a1198620adcd1ca3d53b14ed67b04c2b6f3d019628699e2",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "dbb3733ebda4a8bb68ed3b7746e2790b421685c5415aae4fd78031b4678984bf",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "40cc9afc5320e0efd9bbbffd2f4dfd38db3478acdd129587d97d8ba89b651337",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "a4de1c06a2de6e7cb6022619b6febfceabcfb41fdcb601c0f4b107138b93db45",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5480de5d2bc3b9956645b5f30c8e60cacf5854c49154655663b31395dd9986d0",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "8aa1d14ccd2854c6aed679dbf7d515dce56eb3594980bc43e5826ea5e247e017",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2b9e0e47d854b8fedb0da34f164052544d2ff6bce20b105527c62495b6d3b4bd",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "c8839e84b25e73f3e7c19fd11da3795999dcbc8e50ba17a411c71acd986559ad",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8540d8821d7e2b83e99d2a28a7a0d36210d63d648d64bd04940e6622e19d6c89",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "de8cc91c7b81c93f6173d6398dca7ad0b173f8e33293dd76898180509e59196a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fce96eeb0bb6f47e7f594d16803d5b890529abb10d91fca29d1b8e44568023bd",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "8f7daecc25a0c4616625c0429e2318c8aa1bcca53822f133eb9f8b19683c5f7c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5e5d7e2eed8898b1e89704645b35eded0775e7cbb10193a0ec227b03ec9ba184",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "241c61a74e105871955a5162e07f92fd491086f368edbef194e69c77ea1a9ec6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9c16f06933cb1ed042e689b26dcfb5d223da175f84d5bc1b1b75496473b25fbd",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "488ab6dd4eac5d983f966b3038fa30776ddd9ff68ed372ff646bf0cad4f9178a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9f5a9005a97ebee21da329ba5445858fd143d7420958a966c526f170eee61697",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "bad2501cbd422f93f86a8c7546e8e9510409f6b997cf049f48a31ce013f49d4e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "07f2ebe9353600548b95b53b2670cd50988b9a014fdb929ca04c7966376d8662",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "husky-standard-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "cbb7fc154822386d739c4b413c5c6b8f2f4888597a4a86d880c6dd11ec2c79f0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "03d0ec6ed19ce6afe42660354b6f3b5ffdff3cb8f370984658bca6fd2b8436ff",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "哈士奇面罩与蓝眼保留；颈部下移到实际下巴后，原灰色卷尾已清除；各体型与表情未被成长部件遮挡。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:30.661Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/husky-standard-round-parted-mouth-a9cde77594e1258f92978e772f0172f297606a743e85b25a72660abfa5f3d8d7.json",
+    "sha256": "a9cde77594e1258f92978e772f0172f297606a743e85b25a72660abfa5f3d8d7",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

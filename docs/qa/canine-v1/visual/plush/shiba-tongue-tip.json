@@ -1,0 +1,11 @@
+{
+  "id": "shiba-tongue-tip",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Natural short pink tongue integrated with mouth, no teeth; same Shiba plush identity, coat, pose, tail and paw baseline. Light/dark composite clean, no cropped anatomy.",
+  "resourceSha256": "e830351a4dadee8d4563eb27441f2e5742593c0c0b19899fac1642b41c86c77e",
+  "evidence": "docs/qa/canine-v1/visual/plush/shiba-tongue-tip-review.png",
+  "evidenceSha256": "36512beb24d35b07c5ec3582e26cae0dd53e4f336329c99dc8cc67d937904611",
+  "userArtApproval": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "poodle-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "半睁眼与两颗小尖牙均清楚，窄胸长腿和卷毛尾球完整；双背景无悬浮杂点或裁边。",
+  "resourceSha256": "3cf5ac62c20aefd921b011f6b999604067a3015424f7efe574be671034f19abb",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-slender-tall-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "b4b8aa186d89eb0b47b064a37e5fa91b7791c46b22da4f14822a95dee37ef83f",
+  "userArtApproval": false
+}

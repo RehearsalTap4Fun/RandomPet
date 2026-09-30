@@ -1,0 +1,11 @@
+{
+  "id": "husky-small-fangs",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Exactly two upper puppy fang tips naturally emerge beneath furry muzzle, dark central cavity with no extra teeth or tongue. Blue glossy eyes, white husky mask, seated limbs and bushy tail match reframed base. Comfortable margins and clean fine fur alpha on light/dark.",
+  "resourceSha256": "29a5e416547d22de56caf61922bec4b69d0ab9906e105d0c9faf20a988ccc32f",
+  "evidence": "docs/qa/canine-v1/visual/plush/husky-small-fangs-review.png",
+  "evidenceSha256": "5e1bddd1229a0e5ae71bd113a97dd02d84641a6adc40c773c1a628a882bc3db4",
+  "userArtApproval": false
+}

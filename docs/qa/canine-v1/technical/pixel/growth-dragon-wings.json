@@ -1,0 +1,27 @@
+{
+  "id": "growth-dragon-wings",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-dragon-wings.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "c6f3e35997d7729ebaf06ddea7e7b054a0a04dabac4f1bd5752f3d69039c0e06",
+  "rgbaSha256": "0ed19234c1768b95a0068e3ace33e21a48664191f1923e84df288078096d2bb4",
+  "bounds": {
+    "left": 2,
+    "top": 15,
+    "right": 61,
+    "bottom": 50,
+    "opaque": 981,
+    "transparent": 3115,
+    "fractional": 0,
+    "visible": 981
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

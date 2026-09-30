@@ -1,0 +1,28 @@
+{
+  "id": "husky-slender-tall-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-slender-tall-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "abe930efd8adce8e721f5ea5e96c133a5d454713ee257ea521f53da18283f6a9",
+  "rgbaSha256": "24e0fe9c241146972bb71717f262bdf0f5a8a929035967afc20c040845577cea",
+  "bounds": {
+    "left": 14,
+    "top": 7,
+    "right": 58,
+    "bottom": 62,
+    "opaque": 1574,
+    "transparent": 2522,
+    "fractional": 0,
+    "visible": 1574
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending",
+  "acceptedAttempt": "husky-slender-tall-round-small-fangs-r1"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "dalmatian-small-fangs",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/dalmatian-small-fangs.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "84487a9498958193d846ceb51f3364d55a505b7b0e84fc82ebbfb32bd06ef9c4",
+  "rgbaSha256": "355aa273c8502a5be446080fc56e3b63129e0ccbfea89987792fbcf87ce4c7c0",
+  "bounds": {
+    "left": 77,
+    "top": 60,
+    "right": 1237,
+    "bottom": 1227,
+    "opaque": 89,
+    "transparent": 754214,
+    "fractional": 818213,
+    "visible": 782950
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

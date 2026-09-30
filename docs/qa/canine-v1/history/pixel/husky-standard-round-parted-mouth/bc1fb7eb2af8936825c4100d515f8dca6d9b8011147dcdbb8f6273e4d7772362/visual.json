@@ -1,0 +1,11 @@
+{
+  "id": "husky-standard-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "fail",
+  "notes": "Technical failure: normalized tail touches rightmost x63 canvas column, no safe transparent margin. Husky mask and erect ears recognizable; rework entire framing slightly smaller while preserving anatomy, ice-blue irises and no clipping.",
+  "resourceSha256": "bc1fb7eb2af8936825c4100d515f8dca6d9b8011147dcdbb8f6273e4d7772362",
+  "evidence": "docs/qa/canine-v1/visual/pixel/husky-standard-round-parted-mouth-review.png",
+  "evidenceSha256": "9c1dddb50ebd691c69717a55b5396917d5af44ebf6fe8e54871907a31b4a399c",
+  "userArtApproval": false
+}

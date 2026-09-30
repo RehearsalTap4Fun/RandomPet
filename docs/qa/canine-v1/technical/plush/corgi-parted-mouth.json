@@ -1,0 +1,27 @@
+{
+  "id": "corgi-parted-mouth",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/corgi-parted-mouth.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "ad3617c806310cb2477daddd776af8a420c34e9f7f815b3f65d4bc9d4cde7b80",
+  "rgbaSha256": "0a9c57e21b8ebb90fa53f259d5eb3d8f972db2a6e98e4cedb5ab54b13b40151f",
+  "bounds": {
+    "left": 216,
+    "top": 26,
+    "right": 1167,
+    "bottom": 1238,
+    "opaque": 50,
+    "transparent": 751756,
+    "fractional": 820710,
+    "visible": 778942
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

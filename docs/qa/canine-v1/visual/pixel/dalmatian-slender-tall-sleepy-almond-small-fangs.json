@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy amber eyes and two pale isolated fang shapes survive64px; lean long-legged silhouette preserved. Dalmatian spots, floppy ears, four seated paws and one long tail coherent, clean transparent margins on both backgrounds.",
+  "resourceSha256": "0494474c8bf606ce15efcb591a2232d209789c10937d36a42f32f67617556953",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-slender-tall-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "d3a481d42e0aac380663181f7159ee58569f1d57cda074a7d1bee0160afd8dcc",
+  "userArtApproval": false
+}

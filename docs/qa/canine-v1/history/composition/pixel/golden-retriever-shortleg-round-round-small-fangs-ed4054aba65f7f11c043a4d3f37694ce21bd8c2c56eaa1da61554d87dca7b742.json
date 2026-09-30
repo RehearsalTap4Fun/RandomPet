@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+  "profile": "golden-retriever-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs-contact.png",
+  "contactSha256": "c605963e199d73b1fa6a7b2d6cd5434f024d150fd59851770b54cb72ee730539",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs"
+      },
+      "rgbaSha256": "60faa7da5ed3b595f3f423247ad9c05895a413f1f5c4f141c7098dee216b626d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9f166ece17203a56b82d9e05736e5861282eca3e50e19b764c34227781325196",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "0d509d2a7f2e75cbd36edb73eb285f36384f8eaa3e928fefa0af5ff7306a455c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "90715b6133736f601a8435e4cb63cd956da09d73d678048b006d9e670196b001",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "0012d52259bb8ebea800a21d44d206b175a91a7305d5a5b334bb5cd724bc7b1f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "53eb703a67a93eace1d1e881295c963f9cc9cae5a8b32b4b8c0cfe73b1acbde1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "2d7b235cc83f8c16c0859d26d49de796c1801a17ba46769f256301ad7502a91b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "965c71a809ee23fac3fa20270293200f0fb7f8e6f9ee21d6507f2293ea47a647",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "cf2985e0c8cb198bcd303d6564412abb9b1317169e45100928ce3b7026597a83",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4aab54971e24f5856049bc0fe91791ce8ee7ce7bb88b1f1f52a6591b4706a1df",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "d49574af559f8fb2e4385a3bb711db0975b38095280fb83bd9ab54eea5c10527",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1e67193fc58615fb1103b6d74d0a0c0386789f0ce5743ca067769090c550dc01",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "aac950927da8cf329e2a87d8a44baf0f513f55950824909b058b31e9b4c97f7d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d8598cbf0460d543c5d547dfdb4a30751c9c0d89409448f63839452bf122ea77",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "0ed101f7f61f382ecc308d21998673c4c775ecfda3c2c050d1a2b405b94cadf2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "32ab59fa6e7f4db23717b432662694f31da48f5defac41cd42cd2704f2e3254a",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "4fecdec8a32db19d8dec6017851349d8a6d17e03cae794c17c35e957457803d3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4c3b87c4e420f62693989b8e2de83c0bd1b218fe44a2d43bcd01aa450562c530",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "c0444b75ed006d3bdd2a667c34fd45964d43fa0301142f79cfd87ef3c6a882aa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6712eee6e3c8d9e1a143078dc4fa4492cc08132818d5ed4b567ceb753d0842d9",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "d0a413fd47e3e7351365c362499dd33342a84b33170b7e01f5656a1af97b7d1b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "71b5dbd3e15d83de2b29c3a3dc6208a790168db2caac6312928b9bcdbd1d717e",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "6b0bcf6ad76dc93ea2f09a36ebe56316b2cdef22fc2813280582e3cd94ce4ecc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "465d257f0c6ef223420415f787de2404807c8300a2051f8a6c863bdba303cec1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "90ce8a69bf985cea0710ddbf7d0d5103bfd1a425b59a15ba01303688d9fd1362",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cfdfa84293851978e86bc57ef73ebefa19afcd6de914900cbc1267b165c3f636",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "64285e0e8d7ffd64e63f9031cc5a7fee2393d7c84caa1c9f40eab4541b8c0cf3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "73ccc91084222927d1488647b7f1908c91a7da495ebc289acacfc50d9c048411",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "581f2eb47fd839059cb9a16abc6870f2a19b1d7bc4d10dbc549282251babc589",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6d12687467adf4f7eb11b8b1070b9ba8e368ca9fccd218a15cf6a563181687d3",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "4c3708ebbabad4558b411f19b21500506cad3f4e25c35d0f7e27e1d0ebef993d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "da78031b01d049470546dd3b66ff178f1fb8562341bffedf3637bc654a19af5e",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "04d5f4d57591aeb69c78bc7bc611124dd7799d14be765ccc4ca5f887799e567d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "57bd91844fac5768ae604a533365ce35560056880c68d95b910ba72ac41030bc",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "10931d0bf3892bb6fb1239abda98ff8a8a1fbf4549ad8935d7e05ccf05135074",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0aa09a0d351a21e6ded310fc7ac16581f319009a886d58d07793061a7d244ed8",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "86443223038ef7ad00ad0296004004e166aab08fbc62a0345d10f2ebae87ac63",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9ebabbaf2f18f69b7faaa026436fcfd22c7522bc1d3a9cb93a6010929dc44a84",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "fba4588eec80b96b6dec6d1048eb9e2addebcdffef755d775c3cd8aa5e009f0c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "355118608a0bcc71a5e1c6b4b8b126f14292dd0b757f943d0a3ef84e1def6422",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "b4732a064da0d5656eb055bed93d3542a969040c1c0eb8fbc5e4ea03da811a2e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "68570788abb0ff2e333d0f06d334a00d19cd7971ab4d054de7f8a7f71d2ce409",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-round-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.325Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

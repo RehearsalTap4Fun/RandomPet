@@ -1,0 +1,370 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+  "profile": "golden-retriever-slender-tall",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth-contact.png",
+  "contactSha256": "6ab4ec5eb83c73827a6c3251dc4bcb356af5d9d49d583a0485307a9cf846baf8",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth"
+      },
+      "rgbaSha256": "6def3b01da73f3477bc86c143c9ef552cf42632e0848178337f34800c4fd03a1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f617b066b0f1f904b790ff21091f1049643c5dea58e597ede22f8e3ce1889474",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "209dd3c0df632fff75f6d10eec6899846b50bd1096100a547ef16ff699f169e5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b7ed66868367cd9c0f0c579741e638d269b2eaac2764786fb219bb3d63147604",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "384bfc223176a5054352a9a993090ad6ec640e283d5ccb8bb1fa3fc21610f109",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "04db4e2e47c3ba2145751797cbe88bd762ab74a5e5629471da79f666524c197a",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "a07f5191c9a7ea854298552dc61135a87e666c327891ad2dd20a8465c4a5fa43",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "845da3e36075a987878b365a0a12fbf64c271ffb258c2cb2dc00ee6319741f6b",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "da4a383588e4072f99af572018b2a4d2fe6099f9e1e676637622962f85b3ae30",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1608c83a4484e354686a21d771f30dc52ec598e3b7e10c586985230c34893de1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "de0b462a3d8b4bb127bd01b6c5975e764ae48fec2f4ac8630ff1d4a7d9473ca2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1c25ed51a072954a331c03c7876f4d20c81ee3d6842bf0c76bbb1355e7dcf7bd",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "f7c441e6ada72653fc9d46bed2e5979e5ba650071a85f7e8f8c236dd35f16f7d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "15cbe92a7f621e4c877158a35afa20bad9fcd130ba975220db818c3b7bb7cd38",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "d77b1a46c162fce9d6f27bba7997b28b321a54ae46bd85f37128354235b34fed",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "094aabb649adbbe8e9ea8f2f51ae6a25209a3c3435a82d2f4967190f840334b8",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "7f78ac27cad962c944df9b49d0b7c4a22b11e0847171713abfe44ab9100ea245",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9f7a4fdc68eed93a4933010b41148b8b44907b129b0375090c4d7983f0d783a6",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "f6bb51c9ec62a581ed7072091be317e0abb79ee33e917caaabff111035f74888",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cbe6c6a7e99d145e522b3eb5bd48685d6aa147a44456e97a5d52c331bbd2da56",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "bfbdb685b2b8325c006d85f6144e6e8815ad636f01a56c64c1d59a486a9fb0f2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7bc6ac87819507611705f5650c7ce7b9481c1ae7461c3d7bbf3bb9933a2d934d",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "179dd8d10d5211bc1002f304264153487fe0ef66c6b981132f7a2951cc2c9460",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "02f0e6e7a2d795e5bb4839f47c7cbcf0b53a591f809889db1887ede170c3e5aa",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "1f73e7d23d2ac33986410890aefae89278afd7979d9cc207b76e8a87d25c9de5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "94c4d94bf23c781615fd84442d01c9fe29f8b57fb6cdf8662c2f4892861e27b0",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "f423a490f69014dd463eb917308f1b9a8de959da23f3e0972f4ebdab6d39b26f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4a2b4502a57a5128f1cf7cd4954113e93ba56d9cfe9c4d4d3d21d06e62381b55",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "4ce4d36b9a7e43a9864e57464cba79a2a3621f91deacf5d5444438f76f1bf31f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "232f87ce4f9437d53d6ebc04140102bf866798a00d9b68262f5c259fae8f6715",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "20cc9b68316f0bb63149db9cfa832aad4a17ecc2729fd65ad96a0d42597efbe2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6197db0728145109af0ee6574563d2ba69d270b97eb3258c88d5587a4f40cbbb",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "a9e0a47604c940ef1203b3e8298fc8540f107ccbf24b1563bab1ed759068b198",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2f49b03bf75b8d392df6077b4e733019cc8f6906f38b1ce2274e80be63ecfd37",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "3fb86feecd885d38c5742b8369450b16d98fc37a3d2128192c6389f9831d8871",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "96d444bbb855a1ddfd392b8306e9aa3f4835cb978227221ef1952f1b01cad3f7",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "78ba0acd55d776f6f6d19daa341af88436d747c4c2b374586b1c1ab607b62304",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7c954127e862fa8902c1be08d4e91adabd73b4385f9d1e9e4bcd23ea4600390d",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "866bd61493d48d7e40225602e00496fb0d3485f9049a6e86a4a2cfc0faa2ac2b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5174ed988381206467599d90750ebc507d76bc7e809cbd9f1c746213f67d02e1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "16ea4049f8dd1bb433fbe3dad572b2633c00602b8a10d9ae699561db2db0dda4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "87850c47245f5df5ef3d75cb3439f1cc0bc81ab21f25a4bd619494720c2bcb7e",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-slender-tall-round-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:30.471Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "phoenix-tail",
+    "fin-ears",
+    "feathered-ears",
+    "celestial-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "sunburst-ruff",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "crystal-horns",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

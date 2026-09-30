@@ -1,0 +1,11 @@
+{
+  "id": "shiba-slender-tall-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy almond eyes with visible irises, original parted mouth and stable slender body. Long legs, narrow torso, Shiba coat/head/tail remain clear in native pixel preview on both backgrounds.",
+  "resourceSha256": "0d696903df10bf21484c0a0ba63e05893e10034bece3607175e5ce80c471bedf",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-slender-tall-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "1da3d2ef6e4e5ceaa5af820df5beb4a889b0c40982a7da0115cd2fe409091e42",
+  "userArtApproval": false
+}

@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+  "profile": "husky-standard",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "3da1d3a61d644321a9c9885b22c1e54fe3c9eeb05dcb0a4c1c41116a8fcf44b2",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "4c0e84b3e3ea0c240e9682c73e122c54826ba97323ba5e1fa5e4dbba0b097c91",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7d9363d53ca473e847fc4cf2951eb8515ac7702fbfd182f5936897b53e075678",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "d567c12a8b368065b9e695ce9490c677c2887cf910fd7b0ffff57f584e7d5853",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "70b99d2d4ace56227467149aaba64fb25c604dbcd524d58c30b5655a66aee9cb",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "906e4ac2844b90e45376d817a35af1a20e2bf547652554d7a843c977cd856699",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d30025fa33217b1d87de10b046ac6f6b12106ff7efddc7ad41812e42114e9eda",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "3ffd4cfa15c8b28aa7f63e4afe251688f214184a02bd19b3862966cc555bb0bf",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d87929dd81c30d356ae06d382abdd54adb0a39826eeef0453bd251bd5d5f35ec",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "84508bce6048390f2af4ef5352c393a91d000d76f7ac7dced27338553407e494",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b8bcc9241ff13656e9e9c41cc902f5e1612fd6f25a997b6768e2632ca74bd535",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "e72510fc5b7e6e412be19e690b2fbcfaf852c66ef8e9ae7df4217480b8694943",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ce0a43322dd39a27ff17a657919911ba7ce5f74a9b5e9a1f22e2added3b1c4b3",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "a5e8806991ca4c99d57e4605866597cdf4a95798bdb1ff45e377d80b9274a67a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d07dee119a63f9f272dedf8b7976299a70ca1d79f4a82f9b3f0f21de47ec38b3",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "6f78df5050fa4c118c83021aeadb30af4a5b1f25e4e80b15917febd92e104a88",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d1ab04a86de1f23f079dee94ea022c977111fb581be12599a8b28f3b17a53a6b",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "199d793148f8ce9c4691e6408d906c5705ca69983924450972ee29f62e27a129",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e220428c7220288ca4790226e817e0bf93c269a803d30d8ee56c3050da29a071",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "f7b82a193d04276967f2c626bf1d028df404bf1ea65722130822864d25eae415",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a3ff54e59b5d92fcf9188fa52f2f84c25765c7d3a45c663e24f88febead99ee6",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "3c82e607f172d2dac28b83cde50a441fc14c29fe09de4aa1185b8085c419d199",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cef5dce3e222d806a659f16f9ecffa6242b6c80f2a9bb8590ceebad8b2d94062",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "0ee079ca2ad8b3c302f17196e99bec6d19c113f3b633b4f24ff6e5b2b5f046a5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "59cc5a7a8bb6cb9c4d3272ada15ac30183165ac7f0237c77317217ef6f5a3ee2",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "f7f2bcacf81022fb8e204710c77bd19949643e79a58312390c51b1c1fb6f8881",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ec9c1e41309742788f2e705a1fa96a3675a77c10b507657a9fc9ba4c1dd68ae0",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "2df2589bb9b3b0db3ad3681f0e699e9e06b324e7c3e9e1f73065a17d96e5993b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "95acd2d2c7fff965a96033e641d28278faa3465c47f6caec13490f71b101fd10",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "bab383e4e0fce90209a027e4ed5185507cd5b28c9ad0de31aeb615d285501527",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e03b5005b5b1e2f4ba9e43d4d023248d965f985716e03aaa55755c054ecad015",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "fc66b4df8804498fa3145d8465b8b3dd366b925b9a822e1b9b216d4839eaf2af",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "47089ea6540ad990b4478f3293d2ce6f1e2eb6fc3742c8ab6b19b45281a70672",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "061cff25c2fd83c388732b3116fea0d7d342a65a7ddf7d1d49b780f13e4ec170",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f764b07af2b822c2ba7998f0d313c7782818468a111877d455759599ba5f903b",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "126623e5d8db1f651b098b429d79be6dd052525e3ea680b68b2385f6f6ca923b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "49e2c7342ec529f22dd42b41ab1b65740e6b3d08d3ce08f1212e882e29e853cd",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "495b51731044294f4e21a53342f86d0ffd4439d0f66665a118ea7d8707b0150c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9d6ec0494f9e032fe9ea175efd52fdd4b813b07a876c77df53f8f5256ce7e753",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "0e60034ddb486cbf5101aa9184468c198dd17be81d7fbcb314990c4bc5c8189c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5cb6b1392b7a578ef5a261ef9363c6328d41bfb21e3985c1a8206a7bbe8eea1d",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "2afe3670bf7d4dd6c81e36dc71bac18c1f0982b364ff888e6e271d0c6a50c3d6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d392aca2f3fa57333f55465be60f5e55408f3ca13e2bde932ece173e39dc80ad",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "哈士奇面罩与蓝眼保留；颈部下移到实际下巴后，原灰色卷尾已清除；各体型与表情未被成长部件遮挡。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.755Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

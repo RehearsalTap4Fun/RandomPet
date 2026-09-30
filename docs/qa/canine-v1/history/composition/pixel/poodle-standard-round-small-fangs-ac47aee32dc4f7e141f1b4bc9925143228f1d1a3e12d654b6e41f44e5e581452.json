@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "11cc59c667fdff9c6e4c469afdeafdfe44a73db4b9116d6ef072a7b6358ee374",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "poodle-standard-round-small-fangs",
+  "profile": "poodle-standard",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs-contact.png",
+  "contactSha256": "6ef2ac1a83b013858be6ebdf8b57896cbd4df23a1f465a68e3eb4bbd37d36955",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs"
+      },
+      "rgbaSha256": "735464aef7746d6d785ce306a0f8fa4d4d230e69ee7f0a8fefeeb3b90291690e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cad4df76eb068280d98f0ca8d6ae5502af92b6fa2bca542fc78a3dfed4646bcf",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "cd091e4fd0bb62e51d2b4e2ce507d3a0da44868829a92c9a5289d8185c659f38",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3e0c7f3c930c282e271dd237f81f86e303f94c4d03b402b90e74fb272a5adb98",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "9e7be97e842d96f6456a79a52c7d57c7995e22213ade766c32c33d80c8c8f403",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "df15f1c21c4ce2e5c46901bdb5ac15ea347955862a04a4c0671e278a17a24c98",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "b99ddb05bfe792abb31c16aad5909ee685618b3d5bcf22a57d5f2d91d194c583",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "653e21965078ba90e49326365bdb5330d5f28fc7d647a9059ff0256673eb1f5f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "056d2112e819ac2882812b2d4e99dbd0a534c58a992de52659b6dbc4e1d98eeb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2acb4163dd65dce792eb90594a669dd77bc54a3dc073bd5a7b0fe6400de47b9e",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "9bb1a5f141eeb3b04169a8f91c79ef4c60c69607e0be8a92e57aaa580c054a29",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "972a81d211bfc083208a6e5c78103175d4562b482f1b648ebe3cab951388a4d8",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "ebb0ce92556a495fd0855077e6c70d92aee033984f4624409c1fd17790e9d110",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1daa5203becb6b91247d40829c5627e565b6a63fec5b303fc98a66f8387772c5",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "d395a78fb0eff3a26776c55e3052c3ab5a313f1435ef003e21fbdad89ba377f1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7a26fd99565d126b143eaa4503bd8c5a1fb97ea3af6ed2fd0abac61d10d8f9de",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "d07436f5f91d7f2b6bea3390d65659fa28737c5558b19ec0b4e2a5ce2ab50c2f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7650c2d06a5fbe00e9605f0e42b16948cda94c71d2d8c806f51ddef2a3ff58ef",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "667f0aa67b251b64ee8fd2cb7a8c628fb4bc5a83c01dbc25cdc03a406ee1f7f8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b2913f5873d7a2a19e23702f780ff532533faf535cdf63788d6bfbeb9ed2ff5d",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "640e1da3e128a6f6613e392e740e69f9ba1464813171ab2e16734021d54db398",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "77bf19666db13b2c2d1a6a70a3028b81ba6ed8ed6f9e77faace100c61912cd2f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "8bf11011e45c027b31d1c482521e2df44d7cc8db007b35c7cdec05107b2d572e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "be33aed2ab639d97407b6ae8ba6c28ab0797e8488a03710272d43a5ef152fa78",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "af00553ccdab6039cdb6f2d14eb94113d1785c7d99e209fb9afb62a38565a77d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "163a64cc79ac06f69602014d610031d874560a4ce46c21c81bd39c3451660e5f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "1541e3492edae52bea19b222d3ae041b7c03f164ba26ca9ca5274f9c5e1736c6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0ea55c2e4c988e0acf45cc5e95b6dfccaeadf4426e955a93126b6bded9b5e0c8",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "36cbd591c1f8b81fc17d6bb304fc422a9091d71114973e3c38c94c2841e49aa1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2c4f61c4152fee0f412d33614671eef6ec6708cafed12b13935a307d37239982",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "ce1f1497f34e6922fb74a7ad2710619e7ad34fa218bca6480639746664010446",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2fa211b7388ae296d71a64d02b0d8a212482ef04440e702798c52f2da45de37c",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "eb21cebefcaf2851a6ed56cd21066d6eee70b368799c610363a6dd2a16479510",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d2ef3f3b2fb01993b5c008fd0b4f0118c5ad1b399d2a491645b913bee8cebf1f",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "ecc53e9fd81c195cebb9e0bc8d496ee4ba2ae5c093b636ecd90ea1566fc0cf38",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2f90d75910ffa3272fec9d51cb705e68cd35c82d1270d5cce18527e277659e6d",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "30a5ab216086d226febad66874f47d0bfe6354fb3b2bafebce79e0cdba30a253",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "883139932acdc125d3d6634ea3a2c99fb691a0760d7aeba4d21be2f1f0aaa62d",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "ea6b9ac39993bd8f975b39017bb555229c01c4dcb4e2a02fbdaa58d1e56ca19f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "30a13ff13be01f351dd5a90bb9e1b90e708aeec228c4a15dcf8cd1ad756b235b",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "poodle-standard-round-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "6b75c9c169f199ce58a23029229ee7bdbab2723fb2f1365cf62a070a8d4cb270",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b9b5f47348f8f1a129e2db05802f7bf16996f62a71453bd698ba719080fd6110",
+      "path": "docs/qa/canine-v1/composition/pixel/poodle-standard-round-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "贵宾卷毛头冠保持；换耳后的两处残余暗像素已清除，耳遮罩不再截断尾球；小尖牙与半睁眼组合可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:31.873Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

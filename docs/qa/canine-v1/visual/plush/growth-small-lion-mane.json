@@ -1,0 +1,11 @@
+{
+  "id": "growth-small-lion-mane",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "金色 U 形鬃毛毛束由肩部向胸前汇聚，中央开口透明且下缘完整，深浅背景绒边自然，无身体和面部残留。配准另审。",
+  "resourceSha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-small-lion-mane-review.png",
+  "evidenceSha256": "b4d95ca5efc4555c1095882a4f90730129b746c6f5ea4d5fefd1d3864f992dcf",
+  "userArtApproval": false
+}

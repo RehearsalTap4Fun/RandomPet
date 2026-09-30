@@ -1,0 +1,341 @@
+{
+  "status": "pending-visual-review",
+  "records": [
+    {
+      "body": "shiba-slender-tall-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+      "compositeSha256": "dcfc8fab70d14698b18c6a3bc5a61db7deed65c472964316e0aa44812006293f",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-slender-tall-dragon-horns.png"
+    },
+    {
+      "body": "shiba-slender-tall-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+      "compositeSha256": "66c3a818cfbf27ccfb1795123719b688961368db1efc524183c89dae874d311d",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-slender-tall-antlers.png"
+    },
+    {
+      "body": "shiba-slender-tall-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+      "compositeSha256": "fcdcd2d60f59a131e112a7d8a36c67c524aa2bedba15680613b39df661f03764",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-slender-tall-halo.png"
+    },
+    {
+      "body": "shiba-slender-tall-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+      "compositeSha256": "fee7819661e2cbc65680c841641b22b8ed6b7c77f2dcf728409af56d459cb34d",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-slender-tall-crystal-horns.png"
+    },
+    {
+      "body": "corgi-slender-tall-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+      "compositeSha256": "8be3460fd2fe1d9d97a9a943390fcc1aa67d170f25ac373a04c27534b10de74d",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-slender-tall-dragon-horns.png"
+    },
+    {
+      "body": "corgi-slender-tall-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+      "compositeSha256": "053034ded5ef072c49e240f48802e73a953e7aa77aed028f6b4c372f201fba30",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-slender-tall-antlers.png"
+    },
+    {
+      "body": "corgi-slender-tall-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+      "compositeSha256": "fc4c05a9e3f4e5a611dfee05d2d1644296dc71db476eec360f466b4dedd1638d",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-slender-tall-halo.png"
+    },
+    {
+      "body": "corgi-slender-tall-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+      "compositeSha256": "2e6ff40cfa461858c58a384d1e6373a643bc3e364e1ed301a5295804630d8ee3",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-slender-tall-crystal-horns.png"
+    },
+    {
+      "body": "golden-retriever-slender-tall-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+      "compositeSha256": "4a2b4502a57a5128f1cf7cd4954113e93ba56d9cfe9c4d4d3d21d06e62381b55",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-slender-tall-dragon-horns.png"
+    },
+    {
+      "body": "golden-retriever-slender-tall-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+      "compositeSha256": "232f87ce4f9437d53d6ebc04140102bf866798a00d9b68262f5c259fae8f6715",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-slender-tall-antlers.png"
+    },
+    {
+      "body": "golden-retriever-slender-tall-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+      "compositeSha256": "6197db0728145109af0ee6574563d2ba69d270b97eb3258c88d5587a4f40cbbb",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-slender-tall-halo.png"
+    },
+    {
+      "body": "golden-retriever-slender-tall-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+      "compositeSha256": "2f49b03bf75b8d392df6077b4e733019cc8f6906f38b1ce2274e80be63ecfd37",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-slender-tall-crystal-horns.png"
+    },
+    {
+      "body": "husky-slender-tall-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+      "compositeSha256": "695a660570656c5a8addb13cdb53a5b702dab9bb71f168fccce2249767818e93",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-slender-tall-dragon-horns.png"
+    },
+    {
+      "body": "husky-slender-tall-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+      "compositeSha256": "9062f7c468a3c2a4475a7e5e0fea3285a591776a8d690b89f48112bc47b63b77",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-slender-tall-antlers.png"
+    },
+    {
+      "body": "husky-slender-tall-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+      "compositeSha256": "48065db2baff67fcd0b485d15c54ea348d26c20da7c4288e0cb6cb7d36259936",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-slender-tall-halo.png"
+    },
+    {
+      "body": "husky-slender-tall-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+      "compositeSha256": "314594bb8bdc0232481f1c5cab2b278ad02cf467352f4469d9697a46adb722b9",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-slender-tall-crystal-horns.png"
+    },
+    {
+      "body": "dalmatian-slender-tall-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+      "compositeSha256": "a47cac8a23c0bd9fc1e23b66577e4445b3c153affc30df577840aed7e1b4633d",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-slender-tall-dragon-horns.png"
+    },
+    {
+      "body": "dalmatian-slender-tall-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+      "compositeSha256": "ddfcab0a860008aba8c33bd5308fe4a1b358ffcfaa5db7706c35676074bf6e2a",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-slender-tall-antlers.png"
+    },
+    {
+      "body": "dalmatian-slender-tall-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+      "compositeSha256": "1e878e66179e4a43ba2f5417a3d42bef9ef8242e47578b57cb1ed576475839f0",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-slender-tall-halo.png"
+    },
+    {
+      "body": "dalmatian-slender-tall-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+      "compositeSha256": "003ca37eea9715f8951444f0385eaee22dbe9195847b70e0eb2ca307fd5c1464",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-slender-tall-crystal-horns.png"
+    },
+    {
+      "body": "poodle-slender-tall-round-parted-mouth",
+      "trait": "dragon-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "bodySha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+      "compositeSha256": "68de0514a161abfd7ecee24d89ace111acf0044ce89378a4d5fd3de169075c36",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-slender-tall-dragon-horns.png"
+    },
+    {
+      "body": "poodle-slender-tall-round-parted-mouth",
+      "trait": "antlers",
+      "geometry": {
+        "left": 17,
+        "top": 1,
+        "width": 26,
+        "height": 14
+      },
+      "partSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "bodySha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+      "compositeSha256": "3debbcf6ec71d3685b9f6bdf4472bb9a322870893a7be3c2ec6dc3187c773d04",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-slender-tall-antlers.png"
+    },
+    {
+      "body": "poodle-slender-tall-round-parted-mouth",
+      "trait": "halo",
+      "geometry": {
+        "left": 21,
+        "top": 1,
+        "width": 18,
+        "height": 4
+      },
+      "partSha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "bodySha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+      "compositeSha256": "1c3e6b065bdc426e47b1688e12a4f851774553fe8b8eec40463c4d0c57c08d7a",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-slender-tall-halo.png"
+    },
+    {
+      "body": "poodle-slender-tall-round-parted-mouth",
+      "trait": "crystal-horns",
+      "geometry": {
+        "left": 19,
+        "top": 2,
+        "width": 22,
+        "height": 12
+      },
+      "partSha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "bodySha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+      "compositeSha256": "2124a309ab3296676180f5575662fd0f09c8b24dc3aeca00d5213ca8eaee7939",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-slender-tall-crystal-horns.png"
+    }
+  ]
+}

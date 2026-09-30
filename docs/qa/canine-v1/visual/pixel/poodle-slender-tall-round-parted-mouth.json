@@ -1,0 +1,11 @@
+{
+  "id": "poodle-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "窄胸长前腿与短腿体型明确区分；卷毛头部与垂耳、尾球保留，圆眼微张嘴可辨，双背景完整留白。",
+  "resourceSha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-slender-tall-round-parted-mouth-review.png",
+  "evidenceSha256": "b76d12499626c137a4867446a757cb6f09f01784540794cc2810e9405e00aa97",
+  "userArtApproval": false
+}

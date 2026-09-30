@@ -1,0 +1,12 @@
+{
+  "id": "shiba-shortleg-round-round-parted-mouth",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-57d35be1-d4a2-447d-8842-29de40a4bb9a.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/shiba-shortleg-round-round-parted-mouth.png",
+  "rawSha256": "1902fdebdd76f25e26fca0d77deb020a744aeb74c4373e1a2fd719fa44a2650b",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. ONE production dog sprite. Image 1 is EXACT identity/registration reference. Preserve the same breed, coat distribution, ears, nose, tail, head size, canvas placement and lighting. Keep the reference mouth shape exactly unchanged. Only change the explicitly requested eye/body/expression attributes. Subject: Shiba Inu, tan-orange fur, cream urajiro cheeks/chest/paws, small erect triangular ears, compact broad dog muzzle, single tightly curled fluffy tail. Style: Crisp 64x64 logical-grid pixel game sprite, discrete large flat color clusters, 2-3 shades per material, brown single-pixel-equivalent outline, no soft gradients or texture. Output high-resolution square image of this logical pixel sprite. Body: Make SHORT-LEGGED ROUND body: visibly broader rounded belly/haunches, squat low torso, very short thick forelegs. Keep head size, face coordinates, and paw baseline unchanged; body must visibly differ from standard. Eyes: ROUND wide-open expressive eyes with a simple light glint. Mouth: Natural tiny parted mouth, dark interior. No teeth, no tongue. Front-facing sitting pose, whole dog within frame, eye line around y34%, paw baseline y95%, head center x44%, tail on viewer RIGHT. Keep transparent margins on every edge. Exactly one head, two ears, one tail and four correctly seated paws. No cat whiskers, no collar, no accessories, no text, no sprite sheet, no ground shadow, no floor. Genuine transparent alpha background. Preserve source alpha. Do not crop or recenter.\n",
+  "visualReview": "pending"
+}

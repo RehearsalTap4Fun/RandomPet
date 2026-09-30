@@ -1,0 +1,27 @@
+{
+  "id": "poodle-parted-mouth",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/poodle-parted-mouth.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "59fc17c73e3c5fcee07b11eca57ffa8d88cfbf7a550c59ef025459e05a6dc48f",
+  "rgbaSha256": "b1bb0b9da97bd8c7478d7255bef162fac77d5da5e2da169a20f503dad3efdf6c",
+  "bounds": {
+    "left": 74,
+    "top": 36,
+    "right": 1176,
+    "bottom": 1222,
+    "opaque": 19,
+    "transparent": 670272,
+    "fractional": 902225,
+    "visible": 857429
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

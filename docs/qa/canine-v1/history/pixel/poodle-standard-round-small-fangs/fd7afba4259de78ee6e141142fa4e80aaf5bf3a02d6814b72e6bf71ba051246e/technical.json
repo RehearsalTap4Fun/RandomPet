@@ -1,0 +1,27 @@
+{
+  "id": "poodle-standard-round-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-standard-round-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "fd7afba4259de78ee6e141142fa4e80aaf5bf3a02d6814b72e6bf71ba051246e",
+  "rgbaSha256": "2c266e98bb1837784d47f28e71e4664e612f9b26842bdabe6ab6af723cc70e15",
+  "bounds": {
+    "left": 5,
+    "top": 4,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2194,
+    "transparent": 1902,
+    "fractional": 0,
+    "visible": 2194
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

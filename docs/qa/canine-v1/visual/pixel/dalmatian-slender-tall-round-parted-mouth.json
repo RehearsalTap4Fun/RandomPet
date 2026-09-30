@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Slender narrow chest and long thin forelegs clearly differ from standard/shortleg; head size and main spots retained. Amber round eyes and tiny parted mouth readable, four seated paws and single long spotted tail, clean alpha borders and no clipping.",
+  "resourceSha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-slender-tall-round-parted-mouth-review.png",
+  "evidenceSha256": "18bfc26b91069f54badeb4d7d6db8203f52a8b31fd9a712f3210be66b21c32af",
+  "userArtApproval": false
+}

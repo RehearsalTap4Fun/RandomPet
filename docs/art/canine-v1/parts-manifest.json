@@ -1,0 +1,312 @@
+{
+  "schemaVersion": "canine-growth-production-v1",
+  "expectedTypes": {
+    "pixel": 16,
+    "plush": 11
+  },
+  "maxReworks": 3,
+  "reviewer": "AI",
+  "userArtApproval": false,
+  "adaptation": "Individual geometric registration and replacement masks for all 18 pixel breed/body profiles and all 6 plush breed profiles; all 90 expression bodies verified in composition.",
+  "jobs": [
+    {
+      "id": "growth-dragon-horns",
+      "trait": "dragon-horns",
+      "slot": "crown",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-dragon-horns",
+      "trait": "dragon-horns",
+      "slot": "crown",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-antlers",
+      "trait": "antlers",
+      "slot": "crown",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-antlers",
+      "trait": "antlers",
+      "slot": "crown",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-halo",
+      "trait": "halo",
+      "slot": "crown",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-halo",
+      "trait": "halo",
+      "slot": "crown",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-crystal-horns",
+      "trait": "crystal-horns",
+      "slot": "crown",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-fin-ears",
+      "trait": "fin-ears",
+      "slot": "ears",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-fin-ears",
+      "trait": "fin-ears",
+      "slot": "ears",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-feathered-ears",
+      "trait": "feathered-ears",
+      "slot": "ears",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-celestial-ears",
+      "trait": "celestial-ears",
+      "slot": "ears",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-small-lion-mane",
+      "trait": "small-lion-mane",
+      "slot": "neck",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "cc2a00ddfe5726426fba1e20f62f9d3d72668bd667d55420561c9f9ee0881a8f",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-small-lion-mane",
+      "trait": "small-lion-mane",
+      "slot": "neck",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-frill-neck",
+      "trait": "frill-neck",
+      "slot": "neck",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "65ccd9c606bbe2135ff2b665ee2887e2bc70a3ce04c55ee76b3ea66d604e681c",
+      "acceptedAttempt": "growth-frill-neck-r1",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-frill-neck",
+      "trait": "frill-neck",
+      "slot": "neck",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-sunburst-ruff",
+      "trait": "sunburst-ruff",
+      "slot": "neck",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "530a8aab203fe113926effba9541283b9db283d8ebdaa335629e1271009657b1",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-small-wings",
+      "trait": "small-wings",
+      "slot": "back",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "0dccb4440a1448c2213274ad593eb2a0c70b2296728386b673ef5bbc4410a0fb",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-small-wings",
+      "trait": "small-wings",
+      "slot": "back",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-feathered-wings",
+      "trait": "feathered-wings",
+      "slot": "back",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "f0a0494d335bc5f9fbf72d40fc08fc1b217c8008dbcbe982b033d29938e3aaac",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-feathered-wings",
+      "trait": "feathered-wings",
+      "slot": "back",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-dragon-wings",
+      "trait": "dragon-wings",
+      "slot": "back",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "c6f3e35997d7729ebaf06ddea7e7b054a0a04dabac4f1bd5752f3d69039c0e06",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-dragon-wings",
+      "trait": "dragon-wings",
+      "slot": "back",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-forked-tail-tip",
+      "trait": "forked-tail-tip",
+      "slot": "tailTip",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "49a5bd2f075e1a1cf941c1987d4a2a8e5f7793ec61df1513cf5305ddb149034f",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-forked-tail-tip",
+      "trait": "forked-tail-tip",
+      "slot": "tailTip",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-flame-tail",
+      "trait": "flame-tail",
+      "slot": "tailTip",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "8d1a252b8790710d9665f736c678ef53957bce63434dbafcf9ab3bc161c0959d",
+      "registrationProfiles": 18
+    },
+    {
+      "id": "growth-flame-tail",
+      "trait": "flame-tail",
+      "slot": "tailTip",
+      "style": "plush",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+      "registrationProfiles": 6
+    },
+    {
+      "id": "growth-phoenix-tail",
+      "trait": "phoenix-tail",
+      "slot": "tailTip",
+      "style": "pixel",
+      "status": "ai-reviewed",
+      "registrationStatus": "ai-reviewed",
+      "sourceMode": "new-independent-generation",
+      "sha256": "26267439a16d42fa6a61b9f185c4a797a1de5d594ef25c047ed34fc1a2719df0",
+      "registrationProfiles": 18
+    }
+  ],
+  "finalReleaseGate": "docs/qa/canine-v1/release-gate.json"
+}

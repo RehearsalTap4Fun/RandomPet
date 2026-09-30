@@ -1,0 +1,3518 @@
+{
+  "schemaVersion": "canine-layer-catalog-v1",
+  "artVersion": "canine-1.0.0",
+  "style": "plush",
+  "status": "approved",
+  "reviewer": "AI",
+  "userArtApproval": false,
+  "rendererVersion": "canine-rgba-v1",
+  "size": 1254,
+  "registrationSha256": "939d908f51752435a62dabecb5c89217e4fd7a2781fd8eea7c6995a4bb9b33b9",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "resources": {
+    "mask-shiba-standard-ears": {
+      "path": "plush/registered/mask-shiba-standard-ears.png",
+      "sha256": "3239a4e38c80f5beca57ef8e668eb993312f57ac9df7ce42714e756a245b27f4",
+      "rgbaSha256": "cf82aa598d45d6421e45b0040c50d62fe2eac30d4fdf704b4e5b3c153a4b64f0",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "shiba-standard",
+      "slot": "ears"
+    },
+    "mask-shiba-standard-tailTip": {
+      "path": "plush/registered/mask-shiba-standard-tailTip.png",
+      "sha256": "ba61e6508e6d2070b69204eadf949d5aba4fb7c43f46f91dee563ea57a85343c",
+      "rgbaSha256": "7568dc8b5e15d5cadc4d5d57a010716d9a96f8c1e5d4ec6600974ecd04ad00d3",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "shiba-standard",
+      "slot": "tailTip"
+    },
+    "mask-shiba-standard-head": {
+      "path": "plush/registered/mask-shiba-standard-head.png",
+      "sha256": "0d3d0020681f7ce953c73625a41dfe5afbcef9753af8881c39b32c5cd2c4bd1a",
+      "rgbaSha256": "05eb98cebfe784d92ec0065065274664dbe44ce41ed3d170b3994ae3c2382cc5",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "shiba-standard",
+      "slot": "head"
+    },
+    "part-shiba-standard-dragon-horns": {
+      "path": "plush/registered/part-shiba-standard-dragon-horns.png",
+      "sha256": "1c698d2fae3400e87dc0b0ff81e83532d6a135e69c8732d718aecadae5aec308",
+      "rgbaSha256": "ad27e9e67eece4e4c2a8c6c07bc0d0d3fbaf7dd04f90d320e9403b6bdc3c859a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-horns",
+      "sourceSha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+      "profile": "shiba-standard",
+      "slot": "crown",
+      "trait": "dragon-horns"
+    },
+    "part-shiba-standard-antlers": {
+      "path": "plush/registered/part-shiba-standard-antlers.png",
+      "sha256": "7707a3e06a19220616915576af6cc492b0c13587a7f82e8569c9242ae0c2f6bd",
+      "rgbaSha256": "abccda93fdb44d692b9914d1063eb3790cb49e15c1159dc4c013b1d7c9458b27",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-antlers",
+      "sourceSha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+      "profile": "shiba-standard",
+      "slot": "crown",
+      "trait": "antlers"
+    },
+    "part-shiba-standard-halo": {
+      "path": "plush/registered/part-shiba-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3",
+      "rgbaSha256": "2e19f5412f0ac05339e3001a8c91bc8f942624037dc661cf37a86d65e596717a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-halo",
+      "sourceSha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+      "profile": "shiba-standard",
+      "slot": "crown",
+      "trait": "halo"
+    },
+    "part-shiba-standard-fin-ears": {
+      "path": "plush/registered/part-shiba-standard-fin-ears.png",
+      "sha256": "1a4100c507c94dc98c62d560fb032b4096fdab7060492cb061408f399998e3b5",
+      "rgbaSha256": "27ce6a731c9ea8b8954b732f6b86a3d1460138cf858f361245f4d587abf83e3c",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-fin-ears",
+      "sourceSha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+      "profile": "shiba-standard",
+      "slot": "ears",
+      "trait": "fin-ears"
+    },
+    "part-shiba-standard-small-lion-mane": {
+      "path": "plush/registered/part-shiba-standard-small-lion-mane.png",
+      "sha256": "aa29aa11782ce2d1b5017c2762032c71525e1438848f1f29698eda25aaa9af49",
+      "rgbaSha256": "a3617d0db4d3007dc94a7dc18d94581eac31a5f6ceebd1cdec86c4d2c2fdb036",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-lion-mane",
+      "sourceSha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+      "profile": "shiba-standard",
+      "slot": "neck",
+      "trait": "small-lion-mane"
+    },
+    "part-shiba-standard-frill-neck": {
+      "path": "plush/registered/part-shiba-standard-frill-neck.png",
+      "sha256": "34070a1975b35ccb856fca212eacea606c263cfcc23acb2094c173a0c3bceb27",
+      "rgbaSha256": "6bcc06dd1e694a8f1185c933a0c8c413287968341ebe6c5d9e4a0a0770f1b466",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-frill-neck",
+      "sourceSha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+      "profile": "shiba-standard",
+      "slot": "neck",
+      "trait": "frill-neck"
+    },
+    "part-shiba-standard-small-wings": {
+      "path": "plush/registered/part-shiba-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd",
+      "rgbaSha256": "502a6627ee17d1e2167347a64df069c8e1aeea92b30c16ecfef1ce7655d8a73b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-wings",
+      "sourceSha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+      "profile": "shiba-standard",
+      "slot": "back",
+      "trait": "small-wings"
+    },
+    "part-shiba-standard-feathered-wings": {
+      "path": "plush/registered/part-shiba-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb",
+      "rgbaSha256": "35129c6a4987d043b53c9a79da949c6191b7bb39a8c0d4faaa9ae833da758579",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-feathered-wings",
+      "sourceSha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+      "profile": "shiba-standard",
+      "slot": "back",
+      "trait": "feathered-wings"
+    },
+    "part-shiba-standard-dragon-wings": {
+      "path": "plush/registered/part-shiba-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b",
+      "rgbaSha256": "ad061eb85bff3cff13f134bbb21a1a439ebcbe45af2bdd32d7558c3ac36010a9",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-wings",
+      "sourceSha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+      "profile": "shiba-standard",
+      "slot": "back",
+      "trait": "dragon-wings"
+    },
+    "part-shiba-standard-forked-tail-tip": {
+      "path": "plush/registered/part-shiba-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334",
+      "rgbaSha256": "ab332b76038e1779068715d91f9ecaedb7f62e63dad8e498e067b49a9597fdf1",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-forked-tail-tip",
+      "sourceSha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+      "profile": "shiba-standard",
+      "slot": "tailTip",
+      "trait": "forked-tail-tip"
+    },
+    "part-shiba-standard-flame-tail": {
+      "path": "plush/registered/part-shiba-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796",
+      "rgbaSha256": "19250ad7eb34d866af21d15bc161e0ad8a915b05526d722101161702fa856261",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-flame-tail",
+      "sourceSha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+      "profile": "shiba-standard",
+      "slot": "tailTip",
+      "trait": "flame-tail"
+    },
+    "mask-corgi-standard-ears": {
+      "path": "plush/registered/mask-corgi-standard-ears.png",
+      "sha256": "057a28893a582f93746c57dd15ab62374c5bdf9682c331f64db38b12a0e8bc1d",
+      "rgbaSha256": "74b81a13f0753761112b54032d44d1a69528385c30dab584595a4d55cf15933b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "corgi-standard",
+      "slot": "ears"
+    },
+    "mask-corgi-standard-tailTip": {
+      "path": "plush/registered/mask-corgi-standard-tailTip.png",
+      "sha256": "d055a1ce7482e79f34527330d8dc6e05af33648e8cc22319de2fbf0f6e833a68",
+      "rgbaSha256": "c927c198fd92850f97cc15425abea2ae5c0b3dbf5a2e880cf8032ff8c6e8dc8a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "corgi-standard",
+      "slot": "tailTip"
+    },
+    "mask-corgi-standard-head": {
+      "path": "plush/registered/mask-corgi-standard-head.png",
+      "sha256": "6c6d01ceb14fdfd490b28fcaba2d6fb3876f6ad31351859c117fabff51ac02a9",
+      "rgbaSha256": "d8b27a80aa02c9f6b5c4d09e13c7a71280e5ce1f9fe21163d647bd04307dfe14",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "corgi-standard",
+      "slot": "head"
+    },
+    "part-corgi-standard-dragon-horns": {
+      "path": "plush/registered/part-corgi-standard-dragon-horns.png",
+      "sha256": "d6df5ffd47ffb578366cf2d276512f1f6c07b69e91001e483ecffa9cda82ef50",
+      "rgbaSha256": "2c86798c86d1d2d328afeaf87cc1c144c521330c99f23af9c6ceb5edf40dbce4",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-horns",
+      "sourceSha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+      "profile": "corgi-standard",
+      "slot": "crown",
+      "trait": "dragon-horns"
+    },
+    "part-corgi-standard-antlers": {
+      "path": "plush/registered/part-corgi-standard-antlers.png",
+      "sha256": "67152abe16b2c3ed5ed880ab03a605cfdc3fd5de5aa8c51907c90f0c9c2b9fff",
+      "rgbaSha256": "115f80420f7178c62e3ffc1f7311284720db68d8bc8e5b0ef179da15fcb0884a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-antlers",
+      "sourceSha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+      "profile": "corgi-standard",
+      "slot": "crown",
+      "trait": "antlers"
+    },
+    "part-corgi-standard-halo": {
+      "path": "plush/registered/part-corgi-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3",
+      "rgbaSha256": "2e19f5412f0ac05339e3001a8c91bc8f942624037dc661cf37a86d65e596717a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-halo",
+      "sourceSha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+      "profile": "corgi-standard",
+      "slot": "crown",
+      "trait": "halo"
+    },
+    "part-corgi-standard-fin-ears": {
+      "path": "plush/registered/part-corgi-standard-fin-ears.png",
+      "sha256": "880d57805c22d0bce0017e5197554af89c4eb03e7c3251571713cd17939ef5f3",
+      "rgbaSha256": "5634f3a44c77072b81d666462243f7d03a799603ff6d5c877e78240a1d8667e5",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-fin-ears",
+      "sourceSha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+      "profile": "corgi-standard",
+      "slot": "ears",
+      "trait": "fin-ears"
+    },
+    "part-corgi-standard-small-lion-mane": {
+      "path": "plush/registered/part-corgi-standard-small-lion-mane.png",
+      "sha256": "146f5c153bb64f01dcb7a1e46b9abd08e85705e5c52e5fc744c923ec1e7d8db0",
+      "rgbaSha256": "270293e7d7ec801810d95643107d177bc597ce343f08141babdc7489045c4943",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-lion-mane",
+      "sourceSha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+      "profile": "corgi-standard",
+      "slot": "neck",
+      "trait": "small-lion-mane"
+    },
+    "part-corgi-standard-frill-neck": {
+      "path": "plush/registered/part-corgi-standard-frill-neck.png",
+      "sha256": "3e3cfa25e2e34a2aaeaeae689f7003f334c04b7c6733cae922050912ae016bee",
+      "rgbaSha256": "35760cee5408db1fa4b17033b34995d53fef9b5b62f7999e0bd7703a1a70b034",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-frill-neck",
+      "sourceSha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+      "profile": "corgi-standard",
+      "slot": "neck",
+      "trait": "frill-neck"
+    },
+    "part-corgi-standard-small-wings": {
+      "path": "plush/registered/part-corgi-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd",
+      "rgbaSha256": "502a6627ee17d1e2167347a64df069c8e1aeea92b30c16ecfef1ce7655d8a73b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-wings",
+      "sourceSha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+      "profile": "corgi-standard",
+      "slot": "back",
+      "trait": "small-wings"
+    },
+    "part-corgi-standard-feathered-wings": {
+      "path": "plush/registered/part-corgi-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb",
+      "rgbaSha256": "35129c6a4987d043b53c9a79da949c6191b7bb39a8c0d4faaa9ae833da758579",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-feathered-wings",
+      "sourceSha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+      "profile": "corgi-standard",
+      "slot": "back",
+      "trait": "feathered-wings"
+    },
+    "part-corgi-standard-dragon-wings": {
+      "path": "plush/registered/part-corgi-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b",
+      "rgbaSha256": "ad061eb85bff3cff13f134bbb21a1a439ebcbe45af2bdd32d7558c3ac36010a9",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-wings",
+      "sourceSha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+      "profile": "corgi-standard",
+      "slot": "back",
+      "trait": "dragon-wings"
+    },
+    "part-corgi-standard-forked-tail-tip": {
+      "path": "plush/registered/part-corgi-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334",
+      "rgbaSha256": "ab332b76038e1779068715d91f9ecaedb7f62e63dad8e498e067b49a9597fdf1",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-forked-tail-tip",
+      "sourceSha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+      "profile": "corgi-standard",
+      "slot": "tailTip",
+      "trait": "forked-tail-tip"
+    },
+    "part-corgi-standard-flame-tail": {
+      "path": "plush/registered/part-corgi-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796",
+      "rgbaSha256": "19250ad7eb34d866af21d15bc161e0ad8a915b05526d722101161702fa856261",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-flame-tail",
+      "sourceSha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+      "profile": "corgi-standard",
+      "slot": "tailTip",
+      "trait": "flame-tail"
+    },
+    "mask-golden-retriever-standard-ears": {
+      "path": "plush/registered/mask-golden-retriever-standard-ears.png",
+      "sha256": "375da8796d21203bd64eb3484e4df96f61fd9bc092dea2f120b18e33147ad11a",
+      "rgbaSha256": "c4d6889683a79ccf9d56f3cd5b0bd857d1be9314717186bc03f3496fcf811b3c",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "golden-retriever-standard",
+      "slot": "ears"
+    },
+    "mask-golden-retriever-standard-tailTip": {
+      "path": "plush/registered/mask-golden-retriever-standard-tailTip.png",
+      "sha256": "6d9dfb9d103657213e940b4109d52e45d381ecc47b5498daad959c1ceaf97642",
+      "rgbaSha256": "698d6c1ab6f28d984d1747824281da7bcf21e16c9c85bba4a6d4e11692202491",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "golden-retriever-standard",
+      "slot": "tailTip"
+    },
+    "mask-golden-retriever-standard-head": {
+      "path": "plush/registered/mask-golden-retriever-standard-head.png",
+      "sha256": "0d3d0020681f7ce953c73625a41dfe5afbcef9753af8881c39b32c5cd2c4bd1a",
+      "rgbaSha256": "05eb98cebfe784d92ec0065065274664dbe44ce41ed3d170b3994ae3c2382cc5",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "golden-retriever-standard",
+      "slot": "head"
+    },
+    "part-golden-retriever-standard-dragon-horns": {
+      "path": "plush/registered/part-golden-retriever-standard-dragon-horns.png",
+      "sha256": "1c698d2fae3400e87dc0b0ff81e83532d6a135e69c8732d718aecadae5aec308",
+      "rgbaSha256": "ad27e9e67eece4e4c2a8c6c07bc0d0d3fbaf7dd04f90d320e9403b6bdc3c859a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-horns",
+      "sourceSha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+      "profile": "golden-retriever-standard",
+      "slot": "crown",
+      "trait": "dragon-horns"
+    },
+    "part-golden-retriever-standard-antlers": {
+      "path": "plush/registered/part-golden-retriever-standard-antlers.png",
+      "sha256": "7707a3e06a19220616915576af6cc492b0c13587a7f82e8569c9242ae0c2f6bd",
+      "rgbaSha256": "abccda93fdb44d692b9914d1063eb3790cb49e15c1159dc4c013b1d7c9458b27",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-antlers",
+      "sourceSha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+      "profile": "golden-retriever-standard",
+      "slot": "crown",
+      "trait": "antlers"
+    },
+    "part-golden-retriever-standard-halo": {
+      "path": "plush/registered/part-golden-retriever-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3",
+      "rgbaSha256": "2e19f5412f0ac05339e3001a8c91bc8f942624037dc661cf37a86d65e596717a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-halo",
+      "sourceSha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+      "profile": "golden-retriever-standard",
+      "slot": "crown",
+      "trait": "halo"
+    },
+    "part-golden-retriever-standard-fin-ears": {
+      "path": "plush/registered/part-golden-retriever-standard-fin-ears.png",
+      "sha256": "ae969e639af2f9f6aa485995f9e4e6e0620b379aa6f56b7301cc3fc6a4e4203f",
+      "rgbaSha256": "be57bd032b97e45b05a7431ef878d899a088d0ea75249187225a3cf6029e2282",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-fin-ears",
+      "sourceSha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+      "profile": "golden-retriever-standard",
+      "slot": "ears",
+      "trait": "fin-ears"
+    },
+    "part-golden-retriever-standard-small-lion-mane": {
+      "path": "plush/registered/part-golden-retriever-standard-small-lion-mane.png",
+      "sha256": "aa29aa11782ce2d1b5017c2762032c71525e1438848f1f29698eda25aaa9af49",
+      "rgbaSha256": "a3617d0db4d3007dc94a7dc18d94581eac31a5f6ceebd1cdec86c4d2c2fdb036",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-lion-mane",
+      "sourceSha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+      "profile": "golden-retriever-standard",
+      "slot": "neck",
+      "trait": "small-lion-mane"
+    },
+    "part-golden-retriever-standard-frill-neck": {
+      "path": "plush/registered/part-golden-retriever-standard-frill-neck.png",
+      "sha256": "34070a1975b35ccb856fca212eacea606c263cfcc23acb2094c173a0c3bceb27",
+      "rgbaSha256": "6bcc06dd1e694a8f1185c933a0c8c413287968341ebe6c5d9e4a0a0770f1b466",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-frill-neck",
+      "sourceSha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+      "profile": "golden-retriever-standard",
+      "slot": "neck",
+      "trait": "frill-neck"
+    },
+    "part-golden-retriever-standard-small-wings": {
+      "path": "plush/registered/part-golden-retriever-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd",
+      "rgbaSha256": "502a6627ee17d1e2167347a64df069c8e1aeea92b30c16ecfef1ce7655d8a73b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-wings",
+      "sourceSha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+      "profile": "golden-retriever-standard",
+      "slot": "back",
+      "trait": "small-wings"
+    },
+    "part-golden-retriever-standard-feathered-wings": {
+      "path": "plush/registered/part-golden-retriever-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb",
+      "rgbaSha256": "35129c6a4987d043b53c9a79da949c6191b7bb39a8c0d4faaa9ae833da758579",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-feathered-wings",
+      "sourceSha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+      "profile": "golden-retriever-standard",
+      "slot": "back",
+      "trait": "feathered-wings"
+    },
+    "part-golden-retriever-standard-dragon-wings": {
+      "path": "plush/registered/part-golden-retriever-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b",
+      "rgbaSha256": "ad061eb85bff3cff13f134bbb21a1a439ebcbe45af2bdd32d7558c3ac36010a9",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-wings",
+      "sourceSha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+      "profile": "golden-retriever-standard",
+      "slot": "back",
+      "trait": "dragon-wings"
+    },
+    "part-golden-retriever-standard-forked-tail-tip": {
+      "path": "plush/registered/part-golden-retriever-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334",
+      "rgbaSha256": "ab332b76038e1779068715d91f9ecaedb7f62e63dad8e498e067b49a9597fdf1",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-forked-tail-tip",
+      "sourceSha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+      "profile": "golden-retriever-standard",
+      "slot": "tailTip",
+      "trait": "forked-tail-tip"
+    },
+    "part-golden-retriever-standard-flame-tail": {
+      "path": "plush/registered/part-golden-retriever-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796",
+      "rgbaSha256": "19250ad7eb34d866af21d15bc161e0ad8a915b05526d722101161702fa856261",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-flame-tail",
+      "sourceSha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+      "profile": "golden-retriever-standard",
+      "slot": "tailTip",
+      "trait": "flame-tail"
+    },
+    "mask-husky-standard-ears": {
+      "path": "plush/registered/mask-husky-standard-ears.png",
+      "sha256": "11ed5ba40156967ec0ed5e63bd06ae5483368657b649069f3738d9a5ef2aa196",
+      "rgbaSha256": "69d2373c3101e70d6f98f97b5f5b1865ea4919ad88642512e1e1942d6452d254",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "husky-standard",
+      "slot": "ears"
+    },
+    "mask-husky-standard-tailTip": {
+      "path": "plush/registered/mask-husky-standard-tailTip.png",
+      "sha256": "7955195d8742d8ab2c632f6821d4a12620d75726ea679cc861ed96d039080946",
+      "rgbaSha256": "0e77403438b7f342a8ee9921ac2febfed447afaad2064bd71fb5149099b419fb",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "husky-standard",
+      "slot": "tailTip"
+    },
+    "mask-husky-standard-head": {
+      "path": "plush/registered/mask-husky-standard-head.png",
+      "sha256": "fceb95f1f723f18f3451ff7c0f026113b271ce2fd6645bc7a9c528896c5ac034",
+      "rgbaSha256": "28a0c14e9229c05c0a5f47646831205e6987abf5e76c1aebbc702fb45dacd44d",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "husky-standard",
+      "slot": "head"
+    },
+    "part-husky-standard-dragon-horns": {
+      "path": "plush/registered/part-husky-standard-dragon-horns.png",
+      "sha256": "d6df5ffd47ffb578366cf2d276512f1f6c07b69e91001e483ecffa9cda82ef50",
+      "rgbaSha256": "2c86798c86d1d2d328afeaf87cc1c144c521330c99f23af9c6ceb5edf40dbce4",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-horns",
+      "sourceSha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+      "profile": "husky-standard",
+      "slot": "crown",
+      "trait": "dragon-horns"
+    },
+    "part-husky-standard-antlers": {
+      "path": "plush/registered/part-husky-standard-antlers.png",
+      "sha256": "67152abe16b2c3ed5ed880ab03a605cfdc3fd5de5aa8c51907c90f0c9c2b9fff",
+      "rgbaSha256": "115f80420f7178c62e3ffc1f7311284720db68d8bc8e5b0ef179da15fcb0884a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-antlers",
+      "sourceSha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+      "profile": "husky-standard",
+      "slot": "crown",
+      "trait": "antlers"
+    },
+    "part-husky-standard-halo": {
+      "path": "plush/registered/part-husky-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3",
+      "rgbaSha256": "2e19f5412f0ac05339e3001a8c91bc8f942624037dc661cf37a86d65e596717a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-halo",
+      "sourceSha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+      "profile": "husky-standard",
+      "slot": "crown",
+      "trait": "halo"
+    },
+    "part-husky-standard-fin-ears": {
+      "path": "plush/registered/part-husky-standard-fin-ears.png",
+      "sha256": "76af05784736dfcb19b5ac675a5bd318c875c688585b30c97e6f823f39269c05",
+      "rgbaSha256": "31d3f10aa5ff3ebc31810c289c9a4dae6ae5287f994ac6c6429d6af9add815dd",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-fin-ears",
+      "sourceSha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+      "profile": "husky-standard",
+      "slot": "ears",
+      "trait": "fin-ears"
+    },
+    "part-husky-standard-small-lion-mane": {
+      "path": "plush/registered/part-husky-standard-small-lion-mane.png",
+      "sha256": "9b7ad8e35198334552e2af01d4773baf077481c0c735c7e51a54fcb9a8cf6aa5",
+      "rgbaSha256": "89825b823862f627dee3a040307d48231f11ceb44c2d53e44ee089c0c8ae114b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-lion-mane",
+      "sourceSha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+      "profile": "husky-standard",
+      "slot": "neck",
+      "trait": "small-lion-mane"
+    },
+    "part-husky-standard-frill-neck": {
+      "path": "plush/registered/part-husky-standard-frill-neck.png",
+      "sha256": "0c445494c101365250803aa5f55ece246a98411166507a0849eb3bf88c90c087",
+      "rgbaSha256": "4ae278cac7ee8e2c2aee654fe2311d1392ff245aa5dafe6a2c6e2fa126e5e8af",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-frill-neck",
+      "sourceSha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+      "profile": "husky-standard",
+      "slot": "neck",
+      "trait": "frill-neck"
+    },
+    "part-husky-standard-small-wings": {
+      "path": "plush/registered/part-husky-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd",
+      "rgbaSha256": "502a6627ee17d1e2167347a64df069c8e1aeea92b30c16ecfef1ce7655d8a73b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-wings",
+      "sourceSha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+      "profile": "husky-standard",
+      "slot": "back",
+      "trait": "small-wings"
+    },
+    "part-husky-standard-feathered-wings": {
+      "path": "plush/registered/part-husky-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb",
+      "rgbaSha256": "35129c6a4987d043b53c9a79da949c6191b7bb39a8c0d4faaa9ae833da758579",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-feathered-wings",
+      "sourceSha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+      "profile": "husky-standard",
+      "slot": "back",
+      "trait": "feathered-wings"
+    },
+    "part-husky-standard-dragon-wings": {
+      "path": "plush/registered/part-husky-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b",
+      "rgbaSha256": "ad061eb85bff3cff13f134bbb21a1a439ebcbe45af2bdd32d7558c3ac36010a9",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-wings",
+      "sourceSha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+      "profile": "husky-standard",
+      "slot": "back",
+      "trait": "dragon-wings"
+    },
+    "part-husky-standard-forked-tail-tip": {
+      "path": "plush/registered/part-husky-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334",
+      "rgbaSha256": "ab332b76038e1779068715d91f9ecaedb7f62e63dad8e498e067b49a9597fdf1",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-forked-tail-tip",
+      "sourceSha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+      "profile": "husky-standard",
+      "slot": "tailTip",
+      "trait": "forked-tail-tip"
+    },
+    "part-husky-standard-flame-tail": {
+      "path": "plush/registered/part-husky-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796",
+      "rgbaSha256": "19250ad7eb34d866af21d15bc161e0ad8a915b05526d722101161702fa856261",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-flame-tail",
+      "sourceSha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+      "profile": "husky-standard",
+      "slot": "tailTip",
+      "trait": "flame-tail"
+    },
+    "mask-dalmatian-standard-ears": {
+      "path": "plush/registered/mask-dalmatian-standard-ears.png",
+      "sha256": "024fcde9d03d1b3ade58ecd87557007552a59dc0a3d2f454e81a5793bff29acd",
+      "rgbaSha256": "7f9d7e243045bab1a9fec313397ba286b730593fae3ee73cff82ad366c46ac39",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "dalmatian-standard",
+      "slot": "ears"
+    },
+    "mask-dalmatian-standard-tailTip": {
+      "path": "plush/registered/mask-dalmatian-standard-tailTip.png",
+      "sha256": "b1286031924386e151fc796ae4dc87d0d3d23552c299c8ca33f23ed0af5cb4d2",
+      "rgbaSha256": "5a0e710dc1b602eaeb519c097f3ebfba48e95bb6070f36770f942c4f8a6a0668",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "dalmatian-standard",
+      "slot": "tailTip"
+    },
+    "mask-dalmatian-standard-head": {
+      "path": "plush/registered/mask-dalmatian-standard-head.png",
+      "sha256": "0d3d0020681f7ce953c73625a41dfe5afbcef9753af8881c39b32c5cd2c4bd1a",
+      "rgbaSha256": "05eb98cebfe784d92ec0065065274664dbe44ce41ed3d170b3994ae3c2382cc5",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "dalmatian-standard",
+      "slot": "head"
+    },
+    "part-dalmatian-standard-dragon-horns": {
+      "path": "plush/registered/part-dalmatian-standard-dragon-horns.png",
+      "sha256": "1c698d2fae3400e87dc0b0ff81e83532d6a135e69c8732d718aecadae5aec308",
+      "rgbaSha256": "ad27e9e67eece4e4c2a8c6c07bc0d0d3fbaf7dd04f90d320e9403b6bdc3c859a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-horns",
+      "sourceSha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+      "profile": "dalmatian-standard",
+      "slot": "crown",
+      "trait": "dragon-horns"
+    },
+    "part-dalmatian-standard-antlers": {
+      "path": "plush/registered/part-dalmatian-standard-antlers.png",
+      "sha256": "7707a3e06a19220616915576af6cc492b0c13587a7f82e8569c9242ae0c2f6bd",
+      "rgbaSha256": "abccda93fdb44d692b9914d1063eb3790cb49e15c1159dc4c013b1d7c9458b27",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-antlers",
+      "sourceSha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+      "profile": "dalmatian-standard",
+      "slot": "crown",
+      "trait": "antlers"
+    },
+    "part-dalmatian-standard-halo": {
+      "path": "plush/registered/part-dalmatian-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3",
+      "rgbaSha256": "2e19f5412f0ac05339e3001a8c91bc8f942624037dc661cf37a86d65e596717a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-halo",
+      "sourceSha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+      "profile": "dalmatian-standard",
+      "slot": "crown",
+      "trait": "halo"
+    },
+    "part-dalmatian-standard-fin-ears": {
+      "path": "plush/registered/part-dalmatian-standard-fin-ears.png",
+      "sha256": "d451bcbad5132487e0e81eff612b9ad6d8cf7a6924b09b7f07e70f291f131711",
+      "rgbaSha256": "1d94bcdba91a9cfed1db53dc521a679cb13aa74a2d410d8b59fa4d69d24a51df",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-fin-ears",
+      "sourceSha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+      "profile": "dalmatian-standard",
+      "slot": "ears",
+      "trait": "fin-ears"
+    },
+    "part-dalmatian-standard-small-lion-mane": {
+      "path": "plush/registered/part-dalmatian-standard-small-lion-mane.png",
+      "sha256": "aa29aa11782ce2d1b5017c2762032c71525e1438848f1f29698eda25aaa9af49",
+      "rgbaSha256": "a3617d0db4d3007dc94a7dc18d94581eac31a5f6ceebd1cdec86c4d2c2fdb036",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-lion-mane",
+      "sourceSha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+      "profile": "dalmatian-standard",
+      "slot": "neck",
+      "trait": "small-lion-mane"
+    },
+    "part-dalmatian-standard-frill-neck": {
+      "path": "plush/registered/part-dalmatian-standard-frill-neck.png",
+      "sha256": "34070a1975b35ccb856fca212eacea606c263cfcc23acb2094c173a0c3bceb27",
+      "rgbaSha256": "6bcc06dd1e694a8f1185c933a0c8c413287968341ebe6c5d9e4a0a0770f1b466",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-frill-neck",
+      "sourceSha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+      "profile": "dalmatian-standard",
+      "slot": "neck",
+      "trait": "frill-neck"
+    },
+    "part-dalmatian-standard-small-wings": {
+      "path": "plush/registered/part-dalmatian-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd",
+      "rgbaSha256": "502a6627ee17d1e2167347a64df069c8e1aeea92b30c16ecfef1ce7655d8a73b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-wings",
+      "sourceSha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+      "profile": "dalmatian-standard",
+      "slot": "back",
+      "trait": "small-wings"
+    },
+    "part-dalmatian-standard-feathered-wings": {
+      "path": "plush/registered/part-dalmatian-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb",
+      "rgbaSha256": "35129c6a4987d043b53c9a79da949c6191b7bb39a8c0d4faaa9ae833da758579",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-feathered-wings",
+      "sourceSha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+      "profile": "dalmatian-standard",
+      "slot": "back",
+      "trait": "feathered-wings"
+    },
+    "part-dalmatian-standard-dragon-wings": {
+      "path": "plush/registered/part-dalmatian-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b",
+      "rgbaSha256": "ad061eb85bff3cff13f134bbb21a1a439ebcbe45af2bdd32d7558c3ac36010a9",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-wings",
+      "sourceSha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+      "profile": "dalmatian-standard",
+      "slot": "back",
+      "trait": "dragon-wings"
+    },
+    "part-dalmatian-standard-forked-tail-tip": {
+      "path": "plush/registered/part-dalmatian-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334",
+      "rgbaSha256": "ab332b76038e1779068715d91f9ecaedb7f62e63dad8e498e067b49a9597fdf1",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-forked-tail-tip",
+      "sourceSha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+      "profile": "dalmatian-standard",
+      "slot": "tailTip",
+      "trait": "forked-tail-tip"
+    },
+    "part-dalmatian-standard-flame-tail": {
+      "path": "plush/registered/part-dalmatian-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796",
+      "rgbaSha256": "19250ad7eb34d866af21d15bc161e0ad8a915b05526d722101161702fa856261",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-flame-tail",
+      "sourceSha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+      "profile": "dalmatian-standard",
+      "slot": "tailTip",
+      "trait": "flame-tail"
+    },
+    "mask-poodle-standard-ears": {
+      "path": "plush/registered/mask-poodle-standard-ears.png",
+      "sha256": "186fd818e77522a73746549f10038247b208dad1b8132950a041fc47710c00ba",
+      "rgbaSha256": "e08adc4a0fa91dbe8600b7bd9dc706d5d9809249b88a6045a2f0dae8053d9593",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "poodle-standard",
+      "slot": "ears"
+    },
+    "mask-poodle-standard-tailTip": {
+      "path": "plush/registered/mask-poodle-standard-tailTip.png",
+      "sha256": "5a9f6d10d339db7f90e02a981ad288fb788a2420dc304856948e1847d37411c1",
+      "rgbaSha256": "faaeba69f45803774833cac1a98ada72b5033b75eed1ca0d5f57b7b08bd34427",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "poodle-standard",
+      "slot": "tailTip"
+    },
+    "mask-poodle-standard-head": {
+      "path": "plush/registered/mask-poodle-standard-head.png",
+      "sha256": "0d3d0020681f7ce953c73625a41dfe5afbcef9753af8881c39b32c5cd2c4bd1a",
+      "rgbaSha256": "05eb98cebfe784d92ec0065065274664dbe44ce41ed3d170b3994ae3c2382cc5",
+      "width": 1254,
+      "height": 1254,
+      "kind": "mask",
+      "profile": "poodle-standard",
+      "slot": "head"
+    },
+    "part-poodle-standard-dragon-horns": {
+      "path": "plush/registered/part-poodle-standard-dragon-horns.png",
+      "sha256": "1c698d2fae3400e87dc0b0ff81e83532d6a135e69c8732d718aecadae5aec308",
+      "rgbaSha256": "ad27e9e67eece4e4c2a8c6c07bc0d0d3fbaf7dd04f90d320e9403b6bdc3c859a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-horns",
+      "sourceSha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+      "profile": "poodle-standard",
+      "slot": "crown",
+      "trait": "dragon-horns"
+    },
+    "part-poodle-standard-antlers": {
+      "path": "plush/registered/part-poodle-standard-antlers.png",
+      "sha256": "7707a3e06a19220616915576af6cc492b0c13587a7f82e8569c9242ae0c2f6bd",
+      "rgbaSha256": "abccda93fdb44d692b9914d1063eb3790cb49e15c1159dc4c013b1d7c9458b27",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-antlers",
+      "sourceSha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+      "profile": "poodle-standard",
+      "slot": "crown",
+      "trait": "antlers"
+    },
+    "part-poodle-standard-halo": {
+      "path": "plush/registered/part-poodle-standard-halo.png",
+      "sha256": "6ae8f6babaaa4ddf143e46066baa89eaadd0d6a7cc58454fad4a62af759f23f3",
+      "rgbaSha256": "2e19f5412f0ac05339e3001a8c91bc8f942624037dc661cf37a86d65e596717a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-halo",
+      "sourceSha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+      "profile": "poodle-standard",
+      "slot": "crown",
+      "trait": "halo"
+    },
+    "part-poodle-standard-fin-ears": {
+      "path": "plush/registered/part-poodle-standard-fin-ears.png",
+      "sha256": "2a5203fb63530803165aa9abbee406abe5c7fac1d1ed697ce23404e718b5503b",
+      "rgbaSha256": "0ddf169717d666582ae96a04ceb212556374645c5c35994d5ce106c713660fa0",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-fin-ears",
+      "sourceSha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+      "profile": "poodle-standard",
+      "slot": "ears",
+      "trait": "fin-ears"
+    },
+    "part-poodle-standard-small-lion-mane": {
+      "path": "plush/registered/part-poodle-standard-small-lion-mane.png",
+      "sha256": "aa29aa11782ce2d1b5017c2762032c71525e1438848f1f29698eda25aaa9af49",
+      "rgbaSha256": "a3617d0db4d3007dc94a7dc18d94581eac31a5f6ceebd1cdec86c4d2c2fdb036",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-lion-mane",
+      "sourceSha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+      "profile": "poodle-standard",
+      "slot": "neck",
+      "trait": "small-lion-mane"
+    },
+    "part-poodle-standard-frill-neck": {
+      "path": "plush/registered/part-poodle-standard-frill-neck.png",
+      "sha256": "34070a1975b35ccb856fca212eacea606c263cfcc23acb2094c173a0c3bceb27",
+      "rgbaSha256": "6bcc06dd1e694a8f1185c933a0c8c413287968341ebe6c5d9e4a0a0770f1b466",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-frill-neck",
+      "sourceSha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+      "profile": "poodle-standard",
+      "slot": "neck",
+      "trait": "frill-neck"
+    },
+    "part-poodle-standard-small-wings": {
+      "path": "plush/registered/part-poodle-standard-small-wings.png",
+      "sha256": "7630e19a127b2d6819a16823e03dd3dc37988e930e5b3f35ab8f2729ab0ab9dd",
+      "rgbaSha256": "502a6627ee17d1e2167347a64df069c8e1aeea92b30c16ecfef1ce7655d8a73b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-small-wings",
+      "sourceSha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+      "profile": "poodle-standard",
+      "slot": "back",
+      "trait": "small-wings"
+    },
+    "part-poodle-standard-feathered-wings": {
+      "path": "plush/registered/part-poodle-standard-feathered-wings.png",
+      "sha256": "b7e3fe23c8026de684889155ea31401b13e3b757513cae99992c0f2c290e3dfb",
+      "rgbaSha256": "35129c6a4987d043b53c9a79da949c6191b7bb39a8c0d4faaa9ae833da758579",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-feathered-wings",
+      "sourceSha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+      "profile": "poodle-standard",
+      "slot": "back",
+      "trait": "feathered-wings"
+    },
+    "part-poodle-standard-dragon-wings": {
+      "path": "plush/registered/part-poodle-standard-dragon-wings.png",
+      "sha256": "c7e83bb7c951557f9d04b27fbd713039ffb50da4ee671c084ee7a894c31f6f1b",
+      "rgbaSha256": "ad061eb85bff3cff13f134bbb21a1a439ebcbe45af2bdd32d7558c3ac36010a9",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-dragon-wings",
+      "sourceSha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+      "profile": "poodle-standard",
+      "slot": "back",
+      "trait": "dragon-wings"
+    },
+    "part-poodle-standard-forked-tail-tip": {
+      "path": "plush/registered/part-poodle-standard-forked-tail-tip.png",
+      "sha256": "00f29a2e25270c35df863d933b61b4b0d10f0f4abcb731980e62a8c75d43d334",
+      "rgbaSha256": "ab332b76038e1779068715d91f9ecaedb7f62e63dad8e498e067b49a9597fdf1",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-forked-tail-tip",
+      "sourceSha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+      "profile": "poodle-standard",
+      "slot": "tailTip",
+      "trait": "forked-tail-tip"
+    },
+    "part-poodle-standard-flame-tail": {
+      "path": "plush/registered/part-poodle-standard-flame-tail.png",
+      "sha256": "7af7998191a8756a0899c8a01c9ac40afcc17b52089f1c2b7280d207a36cd796",
+      "rgbaSha256": "19250ad7eb34d866af21d15bc161e0ad8a915b05526d722101161702fa856261",
+      "width": 1254,
+      "height": 1254,
+      "kind": "part",
+      "sourceId": "growth-flame-tail",
+      "sourceSha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+      "profile": "poodle-standard",
+      "slot": "tailTip",
+      "trait": "flame-tail"
+    },
+    "body-shiba-parted-mouth": {
+      "path": "plush/registered/body-shiba-parted-mouth.png",
+      "sha256": "8450b262ed1e2533d7dc2291d668e216c69e333bb99bf1aa7941c2df0166d13a",
+      "rgbaSha256": "d2b70f2c7c6a92cffb9785f15eadb815c6904c8855f0f7b215e5b9f91f08f8b0",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "shiba-parted-mouth",
+      "sourceSha256": "c80e8ec01a8f1962e4adf5e226cd96c97dc355971e3c75a2ed8fd4c0e2a4f5a7"
+    },
+    "body-shiba-small-fangs": {
+      "path": "plush/registered/body-shiba-small-fangs.png",
+      "sha256": "4832341a2165b37df447b3795a95aca98f72242b7372093259008614bd3a0574",
+      "rgbaSha256": "d2c02dbb390af529d64cbd23dccc4472522abbe61db0f90d192cdea918a4746a",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "shiba-small-fangs",
+      "sourceSha256": "c10e7aeb7fe1f3e4a1c5467051b7e47923ebdc825be4b1954a78e01326382b75"
+    },
+    "body-shiba-tongue-tip": {
+      "path": "plush/registered/body-shiba-tongue-tip.png",
+      "sha256": "4e299078c1681ac04ee471e9610ae1c42219a367dacd426e7743adfc82849d66",
+      "rgbaSha256": "1831530c6a785d1663abd805cd4a33d3449361ca07f840b30bb714c52230c5ef",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "shiba-tongue-tip",
+      "sourceSha256": "e830351a4dadee8d4563eb27441f2e5742593c0c0b19899fac1642b41c86c77e"
+    },
+    "body-corgi-parted-mouth": {
+      "path": "plush/registered/body-corgi-parted-mouth.png",
+      "sha256": "ddbf10ece66a21fedc81844b7cdd8a79941934eabf71d27b8cf1db0563859dbf",
+      "rgbaSha256": "989dc8c54bdd55d624b1b36cb484f6403bd0e472f71a0b0095c9c434b4daf1ed",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "corgi-parted-mouth",
+      "sourceSha256": "ad3617c806310cb2477daddd776af8a420c34e9f7f815b3f65d4bc9d4cde7b80"
+    },
+    "body-corgi-small-fangs": {
+      "path": "plush/registered/body-corgi-small-fangs.png",
+      "sha256": "141bfcb500cb7c59c0325ea6f2aa4873d082597e5ab972fa952f6dada06a7894",
+      "rgbaSha256": "0290b8c29d2bbd929f03fe27b5c7ace23fe17371acd724e00ad5dbe6130b6e23",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "corgi-small-fangs",
+      "sourceSha256": "dafd38c79bda7fe391d4ebe2c43f6fa47cb7a8ccd0488cb7e62fdc59b7041cce"
+    },
+    "body-corgi-tongue-tip": {
+      "path": "plush/registered/body-corgi-tongue-tip.png",
+      "sha256": "6de776acc57603a1c0f3454d293434b305d630a4a656121374ba7e84c4d0c27d",
+      "rgbaSha256": "e52f54b68664bae35eef1912e9f11cc8e419cc4508e854e8c6dc3f3e3168d0b9",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "corgi-tongue-tip",
+      "sourceSha256": "ceab6c2a9f32a37056ea2ce5752672cacd11d52cfccdf84ce3b09b77b69eda6e"
+    },
+    "body-golden-retriever-parted-mouth": {
+      "path": "plush/registered/body-golden-retriever-parted-mouth.png",
+      "sha256": "4faaaddd99c15ed7e0bc861a5327e238eb70dd20b892db994dec1dccf44b24d6",
+      "rgbaSha256": "bac1eea469ad508544d1133c08916ded9d87de56ebe0a56d673f173eb33e2525",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "golden-retriever-parted-mouth",
+      "sourceSha256": "2f7537876bde6ff05a0dbfb0478cd5e9c93857117186264c47c7bc3cb31459ea"
+    },
+    "body-golden-retriever-small-fangs": {
+      "path": "plush/registered/body-golden-retriever-small-fangs.png",
+      "sha256": "9cb289fcd886f56f1a52d5f794b56d07086ef93a65e2c92b35de23769434edae",
+      "rgbaSha256": "b639fb7438ecf55c9cc12db9764e66661a76c1c00b0e21ed43acc298eda66425",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "golden-retriever-small-fangs",
+      "sourceSha256": "e56e257df773720ac3b429140255096904be054979604a946650a389f8bfaae7"
+    },
+    "body-golden-retriever-tongue-tip": {
+      "path": "plush/registered/body-golden-retriever-tongue-tip.png",
+      "sha256": "cfe6221cf0c4d601b5262df846ae29ac7ae6b6f7bbc58d2e92c01ec0db67e462",
+      "rgbaSha256": "2ab7878ff04268e25011d128c888efe83c5e3551d9f3c731cc57f6b070033863",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "golden-retriever-tongue-tip",
+      "sourceSha256": "24468c75e9d3d00db96fbd7721e206e87ecb8c957420472d8713d1f60a5b5b12"
+    },
+    "body-husky-parted-mouth": {
+      "path": "plush/registered/body-husky-parted-mouth.png",
+      "sha256": "6bf8bab889180493c647f1d8fbb4b8c99909bc7e574c10a8748d782ec14a517b",
+      "rgbaSha256": "2c45a17e8d27465f2726f5768d7ca0a9cf0f77ed6925825507d80e472536a4b6",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "husky-parted-mouth",
+      "sourceSha256": "076a7a01912909a6cb6c1a9bf611074ba5c81587b6f8298d93feae4ed2a7c658"
+    },
+    "body-husky-small-fangs": {
+      "path": "plush/registered/body-husky-small-fangs.png",
+      "sha256": "de3024b77e2b3517fa5785d8925f6c14272f167a5edaead8866c651baa38bd06",
+      "rgbaSha256": "5cd60e454e46d26ae70826e64080094fcef02fd44c49d5ae1838fb596f4b7a4e",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "husky-small-fangs",
+      "sourceSha256": "29a5e416547d22de56caf61922bec4b69d0ab9906e105d0c9faf20a988ccc32f"
+    },
+    "body-husky-tongue-tip": {
+      "path": "plush/registered/body-husky-tongue-tip.png",
+      "sha256": "675ec0e9b629b40e549e12a40ff11a36c21a0cd034aa995d88a4098dd84f9aa2",
+      "rgbaSha256": "717d846d8c248ed18bfab3852da7060ce8806e2b19353083ab67f6cc81d4391b",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "husky-tongue-tip",
+      "sourceSha256": "9ad90d8869cbc1bf195322c121e8ef88d741209ea6b5071fb182f581ce0a2c77"
+    },
+    "body-dalmatian-parted-mouth": {
+      "path": "plush/registered/body-dalmatian-parted-mouth.png",
+      "sha256": "d0a78f0b8d51c3a675cf152cec6f51810be5e3b0234fd455b0c8b34d86cb88a5",
+      "rgbaSha256": "363fc4e48a72c505ec139f131f7d0c97e00738c2dd2dfa7dbedcbcc129b4728f",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "dalmatian-parted-mouth",
+      "sourceSha256": "7df26f36bebf5eadd132fda4e274f194dc1dc9ab7e8e3991ffe8462dea370b2e"
+    },
+    "body-dalmatian-small-fangs": {
+      "path": "plush/registered/body-dalmatian-small-fangs.png",
+      "sha256": "06d8f2c06a3821f4719f5d01b98651a4d2d2b9883f909a6c8137bf22970db785",
+      "rgbaSha256": "f4643070dbbbfc933f65cae1293548ca052bef9409f059e57b2c638f52b7de77",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "dalmatian-small-fangs",
+      "sourceSha256": "84487a9498958193d846ceb51f3364d55a505b7b0e84fc82ebbfb32bd06ef9c4"
+    },
+    "body-dalmatian-tongue-tip": {
+      "path": "plush/registered/body-dalmatian-tongue-tip.png",
+      "sha256": "3aaea96a0350140ffb62bf61b686df3b3a9e2644e48edaf7e53188c03a3c1e28",
+      "rgbaSha256": "8012463362f0a6d62d5f30c14161062117da433da98248d49ed51b3ae551a773",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "dalmatian-tongue-tip",
+      "sourceSha256": "d177f8907ebfd72f6995c404c73151ba8b6fc183abc59f6d5f192d2e984c424d"
+    },
+    "body-poodle-parted-mouth": {
+      "path": "plush/registered/body-poodle-parted-mouth.png",
+      "sha256": "e7abe7a6d059a05cf79f9a0dfc0e954ab2c67360c45199a6c9277502296758db",
+      "rgbaSha256": "18e8def8589e3d4d1e121716e88d4c369ad6cf9d1a7e0686e6beca58ecab87fb",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "poodle-parted-mouth",
+      "sourceSha256": "59fc17c73e3c5fcee07b11eca57ffa8d88cfbf7a550c59ef025459e05a6dc48f"
+    },
+    "body-poodle-small-fangs": {
+      "path": "plush/registered/body-poodle-small-fangs.png",
+      "sha256": "fbaa51dcf74dd6b89ccbb3bdf3d2709364dec2ce22d48aea2408d828093eaf88",
+      "rgbaSha256": "ba890fa33df3da12887d9aeabea53cc0bbbc2d5f3a405f3e1612376137d0bdad",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "poodle-small-fangs",
+      "sourceSha256": "a73a850d543af6c4e24b41a4a532daa6118aa55e3061d641fd2cd5cb2117122f"
+    },
+    "body-poodle-tongue-tip": {
+      "path": "plush/registered/body-poodle-tongue-tip.png",
+      "sha256": "8e26d3998ed5b07e396ed6e39eb461b22c81722deb3d5d07c3d5de2057bc25e9",
+      "rgbaSha256": "9fe5820594cc68bac3df479f7eb6da6c43f52a56494539538f805d89bab3ac86",
+      "width": 1254,
+      "height": 1254,
+      "kind": "body",
+      "sourceId": "poodle-tongue-tip",
+      "sourceSha256": "93352f549a4d481461b93475fb0466969bc2528c31e49ac6f2c5c0c674df4e5a"
+    }
+  },
+  "profiles": {
+    "shiba-standard": {
+      "slots": {
+        "back": {
+          "small-wings": "part-shiba-standard-small-wings",
+          "feathered-wings": "part-shiba-standard-feathered-wings",
+          "dragon-wings": "part-shiba-standard-dragon-wings"
+        },
+        "tailTip": {
+          "forked-tail-tip": "part-shiba-standard-forked-tail-tip",
+          "flame-tail": "part-shiba-standard-flame-tail"
+        },
+        "ears": {
+          "fin-ears": "part-shiba-standard-fin-ears"
+        },
+        "neck": {
+          "small-lion-mane": "part-shiba-standard-small-lion-mane",
+          "frill-neck": "part-shiba-standard-frill-neck"
+        },
+        "crown": {
+          "dragon-horns": "part-shiba-standard-dragon-horns",
+          "antlers": "part-shiba-standard-antlers",
+          "halo": "part-shiba-standard-halo"
+        }
+      },
+      "clearMasks": {
+        "ears": "mask-shiba-standard-ears",
+        "tailTip": "mask-shiba-standard-tailTip"
+      },
+      "geometry": {
+        "body": {
+          "left": 4,
+          "top": 7,
+          "width": 56,
+          "height": 56
+        },
+        "headBottom": 36,
+        "clear": {
+          "ears": [
+            [
+              [
+                4,
+                7
+              ],
+              [
+                25.875,
+                7
+              ],
+              [
+                25.875,
+                14.875
+              ],
+              [
+                22.375,
+                15.75
+              ],
+              [
+                19.75,
+                17.5
+              ],
+              [
+                15.375,
+                21.875
+              ],
+              [
+                4,
+                21.875
+              ]
+            ],
+            [
+              [
+                32.875,
+                7
+              ],
+              [
+                52.125,
+                7
+              ],
+              [
+                52.125,
+                28.875
+              ],
+              [
+                42.5,
+                28.875
+              ],
+              [
+                39.875,
+                23.625
+              ],
+              [
+                37.25,
+                19.25
+              ],
+              [
+                32.875,
+                15.75
+              ]
+            ]
+          ],
+          "tailTip": [
+            [
+              [
+                46,
+                30
+              ],
+              [
+                64,
+                30
+              ],
+              [
+                64,
+                62
+              ],
+              [
+                49,
+                62
+              ],
+              [
+                48,
+                53
+              ],
+              [
+                48,
+                48
+              ],
+              [
+                46,
+                44
+              ],
+              [
+                43,
+                41
+              ],
+              [
+                43,
+                36
+              ]
+            ]
+          ]
+        },
+        "parts": {
+          "dragon-horns": {
+            "nodes": [
+              {
+                "left": 19,
+                "top": 3,
+                "width": 24,
+                "height": 16
+              }
+            ]
+          },
+          "antlers": {
+            "nodes": [
+              {
+                "left": 18,
+                "top": 2,
+                "width": 26,
+                "height": 18
+              }
+            ]
+          },
+          "halo": {
+            "nodes": [
+              {
+                "left": 22,
+                "top": 2,
+                "width": 18,
+                "height": 5
+              }
+            ]
+          },
+          "fin-ears": {
+            "nodes": [
+              {
+                "left": 12.75,
+                "top": 8.75,
+                "width": 13.125,
+                "height": 16.625,
+                "half": 0
+              },
+              {
+                "left": 34.625,
+                "top": 9.625,
+                "width": 13.125,
+                "height": 16.625,
+                "half": 1
+              }
+            ]
+          },
+          "small-lion-mane": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 27,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      29
+                    ],
+                    [
+                      46,
+                      29
+                    ],
+                    [
+                      42,
+                      33
+                    ],
+                    [
+                      35,
+                      36
+                    ],
+                    [
+                      24,
+                      36
+                    ],
+                    [
+                      17,
+                      33
+                    ],
+                    [
+                      9,
+                      29
+                    ],
+                    [
+                      0,
+                      29
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "frill-neck": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 27,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      29
+                    ],
+                    [
+                      46,
+                      29
+                    ],
+                    [
+                      42,
+                      33
+                    ],
+                    [
+                      35,
+                      36
+                    ],
+                    [
+                      24,
+                      36
+                    ],
+                    [
+                      17,
+                      33
+                    ],
+                    [
+                      9,
+                      29
+                    ],
+                    [
+                      0,
+                      29
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "small-wings": {
+            "nodes": [
+              {
+                "left": 2,
+                "top": 29,
+                "width": 60,
+                "height": 26
+              }
+            ]
+          },
+          "feathered-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 23,
+                "width": 62,
+                "height": 32
+              }
+            ]
+          },
+          "dragon-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 24,
+                "width": 62,
+                "height": 31
+              }
+            ]
+          },
+          "forked-tail-tip": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          },
+          "flame-tail": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          }
+        }
+      },
+      "headMask": "mask-shiba-standard-head"
+    },
+    "corgi-standard": {
+      "slots": {
+        "back": {
+          "small-wings": "part-corgi-standard-small-wings",
+          "feathered-wings": "part-corgi-standard-feathered-wings",
+          "dragon-wings": "part-corgi-standard-dragon-wings"
+        },
+        "tailTip": {
+          "forked-tail-tip": "part-corgi-standard-forked-tail-tip",
+          "flame-tail": "part-corgi-standard-flame-tail"
+        },
+        "ears": {
+          "fin-ears": "part-corgi-standard-fin-ears"
+        },
+        "neck": {
+          "small-lion-mane": "part-corgi-standard-small-lion-mane",
+          "frill-neck": "part-corgi-standard-frill-neck"
+        },
+        "crown": {
+          "dragon-horns": "part-corgi-standard-dragon-horns",
+          "antlers": "part-corgi-standard-antlers",
+          "halo": "part-corgi-standard-halo"
+        }
+      },
+      "clearMasks": {
+        "ears": "mask-corgi-standard-ears",
+        "tailTip": "mask-corgi-standard-tailTip"
+      },
+      "geometry": {
+        "body": {
+          "left": 4,
+          "top": 7,
+          "width": 56,
+          "height": 56
+        },
+        "headBottom": 40,
+        "clear": {
+          "ears": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                27,
+                0
+              ],
+              [
+                27,
+                16
+              ],
+              [
+                22,
+                18
+              ],
+              [
+                18,
+                23
+              ],
+              [
+                16,
+                28
+              ],
+              [
+                0,
+                28
+              ]
+            ],
+            [
+              [
+                34,
+                0
+              ],
+              [
+                64,
+                0
+              ],
+              [
+                64,
+                33
+              ],
+              [
+                44,
+                33
+              ],
+              [
+                42,
+                29
+              ],
+              [
+                39,
+                22
+              ],
+              [
+                36,
+                19
+              ],
+              [
+                34,
+                17
+              ]
+            ]
+          ],
+          "tailTip": [
+            [
+              [
+                48,
+                40
+              ],
+              [
+                64,
+                40
+              ],
+              [
+                64,
+                62
+              ],
+              [
+                49,
+                62
+              ],
+              [
+                48,
+                55
+              ],
+              [
+                48,
+                49
+              ],
+              [
+                46,
+                45
+              ]
+            ]
+          ]
+        },
+        "parts": {
+          "dragon-horns": {
+            "nodes": [
+              {
+                "left": 19,
+                "top": 6,
+                "width": 24,
+                "height": 16
+              }
+            ]
+          },
+          "antlers": {
+            "nodes": [
+              {
+                "left": 18,
+                "top": 5,
+                "width": 26,
+                "height": 18
+              }
+            ]
+          },
+          "halo": {
+            "nodes": [
+              {
+                "left": 22,
+                "top": 2,
+                "width": 18,
+                "height": 5
+              }
+            ]
+          },
+          "fin-ears": {
+            "nodes": [
+              {
+                "left": 12.75,
+                "top": 8.75,
+                "width": 14,
+                "height": 17.5,
+                "half": 0
+              },
+              {
+                "left": 34.625,
+                "top": 9.625,
+                "width": 14,
+                "height": 17.5,
+                "half": 1
+              }
+            ]
+          },
+          "small-lion-mane": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 31,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      33
+                    ],
+                    [
+                      46,
+                      33
+                    ],
+                    [
+                      42,
+                      37
+                    ],
+                    [
+                      35,
+                      40
+                    ],
+                    [
+                      24,
+                      40
+                    ],
+                    [
+                      17,
+                      37
+                    ],
+                    [
+                      9,
+                      33
+                    ],
+                    [
+                      0,
+                      33
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "frill-neck": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 31,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      33
+                    ],
+                    [
+                      46,
+                      33
+                    ],
+                    [
+                      42,
+                      37
+                    ],
+                    [
+                      35,
+                      40
+                    ],
+                    [
+                      24,
+                      40
+                    ],
+                    [
+                      17,
+                      37
+                    ],
+                    [
+                      9,
+                      33
+                    ],
+                    [
+                      0,
+                      33
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "small-wings": {
+            "nodes": [
+              {
+                "left": 2,
+                "top": 29,
+                "width": 60,
+                "height": 26
+              }
+            ]
+          },
+          "feathered-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 23,
+                "width": 62,
+                "height": 32
+              }
+            ]
+          },
+          "dragon-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 24,
+                "width": 62,
+                "height": 31
+              }
+            ]
+          },
+          "forked-tail-tip": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          },
+          "flame-tail": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          }
+        }
+      },
+      "headMask": "mask-corgi-standard-head"
+    },
+    "golden-retriever-standard": {
+      "slots": {
+        "back": {
+          "small-wings": "part-golden-retriever-standard-small-wings",
+          "feathered-wings": "part-golden-retriever-standard-feathered-wings",
+          "dragon-wings": "part-golden-retriever-standard-dragon-wings"
+        },
+        "tailTip": {
+          "forked-tail-tip": "part-golden-retriever-standard-forked-tail-tip",
+          "flame-tail": "part-golden-retriever-standard-flame-tail"
+        },
+        "ears": {
+          "fin-ears": "part-golden-retriever-standard-fin-ears"
+        },
+        "neck": {
+          "small-lion-mane": "part-golden-retriever-standard-small-lion-mane",
+          "frill-neck": "part-golden-retriever-standard-frill-neck"
+        },
+        "crown": {
+          "dragon-horns": "part-golden-retriever-standard-dragon-horns",
+          "antlers": "part-golden-retriever-standard-antlers",
+          "halo": "part-golden-retriever-standard-halo"
+        }
+      },
+      "clearMasks": {
+        "ears": "mask-golden-retriever-standard-ears",
+        "tailTip": "mask-golden-retriever-standard-tailTip"
+      },
+      "geometry": {
+        "body": {
+          "left": 4,
+          "top": 7,
+          "width": 56,
+          "height": 56
+        },
+        "headBottom": 36,
+        "clear": {
+          "ears": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                22,
+                0
+              ],
+              [
+                22,
+                13
+              ],
+              [
+                19,
+                16
+              ],
+              [
+                18,
+                20
+              ],
+              [
+                17,
+                25
+              ],
+              [
+                16,
+                30
+              ],
+              [
+                16,
+                34
+              ],
+              [
+                0,
+                36
+              ]
+            ],
+            [
+              [
+                39,
+                0
+              ],
+              [
+                50,
+                0
+              ],
+              [
+                50,
+                29
+              ],
+              [
+                45,
+                35
+              ],
+              [
+                39,
+                36
+              ],
+              [
+                38.5,
+                32
+              ],
+              [
+                39,
+                26
+              ],
+              [
+                38,
+                20
+              ],
+              [
+                37.5,
+                16
+              ],
+              [
+                39,
+                12
+              ]
+            ]
+          ],
+          "tailTip": [
+            [
+              [
+                48,
+                29
+              ],
+              [
+                64,
+                29
+              ],
+              [
+                64,
+                62
+              ],
+              [
+                48,
+                62
+              ],
+              [
+                47,
+                54
+              ],
+              [
+                47,
+                49
+              ],
+              [
+                45,
+                45
+              ],
+              [
+                47,
+                40
+              ]
+            ]
+          ]
+        },
+        "parts": {
+          "dragon-horns": {
+            "nodes": [
+              {
+                "left": 19,
+                "top": 3,
+                "width": 24,
+                "height": 16
+              }
+            ]
+          },
+          "antlers": {
+            "nodes": [
+              {
+                "left": 18,
+                "top": 2,
+                "width": 26,
+                "height": 18
+              }
+            ]
+          },
+          "halo": {
+            "nodes": [
+              {
+                "left": 22,
+                "top": 2,
+                "width": 18,
+                "height": 5
+              }
+            ]
+          },
+          "fin-ears": {
+            "nodes": [
+              {
+                "left": 10.125,
+                "top": 14.875,
+                "width": 14,
+                "height": 21,
+                "half": 0
+              },
+              {
+                "left": 36.375,
+                "top": 15.75,
+                "width": 14,
+                "height": 21,
+                "half": 1
+              }
+            ]
+          },
+          "small-lion-mane": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 27,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      29
+                    ],
+                    [
+                      46,
+                      29
+                    ],
+                    [
+                      42,
+                      33
+                    ],
+                    [
+                      35,
+                      36
+                    ],
+                    [
+                      24,
+                      36
+                    ],
+                    [
+                      17,
+                      33
+                    ],
+                    [
+                      9,
+                      29
+                    ],
+                    [
+                      0,
+                      29
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "frill-neck": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 27,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      29
+                    ],
+                    [
+                      46,
+                      29
+                    ],
+                    [
+                      42,
+                      33
+                    ],
+                    [
+                      35,
+                      36
+                    ],
+                    [
+                      24,
+                      36
+                    ],
+                    [
+                      17,
+                      33
+                    ],
+                    [
+                      9,
+                      29
+                    ],
+                    [
+                      0,
+                      29
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "small-wings": {
+            "nodes": [
+              {
+                "left": 2,
+                "top": 29,
+                "width": 60,
+                "height": 26
+              }
+            ]
+          },
+          "feathered-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 23,
+                "width": 62,
+                "height": 32
+              }
+            ]
+          },
+          "dragon-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 24,
+                "width": 62,
+                "height": 31
+              }
+            ]
+          },
+          "forked-tail-tip": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          },
+          "flame-tail": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          }
+        }
+      },
+      "headMask": "mask-golden-retriever-standard-head"
+    },
+    "husky-standard": {
+      "slots": {
+        "back": {
+          "small-wings": "part-husky-standard-small-wings",
+          "feathered-wings": "part-husky-standard-feathered-wings",
+          "dragon-wings": "part-husky-standard-dragon-wings"
+        },
+        "tailTip": {
+          "forked-tail-tip": "part-husky-standard-forked-tail-tip",
+          "flame-tail": "part-husky-standard-flame-tail"
+        },
+        "ears": {
+          "fin-ears": "part-husky-standard-fin-ears"
+        },
+        "neck": {
+          "small-lion-mane": "part-husky-standard-small-lion-mane",
+          "frill-neck": "part-husky-standard-frill-neck"
+        },
+        "crown": {
+          "dragon-horns": "part-husky-standard-dragon-horns",
+          "antlers": "part-husky-standard-antlers",
+          "halo": "part-husky-standard-halo"
+        }
+      },
+      "clearMasks": {
+        "ears": "mask-husky-standard-ears",
+        "tailTip": "mask-husky-standard-tailTip"
+      },
+      "geometry": {
+        "body": {
+          "left": 4,
+          "top": 7,
+          "width": 56,
+          "height": 56
+        },
+        "headBottom": 39,
+        "clear": {
+          "ears": [
+            [
+              [
+                4,
+                7
+              ],
+              [
+                26.75,
+                7
+              ],
+              [
+                26.75,
+                17.5
+              ],
+              [
+                22.375,
+                20.125
+              ],
+              [
+                18,
+                25.375
+              ],
+              [
+                4,
+                25.375
+              ]
+            ],
+            [
+              [
+                32.875,
+                7
+              ],
+              [
+                52.125,
+                7
+              ],
+              [
+                52.125,
+                28.875
+              ],
+              [
+                41.625,
+                28.875
+              ],
+              [
+                39,
+                23.625
+              ],
+              [
+                34.625,
+                19.25
+              ],
+              [
+                32.875,
+                17.5
+              ]
+            ]
+          ],
+          "tailTip": [
+            [
+              [
+                44,
+                31
+              ],
+              [
+                64,
+                31
+              ],
+              [
+                64,
+                60
+              ],
+              [
+                44,
+                60
+              ],
+              [
+                44,
+                49
+              ],
+              [
+                43,
+                45
+              ],
+              [
+                41,
+                42
+              ],
+              [
+                41,
+                36
+              ]
+            ]
+          ]
+        },
+        "parts": {
+          "dragon-horns": {
+            "nodes": [
+              {
+                "left": 19,
+                "top": 6,
+                "width": 24,
+                "height": 16
+              }
+            ]
+          },
+          "antlers": {
+            "nodes": [
+              {
+                "left": 18,
+                "top": 5,
+                "width": 26,
+                "height": 18
+              }
+            ]
+          },
+          "halo": {
+            "nodes": [
+              {
+                "left": 22,
+                "top": 2,
+                "width": 18,
+                "height": 5
+              }
+            ]
+          },
+          "fin-ears": {
+            "nodes": [
+              {
+                "left": 12.75,
+                "top": 10.5,
+                "width": 14,
+                "height": 17.5,
+                "half": 0
+              },
+              {
+                "left": 34.625,
+                "top": 10.5,
+                "width": 14,
+                "height": 17.5,
+                "half": 1
+              }
+            ]
+          },
+          "small-lion-mane": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 30,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      32
+                    ],
+                    [
+                      46,
+                      32
+                    ],
+                    [
+                      42,
+                      36
+                    ],
+                    [
+                      35,
+                      39
+                    ],
+                    [
+                      24,
+                      39
+                    ],
+                    [
+                      17,
+                      36
+                    ],
+                    [
+                      9,
+                      32
+                    ],
+                    [
+                      0,
+                      32
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "frill-neck": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 30,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      32
+                    ],
+                    [
+                      46,
+                      32
+                    ],
+                    [
+                      42,
+                      36
+                    ],
+                    [
+                      35,
+                      39
+                    ],
+                    [
+                      24,
+                      39
+                    ],
+                    [
+                      17,
+                      36
+                    ],
+                    [
+                      9,
+                      32
+                    ],
+                    [
+                      0,
+                      32
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "small-wings": {
+            "nodes": [
+              {
+                "left": 2,
+                "top": 29,
+                "width": 60,
+                "height": 26
+              }
+            ]
+          },
+          "feathered-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 23,
+                "width": 62,
+                "height": 32
+              }
+            ]
+          },
+          "dragon-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 24,
+                "width": 62,
+                "height": 31
+              }
+            ]
+          },
+          "forked-tail-tip": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          },
+          "flame-tail": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          }
+        }
+      },
+      "headMask": "mask-husky-standard-head"
+    },
+    "dalmatian-standard": {
+      "slots": {
+        "back": {
+          "small-wings": "part-dalmatian-standard-small-wings",
+          "feathered-wings": "part-dalmatian-standard-feathered-wings",
+          "dragon-wings": "part-dalmatian-standard-dragon-wings"
+        },
+        "tailTip": {
+          "forked-tail-tip": "part-dalmatian-standard-forked-tail-tip",
+          "flame-tail": "part-dalmatian-standard-flame-tail"
+        },
+        "ears": {
+          "fin-ears": "part-dalmatian-standard-fin-ears"
+        },
+        "neck": {
+          "small-lion-mane": "part-dalmatian-standard-small-lion-mane",
+          "frill-neck": "part-dalmatian-standard-frill-neck"
+        },
+        "crown": {
+          "dragon-horns": "part-dalmatian-standard-dragon-horns",
+          "antlers": "part-dalmatian-standard-antlers",
+          "halo": "part-dalmatian-standard-halo"
+        }
+      },
+      "clearMasks": {
+        "ears": "mask-dalmatian-standard-ears",
+        "tailTip": "mask-dalmatian-standard-tailTip"
+      },
+      "geometry": {
+        "body": {
+          "left": 4,
+          "top": 7,
+          "width": 56,
+          "height": 56
+        },
+        "headBottom": 36,
+        "clear": {
+          "ears": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                24,
+                0
+              ],
+              [
+                24,
+                12
+              ],
+              [
+                20,
+                15
+              ],
+              [
+                18,
+                21
+              ],
+              [
+                16,
+                25
+              ],
+              [
+                15,
+                29
+              ],
+              [
+                0,
+                30
+              ]
+            ],
+            [
+              [
+                38,
+                0
+              ],
+              [
+                52,
+                0
+              ],
+              [
+                52,
+                29
+              ],
+              [
+                47,
+                36
+              ],
+              [
+                40,
+                36
+              ],
+              [
+                39,
+                30
+              ],
+              [
+                39,
+                24
+              ],
+              [
+                38,
+                18
+              ],
+              [
+                37,
+                15
+              ]
+            ]
+          ],
+          "tailTip": [
+            [
+              [
+                49,
+                29
+              ],
+              [
+                64,
+                29
+              ],
+              [
+                64,
+                62
+              ],
+              [
+                48,
+                62
+              ],
+              [
+                48,
+                50
+              ],
+              [
+                46,
+                46
+              ],
+              [
+                49,
+                40
+              ]
+            ]
+          ]
+        },
+        "parts": {
+          "dragon-horns": {
+            "nodes": [
+              {
+                "left": 19,
+                "top": 3,
+                "width": 24,
+                "height": 16
+              }
+            ]
+          },
+          "antlers": {
+            "nodes": [
+              {
+                "left": 18,
+                "top": 2,
+                "width": 26,
+                "height": 18
+              }
+            ]
+          },
+          "halo": {
+            "nodes": [
+              {
+                "left": 22,
+                "top": 2,
+                "width": 18,
+                "height": 5
+              }
+            ]
+          },
+          "fin-ears": {
+            "nodes": [
+              {
+                "left": 10.125,
+                "top": 14,
+                "width": 14,
+                "height": 20.125,
+                "half": 0
+              },
+              {
+                "left": 36.375,
+                "top": 14.875,
+                "width": 14,
+                "height": 20.125,
+                "half": 1
+              }
+            ]
+          },
+          "small-lion-mane": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 27,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      29
+                    ],
+                    [
+                      46,
+                      29
+                    ],
+                    [
+                      42,
+                      33
+                    ],
+                    [
+                      35,
+                      36
+                    ],
+                    [
+                      24,
+                      36
+                    ],
+                    [
+                      17,
+                      33
+                    ],
+                    [
+                      9,
+                      29
+                    ],
+                    [
+                      0,
+                      29
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "frill-neck": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 27,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      29
+                    ],
+                    [
+                      46,
+                      29
+                    ],
+                    [
+                      42,
+                      33
+                    ],
+                    [
+                      35,
+                      36
+                    ],
+                    [
+                      24,
+                      36
+                    ],
+                    [
+                      17,
+                      33
+                    ],
+                    [
+                      9,
+                      29
+                    ],
+                    [
+                      0,
+                      29
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "small-wings": {
+            "nodes": [
+              {
+                "left": 2,
+                "top": 29,
+                "width": 60,
+                "height": 26
+              }
+            ]
+          },
+          "feathered-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 23,
+                "width": 62,
+                "height": 32
+              }
+            ]
+          },
+          "dragon-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 24,
+                "width": 62,
+                "height": 31
+              }
+            ]
+          },
+          "forked-tail-tip": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          },
+          "flame-tail": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          }
+        }
+      },
+      "headMask": "mask-dalmatian-standard-head"
+    },
+    "poodle-standard": {
+      "slots": {
+        "back": {
+          "small-wings": "part-poodle-standard-small-wings",
+          "feathered-wings": "part-poodle-standard-feathered-wings",
+          "dragon-wings": "part-poodle-standard-dragon-wings"
+        },
+        "tailTip": {
+          "forked-tail-tip": "part-poodle-standard-forked-tail-tip",
+          "flame-tail": "part-poodle-standard-flame-tail"
+        },
+        "ears": {
+          "fin-ears": "part-poodle-standard-fin-ears"
+        },
+        "neck": {
+          "small-lion-mane": "part-poodle-standard-small-lion-mane",
+          "frill-neck": "part-poodle-standard-frill-neck"
+        },
+        "crown": {
+          "dragon-horns": "part-poodle-standard-dragon-horns",
+          "antlers": "part-poodle-standard-antlers",
+          "halo": "part-poodle-standard-halo"
+        }
+      },
+      "clearMasks": {
+        "ears": "mask-poodle-standard-ears",
+        "tailTip": "mask-poodle-standard-tailTip"
+      },
+      "geometry": {
+        "body": {
+          "left": 4,
+          "top": 7,
+          "width": 56,
+          "height": 56
+        },
+        "headBottom": 36,
+        "clear": {
+          "ears": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                21,
+                0
+              ],
+              [
+                21,
+                17
+              ],
+              [
+                20,
+                23
+              ],
+              [
+                19,
+                28
+              ],
+              [
+                19,
+                32
+              ],
+              [
+                21,
+                36
+              ],
+              [
+                0,
+                38
+              ]
+            ],
+            [
+              [
+                42,
+                0
+              ],
+              [
+                54,
+                0
+              ],
+              [
+                54,
+                32
+              ],
+              [
+                51,
+                36
+              ],
+              [
+                46,
+                39
+              ],
+              [
+                38,
+                40
+              ],
+              [
+                38,
+                36
+              ],
+              [
+                39.5,
+                32
+              ],
+              [
+                40,
+                26
+              ],
+              [
+                40,
+                22
+              ],
+              [
+                40,
+                18
+              ],
+              [
+                42,
+                15
+              ]
+            ]
+          ],
+          "tailTip": [
+            [
+              [
+                46,
+                37
+              ],
+              [
+                64,
+                37
+              ],
+              [
+                64,
+                62
+              ],
+              [
+                49,
+                62
+              ],
+              [
+                49,
+                51
+              ],
+              [
+                48,
+                47
+              ],
+              [
+                44,
+                43
+              ],
+              [
+                44,
+                39
+              ]
+            ]
+          ]
+        },
+        "parts": {
+          "dragon-horns": {
+            "nodes": [
+              {
+                "left": 19,
+                "top": 3,
+                "width": 24,
+                "height": 16
+              }
+            ]
+          },
+          "antlers": {
+            "nodes": [
+              {
+                "left": 18,
+                "top": 2,
+                "width": 26,
+                "height": 18
+              }
+            ]
+          },
+          "halo": {
+            "nodes": [
+              {
+                "left": 22,
+                "top": 2,
+                "width": 18,
+                "height": 5
+              }
+            ]
+          },
+          "fin-ears": {
+            "nodes": [
+              {
+                "left": 8.375,
+                "top": 15.75,
+                "width": 14.875,
+                "height": 21.875,
+                "half": 0
+              },
+              {
+                "left": 36.375,
+                "top": 15.75,
+                "width": 14.875,
+                "height": 21.875,
+                "half": 1
+              }
+            ]
+          },
+          "small-lion-mane": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 27,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      29
+                    ],
+                    [
+                      46,
+                      29
+                    ],
+                    [
+                      42,
+                      33
+                    ],
+                    [
+                      35,
+                      36
+                    ],
+                    [
+                      24,
+                      36
+                    ],
+                    [
+                      17,
+                      33
+                    ],
+                    [
+                      9,
+                      29
+                    ],
+                    [
+                      0,
+                      29
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "frill-neck": {
+            "nodes": [
+              {
+                "left": 12,
+                "top": 27,
+                "width": 37,
+                "height": 20,
+                "occlusion": [
+                  [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      64,
+                      0
+                    ],
+                    [
+                      64,
+                      29
+                    ],
+                    [
+                      46,
+                      29
+                    ],
+                    [
+                      42,
+                      33
+                    ],
+                    [
+                      35,
+                      36
+                    ],
+                    [
+                      24,
+                      36
+                    ],
+                    [
+                      17,
+                      33
+                    ],
+                    [
+                      9,
+                      29
+                    ],
+                    [
+                      0,
+                      29
+                    ]
+                  ]
+                ]
+              }
+            ]
+          },
+          "small-wings": {
+            "nodes": [
+              {
+                "left": 2,
+                "top": 29,
+                "width": 60,
+                "height": 26
+              }
+            ]
+          },
+          "feathered-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 23,
+                "width": 62,
+                "height": 32
+              }
+            ]
+          },
+          "dragon-wings": {
+            "nodes": [
+              {
+                "left": 1,
+                "top": 24,
+                "width": 62,
+                "height": 31
+              }
+            ]
+          },
+          "forked-tail-tip": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          },
+          "flame-tail": {
+            "nodes": [
+              {
+                "left": 41,
+                "top": 32,
+                "width": 21,
+                "height": 27
+              }
+            ]
+          }
+        }
+      },
+      "headMask": "mask-poodle-standard-head"
+    }
+  },
+  "bodies": {
+    "shiba-parted-mouth": {
+      "resource": "body-shiba-parted-mouth",
+      "profile": "shiba-standard",
+      "breed": "shiba",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth"
+    },
+    "shiba-small-fangs": {
+      "resource": "body-shiba-small-fangs",
+      "profile": "shiba-standard",
+      "breed": "shiba",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs"
+    },
+    "shiba-tongue-tip": {
+      "resource": "body-shiba-tongue-tip",
+      "profile": "shiba-standard",
+      "breed": "shiba",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip"
+    },
+    "corgi-parted-mouth": {
+      "resource": "body-corgi-parted-mouth",
+      "profile": "corgi-standard",
+      "breed": "corgi",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth"
+    },
+    "corgi-small-fangs": {
+      "resource": "body-corgi-small-fangs",
+      "profile": "corgi-standard",
+      "breed": "corgi",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs"
+    },
+    "corgi-tongue-tip": {
+      "resource": "body-corgi-tongue-tip",
+      "profile": "corgi-standard",
+      "breed": "corgi",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip"
+    },
+    "golden-retriever-parted-mouth": {
+      "resource": "body-golden-retriever-parted-mouth",
+      "profile": "golden-retriever-standard",
+      "breed": "golden-retriever",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth"
+    },
+    "golden-retriever-small-fangs": {
+      "resource": "body-golden-retriever-small-fangs",
+      "profile": "golden-retriever-standard",
+      "breed": "golden-retriever",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs"
+    },
+    "golden-retriever-tongue-tip": {
+      "resource": "body-golden-retriever-tongue-tip",
+      "profile": "golden-retriever-standard",
+      "breed": "golden-retriever",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip"
+    },
+    "husky-parted-mouth": {
+      "resource": "body-husky-parted-mouth",
+      "profile": "husky-standard",
+      "breed": "husky",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth"
+    },
+    "husky-small-fangs": {
+      "resource": "body-husky-small-fangs",
+      "profile": "husky-standard",
+      "breed": "husky",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs"
+    },
+    "husky-tongue-tip": {
+      "resource": "body-husky-tongue-tip",
+      "profile": "husky-standard",
+      "breed": "husky",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip"
+    },
+    "dalmatian-parted-mouth": {
+      "resource": "body-dalmatian-parted-mouth",
+      "profile": "dalmatian-standard",
+      "breed": "dalmatian",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth"
+    },
+    "dalmatian-small-fangs": {
+      "resource": "body-dalmatian-small-fangs",
+      "profile": "dalmatian-standard",
+      "breed": "dalmatian",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs"
+    },
+    "dalmatian-tongue-tip": {
+      "resource": "body-dalmatian-tongue-tip",
+      "profile": "dalmatian-standard",
+      "breed": "dalmatian",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip"
+    },
+    "poodle-parted-mouth": {
+      "resource": "body-poodle-parted-mouth",
+      "profile": "poodle-standard",
+      "breed": "poodle",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "parted-mouth"
+    },
+    "poodle-small-fangs": {
+      "resource": "body-poodle-small-fangs",
+      "profile": "poodle-standard",
+      "breed": "poodle",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "small-fangs"
+    },
+    "poodle-tongue-tip": {
+      "resource": "body-poodle-tongue-tip",
+      "profile": "poodle-standard",
+      "breed": "poodle",
+      "body": "standard",
+      "eyes": "round",
+      "expression": "tongue-tip"
+    }
+  },
+  "candidateRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "releaseGateSha256": "b5bed54c5aa27d5d9063146f1f38fba8ffd69952702820dc4318623d16f3d8f1",
+  "runtimeEnabled": false,
+  "revision": "b2614db640b5cce6d32ab9568ca134b0318889be5b352ed81427d0120ea66994"
+}

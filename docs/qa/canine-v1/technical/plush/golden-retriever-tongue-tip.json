@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-tongue-tip",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/golden-retriever-tongue-tip.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "24468c75e9d3d00db96fbd7721e206e87ecb8c957420472d8713d1f60a5b5b12",
+  "rgbaSha256": "10791e47ba319c68f04f2a15f3f2d69491ef7f50ed47cb1efb7948390732d53e",
+  "bounds": {
+    "left": 106,
+    "top": 67,
+    "right": 1238,
+    "bottom": 1224,
+    "opaque": 124,
+    "transparent": 664351,
+    "fractional": 908041,
+    "visible": 867923
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

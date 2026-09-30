@@ -1,0 +1,1631 @@
+{
+  "status": "pending-visual-review",
+  "records": [
+    {
+      "body": "shiba-slender-tall-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "cb6ed1d6526fd8c29de15df6bd2bf2b584c8d616627e125c7a81f171d1ed6db0",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-slender-tall-fin-ears.png"
+    },
+    {
+      "body": "shiba-slender-tall-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "35687d32e88f5390fd7c3552b441e707f0e10240ea5829217f42579331a1e97d",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-slender-tall-feathered-ears.png"
+    },
+    {
+      "body": "shiba-slender-tall-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              9
+            ],
+            [
+              21,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              44,
+              25
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              38,
+              14
+            ],
+            [
+              33,
+              10
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 15,
+            "height": 19
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 15,
+            "height": 19
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "de375e65404461028175a9717d35fa07049effa2b584c70801ccdd78f0d90c30",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "a2f3e49e59c3e225d3e1396949313e8323450620bb5d34b277b1c2b27fbdbedd",
+      "path": "docs/qa/canine-v1/registration/pixel-shiba-slender-tall-celestial-ears.png"
+    },
+    {
+      "body": "corgi-slender-tall-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "b0509e04ef34d204ba98983a769f00a160865d2a482ef88fdd36248f9f8e2d5e",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-slender-tall-fin-ears.png"
+    },
+    {
+      "body": "corgi-slender-tall-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "8fe169c6fef1bc971faa8f8ad725bd694f471792c18b57489ee01120be276516",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-slender-tall-feathered-ears.png"
+    },
+    {
+      "body": "corgi-slender-tall-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              18,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          [
+            [
+              34,
+              0
+            ],
+            [
+              56,
+              0
+            ],
+            [
+              56,
+              26
+            ],
+            [
+              43,
+              26
+            ],
+            [
+              41,
+              19
+            ],
+            [
+              37,
+              14
+            ],
+            [
+              34,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 2,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 3,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "ffde66768aad321fbdf54b56e7d69d679a8a7220e4fe20e5aa4daa2ecaddcd9e",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "81206df36cdfd23b502231e10592f1002254078b3c603997c6cb22bb181710bf",
+      "path": "docs/qa/canine-v1/registration/pixel-corgi-slender-tall-celestial-ears.png"
+    },
+    {
+      "body": "golden-retriever-slender-tall-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              24,
+              0
+            ],
+            [
+              24,
+              7
+            ],
+            [
+              19,
+              10
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              14,
+              22
+            ],
+            [
+              15,
+              26
+            ],
+            [
+              18,
+              29
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              0,
+              30
+            ]
+          ],
+          [
+            [
+              38,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              38,
+              27
+            ],
+            [
+              39,
+              23
+            ],
+            [
+              39,
+              18
+            ],
+            [
+              38,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 11,
+            "top": 3,
+            "width": 15,
+            "height": 22
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 15,
+            "height": 22
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "96bf9ba5ae4700ba6a6e4defdbb588659bd3657fff1515ca32ecfc17b5ded218",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-slender-tall-fin-ears.png"
+    },
+    {
+      "body": "golden-retriever-slender-tall-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              24,
+              0
+            ],
+            [
+              24,
+              7
+            ],
+            [
+              19,
+              10
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              14,
+              22
+            ],
+            [
+              15,
+              26
+            ],
+            [
+              18,
+              29
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              0,
+              30
+            ]
+          ],
+          [
+            [
+              38,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              38,
+              27
+            ],
+            [
+              39,
+              23
+            ],
+            [
+              39,
+              18
+            ],
+            [
+              38,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 11,
+            "top": 3,
+            "width": 15,
+            "height": 22
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 15,
+            "height": 22
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "3271fa4e8fbc759d3b12b2490a43516d54a56a0df2866dbeca190f5dfdc05e55",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-slender-tall-feathered-ears.png"
+    },
+    {
+      "body": "golden-retriever-slender-tall-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              24,
+              0
+            ],
+            [
+              24,
+              7
+            ],
+            [
+              19,
+              10
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              14,
+              22
+            ],
+            [
+              15,
+              26
+            ],
+            [
+              18,
+              29
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              0,
+              30
+            ]
+          ],
+          [
+            [
+              38,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              38,
+              27
+            ],
+            [
+              39,
+              23
+            ],
+            [
+              39,
+              18
+            ],
+            [
+              38,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 11,
+            "top": 3,
+            "width": 15,
+            "height": 22
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 15,
+            "height": 22
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "6fb679144dd020001cac65ee9085d90fd6d3614248b0c3044c5fffd3395c0d47",
+      "path": "docs/qa/canine-v1/registration/pixel-golden-retriever-slender-tall-celestial-ears.png"
+    },
+    {
+      "body": "husky-slender-tall-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "c1746a3c9233c571537183281804842bcb8e31658fa762933057ee97acc69cd2",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-slender-tall-fin-ears.png"
+    },
+    {
+      "body": "husky-slender-tall-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "61e9c176e847302c9cf5f539b4a5320e243353705566eecb0545016ea72ee564",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-slender-tall-feathered-ears.png"
+    },
+    {
+      "body": "husky-slender-tall-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              26,
+              0
+            ],
+            [
+              26,
+              12
+            ],
+            [
+              21,
+              15
+            ],
+            [
+              16,
+              21
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          [
+            [
+              33,
+              0
+            ],
+            [
+              55,
+              0
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              40,
+              19
+            ],
+            [
+              35,
+              14
+            ],
+            [
+              33,
+              12
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 10,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          },
+          {
+            "left": 35,
+            "top": 4,
+            "width": 16,
+            "height": 20
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "cf2ab6b17f4cde396c4b06b97a7951ad9dca84a98afc0407dbaea4d9e639edfe",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "a8ac230a6cd67f24be16d6eb782393b5a9bc39097ddc4e1310d872da82347d1a",
+      "path": "docs/qa/canine-v1/registration/pixel-husky-slender-tall-celestial-ears.png"
+    },
+    {
+      "body": "dalmatian-slender-tall-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "13718c79ff96b3dfbc22fc35190e8297f9df74aa598f5453d0489488daca8511",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-slender-tall-fin-ears.png"
+    },
+    {
+      "body": "dalmatian-slender-tall-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "70150d67d3f2f5fc2d154ea46c2b5ae1d19590ebcba6371ac3bdb0c42f6dd016",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-slender-tall-feathered-ears.png"
+    },
+    {
+      "body": "dalmatian-slender-tall-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              21,
+              0
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              17,
+              26
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              0,
+              34
+            ]
+          ],
+          [
+            [
+              40,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              41,
+              35
+            ],
+            [
+              40,
+              29
+            ],
+            [
+              41,
+              21
+            ],
+            [
+              40,
+              15
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 7,
+            "top": 8,
+            "width": 16,
+            "height": 23
+          },
+          {
+            "left": 37,
+            "top": 9,
+            "width": 16,
+            "height": 23
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "8f536caadfedd6de794c29cef6b71617f703f4fa64b8a06e9f12801e1d9a5daa",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "c93b62a83a1547986d3ab370e39c72a2be51c6c6e41a988d8b32f9c656b6f958",
+      "path": "docs/qa/canine-v1/registration/pixel-dalmatian-slender-tall-celestial-ears.png"
+    },
+    {
+      "body": "poodle-slender-tall-round-parted-mouth",
+      "trait": "fin-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+      "partSha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "compositeSha256": "fdb43945df7d539caee3c0db461f68528aa3856c98ad806ba765e9ec5d78d623",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-slender-tall-fin-ears.png"
+    },
+    {
+      "body": "poodle-slender-tall-round-parted-mouth",
+      "trait": "feathered-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+      "partSha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "compositeSha256": "abaccdacd9754e94aae4a5077d6131a15db60bd146cf6c4679b7404cbf31dc9e",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-slender-tall-feathered-ears.png"
+    },
+    {
+      "body": "poodle-slender-tall-round-parted-mouth",
+      "trait": "celestial-ears",
+      "geometry": {
+        "clear": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              13
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              17,
+              29
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              0,
+              39
+            ]
+          ],
+          [
+            [
+              41,
+              0
+            ],
+            [
+              54,
+              0
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              39
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              41,
+              31
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              41,
+              17
+            ]
+          ]
+        ],
+        "nodes": [
+          {
+            "left": 5,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          },
+          {
+            "left": 37,
+            "top": 10,
+            "width": 17,
+            "height": 25
+          }
+        ],
+        "layerOrder": "ears-behind-cleared-body"
+      },
+      "bodySha256": "337bb256f55bf5151d3ea1d90f7bdd505e14a9d24bd1261f1b351033ea747205",
+      "partSha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "compositeSha256": "aab797df67ef12a8c5720c5d39c5d52fe3e953872466b8ea0506821315d203d8",
+      "path": "docs/qa/canine-v1/registration/pixel-poodle-slender-tall-celestial-ears.png"
+    }
+  ]
+}

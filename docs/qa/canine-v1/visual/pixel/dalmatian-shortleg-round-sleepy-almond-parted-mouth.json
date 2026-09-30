@@ -1,0 +1,11 @@
+{
+  "id": "dalmatian-shortleg-round-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy lowered lids retain amber iris visibility, tiny natural mouth preserved. Short broad torso and major face/ear spots consistent, four paws and slim spotted tail intact. No edge clipping or halo in light/dark composites.",
+  "resourceSha256": "8e63c65fd54528adc0699f9a92ef56bb08fd7e036ae655e6a3d39911e2ada95d",
+  "evidence": "docs/qa/canine-v1/visual/pixel/dalmatian-shortleg-round-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "b2cfc3be5670f0b83b24390216e5738274617ea88d928659e62ddadbefa085a4",
+  "userArtApproval": false
+}

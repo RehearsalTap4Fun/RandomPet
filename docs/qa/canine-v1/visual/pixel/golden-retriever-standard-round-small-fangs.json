@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-standard-round-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Native-size light/dark composite inspected: dark open smile with two separated ivory tooth clusters survives reduction; floppy ears, feathered tail and seated standard silhouette retained; no tongue, clipping or extra limbs.",
+  "resourceSha256": "aa7d6b374a31c7ce67cc91ab850c3c77b430d575e07e25dbd511da301f9065cd",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-standard-round-small-fangs-review.png",
+  "evidenceSha256": "22d9dfafb71764fbd1775a0fc5e8758f800d2dc6a144e399bb6e34edb0c1b062",
+  "userArtApproval": false
+}

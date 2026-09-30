@@ -1,0 +1,11 @@
+{
+  "id": "growth-forked-tail-tip",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "完整柔软尾干向右上分为两枚圆绒尾尖，分叉与根部均连续，暖金乳白毛向自然，双背景无断层或背景底板。配准另审。",
+  "resourceSha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+  "evidence": "docs/qa/canine-v1/visual/plush/growth-forked-tail-tip-review.png",
+  "evidenceSha256": "01de36177498e4a92fc175c73c40c66dc9f0d137f7aef31eab19d852be1729e7",
+  "userArtApproval": false
+}

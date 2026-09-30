@@ -1,0 +1,328 @@
+{
+  "schemaVersion": "canine-production-checkpoint-v1",
+  "scope": "all-reviewed-part-sources",
+  "status": "checkpoint-passed",
+  "goalComplete": false,
+  "bodyCounts": {
+    "planned": 90,
+    "reviewed": 90,
+    "verifiedHere": 0
+  },
+  "remainingBodies": 0,
+  "partCounts": {
+    "planned": 27,
+    "reviewed": 27,
+    "verifiedHere": 27
+  },
+  "partsStatus": "registration-and-combination-review-pending",
+  "claudeNotified": false,
+  "checks": [
+    "file-and-rgba-hashes",
+    "review-evidence-hashes",
+    "original-generation-provenance",
+    "real-alpha-and-size",
+    "unclipped-visible-content",
+    "distinct-variant-content",
+    "pixel-128-exact-nearest-neighbor",
+    "max-three-reworks"
+  ],
+  "rows": [
+    {
+      "style": "pixel",
+      "id": "growth-dragon-horns",
+      "body": "dragon-horns",
+      "eyes": "crown",
+      "expression": "source-only",
+      "sha256": "709cfd778254a5061744abaff1da9cb73ac0ca48ffbbcb08de93489fc63476dc",
+      "acceptedAttempt": "growth-dragon-horns",
+      "sourceSha256": "dfdcf9b1996aaa6c0250c7bc6eb04ee4ef3bde0a20dff703afddccd5c4368bb1",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-dragon-horns.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-dragon-horns",
+      "body": "dragon-horns",
+      "eyes": "crown",
+      "expression": "source-only",
+      "sha256": "15b11988b684472857d4783e659176c4918f84295352efd4a188533ed513d7ce",
+      "acceptedAttempt": "growth-dragon-horns",
+      "sourceSha256": "584c8fa55dfcab3e55e3f8ee592b05967ea4554dcac6ead390b1143484651298",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-dragon-horns.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-antlers",
+      "body": "antlers",
+      "eyes": "crown",
+      "expression": "source-only",
+      "sha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+      "acceptedAttempt": "growth-antlers",
+      "sourceSha256": "ebc3872bc731e8e216e9b1372a0859a1c5bc7945c2ede3649115deecfd3c4c9d",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-antlers.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-antlers",
+      "body": "antlers",
+      "eyes": "crown",
+      "expression": "source-only",
+      "sha256": "62497d4ed8953bccb9ea2fd861159eb7be4a1a72cfb70a0a092854838390bc7f",
+      "acceptedAttempt": "growth-antlers",
+      "sourceSha256": "65e9a0f308069295d739a28b99c712395283da4ae39fdc4497885991324c7b98",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-antlers.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-halo",
+      "body": "halo",
+      "eyes": "crown",
+      "expression": "source-only",
+      "sha256": "962c28bc44d39fa3aa76cfb1d87c915bfbd8d549003e34f256085b75e6e74f3a",
+      "acceptedAttempt": "growth-halo",
+      "sourceSha256": "8784ccda64db57e7554c3f7ae6262056193d8a7d533b7db767d924a4a6d1aee1",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-halo.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-halo",
+      "body": "halo",
+      "eyes": "crown",
+      "expression": "source-only",
+      "sha256": "bc234567f41f588f32e36c98ba909e741894062624ee63225073fa9f691cc6a8",
+      "acceptedAttempt": "growth-halo",
+      "sourceSha256": "2e4a0849c8475fc78b70543287384fcb55d5696312408276d49d2219af03df54",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-halo.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-crystal-horns",
+      "body": "crystal-horns",
+      "eyes": "crown",
+      "expression": "source-only",
+      "sha256": "bc86615a8eb86b4eabf9074b8c2c4037eadff07013d630904af51a90d8036c95",
+      "acceptedAttempt": "growth-crystal-horns",
+      "sourceSha256": "4e9f8184ef8bffd472e64737c21307e96cde00b07503421a6a192f9308a0d8ed",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-crystal-horns.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-fin-ears",
+      "body": "fin-ears",
+      "eyes": "ears",
+      "expression": "source-only",
+      "sha256": "c5c52401bcc01d71dd9f3d613620c8e22655b3694a200e6c0978fb5608bb7975",
+      "acceptedAttempt": "growth-fin-ears",
+      "sourceSha256": "a116ce2ccbdb4ebf6e976bb5e0b43ddfa5757f01fcfc571440ffef65247da7b4",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-fin-ears.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-fin-ears",
+      "body": "fin-ears",
+      "eyes": "ears",
+      "expression": "source-only",
+      "sha256": "56ef5fd285fbee55c95beec047f00b1ad9af3a1ede1528902489647b0a35d6dc",
+      "acceptedAttempt": "growth-fin-ears",
+      "sourceSha256": "721353171de60121f647cd375e177c228e80597296c0af2f9ede128944392879",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-fin-ears.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-feathered-ears",
+      "body": "feathered-ears",
+      "eyes": "ears",
+      "expression": "source-only",
+      "sha256": "8143964048fd63a2b9e8455abc87fd23377cad9ee50762a09e46982945ebd4bd",
+      "acceptedAttempt": "growth-feathered-ears",
+      "sourceSha256": "79489a4e8acbb3a0f7c1c26121d4ab954ba0336b074e087d2ed2dc9e46381f85",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-feathered-ears.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-celestial-ears",
+      "body": "celestial-ears",
+      "eyes": "ears",
+      "expression": "source-only",
+      "sha256": "2709094f03fbb902b682faa1034289b8433fad881d8d873f1fb96bf358a7e69a",
+      "acceptedAttempt": "growth-celestial-ears",
+      "sourceSha256": "ec6ecf086c8dd341fc4a6dcfa80df8b80f1eb68afd7850be28035c1691f57087",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-celestial-ears.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-small-lion-mane",
+      "body": "small-lion-mane",
+      "eyes": "neck",
+      "expression": "source-only",
+      "sha256": "cc2a00ddfe5726426fba1e20f62f9d3d72668bd667d55420561c9f9ee0881a8f",
+      "acceptedAttempt": "growth-small-lion-mane",
+      "sourceSha256": "762a0e769e19714c1b34ed2d151ff8d15b140a59eec4cb06b8c958bff0ec9be6",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-small-lion-mane.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-small-lion-mane",
+      "body": "small-lion-mane",
+      "eyes": "neck",
+      "expression": "source-only",
+      "sha256": "7627cd7bb53fcfb0771dee0da2983b04229ccd4befd29a9edc261626117e013c",
+      "acceptedAttempt": "growth-small-lion-mane",
+      "sourceSha256": "d90dba07eafd73f2ccd75af675cb0dc19ec11fd9848f2ba99a1507d07112cab8",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-small-lion-mane.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-frill-neck",
+      "body": "frill-neck",
+      "eyes": "neck",
+      "expression": "source-only",
+      "sha256": "65ccd9c606bbe2135ff2b665ee2887e2bc70a3ce04c55ee76b3ea66d604e681c",
+      "acceptedAttempt": "growth-frill-neck-r1",
+      "sourceSha256": "0221eec650785207e3598a3114a21c66055f0de47d4aa5217a1c84d12162d28e",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-frill-neck.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-frill-neck",
+      "body": "frill-neck",
+      "eyes": "neck",
+      "expression": "source-only",
+      "sha256": "5b2f708ae9637760a3f6c4412e88407f8e88a2d21ea01ccf05a5943b1ff0d7dc",
+      "acceptedAttempt": "growth-frill-neck",
+      "sourceSha256": "c092cff1b46d5083b85a9e27a9c6dfeb3e4d0716331c045b1255f65eade0ac5f",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-frill-neck.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-sunburst-ruff",
+      "body": "sunburst-ruff",
+      "eyes": "neck",
+      "expression": "source-only",
+      "sha256": "530a8aab203fe113926effba9541283b9db283d8ebdaa335629e1271009657b1",
+      "acceptedAttempt": "growth-sunburst-ruff",
+      "sourceSha256": "c4e672c709e66a7da39a9d10125092c6b78778ce6842865215875cad1663346e",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-sunburst-ruff.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-small-wings",
+      "body": "small-wings",
+      "eyes": "back",
+      "expression": "source-only",
+      "sha256": "0dccb4440a1448c2213274ad593eb2a0c70b2296728386b673ef5bbc4410a0fb",
+      "acceptedAttempt": "growth-small-wings",
+      "sourceSha256": "6cdaf0a71f05c92f8d489dfbd14fb82a1f30f1e212b9215b033b1b0f76abf359",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-small-wings.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-small-wings",
+      "body": "small-wings",
+      "eyes": "back",
+      "expression": "source-only",
+      "sha256": "3e3eef2cb0f5b95c553ff9520308c91503da1e087177441ab4de6fd9caea2717",
+      "acceptedAttempt": "growth-small-wings",
+      "sourceSha256": "438b513b85976836115d748af4537d1f2760c903883492c9684109e693bc74ee",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-small-wings.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-feathered-wings",
+      "body": "feathered-wings",
+      "eyes": "back",
+      "expression": "source-only",
+      "sha256": "f0a0494d335bc5f9fbf72d40fc08fc1b217c8008dbcbe982b033d29938e3aaac",
+      "acceptedAttempt": "growth-feathered-wings",
+      "sourceSha256": "67895291c275c12d87137a2a45b25623c90df934d1d4ed33b4f30a5c2cbe7d6c",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-feathered-wings.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-feathered-wings",
+      "body": "feathered-wings",
+      "eyes": "back",
+      "expression": "source-only",
+      "sha256": "204932740f38ef42d95fc00ec976314d84177acb9886cff2f0a9544686d6a08f",
+      "acceptedAttempt": "growth-feathered-wings",
+      "sourceSha256": "4d40287e3eb1e5bca457baaef7e6981a50e20dd53c455d1c8d1c9aa127c4b4e9",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-feathered-wings.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-dragon-wings",
+      "body": "dragon-wings",
+      "eyes": "back",
+      "expression": "source-only",
+      "sha256": "c6f3e35997d7729ebaf06ddea7e7b054a0a04dabac4f1bd5752f3d69039c0e06",
+      "acceptedAttempt": "growth-dragon-wings",
+      "sourceSha256": "581ef4d89ddaf9a2e25822da29a25069bee409e9ff54d3169125f151d7e03a98",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-dragon-wings.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-dragon-wings",
+      "body": "dragon-wings",
+      "eyes": "back",
+      "expression": "source-only",
+      "sha256": "29a1deb1762a1067e3eb33d7194c35b81a3a8ace9c77755b22341f464310e153",
+      "acceptedAttempt": "growth-dragon-wings",
+      "sourceSha256": "966a020969f384a34446e5cb58d7edbfd12d4f4dfa5f6f4cad1ded886ab51f2c",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-dragon-wings.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-forked-tail-tip",
+      "body": "forked-tail-tip",
+      "eyes": "tailTip",
+      "expression": "source-only",
+      "sha256": "49a5bd2f075e1a1cf941c1987d4a2a8e5f7793ec61df1513cf5305ddb149034f",
+      "acceptedAttempt": "growth-forked-tail-tip",
+      "sourceSha256": "8364f078d1d55e955636ba1360d0bdd22e14800ca621c032f10e7b5ac2eab536",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-forked-tail-tip.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-forked-tail-tip",
+      "body": "forked-tail-tip",
+      "eyes": "tailTip",
+      "expression": "source-only",
+      "sha256": "6d9a67c477f3c5d09541d0173f1b9b56eeb66264e27db1a178e645d0bd6afacd",
+      "acceptedAttempt": "growth-forked-tail-tip",
+      "sourceSha256": "3ad59a452eb0266c31ded317e042d01f60bb1433c89e6eda85cfa03f3ee71a3a",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-forked-tail-tip.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-flame-tail",
+      "body": "flame-tail",
+      "eyes": "tailTip",
+      "expression": "source-only",
+      "sha256": "8d1a252b8790710d9665f736c678ef53957bce63434dbafcf9ab3bc161c0959d",
+      "acceptedAttempt": "growth-flame-tail",
+      "sourceSha256": "2f5b726da8685f91057e38777861d6af73abf3fcfe5185a65bbefc19f6764540",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-flame-tail.png"
+    },
+    {
+      "style": "plush",
+      "id": "growth-flame-tail",
+      "body": "flame-tail",
+      "eyes": "tailTip",
+      "expression": "source-only",
+      "sha256": "ff60dc958d9f423e1f7beb43319becdb466c8d6e618766a5e3c4fd8ac24cb47e",
+      "acceptedAttempt": "growth-flame-tail",
+      "sourceSha256": "1bc872958b47b90af035d6748eab1e77c767055851f7f45e4ffc8b8961eed2f4",
+      "path": "packages/asset-catalog/canine/v1/plush/assets/growth-flame-tail.png"
+    },
+    {
+      "style": "pixel",
+      "id": "growth-phoenix-tail",
+      "body": "phoenix-tail",
+      "eyes": "tailTip",
+      "expression": "source-only",
+      "sha256": "26267439a16d42fa6a61b9f185c4a797a1de5d594ef25c047ed34fc1a2719df0",
+      "acceptedAttempt": "growth-phoenix-tail",
+      "sourceSha256": "bdb549042fca80a0aa029b95a7469591a9e96f976a96d08b39b6a86f94ccb863",
+      "path": "packages/asset-catalog/canine/v1/pixel/assets/growth-phoenix-tail.png"
+    }
+  ]
+}

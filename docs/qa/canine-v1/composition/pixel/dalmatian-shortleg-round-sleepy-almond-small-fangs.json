@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+  "profile": "dalmatian-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "60cfa24309ee5bd5c6787b0d6dfbc86634d0989057ae011aea497ecf466d0813",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "51e76973bb6ff5143bd5c086c7c71772e3a5d8886cc41580d0a7e387ec5f9a2b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5b3e481f50500c0c9f1b25c4b5cbfafc42c0b58e1ec5e1888bab10382b4369b2",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "d3adfd649b7150c18a7afa36b1ff7cb7694e3c6222ef637a738b12700567bc37",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e8e7eca56c1afa817695825d1888911535e115b902ce04253b08ac2b7c50275d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "ce2f379270d8dd9233ccfc800e8d935cfa76992a857a92a1f863e93697506438",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "02852217c6304abd37818eb99ab9de9c1cd290ac1e30591371b8ce27eb4a4aa4",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "5ce00de7e235136a23d701f4c388803f91d6615f2c00c8a5d17a1352c1e04123",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e27e900c77675533342980e06dbdbcac23913cd11d799b946e53470959ebe02f",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "15894605bf65a37a9129c5674773aa04acdb43820a674bbae2d1398244bb628d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "114adba50d51fb4b15dc5a9eb17df554b1c6f2a002688347274a57efb06a2523",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "77d5f4dec9ac04e3976a738122d745b3637b6de177305a2e303a06ab84a99e97",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1c8029648d7975d97c9a36bd40bbd9af5e2e02b2c51ee45d4db4519a5df0c7e3",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "c7d681095e619a8a89e0a5899a7558e9f201cb65c50ca49f232199f4d59ae0f0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "10d0c2483f84e7a74f655b960c45c4e2b0e13b0684e1b60d82cb5ae9b771fb84",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "ef0e646c603e611a0237b5043b78f9f454151292356fee69f59b1b540c7700a3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "dd4f195d6445e6f5e67a19a5607cf0be6d6b4712c91568e9719d4970d5a949f1",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "ebfefa27a869034fefb442ba8dfe8626416966768ffa5e7554d750e5404d5135",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c6aaca2f5910942671310f13df256dfc79dd969544018358ddd2fd45b1215c14",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "05c82ef943558a7116940c8ebedf70b3c58bd428fa55b799181a9d81102e0dbd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "bae0b59cb46a7342a1c6cdd2adc8527f9211cd13bd97671b7f42b1506b595bb1",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "6a2dc74a174ef62756b047eb1a4c0703da0d1d744aeda71008def84499827000",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "922f3b7600f5c42cb98ec36cbb9b0cb2e6cb17dc472a7f5cca683bf068ff939d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "7eb33d5e60d91850b08640a09e09800dfd0b7cff18cffefb9706c8423bf30875",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e8dde88c90a7d62d1f4f39aa78bcde44acca10b22016ce1936519194fcd000a2",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "e271eb10336c6f414f1f8ceed82c825b523464e439624238849ebfa3e6f1be81",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "903eb868e3f5d22d19571a24cea91e24978e465374f27ff5f621e1436ca76557",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "e236840308da1ff67f6ad7f14ff4cba9fbc394fbdf418d6d344a06e0e634a37e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0ec7520755c808e9dff2faec13129d3b48d99639d20d4fe1caf2154c5bf9d6c6",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "cab2b8f241219957a8806d329741b717e35c66c0cbbefbf240784f6375e118ea",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e62d8d20e281cb3be268ffcab629ee48375c46526176eec7b62a2414efc6bf12",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "a8e431c063ee6268c0c2ddf34114714f7f289652dcc8f0c8ff965d4ad5f66baf",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f11663da52604b0c1af157151f9a8e2826083f4f36626a3e09a66c49ba3c69e0",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "77089e72d8b07505ec244367b814100ab05762abcd0f5b35c649ce7e47bb7dae",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "274700bc97859b1eb78eff78881e69c50a1816d0d6dd6d01e4f222a20a766c31",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "e55b299e58fdee14045e91f55cc9304e716f427cd7ae6b6d50e97276cd031fbc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "91b97d1170a71481564f4cb5c6834946f0dfd23fb15eb0021f5c430f7087d462",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "fc0a805b10426dc22b5ae4af991388a5399347e526b8e6f73061c381e2ec997e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "469c26268c3b5d73e88441c18989eb1c2429887a97eadc8f459ad61f3d0dd900",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "b631107e46962bb93d5e8f659cc9d735b156b1e9ac4e8574a6d877e57eed884a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "89f1261944ef56cc6083b76ae3992457fc8d4219418313aa426521bc2718d479",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "dalmatian-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "cc286efcb380c569ebae45a174d21ddf91e7d0a4d13ab8a7c2e240741a4125b6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ec9e83c878d27de1965da7cfc36cad67a4ccdecdddbb8acff9722cd18f971210",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "斑点毛色与各嘴型保持；垂耳替换边界完整，原细尾在换尾时清除，翅膀和颈部层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:31.587Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/dalmatian-shortleg-round-sleepy-almond-small-fangs-54aa6905cc4d9c1881af724bc5611286ac846c4a38cf627a8a3ee3c50208a93d.json",
+    "sha256": "54aa6905cc4d9c1881af724bc5611286ac846c4a38cf627a8a3ee3c50208a93d",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

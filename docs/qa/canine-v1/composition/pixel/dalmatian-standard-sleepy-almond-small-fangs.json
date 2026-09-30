@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+  "profile": "dalmatian-standard",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "84ac90b96fefa2a2d7cfae3a9384835620f286a2d598f316ce9b87931acf4eb0",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "88e05e98446c9384b4fbd4a734ab5a81221bd189cf241b1a28875345d2536cb3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3510a10f339477936fc623d6f4ea7b03d0a1866e61e427ac181fbcbb57c81820",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "f8f544b212d2ec95ff1de4e93c1e0400d309ffc846783028428ede562a8cb9ac",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "04eb77c9c224c96e70a01583f55e079a35b28c4790bd8fc8b4a0087975a393dd",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "dd32b0eefe9e31daf5721e30419022a921dbb60f3c05f01800151c4b9a23cb1d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "38aafdf8ee0163abd42de0e678eaa77a8b5a030cd8ea71988068c08a368419ca",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "c5cf1d50189d9be477d9959b8d54e6a3d93239dc0e6108eb2c6a4811cf264cf2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8fb9063f8416e2ec68fd5b0dc34c8881eaa9c228cc7a9d1df7190e285fbab6a6",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "37e24a1ae54427b1946083ea51d1a9c7aa7457112d4cb4908a3a96a544b1d921",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f0be60500176c8f9b2230694286262484f74895cf12f157d6fb0f810caa4bf7a",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "76c95588ec95eb01d6c5689473907a70d49ff1069c7825116c5af71724563790",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9a1e19d22d6c10faabf360b81d0bbf01b318def2c05e28036b0cd187281a5b7d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "b76482c33afc90dedaea3b8f3aca33ef9140bd74c12cbbc6e26bac1a30b11d87",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "081571e6835c3e977578184592d4b4ce83afb8bafba358b971b818f434823011",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "9034bf39c2f503ba9da885114e05ea5b570f8f84419ff1ff78f1afa5e0f1703f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "42f21411e4878f26e7998c005264c019def5d42ac404d56b68223bb4281ea09e",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "3476275dca19b9a4a1a77771567003c8ba8a65e3d293da80d9a5684512571ae1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "58534c69b58244f0b93c13eac4593543f5a4a2056b653e77e1e6d5524a97314b",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "a0f44a480921dc17f27d9f10e8b5be8137b48bfcf01e9d591572c3a3a8eb6635",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9ee8a2c2a31cbc89420cb108228c66975bd3b1156db40f69b55b55cab7351b2a",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "65e6c783d0e36564cb746d5bfb7c5a75e5b95efab08bbc82336cd54abe56df50",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "10c335f791dd7d8a1e2e22b6368ce657bb5e46d88d83bb2e6d40ad92696c2bfb",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "f3f3268c06d1d54a807d83a7ac345a3cd9f10e9fbad37f3952a76d8e7f915fa6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3e279624524d9fbf0997bcf85deba46fd1285041a006647d1ff58c1041bf4b95",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "c72d92fb9c371b83ee8a883b01c966ebe8fb97c9e51755e1805dbc5280755ea3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "812fe18cf74c83832e33ef0e4d3775be8df7cf1837cecd960bf34224c8634f1f",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "78fa0a562576418909c0afef5281acdbb790947e68b6a3159ad9c4776ee8869b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "12e3eea11a01e1a3d7308a6bfb5de4d12b36529441fa16153a30c050e1019159",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "65de2462c39217b1d2525309451e9d9900382f2d28df10acc09d3978813a665b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3cfadcb1576182594b76a414573dfd68c53b9208dd9c3cce9b18b996c0157827",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "868e0c05628ade9cb5b668994529fbe9ae677b624773ecbb8e291a3e912c21a7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "909fc13ac8550d322d3f65439f40f08f91a5019be523468d75c7d0cd5b33a58d",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "4e84d8d01fc5180700288e4dd8781c03e63ff46070c54192a70b25a122eb99ad",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "73ac7bcc2b39cf871805fdbe715b8fa80b461e9e9de1effee91b30834df97753",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "548f1d27fb1b61f3a3631a821bbb1198aa5b027d9ca202a593d5a10e22fff678",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ab161191c6b2673fca86e2606b2a06f6eb0663b6fee77815c9a99327c6e832b2",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "388e18488dddd32da8a3102ceb698e7f0459bd4099ee2043717c21fabfb7e985",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "644846992bbf425011ec8b7fc509302f9d12f2189672cb23d7720ccbed329392",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "0e498e4f4c1386107f60500228feb5af665724c5ebbe1b25b1674079cd1aab22",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6082c5b1501464e866ce591b274e609c01e1e5ab6b6f23aecd34547d8a641d8e",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "dalmatian-standard-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "4fe2dcdcec9cd01765c6402eb17e1383f33276510186de00caabcd099a650ea7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8bb88b2ce3b23a7e68c07823cd7fff9877d2fd5c85177d6e4d5a2601996cb526",
+      "path": "docs/qa/canine-v1/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "斑点毛色与各嘴型保持；垂耳替换边界完整，原细尾在换尾时清除，翅膀和颈部层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:31.392Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/dalmatian-standard-sleepy-almond-small-fangs-b5e6c66d1d75a18eee73a1ceca5e89ca504249fb8e44fb8f24d574b3642340cc.json",
+    "sha256": "b5e6c66d1d75a18eee73a1ceca5e89ca504249fb8e44fb8f24d574b3642340cc",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

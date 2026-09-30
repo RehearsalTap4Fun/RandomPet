@@ -1,0 +1,12 @@
+{
+  "id": "poodle-standard-round-small-fangs-r1",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-a523bf43-88b0-4a5a-a124-6c2abcf3dbeb.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/poodle-standard-round-small-fangs-r1.png",
+  "rawSha256": "8b08410dad1923856381c45e6d5bb07f6e661960829f29ef315dd2897f09d576",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. Change ONLY MOUTH in reference apricot poodle puppy. Make a LARGE obvious DARK BROWN CLOSED mouth cavity, about 270 pixels wide and 150 pixels high in this1254x1254 image, centered below nose. This mouth should be considerably larger than reference (roughly 40 percent of the muzzle width). Inside place EXACTLY TWO CREAM FANGS separated widely: each fang 50pixels wide x60pixels tall. Crucial: BOTH tooth shapes must float visibly within the dark mouth, surrounded on top, bottom and sides by at least 40pixels of DARK BROWN. Teeth must NOT connect to white fur anywhere. The mouth outer contour is a closed dark oval, no white gaps in contour. Between teeth keep at least80pixels dark. Cute simple smile, no tongue, no extra teeth. This will be downsampled to64x64, so thick blocks, NOT fine shapes. Preserve all other reference pixels/identity: round dark brown eyes, curly topknot, drooping curly ears, apricot curls, standard seated proportions, four paws, one right pompom tail, same size/framing. Crisp low-resolution pixel art enlarged to1254, flat colors, no gradient, genuine transparent alpha. No text or accessories.\n",
+  "visualReview": "pending"
+}

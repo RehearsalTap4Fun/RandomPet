@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy lids, two ivory teeth and wide squat torso remain independently readable at native 64px. Golden ears and one right tail preserved, four seated paws, no halos or clipping on both backgrounds.",
+  "resourceSha256": "c13f850e9ddb299c6ac5bee69c903e0a8029d8af5bd96626d751ce9a364a03a5",
+  "evidence": "docs/qa/canine-v1/visual/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "bed0993d59d29f8facdc8a8cb5a64a3824de65cb861864ea3890b0ff02484fed",
+  "userArtApproval": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-standard-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "9e29a2340c3d3c43d75bee91fb25e59c23ec46e855c987d06d91c0521f907f2f",
+  "rgbaSha256": "f0f55815b94b71d9ddf28d60a232e18f6a7963f6e32587e705e1bddfb3897bf8",
+  "bounds": {
+    "left": 4,
+    "top": 6,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2221,
+    "transparent": 1875,
+    "fractional": 0,
+    "visible": 2221
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

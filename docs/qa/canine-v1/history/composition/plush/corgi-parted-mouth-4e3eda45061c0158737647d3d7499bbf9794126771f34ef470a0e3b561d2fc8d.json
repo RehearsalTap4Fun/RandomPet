@@ -1,0 +1,278 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "a69705c1d615236a542f6385fac17222da37d931551999246f48118b66549dde",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "corgi-parted-mouth",
+  "profile": "corgi-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/corgi-parted-mouth-contact.png",
+  "contactSha256": "52a83b3bcdba131d7c2d8d5c9317f2def08478cd7b617c2f781b089c928973cb",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "corgi-parted-mouth"
+      },
+      "rgbaSha256": "989dc8c54bdd55d624b1b36cb484f6403bd0e472f71a0b0095c9c434b4daf1ed",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ddbf10ece66a21fedc81844b7cdd8a79941934eabf71d27b8cf1db0563859dbf"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "fe10e14e6b3c5443da0c5c67b502f7d0d01fe380694c79e78f01146f8502485f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "662d41592a86b10fb3a1fb17a1ce1ba8cd4b442b7d13b36ba6c655d271ac2223"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "19917fdf4b1eef8a6d3161854cec3895620acdd03edde1b6ed6b826ae21befb3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4fce63bf85609a9f50020a3b278cfd2c1d1331185899638bfe73c510944ff5e5"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "05fc58e9250487cac27f155a1deab249116c7d6dbb08ef1e657ee788287b522e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e561ca6607561aed4cf6223eed3882933e9b902b4df920362d01041c18455ac5"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "9bf9223ed1d3786504fc85ab8406b0e40b247824f4a469a72f64df3f7f00c5a9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c4d398ddf13eee85f38cb7bcf775e86544ccec49275de3e27be6e589a3f93e24"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "4f9ea27140c917d0eb5adf0b6e2eb2adf2d53cbd73031fbcb9269f5190505533",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "66d0c85f964e6e93703364bb5e4f64ad182efee3acffe99535092c42d2296203"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "5053ed9f73cc22b67f531b6f335a837dfb38fe74419cc29c31f0e688ee367556",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d71be0ed3d72ac77163f8f1764480eda014992d28c57bfe149c71ac03139708c"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "14fd1badc9f66a2fef99bdbf4208a749b92f6b1fb4697b31fcc16ba66c45ea79",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "85ae9611ff77360f08139a34c9c7813071662348243ec57c56bacaf5ff0be741"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "3382c2b1b4c55b99a1ed35decb770b8772da04e682f2c95cc30256d6b662f8eb",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e31b69a2454f6ecb0e3fc6b4a6be76c87883f55cff13fe1a457779c5130a6862"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "d7c2a02b95290a77b8f70db35324f26261a485372191d98a1673df3b6ee2b297",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f44bed68843957cfba57ef1e8b2d7257f0065fb32b85bfdfa522e466f06568d0"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "05f557abb0996408e99224550201b3a2033692023b6422c49044a84e77c690fd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "347e931964414f65d308360d0c92862992a7067a46ac6d58b06e6f8314e69bd8"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "e1852dabdcfa8cac67401c307fef9116330bf5b5f33ce5faa3779ad945a6cccc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6e1217647166fd572dfa04ea4a0de2d95d64f8c5f33a660459b4dfbefe756352"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "68f184587921a869aeef4c95d62c053c1ca11e8823b1762cc750699440fe1b45",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f7398db168bd1861d28f5adc9b8870b374cdb98c4b8fa2581bfed9874a1120d9",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "d40e40aa1474e2a29ee409a27bb1020f84aea8a3fb8ce52a47fcdc7a04624e9f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "92809ca38a5106c2e46ea37c0c1741c67832898a9c43a27472f3eb3c81463633",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "5c9abbf0476d5e6ae4ce79e6c878ef03035942eb9802606bf3f53025f1b44c38",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "dd1b6e1ba06a36651ff96acc793c9e38f50c4379ea59ba466180c7808505084a",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "corgi-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "8b928f9acd822ce7a354928838cd9edb57b3e5d686e1672eb281707e7460d75c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ae3c0e8dc50fcaa30d8b0bde6eed23163c33bdc134719593c11d391e913564d5",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柯基短腿与大耳基础轮廓可辨；换耳清除原耳根，额角已贴合额顶；颈部不遮嘴，所有表情清晰。已查看全部单部件与四组组合接触表。",
+  "reviewedAt": "2026-09-30T14:29:32.548Z",
+  "visuallyInspectedCases": [
+    "none",
+    "small-wings",
+    "feathered-wings",
+    "dragon-wings",
+    "forked-tail-tip",
+    "flame-tail",
+    "fin-ears",
+    "small-lion-mane",
+    "frill-neck",
+    "dragon-horns",
+    "antlers",
+    "halo",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

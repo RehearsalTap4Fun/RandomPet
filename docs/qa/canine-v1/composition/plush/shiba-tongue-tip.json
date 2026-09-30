@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "4333a707eca6ff7d764e96802189f2de9245109a9b65fac1e698a0f3f0dae23c",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "shiba-tongue-tip",
+  "profile": "shiba-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/shiba-tongue-tip-contact.png",
+  "contactSha256": "b80978c67ba981bfe7e7d274fc89e1b96406d81bcc7cc4ee5a4c564be9004bda",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "shiba-tongue-tip"
+      },
+      "rgbaSha256": "1831530c6a785d1663abd805cd4a33d3449361ca07f840b30bb714c52230c5ef",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4e299078c1681ac04ee471e9610ae1c42219a367dacd426e7743adfc82849d66"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "f84e45abb3b9fcb621378405f95c0e5b5b89de8a7ebae6eb29ef1dd912b277cf",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6733c1d295c762979297a270e3192da7532595a51b0f592d7e320600b4371839"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "48de72d3ace9553861fde9f5f9f8430eed7511cdad7bdaaf51c7a22beab38864",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "609327061ce4ef83bb5ca239c8aa617b0a8b63c8b63fbf9e22b0d785337a35ad"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "7939c2b296677d1ae2f63ebc49b2bbe2c4985c4a9cb8ea2dc053575c7559ebd6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7dd0b2aa1501dafd1f8af01f8edee48f4e1be221d31a3c90d5b8abbcf067052f"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "3c04c4a2481214cfed6a324610d45d78903bc4223ddc420cb48a63aa865fe30c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "fb670b78ee452c18087976fc434ea870c688e1df77661b41a010857c36fce57b"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "6e418cd9cd7a988e695d6e5cb732bf0001babaf6654cd3301312ab902ab8fea7",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4be7133e0eb399bd1b08a5176d359681089c9b6c0f9f733683f25d942e101177"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "8359ca29c21ea23fd141c50c1c8a94e79e4e48d855d950f8664af680ef5dc1f2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "736aa0104529b68875a5990a5d71ab184558d52d134e8e5ce8160ee0afc47ecc"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "1f06a4b3bcb267f7a04eaa34f2735f2a30c1f008f0900f384d249c658522541b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ae8249dd32dad3ca1ba831642d74eb67261a0d95327bbd4ca49b37fc4334e64e"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "ca0f912662b407fde8bdbbfe7167445aca111bab5c1d8087d456b2406747f7fa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "535b67ae7c238e4ff598c1f1b42c6060f7b370803b880307eff25cd9d6606047"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "414755ef75193eeaa6ac28bcb8e48035133b66ba5dbdc20d6e384ac097169ba4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1b5f6bf3c96fb340a9ef3f8975e182bf1f1083a4eae21317d702f5e052204c3c"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "1f73b2a406bb824a21b4e4fd52290866878e7769f5ab8d8948d61b2d003b901e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7fe99d6046d848e15e940794962d2f4bc8c06a1e3b5764ac8c44d873739f0526"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "crown": "halo"
+      },
+      "rgbaSha256": "e89145e5737712e701fdb0c523d02c71feb56048dffdde7d9eaef3691c6fdf7b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d9ea1ea3289b28cace32314f3bb628a40571bab8cdfe1b7336e3ea423fbbbb4b"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "2b2ebeebac290233497d1b24883a1bc40dc95bba56db34fa4ab4b9843b193a81",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "73ec3ba1a402c1b1226d877c01d9160a10bd5996add4d39008b976eb41b784c7",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-tongue-tip--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "24059922d9e065d550d5413c2c627d261aee217929970501fc4fbd9fec3c6c5a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3408ca3987237c48ff69e7f3aa07c1e453df4981f0e90455d51fc8b1e06d1740",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-tongue-tip--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "a4a18754067990523b3d5aa9c8d864207354e1b5186f32097e6d943e69e94060",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8928845c554e6edd5edb4f5665f9b22a3d7695c0413c7fa8fba36c631a8b8127",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-tongue-tip--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "shiba-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "89dfdb69d61148279762d8a9a712668cc4df7184701ccb57bf2661e4d101b2e6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f0356265dfff53d4a13a896cccd0ad16c50e031e1feb81f2a3b650ea575ce464",
+      "path": "docs/qa/canine-v1/composition/plush/shiba-tongue-tip--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柴犬面罩与卷尾辨识保持；换尾无旧卷尾上缘，颈部在下巴之后，三体型与各表情组合无遮脸。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.502Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/plush/shiba-tongue-tip-6ee3b1d017182a7955566bd5f226c5e9f1df199d67388a8d1f7bdae2828af804.json",
+    "sha256": "6ee3b1d017182a7955566bd5f226c5e9f1df199d67388a8d1f7bdae2828af804",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

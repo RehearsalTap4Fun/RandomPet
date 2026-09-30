@@ -1,0 +1,12 @@
+{
+  "id": "growth-flame-tail",
+  "style": "pixel",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-40c3fd5b-ca5e-4606-97d1-e00a58bc3338.png",
+  "rawPath": "docs/art/canine-v1/raw/pixel/growth-flame-tail.png",
+  "rawSha256": "2f5b726da8685f91057e38777861d6af73abf3fcfe5185a65bbefc19f6764540",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Create one independent transparent growth-part PNG for the canine asset collection. The reference dog is ONLY a rendering-style reference; DO NOT render the dog, head, face, eyes, ears or body unless the requested part explicitly is an ear.\nONE complete magical dog tail, a continuous thick golden-orange tail stem curving from lower left upward to upper right into one large flame-shaped tuft. Red-orange outer flame, warm golden inner flame, friendly rounded pointed silhouette. No detached sparks, root at lower left, no body.\nMatch reference pixel-art material and warm outlines. Deliberate chunky square pixel clusters designed for 64px game assets; no anti-aliasing, no smooth vector curves, no fine noise. Limited palette. Large simplified details remain legible after small-scale placement.\nThe requested single component (or anatomical left/right pair) should occupy the central 75% of a square canvas, entirely visible with generous transparent margins. Treat a pair as one paired overlay with matching perspective, not a sprite sheet. Frontal view matching the reference puppy with a very slight three-quarter perspective. True transparent RGBA background, transparent gaps and holes, no text, labels, watermark, guides, floor, checkerboard, backing card or extra objects. Output only the requested flame-tail component. This will be registered separately to each canine profile.\n",
+  "visualReview": "pending"
+}

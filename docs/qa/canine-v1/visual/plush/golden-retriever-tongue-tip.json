@@ -1,0 +1,11 @@
+{
+  "id": "golden-retriever-tongue-tip",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Short pink tongue emerges naturally between furry muzzle lobes, no teeth, anatomically integrated rather than sticker. Plush fur lighting, round eyes, pendant ears, four paws and single feathered tail match family; clean light/dark alpha contours.",
+  "resourceSha256": "24468c75e9d3d00db96fbd7721e206e87ecb8c957420472d8713d1f60a5b5b12",
+  "evidence": "docs/qa/canine-v1/visual/plush/golden-retriever-tongue-tip-review.png",
+  "evidenceSha256": "4ce7b62c0c59b1b262745da5cc42ad12e8d5916492fd960407c202ef7f0e0ea8",
+  "userArtApproval": false
+}

@@ -1,0 +1,12 @@
+{
+  "id": "shiba-small-fangs",
+  "style": "plush",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-5255fbd0-01f5-43f7-b735-12d0f3f3be7f.png",
+  "rawPath": "docs/art/canine-v1/raw/plush/shiba-small-fangs.png",
+  "rawSha256": "1a56ca7ed1c07d2f682c04caa01313187cb760f5c09abd64583d2cc5491f37a8",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: precise-object-edit. Image 1 is the EXACT edit target, approved 1254x1254 plush Shiba. Change ONLY the tiny mouth: open it just enough to show exactly TWO small ivory puppy canine teeth, left and right, friendly and cute; no tongue. Preserve every other pixel's appearance: same head, ears, large brown eyes, fur distribution, cream muzzle, pose, curled tail, paws, exact scale and placement. Teeth integrate into the real 3D mouth with natural small shadows, not pasted white stickers. Same premium detailed soft plush fur and upper-left light. Genuine transparent alpha, no background, no ground shadow, no accessory or text. One full dog, square 1254x1254.\n",
+  "visualReview": "pending"
+}

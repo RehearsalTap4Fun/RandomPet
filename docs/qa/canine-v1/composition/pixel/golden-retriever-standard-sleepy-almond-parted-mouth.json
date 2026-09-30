@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+  "profile": "golden-retriever-standard",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth-contact.png",
+  "contactSha256": "d273e21f06f916aaaf03d892c6ea2fa9770e4f364e51f93dbdbff28be47b4239",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth"
+      },
+      "rgbaSha256": "7d985cfa44f7a8b0471ef2605b6f1b1d552a7b728e05525f91b82d974945cb87",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "70387997872ddf5b7b4ca743b7e91960eb5a1a002ba4cdbcaf96d64d5ba093b3",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "9420987e083e491bca95d070359042ce171c41b10dd23691c372ad9e1a3be19b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f193196e5bd6d5fb4e5ec7fc8aa64f4c76f097a6b696e32dba663cea8ae04cdd",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "974a0b133e20e741278d3764117f37d65f5817cdb0ce63e22d081e5d08e01d1c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "63a1ca358137b240f02e0453be5215c565c4e7366212cfddc5401c0da3e0bab8",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "e8caf76c189354440f29cd545698d5fb75444eb76915597cad265695a8b87adf",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "de0f6e1a450bd0eb930032937e1194addb3fb40f64960f3a8975cbf39c67a637",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "5394bc23d8a1d488e03b44389fe0d8049d552ec71cd2dacba40fd361f8f5759d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9b919f8b0f313d8874410b300e6439a7f124f4178e92a1344ce6898170b40379",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "537bfbd7eb6464c24449e97a51d4f0e7b34835048c97bb484c8244fec6e7b2f2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "174bba34e930142cc9752682d07c9d8384b0d9f1b99eadd5ff9cd8aa25a5d132",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "9f210588f5110f584750ed58258696035de665c6294085e0f4dc28c54bbaf4e4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "51a4b4df94adb1249fa78e0ed961a0b6f0bc9fffd413c45eb2de345751606c8c",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "e6326ab039a04a085644ad49c5d3a48682ee93690b838063be3a43dadf90d81c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "85ce3beeeadcf488f07b4c09afe4f73445717b85cd635102ce5fc742dca2c32c",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "5657ceddb0a29d0a568720fb965ee3adba04ee089dc0ee4d1fb1552e25b30af1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1bda2512a8e9199c34fae4238e4c5b8eff49163a878c13d7880c9335685c9af5",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "de9d0c16ca458f5746a53e961d49c9db714b68e1ace2c92ccc2fd6c122ccd77f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4a16a6b7d1c8a3539abfaff58c655b09319580d7d888d311202fe8333a32c29b",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "54721983a273bb7d6ee0b0edec2801c7856b72e5b571cc9c05debb6260d194a5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1baacd9431dca36a87a111eb9d654c081e7fa2ccfa8f69d561f955f42993ebeb",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "2fac106af90f0611e8f9b5ea2957e31110a060d2260f63db7952d70f6f7db08b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "45b6ce23acb8b56a6091aae4a79d4062b88eb41c77bbb1a09761cb2386ae14ef",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "7baa3edee751e24f6219b15bb6f4ff8f693dddebb797f3e7dcea0665a241ef15",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ee292e4e59f25981f017a9b432974d5365bee2663ab692815a7ee11fe3b6e6a1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "2412bc24d61d951f68ea77aec67ce50d7e68f31263962b3fa8e24935008a4db2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "343141db0fe81a9bed4389ca0d8b099b6719c655c627b89c71ef25b608e756c6",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "5c08a630251f1b597d86e09676d66b2217dd8a0dc6219c6eb58652b20f9e37a0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cc655c7e27543df8f351f5300b38f3669ea7d5b365401bcce69bd8094d146ff6",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "crown": "halo"
+      },
+      "rgbaSha256": "f25020124245997f1e441e7d2a232d765013e0f579596d445cee729fdbae82af",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "15a0f96effd022692d3c45a889a50ccc06f4e04d65ee23d8c3ab4f4a4955b040",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "a4efad476bf32da40995acc5eef304b50c50d3c2a1e5a4509e9737bbf1da675a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4849b1eea8936138bb2f5c7af0ea0742b91c96e7dd79d449b1da1962286c60ec",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "b12b139e51959b6405519297400eb67b0a70c1c5f9de9c92347714a1b574d2c9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "31f3b81b663151d060d34db6005bb7d2278c8697824fe559ea8f4f3f00adc0bf",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "c6c238dd7e2904dce1ad4efe898fc1602d416e1e404e4f8faee7ed6ee8e81d3a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c80d7ba9f3e5eaf2e0fab8dceef05cf9ecdbcec9187ad1ae668dd6bd8512971c",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "855de7591532e3309d5f8c25024662688a04c57f9d7558372bd0e1d5b0c3ddb6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "87d71586b790f7009508452aa2fb012c902fbb2cc28c423b24b4197ff7c91991",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-standard-sleepy-almond-parted-mouth",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "2b9bca1906ba3381cb5ba8dab515df5617788ecdb242a0fc9bb7518bd4d66c46",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7e673a794e0458e8d3f1e0c8bf0b4f8d5408631db4487a58690fa30294e1cb21",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.180Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/golden-retriever-standard-sleepy-almond-parted-mouth-4c8d7b85ae8d2529cc6e807ec251ae6fb2d03413d8258331d1e0e69dc636d1c0.json",
+    "sha256": "4c8d7b85ae8d2529cc6e807ec251ae6fb2d03413d8258331d1e0e69dc636d1c0",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

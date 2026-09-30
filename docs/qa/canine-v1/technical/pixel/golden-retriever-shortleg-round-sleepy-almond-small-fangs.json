@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-shortleg-round-sleepy-almond-small-fangs.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "c13f850e9ddb299c6ac5bee69c903e0a8029d8af5bd96626d751ce9a364a03a5",
+  "rgbaSha256": "7b8689691bcdb7738cc74496fcc16629ea661af69f408c6c9f5d1d13f9aff07c",
+  "bounds": {
+    "left": 4,
+    "top": 6,
+    "right": 62,
+    "bottom": 61,
+    "opaque": 2277,
+    "transparent": 1819,
+    "fractional": 0,
+    "visible": 2277
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "poodle-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/poodle-standard-sleepy-almond-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "f369f76f8959e599f7efadf85dd84e913f5acf57135025ecceac3cf48703f366",
+  "rgbaSha256": "baac66d53ed6768b91ad3d5b9367899ef5bfd1a1597fa0f85e001b554548fabd",
+  "bounds": {
+    "left": 5,
+    "top": 4,
+    "right": 61,
+    "bottom": 62,
+    "opaque": 2181,
+    "transparent": 1915,
+    "fractional": 0,
+    "visible": 2181
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

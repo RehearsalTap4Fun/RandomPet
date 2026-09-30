@@ -1,0 +1,12 @@
+{
+  "id": "growth-small-wings",
+  "style": "plush",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-b3729fd4-2c65-43ac-ac5e-a03d0732d31e.png",
+  "rawPath": "docs/art/canine-v1/raw/plush/growth-small-wings.png",
+  "rawSha256": "438b513b85976836115d748af4537d1f2760c903883492c9684109e693bc74ee",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Create one independent transparent growth-part PNG for the canine asset collection. The reference dog is ONLY a rendering-style reference; DO NOT render the dog, head, face, eyes, ears or body unless the requested part explicitly is an ear.\nExactly TWO small soft rounded ivory downy wings, frontal symmetrical pair spreading outward and gently upward, three simple rounded feather lobes per wing. Attachment roots point inward and downward, transparent gap, no body.\nMatch reference premium soft 3D plush/fur game-asset style, soft upper-left studio lighting and gentle volume. Fine clean fur only where appropriate; horns and halo have soft ivory/gold surfaces. No cast shadow onto background.\nThe requested single component (or anatomical left/right pair) should occupy the central 75% of a square canvas, entirely visible with generous transparent margins. Treat a pair as one paired overlay with matching perspective, not a sprite sheet. Frontal view matching the reference puppy with a very slight three-quarter perspective. True transparent RGBA background, transparent gaps and holes, no text, labels, watermark, guides, floor, checkerboard, backing card or extra objects. Output only the requested small-wings component. This will be registered separately to each canine profile.\n",
+  "visualReview": "pending"
+}

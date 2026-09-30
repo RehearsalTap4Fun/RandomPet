@@ -1,0 +1,267 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "a69705c1d615236a542f6385fac17222da37d931551999246f48118b66549dde",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "husky-tongue-tip",
+  "profile": "husky-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/husky-tongue-tip-contact.png",
+  "contactSha256": "d083979f5eb3e3525856b2bd980581a74b31a9f334b2afb04989168cd02e5caf",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "husky-tongue-tip"
+      },
+      "rgbaSha256": "717d846d8c248ed18bfab3852da7060ce8806e2b19353083ab67f6cc81d4391b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "675ec0e9b629b40e549e12a40ff11a36c21a0cd034aa995d88a4098dd84f9aa2"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "164f3cdb2e2e8b39bc46cac89521f6a00bb16336392de13da57cd5369956f14c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2b84c4a74e96669804713ebf26cfaf424998753da7cea02829eba73974691c0a"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "72b39c73a8f2168c0f91e609b6ec683a8eee8cfbcbc36cb1b1f9fa4e2a9de008",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5ff59ec2aba817773b487e8da77ccfb75884bd5a45eee3feca5a55a4824ba23f"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "4f6eccd911723c089d17fe8183d896dd4e1b8c0144f710a51bf9b1699ef28221",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "40355ed5e79cabfad73cbbe60b7fb2f3cb04f4df4355ff3dec492ccd5d0eb6d3"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "d9d56dc09a2fe17fc21505e18ee8b9d4bb9fb9ff48db818e281171230ef81680",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6fdf0c35fce0063ce6124ce6c03e6c194d7289ccf235fddcd0a3d5f1b88b9122"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "f14fcad881f44cba9bfa8b1f0b2a312e4a8cf0568930bab3f20cd0a370a94fcd",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3867ec2d611db87b7078b3476afee5dcebbe425d4a854e413cb856bef23b2f16"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "2251407a0e8562f6590f712a747167a2c702d7397ca34c69e0ffe3bbd1fb6640",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8f063f116ca7f77d81f2e1fb2f6e107add6e36dca89f34fd8b67ddb12eacc387"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "a9fc7516540c3ba264d02aa4656d075498c2e359afe624a01572fe4187632ee2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "feeeffed5c9e44a9f236de6537626f921b71560d546c97a9315111a9696f23f8"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "da54a1b2b0052d6154324bca8d950fb73c29069c07926fef54fbee10cae1756b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "4b33c46dcd3993e6633c2206c2f12ec45c84cf25e01f9c896f24f5d352b9d23e"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "de14d00a6ae0106d491a5cb886f33b3a20819bd2517bf912492f0ae81e5618fe",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c8726e885874f797dc54d673520a1ab4d65dbb22449187a541a5bf976719f2d3"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "b4bb99e3640e7c7ecbb4d7e009dbc70e55e8e923904bcc9af178b166428fd605",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "06cc089f625d44a7535d609b9203be5a3f6f4130c0236fd0c3deddc1fe36782a"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "crown": "halo"
+      },
+      "rgbaSha256": "51ca706bd72e540acc24568440f12acc85de778690dbbcfb6301b8a96d63b078",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f19b3a3516fea0b24822b02363e7f13b407247a738a54a6a1dd112b8e9f4311a"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "28ea5bc5d87f8c10dc96e3440dc6e7f086170b469bb797351017281ec86d1f4b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "500b77288966f88fd4b4eabdce5dcb9da6d0c6c101c7487f1eaa6d4555301599",
+      "path": "docs/qa/canine-v1/composition/plush/husky-tongue-tip--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "e3ff17954231fba4ba9504328bf00c31b24b0b04c03d731aba8097efd38a75b0",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1694017e8ae1504652cbbd1a82108b03a74fc8fac3ae020e8168afbedc4074e6",
+      "path": "docs/qa/canine-v1/composition/plush/husky-tongue-tip--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "0f9a5e802a59acefaa99777c230f3009ff0b6abcbcfde93a65761e61aa16a67d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "84a8c1ac334efdef0571fca9a74f9dbf2d63c0c1ace7f9bd73cc55ea8148f3f8",
+      "path": "docs/qa/canine-v1/composition/plush/husky-tongue-tip--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "husky-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "49c14ebac9a2d8a4812b3588c73a83ae918c7890d044d9f46c3f0983c30c48c5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8ff9e4d128fa6eaf3b216d882d6346b0146b8740f1c29c6e90d0f64b81b7059e",
+      "path": "docs/qa/canine-v1/composition/plush/husky-tongue-tip--combined-4.png"
+    }
+  ],
+  "reviewNotes": "哈士奇面罩与蓝眼保留；颈部下移到实际下巴后，原灰色卷尾已清除；各体型与表情未被成长部件遮挡。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.924Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

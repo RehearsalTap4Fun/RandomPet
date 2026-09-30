@@ -1,0 +1,12 @@
+{
+  "id": "dalmatian-parted-mouth",
+  "style": "plush",
+  "tool": "built-in image_gen",
+  "generatedPath": "C:\\Users\\jiangzhenyu\\.codex\\generated_images\\01a0f1c9-be42-7923-9cb8-68dfd8c2d1ea\\exec-3df6f48d-5772-4c16-9006-52ee14dc60cd.png",
+  "rawPath": "docs/art/canine-v1/raw/plush/dalmatian-parted-mouth.png",
+  "rawSha256": "08a03a47b0f08c65157792557b98afad7c74f2e7efac694d386ac571727feb32",
+  "width": 1254,
+  "height": 1254,
+  "prompt": "Use case: stylized-concept. ONE production dog sprite. Image 1 is STYLE/REGISTRATION reference ONLY. Replace the breed with the specified dog, with correct breed ears, coat and tail; do NOT keep Shiba anatomy. Subject: Dalmatian puppy, white fur with several clearly separated bold black spots on ears and body, floppy ears, long rounded dog muzzle and black nose, amber-brown eyes, single long white tail with black spots on viewer right. Style: Premium 3D plush toy character, detailed soft fur fibers, glossy expressive eyes, same upper-left studio illumination as reference, delicate fur edge on real transparency. Output 1254x1254 square. Body: Standard cute compact seated body proportions, oversized head, two forepaws and two seated haunches. Eyes: ROUND wide-open expressive eyes with a simple light glint. Mouth: Natural tiny parted mouth, dark interior. No teeth, no tongue. Front-facing sitting pose, whole dog within frame, eye line around y34%, paw baseline y95%, head center x44%, tail on viewer RIGHT. Keep transparent margins on every edge. Exactly one head, two ears, one tail and four correctly seated paws. No cat whiskers, no collar, no accessories, no text, no sprite sheet, no ground shadow, no floor. Genuine transparent alpha background. Preserve source alpha. Do not crop or recenter.\n",
+  "visualReview": "pending"
+}

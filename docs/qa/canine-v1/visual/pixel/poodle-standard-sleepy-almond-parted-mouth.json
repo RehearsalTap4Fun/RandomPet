@@ -1,0 +1,11 @@
+{
+  "id": "poodle-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Both half-lowered brown eyes retain visible irises and read sleepy, distinct from round eyes. Tiny parted mouth preserved, apricot curly topknot/ears and pompom tail remain identifiable; standard seated paws and transparent margins intact.",
+  "resourceSha256": "f369f76f8959e599f7efadf85dd84e913f5acf57135025ecceac3cf48703f366",
+  "evidence": "docs/qa/canine-v1/visual/pixel/poodle-standard-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "4c6bec26e067fa189c2a970f5c1b3624bf192d754d3f1e2a7f481910284bbd9e",
+  "userArtApproval": false
+}

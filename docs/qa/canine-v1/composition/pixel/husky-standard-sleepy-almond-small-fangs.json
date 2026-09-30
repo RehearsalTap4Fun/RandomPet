@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "husky-standard-sleepy-almond-small-fangs",
+  "profile": "husky-standard",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "4551eb3096ba0b18b4ce00d730624b1d727d1b609e8e4eb64b53e79a16f11de4",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "64bb7700f7ee4dff1692ffd2b2a9b119dd87b1a431119314537b894e9d6e265d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7d5654d5e07e22fbcfa1b45a8fe29c143976312bcb48f03e454583433bbaf2f6",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "badfb80680254381506d63de11dfc1d8745b90d5c6002958d5bb02d61d3b7b2c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f1bbb230b0e3b9dbab4f4dad0b4bca5ff552607365c6e9ce2b04da065c186b70",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "63e15b29a47ccad6457a1eb114e09591cf80f77bdb0069717bbe8f535c6ec701",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "569e553e026c2e38315fe1f3cdb1738822e8925cdb33a117d9e16047d4b5f8fe",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "7482f75e2c7f76986f35d09225e9031fca27fb36f038595f8ad1eb457f062bf8",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "96d4c40e569a16938b2ca262512c8ed96d62f4e7b5cd37a29a645a38bda03d86",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "5f0d8d7e3bb46bf04c4e800885f3b128b592743af84052df3157f1a6f88584fa",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2c27db83460000c0db9fc444c298d1cddeb1e364ef9a33d3d61cb1d95c5579da",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "8fff313b2f715e181b202521088acff1e910cf150afa7af92224bb597ad1e1f2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "24746c629cdabb95f138e5753568970d9e2236e6e25ab1ccffde3e96a8ed11ff",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "5043a0152e50e2e6ab04d93a8f998770eeb01697ee3c3f71dbbb2dc2ae4408a5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "749fc677821755a7a5f064e89c69df63b8424acae3b5e5b62f8d41497c043cf0",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "f16a476a226306ffb0b0088883cee74dbcc68f293a57a050197c28bb2cdd5f77",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "f847f8ae84ee5ff7cc1f53ee3474307d0ab17963f2317c4e7dde94551ecdc836",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "146d0a4e383a0e40c37c7345b245b8c2eb002921811e17cb47f6ce202e63c463",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "78a08504975f4d3bca9fa844dd1a11cb6e45b4861dde82641f0b747f02e3171a",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "e1e18a7c5f201ceddea18032938a3bcbbc86cd7d17964efc03022cfe1da5771c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "dca5e885125f045f1eada16ac0277c08afc8cf9f80e30a300e3807b5533981bb",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "266158b675ef7ab836c7e55360706b58e9c5031a6db88416545ca1b5f4df2eba",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7e6afdc569cf9e7df2a3d17d04a0269ce99e82ea049bd54ce908b44961641e53",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "021ceb3eba859bcf0230b99e9e8ae974ef505cfdfd667d66d7084198219b30be",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "25caab2b5b65baff045528ce999213aeaeb15c885a6db9076a7129bf8810cacc",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "644e4b813f718a3ab8fc73c78ef91b1cb0b487009cb4721de2a59ae26116332b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c155d14fd5480dd436077c35bc8e751fd33b8515631d95727805596aa27e4383",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "48ec6ee6aae97685633af91caeb0c757f92b8c8f988048f079b7f7b4e60b96ec",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "83118ff5cee932606568baef9f41d99455e6ac51352c19ed6700017d3222cb1e",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "8ba7f5ea513ee5ed70551d5ecb2c100a1aa20827ddd8079d6fb13484a7c4a05c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d678a6dab31feb5fb589cd67f923da0f31faa037530929d58188091ad6e36f24",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "f635887b794804b98a47ab07df6e94f24eff268626109e1eb5ac6c5d51199b4f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "74ac2a5c36daa0e9c51f7cf0b59c49e3173d58a86cd8991fcda114d4be9362a5",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "77a5740376529efe9b8cf83ead9194f9fab7497d1d3942e80fb2740b98bd1b10",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "746538064e561b82238c29fcfd3d1176e0a00ff25caf24160915e80f2ba74687",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "0dc4a7bc4b94b74543fa5db28cef26781aec909ee3fa4d08f57bd398dca663d3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "3f57bc7810f3e2fecb6efe91ab519945d46a5f74007cc8cb504cbde56fad5da2",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "8019bd5c662ae1ec9e2073d9c62bb034962333e79446742edb4ca71374003b6e",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "0e56eb7cd04fb60c8b01cb41f3d7f70d9ad9678af04eaece8416f9c4c2fe5b44",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "c083341efe15d2944d2bcf340a43e3a491dbeeed3024203212215747bbc341b3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8ba86d46c0ff7f62fcc682bed72e34c22ff6fbac0412ce8395cd41ff603c3682",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "husky-standard-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "22173ad57eaba5d91a7f28105025e5ee6e759c1e0d4c1d926a6bff976e496327",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6392505e194790e2259e2711fb5c04c061f59b96b8a81ea74b2042e30c319602",
+      "path": "docs/qa/canine-v1/composition/pixel/husky-standard-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "哈士奇面罩与蓝眼保留；颈部下移到实际下巴后，原灰色卷尾已清除；各体型与表情未被成长部件遮挡。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.804Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/husky-standard-sleepy-almond-small-fangs-39c63dfd14420c5a539e8706b8bf556aece49e835c8a2b545a90a501bcdbd83a.json",
+    "sha256": "39c63dfd14420c5a539e8706b8bf556aece49e835c8a2b545a90a501bcdbd83a",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

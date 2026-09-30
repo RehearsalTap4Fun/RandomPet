@@ -1,0 +1,27 @@
+{
+  "id": "husky-standard-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/husky-standard-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "bc1fb7eb2af8936825c4100d515f8dca6d9b8011147dcdbb8f6273e4d7772362",
+  "rgbaSha256": "f6bec92ae0abb3748029f39cc021f470e49e1cc15f15bf7dbf1f43aec34c16e9",
+  "bounds": {
+    "left": 11,
+    "top": 2,
+    "right": 63,
+    "bottom": 62,
+    "opaque": 2144,
+    "transparent": 1952,
+    "fractional": 0,
+    "visible": 2144
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": false,
+    "binaryAlpha": true
+  },
+  "technicalPass": false,
+  "visualReview": "pending"
+}

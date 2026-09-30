@@ -1,0 +1,11 @@
+{
+  "id": "growth-antlers",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "双鹿角各有主干和两个侧叉，分枝分明、根部连续，浅金暖棕与犬体风格一致；中心透明，无头部残留。适配另审。",
+  "resourceSha256": "b0b275466d84b5667aae43881961dcd9b2afab4b5e77b5efe82b391a777c4790",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-antlers-review.png",
+  "evidenceSha256": "ad855fa6f74ee4f6f4c2de6113f64a5901e96bc5d5c233c49033f69215f4e2ec",
+  "userArtApproval": false
+}

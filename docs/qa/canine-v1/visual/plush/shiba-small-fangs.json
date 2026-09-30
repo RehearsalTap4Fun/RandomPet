@@ -1,0 +1,11 @@
+{
+  "id": "shiba-small-fangs",
+  "style": "plush",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Inspected raw and final light/dark preview: two naturally integrated tiny ivory teeth, round eyes unchanged, same anatomy/coat/registration and no distracting fringe.",
+  "resourceSha256": "c10e7aeb7fe1f3e4a1c5467051b7e47923ebdc825be4b1954a78e01326382b75",
+  "evidence": "docs/qa/canine-v1/visual/plush/shiba-small-fangs-review.png",
+  "evidenceSha256": "b659c7450343d5c9b5704f605dc3b63556df5b0f943e603f96ee07c55b078c0e",
+  "userArtApproval": false
+}

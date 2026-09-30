@@ -1,0 +1,27 @@
+{
+  "id": "golden-retriever-slender-tall-round-parted-mouth",
+  "style": "pixel",
+  "path": "packages/asset-catalog/canine/v1/pixel/assets/golden-retriever-slender-tall-round-parted-mouth.png",
+  "width": 64,
+  "height": 64,
+  "sha256": "0e72f0448fcd7260f59a71812315ed3dfa1dc3047ba1193f0cfd45cf0608e7f0",
+  "rgbaSha256": "f368565ad268738ea9a199eb17ff30e4224027c53eeed3485625ebae86d893f4",
+  "bounds": {
+    "left": 7,
+    "top": 4,
+    "right": 58,
+    "bottom": 62,
+    "opaque": 1883,
+    "transparent": 2213,
+    "fractional": 0,
+    "visible": 1883
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

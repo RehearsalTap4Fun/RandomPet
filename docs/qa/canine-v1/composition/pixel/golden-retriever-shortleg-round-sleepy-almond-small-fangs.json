@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "b492491d053f2297a4bc41c1d72d296fc232d1897f6b3830ed92b7d3ac9159c7",
+  "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+  "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+  "profile": "golden-retriever-shortleg-round",
+  "style": "pixel",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs-contact.png",
+  "contactSha256": "01b9204d7a41f904ebe0d3111cde0bbadece927df8bd24f7f363e9df18791e96",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs"
+      },
+      "rgbaSha256": "b0e9c318a607013138a3d38c188ca4fa02f513bdab2b60890fb2dbe416bd7d63",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7bed4ee690678b1b30efe38f8ea84d641ff8114637642dbed7c7d52339bd3722",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--none.png"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "99b46562ea87ec2ff4657c91fcf909d8393f38925a8a88de9b2e7300bacf3b22",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "a0bdde5d0ef26f257c70dd2c0261009cf2071a6f6a9f9a6154afd8f66e6e36ee",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--small-wings.png"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "4446d213e7b8768aef0f76a780e9f58c0f87f159aec5b456f1d69080744b3395",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "cf49d1726bde392640a47bfa69ce8fedf3804d9a28d7e88c5f8c77136a196be2",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--feathered-wings.png"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "7c21d8fb618eb1265ae7f5051cc5f0e668dbe1b5b716282cdd7fc629e08ceeb4",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "eefe242b7acbe9ad994d5d748c484029934c1cdd538292c37f8a4b51a2ced6f9",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--dragon-wings.png"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "6be6d01107f433a4322f8ecb42bc327d077c84502dd372054f0a82784725686c",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c3a74b84b7e7068f906e04cbda00d7b164f04b282294584e62831f762f54a912",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--forked-tail-tip.png"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "1ac8074be4c9a977e0191f415ec5db6882ae49492059bc5941f4305bf5e38c3d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "700b08a091a34305dc1cb8eb7282776bc16dd9100b4f471cb519a019acc685c9",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--flame-tail.png"
+    },
+    {
+      "id": "phoenix-tail",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "tailTip": "phoenix-tail"
+      },
+      "rgbaSha256": "26398c6818e9dc3d15d34c32ca7ce9fc17b3c8fea83d763d5facc6e703264ed3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "29147ce0a348ba160b5c64013e9fed9e20fac12e9a0c10c31ad7ca44350f1af7",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--phoenix-tail.png"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "4c02781ad5dac392e121dbe403f64a3b4d8b580c44adb57f943b8737c27f03a2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e08fec03926f32ad3bd744a225e3c4377adf37a945924b892887d288d493cfb5",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--fin-ears.png"
+    },
+    {
+      "id": "feathered-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "feathered-ears"
+      },
+      "rgbaSha256": "f8ce6755361f21c88acd0e54730e287a237063abc086f4d86b9357663e9e33be",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "39d98a46e35599bd58644cdbf83f128d4b136ac081d010fc6f770d9382773aea",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--feathered-ears.png"
+    },
+    {
+      "id": "celestial-ears",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "ears": "celestial-ears"
+      },
+      "rgbaSha256": "68ab20acba51f059074c4fde438be799c9f720aa1065f3c28c590e8312dc87d1",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "2ececdc46865eb8d408cf81e5cb8bc2e2bd038cb716529c6a2d189d76cdc6983",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--celestial-ears.png"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "bd7cc0271b5cdf5dacec05842a485efc3680c78eee7f6bcb3ce326f5dcd42e54",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ef4aa3902d85e05c3e8a2928c39cfa664cfc11bd51cee6a9665a88ec3c6eb039",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--small-lion-mane.png"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "b0e9fd83d7f6fe1632cf111f6d1932379c5ed77ec77a130903442dab5f2ee0be",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e233e34824a73055baddce1678a7e6c9feab70a9199fb99f21198b64d47e4492",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--frill-neck.png"
+    },
+    {
+      "id": "sunburst-ruff",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "neck": "sunburst-ruff"
+      },
+      "rgbaSha256": "294e124e67c5fe6d0a06c0e65bb74cca53b7d73ede88331eff49a07384043899",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "39a84bf994591e3a710168a20a96eb3f4b8e3878181b5f458a86d9901b8c7ab6",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--sunburst-ruff.png"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "de55e658e10e4ad457c1a814cd114288fb6b77bbfc17243538c45f3390ef6886",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6901c47092fe615821b5f84fe644c89d4640bd171880479743180d5a980f1e80",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--dragon-horns.png"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "1e3535139961cdbdbd481f35d1d0a698cc6d00cbfc7a40f4bd8bd0b3fb84464b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ddf69bd00d427b291352a5a4057e000507061f33b60cca2c14eacd1cfe69bbd8",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--antlers.png"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "halo"
+      },
+      "rgbaSha256": "16b6cc737c2e23d636bf97dde4b0e6aa3cd13ebbd199215da9ad6161a6732ce6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ea76ec6df7dead948543b986841deecb1de6e282d52ef0b9c6212ed99763d024",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--halo.png"
+    },
+    {
+      "id": "crystal-horns",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "aae75aa6c5711714070cf8de54fd1bea9f4eff71464c04fe29c3ab16076f1a1b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "02831bee3676c874f050134ffd7b2339deb5c90076a72680f590ca6ebb9a02a6",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--crystal-horns.png"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "e678159672be3879265875383a11972e4580271304118f8d933ba56fefc98a84",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "99b8428c3b52ef756d7d94987ee04ec0e49c549369ffd00989201420ef327e6e",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "feathered-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "a43425b331c4d40c6ae7cfca5d12f3b5ec63828c914a3d594b240f89cbff7b1b",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "7ad9dadf771fe1963a948ce5860e0a03f4103f4f817e1c50fff451c3f07074d5",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "back": "dragon-wings",
+        "tailTip": "phoenix-tail",
+        "ears": "celestial-ears",
+        "neck": "sunburst-ruff",
+        "crown": "halo"
+      },
+      "rgbaSha256": "4c9c67b594cc9a8b5d97f1b22b2cc36d70a5166957219dd68df8388c16969491",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "12b50cf2905325b76728099baf424be241482a3b92b27ed912cb1933f0666c81",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "golden-retriever-shortleg-round-sleepy-almond-small-fangs",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "crystal-horns"
+      },
+      "rgbaSha256": "1769efdd8ae71d14725b1f8d443d298db1745282ac202542f1e3d52968c34e4f",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "850394543f64e2083fb616d4fd81d383d22a58adaf1e7358319f884def60f5a1",
+      "path": "docs/qa/canine-v1/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs--combined-4.png"
+    }
+  ],
+  "reviewNotes": "金毛标准与短腿垂耳、修长小头均分别检查；新耳根接合，脸颊完整，尾部替换及羽翼层次可辨。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:30.423Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ],
+  "revalidatedFrom": {
+    "path": "docs/qa/canine-v1/history/composition/pixel/golden-retriever-shortleg-round-sleepy-almond-small-fangs-0fe2e867fbd30ec438172b0a27203cb0e36e55a4cdbceab8cc736551b9e5885f.json",
+    "sha256": "0fe2e867fbd30ec438172b0a27203cb0e36e55a4cdbceab8cc736551b9e5885f",
+    "reason": "Every case PNG/RGBA and contact-sheet hash unchanged after resolver-only validation fix"
+  }
+}

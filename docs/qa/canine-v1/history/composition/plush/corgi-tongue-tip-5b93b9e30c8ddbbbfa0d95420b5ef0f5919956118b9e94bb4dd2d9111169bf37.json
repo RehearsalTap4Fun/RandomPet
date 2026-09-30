@@ -1,0 +1,267 @@
+{
+  "schemaVersion": "canine-composition-review-v1",
+  "catalogRevision": "a69705c1d615236a542f6385fac17222da37d931551999246f48118b66549dde",
+  "runtimeSha256": "c40288a2de3d8725387ba156e874ff5b2117c7d3ba98a89e5c1497bf62909cd8",
+  "bodyId": "corgi-tongue-tip",
+  "profile": "corgi-standard",
+  "style": "plush",
+  "decision": "pass",
+  "reviewer": "Codex AI",
+  "userArtApproval": false,
+  "contactPath": "docs/qa/canine-v1/composition/plush/corgi-tongue-tip-contact.png",
+  "contactSha256": "f0f2dd2bea8bee2b02ec6909fa13f07a3fa75e5d78e68b0cded4a7ed8fe096d7",
+  "cases": [
+    {
+      "id": "none",
+      "selection": {
+        "bodyId": "corgi-tongue-tip"
+      },
+      "rgbaSha256": "e52f54b68664bae35eef1912e9f11cc8e419cc4508e854e8c6dc3f3e3168d0b9",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "6de776acc57603a1c0f3454d293434b305d630a4a656121374ba7e84c4d0c27d"
+    },
+    {
+      "id": "small-wings",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "back": "small-wings"
+      },
+      "rgbaSha256": "9dc39306635582c81108b0278e6db42f4c449a70e36f2911184a30ade81a1ed6",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "b85c9c3effb8de48ab2a28b80788e2ddf36fc37185df6657fca71acbd52d73a4"
+    },
+    {
+      "id": "feathered-wings",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "back": "feathered-wings"
+      },
+      "rgbaSha256": "edce412b4c656479e45602d22fb7b7c1bb39edb20489186e75033127cf6f1f86",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "32bc9ee4335708b48187a5a04c095e5f2fc2a2bf1daf74e832c2e541f2575c87"
+    },
+    {
+      "id": "dragon-wings",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "back": "dragon-wings"
+      },
+      "rgbaSha256": "503139ebf3a3184eba803695aab89372a5a7e667894392fdac4003e2e555befc",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "204df2a356b322bc66922a7b67893bf56823ff5cc21aca9f81306bf2c84f765b"
+    },
+    {
+      "id": "forked-tail-tip",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "tailTip": "forked-tail-tip"
+      },
+      "rgbaSha256": "4cbab8d8b2f8eb882fe6f4589741fe310baeab287c56c49d1afa47d57bfbf680",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "e371613ec5d8256443164e86d1a80f6d0a5c7f9d3bce0551666eaf365ec4ad79"
+    },
+    {
+      "id": "flame-tail",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "tailTip": "flame-tail"
+      },
+      "rgbaSha256": "a8ee84ee8f24e137ff20dad825a48acee3abf9605471a5ece0c8ad3472c717fe",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "819069f361fd8e6680d1a606fd742b3df868a2f058df8c6f3e02a1f861faded5"
+    },
+    {
+      "id": "fin-ears",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "ears": "fin-ears"
+      },
+      "rgbaSha256": "d2c2f685bbb8ad5b4e3e971abe1c22d49f10ab4772b4c7429296b479e4051841",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "ee47ebe441774db6110c95ef1bb67ec49e71324966d1afa9541658405be19bab"
+    },
+    {
+      "id": "small-lion-mane",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "neck": "small-lion-mane"
+      },
+      "rgbaSha256": "1545e1e2327ac3bae758301cdef94ebd090f3f0e92ba27c65627f4fdad7b61a3",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "381ecc5641cb6626708054386b449416dc8d7ff33dcc6c6e5b3c44392d125d8e"
+    },
+    {
+      "id": "frill-neck",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "neck": "frill-neck"
+      },
+      "rgbaSha256": "de288070f8dc3e7227b5073046786a7d4fbbf6e215fbd739c6d0631f7a807af2",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "41f0e4bfc3874282e39d5e3382c95d4265a92f35f86b34324af181744b4db32d"
+    },
+    {
+      "id": "dragon-horns",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "2dc1b01339ec67fd374152b28b3f5f381d5416d5a30508bc8599ddb0229b1dd5",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "5602b647fa92ab4cb9991e8f3f2e30e982970fa21a5f0a82670f0569f9d279ae"
+    },
+    {
+      "id": "antlers",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "4cab8feac5af0c0aeee83642c6ebe1b582cbe358bceeab75de25115904941422",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "1e3b3ae7581ab69a1cf0b4b7f68cf641d1f61b815fe8601627742860ecabd1b0"
+    },
+    {
+      "id": "halo",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "crown": "halo"
+      },
+      "rgbaSha256": "4e58aa9ae40c551e8994837f5af36b6011ae3dabc9548ffedc7a0395eac5ea3d",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "69efbac812862224584527bfaf3fa45f5605d156ef0e6d01e1c9fa0df7e57625"
+    },
+    {
+      "id": "combined-1",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "fe5ee2f08868773220de8dad8cf81bb03152b16208e9a16f1129ca8155b1cb23",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "c25a744a6887176dddd2f0ea9821154448ba668c445da78f281f48b652547eef",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-tongue-tip--combined-1.png"
+    },
+    {
+      "id": "combined-2",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "back": "feathered-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "antlers"
+      },
+      "rgbaSha256": "728b3dcb5cef1eb24409634376781614dec9c44f65f7181d2439b0002c870843",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "8282109d2f96111a6eedb9b4569a70d366672fe66bcfb0e59519a2def4d82f73",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-tongue-tip--combined-2.png"
+    },
+    {
+      "id": "combined-3",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "back": "dragon-wings",
+        "tailTip": "forked-tail-tip",
+        "ears": "fin-ears",
+        "neck": "small-lion-mane",
+        "crown": "halo"
+      },
+      "rgbaSha256": "5525b94c02c41500793f3f700a89242dc596fc522fedd3602d354d601328443a",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "d873a2721d90f03a9edd4683d6d77f68f55c46b337fdf3753eeba2833c5c8e27",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-tongue-tip--combined-3.png"
+    },
+    {
+      "id": "combined-4",
+      "selection": {
+        "bodyId": "corgi-tongue-tip",
+        "back": "small-wings",
+        "tailTip": "flame-tail",
+        "ears": "fin-ears",
+        "neck": "frill-neck",
+        "crown": "dragon-horns"
+      },
+      "rgbaSha256": "c0d3cb6abfc893256354899c75b65c260973eb3b19bef8f34e1ce99609151886",
+      "checks": {
+        "nonEmpty": true,
+        "noEdgeClipping": true
+      },
+      "edgePixels": 0,
+      "pngSha256": "9af316859a8b34c7b128d71267c480955f7c3a330ff5ed5357ad13f2d3062505",
+      "path": "docs/qa/canine-v1/composition/plush/corgi-tongue-tip--combined-4.png"
+    }
+  ],
+  "reviewNotes": "柯基短腿与大耳基础轮廓可辨；换耳清除原耳根，额角已贴合额顶；颈部不遮嘴，所有表情清晰。已查看该表情的原样及四组组合对照；单部件几何引用同犬型的完整审核。",
+  "reviewedAt": "2026-09-30T14:29:32.641Z",
+  "visuallyInspectedCases": [
+    "none",
+    "combined-1",
+    "combined-2",
+    "combined-3",
+    "combined-4"
+  ]
+}

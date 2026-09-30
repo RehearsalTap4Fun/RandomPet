@@ -1,0 +1,11 @@
+{
+  "id": "shiba-standard-sleepy-almond-parted-mouth",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Lowered almond eyelids clearly distinguish sleepy from round eyes at native resolution; irises and glints remain visible. Natural parted mouth retained; Shiba silhouette, curled tail and clean light/dark edges preserved.",
+  "resourceSha256": "018a19ebcafbefe9818a368cd7fe6616909e36f5028b3143921d9cd2fbf469be",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-standard-sleepy-almond-parted-mouth-review.png",
+  "evidenceSha256": "cae1da5d17c306d379543c7f6c5c29d6f5e177c2194229116e32a08299f69719",
+  "userArtApproval": false
+}

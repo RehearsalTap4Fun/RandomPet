@@ -1,0 +1,11 @@
+{
+  "id": "growth-flame-tail",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "金橙连续尾干自然弯向右上火焰，红橙外焰与浅金内焰层次可辨；无断点、散落火星或裁切。旧尾清除和配准另审。",
+  "resourceSha256": "8d1a252b8790710d9665f736c678ef53957bce63434dbafcf9ab3bc161c0959d",
+  "evidence": "docs/qa/canine-v1/visual/pixel/growth-flame-tail-review.png",
+  "evidenceSha256": "58ba15fef494fb5a4789b134e6e3d73fc6cf17c45e4ab965578812dad1f5c64f",
+  "userArtApproval": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "poodle-small-fangs",
+  "style": "plush",
+  "path": "packages/asset-catalog/canine/v1/plush/assets/poodle-small-fangs.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "a73a850d543af6c4e24b41a4a532daa6118aa55e3061d641fd2cd5cb2117122f",
+  "rgbaSha256": "b48052a5e20f0a6cba08d5d98aa4ffb9d1bc6c75cce2679105dcd0a12fd2e24b",
+  "bounds": {
+    "left": 72,
+    "top": 32,
+    "right": 1179,
+    "bottom": 1224,
+    "opaque": 33,
+    "transparent": 671724,
+    "fractional": 900759,
+    "visible": 877231
+  },
+  "checks": {
+    "hasTransparentBackground": true,
+    "nonEmpty": true,
+    "noClipping": true,
+    "binaryAlpha": true
+  },
+  "technicalPass": true,
+  "visualReview": "pending"
+}

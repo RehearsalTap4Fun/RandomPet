@@ -1,0 +1,11 @@
+{
+  "id": "shiba-slender-tall-sleepy-almond-small-fangs",
+  "style": "pixel",
+  "reviewer": "Codex AI visual inspection",
+  "decision": "pass",
+  "notes": "Sleepy almond eyes and separated fang tips retained with the approved slim torso/long legs. Stable Shiba head, coat and curled tail, no clipping, clean light/dark composites at native-pixel scale.",
+  "resourceSha256": "ce7261c8ea1ee3d5022edaedb25723fe1cbfbd3326e7e9e8d0dbfa3645f9cc6d",
+  "evidence": "docs/qa/canine-v1/visual/pixel/shiba-slender-tall-sleepy-almond-small-fangs-review.png",
+  "evidenceSha256": "6b6ee22e24e38e79e7e1d8d2526ad0704275cadf6a692a66a9cf51a92c3b875e",
+  "userArtApproval": false
+}
