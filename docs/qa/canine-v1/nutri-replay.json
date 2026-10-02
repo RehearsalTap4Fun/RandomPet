@@ -1,0 +1,1540 @@
+{
+  "schemaVersion": "nutri-canine-replay-v1",
+  "decision": "pass",
+  "canine": {
+    "artVersion": "canine-1.0.0",
+    "revision": "a19f005d23a80f835f35e9caa7b8e5a0effe3205bee1aa6d902bbfd56ac83c3e",
+    "runtimeSha256": "2e8ad8ae170f62e0a659e15ffcac0c8b75ef0d5a3d8f8238e717c8b3ae5acae3",
+    "deliverySha256": "dfaec5f74107bddb397d6b2e25027434f5cde24bee3f1d572ea76e81609f58c9"
+  },
+  "scene": {
+    "sceneVersion": "1.0.0",
+    "revision": "4f5de7104e0ba59a301489b75eee237a74d91a956e0f9fd5a3ba59124480830c"
+  },
+  "path": "selection → nutri spec (coat = breed) → dogPlanFor → composeDog (vendored runtime.mjs) · layers decoded from nutri src/assets/caninepack with sharp",
+  "fixtures": {
+    "passed": 1512,
+    "failed": 0
+  },
+  "combinations": {
+    "passed": 92160,
+    "failed": 0
+  },
+  "dogScenes": {
+    "note": "场景包只用猫验过；这是 nutri 侧把狗放进 96×64 场景（锚 (16,0)、背景四邻描边 ×0.36）的结果，请 QMonster 复核",
+    "rows": [
+      {
+        "id": "corgi-shortleg-round/bare/none",
+        "selection": {
+          "bodyId": "corgi-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "81c8d9ad245aa4b4570d73ddfc33522e1e15d1f01e66984851743141183e8abb"
+      },
+      {
+        "id": "corgi-shortleg-round/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "corgi-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "ce1c42b0fae8c7b031fdc2014b7efa669451dccbee854f17865d10038f82e31b"
+      },
+      {
+        "id": "corgi-shortleg-round/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "corgi-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "80cfd060ba8a795373718dcbbfde61ed30f7215afd2ac6e434ce143bf4fdb2e6"
+      },
+      {
+        "id": "corgi-shortleg-round/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "corgi-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "ae87f698d00480e17fb0d2a1175012dc25fc3865380e113a46f56f218f0eab76"
+      },
+      {
+        "id": "corgi-shortleg-round/all-top/none",
+        "selection": {
+          "bodyId": "corgi-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "6bd58864b563a869ff3b861d47410c8ebfe49052696c4bdf0608a2e306f7e13a"
+      },
+      {
+        "id": "corgi-shortleg-round/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "corgi-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "fa0fe02bd93032f007f1a5e3099b385a7619538b36fb95ddc223df1d6fd8b98c"
+      },
+      {
+        "id": "corgi-shortleg-round/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "corgi-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "b0e59ea0cec03efbe6ed46d05b915a64ddc3c404648dde4c50eac987c2ec7072"
+      },
+      {
+        "id": "corgi-shortleg-round/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "corgi-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "a04a12b7502e3b7ded8a7babfa52143b2fc5fcab2367744533c18bbe995940f2"
+      },
+      {
+        "id": "corgi-slender-tall/bare/none",
+        "selection": {
+          "bodyId": "corgi-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "6e0abc164db9d5f4a2b7e7fb6670418a5da1a1c1aa5a76f3ff89449699be7549"
+      },
+      {
+        "id": "corgi-slender-tall/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "corgi-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "65349d77459550df648851da5b10a9b4d5c4e9d39830caba480b149f56e504f5"
+      },
+      {
+        "id": "corgi-slender-tall/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "corgi-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "eee35fa542d65eac987117ff4a83b4776834889dada0512d8616eecb9c074f3a"
+      },
+      {
+        "id": "corgi-slender-tall/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "corgi-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "8168b9cd82cefe0ea7190e2e120806cecba8da0df49910c5bc987ded8b052e90"
+      },
+      {
+        "id": "corgi-slender-tall/all-top/none",
+        "selection": {
+          "bodyId": "corgi-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "d916ec2beba566a5c124963efe7b52d93bce92b1ca96f16beff5c27ac5af659b"
+      },
+      {
+        "id": "corgi-slender-tall/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "corgi-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "bbdbdab890c9161d8c7f78db5e1660365a11388f3ae780f5f8c60bc92b31c418"
+      },
+      {
+        "id": "corgi-slender-tall/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "corgi-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "e7e459091ce61e4edef803382c78ece439fcfeab90b12ce2402acd0da5206958"
+      },
+      {
+        "id": "corgi-slender-tall/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "corgi-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "5cf42cdb4416a551d83040b707344c573d9bfe9192d78e00cc4793646db4dfbb"
+      },
+      {
+        "id": "corgi-standard/bare/none",
+        "selection": {
+          "bodyId": "corgi-standard-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "f67c81fec34e626cb10709f6de6346095f067f028abee47e88eacb4641b2d70c"
+      },
+      {
+        "id": "corgi-standard/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "corgi-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "c2e4da12231b0e4b741c1df25df9124af3d9132fa9b9910a59d5762347833c43"
+      },
+      {
+        "id": "corgi-standard/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "corgi-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "41b7fcf1352daa067a42ff230eae4baf6c3edeb2f951c787b6be5ba24053914a"
+      },
+      {
+        "id": "corgi-standard/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "corgi-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "2faca715bfeab8352609d6ae48d8848ab425159bd2ad0006185868791a145831"
+      },
+      {
+        "id": "corgi-standard/all-top/none",
+        "selection": {
+          "bodyId": "corgi-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "5711d896230bcfb752f528528b2978371b523eca2ad52ce2eb6bd3cfeb4e8408"
+      },
+      {
+        "id": "corgi-standard/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "corgi-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "7c3af95fed25d3fafcf80955bcc6739c87daf03d9445c9d8717391c1a4919ad2"
+      },
+      {
+        "id": "corgi-standard/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "corgi-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "3d793a600cebac049e5861043dba78784bce6996866a729ba60ad8674f7b3f63"
+      },
+      {
+        "id": "corgi-standard/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "corgi-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "1e07533dfac3731c3d6cb44a2dafb31ef8e852143109dade86cffbe9b0ee5530"
+      },
+      {
+        "id": "dalmatian-shortleg-round/bare/none",
+        "selection": {
+          "bodyId": "dalmatian-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "97ce97cd8dc94e6adc864616f3a28713f2b83aafc61a7059f5c97269eca91614"
+      },
+      {
+        "id": "dalmatian-shortleg-round/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "dalmatian-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "bfa8ececc0481067b5caa9b515719f18b2511a55c4d53ea596aa30f7fb01daa8"
+      },
+      {
+        "id": "dalmatian-shortleg-round/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "dalmatian-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "25737bda5dcb6562e161d0c3985fb60b3c82965a9302b3abd1adc771d54d55f0"
+      },
+      {
+        "id": "dalmatian-shortleg-round/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "dalmatian-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "2e17423ff80d59dee8a39a22873c7d3b99689dd5124a395c360dbcb910395517"
+      },
+      {
+        "id": "dalmatian-shortleg-round/all-top/none",
+        "selection": {
+          "bodyId": "dalmatian-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "531fc3b48edc98a8a27bad558a9a8d619e469d8d594b4f5ad68709b698517fce"
+      },
+      {
+        "id": "dalmatian-shortleg-round/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "dalmatian-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "58c0495872e2c42af5412babff979ce9b623b973424e2e629c86b8eabb8989f1"
+      },
+      {
+        "id": "dalmatian-shortleg-round/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "dalmatian-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "f54671116eb9713ff4992537dd761fa4f0f3065c45e73e3d803bd01862f3fdc9"
+      },
+      {
+        "id": "dalmatian-shortleg-round/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "dalmatian-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "78337a79a0998c03759232da12757f3f1c7a742bbd98fd97abb43ad9d6a78c18"
+      },
+      {
+        "id": "dalmatian-slender-tall/bare/none",
+        "selection": {
+          "bodyId": "dalmatian-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "0c2a27bb1aedd6d90ab85155822586b401d3a25fd69c4cc2bf15c1c4618cccc4"
+      },
+      {
+        "id": "dalmatian-slender-tall/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "dalmatian-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "120b79d4ddbba311bb6cdb50f3a0a5343741fdab897294fa005c5fa0c98ba42b"
+      },
+      {
+        "id": "dalmatian-slender-tall/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "dalmatian-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "666baf57f0f190c9582406b32b4040b44c172dc8be3448eadf692472036d8719"
+      },
+      {
+        "id": "dalmatian-slender-tall/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "dalmatian-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "27cc70beb81c295b3ef792e6e38d0543c73553d0437101eff0e8a69039f1ba25"
+      },
+      {
+        "id": "dalmatian-slender-tall/all-top/none",
+        "selection": {
+          "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "6b52c781b0092c6cf70d97abe2077c3737361666db200d24b3c1a085cc0340fc"
+      },
+      {
+        "id": "dalmatian-slender-tall/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "5fdf8483a07a641b1496b3b01ce5ee515a222b257752d1282983dc6aedf024fb"
+      },
+      {
+        "id": "dalmatian-slender-tall/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "aceb28a3a311a85f2f9bec5ff001e346319d8a72aae60ba58257f4c7a9216b2e"
+      },
+      {
+        "id": "dalmatian-slender-tall/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "dalmatian-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "42c0bdf2834f04ddea93ad38ecc706c5babf18367ed23c578e125e373e788327"
+      },
+      {
+        "id": "dalmatian-standard/bare/none",
+        "selection": {
+          "bodyId": "dalmatian-standard-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "4ca6667daac21842a4726b31256dd3501bb8c15bee681d83560922ce1c4e116f"
+      },
+      {
+        "id": "dalmatian-standard/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "dalmatian-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "f8f4d39c575791f6227a5e38bd0249b789932f8d1d7f3f726ccb702f572df436"
+      },
+      {
+        "id": "dalmatian-standard/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "dalmatian-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "55efba284fd96142cc08fa326bc77abfaa2b8d0c0c0fb485bd79a2905ee30e07"
+      },
+      {
+        "id": "dalmatian-standard/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "dalmatian-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "6339e2855eb7290b6bac64c05009eef20b1be42d80d0e9183a0e8d3ee5b4d305"
+      },
+      {
+        "id": "dalmatian-standard/all-top/none",
+        "selection": {
+          "bodyId": "dalmatian-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "5749977735efab0e56531ec99894f0987ebb5213eab3600bdd0d391478560f64"
+      },
+      {
+        "id": "dalmatian-standard/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "dalmatian-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "ffc208142b365d8e757874ec3697ed77f11ed44cf6494ebcdfef524b0516bf9f"
+      },
+      {
+        "id": "dalmatian-standard/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "dalmatian-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "f9ccf719003759682ba1845de9c044d723560b326378b2dcec639caac640be10"
+      },
+      {
+        "id": "dalmatian-standard/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "dalmatian-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "2e8309612b5cf755f8b30578e61c1c17fa6cf05473b72bf3df63b687bdce5a24"
+      },
+      {
+        "id": "golden-retriever-shortleg-round/bare/none",
+        "selection": {
+          "bodyId": "golden-retriever-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "7b1386e6c5b90f67907c5893d038fcfa7ae31114429c3866fd0f291f40e6901f"
+      },
+      {
+        "id": "golden-retriever-shortleg-round/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "golden-retriever-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "de90d25916e84ce96e10e0b6f323dc4f76243e9436146a98c8de0d9b7c2645e9"
+      },
+      {
+        "id": "golden-retriever-shortleg-round/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "golden-retriever-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "fb6e249d3c8927b5c09018a888340e61fbe9ffee1dcf6a76dbd49da7723e4b90"
+      },
+      {
+        "id": "golden-retriever-shortleg-round/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "golden-retriever-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "0831dc25750086bc53e95e1067087a1b943bcfebc0289ce0ff11ba28cf2f3838"
+      },
+      {
+        "id": "golden-retriever-shortleg-round/all-top/none",
+        "selection": {
+          "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "6be435cf349d68cdb349c036265b4f97e04dcfa88e236a719bc3777102f2416f"
+      },
+      {
+        "id": "golden-retriever-shortleg-round/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "08d573ea08ac8f6af34ad07d759654b817142801feac84d50076405d15486707"
+      },
+      {
+        "id": "golden-retriever-shortleg-round/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "9615333b8ce6f4a7df93953ee50749ee85b7ae0b54ab7bbfc31c3c0fd2dfb4e5"
+      },
+      {
+        "id": "golden-retriever-shortleg-round/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "golden-retriever-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "bfc2770ebb6d35771565aa192ecdce940ee3329624541a0138b41cc44f0a2aca"
+      },
+      {
+        "id": "golden-retriever-slender-tall/bare/none",
+        "selection": {
+          "bodyId": "golden-retriever-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "c2b1e9eca0b761e5d794842a27fc20a6f282d2d53f5ea01b2299a01927797511"
+      },
+      {
+        "id": "golden-retriever-slender-tall/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "golden-retriever-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "1a40cddaae76a1bfd435ddbb017fc7733e3deae14e50ebe5441caffe44678d0d"
+      },
+      {
+        "id": "golden-retriever-slender-tall/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "golden-retriever-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "413faaf0561c72bd8b417fd96ff8674e9d0a3b89361e9fda8ef67ad4862b3870"
+      },
+      {
+        "id": "golden-retriever-slender-tall/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "golden-retriever-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "3e65ec65762dad0cb8705d3db89c02aaa74ccbad8d8bbb9ea02c2a27c121f5b2"
+      },
+      {
+        "id": "golden-retriever-slender-tall/all-top/none",
+        "selection": {
+          "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "a36142ebd02a60ee38c5c4ca01bfee1e3a0d1748f33d23e669cfa4e5fa0ad073"
+      },
+      {
+        "id": "golden-retriever-slender-tall/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "30778c307d2e041aea9bb515d5a187d1f0b1eacd448c707a33520d2b05497470"
+      },
+      {
+        "id": "golden-retriever-slender-tall/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "a55042dd8e1ba717832611e9c98cb9ed93f8cd1c90a74f338b3d5d47d2f13318"
+      },
+      {
+        "id": "golden-retriever-slender-tall/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "golden-retriever-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "059e1fce32388561e7458dd9dd923894cb8bff00e9e56be242f9d8c5b366f5aa"
+      },
+      {
+        "id": "golden-retriever-standard/bare/none",
+        "selection": {
+          "bodyId": "golden-retriever-standard-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "0b6422fcecc2a5c6873245a4d14872590849e1ebe4de8518c2b8cb4b5112644e"
+      },
+      {
+        "id": "golden-retriever-standard/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "golden-retriever-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "5e0e12a6948c59bc0df1e188b9d7b2049dfeb5c3b3aa7cfd12ae9b4a1c36cac2"
+      },
+      {
+        "id": "golden-retriever-standard/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "golden-retriever-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "f194a45cd056cf61ea1b743f4309b56a4046daa857d342dad00f0462e4176394"
+      },
+      {
+        "id": "golden-retriever-standard/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "golden-retriever-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "c4773432ea61218c2c09ea92edd9dbdc8b1b0b15eb4700fc3c2f0db6fffe512f"
+      },
+      {
+        "id": "golden-retriever-standard/all-top/none",
+        "selection": {
+          "bodyId": "golden-retriever-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "ca7a77841ebbd14ee9d7468eb8e7d2019b9b0db0915699954135d349ef3f29ca"
+      },
+      {
+        "id": "golden-retriever-standard/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "golden-retriever-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "8adeea69bc85711313d938d8770958fecd6ad6f028dcbbbb1236b411f8dd803a"
+      },
+      {
+        "id": "golden-retriever-standard/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "golden-retriever-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "0aa7cca5098a872daf6c6c6e119fbfa539953c9bdbdeed62d9251b5fdb1e08bb"
+      },
+      {
+        "id": "golden-retriever-standard/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "golden-retriever-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "acc77d282208d6b9a5d67e9080dc1985b9bdba2acc3e518ff08cf93d27d7fb92"
+      },
+      {
+        "id": "husky-shortleg-round/bare/none",
+        "selection": {
+          "bodyId": "husky-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "a738fa798631c093ef96513fd0dd94cefa27281eecb397c3457e67bd0dc150d8"
+      },
+      {
+        "id": "husky-shortleg-round/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "husky-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "19785cc157cac18d78cca19185f377d5402da63439d16f68836a1ba6c139a41f"
+      },
+      {
+        "id": "husky-shortleg-round/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "husky-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "d6573a6e990c29bcf7385d9309eee00da854555f03833ccd58b022d4bf174ce3"
+      },
+      {
+        "id": "husky-shortleg-round/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "husky-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "0f70f5d127b39a0751e82df62d7d962dcb4a63f50282aca802feca295d526cce"
+      },
+      {
+        "id": "husky-shortleg-round/all-top/none",
+        "selection": {
+          "bodyId": "husky-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "e4e914cc6942fb65c06c660bf6ea7c387ad22eaa8cd617e9ad45029ecbeeab1c"
+      },
+      {
+        "id": "husky-shortleg-round/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "husky-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "28104d10418300672ae4a75e09f79703bbfb9d8b3362bd656ec3bcf113a2f652"
+      },
+      {
+        "id": "husky-shortleg-round/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "husky-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "80aabfc30e66b9405c54e4dba794f55a2b7247affb9abc8bf2a7aa7943e35198"
+      },
+      {
+        "id": "husky-shortleg-round/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "husky-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "9449ed917dfa60b58f12eeb6c36e0b43e640c922a9c65e3763f9dcf25a8d2918"
+      },
+      {
+        "id": "husky-slender-tall/bare/none",
+        "selection": {
+          "bodyId": "husky-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "3037a62d5c9115a05732cfb4246c94a567f1da5fead3b3415d2ace915048ad11"
+      },
+      {
+        "id": "husky-slender-tall/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "husky-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "20e2185d614ff922a9dba03c78a8248e21ba5af65b4338c3fabc076297dfaa5a"
+      },
+      {
+        "id": "husky-slender-tall/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "husky-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "48229b92faf0dd7b8497a34426c2817471f0693f1742da5229597d005c41fb1e"
+      },
+      {
+        "id": "husky-slender-tall/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "husky-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "7375e9039d9a7fba39dcdcfaf54b8e7caa2e07ecbd667002ab2052c89dac681b"
+      },
+      {
+        "id": "husky-slender-tall/all-top/none",
+        "selection": {
+          "bodyId": "husky-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "0a15fb6ae1b736d0a17681d99735139e9ccfbde5b6a633813a8bd241bfba696b"
+      },
+      {
+        "id": "husky-slender-tall/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "husky-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "928c1bbfb59d5bfe49f65bd6d52075a14c3e5808df499a2e76746ce1c8bc2a3e"
+      },
+      {
+        "id": "husky-slender-tall/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "husky-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "5034a813239ecfbe81bc5ab534a11c9a8bb0b5af23defd62733b5c7ba6a516df"
+      },
+      {
+        "id": "husky-slender-tall/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "husky-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "3d2688459863a387391e47b04ec785061c0a30dd9679f9ad7d59ecc19fccf0f5"
+      },
+      {
+        "id": "husky-standard/bare/none",
+        "selection": {
+          "bodyId": "husky-standard-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "c54d305b538ae70ae93a5ebbed76c18faf59d054b9818c2e233dc851760a256f"
+      },
+      {
+        "id": "husky-standard/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "husky-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "06ae9f0f7050c7e70c30ace2d5e7166104a80ebd64545469d0efb5853062f8e8"
+      },
+      {
+        "id": "husky-standard/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "husky-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "d038a91700cb03e2ea1c0b88305a63c0a93e17bcc70d232e41210ceab338c25f"
+      },
+      {
+        "id": "husky-standard/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "husky-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "1a05da39f2197e571ef1c62bd44d9d0a4491627002c2025167643200f5da6446"
+      },
+      {
+        "id": "husky-standard/all-top/none",
+        "selection": {
+          "bodyId": "husky-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "bd7e85b76e64762cbb140e0a9c8089457a528cb905cd3709b35d2fb096c5bd2b"
+      },
+      {
+        "id": "husky-standard/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "husky-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "f2122b08a0814853398b686bc48e903c69cfde924f8fe30ee7a78ac5ef5eaeac"
+      },
+      {
+        "id": "husky-standard/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "husky-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "8454df00f40b979c4cd153dfa47fda7f5c417d37a6df08ab0d9c7ab8725f195d"
+      },
+      {
+        "id": "husky-standard/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "husky-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "c5bb6f297c6a0aa61f8437e75286d1e2dbc91f48d74179c59a727b6d2bce41dd"
+      },
+      {
+        "id": "poodle-shortleg-round/bare/none",
+        "selection": {
+          "bodyId": "poodle-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "70369fdee1f3f12213bd455830cc15b681bbbf4079f4b3668c90e04aff476038"
+      },
+      {
+        "id": "poodle-shortleg-round/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "poodle-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "fc7fcd5a3d8e23aa45c632df5f23b01505d32d74bb85a991392f2bcdb429d1b3"
+      },
+      {
+        "id": "poodle-shortleg-round/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "poodle-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "de5da398e9807880dc27c55d312a876ef5cc3531c280dfca62b8e32029946656"
+      },
+      {
+        "id": "poodle-shortleg-round/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "poodle-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "5947ac5757b44ef6453be6105b849de11f1186db24fc994278dd853f89f1cfaf"
+      },
+      {
+        "id": "poodle-shortleg-round/all-top/none",
+        "selection": {
+          "bodyId": "poodle-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "b2c41db92f434e6dbfe19ee95f06cc3b90ab905d95e0137ab624dfb88e2d64ba"
+      },
+      {
+        "id": "poodle-shortleg-round/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "poodle-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "068e3a5e31e818a1ba4312112d7b02139cddc08a6ad7358b017f8efe60a7bcf8"
+      },
+      {
+        "id": "poodle-shortleg-round/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "poodle-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "4e1702c6a2d1d44c58ab9d790ae86895712b12bf56bfb0c1c0bdc16b6008c071"
+      },
+      {
+        "id": "poodle-shortleg-round/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "poodle-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "50514f881058471af1447bd172fb21f1f3f69fda4ae26d02dea9a9e4056a970f"
+      },
+      {
+        "id": "poodle-slender-tall/bare/none",
+        "selection": {
+          "bodyId": "poodle-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "b3e22fda4057623d632f92746a033460a337bc6ceb37cb24f70011f46d0007b1"
+      },
+      {
+        "id": "poodle-slender-tall/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "poodle-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "e57228574dd74327cfd2acf6fd1924a1834cb03ac6d4e7f62e3560feca7781d2"
+      },
+      {
+        "id": "poodle-slender-tall/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "poodle-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "a38c65200a0b89ef59c6f3876b48cd65eade50c6ec0570a0bfb5a1f48260a2bb"
+      },
+      {
+        "id": "poodle-slender-tall/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "poodle-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "dc11c63d419451cefc4aef9efe9d61a433b42e355404f59b25989e17faa461e6"
+      },
+      {
+        "id": "poodle-slender-tall/all-top/none",
+        "selection": {
+          "bodyId": "poodle-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "c66840342f5bf3b55c2f84ba7428e2532310f02889aec27302b77fe8fc0c4118"
+      },
+      {
+        "id": "poodle-slender-tall/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "poodle-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "9bb0021bb2d055ee508ded922030e5623a835eb72220c441bcb3c61865be654c"
+      },
+      {
+        "id": "poodle-slender-tall/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "poodle-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "aa0bc395864992ab4b6bef065bfa3a2b344b6e40b41d7ce792ce62c39386ce63"
+      },
+      {
+        "id": "poodle-slender-tall/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "poodle-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "8931a9c8b398c66aacd3551617ea3defd5d02863cebf9dfccc650714d50d3220"
+      },
+      {
+        "id": "poodle-standard/bare/none",
+        "selection": {
+          "bodyId": "poodle-standard-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "ca6781b5cefadbbc7bf4660d915e62e9b717ced0884a2714d1eb6d0d05cb7690"
+      },
+      {
+        "id": "poodle-standard/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "poodle-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "bc41b0ea838cc1f3da4380ea0bde7378f5d2fcfe438b372b2dcaa2c274fdbf51"
+      },
+      {
+        "id": "poodle-standard/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "poodle-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "a6626d68c4bc6341f1c7b5590d89d0d7a89a48220c0ddbe9a69288aa52013d4d"
+      },
+      {
+        "id": "poodle-standard/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "poodle-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "cde7e1e4632ad57819bff7183dbe31627c1a4f5dd36e117ee59216fb1756fbe8"
+      },
+      {
+        "id": "poodle-standard/all-top/none",
+        "selection": {
+          "bodyId": "poodle-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "d91e942d61a95cc8ec96c05fd5e606b0351cb5253d39e8f1f774c297906e9a9f"
+      },
+      {
+        "id": "poodle-standard/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "poodle-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "7f8c12dac98a66f671ada509bb04b37de7319b0945e1eca713fb12924a65c855"
+      },
+      {
+        "id": "poodle-standard/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "poodle-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "f20a3b3ed8020267fb4ca06637fd8e54048f799e6ebdae5a2a4a4fef5244c5c3"
+      },
+      {
+        "id": "poodle-standard/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "poodle-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "65cdab986ed107cb50681a3864e76436dacc7ed28659d623456c86a8de22e137"
+      },
+      {
+        "id": "shiba-shortleg-round/bare/none",
+        "selection": {
+          "bodyId": "shiba-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "05cdd281e4407ad08d77eb6b1de602a4fd7ee3c793fbdfc2ffe88f9a60b98f20"
+      },
+      {
+        "id": "shiba-shortleg-round/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "shiba-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "89c513c1fdb7498a876d9d7d50ed7c1ae6e8d963c859d4d7957a59d3cafe71c5"
+      },
+      {
+        "id": "shiba-shortleg-round/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "shiba-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "dba789b9a240266dca55a41c4e02629aae7df7e3335a4028d7b0107f6a825eb3"
+      },
+      {
+        "id": "shiba-shortleg-round/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "shiba-shortleg-round-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "0640aa3cb6cf8af1671c9efbfdea1d8dafbc42b783b0971e20add065e38ae40a"
+      },
+      {
+        "id": "shiba-shortleg-round/all-top/none",
+        "selection": {
+          "bodyId": "shiba-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "9e282a0df3dfc3c43a9bac175929b2032abe33205d598c1c8819702ef5d4dc6f"
+      },
+      {
+        "id": "shiba-shortleg-round/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "shiba-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "e776eddb38424aa701b9033efe62edb252874186c2525b17dc88bf7a25cb4095"
+      },
+      {
+        "id": "shiba-shortleg-round/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "shiba-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "030cf5300ff95ecf44a4658b7da9b058f1db305971ed4793beb6d4ccde6f3615"
+      },
+      {
+        "id": "shiba-shortleg-round/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "shiba-shortleg-round-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "f1e70c6b3382dc544a2ffc57c410bdf8486566ac37be2a6780b7a2a1177bf1e8"
+      },
+      {
+        "id": "shiba-slender-tall/bare/none",
+        "selection": {
+          "bodyId": "shiba-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "c51bee7603af44f018e7d7c2a45030942c8ab47852a31c60f431588ca19de2d8"
+      },
+      {
+        "id": "shiba-slender-tall/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "shiba-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "7b39d37ffc2b0d8982a4eb03df3e9a906c4275c165cf2ec5c07678818a64047c"
+      },
+      {
+        "id": "shiba-slender-tall/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "shiba-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "83e4afa073ea1264995263eda78ee4df2b2b716428ced02ee248b6eaddf2012c"
+      },
+      {
+        "id": "shiba-slender-tall/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "shiba-slender-tall-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "76428aec944c0cf61414711c0f097fd89608885ae2e653748772b28317840237"
+      },
+      {
+        "id": "shiba-slender-tall/all-top/none",
+        "selection": {
+          "bodyId": "shiba-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "3ef9e1095a6221b7cd936d6b56250fb001a6d966ea7c41a40fd6a8a927765ace"
+      },
+      {
+        "id": "shiba-slender-tall/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "shiba-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "906b5cd22d88d9bcceb2d5fe9e0cac54d41542f9c8b2323c3c91f0a2fd4d88a8"
+      },
+      {
+        "id": "shiba-slender-tall/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "shiba-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "bc7fffdf6891b6d813b70f3c23c3d1d29f407a9109420b3d91cfeb88c0433fea"
+      },
+      {
+        "id": "shiba-slender-tall/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "shiba-slender-tall-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "79f891a681337bba078b160194a72f101b4c2bf6c63d30a4910c71a45f289c07"
+      },
+      {
+        "id": "shiba-standard/bare/none",
+        "selection": {
+          "bodyId": "shiba-standard-round-parted-mouth"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "968788c2123ad4771128289757167c598e756ef887ea1884cb290bf68fc4b4a6"
+      },
+      {
+        "id": "shiba-standard/bare/doodle-horizon",
+        "selection": {
+          "bodyId": "shiba-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "8141290badc03e73842f4ee17550a3c147a742c4d37bad85d98525f8abd0722f"
+      },
+      {
+        "id": "shiba-standard/bare/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "shiba-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "67e7e29f127f2954c4f682545b33a6e2114b0dae06249993ad7694e037a5d472"
+      },
+      {
+        "id": "shiba-standard/bare/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "shiba-standard-round-parted-mouth"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "b2cb1ade87e335adc7233633ac5b663c760224036f3da69953fbec83a17263c4"
+      },
+      {
+        "id": "shiba-standard/all-top/none",
+        "selection": {
+          "bodyId": "shiba-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "none",
+        "rgbaSha256": "9e7966482d64eb38d3efe7112b90261b6698141fe9d07d2704176874f45258c2"
+      },
+      {
+        "id": "shiba-standard/all-top/doodle-horizon",
+        "selection": {
+          "bodyId": "shiba-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-horizon",
+        "rgbaSha256": "b2f1320c815aa84f6b657a4835b754dac56b8f0c680c85d646daa730fad5ff8d"
+      },
+      {
+        "id": "shiba-standard/all-top/doodle-leaf-shadow",
+        "selection": {
+          "bodyId": "shiba-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-leaf-shadow",
+        "rgbaSha256": "cce262fee06f6d8131af0023d7e8e43c0e830bc44070df2c7f466d3d1d493878"
+      },
+      {
+        "id": "shiba-standard/all-top/doodle-rainbow-trail",
+        "selection": {
+          "bodyId": "shiba-standard-round-parted-mouth",
+          "crown": "halo",
+          "ears": "celestial-ears",
+          "neck": "sunburst-ruff",
+          "back": "dragon-wings",
+          "tailTip": "phoenix-tail"
+        },
+        "backdrop": "doodle-rainbow-trail",
+        "rgbaSha256": "4ac5214fb58b5b7822bfae80c9a858b040bdc3fb7d385793296a74e4bbff25f7"
+      }
+    ]
+  }
+}
